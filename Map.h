@@ -1,6 +1,12 @@
 #pragma once
 
-#include <h3mparser/HeroType.h>
+#include <h3mparser/Constants/Constants.h>
+#include <h3mparser/Constants/HeroType.h>
+#include <h3mparser/Constants/RiverType.h>
+#include <h3mparser/Constants/RoadType.h>
+#include <h3mparser/Constants/TerrainType.h>
+#include <h3mparser/GlobalEvent.h>
+#include <h3mparser/Tile.h>
 
 #include <array>
 #include <bitset>
@@ -11,12 +17,6 @@
 
 namespace h3m
 {
-
-// The number of resources (Wood, Mercury, Ore, Sulfur, Crystal, Gems, Gold).
-inline constexpr std::uint8_t kNumResources = 7;
-
-// The maximum number of players.
-inline constexpr std::uint8_t kMaxPlayers = 8;
 
 enum class MapFormat : std::uint32_t
 {
@@ -120,69 +120,6 @@ struct TeamsInfo
   std::uint8_t num_teams {};
   // Each value should be < num_teams.
   std::array<std::uint8_t, 8> team_for_player {};
-};
-
-enum class TerrainType : std::uint8_t
-{
-  Dirt = 0,
-  Sand = 1,
-  Grass = 2,
-  Snow = 3,
-  Swamp = 4,
-  Rough = 5,
-  Subterranean = 6,
-  Lava = 7,
-  Water = 8,
-  Rock = 9,
-};
-
-enum class RiverType : std::uint8_t
-{
-  None = 0,
-  Clear = 1,
-  Icy = 2,
-  Muddy = 3,
-  Lava = 4,
-};
-
-enum class RoadType : std::uint8_t
-{
-  None = 0,
-  Dirt = 1,
-  Gravel = 2,
-  Cobblestone = 3,
-};
-
-struct Tile
-{
-  TerrainType terrain_type {};
-  // Object subclass.
-  std::uint8_t terrain_sprite {};
-  RiverType river_type {};
-  // (0-3 corners, 4 + , 5 6 T, 7 8 |-, 9 10 | , 11 12--)
-  std::uint8_t river_sprite {};
-  RoadType road_type {};
-  // (0-5 corners, 6 7 |-, 8 9 T, 10 11 | , 12 13 --, 14 ', 15 -, 16 +)
-  std::uint8_t road_sprite {};
-  // Bitfield: horizontal terrain, vertical terrain, horizontal river, vertical river,
-  //           horizontal road, vertical road, coast, favorable winds
-  std::uint8_t mirroring {};
-};
-
-struct GlobalEvent
-{
-  // Event name as shown in the Editor.
-  std::string name;
-  std::string message;
-  // Given/taken resources.
-  std::array<std::int32_t, kNumResources> resources {};
-  std::bitset<kMaxPlayers> affected_players {};
-  bool applies_to_human {};
-  bool applies_to_computer {};
-  // 0-based day of first occurence (e.g., 0 stands for Day 1).
-  std::uint16_t day_of_first_occurence {};
-  // 0 means that the event doesn't repeat.
-  std::uint8_t repeat_after_days {};
 };
 
 struct Map

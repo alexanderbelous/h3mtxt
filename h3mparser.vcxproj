@@ -154,8 +154,14 @@
     <ClCompile Include="h3mparser.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="HeroType.h" />
+    <ClInclude Include="Constants\Constants.h" />
+    <ClInclude Include="Constants\HeroType.h" />
+    <ClInclude Include="Constants\RiverType.h" />
+    <ClInclude Include="Constants\RoadType.h" />
+    <ClInclude Include="Constants\TerrainType.h" />
+    <ClInclude Include="GlobalEvent.h" />
     <ClInclude Include="Map.h" />
+    <ClInclude Include="Tile.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

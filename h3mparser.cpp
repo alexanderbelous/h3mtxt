@@ -1,3 +1,5 @@
+#include <h3mparser/Map.h>
+
 #include <filesystem>
 #include <iostream>
 
