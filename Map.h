@@ -12,6 +12,7 @@
 #include <h3mparser/GlobalEvent.h>
 #include <h3mparser/PlayerSpecs.h>
 #include <h3mparser/Tile.h>
+#include <h3mparser/VictoryCondition.h>
 
 #include <array>
 #include <bitset>
@@ -52,14 +53,26 @@ struct Map
 {
   struct AdditionalInfo
   {
-    VictoryConditionType victory_condition_type {};
-    // TODO: add details for special victory conditions.
+    struct CustomHero
+    {
+      HeroType type {};
+      // 0xFF for default.
+      std::uint8_t face {};
+      // Hero's name, or an empty string if the default name should be used instead.
+      std::string name;
+      // Bitset indicating which players can hire this hero.
+      std::bitset<kMaxPlayers> can_hire {};
+    };
+
+    VictoryCondition victory_condition {};
     LossConditionType loss_condition_type {};
     // TODO: add details for special loss conditions.
     // std::nullopt if teams are disabled.
     std::optional<TeamsInfo> teams;
     // TODO: 20 bytes bitfield for heroes' availability.
-    std::uint32_t num_placeholder_heroes {};
+    std::vector<HeroType> placeholder_heroes;
+    std::vector<CustomHero> custom_heroes;
+    std::array<std::uint8_t, 31> reserved;
     // TODO: add the rest.
   };
 

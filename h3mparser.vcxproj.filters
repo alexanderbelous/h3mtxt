@@ -74,5 +74,8 @@
     <ClInclude Include="Constants\MapDifficulty.h">
       <Filter>Header Files\Constants</Filter>
     </ClInclude>
+    <ClInclude Include="VictoryCondition.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

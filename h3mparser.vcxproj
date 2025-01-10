@@ -171,6 +171,7 @@
     <ClInclude Include="parseh3m.h" />
     <ClInclude Include="PlayerSpecs.h" />
     <ClInclude Include="Tile.h" />
+    <ClInclude Include="VictoryCondition.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
