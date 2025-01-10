@@ -167,6 +167,7 @@
     <ClInclude Include="Constants\TerrainType.h" />
     <ClInclude Include="Constants\VictoryConditionType.h" />
     <ClInclude Include="GlobalEvent.h" />
+    <ClInclude Include="LossCondition.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="parseh3m.h" />
     <ClInclude Include="PlayerSpecs.h" />

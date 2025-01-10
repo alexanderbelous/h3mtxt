@@ -77,5 +77,8 @@
     <ClInclude Include="VictoryCondition.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="LossCondition.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

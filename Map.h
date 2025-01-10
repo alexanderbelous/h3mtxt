@@ -4,12 +4,11 @@
 
 #include <h3mparser/Constants/Constants.h>
 #include <h3mparser/Constants/HeroType.h>
-#include <h3mparser/Constants/LossConditionType.h>
 #include <h3mparser/Constants/MapDifficulty.h>
 #include <h3mparser/Constants/MapFormat.h>
-#include <h3mparser/Constants/VictoryConditionType.h>
 #include <h3mparser/Base.h>
 #include <h3mparser/GlobalEvent.h>
+#include <h3mparser/LossCondition.h>
 #include <h3mparser/PlayerSpecs.h>
 #include <h3mparser/Tile.h>
 #include <h3mparser/VictoryCondition.h>
@@ -65,13 +64,13 @@ struct Map
     };
 
     VictoryCondition victory_condition {};
-    LossConditionType loss_condition_type {};
-    // TODO: add details for special loss conditions.
-    // std::nullopt if teams are disabled.
+    LossCondition loss_condition {};
+    // Details about the teams, std::nullopt if teams are disabled.
     std::optional<TeamsInfo> teams;
     // TODO: 20 bytes bitfield for heroes' availability.
     std::vector<HeroType> placeholder_heroes;
     std::vector<CustomHero> custom_heroes;
+    // Must be all 0s; kept here to ensure compatibility.
     std::array<std::uint8_t, 31> reserved;
     // TODO: add the rest.
   };
