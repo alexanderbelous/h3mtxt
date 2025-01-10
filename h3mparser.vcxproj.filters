@@ -68,5 +68,11 @@
     <ClInclude Include="parseh3m.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Constants\MapFormat.h">
+      <Filter>Header Files\Constants</Filter>
+    </ClInclude>
+    <ClInclude Include="Constants\MapDifficulty.h">
+      <Filter>Header Files\Constants</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

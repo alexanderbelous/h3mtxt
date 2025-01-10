@@ -5,9 +5,8 @@
 #include <h3mparser/Constants/Constants.h>
 #include <h3mparser/Constants/HeroType.h>
 #include <h3mparser/Constants/LossConditionType.h>
-#include <h3mparser/Constants/RiverType.h>
-#include <h3mparser/Constants/RoadType.h>
-#include <h3mparser/Constants/TerrainType.h>
+#include <h3mparser/Constants/MapDifficulty.h>
+#include <h3mparser/Constants/MapFormat.h>
 #include <h3mparser/Constants/VictoryConditionType.h>
 #include <h3mparser/Base.h>
 #include <h3mparser/GlobalEvent.h>
@@ -23,22 +22,6 @@
 
 namespace h3m
 {
-
-enum class MapFormat : std::uint32_t
-{
-  RestorationOfErathia = 0x0E,
-  ArmageddonsBlade = 0x15,
-  ShadowOfDeath = 0x1C,
-};
-
-enum class MapDifficulty : std::uint8_t
-{
-  Easy = 0,
-  Normal = 1,
-  Hard = 2,
-  Expert = 3,
-  Impossible = 4,
-};
 
 struct MapBasicInfo
 {
@@ -82,7 +65,7 @@ struct Map
 
   MapFormat format = MapFormat::ShadowOfDeath;
   MapBasicInfo basic_info;
-  std::array<PlayerSpecs, 8> players {};
+  std::array<PlayerSpecs, kMaxPlayers> players {};
   AdditionalInfo additional_info;
   // N elements, where N = (has_two_levels ? 2 : 1) * map_size * map_size.
   std::vector<Tile> tiles;

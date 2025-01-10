@@ -49,9 +49,9 @@ T readUint(std::istream& stream)
   return static_cast<T>(readUintImpl(stream, kNumBytes));
 }
 
-h3m::Bool readBool(std::istream& stream)
+Bool readBool(std::istream& stream)
 {
-  return static_cast<h3m::Bool>(readUint8(stream));
+  return static_cast<Bool>(readUint8(stream));
 }
 
 template<class T>
@@ -72,9 +72,22 @@ std::string readString(std::istream& stream)
   return result;
 }
 
-h3m::MainTown readMainTown(std::istream& stream)
+MapBasicInfo readMapBasicInfo(std::istream& stream)
 {
-  h3m::MainTown main_town;
+  MapBasicInfo basic_info;
+  basic_info.is_playable = readBool(stream);
+  basic_info.map_size = readUint<std::uint32_t>(stream);
+  basic_info.has_two_levels = readBool(stream);
+  basic_info.name = readString(stream);
+  basic_info.description = readString(stream);
+  basic_info.difficulty = readEnum<MapDifficulty>(stream);
+  basic_info.max_hero_level = readUint8(stream);
+  return basic_info;
+}
+
+MainTown readMainTown(std::istream& stream)
+{
+  MainTown main_town;
   main_town.generate_hero = readBool(stream);
   main_town.town_type = readUint8(stream);
   main_town.x = readUint8(stream);
@@ -83,38 +96,38 @@ h3m::MainTown readMainTown(std::istream& stream)
   return main_town;
 }
 
-h3m::StartingHero readStartingHero(std::istream& stream)
+StartingHero readStartingHero(std::istream& stream)
 {
-  h3m::StartingHero starting_hero;
+  StartingHero starting_hero;
   starting_hero.is_random = readBool(stream);
-  starting_hero.type = readEnum<h3m::HeroType>(stream);
+  starting_hero.type = readEnum<HeroType>(stream);
   starting_hero.face = readUint8(stream);
   starting_hero.name = readString(stream);
   return starting_hero;
 }
 
-h3m::AdditionalPlayerInfo readAdditionalPlayerInfo(std::istream& stream)
+AdditionalPlayerInfo readAdditionalPlayerInfo(std::istream& stream)
 {
-  h3m::AdditionalPlayerInfo additional_info;
+  AdditionalPlayerInfo additional_info;
   additional_info.num_placeholder_heroes = readUint8(stream);
   const std::uint32_t num_heroes = readUint<std::uint32_t>(stream);
   additional_info.heroes.reserve(num_heroes);
   for (std::uint32_t i = 0; i < num_heroes; ++i)
   {
-    h3m::AdditionalPlayerInfo::HeroInfo hero;
-    hero.type = readEnum<h3m::HeroType>(stream);
+    AdditionalPlayerInfo::HeroInfo hero;
+    hero.type = readEnum<HeroType>(stream);
     hero.name = readString(stream);
     additional_info.heroes.push_back(std::move(hero));
   }
   return additional_info;
 }
 
-h3m::PlayerSpecs readPlayerSpecs(std::istream& stream)
+PlayerSpecs readPlayerSpecs(std::istream& stream)
 {
-  h3m::PlayerSpecs player;
+  PlayerSpecs player;
   player.can_be_human = readBool(stream);
   player.can_be_computer = readBool(stream);
-  player.behavior = readEnum<h3m::PlayerBehavior>(stream);
+  player.behavior = readEnum<PlayerBehavior>(stream);
   player.customized_alignments = readUint8(stream);
   player.town_types = readUint8(stream);
   player.town_conflux = readUint8(stream);
@@ -131,18 +144,12 @@ h3m::PlayerSpecs readPlayerSpecs(std::istream& stream)
 
 }
 
-h3m::Map parseh3m(std::istream& stream)
+Map parseh3m(std::istream& stream)
 {
-  h3m::Map map;
-  map.format = readEnum<h3m::MapFormat>(stream);
-  map.basic_info.is_playable = readBool(stream);
-  map.basic_info.map_size = readUint<std::uint32_t>(stream);
-  map.basic_info.has_two_levels = readBool(stream);
-  map.basic_info.name = readString(stream);
-  map.basic_info.description = readString(stream);
-  map.basic_info.difficulty = readEnum<h3m::MapDifficulty>(stream);
-  map.basic_info.max_hero_level = readUint8(stream);
-  for (int i = 0; i < h3m::kMaxPlayers; ++i)
+  Map map;
+  map.format = readEnum<MapFormat>(stream);
+  map.basic_info = readMapBasicInfo(stream);
+  for (int i = 0; i < kMaxPlayers; ++i)
   {
     map.players[i] = readPlayerSpecs(stream);
   }

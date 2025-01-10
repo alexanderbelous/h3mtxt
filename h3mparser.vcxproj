@@ -159,6 +159,8 @@
     <ClInclude Include="Constants\Constants.h" />
     <ClInclude Include="Constants\HeroType.h" />
     <ClInclude Include="Constants\LossConditionType.h" />
+    <ClInclude Include="Constants\MapDifficulty.h" />
+    <ClInclude Include="Constants\MapFormat.h" />
     <ClInclude Include="Constants\PlayerBehavior.h" />
     <ClInclude Include="Constants\RiverType.h" />
     <ClInclude Include="Constants\RoadType.h" />
