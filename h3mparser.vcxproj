@@ -152,6 +152,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="h3mparser.cpp" />
+    <ClCompile Include="parseh3m.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Base.h" />
@@ -165,6 +166,7 @@
     <ClInclude Include="Constants\VictoryConditionType.h" />
     <ClInclude Include="GlobalEvent.h" />
     <ClInclude Include="Map.h" />
+    <ClInclude Include="parseh3m.h" />
     <ClInclude Include="PlayerSpecs.h" />
     <ClInclude Include="Tile.h" />
   </ItemGroup>

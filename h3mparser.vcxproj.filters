@@ -21,6 +21,9 @@
     <ClCompile Include="h3mparser.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="parseh3m.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Map.h">
@@ -60,6 +63,9 @@
       <Filter>Header Files\Constants</Filter>
     </ClInclude>
     <ClInclude Include="Base.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="parseh3m.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
