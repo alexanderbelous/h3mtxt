@@ -1,5 +1,7 @@
 #pragma once
 
+#include <h3mparser/Constants/CreatureType.h>
+#include <h3mparser/Constants/ResourceType.h>
 #include <h3mparser/Constants/VictoryConditionType.h>
 #include <h3mparser/Base.h>
 
@@ -37,10 +39,55 @@ struct VictoryConditionDetails<VictoryConditionType::AcquireArtifact> : SpecialV
 template<>
 struct VictoryConditionDetails<VictoryConditionType::AccumulateCreatures> : SpecialVictoryConditionBase
 {
-  // TODO: probably should be an enum.
-  std::uint16_t creature_type {};
+  CreatureType creature_type {};
   // The number of creatures to accumulate.
   std::uint32_t count {};
+};
+
+// Specialization for AccumulateResources.
+template<>
+struct VictoryConditionDetails<VictoryConditionType::AccumulateResources> : SpecialVictoryConditionBase
+{
+  ResourceType resource_type {};
+  // The number of creatures to accumulate.
+  std::uint32_t amount {};
+};
+
+// Specialization for UpgradeTown.
+template<>
+struct VictoryConditionDetails<VictoryConditionType::UpgradeTown> : SpecialVictoryConditionBase
+{
+  // If all x/y/z are equal to 0xFF, implies any town.
+  std::uint8_t x {};
+  std::uint8_t y {};
+  std::uint8_t z {};
+  // 0 - Town, 1 - City, 2 - Capitol.
+  std::uint8_t hall_level {};
+  // 0 - Fort, 1 - Citadel, 2 - Castle.
+  std::uint8_t castle_level {};
+};
+
+// Specialization for FlagDwellings.
+template<>
+struct VictoryConditionDetails<VictoryConditionType::FlagDwellings> : SpecialVictoryConditionBase
+{
+};
+
+// Specialization for FlagMines.
+template<>
+struct VictoryConditionDetails<VictoryConditionType::FlagMines> : SpecialVictoryConditionBase
+{
+};
+
+// Specialization for TransportArtifact.
+template<>
+struct VictoryConditionDetails<VictoryConditionType::TransportArtifact> : SpecialVictoryConditionBase
+{
+  // Interestingly, the type is stored here in a single byte, even though in AcquireArtifact it's stored in 2 bytes.
+  std::uint8_t artifact_type {};
+  std::uint8_t x {};
+  std::uint8_t y {};
+  std::uint8_t z {};
 };
 
 class VictoryCondition

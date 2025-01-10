@@ -83,5 +83,11 @@
     <ClInclude Include="Constants\TownType.h">
       <Filter>Header Files\Constants</Filter>
     </ClInclude>
+    <ClInclude Include="Constants\CreatureType.h">
+      <Filter>Header Files\Constants</Filter>
+    </ClInclude>
+    <ClInclude Include="Constants\ResourceType.h">
+      <Filter>Header Files\Constants</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
