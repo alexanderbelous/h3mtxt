@@ -49,9 +49,9 @@ namespace
     return static_cast<T>(readUintImpl(stream, kNumBytes));
   }
 
-  bool readBool(std::istream& stream)
+  h3m::Bool readBool(std::istream& stream)
   {
-    return static_cast<bool>(readUint8(stream));
+    return static_cast<h3m::Bool>(readUint8(stream));
   }
 
   template<class T>

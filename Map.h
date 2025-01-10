@@ -9,6 +9,7 @@
 #include <h3mparser/Constants/RoadType.h>
 #include <h3mparser/Constants/TerrainType.h>
 #include <h3mparser/Constants/VictoryConditionType.h>
+#include <h3mparser/Base.h>
 #include <h3mparser/GlobalEvent.h>
 #include <h3mparser/PlayerSpecs.h>
 #include <h3mparser/Tile.h>
@@ -42,11 +43,11 @@ enum class MapDifficulty : std::uint8_t
 struct MapBasicInfo
 {
   // False if there are no heroes and towns on the map, true otherwise.
-  bool is_playable = true;
+  Bool is_playable {};
   // Width and height of the map.
   std::uint32_t map_size {};
   // False if there is only 1 level on the map, true if there are 2 levels.
-  bool has_two_levels = false;
+  Bool has_two_levels {};
   // The name of the map.
   std::string name;
   // Description of the map.

@@ -154,6 +154,7 @@
     <ClCompile Include="h3mparser.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Base.h" />
     <ClInclude Include="Constants\Constants.h" />
     <ClInclude Include="Constants\HeroType.h" />
     <ClInclude Include="Constants\LossConditionType.h" />
