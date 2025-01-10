@@ -156,11 +156,15 @@
   <ItemGroup>
     <ClInclude Include="Constants\Constants.h" />
     <ClInclude Include="Constants\HeroType.h" />
+    <ClInclude Include="Constants\LossConditionType.h" />
+    <ClInclude Include="Constants\PlayerBehavior.h" />
     <ClInclude Include="Constants\RiverType.h" />
     <ClInclude Include="Constants\RoadType.h" />
     <ClInclude Include="Constants\TerrainType.h" />
+    <ClInclude Include="Constants\VictoryConditionType.h" />
     <ClInclude Include="GlobalEvent.h" />
     <ClInclude Include="Map.h" />
+    <ClInclude Include="PlayerSpecs.h" />
     <ClInclude Include="Tile.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

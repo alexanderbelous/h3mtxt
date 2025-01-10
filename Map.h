@@ -10,6 +10,7 @@
 #include <h3mparser/Constants/TerrainType.h>
 #include <h3mparser/Constants/VictoryConditionType.h>
 #include <h3mparser/GlobalEvent.h>
+#include <h3mparser/PlayerSpecs.h>
 #include <h3mparser/Tile.h>
 
 #include <array>
@@ -56,45 +57,6 @@ struct MapBasicInfo
   std::uint8_t max_hero_level {};
 };
 
-enum class PlayerBehavior : std::uint8_t
-{
-  Random = 0,
-  Warrior = 1,
-  Builder = 2,
-  Explorer = 3,
-};
-
-struct AdditionalPlayerInfo
-{
-  struct HeroInfo
-  {
-    HeroType type;
-    // If empty, the default name is implied.
-    std::string name;
-  };
-
-  std::uint8_t num_placeholder_heroes {};
-  // Includes Visiting heroes and regular hero objects (not random);
-  // includes placeholder heroes configured as "Specific hero" rather than "Power rating";
-  // type/name match the object's.
-  std::vector<HeroInfo> heroes;
-};
-
-struct PlayerInfo
-{
-  bool can_be_human {};
-  bool can_be_computer {};
-  PlayerBehavior behavior {};
-  std::uint8_t customized_alignments {};
-  std::uint8_t town_types {};
-  // Bitfield with 1 LSB bit.
-  std::uint8_t town_conflux {};
-  std::uint8_t random_town {};
-  bool has_main_town {};
-  // TODO: starting hero info
-  AdditionalPlayerInfo additional_info;
-};
-
 struct TeamsInfo
 {
   std::uint8_t num_teams {};
@@ -119,7 +81,7 @@ struct Map
 
   MapFormat format = MapFormat::ShadowOfDeath;
   MapBasicInfo basic_info;
-  std::array<PlayerInfo, 8> players {};
+  std::array<PlayerSpecs, 8> players {};
   AdditionalInfo additional_info;
   // N elements, where N = (has_two_levels ? 2 : 1) * map_size * map_size.
   std::vector<Tile> tiles;
