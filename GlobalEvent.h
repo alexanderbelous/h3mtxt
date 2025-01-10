@@ -25,6 +25,8 @@ struct GlobalEvent
   std::uint16_t day_of_first_occurence {};
   // 0 means that the event doesn't repeat.
   std::uint8_t repeat_after_days {};
+  // Should be 0s. Kept here for compatibility.
+  std::array<std::uint8_t, 17> unknown {};
 };
 
 }

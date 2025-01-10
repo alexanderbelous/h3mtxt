@@ -82,7 +82,10 @@ struct Map
   // N elements, where N = (has_two_levels ? 2 : 1) * map_size * map_size.
   std::vector<Tile> tiles;
   // TODO: add objects.
+  // Global events on this map (called "Timed Events" in the Editor).
   std::vector<GlobalEvent> global_events;
+  // Should be 0s. Kept here for compatibility.
+  std::array<std::uint8_t, 124> padding;
 };
 
 }
