@@ -89,7 +89,7 @@ MainTown readMainTown(std::istream& stream)
 {
   MainTown main_town;
   main_town.generate_hero = readBool(stream);
-  main_town.town_type = readUint8(stream);
+  main_town.town_type = readEnum<TownType>(stream);
   main_town.x = readUint8(stream);
   main_town.y = readUint8(stream);
   main_town.z = readUint8(stream);

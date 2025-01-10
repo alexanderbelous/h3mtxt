@@ -165,6 +165,7 @@
     <ClInclude Include="Constants\RiverType.h" />
     <ClInclude Include="Constants\RoadType.h" />
     <ClInclude Include="Constants\TerrainType.h" />
+    <ClInclude Include="Constants\TownType.h" />
     <ClInclude Include="Constants\VictoryConditionType.h" />
     <ClInclude Include="GlobalEvent.h" />
     <ClInclude Include="LossCondition.h" />

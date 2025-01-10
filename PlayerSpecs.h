@@ -2,6 +2,7 @@
 
 #include <h3mparser/Constants/HeroType.h>
 #include <h3mparser/Constants/PlayerBehavior.h>
+#include <h3mparser/Constants/TownType.h>
 #include <h3mparser/Base.h>
 
 #include <cstdint>
@@ -17,8 +18,8 @@ struct MainTown
 {
   // True if "Generate hero at main town" is set, false otherwise.
   Bool generate_hero {};
-  // TODO: make it an enum. 0xFF means random.
-  std::uint8_t town_type;
+  // Type of the player's main town.
+  TownType town_type;
   // X-coordinate of the main town.
   std::uint8_t x;
   // Y-coordinate of the main town.
