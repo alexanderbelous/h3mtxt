@@ -48,6 +48,25 @@ struct TeamsInfo
   std::array<std::uint8_t, 8> team_for_player {};
 };
 
+struct ObjectAttributes
+{
+  // Name of the *.def sprite to use.
+  std::string def;
+  std::array<std::uint8_t, 6> passability {};
+  std::array<std::uint8_t, 6> actionability {};
+  // Bitfield.
+  std::uint16_t allowed_landscapes;
+  // Bitfield.
+  std::uint16_t landscape_group;
+  std::uint32_t object_class;
+  std::uint32_t object_number;
+  // TODO: make this an enum.
+  std::uint8_t object_group;
+  Bool is_ground;
+  // Should be 0s.
+  std::array<std::uint8_t, 16> unknown;
+};
+
 struct Map
 {
   struct AdditionalInfo
