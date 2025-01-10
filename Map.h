@@ -4,9 +4,11 @@
 
 #include <h3mparser/Constants/Constants.h>
 #include <h3mparser/Constants/HeroType.h>
+#include <h3mparser/Constants/LossConditionType.h>
 #include <h3mparser/Constants/RiverType.h>
 #include <h3mparser/Constants/RoadType.h>
 #include <h3mparser/Constants/TerrainType.h>
+#include <h3mparser/Constants/VictoryConditionType.h>
 #include <h3mparser/GlobalEvent.h>
 #include <h3mparser/Tile.h>
 
@@ -91,30 +93,6 @@ struct PlayerInfo
   bool has_main_town {};
   // TODO: starting hero info
   AdditionalPlayerInfo additional_info;
-};
-
-enum class VictoryConditionType : std::uint8_t
-{
-  AcquireArtifact = 0,
-  AccumulateCreatures = 1,
-  AccumulateResources = 2,
-  UpgradeTown = 3,
-  BuildGrail = 4,
-  DefeatHero = 5,
-  CaptureTown = 6,
-  DefeatMonster = 7,
-  FlagDwellings = 8,
-  FlagMines = 9,
-  TransportArtifact = 10,
-  Normal = 0xFF,
-};
-
-enum class LossConditionType : std::uint8_t
-{
-  LoseTown = 0,
-  LoseHero = 1,
-  TimeExpires = 2,
-  Normal = 0xFF,
 };
 
 struct TeamsInfo
