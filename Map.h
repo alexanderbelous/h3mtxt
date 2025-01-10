@@ -1,5 +1,7 @@
 #pragma once
 
+// See https://github.com/HeroWO-js/h3m2json/blob/master/h3m-The-Corpus.txt
+
 #include <h3mparser/Constants/Constants.h>
 #include <h3mparser/Constants/HeroType.h>
 #include <h3mparser/Constants/RiverType.h>
@@ -137,7 +139,7 @@ struct Map
     // TODO: add the rest.
   };
 
-  MapFormat format_ = MapFormat::ShadowOfDeath;
+  MapFormat format = MapFormat::ShadowOfDeath;
   MapBasicInfo basic_info;
   std::array<PlayerInfo, 8> players {};
   AdditionalInfo additional_info;
