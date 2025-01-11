@@ -63,6 +63,7 @@ struct PlayerSpecs
   PlayerBehavior behavior {};
   Bool customized_alignments {};
   // (bitfield: Castle, Rampart, Tower, Inferno, Necropolis, Dungeon, Stronghold, Fortress; Complete: 8 Conflux)
+  // TODO: replace with BitSet.
   std::uint8_t town_types {};
   // Bitfield with 1 LSB bit.
   std::uint8_t town_conflux {};

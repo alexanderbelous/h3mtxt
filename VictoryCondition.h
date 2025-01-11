@@ -12,9 +12,12 @@ namespace h3m
 {
 
 // Template class for storing details of a victory condition.
-// The default implementation stores no details.
-template<VictoryConditionType T>
-struct VictoryConditionDetails
+template<VictoryConditionType T, class Enable = void>
+struct VictoryConditionDetails;
+
+// Specialization for Normal.
+template<>
+struct VictoryConditionDetails<VictoryConditionType::Normal>
 {
 };
 
@@ -67,15 +70,23 @@ struct VictoryConditionDetails<VictoryConditionType::UpgradeTown> : SpecialVicto
   std::uint8_t castle_level {};
 };
 
-// Specialization for FlagDwellings.
-template<>
-struct VictoryConditionDetails<VictoryConditionType::FlagDwellings> : SpecialVictoryConditionBase
+// Partial specialization for BuildGrail, DefeatHero, CaptureTown, DefeatMonster.
+template<VictoryConditionType T>
+struct VictoryConditionDetails<T, std::enable_if_t<T == VictoryConditionType::BuildGrail ||
+                                                   T == VictoryConditionType::DefeatHero ||
+                                                   T == VictoryConditionType::CaptureTown ||
+                                                   T == VictoryConditionType::DefeatMonster>> : SpecialVictoryConditionBase
 {
+  // Coordinates of the actionable spot. If T == BuildGrail and all x/y/z are equal to 0xFF, implies any town.
+  std::uint8_t x {};
+  std::uint8_t y {};
+  std::uint8_t z {};
 };
 
-// Specialization for FlagMines.
-template<>
-struct VictoryConditionDetails<VictoryConditionType::FlagMines> : SpecialVictoryConditionBase
+// Partial specialization for FlagDwellings and FlagMines.
+template<VictoryConditionType T>
+struct VictoryConditionDetails<T, std::enable_if_t<T == VictoryConditionType::FlagDwellings ||
+                                                   T == VictoryConditionType::FlagMines>> : SpecialVictoryConditionBase
 {
 };
 
@@ -93,21 +104,22 @@ struct VictoryConditionDetails<VictoryConditionType::TransportArtifact> : Specia
 class VictoryCondition
 {
 public:
+  // Constructs a normal victory condition.
+  constexpr VictoryCondition() noexcept;
+
   // Constructs a victory condition.
-  // \param T - type of the victory condition.
   // \param details - details of the victory condition.
-  // \return the constructed victory condition.
   template<VictoryConditionType T>
-  static VictoryCondition makeVictoryCondition(VictoryConditionDetails<T> details);
+  constexpr VictoryCondition(VictoryConditionDetails<T> details) noexcept;
 
   // \return the type of the victory condition.
-  VictoryConditionType type() const;
+  constexpr VictoryConditionType type() const noexcept;
 
   // Get the details of the victory condition.
   // \param T - type of the victory condition.
   // \return the details of the victory condition, nullptr if T doesn't match the type returned by type().
   template<VictoryConditionType T>
-  const VictoryConditionDetails<T>* details() const;
+  constexpr const VictoryConditionDetails<T>* details() const noexcept;
 
 private:
   std::variant<
@@ -125,5 +137,31 @@ private:
     VictoryConditionDetails<VictoryConditionType::Normal>
   > details_ {};
 };
+
+constexpr VictoryCondition::VictoryCondition() noexcept:
+  details_(VictoryConditionDetails<VictoryConditionType::Normal>{})
+{}
+
+template<VictoryConditionType T>
+constexpr VictoryCondition::template VictoryCondition(VictoryConditionDetails<T> details) noexcept:
+  details_(std::move(details))
+{}
+
+constexpr VictoryConditionType VictoryCondition::type() const noexcept
+{
+  const std::size_t index = details_.index();
+  // Hack to avoid writing a switch statement over all victory condition types.
+  if (index == 11)
+  {
+    return VictoryConditionType::Normal;
+  }
+  return static_cast<VictoryConditionType>(index);
+}
+
+template<VictoryConditionType T>
+constexpr const VictoryConditionDetails<T>* VictoryCondition::details() const noexcept
+{
+  return std::get_if<VictoryConditionType<T>>(details_);
+}
 
 }

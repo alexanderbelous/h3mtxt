@@ -4,49 +4,123 @@
 #include <fstream>
 #include <iostream>
 #include <stdexcept>
+#include <string_view>
 
 namespace fs = std::filesystem;
 
 namespace
 {
-  void printMapInfo(std::ostream& stream, const h3m::Map& map)
+  constexpr std::string_view getBoolString(bool value) noexcept
   {
-    stream << "format: " << static_cast<unsigned int>(map.format) << "\n"
-           << "is_playable: " << (map.basic_info.is_playable ? "true" : "false") << "\n"
-           << "map_size: " << map.basic_info.map_size << "\n"
-           << "has_two_levels: " << (map.basic_info.has_two_levels ? "true" : "false") << "\n"
-           << "name: \"" << map.basic_info.name << "\"\n"
-           << "description: \"" << map.basic_info.description << "\"\n"
-           << "difficulty: " << static_cast<unsigned int>(map.basic_info.difficulty) << "\n"
-           << "max_hero_level: " << static_cast<unsigned int>(map.basic_info.max_hero_level) << std::endl;
+    return value ? "true" : "false";
+  }
+
+  template<class T>
+  void printH3mStruct(std::ostream& stream, const T& value, std::size_t num_spaces);
+
+  template<>
+  void printH3mStruct<h3m::MapBasicInfo>(std::ostream& stream, const h3m::MapBasicInfo& value, std::size_t num_spaces)
+  {
+    const std::string whitespace(num_spaces, ' ');
+    stream << whitespace << "is_playable: " << getBoolString(value.is_playable) << "\n"
+           << whitespace << "map_size: " << value.map_size << "\n"
+           << whitespace << "has_two_levels: " << getBoolString(value.has_two_levels) << "\n"
+           << whitespace << "name: \"" << value.name << "\"\n"
+           << whitespace << "description: \"" << value.description << "\"\n"
+           << whitespace << "difficulty: " << static_cast<unsigned int>(value.difficulty) << "\n"
+           << whitespace << "max_hero_level: " << static_cast<unsigned int>(value.max_hero_level) << "\n";
+  }
+
+  template<>
+  void printH3mStruct<h3m::MainTown>(std::ostream& stream, const h3m::MainTown& value, std::size_t num_spaces)
+  {
+    const std::string whitespace(num_spaces, ' ');
+    stream << whitespace << "generate_hero: " << getBoolString(value.generate_hero) << "\n"
+           << whitespace << "town_type: " << static_cast<unsigned int>(value.town_type) << "\n"
+           << whitespace << "x: " << static_cast<unsigned int>(value.x) << "\n"
+           << whitespace << "y: " << static_cast<unsigned int>(value.y) << "\n"
+           << whitespace << "z: " << static_cast<unsigned int>(value.z) << "\n";
+  }
+
+  template<>
+  void printH3mStruct<h3m::StartingHero>(std::ostream& stream, const h3m::StartingHero& value, std::size_t num_spaces)
+  {
+    const std::string whitespace(num_spaces, ' ');
+    stream << whitespace << "is_random: " << getBoolString(value.is_random) << "\n"
+           << whitespace << "type: " << static_cast<unsigned int>(value.type) << "\n"
+           << whitespace << "face: " << static_cast<unsigned int>(value.face) << "\n"
+           << whitespace << "name: \"" << value.name << "\"\n";
+  }
+
+  template<>
+  void printH3mStruct<h3m::AdditionalPlayerInfo::HeroInfo>(std::ostream& stream,
+                                                           const h3m::AdditionalPlayerInfo::HeroInfo& value,
+                                                           std::size_t num_spaces)
+  {
+    const std::string whitespace(num_spaces, ' ');
+    stream << whitespace << "type: " << static_cast<unsigned int>(value.type) << "\n"
+           << whitespace << "name: \"" << value.name << "\"\n";
+  }
+
+  template<>
+  void printH3mStruct<h3m::AdditionalPlayerInfo>(std::ostream& stream, const h3m::AdditionalPlayerInfo& value, std::size_t num_spaces)
+  {
+    const std::string whitespace(num_spaces, ' ');
+    stream << whitespace << "num_placeholder_heroes: " << static_cast<unsigned int>(value.num_placeholder_heroes) << "\n"
+           << whitespace << "heroes: [\n";
+    for (const auto& hero : value.heroes)
+    {
+      stream << whitespace << "  {\n";
+      printH3mStruct(stream, hero, num_spaces + 4);
+      stream << whitespace << "  }\n";
+    }
+    stream << whitespace << "]\n";
+  }
+
+  template<>
+  void printH3mStruct<h3m::PlayerSpecs>(std::ostream& stream, const h3m::PlayerSpecs& value, std::size_t num_spaces)
+  {
+    const std::string whitespace(num_spaces, ' ');
+    stream << whitespace << "can_be_human: " << getBoolString(value.can_be_human) << "\n"
+           << whitespace << "can_be_computer: " << getBoolString(value.can_be_computer) << "\n"
+           << whitespace << "behavior: " << static_cast<unsigned int>(value.behavior) << "\n"
+           << whitespace << "customized_alignments: " << static_cast<unsigned int>(value.customized_alignments) << "\n"
+           << whitespace << "town_types: " << static_cast<unsigned int>(value.town_types) << "\n"
+           << whitespace << "town_conflux: " << static_cast<unsigned int>(value.town_conflux) << "\n"
+           << whitespace << "random_town: " << static_cast<unsigned int>(value.random_town) << "\n";
+    if (value.main_town)
+    {
+      stream << whitespace << "main_town {\n";
+      printH3mStruct(stream, *value.main_town, num_spaces + 2);
+      stream << whitespace << "}\n";
+    }
+    stream << whitespace << "starting_hero {\n";
+    printH3mStruct(stream, value.starting_hero, num_spaces + 2);
+    stream << whitespace << "}\n";
+    stream << whitespace << "additional_info {\n";
+    printH3mStruct(stream, value.additional_info, num_spaces + 2);
+    stream << whitespace << "}\n";
+  }
+
+  template<>
+  void printH3mStruct<h3m::Map>(std::ostream& stream, const h3m::Map& map, std::size_t num_spaces)
+  {
+    stream << "format: " << static_cast<unsigned int>(map.format) << "\n";
+    stream << "basic_info {\n";
+    printH3mStruct(stream, map.basic_info, 2);
+    stream << "}\n";
     stream << "players: [\n";
     for (int i = 0; i < h3m::kMaxPlayers; ++i)
     {
       const h3m::PlayerSpecs& player = map.players[i];
       stream << "  # Player " << i << "\n"
-             << "  {\n"
-             << "    can_be_human: " << (player.can_be_human ? "true" : "false") << "\n"
-             << "    can_be_computer: " << (player.can_be_computer ? "true" : "false") << "\n"
-             << "    behavior: " << static_cast<unsigned int>(player.behavior) << "\n"
-             << "    customized_alignments: " << static_cast<unsigned int>(player.customized_alignments) << "\n"
-             << "    town_types: " << static_cast<unsigned int>(player.town_types) << "\n"
-             << "    town_conflux: " << static_cast<unsigned int>(player.town_conflux) << "\n"
-             << "    random_town: " << static_cast<unsigned int>(player.random_town) << "\n";
-
-      if (player.main_town)
-      {
-        const h3m::MainTown& main_town = *player.main_town;
-        stream << "    main_town {\n"
-               << "      generate_hero: " << (main_town.generate_hero ? "true" : "false") << "\n"
-               << "      town_type: " << static_cast<unsigned int>(main_town.town_type) << "\n"
-               << "      x: " << static_cast<unsigned int>(main_town.x) << "\n"
-               << "      y: " << static_cast<unsigned int>(main_town.y) << "\n"
-               << "      z: " << static_cast<unsigned int>(main_town.z) << "\n"
-               << "    }\n";
-      }
+             << "  {\n";
+      printH3mStruct(stream, player, 4);
       stream << "  }\n";
     }
     stream << "]\n";
+    stream << "additional_info {\n";
+    stream << "}\n";
   }
 }
 
@@ -63,7 +137,7 @@ int main(int argc, char** argv)
     std::ifstream stream(path_map, std::ios_base::in | std::ios_base::binary);
     const h3m::Map map = h3m::parseh3m(stream);
     stream.close();
-    printMapInfo(std::cout, map);
+    printH3mStruct(std::cout, map, 0);
 
   }
   catch (const std::exception& error)

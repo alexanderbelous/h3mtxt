@@ -89,5 +89,14 @@
     <ClInclude Include="Constants\ResourceType.h">
       <Filter>Header Files\Constants</Filter>
     </ClInclude>
+    <ClInclude Include="BitSet.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MapBasicInfo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MapAdditionalInfo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

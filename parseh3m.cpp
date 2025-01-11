@@ -142,6 +142,68 @@ PlayerSpecs readPlayerSpecs(std::istream& stream)
   return player;
 }
 
+VictoryCondition readVictoryCondition(std::istream& stream)
+{
+  const VictoryConditionType victory_condition_type = readEnum<VictoryConditionType>(stream);
+  switch (victory_condition_type)
+  {
+  case VictoryConditionType::AcquireArtifact:
+    {
+      VictoryConditionDetails<VictoryConditionType::AcquireArtifact> details;
+      details.allow_normal_win = readBool(stream);
+      details.applies_to_computer = readBool(stream);
+      details.artifact_type = readUint<std::uint16_t>(stream);
+      return details;
+    }
+  case VictoryConditionType::Normal:
+    return VictoryConditionDetails<VictoryConditionType::Normal>();
+  default:
+    throw std::runtime_error("Invalid victory condition type.");
+  }
+}
+
+LossCondition readLossCondition(std::istream& stream)
+{
+  const LossConditionType loss_condition_type = readEnum<LossConditionType>(stream);
+  switch (loss_condition_type)
+  {
+  case LossConditionType::LoseTown:
+  {
+    LossConditionDetails<LossConditionType::LoseTown> details;
+    details.x = readUint8(stream);
+    details.y = readUint8(stream);
+    details.z = readUint8(stream);
+    return details;
+  }
+  case LossConditionType::LoseHero:
+  {
+    LossConditionDetails<LossConditionType::LoseHero> details;
+    details.x = readUint8(stream);
+    details.y = readUint8(stream);
+    details.z = readUint8(stream);
+    return details;
+  }
+  case LossConditionType::TimeExpires:
+  {
+    LossConditionDetails<LossConditionType::TimeExpires> details;
+    details.days = readUint<std::uint16_t>(stream);
+    return details;
+  }
+  case LossConditionType::Normal:
+    return LossConditionDetails<LossConditionType::Normal>();
+  default:
+    throw std::runtime_error("Invalid loss condition type.");
+  }
+}
+
+MapAdditionalInfo readMapAdditionalInfo(std::istream& stream)
+{
+  MapAdditionalInfo additional_info;
+  additional_info.victory_condition = readVictoryCondition(stream);
+  additional_info.loss_condition = readLossCondition(stream);
+  return additional_info;
+}
+
 }
 
 Map parseh3m(std::istream& stream)
@@ -153,6 +215,7 @@ Map parseh3m(std::istream& stream)
   {
     map.players[i] = readPlayerSpecs(stream);
   }
+  map.additional_info = readMapAdditionalInfo(stream);
   return map;
 }
 

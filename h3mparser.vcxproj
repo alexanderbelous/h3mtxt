@@ -156,6 +156,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Base.h" />
+    <ClInclude Include="BitSet.h" />
     <ClInclude Include="Constants\Constants.h" />
     <ClInclude Include="Constants\CreatureType.h" />
     <ClInclude Include="Constants\HeroType.h" />
@@ -172,6 +173,8 @@
     <ClInclude Include="GlobalEvent.h" />
     <ClInclude Include="LossCondition.h" />
     <ClInclude Include="Map.h" />
+    <ClInclude Include="MapAdditionalInfo.h" />
+    <ClInclude Include="MapBasicInfo.h" />
     <ClInclude Include="parseh3m.h" />
     <ClInclude Include="PlayerSpecs.h" />
     <ClInclude Include="Tile.h" />
