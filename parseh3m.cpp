@@ -72,6 +72,23 @@ std::string readString(std::istream& stream)
   return result;
 }
 
+template<std::size_t N>
+std::array<std::uint8_t, N> readByteArray(std::istream& stream)
+{
+  std::array<std::uint8_t, N> result {};
+  for (std::size_t i = 0; i < N; ++i)
+  {
+    result[i] = readUint8(stream);
+  }
+  return result;
+}
+
+template<std::size_t NumBytes>
+BitSet<NumBytes> readBitSet(std::istream& stream)
+{
+  return BitSet<NumBytes>(readByteArray<NumBytes>(stream));
+}
+
 MapBasicInfo readMapBasicInfo(std::istream& stream)
 {
   MapBasicInfo basic_info;
@@ -196,11 +213,73 @@ LossCondition readLossCondition(std::istream& stream)
   }
 }
 
+std::optional<TeamsInfo> readTeamsInfo(std::istream& stream)
+{
+  const std::uint8_t num_teams = readUint8(stream);
+  if (num_teams == 0)
+  {
+    return std::nullopt;
+  }
+  TeamsInfo teams_info;
+  teams_info.num_teams = num_teams;
+  for (int i = 0; i < 8; ++i)
+  {
+    teams_info.team_for_player[i] = readUint8(stream);
+  }
+  return teams_info;
+}
+
+MapAdditionalInfo::CustomHero readCustomHero(std::istream& stream)
+{
+  MapAdditionalInfo::CustomHero custom_hero;
+  custom_hero.type = readEnum<HeroType>(stream);
+  custom_hero.face = readUint8(stream);
+  custom_hero.name = readString(stream);
+  custom_hero.can_hire = readBitSet<1>(stream);
+  return custom_hero;
+}
+
+Rumor readRumor(std::istream& stream)
+{
+  Rumor rumor;
+  rumor.name = readString(stream);
+  rumor.description = readString(stream);
+  return rumor;
+}
+
 MapAdditionalInfo readMapAdditionalInfo(std::istream& stream)
 {
   MapAdditionalInfo additional_info;
   additional_info.victory_condition = readVictoryCondition(stream);
   additional_info.loss_condition = readLossCondition(stream);
+  additional_info.teams = readTeamsInfo(stream);
+  additional_info.heroes_availability.data = readBitSet<20>(stream);
+  // Read placeholder heroes.
+  const std::uint32_t num_placeholder_heroes = readUint<std::uint32_t>(stream);
+  additional_info.placeholder_heroes.reserve(num_placeholder_heroes);
+  for (std::uint32_t i = 0; i < num_placeholder_heroes; ++i)
+  {
+    additional_info.placeholder_heroes.push_back(readEnum<HeroType>(stream));
+  }
+  // Read custom heroes.
+  const std::uint8_t num_custom_heroes = readUint8(stream);
+  additional_info.custom_heroes.reserve(num_custom_heroes);
+  for (std::uint32_t i = 0; i < num_custom_heroes; ++i)
+  {
+    additional_info.custom_heroes.push_back(readCustomHero(stream));
+  }
+  // Read reserved data.
+  additional_info.reserved = readByteArray<31>(stream);
+  additional_info.artifacts_nonavailability = readBitSet<18>(stream);
+  additional_info.spells_nonavailability = readBitSet<9>(stream);
+  additional_info.skills_nonavailability = readBitSet<4>(stream);
+  // Read rumors.
+  const std::uint32_t num_rumors = readUint<std::uint32_t>(stream);
+  additional_info.rumors.reserve(num_rumors);
+  for (std::uint32_t i = 0; i < num_rumors; ++i)
+  {
+    additional_info.rumors.push_back(readRumor(stream));
+  }
   return additional_info;
 }
 

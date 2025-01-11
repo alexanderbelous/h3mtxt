@@ -2,6 +2,7 @@
 #include <h3mparser/writeText.h>
 
 #include <array>
+#include <optional>
 #include <ostream>
 #include <span>
 #include <string_view>
@@ -33,6 +34,9 @@ namespace h3m
 
     template<class T, std::size_t N>
     struct IsH3mStruct<std::array<T, N>> : std::false_type {};
+
+    template<std::size_t NumBytes>
+    struct IsH3mStruct<BitSet<NumBytes>> : std::false_type {};
 
     template<class T>
     consteval bool isH3mStruct()
@@ -186,6 +190,17 @@ namespace h3m
       }
     };
 
+    // Partial specialization for BitSet.
+    template<std::size_t NumBytes>
+    class Writer<BitSet<NumBytes>>
+    {
+    public:
+      void operator()(std::ostream& stream, const BitSet<NumBytes>& value, std::size_t num_spaces) const
+      {
+        writeTextImpl(stream, value.data(), num_spaces);
+      }
+    };
+
     // Full specialization for MapBasicInfo.
     template<>
     class Writer<MapBasicInfo>
@@ -279,6 +294,32 @@ namespace h3m
       }
     };
 
+    // Full specialization for VictoryCondition.
+    template<>
+    class Writer<VictoryCondition>
+    {
+    public:
+      void operator()(std::ostream& stream, const VictoryCondition& value, std::size_t num_spaces) const
+      {
+        const bool has_details = value.type() != VictoryConditionType::Normal;
+        writeNamedField(stream, "type", value.type(), num_spaces, has_details);
+        //switch (value.type())
+        //{
+        //case LossConditionType::LoseTown:
+        //  writeNamedField(stream, "details", *value.details<LossConditionType::LoseTown>(), num_spaces, false);
+        //  break;
+        //case LossConditionType::LoseHero:
+        //  writeNamedField(stream, "details", *value.details<LossConditionType::LoseHero>(), num_spaces, false);
+        //  break;
+        //case LossConditionType::TimeExpires:
+        //  writeNamedField(stream, "details", *value.details<LossConditionType::TimeExpires>(), num_spaces, false);
+        //  break;
+        //default:
+        //  break;
+        //}
+      }
+    };
+
     // Full specialization for LossConditionDetails<LossConditionType::LoseTown>.
     template<>
     class Writer<LossConditionDetails<LossConditionType::LoseTown>>
@@ -348,6 +389,55 @@ namespace h3m
       }
     };
 
+    // Full specialization for TeamsInfo.
+    template<>
+    class Writer<TeamsInfo>
+    {
+    public:
+      void operator()(std::ostream& stream, const TeamsInfo& value, std::size_t num_spaces) const
+      {
+        writeNamedField(stream, "num_teams", value.num_teams, num_spaces);
+        writeNamedField(stream, "team_for_player", value.team_for_player, num_spaces, false);
+      }
+    };
+
+    // Full specialization for HeroesAvailability.
+    template<>
+    class Writer<HeroesAvailability>
+    {
+    public:
+      void operator()(std::ostream& stream, const HeroesAvailability& value, std::size_t num_spaces) const
+      {
+        writeNamedField(stream, "bitset", value.data, num_spaces, false);
+      }
+    };
+
+    // Full specialization for MapAdditionalInfo::CustomHero.
+    template<>
+    class Writer<MapAdditionalInfo::CustomHero>
+    {
+    public:
+      void operator()(std::ostream& stream, const MapAdditionalInfo::CustomHero& value, std::size_t num_spaces) const
+      {
+        writeNamedField(stream, "type", value.type, num_spaces);
+        writeNamedField(stream, "face", value.face, num_spaces);
+        writeNamedField(stream, "name", value.name, num_spaces);
+        writeNamedField(stream, "can_hire", value.can_hire, num_spaces, false);
+      }
+    };
+
+    // Full specialization for Rumor.
+    template<>
+    class Writer<Rumor>
+    {
+    public:
+      void operator()(std::ostream& stream, const Rumor& value, std::size_t num_spaces) const
+      {
+        writeNamedField(stream, "name", value.name, num_spaces);
+        writeNamedField(stream, "description", value.description, num_spaces, false);
+      }
+    };
+
     // Full specialization for MapAdditionalInfo.
     template<>
     class Writer<MapAdditionalInfo>
@@ -355,7 +445,20 @@ namespace h3m
     public:
       void operator()(std::ostream& stream, const MapAdditionalInfo& value, std::size_t num_spaces) const
       {
-        writeNamedField(stream, "loss_condition", value.loss_condition, num_spaces, false);
+        writeNamedField(stream, "victory_condition", value.victory_condition, num_spaces);
+        writeNamedField(stream, "loss_condition", value.loss_condition, num_spaces);
+        if (value.teams)
+        {
+          writeNamedField(stream, "teams", *value.teams, num_spaces);
+        }
+        writeNamedField(stream, "heroes_availability", value.heroes_availability, num_spaces);
+        writeNamedField(stream, "placeholder_heroes", value.placeholder_heroes, num_spaces);
+        writeNamedField(stream, "custom_heroes", value.custom_heroes, num_spaces);
+        writeNamedField(stream, "reserved", value.reserved, num_spaces);
+        writeNamedField(stream, "artifacts_nonavailability", value.artifacts_nonavailability, num_spaces);
+        writeNamedField(stream, "spells_nonavailability", value.spells_nonavailability, num_spaces);
+        writeNamedField(stream, "skills_nonavailability", value.skills_nonavailability, num_spaces);
+        writeNamedField(stream, "rumors", value.rumors, num_spaces, false);
         // TODO
       }
     };
