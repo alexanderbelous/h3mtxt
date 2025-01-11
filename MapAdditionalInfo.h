@@ -2,6 +2,7 @@
 
 #include <h3mparser/BitSet.h>
 #include <h3mparser/Constants/HeroType.h>
+#include <h3mparser/HeroSettings.h>
 #include <h3mparser/LossCondition.h>
 #include <h3mparser/VictoryCondition.h>
 
@@ -10,6 +11,8 @@
 #include <optional>
 #include <string>
 #include <vector>
+
+#include <map>
 
 namespace h3m
 {
@@ -49,6 +52,24 @@ struct Rumor
   std::string description;
 };
 
+// Stores settings for all heroes.
+class HeroesSettings
+{
+public:
+  HeroesSettings() = default;
+
+  bool hasSettings(HeroType hero) const;
+
+  HeroSettings& operator[](HeroType hero);
+
+  const HeroSettings& operator[](HeroType hero) const;
+
+  void erase(HeroType hero);
+
+private:
+  std::map<HeroType, HeroSettings> settings_;
+};
+
 struct MapAdditionalInfo
 {
   struct CustomHero
@@ -78,7 +99,7 @@ struct MapAdditionalInfo
   // TODO: add a wrapper class
   BitSet<4> skills_nonavailability;
   std::vector<Rumor> rumors;
-  // TODO: add heroes.
+  HeroesSettings heroes_settings {};
 };
 
 }

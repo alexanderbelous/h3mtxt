@@ -280,6 +280,9 @@ MapAdditionalInfo readMapAdditionalInfo(std::istream& stream)
   {
     additional_info.rumors.push_back(readRumor(stream));
   }
+  // Read heroes
+  constexpr std::uint32_t kNumHeroes = 156;
+
   return additional_info;
 }
 

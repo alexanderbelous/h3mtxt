@@ -107,5 +107,14 @@
     <ClInclude Include="H3MFwd.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Constants\Gender.h">
+      <Filter>Header Files\Constants</Filter>
+    </ClInclude>
+    <ClInclude Include="Constants\SecondarySkillType.h">
+      <Filter>Header Files\Constants</Filter>
+    </ClInclude>
+    <ClInclude Include="HeroSettings.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

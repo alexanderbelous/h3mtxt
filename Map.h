@@ -5,7 +5,6 @@
 #include <h3mparser/Base.h>
 #include <h3mparser/BitSet.h>
 #include <h3mparser/Constants/Constants.h>
-#include <h3mparser/Constants/HeroType.h>
 #include <h3mparser/Constants/MapFormat.h>
 #include <h3mparser/GlobalEvent.h>
 #include <h3mparser/MapAdditionalInfo.h>

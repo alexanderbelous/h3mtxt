@@ -160,6 +160,7 @@
     <ClInclude Include="BitSet.h" />
     <ClInclude Include="Constants\Constants.h" />
     <ClInclude Include="Constants\CreatureType.h" />
+    <ClInclude Include="Constants\Gender.h" />
     <ClInclude Include="Constants\HeroType.h" />
     <ClInclude Include="Constants\LossConditionType.h" />
     <ClInclude Include="Constants\MapDifficulty.h" />
@@ -168,11 +169,13 @@
     <ClInclude Include="Constants\ResourceType.h" />
     <ClInclude Include="Constants\RiverType.h" />
     <ClInclude Include="Constants\RoadType.h" />
+    <ClInclude Include="Constants\SecondarySkillType.h" />
     <ClInclude Include="Constants\TerrainType.h" />
     <ClInclude Include="Constants\TownType.h" />
     <ClInclude Include="Constants\VictoryConditionType.h" />
     <ClInclude Include="GlobalEvent.h" />
     <ClInclude Include="H3MFwd.h" />
+    <ClInclude Include="HeroSettings.h" />
     <ClInclude Include="LossCondition.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="MapAdditionalInfo.h" />
