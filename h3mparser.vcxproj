@@ -153,6 +153,7 @@
   <ItemGroup>
     <ClCompile Include="h3mparser.cpp" />
     <ClCompile Include="parseh3m.cpp" />
+    <ClCompile Include="writeText.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Base.h" />
@@ -171,6 +172,7 @@
     <ClInclude Include="Constants\TownType.h" />
     <ClInclude Include="Constants\VictoryConditionType.h" />
     <ClInclude Include="GlobalEvent.h" />
+    <ClInclude Include="H3MFwd.h" />
     <ClInclude Include="LossCondition.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="MapAdditionalInfo.h" />
@@ -179,6 +181,7 @@
     <ClInclude Include="PlayerSpecs.h" />
     <ClInclude Include="Tile.h" />
     <ClInclude Include="VictoryCondition.h" />
+    <ClInclude Include="writeText.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

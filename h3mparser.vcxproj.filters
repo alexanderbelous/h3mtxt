@@ -24,6 +24,9 @@
     <ClCompile Include="parseh3m.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="writeText.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Map.h">
@@ -96,6 +99,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="MapAdditionalInfo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="writeText.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="H3MFwd.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

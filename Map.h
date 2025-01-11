@@ -54,7 +54,7 @@ struct Map
   // Global events on this map (called "Timed Events" in the Editor).
   std::vector<GlobalEvent> global_events;
   // Should be 0s. Kept here for compatibility.
-  std::array<std::uint8_t, 124> padding;
+  std::array<std::uint8_t, 124> padding {};
 };
 
 }

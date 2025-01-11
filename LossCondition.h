@@ -89,7 +89,7 @@ constexpr LossConditionType LossCondition::type() const noexcept
 template<LossConditionType T>
 constexpr const LossConditionDetails<T>* LossCondition::details() const noexcept
 {
-  return std::get_if<LossConditionDetails<T>>(details_);
+  return std::get_if<LossConditionDetails<T>>(&details_);
 }
 
 }
