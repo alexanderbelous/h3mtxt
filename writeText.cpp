@@ -459,7 +459,24 @@ namespace h3m
         writeNamedField(stream, "spells_nonavailability", value.spells_nonavailability, num_spaces);
         writeNamedField(stream, "skills_nonavailability", value.skills_nonavailability, num_spaces);
         writeNamedField(stream, "rumors", value.rumors, num_spaces, false);
-        // TODO
+        // TODO: write artifacts.
+      }
+    };
+
+    // Full specialization for Tile.
+    template<>
+    class Writer<Tile>
+    {
+    public:
+      void operator()(std::ostream& stream, const Tile& value, std::size_t num_spaces) const
+      {
+        writeNamedField(stream, "terrain_type", value.terrain_type, num_spaces);
+        writeNamedField(stream, "terrain_sprite", value.terrain_sprite, num_spaces);
+        writeNamedField(stream, "river_type", value.river_type, num_spaces);
+        writeNamedField(stream, "river_sprite", value.river_sprite, num_spaces);
+        writeNamedField(stream, "road_type", value.road_type, num_spaces);
+        writeNamedField(stream, "road_sprite", value.road_sprite, num_spaces);
+        writeNamedField(stream, "mirroring", value.mirroring, num_spaces, false);
       }
     };
 
@@ -473,7 +490,8 @@ namespace h3m
         writeNamedField(stream, "format", value.format, num_spaces);
         writeNamedField(stream, "basic_info", value.basic_info, num_spaces);
         writeNamedField(stream, "players", value.players, num_spaces);
-        writeNamedField(stream, "additional_info", value.additional_info, num_spaces, false);
+        writeNamedField(stream, "additional_info", value.additional_info, num_spaces);
+        writeNamedField(stream, "tiles", value.tiles, num_spaces, false);
       }
     };
 

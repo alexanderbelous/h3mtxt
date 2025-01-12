@@ -247,6 +247,87 @@ Rumor readRumor(std::istream& stream)
   return rumor;
 }
 
+HeroArtifacts readHeroArtifacts(std::istream& stream)
+{
+  HeroArtifacts artifacts;
+  artifacts.headwear = readUint<std::uint16_t>(stream);
+  artifacts.shoulders = readUint<std::uint16_t>(stream);
+  artifacts.neck = readUint<std::uint16_t>(stream);
+  artifacts.right_hand = readUint<std::uint16_t>(stream);
+  artifacts.left_hand = readUint<std::uint16_t>(stream);
+  artifacts.torso = readUint<std::uint16_t>(stream);
+  artifacts.right_ring = readUint<std::uint16_t>(stream);
+  artifacts.left_ring = readUint<std::uint16_t>(stream);
+  artifacts.feet = readUint<std::uint16_t>(stream);
+  artifacts.misc1 = readUint<std::uint16_t>(stream);
+  artifacts.misc2 = readUint<std::uint16_t>(stream);
+  artifacts.misc3 = readUint<std::uint16_t>(stream);
+  artifacts.misc4 = readUint<std::uint16_t>(stream);
+  artifacts.device1 = readUint<std::uint16_t>(stream);
+  artifacts.device2 = readUint<std::uint16_t>(stream);
+  artifacts.device3 = readUint<std::uint16_t>(stream);
+  artifacts.device4 = readUint<std::uint16_t>(stream);
+  artifacts.spellbook = readUint<std::uint16_t>(stream);
+  artifacts.misc5 = readUint<std::uint16_t>(stream);
+  const std::uint16_t backpack_count = readUint<std::uint16_t>(stream);
+  artifacts.backpack.reserve(backpack_count);
+  for (std::uint16_t i = 0; i < backpack_count; ++i)
+  {
+    artifacts.backpack.push_back(readUint<std::uint16_t>(stream));
+  }
+  return artifacts;
+}
+
+HeroSettings::PrimarySkills readHeroPrimarySkills(std::istream& stream)
+{
+  HeroSettings::PrimarySkills primary_skills;
+  primary_skills.attack = readUint8(stream);
+  primary_skills.defense = readUint8(stream);
+  primary_skills.spell_power = readUint8(stream);
+  primary_skills.knowledge = readUint8(stream);
+  return primary_skills;
+}
+
+HeroSettings readHeroSettings(std::istream& stream)
+{
+  HeroSettings settings;
+  if (const Bool has_experience = readBool(stream))
+  {
+    settings.experience = readUint<std::uint32_t>(stream);
+  }
+  if (const Bool has_secondary_skills = readBool(stream))
+  {
+    const std::uint32_t num_secondary_skills = readUint<std::uint32_t>(stream);
+    settings.secondary_skills.emplace();
+    settings.secondary_skills->reserve(num_secondary_skills);
+    for (std::uint32_t i = 0; i < num_secondary_skills; ++i)
+    {
+      HeroSettings::SecondarySkill secondary_skill;
+      secondary_skill.type = readEnum<SecondarySkillType>(stream);
+      secondary_skill.level = readUint8(stream);
+      settings.secondary_skills->push_back(std::move(secondary_skill));
+    }
+  }
+  if (const Bool has_artifacts = readBool(stream))
+  {
+    settings.artifacts = readHeroArtifacts(stream);
+  }
+  if (const Bool has_biography = readBool(stream))
+  {
+    settings.biography = readString(stream);
+  }
+  settings.gender = readEnum<Gender>(stream);
+  if (const Bool has_spells = readBool(stream))
+  {
+    settings.spells = readBitSet<9>(stream);
+  }
+  if (const Bool has_primary_skills = readBool(stream))
+  {
+    settings.primary_skills = readHeroPrimarySkills(stream);
+  }
+  return settings;
+}
+
 MapAdditionalInfo readMapAdditionalInfo(std::istream& stream)
 {
   MapAdditionalInfo additional_info;
@@ -282,8 +363,27 @@ MapAdditionalInfo readMapAdditionalInfo(std::istream& stream)
   }
   // Read heroes
   constexpr std::uint32_t kNumHeroes = 156;
-
+  for (std::uint32_t i = 0; i < kNumHeroes; ++i)
+  {
+    if (const Bool has_settings = readBool(stream))
+    {
+      additional_info.heroes_settings[static_cast<HeroType>(i)] = readHeroSettings(stream);
+    }
+  }
   return additional_info;
+}
+
+Tile readTile(std::istream& stream)
+{
+  Tile tile;
+  tile.terrain_type = readEnum<TerrainType>(stream);
+  tile.terrain_sprite = readUint8(stream);
+  tile.river_type = readEnum<RiverType>(stream);
+  tile.river_sprite = readUint8(stream);
+  tile.road_type = readEnum<RoadType>(stream);
+  tile.road_sprite = readUint8(stream);
+  tile.mirroring = readUint8(stream);
+  return tile;
 }
 
 }
@@ -298,6 +398,13 @@ Map parseh3m(std::istream& stream)
     map.players[i] = readPlayerSpecs(stream);
   }
   map.additional_info = readMapAdditionalInfo(stream);
+  const std::uint8_t num_levels = map.basic_info.has_two_levels ? 2 : 1;
+  const std::size_t num_tiles = num_levels * map.basic_info.map_size * map.basic_info.map_size;
+  map.tiles.reserve(num_tiles);
+  for (std::size_t i = 0; i != num_tiles; ++i)
+  {
+    map.tiles.push_back(readTile(stream));
+  }
   return map;
 }
 

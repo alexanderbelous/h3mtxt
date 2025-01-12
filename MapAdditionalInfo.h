@@ -58,17 +58,37 @@ class HeroesSettings
 public:
   HeroesSettings() = default;
 
-  bool hasSettings(HeroType hero) const;
+  inline bool hasSettings(HeroType hero) const;
 
-  HeroSettings& operator[](HeroType hero);
+  inline HeroSettings& operator[](HeroType hero);
 
-  const HeroSettings& operator[](HeroType hero) const;
+  inline const HeroSettings& operator[](HeroType hero) const;
 
-  void erase(HeroType hero);
+  inline void erase(HeroType hero);
 
 private:
   std::map<HeroType, HeroSettings> settings_;
 };
+
+bool HeroesSettings::hasSettings(HeroType hero) const
+{
+  return settings_.find(hero) != settings_.end();
+}
+
+HeroSettings& HeroesSettings::operator[](HeroType hero)
+{
+  return settings_[hero];
+}
+
+const HeroSettings& HeroesSettings::operator[](HeroType hero) const
+{
+  return settings_.at(hero);
+}
+
+void HeroesSettings::erase(HeroType hero)
+{
+  settings_.erase(hero);
+}
 
 struct MapAdditionalInfo
 {
