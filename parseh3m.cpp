@@ -172,6 +172,7 @@ VictoryCondition readVictoryCondition(std::istream& stream)
       details.artifact_type = readUint<std::uint16_t>(stream);
       return details;
     }
+  // TODO: add the rest.
   case VictoryConditionType::Normal:
     return VictoryConditionDetails<VictoryConditionType::Normal>();
   default:
