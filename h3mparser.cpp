@@ -18,8 +18,9 @@ namespace
       .can_be_computer = false,
       .behavior = h3m::PlayerBehavior::Random,
       .customized_alignments = false,
-      .town_types = 0xFF,
-      .town_conflux = 0x01,
+      .allowed_alignments = h3m::AllowedAlignments{
+        h3m::BitSet<2>({0xFF, 0x01})
+      },
       .random_town = true,
       .main_town {},
       .starting_hero {
@@ -88,7 +89,7 @@ namespace
           .name = "Global event",
           .message = "Enjoy some resources.",
           .resources {10, 5, 10, 5, 5, 5, 1000},
-          .affected_players = h3m::BitSet(std::array<std::uint8_t, 1> {0xFF}),
+          .affected_players = h3m::BitSet<1>(std::array<std::uint8_t, 1> {0xFF}),
           .applies_to_human = true,
           .applies_to_computer = true,
           .day_of_first_occurence = 0,

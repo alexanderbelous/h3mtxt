@@ -13,12 +13,52 @@
 namespace h3m
 {
 
+// Stores allowed alignments for a player.
+//
+// This is simply a wrapper around BitSet<2>.
+class AllowedAlignments
+{
+public:
+  // Constructs a bitset with all town types disabled.
+  constexpr AllowedAlignments() noexcept = default;
+
+  constexpr explicit AllowedAlignments(const BitSet<2>& town_types) noexcept;
+
+  // Checks if the given town type is allowed.
+  // \param town - town type to check.
+  // \return true if the given town type is allowed, false otherwise.
+  // \throw std::out_of_range if int(town) >= 16.
+  constexpr bool isAllowed(TownType town) const;
+
+  // Enable/disable the specified town type.
+  // \param town - town type to set.
+  // \throw std::out_of_range if int(town) >= 16.
+  constexpr void set(TownType town, bool is_allowed);
+
+  BitSet<2> town_types {};
+};
+
+constexpr AllowedAlignments::AllowedAlignments(const BitSet<2>& town_types) noexcept:
+  town_types(town_types)
+{}
+
+constexpr bool AllowedAlignments::isAllowed(TownType town) const
+{
+  return town_types.at(static_cast<std::underlying_type_t<TownType>>(town));
+}
+
+constexpr void AllowedAlignments::set(TownType town, bool is_allowed)
+{
+  town_types.set(static_cast<std::underlying_type_t<TownType>>(town), is_allowed);
+}
+
 // Information about the player's main town.
 struct MainTown
 {
   // True if "Generate hero at main town" is set, false otherwise.
   Bool generate_hero {};
   // Type of the player's main town.
+  // 0xFF is a special value that means Random.
   TownType town_type;
   // X-coordinate of the main town.
   std::uint8_t x;
@@ -62,11 +102,7 @@ struct PlayerSpecs
   Bool can_be_computer {};
   PlayerBehavior behavior {};
   Bool customized_alignments {};
-  // (bitfield: Castle, Rampart, Tower, Inferno, Necropolis, Dungeon, Stronghold, Fortress; Complete: 8 Conflux)
-  // TODO: replace with BitSet.
-  std::uint8_t town_types {};
-  // Bitfield with 1 LSB bit.
-  std::uint8_t town_conflux {};
+  AllowedAlignments allowed_alignments;
   // True if the player's alignment is random, false otherwise.
   // If true, implies that all town types are enabled.
   Bool random_town {};

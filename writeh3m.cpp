@@ -206,8 +206,7 @@ namespace h3m
         writeData(stream, value.can_be_computer);
         writeData(stream, value.behavior);
         writeData(stream, value.customized_alignments);
-        writeData(stream, value.town_types);
-        writeData(stream, value.town_conflux);
+        writeData(stream, value.allowed_alignments.town_types);
         writeData(stream, value.random_town);
         writeData(stream, value.main_town.has_value());
         if (value.main_town.has_value())

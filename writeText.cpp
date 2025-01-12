@@ -316,8 +316,7 @@ namespace h3m
         writeNamedField(stream, "can_be_computer", value.can_be_computer, num_spaces);
         writeNamedField(stream, "behavior", value.behavior, num_spaces);
         writeNamedField(stream, "customized_alignments", value.customized_alignments, num_spaces);
-        writeNamedField(stream, "town_types", value.town_types, num_spaces);
-        writeNamedField(stream, "town_conflux", value.town_conflux, num_spaces);
+        writeNamedField(stream, "allowed_alignments", value.allowed_alignments.town_types, num_spaces);
         writeNamedField(stream, "random_town", value.random_town, num_spaces);
         if (value.main_town)
         {
