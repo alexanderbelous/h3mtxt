@@ -215,7 +215,12 @@ namespace h3m
           writeData(stream, *value.main_town);
         }
         writeData(stream, value.starting_hero);
-        writeData(stream, value.additional_info);
+        // TODO: AdditionalPlayerInfo seems to be missing if !can_be_human && !can_be_computer.
+        // This is not well-documented; the actual condition might be more complicated.
+        if (value.can_be_human || value.can_be_computer)
+        {
+          writeData(stream, value.additional_info);
+        }
       }
     };
 
@@ -492,15 +497,121 @@ namespace h3m
       }
     };
 
+    // Full specialization for HeroSettings::SecondarySkill.
+    template<>
+    class H3MWriter<HeroSettings::SecondarySkill>
+    {
+    public:
+      void operator()(std::ostream& stream, const HeroSettings::SecondarySkill& secondary_skill) const
+      {
+        writeData(stream, secondary_skill.type);
+        writeData(stream, secondary_skill.level);
+      }
+    };
+
+    // Full specialization for HeroArtifacts.
+    template<>
+    class H3MWriter<HeroArtifacts>
+    {
+    public:
+      void operator()(std::ostream& stream, const HeroArtifacts& artifacts) const
+      {
+        writeData(stream, artifacts.headwear);
+        writeData(stream, artifacts.shoulders);
+        writeData(stream, artifacts.neck);
+        writeData(stream, artifacts.right_hand);
+        writeData(stream, artifacts.left_hand);
+        writeData(stream, artifacts.torso);
+        writeData(stream, artifacts.right_ring);
+        writeData(stream, artifacts.left_ring);
+        writeData(stream, artifacts.feet);
+        writeData(stream, artifacts.misc1);
+        writeData(stream, artifacts.misc2);
+        writeData(stream, artifacts.misc3);
+        writeData(stream, artifacts.misc4);
+        writeData(stream, artifacts.device1);
+        writeData(stream, artifacts.device2);
+        writeData(stream, artifacts.device3);
+        writeData(stream, artifacts.device4);
+        writeData(stream, artifacts.spellbook);
+        writeData(stream, artifacts.misc5);
+        if (artifacts.backpack.size() > std::numeric_limits<std::uint16_t>::max())
+        {
+          throw std::runtime_error("Too many elements in HeroArtifacts.backpack.");
+        }
+        writeData(stream, static_cast<std::uint16_t>(artifacts.backpack.size()));
+        for (std::uint16_t artifact : artifacts.backpack)
+        {
+          writeData(stream, artifact);
+        }
+      }
+    };
+
+    // Full specialization for HeroSettings::PrimarySkills.
+    template<>
+    class H3MWriter<HeroSettings::PrimarySkills>
+    {
+    public:
+      void operator()(std::ostream& stream, const HeroSettings::PrimarySkills& primary_skills) const
+      {
+        writeData(stream, primary_skills.attack);
+        writeData(stream, primary_skills.defense);
+        writeData(stream, primary_skills.spell_power);
+        writeData(stream, primary_skills.knowledge);
+      }
+    };
+
     // Full specialization for HeroSettings.
     template<>
     class H3MWriter<HeroSettings>
     {
     public:
-      void operator()(std::ostream& stream, const HeroSettings& value) const
+      void operator()(std::ostream& stream, const HeroSettings& settings) const
       {
-        // TODO: implement.
-        throw std::logic_error("NotImplemented.");
+        // Write experience.
+        writeData(stream, settings.experience.has_value());
+        if (settings.experience)
+        {
+          writeData(stream, *settings.experience);
+        }
+        // Write secondary skills.
+        writeData(stream, settings.secondary_skills.has_value());
+        if (settings.secondary_skills)
+        {
+          const std::vector<HeroSettings::SecondarySkill>& secondary_skills = *settings.secondary_skills;
+          if (secondary_skills.size() > std::numeric_limits<std::uint32_t>::max())
+          {
+            throw std::runtime_error("Too many elements in HeroSettings.secondary_skills.");
+          }
+          writeData(stream, static_cast<std::uint32_t>(secondary_skills.size()));
+          for (const HeroSettings::SecondarySkill& secondary_skill : secondary_skills)
+          {
+            writeData(stream, secondary_skill);
+          }
+        }
+        // Write artifacts.
+        writeData(stream, settings.artifacts.has_value());
+        if (settings.artifacts)
+        {
+          writeData(stream, *settings.artifacts);
+        }
+        // Write biography.
+        writeData(stream, settings.biography.has_value());
+        if (settings.biography)
+        {
+          writeData(stream, *settings.biography);
+        }
+        writeData(stream, settings.gender);
+        writeData(stream, settings.spells.has_value());
+        if (settings.spells)
+        {
+          writeData(stream, *settings.spells);
+        }
+        writeData(stream, settings.primary_skills.has_value());
+        if (settings.primary_skills)
+        {
+          writeData(stream, *settings.primary_skills);
+        }
       }
     };
 

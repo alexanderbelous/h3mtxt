@@ -73,6 +73,8 @@ struct PlayerSpecs
   // Info about the main town, std::nullopt if the player doesn't have a main town.
   std::optional<MainTown> main_town;
   StartingHero starting_hero;
+  // TODO: AdditionalPlayerInfo seems to be missing if !can_be_human && !can_be_computer.
+  // This is not well-documented; the actual condition might be more complicated.
   AdditionalPlayerInfo additional_info;
 };
 

@@ -113,6 +113,8 @@ int main(int argc, char** argv)
     const h3m::Map map = h3m::parseh3m(stream);
     stream.close();
     h3m::writeText(std::cout, map);
+    std::ofstream out_stream("no_objects_or_events.h3m", std::ios_base::out | std::ios_base::binary);
+    h3m::writeh3m(out_stream, map);
 
     //{
     //  const fs::path test_map_path("test_map.h3m");
