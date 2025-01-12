@@ -35,6 +35,9 @@ namespace h3m
     template<class T, std::size_t N>
     struct IsH3mStruct<std::array<T, N>> : std::false_type {};
 
+    template<class Key, class Value, class Cmp, class Alloc>
+    struct IsH3mStruct<std::map<Key, Value, Cmp, Alloc>> : std::false_type {};
+
     template<std::size_t NumBytes>
     struct IsH3mStruct<BitSet<NumBytes>> : std::false_type {};
 
@@ -154,6 +157,37 @@ namespace h3m
       void operator()(std::ostream& stream, const std::array<T, N>& value, std::size_t num_spaces) const
       {
         writeSpan<T>(stream, value, num_spaces);
+      }
+    };
+
+    // Partial specialization for std::map.
+    template<class Key, class Value, class Cmp, class Alloc>
+    class Writer<std::map<Key, Value, Cmp, Alloc>>
+    {
+    public:
+      void operator()(std::ostream& stream, const std::map<Key, Value, Cmp, Alloc>& value, std::size_t num_spaces) const
+      {
+        if (value.empty())
+        {
+          stream << "[]";
+          return;
+        }
+        const std::string whitespace(num_spaces + 2, ' ');
+        const std::size_t new_indent = num_spaces + 4;
+        stream << "[\n";
+        for (auto iter = value.begin(); iter != value.end(); ++iter)
+        {
+          stream << whitespace << "{\n";
+          writeNamedField(stream, "key", iter->first, new_indent);
+          writeNamedField(stream, "value", iter->second, new_indent, false);
+          stream << '\n' << whitespace << "}";
+          if (std::next(iter) != value.end())
+          {
+            stream << ',';
+          }
+          stream << '\n';
+        }
+        stream << std::string(num_spaces, ' ') << "]";
       }
     };
 
@@ -438,6 +472,99 @@ namespace h3m
       }
     };
 
+    // Full specialization for HeroSettings::SecondarySkill.
+    template<>
+    class Writer<HeroSettings::SecondarySkill>
+    {
+    public:
+      void operator()(std::ostream& stream, const HeroSettings::SecondarySkill& value, std::size_t num_spaces) const
+      {
+        writeNamedField(stream, "type", value.type, num_spaces);
+        writeNamedField(stream, "level", value.level, num_spaces, false);
+      }
+    };
+
+    // Full specialization for HeroArtifacts.
+    template<>
+    class Writer<HeroArtifacts>
+    {
+    public:
+      void operator()(std::ostream& stream, const HeroArtifacts& value, std::size_t num_spaces) const
+      {
+        writeNamedField(stream, "headwear", value.headwear, num_spaces);
+        writeNamedField(stream, "shoulders", value.shoulders, num_spaces);
+        writeNamedField(stream, "neck", value.neck, num_spaces);
+        writeNamedField(stream, "right_hand", value.right_hand, num_spaces);
+        writeNamedField(stream, "left_hand", value.left_hand, num_spaces);
+        writeNamedField(stream, "torso", value.torso, num_spaces);
+        writeNamedField(stream, "right_ring", value.right_ring, num_spaces);
+        writeNamedField(stream, "left_ring", value.left_ring, num_spaces);
+        writeNamedField(stream, "feet", value.feet, num_spaces);
+        writeNamedField(stream, "misc1", value.misc1, num_spaces);
+        writeNamedField(stream, "misc2", value.misc2, num_spaces);
+        writeNamedField(stream, "misc3", value.misc3, num_spaces);
+        writeNamedField(stream, "misc4", value.misc4, num_spaces);
+        writeNamedField(stream, "device1", value.device1, num_spaces);
+        writeNamedField(stream, "device2", value.device2, num_spaces);
+        writeNamedField(stream, "device3", value.device3, num_spaces);
+        writeNamedField(stream, "device4", value.device4, num_spaces);
+        writeNamedField(stream, "spellbook", value.spellbook, num_spaces);
+        writeNamedField(stream, "misc5", value.misc5, num_spaces);
+        writeNamedField(stream, "backpack", value.backpack, num_spaces, false);
+      }
+    };
+
+    // Full specialization for HeroSettings::PrimarySkills.
+    template<>
+    class Writer<HeroSettings::PrimarySkills>
+    {
+    public:
+      void operator()(std::ostream& stream, const HeroSettings::PrimarySkills& value, std::size_t num_spaces) const
+      {
+        writeNamedField(stream, "attack", value.attack, num_spaces);
+        writeNamedField(stream, "defense", value.defense, num_spaces);
+        writeNamedField(stream, "spell_power", value.spell_power, num_spaces);
+        writeNamedField(stream, "knowledge", value.knowledge, num_spaces, false);
+      }
+    };
+
+    // Full specialization for HeroSettings.
+    template<>
+    class Writer<HeroSettings>
+    {
+    public:
+      void operator()(std::ostream& stream, const HeroSettings& value, std::size_t num_spaces) const
+      {
+        if (value.experience)
+        {
+          writeNamedField(stream, "experience", *value.experience, num_spaces);
+        }
+        if (value.secondary_skills)
+        {
+          writeNamedField(stream, "secondary_skills", *value.secondary_skills, num_spaces);
+        }
+        if (value.artifacts)
+        {
+          writeNamedField(stream, "artifacts", *value.artifacts, num_spaces);
+        }
+        if (value.biography)
+        {
+          writeNamedField(stream, "biography", *value.biography, num_spaces);
+        }
+        const bool has_spells_or_primary_skills = value.spells.has_value() || value.primary_skills.has_value();
+        writeNamedField(stream, "gender", value.gender, num_spaces, has_spells_or_primary_skills);
+        if (value.spells)
+        {
+          const bool has_primary_skills = value.primary_skills.has_value();
+          writeNamedField(stream, "spells", *value.spells, num_spaces, has_primary_skills);
+        }
+        if (value.primary_skills)
+        {
+          writeNamedField(stream, "primary_skills", *value.primary_skills, num_spaces, false);
+        }
+      }
+    };
+
     // Full specialization for MapAdditionalInfo.
     template<>
     class Writer<MapAdditionalInfo>
@@ -458,8 +585,8 @@ namespace h3m
         writeNamedField(stream, "artifacts_nonavailability", value.artifacts_nonavailability, num_spaces);
         writeNamedField(stream, "spells_nonavailability", value.spells_nonavailability, num_spaces);
         writeNamedField(stream, "skills_nonavailability", value.skills_nonavailability, num_spaces);
-        writeNamedField(stream, "rumors", value.rumors, num_spaces, false);
-        // TODO: write artifacts.
+        writeNamedField(stream, "rumors", value.rumors, num_spaces);
+        writeNamedField(stream, "heroes_settings", value.heroes_settings.settings(), num_spaces, false);
       }
     };
 

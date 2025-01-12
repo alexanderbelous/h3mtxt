@@ -66,6 +66,8 @@ public:
 
   inline void erase(HeroType hero);
 
+  inline const std::map<HeroType, HeroSettings>& settings() const noexcept;
+
 private:
   std::map<HeroType, HeroSettings> settings_;
 };
@@ -88,6 +90,11 @@ const HeroSettings& HeroesSettings::operator[](HeroType hero) const
 void HeroesSettings::erase(HeroType hero)
 {
   settings_.erase(hero);
+}
+
+const std::map<HeroType, HeroSettings>& HeroesSettings::settings() const noexcept
+{
+  return settings_;
 }
 
 struct MapAdditionalInfo
