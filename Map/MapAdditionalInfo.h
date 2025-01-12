@@ -9,6 +9,7 @@
 #include <array>
 #include <cstdint>
 #include <optional>
+#include <stdexcept>
 #include <string>
 #include <vector>
 
@@ -79,6 +80,10 @@ bool HeroesSettings::hasSettings(HeroType hero) const
 
 HeroSettings& HeroesSettings::operator[](HeroType hero)
 {
+  if (static_cast<std::underlying_type_t<HeroType>>(hero) >= kNumHeroes)
+  {
+    throw std::runtime_error("HeroesSettings::operator[]: invalid hero.");
+  }
   return settings_[hero];
 }
 

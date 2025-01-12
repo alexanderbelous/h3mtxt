@@ -363,7 +363,6 @@ MapAdditionalInfo readMapAdditionalInfo(std::istream& stream)
     additional_info.rumors.push_back(readRumor(stream));
   }
   // Read heroes
-  constexpr std::uint32_t kNumHeroes = 156;
   for (std::uint32_t i = 0; i < kNumHeroes; ++i)
   {
     if (const Bool has_settings = readBool(stream))
@@ -415,8 +414,8 @@ Map parseh3m(std::istream& stream)
     map.players[i] = readPlayerSpecs(stream);
   }
   map.additional_info = readMapAdditionalInfo(stream);
-  const std::uint8_t num_levels = map.basic_info.has_two_levels ? 2 : 1;
-  const std::size_t num_tiles = num_levels * map.basic_info.map_size * map.basic_info.map_size;
+  // Read tiles.
+  const std::size_t num_tiles = countTiles(map.basic_info);
   map.tiles.reserve(num_tiles);
   for (std::size_t i = 0; i != num_tiles; ++i)
   {

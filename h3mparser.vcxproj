@@ -153,6 +153,7 @@
   <ItemGroup>
     <ClCompile Include="h3mparser.cpp" />
     <ClCompile Include="parseh3m.cpp" />
+    <ClCompile Include="writeh3m.cpp" />
     <ClCompile Include="writeText.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -186,6 +187,7 @@
     <ClInclude Include="Map\PlayerSpecs.h" />
     <ClInclude Include="Map\Tile.h" />
     <ClInclude Include="Map\VictoryCondition.h" />
+    <ClInclude Include="writeh3m.h" />
     <ClInclude Include="writeText.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

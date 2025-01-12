@@ -30,6 +30,9 @@
     <ClCompile Include="writeText.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="writeh3m.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Map\Constants\TerrainType.h">
@@ -124,6 +127,9 @@
     </ClInclude>
     <ClInclude Include="Map\Constants\ObjectGroup.h">
       <Filter>Header Files\Map\Constants</Filter>
+    </ClInclude>
+    <ClInclude Include="writeh3m.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

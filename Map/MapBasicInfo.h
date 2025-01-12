@@ -27,4 +27,20 @@ struct MapBasicInfo
   std::uint8_t max_hero_level {};
 };
 
+// Computes the number of levels on the map.
+// \param basic_info - input map.
+// \return the number of levels (i.e. 1 if there's no subterranean level, 2 otherwise).
+constexpr std::uint8_t countLevels(const MapBasicInfo& basic_info) noexcept
+{
+  return basic_info.has_two_levels ? 2 : 1;
+}
+
+// Computes the total number of tiles on the map.
+// \param basic_info - input map.
+// \return the total number of tiles (including the tiles on the subterranean level, if present).
+constexpr std::size_t countTiles(const MapBasicInfo& basic_info) noexcept
+{
+  return static_cast<std::size_t>(countLevels(basic_info)) * basic_info.map_size * basic_info.map_size;
+}
+
 }

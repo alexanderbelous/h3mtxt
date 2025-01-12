@@ -161,7 +161,7 @@ constexpr VictoryConditionType VictoryCondition::type() const noexcept
 template<VictoryConditionType T>
 constexpr const VictoryConditionDetails<T>* VictoryCondition::details() const noexcept
 {
-  return std::get_if<VictoryConditionType<T>>(details_);
+  return std::get_if<VictoryConditionDetails<T>>(&details_);
 }
 
 }
