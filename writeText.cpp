@@ -631,14 +631,39 @@ namespace h3m
     class Writer<Map>
     {
     public:
-      void operator()(std::ostream& stream, const Map& value, std::size_t num_spaces) const
+      void operator()(std::ostream& stream, const Map& map, std::size_t num_spaces) const
       {
-        writeNamedField(stream, "format", value.format, num_spaces);
-        writeNamedField(stream, "basic_info", value.basic_info, num_spaces);
-        writeNamedField(stream, "players", value.players, num_spaces);
-        writeNamedField(stream, "additional_info", value.additional_info, num_spaces);
-        writeNamedField(stream, "tiles", value.tiles, num_spaces);
-        writeNamedField(stream, "objects_attributes", value.objects_attributes, num_spaces, false);
+        writeNamedField(stream, "format", map.format, num_spaces);
+        writeNamedField(stream, "basic_info", map.basic_info, num_spaces);
+        writeNamedField(stream, "players", map.players, num_spaces);
+        writeNamedField(stream, "additional_info", map.additional_info, num_spaces);
+        // Write tiles
+        // Not using writeNamedField() here because I want to add comments.
+        {
+          const std::size_t map_size = map.basic_info.map_size;
+          const std::size_t map_area = map.basic_info.map_size * map.basic_info.map_size;
+
+          const std::string whitespace_new(num_spaces + 2, ' ');
+          const std::string_view whitespace = std::string_view(whitespace_new).substr(0, num_spaces);
+          stream << whitespace << "tiles: [\n";
+          const std::size_t num_tiles = map.tiles.size();
+          for (std::size_t i = 0; i < num_tiles; ++i)
+          {
+            const std::size_t z = i / map_area;
+            const std::size_t y = (i - z * map_area) / map_size;
+            const std::size_t x = i % map_size;
+            stream << whitespace_new << "# Tile (" << x << ", " << y << ", " << z << ")\n";
+            stream << whitespace_new;
+            writeElement(stream, map.tiles[i], num_spaces + 2);
+            if (i + 1 != num_tiles)
+            {
+              stream << ',';
+            }
+            stream << '\n';
+          }
+          stream << whitespace << "]\n";
+        }
+        writeNamedField(stream, "objects_attributes", map.objects_attributes, num_spaces, false);
       }
     };
 
