@@ -2,6 +2,7 @@
 
 #include <h3mparser/Map/Constants/Constants.h>
 #include <h3mparser/Map/Base.h>
+#include <h3mparser/Map/BitSet.h>
 
 #include <array>
 #include <bitset>
@@ -18,7 +19,7 @@ struct GlobalEvent
   std::string message;
   // Given/taken resources.
   std::array<std::int32_t, kNumResources> resources {};
-  std::bitset<kMaxPlayers> affected_players {};
+  BitSet<1> affected_players;
   Bool applies_to_human {};
   Bool applies_to_computer {};
   // 0-based day of first occurence (e.g., 0 stands for Day 1).

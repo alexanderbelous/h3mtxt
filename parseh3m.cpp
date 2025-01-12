@@ -155,6 +155,7 @@ PlayerSpecs readPlayerSpecs(std::istream& stream)
     player.main_town = readMainTown(stream);
   }
   player.starting_hero = readStartingHero(stream);
+  // TODO: apparently, sometimes it's missing.
   player.additional_info = readAdditionalPlayerInfo(stream);
   return player;
 }

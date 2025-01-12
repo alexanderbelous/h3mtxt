@@ -499,7 +499,8 @@ namespace h3m
     public:
       void operator()(std::ostream& stream, const HeroSettings& value) const
       {
-        // TODO
+        // TODO: implement.
+        throw std::logic_error("NotImplemented.");
       }
     };
 
@@ -600,6 +601,40 @@ namespace h3m
       }
     };
 
+    // Full specialization for ObjectDetails.
+    template<>
+    class H3MWriter<ObjectDetails>
+    {
+    public:
+      void operator()(std::ostream& stream, const ObjectDetails& value) const
+      {
+        // TODO: implement.
+        throw std::logic_error("NotImplemented.");
+      }
+    };
+
+    // Full specialization for GlobalEvent.
+    template<>
+    class H3MWriter<GlobalEvent>
+    {
+    public:
+      void operator()(std::ostream& stream, const GlobalEvent& global_event) const
+      {
+        writeData(stream, global_event.name);
+        writeData(stream, global_event.message);
+        for (std::int32_t amount : global_event.resources)
+        {
+          writeData(stream, amount);
+        }
+        writeData(stream, global_event.affected_players);
+        writeData(stream, global_event.applies_to_human);
+        writeData(stream, global_event.applies_to_computer);
+        writeData(stream, global_event.day_of_first_occurence);
+        writeData(stream, global_event.repeat_after_days);
+        writeData(stream, global_event.unknown);
+      }
+    };
+
     // Full specialization for Map.
     template<>
     class H3MWriter<Map>
@@ -633,6 +668,28 @@ namespace h3m
         {
           writeData(stream, object_attributes);
         }
+        // Write objects_details.
+        if (map.objects_details.size() > std::numeric_limits<std::uint32_t>::max())
+        {
+          throw std::runtime_error("Too many elements in Map.objects_details.");
+        }
+        writeData(stream, static_cast<std::uint32_t>(map.objects_details.size()));
+        for (const ObjectDetails& object_details : map.objects_details)
+        {
+          writeData(stream, object_details);
+        }
+        // Write global_events.
+        if (map.global_events.size() > std::numeric_limits<std::uint32_t>::max())
+        {
+          throw std::runtime_error("Too many elements in Map.global_events.");
+        }
+        writeData(stream, static_cast<std::uint32_t>(map.global_events.size()));
+        for (const GlobalEvent& global_event : map.global_events)
+        {
+          writeData(stream, global_event);
+        }
+        // Write padding data.
+        writeData(stream, map.padding);
       }
     };
 

@@ -8,6 +8,7 @@
 #include <h3mparser/Map/MapAdditionalInfo.h>
 #include <h3mparser/Map/MapBasicInfo.h>
 #include <h3mparser/Map/ObjectAttributes.h>
+#include <h3mparser/Map/ObjectDetails.h>
 #include <h3mparser/Map/PlayerSpecs.h>
 #include <h3mparser/Map/Tile.h>
 
@@ -36,7 +37,7 @@ struct Map
   // Object properties are split into two structures: attributes (common for all objects of the same kind)
   // and details (as many as there are objects on map).
   std::vector<ObjectAttributes> objects_attributes;
-  // TODO: add object details.
+  std::vector<ObjectDetails> objects_details;
   // Global events on this map ("Map Specifications"/"Timed Events" tab in the Editor).
   std::vector<GlobalEvent> global_events;
   // Should be 0s. Kept here for compatibility.

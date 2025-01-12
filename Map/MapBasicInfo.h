@@ -23,7 +23,7 @@ struct MapBasicInfo
   std::string description;
   // Difficulty level.
   MapDifficulty difficulty {};
-  // Maximum allowed level for all heroes.
+  // Maximum allowed level for all heroes. 0 means to limit.
   std::uint8_t max_hero_level {};
 };
 

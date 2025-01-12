@@ -131,5 +131,8 @@
     <ClInclude Include="writeh3m.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Map\ObjectDetails.h">
+      <Filter>Header Files\Map</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -183,6 +183,7 @@
     <ClInclude Include="Map\MapAdditionalInfo.h" />
     <ClInclude Include="Map\MapBasicInfo.h" />
     <ClInclude Include="Map\ObjectAttributes.h" />
+    <ClInclude Include="Map\ObjectDetails.h" />
     <ClInclude Include="parseh3m.h" />
     <ClInclude Include="Map\PlayerSpecs.h" />
     <ClInclude Include="Map\Tile.h" />
