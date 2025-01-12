@@ -1,9 +1,9 @@
 #pragma once
 
-#include <h3mparser/Constants/CreatureType.h>
-#include <h3mparser/Constants/ResourceType.h>
-#include <h3mparser/Constants/VictoryConditionType.h>
-#include <h3mparser/Base.h>
+#include <h3mparser/Map/Constants/CreatureType.h>
+#include <h3mparser/Map/Constants/ResourceType.h>
+#include <h3mparser/Map/Constants/VictoryConditionType.h>
+#include <h3mparser/Map/Base.h>
 
 #include <cstdint>
 #include <variant>

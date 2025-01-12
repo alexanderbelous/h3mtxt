@@ -1,7 +1,7 @@
 #pragma once
 
-#include <h3mparser/Constants/Constants.h>
-#include <h3mparser/Base.h>
+#include <h3mparser/Map/Constants/Constants.h>
+#include <h3mparser/Map/Base.h>
 
 #include <array>
 #include <bitset>

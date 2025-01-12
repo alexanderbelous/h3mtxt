@@ -2,15 +2,15 @@
 
 // See https://github.com/HeroWO-js/h3m2json/blob/master/h3m-The-Corpus.txt
 
-#include <h3mparser/Base.h>
-#include <h3mparser/BitSet.h>
-#include <h3mparser/Constants/Constants.h>
-#include <h3mparser/Constants/MapFormat.h>
-#include <h3mparser/GlobalEvent.h>
-#include <h3mparser/MapAdditionalInfo.h>
-#include <h3mparser/MapBasicInfo.h>
-#include <h3mparser/PlayerSpecs.h>
-#include <h3mparser/Tile.h>
+#include <h3mparser/Map/Base.h>
+#include <h3mparser/Map/BitSet.h>
+#include <h3mparser/Map/Constants/Constants.h>
+#include <h3mparser/Map/Constants/MapFormat.h>
+#include <h3mparser/Map/GlobalEvent.h>
+#include <h3mparser/Map/MapAdditionalInfo.h>
+#include <h3mparser/Map/MapBasicInfo.h>
+#include <h3mparser/Map/PlayerSpecs.h>
+#include <h3mparser/Map/Tile.h>
 
 
 #include <array>

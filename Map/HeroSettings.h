@@ -1,8 +1,8 @@
 #pragma once
 
-#include <h3mparser/BitSet.h>
-#include <h3mparser/Constants/Gender.h>
-#include <h3mparser/Constants/SecondarySkillType.h>
+#include <h3mparser/Map/BitSet.h>
+#include <h3mparser/Map/Constants/Gender.h>
+#include <h3mparser/Map/Constants/SecondarySkillType.h>
 
 #include <cstdint>
 #include <optional>

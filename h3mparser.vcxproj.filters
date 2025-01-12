@@ -13,7 +13,10 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Header Files\Constants">
+    <Filter Include="Header Files\Map">
+      <UniqueIdentifier>{d907a127-d997-4f6e-8147-0c603c22978e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Map\Constants">
       <UniqueIdentifier>{196c42e3-cc2e-466f-b0fb-455d77c0e1ab}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -29,77 +32,47 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Map.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Map\Constants\TerrainType.h">
+      <Filter>Header Files\Map\Constants</Filter>
     </ClInclude>
-    <ClInclude Include="Constants\TerrainType.h">
-      <Filter>Header Files\Constants</Filter>
+    <ClInclude Include="Map\Constants\HeroType.h">
+      <Filter>Header Files\Map\Constants</Filter>
     </ClInclude>
-    <ClInclude Include="Constants\HeroType.h">
-      <Filter>Header Files\Constants</Filter>
+    <ClInclude Include="Map\Constants\RiverType.h">
+      <Filter>Header Files\Map\Constants</Filter>
     </ClInclude>
-    <ClInclude Include="Constants\RiverType.h">
-      <Filter>Header Files\Constants</Filter>
+    <ClInclude Include="Map\Constants\RoadType.h">
+      <Filter>Header Files\Map\Constants</Filter>
     </ClInclude>
-    <ClInclude Include="Constants\RoadType.h">
-      <Filter>Header Files\Constants</Filter>
+    <ClInclude Include="Map\Constants\Constants.h">
+      <Filter>Header Files\Map\Constants</Filter>
     </ClInclude>
-    <ClInclude Include="GlobalEvent.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Map\Constants\VictoryConditionType.h">
+      <Filter>Header Files\Map\Constants</Filter>
     </ClInclude>
-    <ClInclude Include="Constants\Constants.h">
-      <Filter>Header Files\Constants</Filter>
+    <ClInclude Include="Map\Constants\LossConditionType.h">
+      <Filter>Header Files\Map\Constants</Filter>
     </ClInclude>
-    <ClInclude Include="Tile.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Constants\VictoryConditionType.h">
-      <Filter>Header Files\Constants</Filter>
-    </ClInclude>
-    <ClInclude Include="Constants\LossConditionType.h">
-      <Filter>Header Files\Constants</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerSpecs.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Constants\PlayerBehavior.h">
-      <Filter>Header Files\Constants</Filter>
-    </ClInclude>
-    <ClInclude Include="Base.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Map\Constants\PlayerBehavior.h">
+      <Filter>Header Files\Map\Constants</Filter>
     </ClInclude>
     <ClInclude Include="parseh3m.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Constants\MapFormat.h">
-      <Filter>Header Files\Constants</Filter>
+    <ClInclude Include="Map\Constants\MapFormat.h">
+      <Filter>Header Files\Map\Constants</Filter>
     </ClInclude>
-    <ClInclude Include="Constants\MapDifficulty.h">
-      <Filter>Header Files\Constants</Filter>
+    <ClInclude Include="Map\Constants\MapDifficulty.h">
+      <Filter>Header Files\Map\Constants</Filter>
     </ClInclude>
-    <ClInclude Include="VictoryCondition.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Map\Constants\TownType.h">
+      <Filter>Header Files\Map\Constants</Filter>
     </ClInclude>
-    <ClInclude Include="LossCondition.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Map\Constants\CreatureType.h">
+      <Filter>Header Files\Map\Constants</Filter>
     </ClInclude>
-    <ClInclude Include="Constants\TownType.h">
-      <Filter>Header Files\Constants</Filter>
-    </ClInclude>
-    <ClInclude Include="Constants\CreatureType.h">
-      <Filter>Header Files\Constants</Filter>
-    </ClInclude>
-    <ClInclude Include="Constants\ResourceType.h">
-      <Filter>Header Files\Constants</Filter>
-    </ClInclude>
-    <ClInclude Include="BitSet.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="MapBasicInfo.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="MapAdditionalInfo.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Map\Constants\ResourceType.h">
+      <Filter>Header Files\Map\Constants</Filter>
     </ClInclude>
     <ClInclude Include="writeText.h">
       <Filter>Header Files</Filter>
@@ -107,14 +80,44 @@
     <ClInclude Include="H3MFwd.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Constants\Gender.h">
-      <Filter>Header Files\Constants</Filter>
+    <ClInclude Include="Map\Constants\Gender.h">
+      <Filter>Header Files\Map\Constants</Filter>
     </ClInclude>
-    <ClInclude Include="Constants\SecondarySkillType.h">
-      <Filter>Header Files\Constants</Filter>
+    <ClInclude Include="Map\Constants\SecondarySkillType.h">
+      <Filter>Header Files\Map\Constants</Filter>
     </ClInclude>
-    <ClInclude Include="HeroSettings.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Map\Base.h">
+      <Filter>Header Files\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="Map\BitSet.h">
+      <Filter>Header Files\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="Map\GlobalEvent.h">
+      <Filter>Header Files\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="Map\HeroSettings.h">
+      <Filter>Header Files\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="Map\LossCondition.h">
+      <Filter>Header Files\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="Map\Map.h">
+      <Filter>Header Files\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="Map\MapAdditionalInfo.h">
+      <Filter>Header Files\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="Map\MapBasicInfo.h">
+      <Filter>Header Files\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="Map\PlayerSpecs.h">
+      <Filter>Header Files\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="Map\Tile.h">
+      <Filter>Header Files\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="Map\VictoryCondition.h">
+      <Filter>Header Files\Map</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

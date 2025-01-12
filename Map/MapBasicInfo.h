@@ -1,7 +1,7 @@
 #pragma once
 
-#include <h3mparser/Base.h>
-#include <h3mparser/Constants/MapDifficulty.h>
+#include <h3mparser/Map/Base.h>
+#include <h3mparser/Map/Constants/MapDifficulty.h>
 
 #include <cstdint>
 #include <string>

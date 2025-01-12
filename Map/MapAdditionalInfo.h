@@ -1,10 +1,10 @@
 #pragma once
 
-#include <h3mparser/BitSet.h>
-#include <h3mparser/Constants/HeroType.h>
-#include <h3mparser/HeroSettings.h>
-#include <h3mparser/LossCondition.h>
-#include <h3mparser/VictoryCondition.h>
+#include <h3mparser/Map/BitSet.h>
+#include <h3mparser/Map/Constants/HeroType.h>
+#include <h3mparser/Map/HeroSettings.h>
+#include <h3mparser/Map/LossCondition.h>
+#include <h3mparser/Map/VictoryCondition.h>
 
 #include <array>
 #include <cstdint>

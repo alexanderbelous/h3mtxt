@@ -1,4 +1,4 @@
-#include <h3mparser/Map.h>
+#include <h3mparser/Map/Map.h>
 #include <h3mparser/writeText.h>
 
 #include <array>

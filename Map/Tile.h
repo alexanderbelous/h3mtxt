@@ -1,8 +1,8 @@
 #pragma once
 
-#include <h3mparser/Constants/TerrainType.h>
-#include <h3mparser/Constants/RoadType.h>
-#include <h3mparser/Constants/RiverType.h>
+#include <h3mparser/Map/Constants/TerrainType.h>
+#include <h3mparser/Map/Constants/RoadType.h>
+#include <h3mparser/Map/Constants/RiverType.h>
 
 #include <cstdint>
 
