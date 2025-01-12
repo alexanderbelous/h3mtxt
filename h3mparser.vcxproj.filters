@@ -119,5 +119,11 @@
     <ClInclude Include="Map\VictoryCondition.h">
       <Filter>Header Files\Map</Filter>
     </ClInclude>
+    <ClInclude Include="Map\ObjectAttributes.h">
+      <Filter>Header Files\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="Map\Constants\ObjectGroup.h">
+      <Filter>Header Files\Map\Constants</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

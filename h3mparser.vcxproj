@@ -165,6 +165,7 @@
     <ClInclude Include="Map\Constants\LossConditionType.h" />
     <ClInclude Include="Map\Constants\MapDifficulty.h" />
     <ClInclude Include="Map\Constants\MapFormat.h" />
+    <ClInclude Include="Map\Constants\ObjectGroup.h" />
     <ClInclude Include="Map\Constants\PlayerBehavior.h" />
     <ClInclude Include="Map\Constants\ResourceType.h" />
     <ClInclude Include="Map\Constants\RiverType.h" />
@@ -180,6 +181,7 @@
     <ClInclude Include="Map\Map.h" />
     <ClInclude Include="Map\MapAdditionalInfo.h" />
     <ClInclude Include="Map\MapBasicInfo.h" />
+    <ClInclude Include="Map\ObjectAttributes.h" />
     <ClInclude Include="parseh3m.h" />
     <ClInclude Include="Map\PlayerSpecs.h" />
     <ClInclude Include="Map\Tile.h" />

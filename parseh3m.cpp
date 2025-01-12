@@ -387,6 +387,22 @@ Tile readTile(std::istream& stream)
   return tile;
 }
 
+ObjectAttributes readObjectAttributes(std::istream& stream)
+{
+  ObjectAttributes result;
+  result.def = readString(stream);
+  result.passability = readByteArray<6>(stream);
+  result.actionability = readByteArray<6>(stream);
+  result.allowed_landscapes = readUint<std::uint16_t>(stream);
+  result.landscape_group = readUint<std::uint16_t>(stream);
+  result.object_class = readUint<std::uint32_t>(stream);
+  result.object_number = readUint<std::uint32_t>(stream);
+  result.object_group = readEnum<ObjectGroup>(stream);
+  result.is_ground = readBool(stream);
+  result.unknown = readByteArray<16>(stream);
+  return result;
+}
+
 }
 
 Map parseh3m(std::istream& stream)
@@ -405,6 +421,13 @@ Map parseh3m(std::istream& stream)
   for (std::size_t i = 0; i != num_tiles; ++i)
   {
     map.tiles.push_back(readTile(stream));
+  }
+  // Read objects' attributes.
+  const std::uint32_t num_object_kinds = readUint<std::uint32_t>(stream);
+  map.objects_attributes.reserve(num_object_kinds);
+  for (std::uint32_t i = 0; i < num_object_kinds; ++i)
+  {
+    map.objects_attributes.push_back(readObjectAttributes(stream));
   }
   return map;
 }

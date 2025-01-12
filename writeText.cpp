@@ -480,6 +480,26 @@ namespace h3m
       }
     };
 
+    // Full specialization for ObjectAttributes.
+    template<>
+    class Writer<ObjectAttributes>
+    {
+    public:
+      void operator()(std::ostream& stream, const ObjectAttributes& value, std::size_t num_spaces) const
+      {
+        writeNamedField(stream, "def", value.def, num_spaces);
+        writeNamedField(stream, "passability", value.passability, num_spaces);
+        writeNamedField(stream, "actionability", value.actionability, num_spaces);
+        writeNamedField(stream, "allowed_landscapes", value.allowed_landscapes, num_spaces);
+        writeNamedField(stream, "landscape_group", value.landscape_group, num_spaces);
+        writeNamedField(stream, "object_class", value.object_class, num_spaces);
+        writeNamedField(stream, "object_number", value.object_number, num_spaces);
+        writeNamedField(stream, "object_group", value.object_group, num_spaces);
+        writeNamedField(stream, "is_ground", value.is_ground, num_spaces);
+        writeNamedField(stream, "unknown", value.unknown, num_spaces, false);
+      }
+    };
+
     // Full specialization for Map.
     template<>
     class Writer<Map>
@@ -491,7 +511,8 @@ namespace h3m
         writeNamedField(stream, "basic_info", value.basic_info, num_spaces);
         writeNamedField(stream, "players", value.players, num_spaces);
         writeNamedField(stream, "additional_info", value.additional_info, num_spaces);
-        writeNamedField(stream, "tiles", value.tiles, num_spaces, false);
+        writeNamedField(stream, "tiles", value.tiles, num_spaces);
+        writeNamedField(stream, "objects_attributes", value.objects_attributes, num_spaces, false);
       }
     };
 
