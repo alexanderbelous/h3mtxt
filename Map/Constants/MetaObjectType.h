@@ -10,6 +10,13 @@ namespace h3m
   // ObjectDetails in H3M are different depending on ObjectAttributes.object_class.
   // However, a lot of object classes have the same details, so another layer of abstraction
   // is added here - an enum which groups object classes that have the same details.
+  //
+  // AFAIU, there's no explicit concept of MetaObjectType in the H3M format - this is just
+  // added here to simplify the representation of ObjectDetails. Other H3M parsers may
+  // define this enum differently in order to disambiguate between objects that have the
+  // same "ObjectDetails" but serve different purposes. Here, however, we only care about
+  // the stored data, so all objects that have the same "details" are grouped into the same
+  // "MetaObjectType".
   enum class MetaObjectType
   {
     ABANDONED_MINE_ABSOD,
