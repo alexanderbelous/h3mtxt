@@ -396,7 +396,7 @@ ObjectAttributes readObjectAttributes(std::istream& stream)
   result.actionability = readByteArray<6>(stream);
   result.allowed_landscapes = readUint<std::uint16_t>(stream);
   result.landscape_group = readUint<std::uint16_t>(stream);
-  result.object_class = readUint<std::uint32_t>(stream);
+  result.object_class = readEnum<ObjectClass>(stream);
   result.object_number = readUint<std::uint32_t>(stream);
   result.object_group = readEnum<ObjectGroup>(stream);
   result.is_ground = readBool(stream);

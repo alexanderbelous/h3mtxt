@@ -134,5 +134,11 @@
     <ClInclude Include="Map\ObjectDetails.h">
       <Filter>Header Files\Map</Filter>
     </ClInclude>
+    <ClInclude Include="Map\Constants\MetaObjectType.h">
+      <Filter>Header Files\Map\Constants</Filter>
+    </ClInclude>
+    <ClInclude Include="Map\Constants\ObjectClass.h">
+      <Filter>Header Files\Map\Constants</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

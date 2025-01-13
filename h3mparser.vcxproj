@@ -166,6 +166,8 @@
     <ClInclude Include="Map\Constants\LossConditionType.h" />
     <ClInclude Include="Map\Constants\MapDifficulty.h" />
     <ClInclude Include="Map\Constants\MapFormat.h" />
+    <ClInclude Include="Map\Constants\MetaObjectType.h" />
+    <ClInclude Include="Map\Constants\ObjectClass.h" />
     <ClInclude Include="Map\Constants\ObjectGroup.h" />
     <ClInclude Include="Map\Constants\PlayerBehavior.h" />
     <ClInclude Include="Map\Constants\ResourceType.h" />

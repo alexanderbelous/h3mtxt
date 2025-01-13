@@ -1,6 +1,7 @@
 #pragma once
 
 #include <h3mparser/Map/Base.h>
+#include <h3mparser/Map/Constants/ObjectClass.h>
 #include <h3mparser/Map/Constants/ObjectGroup.h>
 
 #include <array>
@@ -19,7 +20,7 @@ namespace h3m
     std::uint16_t allowed_landscapes {};
     // Bitfield.
     std::uint16_t landscape_group {};
-    std::uint32_t object_class {};
+    ObjectClass object_class {};
     std::uint32_t object_number {};
     ObjectGroup object_group {};
     Bool is_ground {};
