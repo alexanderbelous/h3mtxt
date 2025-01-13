@@ -96,7 +96,11 @@ namespace
         }
       }
     };
+    return map;
+  }
 
+  void fillWithWaterTiles(h3m::Map& map)
+  {
     constexpr std::uint8_t kWaterSpriteMin = 21;
     constexpr std::uint8_t kWaterSpriteMax = 32;
     constexpr std::uint8_t kNumWaterSprites = kWaterSpriteMax - kWaterSpriteMin + 1;
@@ -112,6 +116,11 @@ namespace
       tile.terrain_sprite = distrib(gen);
       tile.mirroring = 0;
     }
+  }
+
+  void drawFakeIslands(h3m::Map& map)
+  {
+    const std::uint32_t kMapSize = map.basic_info.map_size;
 
     // Fake island - it's actually water tiles.
     map.tiles[9 * kMapSize + 10].terrain_sprite = 19;
@@ -158,7 +167,19 @@ namespace
       map.tiles[y * kMapSize + 11].mirroring = 0;
     }
 
-    return map;
+    // Fake diagonal line of land.
+    map.tiles[20 * kMapSize + 20].terrain_sprite = 17;
+    map.tiles[20 * kMapSize + 20].mirroring = 3;
+    map.tiles[20 * kMapSize + 21].terrain_sprite = 17;
+    map.tiles[20 * kMapSize + 21].mirroring = 0;
+    map.tiles[20 * kMapSize + 22].terrain_sprite = 15;
+    map.tiles[20 * kMapSize + 22].mirroring = 3;
+    map.tiles[19 * kMapSize + 20].terrain_sprite = 19;
+    map.tiles[19 * kMapSize + 20].mirroring = 0;
+    map.tiles[19 * kMapSize + 21].terrain_sprite = 17;
+    map.tiles[19 * kMapSize + 21].mirroring = 3;
+    map.tiles[19 * kMapSize + 22].terrain_sprite = 17;
+    map.tiles[19 * kMapSize + 22].mirroring = 0;
   }
 }
 
@@ -179,14 +200,16 @@ int main(int argc, char** argv)
     std::ofstream out_stream("no_objects_or_events.h3m", std::ios_base::out | std::ios_base::binary);
     h3m::writeh3m(out_stream, map);
 
-    //{
-    //  const fs::path test_map_path("test_map.h3m");
-    //  std::ofstream out_stream(test_map_path, std::ios_base::out | std::ios_base::binary);
-    //  const h3m::Map test_map = generateTestMap();
-    //  std::cout << "Generated a test map." << std::endl;
-    //  h3m::writeh3m(out_stream, test_map);
-    //  std::cout << "Wrote the generated map to test_map.h3m." << std::endl;
-    //}
+    {
+      const fs::path test_map_path("test_map.h3m");
+      std::ofstream out_stream(test_map_path, std::ios_base::out | std::ios_base::binary);
+      h3m::Map test_map = generateTestMap();
+      fillWithWaterTiles(test_map);
+      drawFakeIslands(test_map);
+      std::cout << "Generated a test map." << std::endl;
+      h3m::writeh3m(out_stream, test_map);
+      std::cout << "Wrote the generated map to test_map.h3m." << std::endl;
+    }
   }
   catch (const std::exception& error)
   {
