@@ -14,8 +14,8 @@ namespace h3m
   {
     ABANDONED_MINE_ABSOD,
     ARTIFACT,
-    ARTIFACT_AB,
-    ARTIFACT_SOD,
+    ARTIFACT_AB,  // TODO: probably should be removed.
+    ARTIFACT_SOD, // TODO: probably should be removed.
     DWELLING,
     DWELLING_ABSOD,
     EVENT,
