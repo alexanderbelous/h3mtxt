@@ -20,6 +20,7 @@
 namespace h3m
 {
 
+// Represents a *.h3m map.
 struct Map
 {
   // Format of the map ("Map Specifications"/"Map version" in the Editor).

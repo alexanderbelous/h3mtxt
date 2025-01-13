@@ -118,45 +118,132 @@ namespace
     }
   }
 
+  // Access the specified tile.
+  // \param map - input map.
+  // \param x - X coordinate of the tile.
+  // \param y - Y coordinate of the tile.
+  // \return the tile (x, y) or nullptr if x >= map_size or y >= map_size.
+  h3m::Tile* safeGetTile(h3m::Map& map, std::uint32_t x, std::uint32_t y)
+  {
+    const std::uint32_t map_size = map.basic_info.map_size;
+    if (x >= map_size || y >= map_size)
+    {
+      return nullptr;
+    }
+    return &map.tiles[y * map_size + x];
+  }
+
+  // Draws a "fake" island at the specified location.
+  //
+  // A "fake" island is a 4x4 region with specific Water tiles, which
+  // look like a diamond-shaped spot of land, but actually it's all water.
+  // \param map - map to modify.
+  // \param x - X coordinate of the top left corner of the region.
+  // \param y - Y coordinate of the top left corner of the region.
+  void drawFakeIsland(h3m::Map& map, std::uint32_t x, std::uint32_t y)
+  {
+    if (h3m::Tile* tile = safeGetTile(map, x, y + 1))
+    {
+      tile->terrain_sprite = 19;
+      tile->mirroring = 0;
+    }
+    if (h3m::Tile* tile = safeGetTile(map, x, y + 2))
+    {
+      tile->terrain_sprite = 13;
+      tile->mirroring = 2;
+    }
+    if (h3m::Tile* tile = safeGetTile(map, x + 1, y))
+    {
+      tile->terrain_sprite = 19;
+      tile->mirroring = 0;
+    }
+    if (h3m::Tile* tile = safeGetTile(map, x + 1, y + 1))
+    {
+      tile->terrain_sprite = 17; // 16 also works
+      tile->mirroring = 3;
+    }
+    if (h3m::Tile* tile = safeGetTile(map, x + 1, y + 2))
+    {
+      tile->terrain_sprite = 17;
+      tile->mirroring = 1;
+    }
+    if (h3m::Tile* tile = safeGetTile(map, x + 1, y + 3))
+    {
+      tile->terrain_sprite = 13;
+      tile->mirroring = 2;
+    }
+    if (h3m::Tile* tile = safeGetTile(map, x + 2, y))
+    {
+      tile->terrain_sprite = 13;
+      tile->mirroring = 1;
+    }
+    if (h3m::Tile* tile = safeGetTile(map, x + 2, y + 1))
+    {
+      tile->terrain_sprite = 17;
+      tile->mirroring = 2;
+    }
+    if (h3m::Tile* tile = safeGetTile(map, x + 2, y + 2))
+    {
+      tile->terrain_sprite = 17;
+      tile->mirroring = 0;
+    }
+    if (h3m::Tile* tile = safeGetTile(map, x + 2, y + 3))
+    {
+      tile->terrain_sprite = 15;
+      tile->mirroring = 3;
+    }
+    if (h3m::Tile* tile = safeGetTile(map, x + 3, y + 1))
+    {
+      tile->terrain_sprite = 13;
+      tile->mirroring = 1;
+    }
+    if (h3m::Tile* tile = safeGetTile(map, x + 3, y + 2))
+    {
+      tile->terrain_sprite = 15;
+      tile->mirroring = 3;
+    }
+  }
+
+  // Draws a "fake" mini-island at the specified location.
+  //
+  // A "fake" mini-island is a 2x2 region with specific Water tiles, which
+  // look as if there's a small spot of land in the center, but actually it's all water.
+  // \param map - map to modify.
+  // \param x - X coordinate of the top left corner of the mini-island.
+  // \param y - Y coordinate of the top left corner of the mini-island.
+  void drawFakeMiniIsland(h3m::Map& map, std::uint32_t x, std::uint32_t y)
+  {
+    if (h3m::Tile* tile = safeGetTile(map, x, y))
+    {
+      tile->terrain_sprite = 19;
+      tile->mirroring = 0;
+    }
+    if (h3m::Tile* tile = safeGetTile(map, x + 1, y))
+    {
+      tile->terrain_sprite = 13;
+      tile->mirroring = 1;
+    }
+    if (h3m::Tile* tile = safeGetTile(map, x, y + 1))
+    {
+      tile->terrain_sprite = 13;
+      tile->mirroring = 2;
+    }
+    if (h3m::Tile* tile = safeGetTile(map, x + 1, y + 1))
+    {
+      tile->terrain_sprite = 15;
+      tile->mirroring = 3;
+    }
+  }
+
   void drawFakeIslands(h3m::Map& map)
   {
     const std::uint32_t kMapSize = map.basic_info.map_size;
 
-    // Fake island - it's actually water tiles.
-    map.tiles[9 * kMapSize + 10].terrain_sprite = 19;
-    map.tiles[9 * kMapSize + 10].mirroring = 0;
-    map.tiles[9 * kMapSize + 11].terrain_sprite = 13;
-    map.tiles[9 * kMapSize + 11].mirroring = 1;
-    map.tiles[10 * kMapSize + 9].terrain_sprite = 19;
-    map.tiles[10 * kMapSize + 9].mirroring = 0;
-    map.tiles[10 * kMapSize + 10].terrain_sprite = 17; // 16 also works
-    map.tiles[10 * kMapSize + 10].mirroring = 3;
-    map.tiles[10 * kMapSize + 11].terrain_sprite = 17;
-    map.tiles[10 * kMapSize + 11].mirroring = 2;
-    map.tiles[10 * kMapSize + 12].terrain_sprite = 13;
-    map.tiles[10 * kMapSize + 12].mirroring = 1;
-    map.tiles[11 * kMapSize + 9].terrain_sprite = 13;
-    map.tiles[11 * kMapSize + 9].mirroring = 2;
-    map.tiles[11 * kMapSize + 10].terrain_sprite = 17;
-    map.tiles[11 * kMapSize + 10].mirroring = 1;
-    map.tiles[11 * kMapSize + 11].terrain_sprite = 17;
-    map.tiles[11 * kMapSize + 11].mirroring = 0;
-    map.tiles[11 * kMapSize + 12].terrain_sprite = 15;
-    map.tiles[11 * kMapSize + 12].mirroring = 3;
-    map.tiles[12 * kMapSize + 10].terrain_sprite = 13;
-    map.tiles[12 * kMapSize + 10].mirroring = 2;
-    map.tiles[12 * kMapSize + 11].terrain_sprite = 15;
-    map.tiles[12 * kMapSize + 11].mirroring = 3;
-
-    // Fake mini-island (just a dot, basically)
-    map.tiles[10 * kMapSize + 20].terrain_sprite = 19;
-    map.tiles[10 * kMapSize + 20].mirroring = 0;
-    map.tiles[10 * kMapSize + 21].terrain_sprite = 13;
-    map.tiles[10 * kMapSize + 21].mirroring = 1;
-    map.tiles[11 * kMapSize + 20].terrain_sprite = 13;
-    map.tiles[11 * kMapSize + 20].mirroring = 2;
-    map.tiles[11 * kMapSize + 21].terrain_sprite = 15;
-    map.tiles[11 * kMapSize + 21].mirroring = 3;
+    drawFakeIsland(map, 9, 9);
+    drawFakeMiniIsland(map, 20, 10);
+    drawFakeMiniIsland(map, 22, 9);
+    drawFakeMiniIsland(map, 24, 11);
+    drawFakeMiniIsland(map, 22, 12);
 
     // Fake thin line of land, which is actually water tiles
     for (std::uint32_t y = 15; y < 25; ++y)

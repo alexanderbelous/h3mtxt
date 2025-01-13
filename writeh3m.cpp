@@ -16,12 +16,10 @@ namespace h3m
     // Writes a little-endian unsigned integer.
     void writeUintImpl(std::ostream& stream, std::uintmax_t value, unsigned int num_bytes)
     {
-      constexpr std::uintmax_t mask = 0xFF;
-      std::uintmax_t result = 0;
-      std::uintmax_t shift = 0;
+      constexpr std::uintmax_t kMask = 0xFF;
       for (unsigned int i = 0; i < num_bytes; ++i)
       {
-        const std::uint8_t byte = static_cast<std::uint8_t>(value & mask);
+        const std::uint8_t byte = static_cast<std::uint8_t>(value & kMask);
         stream.put(static_cast<char>(byte));
         value >>= 8;
       }
