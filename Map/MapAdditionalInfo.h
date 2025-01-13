@@ -34,6 +34,14 @@ public:
     data(data)
   {}
 
+  // \return HeroesAvailability matching the default one in the Editor -
+  // all heroes are enabled except special campaign heroes (e.g., Catherine, Gelu, Xeron)
+  // and Lord Haart (Estates specialist).
+  static constexpr HeroesAvailability makeDefaultAvailability() noexcept;
+
+  // \return HeroesAvailability in which all heroes are enabled.
+  static constexpr HeroesAvailability makeAllAvailability() noexcept;
+
   constexpr bool operator[](HeroType hero) const
   {
     return data.at(static_cast<std::size_t>(hero));
@@ -46,6 +54,30 @@ public:
 
   BitSet<20> data;
 };
+
+constexpr HeroesAvailability HeroesAvailability::makeDefaultAvailability() noexcept
+{
+  constexpr std::uint8_t kSpecialCampaignHeroFirst = 145;
+  HeroesAvailability result = makeAllAvailability();
+  // Disable special campaign heroes;
+  for (std::uint8_t hero_idx = kSpecialCampaignHeroFirst; hero_idx <= kNumHeroes; ++hero_idx)
+  {
+    result.set(static_cast<HeroType>(hero_idx), false);
+  }
+  result.set(HeroType::H3M_HERO_LORD_HAART, false);
+  return result;
+}
+
+// \return HeroesAvailability in which all heroes are enabled.
+constexpr HeroesAvailability HeroesAvailability::makeAllAvailability() noexcept
+{
+  HeroesAvailability result;
+  for (std::uint8_t hero_idx = 0; hero_idx < kNumHeroes; ++hero_idx)
+  {
+    result.set(static_cast<HeroType>(hero_idx), true);
+  }
+  return result;
+}
 
 struct Rumor
 {

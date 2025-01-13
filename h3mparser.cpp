@@ -63,8 +63,8 @@ namespace
         .loss_condition {},
         // No teams.
         .teams {},
-        // Disable all heroes.
-        .heroes_availability {},
+        // Enable all heroes.
+        .heroes_availability = h3m::HeroesAvailability::makeAllAvailability(),
         // No placeholder heroes.
         .placeholder_heroes {},
         // No custom heroes.
@@ -82,7 +82,10 @@ namespace
         // No heroes with customized settings.
         .heroes_settings {}
       },
-      .tiles = std::vector<h3m::Tile>(kMapSize * kMapSize),
+      .tiles = std::vector<h3m::Tile>(kMapSize * kMapSize, h3m::Tile{
+        .terrain_type = h3m::TerrainType::Rock,
+        .terrain_sprite = 0
+      }),
       .global_events {
         h3m::GlobalEvent {
           .name = "Global event",
@@ -213,24 +216,34 @@ namespace
   // \param y - Y coordinate of the top left corner of the mini-island.
   void drawFakeMiniIsland(h3m::Map& map, std::uint32_t x, std::uint32_t y)
   {
+    // Sprites [12; 15] v [18; 19] look like coast in the SouthEastern corner of the tile.
+    constexpr std::uint8_t kSprites[] = { 12, 13, 14, 15, 18, 19 };
+    constexpr std::size_t kNumSprites = std::size(kSprites);
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_int_distribution<> distrib(0, kNumSprites - 1);
+    const auto generate_random_sprite = [&]() {
+      return kSprites[distrib(gen)];
+      };
+
     if (h3m::Tile* tile = safeGetTile(map, x, y))
     {
-      tile->terrain_sprite = 19;
+      tile->terrain_sprite = generate_random_sprite();
       tile->mirroring = 0;
     }
     if (h3m::Tile* tile = safeGetTile(map, x + 1, y))
     {
-      tile->terrain_sprite = 13;
+      tile->terrain_sprite = generate_random_sprite();
       tile->mirroring = 1;
     }
     if (h3m::Tile* tile = safeGetTile(map, x, y + 1))
     {
-      tile->terrain_sprite = 13;
+      tile->terrain_sprite = generate_random_sprite();
       tile->mirroring = 2;
     }
     if (h3m::Tile* tile = safeGetTile(map, x + 1, y + 1))
     {
-      tile->terrain_sprite = 15;
+      tile->terrain_sprite = generate_random_sprite();
       tile->mirroring = 3;
     }
   }
@@ -240,10 +253,13 @@ namespace
     const std::uint32_t kMapSize = map.basic_info.map_size;
 
     drawFakeIsland(map, 9, 9);
+    drawFakeMiniIsland(map, 20, 8);
     drawFakeMiniIsland(map, 20, 10);
     drawFakeMiniIsland(map, 22, 9);
     drawFakeMiniIsland(map, 24, 11);
     drawFakeMiniIsland(map, 22, 12);
+    drawFakeMiniIsland(map, 25, 9);
+    drawFakeMiniIsland(map, 26, 13);
 
     // Fake thin line of land, which is actually water tiles
     for (std::uint32_t y = 15; y < 25; ++y)
