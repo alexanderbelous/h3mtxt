@@ -214,9 +214,7 @@ namespace h3m
           writeData(stream, *value.main_town);
         }
         writeData(stream, value.starting_hero);
-        // TODO: AdditionalPlayerInfo seems to be missing if !can_be_human && !can_be_computer.
-        // This is not well-documented; the actual condition might be more complicated.
-        if (value.can_be_human || value.can_be_computer)
+        if (shouldHaveAdditionalPlayerInfo(value))
         {
           writeData(stream, value.additional_info);
         }

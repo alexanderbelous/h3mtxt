@@ -154,9 +154,7 @@ PlayerSpecs readPlayerSpecs(std::istream& stream)
     player.main_town = readMainTown(stream);
   }
   player.starting_hero = readStartingHero(stream);
-  // TODO: AdditionalPlayerInfo seems to be missing if !can_be_human && !can_be_computer.
-  // This is not well-documented; the actual condition might be more complicated.
-  if (player.can_be_human || player.can_be_computer)
+  if (shouldHaveAdditionalPlayerInfo(player))
   {
     player.additional_info = readAdditionalPlayerInfo(stream);
   }

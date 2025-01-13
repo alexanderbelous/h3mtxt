@@ -18,15 +18,13 @@ namespace
       .can_be_computer = false,
       .behavior = h3m::PlayerBehavior::Random,
       .customized_alignments = false,
-      .allowed_alignments = h3m::AllowedAlignments{
-        h3m::BitSet<2>({0xFF, 0x01})
-      },
-      .random_town = true,
+      .allowed_alignments {},
+      .random_town = false,
       .main_town {},
       .starting_hero {
         .is_random = false,
         .type = static_cast<h3m::HeroType>(0xFF),
-        .face = 0xFF
+        .face = 0
       },
       .additional_info {}
     };

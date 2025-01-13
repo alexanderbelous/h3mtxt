@@ -109,9 +109,34 @@ struct PlayerSpecs
   // Info about the main town, std::nullopt if the player doesn't have a main town.
   std::optional<MainTown> main_town;
   StartingHero starting_hero;
-  // TODO: AdditionalPlayerInfo seems to be missing if !can_be_human && !can_be_computer.
-  // This is not well-documented; the actual condition might be more complicated.
+  // AdditionalPlayerInfo is not always present - see the comments for
+  // shouldHaveAdditionalPlayerInfo() below.
   AdditionalPlayerInfo additional_info;
 };
+
+// Checks if AdditionalPlayerInfo should be read/written for the given PlayerSpecs.
+//
+// AdditionalPlayerInfo is not always present in PlayerSpecs. The external description of the H3M file format
+// is somewhat unclear on when exactly it's missing. This function seems to determine the condition correctly,
+// but it would be nice to verify it somehow.
+// \param player_specs - input PlayerSpecs.
+constexpr bool shouldHaveAdditionalPlayerInfo(const PlayerSpecs& player_specs) noexcept
+{
+  // The Editor doesn't allow unchecking "Can be Computer";
+  // Both can_be_human and can_be_computer are false for players that are not present on the map
+  // at all.
+  // TODO: this condition might be redundant - the Editor always sets starting_hero.type to 0xFF for
+  // players that are not present on the map.
+  if (!player_specs.can_be_human && !player_specs.can_be_computer)
+  {
+    return false;
+  }
+  // If the starting hero is not random - AdditionalPlayerInfo should be present.
+  if (player_specs.starting_hero.type != HeroType{ 0xFF })
+  {
+    return true;
+  }
+  return false;
+}
 
 }
