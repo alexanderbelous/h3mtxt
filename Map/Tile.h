@@ -13,6 +13,8 @@ struct Tile
 {
   TerrainType terrain_type {};
   // Object subclass.
+  // TODO: h3mlib claims that there are some unused tiles, see
+  //     homm3tools/h3m/h3mlib/h3m_structures/tiles/h3m_tile.h
   std::uint8_t terrain_sprite {};
   RiverType river_type {};
   // (0-3 corners, 4 + , 5 6 T, 7 8 |-, 9 10 | , 11 12--)

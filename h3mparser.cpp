@@ -5,6 +5,7 @@
 #include <filesystem>
 #include <fstream>
 #include <iostream>
+#include <random>
 #include <stdexcept>
 
 namespace fs = std::filesystem;
@@ -34,7 +35,7 @@ namespace
   {
     constexpr std::uint32_t kMapSize = 36;
 
-    return h3m::Map {
+    h3m::Map map {
       .format = h3m::MapFormat::ShadowOfDeath,
       .basic_info {
         .is_playable = false,
@@ -95,6 +96,69 @@ namespace
         }
       }
     };
+
+    constexpr std::uint8_t kWaterSpriteMin = 21;
+    constexpr std::uint8_t kWaterSpriteMax = 32;
+    constexpr std::uint8_t kNumWaterSprites = kWaterSpriteMax - kWaterSpriteMin + 1;
+    std::mt19937 gen;
+    std::uniform_int_distribution<> distrib(kWaterSpriteMin, kWaterSpriteMax);
+
+    // Set random water tiles.
+    for (h3m::Tile& tile : map.tiles)
+    {
+      tile.terrain_type = h3m::TerrainType::Water;
+      // These are non-coastal water tiles. Maybe there are more, idk.
+      // 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32
+      tile.terrain_sprite = distrib(gen);
+      tile.mirroring = 0;
+    }
+
+    // Fake island - it's actually water tiles.
+    map.tiles[9 * kMapSize + 10].terrain_sprite = 19;
+    map.tiles[9 * kMapSize + 10].mirroring = 0;
+    map.tiles[9 * kMapSize + 11].terrain_sprite = 13;
+    map.tiles[9 * kMapSize + 11].mirroring = 1;
+    map.tiles[10 * kMapSize + 9].terrain_sprite = 19;
+    map.tiles[10 * kMapSize + 9].mirroring = 0;
+    map.tiles[10 * kMapSize + 10].terrain_sprite = 17; // 16 also works
+    map.tiles[10 * kMapSize + 10].mirroring = 3;
+    map.tiles[10 * kMapSize + 11].terrain_sprite = 17;
+    map.tiles[10 * kMapSize + 11].mirroring = 2;
+    map.tiles[10 * kMapSize + 12].terrain_sprite = 13;
+    map.tiles[10 * kMapSize + 12].mirroring = 1;
+    map.tiles[11 * kMapSize + 9].terrain_sprite = 13;
+    map.tiles[11 * kMapSize + 9].mirroring = 2;
+    map.tiles[11 * kMapSize + 10].terrain_sprite = 17;
+    map.tiles[11 * kMapSize + 10].mirroring = 1;
+    map.tiles[11 * kMapSize + 11].terrain_sprite = 17;
+    map.tiles[11 * kMapSize + 11].mirroring = 0;
+    map.tiles[11 * kMapSize + 12].terrain_sprite = 15;
+    map.tiles[11 * kMapSize + 12].mirroring = 3;
+    map.tiles[12 * kMapSize + 10].terrain_sprite = 13;
+    map.tiles[12 * kMapSize + 10].mirroring = 2;
+    map.tiles[12 * kMapSize + 11].terrain_sprite = 15;
+    map.tiles[12 * kMapSize + 11].mirroring = 3;
+
+    // Fake mini-island (just a dot, basically)
+    map.tiles[10 * kMapSize + 20].terrain_sprite = 19;
+    map.tiles[10 * kMapSize + 20].mirroring = 0;
+    map.tiles[10 * kMapSize + 21].terrain_sprite = 13;
+    map.tiles[10 * kMapSize + 21].mirroring = 1;
+    map.tiles[11 * kMapSize + 20].terrain_sprite = 13;
+    map.tiles[11 * kMapSize + 20].mirroring = 2;
+    map.tiles[11 * kMapSize + 21].terrain_sprite = 15;
+    map.tiles[11 * kMapSize + 21].mirroring = 3;
+
+    // Fake thin line of land, which is actually water tiles
+    for (std::uint32_t y = 15; y < 25; ++y)
+    {
+      map.tiles[y * kMapSize + 10].terrain_sprite = 7;
+      map.tiles[y * kMapSize + 10].mirroring = 1;
+      map.tiles[y * kMapSize + 11].terrain_sprite = 7;
+      map.tiles[y * kMapSize + 11].mirroring = 0;
+    }
+
+    return map;
   }
 }
 
