@@ -5,11 +5,13 @@
 namespace h3m
 {
   // Object classes in H3M.
-  // TODO: check what class is Market of Time.
+  // TODO: there are some more classes in potmdehex/homm3tools/h3m/h3mlib/h3m_parsing/parse_oa_meta_type.c.
   enum class ObjectClass : std::uint32_t
   {
     // TODO: is it ever used?
     NO_OBJ = static_cast<std::uint32_t>(-1),
+    NONE_0 = 0,
+    DECORATIVE_TOWN = 1,
     ALTAR_OF_SACRIFICE = 2,
     ANCHOR_POINT = 3,
     ARENA = 4,
@@ -57,6 +59,7 @@ namespace h3m
     SCHOOL_OF_MAGIC = 47,
     MAGIC_SPRING = 48,
     MAGIC_WELL = 49,
+    MARKET_OF_TIME = 50,
     MERCENARY_CAMP = 51,
     MERMAID = 52,
     MINE = 53,

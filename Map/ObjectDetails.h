@@ -9,6 +9,16 @@ namespace h3m
 {
 
 // "Extension" of ObjectDetails specific to ObjectClass of this object.
+//
+// Static polymorphism is used here rather than dynamic polymorphism.
+//
+// Dynamic polymorphism would also work, but then I would have to implement
+// parsing/serialization in H3M structures themselves, which is undesirable:
+// if in the future I decide to add JSON serialization or something else, I would
+// need to either add extra virtual functions, or use the Visitor pattern (essentially,
+// this will become the double dispatch problem).
+// Since the set of object classes is fixed (new object classes won't be added, unless
+// I decide to support unofficial mods), static polymorphism should be fine.
 template<MetaObjectType T>
 struct ObjectDetailsData;
 
