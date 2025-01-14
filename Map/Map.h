@@ -12,7 +12,6 @@
 #include <h3mparser/Map/PlayerSpecs.h>
 #include <h3mparser/Map/Tile.h>
 
-
 #include <array>
 #include <cstdint>
 #include <vector>
