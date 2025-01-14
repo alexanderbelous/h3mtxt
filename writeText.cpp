@@ -356,6 +356,126 @@ namespace h3m
       }
     };
 
+    void writeSpecialVictoryConditionBase(std::ostream& stream,
+                                          const SpecialVictoryConditionBase& base,
+                                          std::size_t num_spaces,
+                                          bool newline = true)
+    {
+      writeNamedField(stream, "allow_normal_win", base.allow_normal_win, num_spaces);
+      writeNamedField(stream, "applies_to_computer", base.applies_to_computer, num_spaces, newline);
+    }
+
+    template<>
+    class Writer<VictoryConditionDetails<VictoryConditionType::AcquireArtifact>>
+    {
+    public:
+      void operator()(std::ostream& stream,
+                      const VictoryConditionDetails<VictoryConditionType::AcquireArtifact>& value,
+                      std::size_t num_spaces) const
+      {
+        writeSpecialVictoryConditionBase(stream, value, num_spaces);
+        writeNamedField(stream, "artifact_type", value.artifact_type, num_spaces, false);
+      }
+    };
+
+    template<>
+    class Writer<VictoryConditionDetails<VictoryConditionType::AccumulateCreatures>>
+    {
+    public:
+      void operator()(std::ostream& stream,
+                      const VictoryConditionDetails<VictoryConditionType::AccumulateCreatures>& value,
+                      std::size_t num_spaces) const
+      {
+        writeSpecialVictoryConditionBase(stream, value, num_spaces);
+        writeNamedField(stream, "creature_type", value.creature_type, num_spaces);
+        writeNamedField(stream, "count", value.count, num_spaces, false);
+      }
+    };
+
+    template<>
+    class Writer<VictoryConditionDetails<VictoryConditionType::AccumulateResources>>
+    {
+    public:
+      void operator()(std::ostream& stream,
+                      const VictoryConditionDetails<VictoryConditionType::AccumulateResources>& value,
+                      std::size_t num_spaces) const
+      {
+        writeSpecialVictoryConditionBase(stream, value, num_spaces);
+        writeNamedField(stream, "resource_type", value.resource_type, num_spaces);
+        writeNamedField(stream, "amount", value.amount, num_spaces, false);
+      }
+    };
+
+    template<>
+    class Writer<VictoryConditionDetails<VictoryConditionType::UpgradeTown>>
+    {
+    public:
+      void operator()(std::ostream& stream,
+                      const VictoryConditionDetails<VictoryConditionType::UpgradeTown>& value,
+                      std::size_t num_spaces) const
+      {
+        writeSpecialVictoryConditionBase(stream, value, num_spaces);
+        writeNamedField(stream, "x", value.x, num_spaces);
+        writeNamedField(stream, "y", value.y, num_spaces);
+        writeNamedField(stream, "z", value.z, num_spaces);
+        writeNamedField(stream, "hall_level", value.hall_level, num_spaces);
+        writeNamedField(stream, "castle_level", value.castle_level, num_spaces, false);
+      }
+    };
+
+    template<class T>
+    class Writer<T, std::enable_if_t<std::is_same_v<T, VictoryConditionDetails<VictoryConditionType::BuildGrail>> ||
+                                     std::is_same_v<T, VictoryConditionDetails<VictoryConditionType::DefeatHero>> ||
+                                     std::is_same_v<T, VictoryConditionDetails<VictoryConditionType::CaptureTown>> ||
+                                     std::is_same_v<T, VictoryConditionDetails<VictoryConditionType::DefeatMonster>>>>
+    {
+    public:
+      void operator()(std::ostream& stream, const T& value, std::size_t num_spaces) const
+      {
+        writeSpecialVictoryConditionBase(stream, value, num_spaces);
+        writeNamedField(stream, "x", value.x, num_spaces);
+        writeNamedField(stream, "y", value.y, num_spaces);
+        writeNamedField(stream, "z", value.z, num_spaces, false);
+      }
+    };
+
+    template<class T>
+    class Writer<T, std::enable_if_t<std::is_same_v<T, VictoryConditionDetails<VictoryConditionType::FlagDwellings>> ||
+                                     std::is_same_v<T, VictoryConditionDetails<VictoryConditionType::FlagMines>>>>
+    {
+    public:
+      void operator()(std::ostream& stream, const T& value, std::size_t num_spaces) const
+      {
+        writeSpecialVictoryConditionBase(stream, value, num_spaces);
+      }
+    };
+
+    template<>
+    class Writer<VictoryConditionDetails<VictoryConditionType::TransportArtifact>>
+    {
+    public:
+      void operator()(std::ostream& stream,
+                      const VictoryConditionDetails<VictoryConditionType::TransportArtifact>& value,
+                      std::size_t num_spaces) const
+      {
+        writeSpecialVictoryConditionBase(stream, value, num_spaces);
+        writeNamedField(stream, "artifact_type", value.artifact_type, num_spaces);
+        writeNamedField(stream, "x", value.x, num_spaces);
+        writeNamedField(stream, "y", value.y, num_spaces);
+        writeNamedField(stream, "z", value.z, num_spaces, false);
+      }
+    };
+
+    template<>
+    class Writer<VictoryConditionDetails<VictoryConditionType::Normal>>
+    {
+    public:
+      void operator()(std::ostream& stream,
+                      const VictoryConditionDetails<VictoryConditionType::Normal>& value,
+                      std::size_t num_spaces) const
+      {}
+    };
+
     // Full specialization for VictoryCondition.
     template<>
     class Writer<VictoryCondition>
@@ -365,7 +485,10 @@ namespace h3m
       {
         const bool has_details = value.type() != VictoryConditionType::Normal;
         writeNamedField(stream, "type", value.type(), num_spaces, has_details);
-        // TODO: write details, if any.
+        if (has_details)
+        {
+          std::visit(NamedFieldWriter(stream, "details", num_spaces, false), value.details);
+        }
       }
     };
 
