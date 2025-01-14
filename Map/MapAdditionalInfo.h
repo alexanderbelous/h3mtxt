@@ -155,7 +155,7 @@ struct MapAdditionalInfo
   std::vector<HeroType> placeholder_heroes;
   std::vector<CustomHero> custom_heroes;
   // Must be all 0s; kept here to ensure compatibility.
-  std::array<std::uint8_t, 31> reserved;
+  std::array<std::uint8_t, 31> reserved {};
   // TODO: add a wrapper class
   BitSet<18> artifacts_nonavailability;
   // TODO: add a wrapper class

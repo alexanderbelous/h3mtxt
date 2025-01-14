@@ -59,13 +59,13 @@ struct MainTown
   Bool generate_hero {};
   // Type of the player's main town.
   // 0xFF is a special value that means Random.
-  TownType town_type;
+  TownType town_type {};
   // X-coordinate of the main town.
-  std::uint8_t x;
+  std::uint8_t x {};
   // Y-coordinate of the main town.
-  std::uint8_t y;
+  std::uint8_t y {};
   // Z-coordinate of the main town.
-  std::uint8_t z;
+  std::uint8_t z {};
 };
 
 // Information about the player's starting hero.
