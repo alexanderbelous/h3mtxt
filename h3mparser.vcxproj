@@ -173,7 +173,9 @@
     <ClInclude Include="Map\Constants\ResourceType.h" />
     <ClInclude Include="Map\Constants\RiverType.h" />
     <ClInclude Include="Map\Constants\RoadType.h" />
+    <ClInclude Include="Map\Constants\ScholarRewardType.h" />
     <ClInclude Include="Map\Constants\SecondarySkillType.h" />
+    <ClInclude Include="Map\Constants\SpellType.h" />
     <ClInclude Include="Map\Constants\TerrainType.h" />
     <ClInclude Include="Map\Constants\TownType.h" />
     <ClInclude Include="Map\Constants\VictoryConditionType.h" />

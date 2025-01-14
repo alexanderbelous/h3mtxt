@@ -28,14 +28,7 @@ namespace h3m
     EVENT,
     GARRISON,
     GARRISON_ABSOD,
-    GENERIC_BOAT,
-    GENERIC_IMPASSABLE_TERRAIN,
-    GENERIC_IMPASSABLE_TERRAIN_ABSOD,
-    GENERIC_PASSABLE_TERRAIN,
-    GENERIC_PASSABLE_TERRAIN_SOD,
-    GENERIC_TREASURE,
-    GENERIC_VISITABLE,
-    GENERIC_VISITABLE_ABSOD,
+    GENERIC_NO_PROPERTIES,  // Any object for which ObjectDetails doesn't store any additional info.
     GRAIL,
     HERO,
     HERO_AB,
@@ -76,6 +69,9 @@ namespace h3m
     {
     case ObjectClass::EVENT:
       return MetaObjectType::EVENT;
+    case ObjectClass::IMPASSABLE_REEF:
+    case ObjectClass::TREASURE_CHEST:
+      return MetaObjectType::GENERIC_NO_PROPERTIES;
     case ObjectClass::GRAIL:
       return MetaObjectType::GRAIL;
     case ObjectClass::HERO:
@@ -84,6 +80,14 @@ namespace h3m
       return MetaObjectType::LIGHTHOUSE;
     case ObjectClass::PANDORAS_BOX:
       return MetaObjectType::PANDORAS_BOX;
+    case ObjectClass::HERO_PLACEHOLDER:
+      return MetaObjectType::PLACEHOLDER_HERO;
+    case ObjectClass::SCHOLAR:
+      return MetaObjectType::SCHOLAR;
+    case ObjectClass::SHRINE_OF_MAGIC_INCANTATION:
+    case ObjectClass::SHRINE_OF_MAGIC_GESTURE:
+    case ObjectClass::SHRINE_OF_MAGIC_THOUGHT:
+      return MetaObjectType::SHRINE;
     default:
       // TODO: implement the rest.
       throw std::runtime_error("Invalid object_class.");

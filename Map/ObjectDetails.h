@@ -3,6 +3,8 @@
 #include <h3mparser/Map/Constants/Constants.h>
 #include <h3mparser/Map/Constants/CreatureType.h>
 #include <h3mparser/Map/Constants/MetaObjectType.h>
+#include <h3mparser/Map/Constants/ScholarRewardType.h>
+#include <h3mparser/Map/Constants/SpellType.h>
 #include <h3mparser/Map/CreatureStack.h>
 #include <h3mparser/Map/PrimarySkills.h>
 #include <h3mparser/Map/SecondarySkill.h>
@@ -38,6 +40,11 @@ struct ObjectDetailsData<MetaObjectType::ABANDONED_MINE_ABSOD>
 };
 
 template<>
+struct ObjectDetailsData<MetaObjectType::GENERIC_NO_PROPERTIES>
+{
+};
+
+template<>
 struct ObjectDetailsData<MetaObjectType::GRAIL>
 {
   std::uint32_t allowable_radius {};
@@ -62,7 +69,7 @@ struct ObjectDetailsData<MetaObjectType::PANDORAS_BOX>
   PrimarySkills primary_skills;
   std::vector<SecondarySkill> secondary_skill;
   std::vector<std::uint16_t> artifacts;
-  std::vector<std::uint8_t> spells;
+  std::vector<SpellType> spells;
   std::vector<CreatureStack> creatures;
   std::array<std::uint8_t, 8> unknown {};
 };
@@ -75,6 +82,36 @@ struct ObjectDetailsData<MetaObjectType::EVENT> : ObjectDetailsData<MetaObjectTy
   Bool applies_to_computer{};
   Bool remove_after_first_visit{};
   std::array<std::uint8_t, 4> unknown{};
+};
+
+template<>
+struct ObjectDetailsData<MetaObjectType::PLACEHOLDER_HERO>
+{
+  // TODO: make this an enum.
+  std::uint8_t owner {};
+  HeroType type {};
+  // Only if type == 0xFF.
+  std::uint8_t power_rating {};
+};
+
+template<>
+struct ObjectDetailsData<MetaObjectType::SCHOLAR>
+{
+  ScholarRewardType reward_type {};
+  // TODO: consider using std::variant.
+  // Always 0 if type is random;
+  // 0 boost attack / 1 defense / 2 spell power / 3 knowledge;
+  // index in SSTRAITS.TXT;
+  // index in SPTRAITS.TXT
+  std::uint8_t reward_value {};
+  std::array<std::uint8_t, 6> unknown {};
+};
+
+template<>
+struct ObjectDetailsData<MetaObjectType::SHRINE>
+{
+  // 0xFF means random.
+  std::uint32_t spell{};
 };
 
 // TODO: add specializations for the rest.
@@ -93,9 +130,13 @@ struct ObjectDetails
   // TODO: add all other MetaObjectTypes.
   std::variant<
     ObjectDetailsData<MetaObjectType::ABANDONED_MINE_ABSOD>,
+    ObjectDetailsData<MetaObjectType::EVENT>,
+    ObjectDetailsData<MetaObjectType::GENERIC_NO_PROPERTIES>,
     ObjectDetailsData<MetaObjectType::GRAIL>,
     ObjectDetailsData<MetaObjectType::PANDORAS_BOX>,
-    ObjectDetailsData<MetaObjectType::EVENT>
+    ObjectDetailsData<MetaObjectType::PLACEHOLDER_HERO>,
+    ObjectDetailsData<MetaObjectType::SCHOLAR>,
+    ObjectDetailsData<MetaObjectType::SHRINE>
   > details;
 };
 

@@ -149,5 +149,11 @@
     <ClInclude Include="Map\CreatureStack.h">
       <Filter>Header Files\Map</Filter>
     </ClInclude>
+    <ClInclude Include="Map\Constants\SpellType.h">
+      <Filter>Header Files\Map\Constants</Filter>
+    </ClInclude>
+    <ClInclude Include="Map\Constants\ScholarRewardType.h">
+      <Filter>Header Files\Map\Constants</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
