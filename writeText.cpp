@@ -647,9 +647,21 @@ namespace h3m
     class Writer<ObjectDetails>
     {
     public:
-      void operator()(std::ostream& stream, const ObjectDetails& value, std::size_t num_spaces) const
+      void operator()(std::ostream& stream, const ObjectDetails& object_details, std::size_t num_spaces) const
       {
-        throw std::runtime_error("NotImplemented.");
+        // An object has details if its MetaObjectType is *not* GENERIC_NO_PROPERTIES.
+        const bool has_details =
+          std::get_if<ObjectDetailsData<MetaObjectType::GENERIC_NO_PROPERTIES>>(&object_details.details) == nullptr;
+
+        writeNamedField(stream, "x", object_details.x, num_spaces);
+        writeNamedField(stream, "y", object_details.y, num_spaces);
+        writeNamedField(stream, "z", object_details.z, num_spaces);
+        writeNamedField(stream, "kind", object_details.kind, num_spaces);
+        writeNamedField(stream, "unknown", object_details.unknown, num_spaces, has_details);
+        if (has_details)
+        {
+          throw std::runtime_error("NotImplemented.");
+        }
       }
     };
 

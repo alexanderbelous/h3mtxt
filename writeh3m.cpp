@@ -710,10 +710,20 @@ namespace h3m
     class H3MWriter<ObjectDetails>
     {
     public:
-      void operator()(std::ostream& stream, const ObjectDetails& value) const
+      void operator()(std::ostream& stream, const ObjectDetails& object_details) const
       {
+        writeData(stream, object_details.x);
+        writeData(stream, object_details.y);
+        writeData(stream, object_details.z);
+        writeData(stream, object_details.kind);
+        writeData(stream, object_details.unknown);
         // TODO: implement.
-        throw std::logic_error("NotImplemented.");
+        const bool has_details =
+          std::get_if<ObjectDetailsData<MetaObjectType::GENERIC_NO_PROPERTIES>>(&object_details.details) == nullptr;
+        if (has_details)
+        {
+          throw std::logic_error("NotImplemented.");
+        }
       }
     };
 
