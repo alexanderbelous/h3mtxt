@@ -281,9 +281,9 @@ HeroArtifacts readHeroArtifacts(std::istream& stream)
   return artifacts;
 }
 
-HeroSettings::PrimarySkills readHeroPrimarySkills(std::istream& stream)
+PrimarySkills readHeroPrimarySkills(std::istream& stream)
 {
-  HeroSettings::PrimarySkills primary_skills;
+  PrimarySkills primary_skills;
   primary_skills.attack = readUint8(stream);
   primary_skills.defense = readUint8(stream);
   primary_skills.spell_power = readUint8(stream);
@@ -305,7 +305,7 @@ HeroSettings readHeroSettings(std::istream& stream)
     settings.secondary_skills->reserve(num_secondary_skills);
     for (std::uint32_t i = 0; i < num_secondary_skills; ++i)
     {
-      HeroSettings::SecondarySkill secondary_skill;
+      SecondarySkill secondary_skill;
       secondary_skill.type = readEnum<SecondarySkillType>(stream);
       secondary_skill.level = readUint8(stream);
       settings.secondary_skills->push_back(std::move(secondary_skill));

@@ -74,12 +74,16 @@ namespace h3m
   {
     switch (object_class)
     {
+    case ObjectClass::EVENT:
+      return MetaObjectType::EVENT;
     case ObjectClass::GRAIL:
       return MetaObjectType::GRAIL;
     case ObjectClass::HERO:
       return MetaObjectType::HERO;
     case ObjectClass::LIGHTHOUSE:
       return MetaObjectType::LIGHTHOUSE;
+    case ObjectClass::PANDORAS_BOX:
+      return MetaObjectType::PANDORAS_BOX;
     default:
       // TODO: implement the rest.
       throw std::runtime_error("Invalid object_class.");

@@ -1,9 +1,15 @@
 #pragma once
 
+#include <h3mparser/Map/Constants/Constants.h>
+#include <h3mparser/Map/Constants/CreatureType.h>
 #include <h3mparser/Map/Constants/MetaObjectType.h>
+#include <h3mparser/Map/CreatureStack.h>
+#include <h3mparser/Map/PrimarySkills.h>
+#include <h3mparser/Map/SecondarySkill.h>
 
 #include <array>
 #include <cstdint>
+#include <string>
 
 namespace h3m
 {
@@ -34,6 +40,40 @@ template<>
 struct ObjectDetailsData<MetaObjectType::GRAIL>
 {
   std::uint32_t allowable_radius {};
+};
+
+// TODO: move to a separate header
+struct Guardians
+{
+  std::string message;
+  std::optional<std::array<CreatureStack, 7>> creatures;
+};
+
+template<>
+struct ObjectDetailsData<MetaObjectType::PANDORAS_BOX>
+{
+  std::optional<Guardians> guardians;
+  std::uint32_t experience {};
+  std::int32_t spell_points {};
+  std::int8_t morale {};
+  std::int8_t luck {};
+  std::array<std::int32_t, kNumResources> resources {};
+  PrimarySkills primary_skills;
+  std::vector<SecondarySkill> secondary_skill;
+  std::vector<std::uint16_t> artifacts;
+  std::vector<std::uint8_t> spells;
+  std::vector<CreatureStack> creatures;
+  std::array<std::uint8_t, 8> unknown {};
+};
+
+template<>
+struct ObjectDetailsData<MetaObjectType::EVENT> : ObjectDetailsData<MetaObjectType::PANDORAS_BOX>
+{
+  // TODO: replace with BitSet.
+  std::uint8_t affected_players{};
+  Bool applies_to_computer{};
+  Bool remove_after_first_visit{};
+  std::array<std::uint8_t, 4> unknown{};
 };
 
 // TODO: add specializations for the rest.

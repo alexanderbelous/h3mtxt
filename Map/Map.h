@@ -34,15 +34,9 @@ struct Map
   MapAdditionalInfo additional_info;
   // Terrain data for each tile on the map.
   // N elements, where N = (has_two_levels ? 2 : 1) * map_size * map_size.
-  //
-  // Tiles are stored as if they were written like this:
-  //     for (int z = 0; z < num_levels; ++z) {  // 0 is overground, 1 is underground.
-  //       for (int y = 0; y < map_size; ++y) {
-  //         for (int x = 0; x < map_size; ++x) {
-  //           tiles.push_back(...);
-  //         }
-  //       }
-  //     }
+  // Tiles are sorted first by their Z coordinate, then by their Y coordinate, then by their X coordinate
+  // (i.e., the overground tiles are written before the underground ones, and the top tiles are written
+  // before the bottom ones).
   std::vector<Tile> tiles;
   // Object properties are split into two structures: attributes (common for all objects of the same kind)
   // and details (as many as there are objects on map).

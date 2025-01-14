@@ -473,10 +473,10 @@ namespace h3m
 
     // Full specialization for HeroSettings::SecondarySkill.
     template<>
-    class Writer<HeroSettings::SecondarySkill>
+    class Writer<SecondarySkill>
     {
     public:
-      void operator()(std::ostream& stream, const HeroSettings::SecondarySkill& value, std::size_t num_spaces) const
+      void operator()(std::ostream& stream, const SecondarySkill& value, std::size_t num_spaces) const
       {
         writeNamedField(stream, "type", value.type, num_spaces);
         writeNamedField(stream, "level", value.level, num_spaces, false);
@@ -513,12 +513,12 @@ namespace h3m
       }
     };
 
-    // Full specialization for HeroSettings::PrimarySkills.
+    // Full specialization for PrimarySkills.
     template<>
-    class Writer<HeroSettings::PrimarySkills>
+    class Writer<PrimarySkills>
     {
     public:
-      void operator()(std::ostream& stream, const HeroSettings::PrimarySkills& value, std::size_t num_spaces) const
+      void operator()(std::ostream& stream, const PrimarySkills& value, std::size_t num_spaces) const
       {
         writeNamedField(stream, "attack", value.attack, num_spaces);
         writeNamedField(stream, "defense", value.defense, num_spaces);

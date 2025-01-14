@@ -3,6 +3,8 @@
 #include <h3mparser/Map/BitSet.h>
 #include <h3mparser/Map/Constants/Gender.h>
 #include <h3mparser/Map/Constants/SecondarySkillType.h>
+#include <h3mparser/Map/PrimarySkills.h>
+#include <h3mparser/Map/SecondarySkill.h>
 
 #include <cstdint>
 #include <optional>
@@ -44,21 +46,6 @@ struct HeroArtifacts
 // is changed, a CustomHero is created and stored in MapAdditionalInfo.
 struct HeroSettings
 {
-  struct SecondarySkill
-  {
-    SecondarySkillType type {};
-    // Not really an enum, as shown by LC.
-    std::uint8_t level {};
-  };
-
-  struct PrimarySkills
-  {
-    std::uint8_t attack {};
-    std::uint8_t defense {};
-    std::uint8_t spell_power {};
-    std::uint8_t knowledge {};
-  };
-
   std::optional<std::uint32_t> experience;
   std::optional<std::vector<SecondarySkill>> secondary_skills;
   std::optional<HeroArtifacts> artifacts;

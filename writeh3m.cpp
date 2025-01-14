@@ -492,12 +492,12 @@ namespace h3m
       }
     };
 
-    // Full specialization for HeroSettings::SecondarySkill.
+    // Full specialization for SecondarySkill.
     template<>
-    class H3MWriter<HeroSettings::SecondarySkill>
+    class H3MWriter<SecondarySkill>
     {
     public:
-      void operator()(std::ostream& stream, const HeroSettings::SecondarySkill& secondary_skill) const
+      void operator()(std::ostream& stream, const SecondarySkill& secondary_skill) const
       {
         writeData(stream, secondary_skill.type);
         writeData(stream, secondary_skill.level);
@@ -542,12 +542,12 @@ namespace h3m
       }
     };
 
-    // Full specialization for HeroSettings::PrimarySkills.
+    // Full specialization for PrimarySkills.
     template<>
-    class H3MWriter<HeroSettings::PrimarySkills>
+    class H3MWriter<PrimarySkills>
     {
     public:
-      void operator()(std::ostream& stream, const HeroSettings::PrimarySkills& primary_skills) const
+      void operator()(std::ostream& stream, const PrimarySkills& primary_skills) const
       {
         writeData(stream, primary_skills.attack);
         writeData(stream, primary_skills.defense);
@@ -573,13 +573,13 @@ namespace h3m
         writeData(stream, settings.secondary_skills.has_value());
         if (settings.secondary_skills)
         {
-          const std::vector<HeroSettings::SecondarySkill>& secondary_skills = *settings.secondary_skills;
+          const std::vector<SecondarySkill>& secondary_skills = *settings.secondary_skills;
           if (secondary_skills.size() > std::numeric_limits<std::uint32_t>::max())
           {
             throw std::runtime_error("Too many elements in HeroSettings.secondary_skills.");
           }
           writeData(stream, static_cast<std::uint32_t>(secondary_skills.size()));
-          for (const HeroSettings::SecondarySkill& secondary_skill : secondary_skills)
+          for (const SecondarySkill& secondary_skill : secondary_skills)
           {
             writeData(stream, secondary_skill);
           }
