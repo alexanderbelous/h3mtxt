@@ -1,6 +1,8 @@
 #include <h3mparser/parseh3m.h>
 
+#include <cstddef>
 #include <istream>
+#include <span>
 #include <stdexcept>
 #include <type_traits>
 
@@ -10,7 +12,7 @@ namespace
 {
 
 // Reads a single byte from the given stream.
-std::uint8_t readUint8(std::istream& stream)
+std::byte readByte(std::istream& stream)
 {
   using Traits = std::istream::traits_type;
   if (!stream)
@@ -22,10 +24,25 @@ std::uint8_t readUint8(std::istream& stream)
   {
     throw std::runtime_error("Unexpected end of stream.");
   }
-  return static_cast<std::uint8_t>(character);
+  return static_cast<std::byte>(character);
 }
 
-// Reads a little-endian unsigned integer.
+// Reads an array of bytes from the given stream.
+void readByteArrayImpl(std::istream& stream, std::span<std::byte> data)
+{
+  if (!stream || !stream.read(reinterpret_cast<char*>(data.data()), data.size()))
+  {
+    throw std::runtime_error("Failed to read an array of bytes.");
+  }
+}
+
+// Reads an 8-bit unsigned integer from the given stream.
+std::uint8_t readUint8(std::istream& stream)
+{
+  return static_cast<std::uint8_t>(readByte(stream));
+}
+
+// Reads a little-endian integer.
 std::uintmax_t readUintImpl(std::istream& stream, unsigned int num_bytes)
 {
   std::uintmax_t result = 0;
@@ -40,12 +57,12 @@ std::uintmax_t readUintImpl(std::istream& stream, unsigned int num_bytes)
 }
 
 // Reads a little-endian unsigned integer.
+// TODO: rename to readInt() or readIntegral().
 template<class T>
 T readUint(std::istream& stream)
 {
   static_assert(std::is_integral_v<T>, "T must be an integral type.");
   constexpr int kNumBytes = sizeof(T);
-  // TODO: this is probably buggy for signed integers. Cast to a smaller unsigned type first.
   return static_cast<T>(readUintImpl(stream, kNumBytes));
 }
 
@@ -64,11 +81,8 @@ std::string readString(std::istream& stream)
 {
   const std::uint32_t length = readUint<std::uint32_t>(stream);
   std::string result;
-  result.reserve(length);
-  for (std::uint32_t i = 0; i < length; ++i)
-  {
-    result.push_back(static_cast<char>(readUint8(stream)));
-  }
+  result.resize(length);
+  readByteArrayImpl(stream, std::as_writable_bytes(std::span{result}));
   return result;
 }
 
@@ -76,10 +90,7 @@ template<std::size_t N>
 std::array<std::uint8_t, N> readByteArray(std::istream& stream)
 {
   std::array<std::uint8_t, N> result {};
-  for (std::size_t i = 0; i < N; ++i)
-  {
-    result[i] = readUint8(stream);
-  }
+  readByteArrayImpl(stream, std::as_writable_bytes(std::span{result}));
   return result;
 }
 
@@ -404,9 +415,49 @@ ObjectAttributes readObjectAttributes(std::istream& stream)
   return result;
 }
 
+ObjectDetails readObjectDetails(std::istream& stream, const std::vector<ObjectAttributes>& objects_attributes)
+{
+  ObjectDetails result;
+  result.x = readUint8(stream);
+  result.y = readUint8(stream);
+  result.z = readUint8(stream);
+  result.kind = readUint<std::uint32_t>(stream);
+  result.unknown = readByteArray<5>(stream);
+
+  const ObjectAttributes& object_attributes = objects_attributes.at(result.kind);
+  const MetaObjectType meta_object_type = getMetaObjectType(object_attributes.object_class);
+  switch (meta_object_type)
+  {
+  case MetaObjectType::GENERIC_NO_PROPERTIES:
+    result.details = ObjectDetailsData<MetaObjectType::GENERIC_NO_PROPERTIES>{};
+    break;
+  default:
+    throw std::runtime_error("NotImplemented.");
+  }
+  return result;
 }
 
-Map parseh3m(std::istream& stream)
+GlobalEvent readGlobalEvent(std::istream& stream)
+{
+  GlobalEvent global_event;
+  global_event.name = readString(stream);
+  global_event.message = readString(stream);
+  for (std::uint8_t i = 0; i < kNumResources; ++i)
+  {
+    global_event.resources[i] = readUint<std::int32_t>(stream);
+  }
+  global_event.affected_players = readBitSet<1>(stream);
+  global_event.applies_to_human = readBool(stream);
+  global_event.applies_to_computer = readBool(stream);
+  global_event.day_of_first_occurence = readUint<std::uint16_t>(stream);
+  global_event.repeat_after_days = readUint<std::uint8_t>(stream);
+  global_event.unknown = readByteArray<17>(stream);
+  return global_event;
+}
+
+}
+
+Map parseh3m(std::istream& stream, bool read_objects_details)
 {
   Map map;
   map.format = readEnum<MapFormat>(stream);
@@ -430,6 +481,27 @@ Map parseh3m(std::istream& stream)
   {
     map.objects_attributes.push_back(readObjectAttributes(stream));
   }
+  // TODO: remove this after all ObjectDetails are supported.
+  if (!read_objects_details)
+  {
+    return map;
+  }
+  // Read objects' details.
+  const std::uint32_t num_objects = readUint<std::uint32_t>(stream);
+  map.objects_details.reserve(num_objects);
+  for (std::uint32_t i = 0; i < num_objects; ++i)
+  {
+    map.objects_details.push_back(readObjectDetails(stream, map.objects_attributes));
+  }
+  // Read global events.
+  const std::uint32_t num_global_events = readUint<std::uint32_t>(stream);
+  map.global_events.reserve(num_global_events);
+  for (std::uint32_t i = 0; i < num_global_events; ++i)
+  {
+    map.global_events.push_back(readGlobalEvent(stream));
+  }
+  // Read padding data.
+  map.padding = readByteArray<124>(stream);
   return map;
 }
 

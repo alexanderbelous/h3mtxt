@@ -279,4 +279,6 @@ namespace h3m
       throw std::runtime_error("Invalid object_class.");
     }
   }
+
+  // TODO: check via static_assert that all known ObjectClasses are mapped to some MetaObjectType.
 }

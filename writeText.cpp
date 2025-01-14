@@ -47,6 +47,7 @@ namespace h3m
       return IsH3mStruct<T>::value;
     }
 
+    // TODO: rename to TextWriter.
     template<class T, class Enable = void>
     class Writer
     {
@@ -642,6 +643,34 @@ namespace h3m
       }
     };
 
+    template<>
+    class Writer<ObjectDetails>
+    {
+    public:
+      void operator()(std::ostream& stream, const ObjectDetails& value, std::size_t num_spaces) const
+      {
+        throw std::runtime_error("NotImplemented.");
+      }
+    };
+
+    template<>
+    class Writer<GlobalEvent>
+    {
+    public:
+      void operator()(std::ostream& stream, const GlobalEvent& global_event, std::size_t num_spaces) const
+      {
+        writeNamedField(stream, "name", global_event.name, num_spaces);
+        writeNamedField(stream, "message", global_event.message, num_spaces);
+        writeNamedField(stream, "resources", global_event.resources, num_spaces);
+        writeNamedField(stream, "affected_players", global_event.affected_players, num_spaces);
+        writeNamedField(stream, "applies_to_human", global_event.applies_to_human, num_spaces);
+        writeNamedField(stream, "applies_to_computer", global_event.applies_to_computer, num_spaces);
+        writeNamedField(stream, "day_of_first_occurence", global_event.day_of_first_occurence, num_spaces);
+        writeNamedField(stream, "repeat_after_days", global_event.repeat_after_days, num_spaces);
+        writeNamedField(stream, "unknown", global_event.unknown, num_spaces, false);
+      }
+    };
+
     // Full specialization for Map.
     template<>
     class Writer<Map>
@@ -679,7 +708,10 @@ namespace h3m
           }
           stream << whitespace << "]\n";
         }
-        writeNamedField(stream, "objects_attributes", map.objects_attributes, num_spaces, false);
+        writeNamedField(stream, "objects_attributes", map.objects_attributes, num_spaces);
+        writeNamedField(stream, "objects_details", map.objects_details, num_spaces);
+        writeNamedField(stream, "global_events", map.global_events, num_spaces);
+        writeNamedField(stream, "padding", map.padding, num_spaces, false);
       }
     };
 
