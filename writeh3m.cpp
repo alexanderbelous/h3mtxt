@@ -40,6 +40,29 @@ namespace h3m
       writer(stream, value);
     }
 
+    // FunctionObject that calls writeData() internally.
+    // This is useful when serializing std::variant fields.
+    class DataWriter
+    {
+    public:
+      // Constructs a DataWriter that will write data into the given stream.
+      // \param stream - output stream.
+      explicit constexpr DataWriter(std::ostream& stream) noexcept:
+        stream_(stream)
+      {}
+
+      // Writes the given value into the stream.
+      // \param value - value to write.
+      template<class T>
+      void operator()(const T& value) const
+      {
+        writeData(stream_, value);
+      }
+
+    private:
+      std::ostream& stream_;
+    };
+
     // Full specialization for std::uint8_t.
     template<>
     class H3MWriter<std::uint8_t>
@@ -330,43 +353,24 @@ namespace h3m
       }
     };
 
+    template<>
+    class H3MWriter<VictoryConditionDetails<VictoryConditionType::Normal>>
+    {
+    public:
+      void operator()(std::ostream& stream, const VictoryConditionDetails<VictoryConditionType::Normal>& value) const
+      {
+      }
+    };
+
     // Full specialization for VictoryCondition.
     template<>
     class H3MWriter<VictoryCondition>
     {
     public:
-      void operator()(std::ostream& stream, const VictoryCondition& value) const
+      void operator()(std::ostream& stream, const VictoryCondition& victory_condition) const
       {
-        writeData(stream, value.type());
-        switch (value.type())
-        {
-        case VictoryConditionType::AcquireArtifact:
-          return writeData(stream, *value.details<VictoryConditionType::AcquireArtifact>());
-        case VictoryConditionType::AccumulateCreatures:
-          return writeData(stream, *value.details<VictoryConditionType::AccumulateCreatures>());
-        case VictoryConditionType::AccumulateResources:
-          return writeData(stream, *value.details<VictoryConditionType::AccumulateResources>());
-        case VictoryConditionType::UpgradeTown:
-          return writeData(stream, *value.details<VictoryConditionType::UpgradeTown>());
-        case VictoryConditionType::BuildGrail:
-          return writeData(stream, *value.details<VictoryConditionType::BuildGrail>());
-        case VictoryConditionType::DefeatHero:
-          return writeData(stream, *value.details<VictoryConditionType::DefeatHero>());
-        case VictoryConditionType::CaptureTown:
-          return writeData(stream, *value.details<VictoryConditionType::CaptureTown>());
-        case VictoryConditionType::DefeatMonster:
-          return writeData(stream, *value.details<VictoryConditionType::DefeatMonster>());
-        case VictoryConditionType::FlagDwellings:
-          return writeData(stream, *value.details<VictoryConditionType::FlagDwellings>());
-        case VictoryConditionType::FlagMines:
-          return writeData(stream, *value.details<VictoryConditionType::FlagMines>());
-        case VictoryConditionType::TransportArtifact:
-          return writeData(stream, *value.details<VictoryConditionType::TransportArtifact>());
-        case VictoryConditionType::Normal:
-          return;
-        default:
-          throw std::runtime_error("Invalid VictoryConditionType.");
-        }
+        writeData(stream, victory_condition.type());
+        std::visit(DataWriter(stream), victory_condition.details);
       }
     };
 
@@ -407,30 +411,24 @@ namespace h3m
       }
     };
 
+    template<>
+    class H3MWriter<LossConditionDetails<LossConditionType::Normal>>
+    {
+    public:
+      void operator()(std::ostream& stream, const LossConditionDetails<LossConditionType::Normal>& value) const
+      {
+      }
+    };
+
     // Full specialization for LossCondition.
     template<>
     class H3MWriter<LossCondition>
     {
     public:
-      void operator()(std::ostream& stream, const LossCondition& value) const
+      void operator()(std::ostream& stream, const LossCondition& loss_condition) const
       {
-        writeData(stream, value.type());
-        switch (value.type())
-        {
-        case LossConditionType::LoseTown:
-          writeData(stream, *value.details<LossConditionType::LoseTown>());
-          break;
-        case LossConditionType::LoseHero:
-          writeData(stream, *value.details<LossConditionType::LoseHero>());
-          break;
-        case LossConditionType::TimeExpires:
-          writeData(stream, *value.details<LossConditionType::TimeExpires>());
-          break;
-        case LossConditionType::Normal:
-          break;
-        default:
-          throw std::runtime_error("Invalid LossConditionType.");
-        }
+        writeData(stream, loss_condition.type());
+        std::visit(DataWriter(stream), loss_condition.details);
       }
     };
 

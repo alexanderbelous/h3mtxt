@@ -36,7 +36,6 @@ struct LossConditionDetails<LossConditionType::Normal>
 {
 };
 
-
 class LossCondition
 {
 public:
@@ -51,45 +50,39 @@ public:
   // \return the type of the loss condition.
   constexpr LossConditionType type() const noexcept;
 
-  // Get the details of the loss condition.
-  // \param T - type of the loss condition.
-  // \return the details of the loss condition, nullptr if T doesn't match the type returned by type().
-  template<LossConditionType T>
-  constexpr const LossConditionDetails<T>* details() const noexcept;
-
-private:
+  // Details of the loss condition.
   std::variant<
     LossConditionDetails<LossConditionType::LoseTown>,
     LossConditionDetails<LossConditionType::LoseHero>,
     LossConditionDetails<LossConditionType::TimeExpires>,
     LossConditionDetails<LossConditionType::Normal>
-  > details_ {};
+  > details;
 };
 
 constexpr LossCondition::LossCondition() noexcept:
-  details_(LossConditionDetails<LossConditionType::Normal>{})
+  details(LossConditionDetails<LossConditionType::Normal>{})
 {}
 
 template<LossConditionType T>
 constexpr LossCondition::template LossCondition(LossConditionDetails<T> details) noexcept:
-  details_(std::move(details))
+  details(std::move(details))
 {}
 
 constexpr LossConditionType LossCondition::type() const noexcept
 {
-  const std::size_t index = details_.index();
+  constexpr std::size_t kNormalDetailsIndex = 3;
+  using DetailsVariant = decltype(details);
+  static_assert(std::is_same_v<std::variant_alternative_t<kNormalDetailsIndex, DetailsVariant>,
+                               LossConditionDetails<LossConditionType::Normal>>,
+                "kNormalDetailsIndex must be the index of the alternative for Normal loss condition.");
+
+  const std::size_t index = details.index();
   // Hack to avoid writing a switch statement over all loss condition types.
-  if (index == 3)
+  if (index == kNormalDetailsIndex)
   {
     return LossConditionType::Normal;
   }
   return static_cast<LossConditionType>(index);
-}
-
-template<LossConditionType T>
-constexpr const LossConditionDetails<T>* LossCondition::details() const noexcept
-{
-  return std::get_if<LossConditionDetails<T>>(&details_);
 }
 
 }

@@ -127,6 +127,34 @@ namespace h3m
       }
     }
 
+    // FunctionObject that calls writeNamedField() internally.
+    // This is useful when writing std::variant fields.
+    class NamedFieldWriter
+    {
+    public:
+      constexpr NamedFieldWriter(std::ostream& stream,
+                                 std::string_view field_name,
+                                 std::size_t num_spaces,
+                                 bool newline = true) noexcept:
+        stream_(stream),
+        field_name_(field_name),
+        num_spaces_(num_spaces),
+        newline_(newline)
+      {}
+
+      template<class T>
+      void operator()(const T& value) const
+      {
+        writeNamedField(stream_, field_name_, value, num_spaces_, newline_);
+      }
+
+    private:
+      std::ostream& stream_;
+      std::string_view field_name_;
+      std::size_t num_spaces_;
+      bool newline_;
+    };
+
     // Full specialization for std::string.
     template<>
     class Writer<std::string>
@@ -336,20 +364,7 @@ namespace h3m
       {
         const bool has_details = value.type() != VictoryConditionType::Normal;
         writeNamedField(stream, "type", value.type(), num_spaces, has_details);
-        //switch (value.type())
-        //{
-        //case LossConditionType::LoseTown:
-        //  writeNamedField(stream, "details", *value.details<LossConditionType::LoseTown>(), num_spaces, false);
-        //  break;
-        //case LossConditionType::LoseHero:
-        //  writeNamedField(stream, "details", *value.details<LossConditionType::LoseHero>(), num_spaces, false);
-        //  break;
-        //case LossConditionType::TimeExpires:
-        //  writeNamedField(stream, "details", *value.details<LossConditionType::TimeExpires>(), num_spaces, false);
-        //  break;
-        //default:
-        //  break;
-        //}
+        // TODO: write details, if any.
       }
     };
 
@@ -396,28 +411,29 @@ namespace h3m
       }
     };
 
+    template<>
+    class Writer<LossConditionDetails<LossConditionType::Normal>>
+    {
+    public:
+      void operator()(std::ostream& stream,
+                      const LossConditionDetails<LossConditionType::Normal>& value,
+                      std::size_t num_spaces) const
+      {
+      }
+    };
+
     // Full specialization for LossCondition.
     template<>
     class Writer<LossCondition>
     {
     public:
-      void operator()(std::ostream& stream, const LossCondition& value, std::size_t num_spaces) const
+      void operator()(std::ostream& stream, const LossCondition& loss_condition, std::size_t num_spaces) const
       {
-        const bool has_details = value.type() != LossConditionType::Normal;
-        writeNamedField(stream, "type", value.type(), num_spaces, has_details);
-        switch (value.type())
+        const bool has_details = loss_condition.type() != LossConditionType::Normal;
+        writeNamedField(stream, "type", loss_condition.type(), num_spaces, has_details);
+        if (has_details)
         {
-        case LossConditionType::LoseTown:
-          writeNamedField(stream, "details", *value.details<LossConditionType::LoseTown>(), num_spaces, false);
-          break;
-        case LossConditionType::LoseHero:
-          writeNamedField(stream, "details", *value.details<LossConditionType::LoseHero>(), num_spaces, false);
-          break;
-        case LossConditionType::TimeExpires:
-          writeNamedField(stream, "details", *value.details<LossConditionType::TimeExpires>(), num_spaces, false);
-          break;
-        default:
-          break;
+          std::visit(NamedFieldWriter(stream, "details", num_spaces, false), loss_condition.details);
         }
       }
     };

@@ -10,6 +10,7 @@
 #include <array>
 #include <cstdint>
 #include <string>
+#include <variant>
 
 namespace h3m
 {
@@ -88,7 +89,14 @@ struct ObjectDetails
   std::uint32_t kind {};
   // Should be all 0s; kept here for compatibility.
   std::array<std::uint8_t, 5> unknown {};
-  // TODO: add object-specific data.
+  // Object-specific data.
+  // TODO: add all other MetaObjectTypes.
+  std::variant<
+    ObjectDetailsData<MetaObjectType::ABANDONED_MINE_ABSOD>,
+    ObjectDetailsData<MetaObjectType::GRAIL>,
+    ObjectDetailsData<MetaObjectType::PANDORAS_BOX>,
+    ObjectDetailsData<MetaObjectType::EVENT>
+  > details;
 };
 
 }

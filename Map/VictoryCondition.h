@@ -115,13 +115,7 @@ public:
   // \return the type of the victory condition.
   constexpr VictoryConditionType type() const noexcept;
 
-  // Get the details of the victory condition.
-  // \param T - type of the victory condition.
-  // \return the details of the victory condition, nullptr if T doesn't match the type returned by type().
-  template<VictoryConditionType T>
-  constexpr const VictoryConditionDetails<T>* details() const noexcept;
-
-private:
+  // Details of the victory condition.
   std::variant<
     VictoryConditionDetails<VictoryConditionType::AcquireArtifact>,
     VictoryConditionDetails<VictoryConditionType::AccumulateCreatures>,
@@ -135,33 +129,33 @@ private:
     VictoryConditionDetails<VictoryConditionType::FlagMines>,
     VictoryConditionDetails<VictoryConditionType::TransportArtifact>,
     VictoryConditionDetails<VictoryConditionType::Normal>
-  > details_ {};
+  > details;
 };
 
 constexpr VictoryCondition::VictoryCondition() noexcept:
-  details_(VictoryConditionDetails<VictoryConditionType::Normal>{})
+  details(VictoryConditionDetails<VictoryConditionType::Normal>{})
 {}
 
 template<VictoryConditionType T>
 constexpr VictoryCondition::template VictoryCondition(VictoryConditionDetails<T> details) noexcept:
-  details_(std::move(details))
+  details(std::move(details))
 {}
 
 constexpr VictoryConditionType VictoryCondition::type() const noexcept
 {
-  const std::size_t index = details_.index();
+  constexpr std::size_t kNormalDetailsIndex = 11;
+  using DetailsVariant = decltype(details);
+  static_assert(std::is_same_v<std::variant_alternative_t<kNormalDetailsIndex, DetailsVariant>,
+                               VictoryConditionDetails<VictoryConditionType::Normal>>,
+                "kNormalDetailsIndex must be the index of the alternative for Normal victory condition.");
+
+  const std::size_t index = details.index();
   // Hack to avoid writing a switch statement over all victory condition types.
-  if (index == 11)
+  if (index == kNormalDetailsIndex)
   {
     return VictoryConditionType::Normal;
   }
   return static_cast<VictoryConditionType>(index);
-}
-
-template<VictoryConditionType T>
-constexpr const VictoryConditionDetails<T>* VictoryCondition::details() const noexcept
-{
-  return std::get_if<VictoryConditionDetails<T>>(&details_);
 }
 
 }
