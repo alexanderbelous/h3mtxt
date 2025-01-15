@@ -415,6 +415,79 @@ ObjectAttributes readObjectAttributes(std::istream& stream)
   return result;
 }
 
+// TODO: remove the default implementation once readObjectDetailsData() is specialized for
+// all MetaObjectTypes.
+template<MetaObjectType T>
+[[noreturn]] ObjectDetailsData<T> readObjectDetailsData(std::istream& stream)
+{
+  throw std::runtime_error("NotImplemented.");
+}
+
+template<>
+ObjectDetailsData<MetaObjectType::GENERIC_NO_PROPERTIES>
+readObjectDetailsData<MetaObjectType::GENERIC_NO_PROPERTIES>(std::istream& stream)
+{
+  return {};
+}
+
+template<>
+ObjectDetailsData<MetaObjectType::GRAIL>
+readObjectDetailsData<MetaObjectType::GRAIL>(std::istream& stream)
+{
+  ObjectDetailsData<MetaObjectType::GRAIL> data;
+  data.allowable_radius = readUint<std::uint32_t>(stream);
+  return data;
+}
+
+template<>
+ObjectDetailsData<MetaObjectType::WITCH_HUT>
+readObjectDetailsData<MetaObjectType::WITCH_HUT>(std::istream& stream)
+{
+  ObjectDetailsData<MetaObjectType::WITCH_HUT> data;
+  data.skills_availability = readBitSet<4>(stream);
+  return data;
+}
+
+// Utility wrapper around readObjectDetailsData(), which returns the result
+// as ObjectDetails::Data.
+template<MetaObjectType T>
+ObjectDetails::Data readObjectDetailsDataAsVariant(std::istream& stream)
+{
+  return readObjectDetailsData<T>(stream);
+}
+
+// Reads ObjectDetailsData for the specified MetaObjectType.
+// \param stream - input stream.
+// \param meta_object_type - MetaObjectType of the object.
+// \return the deserialized data as ObjectDetails::Data (which is an alias for an std::variant
+//         capable of holding any ObjectDetailsData).
+ObjectDetails::Data readObjectDetailsDataVariant(std::istream& stream, MetaObjectType meta_object_type)
+{
+  // I'm too lazy to write a switch statement - there are too many MetaObjectTypes, so
+  // let's use template metaprogramming instead.
+
+  // The underlying integer type for MetaObjectType.
+  using MetaObjectTypeIdx = std::underlying_type_t<MetaObjectType>;
+
+  // Type of a pointer to a function that takes std::istream& and returns ObjectDetails::Data.
+  using ReadObjectDetailsDataPtr = ObjectDetails::Data(*)(std::istream& stream);
+
+  // Generate (at compile time) an array of function pointers for each instantiation of
+  // readObjectDetailsDataAsVariant() ordered by MetaObjectType.
+  constexpr
+  std::array<ReadObjectDetailsDataPtr, kNumMetaObjectTypes> kObjectDetailsDataReaders =
+    [] <MetaObjectTypeIdx... meta_object_type_idx>
+    (std::integer_sequence<MetaObjectTypeIdx, meta_object_type_idx...> seq)
+    consteval
+  {
+    return std::array<ReadObjectDetailsDataPtr, sizeof...(meta_object_type_idx)>
+    { &readObjectDetailsDataAsVariant<static_cast<MetaObjectType>(meta_object_type_idx)>... };
+  }(std::make_integer_sequence<MetaObjectTypeIdx, kNumMetaObjectTypes>{});
+
+  // Invoke a function from the generated array.
+  return kObjectDetailsDataReaders[static_cast<MetaObjectTypeIdx>(meta_object_type)](stream);
+}
+
 ObjectDetails readObjectDetails(std::istream& stream, const std::vector<ObjectAttributes>& objects_attributes)
 {
   ObjectDetails result;
@@ -426,14 +499,7 @@ ObjectDetails readObjectDetails(std::istream& stream, const std::vector<ObjectAt
 
   const ObjectAttributes& object_attributes = objects_attributes.at(result.kind);
   const MetaObjectType meta_object_type = getMetaObjectType(object_attributes.object_class);
-  switch (meta_object_type)
-  {
-  case MetaObjectType::GENERIC_NO_PROPERTIES:
-    result.details = ObjectDetailsData<MetaObjectType::GENERIC_NO_PROPERTIES>{};
-    break;
-  default:
-    throw std::runtime_error("NotImplemented.");
-  }
+  result.details = readObjectDetailsDataVariant(stream, meta_object_type);
   return result;
 }
 

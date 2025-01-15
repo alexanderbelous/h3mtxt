@@ -1,5 +1,6 @@
 #pragma once
 
+#include <h3mparser/Map/BitSet.h>
 #include <h3mparser/Map/Constants/Constants.h>
 #include <h3mparser/Map/Constants/CreatureType.h>
 #include <h3mparser/Map/Constants/MetaObjectType.h>
@@ -12,6 +13,7 @@
 #include <array>
 #include <cstdint>
 #include <string>
+#include <type_traits>
 #include <variant>
 
 namespace h3m
@@ -29,7 +31,10 @@ namespace h3m
 // Since the set of object classes is fixed (new object classes won't be added, unless
 // I decide to support unofficial mods), static polymorphism should be fine.
 template<MetaObjectType T>
-struct ObjectDetailsData;
+struct ObjectDetailsData
+{
+  // TODO: remove the default implementation once ObjectDetailsData is specialized for all MetaObjectTypes.
+};
 
 template<>
 struct ObjectDetailsData<MetaObjectType::ABANDONED_MINE_ABSOD>
@@ -114,10 +119,37 @@ struct ObjectDetailsData<MetaObjectType::SHRINE>
   std::uint32_t spell{};
 };
 
+template<>
+struct ObjectDetailsData<MetaObjectType::WITCH_HUT>
+{
+  // TODO: replace with a custom class or add getters/setters.
+  BitSet<4> skills_availability;
+};
+
 // TODO: add specializations for the rest.
+
+namespace Details_NS
+{
+  template<class Types>
+  struct ObjectDetailsVariantTraits;
+
+  template<std::underlying_type_t<MetaObjectType>... meta_object_type_idx>
+  struct ObjectDetailsVariantTraits<std::integer_sequence<std::underlying_type_t<MetaObjectType>,
+                                                          meta_object_type_idx...>>
+  {
+    using type = std::variant<ObjectDetailsData<static_cast<MetaObjectType>(meta_object_type_idx)>...>;
+  };
+
+  using ObjectDetailsVariant =
+    typename ObjectDetailsVariantTraits<std::make_integer_sequence<std::underlying_type_t<MetaObjectType>,
+                                                                   kNumMetaObjectTypes>>::type;
+}
 
 struct ObjectDetails
 {
+  // std::variant with kNumMetaObjectTypes alternatives, whose N-th alternative is ObjectDetailsData<N>.
+  using Data = Details_NS::ObjectDetailsVariant;
+
   // Coordinates of the bottom right corner.
   std::uint8_t x {};
   std::uint8_t y {};
@@ -127,17 +159,8 @@ struct ObjectDetails
   // Should be all 0s; kept here for compatibility.
   std::array<std::uint8_t, 5> unknown {};
   // Object-specific data.
-  // TODO: add all other MetaObjectTypes.
-  std::variant<
-    ObjectDetailsData<MetaObjectType::ABANDONED_MINE_ABSOD>,
-    ObjectDetailsData<MetaObjectType::EVENT>,
-    ObjectDetailsData<MetaObjectType::GENERIC_NO_PROPERTIES>,
-    ObjectDetailsData<MetaObjectType::GRAIL>,
-    ObjectDetailsData<MetaObjectType::PANDORAS_BOX>,
-    ObjectDetailsData<MetaObjectType::PLACEHOLDER_HERO>,
-    ObjectDetailsData<MetaObjectType::SCHOLAR>,
-    ObjectDetailsData<MetaObjectType::SHRINE>
-  > details;
+  // TODO: consider renaming to additional_info.
+  Data details;
 };
 
 }

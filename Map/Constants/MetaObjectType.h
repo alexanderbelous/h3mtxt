@@ -59,6 +59,8 @@ namespace h3m
     WITCH_HUT
   };
 
+  inline constexpr std::uint32_t kNumMetaObjectTypes = 38;
+
   // Returns MetaObjectType for the given object class.
   // \param object_class - input object class.
   // \return MetaObjectType for @object_class.
