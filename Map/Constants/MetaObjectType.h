@@ -29,12 +29,12 @@ namespace h3m
     MONSTER,
     PANDORAS_BOX,
     PLACEHOLDER_HERO,
-    PRISON,
+    PRISON,  // TODO: merge with HERO
     QUEST_GUARD,
     RANDOM_DWELLING_ABSOD,
     RANDOM_DWELLING_PRESET_ALIGNMENT_ABSOD,
     RANDOM_DWELLING_PRESET_LEVEL_ABSOD,
-    RANDOM_HERO,
+    RANDOM_HERO,  // TODO: merge with HERO
     RESOURCE,
     SCHOLAR,
     SEERS_HUT,
@@ -260,10 +260,23 @@ namespace h3m
       return MetaObjectType::GRAIL;
     case ObjectClass::HERO:
       return MetaObjectType::HERO;
+    case ObjectClass::MONSTER:
+    case ObjectClass::RANDOM_MONSTER:
+    case ObjectClass::RANDOM_MONSTER_L1:
+    case ObjectClass::RANDOM_MONSTER_L2:
+    case ObjectClass::RANDOM_MONSTER_L3:
+    case ObjectClass::RANDOM_MONSTER_L4:
+    case ObjectClass::RANDOM_MONSTER_L5:
+    case ObjectClass::RANDOM_MONSTER_L6:
+    case ObjectClass::RANDOM_MONSTER_L7:
+      return MetaObjectType::MONSTER;
     case ObjectClass::PANDORAS_BOX:
       return MetaObjectType::PANDORAS_BOX;
     case ObjectClass::HERO_PLACEHOLDER:
       return MetaObjectType::PLACEHOLDER_HERO;
+    case ObjectClass::RESOURCE:
+    case ObjectClass::RANDOM_RESOURCE:
+      return MetaObjectType::RESOURCE;
     case ObjectClass::SCHOLAR:
       return MetaObjectType::SCHOLAR;
     case ObjectClass::SHRINE_OF_MAGIC_INCANTATION:
@@ -273,6 +286,8 @@ namespace h3m
     case ObjectClass::OCEAN_BOTTLE:
     case ObjectClass::SIGN:
       return MetaObjectType::SIGN;
+    case ObjectClass::SPELL_SCROLL:
+      return MetaObjectType::SPELL_SCROLL;
     case ObjectClass::CREATURE_GENERATOR1:
     case ObjectClass::CREATURE_GENERATOR2:
     case ObjectClass::CREATURE_GENERATOR3:

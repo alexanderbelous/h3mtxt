@@ -70,6 +70,28 @@ struct ObjectDetailsData<MetaObjectType::GRAIL>
 };
 
 template<>
+struct ObjectDetailsData<MetaObjectType::MONSTER>
+{
+  struct MessageAndTreasure
+  {
+    std::string message;
+    std::array<std::uint32_t, kNumResources> resources {};
+    // 0xFFFF means no artifact.
+    std::uint16_t artifact {};
+  };
+
+  std::uint32_t absod_id {};
+  // 0 means random.
+  std::uint16_t count {};
+  // (likelyhood of joining hero; h3m_disposition.h: 0 compliant, 1 friendly, 2 aggressive, 3 hostile, 4 savage)
+  // TODO: replace with an enum.
+  std::uint8_t disposition {};
+  std::optional<MessageAndTreasure> message_and_treasure;
+  Bool never_flees {};
+  Bool does_not_grow {};
+};
+
+template<>
 struct ObjectDetailsData<MetaObjectType::PANDORAS_BOX>
 {
   std::optional<Guardians> guardians;
@@ -108,6 +130,15 @@ struct ObjectDetailsData<MetaObjectType::PLACEHOLDER_HERO>
 };
 
 template<>
+struct ObjectDetailsData<MetaObjectType::RESOURCE>
+{
+  std::optional<Guardians> guardians;
+  // Multiply by 100 for gold, i.e. subclass 6.
+  std::uint32_t quantity {};
+  std::array<std::uint8_t, 4> unknown {};
+};
+
+template<>
 struct ObjectDetailsData<MetaObjectType::SCHOLAR>
 {
   ScholarRewardType reward_type {};
@@ -134,6 +165,13 @@ struct ObjectDetailsData<MetaObjectType::SIGN>
   std::string message;
   // Should be 0s.
   std::array<std::uint8_t, 4> unknown {};
+};
+
+template<>
+struct ObjectDetailsData<MetaObjectType::SPELL_SCROLL>
+{
+  std::optional<Guardians> guardians;
+  std::uint32_t spell {};
 };
 
 template<>
