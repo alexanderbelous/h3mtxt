@@ -5,6 +5,7 @@
 #include <h3mparser/Map/Constants/CreatureType.h>
 #include <h3mparser/Map/Constants/MetaObjectType.h>
 #include <h3mparser/Map/Constants/ScholarRewardType.h>
+#include <h3mparser/Map/Constants/SecondarySkillType.h>
 #include <h3mparser/Map/Constants/SpellType.h>
 #include <h3mparser/Map/CreatureStack.h>
 #include <h3mparser/Map/PrimarySkills.h>
@@ -122,7 +123,16 @@ struct ObjectDetailsData<MetaObjectType::SHRINE>
 template<>
 struct ObjectDetailsData<MetaObjectType::WITCH_HUT>
 {
-  // TODO: replace with a custom class or add getters/setters.
+  constexpr bool isAvailable(SecondarySkillType secondary_skill) const
+  {
+    return skills_availability.at(static_cast<std::size_t>(secondary_skill));
+  }
+
+  constexpr void setAvailable(SecondarySkillType secondary_skill, bool is_available)
+  {
+    skills_availability.set(static_cast<std::size_t>(secondary_skill), is_available);
+  }
+
   BitSet<4> skills_availability;
 };
 
