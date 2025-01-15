@@ -21,21 +21,15 @@ namespace h3m
   {
     ABANDONED_MINE_ABSOD,
     ARTIFACT,
-    ARTIFACT_AB,  // TODO: probably should be removed.
-    ARTIFACT_SOD, // TODO: probably should be removed.
     DWELLING,
     DWELLING_ABSOD,
     EVENT,
     GARRISON,
-    GARRISON_ABSOD,
     GENERIC_NO_PROPERTIES,  // Any object for which ObjectDetails doesn't store any additional info.
     GRAIL,
     HERO,
-    HERO_AB,
     LIGHTHOUSE,
-    MONOLITH_TWO_WAY,
     MONSTER,
-    MONSTER_ABSOD,
     OCEAN_BOTTLE,
     PANDORAS_BOX,
     PLACEHOLDER_HERO,
@@ -53,13 +47,11 @@ namespace h3m
     SHRINE,
     SIGN,
     SPELL_SCROLL,
-    SUBTERRANEAN_GATE,
     TOWN,
-    TOWN_ABSOD,
     WITCH_HUT
   };
 
-  inline constexpr std::uint32_t kNumMetaObjectTypes = 38;
+  inline constexpr std::uint32_t kNumMetaObjectTypes = 30;
 
   // Returns MetaObjectType for the given object class.
   // \param object_class - input object class.
@@ -258,6 +250,8 @@ namespace h3m
     case ObjectClass::MONOLITH_ONE_WAY_EXIT:
     // GENERIC_TREASURE
     case ObjectClass::TREASURE_CHEST:
+    // SUBTERRANEAN_GATE
+    case ObjectClass::SUBTERRANEAN_GATE:
       return MetaObjectType::GENERIC_NO_PROPERTIES;
 
     case ObjectClass::GRAIL:
