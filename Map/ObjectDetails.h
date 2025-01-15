@@ -4,11 +4,13 @@
 #include <h3mparser/Map/Constants/Constants.h>
 #include <h3mparser/Map/Constants/CreatureType.h>
 #include <h3mparser/Map/Constants/Disposition.h>
+#include <h3mparser/Map/Constants/Formation.h>
 #include <h3mparser/Map/Constants/MetaObjectType.h>
 #include <h3mparser/Map/Constants/ScholarRewardType.h>
 #include <h3mparser/Map/Constants/SecondarySkillType.h>
 #include <h3mparser/Map/Constants/SpellType.h>
 #include <h3mparser/Map/CreatureStack.h>
+#include <h3mparser/Map/HeroArtifacts.h>
 #include <h3mparser/Map/PrimarySkills.h>
 #include <h3mparser/Map/SecondarySkill.h>
 
@@ -80,6 +82,38 @@ template<>
 struct ObjectDetailsData<MetaObjectType::GRAIL>
 {
   std::uint32_t allowable_radius {};
+};
+
+// Additional info for ObjectClass::HERO, ObjectClass::RANDOM_HERO and ObjectClass::PRISON.
+// TODO: this implies that you can set name, face, biography and gender for a random hero,
+// or set a random hero in a prison. Check if this is true.
+template<>
+struct ObjectDetailsData<MetaObjectType::HERO>
+{
+  std::uint32_t absod_id {};
+  // Should always be 0xFF for ObjectClass::PRISON.
+  std::uint8_t owner {};
+  // 0xFF if random.
+  HeroType type {};
+  std::optional<std::string> name;
+  // Note: in RoE/AB experience is not optional.
+  std::optional<std::uint32_t> experience;
+  std::optional<std::uint8_t> face;
+  // The fields below are a superset of HeroSettings, but the order is different, so I'm not reusing that class.
+  std::optional<std::vector<SecondarySkill>> secondary_skills;
+  // 0xFFFF in CreatureStack.type means no creature.
+  std::optional<std::array<CreatureStack, 7>> creatures;
+  Formation formation {};
+  std::optional<HeroArtifacts> artifacts;
+  // 0xFF means no patrol.
+  std::uint8_t patrol_radius {};
+  std::optional<std::string> biography;
+  Gender gender {};
+  // TODO: add a wrapper class.
+  std::optional<BitSet<9>> spells;
+  std::optional<PrimarySkills> primary_skills;
+  // 0s by default; kept here for compatibility.
+  std::array<std::uint8_t, 16> unknown;
 };
 
 template<>

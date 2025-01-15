@@ -162,6 +162,7 @@
     <ClInclude Include="Map\Constants\Constants.h" />
     <ClInclude Include="Map\Constants\CreatureType.h" />
     <ClInclude Include="Map\Constants\Disposition.h" />
+    <ClInclude Include="Map\Constants\Formation.h" />
     <ClInclude Include="Map\Constants\Gender.h" />
     <ClInclude Include="Map\Constants\HeroType.h" />
     <ClInclude Include="Map\Constants\LossConditionType.h" />
@@ -183,6 +184,7 @@
     <ClInclude Include="Map\CreatureStack.h" />
     <ClInclude Include="Map\GlobalEvent.h" />
     <ClInclude Include="H3MFwd.h" />
+    <ClInclude Include="Map\HeroArtifacts.h" />
     <ClInclude Include="Map\HeroSettings.h" />
     <ClInclude Include="Map\LossCondition.h" />
     <ClInclude Include="Map\Map.h" />

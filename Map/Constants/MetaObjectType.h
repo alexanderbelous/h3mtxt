@@ -25,16 +25,14 @@ namespace h3m
     GARRISON,
     GENERIC_NO_PROPERTIES,  // Any object for which ObjectDetails doesn't store any additional info.
     GRAIL,
-    HERO,
+    HERO,  // HERO, PRISON and RANDOM_HERO
     MONSTER,
     PANDORAS_BOX,
     PLACEHOLDER_HERO,
-    PRISON,  // TODO: merge with HERO
     QUEST_GUARD,
     RANDOM_DWELLING_ABSOD,
     RANDOM_DWELLING_PRESET_ALIGNMENT_ABSOD,
     RANDOM_DWELLING_PRESET_LEVEL_ABSOD,
-    RANDOM_HERO,  // TODO: merge with HERO
     RESOURCE,
     SCHOLAR,
     SEERS_HUT,
@@ -46,7 +44,7 @@ namespace h3m
     WITCH_HUT
   };
 
-  inline constexpr std::uint32_t kNumMetaObjectTypes = 25;
+  inline constexpr std::uint32_t kNumMetaObjectTypes = 23;
 
   // Returns MetaObjectType for the given object class.
   // \param object_class - input object class.
@@ -268,6 +266,8 @@ namespace h3m
     case ObjectClass::GRAIL:
       return MetaObjectType::GRAIL;
     case ObjectClass::HERO:
+    case ObjectClass::PRISON:
+    case ObjectClass::RANDOM_HERO:
       return MetaObjectType::HERO;
     case ObjectClass::MONSTER:
     case ObjectClass::RANDOM_MONSTER:

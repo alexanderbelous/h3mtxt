@@ -158,5 +158,11 @@
     <ClInclude Include="Map\Constants\Disposition.h">
       <Filter>Header Files\Map\Constants</Filter>
     </ClInclude>
+    <ClInclude Include="Map\HeroArtifacts.h">
+      <Filter>Header Files\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="Map\Constants\Formation.h">
+      <Filter>Header Files\Map</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
