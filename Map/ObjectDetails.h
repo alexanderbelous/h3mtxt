@@ -20,6 +20,13 @@
 namespace h3m
 {
 
+// TODO: move to a separate header
+struct Guardians
+{
+  std::string message;
+  std::optional<std::array<CreatureStack, 7>> creatures;
+};
+
 // "Extension" of ObjectDetails specific to ObjectClass of this object.
 //
 // Static polymorphism is used here rather than dynamic polymorphism.
@@ -46,6 +53,12 @@ struct ObjectDetailsData<MetaObjectType::ABANDONED_MINE_ABSOD>
 };
 
 template<>
+struct ObjectDetailsData<MetaObjectType::ARTIFACT>
+{
+  std::optional<Guardians> guardians;
+};
+
+template<>
 struct ObjectDetailsData<MetaObjectType::GENERIC_NO_PROPERTIES>
 {
 };
@@ -54,13 +67,6 @@ template<>
 struct ObjectDetailsData<MetaObjectType::GRAIL>
 {
   std::uint32_t allowable_radius {};
-};
-
-// TODO: move to a separate header
-struct Guardians
-{
-  std::string message;
-  std::optional<std::array<CreatureStack, 7>> creatures;
 };
 
 template<>
@@ -80,6 +86,7 @@ struct ObjectDetailsData<MetaObjectType::PANDORAS_BOX>
   std::array<std::uint8_t, 8> unknown {};
 };
 
+// TODO: use composition instead of inheritance.
 template<>
 struct ObjectDetailsData<MetaObjectType::EVENT> : ObjectDetailsData<MetaObjectType::PANDORAS_BOX>
 {
@@ -118,6 +125,22 @@ struct ObjectDetailsData<MetaObjectType::SHRINE>
 {
   // 0xFF means random.
   std::uint32_t spell{};
+};
+
+template<>
+struct ObjectDetailsData<MetaObjectType::SIGN>
+{
+  // Empty string means random message.
+  std::string message;
+  // Should be 0s.
+  std::array<std::uint8_t, 4> unknown {};
+};
+
+template<>
+struct ObjectDetailsData<MetaObjectType::TRIVIAL_OWNED_OBJECT>
+{
+  // 0xFF means that there is no owner.
+  std::uint32_t owner {};
 };
 
 template<>

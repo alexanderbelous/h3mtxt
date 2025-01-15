@@ -19,18 +19,14 @@ namespace h3m
   // "MetaObjectType".
   enum class MetaObjectType
   {
-    ABANDONED_MINE_ABSOD,
+    ABANDONED_MINE_ABSOD,  // TODO: rename to ABANDONED_MINE
     ARTIFACT,
-    DWELLING,
-    DWELLING_ABSOD,
     EVENT,
     GARRISON,
     GENERIC_NO_PROPERTIES,  // Any object for which ObjectDetails doesn't store any additional info.
     GRAIL,
     HERO,
-    LIGHTHOUSE,
     MONSTER,
-    OCEAN_BOTTLE,
     PANDORAS_BOX,
     PLACEHOLDER_HERO,
     PRISON,
@@ -40,18 +36,17 @@ namespace h3m
     RANDOM_DWELLING_PRESET_LEVEL_ABSOD,
     RANDOM_HERO,
     RESOURCE,
-    RESOURCE_GENERATOR,
     SCHOLAR,
     SEERS_HUT,
-    SHIPYARD,
     SHRINE,
-    SIGN,
+    SIGN,  // SIGN and OCEAN_BOTTLE.
     SPELL_SCROLL,
     TOWN,
+    TRIVIAL_OWNED_OBJECT,  // Any object whose only property is the owner (non-random dwelling, lighthouse, mine, shipyard).
     WITCH_HUT
   };
 
-  inline constexpr std::uint32_t kNumMetaObjectTypes = 30;
+  inline constexpr std::uint32_t kNumMetaObjectTypes = 25;
 
   // Returns MetaObjectType for the given object class.
   // \param object_class - input object class.
@@ -61,6 +56,13 @@ namespace h3m
   {
     switch (object_class)
     {
+    case ObjectClass::ARTIFACT:
+    case ObjectClass::RANDOM_ART:
+    case ObjectClass::RANDOM_TREASURE_ART:
+    case ObjectClass::RANDOM_MINOR_ART:
+    case ObjectClass::RANDOM_MAJOR_ART:
+    case ObjectClass::RANDOM_RELIC_ART:
+      return MetaObjectType::ARTIFACT;
     case ObjectClass::EVENT:
       return MetaObjectType::EVENT;
 
@@ -258,8 +260,6 @@ namespace h3m
       return MetaObjectType::GRAIL;
     case ObjectClass::HERO:
       return MetaObjectType::HERO;
-    case ObjectClass::LIGHTHOUSE:
-      return MetaObjectType::LIGHTHOUSE;
     case ObjectClass::PANDORAS_BOX:
       return MetaObjectType::PANDORAS_BOX;
     case ObjectClass::HERO_PLACEHOLDER:
@@ -270,6 +270,18 @@ namespace h3m
     case ObjectClass::SHRINE_OF_MAGIC_GESTURE:
     case ObjectClass::SHRINE_OF_MAGIC_THOUGHT:
       return MetaObjectType::SHRINE;
+    case ObjectClass::OCEAN_BOTTLE:
+    case ObjectClass::SIGN:
+      return MetaObjectType::SIGN;
+    case ObjectClass::CREATURE_GENERATOR1:
+    case ObjectClass::CREATURE_GENERATOR2:
+    case ObjectClass::CREATURE_GENERATOR3:
+    case ObjectClass::CREATURE_GENERATOR4:
+    case ObjectClass::LIGHTHOUSE:
+    case ObjectClass::MINE:
+    case ObjectClass::SHIPYARD:
+      return MetaObjectType::TRIVIAL_OWNED_OBJECT;
+
     default:
       // TODO: implement the rest.
       throw std::runtime_error("Invalid object_class.");
