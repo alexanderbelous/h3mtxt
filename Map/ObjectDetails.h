@@ -60,6 +60,18 @@ struct ObjectDetailsData<MetaObjectType::ARTIFACT>
 };
 
 template<>
+struct ObjectDetailsData<MetaObjectType::GARRISON>
+{
+  // 0xFF means no owner.
+  std::uint32_t owner {};
+  // Note: h3m2json claims that here 0xFF in CreatureStack.type means "no creature", but
+  // in other places 0xFFFF is used instead.
+  std::array<CreatureStack, 7> creatures {};
+  Bool can_remove_units {};
+  std::array<std::uint8_t, 8> unknown {};
+};
+
+template<>
 struct ObjectDetailsData<MetaObjectType::GENERIC_NO_PROPERTIES>
 {
 };
