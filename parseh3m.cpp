@@ -527,6 +527,10 @@ Map parseh3m(std::istream& stream, bool read_objects_details)
 {
   Map map;
   map.format = readEnum<MapFormat>(stream);
+  if (map.format != MapFormat::ShadowOfDeath)
+  {
+    throw std::runtime_error("Unsupported MapFormat. Only ShadowOfDeath is supported.");
+  }
   map.basic_info = readMapBasicInfo(stream);
   for (int i = 0; i < kMaxPlayers; ++i)
   {
