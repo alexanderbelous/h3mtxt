@@ -46,7 +46,7 @@ struct ObjectDetailsData
 };
 
 template<>
-struct ObjectDetailsData<MetaObjectType::ABANDONED_MINE_ABSOD>
+struct ObjectDetailsData<MetaObjectType::ABANDONED_MINE>
 {
   // Bitfield: LSB wood that is forced off by editor, then mercury, ore, sulfur, crystal, gems, MSB gold.
   // TODO: replace with BitSet<4> or even a custom wrapper class.

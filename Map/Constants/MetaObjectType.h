@@ -19,7 +19,7 @@ namespace h3m
   // "MetaObjectType".
   enum class MetaObjectType
   {
-    ABANDONED_MINE_ABSOD,  // TODO: rename to ABANDONED_MINE
+    ABANDONED_MINE,
     ARTIFACT,
     EVENT,
     GARRISON,
@@ -56,6 +56,8 @@ namespace h3m
   {
     switch (object_class)
     {
+    case ObjectClass::ABANDONED_MINE:
+      return MetaObjectType::ABANDONED_MINE;
     case ObjectClass::ARTIFACT:
     case ObjectClass::RANDOM_ART:
     case ObjectClass::RANDOM_TREASURE_ART:
