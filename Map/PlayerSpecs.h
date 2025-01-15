@@ -84,7 +84,7 @@ struct AdditionalPlayerInfo
 {
   struct HeroInfo
   {
-    HeroType type;
+    HeroType type {};
     // If empty, the default name is implied.
     std::string name;
   };
