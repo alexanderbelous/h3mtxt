@@ -3,6 +3,7 @@
 #include <h3mparser/Map/BitSet.h>
 #include <h3mparser/Map/Constants/Constants.h>
 #include <h3mparser/Map/Constants/CreatureType.h>
+#include <h3mparser/Map/Constants/Disposition.h>
 #include <h3mparser/Map/Constants/MetaObjectType.h>
 #include <h3mparser/Map/Constants/ScholarRewardType.h>
 #include <h3mparser/Map/Constants/SecondarySkillType.h>
@@ -83,9 +84,7 @@ struct ObjectDetailsData<MetaObjectType::MONSTER>
   std::uint32_t absod_id {};
   // 0 means random.
   std::uint16_t count {};
-  // (likelyhood of joining hero; h3m_disposition.h: 0 compliant, 1 friendly, 2 aggressive, 3 hostile, 4 savage)
-  // TODO: replace with an enum.
-  std::uint8_t disposition {};
+  Disposition disposition {};
   std::optional<MessageAndTreasure> message_and_treasure;
   Bool never_flees {};
   Bool does_not_grow {};

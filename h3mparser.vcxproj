@@ -161,6 +161,7 @@
     <ClInclude Include="Map\BitSet.h" />
     <ClInclude Include="Map\Constants\Constants.h" />
     <ClInclude Include="Map\Constants\CreatureType.h" />
+    <ClInclude Include="Map\Constants\Disposition.h" />
     <ClInclude Include="Map\Constants\Gender.h" />
     <ClInclude Include="Map\Constants\HeroType.h" />
     <ClInclude Include="Map\Constants\LossConditionType.h" />

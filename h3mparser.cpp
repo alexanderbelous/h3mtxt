@@ -297,7 +297,7 @@ int main(int argc, char** argv)
   {
     const fs::path path_map(argv[1]);
     std::ifstream stream(path_map, std::ios_base::in | std::ios_base::binary);
-    const h3m::Map map = h3m::parseh3m(stream);
+    const h3m::Map map = h3m::parseh3m(stream, true);
     stream.close();
     h3m::writeText(std::cout, map);
     std::ofstream out_stream("no_objects_or_events.h3m", std::ios_base::out | std::ios_base::binary);
@@ -309,9 +309,7 @@ int main(int argc, char** argv)
       h3m::Map test_map = generateTestMap();
       fillWithWaterTiles(test_map);
       drawFakeIslands(test_map);
-      std::cout << "Generated a test map." << std::endl;
       h3m::writeh3m(out_stream, test_map);
-      std::cout << "Wrote the generated map to test_map.h3m." << std::endl;
     }
   }
   catch (const std::exception& error)

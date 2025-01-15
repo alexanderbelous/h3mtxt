@@ -155,5 +155,8 @@
     <ClInclude Include="Map\Constants\ScholarRewardType.h">
       <Filter>Header Files\Map\Constants</Filter>
     </ClInclude>
+    <ClInclude Include="Map\Constants\Disposition.h">
+      <Filter>Header Files\Map\Constants</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
