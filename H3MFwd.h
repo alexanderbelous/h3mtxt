@@ -1,5 +1,7 @@
 #pragma once
 
+// TODO: delete this header.
+
 namespace h3m
 {
   struct AdditionalPlayerInfo;

@@ -117,6 +117,9 @@ namespace h3m
     };
 
     // Partial specialization for std::array<std::uint8_t, N>.
+    // TODO: generalize this to any instantiation of std::array. In H3M arrays of known
+    // width are always encoded as a sequence of individually encoded elements (the size
+    // of the array is not encoded).
     template<std::size_t N>
     class H3MWriter<std::array<std::uint8_t, N>>
     {
