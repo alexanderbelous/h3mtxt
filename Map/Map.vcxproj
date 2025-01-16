@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AffectedPlayers.h" />
     <ClInclude Include="Base.h" />
     <ClInclude Include="BitSet.h" />
     <ClInclude Include="Constants\Constants.h" />
@@ -34,6 +35,7 @@
     <ClInclude Include="Constants\ObjectClass.h" />
     <ClInclude Include="Constants\ObjectGroup.h" />
     <ClInclude Include="Constants\PlayerBehavior.h" />
+    <ClInclude Include="Constants\PlayerColor.h" />
     <ClInclude Include="Constants\ResourceType.h" />
     <ClInclude Include="Constants\RiverType.h" />
     <ClInclude Include="Constants\RoadType.h" />

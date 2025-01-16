@@ -93,7 +93,9 @@ namespace
           .resources {
             .data {10, 5, 10, 5, 5, 5, 1000}
            },
-          .affected_players = h3m::BitSet<1>(std::array<std::uint8_t, 1> {0xFF}),
+          .affected_players {
+            .bitset = 0xFF
+          },
           .applies_to_human = true,
           .applies_to_computer = true,
           .day_of_first_occurence = 0,

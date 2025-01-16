@@ -743,7 +743,7 @@ namespace h3m
         {
           writeData(stream, amount);
         }
-        writeData(stream, global_event.affected_players);
+        writeData(stream, global_event.affected_players.bitset);
         writeData(stream, global_event.applies_to_human);
         writeData(stream, global_event.applies_to_computer);
         writeData(stream, global_event.day_of_first_occurence);

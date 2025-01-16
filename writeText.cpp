@@ -588,6 +588,24 @@ namespace Util_NS
   };
 
   template<>
+  struct StructWriter<h3m::AffectedPlayers>
+  {
+    void operator()(FieldsWriter& out, const h3m::AffectedPlayers& affected_players) const
+    {
+      // TODO: replace with a loop.
+      // TODO: specialize ValueWriter<bool>.
+      out.writeField("red", affected_players.isAffected(h3m::PlayerColor::Red));
+      out.writeField("blue", affected_players.isAffected(h3m::PlayerColor::Blue));
+      out.writeField("tan", affected_players.isAffected(h3m::PlayerColor::Tan));
+      out.writeField("green", affected_players.isAffected(h3m::PlayerColor::Green));
+      out.writeField("orange", affected_players.isAffected(h3m::PlayerColor::Orange));
+      out.writeField("purple", affected_players.isAffected(h3m::PlayerColor::Purple));
+      out.writeField("teal", affected_players.isAffected(h3m::PlayerColor::Teal));
+      out.writeField("pink", affected_players.isAffected(h3m::PlayerColor::Pink));
+    }
+  };
+
+  template<>
   struct StructWriter<h3m::GlobalEvent>
   {
     void operator()(FieldsWriter& out, const h3m::GlobalEvent& global_event) const

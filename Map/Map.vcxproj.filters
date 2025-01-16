@@ -138,5 +138,11 @@
     <ClInclude Include="ResourcesDiff.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Constants\PlayerColor.h">
+      <Filter>Header Files\Constants</Filter>
+    </ClInclude>
+    <ClInclude Include="AffectedPlayers.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

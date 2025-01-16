@@ -512,7 +512,7 @@ GlobalEvent readGlobalEvent(std::istream& stream)
   {
     global_event.resources.data[i] = readUint<std::int32_t>(stream);
   }
-  global_event.affected_players = readBitSet<1>(stream);
+  global_event.affected_players.bitset = readUint8(stream);
   global_event.applies_to_human = readBool(stream);
   global_event.applies_to_computer = readBool(stream);
   global_event.day_of_first_occurence = readUint<std::uint16_t>(stream);
