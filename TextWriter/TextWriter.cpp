@@ -1,5 +1,7 @@
 #include <h3mtxt/TextWriter/TextWriter.h>
 
+#include <h3mtxt/TextWriter/ScopedStructWriter.h>
+
 #include <iterator>
 #include <ostream>
 
@@ -70,37 +72,8 @@ namespace Util_NS
     needs_newline_ = true;
   }
 
-  IndentedTextWriter::ScopedFieldsWriter IndentedTextWriter::writeStruct()
+  ScopedStructWriter IndentedTextWriter::writeStruct()
   {
-    return ScopedFieldsWriter{*this};
-  }
-
-  IndentedTextWriter::ScopedFieldsWriter::ScopedFieldsWriter(IndentedTextWriter& out):
-    out_(out)
-  {
-    out_.writeNewlineIfNeeded();
-    out_.stream_.put('{');
-    out_.increaseIndent();
-    out_.needs_newline_ = true;
-  }
-
-  IndentedTextWriter::ScopedFieldsWriter::~ScopedFieldsWriter()
-  {
-    try
-    {
-      out_.decreaseIndent();
-      // TODO: don't write a newline if no fields have been written.
-      out_.writeNewlineIfNeeded();
-      out_.stream_.put('}');
-      out_.needs_newline_ = true;
-    }
-    catch (...)
-    {
-    }
-  }
-
-  void IndentedTextWriter::ScopedFieldsWriter::writeComment(std::string_view comment)
-  {
-    out_.writeComment(comment);
+    return ScopedStructWriter{*this};
   }
 }

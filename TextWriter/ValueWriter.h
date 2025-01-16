@@ -1,5 +1,6 @@
 #pragma once
 
+#include <h3mtxt/TextWriter/ScopedStructWriter.h>
 #include <h3mtxt/TextWriter/TextWriter.h>
 
 #include <array>
@@ -39,7 +40,7 @@ namespace Util_NS
   void ValueWriter<T, Enable>::operator()(IndentedTextWriter& out, const T& value) const
   {
     StructWriter<T> struct_writer {};
-    IndentedTextWriter::ScopedFieldsWriter fields_writer = out.writeStruct();
+    FieldsWriter fields_writer = out.writeStruct();
     struct_writer(fields_writer, value);
   }
 

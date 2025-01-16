@@ -4,6 +4,10 @@ namespace Util_NS
 {
   class IndentedTextWriter;
 
+  class ScopedStructWriter;
+
+  using FieldsWriter = ScopedStructWriter;
+
   // Class for writing *values* with indent.
   template<class T, class Enable = void>
   struct ValueWriter;

@@ -38,47 +38,20 @@ namespace Util_NS
     template<class Key, class Value, class Cmp, class Alloc>
     void writeMap(const std::map<Key, Value, Cmp, Alloc>& map);
 
-    // Class for writing *fields* with indent.
-    // You cannot construct it manually; use writeStruct() instead.
-    class ScopedFieldsWriter
-    {
-    public:
-      ~ScopedFieldsWriter();
-
-      // Non-copyable, non-movable.
-      ScopedFieldsWriter(const ScopedFieldsWriter&) = delete;
-      ScopedFieldsWriter(ScopedFieldsWriter&&) = delete;
-      ScopedFieldsWriter& operator=(const ScopedFieldsWriter&) = delete;
-      ScopedFieldsWriter& operator=(ScopedFieldsWriter&&) = delete;
-
-      // Writes a single field.
-      template<class T>
-      void writeField(std::string_view field_name, const T& value);
-
-      // Write a comment line.
-      void writeComment(std::string_view comment);
-
-    private:
-      friend IndentedTextWriter;
-
-      // Constructs a FieldsWriter that will write fields into the specified IndentedTextWriter.
-      explicit ScopedFieldsWriter(IndentedTextWriter& out);
-
-      IndentedTextWriter& out_;
-    };
-
     // Start writing a structure.
     //
-    // Note that ScopedFieldsWriter is non-copyable and non-movable, but we can still return it
+    // Note that ScopedStructWriter is non-copyable and non-movable, but we can still return it
     // by value from this function thanks to guaranteed copy elision.
     //
     // TODO: maybe this shouldn't even be public: only the default implementation of ValueWriter
     // actually needs it.
     //
-    // \return a ScopedFieldsWriter object that can be used to write the fields of the structure.
-    ScopedFieldsWriter writeStruct();
+    // \return a ScopedStructWriter object that can be used to write the fields of the structure.
+    ScopedStructWriter writeStruct();
 
   private:
+    friend ScopedStructWriter;
+
     void writeNewlineIfNeeded();
 
     void writeUnquoted(std::string_view str);
@@ -96,8 +69,6 @@ namespace Util_NS
     std::size_t indent_ = 0;
     bool needs_newline_ = false;
   };
-
-  using FieldsWriter = IndentedTextWriter::ScopedFieldsWriter;
 
   template<class T>
   std::enable_if_t<std::is_integral_v<T>> IndentedTextWriter::writeInteger(T value)
@@ -160,7 +131,7 @@ namespace Util_NS
     for (auto iter = map.begin(); iter != map.end(); ++iter)
     {
       {
-        ScopedFieldsWriter fields_writer = writeStruct();
+        ScopedStructWriter fields_writer = writeStruct();
         fields_writer.writeField("key", iter->first);
         fields_writer.writeField("value", iter->second);
       }
@@ -174,16 +145,4 @@ namespace Util_NS
     writeUnquoted("]");
     needs_newline_ = true;
   }
-
-  template<class T>
-  void IndentedTextWriter::ScopedFieldsWriter::writeField(std::string_view field_name, const T& value)
-  {
-    out_.writeNewlineIfNeeded();
-    out_.writeUnquoted(field_name);
-    out_.writeUnquoted(": ");
-    ValueWriter<T> value_writer {};
-    value_writer(out_, value);
-  }
-
-
 }
