@@ -133,7 +133,7 @@ namespace
     {
       return nullptr;
     }
-    return &map.tiles[y * map_size + x];
+    return &map.tiles[static_cast<std::size_t>(y) * map_size + x];
   }
 
   // Draws a "fake" island at the specified location.
@@ -248,6 +248,39 @@ namespace
     }
   }
 
+  // Draws a "fake" vertical strip of land at the specified location.
+  //
+  // A "fake" vertical strip of land is a 2xN region with specific Water tiles, which
+  // look as if it's thin strip of land, but actually it's all water.
+  // \param map - map to modify.
+  // \param x - X coordinate of the top left corner of the strip.
+  // \param y - Y coordinate of the top left corner of the strip.
+  // \param length - the length of the strip in H3M tiles.
+  void drawFakeVerticalLandStrip(h3m::Map& map, std::uint32_t x, std::uint32_t y, std::uint32_t length)
+  {
+    // Sprites [4; 7] look like coast to the West of the tile.
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_int_distribution<> distrib(4, 7);
+    const auto generate_random_sprite = [&]() {
+      return distrib(gen);
+      };
+
+    for (std::uint32_t i = 0; i < length; ++i)
+    {
+      if (h3m::Tile* tile = safeGetTile(map, x, y + i))
+      {
+        tile->terrain_sprite = generate_random_sprite();
+        tile->mirroring = 1;
+      }
+      if (h3m::Tile* tile = safeGetTile(map, x + 1, y + i))
+      {
+        tile->terrain_sprite = generate_random_sprite();
+        tile->mirroring = 0;
+      }
+    }
+  }
+
   void drawFakeIslands(h3m::Map& map)
   {
     const std::uint32_t kMapSize = map.basic_info.map_size;
@@ -260,15 +293,9 @@ namespace
     drawFakeMiniIsland(map, 22, 12);
     drawFakeMiniIsland(map, 25, 9);
     drawFakeMiniIsland(map, 26, 13);
-
-    // Fake thin line of land, which is actually water tiles
-    for (std::uint32_t y = 15; y < 25; ++y)
-    {
-      map.tiles[y * kMapSize + 10].terrain_sprite = 7;
-      map.tiles[y * kMapSize + 10].mirroring = 1;
-      map.tiles[y * kMapSize + 11].terrain_sprite = 7;
-      map.tiles[y * kMapSize + 11].mirroring = 0;
-    }
+    drawFakeVerticalLandStrip(map, 10, 15, 10);
+    drawFakeVerticalLandStrip(map, 12, 15, 10);
+    drawFakeVerticalLandStrip(map, 14, 15, 10);
 
     // Fake diagonal line of land.
     map.tiles[20 * kMapSize + 20].terrain_sprite = 17;
