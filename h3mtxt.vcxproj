@@ -151,7 +151,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="h3mparser.cpp" />
+    <ClCompile Include="h3mtxt.cpp" />
     <ClCompile Include="writeText.cpp" />
   </ItemGroup>
   <ItemGroup>

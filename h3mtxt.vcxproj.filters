@@ -15,10 +15,10 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="h3mparser.cpp">
+    <ClCompile Include="writeText.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="writeText.cpp">
+    <ClCompile Include="h3mtxt.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
