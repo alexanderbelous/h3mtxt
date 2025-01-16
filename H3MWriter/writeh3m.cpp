@@ -1,4 +1,4 @@
-#include <h3mtxt/writeh3m.h>
+#include <h3mtxt/H3MWriter/writeh3m.h>
 
 #include <h3mtxt/Map/Map.h>
 

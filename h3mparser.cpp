@@ -1,6 +1,6 @@
-#include <h3mtxt/parseh3m.h>
+#include <h3mtxt/H3MReader/parseh3m.h>
+#include <h3mtxt/H3MWriter/writeh3m.h>
 #include <h3mtxt/writeText.h>
-#include <h3mtxt/writeh3m.h>
 
 #include <filesystem>
 #include <fstream>
