@@ -1,4 +1,4 @@
-#include <h3mtxt/writeText.h>
+#include <h3mtxt/H3MTxtWriter/writeH3mTxt.h>
 
 #include <h3mtxt/Map/Map.h>
 #include <h3mtxt/TextWriter/ValueWriter.h>
@@ -645,7 +645,7 @@ namespace Util_NS
 
 namespace h3m
 {
-  void writeText(std::ostream& stream, const Map& map)
+  void writeH3mTxt(std::ostream& stream, const Map& map)
   {
     Util_NS::IndentedTextWriter writer(stream, 0);
     Util_NS::writeValue(writer, map);

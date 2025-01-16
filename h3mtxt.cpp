@@ -1,6 +1,6 @@
 #include <h3mtxt/H3MReader/parseh3m.h>
 #include <h3mtxt/H3MWriter/writeh3m.h>
-#include <h3mtxt/writeText.h>
+#include <h3mtxt/H3MTxtWriter/writeH3mTxt.h>
 
 #include <filesystem>
 #include <fstream>
@@ -22,7 +22,7 @@ int main(int argc, char** argv)
     std::ifstream stream(path_map, std::ios_base::in | std::ios_base::binary);
     const h3m::Map map = h3m::parseh3m(stream, true);
     stream.close();
-    h3m::writeText(std::cout, map);
+    h3m::writeH3mTxt(std::cout, map);
     std::ofstream out_stream("no_objects_or_events.h3m", std::ios_base::out | std::ios_base::binary);
     h3m::writeh3m(out_stream, map);
     out_stream.close();
