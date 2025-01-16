@@ -1,6 +1,6 @@
 #pragma once
 
-#include <h3mparser/Map/Constants/CreatureType.h>
+#include <h3mtxt/Map/Constants/CreatureType.h>
 
 #include <cstdint>
 

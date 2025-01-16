@@ -1,6 +1,6 @@
 #pragma once
 
-#include <h3mparser/Map/Constants/ObjectClass.h>
+#include <h3mtxt/Map/Constants/ObjectClass.h>
 
 #include <cstdint>
 #include <stdexcept>

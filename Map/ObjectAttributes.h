@@ -1,8 +1,8 @@
 #pragma once
 
-#include <h3mparser/Map/Base.h>
-#include <h3mparser/Map/Constants/ObjectClass.h>
-#include <h3mparser/Map/Constants/ObjectGroup.h>
+#include <h3mtxt/Map/Base.h>
+#include <h3mtxt/Map/Constants/ObjectClass.h>
+#include <h3mtxt/Map/Constants/ObjectGroup.h>
 
 #include <array>
 #include <cstdint>

@@ -1,6 +1,6 @@
 #pragma once
 
-#include <h3mparser/H3MFwd.h>
+#include <h3mtxt/H3MFwd.h>
 
 #include <iosfwd>
 

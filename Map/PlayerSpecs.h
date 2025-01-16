@@ -1,9 +1,9 @@
 #pragma once
 
-#include <h3mparser/Map/Constants/HeroType.h>
-#include <h3mparser/Map/Constants/PlayerBehavior.h>
-#include <h3mparser/Map/Constants/TownType.h>
-#include <h3mparser/Map/Base.h>
+#include <h3mtxt/Map/Constants/HeroType.h>
+#include <h3mtxt/Map/Constants/PlayerBehavior.h>
+#include <h3mtxt/Map/Constants/TownType.h>
+#include <h3mtxt/Map/Base.h>
 
 #include <cstdint>
 #include <optional>

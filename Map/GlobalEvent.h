@@ -1,8 +1,8 @@
 #pragma once
 
-#include <h3mparser/Map/Constants/Constants.h>
-#include <h3mparser/Map/Base.h>
-#include <h3mparser/Map/BitSet.h>
+#include <h3mtxt/Map/Constants/Constants.h>
+#include <h3mtxt/Map/Base.h>
+#include <h3mtxt/Map/BitSet.h>
 
 #include <array>
 #include <bitset>

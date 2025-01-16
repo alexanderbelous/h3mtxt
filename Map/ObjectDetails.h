@@ -1,18 +1,18 @@
 #pragma once
 
-#include <h3mparser/Map/BitSet.h>
-#include <h3mparser/Map/Constants/Constants.h>
-#include <h3mparser/Map/Constants/CreatureType.h>
-#include <h3mparser/Map/Constants/Disposition.h>
-#include <h3mparser/Map/Constants/Formation.h>
-#include <h3mparser/Map/Constants/MetaObjectType.h>
-#include <h3mparser/Map/Constants/ScholarRewardType.h>
-#include <h3mparser/Map/Constants/SecondarySkillType.h>
-#include <h3mparser/Map/Constants/SpellType.h>
-#include <h3mparser/Map/CreatureStack.h>
-#include <h3mparser/Map/HeroArtifacts.h>
-#include <h3mparser/Map/PrimarySkills.h>
-#include <h3mparser/Map/SecondarySkill.h>
+#include <h3mtxt/Map/BitSet.h>
+#include <h3mtxt/Map/Constants/Constants.h>
+#include <h3mtxt/Map/Constants/CreatureType.h>
+#include <h3mtxt/Map/Constants/Disposition.h>
+#include <h3mtxt/Map/Constants/Formation.h>
+#include <h3mtxt/Map/Constants/MetaObjectType.h>
+#include <h3mtxt/Map/Constants/ScholarRewardType.h>
+#include <h3mtxt/Map/Constants/SecondarySkillType.h>
+#include <h3mtxt/Map/Constants/SpellType.h>
+#include <h3mtxt/Map/CreatureStack.h>
+#include <h3mtxt/Map/HeroArtifacts.h>
+#include <h3mtxt/Map/PrimarySkills.h>
+#include <h3mtxt/Map/SecondarySkill.h>
 
 #include <array>
 #include <cstdint>

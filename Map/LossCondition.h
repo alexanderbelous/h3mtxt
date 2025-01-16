@@ -1,6 +1,6 @@
 #pragma once
 
-#include <h3mparser/Map/Constants/LossConditionType.h>
+#include <h3mtxt/Map/Constants/LossConditionType.h>
 
 #include <cstdint>
 #include <variant>

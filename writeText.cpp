@@ -1,7 +1,7 @@
-#include <h3mparser/writeText.h>
+#include <h3mtxt/writeText.h>
 
-#include <h3mparser/Map/Map.h>
-#include <h3mparser/TextWriter/ValueWriter.h>
+#include <h3mtxt/Map/Map.h>
+#include <h3mtxt/TextWriter/ValueWriter.h>
 
 #include <ostream>
 #include <string_view>

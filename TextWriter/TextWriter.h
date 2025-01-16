@@ -1,6 +1,6 @@
 #pragma once
 
-#include <h3mparser/TextWriter/TextWriterFwd.h>
+#include <h3mtxt/TextWriter/TextWriterFwd.h>
 
 #include <cstddef>
 #include <cstdint>

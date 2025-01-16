@@ -22,7 +22,7 @@
     <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
     <ProjectGuid>{4a9c7a3d-0d17-42c8-bb98-1083a4ae9b11}</ProjectGuid>
-    <RootNamespace>h3mparser</RootNamespace>
+    <RootNamespace>h3mtxt</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />

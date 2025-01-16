@@ -1,6 +1,6 @@
 #pragma once
 
-#include <h3mparser/Map/Constants/SecondarySkillType.h>
+#include <h3mtxt/Map/Constants/SecondarySkillType.h>
 
 #include <cstdint>
 

@@ -1,11 +1,11 @@
 #pragma once
 
-#include <h3mparser/Map/BitSet.h>
-#include <h3mparser/Map/Constants/Gender.h>
-#include <h3mparser/Map/Constants/SecondarySkillType.h>
-#include <h3mparser/Map/HeroArtifacts.h>
-#include <h3mparser/Map/PrimarySkills.h>
-#include <h3mparser/Map/SecondarySkill.h>
+#include <h3mtxt/Map/BitSet.h>
+#include <h3mtxt/Map/Constants/Gender.h>
+#include <h3mtxt/Map/Constants/SecondarySkillType.h>
+#include <h3mtxt/Map/HeroArtifacts.h>
+#include <h3mtxt/Map/PrimarySkills.h>
+#include <h3mtxt/Map/SecondarySkill.h>
 
 #include <cstdint>
 #include <optional>

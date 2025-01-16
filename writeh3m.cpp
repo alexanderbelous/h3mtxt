@@ -1,6 +1,6 @@
-#include <h3mparser/writeh3m.h>
+#include <h3mtxt/writeh3m.h>
 
-#include <h3mparser/Map/Map.h>
+#include <h3mtxt/Map/Map.h>
 
 #include <array>
 #include <limits>
