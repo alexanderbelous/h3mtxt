@@ -325,8 +325,6 @@ namespace
 
   void drawFakeIslands(h3m::Map& map)
   {
-    const std::uint32_t kMapSize = map.basic_info.map_size;
-
     drawFakeIsland(map, 9, 9);
     drawFakeMiniIsland(map, 20, 8);
     drawFakeMiniIsland(map, 20, 10);
