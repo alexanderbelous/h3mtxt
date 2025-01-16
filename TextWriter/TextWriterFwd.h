@@ -1,0 +1,19 @@
+#pragma once
+
+namespace Util_NS
+{
+  class IndentedTextWriter;
+
+  // Class for writing *values* with indent.
+  template<class T, class Enable = void>
+  struct ValueWriter;
+
+  // Class for writing *structures* with indent.
+  //
+  // Specialize this for your structures.
+  template<class T, class Enable = void>
+  struct StructWriter;
+  // {
+  //   void operator()(FieldsWriter& out, const T& value);
+  // };
+}

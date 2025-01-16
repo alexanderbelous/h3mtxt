@@ -2,7 +2,6 @@
 
 #include <h3mparser/H3MFwd.h>
 
-#include <cstddef>
 #include <iosfwd>
 
 namespace h3m
