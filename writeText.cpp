@@ -4,31 +4,74 @@
 #include <h3mtxt/TextWriter/ValueWriter.h>
 
 #include <ostream>
+#include <span>
+#include <stdexcept>
 #include <string_view>
 #include <type_traits>
 
 namespace Util_NS
 {
-  // FunctionObject that calls FieldsWriter::writeField() internally.
-  // This is useful when writing std::variant fields.
-  class NamedFieldWriter
+  namespace
   {
-  public:
-    constexpr NamedFieldWriter(FieldsWriter& out, std::string_view field_name) noexcept:
-      out_(out),
-      field_name_(field_name)
-    {}
-
-    template<class T>
-    void operator()(const T& value) const
+    // FunctionObject that calls FieldsWriter::writeField() internally.
+    // This is useful when writing std::variant fields.
+    class NamedFieldWriter
     {
-      out_.writeField(field_name_, value);
-    }
+    public:
+      constexpr NamedFieldWriter(FieldsWriter& out, std::string_view field_name) noexcept:
+        out_(out),
+        field_name_(field_name)
+      {}
 
-  private:
-    FieldsWriter& out_;
-    std::string_view field_name_;
-  };
+      template<class T>
+      void operator()(const T& value) const
+      {
+        out_.writeField(field_name_, value);
+      }
+
+    private:
+      FieldsWriter& out_;
+      std::string_view field_name_;
+    };
+
+    // Helper class to pass map_size to ValueWriter when writing Map::tiles.
+    class TilesWithMapSize
+    {
+    public:
+      constexpr TilesWithMapSize(std::span<const h3m::Tile> tiles, std::uint32_t map_size, bool has_two_levels):
+        tiles_(tiles),
+        map_size_(map_size),
+        has_two_levels_(has_two_levels)
+      {
+        const std::size_t num_levels = has_two_levels ? 2 : 1;
+        const std::size_t expected_num_tiles = num_levels * map_size * map_size;
+        if (tiles.size() != expected_num_tiles)
+        {
+          throw std::runtime_error("Wrong number of tiles in Map.tiles.");
+        }
+      }
+
+      constexpr std::span<const h3m::Tile> tiles() const noexcept
+      {
+        return tiles_;
+      }
+
+      constexpr std::uint32_t mapSize() const noexcept
+      {
+        return map_size_;
+      }
+
+      constexpr bool hasTwoLevels() const noexcept
+      {
+        return has_two_levels_;
+      }
+
+    private:
+      std::span<const h3m::Tile> tiles_;
+      std::uint32_t map_size_ = 0;
+      bool has_two_levels_ = false;
+    };
+  }
 
   template<std::size_t NumBytes>
   struct ValueWriter<h3m::BitSet<NumBytes>>
@@ -36,6 +79,49 @@ namespace Util_NS
     void operator()(IndentedTextWriter& out, const h3m::BitSet<NumBytes>& value)
     {
       writeValue(out, value.data());
+    }
+  };
+
+  // Explicit specialization for std::array<std::array<h3m::PlayerSpecs, h3m::kMaxPlayers>
+  // to print comments.
+  template<>
+  struct ValueWriter<std::array<h3m::PlayerSpecs, h3m::kMaxPlayers>>
+  {
+    void operator()(IndentedTextWriter& out, const std::array<h3m::PlayerSpecs, h3m::kMaxPlayers>& players) const
+    {
+      ScopedArrayWriter<h3m::PlayerSpecs> array_writer = out.writeArray<h3m::PlayerSpecs>();
+      for (std::size_t i = 0; i < h3m::kMaxPlayers; ++i)
+      {
+        array_writer.writeComment(std::string{"Player "} + std::to_string(i));
+        array_writer.writeElement(players[i]);
+      }
+    }
+  };
+
+  template<>
+  struct ValueWriter<TilesWithMapSize>
+  {
+    void operator()(IndentedTextWriter& out, const TilesWithMapSize& value) const
+    {
+      const std::uint32_t num_levels = value.hasTwoLevels() ? 2 : 1;
+      const std::uint32_t map_size = value.mapSize();
+      const std::span<const h3m::Tile> tiles = value.tiles();
+      ScopedArrayWriter<h3m::Tile> array_writer = out.writeArray<h3m::Tile>();
+      auto iter = tiles.begin();
+      for (std::uint32_t z = 0; z < num_levels; ++z)
+      {
+        for (std::uint32_t y = 0; y < map_size; ++y)
+        {
+          for (std::uint32_t x = 0; x < map_size; ++x)
+          {
+            // std::format() would've been nice here, but it still causes bloat, doesn't it? Check.
+            array_writer.writeComment(std::string{"Tile ("} + std::to_string(x) + std::string{", "} +
+                                      std::to_string(y) + std::string{", "} + std::to_string(z) + std::string{")"});
+            array_writer.writeElement(*iter);
+            ++iter;
+          }
+        }
+      }
     }
   };
 
@@ -512,34 +598,8 @@ namespace Util_NS
       out.writeField("basic_info", map.basic_info);
       out.writeField("players", map.players);
       out.writeField("additional_info", map.additional_info);
-      // TODO: print tiles' coordinates in comments.
-      out.writeField("tiles", map.tiles);
-      // Write tiles
-      // Not using writeNamedField() here because I want to add comments.
-      //{
-      //  const std::size_t map_size = map.basic_info.map_size;
-      //  const std::size_t map_area = map.basic_info.map_size * map.basic_info.map_size;
-
-      //  const std::string whitespace_new(num_spaces + 2, ' ');
-      //  const std::string_view whitespace = std::string_view(whitespace_new).substr(0, num_spaces);
-      //  stream << whitespace << "tiles: [\n";
-      //  const std::size_t num_tiles = map.tiles.size();
-      //  for (std::size_t i = 0; i < num_tiles; ++i)
-      //  {
-      //    const std::size_t z = i / map_area;
-      //    const std::size_t y = (i - z * map_area) / map_size;
-      //    const std::size_t x = i % map_size;
-      //    stream << whitespace_new << "# Tile (" << x << ", " << y << ", " << z << ")\n";
-      //    stream << whitespace_new;
-      //    writeElement(stream, map.tiles[i], num_spaces + 2);
-      //    if (i + 1 != num_tiles)
-      //    {
-      //      stream << ',';
-      //    }
-      //    stream << '\n';
-      //  }
-      //  stream << whitespace << "]\n";
-      //}
+      // Not writing tiles directly because I want to write each tile's coordinates in a comment.
+      out.writeField("tiles", TilesWithMapSize(map.tiles, map.basic_info.map_size, map.basic_info.has_two_levels));
       out.writeField("objects_attributes", map.objects_attributes);
       out.writeField("objects_details", map.objects_details);
       out.writeField("global_events", map.global_events);
