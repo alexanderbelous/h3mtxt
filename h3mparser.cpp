@@ -104,19 +104,19 @@ namespace
 
   void fillWithWaterTiles(h3m::Map& map)
   {
-    constexpr std::uint8_t kWaterSpriteMin = 21;
-    constexpr std::uint8_t kWaterSpriteMax = 32;
-    constexpr std::uint8_t kNumWaterSprites = kWaterSpriteMax - kWaterSpriteMin + 1;
-    std::mt19937 gen;
-    std::uniform_int_distribution<> distrib(kWaterSpriteMin, kWaterSpriteMax);
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    // Sprites [21; 32] look like non-coastal Water tiles.
+    std::uniform_int_distribution<> distrib(21, 32);
 
     // Set random water tiles.
     for (h3m::Tile& tile : map.tiles)
     {
       tile.terrain_type = h3m::TerrainType::Water;
-      // These are non-coastal water tiles. Maybe there are more, idk.
-      // 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32
       tile.terrain_sprite = distrib(gen);
+      // Note: we can apply random mirroring as well. The official Map Editor doesn't
+      // apply mirroring to non-coastal Water tiles (and switches it off if you modify a
+      // water region with mirrored non-coastal tiles).
       tile.mirroring = 0;
     }
   }
