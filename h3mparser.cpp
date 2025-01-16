@@ -281,6 +281,48 @@ namespace
     }
   }
 
+  // (N+4)xN region which looks like a diagonal strip of land from NW to SE, but actually it's all water.
+  void drawFakeDiagonalLandStripSE(h3m::Map& map, std::uint32_t x, std::uint32_t y, std::uint32_t length)
+  {
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    // Sprites [12; 15] v [18; 19] look like coast in the SouthEastern corner of the tile.
+    constexpr std::uint8_t kCornerCoastSprites[] = { 12, 13, 14, 15, 18, 19 };
+    std::uniform_int_distribution<> corner_coast_distrib(0, std::size(kCornerCoastSprites) - 1);
+    const auto generate_corner_coast_sprite = [&]() {
+      return kCornerCoastSprites[corner_coast_distrib(gen)];
+      };
+    // Sprites [16; 17] look like diagonal coast NorthWest of the tile.
+    std::uniform_int_distribution<> diagonal_coast_distrib(16, 17);
+    const auto generate_diagonal_coast_sprite = [&]() {
+      return diagonal_coast_distrib(gen);
+      };
+
+    for (std::uint32_t i = 0; i < length; ++i)
+    {
+      if (h3m::Tile* tile = safeGetTile(map, x + i, y + i))
+      {
+        tile->terrain_sprite = generate_corner_coast_sprite();
+        tile->mirroring = 2;
+      }
+      if (h3m::Tile* tile = safeGetTile(map, x + i + 1, y + i))
+      {
+        tile->terrain_sprite = generate_diagonal_coast_sprite();
+        tile->mirroring = 1;
+      }
+      if (h3m::Tile* tile = safeGetTile(map, x + i + 2, y + i))
+      {
+        tile->terrain_sprite = generate_diagonal_coast_sprite();
+        tile->mirroring = 2;
+      }
+      if (h3m::Tile* tile = safeGetTile(map, x + i + 3, y + i))
+      {
+        tile->terrain_sprite = generate_corner_coast_sprite();
+        tile->mirroring = 1;
+      }
+    }
+  }
+
   void drawFakeIslands(h3m::Map& map)
   {
     const std::uint32_t kMapSize = map.basic_info.map_size;
@@ -296,20 +338,8 @@ namespace
     drawFakeVerticalLandStrip(map, 10, 15, 10);
     drawFakeVerticalLandStrip(map, 12, 15, 10);
     drawFakeVerticalLandStrip(map, 14, 15, 10);
-
-    // Fake diagonal line of land.
-    map.tiles[20 * kMapSize + 20].terrain_sprite = 17;
-    map.tiles[20 * kMapSize + 20].mirroring = 3;
-    map.tiles[20 * kMapSize + 21].terrain_sprite = 17;
-    map.tiles[20 * kMapSize + 21].mirroring = 0;
-    map.tiles[20 * kMapSize + 22].terrain_sprite = 15;
-    map.tiles[20 * kMapSize + 22].mirroring = 3;
-    map.tiles[19 * kMapSize + 20].terrain_sprite = 19;
-    map.tiles[19 * kMapSize + 20].mirroring = 0;
-    map.tiles[19 * kMapSize + 21].terrain_sprite = 17;
-    map.tiles[19 * kMapSize + 21].mirroring = 3;
-    map.tiles[19 * kMapSize + 22].terrain_sprite = 17;
-    map.tiles[19 * kMapSize + 22].mirroring = 0;
+    drawFakeDiagonalLandStripSE(map, 20, 20, 10);
+    drawFakeDiagonalLandStripSE(map, 24, 20, 10);
   }
 }
 
