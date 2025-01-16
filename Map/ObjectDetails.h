@@ -12,6 +12,7 @@
 #include <h3mtxt/Map/CreatureStack.h>
 #include <h3mtxt/Map/HeroArtifacts.h>
 #include <h3mtxt/Map/PrimarySkills.h>
+#include <h3mtxt/Map/ResourcesDiff.h>
 #include <h3mtxt/Map/SecondarySkill.h>
 
 #include <array>
@@ -144,7 +145,7 @@ struct ObjectDetailsData<MetaObjectType::PANDORAS_BOX>
   std::int32_t spell_points {};
   std::int8_t morale {};
   std::int8_t luck {};
-  std::array<std::int32_t, kNumResources> resources {};
+  ResourcesDiff resources;
   PrimarySkills primary_skills;
   std::vector<SecondarySkill> secondary_skill;
   std::vector<std::uint16_t> artifacts;

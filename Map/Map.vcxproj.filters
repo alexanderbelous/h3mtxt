@@ -135,5 +135,8 @@
     <ClInclude Include="VictoryCondition.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="ResourcesDiff.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

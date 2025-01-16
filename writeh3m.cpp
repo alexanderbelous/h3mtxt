@@ -739,7 +739,7 @@ namespace h3m
       {
         writeData(stream, global_event.name);
         writeData(stream, global_event.message);
-        for (std::int32_t amount : global_event.resources)
+        for (std::int32_t amount : global_event.resources.data)
         {
           writeData(stream, amount);
         }

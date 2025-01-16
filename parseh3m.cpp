@@ -510,7 +510,7 @@ GlobalEvent readGlobalEvent(std::istream& stream)
   global_event.message = readString(stream);
   for (std::uint8_t i = 0; i < kNumResources; ++i)
   {
-    global_event.resources[i] = readUint<std::int32_t>(stream);
+    global_event.resources.data[i] = readUint<std::int32_t>(stream);
   }
   global_event.affected_players = readBitSet<1>(stream);
   global_event.applies_to_human = readBool(stream);

@@ -3,6 +3,7 @@
 #include <h3mtxt/Map/Constants/Constants.h>
 #include <h3mtxt/Map/Base.h>
 #include <h3mtxt/Map/BitSet.h>
+#include <h3mtxt/Map/ResourcesDiff.h>
 
 #include <array>
 #include <bitset>
@@ -18,7 +19,7 @@ struct GlobalEvent
   std::string name;
   std::string message;
   // Given/taken resources.
-  std::array<std::int32_t, kNumResources> resources {};
+  ResourcesDiff resources;
   BitSet<1> affected_players;
   Bool applies_to_human {};
   Bool applies_to_computer {};

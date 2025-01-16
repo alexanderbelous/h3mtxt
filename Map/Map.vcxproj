@@ -55,6 +55,7 @@
     <ClInclude Include="ObjectDetails.h" />
     <ClInclude Include="PlayerSpecs.h" />
     <ClInclude Include="PrimarySkills.h" />
+    <ClInclude Include="ResourcesDiff.h" />
     <ClInclude Include="SecondarySkill.h" />
     <ClInclude Include="Tile.h" />
     <ClInclude Include="VictoryCondition.h" />

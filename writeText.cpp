@@ -573,6 +573,21 @@ namespace Util_NS
   };
 
   template<>
+  struct StructWriter<h3m::ResourcesDiff>
+  {
+    void operator()(FieldsWriter& out, const h3m::ResourcesDiff& resources) const
+    {
+      out.writeField("wood", resources[h3m::ResourceType::Wood]);
+      out.writeField("mercury", resources[h3m::ResourceType::Mercury]);
+      out.writeField("ore", resources[h3m::ResourceType::Ore]);
+      out.writeField("sulfur", resources[h3m::ResourceType::Sulfur]);
+      out.writeField("crystal", resources[h3m::ResourceType::Crystal]);
+      out.writeField("gems", resources[h3m::ResourceType::Gems]);
+      out.writeField("gold", resources[h3m::ResourceType::Gold]);
+    }
+  };
+
+  template<>
   struct StructWriter<h3m::GlobalEvent>
   {
     void operator()(FieldsWriter& out, const h3m::GlobalEvent& global_event) const
