@@ -10,6 +10,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "h3mtxt", "h3mtxt.vcxproj", 
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TextWriter", "TextWriter\TextWriter.vcxproj", "{7FEC82C0-C267-495D-90F7-3E0624763B46}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Map", "Map\Map.vcxproj", "{856F5D07-6DC0-4E66-813E-12C26F28D606}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -24,6 +26,10 @@ Global
 		{7FEC82C0-C267-495D-90F7-3E0624763B46}.Debug|x64.Build.0 = Debug|x64
 		{7FEC82C0-C267-495D-90F7-3E0624763B46}.Release|x64.ActiveCfg = Release|x64
 		{7FEC82C0-C267-495D-90F7-3E0624763B46}.Release|x64.Build.0 = Release|x64
+		{856F5D07-6DC0-4E66-813E-12C26F28D606}.Debug|x64.ActiveCfg = Debug|x64
+		{856F5D07-6DC0-4E66-813E-12C26F28D606}.Debug|x64.Build.0 = Debug|x64
+		{856F5D07-6DC0-4E66-813E-12C26F28D606}.Release|x64.ActiveCfg = Release|x64
+		{856F5D07-6DC0-4E66-813E-12C26F28D606}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
