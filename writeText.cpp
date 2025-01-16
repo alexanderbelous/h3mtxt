@@ -124,7 +124,10 @@ namespace Util_NS
         out.writeField("main_town", *value.main_town);
       }
       out.writeField("starting_hero", value.starting_hero);
-      out.writeField("additional_info", value.additional_info);
+      if (h3m::shouldHaveAdditionalPlayerInfo(value))
+      {
+        out.writeField("additional_info", value.additional_info);
+      }
     }
   };
 
