@@ -134,6 +134,14 @@ namespace Util_NS
   };
 
   // Partial specialization for std::map.
+  // TODO: consider adding ScopedMapWriter with the printed text like:
+  // my_map: {
+  //   "Anna": 42,
+  //   "John": 10,
+  //   "Tom": 15
+  // }
+  // Note that entries are separated by commas unlike named fields in structures. Although, maybe
+  // named fields should be separated by commas too.
   template<class Key, class Value, class Cmp, class Alloc>
   struct ValueWriter<std::map<Key, Value, Cmp, Alloc>>
   {
