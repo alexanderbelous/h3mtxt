@@ -49,7 +49,6 @@ namespace Util_NS
   private:
     friend IndentedTextWriter;
 
-    // Writes an opening bracket '[' and increases the indent of the given IndentedTextWriter.
     explicit ScopedArrayWriter(IndentedTextWriter& out);
   };
 
