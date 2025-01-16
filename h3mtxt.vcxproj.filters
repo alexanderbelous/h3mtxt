@@ -35,9 +35,6 @@
     <ClInclude Include="writeText.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="H3MFwd.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="writeh3m.h">
       <Filter>Header Files</Filter>
     </ClInclude>

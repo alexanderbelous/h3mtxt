@@ -157,7 +157,6 @@
     <ClCompile Include="writeText.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="H3MFwd.h" />
     <ClInclude Include="parseh3m.h" />
     <ClInclude Include="writeh3m.h" />
     <ClInclude Include="writeText.h" />
