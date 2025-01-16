@@ -592,16 +592,18 @@ namespace Util_NS
   {
     void operator()(FieldsWriter& out, const h3m::AffectedPlayers& affected_players) const
     {
-      // TODO: replace with a loop.
+      // Name of the field for each PlayerColor.
+      static constexpr std::string_view kFieldNames[] =
+      {
+        "red", "blue", "tan", "green", "orange", "purple", "teal", "pink"
+      };
+      static_assert(std::size(kFieldNames) == h3m::kMaxPlayers,
+                    "The size of kFieldNames must be the same as the number of players");
       // TODO: specialize ValueWriter<bool>.
-      out.writeField("red", affected_players.isAffected(h3m::PlayerColor::Red));
-      out.writeField("blue", affected_players.isAffected(h3m::PlayerColor::Blue));
-      out.writeField("tan", affected_players.isAffected(h3m::PlayerColor::Tan));
-      out.writeField("green", affected_players.isAffected(h3m::PlayerColor::Green));
-      out.writeField("orange", affected_players.isAffected(h3m::PlayerColor::Orange));
-      out.writeField("purple", affected_players.isAffected(h3m::PlayerColor::Purple));
-      out.writeField("teal", affected_players.isAffected(h3m::PlayerColor::Teal));
-      out.writeField("pink", affected_players.isAffected(h3m::PlayerColor::Pink));
+      for (std::uint8_t i = 0; i < h3m::kMaxPlayers; ++i)
+      {
+        out.writeField(kFieldNames[i], affected_players.isAffected(static_cast<h3m::PlayerColor>(i)));
+      }
     }
   };
 
