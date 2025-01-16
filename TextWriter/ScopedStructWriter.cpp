@@ -32,4 +32,12 @@ namespace Util_NS
   {
     out_.writeComment(comment);
   }
+
+  void ScopedStructWriter::writeFieldName(std::string_view field_name)
+  {
+    static constexpr std::string_view kSeparator = ": ";
+    out_.writeNewlineIfNeeded();
+    out_.stream_.write(field_name.data(), field_name.size());
+    out_.stream_.write(kSeparator.data(), kSeparator.size());
+  }
 }

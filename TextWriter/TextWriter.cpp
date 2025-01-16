@@ -53,11 +53,6 @@ namespace Util_NS
     }
   }
 
-  void IndentedTextWriter::writeUnquoted(std::string_view str)
-  {
-    stream_.write(str.data(), str.size());
-  }
-
   void IndentedTextWriter::writeInt(std::intmax_t value)
   {
     writeNewlineIfNeeded();

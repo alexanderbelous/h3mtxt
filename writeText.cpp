@@ -35,7 +35,7 @@ namespace Util_NS
   {
     void operator()(IndentedTextWriter& out, const h3m::BitSet<NumBytes>& value)
     {
-      out.writeArray<std::uint8_t>(value.data());
+      writeValue(out, value.data());
     }
   };
 

@@ -35,15 +35,15 @@ namespace Util_NS
     // Writes an opening brace '{' and increases the indent of the given IndentedTextWriter.
     explicit ScopedStructWriter(IndentedTextWriter& out);
 
+    void writeFieldName(std::string_view field_name);
+
     IndentedTextWriter& out_;
   };
 
   template<class T>
   void ScopedStructWriter::writeField(std::string_view field_name, const T& value)
   {
-    out_.writeNewlineIfNeeded();
-    out_.writeUnquoted(field_name);
-    out_.writeUnquoted(": ");
+    writeFieldName(field_name);
     ValueWriter<T> value_writer{};
     value_writer(out_, value);
   }

@@ -151,10 +151,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ScopedArrayWriter.cpp" />
     <ClCompile Include="ScopedStructWriter.cpp" />
     <ClCompile Include="TextWriter.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ScopedArrayWriter.h" />
     <ClInclude Include="ScopedStructWriter.h" />
     <ClInclude Include="TextWriter.h" />
     <ClInclude Include="TextWriterFwd.h" />

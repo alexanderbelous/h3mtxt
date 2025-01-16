@@ -1,16 +1,39 @@
 #pragma once
 
+#include <h3mtxt/TextWriter/ScopedArrayWriter.h>
 #include <h3mtxt/TextWriter/ScopedStructWriter.h>
 #include <h3mtxt/TextWriter/TextWriter.h>
 
 #include <array>
+#include <functional>
 #include <map>
+#include <span>
 #include <string>
 #include <type_traits>
 #include <vector>
 
 namespace Util_NS
 {
+  namespace Detail_NS
+  {
+    // Writes an array of elements into the specified IndentedTextWriter.
+    template<class T>
+    void writeSpan(IndentedTextWriter& out, std::span<const T> elements)
+    {
+      ScopedArrayWriter<T> scoped_array_writer = out.writeArray<T>();
+      for (const T& element : elements)
+      {
+        scoped_array_writer.writeElement(element);
+      }
+    }
+
+    template<class Key, class Value>
+    struct KeyValCRef
+    {
+      std::reference_wrapper<const std::pair<const Key, Value>> data;
+    };
+  }
+
   // Class for writing *values* with indent.
   //
   // Native specializations support some common types (e.g., std::string, integer types, std::vector).
@@ -84,7 +107,7 @@ namespace Util_NS
   {
     void operator()(IndentedTextWriter& out, const std::array<T, N>& vec) const
     {
-      out.writeArray<T>(vec);
+      Detail_NS::writeSpan<T>(out, vec);
     }
   };
 
@@ -94,7 +117,19 @@ namespace Util_NS
   {
     void operator()(IndentedTextWriter& out, const std::vector<T, Alloc>& vec) const
     {
-      out.writeArray<T>(vec);
+      Detail_NS::writeSpan<T>(out, vec);
+    }
+  };
+
+  // Partial specialization for Detail_NS::KeyValCRef.
+  template<class Key, class Value>
+  struct ValueWriter<Detail_NS::KeyValCRef<Key, Value>>
+  {
+    void operator()(IndentedTextWriter& out, const Detail_NS::KeyValCRef<Key, Value>& keyval) const
+    {
+      ScopedStructWriter fields_writer = out.writeStruct();
+      fields_writer.writeField("key", keyval.data.get().first);
+      fields_writer.writeField("value", keyval.data.get().second);
     }
   };
 
@@ -104,7 +139,13 @@ namespace Util_NS
   {
     void operator()(IndentedTextWriter& out, const std::map<Key, Value, Cmp, Alloc>& map) const
     {
-      out.writeMap(map);
+      using ElementType = Detail_NS::KeyValCRef<Key, Value>;
+
+      ScopedArrayWriter<ElementType> scoped_array_writer = out.writeArray<ElementType>();
+      for (const auto& keyval : map)
+      {
+        scoped_array_writer.writeElement(ElementType{keyval});
+      }
     }
   };
 }

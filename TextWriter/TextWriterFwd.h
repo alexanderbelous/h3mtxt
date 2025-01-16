@@ -4,6 +4,11 @@ namespace Util_NS
 {
   class IndentedTextWriter;
 
+  class ScopedArrayWriterBase;
+
+  template<class T>
+  class ScopedArrayWriter;
+
   class ScopedStructWriter;
 
   using FieldsWriter = ScopedStructWriter;
