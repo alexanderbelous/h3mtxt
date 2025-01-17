@@ -550,6 +550,69 @@ namespace Util_NS
     }
   };
 
+  // Default implementation for ObjectDetailsData.
+  // TODO: remove once specialized for all MetaObjectTypes.
+  template<h3m::MetaObjectType T>
+  struct StructWriter<h3m::ObjectDetailsData<T>>
+  {
+    void operator()(FieldsWriter& out, const h3m::ObjectDetailsData<T>& data) const
+    {
+      out.writeComment("NotImplemented");
+    }
+  };
+
+  template<>
+  struct StructWriter<h3m::ObjectDetailsData<h3m::MetaObjectType::GENERIC_NO_PROPERTIES>>
+  {
+    void operator()(FieldsWriter& out,
+                    const h3m::ObjectDetailsData<h3m::MetaObjectType::GENERIC_NO_PROPERTIES>& data) const
+    {
+    }
+  };
+
+  template<>
+  struct StructWriter<h3m::ObjectDetailsData<h3m::MetaObjectType::GRAIL>>
+  {
+    void operator()(FieldsWriter& out,
+      const h3m::ObjectDetailsData<h3m::MetaObjectType::GRAIL>& data) const
+    {
+      out.writeField("allowable_radius", data.allowable_radius);
+    }
+  };
+
+  template<>
+  struct StructWriter<h3m::ObjectDetailsData<h3m::MetaObjectType::SHRINE>>
+  {
+    void operator()(FieldsWriter& out,
+      const h3m::ObjectDetailsData<h3m::MetaObjectType::SHRINE>& data) const
+    {
+      // TODO: consider printing the spell name as an enum constant if within the range.
+      out.writeField("spell", data.spell);
+    }
+  };
+
+  template<>
+  struct StructWriter<h3m::ObjectDetailsData<h3m::MetaObjectType::SIGN>>
+  {
+    void operator()(FieldsWriter& out,
+      const h3m::ObjectDetailsData<h3m::MetaObjectType::SIGN>& data) const
+    {
+      out.writeField("message", data.message);
+      out.writeField("unknown", data.unknown);
+    }
+  };
+
+  template<>
+  struct StructWriter<h3m::ObjectDetailsData<h3m::MetaObjectType::TRIVIAL_OWNED_OBJECT>>
+  {
+    void operator()(FieldsWriter& out,
+      const h3m::ObjectDetailsData<h3m::MetaObjectType::TRIVIAL_OWNED_OBJECT>& data) const
+    {
+      // TODO: consider printing as the name of the enum constant if it's within the range.
+      out.writeField("owner", data.owner);
+    }
+  };
+
   template<>
   struct StructWriter<h3m::ObjectDetails>
   {
@@ -562,12 +625,12 @@ namespace Util_NS
       out.writeField("x", object_details.x);
       out.writeField("y", object_details.y);
       out.writeField("z", object_details.z);
+      // TODO: print ObjectClass and/or MetaObjectType in a comment.
       out.writeField("kind", object_details.kind);
       out.writeField("unknown", object_details.unknown);
       if (has_details)
       {
-        // TODO: impelement.
-        throw std::runtime_error("NotImplemented.");
+        std::visit(NamedFieldWriter(out, "details"), object_details.details);
       }
     }
   };
