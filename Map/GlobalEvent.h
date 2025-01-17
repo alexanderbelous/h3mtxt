@@ -2,9 +2,9 @@
 
 #include <h3mtxt/Map/AffectedPlayers.h>
 #include <h3mtxt/Map/Base.h>
+#include <h3mtxt/Map/ReservedData.h>
 #include <h3mtxt/Map/Resources.h>
 
-#include <array>
 #include <cstdint>
 #include <string>
 
@@ -26,7 +26,7 @@ struct GlobalEvent
   // 0 means that the event doesn't repeat.
   std::uint8_t repeat_after_days {};
   // Should be 0s. Kept here for compatibility.
-  std::array<std::uint8_t, 17> unknown {};
+  ReservedData<17> unknown {};
 };
 
 }

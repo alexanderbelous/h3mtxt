@@ -10,6 +10,7 @@
 #include <h3mtxt/Map/ObjectAttributes.h>
 #include <h3mtxt/Map/ObjectDetails.h>
 #include <h3mtxt/Map/PlayerSpecs.h>
+#include <h3mtxt/Map/ReservedData.h>
 #include <h3mtxt/Map/Tile.h>
 
 #include <array>
@@ -44,7 +45,7 @@ struct Map
   // Global events on this map ("Map Specifications"/"Timed Events" tab in the Editor).
   std::vector<GlobalEvent> global_events;
   // Should be 0s. Kept here for compatibility.
-  std::array<std::uint8_t, 124> padding {};
+  ReservedData<124> padding {};
 };
 
 }

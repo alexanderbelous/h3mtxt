@@ -13,6 +13,7 @@
 #include <h3mtxt/Map/CreatureStack.h>
 #include <h3mtxt/Map/HeroArtifacts.h>
 #include <h3mtxt/Map/PrimarySkills.h>
+#include <h3mtxt/Map/ReservedData.h>
 #include <h3mtxt/Map/Resources.h>
 #include <h3mtxt/Map/Reward.h>
 #include <h3mtxt/Map/Quest.h>
@@ -74,7 +75,7 @@ struct ObjectDetailsData<MetaObjectType::GARRISON>
   // in other places 0xFFFF is used instead.
   std::array<CreatureStack, 7> creatures {};
   Bool can_remove_units {};
-  std::array<std::uint8_t, 8> unknown {};
+  ReservedData<8> unknown;
 };
 
 template<>
@@ -117,7 +118,7 @@ struct ObjectDetailsData<MetaObjectType::HERO>
   std::optional<BitSet<9>> spells;
   std::optional<PrimarySkills> primary_skills;
   // 0s by default; kept here for compatibility.
-  std::array<std::uint8_t, 16> unknown;
+  ReservedData<16> unknown;
 };
 
 template<>
@@ -154,7 +155,7 @@ struct ObjectDetailsData<MetaObjectType::PANDORAS_BOX>
   std::vector<std::uint16_t> artifacts;
   std::vector<SpellType> spells;
   std::vector<CreatureStack> creatures;
-  std::array<std::uint8_t, 8> unknown {};
+  ReservedData<8> unknown {};
 };
 
 // TODO: use composition instead of inheritance.
@@ -164,7 +165,7 @@ struct ObjectDetailsData<MetaObjectType::EVENT> : ObjectDetailsData<MetaObjectTy
   AffectedPlayers affected_players;
   Bool applies_to_computer{};
   Bool remove_after_first_visit{};
-  std::array<std::uint8_t, 4> unknown{};
+  ReservedData<4> unknown{};
 };
 
 template<>
@@ -189,7 +190,7 @@ struct ObjectDetailsData<MetaObjectType::RESOURCE>
   std::optional<Guardians> guardians;
   // Multiply by 100 for gold, i.e. subclass 6.
   std::uint32_t quantity {};
-  std::array<std::uint8_t, 4> unknown {};
+  ReservedData<4> unknown {};
 };
 
 template<>
@@ -202,7 +203,7 @@ struct ObjectDetailsData<MetaObjectType::SCHOLAR>
   // index in SSTRAITS.TXT;
   // index in SPTRAITS.TXT
   std::uint8_t reward_value {};
-  std::array<std::uint8_t, 6> unknown {};
+  ReservedData<6> unknown {};
 };
 
 template<>
@@ -210,7 +211,7 @@ struct ObjectDetailsData<MetaObjectType::SEERS_HUT>
 {
   Quest quest;
   Reward reward;
-  std::array<std::uint8_t, 2> unknown {};
+  ReservedData<2> unknown {};
 };
 
 template<>
@@ -226,7 +227,7 @@ struct ObjectDetailsData<MetaObjectType::SIGN>
   // Empty string means random message.
   std::string message;
   // Should be 0s.
-  std::array<std::uint8_t, 4> unknown {};
+  ReservedData<4> unknown {};
 };
 
 template<>
@@ -293,7 +294,7 @@ struct ObjectDetails
   // 0-based index of the corresponding ObjectAttributes in Map.objects_attributes.
   std::uint32_t kind {};
   // Should be all 0s; kept here for compatibility.
-  std::array<std::uint8_t, 5> unknown {};
+  ReservedData<5> unknown {};
   // Object-specific data.
   // TODO: consider renaming to additional_info.
   Data details;

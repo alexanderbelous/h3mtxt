@@ -97,12 +97,13 @@ namespace h3m
       // \return a pointer to the stored array of NumBytes elements.
       std::byte* data() noexcept
       {
-        return data_.get();
+        return data_.data();
       }
 
+      // \return a pointer to the stored array of NumBytes elements.
       const std::byte* data() const noexcept
       {
-        return data_.get();
+        return data_.data();
       }
 
       // No-op. The array is always explicit in this specialization.

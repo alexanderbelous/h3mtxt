@@ -380,7 +380,7 @@ MapAdditionalInfo readMapAdditionalInfo(std::istream& stream)
     additional_info.custom_heroes.push_back(readCustomHero(stream));
   }
   // Read reserved data.
-  additional_info.reserved = readByteArray<31>(stream);
+  additional_info.reserved = readReservedData<31>(stream);
   additional_info.artifacts_nonavailability = readBitSet<18>(stream);
   additional_info.spells_nonavailability = readBitSet<9>(stream);
   additional_info.skills_nonavailability = readBitSet<4>(stream);
@@ -470,7 +470,7 @@ readObjectDetailsData<MetaObjectType::SIGN>(std::istream& stream)
 {
   ObjectDetailsData<MetaObjectType::SIGN> data;
   data.message = readString(stream);
-  data.unknown = readByteArray<4>(stream);
+  data.unknown = readReservedData<4>(stream);
   return data;
 }
 
@@ -539,7 +539,7 @@ ObjectDetails readObjectDetails(std::istream& stream, const std::vector<ObjectAt
   result.y = readUint8(stream);
   result.z = readUint8(stream);
   result.kind = readUint<std::uint32_t>(stream);
-  result.unknown = readByteArray<5>(stream);
+  result.unknown = readReservedData<5>(stream);
 
   const ObjectAttributes& object_attributes = objects_attributes.at(result.kind);
   const MetaObjectType meta_object_type = getMetaObjectType(object_attributes.object_class);
@@ -561,7 +561,7 @@ GlobalEvent readGlobalEvent(std::istream& stream)
   global_event.applies_to_computer = readBool(stream);
   global_event.day_of_first_occurence = readUint<std::uint16_t>(stream);
   global_event.repeat_after_days = readUint<std::uint8_t>(stream);
-  global_event.unknown = readByteArray<17>(stream);
+  global_event.unknown = readReservedData<17>(stream);
   return global_event;
 }
 
@@ -615,7 +615,7 @@ Map parseh3m(std::istream& stream, bool read_objects_details)
     map.global_events.push_back(readGlobalEvent(stream));
   }
   // Read padding data.
-  map.padding = readByteArray<124>(stream);
+  map.padding = readReservedData<124>(stream);
   return map;
 }
 
