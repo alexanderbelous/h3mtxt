@@ -281,6 +281,9 @@ namespace Details_NS
 struct ObjectDetails
 {
   // std::variant with kNumMetaObjectTypes alternatives, whose N-th alternative is ObjectDetailsData<N>.
+  // TODO: consider making ObjectDetailsData a polymorphic class and using the Visitor pattern instead.
+  // The size of the variant is already 288 bytes, even though most objects on the map will have little or
+  // no details (e.g., decorative objects).
   using Data = Details_NS::ObjectDetailsVariant;
 
   // Coordinates of the bottom right corner.
