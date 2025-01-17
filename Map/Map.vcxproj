@@ -22,6 +22,7 @@
     <ClInclude Include="AffectedPlayers.h" />
     <ClInclude Include="Base.h" />
     <ClInclude Include="BitSet.h" />
+    <ClInclude Include="Constants\ArtifactType.h" />
     <ClInclude Include="Constants\Constants.h" />
     <ClInclude Include="Constants\CreatureType.h" />
     <ClInclude Include="Constants\Disposition.h" />
@@ -58,6 +59,7 @@
     <ClInclude Include="ObjectDetails.h" />
     <ClInclude Include="PlayerSpecs.h" />
     <ClInclude Include="PrimarySkills.h" />
+    <ClInclude Include="Quest.h" />
     <ClInclude Include="ResourcesDiff.h" />
     <ClInclude Include="SecondarySkill.h" />
     <ClInclude Include="Tile.h" />

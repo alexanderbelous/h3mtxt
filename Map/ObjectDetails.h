@@ -14,6 +14,7 @@
 #include <h3mtxt/Map/HeroArtifacts.h>
 #include <h3mtxt/Map/PrimarySkills.h>
 #include <h3mtxt/Map/ResourcesDiff.h>
+#include <h3mtxt/Map/Quest.h>
 #include <h3mtxt/Map/SecondarySkill.h>
 
 #include <array>
@@ -124,7 +125,7 @@ struct ObjectDetailsData<MetaObjectType::MONSTER>
   struct MessageAndTreasure
   {
     std::string message;
-    std::array<std::uint32_t, kNumResources> resources {};
+    Resources<std::uint32_t> resources {};
     // 0xFFFF means no artifact.
     std::uint16_t artifact {};
   };
@@ -146,7 +147,7 @@ struct ObjectDetailsData<MetaObjectType::PANDORAS_BOX>
   std::int32_t spell_points {};
   std::int8_t morale {};
   std::int8_t luck {};
-  ResourcesDiff resources;
+  Resources<std::int32_t> resources;
   PrimarySkills primary_skills;
   std::vector<SecondarySkill> secondary_skill;
   std::vector<std::uint16_t> artifacts;
@@ -173,6 +174,12 @@ struct ObjectDetailsData<MetaObjectType::PLACEHOLDER_HERO>
   HeroType type {};
   // Only if type == 0xFF.
   std::uint8_t power_rating {};
+};
+
+template<>
+struct ObjectDetailsData<MetaObjectType::QUEST_GUARD>
+{
+  Quest quest;
 };
 
 template<>

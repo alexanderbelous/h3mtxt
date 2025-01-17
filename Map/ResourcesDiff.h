@@ -8,26 +8,30 @@
 
 namespace h3m
 {
-  // Given/taken resources.
+  // Represents an amount of resources.
+  // In SoD the amount for each resource type is always stored as either int32 or uint32.
   // This appears in at least 2 places: Timed Events and Pandora's Boxes.
-  struct ResourcesDiff
+  template<class T>
+  struct Resources
   {
-    // \return the given/taken amount for the specified ResouceType.
-    constexpr std::int32_t& operator[](ResourceType resource_type);
+    // \return the amount for the specified ResouceType.
+    constexpr T& operator[](ResourceType resource_type);
 
-    // \return the given/taken amount for the specified ResouceType.
-    constexpr std::int32_t operator[](ResourceType resource_type) const;
+    // \return the amount for the specified ResouceType.
+    constexpr T operator[](ResourceType resource_type) const;
 
-    // Given/taken amount for each resource type.
-    std::array<std::int32_t, kNumResources> data {};
+    // The amount for each resource type.
+    std::array<T, kNumResources> data {};
   };
 
-  constexpr std::int32_t& ResourcesDiff::operator[](ResourceType resource_type)
+  template<class T>
+  constexpr T& Resources<T>::operator[](ResourceType resource_type)
   {
     return data.at(static_cast<std::size_t>(resource_type));
   }
 
-  constexpr std::int32_t ResourcesDiff::operator[](ResourceType resource_type) const
+  template<class T>
+  constexpr T Resources<T>::operator[](ResourceType resource_type) const
   {
     return data.at(static_cast<std::size_t>(resource_type));
   }

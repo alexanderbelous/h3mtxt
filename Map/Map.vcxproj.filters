@@ -147,5 +147,11 @@
     <ClInclude Include="Constants\QuestType.h">
       <Filter>Header Files\Constants</Filter>
     </ClInclude>
+    <ClInclude Include="Quest.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Constants\ArtifactType.h">
+      <Filter>Header Files\Constants</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

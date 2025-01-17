@@ -52,7 +52,7 @@ template<>
 struct VictoryConditionDetails<VictoryConditionType::AccumulateResources> : SpecialVictoryConditionBase
 {
   ResourceType resource_type {};
-  // The number of creatures to accumulate.
+  // The amount to accumulate.
   std::uint32_t amount {};
 };
 
