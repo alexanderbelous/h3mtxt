@@ -36,6 +36,7 @@
     <ClInclude Include="Constants\ObjectGroup.h" />
     <ClInclude Include="Constants\PlayerBehavior.h" />
     <ClInclude Include="Constants\PlayerColor.h" />
+    <ClInclude Include="Constants\QuestType.h" />
     <ClInclude Include="Constants\ResourceType.h" />
     <ClInclude Include="Constants\RiverType.h" />
     <ClInclude Include="Constants\RoadType.h" />

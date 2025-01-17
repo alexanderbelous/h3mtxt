@@ -144,5 +144,8 @@
     <ClInclude Include="AffectedPlayers.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Constants\QuestType.h">
+      <Filter>Header Files\Constants</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
