@@ -94,6 +94,22 @@ std::array<std::uint8_t, N> readByteArray(std::istream& stream)
   return result;
 }
 
+template<std::size_t N>
+ReservedData<N> readReservedData(std::istream& stream)
+{
+  std::array<std::byte, N> data;
+  readByteArrayImpl(stream, std::span{data});
+  const bool is_implicit = std::all_of(data.begin(), data.end(), [](std::byte value)
+    {
+      return value == std::byte{0};
+    });
+  if (is_implicit)
+  {
+    return ReservedData<N>();
+  }
+  return ReservedData<N>(data);
+}
+
 template<std::size_t NumBytes>
 BitSet<NumBytes> readBitSet(std::istream& stream)
 {
@@ -411,7 +427,7 @@ ObjectAttributes readObjectAttributes(std::istream& stream)
   result.object_number = readUint<std::uint32_t>(stream);
   result.object_group = readEnum<ObjectGroup>(stream);
   result.is_ground = readBool(stream);
-  result.unknown = readByteArray<16>(stream);
+  result.unknown = readReservedData<16>(stream);
   return result;
 }
 

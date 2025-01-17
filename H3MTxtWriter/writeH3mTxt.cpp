@@ -74,6 +74,19 @@ namespace Util_NS
   }
 
   template<std::size_t NumBytes>
+  struct ValueWriter<h3m::ReservedData<NumBytes>>
+  {
+    void operator()(IndentedTextWriter& out, const h3m::ReservedData<NumBytes>& reserved_data)
+    {
+      ScopedArrayWriter<std::byte> array_writer = out.writeArray<std::byte>();
+      for (std::size_t i = 0; i < NumBytes; ++i)
+      {
+        array_writer.writeElement(reserved_data[i]);
+      }
+    }
+  };
+
+  template<std::size_t NumBytes>
   struct ValueWriter<h3m::BitSet<NumBytes>>
   {
     void operator()(IndentedTextWriter& out, const h3m::BitSet<NumBytes>& value)

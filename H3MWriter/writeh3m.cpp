@@ -3,6 +3,7 @@
 #include <h3mtxt/Map/Map.h>
 
 #include <array>
+#include <iterator>
 #include <limits>
 #include <optional>
 #include <ostream>
@@ -127,6 +128,24 @@ namespace h3m
       void operator()(std::ostream& stream, const std::array<std::uint8_t, N>& value) const
       {
         stream.write(reinterpret_cast<const char*>(value.data()), N);
+      }
+    };
+
+    // Partial specialization for ReservedData<N>.
+    template<std::size_t N>
+    class H3MWriter<ReservedData<N>>
+    {
+    public:
+      void operator()(std::ostream& stream, const ReservedData<N>& reserved_data) const
+      {
+        if (reserved_data.isExplicit())
+        {
+          stream.write(reinterpret_cast<const char*>(reserved_data.data()), N);
+        }
+        else
+        {
+          std::fill_n(std::ostreambuf_iterator<char>(stream), N, char{0});
+        }
       }
     };
 

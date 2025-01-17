@@ -3,6 +3,7 @@
 #include <h3mtxt/Map/Base.h>
 #include <h3mtxt/Map/Constants/ObjectClass.h>
 #include <h3mtxt/Map/Constants/ObjectGroup.h>
+#include <h3mtxt/Map/ReservedData.h>
 
 #include <array>
 #include <cstdint>
@@ -25,6 +26,6 @@ namespace h3m
     ObjectGroup object_group {};
     Bool is_ground {};
     // Should be 0s. Kept here for compatibility.
-    std::array<std::uint8_t, 16> unknown {};
+    ReservedData<16> unknown;
   };
 }

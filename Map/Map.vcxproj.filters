@@ -162,5 +162,8 @@
     <ClInclude Include="Constants\PrimarySkillType.h">
       <Filter>Header Files\Constants</Filter>
     </ClInclude>
+    <ClInclude Include="ReservedData.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
