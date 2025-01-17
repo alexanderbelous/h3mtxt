@@ -9,8 +9,10 @@
 namespace h3m
 {
   // Represents an amount of resources.
-  // In SoD the amount for each resource type is always stored as either int32 or uint32.
-  // This appears in at least 2 places: Timed Events and Pandora's Boxes.
+  //
+  // In SoD the amount is always stored as either int32 or uint32:
+  // * In Timed Events and Pandora's Boxes it's int32.
+  // * In Quest Guards and as a reward for defeating a monster it's uint32.
   template<class T>
   struct Resources
   {
