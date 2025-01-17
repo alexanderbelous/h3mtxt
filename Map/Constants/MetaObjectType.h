@@ -327,7 +327,6 @@ namespace h3m
       return MetaObjectType::WITCH_HUT;
 
     default:
-      // TODO: implement the rest.
       throw std::runtime_error("Invalid object_class.");
     }
   }
