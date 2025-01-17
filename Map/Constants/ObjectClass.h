@@ -240,4 +240,6 @@ namespace h3m
     MAGIC_PLAINS2 = 230,
     ROCKLANDS = 231,
   };
+
+  inline constexpr std::uint32_t kNumObjectClasses = 232;
 }

@@ -30,9 +30,9 @@ namespace h3m
     PANDORAS_BOX,
     PLACEHOLDER_HERO,
     QUEST_GUARD,
-    RANDOM_DWELLING_ABSOD,
-    RANDOM_DWELLING_PRESET_ALIGNMENT_ABSOD,
-    RANDOM_DWELLING_PRESET_LEVEL_ABSOD,
+    RANDOM_DWELLING,
+    RANDOM_DWELLING_PRESET_ALIGNMENT,
+    RANDOM_DWELLING_PRESET_LEVEL,
     RESOURCE,
     SCHOLAR,
     SEERS_HUT,
@@ -241,6 +241,7 @@ namespace h3m
     case ObjectClass::CURSED_GROUND2:
     case ObjectClass::MAGIC_PLAINS2:
     case ObjectClass::PASSABLE_139:
+    case ObjectClass::PASSABLE_140:
     case ObjectClass::PASSABLE_141:
     case ObjectClass::PASSABLE_142:
     case ObjectClass::PASSABLE_144:
@@ -258,6 +259,10 @@ namespace h3m
     case ObjectClass::MONOLITH_ONE_WAY_ENTRANCE:
     case ObjectClass::MONOLITH_ONE_WAY_EXIT:
     // GENERIC_TREASURE
+    case ObjectClass::CAMPFIRE:
+    case ObjectClass::FLOTSAM:
+    case ObjectClass::SEA_CHEST:
+    case ObjectClass::SHIPWRECK_SURVIVOR:
     case ObjectClass::TREASURE_CHEST:
     // SUBTERRANEAN_GATE
     case ObjectClass::SUBTERRANEAN_GATE:
@@ -283,11 +288,21 @@ namespace h3m
       return MetaObjectType::PANDORAS_BOX;
     case ObjectClass::HERO_PLACEHOLDER:
       return MetaObjectType::PLACEHOLDER_HERO;
+    case ObjectClass::RANDOM_DWELLING:
+      return MetaObjectType::RANDOM_DWELLING;
+    case ObjectClass::RANDOM_DWELLING_LVL:
+      return MetaObjectType::RANDOM_DWELLING_PRESET_LEVEL;
+    case ObjectClass::RANDOM_DWELLING_FACTION:
+      return MetaObjectType::RANDOM_DWELLING_PRESET_ALIGNMENT;
+    case ObjectClass::QUEST_GUARD:
+      return MetaObjectType::QUEST_GUARD;
     case ObjectClass::RESOURCE:
     case ObjectClass::RANDOM_RESOURCE:
       return MetaObjectType::RESOURCE;
     case ObjectClass::SCHOLAR:
       return MetaObjectType::SCHOLAR;
+    case ObjectClass::SEER_HUT:
+      return MetaObjectType::SEERS_HUT;
     case ObjectClass::SHRINE_OF_MAGIC_INCANTATION:
     case ObjectClass::SHRINE_OF_MAGIC_GESTURE:
     case ObjectClass::SHRINE_OF_MAGIC_THOUGHT:
@@ -297,6 +312,9 @@ namespace h3m
       return MetaObjectType::SIGN;
     case ObjectClass::SPELL_SCROLL:
       return MetaObjectType::SPELL_SCROLL;
+    case ObjectClass::RANDOM_TOWN:
+    case ObjectClass::TOWN:
+      return MetaObjectType::TOWN;
     case ObjectClass::CREATURE_GENERATOR1:
     case ObjectClass::CREATURE_GENERATOR2:
     case ObjectClass::CREATURE_GENERATOR3:
@@ -305,6 +323,8 @@ namespace h3m
     case ObjectClass::MINE:
     case ObjectClass::SHIPYARD:
       return MetaObjectType::TRIVIAL_OWNED_OBJECT;
+    case ObjectClass::WITCH_HUT:
+      return MetaObjectType::WITCH_HUT;
 
     default:
       // TODO: implement the rest.
@@ -312,5 +332,13 @@ namespace h3m
     }
   }
 
-  // TODO: check via static_assert that all known ObjectClasses are mapped to some MetaObjectType.
+  // Check at compile time that all known ObjectClasses are mapped to some MetaObjectType.
+  static_assert(
+    [] {
+      for (std::uint32_t i = 0; i < kNumObjectClasses; ++i)
+      {
+        (void)getMetaObjectType(static_cast<ObjectClass>(i));
+      }
+      return true;
+    }(), "getMetaObjectType() is not implemented for 1 or more ObjectClass constants.");
 }
