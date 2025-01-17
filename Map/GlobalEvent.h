@@ -2,11 +2,9 @@
 
 #include <h3mtxt/Map/AffectedPlayers.h>
 #include <h3mtxt/Map/Base.h>
-#include <h3mtxt/Map/Constants/Constants.h>
 #include <h3mtxt/Map/Resources.h>
 
 #include <array>
-#include <bitset>
 #include <cstdint>
 #include <string>
 
