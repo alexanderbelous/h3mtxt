@@ -13,7 +13,7 @@
 #include <h3mtxt/Map/CreatureStack.h>
 #include <h3mtxt/Map/HeroArtifacts.h>
 #include <h3mtxt/Map/PrimarySkills.h>
-#include <h3mtxt/Map/ResourcesDiff.h>
+#include <h3mtxt/Map/Resources.h>
 #include <h3mtxt/Map/Quest.h>
 #include <h3mtxt/Map/SecondarySkill.h>
 

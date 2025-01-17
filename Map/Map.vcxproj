@@ -60,7 +60,7 @@
     <ClInclude Include="PlayerSpecs.h" />
     <ClInclude Include="PrimarySkills.h" />
     <ClInclude Include="Quest.h" />
-    <ClInclude Include="ResourcesDiff.h" />
+    <ClInclude Include="Resources.h" />
     <ClInclude Include="SecondarySkill.h" />
     <ClInclude Include="Tile.h" />
     <ClInclude Include="VictoryCondition.h" />

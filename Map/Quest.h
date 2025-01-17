@@ -6,7 +6,7 @@
 #include <h3mtxt/Map/Constants/QuestType.h>
 #include <h3mtxt/Map/CreatureStack.h>
 #include <h3mtxt/Map/PrimarySkills.h>
-#include <h3mtxt/Map/ResourcesDiff.h>
+#include <h3mtxt/Map/Resources.h>
 
 #include <array>
 #include <cstdint>

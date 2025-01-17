@@ -3,7 +3,7 @@
 #include <h3mtxt/Map/AffectedPlayers.h>
 #include <h3mtxt/Map/Base.h>
 #include <h3mtxt/Map/Constants/Constants.h>
-#include <h3mtxt/Map/ResourcesDiff.h>
+#include <h3mtxt/Map/Resources.h>
 
 #include <array>
 #include <bitset>
