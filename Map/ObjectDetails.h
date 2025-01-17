@@ -14,6 +14,7 @@
 #include <h3mtxt/Map/HeroArtifacts.h>
 #include <h3mtxt/Map/PrimarySkills.h>
 #include <h3mtxt/Map/Resources.h>
+#include <h3mtxt/Map/Reward.h>
 #include <h3mtxt/Map/Quest.h>
 #include <h3mtxt/Map/SecondarySkill.h>
 
@@ -202,6 +203,14 @@ struct ObjectDetailsData<MetaObjectType::SCHOLAR>
   // index in SPTRAITS.TXT
   std::uint8_t reward_value {};
   std::array<std::uint8_t, 6> unknown {};
+};
+
+template<>
+struct ObjectDetailsData<MetaObjectType::SEERS_HUT>
+{
+  Quest quest;
+  Reward reward;
+  std::array<std::uint8_t, 2> unknown {};
 };
 
 template<>

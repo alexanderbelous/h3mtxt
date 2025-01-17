@@ -37,8 +37,10 @@
     <ClInclude Include="Constants\ObjectGroup.h" />
     <ClInclude Include="Constants\PlayerBehavior.h" />
     <ClInclude Include="Constants\PlayerColor.h" />
+    <ClInclude Include="Constants\PrimarySkillType.h" />
     <ClInclude Include="Constants\QuestType.h" />
     <ClInclude Include="Constants\ResourceType.h" />
+    <ClInclude Include="Constants\RewardType.h" />
     <ClInclude Include="Constants\RiverType.h" />
     <ClInclude Include="Constants\RoadType.h" />
     <ClInclude Include="Constants\ScholarRewardType.h" />
@@ -61,6 +63,7 @@
     <ClInclude Include="PrimarySkills.h" />
     <ClInclude Include="Quest.h" />
     <ClInclude Include="Resources.h" />
+    <ClInclude Include="Reward.h" />
     <ClInclude Include="SecondarySkill.h" />
     <ClInclude Include="Tile.h" />
     <ClInclude Include="VictoryCondition.h" />
