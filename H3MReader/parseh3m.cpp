@@ -440,6 +440,34 @@ readObjectDetailsData<MetaObjectType::GRAIL>(std::istream& stream)
 }
 
 template<>
+ObjectDetailsData<MetaObjectType::SHRINE>
+readObjectDetailsData<MetaObjectType::SHRINE>(std::istream& stream)
+{
+  ObjectDetailsData<MetaObjectType::SHRINE> data;
+  data.spell = readUint<std::uint32_t>(stream);
+  return data;
+}
+
+template<>
+ObjectDetailsData<MetaObjectType::SIGN>
+readObjectDetailsData<MetaObjectType::SIGN>(std::istream& stream)
+{
+  ObjectDetailsData<MetaObjectType::SIGN> data;
+  data.message = readString(stream);
+  data.unknown = readByteArray<4>(stream);
+  return data;
+}
+
+template<>
+ObjectDetailsData<MetaObjectType::TRIVIAL_OWNED_OBJECT>
+readObjectDetailsData<MetaObjectType::TRIVIAL_OWNED_OBJECT>(std::istream& stream)
+{
+  ObjectDetailsData<MetaObjectType::TRIVIAL_OWNED_OBJECT> data;
+  data.owner = readUint<std::uint32_t>(stream);
+  return data;
+}
+
+template<>
 ObjectDetailsData<MetaObjectType::WITCH_HUT>
 readObjectDetailsData<MetaObjectType::WITCH_HUT>(std::istream& stream)
 {
