@@ -1,5 +1,6 @@
 #pragma once
 
+#include <h3mtxt/Map/AffectedPlayers.h>
 #include <h3mtxt/Map/BitSet.h>
 #include <h3mtxt/Map/Constants/Constants.h>
 #include <h3mtxt/Map/Constants/CreatureType.h>
@@ -158,8 +159,7 @@ struct ObjectDetailsData<MetaObjectType::PANDORAS_BOX>
 template<>
 struct ObjectDetailsData<MetaObjectType::EVENT> : ObjectDetailsData<MetaObjectType::PANDORAS_BOX>
 {
-  // TODO: replace with BitSet.
-  std::uint8_t affected_players{};
+  AffectedPlayers affected_players;
   Bool applies_to_computer{};
   Bool remove_after_first_visit{};
   std::array<std::uint8_t, 4> unknown{};
