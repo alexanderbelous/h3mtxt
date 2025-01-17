@@ -16,6 +16,9 @@
     <Filter Include="Header Files\Constants">
       <UniqueIdentifier>{08114f48-c7fe-4f93-82f1-f667dfe8f4d9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Utils">
+      <UniqueIdentifier>{ca6681d9-7d72-4e9e-bf3f-0a1fbddbaac9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Constants\Constants.h">
@@ -85,9 +88,6 @@
       <Filter>Header Files\Constants</Filter>
     </ClInclude>
     <ClInclude Include="Base.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="BitSet.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="CreatureStack.h">
@@ -162,8 +162,11 @@
     <ClInclude Include="Constants\PrimarySkillType.h">
       <Filter>Header Files\Constants</Filter>
     </ClInclude>
-    <ClInclude Include="ReservedData.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Utils\BitSet.h">
+      <Filter>Header Files\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils\ReservedData.h">
+      <Filter>Header Files\Utils</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

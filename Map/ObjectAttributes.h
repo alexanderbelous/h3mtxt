@@ -3,7 +3,7 @@
 #include <h3mtxt/Map/Base.h>
 #include <h3mtxt/Map/Constants/ObjectClass.h>
 #include <h3mtxt/Map/Constants/ObjectGroup.h>
-#include <h3mtxt/Map/ReservedData.h>
+#include <h3mtxt/Map/Utils/ReservedData.h>
 
 #include <array>
 #include <cstdint>

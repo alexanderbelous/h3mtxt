@@ -1,11 +1,11 @@
 #pragma once
 
-#include <h3mtxt/Map/BitSet.h>
+#include <h3mtxt/Map/Utils/BitSet.h>
 #include <h3mtxt/Map/Constants/HeroType.h>
 #include <h3mtxt/Map/HeroSettings.h>
 #include <h3mtxt/Map/LossCondition.h>
 #include <h3mtxt/Map/VictoryCondition.h>
-#include <h3mtxt/Map/ReservedData.h>
+#include <h3mtxt/Map/Utils/ReservedData.h>
 
 #include <array>
 #include <cstdint>

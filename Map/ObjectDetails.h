@@ -1,7 +1,7 @@
 #pragma once
 
 #include <h3mtxt/Map/AffectedPlayers.h>
-#include <h3mtxt/Map/BitSet.h>
+#include <h3mtxt/Map/Utils/BitSet.h>
 #include <h3mtxt/Map/Constants/Constants.h>
 #include <h3mtxt/Map/Constants/CreatureType.h>
 #include <h3mtxt/Map/Constants/Disposition.h>
@@ -13,7 +13,7 @@
 #include <h3mtxt/Map/CreatureStack.h>
 #include <h3mtxt/Map/HeroArtifacts.h>
 #include <h3mtxt/Map/PrimarySkills.h>
-#include <h3mtxt/Map/ReservedData.h>
+#include <h3mtxt/Map/Utils/ReservedData.h>
 #include <h3mtxt/Map/Resources.h>
 #include <h3mtxt/Map/Reward.h>
 #include <h3mtxt/Map/Quest.h>

@@ -10,7 +10,7 @@
 #include <h3mtxt/Map/ObjectAttributes.h>
 #include <h3mtxt/Map/ObjectDetails.h>
 #include <h3mtxt/Map/PlayerSpecs.h>
-#include <h3mtxt/Map/ReservedData.h>
+#include <h3mtxt/Map/Utils/ReservedData.h>
 #include <h3mtxt/Map/Tile.h>
 
 #include <array>
