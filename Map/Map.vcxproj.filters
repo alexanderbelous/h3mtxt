@@ -168,5 +168,8 @@
     <ClInclude Include="Utils\ReservedData.h">
       <Filter>Header Files\Utils</Filter>
     </ClInclude>
+    <ClInclude Include="ObjectDetailsData.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
