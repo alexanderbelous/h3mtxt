@@ -14,7 +14,6 @@
 #include <h3mtxt/Map/Tile.h>
 
 #include <array>
-#include <cstdint>
 #include <vector>
 
 namespace h3m
