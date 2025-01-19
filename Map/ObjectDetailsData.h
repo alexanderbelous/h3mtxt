@@ -35,22 +35,8 @@ namespace h3m
   };
 
   // "Extension" of ObjectDetails specific to ObjectClass of this object.
-  //
-  // Static polymorphism is used here rather than dynamic polymorphism.
-  //
-  // Dynamic polymorphism would also work, but then I would have to implement
-  // parsing/serialization in H3M structures themselves, which is undesirable:
-  // if in the future I decide to add JSON serialization or something else, I would
-  // need to either add extra virtual functions, or use the Visitor pattern (essentially,
-  // this will become the double dispatch problem).
-  // Since the set of object classes is fixed (new object classes won't be added, unless
-  // I decide to support unofficial mods), static polymorphism should be fine.
-  // TODO: move this class to a separate header.
   template<MetaObjectType T>
-  struct ObjectDetailsData
-  {
-    // TODO: remove the default implementation once ObjectDetailsData is specialized for all MetaObjectTypes.
-  };
+  struct ObjectDetailsData;
 
   template<>
   struct ObjectDetailsData<MetaObjectType::ABANDONED_MINE>
@@ -271,6 +257,25 @@ namespace h3m
   {
     std::optional<Guardians> guardians;
     std::uint32_t spell {};
+  };
+
+  template<>
+  struct ObjectDetailsData<MetaObjectType::TOWN>
+  {
+    ObjectDetailsData()
+    {
+      throw std::logic_error("NotImplemented");
+    }
+
+    std::uint32_t absod_id {};
+    // 0xFF if none.
+    std::uint8_t owner {};
+    // If std::nullopt, some default name will be assigned.
+    std::optional<std::string> name {};
+    // 0xFFFF in CreatureStack.type means no creature.
+    std::optional<std::array<CreatureStack, 7>> creatures;
+    Formation formation {};
+    // TODO: add the rest of the fields.
   };
 
   template<>
