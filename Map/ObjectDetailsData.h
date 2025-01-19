@@ -185,6 +185,42 @@ namespace h3m
   };
 
   template<>
+  struct ObjectDetailsData<MetaObjectType::RANDOM_DWELLING>
+  {
+    // 0xFF if none.
+    std::uint32_t owner {};
+    // absod_id of the town ("Random Dwelling Properties" -> "Alignment" -> "Same as").
+    // If 0, the dwelling's alignment is not tied to a specific town.
+    std::uint32_t town_absod_id {};
+    // This field is only read/written if town_absod_id == 0.
+    BitSet<2> alignment;
+    // 0-based.
+    std::uint8_t min_level {};
+    std::uint8_t max_level {};
+  };
+
+  template<>
+  struct ObjectDetailsData<MetaObjectType::RANDOM_DWELLING_PRESET_ALIGNMENT>
+  {
+    // 0xFF if none.
+    std::uint32_t owner {};
+    std::uint8_t min_level {};
+    std::uint8_t max_level {};
+  };
+
+  template<>
+  struct ObjectDetailsData<MetaObjectType::RANDOM_DWELLING_PRESET_LEVEL>
+  {
+    // 0xFF if none.
+    std::uint32_t owner {};
+    // absod_id of the town ("Random Dwelling Properties" -> "Alignment" -> "Same as").
+    // If 0, the dwelling's alignment is not tied to a specific town.
+    std::uint32_t town_absod_id {};
+    // This field is only read/written if town_absod_id == 0.
+    BitSet<2> alignment;
+  };
+
+  template<>
   struct ObjectDetailsData<MetaObjectType::RESOURCE>
   {
     std::optional<Guardians> guardians;
