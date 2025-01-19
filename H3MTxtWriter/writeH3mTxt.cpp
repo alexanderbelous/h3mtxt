@@ -631,19 +631,15 @@ namespace Util_NS
   {
     void operator()(FieldsWriter& out, const h3m::ObjectDetails& object_details) const
     {
-      // An object has details if its MetaObjectType is *not* GENERIC_NO_PROPERTIES.
-      const bool has_details =
-        std::get_if<h3m::ObjectDetailsData<h3m::MetaObjectType::GENERIC_NO_PROPERTIES>>(&object_details.details) == nullptr;
-
       out.writeField("x", object_details.x);
       out.writeField("y", object_details.y);
       out.writeField("z", object_details.z);
       // TODO: print ObjectClass and/or MetaObjectType in a comment.
       out.writeField("kind", object_details.kind);
       out.writeField("unknown", object_details.unknown);
-      if (has_details)
+      if (object_details.details.getMetaObjectType() != h3m::MetaObjectType::GENERIC_NO_PROPERTIES)
       {
-        std::visit(NamedFieldWriter(out, "details"), object_details.details);
+        object_details.details.visit(NamedFieldWriter(out, "details"));
       }
     }
   };

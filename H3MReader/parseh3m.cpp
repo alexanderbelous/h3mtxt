@@ -493,9 +493,9 @@ readObjectDetailsData<MetaObjectType::WITCH_HUT>(std::istream& stream)
 }
 
 // Utility wrapper around readObjectDetailsData(), which returns the result
-// as ObjectDetails::Data.
+// as ObjectDetailsDataVariant.
 template<MetaObjectType T>
-ObjectDetails::Data readObjectDetailsDataAsVariant(std::istream& stream)
+ObjectDetailsDataVariant readObjectDetailsDataAsVariant(std::istream& stream)
 {
   return readObjectDetailsData<T>(stream);
 }
@@ -503,9 +503,8 @@ ObjectDetails::Data readObjectDetailsDataAsVariant(std::istream& stream)
 // Reads ObjectDetailsData for the specified MetaObjectType.
 // \param stream - input stream.
 // \param meta_object_type - MetaObjectType of the object.
-// \return the deserialized data as ObjectDetails::Data (which is an alias for an std::variant
-//         capable of holding any ObjectDetailsData).
-ObjectDetails::Data readObjectDetailsDataVariant(std::istream& stream, MetaObjectType meta_object_type)
+// \return the deserialized data as ObjectDetailsDataVariant.
+ObjectDetailsDataVariant readObjectDetailsDataVariant(std::istream& stream, MetaObjectType meta_object_type)
 {
   // I'm too lazy to write a switch statement - there are too many MetaObjectTypes, so
   // let's use template metaprogramming instead.
@@ -514,7 +513,7 @@ ObjectDetails::Data readObjectDetailsDataVariant(std::istream& stream, MetaObjec
   using MetaObjectTypeIdx = std::underlying_type_t<MetaObjectType>;
 
   // Type of a pointer to a function that takes std::istream& and returns ObjectDetails::Data.
-  using ReadObjectDetailsDataPtr = ObjectDetails::Data(*)(std::istream& stream);
+  using ReadObjectDetailsDataPtr = ObjectDetailsDataVariant(*)(std::istream& stream);
 
   // Generate (at compile time) an array of function pointers for each instantiation of
   // readObjectDetailsDataAsVariant() ordered by MetaObjectType.
@@ -529,7 +528,7 @@ ObjectDetails::Data readObjectDetailsDataVariant(std::istream& stream, MetaObjec
   }(std::make_integer_sequence<MetaObjectTypeIdx, kNumMetaObjectTypes>{});
 
   // Invoke a function from the generated array.
-  return kObjectDetailsDataReaders[static_cast<MetaObjectTypeIdx>(meta_object_type)](stream);
+  return kObjectDetailsDataReaders.at(static_cast<MetaObjectTypeIdx>(meta_object_type))(stream);
 }
 
 ObjectDetails readObjectDetails(std::istream& stream, const std::vector<ObjectAttributes>& objects_attributes)

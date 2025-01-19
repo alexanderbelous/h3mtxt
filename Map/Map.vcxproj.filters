@@ -171,5 +171,8 @@
     <ClInclude Include="ObjectDetailsData.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="ObjectDetailsDataVariant.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

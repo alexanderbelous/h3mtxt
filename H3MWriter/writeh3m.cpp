@@ -740,9 +740,7 @@ namespace h3m
         writeData(stream, object_details.kind);
         writeData(stream, object_details.unknown);
         // TODO: implement.
-        const bool has_details =
-          std::get_if<ObjectDetailsData<MetaObjectType::GENERIC_NO_PROPERTIES>>(&object_details.details) == nullptr;
-        if (has_details)
+        if (object_details.details.getMetaObjectType() != MetaObjectType::GENERIC_NO_PROPERTIES)
         {
           throw std::logic_error("NotImplemented.");
         }
