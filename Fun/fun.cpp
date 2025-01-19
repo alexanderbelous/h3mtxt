@@ -87,18 +87,20 @@ namespace
       }),
       .global_events {
         h3m::GlobalEvent {
-          .name = "Global event",
-          .message = "Enjoy some resources.",
-          .resources {
-            .data {10, 5, 10, 5, 5, 5, 1000}
-           },
-          .affected_players {
-            .bitset = 0xFF
-          },
-          .applies_to_human = true,
-          .applies_to_computer = true,
-          .day_of_first_occurence = 0,
-          .repeat_after_days = 0
+          h3m::TimedEventBase {
+            .name = "Global event",
+            .message = "Enjoy some resources.",
+            .resources {
+              .data {10, 5, 10, 5, 5, 5, 1000}
+             },
+            .affected_players {
+              .bitset = 0xFF
+            },
+            .applies_to_human = true,
+            .applies_to_computer = true,
+            .day_of_first_occurence = 0,
+            .repeat_after_days = 0
+          }
         }
       }
     };

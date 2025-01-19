@@ -15,6 +15,7 @@
 #include <h3mtxt/Map/Resources.h>
 #include <h3mtxt/Map/Reward.h>
 #include <h3mtxt/Map/SecondarySkill.h>
+#include <h3mtxt/Map/TimedEventBase.h>
 #include <h3mtxt/Map/Quest.h>
 #include <h3mtxt/Map/Utils/BitSet.h>
 #include <h3mtxt/Map/Utils/ReservedData.h>
@@ -259,14 +260,26 @@ namespace h3m
     std::uint32_t spell {};
   };
 
+  struct TownBuildings
+  {
+    // Each bit indicates whether the building is built.
+    BitSet<6> is_built {};
+    // Each bit indicates whether the building is disabled.
+    BitSet<6> is_disabled {};
+  };
+
+  struct TownEvent : TimedEventBase
+  {
+    // Each bit indicates whether the building gets built.
+    BitSet<6> buildings;
+    // Extra creatures for each creature level.
+    std::array<std::uint16_t, 7> creatures {};
+    ReservedData<4> unknown;
+  };
+
   template<>
   struct ObjectDetailsData<MetaObjectType::TOWN>
   {
-    ObjectDetailsData()
-    {
-      throw std::logic_error("NotImplemented");
-    }
-
     std::uint32_t absod_id {};
     // 0xFF if none.
     std::uint8_t owner {};
@@ -275,7 +288,18 @@ namespace h3m
     // 0xFFFF in CreatureStack.type means no creature.
     std::optional<std::array<CreatureStack, 7>> creatures;
     Formation formation {};
-    // TODO: add the rest of the fields.
+    std::optional<TownBuildings> buildings;
+    // This field is only read/written if !buildings.has_value().
+    Bool has_fort {};
+    BitSet<9> must_have_spell;
+    BitSet<9> may_not_have_spell;
+    std::vector<TownEvent> events;
+    // For a non-random town: should be 0xFF.
+    // For a random town:
+    //   * 0xFF means "Same as Owner or Random".
+    //   * [0; 7] means "Same as Player N".
+    std::uint8_t alignment {};
+    ReservedData<3> unknown;
   };
 
   template<>

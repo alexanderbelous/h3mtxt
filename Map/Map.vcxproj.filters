@@ -174,5 +174,8 @@
     <ClInclude Include="ObjectDetailsDataVariant.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="TimedEventBase.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
