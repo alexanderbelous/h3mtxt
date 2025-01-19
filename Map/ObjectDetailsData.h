@@ -33,6 +33,7 @@ namespace h3m
   {
     std::string message;
     std::optional<std::array<CreatureStack, 7>> creatures;
+    ReservedData<4> unknown;
   };
 
   // "Extension" of ObjectDetails specific to ObjectClass of this object.
@@ -43,8 +44,8 @@ namespace h3m
   struct ObjectDetailsData<MetaObjectType::ABANDONED_MINE>
   {
     // Bitfield: LSB wood that is forced off by editor, then mercury, ore, sulfur, crystal, gems, MSB gold.
-    // TODO: replace with BitSet<4> or even a custom wrapper class.
-    std::uint32_t potential_resources {};
+    // TODO: replace with a custom wrapper class.
+    BitSet<4> potential_resources {};
   };
 
   template<>
@@ -79,6 +80,9 @@ namespace h3m
   // Additional info for ObjectClass::HERO, ObjectClass::RANDOM_HERO and ObjectClass::PRISON.
   // TODO: this implies that you can set name, face, biography and gender for a random hero,
   // or set a random hero in a prison. Check if this is true.
+  //
+  // Note that this struct is similar to HeroSettings, but it has extra fields in between,
+  // so I'm not reusing that struct.
   template<>
   struct ObjectDetailsData<MetaObjectType::HERO>
   {
@@ -91,7 +95,6 @@ namespace h3m
     // Note: in RoE/AB experience is not optional.
     std::optional<std::uint32_t> experience;
     std::optional<std::uint8_t> face;
-    // The fields below are a superset of HeroSettings, but the order is different, so I'm not reusing that class.
     std::optional<std::vector<SecondarySkill>> secondary_skills;
     // 0xFFFF in CreatureStack.type means no creature.
     std::optional<std::array<CreatureStack, 7>> creatures;

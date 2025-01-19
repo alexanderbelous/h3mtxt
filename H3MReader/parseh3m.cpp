@@ -318,6 +318,40 @@ PrimarySkills readHeroPrimarySkills(std::istream& stream)
   return primary_skills;
 }
 
+SecondarySkill readSecondarySkill(std::istream& stream)
+{
+  SecondarySkill secondary_skill;
+  secondary_skill.type = readEnum<SecondarySkillType>(stream);
+  secondary_skill.level = readUint8(stream);
+  return secondary_skill;
+}
+
+// Implementation details, don't use directly.
+std::vector<SecondarySkill> readSecondarySkillsVectorImpl(std::istream& stream, unsigned int num_bytes)
+{
+  const std::uintmax_t num_secondary_skills = readUintImpl(stream, num_bytes);
+  std::vector<SecondarySkill> secondary_skills;
+  secondary_skills.reserve(num_secondary_skills);
+  for (std::uintmax_t i = 0; i < num_secondary_skills; ++i)
+  {
+    secondary_skills.push_back(readSecondarySkill(stream));
+  }
+  return secondary_skills;
+}
+
+// Reads a vector of secondary skills.
+// \param VectorSizeType - unsigned integer type in which the number of secondary skills is encoded.
+//        Usually it's uint32, but in Pandora's Box it's uint8.
+// \param stream - input stream.
+// \return the decoded vector of secondary skills.
+template<class VectorSizeType>
+std::vector<SecondarySkill> readSecondarySkillsVector(std::istream& stream)
+{
+  static_assert(std::is_integral_v<VectorSizeType>, "VectorSizeType must be an integral type.");
+  static_assert(std::is_unsigned_v<VectorSizeType>, "VectorSizeType must be an unsigned type.");
+  return readSecondarySkillsVectorImpl(stream, sizeof(VectorSizeType));
+}
+
 HeroSettings readHeroSettings(std::istream& stream)
 {
   HeroSettings settings;
@@ -327,16 +361,7 @@ HeroSettings readHeroSettings(std::istream& stream)
   }
   if (const Bool has_secondary_skills = readBool(stream))
   {
-    const std::uint32_t num_secondary_skills = readUint<std::uint32_t>(stream);
-    settings.secondary_skills.emplace();
-    settings.secondary_skills->reserve(num_secondary_skills);
-    for (std::uint32_t i = 0; i < num_secondary_skills; ++i)
-    {
-      SecondarySkill secondary_skill;
-      secondary_skill.type = readEnum<SecondarySkillType>(stream);
-      secondary_skill.level = readUint8(stream);
-      settings.secondary_skills->push_back(std::move(secondary_skill));
-    }
+    settings.secondary_skills = readSecondarySkillsVector<std::uint32_t>(stream);
   }
   if (const Bool has_artifacts = readBool(stream))
   {
@@ -440,6 +465,71 @@ template<MetaObjectType T>
 }
 
 template<>
+ObjectDetailsData<MetaObjectType::ABANDONED_MINE>
+readObjectDetailsData<MetaObjectType::ABANDONED_MINE>(std::istream& stream)
+{
+  ObjectDetailsData<MetaObjectType::ABANDONED_MINE> data;
+  data.potential_resources = readBitSet<4>(stream);
+  return data;
+}
+
+CreatureStack readCreatureStack(std::istream& stream)
+{
+  CreatureStack creature_stack;
+  creature_stack.type = readEnum<CreatureType>(stream);
+  creature_stack.count = readUint<std::uint16_t>(stream);
+  return creature_stack;
+}
+
+std::array<CreatureStack, 7> readCreatureStackArray(std::istream& stream)
+{
+  std::array<CreatureStack, 7> creatures;
+  for (CreatureStack& creature_stack : creatures)
+  {
+    creature_stack = readCreatureStack(stream);
+  }
+  return creatures;
+}
+
+Guardians readGuardians(std::istream& stream)
+{
+  Guardians guardians;
+  guardians.message = readString(stream);
+  const Bool has_creatures = readBool(stream);
+  if (has_creatures)
+  {
+    guardians.creatures = readCreatureStackArray(stream);
+  }
+  guardians.unknown = readReservedData<4>(stream);
+  return guardians;
+}
+
+template<>
+ObjectDetailsData<MetaObjectType::ARTIFACT>
+readObjectDetailsData<MetaObjectType::ARTIFACT>(std::istream& stream)
+{
+  ObjectDetailsData<MetaObjectType::ARTIFACT> data;
+  const Bool has_guardians = readBool(stream);
+  if (has_guardians)
+  {
+    data.guardians = readGuardians(stream);
+  }
+  return data;
+}
+
+template<>
+ObjectDetailsData<MetaObjectType::GARRISON>
+readObjectDetailsData<MetaObjectType::GARRISON>(std::istream& stream)
+{
+  ObjectDetailsData<MetaObjectType::GARRISON> data;
+  data.owner = readUint<std::uint32_t>(stream);
+  data.creatures = readCreatureStackArray(stream);
+  data.can_remove_units = readBool(stream);
+  data.unknown = readReservedData<8>(stream);
+  return data;
+}
+
+template<>
 ObjectDetailsData<MetaObjectType::GENERIC_NO_PROPERTIES>
 readObjectDetailsData<MetaObjectType::GENERIC_NO_PROPERTIES>(std::istream& stream)
 {
@@ -452,6 +542,97 @@ readObjectDetailsData<MetaObjectType::GRAIL>(std::istream& stream)
 {
   ObjectDetailsData<MetaObjectType::GRAIL> data;
   data.allowable_radius = readUint<std::uint32_t>(stream);
+  return data;
+}
+
+template<>
+ObjectDetailsData<MetaObjectType::HERO>
+readObjectDetailsData<MetaObjectType::HERO>(std::istream& stream)
+{
+  ObjectDetailsData<MetaObjectType::HERO> data;
+  data.absod_id = readUint<std::uint32_t>(stream);
+  data.owner = readUint8(stream);
+  data.type = readEnum<HeroType>(stream);
+  const Bool has_name = readBool(stream);
+  if (has_name)
+  {
+    data.name = readString(stream);
+  }
+  const Bool has_experience = readBool(stream);
+  if (has_experience)
+  {
+    data.experience = readUint<std::uint32_t>(stream);
+  }
+  const Bool has_face = readBool(stream);
+  if (has_face)
+  {
+    data.face = readUint8(stream);
+  }
+  const Bool has_secondary_skills = readBool(stream);
+  if (has_secondary_skills)
+  {
+    data.secondary_skills = readSecondarySkillsVector<std::uint32_t>(stream);
+  }
+  const Bool has_creatures = readBool(stream);
+  if (has_creatures)
+  {
+    data.creatures = readCreatureStackArray(stream);
+  }
+  data.formation = readEnum<Formation>(stream);
+  const Bool has_artifacts = readBool(stream);
+  if (has_artifacts)
+  {
+    data.artifacts = readHeroArtifacts(stream);
+  }
+  data.patrol_radius = readUint8(stream);
+  const Bool has_biography = readBool(stream);
+  if (has_biography)
+  {
+    data.biography = readString(stream);
+  }
+  data.gender = readEnum<Gender>(stream);
+  const Bool has_spells = readBool(stream);
+  if (has_spells)
+  {
+    data.spells = readBitSet<9>(stream);
+  }
+  const Bool has_primary_skills = readBool(stream);
+  if (has_primary_skills)
+  {
+    data.primary_skills = readHeroPrimarySkills(stream);
+  }
+  data.unknown = readReservedData<16>(stream);
+  return data;
+}
+
+template<>
+ObjectDetailsData<MetaObjectType::PLACEHOLDER_HERO>
+readObjectDetailsData<MetaObjectType::PLACEHOLDER_HERO>(std::istream& stream)
+{
+  constexpr HeroType kRandomHeroType {0xFF};
+
+  ObjectDetailsData<MetaObjectType::PLACEHOLDER_HERO> data;
+  data.owner = readUint8(stream);
+  data.type = readEnum<HeroType>(stream);
+  if (data.type == kRandomHeroType)
+  {
+    data.power_rating = readUint8(stream);
+  }
+  return data;
+}
+
+template<>
+ObjectDetailsData<MetaObjectType::RESOURCE>
+readObjectDetailsData<MetaObjectType::RESOURCE>(std::istream& stream)
+{
+  ObjectDetailsData<MetaObjectType::RESOURCE> data;
+  const Bool has_guardians = readBool(stream);
+  if (has_guardians)
+  {
+    data.guardians = readGuardians(stream);
+  }
+  data.quantity = readUint<std::uint32_t>(stream);
+  data.unknown = readReservedData<4>(stream);
   return data;
 }
 
@@ -471,6 +652,20 @@ readObjectDetailsData<MetaObjectType::SIGN>(std::istream& stream)
   ObjectDetailsData<MetaObjectType::SIGN> data;
   data.message = readString(stream);
   data.unknown = readReservedData<4>(stream);
+  return data;
+}
+
+template<>
+ObjectDetailsData<MetaObjectType::SPELL_SCROLL>
+readObjectDetailsData<MetaObjectType::SPELL_SCROLL>(std::istream& stream)
+{
+  ObjectDetailsData<MetaObjectType::SPELL_SCROLL> data;
+  const Bool has_guardians = readBool(stream);
+  if (has_guardians)
+  {
+    data.guardians = readGuardians(stream);
+  }
+  data.spell = readUint<std::uint32_t>(stream);
   return data;
 }
 
