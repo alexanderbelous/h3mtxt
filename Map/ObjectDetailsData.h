@@ -324,6 +324,4 @@ namespace h3m
 
     BitSet<4> skills_availability;
   };
-
-  // TODO: add specializations for the rest.
 }
