@@ -147,6 +147,21 @@ namespace Util_NS
     }
   };
 
+  template<class T>
+  struct StructWriter<h3m::Resources<T>>
+  {
+    void operator()(FieldsWriter& out, const h3m::Resources<T>& resources) const
+    {
+      out.writeField("wood", resources[h3m::ResourceType::Wood]);
+      out.writeField("mercury", resources[h3m::ResourceType::Mercury]);
+      out.writeField("ore", resources[h3m::ResourceType::Ore]);
+      out.writeField("sulfur", resources[h3m::ResourceType::Sulfur]);
+      out.writeField("crystal", resources[h3m::ResourceType::Crystal]);
+      out.writeField("gems", resources[h3m::ResourceType::Gems]);
+      out.writeField("gold", resources[h3m::ResourceType::Gold]);
+    }
+  };
+
   template<>
   struct StructWriter<h3m::MapBasicInfo>
   {
@@ -643,6 +658,37 @@ namespace Util_NS
   };
 
   template<>
+  struct StructWriter<h3m::ObjectDetailsData<h3m::MetaObjectType::MONSTER>::MessageAndTreasure>
+  {
+    void operator()(FieldsWriter& out,
+                    const h3m::ObjectDetailsData<h3m::MetaObjectType::MONSTER>::MessageAndTreasure& data) const
+    {
+      out.writeField("message", data.message);
+      out.writeField("resources", data.resources);
+      out.writeField("artifact", data.artifact);
+    }
+  };
+
+  template<>
+  struct StructWriter<h3m::ObjectDetailsData<h3m::MetaObjectType::MONSTER>>
+  {
+    void operator()(FieldsWriter& out,
+                    const h3m::ObjectDetailsData<h3m::MetaObjectType::MONSTER>& monster) const
+    {
+      out.writeField("absod_id", monster.absod_id);
+      out.writeField("count", monster.count);
+      out.writeField("disposition", monster.disposition);
+      if (monster.message_and_treasure)
+      {
+        out.writeField("message_and_treasure", *monster.message_and_treasure);
+      }
+      out.writeField("never_flees", monster.never_flees);
+      out.writeField("does_not_grow", monster.does_not_grow);
+      out.writeField("unknown", monster.unknown);
+    }
+  };
+
+  template<>
   struct StructWriter<h3m::ObjectDetailsData<h3m::MetaObjectType::PLACEHOLDER_HERO>>
   {
     void operator()(FieldsWriter& out,
@@ -722,21 +768,6 @@ namespace Util_NS
       {
         object_details.details.visit(NamedFieldWriter(out, "details"));
       }
-    }
-  };
-
-  template<class T>
-  struct StructWriter<h3m::Resources<T>>
-  {
-    void operator()(FieldsWriter& out, const h3m::Resources<T>& resources) const
-    {
-      out.writeField("wood", resources[h3m::ResourceType::Wood]);
-      out.writeField("mercury", resources[h3m::ResourceType::Mercury]);
-      out.writeField("ore", resources[h3m::ResourceType::Ore]);
-      out.writeField("sulfur", resources[h3m::ResourceType::Sulfur]);
-      out.writeField("crystal", resources[h3m::ResourceType::Crystal]);
-      out.writeField("gems", resources[h3m::ResourceType::Gems]);
-      out.writeField("gold", resources[h3m::ResourceType::Gold]);
     }
   };
 

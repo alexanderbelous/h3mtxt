@@ -2,6 +2,7 @@
 
 #include <h3mtxt/Map/AffectedPlayers.h>
 #include <h3mtxt/Map/Base.h>
+#include <h3mtxt/Map/Constants/ArtifactType.h>
 #include <h3mtxt/Map/Constants/Disposition.h>
 #include <h3mtxt/Map/Constants/Formation.h>
 #include <h3mtxt/Map/Constants/Gender.h>
@@ -119,7 +120,7 @@ namespace h3m
       std::string message;
       Resources<std::uint32_t> resources {};
       // 0xFFFF means no artifact.
-      std::uint16_t artifact {};
+      ArtifactType artifact {};
     };
 
     std::uint32_t absod_id {};
@@ -129,6 +130,7 @@ namespace h3m
     std::optional<MessageAndTreasure> message_and_treasure;
     Bool never_flees {};
     Bool does_not_grow {};
+    ReservedData<2> unknown;
   };
 
   template<>

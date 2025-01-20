@@ -116,6 +116,17 @@ BitSet<NumBytes> readBitSet(std::istream& stream)
   return BitSet<NumBytes>(readByteArray<NumBytes>(stream));
 }
 
+template<class T>
+Resources<T> readResources(std::istream& stream)
+{
+  Resources<T> resources;
+  for (T& amount : resources.data)
+  {
+    amount = readUint<T>(stream);
+  }
+  return resources;
+}
+
 MapBasicInfo readMapBasicInfo(std::istream& stream)
 {
   MapBasicInfo basic_info;
@@ -456,23 +467,6 @@ ObjectAttributes readObjectAttributes(std::istream& stream)
   return result;
 }
 
-// TODO: remove the default implementation once readObjectDetailsData() is specialized for
-// all MetaObjectTypes.
-template<MetaObjectType T>
-[[noreturn]] ObjectDetailsData<T> readObjectDetailsData(std::istream& stream)
-{
-  throw std::runtime_error("NotImplemented.");
-}
-
-template<>
-ObjectDetailsData<MetaObjectType::ABANDONED_MINE>
-readObjectDetailsData<MetaObjectType::ABANDONED_MINE>(std::istream& stream)
-{
-  ObjectDetailsData<MetaObjectType::ABANDONED_MINE> data;
-  data.potential_resources = readBitSet<4>(stream);
-  return data;
-}
-
 CreatureStack readCreatureStack(std::istream& stream)
 {
   CreatureStack creature_stack;
@@ -502,6 +496,23 @@ Guardians readGuardians(std::istream& stream)
   }
   guardians.unknown = readReservedData<4>(stream);
   return guardians;
+}
+
+// TODO: remove the default implementation once readObjectDetailsData() is specialized for
+// all MetaObjectTypes.
+template<MetaObjectType T>
+[[noreturn]] ObjectDetailsData<T> readObjectDetailsData(std::istream& stream)
+{
+  throw std::runtime_error("NotImplemented.");
+}
+
+template<>
+ObjectDetailsData<MetaObjectType::ABANDONED_MINE>
+readObjectDetailsData<MetaObjectType::ABANDONED_MINE>(std::istream& stream)
+{
+  ObjectDetailsData<MetaObjectType::ABANDONED_MINE> data;
+  data.potential_resources = readBitSet<4>(stream);
+  return data;
 }
 
 template<>
@@ -603,6 +614,37 @@ readObjectDetailsData<MetaObjectType::HERO>(std::istream& stream)
   }
   data.unknown = readReservedData<16>(stream);
   return data;
+}
+
+ObjectDetailsData<MetaObjectType::MONSTER>::MessageAndTreasure
+readMessageAndTreasure(std::istream& stream)
+{
+  ObjectDetailsData<MetaObjectType::MONSTER>::MessageAndTreasure data;
+  data.message = readString(stream);
+  data.resources = readResources<std::uint32_t>(stream);
+  data.artifact = readEnum<ArtifactType>(stream);
+  return data;
+}
+
+template<>
+ObjectDetailsData<MetaObjectType::MONSTER>
+readObjectDetailsData<MetaObjectType::MONSTER>(std::istream& stream)
+{
+  constexpr HeroType kRandomHeroType {0xFF};
+
+  ObjectDetailsData<MetaObjectType::MONSTER> monster;
+  monster.absod_id = readUint<std::uint32_t>(stream);
+  monster.count = readUint<std::uint16_t>(stream);
+  monster.disposition = readEnum<Disposition>(stream);
+  const Bool has_message_and_treasure = readBool(stream);
+  if (has_message_and_treasure)
+  {
+    monster.message_and_treasure = readMessageAndTreasure(stream);
+  }
+  monster.never_flees = readBool(stream);
+  monster.does_not_grow = readBool(stream);
+  monster.unknown = readReservedData<2>(stream);
+  return monster;
 }
 
 template<>
@@ -746,10 +788,7 @@ GlobalEvent readGlobalEvent(std::istream& stream)
   GlobalEvent global_event;
   global_event.name = readString(stream);
   global_event.message = readString(stream);
-  for (std::uint8_t i = 0; i < kNumResources; ++i)
-  {
-    global_event.resources.data[i] = readUint<std::int32_t>(stream);
-  }
+  global_event.resources = readResources<std::int32_t>(stream);
   global_event.affected_players.bitset = readUint8(stream);
   global_event.applies_to_human = readBool(stream);
   global_event.applies_to_computer = readBool(stream);
