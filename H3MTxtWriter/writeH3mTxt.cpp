@@ -563,6 +563,29 @@ namespace Util_NS
     }
   };
 
+  template<>
+  struct StructWriter<h3m::CreatureStack>
+  {
+    void operator()(FieldsWriter& out, const h3m::CreatureStack& guardians) const
+    {
+      out.writeField("type", guardians.type);
+      out.writeField("count", guardians.count);
+    }
+  };
+
+  template<>
+  struct StructWriter<h3m::Guardians>
+  {
+    void operator()(FieldsWriter& out, const h3m::Guardians& guardians) const
+    {
+      out.writeField("message", guardians.message);
+      if (guardians.creatures)
+      {
+        out.writeField("guardians", *guardians.creatures);
+      }
+    }
+  };
+
   // Default implementation for ObjectDetailsData.
   // TODO: remove once specialized for all MetaObjectTypes.
   template<h3m::MetaObjectType T>
@@ -571,6 +594,32 @@ namespace Util_NS
     void operator()(FieldsWriter& out, const h3m::ObjectDetailsData<T>& data) const
     {
       out.writeComment("NotImplemented");
+    }
+  };
+
+  template<>
+  struct StructWriter<h3m::ObjectDetailsData<h3m::MetaObjectType::ARTIFACT>>
+  {
+    void operator()(FieldsWriter& out,
+                    const h3m::ObjectDetailsData<h3m::MetaObjectType::ARTIFACT>& artifact) const
+    {
+      if (artifact.guardians)
+      {
+        out.writeField("guardians", *artifact.guardians);
+      }
+    }
+  };
+
+  template<>
+  struct StructWriter<h3m::ObjectDetailsData<h3m::MetaObjectType::GARRISON>>
+  {
+    void operator()(FieldsWriter& out,
+                    const h3m::ObjectDetailsData<h3m::MetaObjectType::GARRISON>& garrison) const
+    {
+      out.writeField("owner", garrison.owner);
+      out.writeField("creatures", garrison.creatures);
+      out.writeField("can_remove_units", garrison.can_remove_units);
+      out.writeField("unknown", garrison.unknown);
     }
   };
 
@@ -590,6 +639,38 @@ namespace Util_NS
       const h3m::ObjectDetailsData<h3m::MetaObjectType::GRAIL>& data) const
     {
       out.writeField("allowable_radius", data.allowable_radius);
+    }
+  };
+
+  template<>
+  struct StructWriter<h3m::ObjectDetailsData<h3m::MetaObjectType::PLACEHOLDER_HERO>>
+  {
+    void operator()(FieldsWriter& out,
+                    const h3m::ObjectDetailsData<h3m::MetaObjectType::PLACEHOLDER_HERO>& hero) const
+    {
+      constexpr h3m::HeroType kRandomHeroType {0xFF};
+
+      out.writeField("owner", hero.owner);
+      out.writeField("type", hero.type);
+      if (hero.type == kRandomHeroType)
+      {
+        out.writeField("power_rating", hero.power_rating);
+      }
+    }
+  };
+
+  template<>
+  struct StructWriter<h3m::ObjectDetailsData<h3m::MetaObjectType::RESOURCE>>
+  {
+    void operator()(FieldsWriter& out,
+                    const h3m::ObjectDetailsData<h3m::MetaObjectType::RESOURCE>& data) const
+    {
+      if (data.guardians)
+      {
+        out.writeField("guardians", *data.guardians);
+      }
+      out.writeField("quantity", data.quantity);
+      out.writeField("unknown", data.unknown);
     }
   };
 
