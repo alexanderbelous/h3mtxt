@@ -86,12 +86,14 @@ namespace h3m
       event.unknown = readReservedData<8>(stream);
     }
 
-    // TODO: remove the default implementation once readObjectDetailsData() is specialized for
-    // all MetaObjectTypes.
+    // Reads ObjectDetailsData<T> from the stream.
+    // This function needs to be specialized for each valid MetaObjectType. The default implementation
+    // cannot be instantiated - it causes a compilation error, reporting a missing specialization.
     template<MetaObjectType T>
-    [[noreturn]] ObjectDetailsData<T> readObjectDetailsData(std::istream& stream)
+    ObjectDetailsData<T> readObjectDetailsData(std::istream& stream)
     {
-      throw std::runtime_error("NotImplemented.");
+      static_assert(false, "Missing specialization for readObjectDetailsData<T>().");
+      return {};
     }
 
     template<>
@@ -272,6 +274,13 @@ namespace h3m
     }
 
     template<>
+     [[noreturn]] ObjectDetailsData<MetaObjectType::QUEST_GUARD>
+    readObjectDetailsData<MetaObjectType::QUEST_GUARD>(std::istream& stream)
+    {
+      throw std::runtime_error("readObjectDetailsData<QUEST_GUARD>(): NotImplemented.");
+    }
+
+    template<>
     ObjectDetailsData<MetaObjectType::RANDOM_DWELLING>
     readObjectDetailsData<MetaObjectType::RANDOM_DWELLING>(std::istream& stream)
     {
@@ -328,6 +337,20 @@ namespace h3m
     }
 
     template<>
+     [[noreturn]] ObjectDetailsData<MetaObjectType::SCHOLAR>
+    readObjectDetailsData<MetaObjectType::SCHOLAR>(std::istream& stream)
+    {
+      throw std::runtime_error("readObjectDetailsData<SCHOLAR>(): NotImplemented.");
+    }
+
+    template<>
+     [[noreturn]] ObjectDetailsData<MetaObjectType::SEERS_HUT>
+    readObjectDetailsData<MetaObjectType::SEERS_HUT>(std::istream& stream)
+    {
+      throw std::runtime_error("readObjectDetailsData<SEERS_HUT>(): NotImplemented.");
+    }
+
+    template<>
     ObjectDetailsData<MetaObjectType::SHRINE>
     readObjectDetailsData<MetaObjectType::SHRINE>(std::istream& stream)
     {
@@ -358,6 +381,13 @@ namespace h3m
       }
       data.spell = readUint<std::uint32_t>(stream);
       return data;
+    }
+
+    template<>
+     [[noreturn]] ObjectDetailsData<MetaObjectType::TOWN>
+    readObjectDetailsData<MetaObjectType::TOWN>(std::istream& stream)
+    {
+      throw std::runtime_error("readObjectDetailsData<TOWN>(): NotImplemented.");
     }
 
     template<>
