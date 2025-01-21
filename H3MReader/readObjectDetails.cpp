@@ -337,10 +337,14 @@ namespace h3m
     }
 
     template<>
-     [[noreturn]] ObjectDetailsData<MetaObjectType::SCHOLAR>
+    ObjectDetailsData<MetaObjectType::SCHOLAR>
     readObjectDetailsData<MetaObjectType::SCHOLAR>(std::istream& stream)
     {
-      throw std::runtime_error("readObjectDetailsData<SCHOLAR>(): NotImplemented.");
+       ObjectDetailsData<MetaObjectType::SCHOLAR> data;
+       data.reward_type = readEnum<ScholarRewardType>(stream);
+       data.reward_value = readUint8(stream);
+       data.unknown = readReservedData<6>(stream);
+       return data;
     }
 
     template<>
