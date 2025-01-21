@@ -78,7 +78,7 @@ namespace Util_NS
   {
     void operator()(IndentedTextWriter& out, const h3m::ReservedData<NumBytes>& reserved_data)
     {
-      ScopedArrayWriter<std::byte> array_writer = out.writeArray<std::byte>();
+      ScopedArrayWriter<std::byte> array_writer = out.writeArray<std::byte>(false);
       for (std::size_t i = 0; i < NumBytes; ++i)
       {
         array_writer.writeElement(reserved_data[i]);

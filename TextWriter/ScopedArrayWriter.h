@@ -26,15 +26,24 @@ namespace Util_NS
 
   protected:
     // Writes an opening bracket '[' and increases the indent of the given IndentedTextWriter.
-    explicit ScopedArrayWriterBase(IndentedTextWriter& out);
+    explicit ScopedArrayWriterBase(IndentedTextWriter& out, bool one_element_per_line = true);
 
-    void writeCommaIfNeeded();
+    void beforeWriteElement();
+
+    void afterWriteElement();
+
+    enum class Token
+    {
+      Nothing,
+      Element,
+      Comment
+    };
 
     IndentedTextWriter& out_;
-    // True if at least 1 element or comment has been written, false otherwise.
-    bool has_elements_or_comments_ = false;
-    // True if a comma needs to be written before writing another element or comment, false otherwise.
-    bool need_comma_ = false;
+    // The last token written via this object.
+    Token last_token_ = Token::Nothing;
+    // True if each element should be a written on a new line, false otherwise.
+    bool one_element_per_line_ = true;
   };
 
   // Class for writing an array of values with indent.
@@ -49,21 +58,20 @@ namespace Util_NS
   private:
     friend IndentedTextWriter;
 
-    explicit ScopedArrayWriter(IndentedTextWriter& out);
+    explicit ScopedArrayWriter(IndentedTextWriter& out, bool one_element_per_line = true);
   };
 
   template<class T>
-  ScopedArrayWriter<T>::ScopedArrayWriter(IndentedTextWriter & out):
-    ScopedArrayWriterBase(out)
+  ScopedArrayWriter<T>::ScopedArrayWriter(IndentedTextWriter & out, bool one_element_per_line):
+    ScopedArrayWriterBase(out, one_element_per_line)
   {}
 
   template<class T>
   void ScopedArrayWriter<T>::writeElement(const T& value)
   {
-    writeCommaIfNeeded();
+    beforeWriteElement();
     ValueWriter<T> value_writer{};
     value_writer(out_, value);
-    has_elements_or_comments_ = true;
-    need_comma_ = true;
+    afterWriteElement();
   }
 }

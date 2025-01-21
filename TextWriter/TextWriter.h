@@ -51,7 +51,7 @@ namespace Util_NS
     //
     // \return a ScopedArrayWriter object that can be used to write elements of the array.
     template<class T>
-    ScopedArrayWriter<T> writeArray();
+    ScopedArrayWriter<T> writeArray(bool one_element_per_line = true);
 
   private:
     friend ScopedArrayWriterBase;
@@ -87,8 +87,8 @@ namespace Util_NS
   }
 
   template<class T>
-  ScopedArrayWriter<T> IndentedTextWriter::writeArray()
+  ScopedArrayWriter<T> IndentedTextWriter::writeArray(bool one_element_per_line)
   {
-    return ScopedArrayWriter<T>{*this};
+    return ScopedArrayWriter<T>(*this, one_element_per_line);
   }
 }

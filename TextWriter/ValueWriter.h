@@ -20,7 +20,10 @@ namespace Util_NS
     template<class T>
     void writeSpan(IndentedTextWriter& out, std::span<const T> elements)
     {
-      ScopedArrayWriter<T> scoped_array_writer = out.writeArray<T>();
+      // Write an array of numbers or bytes on a single line, everything else - over multiple lines.
+      constexpr bool kOneElementPerLine = !(std::is_arithmetic_v<T> || std::is_same_v<T, std::byte>);
+
+      ScopedArrayWriter<T> scoped_array_writer = out.writeArray<T>(kOneElementPerLine);
       for (const T& element : elements)
       {
         scoped_array_writer.writeElement(element);
