@@ -658,6 +658,58 @@ namespace Util_NS
   };
 
   template<>
+  struct StructWriter<h3m::ObjectDetailsData<h3m::MetaObjectType::HERO>>
+  {
+    void operator()(FieldsWriter& out,
+                    const h3m::ObjectDetailsData<h3m::MetaObjectType::HERO>& hero) const
+    {
+      out.writeField("absod_id", hero.absod_id);
+      out.writeField("owner", hero.owner);
+      out.writeField("type", hero.type);
+      if (hero.name)
+      {
+        out.writeField("name", *hero.name);
+      }
+      if (hero.experience)
+      {
+        out.writeField("experience", *hero.experience);
+      }
+      if (hero.face)
+      {
+        out.writeField("face", *hero.face);
+      }
+      if (hero.secondary_skills)
+      {
+        out.writeField("secondary_skills", *hero.secondary_skills);
+      }
+      if (hero.creatures)
+      {
+        out.writeField("creatures", *hero.creatures);
+      }
+      out.writeField("formation", hero.formation);
+      if (hero.artifacts)
+      {
+        out.writeField("artifacts", *hero.artifacts);
+      }
+      out.writeField("patrol_radius", hero.patrol_radius);
+      if (hero.biography)
+      {
+        out.writeField("biography", *hero.biography);
+      }
+      out.writeField("gender", hero.gender);
+      if (hero.spells)
+      {
+        out.writeField("spells", *hero.spells);
+      }
+      if (hero.primary_skills)
+      {
+        out.writeField("primary_skills", *hero.primary_skills);
+      }
+      out.writeField("unknown", hero.unknown);
+    }
+  };
+
+  template<>
   struct StructWriter<h3m::ObjectDetailsData<h3m::MetaObjectType::MONSTER>::MessageAndTreasure>
   {
     void operator()(FieldsWriter& out,
