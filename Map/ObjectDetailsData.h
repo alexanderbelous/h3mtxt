@@ -37,6 +37,24 @@ namespace h3m
     ReservedData<4> unknown;
   };
 
+  // Base class for ObjectDetailsData<MetaObjectType::PANDORAS_BOX> and
+  // ObjectDetailsData<MetaObjectType::EVENT>.
+  struct EventBase
+  {
+    std::optional<Guardians> guardians;
+    std::uint32_t experience {};
+    std::int32_t spell_points {};
+    std::int8_t morale {};
+    std::int8_t luck {};
+    Resources<std::int32_t> resources;
+    PrimarySkills primary_skills;
+    std::vector<SecondarySkill> secondary_skills;
+    std::vector<ArtifactType> artifacts;
+    std::vector<SpellType> spells;
+    std::vector<CreatureStack> creatures;
+    ReservedData<8> unknown {};
+  };
+
   // "Extension" of ObjectDetails specific to ObjectClass of this object.
   template<MetaObjectType T>
   struct ObjectDetailsData;
@@ -53,6 +71,15 @@ namespace h3m
   struct ObjectDetailsData<MetaObjectType::ARTIFACT>
   {
     std::optional<Guardians> guardians;
+  };
+
+  template<>
+  struct ObjectDetailsData<MetaObjectType::EVENT> : EventBase
+  {
+    AffectedPlayers affected_players;
+    Bool applies_to_computer{};
+    Bool remove_after_first_visit{};
+    ReservedData<4> unknown{};
   };
 
   template<>
@@ -134,30 +161,8 @@ namespace h3m
   };
 
   template<>
-  struct ObjectDetailsData<MetaObjectType::PANDORAS_BOX>
+  struct ObjectDetailsData<MetaObjectType::PANDORAS_BOX> : EventBase
   {
-    std::optional<Guardians> guardians;
-    std::uint32_t experience {};
-    std::int32_t spell_points {};
-    std::int8_t morale {};
-    std::int8_t luck {};
-    Resources<std::int32_t> resources;
-    PrimarySkills primary_skills;
-    std::vector<SecondarySkill> secondary_skill;
-    std::vector<std::uint16_t> artifacts;
-    std::vector<SpellType> spells;
-    std::vector<CreatureStack> creatures;
-    ReservedData<8> unknown {};
-  };
-
-  // TODO: use composition instead of inheritance.
-  template<>
-  struct ObjectDetailsData<MetaObjectType::EVENT> : ObjectDetailsData<MetaObjectType::PANDORAS_BOX>
-  {
-    AffectedPlayers affected_players;
-    Bool applies_to_computer{};
-    Bool remove_after_first_visit{};
-    ReservedData<4> unknown{};
   };
 
   template<>

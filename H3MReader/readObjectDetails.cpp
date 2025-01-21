@@ -44,6 +44,48 @@ namespace h3m
       return guardians;
     }
 
+    void readEventBase(std::istream& stream, EventBase& event)
+    {
+      const Bool has_guardians = readBool(stream);
+      if (has_guardians)
+      {
+        event.guardians = readGuardians(stream);
+      }
+      else
+      {
+        event.guardians = std::nullopt;
+      }
+      event.experience = readUint<std::uint32_t>(stream);
+      event.spell_points = readUint<std::int32_t>(stream);
+      event.morale = readUint<std::int8_t>(stream);
+      event.luck = readUint<std::int8_t>(stream);
+      event.resources = readResources<std::int32_t>(stream);
+      event.primary_skills = readPrimarySkills(stream);
+      event.secondary_skills = readSecondarySkillsVector<std::uint8_t>(stream);
+      const std::uint8_t num_artifacts = readUint8(stream);
+      event.artifacts.clear();
+      event.artifacts.reserve(num_artifacts);
+      for (std::uint8_t i = 0; i < num_artifacts; ++i)
+      {
+        event.artifacts.push_back(readEnum<ArtifactType>(stream));
+      }
+      const std::uint8_t num_spells = readUint8(stream);
+      event.spells.clear();
+      event.spells.reserve(num_spells);
+      for (std::uint8_t i = 0; i < num_spells; ++i)
+      {
+        event.spells.push_back(readEnum<SpellType>(stream));
+      }
+      const std::uint8_t num_creatures = readUint8(stream);
+      event.creatures.clear();
+      event.creatures.reserve(num_creatures);
+      for (std::uint8_t i = 0; i < num_creatures; ++i)
+      {
+        event.creatures.push_back(readCreatureStack(stream));
+      }
+      event.unknown = readReservedData<8>(stream);
+    }
+
     // TODO: remove the default implementation once readObjectDetailsData() is specialized for
     // all MetaObjectTypes.
     template<MetaObjectType T>
@@ -71,6 +113,19 @@ namespace h3m
       {
         data.guardians = readGuardians(stream);
       }
+      return data;
+    }
+
+    template<>
+    ObjectDetailsData<MetaObjectType::EVENT>
+    readObjectDetailsData<MetaObjectType::EVENT>(std::istream& stream)
+    {
+      ObjectDetailsData<MetaObjectType::EVENT> data;
+      readEventBase(stream, data);
+      data.affected_players.bitset = readUint8(stream);
+      data.applies_to_computer = readBool(stream);
+      data.remove_after_first_visit = readBool(stream);
+      data.unknown = readReservedData<4>(stream);
       return data;
     }
 
@@ -176,8 +231,6 @@ namespace h3m
     ObjectDetailsData<MetaObjectType::MONSTER>
     readObjectDetailsData<MetaObjectType::MONSTER>(std::istream& stream)
     {
-      constexpr HeroType kRandomHeroType {0xFF};
-
       ObjectDetailsData<MetaObjectType::MONSTER> monster;
       monster.absod_id = readUint<std::uint32_t>(stream);
       monster.count = readUint<std::uint16_t>(stream);
@@ -191,6 +244,15 @@ namespace h3m
       monster.does_not_grow = readBool(stream);
       monster.unknown = readReservedData<2>(stream);
       return monster;
+    }
+
+    template<>
+    ObjectDetailsData<MetaObjectType::PANDORAS_BOX>
+    readObjectDetailsData<MetaObjectType::PANDORAS_BOX>(std::istream& stream)
+    {
+      ObjectDetailsData<MetaObjectType::PANDORAS_BOX> data;
+      readEventBase(stream, data);
+      return data;
     }
 
     template<>
@@ -216,7 +278,7 @@ namespace h3m
       ObjectDetailsData<MetaObjectType::RANDOM_DWELLING> dwelling;
       dwelling.owner = readUint<std::uint32_t>(stream);
       dwelling.town_absod_id = readUint<std::uint32_t>(stream);
-      if (dwelling.town_absod_id != 0)
+      if (dwelling.town_absod_id == 0)
       {
         dwelling.alignment = readBitSet<2>(stream);
       }
@@ -243,7 +305,7 @@ namespace h3m
       ObjectDetailsData<MetaObjectType::RANDOM_DWELLING_PRESET_LEVEL> dwelling;
       dwelling.owner = readUint<std::uint32_t>(stream);
       dwelling.town_absod_id = readUint<std::uint32_t>(stream);
-      if (dwelling.town_absod_id != 0)
+      if (dwelling.town_absod_id == 0)
       {
         dwelling.alignment = readBitSet<2>(stream);
       }
