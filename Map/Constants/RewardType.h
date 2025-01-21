@@ -18,4 +18,6 @@ namespace h3m
     Spell = 9,
     Creature = 10,
   };
+
+  inline constexpr std::uint8_t kNumRewardTypes = 11;
 }

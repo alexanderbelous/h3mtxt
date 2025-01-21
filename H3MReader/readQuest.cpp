@@ -7,6 +7,7 @@
 #include <h3mtxt/Map/Quest.h>
 
 #include <array>
+#include <type_traits>
 
 namespace h3m
 {

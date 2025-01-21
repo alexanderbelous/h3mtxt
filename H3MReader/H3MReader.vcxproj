@@ -158,6 +158,7 @@
     <ClInclude Include="readPrimarySkills.h" />
     <ClInclude Include="readQuest.h" />
     <ClInclude Include="readResources.h" />
+    <ClInclude Include="readReward.h" />
     <ClInclude Include="readSecondarySkillsVector.h" />
     <ClInclude Include="readTimedEventBase.h" />
     <ClInclude Include="Utils.h" />
@@ -169,6 +170,7 @@
     <ClCompile Include="readObjectDetails.cpp" />
     <ClCompile Include="readPrimarySkills.cpp" />
     <ClCompile Include="readQuest.cpp" />
+    <ClCompile Include="readReward.cpp" />
     <ClCompile Include="readSecondarySkillsVector.cpp" />
     <ClCompile Include="readTimedEventBase.cpp" />
     <ClCompile Include="Utils.cpp" />

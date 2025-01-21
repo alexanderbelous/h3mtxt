@@ -3,6 +3,7 @@
 #include <h3mtxt/H3MReader/readCreatureStack.h>
 #include <h3mtxt/H3MReader/readHeroArtifacts.h>
 #include <h3mtxt/H3MReader/readPrimarySkills.h>
+#include <h3mtxt/H3MReader/readReward.h>
 #include <h3mtxt/H3MReader/readQuest.h>
 #include <h3mtxt/H3MReader/readResources.h>
 #include <h3mtxt/H3MReader/readSecondarySkillsVector.h>
@@ -345,10 +346,14 @@ namespace h3m
     }
 
     template<>
-     [[noreturn]] ObjectDetailsData<MetaObjectType::SEERS_HUT>
+    ObjectDetailsData<MetaObjectType::SEERS_HUT>
     readObjectDetailsData<MetaObjectType::SEERS_HUT>(std::istream& stream)
     {
-      throw std::runtime_error("readObjectDetailsData<SEERS_HUT>(): NotImplemented.");
+      ObjectDetailsData<MetaObjectType::SEERS_HUT> data;
+      data.quest = readQuest(stream);
+      data.reward = readReward(stream);
+      data.unknown = readReservedData<2>(stream);
+      return data;
     }
 
     template<>

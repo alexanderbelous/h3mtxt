@@ -66,13 +66,13 @@ namespace h3m
   template<>
   struct RewardDetails<RewardType::Artifact>
   {
-    ArtifactType type {};
+    ArtifactType artifact {};
   };
 
   template<>
   struct RewardDetails<RewardType::Spell>
   {
-    SpellType type {};
+    SpellType spell {};
   };
 
   template<>
@@ -84,10 +84,7 @@ namespace h3m
 
   struct Reward
   {
-    // \return the type of the reward.
-    constexpr RewardType type() const noexcept;
-
-    std::variant<
+    using Details = std::variant<
       RewardDetails<RewardType::None>,
       RewardDetails<RewardType::Experience>,
       RewardDetails<RewardType::SpellPoints>,
@@ -99,7 +96,12 @@ namespace h3m
       RewardDetails<RewardType::Artifact>,
       RewardDetails<RewardType::Spell>,
       RewardDetails<RewardType::Creature>
-    > details;
+    >;
+
+    // \return the type of the reward.
+    constexpr RewardType type() const noexcept;
+
+    Details details;
   };
 
   constexpr RewardType Reward::type() const noexcept

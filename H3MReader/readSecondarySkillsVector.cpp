@@ -4,16 +4,16 @@
 
 namespace h3m
 {
+  SecondarySkill readSecondarySkill(std::istream& stream)
+  {
+    SecondarySkill secondary_skill;
+    secondary_skill.type = readEnum<SecondarySkillType>(stream);
+    secondary_skill.level = readUint8(stream);
+    return secondary_skill;
+  }
+
   namespace Detail_NS
   {
-    static SecondarySkill readSecondarySkill(std::istream& stream)
-    {
-      SecondarySkill secondary_skill;
-      secondary_skill.type = readEnum<SecondarySkillType>(stream);
-      secondary_skill.level = readUint8(stream);
-      return secondary_skill;
-    }
-
     std::vector<SecondarySkill> readSecondarySkillsVectorImpl(std::istream& stream, unsigned int num_bytes)
     {
       const std::uintmax_t num_secondary_skills = readUintImpl(stream, num_bytes);
