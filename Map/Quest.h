@@ -80,10 +80,7 @@ namespace h3m
 
   struct Quest
   {
-    // \return the type of the quest.
-    constexpr QuestType type() const noexcept;
-
-    std::variant<
+    using Details = std::variant<
       QuestDetails<QuestType::None>,
       QuestDetails<QuestType::Level>,
       QuestDetails<QuestType::PrimarySkills>,
@@ -94,7 +91,12 @@ namespace h3m
       QuestDetails<QuestType::Resources>,
       QuestDetails<QuestType::BeHero>,
       QuestDetails<QuestType::BePlayer>
-    > details {};
+    >;
+
+    // \return the type of the quest.
+    constexpr QuestType type() const noexcept;
+
+    Details details {};
 
     // The fields below should not be read/written if type() == QuestType::None.
     // I couldn't really think of a way to express this in the type system:

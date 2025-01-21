@@ -1,7 +1,9 @@
 #include <h3mtxt/H3MReader/readObjectDetails.h>
 
+#include <h3mtxt/H3MReader/readCreatureStack.h>
 #include <h3mtxt/H3MReader/readHeroArtifacts.h>
 #include <h3mtxt/H3MReader/readPrimarySkills.h>
+#include <h3mtxt/H3MReader/readQuest.h>
 #include <h3mtxt/H3MReader/readResources.h>
 #include <h3mtxt/H3MReader/readSecondarySkillsVector.h>
 #include <h3mtxt/H3MReader/readTimedEventBase.h>
@@ -14,14 +16,6 @@ namespace h3m
 {
   namespace
   {
-    CreatureStack readCreatureStack(std::istream& stream)
-    {
-      CreatureStack creature_stack;
-      creature_stack.type = readEnum<CreatureType>(stream);
-      creature_stack.count = readUint<std::uint16_t>(stream);
-      return creature_stack;
-    }
-
     std::array<CreatureStack, 7> readCreatureStackArray(std::istream& stream)
     {
       std::array<CreatureStack, 7> creatures;
@@ -275,10 +269,12 @@ namespace h3m
     }
 
     template<>
-     [[noreturn]] ObjectDetailsData<MetaObjectType::QUEST_GUARD>
+    ObjectDetailsData<MetaObjectType::QUEST_GUARD>
     readObjectDetailsData<MetaObjectType::QUEST_GUARD>(std::istream& stream)
     {
-      throw std::runtime_error("readObjectDetailsData<QUEST_GUARD>(): NotImplemented.");
+      ObjectDetailsData<MetaObjectType::QUEST_GUARD> quest_guard;
+      quest_guard.quest = readQuest(stream);
+      return quest_guard;
     }
 
     template<>

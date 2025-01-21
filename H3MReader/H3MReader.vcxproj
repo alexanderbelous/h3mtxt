@@ -152,9 +152,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="parseh3m.h" />
+    <ClInclude Include="readCreatureStack.h" />
     <ClInclude Include="readHeroArtifacts.h" />
     <ClInclude Include="readObjectDetails.h" />
     <ClInclude Include="readPrimarySkills.h" />
+    <ClInclude Include="readQuest.h" />
     <ClInclude Include="readResources.h" />
     <ClInclude Include="readSecondarySkillsVector.h" />
     <ClInclude Include="readTimedEventBase.h" />
@@ -162,9 +164,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="parseh3m.cpp" />
+    <ClCompile Include="readCreatureStack.cpp" />
     <ClCompile Include="readHeroArtifacts.cpp" />
     <ClCompile Include="readObjectDetails.cpp" />
     <ClCompile Include="readPrimarySkills.cpp" />
+    <ClCompile Include="readQuest.cpp" />
     <ClCompile Include="readSecondarySkillsVector.cpp" />
     <ClCompile Include="readTimedEventBase.cpp" />
     <ClCompile Include="Utils.cpp" />
