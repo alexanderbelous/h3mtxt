@@ -5,6 +5,7 @@
 #include <h3mtxt/H3MReader/readPrimarySkills.h>
 #include <h3mtxt/H3MReader/readResources.h>
 #include <h3mtxt/H3MReader/readSecondarySkillsVector.h>
+#include <h3mtxt/H3MReader/readTimedEventBase.h>
 #include <h3mtxt/H3MReader/Utils.h>
 
 #include <cstddef>
@@ -286,15 +287,7 @@ ObjectAttributes readObjectAttributes(std::istream& stream)
 GlobalEvent readGlobalEvent(std::istream& stream)
 {
   GlobalEvent global_event;
-  global_event.name = readString(stream);
-  global_event.message = readString(stream);
-  global_event.resources = readResources<std::int32_t>(stream);
-  global_event.affected_players.bitset = readUint8(stream);
-  global_event.applies_to_human = readBool(stream);
-  global_event.applies_to_computer = readBool(stream);
-  global_event.day_of_first_occurence = readUint<std::uint16_t>(stream);
-  global_event.repeat_after_days = readUint<std::uint8_t>(stream);
-  global_event.unknown = readReservedData<17>(stream);
+  readTimedEventBase(stream, global_event);
   return global_event;
 }
 

@@ -4,6 +4,7 @@
 #include <h3mtxt/H3MReader/readPrimarySkills.h>
 #include <h3mtxt/H3MReader/readResources.h>
 #include <h3mtxt/H3MReader/readSecondarySkillsVector.h>
+#include <h3mtxt/H3MReader/readTimedEventBase.h>
 #include <h3mtxt/H3MReader/Utils.h>
 #include <h3mtxt/Map/ObjectAttributes.h>
 
@@ -387,11 +388,59 @@ namespace h3m
       return data;
     }
 
+    TownEvent readTownEvent(std::istream& stream)
+    {
+      TownEvent event;
+      readTimedEventBase(stream, event);
+      event.buildings = readBitSet<6>(stream);
+      for (std::uint16_t creature_growth : event.creatures)
+      {
+        creature_growth = readUint<std::uint16_t>(stream);
+      }
+      event.unknown = readReservedData<4>(stream);
+      return event;
+    }
+
     template<>
-     [[noreturn]] ObjectDetailsData<MetaObjectType::TOWN>
+    ObjectDetailsData<MetaObjectType::TOWN>
     readObjectDetailsData<MetaObjectType::TOWN>(std::istream& stream)
     {
-      throw std::runtime_error("readObjectDetailsData<TOWN>(): NotImplemented.");
+      ObjectDetailsData<MetaObjectType::TOWN> town;
+      town.absod_id = readUint<std::uint32_t>(stream);
+      town.owner = readUint8(stream);
+      const Bool has_name = readBool(stream);
+      if (has_name)
+      {
+        town.name = readString(stream);
+      }
+      const Bool has_creatures = readBool(stream);
+      if (has_creatures)
+      {
+        town.creatures = readCreatureStackArray(stream);
+      }
+      town.formation = readEnum<Formation>(stream);
+      const Bool has_buildings = readBool(stream);
+      if (has_buildings)
+      {
+        town.buildings.emplace();
+        town.buildings->is_built = readBitSet<6>(stream);
+        town.buildings->is_disabled = readBitSet<6>(stream);
+      }
+      else
+      {
+        town.has_fort = readBool(stream);
+      }
+      town.must_have_spell = readBitSet<9>(stream);
+      town.may_not_have_spell = readBitSet<9>(stream);
+      const std::uint32_t num_events = readUint<std::uint32_t>(stream);
+      town.events.reserve(num_events);
+      for (std::uint32_t i = 0; i < num_events; ++i)
+      {
+        town.events.push_back(readTownEvent(stream));
+      }
+      town.alignment = readUint8(stream);
+      town.unknown = readReservedData<3>(stream);
+      return town;
     }
 
     template<>

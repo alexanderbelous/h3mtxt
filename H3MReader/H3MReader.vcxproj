@@ -157,6 +157,7 @@
     <ClInclude Include="readPrimarySkills.h" />
     <ClInclude Include="readResources.h" />
     <ClInclude Include="readSecondarySkillsVector.h" />
+    <ClInclude Include="readTimedEventBase.h" />
     <ClInclude Include="Utils.h" />
   </ItemGroup>
   <ItemGroup>
@@ -165,6 +166,7 @@
     <ClCompile Include="readObjectDetails.cpp" />
     <ClCompile Include="readPrimarySkills.cpp" />
     <ClCompile Include="readSecondarySkillsVector.cpp" />
+    <ClCompile Include="readTimedEventBase.cpp" />
     <ClCompile Include="Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
