@@ -664,6 +664,47 @@ readObjectDetailsData<MetaObjectType::PLACEHOLDER_HERO>(std::istream& stream)
 }
 
 template<>
+ObjectDetailsData<MetaObjectType::RANDOM_DWELLING>
+readObjectDetailsData<MetaObjectType::RANDOM_DWELLING>(std::istream& stream)
+{
+  ObjectDetailsData<MetaObjectType::RANDOM_DWELLING> dwelling;
+  dwelling.owner = readUint<std::uint32_t>(stream);
+  dwelling.town_absod_id = readUint<std::uint32_t>(stream);
+  if (dwelling.town_absod_id != 0)
+  {
+    dwelling.alignment = readBitSet<2>(stream);
+  }
+  dwelling.min_level = readUint8(stream);
+  dwelling.max_level = readUint8(stream);
+  return dwelling;
+}
+
+template<>
+ObjectDetailsData<MetaObjectType::RANDOM_DWELLING_PRESET_ALIGNMENT>
+readObjectDetailsData<MetaObjectType::RANDOM_DWELLING_PRESET_ALIGNMENT>(std::istream& stream)
+{
+  ObjectDetailsData<MetaObjectType::RANDOM_DWELLING_PRESET_ALIGNMENT> dwelling;
+  dwelling.owner = readUint<std::uint32_t>(stream);
+  dwelling.min_level = readUint8(stream);
+  dwelling.max_level = readUint8(stream);
+  return dwelling;
+}
+
+template<>
+ObjectDetailsData<MetaObjectType::RANDOM_DWELLING_PRESET_LEVEL>
+readObjectDetailsData<MetaObjectType::RANDOM_DWELLING_PRESET_LEVEL>(std::istream& stream)
+{
+  ObjectDetailsData<MetaObjectType::RANDOM_DWELLING_PRESET_LEVEL> dwelling;
+  dwelling.owner = readUint<std::uint32_t>(stream);
+  dwelling.town_absod_id = readUint<std::uint32_t>(stream);
+  if (dwelling.town_absod_id != 0)
+  {
+    dwelling.alignment = readBitSet<2>(stream);
+  }
+  return dwelling;
+}
+
+template<>
 ObjectDetailsData<MetaObjectType::RESOURCE>
 readObjectDetailsData<MetaObjectType::RESOURCE>(std::istream& stream)
 {
