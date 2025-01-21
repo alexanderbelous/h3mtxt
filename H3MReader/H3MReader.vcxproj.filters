@@ -18,9 +18,42 @@
     <ClInclude Include="parseh3m.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="readObjectDetails.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="readHeroArtifacts.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="readPrimarySkills.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="readResources.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="readSecondarySkillsVector.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="parseh3m.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="readObjectDetails.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Utils.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="readHeroArtifacts.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="readPrimarySkills.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="readSecondarySkillsVector.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
