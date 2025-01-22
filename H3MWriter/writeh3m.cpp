@@ -555,7 +555,7 @@ namespace h3m
           throw std::runtime_error("Too many elements in HeroArtifacts.backpack.");
         }
         writeData(stream, static_cast<std::uint16_t>(artifacts.backpack.size()));
-        for (std::uint16_t artifact : artifacts.backpack)
+        for (ArtifactType artifact : artifacts.backpack)
         {
           writeData(stream, artifact);
         }

@@ -1,5 +1,6 @@
 #pragma once
 
+#include <h3mtxt/Map/Constants/ArtifactType.h>
 #include <h3mtxt/Map/Constants/CreatureType.h>
 #include <h3mtxt/Map/Constants/ResourceType.h>
 #include <h3mtxt/Map/Constants/VictoryConditionType.h>
@@ -34,8 +35,7 @@ struct SpecialVictoryConditionBase
 template<>
 struct VictoryConditionDetails<VictoryConditionType::AcquireArtifact> : SpecialVictoryConditionBase
 {
-  // TODO: probably should be an enum.
-  std::uint16_t artifact_type {};
+  ArtifactType artifact_type {};
 };
 
 // Specialization for AccumulateCreatures.

@@ -32,7 +32,7 @@ namespace h3m
       {
         VictoryConditionDetails<VictoryConditionType::AcquireArtifact> details;
         readSpecialVictoryConditionBase(stream, details);
-        details.artifact_type = readUint<std::uint16_t>(stream);
+        details.artifact_type = readEnum<ArtifactType>(stream);
         return details;
       }
     };
