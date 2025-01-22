@@ -273,7 +273,7 @@ GlobalEvent readGlobalEvent(std::istream& stream)
 
 }
 
-Map parseh3m(std::istream& stream, bool read_objects_details)
+Map parseh3m(std::istream& stream)
 {
   Map map;
   map.format = readEnum<MapFormat>(stream);
@@ -300,11 +300,6 @@ Map parseh3m(std::istream& stream, bool read_objects_details)
   for (std::uint32_t i = 0; i < num_object_kinds; ++i)
   {
     map.objects_attributes.push_back(readObjectAttributes(stream));
-  }
-  // TODO: remove this after all ObjectDetails are supported.
-  if (!read_objects_details)
-  {
-    return map;
   }
   // Read objects' details.
   const std::uint32_t num_objects = readUint<std::uint32_t>(stream);

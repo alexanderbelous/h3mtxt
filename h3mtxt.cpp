@@ -20,7 +20,7 @@ int main(int argc, char** argv)
   {
     const fs::path path_map(argv[1]);
     std::ifstream stream(path_map, std::ios_base::in | std::ios_base::binary);
-    const h3m::Map map = h3m::parseh3m(stream, true);
+    const h3m::Map map = h3m::parseh3m(stream);
     stream.close();
     h3m::writeH3mTxt(std::cout, map);
     //std::ofstream out_stream("no_objects_or_events.h3m", std::ios_base::out | std::ios_base::binary);
