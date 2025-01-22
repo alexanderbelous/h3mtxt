@@ -739,6 +739,16 @@ namespace h3m
     };
 
     template<>
+    class H3MWriter<ObjectDetailsData<MetaObjectType::GRAIL>>
+    {
+    public:
+      void operator()(std::ostream& stream, const ObjectDetailsData<MetaObjectType::GRAIL>& grail) const
+      {
+        writeData(stream, grail.allowable_radius);
+      }
+    };
+
+    template<>
     class H3MWriter<ObjectDetailsData<MetaObjectType::HERO>>
     {
     public:
@@ -819,12 +829,17 @@ namespace h3m
         writeData(stream, object_details.kind);
         writeData(stream, object_details.unknown);
         // TODO: implement.
-        if (object_details.details.getMetaObjectType() == MetaObjectType::HERO)
+        switch (object_details.details.getMetaObjectType())
         {
+        case MetaObjectType::GRAIL:
+          writeData(stream, object_details.details.get<MetaObjectType::GRAIL>());
+          break;
+        case MetaObjectType::HERO:
           writeData(stream, object_details.details.get<MetaObjectType::HERO>());
-        }
-        else if (object_details.details.getMetaObjectType() != MetaObjectType::GENERIC_NO_PROPERTIES)
-        {
+          break;
+        case MetaObjectType::GENERIC_NO_PROPERTIES:
+          break;
+        default:
           throw std::logic_error("NotImplemented.");
         }
       }
