@@ -74,7 +74,11 @@ struct StartingHero
   Bool is_random {};
   // 0xFF if random.
   HeroType type {};
-  // TODO: probably should be an enum; 0xFF for default.
+  // 0xFF for default.
+  // TODO: rename to portrait.
+  // TODO: this should probably be an enum; it is basically the same as HeroType, but
+  //       there are a few extra portraits, not associated with any regular hero:
+  //       General Kendal, Christian (campaign), Ordwald, Finneas, Gem the Sorceress, Sandro (campaign), Yog the Wizard.
   std::uint8_t face {};
   // Hero's name. Empty string means that the default name is used.
   std::string name;
