@@ -161,6 +161,7 @@
     <ClInclude Include="readReward.h" />
     <ClInclude Include="readSecondarySkillsVector.h" />
     <ClInclude Include="readTimedEventBase.h" />
+    <ClInclude Include="readVictoryCondition.h" />
     <ClInclude Include="Utils.h" />
   </ItemGroup>
   <ItemGroup>
@@ -173,6 +174,7 @@
     <ClCompile Include="readReward.cpp" />
     <ClCompile Include="readSecondarySkillsVector.cpp" />
     <ClCompile Include="readTimedEventBase.cpp" />
+    <ClCompile Include="readVictoryCondition.cpp" />
     <ClCompile Include="Utils.cpp" />
   </ItemGroup>
   <ItemGroup>

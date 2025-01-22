@@ -6,6 +6,7 @@
 #include <h3mtxt/H3MReader/readResources.h>
 #include <h3mtxt/H3MReader/readSecondarySkillsVector.h>
 #include <h3mtxt/H3MReader/readTimedEventBase.h>
+#include <h3mtxt/H3MReader/readVictoryCondition.h>
 #include <h3mtxt/H3MReader/Utils.h>
 
 #include <cstddef>
@@ -89,27 +90,6 @@ PlayerSpecs readPlayerSpecs(std::istream& stream)
     player.additional_info = readAdditionalPlayerInfo(stream);
   }
   return player;
-}
-
-VictoryCondition readVictoryCondition(std::istream& stream)
-{
-  const VictoryConditionType victory_condition_type = readEnum<VictoryConditionType>(stream);
-  switch (victory_condition_type)
-  {
-  case VictoryConditionType::AcquireArtifact:
-    {
-      VictoryConditionDetails<VictoryConditionType::AcquireArtifact> details;
-      details.allow_normal_win = readBool(stream);
-      details.applies_to_computer = readBool(stream);
-      details.artifact_type = readUint<std::uint16_t>(stream);
-      return details;
-    }
-  // TODO: add the rest.
-  case VictoryConditionType::Normal:
-    return VictoryConditionDetails<VictoryConditionType::Normal>();
-  default:
-    throw std::runtime_error("Invalid victory condition type.");
-  }
 }
 
 LossCondition readLossCondition(std::istream& stream)
