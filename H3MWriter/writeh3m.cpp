@@ -727,6 +727,85 @@ namespace h3m
       }
     };
 
+    template<>
+    class H3MWriter<CreatureStack>
+    {
+    public:
+      void operator()(std::ostream& stream, const CreatureStack& value) const
+      {
+        writeData(stream, value.type);
+        writeData(stream, value.count);
+      }
+    };
+
+    template<>
+    class H3MWriter<ObjectDetailsData<MetaObjectType::HERO>>
+    {
+    public:
+      void operator()(std::ostream& stream, const ObjectDetailsData<MetaObjectType::HERO>& hero) const
+      {
+        writeData(stream, hero.absod_id);
+        writeData(stream, hero.owner);
+        writeData(stream, hero.type);
+        writeData(stream, static_cast<Bool>(hero.name.has_value()));
+        if (hero.name)
+        {
+          writeData(stream, *hero.name);
+        }
+        writeData(stream, static_cast<Bool>(hero.experience.has_value()));
+        if (hero.experience)
+        {
+          writeData(stream, *hero.experience);
+        }
+        writeData(stream, static_cast<Bool>(hero.face.has_value()));
+        if (hero.face)
+        {
+          writeData(stream, *hero.face);
+        }
+        writeData(stream, static_cast<Bool>(hero.secondary_skills.has_value()));
+        if (hero.secondary_skills)
+        {
+          writeData(stream, static_cast<std::uint32_t>(hero.secondary_skills->size()));
+          for (const SecondarySkill& secondary_skill : *hero.secondary_skills)
+          {
+            writeData(stream, secondary_skill);
+          }
+        }
+        writeData(stream, static_cast<Bool>(hero.creatures.has_value()));
+        if (hero.creatures)
+        {
+          for (const CreatureStack& creature_stack : *hero.creatures)
+          {
+            writeData(stream, creature_stack);
+          }
+        }
+        writeData(stream, hero.formation);
+        writeData(stream, static_cast<Bool>(hero.artifacts.has_value()));
+        if (hero.artifacts)
+        {
+          writeData(stream, *hero.artifacts);
+        }
+        writeData(stream, hero.patrol_radius);
+        writeData(stream, static_cast<Bool>(hero.biography.has_value()));
+        if (hero.biography)
+        {
+          writeData(stream, *hero.biography);
+        }
+        writeData(stream, hero.gender);
+        writeData(stream, static_cast<Bool>(hero.spells.has_value()));
+        if (hero.spells)
+        {
+          writeData(stream, *hero.spells);
+        }
+        writeData(stream, static_cast<Bool>(hero.primary_skills.has_value()));
+        if (hero.primary_skills)
+        {
+          writeData(stream, *hero.primary_skills);
+        }
+        writeData(stream, hero.unknown);
+      }
+    };
+
     // Full specialization for ObjectDetails.
     template<>
     class H3MWriter<ObjectDetails>
@@ -740,7 +819,11 @@ namespace h3m
         writeData(stream, object_details.kind);
         writeData(stream, object_details.unknown);
         // TODO: implement.
-        if (object_details.details.getMetaObjectType() != MetaObjectType::GENERIC_NO_PROPERTIES)
+        if (object_details.details.getMetaObjectType() == MetaObjectType::HERO)
+        {
+          writeData(stream, object_details.details.get<MetaObjectType::HERO>());
+        }
+        else if (object_details.details.getMetaObjectType() != MetaObjectType::GENERIC_NO_PROPERTIES)
         {
           throw std::logic_error("NotImplemented.");
         }
