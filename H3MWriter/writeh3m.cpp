@@ -112,16 +112,26 @@ namespace h3m
       }
     };
 
-    // Partial specialization for std::array<std::uint8_t, N>.
-    // TODO: generalize this to any instantiation of std::array. In H3M arrays of known
-    // width are always encoded as a sequence of individually encoded elements (the size
-    // of the array is not encoded).
-    template<std::size_t N>
-    struct H3MWriter<std::array<std::uint8_t, N>>
+    // Partial specialization for std::array<T, N>.
+    // In H3M arrays of known width are always encoded as a sequence of
+    // individually encoded elements (the size of the array is not encoded).
+    template<class T, std::size_t N>
+    struct H3MWriter<std::array<T, N>>
     {
-      void operator()(std::ostream& stream, const std::array<std::uint8_t, N>& value) const
+      void operator()(std::ostream& stream, const std::array<T, N>& values) const
       {
-        stream.write(reinterpret_cast<const char*>(value.data()), N);
+        // Optimization for std::uint8_t and std::int8_t.
+        if constexpr (std::is_same_v<T, std::uint8_t> || std::is_same_v<T, std::int8_t>)
+        {
+          stream.write(reinterpret_cast<const char*>(values.data()), N);
+        }
+        else
+        {
+          for (const T& element : values)
+          {
+            writeData(stream, element);
+          }
+        }
       }
     };
 
@@ -147,6 +157,15 @@ namespace h3m
       void operator()(std::ostream& stream, const BitSet<NumBytes>& value) const
       {
         writeData(stream, value.data());
+      }
+    };
+
+    template<class T>
+    struct H3MWriter<Resources<T>>
+    {
+      void operator()(std::ostream& stream, const Resources<T>& resources) const
+      {
+        writeData(stream, resources.data);
       }
     };
 
@@ -413,10 +432,7 @@ namespace h3m
         writeData(stream, num_teams);
         if (num_teams != 0)
         {
-          for (std::uint8_t team : value->team_for_player)
-          {
-            writeData(stream, team);
-          }
+          writeData(stream, value->team_for_player);
         }
       }
     };
@@ -663,6 +679,21 @@ namespace h3m
       }
     };
 
+    template<>
+    struct H3MWriter<Guardians>
+    {
+      void operator()(std::ostream& stream, const Guardians& guardians) const
+      {
+        writeData(stream, guardians.message);
+        writeData(stream, static_cast<Bool>(guardians.creatures.has_value()));
+        if (guardians.creatures)
+        {
+          writeData(stream, *guardians.creatures);
+        }
+        writeData(stream, guardians.unknown);
+      }
+    };
+
     // TODO: remove once specialized for each MetaObjectType.
     template<MetaObjectType T>
     struct H3MWriter<ObjectDetailsData<T>>
@@ -670,6 +701,40 @@ namespace h3m
       void operator()(std::ostream& stream, const ObjectDetailsData<T>& data) const
       {
         throw std::logic_error("NotImplemented.");
+      }
+    };
+
+    template<>
+    struct H3MWriter<ObjectDetailsData<MetaObjectType::ABANDONED_MINE>>
+    {
+      void operator()(std::ostream& stream, const ObjectDetailsData<MetaObjectType::ABANDONED_MINE>& data) const
+      {
+        writeData(stream, data.potential_resources);
+      }
+    };
+
+    template<>
+    struct H3MWriter<ObjectDetailsData<MetaObjectType::ARTIFACT>>
+    {
+      void operator()(std::ostream& stream, const ObjectDetailsData<MetaObjectType::ARTIFACT>& data) const
+      {
+        writeData(stream, static_cast<Bool>(data.guardians.has_value()));
+        if (data.guardians)
+        {
+          writeData(stream, *data.guardians);
+        }
+      }
+    };
+
+    template<>
+    struct H3MWriter<ObjectDetailsData<MetaObjectType::GARRISON>>
+    {
+      void operator()(std::ostream& stream, const ObjectDetailsData<MetaObjectType::GARRISON>& garrison) const
+      {
+        writeData(stream, garrison.owner);
+        writeData(stream, garrison.creatures);
+        writeData(stream, garrison.can_remove_units);
+        writeData(stream, garrison.unknown);
       }
     };
 
@@ -758,6 +823,109 @@ namespace h3m
     };
 
     template<>
+    struct H3MWriter<ObjectDetailsData<MetaObjectType::MONSTER>>
+    {
+      void operator()(std::ostream& stream, const ObjectDetailsData<MetaObjectType::MONSTER>& monster) const
+      {
+        writeData(stream, monster.absod_id);
+        writeData(stream, monster.count);
+        writeData(stream, monster.disposition);
+        writeData(stream, static_cast<Bool>(monster.message_and_treasure.has_value()));
+        if (monster.message_and_treasure)
+        {
+          writeData(stream, monster.message_and_treasure->message);
+          writeData(stream, monster.message_and_treasure->resources);
+          writeData(stream, monster.message_and_treasure->artifact);
+        }
+        writeData(stream, monster.never_flees);
+        writeData(stream, monster.does_not_grow);
+        writeData(stream, monster.unknown);
+      }
+    };
+
+    template<>
+    struct H3MWriter<ObjectDetailsData<MetaObjectType::PLACEHOLDER_HERO>>
+    {
+      void operator()(std::ostream& stream, const ObjectDetailsData<MetaObjectType::PLACEHOLDER_HERO>& hero) const
+      {
+        constexpr HeroType kRandomHeroType {0xFF};
+
+        writeData(stream, hero.owner);
+        writeData(stream, hero.type);
+        if (hero.type == kRandomHeroType)
+        {
+          writeData(stream, hero.power_rating);
+        }
+      }
+    };
+
+    template<>
+    struct H3MWriter<ObjectDetailsData<MetaObjectType::RESOURCE>>
+    {
+      void operator()(std::ostream& stream, const ObjectDetailsData<MetaObjectType::RESOURCE>& data) const
+      {
+        writeData(stream, static_cast<Bool>(data.guardians.has_value()));
+        if (data.guardians)
+        {
+          writeData(stream, *data.guardians);
+        }
+        writeData(stream, data.quantity);
+        writeData(stream, data.unknown);
+      }
+    };
+
+    template<>
+    struct H3MWriter<ObjectDetailsData<MetaObjectType::SHRINE>>
+    {
+      void operator()(std::ostream& stream, const ObjectDetailsData<MetaObjectType::SHRINE>& shrine) const
+      {
+        writeData(stream, shrine.spell);
+      }
+    };
+
+    template<>
+    struct H3MWriter<ObjectDetailsData<MetaObjectType::SIGN>>
+    {
+      void operator()(std::ostream& stream, const ObjectDetailsData<MetaObjectType::SIGN>& sign) const
+      {
+        writeData(stream, sign.message);
+        writeData(stream, sign.unknown);
+      }
+    };
+
+    template<>
+    struct H3MWriter<ObjectDetailsData<MetaObjectType::SPELL_SCROLL>>
+    {
+      void operator()(std::ostream& stream, const ObjectDetailsData<MetaObjectType::SPELL_SCROLL>& spell_scroll) const
+      {
+        writeData(stream, static_cast<Bool>(spell_scroll.guardians.has_value()));
+        if (spell_scroll.guardians)
+        {
+          writeData(stream, *spell_scroll.guardians);
+        }
+        writeData(stream, spell_scroll.spell);
+      }
+    };
+
+    template<>
+    struct H3MWriter<ObjectDetailsData<MetaObjectType::TRIVIAL_OWNED_OBJECT>>
+    {
+      void operator()(std::ostream& stream, const ObjectDetailsData<MetaObjectType::TRIVIAL_OWNED_OBJECT>& data) const
+      {
+        writeData(stream, data.owner);
+      }
+    };
+
+    template<>
+    struct H3MWriter<ObjectDetailsData<MetaObjectType::WITCH_HUT>>
+    {
+      void operator()(std::ostream& stream, const ObjectDetailsData<MetaObjectType::WITCH_HUT>& witch_hut) const
+      {
+        writeData(stream, witch_hut.skills_availability);
+      }
+    };
+
+    template<>
     struct H3MWriter<ObjectDetails>
     {
       void operator()(std::ostream& stream, const ObjectDetails& object_details) const
@@ -767,6 +935,7 @@ namespace h3m
         writeData(stream, object_details.z);
         writeData(stream, object_details.kind);
         writeData(stream, object_details.unknown);
+        // TODO: Check that MetaObjectType in object_details.details matches the one in ObjectAttributes.
         object_details.details.visit(DataWriter(stream));
       }
     };
@@ -778,10 +947,7 @@ namespace h3m
       {
         writeData(stream, global_event.name);
         writeData(stream, global_event.message);
-        for (std::int32_t amount : global_event.resources.data)
-        {
-          writeData(stream, amount);
-        }
+        writeData(stream, global_event.resources);
         writeData(stream, global_event.affected_players.bitset);
         writeData(stream, global_event.applies_to_human);
         writeData(stream, global_event.applies_to_computer);
@@ -798,10 +964,7 @@ namespace h3m
       {
         writeData(stream, map.format);
         writeData(stream, map.basic_info);
-        for (int i = 0; i < kMaxPlayers; ++i)
-        {
-          writeData(stream, map.players[i]);
-        }
+        writeData(stream, map.players);
         writeData(stream, map.additional_info);
         // Write tiles.
         if (map.tiles.size() != countTiles(map.basic_info))

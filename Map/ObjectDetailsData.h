@@ -171,7 +171,7 @@ namespace h3m
     // TODO: make this an enum.
     std::uint8_t owner {};
     HeroType type {};
-    // Only if type == 0xFF.
+    // Only read/written if type == 0xFF.
     std::uint8_t power_rating {};
   };
 
