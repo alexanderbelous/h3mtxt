@@ -27,9 +27,8 @@ namespace h3m
     }
 
     template<class T, class Enable = void>
-    class H3MWriter
+    struct H3MWriter
     {
-    public:
       void operator()(std::ostream& stream, const T& value) const;
     };
 
@@ -66,9 +65,8 @@ namespace h3m
 
     // Full specialization for std::uint8_t.
     template<>
-    class H3MWriter<std::uint8_t>
+    struct H3MWriter<std::uint8_t>
     {
-    public:
       void operator()(std::ostream& stream, std::uint8_t value) const
       {
         stream.put(static_cast<char>(value));
@@ -77,9 +75,8 @@ namespace h3m
 
     // Partial specialization for integer types.
     template<class T>
-    class H3MWriter<T, std::enable_if_t<std::is_integral_v<T>>>
+    struct H3MWriter<T, std::enable_if_t<std::is_integral_v<T>>>
     {
-    public:
       void operator()(std::ostream& stream, T value) const
       {
         // TODO: this is likely redundant, just cast to uintmax_t.
@@ -92,9 +89,8 @@ namespace h3m
 
     // Partial specialization for enum types.
     template<class T>
-    class H3MWriter<T, std::enable_if_t<std::is_enum_v<T>>>
+    struct H3MWriter<T, std::enable_if_t<std::is_enum_v<T>>>
     {
-    public:
       void operator()(std::ostream& stream, T value) const
       {
         writeData(stream, static_cast<std::underlying_type_t<T>>(value));
@@ -103,9 +99,8 @@ namespace h3m
 
     // Full specialization for std::string.
     template<>
-    class H3MWriter<std::string>
+    struct H3MWriter<std::string>
     {
-    public:
       void operator()(std::ostream& stream, const std::string& value) const
       {
         if (value.size() > std::numeric_limits<std::uint32_t>::max())
@@ -122,20 +117,17 @@ namespace h3m
     // width are always encoded as a sequence of individually encoded elements (the size
     // of the array is not encoded).
     template<std::size_t N>
-    class H3MWriter<std::array<std::uint8_t, N>>
+    struct H3MWriter<std::array<std::uint8_t, N>>
     {
-    public:
       void operator()(std::ostream& stream, const std::array<std::uint8_t, N>& value) const
       {
         stream.write(reinterpret_cast<const char*>(value.data()), N);
       }
     };
 
-    // Partial specialization for ReservedData<N>.
     template<std::size_t N>
-    class H3MWriter<ReservedData<N>>
+    struct H3MWriter<ReservedData<N>>
     {
-    public:
       void operator()(std::ostream& stream, const ReservedData<N>& reserved_data) const
       {
         if (reserved_data.isExplicit())
@@ -149,22 +141,18 @@ namespace h3m
       }
     };
 
-    // Partial specialization for BitSet.
     template<std::size_t NumBytes>
-    class H3MWriter<BitSet<NumBytes>>
+    struct H3MWriter<BitSet<NumBytes>>
     {
-    public:
       void operator()(std::ostream& stream, const BitSet<NumBytes>& value) const
       {
         writeData(stream, value.data());
       }
     };
 
-    // Full specialization for MapBasicInfo.
     template<>
-    class H3MWriter<MapBasicInfo>
+    struct H3MWriter<MapBasicInfo>
     {
-    public:
       void operator()(std::ostream& stream, const MapBasicInfo& value) const
       {
         writeData(stream, value.is_playable);
@@ -177,11 +165,9 @@ namespace h3m
       }
     };
 
-    // Full specialization for MainTown.
     template<>
-    class H3MWriter<MainTown>
+    struct H3MWriter<MainTown>
     {
-    public:
       void operator()(std::ostream& stream, const MainTown& value) const
       {
         writeData(stream, value.generate_hero);
@@ -192,11 +178,9 @@ namespace h3m
       }
     };
 
-    // Full specialization for StartingHero.
     template<>
-    class H3MWriter<StartingHero>
+    struct H3MWriter<StartingHero>
     {
-    public:
       void operator()(std::ostream& stream, const StartingHero& value) const
       {
         writeData(stream, value.is_random);
@@ -206,11 +190,9 @@ namespace h3m
       }
     };
 
-    // Full specialization for AdditionalPlayerInfo::HeroInfo.
     template<>
-    class H3MWriter<AdditionalPlayerInfo::HeroInfo>
+    struct H3MWriter<AdditionalPlayerInfo::HeroInfo>
     {
-    public:
       void operator()(std::ostream& stream, const AdditionalPlayerInfo::HeroInfo& value) const
       {
         writeData(stream, value.type);
@@ -218,11 +200,9 @@ namespace h3m
       }
     };
 
-    // Full specialization for AdditionalPlayerInfo.
     template<>
-    class H3MWriter<AdditionalPlayerInfo>
+    struct H3MWriter<AdditionalPlayerInfo>
     {
-    public:
       void operator()(std::ostream& stream, const AdditionalPlayerInfo& value) const
       {
         if (value.heroes.size() > std::numeric_limits<std::uint32_t>::max())
@@ -238,11 +218,9 @@ namespace h3m
       }
     };
 
-    // Full specialization for PlayerSpecs.
     template<>
-    class H3MWriter<PlayerSpecs>
+    struct H3MWriter<PlayerSpecs>
     {
-    public:
       void operator()(std::ostream& stream, const PlayerSpecs& value) const
       {
         writeData(stream, value.can_be_human);
@@ -273,11 +251,9 @@ namespace h3m
       writeData(stream, base.applies_to_computer);
     }
 
-    // Full specialization for VictoryConditionDetails<VictoryConditionType::AcquireArtifact>.
     template<>
-    class H3MWriter<VictoryConditionDetails<VictoryConditionType::AcquireArtifact>>
+    struct H3MWriter<VictoryConditionDetails<VictoryConditionType::AcquireArtifact>>
     {
-    public:
       void operator()(std::ostream& stream, const VictoryConditionDetails<VictoryConditionType::AcquireArtifact>& value) const
       {
         writeSpecialVictoryConditionBase(stream, value);
@@ -285,11 +261,9 @@ namespace h3m
       }
     };
 
-    // Full specialization for VictoryConditionDetails<VictoryConditionType::AccumulateCreatures>.
     template<>
-    class H3MWriter<VictoryConditionDetails<VictoryConditionType::AccumulateCreatures>>
+    struct H3MWriter<VictoryConditionDetails<VictoryConditionType::AccumulateCreatures>>
     {
-    public:
       void operator()(std::ostream& stream, const VictoryConditionDetails<VictoryConditionType::AccumulateCreatures>& value) const
       {
         writeSpecialVictoryConditionBase(stream, value);
@@ -298,11 +272,9 @@ namespace h3m
       }
     };
 
-    // Full specialization for VictoryConditionDetails<VictoryConditionType::AccumulateResources>.
     template<>
-    class H3MWriter<VictoryConditionDetails<VictoryConditionType::AccumulateResources>>
+    struct H3MWriter<VictoryConditionDetails<VictoryConditionType::AccumulateResources>>
     {
-    public:
       void operator()(std::ostream& stream, const VictoryConditionDetails<VictoryConditionType::AccumulateResources>& value) const
       {
         writeSpecialVictoryConditionBase(stream, value);
@@ -311,11 +283,9 @@ namespace h3m
       }
     };
 
-    // Full specialization for VictoryConditionDetails<VictoryConditionType::UpgradeTown>.
     template<>
-    class H3MWriter<VictoryConditionDetails<VictoryConditionType::UpgradeTown>>
+    struct H3MWriter<VictoryConditionDetails<VictoryConditionType::UpgradeTown>>
     {
-    public:
       void operator()(std::ostream& stream, const VictoryConditionDetails<VictoryConditionType::UpgradeTown>& value) const
       {
         writeSpecialVictoryConditionBase(stream, value);
@@ -327,17 +297,12 @@ namespace h3m
       }
     };
 
-    // Partial specialization for VictoryConditionDetails<VictoryConditionType::BuildGrail>,
-    //                            VictoryConditionDetails<VictoryConditionType::DefeatHero>,
-    //                            VictoryConditionDetails<VictoryConditionType::CaptureTown> and
-    //                            VictoryConditionDetails<VictoryConditionType::DefeatMonster>.
     template<class T>
-    class H3MWriter<T, std::enable_if_t<std::is_same_v<T, VictoryConditionDetails<VictoryConditionType::BuildGrail>> ||
-                                        std::is_same_v<T, VictoryConditionDetails<VictoryConditionType::DefeatHero>> || 
-                                        std::is_same_v<T, VictoryConditionDetails<VictoryConditionType::CaptureTown>> ||
-                                        std::is_same_v<T, VictoryConditionDetails<VictoryConditionType::DefeatMonster>>>>
+    struct H3MWriter<T, std::enable_if_t<std::is_same_v<T, VictoryConditionDetails<VictoryConditionType::BuildGrail>> ||
+                                         std::is_same_v<T, VictoryConditionDetails<VictoryConditionType::DefeatHero>> || 
+                                         std::is_same_v<T, VictoryConditionDetails<VictoryConditionType::CaptureTown>> ||
+                                         std::is_same_v<T, VictoryConditionDetails<VictoryConditionType::DefeatMonster>>>>
     {
-    public:
       void operator()(std::ostream& stream, const T& value) const
       {
         writeSpecialVictoryConditionBase(stream, value);
@@ -347,24 +312,19 @@ namespace h3m
       }
     };
 
-    // Partial specialization for VictoryConditionDetails<VictoryConditionType::FlagDwellings> and
-    //                            VictoryConditionDetails<VictoryConditionType::FlagMines>.
     template<class T>
-    class H3MWriter<T, std::enable_if_t<std::is_same_v<T, VictoryConditionDetails<VictoryConditionType::FlagDwellings>> ||
-                                        std::is_same_v<T, VictoryConditionDetails<VictoryConditionType::FlagMines>>>>
+    struct H3MWriter<T, std::enable_if_t<std::is_same_v<T, VictoryConditionDetails<VictoryConditionType::FlagDwellings>> ||
+                                         std::is_same_v<T, VictoryConditionDetails<VictoryConditionType::FlagMines>>>>
     {
-    public:
       void operator()(std::ostream& stream, const T& value) const
       {
         writeSpecialVictoryConditionBase(stream, value);
       }
     };
 
-    // Full specialization for VictoryConditionDetails<VictoryConditionType::TransportArtifact>.
     template<>
-    class H3MWriter<VictoryConditionDetails<VictoryConditionType::TransportArtifact>>
+    struct H3MWriter<VictoryConditionDetails<VictoryConditionType::TransportArtifact>>
     {
-    public:
       void operator()(std::ostream& stream, const VictoryConditionDetails<VictoryConditionType::TransportArtifact>& value) const
       {
         writeSpecialVictoryConditionBase(stream, value);
@@ -376,19 +336,16 @@ namespace h3m
     };
 
     template<>
-    class H3MWriter<VictoryConditionDetails<VictoryConditionType::Normal>>
+    struct H3MWriter<VictoryConditionDetails<VictoryConditionType::Normal>>
     {
-    public:
       void operator()(std::ostream& stream, const VictoryConditionDetails<VictoryConditionType::Normal>& value) const
       {
       }
     };
 
-    // Full specialization for VictoryCondition.
     template<>
-    class H3MWriter<VictoryCondition>
+    struct H3MWriter<VictoryCondition>
     {
-    public:
       void operator()(std::ostream& stream, const VictoryCondition& victory_condition) const
       {
         writeData(stream, victory_condition.type());
@@ -396,11 +353,9 @@ namespace h3m
       }
     };
 
-    // Full specialization for LossConditionDetails<LossConditionType::LoseTown>.
     template<>
-    class H3MWriter<LossConditionDetails<LossConditionType::LoseTown>>
+    struct H3MWriter<LossConditionDetails<LossConditionType::LoseTown>>
     {
-    public:
       void operator()(std::ostream& stream, const LossConditionDetails<LossConditionType::LoseTown>& value) const
       {
         writeData(stream, value.x);
@@ -409,11 +364,9 @@ namespace h3m
       }
     };
 
-    // Full specialization for LossConditionDetails<LossConditionType::LoseHero>.
     template<>
-    class H3MWriter<LossConditionDetails<LossConditionType::LoseHero>>
+    struct H3MWriter<LossConditionDetails<LossConditionType::LoseHero>>
     {
-    public:
       void operator()(std::ostream& stream, const LossConditionDetails<LossConditionType::LoseHero>& value) const
       {
         writeData(stream, value.x);
@@ -422,11 +375,9 @@ namespace h3m
       }
     };
 
-    // Full specialization for LossConditionDetails<LossConditionType::TimeExpires>.
     template<>
-    class H3MWriter<LossConditionDetails<LossConditionType::TimeExpires>>
+    struct H3MWriter<LossConditionDetails<LossConditionType::TimeExpires>>
     {
-    public:
       void operator()(std::ostream& stream, const LossConditionDetails<LossConditionType::TimeExpires>& value) const
       {
         writeData(stream, value.days);
@@ -434,19 +385,16 @@ namespace h3m
     };
 
     template<>
-    class H3MWriter<LossConditionDetails<LossConditionType::Normal>>
+    struct H3MWriter<LossConditionDetails<LossConditionType::Normal>>
     {
-    public:
       void operator()(std::ostream& stream, const LossConditionDetails<LossConditionType::Normal>& value) const
       {
       }
     };
 
-    // Full specialization for LossCondition.
     template<>
-    class H3MWriter<LossCondition>
+    struct H3MWriter<LossCondition>
     {
-    public:
       void operator()(std::ostream& stream, const LossCondition& loss_condition) const
       {
         writeData(stream, loss_condition.type());
@@ -454,11 +402,9 @@ namespace h3m
       }
     };
 
-    // Full specialization for std::optional<TeamsInfo>.
     template<>
-    class H3MWriter<std::optional<TeamsInfo>>
+    struct H3MWriter<std::optional<TeamsInfo>>
     {
-    public:
       void operator()(std::ostream& stream, const std::optional<TeamsInfo>& value) const
       {
         // value->num_teams shouldn't be 0 if value != std::nullopt. It's not a critical error, though -
@@ -475,22 +421,18 @@ namespace h3m
       }
     };
 
-    // Full specialization for HeroesAvailability.
     template<>
-    class H3MWriter<HeroesAvailability>
+    struct H3MWriter<HeroesAvailability>
     {
-    public:
       void operator()(std::ostream& stream, const HeroesAvailability& value) const
       {
         writeData(stream, value.data);
       }
     };
 
-    // Full specialization for MapAdditionalInfo::CustomHero.
     template<>
-    class H3MWriter<MapAdditionalInfo::CustomHero>
+    struct H3MWriter<MapAdditionalInfo::CustomHero>
     {
-    public:
       void operator()(std::ostream& stream, const MapAdditionalInfo::CustomHero& value) const
       {
         writeData(stream, value.type);
@@ -500,11 +442,9 @@ namespace h3m
       }
     };
 
-    // Full specialization for Rumor.
     template<>
-    class H3MWriter<Rumor>
+    struct H3MWriter<Rumor>
     {
-    public:
       void operator()(std::ostream& stream, const Rumor& value) const
       {
         writeData(stream, value.name);
@@ -512,11 +452,9 @@ namespace h3m
       }
     };
 
-    // Full specialization for SecondarySkill.
     template<>
-    class H3MWriter<SecondarySkill>
+    struct H3MWriter<SecondarySkill>
     {
-    public:
       void operator()(std::ostream& stream, const SecondarySkill& secondary_skill) const
       {
         writeData(stream, secondary_skill.type);
@@ -524,11 +462,9 @@ namespace h3m
       }
     };
 
-    // Full specialization for HeroArtifacts.
     template<>
-    class H3MWriter<HeroArtifacts>
+    struct H3MWriter<HeroArtifacts>
     {
-    public:
       void operator()(std::ostream& stream, const HeroArtifacts& artifacts) const
       {
         writeData(stream, artifacts.headwear);
@@ -562,11 +498,9 @@ namespace h3m
       }
     };
 
-    // Full specialization for PrimarySkills.
     template<>
-    class H3MWriter<PrimarySkills>
+    struct H3MWriter<PrimarySkills>
     {
-    public:
       void operator()(std::ostream& stream, const PrimarySkills& primary_skills) const
       {
         writeData(stream, primary_skills.attack);
@@ -576,11 +510,9 @@ namespace h3m
       }
     };
 
-    // Full specialization for HeroSettings.
     template<>
-    class H3MWriter<HeroSettings>
+    struct H3MWriter<HeroSettings>
     {
-    public:
       void operator()(std::ostream& stream, const HeroSettings& settings) const
       {
         // Write experience.
@@ -630,11 +562,9 @@ namespace h3m
       }
     };
 
-    // Full specialization for MapAdditionalInfo.
     template<>
-    class H3MWriter<MapAdditionalInfo>
+    struct H3MWriter<MapAdditionalInfo>
     {
-    public:
       void operator()(std::ostream& stream, const MapAdditionalInfo& value) const
       {
         writeData(stream, value.victory_condition);
@@ -690,11 +620,9 @@ namespace h3m
       }
     };
 
-    // Full specialization for Tile.
     template<>
-    class H3MWriter<Tile>
+    struct H3MWriter<Tile>
     {
-    public:
       void operator()(std::ostream& stream, const Tile& value) const
       {
         writeData(stream, value.terrain_type);
@@ -707,11 +635,9 @@ namespace h3m
       }
     };
 
-    // Full specialization for ObjectAttributes.
     template<>
-    class H3MWriter<ObjectAttributes>
+    struct H3MWriter<ObjectAttributes>
     {
-    public:
       void operator()(std::ostream& stream, const ObjectAttributes& value) const
       {
         writeData(stream, value.def);
@@ -728,9 +654,8 @@ namespace h3m
     };
 
     template<>
-    class H3MWriter<CreatureStack>
+    struct H3MWriter<CreatureStack>
     {
-    public:
       void operator()(std::ostream& stream, const CreatureStack& value) const
       {
         writeData(stream, value.type);
@@ -738,12 +663,10 @@ namespace h3m
       }
     };
 
-    // Partial specialization for ObjectDetailsData<T>.
     // TODO: remove once specialized for each MetaObjectType.
     template<MetaObjectType T>
-    class H3MWriter<ObjectDetailsData<T>>
+    struct H3MWriter<ObjectDetailsData<T>>
     {
-    public:
       void operator()(std::ostream& stream, const ObjectDetailsData<T>& data) const
       {
         throw std::logic_error("NotImplemented.");
@@ -751,18 +674,16 @@ namespace h3m
     };
 
     template<>
-    class H3MWriter<ObjectDetailsData<MetaObjectType::GENERIC_NO_PROPERTIES>>
+    struct H3MWriter<ObjectDetailsData<MetaObjectType::GENERIC_NO_PROPERTIES>>
     {
-    public:
       void operator()(std::ostream& stream, const ObjectDetailsData<MetaObjectType::GENERIC_NO_PROPERTIES>& data) const
       {
       }
     };
 
     template<>
-    class H3MWriter<ObjectDetailsData<MetaObjectType::GRAIL>>
+    struct H3MWriter<ObjectDetailsData<MetaObjectType::GRAIL>>
     {
-    public:
       void operator()(std::ostream& stream, const ObjectDetailsData<MetaObjectType::GRAIL>& grail) const
       {
         writeData(stream, grail.allowable_radius);
@@ -770,9 +691,8 @@ namespace h3m
     };
 
     template<>
-    class H3MWriter<ObjectDetailsData<MetaObjectType::HERO>>
+    struct H3MWriter<ObjectDetailsData<MetaObjectType::HERO>>
     {
-    public:
       void operator()(std::ostream& stream, const ObjectDetailsData<MetaObjectType::HERO>& hero) const
       {
         writeData(stream, hero.absod_id);
@@ -837,11 +757,9 @@ namespace h3m
       }
     };
 
-    // Full specialization for ObjectDetails.
     template<>
-    class H3MWriter<ObjectDetails>
+    struct H3MWriter<ObjectDetails>
     {
-    public:
       void operator()(std::ostream& stream, const ObjectDetails& object_details) const
       {
         writeData(stream, object_details.x);
@@ -853,11 +771,9 @@ namespace h3m
       }
     };
 
-    // Full specialization for GlobalEvent.
     template<>
-    class H3MWriter<GlobalEvent>
+    struct H3MWriter<GlobalEvent>
     {
-    public:
       void operator()(std::ostream& stream, const GlobalEvent& global_event) const
       {
         writeData(stream, global_event.name);
@@ -875,11 +791,9 @@ namespace h3m
       }
     };
 
-    // Full specialization for Map.
     template<>
-    class H3MWriter<Map>
+    struct H3MWriter<Map>
     {
-    public:
       void operator()(std::ostream& stream, const Map& map) const
       {
         writeData(stream, map.format);
