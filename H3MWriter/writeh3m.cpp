@@ -738,6 +738,27 @@ namespace h3m
       }
     };
 
+    // Partial specialization for ObjectDetailsData<T>.
+    // TODO: remove once specialized for each MetaObjectType.
+    template<MetaObjectType T>
+    class H3MWriter<ObjectDetailsData<T>>
+    {
+    public:
+      void operator()(std::ostream& stream, const ObjectDetailsData<T>& data) const
+      {
+        throw std::logic_error("NotImplemented.");
+      }
+    };
+
+    template<>
+    class H3MWriter<ObjectDetailsData<MetaObjectType::GENERIC_NO_PROPERTIES>>
+    {
+    public:
+      void operator()(std::ostream& stream, const ObjectDetailsData<MetaObjectType::GENERIC_NO_PROPERTIES>& data) const
+      {
+      }
+    };
+
     template<>
     class H3MWriter<ObjectDetailsData<MetaObjectType::GRAIL>>
     {
@@ -828,20 +849,7 @@ namespace h3m
         writeData(stream, object_details.z);
         writeData(stream, object_details.kind);
         writeData(stream, object_details.unknown);
-        // TODO: implement.
-        switch (object_details.details.getMetaObjectType())
-        {
-        case MetaObjectType::GRAIL:
-          writeData(stream, object_details.details.get<MetaObjectType::GRAIL>());
-          break;
-        case MetaObjectType::HERO:
-          writeData(stream, object_details.details.get<MetaObjectType::HERO>());
-          break;
-        case MetaObjectType::GENERIC_NO_PROPERTIES:
-          break;
-        default:
-          throw std::logic_error("NotImplemented.");
-        }
+        object_details.details.visit(DataWriter(stream));
       }
     };
 
