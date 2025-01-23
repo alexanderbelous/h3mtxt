@@ -324,7 +324,7 @@ Map parseh3mUncompressed(std::istream& stream)
 
 Map parseh3m(std::istream& stream)
 {
-  constexpr unsigned char kGzipFirstByte = 0x1F;
+  constexpr char kGzipFirstByte = 0x1F;
   if (!stream)
   {
     throw std::runtime_error("parseh3m(): Bad istream.");
