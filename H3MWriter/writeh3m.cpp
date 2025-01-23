@@ -183,6 +183,26 @@ namespace h3m
       }
     };
 
+    template<class VectorSizeType, class T, class Alloc>
+    void writeVector(std::ostream& stream, const std::vector<T, Alloc>& vec, std::string_view field_name)
+    {
+      static_assert(std::is_integral_v<VectorSizeType> && std::is_unsigned_v<VectorSizeType>,
+                    "VectorSizeType must be an unsigned integer type.");
+
+      if (vec.size() > std::numeric_limits<VectorSizeType>::max())
+      {
+        std::string error_message = "Too many elements in";
+        error_message.append(field_name);
+        error_message.append(".");
+        throw std::runtime_error(std::move(error_message));
+      }
+      writeData(stream, static_cast<VectorSizeType>(vec.size()));
+      for (const T& element : vec)
+      {
+        writeData(stream, element);
+      }
+    }
+
     template<>
     struct H3MWriter<MapBasicInfo>
     {
@@ -238,16 +258,8 @@ namespace h3m
     {
       void operator()(std::ostream& stream, const AdditionalPlayerInfo& value) const
       {
-        if (value.heroes.size() > std::numeric_limits<std::uint32_t>::max())
-        {
-          throw std::runtime_error("Too many elements in AdditionalPlayerInfo.heroes");
-        }
         writeData(stream, value.num_placeholder_heroes);
-        writeData(stream, static_cast<std::uint32_t>(value.heroes.size()));
-        for (const AdditionalPlayerInfo::HeroInfo& hero : value.heroes)
-        {
-          writeData(stream, hero);
-        }
+        writeVector<std::uint32_t>(stream, value.heroes, "AdditionalPlayerInfo.heroes");
       }
     };
 
@@ -509,15 +521,7 @@ namespace h3m
         writeData(stream, artifacts.device4);
         writeData(stream, artifacts.spellbook);
         writeData(stream, artifacts.misc5);
-        if (artifacts.backpack.size() > std::numeric_limits<std::uint16_t>::max())
-        {
-          throw std::runtime_error("Too many elements in HeroArtifacts.backpack.");
-        }
-        writeData(stream, static_cast<std::uint16_t>(artifacts.backpack.size()));
-        for (ArtifactType artifact : artifacts.backpack)
-        {
-          writeData(stream, artifact);
-        }
+        writeVector<std::uint16_t>(stream, artifacts.backpack, "HeroArtifacts.backpack");
       }
     };
 
@@ -543,16 +547,7 @@ namespace h3m
         writeData(stream, settings.secondary_skills.has_value());
         if (settings.secondary_skills)
         {
-          const std::vector<SecondarySkill>& secondary_skills = *settings.secondary_skills;
-          if (secondary_skills.size() > std::numeric_limits<std::uint32_t>::max())
-          {
-            throw std::runtime_error("Too many elements in HeroSettings.secondary_skills.");
-          }
-          writeData(stream, static_cast<std::uint32_t>(secondary_skills.size()));
-          for (const SecondarySkill& secondary_skill : secondary_skills)
-          {
-            writeData(stream, secondary_skill);
-          }
+          writeVector<std::uint32_t>(stream, *settings.secondary_skills, "HeroSettings.secondary_skills");
         }
         writeData(stream, settings.artifacts);
         writeData(stream, settings.biography);
@@ -571,41 +566,13 @@ namespace h3m
         writeData(stream, value.loss_condition);
         writeData(stream, value.teams);
         writeData(stream, value.heroes_availability);
-        // Write placeholder_heroes.
-        if (value.placeholder_heroes.size() > std::numeric_limits<std::uint32_t>::max())
-        {
-          throw std::runtime_error("Too many elements in MapAdditionalInfo.placeholder_heroes.");
-        }
-        writeData(stream, static_cast<std::uint32_t>(value.placeholder_heroes.size()));
-        for (HeroType hero_type : value.placeholder_heroes)
-        {
-          writeData(stream, hero_type);
-        }
-        // Write custom_heroes.
-        if (value.custom_heroes.size() > std::numeric_limits<std::uint8_t>::max())
-        {
-          throw std::runtime_error("Too many elements in MapAdditionalInfo.custom_heroes.");
-        }
-        writeData(stream, static_cast<std::uint8_t>(value.custom_heroes.size()));
-        for (const MapAdditionalInfo::CustomHero& custom_hero : value.custom_heroes)
-        {
-          writeData(stream, custom_hero);
-        }
-        // Write reserved data.
+        writeVector<std::uint32_t>(stream, value.placeholder_heroes, "MapAdditionalInfo.placeholder_heroes");
+        writeVector<std::uint8_t>(stream, value.custom_heroes, "MapAdditionalInfo.custom_heroes");
         writeData(stream, value.reserved);
         writeData(stream, value.artifacts_nonavailability);
         writeData(stream, value.spells_nonavailability);
         writeData(stream, value.skills_nonavailability);
-        // Write rumors.
-        if (value.rumors.size() > std::numeric_limits<std::uint32_t>::max())
-        {
-          throw std::runtime_error("Too many elements in MapAdditionalInfo.rumors.");
-        }
-        writeData(stream, static_cast<std::uint32_t>(value.rumors.size()));
-        for (const Rumor& rumor : value.rumors)
-        {
-          writeData(stream, rumor);
-        }
+        writeVector<std::uint32_t>(stream, value.rumors, "MapAdditionalInfo.rumors");
         // Write heroes' settings.
         for (std::uint8_t hero_idx = 0; hero_idx < kNumHeroes; ++hero_idx)
         {
@@ -745,15 +712,7 @@ namespace h3m
         writeData(stream, static_cast<Bool>(hero.secondary_skills.has_value()));
         if (hero.secondary_skills)
         {
-          if (hero.secondary_skills->size() > std::numeric_limits<std::uint32_t>::max())
-          {
-            throw std::runtime_error("Too many elements in ObjectDetailsData<HERO>.secondary_skills.");
-          }
-          writeData(stream, static_cast<std::uint32_t>(hero.secondary_skills->size()));
-          for (const SecondarySkill& secondary_skill : *hero.secondary_skills)
-          {
-            writeData(stream, secondary_skill);
-          }
+          writeVector<std::uint32_t>(stream, *hero.secondary_skills, "ObjectDetailsData<HERO>.secondary_skills");
         }
         writeData(stream, hero.creatures);
         writeData(stream, hero.formation);
@@ -913,35 +872,11 @@ namespace h3m
           writeData(stream, tile);
         }
         // Write objects_attributes.
-        if (map.objects_attributes.size() > std::numeric_limits<std::uint32_t>::max())
-        {
-          throw std::runtime_error("Too many elements in Map.objects_attributes.");
-        }
-        writeData(stream, static_cast<std::uint32_t>(map.objects_attributes.size()));
-        for (const ObjectAttributes& object_attributes : map.objects_attributes)
-        {
-          writeData(stream, object_attributes);
-        }
+        writeVector<std::uint32_t>(stream, map.objects_attributes, "Map.objects_attributes");
         // Write objects_details.
-        if (map.objects_details.size() > std::numeric_limits<std::uint32_t>::max())
-        {
-          throw std::runtime_error("Too many elements in Map.objects_details.");
-        }
-        writeData(stream, static_cast<std::uint32_t>(map.objects_details.size()));
-        for (const ObjectDetails& object_details : map.objects_details)
-        {
-          writeData(stream, object_details);
-        }
+        writeVector<std::uint32_t>(stream, map.objects_details, "Map.objects_details");
         // Write global_events.
-        if (map.global_events.size() > std::numeric_limits<std::uint32_t>::max())
-        {
-          throw std::runtime_error("Too many elements in Map.global_events.");
-        }
-        writeData(stream, static_cast<std::uint32_t>(map.global_events.size()));
-        for (const GlobalEvent& global_event : map.global_events)
-        {
-          writeData(stream, global_event);
-        }
+        writeVector<std::uint32_t>(stream, map.global_events, "Map.global_events");
         // Write padding data.
         writeData(stream, map.padding);
       }
