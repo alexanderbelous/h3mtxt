@@ -846,6 +846,49 @@ namespace h3m
     };
 
     template<>
+    struct H3MWriter<ObjectDetailsData<MetaObjectType::RANDOM_DWELLING>>
+    {
+      void operator()(std::ostream& stream, const ObjectDetailsData<MetaObjectType::RANDOM_DWELLING>& dwelling) const
+      {
+        writeData(stream, dwelling.owner);
+        writeData(stream, dwelling.town_absod_id);
+        if (dwelling.town_absod_id == 0)
+        {
+          writeData(stream, dwelling.alignment);
+        }
+        writeData(stream, dwelling.min_level);
+        writeData(stream, dwelling.max_level);
+      }
+    };
+
+    template<>
+    struct H3MWriter<ObjectDetailsData<MetaObjectType::RANDOM_DWELLING_PRESET_ALIGNMENT>>
+    {
+      void operator()(std::ostream& stream,
+                      const ObjectDetailsData<MetaObjectType::RANDOM_DWELLING_PRESET_ALIGNMENT>& dwelling) const
+      {
+        writeData(stream, dwelling.owner);
+        writeData(stream, dwelling.min_level);
+        writeData(stream, dwelling.max_level);
+      }
+    };
+
+    template<>
+    struct H3MWriter<ObjectDetailsData<MetaObjectType::RANDOM_DWELLING_PRESET_LEVEL>>
+    {
+      void operator()(std::ostream& stream,
+                      const ObjectDetailsData<MetaObjectType::RANDOM_DWELLING_PRESET_LEVEL>& dwelling) const
+      {
+        writeData(stream, dwelling.owner);
+        writeData(stream, dwelling.town_absod_id);
+        if (dwelling.town_absod_id == 0)
+        {
+          writeData(stream, dwelling.alignment);
+        }
+      }
+    };
+
+    template<>
     struct H3MWriter<ObjectDetailsData<MetaObjectType::RESOURCE>>
     {
       void operator()(std::ostream& stream, const ObjectDetailsData<MetaObjectType::RESOURCE>& data) const
@@ -979,13 +1022,9 @@ namespace h3m
         {
           writeData(stream, tile);
         }
-        // Write objects_attributes.
         writeVector<std::uint32_t>(stream, map.objects_attributes, "Map.objects_attributes");
-        // Write objects_details.
         writeVector<std::uint32_t>(stream, map.objects_details, "Map.objects_details");
-        // Write global_events.
         writeVector<std::uint32_t>(stream, map.global_events, "Map.global_events");
-        // Write padding data.
         writeData(stream, map.padding);
       }
     };
