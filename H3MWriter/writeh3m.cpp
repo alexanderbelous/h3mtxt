@@ -666,6 +666,41 @@ namespace h3m
       writeData(stream, event.unknown);
     }
 
+    void writeTimedEventBase(std::ostream& stream, const TimedEventBase& event)
+    {
+      writeData(stream, event.name);
+      writeData(stream, event.message);
+      writeData(stream, event.resources);
+      writeData(stream, event.affected_players.bitset);
+      writeData(stream, event.applies_to_human);
+      writeData(stream, event.applies_to_computer);
+      writeData(stream, event.day_of_first_occurence);
+      writeData(stream, event.repeat_after_days);
+      writeData(stream, event.unknown);
+    }
+
+    template<>
+    struct H3MWriter<TownBuildings>
+    {
+      void operator()(std::ostream& stream, const TownBuildings& town_buildings) const
+      {
+        writeData(stream, town_buildings.is_built);
+        writeData(stream, town_buildings.is_disabled);
+      }
+    };
+
+    template<>
+    struct H3MWriter<TownEvent>
+    {
+      void operator()(std::ostream& stream, const TownEvent& event) const
+      {
+        writeTimedEventBase(stream, event);
+        writeData(stream, event.buildings);
+        writeData(stream, event.creatures);
+        writeData(stream, event.unknown);
+      }
+    };
+
     // TODO: remove once specialized for each MetaObjectType.
     template<MetaObjectType T>
     struct H3MWriter<ObjectDetailsData<T>>
@@ -862,6 +897,29 @@ namespace h3m
     };
 
     template<>
+    struct H3MWriter<ObjectDetailsData<MetaObjectType::TOWN>>
+    {
+      void operator()(std::ostream& stream, const ObjectDetailsData<MetaObjectType::TOWN>& town) const
+      {
+        writeData(stream, town.absod_id);
+        writeData(stream, town.owner);
+        writeData(stream, town.name);
+        writeData(stream, town.creatures);
+        writeData(stream, town.formation);
+        writeData(stream, town.buildings);
+        if (!town.buildings)
+        {
+          writeData(stream, town.has_fort);
+        }
+        writeData(stream, town.must_have_spell);
+        writeData(stream, town.may_not_have_spell);
+        writeVector<std::uint32_t>(stream, town.events, "town.events");
+        writeData(stream, town.alignment);
+        writeData(stream, town.unknown);
+      }
+    };
+
+    template<>
     struct H3MWriter<ObjectDetailsData<MetaObjectType::TRIVIAL_OWNED_OBJECT>>
     {
       void operator()(std::ostream& stream, const ObjectDetailsData<MetaObjectType::TRIVIAL_OWNED_OBJECT>& data) const
@@ -899,15 +957,7 @@ namespace h3m
     {
       void operator()(std::ostream& stream, const GlobalEvent& global_event) const
       {
-        writeData(stream, global_event.name);
-        writeData(stream, global_event.message);
-        writeData(stream, global_event.resources);
-        writeData(stream, global_event.affected_players.bitset);
-        writeData(stream, global_event.applies_to_human);
-        writeData(stream, global_event.applies_to_computer);
-        writeData(stream, global_event.day_of_first_occurence);
-        writeData(stream, global_event.repeat_after_days);
-        writeData(stream, global_event.unknown);
+        writeTimedEventBase(stream, global_event);
       }
     };
 
