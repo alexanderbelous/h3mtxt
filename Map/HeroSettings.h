@@ -2,7 +2,6 @@
 
 #include <h3mtxt/Map/Utils/BitSet.h>
 #include <h3mtxt/Map/Constants/Gender.h>
-#include <h3mtxt/Map/Constants/SecondarySkillType.h>
 #include <h3mtxt/Map/HeroArtifacts.h>
 #include <h3mtxt/Map/PrimarySkills.h>
 #include <h3mtxt/Map/SecondarySkill.h>

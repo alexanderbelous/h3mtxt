@@ -151,9 +151,22 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="H3MWriter.h" />
     <ClInclude Include="writeh3m.h" />
+    <ClInclude Include="writeHeroArtifacts.h" />
+    <ClInclude Include="writeHeroSettings.h" />
+    <ClInclude Include="writeLossCondition.h" />
+    <ClInclude Include="writeMapAdditionalInfo.h" />
+    <ClInclude Include="writeMapBasicInfo.h" />
+    <ClInclude Include="writeObjectAttributes.h" />
+    <ClInclude Include="writePlayerSpecs.h" />
+    <ClInclude Include="writePrimarySkills.h" />
+    <ClInclude Include="writeSecondarySkill.h" />
+    <ClInclude Include="writeTile.h" />
+    <ClInclude Include="writeVictoryCondition.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="H3MWriter.cpp" />
     <ClCompile Include="writeh3m.cpp" />
   </ItemGroup>
   <ItemGroup>

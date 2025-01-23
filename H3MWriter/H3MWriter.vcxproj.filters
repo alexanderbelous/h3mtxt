@@ -18,9 +18,48 @@
     <ClInclude Include="writeh3m.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="H3MWriter.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="writeVictoryCondition.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="writeLossCondition.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="writeMapBasicInfo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="writeObjectAttributes.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="writePlayerSpecs.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="writeHeroArtifacts.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="writeHeroSettings.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="writeSecondarySkill.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="writePrimarySkills.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="writeMapAdditionalInfo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="writeTile.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="writeh3m.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="H3MWriter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
