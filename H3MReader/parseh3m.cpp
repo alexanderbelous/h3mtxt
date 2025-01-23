@@ -128,18 +128,16 @@ LossCondition readLossCondition(std::istream& stream)
   }
 }
 
-std::optional<TeamsInfo> readTeamsInfo(std::istream& stream)
+TeamsInfo readTeamsInfo(std::istream& stream)
 {
-  const std::uint8_t num_teams = readUint8(stream);
-  if (num_teams == 0)
-  {
-    return std::nullopt;
-  }
   TeamsInfo teams_info;
-  teams_info.num_teams = num_teams;
-  for (int i = 0; i < 8; ++i)
+  teams_info.num_teams = readUint8(stream);
+  if (teams_info.num_teams != 0)
   {
-    teams_info.team_for_player[i] = readUint8(stream);
+    for (int i = 0; i < 8; ++i)
+    {
+      teams_info.team_for_player[i] = readUint8(stream);
+    }
   }
   return teams_info;
 }

@@ -9,7 +9,6 @@
 
 #include <array>
 #include <cstdint>
-#include <optional>
 #include <stdexcept>
 #include <string>
 #include <vector>
@@ -22,6 +21,7 @@ namespace h3m
 struct TeamsInfo
 {
   std::uint8_t num_teams {};
+  // This field is only read/written if num_teams != 0.
   // Each value should be < num_teams.
   std::array<std::uint8_t, 8> team_for_player {};
 };
@@ -150,8 +150,7 @@ struct MapAdditionalInfo
 
   VictoryCondition victory_condition {};
   LossCondition loss_condition {};
-  // Details about the teams, std::nullopt if teams are disabled.
-  std::optional<TeamsInfo> teams;
+  TeamsInfo teams;
   HeroesAvailability heroes_availability;
   std::vector<HeroType> placeholder_heroes;
   std::vector<CustomHero> custom_heroes;

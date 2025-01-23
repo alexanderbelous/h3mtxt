@@ -422,17 +422,14 @@ namespace h3m
     };
 
     template<>
-    struct H3MWriter<std::optional<TeamsInfo>>
+    struct H3MWriter<TeamsInfo>
     {
-      void operator()(std::ostream& stream, const std::optional<TeamsInfo>& value) const
+      void operator()(std::ostream& stream, const TeamsInfo& teams) const
       {
-        // value->num_teams shouldn't be 0 if value != std::nullopt. It's not a critical error, though -
-        // we will just ignore value->team_for_player in this case.
-        const std::uint8_t num_teams = value.has_value() ? value->num_teams : std::uint8_t{ 0 };
-        writeData(stream, num_teams);
-        if (num_teams != 0)
+        writeData(stream, teams.num_teams);
+        if (teams.num_teams != 0)
         {
-          writeData(stream, value->team_for_player);
+          writeData(stream, teams.team_for_player);
         }
       }
     };

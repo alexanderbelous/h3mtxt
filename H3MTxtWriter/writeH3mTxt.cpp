@@ -529,9 +529,13 @@ namespace Util_NS
     {
       out.writeField("victory_condition", value.victory_condition);
       out.writeField("loss_condition", value.loss_condition);
-      if (value.teams)
+      if (value.teams.num_teams != 0)
       {
-        out.writeField( "teams", *value.teams);
+        out.writeField( "teams", value.teams);
+      }
+      else
+      {
+        out.writeComment("\"teams\" field is missing because teams are disabled.");
       }
       out.writeField("heroes_availability", value.heroes_availability);
       out.writeField("placeholder_heroes", value.placeholder_heroes);
