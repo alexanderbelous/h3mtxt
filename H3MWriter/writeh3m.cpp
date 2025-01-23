@@ -135,6 +135,20 @@ namespace h3m
       }
     };
 
+    // Partial specialization for std::optional.
+    template<class T>
+    struct H3MWriter<std::optional<T>>
+    {
+      void operator()(std::ostream& stream, const std::optional<T>& value) const
+      {
+        writeData(stream, static_cast<Bool>(value.has_value()));
+        if (value.has_value())
+        {
+          writeData(stream, *value);
+        }
+      }
+    };
+
     template<std::size_t N>
     struct H3MWriter<ReservedData<N>>
     {
@@ -248,11 +262,7 @@ namespace h3m
         writeData(stream, value.customized_alignments);
         writeData(stream, value.allowed_alignments.town_types);
         writeData(stream, value.random_town);
-        writeData(stream, value.main_town.has_value());
-        if (value.main_town.has_value())
-        {
-          writeData(stream, *value.main_town);
-        }
+        writeData(stream, value.main_town);
         writeData(stream, value.starting_hero);
         if (shouldHaveAdditionalPlayerInfo(value))
         {
@@ -528,12 +538,7 @@ namespace h3m
     {
       void operator()(std::ostream& stream, const HeroSettings& settings) const
       {
-        // Write experience.
-        writeData(stream, settings.experience.has_value());
-        if (settings.experience)
-        {
-          writeData(stream, *settings.experience);
-        }
+        writeData(stream, settings.experience);
         // Write secondary skills.
         writeData(stream, settings.secondary_skills.has_value());
         if (settings.secondary_skills)
@@ -549,29 +554,11 @@ namespace h3m
             writeData(stream, secondary_skill);
           }
         }
-        // Write artifacts.
-        writeData(stream, settings.artifacts.has_value());
-        if (settings.artifacts)
-        {
-          writeData(stream, *settings.artifacts);
-        }
-        // Write biography.
-        writeData(stream, settings.biography.has_value());
-        if (settings.biography)
-        {
-          writeData(stream, *settings.biography);
-        }
+        writeData(stream, settings.artifacts);
+        writeData(stream, settings.biography);
         writeData(stream, settings.gender);
-        writeData(stream, settings.spells.has_value());
-        if (settings.spells)
-        {
-          writeData(stream, *settings.spells);
-        }
-        writeData(stream, settings.primary_skills.has_value());
-        if (settings.primary_skills)
-        {
-          writeData(stream, *settings.primary_skills);
-        }
+        writeData(stream, settings.spells);
+        writeData(stream, settings.primary_skills);
       }
     };
 
@@ -682,11 +669,7 @@ namespace h3m
       void operator()(std::ostream& stream, const Guardians& guardians) const
       {
         writeData(stream, guardians.message);
-        writeData(stream, static_cast<Bool>(guardians.creatures.has_value()));
-        if (guardians.creatures)
-        {
-          writeData(stream, *guardians.creatures);
-        }
+        writeData(stream, guardians.creatures);
         writeData(stream, guardians.unknown);
       }
     };
@@ -715,11 +698,7 @@ namespace h3m
     {
       void operator()(std::ostream& stream, const ObjectDetailsData<MetaObjectType::ARTIFACT>& data) const
       {
-        writeData(stream, static_cast<Bool>(data.guardians.has_value()));
-        if (data.guardians)
-        {
-          writeData(stream, *data.guardians);
-        }
+        writeData(stream, data.guardians);
       }
     };
 
@@ -760,61 +739,30 @@ namespace h3m
         writeData(stream, hero.absod_id);
         writeData(stream, hero.owner);
         writeData(stream, hero.type);
-        writeData(stream, static_cast<Bool>(hero.name.has_value()));
-        if (hero.name)
-        {
-          writeData(stream, *hero.name);
-        }
-        writeData(stream, static_cast<Bool>(hero.experience.has_value()));
-        if (hero.experience)
-        {
-          writeData(stream, *hero.experience);
-        }
-        writeData(stream, static_cast<Bool>(hero.face.has_value()));
-        if (hero.face)
-        {
-          writeData(stream, *hero.face);
-        }
+        writeData(stream, hero.name);
+        writeData(stream, hero.experience);
+        writeData(stream, hero.face);
         writeData(stream, static_cast<Bool>(hero.secondary_skills.has_value()));
         if (hero.secondary_skills)
         {
+          if (hero.secondary_skills->size() > std::numeric_limits<std::uint32_t>::max())
+          {
+            throw std::runtime_error("Too many elements in ObjectDetailsData<HERO>.secondary_skills.");
+          }
           writeData(stream, static_cast<std::uint32_t>(hero.secondary_skills->size()));
           for (const SecondarySkill& secondary_skill : *hero.secondary_skills)
           {
             writeData(stream, secondary_skill);
           }
         }
-        writeData(stream, static_cast<Bool>(hero.creatures.has_value()));
-        if (hero.creatures)
-        {
-          for (const CreatureStack& creature_stack : *hero.creatures)
-          {
-            writeData(stream, creature_stack);
-          }
-        }
+        writeData(stream, hero.creatures);
         writeData(stream, hero.formation);
-        writeData(stream, static_cast<Bool>(hero.artifacts.has_value()));
-        if (hero.artifacts)
-        {
-          writeData(stream, *hero.artifacts);
-        }
+        writeData(stream, hero.artifacts);
         writeData(stream, hero.patrol_radius);
-        writeData(stream, static_cast<Bool>(hero.biography.has_value()));
-        if (hero.biography)
-        {
-          writeData(stream, *hero.biography);
-        }
+        writeData(stream, hero.biography);
         writeData(stream, hero.gender);
-        writeData(stream, static_cast<Bool>(hero.spells.has_value()));
-        if (hero.spells)
-        {
-          writeData(stream, *hero.spells);
-        }
-        writeData(stream, static_cast<Bool>(hero.primary_skills.has_value()));
-        if (hero.primary_skills)
-        {
-          writeData(stream, *hero.primary_skills);
-        }
+        writeData(stream, hero.spells);
+        writeData(stream, hero.primary_skills);
         writeData(stream, hero.unknown);
       }
     };
@@ -861,11 +809,7 @@ namespace h3m
     {
       void operator()(std::ostream& stream, const ObjectDetailsData<MetaObjectType::RESOURCE>& data) const
       {
-        writeData(stream, static_cast<Bool>(data.guardians.has_value()));
-        if (data.guardians)
-        {
-          writeData(stream, *data.guardians);
-        }
+        writeData(stream, data.guardians);
         writeData(stream, data.quantity);
         writeData(stream, data.unknown);
       }
@@ -895,11 +839,7 @@ namespace h3m
     {
       void operator()(std::ostream& stream, const ObjectDetailsData<MetaObjectType::SPELL_SCROLL>& spell_scroll) const
       {
-        writeData(stream, static_cast<Bool>(spell_scroll.guardians.has_value()));
-        if (spell_scroll.guardians)
-        {
-          writeData(stream, *spell_scroll.guardians);
-        }
+        writeData(stream, spell_scroll.guardians);
         writeData(stream, spell_scroll.spell);
       }
     };
