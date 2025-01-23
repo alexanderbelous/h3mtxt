@@ -1,0 +1,6 @@
+[submodule "thirdparty/zstr"]
+	path = thirdparty/zstr
+	url = https://github.com/mateidavid/zstr.git
+[submodule "thirdparty/zlib"]
+	path = thirdparty/zlib
+	url = https://github.com/madler/zlib.git

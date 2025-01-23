@@ -9,6 +9,8 @@
 #include <h3mtxt/H3MReader/readVictoryCondition.h>
 #include <h3mtxt/H3MReader/Utils.h>
 
+#include <h3mtxt/thirdparty/zstr/src/zstr.hpp>
+
 #include <cstddef>
 #include <istream>
 #include <span>
@@ -271,9 +273,7 @@ GlobalEvent readGlobalEvent(std::istream& stream)
   return global_event;
 }
 
-}
-
-Map parseh3m(std::istream& stream)
+Map parseh3mUncompressed(std::istream& stream)
 {
   Map map;
   map.format = readEnum<MapFormat>(stream);
@@ -318,6 +318,34 @@ Map parseh3m(std::istream& stream)
   // Read padding data.
   map.padding = readReservedData<124>(stream);
   return map;
+}
+
+}
+
+Map parseh3m(std::istream& stream)
+{
+  constexpr unsigned char kGzipFirstByte = 0x1F;
+  if (!stream)
+  {
+    throw std::runtime_error("parseh3m(): Bad istream.");
+  }
+  using Traits = std::istream::traits_type;
+  // Check the first byte. If it's 0x1F, then it cannot be an uncompressed .h3m file,
+  // so assume that it's a compressed one.
+  const int first_byte = stream.peek();
+  if (first_byte == Traits::eof())
+  {
+    throw std::runtime_error("parseh3m(): Empty stream passed.");
+  }
+  if (first_byte != kGzipFirstByte)
+  {
+    return parseh3mUncompressed(stream);
+  }
+  else
+  {
+    zstr::istream zstr_stream(stream);
+    return parseh3mUncompressed(zstr_stream);
+  }
 }
 
 }
