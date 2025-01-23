@@ -822,6 +822,17 @@ namespace h3m
     };
 
     template<>
+    struct H3MWriter<ObjectDetailsData<MetaObjectType::SCHOLAR>>
+    {
+      void operator()(std::ostream& stream, const ObjectDetailsData<MetaObjectType::SCHOLAR>& scholar) const
+      {
+        writeData(stream, scholar.reward_type);
+        writeData(stream, scholar.reward_value);
+        writeData(stream, scholar.unknown);
+      }
+    };
+
+    template<>
     struct H3MWriter<ObjectDetailsData<MetaObjectType::SHRINE>>
     {
       void operator()(std::ostream& stream, const ObjectDetailsData<MetaObjectType::SHRINE>& shrine) const
