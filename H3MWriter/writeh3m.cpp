@@ -183,6 +183,15 @@ namespace h3m
       }
     };
 
+    template<>
+    struct H3MWriter<AffectedPlayers>
+    {
+      void operator()(std::ostream& stream, const AffectedPlayers& affected_players) const
+      {
+        writeData(stream, affected_players.bitset);
+      }
+    };
+
     template<class VectorSizeType, class T, class Alloc>
     void writeVector(std::ostream& stream, const std::vector<T, Alloc>& vec, std::string_view field_name)
     {
@@ -641,6 +650,22 @@ namespace h3m
       }
     };
 
+    void writeEventBase(std::ostream& stream, const EventBase& event)
+    {
+      writeData(stream, event.guardians);
+      writeData(stream, event.experience);
+      writeData(stream, event.spell_points);
+      writeData(stream, event.morale);
+      writeData(stream, event.luck);
+      writeData(stream, event.resources);
+      writeData(stream, event.primary_skills);
+      writeVector<std::uint8_t>(stream, event.secondary_skills, "EventBase.secondary_skills");
+      writeVector<std::uint8_t>(stream, event.artifacts, "EventBase.artifacts");
+      writeVector<std::uint8_t>(stream, event.spells, "EventBase.spells");
+      writeVector<std::uint8_t>(stream, event.creatures, "EventBase.creatures");
+      writeData(stream, event.unknown);
+    }
+
     // TODO: remove once specialized for each MetaObjectType.
     template<MetaObjectType T>
     struct H3MWriter<ObjectDetailsData<T>>
@@ -666,6 +691,19 @@ namespace h3m
       void operator()(std::ostream& stream, const ObjectDetailsData<MetaObjectType::ARTIFACT>& data) const
       {
         writeData(stream, data.guardians);
+      }
+    };
+
+    template<>
+    struct H3MWriter<ObjectDetailsData<MetaObjectType::EVENT>>
+    {
+      void operator()(std::ostream& stream, const ObjectDetailsData<MetaObjectType::EVENT>& event) const
+      {
+        writeEventBase(stream, event);
+        writeData(stream, event.affected_players);
+        writeData(stream, event.applies_to_computer);
+        writeData(stream, event.remove_after_first_visit);
+        writeData(stream, event.unknown);
       }
     };
 
@@ -744,6 +782,15 @@ namespace h3m
         writeData(stream, monster.never_flees);
         writeData(stream, monster.does_not_grow);
         writeData(stream, monster.unknown);
+      }
+    };
+
+    template<>
+    struct H3MWriter<ObjectDetailsData<MetaObjectType::PANDORAS_BOX>>
+    {
+      void operator()(std::ostream& stream, const ObjectDetailsData<MetaObjectType::PANDORAS_BOX>& pandoras_box) const
+      {
+        writeEventBase(stream, pandoras_box);
       }
     };
 
