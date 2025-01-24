@@ -201,8 +201,6 @@ enum class HeroType : std::uint8_t
     H3M_HERO_MUTARE_DRAKE,   /* 0x99 */
     H3M_HERO_BORAGUS,        /* 0x9A */
     H3M_HERO_XERON,          /* 0x9B */
-
-    RANDOM = 0xFF,           /* 0xFF */
 };
 
 }
