@@ -153,6 +153,7 @@
   <ItemGroup>
     <ClInclude Include="H3MWriter.h" />
     <ClInclude Include="writeAffectedPlayers.h" />
+    <ClInclude Include="writeCreatureStack.h" />
     <ClInclude Include="writeGlobalEvent.h" />
     <ClInclude Include="writeh3m.h" />
     <ClInclude Include="writeHeroArtifacts.h" />
@@ -164,6 +165,7 @@
     <ClInclude Include="writeObjectDetails.h" />
     <ClInclude Include="writePlayerSpecs.h" />
     <ClInclude Include="writePrimarySkills.h" />
+    <ClInclude Include="writeQuest.h" />
     <ClInclude Include="writeResources.h" />
     <ClInclude Include="writeSecondarySkill.h" />
     <ClInclude Include="writeTile.h" />

@@ -2,8 +2,10 @@
 
 #include <h3mtxt/H3MWriter/H3MWriter.h>
 #include <h3mtxt/H3MWriter/writeAffectedPlayers.h>
+#include <h3mtxt/H3MWriter/writeCreatureStack.h>
 #include <h3mtxt/H3MWriter/writeHeroArtifacts.h>
 #include <h3mtxt/H3MWriter/writePrimarySkills.h>
+#include <h3mtxt/H3MWriter/writeQuest.h>
 #include <h3mtxt/H3MWriter/writeResources.h>
 #include <h3mtxt/H3MWriter/writeSecondarySkill.h>
 #include <h3mtxt/H3MWriter/writeTimedEventBase.h>
@@ -11,16 +13,6 @@
 
 namespace h3m
 {
-  template<>
-  struct H3MWriter<CreatureStack>
-  {
-    void operator()(std::ostream& stream, const CreatureStack& value) const
-    {
-      writeData(stream, value.type);
-      writeData(stream, value.count);
-    }
-  };
-
   template<>
   struct H3MWriter<Guardians>
   {
@@ -211,6 +203,15 @@ namespace h3m
       {
         writeData(stream, hero.power_rating);
       }
+    }
+  };
+
+  template<>
+  struct H3MWriter<ObjectDetailsData<MetaObjectType::QUEST_GUARD>>
+  {
+    void operator()(std::ostream& stream, const ObjectDetailsData<MetaObjectType::QUEST_GUARD>& quest_guard) const
+    {
+      writeData(stream, quest_guard.quest);
     }
   };
 
