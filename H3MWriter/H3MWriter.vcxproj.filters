@@ -54,6 +54,21 @@
     <ClInclude Include="writeTile.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="writeResources.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="writeAffectedPlayers.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="writeTimedEventBase.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="writeGlobalEvent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="writeObjectDetails.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="writeh3m.cpp">
