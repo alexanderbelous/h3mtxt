@@ -28,7 +28,7 @@ namespace h3m
     CREATURE_GENERATOR2 = 18,
     CREATURE_GENERATOR3 = 19,
     CREATURE_GENERATOR4 = 20,
-    CURSED_GROUND1 = 21, // TODO: check if it can still be used in SoD, and, if so, whether it allows casting Lvl1 spells.
+    CURSED_GROUND1 = 21,
     CORPSE = 22,
     MARLETTO_TOWER = 23,
     DERELICT_SHIP = 24,
