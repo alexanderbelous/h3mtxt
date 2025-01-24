@@ -7,6 +7,7 @@
 #include <h3mtxt/H3MWriter/writePrimarySkills.h>
 #include <h3mtxt/H3MWriter/writeQuest.h>
 #include <h3mtxt/H3MWriter/writeResources.h>
+#include <h3mtxt/H3MWriter/writeReward.h>
 #include <h3mtxt/H3MWriter/writeSecondarySkill.h>
 #include <h3mtxt/H3MWriter/writeTimedEventBase.h>
 #include <h3mtxt/Map/ObjectDetails.h>
@@ -24,7 +25,7 @@ namespace h3m
     }
   };
 
-  void writeEventBase(std::ostream& stream, const EventBase& event)
+  inline void writeEventBase(std::ostream& stream, const EventBase& event)
   {
     writeData(stream, event.guardians);
     writeData(stream, event.experience);
@@ -59,16 +60,6 @@ namespace h3m
       writeData(stream, event.buildings);
       writeData(stream, event.creatures);
       writeData(stream, event.unknown);
-    }
-  };
-
-  // TODO: remove once specialized for each MetaObjectType.
-  template<MetaObjectType T>
-  struct H3MWriter<ObjectDetailsData<T>>
-  {
-    void operator()(std::ostream& stream, const ObjectDetailsData<T>& data) const
-    {
-      throw std::logic_error("NotImplemented.");
     }
   };
 
@@ -277,6 +268,17 @@ namespace h3m
       writeData(stream, scholar.reward_type);
       writeData(stream, scholar.reward_value);
       writeData(stream, scholar.unknown);
+    }
+  };
+
+  template<>
+  struct H3MWriter<ObjectDetailsData<MetaObjectType::SEERS_HUT>>
+  {
+    void operator()(std::ostream& stream, const ObjectDetailsData<MetaObjectType::SEERS_HUT>& seers_hut) const
+    {
+      writeData(stream, seers_hut.quest);
+      writeData(stream, seers_hut.reward);
+      writeData(stream, seers_hut.unknown);
     }
   };
 

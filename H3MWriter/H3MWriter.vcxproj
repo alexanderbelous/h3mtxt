@@ -167,6 +167,7 @@
     <ClInclude Include="writePrimarySkills.h" />
     <ClInclude Include="writeQuest.h" />
     <ClInclude Include="writeResources.h" />
+    <ClInclude Include="writeReward.h" />
     <ClInclude Include="writeSecondarySkill.h" />
     <ClInclude Include="writeTile.h" />
     <ClInclude Include="writeTimedEventBase.h" />
