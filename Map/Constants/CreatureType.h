@@ -153,7 +153,12 @@ enum class CreatureType : std::uint16_t
   ROGUE = 143,
   TROLL = 144,
   // Secret stuff.
+  // This is somewhat risk-prone: apparently, with the SoD_SP plugin they work fine,
+  // but without it the game crashes on the "War Machine's turn".
+  CATAPULT = 145,
   BALLISTA = 146,
+  FIRST_AID_TENT = 147,
+  AMMO_CART = 148,
   // NO_CREATURE = 0xFFFF
 };
 
