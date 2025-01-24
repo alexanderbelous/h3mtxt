@@ -109,7 +109,7 @@ namespace h3m
   template<>
   struct H3MWriter<ObjectDetailsData<MetaObjectType::GENERIC_NO_PROPERTIES>>
   {
-    void operator()(std::ostream& stream, const ObjectDetailsData<MetaObjectType::GENERIC_NO_PROPERTIES>& data) const
+    void operator()(std::ostream&, const ObjectDetailsData<MetaObjectType::GENERIC_NO_PROPERTIES>&) const
     {
     }
   };

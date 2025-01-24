@@ -9,7 +9,7 @@ namespace h3m
   template<>
   struct H3MWriter<RewardDetails<RewardType::None>>
   {
-    void operator()(std::ostream& stream, const RewardDetails<RewardType::None>& data) const
+    void operator()(std::ostream&, const RewardDetails<RewardType::None>&) const
     {
     }
   };

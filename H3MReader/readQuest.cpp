@@ -20,7 +20,7 @@ namespace h3m
     }
 
     template<>
-    QuestDetails<QuestType::None> readQuestDetails<QuestType::None>(std::istream& stream)
+    QuestDetails<QuestType::None> readQuestDetails<QuestType::None>(std::istream&)
     {
       return {};
     }

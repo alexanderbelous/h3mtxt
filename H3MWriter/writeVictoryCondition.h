@@ -103,7 +103,7 @@ namespace h3m
   template<>
   struct H3MWriter<VictoryConditionDetails<VictoryConditionType::Normal>>
   {
-    void operator()(std::ostream& stream, const VictoryConditionDetails<VictoryConditionType::Normal>& value) const
+    void operator()(std::ostream&, const VictoryConditionDetails<VictoryConditionType::Normal>&) const
     {
     }
   };

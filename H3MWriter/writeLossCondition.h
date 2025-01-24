@@ -39,7 +39,7 @@ namespace h3m
   template<>
   struct H3MWriter<LossConditionDetails<LossConditionType::Normal>>
   {
-    void operator()(std::ostream& stream, const LossConditionDetails<LossConditionType::Normal>& value) const
+    void operator()(std::ostream&, const LossConditionDetails<LossConditionType::Normal>&) const
     {
     }
   };

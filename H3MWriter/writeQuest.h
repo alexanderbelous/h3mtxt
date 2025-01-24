@@ -11,7 +11,7 @@ namespace h3m
   template<>
   struct H3MWriter<QuestDetails<QuestType::None>>
   {
-    void operator()(std::ostream& stream, const QuestDetails<QuestType::None>& data) const
+    void operator()(std::ostream&, const QuestDetails<QuestType::None>&) const
     {
     }
   };
