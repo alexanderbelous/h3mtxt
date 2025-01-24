@@ -28,7 +28,10 @@ struct Tile
   // (0-5 corners, 6 7 |-, 8 9 T, 10 11 | , 12 13 --, 14 ', 15 -, 16 +)
   std::uint8_t road_sprite {};
   // Bitfield: horizontal terrain, vertical terrain, horizontal river, vertical river,
-  //           horizontal road, vertical road, coast, favorable winds
+  //           horizontal road, vertical road, coast, favorable winds.
+  // Coast is set for non-water tiles adjacent to water tiles, including corners.
+  // TODO: check what happens when setting the coast bit for non-coast tiles.
+  // TODO: figure out what the "favorable winds" bit does.
   std::uint8_t mirroring {};
 };
 

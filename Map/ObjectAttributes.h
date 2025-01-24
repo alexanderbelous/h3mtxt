@@ -14,6 +14,7 @@ namespace h3m
   struct ObjectAttributes
   {
     // Name of the *.def sprite to use.
+    // TODO: check what happens if it's an empty string.
     std::string def;
     std::array<std::uint8_t, 6> passability{};
     std::array<std::uint8_t, 6> actionability{};

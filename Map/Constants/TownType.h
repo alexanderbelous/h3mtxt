@@ -16,6 +16,7 @@ enum class TownType : std::uint8_t
   Stronghold = 6,
   Fortress = 7,
   Conflux = 8,
+  // TODO: this probably shouldn't be an enum constant.
   Random = 0xFF,
 };
 
