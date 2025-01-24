@@ -141,7 +141,7 @@ namespace h3m
 
     template<>
     ObjectDetailsData<MetaObjectType::GENERIC_NO_PROPERTIES>
-    readObjectDetailsData<MetaObjectType::GENERIC_NO_PROPERTIES>(std::istream& stream)
+    readObjectDetailsData<MetaObjectType::GENERIC_NO_PROPERTIES>(std::istream&)
     {
       return {};
     }
@@ -394,7 +394,7 @@ namespace h3m
       TownEvent event;
       readTimedEventBase(stream, event);
       event.buildings = readBitSet<6>(stream);
-      for (std::uint16_t creature_growth : event.creatures)
+      for (std::uint16_t& creature_growth : event.creatures)
       {
         creature_growth = readUint<std::uint16_t>(stream);
       }
