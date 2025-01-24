@@ -141,7 +141,7 @@ struct MapAdditionalInfo
   {
     HeroType type {};
     // 0xFF for default.
-    std::uint8_t face {};
+    std::uint8_t face {0xFF};
     // Hero's name, or an empty string if the default name should be used instead.
     std::string name;
     // 1-byte bitset indicating which players can hire this hero.

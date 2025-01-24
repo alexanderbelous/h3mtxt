@@ -24,7 +24,7 @@ struct HeroSettings
   std::optional<std::vector<SecondarySkill>> secondary_skills;
   std::optional<HeroArtifacts> artifacts;
   std::optional<std::string> biography;
-  Gender gender {};
+  Gender gender = Gender::Default;
   // TODO: add a wrapper class.
   std::optional<BitSet<9>> spells;
   std::optional<PrimarySkills> primary_skills;
