@@ -25,7 +25,7 @@ namespace h3m
     {
       writeData(stream, value.is_random);
       writeData(stream, value.type);
-      writeData(stream, value.face);
+      writeData(stream, value.portrait);
       writeData(stream, value.name);
     }
   };

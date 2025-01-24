@@ -51,7 +51,7 @@ StartingHero readStartingHero(std::istream& stream)
   StartingHero starting_hero;
   starting_hero.is_random = readBool(stream);
   starting_hero.type = readEnum<HeroType>(stream);
-  starting_hero.face = readUint8(stream);
+  starting_hero.portrait = readEnum<HeroPortrait>(stream);
   starting_hero.name = readString(stream);
   return starting_hero;
 }
@@ -146,7 +146,7 @@ MapAdditionalInfo::CustomHero readCustomHero(std::istream& stream)
 {
   MapAdditionalInfo::CustomHero custom_hero;
   custom_hero.type = readEnum<HeroType>(stream);
-  custom_hero.face = readUint8(stream);
+  custom_hero.portrait = readEnum<HeroPortrait>(stream);
   custom_hero.name = readString(stream);
   custom_hero.can_hire = readBitSet<1>(stream);
   return custom_hero;

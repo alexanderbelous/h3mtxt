@@ -177,5 +177,8 @@
     <ClInclude Include="TimedEventBase.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Constants\HeroPortrait.h">
+      <Filter>Header Files\Constants</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -24,7 +24,7 @@ namespace
       .starting_hero {
         .is_random = false,
         .type = static_cast<h3m::HeroType>(0xFF),
-        .face = 0
+        .portrait = h3m::HeroPortrait::DEFAULT
       },
       .additional_info {}
     };

@@ -6,6 +6,7 @@
 #include <h3mtxt/Map/Constants/Disposition.h>
 #include <h3mtxt/Map/Constants/Formation.h>
 #include <h3mtxt/Map/Constants/Gender.h>
+#include <h3mtxt/Map/Constants/HeroPortrait.h>
 #include <h3mtxt/Map/Constants/HeroType.h>
 #include <h3mtxt/Map/Constants/MetaObjectType.h>
 #include <h3mtxt/Map/Constants/ScholarRewardType.h>
@@ -106,7 +107,7 @@ namespace h3m
   };
 
   // Additional info for ObjectClass::HERO, ObjectClass::RANDOM_HERO and ObjectClass::PRISON.
-  // TODO: this implies that you can set name, face, biography and gender for a random hero,
+  // TODO: this implies that you can set name, portrait, biography and gender for a random hero,
   // or set a random hero in a prison. Check if this is true.
   //
   // Note that this struct is similar to HeroSettings, but it has extra fields in between,
@@ -122,7 +123,7 @@ namespace h3m
     std::optional<std::string> name;
     // Note: in RoE/AB experience is not optional.
     std::optional<std::uint32_t> experience;
-    std::optional<std::uint8_t> face;
+    std::optional<HeroPortrait> portrait;
     std::optional<std::vector<SecondarySkill>> secondary_skills;
     // 0xFFFF in CreatureStack.type means no creature.
     std::optional<std::array<CreatureStack, 7>> creatures;

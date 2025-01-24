@@ -133,7 +133,7 @@ namespace h3m
       writeData(stream, hero.type);
       writeData(stream, hero.name);
       writeData(stream, hero.experience);
-      writeData(stream, hero.face);
+      writeData(stream, hero.portrait);
       writeData(stream, static_cast<Bool>(hero.secondary_skills.has_value()));
       if (hero.secondary_skills)
       {

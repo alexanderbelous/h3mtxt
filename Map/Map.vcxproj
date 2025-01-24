@@ -27,6 +27,7 @@
     <ClInclude Include="Constants\Disposition.h" />
     <ClInclude Include="Constants\Formation.h" />
     <ClInclude Include="Constants\Gender.h" />
+    <ClInclude Include="Constants\HeroPortrait.h" />
     <ClInclude Include="Constants\HeroType.h" />
     <ClInclude Include="Constants\LossConditionType.h" />
     <ClInclude Include="Constants\MapDifficulty.h" />

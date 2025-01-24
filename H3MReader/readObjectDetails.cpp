@@ -173,10 +173,10 @@ namespace h3m
       {
         data.experience = readUint<std::uint32_t>(stream);
       }
-      const Bool has_face = readBool(stream);
-      if (has_face)
+      const Bool has_portrait = readBool(stream);
+      if (has_portrait)
       {
-        data.face = readUint8(stream);
+        data.portrait = readEnum<HeroPortrait>(stream);
       }
       const Bool has_secondary_skills = readBool(stream);
       if (has_secondary_skills)

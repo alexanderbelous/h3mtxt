@@ -197,7 +197,7 @@ namespace Util_NS
     {
       out.writeField("is_random", value.is_random);
       out.writeField("type", value.type);
-      out.writeField("face", value.face);
+      out.writeField("portrait", value.portrait);
       out.writeField("name", value.name);
     }
   };
@@ -423,7 +423,7 @@ namespace Util_NS
     void operator()(FieldsWriter& out, const h3m::MapAdditionalInfo::CustomHero& value) const
     {
       out.writeField("type", value.type);
-      out.writeField("face", value.face);
+      out.writeField("portrait", value.portrait);
       out.writeField("name", value.name);
       out.writeField("can_hire", value.can_hire);
     }
@@ -678,9 +678,9 @@ namespace Util_NS
       {
         out.writeField("experience", *hero.experience);
       }
-      if (hero.face)
+      if (hero.portrait)
       {
-        out.writeField("face", *hero.face);
+        out.writeField("portrait", *hero.portrait);
       }
       if (hero.secondary_skills)
       {

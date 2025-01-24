@@ -37,7 +37,7 @@ namespace h3m
     void operator()(std::ostream& stream, const MapAdditionalInfo::CustomHero& value) const
     {
       writeData(stream, value.type);
-      writeData(stream, value.face);
+      writeData(stream, value.portrait);
       writeData(stream, value.name);
       writeData(stream, value.can_hire);
     }
