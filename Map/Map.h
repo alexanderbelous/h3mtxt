@@ -32,10 +32,8 @@ struct Map
   // "Teams", "Heroes", "Artifacts", "Spells", "Secondary Skills" and "Rumors" tabs in the Editor).
   MapAdditionalInfo additional_info;
   // Terrain data for each tile on the map.
-  // N elements, where N = (has_two_levels ? 2 : 1) * map_size * map_size.
-  // Tiles are sorted first by their Z coordinate, then by their Y coordinate, then by their X coordinate
-  // (i.e., the overground tiles are written before the underground ones, and the top tiles are written
-  // before the bottom ones).
+  // The number of elements should be (has_two_levels ? 2 : 1) * map_size * map_size.
+  // Tile (x, y, z) has the index ((z * map_size + y) * map_size + x).
   std::vector<Tile> tiles;
   // Object properties are split into two structures: attributes (common for all objects of the same kind)
   // and details (as many as there are objects on map).
