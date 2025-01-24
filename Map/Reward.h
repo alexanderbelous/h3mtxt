@@ -34,12 +34,14 @@ namespace h3m
   template<>
   struct RewardDetails<RewardType::Morale>
   {
+    // TODO: test what happens if it's > 3.
     std::uint8_t morale {};
   };
 
   template<>
   struct RewardDetails<RewardType::Luck>
   {
+    // TODO: test what happens if it's > 3.
     std::uint8_t luck {};
   };
 

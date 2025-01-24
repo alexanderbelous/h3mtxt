@@ -44,6 +44,7 @@ struct VictoryConditionDetails<VictoryConditionType::AccumulateCreatures> : Spec
 {
   CreatureType creature_type {};
   // The number of creatures to accumulate.
+  // TODO: check what happens if it's > 65535 (the maximum number of creatures in CreatureStack).
   std::uint32_t count {};
 };
 

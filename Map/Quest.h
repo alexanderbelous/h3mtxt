@@ -51,24 +51,28 @@ namespace h3m
   template<>
   struct QuestDetails<QuestType::Artifacts>
   {
+    // TODO: test what happens if it's empty.
     std::vector<ArtifactType> artifacts;
   };
 
   template<>
   struct QuestDetails<QuestType::Creatures>
   {
+    // TODO: test what happens if it's empty.
     std::vector<CreatureStack> creatures;
   };
 
   template<>
   struct QuestDetails<QuestType::Resources>
   {
+    // TODO: test what happens if all amounts are 0.
     Resources<std::uint32_t> resources {};
   };
 
   template<>
   struct QuestDetails<QuestType::BeHero>
   {
+    // TODO: test what happens if its 0xFF (random hero).
     HeroType hero {};
   };
 

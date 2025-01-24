@@ -157,6 +157,7 @@ struct MapAdditionalInfo
   // Must be all 0s; kept here to ensure compatibility.
   ReservedData<31> reserved {};
   // TODO: add a wrapper class
+  // TODO: check what happens if you disable the spell book or war machines.
   BitSet<18> artifacts_nonavailability;
   // TODO: add a wrapper class
   BitSet<9> spells_nonavailability;
