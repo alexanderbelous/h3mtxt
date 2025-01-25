@@ -138,7 +138,7 @@
     <ClInclude Include="Constants\PlayerColor.h">
       <Filter>Header Files\Constants</Filter>
     </ClInclude>
-    <ClInclude Include="AffectedPlayers.h">
+    <ClInclude Include="PlayersBitmask.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Constants\QuestType.h">

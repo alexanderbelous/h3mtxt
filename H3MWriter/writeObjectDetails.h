@@ -1,7 +1,7 @@
 #pragma once
 
 #include <h3mtxt/H3MWriter/H3MWriter.h>
-#include <h3mtxt/H3MWriter/writeAffectedPlayers.h>
+#include <h3mtxt/H3MWriter/writePlayersBitmask.h>
 #include <h3mtxt/H3MWriter/writeCreatureStack.h>
 #include <h3mtxt/H3MWriter/writeHeroArtifacts.h>
 #include <h3mtxt/H3MWriter/writePrimarySkills.h>

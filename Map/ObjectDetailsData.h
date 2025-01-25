@@ -1,6 +1,6 @@
 #pragma once
 
-#include <h3mtxt/Map/AffectedPlayers.h>
+#include <h3mtxt/Map/PlayersBitmask.h>
 #include <h3mtxt/Map/Base.h>
 #include <h3mtxt/Map/Constants/ArtifactType.h>
 #include <h3mtxt/Map/Constants/Disposition.h>
@@ -77,7 +77,7 @@ namespace h3m
   template<>
   struct ObjectDetailsData<MetaObjectType::EVENT> : EventBase
   {
-    AffectedPlayers affected_players;
+    PlayersBitmask affected_players;
     Bool applies_to_computer{};
     Bool remove_after_first_visit{};
     ReservedData<4> unknown{};

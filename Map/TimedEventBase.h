@@ -1,6 +1,6 @@
 #pragma once
 
-#include <h3mtxt/Map/AffectedPlayers.h>
+#include <h3mtxt/Map/PlayersBitmask.h>
 #include <h3mtxt/Map/Base.h>
 #include <h3mtxt/Map/Utils/ReservedData.h>
 #include <h3mtxt/Map/Resources.h>
@@ -18,7 +18,7 @@ namespace h3m
     std::string message;
     // Given/taken resources.
     Resources<std::int32_t> resources;
-    AffectedPlayers affected_players;
+    PlayersBitmask affected_players;
     Bool applies_to_human {};
     Bool applies_to_computer {};
     // 0-based day of first occurence (e.g., 0 stands for Day 1).

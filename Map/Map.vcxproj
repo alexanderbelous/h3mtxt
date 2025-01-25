@@ -19,7 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="AffectedPlayers.h" />
+    <ClInclude Include="PlayersBitmask.h" />
     <ClInclude Include="Base.h" />
     <ClInclude Include="Constants\ArtifactType.h" />
     <ClInclude Include="Constants\Constants.h" />

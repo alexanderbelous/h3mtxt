@@ -148,7 +148,7 @@ MapAdditionalInfo::CustomHero readCustomHero(std::istream& stream)
   custom_hero.type = readEnum<HeroType>(stream);
   custom_hero.portrait = readEnum<HeroPortrait>(stream);
   custom_hero.name = readString(stream);
-  custom_hero.can_hire = readBitSet<1>(stream);
+  custom_hero.can_hire.bitset = readUint8(stream);
   return custom_hero;
 }
 

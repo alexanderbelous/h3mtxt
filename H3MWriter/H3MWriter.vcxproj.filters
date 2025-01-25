@@ -57,7 +57,7 @@
     <ClInclude Include="writeResources.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="writeAffectedPlayers.h">
+    <ClInclude Include="writePlayersBitmask.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="writeTimedEventBase.h">

@@ -156,7 +156,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="H3MWriter.h" />
-    <ClInclude Include="writeAffectedPlayers.h" />
+    <ClInclude Include="writePlayersBitmask.h" />
     <ClInclude Include="writeCreatureStack.h" />
     <ClInclude Include="writeGlobalEvent.h" />
     <ClInclude Include="writeh3m.h" />

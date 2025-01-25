@@ -872,9 +872,9 @@ namespace Util_NS
   };
 
   template<>
-  struct StructWriter<h3m::AffectedPlayers>
+  struct StructWriter<h3m::PlayersBitmask>
   {
-    void operator()(FieldsWriter& out, const h3m::AffectedPlayers& affected_players) const
+    void operator()(FieldsWriter& out, const h3m::PlayersBitmask& players_bitmask) const
     {
       // Name of the field for each PlayerColor.
       static constexpr std::string_view kFieldNames[] =
@@ -886,7 +886,7 @@ namespace Util_NS
       // TODO: specialize ValueWriter<bool>.
       for (std::uint8_t i = 0; i < h3m::kMaxPlayers; ++i)
       {
-        out.writeField(kFieldNames[i], affected_players.isAffected(static_cast<h3m::PlayerColor>(i)));
+        out.writeField(kFieldNames[i], players_bitmask[static_cast<h3m::PlayerColor>(i)]);
       }
     }
   };

@@ -1,11 +1,12 @@
 #pragma once
 
-#include <h3mtxt/Map/Utils/BitSet.h>
 #include <h3mtxt/Map/Constants/HeroPortrait.h>
 #include <h3mtxt/Map/Constants/HeroType.h>
+#include <h3mtxt/Map/PlayersBitmask.h>
 #include <h3mtxt/Map/HeroSettings.h>
 #include <h3mtxt/Map/LossCondition.h>
 #include <h3mtxt/Map/VictoryCondition.h>
+#include <h3mtxt/Map/Utils/BitSet.h>
 #include <h3mtxt/Map/Utils/ReservedData.h>
 
 #include <array>
@@ -145,8 +146,8 @@ struct MapAdditionalInfo
     HeroPortrait portrait = HeroPortrait::DEFAULT;
     // Hero's name, or an empty string if the default name should be used instead.
     std::string name;
-    // 1-byte bitset indicating which players can hire this hero.
-    BitSet<1> can_hire;
+    // Bitmask indicating which players can hire this hero.
+    PlayersBitmask can_hire;
   };
 
   VictoryCondition victory_condition {};
