@@ -159,6 +159,7 @@ enum class CreatureType : std::uint16_t
   BALLISTA = 146,
   FIRST_AID_TENT = 147,
   AMMO_CART = 148,
+  ARROW_TOWERS = 149,
   // NO_CREATURE = 0xFFFF
 };
 

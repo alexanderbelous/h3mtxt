@@ -4,6 +4,7 @@
 #include <h3mtxt/H3MWriter/writeHeroArtifacts.h>
 #include <h3mtxt/H3MWriter/writePrimarySkills.h>
 #include <h3mtxt/H3MWriter/writeSecondarySkill.h>
+#include <h3mtxt/H3MWriter/writeSpellsBitmask.h>
 #include <h3mtxt/Map/HeroSettings.h>
 
 namespace h3m

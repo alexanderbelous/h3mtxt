@@ -182,7 +182,7 @@ HeroSettings readHeroSettings(std::istream& stream)
   settings.gender = readEnum<Gender>(stream);
   if (const Bool has_spells = readBool(stream))
   {
-    settings.spells = readBitSet<9>(stream);
+    settings.spells = SpellsBitmask{ .bitset = readBitSet<9>(stream) };
   }
   if (const Bool has_primary_skills = readBool(stream))
   {
@@ -215,7 +215,7 @@ MapAdditionalInfo readMapAdditionalInfo(std::istream& stream)
   // Read reserved data.
   additional_info.reserved = readReservedData<31>(stream);
   additional_info.artifacts_nonavailability = readBitSet<18>(stream);
-  additional_info.spells_nonavailability = readBitSet<9>(stream);
+  additional_info.spells_nonavailability.bitset = readBitSet<9>(stream);
   additional_info.skills_nonavailability.bitset = readBitSet<4>(stream);
   // Read rumors.
   const std::uint32_t num_rumors = readUint<std::uint32_t>(stream);

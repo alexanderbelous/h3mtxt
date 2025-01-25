@@ -5,6 +5,7 @@
 #include <h3mtxt/Map/HeroArtifacts.h>
 #include <h3mtxt/Map/PrimarySkills.h>
 #include <h3mtxt/Map/SecondarySkill.h>
+#include <h3mtxt/Map/SpellsBitmask.h>
 
 #include <cstdint>
 #include <optional>
@@ -25,8 +26,7 @@ struct HeroSettings
   std::optional<HeroArtifacts> artifacts;
   std::optional<std::string> biography;
   Gender gender = Gender::Default;
-  // TODO: add a wrapper class.
-  std::optional<BitSet<9>> spells;
+  std::optional<SpellsBitmask> spells;
   std::optional<PrimarySkills> primary_skills;
 };
 

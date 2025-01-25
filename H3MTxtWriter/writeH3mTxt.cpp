@@ -209,6 +209,16 @@ namespace Util_NS
     }
   };
 
+  // TODO: replace with StructWriter and print true/false for each spell.
+  template<>
+  struct ValueWriter<h3m::SpellsBitmask>
+  {
+    void operator()(IndentedTextWriter& out, const h3m::SpellsBitmask& bitmask) const
+    {
+      writeValue(out, bitmask.bitset);
+    }
+  };
+
   template<>
   struct StructWriter<h3m::MapBasicInfo>
   {

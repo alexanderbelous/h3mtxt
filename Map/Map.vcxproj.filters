@@ -183,5 +183,8 @@
     <ClInclude Include="SecondarySkillsBitmask.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="SpellsBitmask.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

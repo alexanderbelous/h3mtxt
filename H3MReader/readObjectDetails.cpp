@@ -204,7 +204,7 @@ namespace h3m
       const Bool has_spells = readBool(stream);
       if (has_spells)
       {
-        data.spells = readBitSet<9>(stream);
+        data.spells = SpellsBitmask{ .bitset = readBitSet<9>(stream) };
       }
       const Bool has_primary_skills = readBool(stream);
       if (has_primary_skills)
@@ -431,8 +431,8 @@ namespace h3m
       {
         town.has_fort = readBool(stream);
       }
-      town.must_have_spell = readBitSet<9>(stream);
-      town.may_not_have_spell = readBitSet<9>(stream);
+      town.must_have_spell.bitset = readBitSet<9>(stream);
+      town.may_not_have_spell.bitset = readBitSet<9>(stream);
       const std::uint32_t num_events = readUint<std::uint32_t>(stream);
       town.events.reserve(num_events);
       for (std::uint32_t i = 0; i < num_events; ++i)

@@ -6,6 +6,7 @@
 #include <h3mtxt/Map/HeroSettings.h>
 #include <h3mtxt/Map/LossCondition.h>
 #include <h3mtxt/Map/SecondarySkillsBitmask.h>
+#include <h3mtxt/Map/SpellsBitmask.h>
 #include <h3mtxt/Map/VictoryCondition.h>
 #include <h3mtxt/Map/Utils/BitSet.h>
 #include <h3mtxt/Map/Utils/ReservedData.h>
@@ -161,9 +162,9 @@ struct MapAdditionalInfo
   ReservedData<31> reserved {};
   // TODO: add a wrapper class
   // TODO: check what happens if you disable the spell book or war machines.
+  // TODO: rename these to "disabled_artifacts", "disabled_spells", "disabled_skills".
   BitSet<18> artifacts_nonavailability;
-  // TODO: add a wrapper class
-  BitSet<9> spells_nonavailability;
+  SpellsBitmask spells_nonavailability;
   SecondarySkillsBitmask skills_nonavailability;
   std::vector<Rumor> rumors;
   HeroesSettings heroes_settings {};

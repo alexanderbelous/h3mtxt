@@ -18,6 +18,7 @@
 #include <h3mtxt/Map/Reward.h>
 #include <h3mtxt/Map/SecondarySkill.h>
 #include <h3mtxt/Map/SecondarySkillsBitmask.h>
+#include <h3mtxt/Map/SpellsBitmask.h>
 #include <h3mtxt/Map/TimedEventBase.h>
 #include <h3mtxt/Map/Quest.h>
 #include <h3mtxt/Map/Utils/BitSet.h>
@@ -134,8 +135,7 @@ namespace h3m
     std::uint8_t patrol_radius {};
     std::optional<std::string> biography;
     Gender gender {};
-    // TODO: add a wrapper class.
-    std::optional<BitSet<9>> spells;
+    std::optional<SpellsBitmask> spells;
     std::optional<PrimarySkills> primary_skills;
     // 0s by default; kept here for compatibility.
     ReservedData<16> unknown;
@@ -312,8 +312,8 @@ namespace h3m
     std::optional<TownBuildings> buildings;
     // This field is only read/written if !buildings.has_value().
     Bool has_fort {};
-    BitSet<9> must_have_spell;
-    BitSet<9> may_not_have_spell;
+    SpellsBitmask must_have_spell;
+    SpellsBitmask may_not_have_spell;
     std::vector<TownEvent> events;
     // For a non-random town: should be 0xFF.
     // For a random town:
