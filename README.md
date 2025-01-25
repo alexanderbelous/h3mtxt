@@ -8,3 +8,10 @@ HoMM3 maps are written as (possibly gzip-encoded) binary data. Normally, they ar
 Or, if you want, you can use the C++ API from this repo to programmatically modify a `h3m::Map` object.
 
 Note: only **Shadow of Death** maps are supported. Currently, I have no plans to support other versions (e.g., Restoration of Erathia) or mods.
+
+# Status
+Structured represenation of a .h3m map is complete (see [h3m::Map](Map/Map.h)), but some cosmetic changes (e.g., wrappers for some bitmaks) might be added in the future.
+
+Reading and writing .h3m maps is fully implemented ([H3MReader](H3MReader) and [H3MWriter](H3MWriter) libraries).
+
+Conversion to/from a human-readable text format is currently in progress.
