@@ -5,6 +5,7 @@
 #include <h3mtxt/Map/PlayersBitmask.h>
 #include <h3mtxt/Map/HeroSettings.h>
 #include <h3mtxt/Map/LossCondition.h>
+#include <h3mtxt/Map/SecondarySkillsBitmask.h>
 #include <h3mtxt/Map/VictoryCondition.h>
 #include <h3mtxt/Map/Utils/BitSet.h>
 #include <h3mtxt/Map/Utils/ReservedData.h>
@@ -163,8 +164,7 @@ struct MapAdditionalInfo
   BitSet<18> artifacts_nonavailability;
   // TODO: add a wrapper class
   BitSet<9> spells_nonavailability;
-  // TODO: add a wrapper class
-  BitSet<4> skills_nonavailability;
+  SecondarySkillsBitmask skills_nonavailability;
   std::vector<Rumor> rumors;
   HeroesSettings heroes_settings {};
 };

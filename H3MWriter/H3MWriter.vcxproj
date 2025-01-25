@@ -173,6 +173,7 @@
     <ClInclude Include="writeResources.h" />
     <ClInclude Include="writeReward.h" />
     <ClInclude Include="writeSecondarySkill.h" />
+    <ClInclude Include="writeSecondarySkillsBitmask.h" />
     <ClInclude Include="writeTile.h" />
     <ClInclude Include="writeTimedEventBase.h" />
     <ClInclude Include="writeVictoryCondition.h" />

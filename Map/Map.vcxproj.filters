@@ -180,5 +180,8 @@
     <ClInclude Include="Constants\HeroPortrait.h">
       <Filter>Header Files\Constants</Filter>
     </ClInclude>
+    <ClInclude Include="SecondarySkillsBitmask.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

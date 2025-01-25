@@ -67,6 +67,7 @@
     <ClInclude Include="Resources.h" />
     <ClInclude Include="Reward.h" />
     <ClInclude Include="SecondarySkill.h" />
+    <ClInclude Include="SecondarySkillsBitmask.h" />
     <ClInclude Include="Tile.h" />
     <ClInclude Include="TimedEventBase.h" />
     <ClInclude Include="Utils\BitSet.h" />

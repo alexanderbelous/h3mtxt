@@ -3,6 +3,7 @@
 #include <h3mtxt/H3MWriter/H3MWriter.h>
 #include <h3mtxt/H3MWriter/writeHeroSettings.h>
 #include <h3mtxt/H3MWriter/writeLossCondition.h>
+#include <h3mtxt/H3MWriter/writeSecondarySkillsBitmask.h>
 #include <h3mtxt/H3MWriter/writeVictoryCondition.h>
 #include <h3mtxt/Map/Constants/Constants.h>
 #include <h3mtxt/Map/MapAdditionalInfo.h>

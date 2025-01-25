@@ -9,6 +9,7 @@
 #include <h3mtxt/H3MWriter/writeResources.h>
 #include <h3mtxt/H3MWriter/writeReward.h>
 #include <h3mtxt/H3MWriter/writeSecondarySkill.h>
+#include <h3mtxt/H3MWriter/writeSecondarySkillsBitmask.h>
 #include <h3mtxt/H3MWriter/writeTimedEventBase.h>
 #include <h3mtxt/Map/ObjectDetails.h>
 

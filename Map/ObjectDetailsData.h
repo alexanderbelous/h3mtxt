@@ -17,6 +17,7 @@
 #include <h3mtxt/Map/Resources.h>
 #include <h3mtxt/Map/Reward.h>
 #include <h3mtxt/Map/SecondarySkill.h>
+#include <h3mtxt/Map/SecondarySkillsBitmask.h>
 #include <h3mtxt/Map/TimedEventBase.h>
 #include <h3mtxt/Map/Quest.h>
 #include <h3mtxt/Map/Utils/BitSet.h>
@@ -332,16 +333,6 @@ namespace h3m
   template<>
   struct ObjectDetailsData<MetaObjectType::WITCH_HUT>
   {
-    constexpr bool isAvailable(SecondarySkillType secondary_skill) const
-    {
-      return skills_availability.at(static_cast<std::size_t>(secondary_skill));
-    }
-
-    constexpr void setAvailable(SecondarySkillType secondary_skill, bool is_available)
-    {
-      skills_availability.set(static_cast<std::size_t>(secondary_skill), is_available);
-    }
-
-    BitSet<4> skills_availability;
+    SecondarySkillsBitmask skills_availability;
   };
 }

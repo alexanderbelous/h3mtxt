@@ -458,7 +458,7 @@ namespace h3m
     readObjectDetailsData<MetaObjectType::WITCH_HUT>(std::istream& stream)
     {
       ObjectDetailsData<MetaObjectType::WITCH_HUT> data;
-      data.skills_availability = readBitSet<4>(stream);
+      data.skills_availability.bitset = readBitSet<4>(stream);
       return data;
     }
 
