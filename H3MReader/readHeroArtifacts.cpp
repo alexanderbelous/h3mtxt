@@ -26,7 +26,7 @@ namespace h3m
     artifacts.device4 = readEnum<ArtifactType>(stream);
     artifacts.spellbook = readEnum<ArtifactType>(stream);
     artifacts.misc5 = readEnum<ArtifactType>(stream);
-    const std::uint16_t backpack_count = readUint<std::uint16_t>(stream);
+    const std::uint16_t backpack_count = readInt<std::uint16_t>(stream);
     artifacts.backpack.reserve(backpack_count);
     for (std::uint16_t i = 0; i < backpack_count; ++i)
     {

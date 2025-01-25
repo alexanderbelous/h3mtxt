@@ -7,10 +7,10 @@ namespace h3m
   PrimarySkills readPrimarySkills(std::istream& stream)
   {
     PrimarySkills primary_skills;
-    primary_skills.attack = readUint8(stream);
-    primary_skills.defense = readUint8(stream);
-    primary_skills.spell_power = readUint8(stream);
-    primary_skills.knowledge = readUint8(stream);
+    primary_skills.attack = readInt<std::uint8_t>(stream);
+    primary_skills.defense = readInt<std::uint8_t>(stream);
+    primary_skills.spell_power = readInt<std::uint8_t>(stream);
+    primary_skills.knowledge = readInt<std::uint8_t>(stream);
     return primary_skills;
   }
 }

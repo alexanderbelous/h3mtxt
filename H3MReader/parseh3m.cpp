@@ -26,12 +26,12 @@ MapBasicInfo readMapBasicInfo(std::istream& stream)
 {
   MapBasicInfo basic_info;
   basic_info.is_playable = readBool(stream);
-  basic_info.map_size = readUint<std::uint32_t>(stream);
+  basic_info.map_size = readInt<std::uint32_t>(stream);
   basic_info.has_two_levels = readBool(stream);
   basic_info.name = readString(stream);
   basic_info.description = readString(stream);
   basic_info.difficulty = readEnum<MapDifficulty>(stream);
-  basic_info.max_hero_level = readUint8(stream);
+  basic_info.max_hero_level = readInt<std::uint8_t>(stream);
   return basic_info;
 }
 
@@ -40,9 +40,9 @@ MainTown readMainTown(std::istream& stream)
   MainTown main_town;
   main_town.generate_hero = readBool(stream);
   main_town.town_type = readEnum<TownType>(stream);
-  main_town.x = readUint8(stream);
-  main_town.y = readUint8(stream);
-  main_town.z = readUint8(stream);
+  main_town.x = readInt<std::uint8_t>(stream);
+  main_town.y = readInt<std::uint8_t>(stream);
+  main_town.z = readInt<std::uint8_t>(stream);
   return main_town;
 }
 
@@ -59,8 +59,8 @@ StartingHero readStartingHero(std::istream& stream)
 AdditionalPlayerInfo readAdditionalPlayerInfo(std::istream& stream)
 {
   AdditionalPlayerInfo additional_info;
-  additional_info.num_placeholder_heroes = readUint8(stream);
-  const std::uint32_t num_heroes = readUint<std::uint32_t>(stream);
+  additional_info.num_placeholder_heroes = readInt<std::uint8_t>(stream);
+  const std::uint32_t num_heroes = readInt<std::uint32_t>(stream);
   additional_info.heroes.reserve(num_heroes);
   for (std::uint32_t i = 0; i < num_heroes; ++i)
   {
@@ -78,9 +78,9 @@ PlayerSpecs readPlayerSpecs(std::istream& stream)
   player.can_be_human = readBool(stream);
   player.can_be_computer = readBool(stream);
   player.behavior = readEnum<PlayerBehavior>(stream);
-  player.customized_alignments = readUint8(stream);
+  player.customized_alignments = readInt<std::uint8_t>(stream);
   player.allowed_alignments.town_types = readBitSet<2>(stream);
-  player.random_town = readUint8(stream);
+  player.random_town = readInt<std::uint8_t>(stream);
   const bool has_main_town = readBool(stream);
   if (has_main_town)
   {
@@ -102,23 +102,23 @@ LossCondition readLossCondition(std::istream& stream)
   case LossConditionType::LoseTown:
   {
     LossConditionDetails<LossConditionType::LoseTown> details;
-    details.x = readUint8(stream);
-    details.y = readUint8(stream);
-    details.z = readUint8(stream);
+    details.x = readInt<std::uint8_t>(stream);
+    details.y = readInt<std::uint8_t>(stream);
+    details.z = readInt<std::uint8_t>(stream);
     return details;
   }
   case LossConditionType::LoseHero:
   {
     LossConditionDetails<LossConditionType::LoseHero> details;
-    details.x = readUint8(stream);
-    details.y = readUint8(stream);
-    details.z = readUint8(stream);
+    details.x = readInt<std::uint8_t>(stream);
+    details.y = readInt<std::uint8_t>(stream);
+    details.z = readInt<std::uint8_t>(stream);
     return details;
   }
   case LossConditionType::TimeExpires:
   {
     LossConditionDetails<LossConditionType::TimeExpires> details;
-    details.days = readUint<std::uint16_t>(stream);
+    details.days = readInt<std::uint16_t>(stream);
     return details;
   }
   case LossConditionType::Normal:
@@ -131,12 +131,12 @@ LossCondition readLossCondition(std::istream& stream)
 TeamsInfo readTeamsInfo(std::istream& stream)
 {
   TeamsInfo teams_info;
-  teams_info.num_teams = readUint8(stream);
+  teams_info.num_teams = readInt<std::uint8_t>(stream);
   if (teams_info.num_teams != 0)
   {
     for (int i = 0; i < 8; ++i)
     {
-      teams_info.team_for_player[i] = readUint8(stream);
+      teams_info.team_for_player[i] = readInt<std::uint8_t>(stream);
     }
   }
   return teams_info;
@@ -148,7 +148,7 @@ MapAdditionalInfo::CustomHero readCustomHero(std::istream& stream)
   custom_hero.type = readEnum<HeroType>(stream);
   custom_hero.portrait = readEnum<HeroPortrait>(stream);
   custom_hero.name = readString(stream);
-  custom_hero.can_hire.bitset = readUint8(stream);
+  custom_hero.can_hire.bitset = readInt<std::uint8_t>(stream);
   return custom_hero;
 }
 
@@ -165,7 +165,7 @@ HeroSettings readHeroSettings(std::istream& stream)
   HeroSettings settings;
   if (const Bool has_experience = readBool(stream))
   {
-    settings.experience = readUint<std::uint32_t>(stream);
+    settings.experience = readInt<std::uint32_t>(stream);
   }
   if (const Bool has_secondary_skills = readBool(stream))
   {
@@ -199,14 +199,14 @@ MapAdditionalInfo readMapAdditionalInfo(std::istream& stream)
   additional_info.teams = readTeamsInfo(stream);
   additional_info.heroes_availability.data = readBitSet<20>(stream);
   // Read placeholder heroes.
-  const std::uint32_t num_placeholder_heroes = readUint<std::uint32_t>(stream);
+  const std::uint32_t num_placeholder_heroes = readInt<std::uint32_t>(stream);
   additional_info.placeholder_heroes.reserve(num_placeholder_heroes);
   for (std::uint32_t i = 0; i < num_placeholder_heroes; ++i)
   {
     additional_info.placeholder_heroes.push_back(readEnum<HeroType>(stream));
   }
   // Read custom heroes.
-  const std::uint8_t num_custom_heroes = readUint8(stream);
+  const std::uint8_t num_custom_heroes = readInt<std::uint8_t>(stream);
   additional_info.custom_heroes.reserve(num_custom_heroes);
   for (std::uint32_t i = 0; i < num_custom_heroes; ++i)
   {
@@ -218,7 +218,7 @@ MapAdditionalInfo readMapAdditionalInfo(std::istream& stream)
   additional_info.spells_nonavailability.bitset = readBitSet<9>(stream);
   additional_info.skills_nonavailability.bitset = readBitSet<4>(stream);
   // Read rumors.
-  const std::uint32_t num_rumors = readUint<std::uint32_t>(stream);
+  const std::uint32_t num_rumors = readInt<std::uint32_t>(stream);
   additional_info.rumors.reserve(num_rumors);
   for (std::uint32_t i = 0; i < num_rumors; ++i)
   {
@@ -239,12 +239,12 @@ Tile readTile(std::istream& stream)
 {
   Tile tile;
   tile.terrain_type = readEnum<TerrainType>(stream);
-  tile.terrain_sprite = readUint8(stream);
+  tile.terrain_sprite = readInt<std::uint8_t>(stream);
   tile.river_type = readEnum<RiverType>(stream);
-  tile.river_sprite = readUint8(stream);
+  tile.river_sprite = readInt<std::uint8_t>(stream);
   tile.road_type = readEnum<RoadType>(stream);
-  tile.road_sprite = readUint8(stream);
-  tile.mirroring = readUint8(stream);
+  tile.road_sprite = readInt<std::uint8_t>(stream);
+  tile.mirroring = readInt<std::uint8_t>(stream);
   return tile;
 }
 
@@ -254,10 +254,10 @@ ObjectAttributes readObjectAttributes(std::istream& stream)
   result.def = readString(stream);
   result.passability = readByteArray<6>(stream);
   result.actionability = readByteArray<6>(stream);
-  result.allowed_landscapes = readUint<std::uint16_t>(stream);
-  result.landscape_group = readUint<std::uint16_t>(stream);
+  result.allowed_landscapes = readInt<std::uint16_t>(stream);
+  result.landscape_group = readInt<std::uint16_t>(stream);
   result.object_class = readEnum<ObjectClass>(stream);
-  result.object_number = readUint<std::uint32_t>(stream);
+  result.object_number = readInt<std::uint32_t>(stream);
   result.object_group = readEnum<ObjectGroup>(stream);
   result.is_ground = readBool(stream);
   result.unknown = readReservedData<16>(stream);
@@ -293,21 +293,21 @@ Map parseh3mUncompressed(std::istream& stream)
     map.tiles.push_back(readTile(stream));
   }
   // Read objects' attributes.
-  const std::uint32_t num_object_kinds = readUint<std::uint32_t>(stream);
+  const std::uint32_t num_object_kinds = readInt<std::uint32_t>(stream);
   map.objects_attributes.reserve(num_object_kinds);
   for (std::uint32_t i = 0; i < num_object_kinds; ++i)
   {
     map.objects_attributes.push_back(readObjectAttributes(stream));
   }
   // Read objects' details.
-  const std::uint32_t num_objects = readUint<std::uint32_t>(stream);
+  const std::uint32_t num_objects = readInt<std::uint32_t>(stream);
   map.objects_details.reserve(num_objects);
   for (std::uint32_t i = 0; i < num_objects; ++i)
   {
     map.objects_details.push_back(readObjectDetails(stream, map.objects_attributes));
   }
   // Read global events.
-  const std::uint32_t num_global_events = readUint<std::uint32_t>(stream);
+  const std::uint32_t num_global_events = readInt<std::uint32_t>(stream);
   map.global_events.reserve(num_global_events);
   for (std::uint32_t i = 0; i < num_global_events; ++i)
   {

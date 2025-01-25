@@ -1,7 +1,5 @@
 #pragma once
 
-// See https://github.com/HeroWO-js/h3m2json/blob/master/h3m-The-Corpus.txt
-
 #include <h3mtxt/Map/Constants/Constants.h>
 #include <h3mtxt/Map/Constants/MapFormat.h>
 #include <h3mtxt/Map/GlobalEvent.h>

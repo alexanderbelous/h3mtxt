@@ -15,9 +15,13 @@ namespace h3m
 {
   namespace Detail_NS
   {
-    // Reads a single byte from the given stream.
+    // Reads a single byte from the stream.
     std::byte readByte(std::istream& stream);
 
+    // Reads a little-endian unsigned integer from the stream.
+    // \param stream - input binary stream.
+    // \param num_bytes - the number of bytes to read.
+    // \return the parsed integer.
     std::uintmax_t readUintImpl(std::istream& stream, unsigned int num_bytes);
 
     // Reads an array of bytes from the given stream.
@@ -32,33 +36,32 @@ namespace h3m
   // Reads a little-endian integer from the stream.
   // \param stream - input stream.
   // \return the parsed integer.
-  // TODO: rename to readInt() or readIntegral().
   template<class T>
-  T readUint(std::istream& stream)
+  T readInt(std::istream& stream)
   {
     static_assert(std::is_integral_v<T>, "T must be an integral type.");
     constexpr int kNumBytes = sizeof(T);
-    return static_cast<T>(Detail_NS::readUintImpl(stream, kNumBytes));
-  }
-
-  // Reads an 8-bit unsigned integer from the given stream.
-  // TODO: just optimize readUint for int8_t and uint8_t.
-  inline std::uint8_t readUint8(std::istream& stream)
-  {
-    return static_cast<std::uint8_t>(Detail_NS::readByte(stream));
+    if constexpr (kNumBytes == 1)
+    {
+      return static_cast<T>(Detail_NS::readByte(stream));
+    }
+    else
+    {
+      return static_cast<T>(Detail_NS::readUintImpl(stream, kNumBytes));
+    }
   }
 
   // Reads a boolean from the stream.
   inline Bool readBool(std::istream& stream)
   {
-    return static_cast<Bool>(readUint8(stream));
+    return static_cast<Bool>(readInt<std::uint8_t>(stream));
   }
 
   // Reads an enum from the stream.
   template<class T>
   T readEnum(std::istream& stream)
   {
-    return static_cast<T>(readUint<std::underlying_type_t<T>>(stream));
+    return static_cast<T>(readInt<std::underlying_type_t<T>>(stream));
   }
 
   // Reads a string from the stream.

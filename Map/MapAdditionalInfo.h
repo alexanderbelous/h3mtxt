@@ -164,7 +164,9 @@ struct MapAdditionalInfo
   // TODO: check what happens if you disable the spell book or war machines.
   // TODO: rename these to "disabled_artifacts", "disabled_spells", "disabled_skills".
   BitSet<18> artifacts_nonavailability;
+  // 1 bit per spell; 1 means disabled, 0 means enabled.
   SpellsBitmask spells_nonavailability;
+  // 1 bit per secondary skill; 1 means disabled, 0 means enabled.
   SecondarySkillsBitmask skills_nonavailability;
   std::vector<Rumor> rumors;
   HeroesSettings heroes_settings {};

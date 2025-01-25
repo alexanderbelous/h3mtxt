@@ -51,28 +51,28 @@ namespace h3m
       {
         event.guardians = std::nullopt;
       }
-      event.experience = readUint<std::uint32_t>(stream);
-      event.spell_points = readUint<std::int32_t>(stream);
-      event.morale = readUint<std::int8_t>(stream);
-      event.luck = readUint<std::int8_t>(stream);
+      event.experience = readInt<std::uint32_t>(stream);
+      event.spell_points = readInt<std::int32_t>(stream);
+      event.morale = readInt<std::int8_t>(stream);
+      event.luck = readInt<std::int8_t>(stream);
       event.resources = readResources<std::int32_t>(stream);
       event.primary_skills = readPrimarySkills(stream);
       event.secondary_skills = readSecondarySkillsVector<std::uint8_t>(stream);
-      const std::uint8_t num_artifacts = readUint8(stream);
+      const std::uint8_t num_artifacts = readInt<std::uint8_t>(stream);
       event.artifacts.clear();
       event.artifacts.reserve(num_artifacts);
       for (std::uint8_t i = 0; i < num_artifacts; ++i)
       {
         event.artifacts.push_back(readEnum<ArtifactType>(stream));
       }
-      const std::uint8_t num_spells = readUint8(stream);
+      const std::uint8_t num_spells = readInt<std::uint8_t>(stream);
       event.spells.clear();
       event.spells.reserve(num_spells);
       for (std::uint8_t i = 0; i < num_spells; ++i)
       {
         event.spells.push_back(readEnum<SpellType>(stream));
       }
-      const std::uint8_t num_creatures = readUint8(stream);
+      const std::uint8_t num_creatures = readInt<std::uint8_t>(stream);
       event.creatures.clear();
       event.creatures.reserve(num_creatures);
       for (std::uint8_t i = 0; i < num_creatures; ++i)
@@ -120,7 +120,7 @@ namespace h3m
     {
       ObjectDetailsData<MetaObjectType::EVENT> data;
       readEventBase(stream, data);
-      data.affected_players.bitset = readUint8(stream);
+      data.affected_players.bitset = readInt<std::uint8_t>(stream);
       data.applies_to_computer = readBool(stream);
       data.remove_after_first_visit = readBool(stream);
       data.unknown = readReservedData<4>(stream);
@@ -132,7 +132,7 @@ namespace h3m
     readObjectDetailsData<MetaObjectType::GARRISON>(std::istream& stream)
     {
       ObjectDetailsData<MetaObjectType::GARRISON> data;
-      data.owner = readUint<std::uint32_t>(stream);
+      data.owner = readInt<std::uint32_t>(stream);
       data.creatures = readCreatureStackArray(stream);
       data.can_remove_units = readBool(stream);
       data.unknown = readReservedData<8>(stream);
@@ -151,7 +151,7 @@ namespace h3m
     readObjectDetailsData<MetaObjectType::GRAIL>(std::istream& stream)
     {
       ObjectDetailsData<MetaObjectType::GRAIL> data;
-      data.allowable_radius = readUint<std::uint32_t>(stream);
+      data.allowable_radius = readInt<std::uint32_t>(stream);
       return data;
     }
 
@@ -160,8 +160,8 @@ namespace h3m
     readObjectDetailsData<MetaObjectType::HERO>(std::istream& stream)
     {
       ObjectDetailsData<MetaObjectType::HERO> data;
-      data.absod_id = readUint<std::uint32_t>(stream);
-      data.owner = readUint8(stream);
+      data.absod_id = readInt<std::uint32_t>(stream);
+      data.owner = readInt<std::uint8_t>(stream);
       data.type = readEnum<HeroType>(stream);
       const Bool has_name = readBool(stream);
       if (has_name)
@@ -171,7 +171,7 @@ namespace h3m
       const Bool has_experience = readBool(stream);
       if (has_experience)
       {
-        data.experience = readUint<std::uint32_t>(stream);
+        data.experience = readInt<std::uint32_t>(stream);
       }
       const Bool has_portrait = readBool(stream);
       if (has_portrait)
@@ -194,7 +194,7 @@ namespace h3m
       {
         data.artifacts = readHeroArtifacts(stream);
       }
-      data.patrol_radius = readUint8(stream);
+      data.patrol_radius = readInt<std::uint8_t>(stream);
       const Bool has_biography = readBool(stream);
       if (has_biography)
       {
@@ -230,8 +230,8 @@ namespace h3m
     readObjectDetailsData<MetaObjectType::MONSTER>(std::istream& stream)
     {
       ObjectDetailsData<MetaObjectType::MONSTER> monster;
-      monster.absod_id = readUint<std::uint32_t>(stream);
-      monster.count = readUint<std::uint16_t>(stream);
+      monster.absod_id = readInt<std::uint32_t>(stream);
+      monster.count = readInt<std::uint16_t>(stream);
       monster.disposition = readEnum<Disposition>(stream);
       const Bool has_message_and_treasure = readBool(stream);
       if (has_message_and_treasure)
@@ -260,11 +260,11 @@ namespace h3m
       constexpr HeroType kRandomHeroType {0xFF};
 
       ObjectDetailsData<MetaObjectType::PLACEHOLDER_HERO> data;
-      data.owner = readUint8(stream);
+      data.owner = readInt<std::uint8_t>(stream);
       data.type = readEnum<HeroType>(stream);
       if (data.type == kRandomHeroType)
       {
-        data.power_rating = readUint8(stream);
+        data.power_rating = readInt<std::uint8_t>(stream);
       }
       return data;
     }
@@ -283,14 +283,14 @@ namespace h3m
     readObjectDetailsData<MetaObjectType::RANDOM_DWELLING>(std::istream& stream)
     {
       ObjectDetailsData<MetaObjectType::RANDOM_DWELLING> dwelling;
-      dwelling.owner = readUint<std::uint32_t>(stream);
-      dwelling.town_absod_id = readUint<std::uint32_t>(stream);
+      dwelling.owner = readInt<std::uint32_t>(stream);
+      dwelling.town_absod_id = readInt<std::uint32_t>(stream);
       if (dwelling.town_absod_id == 0)
       {
         dwelling.alignment = readBitSet<2>(stream);
       }
-      dwelling.min_level = readUint8(stream);
-      dwelling.max_level = readUint8(stream);
+      dwelling.min_level = readInt<std::uint8_t>(stream);
+      dwelling.max_level = readInt<std::uint8_t>(stream);
       return dwelling;
     }
 
@@ -299,9 +299,9 @@ namespace h3m
     readObjectDetailsData<MetaObjectType::RANDOM_DWELLING_PRESET_ALIGNMENT>(std::istream& stream)
     {
       ObjectDetailsData<MetaObjectType::RANDOM_DWELLING_PRESET_ALIGNMENT> dwelling;
-      dwelling.owner = readUint<std::uint32_t>(stream);
-      dwelling.min_level = readUint8(stream);
-      dwelling.max_level = readUint8(stream);
+      dwelling.owner = readInt<std::uint32_t>(stream);
+      dwelling.min_level = readInt<std::uint8_t>(stream);
+      dwelling.max_level = readInt<std::uint8_t>(stream);
       return dwelling;
     }
 
@@ -310,8 +310,8 @@ namespace h3m
     readObjectDetailsData<MetaObjectType::RANDOM_DWELLING_PRESET_LEVEL>(std::istream& stream)
     {
       ObjectDetailsData<MetaObjectType::RANDOM_DWELLING_PRESET_LEVEL> dwelling;
-      dwelling.owner = readUint<std::uint32_t>(stream);
-      dwelling.town_absod_id = readUint<std::uint32_t>(stream);
+      dwelling.owner = readInt<std::uint32_t>(stream);
+      dwelling.town_absod_id = readInt<std::uint32_t>(stream);
       if (dwelling.town_absod_id == 0)
       {
         dwelling.alignment = readBitSet<2>(stream);
@@ -329,7 +329,7 @@ namespace h3m
       {
         data.guardians = readGuardians(stream);
       }
-      data.quantity = readUint<std::uint32_t>(stream);
+      data.quantity = readInt<std::uint32_t>(stream);
       data.unknown = readReservedData<4>(stream);
       return data;
     }
@@ -340,7 +340,7 @@ namespace h3m
     {
        ObjectDetailsData<MetaObjectType::SCHOLAR> data;
        data.reward_type = readEnum<ScholarRewardType>(stream);
-       data.reward_value = readUint8(stream);
+       data.reward_value = readInt<std::uint8_t>(stream);
        data.unknown = readReservedData<6>(stream);
        return data;
     }
@@ -361,7 +361,7 @@ namespace h3m
     readObjectDetailsData<MetaObjectType::SHRINE>(std::istream& stream)
     {
       ObjectDetailsData<MetaObjectType::SHRINE> data;
-      data.spell = readUint<std::uint32_t>(stream);
+      data.spell = readInt<std::uint32_t>(stream);
       return data;
     }
 
@@ -385,7 +385,7 @@ namespace h3m
       {
         data.guardians = readGuardians(stream);
       }
-      data.spell = readUint<std::uint32_t>(stream);
+      data.spell = readInt<std::uint32_t>(stream);
       return data;
     }
 
@@ -396,7 +396,7 @@ namespace h3m
       event.buildings = readBitSet<6>(stream);
       for (std::uint16_t& creature_growth : event.creatures)
       {
-        creature_growth = readUint<std::uint16_t>(stream);
+        creature_growth = readInt<std::uint16_t>(stream);
       }
       event.unknown = readReservedData<4>(stream);
       return event;
@@ -407,8 +407,8 @@ namespace h3m
     readObjectDetailsData<MetaObjectType::TOWN>(std::istream& stream)
     {
       ObjectDetailsData<MetaObjectType::TOWN> town;
-      town.absod_id = readUint<std::uint32_t>(stream);
-      town.owner = readUint8(stream);
+      town.absod_id = readInt<std::uint32_t>(stream);
+      town.owner = readInt<std::uint8_t>(stream);
       const Bool has_name = readBool(stream);
       if (has_name)
       {
@@ -433,13 +433,13 @@ namespace h3m
       }
       town.must_have_spell.bitset = readBitSet<9>(stream);
       town.may_not_have_spell.bitset = readBitSet<9>(stream);
-      const std::uint32_t num_events = readUint<std::uint32_t>(stream);
+      const std::uint32_t num_events = readInt<std::uint32_t>(stream);
       town.events.reserve(num_events);
       for (std::uint32_t i = 0; i < num_events; ++i)
       {
         town.events.push_back(readTownEvent(stream));
       }
-      town.alignment = readUint8(stream);
+      town.alignment = readInt<std::uint8_t>(stream);
       town.unknown = readReservedData<3>(stream);
       return town;
     }
@@ -449,7 +449,7 @@ namespace h3m
     readObjectDetailsData<MetaObjectType::TRIVIAL_OWNED_OBJECT>(std::istream& stream)
     {
       ObjectDetailsData<MetaObjectType::TRIVIAL_OWNED_OBJECT> data;
-      data.owner = readUint<std::uint32_t>(stream);
+      data.owner = readInt<std::uint32_t>(stream);
       return data;
     }
 
@@ -506,10 +506,10 @@ namespace h3m
                                   std::span<const ObjectAttributes> objects_attributes)
   {
     ObjectDetails result;
-    result.x = readUint8(stream);
-    result.y = readUint8(stream);
-    result.z = readUint8(stream);
-    result.kind = readUint<std::uint32_t>(stream);
+    result.x = readInt<std::uint8_t>(stream);
+    result.y = readInt<std::uint8_t>(stream);
+    result.z = readInt<std::uint8_t>(stream);
+    result.kind = readInt<std::uint32_t>(stream);
     result.unknown = readReservedData<5>(stream);
 
     if (result.kind >= objects_attributes.size())

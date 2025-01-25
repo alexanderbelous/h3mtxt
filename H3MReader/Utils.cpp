@@ -29,7 +29,7 @@ namespace h3m
       std::uintmax_t shift = 0;
       for (unsigned int i = 0; i < num_bytes; ++i)
       {
-        const std::uint8_t byte = readUint8(stream);
+        const std::byte byte = readByte(stream);
         result |= (static_cast<std::uintmax_t>(byte) << shift);
         shift += 8;
       }
@@ -55,7 +55,7 @@ namespace h3m
 
   std::string readString(std::istream& stream)
   {
-    const std::uint32_t length = readUint<std::uint32_t>(stream);
+    const std::uint32_t length = readInt<std::uint32_t>(stream);
     std::string result;
     result.resize(length);
     Detail_NS::readByteArrayImpl(stream, std::as_writable_bytes(std::span{ result }));

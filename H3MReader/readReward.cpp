@@ -16,7 +16,7 @@ namespace h3m
     }
 
     template<>
-    RewardDetails<RewardType::None> readRewardDetails<RewardType::None>(std::istream& stream)
+    RewardDetails<RewardType::None> readRewardDetails<RewardType::None>(std::istream&)
     {
       return {};
     }
@@ -25,7 +25,7 @@ namespace h3m
     RewardDetails<RewardType::Experience> readRewardDetails<RewardType::Experience>(std::istream& stream)
     {
       RewardDetails<RewardType::Experience> details;
-      details.experience = readUint<std::uint32_t>(stream);
+      details.experience = readInt<std::uint32_t>(stream);
       return details;
     }
 
@@ -33,7 +33,7 @@ namespace h3m
     RewardDetails<RewardType::SpellPoints> readRewardDetails<RewardType::SpellPoints>(std::istream& stream)
     {
       RewardDetails<RewardType::SpellPoints> details;
-      details.spell_points = readUint<std::uint32_t>(stream);
+      details.spell_points = readInt<std::uint32_t>(stream);
       return details;
     }
 
@@ -41,7 +41,7 @@ namespace h3m
     RewardDetails<RewardType::Morale> readRewardDetails<RewardType::Morale>(std::istream& stream)
     {
       RewardDetails<RewardType::Morale> details;
-      details.morale = readUint8(stream);
+      details.morale = readInt<std::uint8_t>(stream);
       return details;
     }
 
@@ -49,7 +49,7 @@ namespace h3m
     RewardDetails<RewardType::Luck> readRewardDetails<RewardType::Luck>(std::istream& stream)
     {
       RewardDetails<RewardType::Luck> details;
-      details.luck = readUint8(stream);
+      details.luck = readInt<std::uint8_t>(stream);
       return details;
     }
 
@@ -58,7 +58,7 @@ namespace h3m
     {
       RewardDetails<RewardType::Resource> details;
       details.type = readEnum<ResourceType>(stream);
-      details.amount = readUint<std::uint32_t>(stream);
+      details.amount = readInt<std::uint32_t>(stream);
       return details;
     }
 
@@ -67,7 +67,7 @@ namespace h3m
     {
       RewardDetails<RewardType::PrimarySkill> details;
       details.type = readEnum<PrimarySkillType>(stream);
-      details.value = readUint8(stream);
+      details.value = readInt<std::uint8_t>(stream);
       return details;
     }
 
@@ -100,7 +100,7 @@ namespace h3m
     {
       RewardDetails<RewardType::Creature> details;
       details.type = readEnum<CreatureType>(stream);
-      details.count = readUint<std::uint16_t>(stream);
+      details.count = readInt<std::uint16_t>(stream);
       return details;
     }
 

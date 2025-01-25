@@ -29,7 +29,7 @@ namespace h3m
     QuestDetails<QuestType::Level> readQuestDetails<QuestType::Level>(std::istream& stream)
     {
       QuestDetails<QuestType::Level> details;
-      details.level = readUint<std::uint32_t>(stream);
+      details.level = readInt<std::uint32_t>(stream);
       return details;
     }
 
@@ -45,7 +45,7 @@ namespace h3m
     QuestDetails<QuestType::DefeatHero> readQuestDetails<QuestType::DefeatHero>(std::istream& stream)
     {
       QuestDetails<QuestType::DefeatHero> details;
-      details.absod_id = readUint<std::uint32_t>(stream);
+      details.absod_id = readInt<std::uint32_t>(stream);
       return details;
     }
 
@@ -53,7 +53,7 @@ namespace h3m
     QuestDetails<QuestType::DefeatMonster> readQuestDetails<QuestType::DefeatMonster>(std::istream& stream)
     {
       QuestDetails<QuestType::DefeatMonster> details;
-      details.absod_id = readUint<std::uint32_t>(stream);
+      details.absod_id = readInt<std::uint32_t>(stream);
       return details;
     }
 
@@ -61,7 +61,7 @@ namespace h3m
     QuestDetails<QuestType::Artifacts> readQuestDetails<QuestType::Artifacts>(std::istream& stream)
     {
       QuestDetails<QuestType::Artifacts> details;
-      const std::uint8_t num_artifacts = readUint8(stream);
+      const std::uint8_t num_artifacts = readInt<std::uint8_t>(stream);
       details.artifacts.reserve(num_artifacts);
       for (std::uint8_t i = 0; i < num_artifacts; ++i)
       {
@@ -74,7 +74,7 @@ namespace h3m
     QuestDetails<QuestType::Creatures> readQuestDetails<QuestType::Creatures>(std::istream& stream)
     {
       QuestDetails<QuestType::Creatures> details;
-      const std::uint8_t num_creatures = readUint8(stream);
+      const std::uint8_t num_creatures = readInt<std::uint8_t>(stream);
       details.creatures.reserve(num_creatures);
       for (std::uint8_t i = 0; i < num_creatures; ++i)
       {
@@ -152,7 +152,7 @@ namespace h3m
     quest.details = readQuestDetailsVariant(stream, quest_type);
     if (quest_type != QuestType::None)
     {
-      quest.deadline = readUint<std::uint32_t>(stream);
+      quest.deadline = readInt<std::uint32_t>(stream);
       quest.proposal = readString(stream);
       quest.progress = readString(stream);
       quest.completion = readString(stream);

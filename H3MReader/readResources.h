@@ -13,7 +13,7 @@ namespace h3m
     Resources<T> resources;
     for (T& amount : resources.data)
     {
-      amount = readUint<T>(stream);
+      amount = readInt<T>(stream);
     }
     return resources;
   }

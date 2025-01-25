@@ -45,7 +45,7 @@ namespace h3m
         VictoryConditionDetails<VictoryConditionType::AccumulateCreatures> details;
         readSpecialVictoryConditionBase(stream, details);
         details.creature_type = readEnum<CreatureType>(stream);
-        details.count = readUint<std::uint32_t>(stream);
+        details.count = readInt<std::uint32_t>(stream);
         return details;
       }
     };
@@ -58,7 +58,7 @@ namespace h3m
         VictoryConditionDetails<VictoryConditionType::AccumulateResources> details;
         readSpecialVictoryConditionBase(stream, details);
         details.resource_type = readEnum<ResourceType>(stream);
-        details.amount = readUint<std::uint32_t>(stream);
+        details.amount = readInt<std::uint32_t>(stream);
         return details;
       }
     };
@@ -70,11 +70,11 @@ namespace h3m
       {
         VictoryConditionDetails<VictoryConditionType::UpgradeTown> details;
         readSpecialVictoryConditionBase(stream, details);
-        details.x = readUint8(stream);
-        details.y = readUint8(stream);
-        details.z = readUint8(stream);
-        details.hall_level = readUint8(stream);
-        details.castle_level = readUint8(stream);
+        details.x = readInt<std::uint8_t>(stream);
+        details.y = readInt<std::uint8_t>(stream);
+        details.z = readInt<std::uint8_t>(stream);
+        details.hall_level = readInt<std::uint8_t>(stream);
+        details.castle_level = readInt<std::uint8_t>(stream);
         return details;
       }
     };
@@ -89,9 +89,9 @@ namespace h3m
       {
         VictoryConditionDetails<T> details;
         readSpecialVictoryConditionBase(stream, details);
-        details.x = readUint8(stream);
-        details.y = readUint8(stream);
-        details.z = readUint8(stream);
+        details.x = readInt<std::uint8_t>(stream);
+        details.y = readInt<std::uint8_t>(stream);
+        details.z = readInt<std::uint8_t>(stream);
         return details;
       }
     };
@@ -115,10 +115,10 @@ namespace h3m
       {
         VictoryConditionDetails<VictoryConditionType::TransportArtifact> details;
         readSpecialVictoryConditionBase(stream, details);
-        details.artifact_type = readUint8(stream);
-        details.x = readUint8(stream);
-        details.y = readUint8(stream);
-        details.z = readUint8(stream);
+        details.artifact_type = readInt<std::uint8_t>(stream);
+        details.x = readInt<std::uint8_t>(stream);
+        details.y = readInt<std::uint8_t>(stream);
+        details.z = readInt<std::uint8_t>(stream);
         return details;
       }
     };
@@ -126,7 +126,7 @@ namespace h3m
     template<>
     struct ReadVictoryConditionDetails<VictoryConditionType::Normal>
     {
-      VictoryConditionDetails<VictoryConditionType::Normal> operator()(std::istream& stream) const
+      VictoryConditionDetails<VictoryConditionType::Normal> operator()(std::istream&) const
       {
         return {};
       }
