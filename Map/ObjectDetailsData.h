@@ -260,6 +260,7 @@ namespace h3m
   struct ObjectDetailsData<MetaObjectType::SHRINE>
   {
     // 0xFF means random.
+    // TODO: consider replacing with SpellType and ReservedData<3>.
     std::uint32_t spell{};
   };
 

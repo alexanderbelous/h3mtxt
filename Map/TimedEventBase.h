@@ -1,9 +1,9 @@
 #pragma once
 
-#include <h3mtxt/Map/PlayersBitmask.h>
 #include <h3mtxt/Map/Base.h>
-#include <h3mtxt/Map/Utils/ReservedData.h>
+#include <h3mtxt/Map/PlayersBitmask.h>
 #include <h3mtxt/Map/Resources.h>
+#include <h3mtxt/Map/Utils/ReservedData.h>
 
 #include <cstdint>
 #include <string>
