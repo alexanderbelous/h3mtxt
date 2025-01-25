@@ -14,9 +14,9 @@ namespace h3m
 
   namespace Detail_NS
   {
-    std::vector<SecondarySkill> readSecondarySkillsVectorImpl(std::istream& stream, unsigned int num_bytes)
+    std::vector<SecondarySkill> readSecondarySkillsVectorImpl(std::istream& stream, IntegerWidth sizeof_num_elements)
     {
-      const std::uintmax_t num_secondary_skills = readUintImpl(stream, num_bytes);
+      const std::uintmax_t num_secondary_skills = readUintImpl(stream, sizeof_num_elements);
       std::vector<SecondarySkill> secondary_skills;
       secondary_skills.reserve(num_secondary_skills);
       for (std::uintmax_t i = 0; i < num_secondary_skills; ++i)

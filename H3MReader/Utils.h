@@ -1,5 +1,6 @@
 #pragma once
 
+#include <h3mtxt/H3MReader/IntegerWidth.h>
 #include <h3mtxt/Map/Base.h>
 #include <h3mtxt/Map/Utils/BitSet.h>
 #include <h3mtxt/Map/Utils/ReservedData.h>
@@ -10,6 +11,7 @@
 #include <span>
 #include <string>
 #include <type_traits>
+#include <utility>
 
 namespace h3m
 {
@@ -20,9 +22,9 @@ namespace h3m
 
     // Reads a little-endian unsigned integer from the stream.
     // \param stream - input binary stream.
-    // \param num_bytes - the number of bytes to read.
+    // \param width - the width of the integer type in bytes.
     // \return the parsed integer.
-    std::uintmax_t readUintImpl(std::istream& stream, unsigned int num_bytes);
+    std::uintmax_t readUintImpl(std::istream& stream, IntegerWidth width);
 
     // Reads an array of bytes from the given stream.
     void readByteArrayImpl(std::istream& stream, std::span<std::byte> data);
@@ -40,14 +42,13 @@ namespace h3m
   T readInt(std::istream& stream)
   {
     static_assert(std::is_integral_v<T>, "T must be an integral type.");
-    constexpr int kNumBytes = sizeof(T);
-    if constexpr (kNumBytes == 1)
+    if constexpr (sizeof(T) == 1)
     {
       return static_cast<T>(Detail_NS::readByte(stream));
     }
     else
     {
-      return static_cast<T>(Detail_NS::readUintImpl(stream, kNumBytes));
+      return static_cast<T>(Detail_NS::readUintImpl(stream, Detail_NS::IntegerWidth(std::in_place_type<T>)));
     }
   }
 

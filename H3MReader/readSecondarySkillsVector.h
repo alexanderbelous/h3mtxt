@@ -1,5 +1,6 @@
 #pragma once
 
+#include <h3mtxt/H3MReader/IntegerWidth.h>
 #include <h3mtxt/Map/SecondarySkill.h>
 
 #include <iosfwd>
@@ -10,7 +11,7 @@ namespace h3m
 {
   namespace Detail_NS
   {
-    std::vector<SecondarySkill> readSecondarySkillsVectorImpl(std::istream& stream, unsigned int num_bytes);
+    std::vector<SecondarySkill> readSecondarySkillsVectorImpl(std::istream& stream, IntegerWidth sizeof_num_elements);
   }
 
   SecondarySkill readSecondarySkill(std::istream& stream);
@@ -25,6 +26,6 @@ namespace h3m
   {
     static_assert(std::is_integral_v<VectorSizeType>, "VectorSizeType must be an integral type.");
     static_assert(std::is_unsigned_v<VectorSizeType>, "VectorSizeType must be an unsigned type.");
-    return Detail_NS::readSecondarySkillsVectorImpl(stream, sizeof(VectorSizeType));
+    return Detail_NS::readSecondarySkillsVectorImpl(stream, Detail_NS::IntegerWidth(std::in_place_type<VectorSizeType>));
   }
 }

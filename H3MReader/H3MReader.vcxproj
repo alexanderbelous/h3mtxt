@@ -164,6 +164,7 @@
     </ProjectReference>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="IntegerWidth.h" />
     <ClInclude Include="parseh3m.h" />
     <ClInclude Include="readCreatureStack.h" />
     <ClInclude Include="readHeroArtifacts.h" />

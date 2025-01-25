@@ -51,6 +51,9 @@
     <ClInclude Include="readVictoryCondition.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="IntegerWidth.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="parseh3m.cpp">

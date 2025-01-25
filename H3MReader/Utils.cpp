@@ -23,13 +23,16 @@ namespace h3m
       return static_cast<std::byte>(character);
     }
 
-    std::uintmax_t readUintImpl(std::istream& stream, unsigned int num_bytes)
+    std::uintmax_t readUintImpl(std::istream& stream, IntegerWidth width)
     {
+      std::array<std::byte, sizeof(std::uintmax_t)> buffer {};
+      const std::span<std::byte> data(buffer.data(), width.size());
+      readByteArrayImpl(stream, data);
+
       std::uintmax_t result = 0;
       std::uintmax_t shift = 0;
-      for (unsigned int i = 0; i < num_bytes; ++i)
+      for (std::byte byte : data)
       {
-        const std::byte byte = readByte(stream);
         result |= (static_cast<std::uintmax_t>(byte) << shift);
         shift += 8;
       }
