@@ -11,6 +11,8 @@ namespace h3m
   {
     void writeUintImpl(std::ostream& stream, std::uintmax_t value, unsigned int num_bytes)
     {
+      // h3mtxt uses int8_t and uint8_t, which are only defined if CHAR_BIT == 8.
+      static_assert(CHAR_BIT == 8, "Unsupported platform.");
       constexpr std::uintmax_t kMask = 0xFF;
       for (unsigned int i = 0; i < num_bytes; ++i)
       {
