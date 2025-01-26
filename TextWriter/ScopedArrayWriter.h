@@ -59,6 +59,8 @@ namespace Util_NS
     friend IndentedTextWriter;
 
     explicit ScopedArrayWriter(IndentedTextWriter& out, bool one_element_per_line = true);
+
+    [[no_unique_address]] ValueWriter<T> value_writer_ {};
   };
 
   template<class T>
@@ -70,8 +72,7 @@ namespace Util_NS
   void ScopedArrayWriter<T>::writeElement(const T& value)
   {
     beforeWriteElement();
-    ValueWriter<T> value_writer{};
-    value_writer(out_, value);
+    value_writer_(out_, value);
     afterWriteElement();
   }
 }

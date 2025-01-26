@@ -11,7 +11,9 @@
 #include <h3mtxt/H3MTxtWriter/writeTile.h>
 
 #include <span>
+#include <sstream>
 #include <stdexcept>
+#include <string>
 #include <string_view>
 #include <type_traits>
 
@@ -19,6 +21,47 @@ namespace Util_NS
 {
   namespace
   {
+    // Lame alternative for std::format. Not using std::format here because it still causes bloat.
+    class CommentBuilder
+    {
+    public:
+      // Appends a value to the comment.
+      template<class T>
+      CommentBuilder& operator<<(T&& value)
+      {
+        stream_ << value;
+        return *this;
+      }
+
+      // Constructs a comment from the input values.
+      // First discards the current contents, then appends the values.
+      // \return a string_view to the constructed comment.
+      template<class... Args>
+      std::string_view build(Args&&... args)
+      {
+        clear();
+        const char kUnused[] = { ((void)(stream_ << std::forward<Args>(args)), char(0))... };
+        return stream_.view();
+      }
+
+      void clear()
+      {
+        // Replace the contents with an empty string.
+        constexpr std::string kEmptyString;
+        stream_.str(kEmptyString);
+        // Clear state flags.
+        stream_.clear();
+      }
+
+      std::string_view str() const
+      {
+        return stream_.view();
+      }
+
+    private:
+      std::ostringstream stream_;
+    };
+
     // Helper class to pass map_size to ValueWriter when writing Map::tiles.
     class TilesWithMapSize
     {
@@ -95,10 +138,11 @@ namespace Util_NS
   {
     void operator()(IndentedTextWriter& out, const std::array<h3m::PlayerSpecs, h3m::kMaxPlayers>& players) const
     {
+      CommentBuilder comment_builder;
       ScopedArrayWriter<h3m::PlayerSpecs> array_writer = out.writeArray<h3m::PlayerSpecs>();
       for (std::size_t i = 0; i < h3m::kMaxPlayers; ++i)
       {
-        array_writer.writeComment(std::string{"Player "} + std::to_string(i));
+        array_writer.writeComment(comment_builder.build("Player ", i));
         array_writer.writeElement(players[i]);
       }
     }
@@ -109,6 +153,7 @@ namespace Util_NS
   {
     void operator()(IndentedTextWriter& out, const TilesWithMapSize& value) const
     {
+      CommentBuilder comment_builder;
       const std::uint32_t num_levels = value.hasTwoLevels() ? 2 : 1;
       const std::uint32_t map_size = value.mapSize();
       const std::span<const h3m::Tile> tiles = value.tiles();
@@ -120,9 +165,7 @@ namespace Util_NS
         {
           for (std::uint32_t x = 0; x < map_size; ++x)
           {
-            // std::format() would've been nice here, but it still causes bloat, doesn't it? Check.
-            array_writer.writeComment(std::string{"Tile ("} + std::to_string(x) + std::string{", "} +
-                                      std::to_string(y) + std::string{", "} + std::to_string(z) + std::string{")"});
+            array_writer.writeComment(comment_builder.build("Tile (", x, ", ", y, ", ", z, ")"));
             array_writer.writeElement(*iter);
             ++iter;
           }
@@ -144,8 +187,8 @@ namespace Util_NS
       out.writeField("x", object.details.x);
       out.writeField("y", object.details.y);
       out.writeField("z", object.details.z);
-      out.writeComment("ObjectClass: " + std::to_string(object_class_idx));
-      out.writeComment("MetaObjectType: " + std::to_string(meta_object_type_idx));
+      out.writeComment(comment_builder_.build("ObjectClass: ", object_class_idx));
+      out.writeComment(comment_builder_.build("MetaObjectType: ", meta_object_type_idx));
       out.writeField("kind", object.details.kind);
       out.writeField("unknown", object.details.unknown);
       if (meta_object_type != h3m::MetaObjectType::GENERIC_NO_PROPERTIES)
@@ -157,6 +200,9 @@ namespace Util_NS
           });
       }
     }
+
+  private:
+    mutable CommentBuilder comment_builder_;
   };
 
   template<>
@@ -164,10 +210,11 @@ namespace Util_NS
   {
     void operator()(IndentedTextWriter& out, const H3MObjects& objects) const
     {
+      CommentBuilder comment_builder;
       ScopedArrayWriter<H3MObject> array_writer = out.writeArray<H3MObject>();
-      for (std::size_t i = 0; i < objects.attributes.size(); ++i)
+      for (std::size_t i = 0; i < objects.details.size(); ++i)
       {
-        array_writer.writeComment("Object " + std::to_string(i));
+        array_writer.writeComment(comment_builder.build("Object ", i));
         const h3m::ObjectDetails& details = objects.details[i];
         const h3m::ObjectAttributes& attributes = objects.attributes.at(details.kind);
         array_writer.writeElement(H3MObject(attributes, details));
