@@ -883,8 +883,8 @@ namespace Util_NS
     void operator()(FieldsWriter& out,
       const h3m::ObjectDetailsData<h3m::MetaObjectType::SHRINE>& data) const
     {
-      // TODO: consider printing the spell name as an enum constant if within the range.
       out.writeField("spell", data.spell);
+      out.writeField("unknown", data.unknown);
     }
   };
 
@@ -896,6 +896,21 @@ namespace Util_NS
     {
       out.writeField("message", data.message);
       out.writeField("unknown", data.unknown);
+    }
+  };
+
+  template<>
+  struct StructWriter<h3m::ObjectDetailsData<h3m::MetaObjectType::SPELL_SCROLL>>
+  {
+    void operator()(FieldsWriter& out,
+      const h3m::ObjectDetailsData<h3m::MetaObjectType::SPELL_SCROLL>& spell_scroll) const
+    {
+      if (spell_scroll.guardians)
+      {
+        out.writeField("guardians", *spell_scroll.guardians);
+      }
+      out.writeField("spell", spell_scroll.spell);
+      out.writeField("unknown", spell_scroll.unknown);
     }
   };
 

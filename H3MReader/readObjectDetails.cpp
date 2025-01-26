@@ -361,7 +361,8 @@ namespace h3m
     readObjectDetailsData<MetaObjectType::SHRINE>(std::istream& stream)
     {
       ObjectDetailsData<MetaObjectType::SHRINE> data;
-      data.spell = readInt<std::uint32_t>(stream);
+      data.spell = readEnum<SpellType>(stream);
+      data.unknown = readReservedData<3>(stream);
       return data;
     }
 
@@ -385,7 +386,8 @@ namespace h3m
       {
         data.guardians = readGuardians(stream);
       }
-      data.spell = readInt<std::uint32_t>(stream);
+      data.spell = readEnum<SpellType>(stream);
+      data.unknown = readReservedData<3>(stream);
       return data;
     }
 

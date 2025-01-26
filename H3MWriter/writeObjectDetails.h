@@ -290,6 +290,7 @@ namespace h3m
     void operator()(std::ostream& stream, const ObjectDetailsData<MetaObjectType::SHRINE>& shrine) const
     {
       writeData(stream, shrine.spell);
+      writeData(stream, shrine.unknown);
     }
   };
 
@@ -310,6 +311,7 @@ namespace h3m
     {
       writeData(stream, spell_scroll.guardians);
       writeData(stream, spell_scroll.spell);
+      writeData(stream, spell_scroll.unknown);
     }
   };
 
