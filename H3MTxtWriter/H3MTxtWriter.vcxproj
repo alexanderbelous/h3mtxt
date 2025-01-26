@@ -120,7 +120,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
+      <WarningLevel>Level4</WarningLevel>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
@@ -134,7 +134,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
+      <WarningLevel>Level4</WarningLevel>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
@@ -154,7 +154,25 @@
     <ClCompile Include="writeH3mTxt.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="H3MTxtWriter.h" />
+    <ClInclude Include="writeGlobalEvent.h" />
     <ClInclude Include="writeH3mTxt.h" />
+    <ClInclude Include="writeHeroArtifacts.h" />
+    <ClInclude Include="writeLossCondition.h" />
+    <ClInclude Include="writeMapAdditionalInfo.h" />
+    <ClInclude Include="writeMapBasicInfo.h" />
+    <ClInclude Include="writeObjectAttributes.h" />
+    <ClInclude Include="writeObjectDetailsData.h" />
+    <ClInclude Include="writePlayersBitmask.h" />
+    <ClInclude Include="writePlayerSpecs.h" />
+    <ClInclude Include="writePrimarySkills.h" />
+    <ClInclude Include="writeResources.h" />
+    <ClInclude Include="writeSecondarySkill.h" />
+    <ClInclude Include="writeSecondarySkillsBitmask.h" />
+    <ClInclude Include="writeSpellsBitmask.h" />
+    <ClInclude Include="writeTile.h" />
+    <ClInclude Include="writeTimedEventBase.h" />
+    <ClInclude Include="writeVictoryCondition.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Map\Map.vcxproj">
