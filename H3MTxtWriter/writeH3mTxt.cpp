@@ -34,6 +34,19 @@ namespace Util_NS
       std::string_view field_name_;
     };
 
+    void printTimedEventBase(FieldsWriter& out, const h3m::TimedEventBase& event)
+    {
+      out.writeField("name", event.name);
+      out.writeField("message", event.message);
+      out.writeField("resources", event.resources);
+      out.writeField("affected_players", event.affected_players);
+      out.writeField("applies_to_human", event.applies_to_human);
+      out.writeField("applies_to_computer", event.applies_to_computer);
+      out.writeField("day_of_first_occurence", event.day_of_first_occurence);
+      out.writeField("repeat_after_days", event.repeat_after_days);
+      out.writeField("unknown", event.unknown);
+    }
+
     // Helper class to pass map_size to ValueWriter when writing Map::tiles.
     class TilesWithMapSize
     {
@@ -216,6 +229,28 @@ namespace Util_NS
     void operator()(IndentedTextWriter& out, const h3m::SpellsBitmask& bitmask) const
     {
       writeValue(out, bitmask.bitset);
+    }
+  };
+
+  template<>
+  struct StructWriter<h3m::TownBuildings>
+  {
+    void operator()(FieldsWriter& out, const h3m::TownBuildings& town_buildings) const
+    {
+      out.writeField("is_built", town_buildings.is_built);
+      out.writeField("is_disabled", town_buildings.is_disabled);
+    }
+  };
+
+  template<>
+  struct StructWriter<h3m::TownEvent>
+  {
+    void operator()(FieldsWriter& out, const h3m::TownEvent& town_event) const
+    {
+      printTimedEventBase(out, town_event);
+      out.writeField("buildings", town_event.buildings);
+      out.writeField("creatures", town_event.creatures);
+      out.writeField("unknown", town_event.unknown);
     }
   };
 
@@ -915,6 +950,39 @@ namespace Util_NS
   };
 
   template<>
+  struct StructWriter<h3m::ObjectDetailsData<h3m::MetaObjectType::TOWN>>
+  {
+    void operator()(FieldsWriter& out,
+                    const h3m::ObjectDetailsData<h3m::MetaObjectType::TOWN>& town) const
+    {
+      out.writeField("absod_id", town.absod_id);
+      out.writeField("owner", town.owner);
+      if (town.name)
+      {
+        out.writeField("name", *town.name);
+      }
+      if (town.creatures)
+      {
+        out.writeField("creatures", *town.creatures);
+      }
+      out.writeField("formation", town.formation);
+      if (town.buildings)
+      {
+        out.writeField("buildings", *town.buildings);
+      }
+      else
+      {
+        out.writeField("has_fort", town.has_fort);
+      }
+      out.writeField("must_have_spell", town.must_have_spell);
+      out.writeField("may_not_have_spell", town.may_not_have_spell);
+      out.writeField("events", town.events);
+      out.writeField("alignment", town.alignment);
+      out.writeField("unknown", town.unknown);
+    }
+  };
+
+  template<>
   struct StructWriter<h3m::ObjectDetailsData<h3m::MetaObjectType::TRIVIAL_OWNED_OBJECT>>
   {
     void operator()(FieldsWriter& out,
@@ -978,15 +1046,7 @@ namespace Util_NS
   {
     void operator()(FieldsWriter& out, const h3m::GlobalEvent& global_event) const
     {
-      out.writeField("name", global_event.name);
-      out.writeField("message", global_event.message);
-      out.writeField("resources", global_event.resources);
-      out.writeField("affected_players", global_event.affected_players);
-      out.writeField("applies_to_human", global_event.applies_to_human);
-      out.writeField("applies_to_computer", global_event.applies_to_computer);
-      out.writeField("day_of_first_occurence", global_event.day_of_first_occurence);
-      out.writeField("repeat_after_days", global_event.repeat_after_days);
-      out.writeField("unknown", global_event.unknown);
+      printTimedEventBase(out, global_event);
     }
   };
 
