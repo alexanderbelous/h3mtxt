@@ -82,6 +82,16 @@ namespace Util_NS
     }
   };
 
+  // Fukk specialization for bool.
+  template<>
+  struct ValueWriter<bool>
+  {
+    void operator()(IndentedTextWriter& out, bool value) const
+    {
+      out.writeBool(value);
+    }
+  };
+
   // Partial specialization for integer types.
   template<class T>
   struct ValueWriter<T, std::enable_if_t<std::is_integral_v<T>>>

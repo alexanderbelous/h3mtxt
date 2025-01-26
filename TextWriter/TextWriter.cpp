@@ -28,6 +28,13 @@ namespace Util_NS
     needs_newline_ = true;
   }
 
+  void IndentedTextWriter::writeBool(bool value)
+  {
+    writeNewlineIfNeeded();
+    stream_ << (value ? "true" : "false");
+    needs_newline_ = true;
+  }
+
   void IndentedTextWriter::increaseIndent()
   {
     indent_ += 2;

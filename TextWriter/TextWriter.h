@@ -22,6 +22,8 @@ namespace Util_NS
 
     void writeString(std::string_view value);
 
+    void writeBool(bool value);
+
     template<class T>
     std::enable_if_t<std::is_integral_v<T>> writeInteger(T value);
 
