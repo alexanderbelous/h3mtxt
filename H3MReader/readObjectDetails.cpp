@@ -97,7 +97,8 @@ namespace h3m
     readObjectDetailsData<MetaObjectType::ABANDONED_MINE>(std::istream& stream)
     {
       ObjectDetailsData<MetaObjectType::ABANDONED_MINE> data;
-      data.potential_resources = readBitSet<4>(stream);
+      data.potential_resources.bitset = Detail_NS::readByte(stream);
+      data.unknown = readReservedData<3>(stream);
       return data;
     }
 

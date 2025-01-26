@@ -15,6 +15,7 @@
 #include <h3mtxt/Map/HeroArtifacts.h>
 #include <h3mtxt/Map/PrimarySkills.h>
 #include <h3mtxt/Map/Resources.h>
+#include <h3mtxt/Map/ResourcesBitmask.h>
 #include <h3mtxt/Map/Reward.h>
 #include <h3mtxt/Map/SecondarySkill.h>
 #include <h3mtxt/Map/SecondarySkillsBitmask.h>
@@ -65,9 +66,8 @@ namespace h3m
   template<>
   struct ObjectDetailsData<MetaObjectType::ABANDONED_MINE>
   {
-    // Bitfield: LSB wood that is forced off by editor, then mercury, ore, sulfur, crystal, gems, MSB gold.
-    // TODO: replace with a custom wrapper class.
-    BitSet<4> potential_resources {};
+    ResourcesBitmask potential_resources;
+    ReservedData<3> unknown;
   };
 
   template<>
@@ -89,6 +89,8 @@ namespace h3m
   struct ObjectDetailsData<MetaObjectType::GARRISON>
   {
     // 0xFF means no owner.
+    // TODO: replace with PlayerColor. Note that sizeof(PlayerColor) == 1,
+    // so you'll need to add ReservedData<3> after it.
     std::uint32_t owner {};
     // Note: h3m2json claims that here 0xFF in CreatureStack.type means "no creature", but
     // in other places 0xFFFF is used instead.

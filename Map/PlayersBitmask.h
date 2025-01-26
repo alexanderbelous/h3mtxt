@@ -28,7 +28,8 @@ namespace h3m
 
     // Sets the value of the bit for the specified player.
     // \param player - player for which to set the bit.
-    constexpr void set(PlayerColor player, bool is_affected);
+    // \param value - value to set.
+    constexpr void set(PlayerColor player, bool value);
 
     std::uint8_t bitset {};
   };
@@ -53,14 +54,14 @@ namespace h3m
     return (bitset & mask) != 0;
   }
 
-  constexpr void PlayersBitmask::set(PlayerColor player, bool is_affected)
+  constexpr void PlayersBitmask::set(PlayerColor player, bool value)
   {
     const std::uint8_t mask = getBitmask(player);
     if (!mask)
     {
       throw std::out_of_range("PlayersBitmask::set(): player is out of range.");
     }
-    if (is_affected)
+    if (value)
     {
       bitset |= mask;
     }

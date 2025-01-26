@@ -186,5 +186,8 @@
     <ClInclude Include="SpellsBitmask.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="ResourcesBitmask.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

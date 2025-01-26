@@ -65,6 +65,7 @@
     <ClInclude Include="PrimarySkills.h" />
     <ClInclude Include="Quest.h" />
     <ClInclude Include="Resources.h" />
+    <ClInclude Include="ResourcesBitmask.h" />
     <ClInclude Include="Reward.h" />
     <ClInclude Include="SecondarySkill.h" />
     <ClInclude Include="SecondarySkillsBitmask.h" />

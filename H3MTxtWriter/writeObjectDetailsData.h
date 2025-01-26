@@ -13,6 +13,21 @@
 namespace Util_NS
 {
   template<>
+  struct StructWriter<h3m::ResourcesBitmask>
+  {
+    void operator()(FieldsWriter& out, const h3m::ResourcesBitmask& resources_bitmask) const
+    {
+      static constexpr std::string_view kFieldNames[] = {
+        "wood", "mercury", "ore", "sulfur", "crystal", "gems", "gold", "unknown"
+      };
+      for (std::uint8_t i = 0; i < 8; ++i)
+      {
+        out.writeField(kFieldNames[i], resources_bitmask[static_cast<h3m::ResourceType>(i)]);
+      }
+    }
+  };
+
+  template<>
   struct StructWriter<h3m::TownBuildings>
   {
     void operator()(FieldsWriter& out, const h3m::TownBuildings& town_buildings) const
@@ -84,6 +99,17 @@ namespace Util_NS
     void operator()(FieldsWriter& out, const h3m::ObjectDetailsData<T>&) const
     {
       out.writeComment("NotImplemented");
+    }
+  };
+
+  template<>
+  struct StructWriter<h3m::ObjectDetailsData<h3m::MetaObjectType::ABANDONED_MINE>>
+  {
+    void operator()(FieldsWriter& out,
+                    const h3m::ObjectDetailsData<h3m::MetaObjectType::ABANDONED_MINE>& data) const
+    {
+      out.writeField("potential_resources", data.potential_resources);
+      out.writeField("unknown", data.unknown);
     }
   };
 

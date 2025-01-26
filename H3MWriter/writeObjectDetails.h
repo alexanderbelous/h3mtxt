@@ -70,7 +70,8 @@ namespace h3m
   {
     void operator()(std::ostream& stream, const ObjectDetailsData<MetaObjectType::ABANDONED_MINE>& data) const
     {
-      writeData(stream, data.potential_resources);
+      writeData(stream, data.potential_resources.bitset);
+      writeData(stream, data.unknown);
     }
   };
 
