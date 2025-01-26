@@ -1,6 +1,7 @@
 #include <h3mtxt/H3MTxtWriter/writeH3mTxt.h>
 
 #include <h3mtxt/Map/Map.h>
+#include <h3mtxt/H3MTxtWriter/getEnumString.h>
 #include <h3mtxt/H3MTxtWriter/H3MTxtWriter.h>
 #include <h3mtxt/H3MTxtWriter/writeGlobalEvent.h>
 #include <h3mtxt/H3MTxtWriter/writeMapBasicInfo.h>
@@ -182,13 +183,19 @@ namespace Util_NS
       const h3m::ObjectClass object_class = object.attributes.object_class;
       const std::size_t object_class_idx = static_cast<std::size_t>(object_class);
       const h3m::MetaObjectType meta_object_type = object.details.details.getMetaObjectType();
-      const std::size_t meta_object_type_idx = static_cast<std::size_t>(meta_object_type);
+      const std::string_view meta_object_type_name = h3m::getEnumString(meta_object_type);
 
       out.writeField("x", object.details.x);
       out.writeField("y", object.details.y);
       out.writeField("z", object.details.z);
       out.writeComment(comment_builder_.build("ObjectClass: ", object_class_idx));
-      out.writeComment(comment_builder_.build("MetaObjectType: ", meta_object_type_idx));
+      comment_builder_.clear();
+      comment_builder_ << "MetaObjectType: " << static_cast<std::size_t>(meta_object_type);
+      if (!meta_object_type_name.empty())
+      {
+        comment_builder_ << " (" << meta_object_type_name << ")";
+      }
+      out.writeComment(comment_builder_.str());
       out.writeField("kind", object.details.kind);
       out.writeField("unknown", object.details.unknown);
       if (meta_object_type != h3m::MetaObjectType::GENERIC_NO_PROPERTIES)

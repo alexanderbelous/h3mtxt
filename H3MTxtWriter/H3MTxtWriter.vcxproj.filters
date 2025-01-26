@@ -18,6 +18,9 @@
     <ClCompile Include="writeH3mTxt.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="getEnumString.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="writeH3mTxt.h">
@@ -75,6 +78,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="writeObjectDetailsData.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="getEnumString.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

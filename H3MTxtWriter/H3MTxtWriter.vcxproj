@@ -151,9 +151,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="getEnumString.cpp" />
     <ClCompile Include="writeH3mTxt.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="getEnumString.h" />
     <ClInclude Include="H3MTxtWriter.h" />
     <ClInclude Include="writeGlobalEvent.h" />
     <ClInclude Include="writeH3mTxt.h" />
