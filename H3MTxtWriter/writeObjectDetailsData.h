@@ -57,6 +57,25 @@ namespace Util_NS
     }
   };
 
+  inline void printEventBase(FieldsWriter& out, const h3m::EventBase& event)
+  {
+    if (event.guardians)
+    {
+      out.writeField("guardians", *event.guardians);
+    }
+    out.writeField("experience", event.experience);
+    out.writeField("spell_points", event.spell_points);
+    out.writeField("morale", event.morale);
+    out.writeField("luck", event.luck);
+    out.writeField("resources", event.resources);
+    out.writeField("primary_skills", event.primary_skills);
+    out.writeField("secondary_skills", event.secondary_skills);
+    out.writeField("artifacts", event.artifacts);
+    out.writeField("spells", event.spells);
+    out.writeField("creatures", event.creatures);
+    out.writeField("unknown", event.unknown);
+  }
+
   // Default implementation for ObjectDetailsData.
   // TODO: remove once specialized for all MetaObjectTypes.
   template<h3m::MetaObjectType T>
@@ -78,6 +97,20 @@ namespace Util_NS
       {
         out.writeField("guardians", *artifact.guardians);
       }
+    }
+  };
+
+  template<>
+  struct StructWriter<h3m::ObjectDetailsData<h3m::MetaObjectType::EVENT>>
+  {
+    void operator()(FieldsWriter& out,
+                    const h3m::ObjectDetailsData<h3m::MetaObjectType::EVENT>& event) const
+    {
+      printEventBase(out, event);
+      out.writeField("affected_players", event.affected_players);
+      out.writeField("applies_to_computer", event.applies_to_computer);
+      out.writeField("remove_after_first_visit", event.remove_after_first_visit);
+      out.writeField("unknown", event.unknown);
     }
   };
 
@@ -193,6 +226,16 @@ namespace Util_NS
       out.writeField("never_flees", monster.never_flees);
       out.writeField("does_not_grow", monster.does_not_grow);
       out.writeField("unknown", monster.unknown);
+    }
+  };
+
+  template<>
+  struct StructWriter<h3m::ObjectDetailsData<h3m::MetaObjectType::PANDORAS_BOX>>
+  {
+    void operator()(FieldsWriter& out,
+                    const h3m::ObjectDetailsData<h3m::MetaObjectType::PANDORAS_BOX>& pandoras_box) const
+    {
+      printEventBase(out, pandoras_box);
     }
   };
 
