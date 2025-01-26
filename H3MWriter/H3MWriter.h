@@ -56,11 +56,11 @@ namespace h3m
     writer(stream, value);
   }
 
-  // Full specialization for std::uint8_t.
+  // Full specialization for std::byte.
   template<>
-  struct H3MWriter<std::uint8_t>
+  struct H3MWriter<std::byte>
   {
-    void operator()(std::ostream& stream, std::uint8_t value) const;
+    void operator()(std::ostream& stream, std::byte value) const;
   };
 
   // Partial specialization for integer types.
@@ -69,13 +69,20 @@ namespace h3m
   {
     void operator()(std::ostream& stream, T value) const
     {
-      // TODO: this is likely redundant, just cast to uintmax_t.
-      // Widest integer type with the same signedness as T.
-      using WidestInteger = std::conditional_t<std::is_signed_v<T>, std::intmax_t, std::uintmax_t>;
-      // Cast the input value to WidestInteger first, then to uintmax_t.
-      Detail_NS::writeUintImpl(stream,
-                               static_cast<std::uintmax_t>(static_cast<WidestInteger>(value)),
-                               sizeof(T));
+      if constexpr (sizeof(T) == 1)
+      {
+        writeData(stream, static_cast<std::byte>(value));
+      }
+      else
+      {
+        // TODO: this is likely redundant, just cast to uintmax_t.
+        // Widest integer type with the same signedness as T.
+        using WidestInteger = std::conditional_t<std::is_signed_v<T>, std::intmax_t, std::uintmax_t>;
+        // Cast the input value to WidestInteger first, then to uintmax_t.
+        Detail_NS::writeUintImpl(stream,
+                                 static_cast<std::uintmax_t>(static_cast<WidestInteger>(value)),
+                                 sizeof(T));
+       }
     }
   };
 

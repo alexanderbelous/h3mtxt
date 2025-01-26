@@ -46,7 +46,7 @@ namespace h3m
     }
   }
 
-  void H3MWriter<std::uint8_t>::operator()(std::ostream& stream, std::uint8_t value) const
+  void H3MWriter<std::byte>::operator()(std::ostream& stream, std::byte value) const
   {
     stream.put(static_cast<char>(value));
   }
