@@ -56,6 +56,36 @@ namespace Util_NS
       std::uint32_t map_size_ = 0;
       bool has_two_levels_ = false;
     };
+
+    // Wrapper for std::vector<ObjectDetails> that also keeps a reference to
+    // std::vector<h3m::ObjectAttributes>.
+    class H3MObjects
+    {
+    public:
+      constexpr H3MObjects(const std::vector<h3m::ObjectAttributes>& objects_attributes,
+                           const std::vector<h3m::ObjectDetails>& objects_details) noexcept:
+        attributes(objects_attributes),
+        details(objects_details)
+      {}
+
+      const std::vector<h3m::ObjectAttributes>& attributes;
+      const std::vector<h3m::ObjectDetails>& details;
+    };
+
+    // Wrapper for ObjectDetails that also keeps a reference to the corresponding
+    // ObjectAttributes.
+    class H3MObject
+    {
+    public:
+      constexpr H3MObject(const h3m::ObjectAttributes& object_attributes,
+                          const h3m::ObjectDetails& object_details) noexcept:
+        attributes(object_attributes),
+        details(object_details)
+      {}
+
+      const h3m::ObjectAttributes& attributes;
+      const h3m::ObjectDetails& details;
+    };
   }
 
   // Explicit specialization for std::array<std::array<h3m::PlayerSpecs, h3m::kMaxPlayers>
@@ -102,23 +132,45 @@ namespace Util_NS
   };
 
   template<>
-  struct StructWriter<h3m::ObjectDetails>
+  struct StructWriter<H3MObject>
   {
-    void operator()(FieldsWriter& out, const h3m::ObjectDetails& object_details) const
+    void operator()(FieldsWriter& out, const H3MObject& object) const
     {
-      out.writeField("x", object_details.x);
-      out.writeField("y", object_details.y);
-      out.writeField("z", object_details.z);
-      // TODO: print ObjectClass and/or MetaObjectType in a comment.
-      out.writeField("kind", object_details.kind);
-      out.writeField("unknown", object_details.unknown);
-      if (object_details.details.getMetaObjectType() != h3m::MetaObjectType::GENERIC_NO_PROPERTIES)
+      const h3m::ObjectClass object_class = object.attributes.object_class;
+      const std::size_t object_class_idx = static_cast<std::size_t>(object_class);
+      const h3m::MetaObjectType meta_object_type = object.details.details.getMetaObjectType();
+      const std::size_t meta_object_type_idx = static_cast<std::size_t>(meta_object_type);
+
+      out.writeField("x", object.details.x);
+      out.writeField("y", object.details.y);
+      out.writeField("z", object.details.z);
+      out.writeComment("ObjectClass: " + std::to_string(object_class_idx));
+      out.writeComment("MetaObjectType: " + std::to_string(meta_object_type_idx));
+      out.writeField("kind", object.details.kind);
+      out.writeField("unknown", object.details.unknown);
+      if (meta_object_type != h3m::MetaObjectType::GENERIC_NO_PROPERTIES)
       {
-        object_details.details.visit(
+        object.details.details.visit(
           [&out](auto&& details)
           {
             out.writeField("details", std::forward<decltype(details)>(details));
           });
+      }
+    }
+  };
+
+  template<>
+  struct ValueWriter<H3MObjects>
+  {
+    void operator()(IndentedTextWriter& out, const H3MObjects& objects) const
+    {
+      ScopedArrayWriter<H3MObject> array_writer = out.writeArray<H3MObject>();
+      for (std::size_t i = 0; i < objects.attributes.size(); ++i)
+      {
+        array_writer.writeComment("Object " + std::to_string(i));
+        const h3m::ObjectDetails& details = objects.details[i];
+        const h3m::ObjectAttributes& attributes = objects.attributes.at(details.kind);
+        array_writer.writeElement(H3MObject(attributes, details));
       }
     }
   };
@@ -135,7 +187,8 @@ namespace Util_NS
       // Not writing tiles directly because I want to write each tile's coordinates in a comment.
       out.writeField("tiles", TilesWithMapSize(map.tiles, map.basic_info.map_size, map.basic_info.has_two_levels));
       out.writeField("objects_attributes", map.objects_attributes);
-      out.writeField("objects_details", map.objects_details);
+      // Not writing object_details directly because I want to write ObjectClass for each object in a comment.
+      out.writeField("objects_details", H3MObjects(map.objects_attributes, map.objects_details));
       out.writeField("global_events", map.global_events);
       out.writeField("padding", map.padding);
     }
