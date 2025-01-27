@@ -9,7 +9,9 @@ namespace h3m
   struct SecondarySkill
   {
     SecondarySkillType type {};
-    // Not really an enum, as shown by LC.
+    // Normally, the level should be within [1; 3] (basic, advanced, expert).
+    // However, the game has well-defined behavior for some values outside of this range
+    // for some skills - see SecondarySkillLevel.h.
     std::uint8_t level {};
   };
 }

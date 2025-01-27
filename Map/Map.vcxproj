@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Constants\SecondarySkillLevel.h" />
     <ClInclude Include="PlayersBitmask.h" />
     <ClInclude Include="Base.h" />
     <ClInclude Include="Constants\ArtifactType.h" />

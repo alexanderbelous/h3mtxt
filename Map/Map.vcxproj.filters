@@ -189,5 +189,8 @@
     <ClInclude Include="ResourcesBitmask.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Constants\SecondarySkillLevel.h">
+      <Filter>Header Files\Constants</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
