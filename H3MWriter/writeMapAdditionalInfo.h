@@ -68,8 +68,8 @@ namespace h3m
       writeVector<std::uint8_t>(stream, value.custom_heroes);
       writeData(stream, value.reserved);
       writeData(stream, value.artifacts_nonavailability);
-      writeData(stream, value.spells_nonavailability);
-      writeData(stream, value.skills_nonavailability);
+      writeData(stream, value.disabled_spells);
+      writeData(stream, value.disabled_skills);
       writeVector<std::uint32_t>(stream, value.rumors);
       // Write heroes' settings.
       for (std::uint8_t hero_idx = 0; hero_idx < kNumHeroes; ++hero_idx)

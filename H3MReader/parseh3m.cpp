@@ -215,8 +215,8 @@ MapAdditionalInfo readMapAdditionalInfo(std::istream& stream)
   // Read reserved data.
   additional_info.reserved = readReservedData<31>(stream);
   additional_info.artifacts_nonavailability = readBitSet<18>(stream);
-  additional_info.spells_nonavailability.bitset = readBitSet<9>(stream);
-  additional_info.skills_nonavailability.bitset = readBitSet<4>(stream);
+  additional_info.disabled_spells.bitset = readBitSet<9>(stream);
+  additional_info.disabled_skills.bitset = readBitSet<4>(stream);
   // Read rumors.
   const std::uint32_t num_rumors = readInt<std::uint32_t>(stream);
   additional_info.rumors.reserve(num_rumors);

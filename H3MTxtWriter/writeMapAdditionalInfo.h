@@ -106,8 +106,8 @@ namespace Util_NS
       out.writeField("custom_heroes", value.custom_heroes);
       out.writeField("reserved", value.reserved);
       out.writeField("artifacts_nonavailability", value.artifacts_nonavailability);
-      out.writeField("spells_nonavailability", value.spells_nonavailability);
-      out.writeField("skills_nonavailability", value.skills_nonavailability);
+      out.writeField("disabled_spells", value.disabled_spells);
+      out.writeField("disabled_skills", value.disabled_skills);
       out.writeField("rumors", value.rumors);
       out.writeField("heroes_settings", value.heroes_settings.settings());
     }

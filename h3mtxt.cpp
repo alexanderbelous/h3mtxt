@@ -23,7 +23,7 @@ int main(int argc, char** argv)
     const h3m::Map map = h3m::parseh3m(stream);
     stream.close();
     h3m::writeH3mTxt(std::cout, map);
-    std::ofstream out_stream("not_all_objects.h3m", std::ios_base::out | std::ios_base::binary);
+    std::ofstream out_stream("rewritten.h3m", std::ios_base::out | std::ios_base::binary);
     h3m::writeh3m(out_stream, map);
     out_stream.close();
   }

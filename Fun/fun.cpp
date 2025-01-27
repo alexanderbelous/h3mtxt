@@ -68,8 +68,8 @@ namespace
         .custom_heroes {},
         .reserved {},
         .artifacts_nonavailability {},
-        .spells_nonavailability {},
-        .skills_nonavailability {},
+        .disabled_spells {},
+        .disabled_skills {},
         .rumors {
           h3m::Rumor {
             .name = "Rumor",
@@ -419,6 +419,50 @@ namespace
     }
     return map;
   }
+
+  h3m::Map generateMapWithHeroFace(h3m::HeroPortrait portrait)
+  {
+    h3m::Map map = generateTestMap(36);
+    map.basic_info.name = "Test spell scroll";
+    map.basic_info.description = "Testing if a spell scroll can be added as an artifact.";
+    for (h3m::Tile& tile : map.tiles)
+    {
+      tile.terrain_type = h3m::TerrainType::Grass;
+      tile.terrain_sprite = 49;
+    }
+    map.objects_attributes.push_back(h3m::ObjectAttributes{
+      .def = "ah00_e.def",
+      .passability {255, 255, 255, 255, 255, 191},
+      .actionability {0, 0, 0, 0, 0, 64},
+      .object_class = h3m::ObjectClass::HERO,
+      .object_number = 0,
+      .object_group = h3m::ObjectGroup::Hero,
+      .is_ground = 0
+      });
+    map.objects_details.push_back(h3m::ObjectDetails{
+      .x = 1,
+      .y = 0,
+      .z = 0,
+      .kind = 0,
+      .details = h3m::ObjectDetailsData<h3m::MetaObjectType::HERO> {
+        .absod_id = 69,
+        .owner = 0,
+        .type = h3m::HeroType::H3M_HERO_ORRIN,
+        .portrait = portrait,
+        .secondary_skills = std::vector<h3m::SecondarySkill> {
+          h3m::SecondarySkill {.type = h3m::SecondarySkillType::Estates, .level = 0xFF},
+        },
+        .artifacts = h3m::HeroArtifacts {
+          .backpack {
+            h3m::ArtifactType::IRONFIST_OF_THE_OGRE
+            //static_cast<h3m::ArtifactType>(144)
+          }
+        },
+        .patrol_radius = 255
+      }
+    });
+    return map;
+  }
 }
 
 int main(int argc, char** argv)
@@ -432,9 +476,10 @@ int main(int argc, char** argv)
   {
     const fs::path path_map(argv[1]);
     std::ofstream out_stream(path_map, std::ios_base::out | std::ios_base::binary);
-    h3m::Map map = generateTestMap();
-    fillWithWaterTiles(map);
-    drawFakeIslands(map);
+    const h3m::Map map = generateMapWithHeroFace(h3m::HeroPortrait::ADELA);
+    //h3m::Map map = generateTestMap();
+    //fillWithWaterTiles(map);
+    //drawFakeIslands(map);
     h3m::writeh3m(out_stream, map);
   }
   catch (const std::exception& error)
