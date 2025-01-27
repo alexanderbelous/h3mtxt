@@ -4,6 +4,7 @@
 
 #include <iterator>
 #include <ostream>
+#include <ranges>
 
 namespace Util_NS
 {
@@ -14,10 +15,23 @@ namespace Util_NS
 
   void IndentedTextWriter::writeComment(std::string_view comment)
   {
-    writeNewlineIfNeeded();
-    // TODO: take care of newline characters in comments.
-    stream_ << "# " << comment;
-    needs_newline_ = true;
+    constexpr std::string_view kCommentPrefix = "# ";
+
+    if (comment.empty())
+    {
+      writeNewlineIfNeeded();
+      stream_.put('#');
+      needs_newline_ = true;
+      return;
+    }
+    for (auto part : std::views::split(comment, '\n'))
+    {
+      writeNewlineIfNeeded();
+      const std::string_view part_str(part.begin(), part.end());
+      stream_.write(kCommentPrefix.data(), kCommentPrefix.size());
+      stream_.write(part_str.data(), part_str.size());
+      needs_newline_ = true;
+    }
   }
 
   void IndentedTextWriter::writeString(std::string_view value)
