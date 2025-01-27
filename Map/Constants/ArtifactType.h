@@ -151,5 +151,11 @@ namespace h3m
     WIZARDS_WELL,
     RING_OF_THE_MAGI,
     CORNUCOPIA,
+    // Unused content.
+    // These artifacts are recognized by the game but don't actually do anything.
+    // They also don't have decent sprites.
+    DIPLOMATS_SUIT,
+    MIRED_IN_NEUTRALITY,
+    IRONFIST_OF_THE_OGRE
   };
 }
