@@ -4,8 +4,6 @@
 
 namespace h3m
 {
-  // Spells are generally stored as 8-bit unsigned integers in H3M, although there
-  // are a couple places where 32-bit unsigned integers are used instead.
   enum class SpellType : std::uint8_t
   {
     SUMMON_BOAT,       /* 0x00 */
