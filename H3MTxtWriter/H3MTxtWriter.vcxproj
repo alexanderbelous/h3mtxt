@@ -157,6 +157,7 @@
   <ItemGroup>
     <ClInclude Include="getEnumString.h" />
     <ClInclude Include="H3MTxtWriter.h" />
+    <ClInclude Include="writeCreatureStack.h" />
     <ClInclude Include="writeGlobalEvent.h" />
     <ClInclude Include="writeH3mTxt.h" />
     <ClInclude Include="writeHeroArtifacts.h" />
@@ -168,6 +169,7 @@
     <ClInclude Include="writePlayersBitmask.h" />
     <ClInclude Include="writePlayerSpecs.h" />
     <ClInclude Include="writePrimarySkills.h" />
+    <ClInclude Include="writeQuest.h" />
     <ClInclude Include="writeResources.h" />
     <ClInclude Include="writeSecondarySkill.h" />
     <ClInclude Include="writeSecondarySkillsBitmask.h" />

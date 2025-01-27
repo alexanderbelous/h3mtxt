@@ -83,5 +83,11 @@
     <ClInclude Include="getEnumString.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="writeQuest.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="writeCreatureStack.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

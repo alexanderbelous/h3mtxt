@@ -2,8 +2,10 @@
 
 #include <h3mtxt/Map/ObjectDetailsData.h>
 #include <h3mtxt/H3MTxtWriter/H3MTxtWriter.h>
+#include <h3mtxt/H3MTxtWriter/writeCreatureStack.h>
 #include <h3mtxt/H3MTxtWriter/writeHeroArtifacts.h>
 #include <h3mtxt/H3MTxtWriter/writePrimarySkills.h>
+#include <h3mtxt/H3MTxtWriter/writeQuest.h>
 #include <h3mtxt/H3MTxtWriter/writeResources.h>
 #include <h3mtxt/H3MTxtWriter/writeSecondarySkill.h>
 #include <h3mtxt/H3MTxtWriter/writeSecondarySkillsBitmask.h>
@@ -46,16 +48,6 @@ namespace Util_NS
       out.writeField("buildings", town_event.buildings);
       out.writeField("creatures", town_event.creatures);
       out.writeField("unknown", town_event.unknown);
-    }
-  };
-
-  template<>
-  struct StructWriter<h3m::CreatureStack>
-  {
-    void operator()(FieldsWriter& out, const h3m::CreatureStack& guardians) const
-    {
-      out.writeField("type", guardians.type);
-      out.writeField("count", guardians.count);
     }
   };
 
@@ -279,6 +271,16 @@ namespace Util_NS
       {
         out.writeField("power_rating", hero.power_rating);
       }
+    }
+  };
+
+  template<>
+  struct StructWriter<h3m::ObjectDetailsData<h3m::MetaObjectType::QUEST_GUARD>>
+  {
+    void operator()(FieldsWriter& out,
+                    const h3m::ObjectDetailsData<h3m::MetaObjectType::QUEST_GUARD>& quest_guard) const
+    {
+      out.writeField("quest", quest_guard.quest);
     }
   };
 

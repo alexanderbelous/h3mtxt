@@ -282,4 +282,26 @@ namespace h3m
     }
     return {};
   }
+
+  std::string_view getEnumString(QuestType value) noexcept
+  {
+    static constexpr std::string_view kNames[] = {
+      "None",
+      "Level",
+      "PrimarySkills",
+      "DefeatHero",
+      "DefeatMonster",
+      "Artifacts",
+      "Creatures",
+      "Resources",
+      "BeHero",
+      "BePlayer"
+    };
+    const std::size_t idx = static_cast<std::size_t>(value);
+    if (idx < std::size(kNames))
+    {
+      return kNames[idx];
+    }
+    return {};
+  }
 }
