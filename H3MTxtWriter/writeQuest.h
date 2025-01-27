@@ -110,6 +110,10 @@ namespace Util_NS
       {
         std::visit([&out](auto&& details) { out.writeField("details", std::forward<decltype(details)>(details)); },
                    quest.details);
+        out.writeField("deadline", quest.deadline);
+        out.writeField("proposal", quest.proposal);
+        out.writeField("progress", quest.progress);
+        out.writeField("completion", quest.completion);
       }
     }
   };
