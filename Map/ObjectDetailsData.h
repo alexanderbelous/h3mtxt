@@ -286,7 +286,7 @@ namespace h3m
   struct ObjectDetailsData<MetaObjectType::SPELL_SCROLL>
   {
     std::optional<Guardians> guardians;
-    // TODO: check if 0xFF is allowed here (in SHRINE it means random).
+    // FYI: unlike SHRINE, 0xFF is not allowed here (causes the game to crash).
     SpellType spell {};
     ReservedData<3> unknown;
   };

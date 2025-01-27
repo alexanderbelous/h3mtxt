@@ -89,7 +89,7 @@ namespace
             .name = "Global event",
             .message = "Enjoy some resources.",
             .resources {
-              .data {10, 5, 10, 5, 5, 5, 1000}
+              .data {10, 5, 10, 5, 5, 5, 10000}
              },
             .affected_players {
               .bitset = 0xFF
@@ -420,7 +420,22 @@ namespace
     return map;
   }
 
-  h3m::Map generateMapWithHeroFace(h3m::HeroPortrait portrait)
+  h3m::ObjectAttributes makeObjectAttributesSpellScroll()
+  {
+    return h3m::ObjectAttributes{
+      .def = "AVA0001.def",
+      .passability {255, 255, 255, 255, 255, 127},
+      .actionability {0, 0, 0, 0, 0, 128},
+      .allowed_landscapes = 511,
+      .landscape_group = 1,
+      .object_class = h3m::ObjectClass::SPELL_SCROLL,
+      .object_number = 0,
+      .object_group = h3m::ObjectGroup::Artifact,
+      .is_ground = 0
+    };
+  }
+
+  h3m::Map generateMapWithHeroes()
   {
     h3m::Map map = generateTestMap(36);
     map.basic_info.name = "Test spell scroll";
@@ -430,6 +445,9 @@ namespace
       tile.terrain_type = h3m::TerrainType::Grass;
       tile.terrain_sprite = 49;
     }
+    constexpr std::uint32_t kHeroKind = 0;
+    constexpr std::uint32_t kSpellScrollKind = 1;
+    // Add heroes.
     map.objects_attributes.push_back(h3m::ObjectAttributes{
       .def = "ah00_e.def",
       .passability {255, 255, 255, 255, 255, 191},
@@ -443,22 +461,38 @@ namespace
       .x = 1,
       .y = 0,
       .z = 0,
-      .kind = 0,
+      .kind = kHeroKind,
       .details = h3m::ObjectDetailsData<h3m::MetaObjectType::HERO> {
         .absod_id = 69,
         .owner = 0,
         .type = h3m::HeroType::H3M_HERO_ORRIN,
-        .portrait = portrait,
         .secondary_skills = std::vector<h3m::SecondarySkill> {
           h3m::SecondarySkill {.type = h3m::SecondarySkillType::Estates, .level = 0xFF},
         },
-        .artifacts = h3m::HeroArtifacts {
-          .backpack {
-            h3m::ArtifactType::IRONFIST_OF_THE_OGRE
-            //static_cast<h3m::ArtifactType>(144)
-          }
-        },
         .patrol_radius = 255
+      }
+    });
+    map.objects_details.push_back(h3m::ObjectDetails{
+      .x = 10,
+      .y = 10,
+      .z = 0,
+      .kind = kHeroKind,
+      .details = h3m::ObjectDetailsData<h3m::MetaObjectType::HERO> {
+        .absod_id = 666,
+        .owner = 1,
+        .type = h3m::HeroType::H3M_HERO_XERON,
+        .patrol_radius = 255
+      }
+    });
+    // Add a spell scroll.
+    map.objects_attributes.push_back(makeObjectAttributesSpellScroll());
+    map.objects_details.push_back(h3m::ObjectDetails{
+      .x = 2,
+      .y = 2,
+      .z = 0,
+      .kind = kSpellScrollKind,
+      .details = h3m::ObjectDetailsData<h3m::MetaObjectType::SPELL_SCROLL> {
+        .spell = h3m::SpellType::SLOW
       }
     });
     return map;
@@ -476,7 +510,7 @@ int main(int argc, char** argv)
   {
     const fs::path path_map(argv[1]);
     std::ofstream out_stream(path_map, std::ios_base::out | std::ios_base::binary);
-    const h3m::Map map = generateMapWithHeroFace(h3m::HeroPortrait::ADELA);
+    const h3m::Map map = generateMapWithHeroes();
     //h3m::Map map = generateTestMap();
     //fillWithWaterTiles(map);
     //drawFakeIslands(map);
