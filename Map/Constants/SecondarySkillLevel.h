@@ -5,7 +5,7 @@
 namespace h3m
 {
   // Levels of secodary skills are normally within [1; 3]. However, the game has
-  // well-definde behavior for some values outside of this range for some skills,
+  // well-defined behavior for some values outside of this range for some skills,
   // as shown by LC:
   //   https://www.youtube.com/watch?v=X_xVEXGGqbw
   //   https://docs.google.com/spreadsheets/d/1JwdFy51rODCJ_3WT8iVBRX7QeblD0BPK11qYH5jhkO0
@@ -37,11 +37,11 @@ namespace h3m
   struct SecondarySkillLevel<SecondarySkillType::Mysticism>
   {
     // Regenerates all spell points per day (same as Wizard's Well).
-    static constexpr std::uint8_t kFull1 = 0xFF;
+    static constexpr std::uint8_t kFull = 0xFF;
     static constexpr std::uint8_t kFull2 = 0xFE;
     static constexpr std::uint8_t kFull3 = 0xFD;
     // The hero won't regenerate any spell points.
-    static constexpr std::uint8_t kNoPoints1 = 0xFC;
+    static constexpr std::uint8_t kNoPoints = 0xFC;
     static constexpr std::uint8_t kNoPoints2 = 0xF8;
     static constexpr std::uint8_t kNoPoints3 = 0xF4;
   };
@@ -56,7 +56,7 @@ namespace h3m
     static constexpr std::uint8_t k0Shots4 = 0xF9;
     static constexpr std::uint8_t k0Shots5 = 0xF8;
     static constexpr std::uint8_t k0Shots6 = 0xF7;
-    static constexpr std::uint8_t kInstakill1 = 0xF6;
+    static constexpr std::uint8_t kInstakill = 0xF6;
     static constexpr std::uint8_t kInstakill2 = 0xF1;
   };
 
@@ -71,14 +71,25 @@ namespace h3m
   struct SecondarySkillLevel<SecondarySkillType::Offense>
   {
     // Increases all hand-to-hand damage inflicted by the hero's troops by 50%.
-    static constexpr std::uint8_t kFiftyPercent = 0xFF;
+    static constexpr std::uint8_t k50Percent = 0xFF;
   };
 
   template<>
   struct SecondarySkillLevel<SecondarySkillType::Armorer>
   {
     // Reduces all damage inflicted against the hero's troops by 50%.
-    static constexpr std::uint8_t kFiftyPercent = 0xFB;
+    static constexpr std::uint8_t k50Percent = 0xFB;
+  };
+
+  template<>
+  struct SecondarySkillLevel<SecondarySkillType::Resistance>
+  {
+    // Endows a hero's troops with 60% magic resistance.
+    static constexpr std::uint8_t k60Percent = 0xFF;
+    static constexpr std::uint8_t k60Percent2 = 0xFB;
+    // Endows a hero's troops with 40% magic resistance.
+    static constexpr std::uint8_t k40Percent = 0xFE;
+    static constexpr std::uint8_t k40Percent2 = 0xF9;
   };
 
   // TODO: add the rest.
