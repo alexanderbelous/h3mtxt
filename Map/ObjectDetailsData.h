@@ -128,6 +128,9 @@ namespace h3m
     // Note: in RoE/AB experience is not optional.
     std::optional<std::uint32_t> experience;
     std::optional<HeroPortrait> portrait;
+    // The size of the vector is serialized as uint32.
+    // If 2 or more elements have the same SecondarySkillType, the game will only
+    // consider the first such element (and its level).
     std::optional<std::vector<SecondarySkill>> secondary_skills;
     // 0xFFFF in CreatureStack.type means no creature.
     std::optional<std::array<CreatureStack, 7>> creatures;

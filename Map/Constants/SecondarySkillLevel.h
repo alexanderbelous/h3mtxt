@@ -9,7 +9,21 @@ namespace h3m
   // as shown by LC:
   //   https://www.youtube.com/watch?v=X_xVEXGGqbw
   //   https://docs.google.com/spreadsheets/d/1JwdFy51rODCJ_3WT8iVBRX7QeblD0BPK11qYH5jhkO0
-  // This template lists some of these values.
+  //
+  // Note that 0 is a valid value for all secondary skills. It is equivalent to not having
+  // that secondary skill at all, but it nevertheless occupies a slot and the hero won't be
+  // offered to increase the level when gaining experience. However, if the hero visits a
+  // Scholar/Witch Hut that grants the same secondary skill (Basic), this skill (Basic) will
+  // be added to the first free slot. The slot that was originally occupied by the Level0 skill
+  // will contain junk after that.
+  //
+  // For values > 3 the rules are interesting:
+  // * The hero cannot change the level of that secondary skill when gaining experience.
+  // * If you visit a Witch Hut that grants the same secondary skill, it will have no effect
+  //   (it is considered that the hero has already learned it).
+  // * If you visit a Scholar that grants the same secondary skill, this skill will added
+  //   to the first free slot at Basic level. The slot that was originally occupied by the "hexed"
+  //   skill (i.e. with the value > 3) will contain junk after that.
   template<SecondarySkillType T>
   struct SecondarySkillLevel;
 
@@ -25,8 +39,6 @@ namespace h3m
   template<>
   struct SecondarySkillLevel<SecondarySkillType::Wisdom>
   {
-    // The hero will only be able to learn Level 1-2 spells.
-    static constexpr std::uint8_t kMaxLevel2 = 0;
     // The hero will only be able to learn Level 1 spells.
     static constexpr std::uint8_t kMaxLevel1 = 0xFF;
     // The hero won't be able to learn any spells.
