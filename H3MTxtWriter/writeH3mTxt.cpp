@@ -181,14 +181,22 @@ namespace Util_NS
     void operator()(FieldsWriter& out, const H3MObject& object) const
     {
       const h3m::ObjectClass object_class = object.attributes.object_class;
-      const std::size_t object_class_idx = static_cast<std::size_t>(object_class);
       const h3m::MetaObjectType meta_object_type = object.details.details.getMetaObjectType();
+      const std::string_view object_class_name = h3m::getEnumString(object_class);
       const std::string_view meta_object_type_name = h3m::getEnumString(meta_object_type);
 
       out.writeField("x", object.details.x);
       out.writeField("y", object.details.y);
       out.writeField("z", object.details.z);
-      out.writeComment(comment_builder_.build("ObjectClass: ", object_class_idx));
+      // Print ObjectClass in a comment.
+      comment_builder_.clear();
+      comment_builder_ << "ObjectClass: " << static_cast<std::size_t>(object_class);
+      if (!object_class_name.empty())
+      {
+        comment_builder_ << " (" << object_class_name << ")";
+      }
+      out.writeComment(comment_builder_.str());
+      // Print MetaObjectType in a comment.
       comment_builder_.clear();
       comment_builder_ << "MetaObjectType: " << static_cast<std::size_t>(meta_object_type);
       if (!meta_object_type_name.empty())
