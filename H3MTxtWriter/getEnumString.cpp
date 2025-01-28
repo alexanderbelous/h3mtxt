@@ -306,6 +306,24 @@ namespace h3m
     return {};
   }
 
+  std::string_view getEnumString(TerrainType value) noexcept
+  {
+    static constexpr std::string_view kNames[] = {
+      "Dirt",
+      "Sand",
+      "Grass",
+      "Snow",
+      "Swamp",
+      "Rough",
+      "Subterranean",
+      "Lava",
+      "Water",
+      "Rock"
+    };
+    const std::size_t idx = static_cast<std::size_t>(value);
+    return (idx < std::size(kNames)) ? kNames[idx] : std::string_view{};
+  }
+
   std::string_view getEnumString(QuestType value) noexcept
   {
     static constexpr std::string_view kNames[] = {

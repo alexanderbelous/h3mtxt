@@ -4,6 +4,7 @@
 #include <h3mtxt/Map/Constants/MetaObjectType.h>
 #include <h3mtxt/Map/Constants/ObjectClass.h>
 #include <h3mtxt/Map/Constants/RewardType.h>
+#include <h3mtxt/Map/Constants/TerrainType.h>
 #include <h3mtxt/Map/Constants/QuestType.h>
 
 #include <string_view>
@@ -19,6 +20,8 @@ namespace h3m
   std::string_view getEnumString(ObjectClass value) noexcept;
 
   std::string_view getEnumString(RewardType value) noexcept;
+
+  std::string_view getEnumString(TerrainType value) noexcept;
 
   std::string_view getEnumString(QuestType value) noexcept;
 }
