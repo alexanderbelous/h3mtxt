@@ -80,6 +80,7 @@ namespace h3m
   template<>
   struct RewardDetails<RewardType::Creature>
   {
+    // TODO: this is the same as in CreatureStack. Consider merging.
     CreatureType type {};
     std::uint16_t count {};
   };

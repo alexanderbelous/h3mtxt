@@ -7,6 +7,7 @@
 #include <h3mtxt/H3MTxtWriter/writePrimarySkills.h>
 #include <h3mtxt/H3MTxtWriter/writeQuest.h>
 #include <h3mtxt/H3MTxtWriter/writeResources.h>
+#include <h3mtxt/H3MTxtWriter/writeReward.h>
 #include <h3mtxt/H3MTxtWriter/writeSecondarySkill.h>
 #include <h3mtxt/H3MTxtWriter/writeSecondarySkillsBitmask.h>
 #include <h3mtxt/H3MTxtWriter/writeSpellsBitmask.h>
@@ -82,17 +83,6 @@ namespace Util_NS
     out.writeField("creatures", event.creatures);
     out.writeField("unknown", event.unknown);
   }
-
-  // Default implementation for ObjectDetailsData.
-  // TODO: remove once specialized for all MetaObjectTypes.
-  template<h3m::MetaObjectType T>
-  struct StructWriter<h3m::ObjectDetailsData<T>>
-  {
-    void operator()(FieldsWriter& out, const h3m::ObjectDetailsData<T>&) const
-    {
-      out.writeComment("NotImplemented");
-    }
-  };
 
   template<>
   struct StructWriter<h3m::ObjectDetailsData<h3m::MetaObjectType::ABANDONED_MINE>>
@@ -339,6 +329,30 @@ namespace Util_NS
         out.writeField("guardians", *data.guardians);
       }
       out.writeField("quantity", data.quantity);
+      out.writeField("unknown", data.unknown);
+    }
+  };
+
+  template<>
+  struct StructWriter<h3m::ObjectDetailsData<h3m::MetaObjectType::SCHOLAR>>
+  {
+    void operator()(FieldsWriter& out,
+                    const h3m::ObjectDetailsData<h3m::MetaObjectType::SCHOLAR>& data) const
+    {
+      out.writeField("reward_type", data.reward_type);
+      out.writeField("reward_value", data.reward_value);
+      out.writeField("unknown", data.unknown);
+    }
+  };
+
+  template<>
+  struct StructWriter<h3m::ObjectDetailsData<h3m::MetaObjectType::SEERS_HUT>>
+  {
+    void operator()(FieldsWriter& out,
+                    const h3m::ObjectDetailsData<h3m::MetaObjectType::SEERS_HUT>& data) const
+    {
+      out.writeField("quest", data.quest);
+      out.writeField("reward", data.reward);
       out.writeField("unknown", data.unknown);
     }
   };

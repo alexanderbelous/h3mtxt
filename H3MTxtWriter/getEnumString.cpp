@@ -283,6 +283,29 @@ namespace h3m
     return {};
   }
 
+  std::string_view getEnumString(RewardType value) noexcept
+  {
+    static constexpr std::string_view kNames[] = {
+      "None",
+      "Experience",
+      "SpellPoints",
+      "Morale",
+      "Luck",
+      "Resource",
+      "PrimarySkill",
+      "SecondarySkill",
+      "Artifact",
+      "Spell",
+      "Creature"
+    };
+    const std::size_t idx = static_cast<std::size_t>(value);
+    if (idx < std::size(kNames))
+    {
+      return kNames[idx];
+    }
+    return {};
+  }
+
   std::string_view getEnumString(QuestType value) noexcept
   {
     static constexpr std::string_view kNames[] = {
