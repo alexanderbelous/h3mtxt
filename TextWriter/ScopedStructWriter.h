@@ -27,9 +27,23 @@ namespace Util_NS
     void writeField(std::string_view field_name, const T& value);
 
     // Write a comment line.
-    void writeComment(std::string_view comment);
+    // \param comment - comment text.
+    // \param newline - if true, the comment will be written on a new line,
+    //        otherwise it will be written on the current line.
+    void writeComment(std::string_view comment, bool newline = true);
+
+    // Appends a comma after the last written field, if needed.
+    void writeComma();
 
   private:
+    enum class Token
+    {
+      None,
+      Field,
+      Comment,
+      Comma
+    };
+
     friend IndentedTextWriter;
 
     // Writes an opening brace '{' and increases the indent of the given IndentedTextWriter.
@@ -38,6 +52,9 @@ namespace Util_NS
     void writeFieldName(std::string_view field_name);
 
     IndentedTextWriter& out_;
+    Token last_token_ = Token::None;
+    // True if a comma needs to be appended before writing another field, false otherwise.
+    bool needs_comma_ = false;
   };
 
   template<class T>
@@ -46,5 +63,7 @@ namespace Util_NS
     writeFieldName(field_name);
     ValueWriter<T> value_writer{};
     value_writer(out_, value);
+    needs_comma_ = true;
+    last_token_ = Token::Field;
   }
 }
