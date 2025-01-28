@@ -104,8 +104,12 @@ namespace Util_NS
     void operator()(FieldsWriter& out, const h3m::Quest& quest) const
     {
       const bool has_details = quest.type() != h3m::QuestType::None;
-      out.writeComment(h3m::getEnumString(quest.type()));
       out.writeField("type", quest.type());
+      if (has_details)
+      {
+        out.writeComma();
+      }
+      out.writeComment(h3m::getEnumString(quest.type()), false);
       if (has_details)
       {
         std::visit([&out](auto&& details) { out.writeField("details", std::forward<decltype(details)>(details)); },

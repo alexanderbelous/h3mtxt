@@ -188,6 +188,7 @@ namespace Util_NS
       out.writeField("x", object.details.x);
       out.writeField("y", object.details.y);
       out.writeField("z", object.details.z);
+      out.writeComma();
       // Print ObjectClass in a comment.
       comment_builder_.clear();
       comment_builder_ << "ObjectClass: " << static_cast<std::size_t>(object_class);
