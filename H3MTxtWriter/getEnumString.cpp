@@ -324,6 +324,31 @@ namespace h3m
     return (idx < std::size(kNames)) ? kNames[idx] : std::string_view{};
   }
 
+  std::string_view getEnumString(h3m::RiverType value) noexcept
+  {
+    static constexpr std::string_view kNames[] = {
+      "None",
+      "Clear",
+      "Icy",
+      "Muddy",
+      "Lava"
+    };
+    const std::size_t idx = static_cast<std::size_t>(value);
+    return (idx < std::size(kNames)) ? kNames[idx] : std::string_view{};
+  }
+
+  std::string_view getEnumString(h3m::RoadType value) noexcept
+  {
+    static constexpr std::string_view kNames[] = {
+      "None",
+      "Dirt",
+      "Gravel",
+      "Cobblestone"
+    };
+    const std::size_t idx = static_cast<std::size_t>(value);
+    return (idx < std::size(kNames)) ? kNames[idx] : std::string_view{};
+  }
+
   std::string_view getEnumString(QuestType value) noexcept
   {
     static constexpr std::string_view kNames[] = {

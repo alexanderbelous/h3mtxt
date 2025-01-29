@@ -20,8 +20,20 @@ namespace Util_NS
       }
       out.writeField("terrain_sprite", value.terrain_sprite);
       out.writeField("river_type", value.river_type);
+      const std::string_view river_type_name = h3m::getEnumString(value.river_type);
+      if (!river_type_name.empty())
+      {
+        out.writeComma();
+        out.writeComment(river_type_name, false);
+      }
       out.writeField("river_sprite", value.river_sprite);
       out.writeField("road_type", value.road_type);
+      const std::string_view road_type_name = h3m::getEnumString(value.road_type);
+      if (!road_type_name.empty())
+      {
+        out.writeComma();
+        out.writeComment(road_type_name, false);
+      }
       out.writeField("road_sprite", value.road_sprite);
       out.writeField("mirroring", value.mirroring);
     }
