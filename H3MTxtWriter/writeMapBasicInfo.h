@@ -6,7 +6,7 @@
 namespace Util_NS
 {
   template<>
-  struct StructWriter<h3m::MapBasicInfo>
+  struct JsonObjectWriter<h3m::MapBasicInfo>
   {
     void operator()(FieldsWriter& out, const h3m::MapBasicInfo& value) const
     {

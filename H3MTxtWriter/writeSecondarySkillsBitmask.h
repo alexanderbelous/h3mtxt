@@ -10,7 +10,7 @@
 namespace Util_NS
 {
   template<>
-  struct StructWriter<h3m::SecondarySkillsBitmask>
+  struct JsonObjectWriter<h3m::SecondarySkillsBitmask>
   {
     void operator()(FieldsWriter& out, const h3m::SecondarySkillsBitmask& bitmask) const
     {

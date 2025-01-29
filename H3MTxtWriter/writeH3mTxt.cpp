@@ -63,7 +63,7 @@ namespace Util_NS
       std::ostringstream stream_;
     };
 
-    // Helper class to pass map_size to ValueWriter when writing Map::tiles.
+    // Helper class to pass map_size to JsonValueWriter when writing Map::tiles.
     class TilesWithMapSize
     {
     public:
@@ -135,7 +135,7 @@ namespace Util_NS
   // Explicit specialization for std::array<std::array<h3m::PlayerSpecs, h3m::kMaxPlayers>
   // to print comments.
   template<>
-  struct ValueWriter<std::array<h3m::PlayerSpecs, h3m::kMaxPlayers>>
+  struct JsonValueWriter<std::array<h3m::PlayerSpecs, h3m::kMaxPlayers>>
   {
     void operator()(IndentedTextWriter& out, const std::array<h3m::PlayerSpecs, h3m::kMaxPlayers>& players) const
     {
@@ -150,7 +150,7 @@ namespace Util_NS
   };
 
   template<>
-  struct ValueWriter<TilesWithMapSize>
+  struct JsonValueWriter<TilesWithMapSize>
   {
     void operator()(IndentedTextWriter& out, const TilesWithMapSize& value) const
     {
@@ -176,7 +176,7 @@ namespace Util_NS
   };
 
   template<>
-  struct StructWriter<H3MObject>
+  struct JsonObjectWriter<H3MObject>
   {
     void operator()(FieldsWriter& out, const H3MObject& object) const
     {
@@ -222,7 +222,7 @@ namespace Util_NS
   };
 
   template<>
-  struct ValueWriter<H3MObjects>
+  struct JsonValueWriter<H3MObjects>
   {
     void operator()(IndentedTextWriter& out, const H3MObjects& objects) const
     {
@@ -239,7 +239,7 @@ namespace Util_NS
   };
 
   template<>
-  struct StructWriter<h3m::Map>
+  struct JsonObjectWriter<h3m::Map>
   {
     void operator()(FieldsWriter& out, const h3m::Map& map) const
     {

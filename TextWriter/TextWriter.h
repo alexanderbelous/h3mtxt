@@ -12,7 +12,7 @@ namespace Util_NS
 {
   // Class for writing values with indent.
   //
-  // This is low-level shit; you only need this to pass it to ValueWriter.
+  // This is low-level shit; you only need this to pass it to JsonValueWriter.
   class IndentedTextWriter
   {
   public:
@@ -32,7 +32,7 @@ namespace Util_NS
     // Note that ScopedStructWriter is non-copyable and non-movable, but we can still return it
     // by value from this function thanks to guaranteed copy elision.
     //
-    // TODO: maybe this shouldn't even be public: only the default implementation of ValueWriter
+    // TODO: maybe this shouldn't even be public: only the default implementation of JsonValueWriter
     // actually needs it.
     //
     // \return a ScopedStructWriter object that can be used to write the fields of the structure.

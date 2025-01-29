@@ -6,7 +6,7 @@
 namespace Util_NS
 {
   template<class T>
-  struct StructWriter<T, std::enable_if_t<std::is_same_v<T, h3m::LossConditionDetails<h3m::LossConditionType::LoseTown>> ||
+  struct JsonObjectWriter<T, std::enable_if_t<std::is_same_v<T, h3m::LossConditionDetails<h3m::LossConditionType::LoseTown>> ||
                                           std::is_same_v<T, h3m::LossConditionDetails<h3m::LossConditionType::LoseHero>>>>
   {
     void operator()(FieldsWriter& out, const T& value) const
@@ -18,7 +18,7 @@ namespace Util_NS
   };
 
   template<>
-  struct StructWriter<h3m::LossConditionDetails<h3m::LossConditionType::TimeExpires>>
+  struct JsonObjectWriter<h3m::LossConditionDetails<h3m::LossConditionType::TimeExpires>>
   {
     void operator()(FieldsWriter& out,
                     const h3m::LossConditionDetails<h3m::LossConditionType::TimeExpires>& value) const
@@ -28,7 +28,7 @@ namespace Util_NS
   };
 
   template<>
-  struct StructWriter<h3m::LossConditionDetails<h3m::LossConditionType::Normal>>
+  struct JsonObjectWriter<h3m::LossConditionDetails<h3m::LossConditionType::Normal>>
   {
     void operator()(FieldsWriter&,
                     const h3m::LossConditionDetails<h3m::LossConditionType::Normal>&) const
@@ -37,7 +37,7 @@ namespace Util_NS
   };
 
   template<>
-  struct StructWriter<h3m::LossCondition>
+  struct JsonObjectWriter<h3m::LossCondition>
   {
     void operator()(FieldsWriter& out, const h3m::LossCondition& loss_condition) const
     {

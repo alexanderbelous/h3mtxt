@@ -13,7 +13,7 @@
 namespace Util_NS
 {
   template<>
-  struct StructWriter<h3m::TeamsInfo>
+  struct JsonObjectWriter<h3m::TeamsInfo>
   {
     void operator()(FieldsWriter& out, const h3m::TeamsInfo& value) const
     {
@@ -23,7 +23,7 @@ namespace Util_NS
   };
 
   template<>
-  struct ValueWriter<h3m::HeroesAvailability>
+  struct JsonValueWriter<h3m::HeroesAvailability>
   {
     void operator()(IndentedTextWriter& out, const h3m::HeroesAvailability& value) const
     {
@@ -32,7 +32,7 @@ namespace Util_NS
   };
 
   template<>
-  struct StructWriter<h3m::MapAdditionalInfo::CustomHero>
+  struct JsonObjectWriter<h3m::MapAdditionalInfo::CustomHero>
   {
     void operator()(FieldsWriter& out, const h3m::MapAdditionalInfo::CustomHero& value) const
     {
@@ -44,7 +44,7 @@ namespace Util_NS
   };
 
   template<>
-  struct StructWriter<h3m::Rumor>
+  struct JsonObjectWriter<h3m::Rumor>
   {
     void operator()(FieldsWriter& out, const h3m::Rumor& value) const
     {
@@ -54,7 +54,7 @@ namespace Util_NS
   };
 
   template<>
-  struct StructWriter<h3m::HeroSettings>
+  struct JsonObjectWriter<h3m::HeroSettings>
   {
     void operator()(FieldsWriter& out, const h3m::HeroSettings& value) const
     {
@@ -87,7 +87,7 @@ namespace Util_NS
   };
 
   template<>
-  struct StructWriter<h3m::MapAdditionalInfo>
+  struct JsonObjectWriter<h3m::MapAdditionalInfo>
   {
     void operator()(FieldsWriter& out, const h3m::MapAdditionalInfo& value) const
     {

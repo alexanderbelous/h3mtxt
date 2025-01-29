@@ -6,7 +6,7 @@
 namespace Util_NS
 {
   template<class T>
-  struct StructWriter<h3m::Resources<T>>
+  struct JsonObjectWriter<h3m::Resources<T>>
   {
     void operator()(FieldsWriter& out, const h3m::Resources<T>& resources) const
     {

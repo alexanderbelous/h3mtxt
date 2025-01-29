@@ -7,7 +7,7 @@
 namespace Util_NS
 {
   template<std::size_t NumBytes>
-  struct ValueWriter<h3m::ReservedData<NumBytes>>
+  struct JsonValueWriter<h3m::ReservedData<NumBytes>>
   {
     void operator()(IndentedTextWriter& out, const h3m::ReservedData<NumBytes>& reserved_data)
     {
@@ -21,7 +21,7 @@ namespace Util_NS
   };
 
   template<std::size_t NumBytes>
-  struct ValueWriter<h3m::BitSet<NumBytes>>
+  struct JsonValueWriter<h3m::BitSet<NumBytes>>
   {
     void operator()(IndentedTextWriter& out, const h3m::BitSet<NumBytes>& value)
     {

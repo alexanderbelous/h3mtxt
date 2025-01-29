@@ -60,7 +60,7 @@ namespace Util_NS
 
     explicit ScopedArrayWriter(IndentedTextWriter& out, bool one_element_per_line = true);
 
-    [[no_unique_address]] ValueWriter<T> value_writer_ {};
+    [[no_unique_address]] JsonValueWriter<T> value_writer_ {};
   };
 
   template<class T>

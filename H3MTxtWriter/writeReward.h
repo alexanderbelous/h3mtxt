@@ -8,7 +8,7 @@
 namespace Util_NS
 {
   template<>
-  struct StructWriter<h3m::RewardDetails<h3m::RewardType::None>>
+  struct JsonObjectWriter<h3m::RewardDetails<h3m::RewardType::None>>
   {
     void operator()(FieldsWriter&, const h3m::RewardDetails<h3m::RewardType::None>&) const
     {
@@ -16,7 +16,7 @@ namespace Util_NS
   };
 
   template<>
-  struct StructWriter<h3m::RewardDetails<h3m::RewardType::Experience>>
+  struct JsonObjectWriter<h3m::RewardDetails<h3m::RewardType::Experience>>
   {
     void operator()(FieldsWriter& out, const h3m::RewardDetails<h3m::RewardType::Experience>& details) const
     {
@@ -25,7 +25,7 @@ namespace Util_NS
   };
 
   template<>
-  struct StructWriter<h3m::RewardDetails<h3m::RewardType::SpellPoints>>
+  struct JsonObjectWriter<h3m::RewardDetails<h3m::RewardType::SpellPoints>>
   {
     void operator()(FieldsWriter& out, const h3m::RewardDetails<h3m::RewardType::SpellPoints>& details) const
     {
@@ -34,7 +34,7 @@ namespace Util_NS
   };
 
   template<>
-  struct StructWriter<h3m::RewardDetails<h3m::RewardType::Morale>>
+  struct JsonObjectWriter<h3m::RewardDetails<h3m::RewardType::Morale>>
   {
     void operator()(FieldsWriter& out, const h3m::RewardDetails<h3m::RewardType::Morale>& details) const
     {
@@ -43,7 +43,7 @@ namespace Util_NS
   };
 
   template<>
-  struct StructWriter<h3m::RewardDetails<h3m::RewardType::Luck>>
+  struct JsonObjectWriter<h3m::RewardDetails<h3m::RewardType::Luck>>
   {
     void operator()(FieldsWriter& out, const h3m::RewardDetails<h3m::RewardType::Luck>& details) const
     {
@@ -52,7 +52,7 @@ namespace Util_NS
   };
 
   template<>
-  struct StructWriter<h3m::RewardDetails<h3m::RewardType::Resource>>
+  struct JsonObjectWriter<h3m::RewardDetails<h3m::RewardType::Resource>>
   {
     void operator()(FieldsWriter& out, const h3m::RewardDetails<h3m::RewardType::Resource>& details) const
     {
@@ -62,7 +62,7 @@ namespace Util_NS
   };
 
   template<>
-  struct StructWriter<h3m::RewardDetails<h3m::RewardType::PrimarySkill>>
+  struct JsonObjectWriter<h3m::RewardDetails<h3m::RewardType::PrimarySkill>>
   {
     void operator()(FieldsWriter& out, const h3m::RewardDetails<h3m::RewardType::PrimarySkill>& details) const
     {
@@ -72,7 +72,7 @@ namespace Util_NS
   };
 
   template<>
-  struct StructWriter<h3m::RewardDetails<h3m::RewardType::SecondarySkill>>
+  struct JsonObjectWriter<h3m::RewardDetails<h3m::RewardType::SecondarySkill>>
   {
     void operator()(FieldsWriter& out, const h3m::RewardDetails<h3m::RewardType::SecondarySkill>& details) const
     {
@@ -81,7 +81,7 @@ namespace Util_NS
   };
 
   template<>
-  struct StructWriter<h3m::RewardDetails<h3m::RewardType::Artifact>>
+  struct JsonObjectWriter<h3m::RewardDetails<h3m::RewardType::Artifact>>
   {
     void operator()(FieldsWriter& out, const h3m::RewardDetails<h3m::RewardType::Artifact>& details) const
     {
@@ -90,7 +90,7 @@ namespace Util_NS
   };
 
   template<>
-  struct StructWriter<h3m::RewardDetails<h3m::RewardType::Spell>>
+  struct JsonObjectWriter<h3m::RewardDetails<h3m::RewardType::Spell>>
   {
     void operator()(FieldsWriter& out, const h3m::RewardDetails<h3m::RewardType::Spell>& details) const
     {
@@ -99,7 +99,7 @@ namespace Util_NS
   };
 
   template<>
-  struct StructWriter<h3m::RewardDetails<h3m::RewardType::Creature>>
+  struct JsonObjectWriter<h3m::RewardDetails<h3m::RewardType::Creature>>
   {
     void operator()(FieldsWriter& out, const h3m::RewardDetails<h3m::RewardType::Creature>& details) const
     {
@@ -109,7 +109,7 @@ namespace Util_NS
   };
 
   template<>
-  struct StructWriter<h3m::Reward>
+  struct JsonObjectWriter<h3m::Reward>
   {
     void operator()(FieldsWriter& out, const h3m::Reward& reward) const
     {

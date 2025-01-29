@@ -12,7 +12,7 @@ namespace Util_NS
   }
 
   template<>
-  struct StructWriter<h3m::VictoryConditionDetails<h3m::VictoryConditionType::AcquireArtifact>>
+  struct JsonObjectWriter<h3m::VictoryConditionDetails<h3m::VictoryConditionType::AcquireArtifact>>
   {
     void operator()(FieldsWriter& out,
                     const h3m::VictoryConditionDetails<h3m::VictoryConditionType::AcquireArtifact>& value) const
@@ -23,7 +23,7 @@ namespace Util_NS
   };
 
   template<>
-  struct StructWriter<h3m::VictoryConditionDetails<h3m::VictoryConditionType::AccumulateCreatures>>
+  struct JsonObjectWriter<h3m::VictoryConditionDetails<h3m::VictoryConditionType::AccumulateCreatures>>
   {
     void operator()(FieldsWriter& out,
                     const h3m::VictoryConditionDetails<h3m::VictoryConditionType::AccumulateCreatures>& value) const
@@ -35,7 +35,7 @@ namespace Util_NS
   };
 
   template<>
-  struct StructWriter<h3m::VictoryConditionDetails<h3m::VictoryConditionType::AccumulateResources>>
+  struct JsonObjectWriter<h3m::VictoryConditionDetails<h3m::VictoryConditionType::AccumulateResources>>
   {
     void operator()(FieldsWriter& out,
                     const h3m::VictoryConditionDetails<h3m::VictoryConditionType::AccumulateResources>& value) const
@@ -47,7 +47,7 @@ namespace Util_NS
   };
 
   template<>
-  struct StructWriter<h3m::VictoryConditionDetails<h3m::VictoryConditionType::UpgradeTown>>
+  struct JsonObjectWriter<h3m::VictoryConditionDetails<h3m::VictoryConditionType::UpgradeTown>>
   {
     void operator()(FieldsWriter& out,
                     const h3m::VictoryConditionDetails<h3m::VictoryConditionType::UpgradeTown>& value) const
@@ -62,7 +62,7 @@ namespace Util_NS
   };
 
   template<class T>
-  struct StructWriter<T, std::enable_if_t<std::is_same_v<T, h3m::VictoryConditionDetails<h3m::VictoryConditionType::BuildGrail>> ||
+  struct JsonObjectWriter<T, std::enable_if_t<std::is_same_v<T, h3m::VictoryConditionDetails<h3m::VictoryConditionType::BuildGrail>> ||
                                           std::is_same_v<T, h3m::VictoryConditionDetails<h3m::VictoryConditionType::DefeatHero>> ||
                                           std::is_same_v<T, h3m::VictoryConditionDetails<h3m::VictoryConditionType::CaptureTown>> ||
                                           std::is_same_v<T, h3m::VictoryConditionDetails<h3m::VictoryConditionType::DefeatMonster>>>>
@@ -77,7 +77,7 @@ namespace Util_NS
   };
 
   template<class T>
-  struct StructWriter<T, std::enable_if_t<std::is_same_v<T, h3m::VictoryConditionDetails<h3m::VictoryConditionType::FlagDwellings>> ||
+  struct JsonObjectWriter<T, std::enable_if_t<std::is_same_v<T, h3m::VictoryConditionDetails<h3m::VictoryConditionType::FlagDwellings>> ||
                                           std::is_same_v<T, h3m::VictoryConditionDetails<h3m::VictoryConditionType::FlagMines>>>>
   {
     void operator()(FieldsWriter& out, const T& value) const
@@ -87,7 +87,7 @@ namespace Util_NS
   };
 
   template<>
-  struct StructWriter<h3m::VictoryConditionDetails<h3m::VictoryConditionType::TransportArtifact>>
+  struct JsonObjectWriter<h3m::VictoryConditionDetails<h3m::VictoryConditionType::TransportArtifact>>
   {
     void operator()(FieldsWriter& out,
                     const h3m::VictoryConditionDetails<h3m::VictoryConditionType::TransportArtifact>& value) const
@@ -101,7 +101,7 @@ namespace Util_NS
   };
 
   template<>
-  struct StructWriter<h3m::VictoryConditionDetails<h3m::VictoryConditionType::Normal>>
+  struct JsonObjectWriter<h3m::VictoryConditionDetails<h3m::VictoryConditionType::Normal>>
   {
     void operator()(FieldsWriter&,
                     const h3m::VictoryConditionDetails<h3m::VictoryConditionType::Normal>&) const
@@ -109,7 +109,7 @@ namespace Util_NS
   };
 
   template<>
-  struct StructWriter<h3m::VictoryCondition>
+  struct JsonObjectWriter<h3m::VictoryCondition>
   {
     void operator()(FieldsWriter& out, const h3m::VictoryCondition& value) const
     {

@@ -61,7 +61,7 @@ namespace Util_NS
   void ScopedStructWriter::writeField(std::string_view field_name, const T& value)
   {
     writeFieldName(field_name);
-    ValueWriter<T> value_writer{};
+    JsonValueWriter<T> value_writer{};
     value_writer(out_, value);
     needs_comma_ = true;
     last_token_ = Token::Field;

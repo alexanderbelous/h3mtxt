@@ -10,7 +10,7 @@
 namespace Util_NS
 {
   template<>
-  struct StructWriter<h3m::PlayersBitmask>
+  struct JsonObjectWriter<h3m::PlayersBitmask>
   {
     void operator()(FieldsWriter& out, const h3m::PlayersBitmask& players_bitmask) const
     {
@@ -21,7 +21,7 @@ namespace Util_NS
       };
       static_assert(std::size(kFieldNames) == h3m::kMaxPlayers,
                     "The size of kFieldNames must be the same as the number of players");
-      // TODO: specialize ValueWriter<bool>.
+      // TODO: specialize JsonValueWriter<bool>.
       for (std::uint8_t i = 0; i < h3m::kMaxPlayers; ++i)
       {
         out.writeField(kFieldNames[i], players_bitmask[static_cast<h3m::PlayerColor>(i)]);

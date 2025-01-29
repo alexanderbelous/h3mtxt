@@ -41,14 +41,14 @@ namespace Util_NS
   //
   // Native specializations support some common types (e.g., std::string, integer types, std::vector).
   // You can specialize it for other types.
-  // The default implementation assumes that T is a structure and invokes StructWriter<T>.
+  // The default implementation assumes that T is a structure and invokes JsonObjectWriter<T>.
   template<class T, class Enable>
-  struct ValueWriter
+  struct JsonValueWriter
   {
     void operator()(IndentedTextWriter& out, const T& value) const;
   };
 
-  // Writes the specified value using ValueWriter.
+  // Writes the specified value using JsonValueWriter.
   //
   // This is simply a utility function for template argument deduction.
   //
@@ -57,24 +57,24 @@ namespace Util_NS
   template<class T>
   void writeValue(IndentedTextWriter& out, const T& value)
   {
-    ValueWriter<T> writer {};
+    JsonValueWriter<T> writer {};
     writer(out, value);
   }
 
-  // The default implementation of ValueWriter.
+  // The default implementation of JsonValueWriter.
   template<class T, class Enable>
-  void ValueWriter<T, Enable>::operator()(IndentedTextWriter& out, const T& value) const
+  void JsonValueWriter<T, Enable>::operator()(IndentedTextWriter& out, const T& value) const
   {
-    StructWriter<T> struct_writer {};
+    JsonObjectWriter<T> struct_writer {};
     FieldsWriter fields_writer = out.writeStruct();
     struct_writer(fields_writer, value);
   }
 
-  // Built-in specializations of ValueWriter.
+  // Built-in specializations of JsonValueWriter.
 
   // Full specialization for std::string.
   template<>
-  struct ValueWriter<std::string>
+  struct JsonValueWriter<std::string>
   {
     void operator()(IndentedTextWriter& out, const std::string& value) const
     {
@@ -82,9 +82,9 @@ namespace Util_NS
     }
   };
 
-  // Fukk specialization for bool.
+  // Full specialization for bool.
   template<>
-  struct ValueWriter<bool>
+  struct JsonValueWriter<bool>
   {
     void operator()(IndentedTextWriter& out, bool value) const
     {
@@ -94,7 +94,7 @@ namespace Util_NS
 
   // Partial specialization for integer types.
   template<class T>
-  struct ValueWriter<T, std::enable_if_t<std::is_integral_v<T>>>
+  struct JsonValueWriter<T, std::enable_if_t<std::is_integral_v<T>>>
   {
     void operator()(IndentedTextWriter& out, T value) const
     {
@@ -103,10 +103,10 @@ namespace Util_NS
   };
 
   // Partial specialization for enum types.
-  // Note that you can specialize ValueWriter for your enum type if you want to write
+  // Note that you can specialize JsonValueWriter for your enum type if you want to write
   // the names of enum constants instead of their integer values.
   template<class T>
-  struct ValueWriter<T, std::enable_if_t<std::is_enum_v<T>>>
+  struct JsonValueWriter<T, std::enable_if_t<std::is_enum_v<T>>>
   {
     void operator()(IndentedTextWriter& out, T value) const
     {
@@ -116,7 +116,7 @@ namespace Util_NS
 
   // Partial specialization for std::array.
   template<class T, std::size_t N>
-  struct ValueWriter<std::array<T, N>>
+  struct JsonValueWriter<std::array<T, N>>
   {
     void operator()(IndentedTextWriter& out, const std::array<T, N>& vec) const
     {
@@ -126,7 +126,7 @@ namespace Util_NS
 
   // Partial specialization for std::vector.
   template<class T, class Alloc>
-  struct ValueWriter<std::vector<T, Alloc>>
+  struct JsonValueWriter<std::vector<T, Alloc>>
   {
     void operator()(IndentedTextWriter& out, const std::vector<T, Alloc>& vec) const
     {
@@ -136,7 +136,7 @@ namespace Util_NS
 
   // Partial specialization for Detail_NS::KeyValCRef.
   template<class Key, class Value>
-  struct ValueWriter<Detail_NS::KeyValCRef<Key, Value>>
+  struct JsonValueWriter<Detail_NS::KeyValCRef<Key, Value>>
   {
     void operator()(IndentedTextWriter& out, const Detail_NS::KeyValCRef<Key, Value>& keyval) const
     {
@@ -156,7 +156,7 @@ namespace Util_NS
   // Note that entries are separated by commas unlike named fields in structures. Although, maybe
   // named fields should be separated by commas too.
   template<class Key, class Value, class Cmp, class Alloc>
-  struct ValueWriter<std::map<Key, Value, Cmp, Alloc>>
+  struct JsonValueWriter<std::map<Key, Value, Cmp, Alloc>>
   {
     void operator()(IndentedTextWriter& out, const std::map<Key, Value, Cmp, Alloc>& map) const
     {

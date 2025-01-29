@@ -10,7 +10,7 @@
 namespace Util_NS
 {
   template<>
-  struct StructWriter<h3m::QuestDetails<h3m::QuestType::None>>
+  struct JsonObjectWriter<h3m::QuestDetails<h3m::QuestType::None>>
   {
     void operator()(FieldsWriter&, const h3m::QuestDetails<h3m::QuestType::None>&) const
     {
@@ -18,7 +18,7 @@ namespace Util_NS
   };
 
   template<>
-  struct StructWriter<h3m::QuestDetails<h3m::QuestType::Level>>
+  struct JsonObjectWriter<h3m::QuestDetails<h3m::QuestType::Level>>
   {
     void operator()(FieldsWriter& out, const h3m::QuestDetails<h3m::QuestType::Level>& details) const
     {
@@ -27,7 +27,7 @@ namespace Util_NS
   };
 
   template<>
-  struct StructWriter<h3m::QuestDetails<h3m::QuestType::PrimarySkills>>
+  struct JsonObjectWriter<h3m::QuestDetails<h3m::QuestType::PrimarySkills>>
   {
     void operator()(FieldsWriter& out, const h3m::QuestDetails<h3m::QuestType::PrimarySkills>& details) const
     {
@@ -36,7 +36,7 @@ namespace Util_NS
   };
 
   template<>
-  struct StructWriter<h3m::QuestDetails<h3m::QuestType::DefeatHero>>
+  struct JsonObjectWriter<h3m::QuestDetails<h3m::QuestType::DefeatHero>>
   {
     void operator()(FieldsWriter& out, const h3m::QuestDetails<h3m::QuestType::DefeatHero>& details) const
     {
@@ -45,7 +45,7 @@ namespace Util_NS
   };
 
   template<>
-  struct StructWriter<h3m::QuestDetails<h3m::QuestType::DefeatMonster>>
+  struct JsonObjectWriter<h3m::QuestDetails<h3m::QuestType::DefeatMonster>>
   {
     void operator()(FieldsWriter& out, const h3m::QuestDetails<h3m::QuestType::DefeatMonster>& details) const
     {
@@ -54,7 +54,7 @@ namespace Util_NS
   };
 
   template<>
-  struct StructWriter<h3m::QuestDetails<h3m::QuestType::Artifacts>>
+  struct JsonObjectWriter<h3m::QuestDetails<h3m::QuestType::Artifacts>>
   {
     void operator()(FieldsWriter& out, const h3m::QuestDetails<h3m::QuestType::Artifacts>& details) const
     {
@@ -63,7 +63,7 @@ namespace Util_NS
   };
 
   template<>
-  struct StructWriter<h3m::QuestDetails<h3m::QuestType::Creatures>>
+  struct JsonObjectWriter<h3m::QuestDetails<h3m::QuestType::Creatures>>
   {
     void operator()(FieldsWriter& out, const h3m::QuestDetails<h3m::QuestType::Creatures>& details) const
     {
@@ -72,7 +72,7 @@ namespace Util_NS
   };
 
   template<>
-  struct StructWriter<h3m::QuestDetails<h3m::QuestType::Resources>>
+  struct JsonObjectWriter<h3m::QuestDetails<h3m::QuestType::Resources>>
   {
     void operator()(FieldsWriter& out, const h3m::QuestDetails<h3m::QuestType::Resources>& details) const
     {
@@ -81,7 +81,7 @@ namespace Util_NS
   };
 
   template<>
-  struct StructWriter<h3m::QuestDetails<h3m::QuestType::BeHero>>
+  struct JsonObjectWriter<h3m::QuestDetails<h3m::QuestType::BeHero>>
   {
     void operator()(FieldsWriter& out, const h3m::QuestDetails<h3m::QuestType::BeHero>& details) const
     {
@@ -90,7 +90,7 @@ namespace Util_NS
   };
 
   template<>
-  struct StructWriter<h3m::QuestDetails<h3m::QuestType::BePlayer>>
+  struct JsonObjectWriter<h3m::QuestDetails<h3m::QuestType::BePlayer>>
   {
     void operator()(FieldsWriter& out, const h3m::QuestDetails<h3m::QuestType::BePlayer>& details) const
     {
@@ -99,7 +99,7 @@ namespace Util_NS
   };
 
   template<>
-  struct StructWriter<h3m::Quest>
+  struct JsonObjectWriter<h3m::Quest>
   {
     void operator()(FieldsWriter& out, const h3m::Quest& quest) const
     {

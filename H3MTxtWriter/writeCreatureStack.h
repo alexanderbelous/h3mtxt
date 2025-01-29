@@ -6,7 +6,7 @@
 namespace Util_NS
 {
   template<>
-  struct StructWriter<h3m::CreatureStack>
+  struct JsonObjectWriter<h3m::CreatureStack>
   {
     void operator()(FieldsWriter& out, const h3m::CreatureStack& guardians) const
     {

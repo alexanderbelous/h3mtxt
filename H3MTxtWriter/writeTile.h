@@ -7,7 +7,7 @@
 namespace Util_NS
 {
   template<>
-  struct StructWriter<h3m::Tile>
+  struct JsonObjectWriter<h3m::Tile>
   {
     void operator()(FieldsWriter& out, const h3m::Tile& value) const
     {

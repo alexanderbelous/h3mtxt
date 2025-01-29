@@ -16,7 +16,7 @@
 namespace Util_NS
 {
   template<>
-  struct StructWriter<h3m::ResourcesBitmask>
+  struct JsonObjectWriter<h3m::ResourcesBitmask>
   {
     void operator()(FieldsWriter& out, const h3m::ResourcesBitmask& resources_bitmask) const
     {
@@ -31,7 +31,7 @@ namespace Util_NS
   };
 
   template<>
-  struct StructWriter<h3m::TownBuildings>
+  struct JsonObjectWriter<h3m::TownBuildings>
   {
     void operator()(FieldsWriter& out, const h3m::TownBuildings& town_buildings) const
     {
@@ -41,7 +41,7 @@ namespace Util_NS
   };
 
   template<>
-  struct StructWriter<h3m::TownEvent>
+  struct JsonObjectWriter<h3m::TownEvent>
   {
     void operator()(FieldsWriter& out, const h3m::TownEvent& town_event) const
     {
@@ -53,7 +53,7 @@ namespace Util_NS
   };
 
   template<>
-  struct StructWriter<h3m::Guardians>
+  struct JsonObjectWriter<h3m::Guardians>
   {
     void operator()(FieldsWriter& out, const h3m::Guardians& guardians) const
     {
@@ -85,7 +85,7 @@ namespace Util_NS
   }
 
   template<>
-  struct StructWriter<h3m::ObjectDetailsData<h3m::MetaObjectType::ABANDONED_MINE>>
+  struct JsonObjectWriter<h3m::ObjectDetailsData<h3m::MetaObjectType::ABANDONED_MINE>>
   {
     void operator()(FieldsWriter& out,
                     const h3m::ObjectDetailsData<h3m::MetaObjectType::ABANDONED_MINE>& data) const
@@ -96,7 +96,7 @@ namespace Util_NS
   };
 
   template<>
-  struct StructWriter<h3m::ObjectDetailsData<h3m::MetaObjectType::ARTIFACT>>
+  struct JsonObjectWriter<h3m::ObjectDetailsData<h3m::MetaObjectType::ARTIFACT>>
   {
     void operator()(FieldsWriter& out,
                     const h3m::ObjectDetailsData<h3m::MetaObjectType::ARTIFACT>& artifact) const
@@ -109,7 +109,7 @@ namespace Util_NS
   };
 
   template<>
-  struct StructWriter<h3m::ObjectDetailsData<h3m::MetaObjectType::EVENT>>
+  struct JsonObjectWriter<h3m::ObjectDetailsData<h3m::MetaObjectType::EVENT>>
   {
     void operator()(FieldsWriter& out,
                     const h3m::ObjectDetailsData<h3m::MetaObjectType::EVENT>& event) const
@@ -123,7 +123,7 @@ namespace Util_NS
   };
 
   template<>
-  struct StructWriter<h3m::ObjectDetailsData<h3m::MetaObjectType::GARRISON>>
+  struct JsonObjectWriter<h3m::ObjectDetailsData<h3m::MetaObjectType::GARRISON>>
   {
     void operator()(FieldsWriter& out,
                     const h3m::ObjectDetailsData<h3m::MetaObjectType::GARRISON>& garrison) const
@@ -136,7 +136,7 @@ namespace Util_NS
   };
 
   template<>
-  struct StructWriter<h3m::ObjectDetailsData<h3m::MetaObjectType::GENERIC_NO_PROPERTIES>>
+  struct JsonObjectWriter<h3m::ObjectDetailsData<h3m::MetaObjectType::GENERIC_NO_PROPERTIES>>
   {
     void operator()(FieldsWriter&,
                     const h3m::ObjectDetailsData<h3m::MetaObjectType::GENERIC_NO_PROPERTIES>&) const
@@ -145,7 +145,7 @@ namespace Util_NS
   };
 
   template<>
-  struct StructWriter<h3m::ObjectDetailsData<h3m::MetaObjectType::GRAIL>>
+  struct JsonObjectWriter<h3m::ObjectDetailsData<h3m::MetaObjectType::GRAIL>>
   {
     void operator()(FieldsWriter& out,
                     const h3m::ObjectDetailsData<h3m::MetaObjectType::GRAIL>& data) const
@@ -155,7 +155,7 @@ namespace Util_NS
   };
 
   template<>
-  struct StructWriter<h3m::ObjectDetailsData<h3m::MetaObjectType::HERO>>
+  struct JsonObjectWriter<h3m::ObjectDetailsData<h3m::MetaObjectType::HERO>>
   {
     void operator()(FieldsWriter& out,
                     const h3m::ObjectDetailsData<h3m::MetaObjectType::HERO>& hero) const
@@ -207,7 +207,7 @@ namespace Util_NS
   };
 
   template<>
-  struct StructWriter<h3m::ObjectDetailsData<h3m::MetaObjectType::MONSTER>::MessageAndTreasure>
+  struct JsonObjectWriter<h3m::ObjectDetailsData<h3m::MetaObjectType::MONSTER>::MessageAndTreasure>
   {
     void operator()(FieldsWriter& out,
                     const h3m::ObjectDetailsData<h3m::MetaObjectType::MONSTER>::MessageAndTreasure& data) const
@@ -219,7 +219,7 @@ namespace Util_NS
   };
 
   template<>
-  struct StructWriter<h3m::ObjectDetailsData<h3m::MetaObjectType::MONSTER>>
+  struct JsonObjectWriter<h3m::ObjectDetailsData<h3m::MetaObjectType::MONSTER>>
   {
     void operator()(FieldsWriter& out,
                     const h3m::ObjectDetailsData<h3m::MetaObjectType::MONSTER>& monster) const
@@ -238,7 +238,7 @@ namespace Util_NS
   };
 
   template<>
-  struct StructWriter<h3m::ObjectDetailsData<h3m::MetaObjectType::PANDORAS_BOX>>
+  struct JsonObjectWriter<h3m::ObjectDetailsData<h3m::MetaObjectType::PANDORAS_BOX>>
   {
     void operator()(FieldsWriter& out,
                     const h3m::ObjectDetailsData<h3m::MetaObjectType::PANDORAS_BOX>& pandoras_box) const
@@ -248,7 +248,7 @@ namespace Util_NS
   };
 
   template<>
-  struct StructWriter<h3m::ObjectDetailsData<h3m::MetaObjectType::PLACEHOLDER_HERO>>
+  struct JsonObjectWriter<h3m::ObjectDetailsData<h3m::MetaObjectType::PLACEHOLDER_HERO>>
   {
     void operator()(FieldsWriter& out,
                     const h3m::ObjectDetailsData<h3m::MetaObjectType::PLACEHOLDER_HERO>& hero) const
@@ -265,7 +265,7 @@ namespace Util_NS
   };
 
   template<>
-  struct StructWriter<h3m::ObjectDetailsData<h3m::MetaObjectType::QUEST_GUARD>>
+  struct JsonObjectWriter<h3m::ObjectDetailsData<h3m::MetaObjectType::QUEST_GUARD>>
   {
     void operator()(FieldsWriter& out,
                     const h3m::ObjectDetailsData<h3m::MetaObjectType::QUEST_GUARD>& quest_guard) const
@@ -275,7 +275,7 @@ namespace Util_NS
   };
 
   template<>
-  struct StructWriter<h3m::ObjectDetailsData<h3m::MetaObjectType::RANDOM_DWELLING>>
+  struct JsonObjectWriter<h3m::ObjectDetailsData<h3m::MetaObjectType::RANDOM_DWELLING>>
   {
     void operator()(FieldsWriter& out,
                     const h3m::ObjectDetailsData<h3m::MetaObjectType::RANDOM_DWELLING>& dwelling) const
@@ -292,7 +292,7 @@ namespace Util_NS
   };
 
   template<>
-  struct StructWriter<h3m::ObjectDetailsData<h3m::MetaObjectType::RANDOM_DWELLING_PRESET_ALIGNMENT>>
+  struct JsonObjectWriter<h3m::ObjectDetailsData<h3m::MetaObjectType::RANDOM_DWELLING_PRESET_ALIGNMENT>>
   {
     void operator()(FieldsWriter& out,
                     const h3m::ObjectDetailsData<h3m::MetaObjectType::RANDOM_DWELLING_PRESET_ALIGNMENT>& dwelling) const
@@ -304,7 +304,7 @@ namespace Util_NS
   };
 
   template<>
-  struct StructWriter<h3m::ObjectDetailsData<h3m::MetaObjectType::RANDOM_DWELLING_PRESET_LEVEL>>
+  struct JsonObjectWriter<h3m::ObjectDetailsData<h3m::MetaObjectType::RANDOM_DWELLING_PRESET_LEVEL>>
   {
     void operator()(FieldsWriter& out,
                     const h3m::ObjectDetailsData<h3m::MetaObjectType::RANDOM_DWELLING_PRESET_LEVEL>& dwelling) const
@@ -319,7 +319,7 @@ namespace Util_NS
   };
 
   template<>
-  struct StructWriter<h3m::ObjectDetailsData<h3m::MetaObjectType::RESOURCE>>
+  struct JsonObjectWriter<h3m::ObjectDetailsData<h3m::MetaObjectType::RESOURCE>>
   {
     void operator()(FieldsWriter& out,
                     const h3m::ObjectDetailsData<h3m::MetaObjectType::RESOURCE>& data) const
@@ -334,7 +334,7 @@ namespace Util_NS
   };
 
   template<>
-  struct StructWriter<h3m::ObjectDetailsData<h3m::MetaObjectType::SCHOLAR>>
+  struct JsonObjectWriter<h3m::ObjectDetailsData<h3m::MetaObjectType::SCHOLAR>>
   {
     void operator()(FieldsWriter& out,
                     const h3m::ObjectDetailsData<h3m::MetaObjectType::SCHOLAR>& data) const
@@ -346,7 +346,7 @@ namespace Util_NS
   };
 
   template<>
-  struct StructWriter<h3m::ObjectDetailsData<h3m::MetaObjectType::SEERS_HUT>>
+  struct JsonObjectWriter<h3m::ObjectDetailsData<h3m::MetaObjectType::SEERS_HUT>>
   {
     void operator()(FieldsWriter& out,
                     const h3m::ObjectDetailsData<h3m::MetaObjectType::SEERS_HUT>& data) const
@@ -358,7 +358,7 @@ namespace Util_NS
   };
 
   template<>
-  struct StructWriter<h3m::ObjectDetailsData<h3m::MetaObjectType::SHRINE>>
+  struct JsonObjectWriter<h3m::ObjectDetailsData<h3m::MetaObjectType::SHRINE>>
   {
     void operator()(FieldsWriter& out,
                     const h3m::ObjectDetailsData<h3m::MetaObjectType::SHRINE>& data) const
@@ -369,7 +369,7 @@ namespace Util_NS
   };
 
   template<>
-  struct StructWriter<h3m::ObjectDetailsData<h3m::MetaObjectType::SIGN>>
+  struct JsonObjectWriter<h3m::ObjectDetailsData<h3m::MetaObjectType::SIGN>>
   {
     void operator()(FieldsWriter& out,
                     const h3m::ObjectDetailsData<h3m::MetaObjectType::SIGN>& data) const
@@ -380,7 +380,7 @@ namespace Util_NS
   };
 
   template<>
-  struct StructWriter<h3m::ObjectDetailsData<h3m::MetaObjectType::SPELL_SCROLL>>
+  struct JsonObjectWriter<h3m::ObjectDetailsData<h3m::MetaObjectType::SPELL_SCROLL>>
   {
     void operator()(FieldsWriter& out,
       const h3m::ObjectDetailsData<h3m::MetaObjectType::SPELL_SCROLL>& spell_scroll) const
@@ -395,7 +395,7 @@ namespace Util_NS
   };
 
   template<>
-  struct StructWriter<h3m::ObjectDetailsData<h3m::MetaObjectType::TOWN>>
+  struct JsonObjectWriter<h3m::ObjectDetailsData<h3m::MetaObjectType::TOWN>>
   {
     void operator()(FieldsWriter& out,
                     const h3m::ObjectDetailsData<h3m::MetaObjectType::TOWN>& town) const
@@ -428,7 +428,7 @@ namespace Util_NS
   };
 
   template<>
-  struct StructWriter<h3m::ObjectDetailsData<h3m::MetaObjectType::TRIVIAL_OWNED_OBJECT>>
+  struct JsonObjectWriter<h3m::ObjectDetailsData<h3m::MetaObjectType::TRIVIAL_OWNED_OBJECT>>
   {
     void operator()(FieldsWriter& out,
       const h3m::ObjectDetailsData<h3m::MetaObjectType::TRIVIAL_OWNED_OBJECT>& data) const
@@ -439,7 +439,7 @@ namespace Util_NS
   };
 
   template<>
-  struct StructWriter<h3m::ObjectDetailsData<h3m::MetaObjectType::WITCH_HUT>>
+  struct JsonObjectWriter<h3m::ObjectDetailsData<h3m::MetaObjectType::WITCH_HUT>>
   {
     void operator()(FieldsWriter& out,
       const h3m::ObjectDetailsData<h3m::MetaObjectType::WITCH_HUT>& witch_hut) const

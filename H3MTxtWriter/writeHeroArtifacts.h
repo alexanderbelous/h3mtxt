@@ -6,7 +6,7 @@
 namespace Util_NS
 {
   template<>
-  struct StructWriter<h3m::HeroArtifacts>
+  struct JsonObjectWriter<h3m::HeroArtifacts>
   {
     void operator()(FieldsWriter& out, const h3m::HeroArtifacts& value) const
     {

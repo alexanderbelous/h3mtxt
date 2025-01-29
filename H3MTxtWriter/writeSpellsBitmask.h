@@ -5,9 +5,9 @@
 
 namespace Util_NS
 {
-  // TODO: replace with StructWriter and print true/false for each spell.
+  // TODO: replace with JsonObjectWriter and print true/false for each spell.
   template<>
-  struct ValueWriter<h3m::SpellsBitmask>
+  struct JsonValueWriter<h3m::SpellsBitmask>
   {
     void operator()(IndentedTextWriter& out, const h3m::SpellsBitmask& bitmask) const
     {

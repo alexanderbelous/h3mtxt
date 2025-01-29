@@ -6,7 +6,7 @@
 namespace Util_NS
 {
   template<>
-  struct StructWriter<h3m::SecondarySkill>
+  struct JsonObjectWriter<h3m::SecondarySkill>
   {
     void operator()(FieldsWriter& out, const h3m::SecondarySkill& value) const
     {

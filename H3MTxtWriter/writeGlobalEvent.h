@@ -7,7 +7,7 @@
 namespace Util_NS
 {
   template<>
-  struct StructWriter<h3m::GlobalEvent>
+  struct JsonObjectWriter<h3m::GlobalEvent>
   {
     void operator()(FieldsWriter& out, const h3m::GlobalEvent& global_event) const
     {
