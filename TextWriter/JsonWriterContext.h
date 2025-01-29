@@ -23,7 +23,6 @@ namespace Util_NS
       JsonWriterContext& operator=(JsonWriterContext&&) = delete;
       constexpr ~JsonWriterContext() = default;
 
-
       friend JsonDocumentWriter;
       friend ScopedArrayWriterBase;
       friend ScopedStructWriter;

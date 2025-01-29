@@ -1,7 +1,9 @@
 #pragma once
 
+// TODO: rename to Medea_NS
 namespace Util_NS
 {
+  // Class for writing JSON documents.
   class JsonDocumentWriter;
 
   class ScopedArrayWriterBase;
