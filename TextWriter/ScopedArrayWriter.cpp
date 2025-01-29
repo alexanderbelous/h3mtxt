@@ -12,10 +12,7 @@ namespace Util_NS
     context_.stream_.put('[');
     // This is not quite accurate - if last_token_ == Token::Nothing in ~ScopedArrayWriter(),
     // no newline will be written between the brackets.
-    if (one_element_per_line_)
-    {
-      context_.needs_newline_ = true;
-    }
+    context_.needs_newline_ = one_element_per_line_;
     context_.increaseIndent();
   }
 
