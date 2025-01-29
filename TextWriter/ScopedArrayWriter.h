@@ -1,7 +1,6 @@
 #pragma once
 
-#include <h3mtxt/TextWriter/TextWriter.h>
-#include <h3mtxt/TextWriter/TextWriterFwd.h>
+#include <h3mtxt/TextWriter/JsonWriterFwd.h>
 #include <h3mtxt/TextWriter/JsonValueWriter.h>
 
 #include <string_view>
@@ -12,7 +11,7 @@ namespace Util_NS
   class ScopedArrayWriterBase
   {
   public:
-    // Decreases the indent of the underlying IndentedTextWriter and writes the closing bracket ']'.
+    // Decreases the indent of the underlying JsonDocumentWriter and writes the closing bracket ']'.
     ~ScopedArrayWriterBase();
 
     // Non-copyable, non-movable.
@@ -25,8 +24,8 @@ namespace Util_NS
     void writeComment(std::string_view comment);
 
   protected:
-    // Writes an opening bracket '[' and increases the indent of the given IndentedTextWriter.
-    explicit ScopedArrayWriterBase(IndentedTextWriter& out, bool one_element_per_line = true);
+    // Writes an opening bracket '[' and increases the indent of the given JsonDocumentWriter.
+    explicit ScopedArrayWriterBase(const Detail_NS::JsonWriterContext& context, bool one_element_per_line = true);
 
     void beforeWriteElement();
 
@@ -39,7 +38,7 @@ namespace Util_NS
       Comment
     };
 
-    IndentedTextWriter& out_;
+    Detail_NS::JsonWriterContext context_;
     // The last token written via this object.
     Token last_token_ = Token::Nothing;
     // True if each element should be a written on a new line, false otherwise.
@@ -52,27 +51,26 @@ namespace Util_NS
   class ScopedArrayWriter : public ScopedArrayWriterBase
   {
   public:
+    explicit ScopedArrayWriter(const Detail_NS::JsonWriterContext& context, bool one_element_per_line = true);
+
     // Writes a single element.
     void writeElement(const T& value);
 
   private:
-    friend IndentedTextWriter;
-
-    explicit ScopedArrayWriter(IndentedTextWriter& out, bool one_element_per_line = true);
-
     [[no_unique_address]] JsonValueWriter<T> value_writer_ {};
   };
 
   template<class T>
-  ScopedArrayWriter<T>::ScopedArrayWriter(IndentedTextWriter & out, bool one_element_per_line):
-    ScopedArrayWriterBase(out, one_element_per_line)
+  ScopedArrayWriter<T>::ScopedArrayWriter(const Detail_NS::JsonWriterContext& context, bool one_element_per_line):
+    ScopedArrayWriterBase(context, one_element_per_line)
   {}
 
   template<class T>
   void ScopedArrayWriter<T>::writeElement(const T& value)
   {
     beforeWriteElement();
-    value_writer_(out_, value);
+    JsonDocumentWriter document_writer(context_);
+    value_writer_(document_writer, value);
     afterWriteElement();
   }
 }

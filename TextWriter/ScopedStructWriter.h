@@ -1,19 +1,22 @@
 #pragma once
 
-#include <h3mtxt/TextWriter/TextWriter.h>
-#include <h3mtxt/TextWriter/TextWriterFwd.h>
+#include <h3mtxt/TextWriter/JsonWriterFwd.h>
 #include <h3mtxt/TextWriter/JsonValueWriter.h>
 
 #include <string_view>
 
 namespace Util_NS
 {
-  // Class for writing *fields* with indent.
-  // You cannot construct it manually; use TextWriter::writeStruct() instead.
+  // Class for writing fields of a JSON object.
   class ScopedStructWriter
   {
   public:
-    // Decreases the indent of the underlying IndentedTextWriter and writes the closing brace '}'.
+    // Writes an opening brace '{' and increases the indent.
+    // Note that the constructor of JsonWriterContext is private, so you won't be able to
+    // construct ScopedStructWriter manually; use JsonDocumentWriter::writeStruct() instead.
+    explicit ScopedStructWriter(const Detail_NS::JsonWriterContext& context);
+
+    // Decreases the indent of the underlying JsonDocumentWriter and writes the closing brace '}'.
     ~ScopedStructWriter();
 
     // Non-copyable, non-movable.
@@ -44,14 +47,9 @@ namespace Util_NS
       Comma
     };
 
-    friend IndentedTextWriter;
-
-    // Writes an opening brace '{' and increases the indent of the given IndentedTextWriter.
-    explicit ScopedStructWriter(IndentedTextWriter& out);
-
     void writeFieldName(std::string_view field_name);
 
-    IndentedTextWriter& out_;
+    Detail_NS::JsonWriterContext context_;
     Token last_token_ = Token::None;
     // True if a comma needs to be appended before writing another field, false otherwise.
     bool needs_comma_ = false;
@@ -61,8 +59,10 @@ namespace Util_NS
   void ScopedStructWriter::writeField(std::string_view field_name, const T& value)
   {
     writeFieldName(field_name);
+    JsonDocumentWriter document_writer(context_);
     JsonValueWriter<T> value_writer{};
-    value_writer(out_, value);
+    value_writer(document_writer, value);
+    context_.needs_newline_ = true;
     needs_comma_ = true;
     last_token_ = Token::Field;
   }

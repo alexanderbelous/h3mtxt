@@ -25,7 +25,7 @@ namespace Util_NS
   template<>
   struct JsonValueWriter<h3m::HeroesAvailability>
   {
-    void operator()(IndentedTextWriter& out, const h3m::HeroesAvailability& value) const
+    void operator()(JsonDocumentWriter& out, const h3m::HeroesAvailability& value) const
     {
       writeValue(out, value.data);
     }

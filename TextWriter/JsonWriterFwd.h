@@ -2,7 +2,7 @@
 
 namespace Util_NS
 {
-  class IndentedTextWriter;
+  class JsonDocumentWriter;
 
   class ScopedArrayWriterBase;
 

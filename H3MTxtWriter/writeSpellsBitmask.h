@@ -9,7 +9,7 @@ namespace Util_NS
   template<>
   struct JsonValueWriter<h3m::SpellsBitmask>
   {
-    void operator()(IndentedTextWriter& out, const h3m::SpellsBitmask& bitmask) const
+    void operator()(JsonDocumentWriter& out, const h3m::SpellsBitmask& bitmask) const
     {
       writeValue(out, bitmask.bitset);
     }

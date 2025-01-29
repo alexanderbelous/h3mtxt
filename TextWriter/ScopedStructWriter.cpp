@@ -4,24 +4,23 @@
 
 namespace Util_NS
 {
-  ScopedStructWriter::ScopedStructWriter(IndentedTextWriter& out):
-    out_(out)
+  ScopedStructWriter::ScopedStructWriter(const Detail_NS::JsonWriterContext& context):
+    context_(context)
   {
-    out_.writeNewlineIfNeeded();
-    out_.stream_.put('{');
-    out_.increaseIndent();
-    out_.needs_newline_ = true;
+    context_.writeNewlineIfNeeded();
+    context_.stream_.put('{');
+    context_.increaseIndent();
+    context_.needs_newline_ = true;
   }
 
   ScopedStructWriter::~ScopedStructWriter()
   {
     try
     {
-      out_.decreaseIndent();
+      context_.decreaseIndent();
       // TODO: don't write a newline if no fields have been written.
-      out_.writeNewlineIfNeeded();
-      out_.stream_.put('}');
-      out_.needs_newline_ = true;
+      context_.writeNewlineIfNeeded();
+      context_.stream_.put('}');
     }
     catch (...)
     {
@@ -33,11 +32,11 @@ namespace Util_NS
     // If the last token was a comment, write a newline anyway.
     if (!newline && (last_token_ != Token::Comment))
     {
-      // Otherwise, append a space and instruct IndentedTextWriter not to write a newline character.
-      out_.stream_.put(' ');
-      out_.needs_newline_ = false;
+      // Otherwise, append a space and instruct JsonDocumentWriter not to write a newline character.
+      context_.stream_.put(' ');
+      context_.needs_newline_ = false;
     }
-    out_.writeComment(comment);
+    context_.writeComment(comment);
     last_token_ = Token::Comment;
   }
 
@@ -48,13 +47,13 @@ namespace Util_NS
     {
       if (last_token_ == Token::Comment)
       {
-        out_.writeNewlineIfNeeded();
-        out_.stream_.write(kCommaStr.data(), kCommaStr.size());
+        context_.writeNewlineIfNeeded();
+        context_.stream_.write(kCommaStr.data(), kCommaStr.size());
       }
       else
       {
         // last_token_ can only be Token::Field.
-        out_.stream_.put(',');
+        context_.stream_.put(',');
       }
       needs_comma_ = false;
       last_token_ = Token::Comma;
@@ -67,8 +66,8 @@ namespace Util_NS
     static constexpr std::string_view kSeparator = ": ";
     // Write a comma, if needed.
     writeComma();
-    out_.writeString(field_name);
-    out_.stream_.write(kSeparator.data(), kSeparator.size());
-    out_.needs_newline_ = false;
+    context_.writeString(field_name);
+    context_.stream_.write(kSeparator.data(), kSeparator.size());
+    context_.needs_newline_ = false;
   }
 }

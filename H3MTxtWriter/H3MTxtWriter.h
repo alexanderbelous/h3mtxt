@@ -9,7 +9,7 @@ namespace Util_NS
   template<std::size_t NumBytes>
   struct JsonValueWriter<h3m::ReservedData<NumBytes>>
   {
-    void operator()(IndentedTextWriter& out, const h3m::ReservedData<NumBytes>& reserved_data)
+    void operator()(JsonDocumentWriter& out, const h3m::ReservedData<NumBytes>& reserved_data)
     {
       // Print all elements on the same line.
       ScopedArrayWriter<std::byte> array_writer = out.writeArray<std::byte>(false);
@@ -23,7 +23,7 @@ namespace Util_NS
   template<std::size_t NumBytes>
   struct JsonValueWriter<h3m::BitSet<NumBytes>>
   {
-    void operator()(IndentedTextWriter& out, const h3m::BitSet<NumBytes>& value)
+    void operator()(JsonDocumentWriter& out, const h3m::BitSet<NumBytes>& value)
     {
       writeValue(out, value.data());
     }

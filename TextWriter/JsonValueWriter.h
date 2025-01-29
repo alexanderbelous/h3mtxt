@@ -1,8 +1,8 @@
 #pragma once
 
+#include <h3mtxt/TextWriter/JsonDocumentWriter.h>
 #include <h3mtxt/TextWriter/ScopedArrayWriter.h>
 #include <h3mtxt/TextWriter/ScopedStructWriter.h>
-#include <h3mtxt/TextWriter/TextWriter.h>
 
 #include <array>
 #include <functional>
@@ -16,9 +16,9 @@ namespace Util_NS
 {
   namespace Detail_NS
   {
-    // Writes an array of elements into the specified IndentedTextWriter.
+    // Writes an array of elements into the specified JsonDocumentWriter.
     template<class T>
-    void writeSpan(IndentedTextWriter& out, std::span<const T> elements)
+    void writeSpan(JsonDocumentWriter& out, std::span<const T> elements)
     {
       // Write an array of numbers or bytes on a single line, everything else - over multiple lines.
       constexpr bool kOneElementPerLine = !(std::is_arithmetic_v<T> || std::is_same_v<T, std::byte>);
@@ -45,17 +45,17 @@ namespace Util_NS
   template<class T, class Enable>
   struct JsonValueWriter
   {
-    void operator()(IndentedTextWriter& out, const T& value) const;
+    void operator()(JsonDocumentWriter& out, const T& value) const;
   };
 
   // Writes the specified value using JsonValueWriter.
   //
   // This is simply a utility function for template argument deduction.
   //
-  // \param out - output IndentedTextWriter.
+  // \param out - output JsonDocumentWriter.
   // \param value - input value.
   template<class T>
-  void writeValue(IndentedTextWriter& out, const T& value)
+  void writeValue(JsonDocumentWriter& out, const T& value)
   {
     JsonValueWriter<T> writer {};
     writer(out, value);
@@ -63,7 +63,7 @@ namespace Util_NS
 
   // The default implementation of JsonValueWriter.
   template<class T, class Enable>
-  void JsonValueWriter<T, Enable>::operator()(IndentedTextWriter& out, const T& value) const
+  void JsonValueWriter<T, Enable>::operator()(JsonDocumentWriter& out, const T& value) const
   {
     JsonObjectWriter<T> struct_writer {};
     FieldsWriter fields_writer = out.writeStruct();
@@ -76,7 +76,7 @@ namespace Util_NS
   template<>
   struct JsonValueWriter<std::string>
   {
-    void operator()(IndentedTextWriter& out, const std::string& value) const
+    void operator()(JsonDocumentWriter& out, const std::string& value) const
     {
       out.writeString(value);
     }
@@ -86,7 +86,7 @@ namespace Util_NS
   template<>
   struct JsonValueWriter<bool>
   {
-    void operator()(IndentedTextWriter& out, bool value) const
+    void operator()(JsonDocumentWriter& out, bool value) const
     {
       out.writeBool(value);
     }
@@ -96,7 +96,7 @@ namespace Util_NS
   template<class T>
   struct JsonValueWriter<T, std::enable_if_t<std::is_integral_v<T>>>
   {
-    void operator()(IndentedTextWriter& out, T value) const
+    void operator()(JsonDocumentWriter& out, T value) const
     {
       out.writeInteger(value);
     }
@@ -108,7 +108,7 @@ namespace Util_NS
   template<class T>
   struct JsonValueWriter<T, std::enable_if_t<std::is_enum_v<T>>>
   {
-    void operator()(IndentedTextWriter& out, T value) const
+    void operator()(JsonDocumentWriter& out, T value) const
     {
       out.writeInteger(static_cast<std::underlying_type_t<T>>(value));
     }
@@ -118,7 +118,7 @@ namespace Util_NS
   template<class T, std::size_t N>
   struct JsonValueWriter<std::array<T, N>>
   {
-    void operator()(IndentedTextWriter& out, const std::array<T, N>& vec) const
+    void operator()(JsonDocumentWriter& out, const std::array<T, N>& vec) const
     {
       Detail_NS::writeSpan<T>(out, vec);
     }
@@ -128,7 +128,7 @@ namespace Util_NS
   template<class T, class Alloc>
   struct JsonValueWriter<std::vector<T, Alloc>>
   {
-    void operator()(IndentedTextWriter& out, const std::vector<T, Alloc>& vec) const
+    void operator()(JsonDocumentWriter& out, const std::vector<T, Alloc>& vec) const
     {
       Detail_NS::writeSpan<T>(out, vec);
     }
@@ -138,7 +138,7 @@ namespace Util_NS
   template<class Key, class Value>
   struct JsonValueWriter<Detail_NS::KeyValCRef<Key, Value>>
   {
-    void operator()(IndentedTextWriter& out, const Detail_NS::KeyValCRef<Key, Value>& keyval) const
+    void operator()(JsonDocumentWriter& out, const Detail_NS::KeyValCRef<Key, Value>& keyval) const
     {
       ScopedStructWriter fields_writer = out.writeStruct();
       fields_writer.writeField("key", keyval.data.get().first);
@@ -158,7 +158,7 @@ namespace Util_NS
   template<class Key, class Value, class Cmp, class Alloc>
   struct JsonValueWriter<std::map<Key, Value, Cmp, Alloc>>
   {
-    void operator()(IndentedTextWriter& out, const std::map<Key, Value, Cmp, Alloc>& map) const
+    void operator()(JsonDocumentWriter& out, const std::map<Key, Value, Cmp, Alloc>& map) const
     {
       using ElementType = Detail_NS::KeyValCRef<Key, Value>;
 

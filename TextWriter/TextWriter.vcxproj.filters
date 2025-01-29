@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="TextWriter.cpp">
+    <ClCompile Include="JsonDocumentWriter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="ScopedStructWriter.cpp">
@@ -24,12 +24,15 @@
     <ClCompile Include="ScopedArrayWriter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="JsonWriterContext.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="TextWriter.h">
+    <ClInclude Include="JsonDocumentWriter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="TextWriterFwd.h">
+    <ClInclude Include="JsonWriterFwd.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="JsonValueWriter.h">
@@ -39,6 +42,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ScopedArrayWriter.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="JsonWriterContext.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

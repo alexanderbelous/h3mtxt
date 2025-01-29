@@ -137,7 +137,7 @@ namespace Util_NS
   template<>
   struct JsonValueWriter<std::array<h3m::PlayerSpecs, h3m::kMaxPlayers>>
   {
-    void operator()(IndentedTextWriter& out, const std::array<h3m::PlayerSpecs, h3m::kMaxPlayers>& players) const
+    void operator()(JsonDocumentWriter& out, const std::array<h3m::PlayerSpecs, h3m::kMaxPlayers>& players) const
     {
       CommentBuilder comment_builder;
       ScopedArrayWriter<h3m::PlayerSpecs> array_writer = out.writeArray<h3m::PlayerSpecs>();
@@ -152,7 +152,7 @@ namespace Util_NS
   template<>
   struct JsonValueWriter<TilesWithMapSize>
   {
-    void operator()(IndentedTextWriter& out, const TilesWithMapSize& value) const
+    void operator()(JsonDocumentWriter& out, const TilesWithMapSize& value) const
     {
       CommentBuilder comment_builder;
       const std::uint32_t num_levels = value.hasTwoLevels() ? 2 : 1;
@@ -224,7 +224,7 @@ namespace Util_NS
   template<>
   struct JsonValueWriter<H3MObjects>
   {
-    void operator()(IndentedTextWriter& out, const H3MObjects& objects) const
+    void operator()(JsonDocumentWriter& out, const H3MObjects& objects) const
     {
       CommentBuilder comment_builder;
       ScopedArrayWriter<H3MObject> array_writer = out.writeArray<H3MObject>();
@@ -262,7 +262,7 @@ namespace h3m
 {
   void writeH3mTxt(std::ostream& stream, const Map& map)
   {
-    Util_NS::IndentedTextWriter writer(stream, 0);
+    Util_NS::JsonDocumentWriter writer(stream, 0);
     Util_NS::writeValue(writer, map);
   }
 }

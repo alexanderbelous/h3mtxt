@@ -4,36 +4,36 @@
 
 namespace Util_NS
 {
-  ScopedArrayWriterBase::ScopedArrayWriterBase(IndentedTextWriter& out, bool one_element_per_line):
-    out_(out),
+  ScopedArrayWriterBase::ScopedArrayWriterBase(const Detail_NS::JsonWriterContext& context, bool one_element_per_line):
+    context_(context),
     one_element_per_line_(one_element_per_line)
   {
-    out_.writeNewlineIfNeeded();
-    out_.stream_.put('[');
+    context_.writeNewlineIfNeeded();
+    context_.stream_.put('[');
     // This is not quite accurate - if last_token_ == Token::Nothing in ~ScopedArrayWriter(),
     // no newline will be written between the brackets.
     if (one_element_per_line_)
     {
-      out_.needs_newline_ = true;
+      context_.needs_newline_ = true;
     }
-    out_.increaseIndent();
+    context_.increaseIndent();
   }
 
   ScopedArrayWriterBase::~ScopedArrayWriterBase()
   {
     try
     {
-      out_.decreaseIndent();
+      context_.decreaseIndent();
       // A newline is needed if:
       // a) The last token was a comment.
       // b) The last token was an element and there should be 1 element per line.
       if ((last_token_ == Token::Comment) || (last_token_ == Token::Element && one_element_per_line_))
       {
-        out_.needs_newline_ = true;
-        out_.writeNewlineIfNeeded();
+        context_.needs_newline_ = true;
+        context_.writeNewlineIfNeeded();
       }      
-      out_.stream_.put(']');
-      out_.needs_newline_ = true;
+      context_.stream_.put(']');
+      context_.needs_newline_ = true;
     }
     catch (...)
     {
@@ -45,13 +45,13 @@ namespace Util_NS
     // Write a comma if needed.
     if (last_token_ == Token::Element)
     {
-      out_.stream_.put(',');
+      context_.stream_.put(',');
     }
     else if (last_token_ != Token::Nothing)
     {
-      out_.needs_newline_ = true;
+      context_.needs_newline_ = true;
     }
-    out_.writeComment(comment);
+    context_.writeComment(comment);
     last_token_ = Token::Comment;
   }
 
@@ -60,11 +60,11 @@ namespace Util_NS
     // Write a comma if needed.
     if (last_token_ == Token::Element)
     {
-      out_.stream_.put(',');
+      context_.stream_.put(',');
       // Append a space if the next element will be written on the same line.
       if (!one_element_per_line_)
       {
-        out_.stream_.put(' ');
+        context_.stream_.put(' ');
       }
     }
     // Write/suppress a newline if needed.
@@ -73,18 +73,15 @@ namespace Util_NS
       if (last_token_ == Token::Comment)
       {
         // Write a newline anyway if the previous line was a comment.
-        out_.writeNewlineIfNeeded();
+        context_.writeNewlineIfNeeded();
       }
-      out_.needs_newline_ = false;
+      context_.needs_newline_ = false;
     }
   }
 
   void ScopedArrayWriterBase::afterWriteElement()
   {
     last_token_ = Token::Element;
-    if (!one_element_per_line_)
-    {
-      out_.needs_newline_ = false;
-    }
+    context_.needs_newline_ = one_element_per_line_;
   }
 }
