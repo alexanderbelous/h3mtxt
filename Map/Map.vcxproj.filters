@@ -192,5 +192,8 @@
     <ClInclude Include="Constants\SecondarySkillLevel.h">
       <Filter>Header Files\Constants</Filter>
     </ClInclude>
+    <ClInclude Include="MapFwd.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

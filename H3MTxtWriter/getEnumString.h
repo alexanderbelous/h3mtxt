@@ -1,18 +1,13 @@
 #pragma once
 
-// TODO: use forward declarations instead.
-#include <h3mtxt/Map/Constants/MetaObjectType.h>
-#include <h3mtxt/Map/Constants/ObjectClass.h>
-#include <h3mtxt/Map/Constants/RewardType.h>
-#include <h3mtxt/Map/Constants/RiverType.h>
-#include <h3mtxt/Map/Constants/RoadType.h>
-#include <h3mtxt/Map/Constants/TerrainType.h>
-#include <h3mtxt/Map/Constants/QuestType.h>
+#include <h3mtxt/Map/MapFwd.h>
 
 #include <string_view>
 
 namespace h3m
 {
+  std::string_view getEnumString(h3m::Disposition value) noexcept;
+
   // Returns a human-readable name for the given enum constant.
   // \param value - input MetaObjectType.
   // \return a human-readable name for @value,

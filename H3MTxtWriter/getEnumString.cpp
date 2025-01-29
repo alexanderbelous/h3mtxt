@@ -4,6 +4,19 @@
 
 namespace h3m
 {
+  std::string_view getEnumString(h3m::Disposition value) noexcept
+  {
+    static constexpr std::string_view kNames[] = {
+      "Compliant",
+      "Friendly",
+      "Aggressive",
+      "Hostile",
+      "Savage"
+    };
+    const std::size_t idx = static_cast<std::size_t>(value);
+    return (idx < std::size(kNames)) ? kNames[idx] : std::string_view{};
+  }
+
   std::string_view getEnumString(MetaObjectType value) noexcept
   {
     static constexpr std::string_view kNames[] = {

@@ -1,6 +1,7 @@
 #pragma once
 
 #include <h3mtxt/Map/ObjectDetailsData.h>
+#include <h3mtxt/H3MTxtWriter/getEnumString.h>
 #include <h3mtxt/H3MTxtWriter/H3MTxtWriter.h>
 #include <h3mtxt/H3MTxtWriter/writeCreatureStack.h>
 #include <h3mtxt/H3MTxtWriter/writeHeroArtifacts.h>
@@ -227,6 +228,11 @@ namespace Util_NS
       out.writeField("absod_id", monster.absod_id);
       out.writeField("count", monster.count);
       out.writeField("disposition", monster.disposition);
+      if (auto enum_str = h3m::getEnumString(monster.disposition); !enum_str.empty())
+      {
+        out.writeComma();
+        out.writeComment(enum_str, false);
+      }
       if (monster.message_and_treasure)
       {
         out.writeField("message_and_treasure", *monster.message_and_treasure);
