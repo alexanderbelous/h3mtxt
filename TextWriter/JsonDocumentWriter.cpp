@@ -3,6 +3,7 @@
 #include <h3mtxt/TextWriter/ScopedStructWriter.h>
 
 #include <ostream>
+#include <stdexcept>
 
 namespace Util_NS
 {
@@ -23,9 +24,13 @@ namespace Util_NS
 
   void JsonDocumentWriter::writeBool(bool value)
   {
+    static constexpr std::string_view kFalseStr = "false";
+    static constexpr std::string_view kTrueStr = "true";
+
     checkNotDone();
     context_.writeNewlineIfNeeded();
-    context_.stream_ << (value ? "true" : "false");
+    const std::string_view str = value ? kTrueStr : kFalseStr;
+    context_.stream_.write(str.data(), str.size());
     is_done_ = true;
   }
 

@@ -95,26 +95,11 @@ namespace Util_NS
       stream_.put('"');
     }
 
-    void JsonWriterContext::increaseIndent()
-    {
-      indent_ += 2;
-    }
-
-    void JsonWriterContext::decreaseIndent()
-    {
-      // This should never happen.
-      if (indent_ < 2)
-      {
-        return;
-      }
-      indent_ -= 2;
-    }
-
     void JsonWriterContext::writeNewlineIfNeeded()
     {
       if (needs_newline_)
       {
-        stream_ << '\n';
+        stream_.put('\n');
         std::fill_n(std::ostream_iterator<char>(stream_), indent_, ' ');
         needs_newline_ = false;
       }

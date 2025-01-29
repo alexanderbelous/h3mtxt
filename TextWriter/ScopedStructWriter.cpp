@@ -62,7 +62,6 @@ namespace Util_NS
 
   void ScopedStructWriter::writeFieldName(std::string_view field_name)
   {
-    
     static constexpr std::string_view kSeparator = ": ";
     // Write a comma, if needed.
     writeComma();

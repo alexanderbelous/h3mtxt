@@ -8,11 +8,17 @@
 
 namespace Util_NS
 {
-   namespace Detail_NS
+  namespace Detail_NS
   {
+    // Stores the underlying std::ostream and formatting-related data.
+    // Note that all members are private - this class should not be used directly.
     class JsonWriterContext
     {
-      explicit constexpr JsonWriterContext(std::ostream& stream, std::size_t initial_indent = 0) noexcept:
+      friend JsonDocumentWriter;
+      friend ScopedArrayWriterBase;
+      friend ScopedStructWriter;
+
+      explicit constexpr JsonWriterContext(std::ostream& stream, unsigned int initial_indent = 0) noexcept:
         stream_(stream),
         indent_(initial_indent)
       {}
@@ -23,22 +29,29 @@ namespace Util_NS
       JsonWriterContext& operator=(JsonWriterContext&&) = delete;
       constexpr ~JsonWriterContext() = default;
 
-      friend JsonDocumentWriter;
-      friend ScopedArrayWriterBase;
-      friend ScopedStructWriter;
-
       void writeComment(std::string_view comment);
 
       void writeString(std::string_view value);
 
       void writeNewlineIfNeeded();
 
-      void increaseIndent();
+      constexpr void increaseIndent() noexcept
+      {
+        indent_ += 2;
+      }
 
-      void decreaseIndent();
+      constexpr void decreaseIndent() noexcept
+      {
+        // This should never happen.
+        if (indent_ < 2)
+        {
+          indent_ = 0;
+        }
+        indent_ -= 2;
+      }
 
       std::ostream& stream_;
-      std::size_t indent_ = 0;
+      unsigned int indent_ = 0;
       bool needs_newline_ = false;
     };
   }

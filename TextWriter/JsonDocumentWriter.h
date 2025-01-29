@@ -2,7 +2,6 @@
 
 #include <h3mtxt/TextWriter/JsonWriterContext.h>
 
-#include <cstddef>
 #include <cstdint>
 #include <iosfwd>
 #include <string_view>
@@ -15,7 +14,7 @@ namespace Util_NS
   class JsonDocumentWriter
   {
   public:
-    explicit constexpr JsonDocumentWriter(std::ostream& stream, std::size_t initial_indent = 0) noexcept:
+    explicit constexpr JsonDocumentWriter(std::ostream& stream, unsigned int initial_indent = 0) noexcept:
       context_(stream, initial_indent)
     {}
 
