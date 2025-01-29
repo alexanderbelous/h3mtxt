@@ -195,6 +195,11 @@ namespace Util_NS
         out.writeField("biography", *hero.biography);
       }
       out.writeField("gender", hero.gender);
+      if (auto enum_str = h3m::getEnumString(hero.gender); !enum_str.empty())
+      {
+        out.writeComma();
+        out.writeComment(enum_str, false);
+      }
       if (hero.spells)
       {
         out.writeField("spells", *hero.spells);

@@ -8,6 +8,8 @@ namespace h3m
 {
   std::string_view getEnumString(h3m::Disposition value) noexcept;
 
+  std::string_view getEnumString(h3m::Gender value) noexcept;
+
   // Returns a human-readable name for the given enum constant.
   // \param value - input MetaObjectType.
   // \return a human-readable name for @value,

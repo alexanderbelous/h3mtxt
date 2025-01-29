@@ -1,4 +1,6 @@
 #include <h3mtxt/H3MTxtWriter/getEnumString.h>
+#include <h3mtxt/Map/Constants/Gender.h>
+#include <h3mtxt/Map/Constants/VictoryConditionType.h>
 
 #include <iterator>
 
@@ -15,6 +17,21 @@ namespace h3m
     };
     const std::size_t idx = static_cast<std::size_t>(value);
     return (idx < std::size(kNames)) ? kNames[idx] : std::string_view{};
+  }
+
+  std::string_view getEnumString(h3m::Gender value) noexcept
+  {
+    switch (value)
+    {
+    case h3m::Gender::Male:
+      return "Male";
+    case h3m::Gender::Female:
+      return "Female";
+    case h3m::Gender::Default:
+      return "Default";
+    default:
+      return {};
+    }
   }
 
   std::string_view getEnumString(MetaObjectType value) noexcept
@@ -440,6 +457,6 @@ namespace h3m
     {
       return kNames[idx];
     }
-    return idx == 0xFF ? "Normal" : std::string_view{};
+    return value == h3m::VictoryConditionType::Normal ? "Normal" : std::string_view{};
   }
 }

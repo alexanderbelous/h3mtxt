@@ -6,6 +6,8 @@ namespace h3m
 {
   enum class Disposition : std::uint8_t;
 
+  enum class Gender : std::uint8_t;
+
   enum class MetaObjectType;
 
   enum class ObjectClass : std::uint32_t;
