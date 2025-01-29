@@ -4,7 +4,8 @@
 
 namespace h3m
 {
-  enum class SecondarySkillType : std::uint8_t {
+  enum class SecondarySkillType : std::uint8_t
+  {
     Pathfinding,    // 00
     Archery,        // 01
     Logistics,      // 02

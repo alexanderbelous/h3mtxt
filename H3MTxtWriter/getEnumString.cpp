@@ -319,6 +319,42 @@ namespace h3m
     return {};
   }
 
+  std::string_view getEnumString(SecondarySkillType value) noexcept
+  {
+    static constexpr std::string_view kNames[] = {
+      "Pathfinding",
+      "Archery",
+      "Logistics",
+      "Scouting",
+      "Diplomacy",
+      "Navigation",
+      "Leadership",
+      "Wisdom",
+      "Mysticism",
+      "Luck",
+      "Ballistics",
+      "EagleEye",
+      "Necromancy",
+      "Estates",
+      "FireMagic",
+      "AirMagic",
+      "WaterMagic",
+      "EarthMagic",
+      "Scholar",
+      "Tactics",
+      "Artillery",
+      "Learning",
+      "Offense",
+      "Armorer",
+      "Intelligence",
+      "Sorcery",
+      "Resistance",
+      "FirstAid"
+    };
+    const std::size_t idx = static_cast<std::size_t>(value);
+    return (idx < std::size(kNames)) ? kNames[idx] : std::string_view{};
+  }
+
   std::string_view getEnumString(TerrainType value) noexcept
   {
     static constexpr std::string_view kNames[] = {

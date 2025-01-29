@@ -16,6 +16,8 @@ namespace h3m
 
   enum class RoadType : std::uint8_t;
 
+  enum class SecondarySkillType : std::uint8_t;
+
   enum class TerrainType : std::uint8_t;
 
   enum class QuestType : std::uint8_t;
