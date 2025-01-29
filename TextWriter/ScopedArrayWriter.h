@@ -2,7 +2,7 @@
 
 #include <h3mtxt/TextWriter/TextWriter.h>
 #include <h3mtxt/TextWriter/TextWriterFwd.h>
-#include <h3mtxt/TextWriter/ValueWriter.h>
+#include <h3mtxt/TextWriter/JsonValueWriter.h>
 
 #include <string_view>
 

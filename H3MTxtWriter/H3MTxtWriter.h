@@ -2,7 +2,7 @@
 
 #include <h3mtxt/Map/Utils/BitSet.h>
 #include <h3mtxt/Map/Utils/ReservedData.h>
-#include <h3mtxt/TextWriter/ValueWriter.h>
+#include <h3mtxt/TextWriter/JsonValueWriter.h>
 
 namespace Util_NS
 {

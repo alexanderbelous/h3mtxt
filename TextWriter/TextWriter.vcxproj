@@ -160,7 +160,7 @@
     <ClInclude Include="ScopedStructWriter.h" />
     <ClInclude Include="TextWriter.h" />
     <ClInclude Include="TextWriterFwd.h" />
-    <ClInclude Include="ValueWriter.h" />
+    <ClInclude Include="JsonValueWriter.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

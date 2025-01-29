@@ -32,7 +32,7 @@
     <ClInclude Include="TextWriterFwd.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ValueWriter.h">
+    <ClInclude Include="JsonValueWriter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ScopedStructWriter.h">
