@@ -1,6 +1,7 @@
 #pragma once
 
 #include <h3mtxt/Map/VictoryCondition.h>
+#include <h3mtxt/H3MTxtWriter/getEnumString.h>
 #include <h3mtxt/H3MTxtWriter/H3MTxtWriter.h>
 
 namespace Util_NS
@@ -115,6 +116,11 @@ namespace Util_NS
     {
       const bool has_details = value.type() != h3m::VictoryConditionType::Normal;
       out.writeField("type", value.type());
+      if (has_details)
+      {
+        out.writeComma();
+      }
+      out.writeComment(h3m::getEnumString(value.type()), false);
       if (has_details)
       {
         std::visit([&out](auto&& details) { out.writeField("details", std::forward<decltype(details)>(details)); },

@@ -419,4 +419,27 @@ namespace h3m
     }
     return {};
   }
+
+  std::string_view getEnumString(VictoryConditionType value) noexcept
+  {
+    static constexpr std::string_view kNames[] = {
+      "AcquireArtifact",
+      "AccumulateCreatures",
+      "AccumulateResources",
+      "UpgradeTown",
+      "BuildGrail",
+      "DefeatHero",
+      "CaptureTown",
+      "DefeatMonster",
+      "FlagDwellings",
+      "FlagMines",
+      "TransportArtifact"
+    };
+    const std::size_t idx = static_cast<std::size_t>(value);
+    if (idx < std::size(kNames))
+    {
+      return kNames[idx];
+    }
+    return idx == 0xFF ? "Normal" : std::string_view{};
+  }
 }

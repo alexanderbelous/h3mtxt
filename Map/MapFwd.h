@@ -10,6 +10,8 @@ namespace h3m
 
   enum class ObjectClass : std::uint32_t;
 
+  enum class QuestType : std::uint8_t;
+
   enum class RewardType : std::uint8_t;
 
   enum class RiverType : std::uint8_t;
@@ -20,5 +22,5 @@ namespace h3m
 
   enum class TerrainType : std::uint8_t;
 
-  enum class QuestType : std::uint8_t;
+  enum class VictoryConditionType : std::uint8_t;
 }

@@ -16,6 +16,8 @@ namespace h3m
 
   std::string_view getEnumString(ObjectClass value) noexcept;
 
+  std::string_view getEnumString(QuestType value) noexcept;
+
   std::string_view getEnumString(RewardType value) noexcept;
 
   std::string_view getEnumString(RiverType value) noexcept;
@@ -26,5 +28,5 @@ namespace h3m
 
   std::string_view getEnumString(TerrainType value) noexcept;
 
-  std::string_view getEnumString(QuestType value) noexcept;
+  std::string_view getEnumString(VictoryConditionType value) noexcept;
 }
