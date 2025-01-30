@@ -1,5 +1,7 @@
 #include <h3mtxt/H3MTxtWriter/getEnumString.h>
 #include <h3mtxt/Map/Constants/Gender.h>
+#include <h3mtxt/Map/Constants/LossConditionType.h>
+#include <h3mtxt/Map/Constants/ScholarRewardType.h>
 #include <h3mtxt/Map/Constants/VictoryConditionType.h>
 
 #include <iterator>
@@ -29,6 +31,36 @@ namespace h3m
       return "Female";
     case Gender::Default:
       return "Default";
+    default:
+      return {};
+    }
+  }
+
+  std::string_view getEnumString(MapDifficulty value) noexcept
+  {
+    static constexpr std::string_view kNames[] = {
+      "Easy",
+      "Normal",
+      "Hard",
+      "Expert",
+      "Impossible"
+    };
+    const std::size_t idx = static_cast<std::size_t>(value);
+    return (idx < std::size(kNames)) ? kNames[idx] : std::string_view{};
+  }
+
+  std::string_view getEnumString(LossConditionType value) noexcept
+  {
+    switch (value)
+    {
+    case LossConditionType::LoseTown:
+      return "LoseTown";
+    case LossConditionType::LoseHero:
+      return "LoseHero";
+    case LossConditionType::TimeExpires:
+      return "TimeExpires";
+    case LossConditionType::Normal:
+      return "Normal";
     default:
       return {};
     }
@@ -313,6 +345,20 @@ namespace h3m
     return {};
   }
 
+  std::string_view getEnumString(ObjectGroup value) noexcept
+  {
+    static constexpr std::string_view kNames[] = {
+      "Terrain",
+      "Town",
+      "Monster",
+      "Hero",
+      "Artifact",
+      "Treasure"
+    };
+    const std::size_t idx = static_cast<std::size_t>(value);
+    return (idx < std::size(kNames)) ? kNames[idx] : std::string_view{};
+  }
+
   std::string_view getEnumString(PlayerBehavior value) noexcept
   {
     static constexpr std::string_view kNames[] = {
@@ -341,11 +387,24 @@ namespace h3m
       "Creature"
     };
     const std::size_t idx = static_cast<std::size_t>(value);
-    if (idx < std::size(kNames))
+    return (idx < std::size(kNames)) ? kNames[idx] : std::string_view{};
+  }
+
+  std::string_view getEnumString(ScholarRewardType value) noexcept
+  {
+    switch (value)
     {
-      return kNames[idx];
+    case ScholarRewardType::PrimarySkill:
+      return "PrimarySkill";
+    case ScholarRewardType::SecondarySkill:
+      return "SecondarySkill";
+    case ScholarRewardType::Spell:
+      return "Spell";
+    case ScholarRewardType::Random:
+      return "Random";
+    default:
+      return {};
     }
-    return {};
   }
 
   std::string_view getEnumString(SecondarySkillType value) noexcept

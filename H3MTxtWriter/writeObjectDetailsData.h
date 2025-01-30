@@ -351,6 +351,11 @@ namespace Util_NS
                     const h3m::ObjectDetailsData<h3m::MetaObjectType::SCHOLAR>& data) const
     {
       out.writeField("reward_type", data.reward_type);
+      if (auto enum_str = h3m::getEnumString(data.reward_type); !enum_str.empty())
+      {
+        out.writeComma();
+        out.writeComment(enum_str, false);
+      }
       out.writeField("reward_value", data.reward_value);
       out.writeField("unknown", data.unknown);
     }

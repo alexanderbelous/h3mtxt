@@ -1,6 +1,7 @@
 #pragma once
 
 #include <h3mtxt/Map/LossCondition.h>
+#include <h3mtxt/H3MTxtWriter/getEnumString.h>
 #include <h3mtxt/H3MTxtWriter/H3MTxtWriter.h>
 
 namespace Util_NS
@@ -43,6 +44,11 @@ namespace Util_NS
     {
       const bool has_details = loss_condition.type() != h3m::LossConditionType::Normal;
       out.writeField("type", loss_condition.type());
+      if (has_details)
+      {
+        out.writeComma();
+      }
+      out.writeComment(h3m::getEnumString(loss_condition.type()), false);
       if (has_details)
       {
         std::visit([&out](auto&& details) { out.writeField("details", std::forward<decltype(details)>(details)); },

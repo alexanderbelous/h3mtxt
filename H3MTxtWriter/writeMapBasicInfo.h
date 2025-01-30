@@ -1,6 +1,7 @@
 #pragma once
 
 #include <h3mtxt/Map/MapBasicInfo.h>
+#include <h3mtxt/H3MTxtWriter/getEnumString.h>
 #include <h3mtxt/H3MTxtWriter/H3MTxtWriter.h>
 
 namespace Util_NS
@@ -16,6 +17,11 @@ namespace Util_NS
       out.writeField("name", value.name);
       out.writeField("description", value.description);
       out.writeField("difficulty", value.difficulty);
+      if (auto enum_str = h3m::getEnumString(value.difficulty); !enum_str.empty())
+      {
+        out.writeComma();
+        out.writeComment(enum_str, false);
+      }
       out.writeField("max_hero_level", value.max_hero_level);
     }
   };
