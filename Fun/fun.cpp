@@ -1,3 +1,6 @@
+#include <h3mtxt/Fun/fakeIslands.h>
+#include <h3mtxt/Fun/fillWithWaterTiles.h>
+#include <h3mtxt/Fun/Util.h>
 #include <h3mtxt/H3MWriter/writeh3m.h>
 #include <h3mtxt/Map/Map.h>
 
@@ -8,6 +11,13 @@
 #include <stdexcept>
 
 namespace fs = std::filesystem;
+
+using h3m::drawFakeDiagonalLandStripSE;
+using h3m::drawFakeIsland;
+using h3m::drawFakeMiniIsland;
+using h3m::drawFakeVerticalLandStrip;
+using h3m::fillWithWaterTiles;
+using h3m::safeGetTile;
 
 namespace
 {
@@ -105,25 +115,6 @@ namespace
     return map;
   }
 
-  void fillWithWaterTiles(h3m::Map& map)
-  {
-    std::random_device rd;
-    std::mt19937 gen(rd());
-    // Sprites [21; 32] look like non-coastal Water tiles.
-    std::uniform_int_distribution<> distrib(21, 32);
-
-    // Set random water tiles.
-    for (h3m::Tile& tile : map.tiles)
-    {
-      tile.terrain_type = h3m::TerrainType::Water;
-      tile.terrain_sprite = distrib(gen);
-      // Note: we can apply random mirroring as well. The official Map Editor doesn't
-      // apply mirroring to non-coastal Water tiles (and switches it off if you modify a
-      // water region with mirrored non-coastal tiles).
-      tile.mirroring = 0;
-    }
-  }
-
   constexpr bool isEligibleLavaTile(const h3m::Tile& tile) noexcept
   {
     // Lava sprites [49; 72] are "pure", i.e. they don't border other terrain types.
@@ -150,210 +141,11 @@ namespace
     }
   }
 
-  // Access the specified tile.
-  // \param map - input map.
-  // \param x - X coordinate of the tile.
-  // \param y - Y coordinate of the tile.
-  // \return the tile (x, y) or nullptr if x >= map_size or y >= map_size.
-  h3m::Tile* safeGetTile(h3m::Map& map, std::uint32_t x, std::uint32_t y)
-  {
-    const std::uint32_t map_size = map.basic_info.map_size;
-    if (x >= map_size || y >= map_size)
-    {
-      return nullptr;
-    }
-    return &map.tiles[static_cast<std::size_t>(y) * map_size + x];
-  }
-
-  // Draws a "fake" island at the specified location.
-  //
-  // A "fake" island is a 4x4 region with specific Water tiles, which
-  // look like a diamond-shaped spot of land, but actually it's all water.
-  // \param map - map to modify.
-  // \param x - X coordinate of the top left corner of the region.
-  // \param y - Y coordinate of the top left corner of the region.
-  void drawFakeIsland(h3m::Map& map, std::uint32_t x, std::uint32_t y)
-  {
-    if (h3m::Tile* tile = safeGetTile(map, x, y + 1))
-    {
-      tile->terrain_sprite = 19;
-      tile->mirroring = 0;
-    }
-    if (h3m::Tile* tile = safeGetTile(map, x, y + 2))
-    {
-      tile->terrain_sprite = 13;
-      tile->mirroring = 2;
-    }
-    if (h3m::Tile* tile = safeGetTile(map, x + 1, y))
-    {
-      tile->terrain_sprite = 19;
-      tile->mirroring = 0;
-    }
-    if (h3m::Tile* tile = safeGetTile(map, x + 1, y + 1))
-    {
-      tile->terrain_sprite = 17; // 16 also works
-      tile->mirroring = 3;
-    }
-    if (h3m::Tile* tile = safeGetTile(map, x + 1, y + 2))
-    {
-      tile->terrain_sprite = 17;
-      tile->mirroring = 1;
-    }
-    if (h3m::Tile* tile = safeGetTile(map, x + 1, y + 3))
-    {
-      tile->terrain_sprite = 13;
-      tile->mirroring = 2;
-    }
-    if (h3m::Tile* tile = safeGetTile(map, x + 2, y))
-    {
-      tile->terrain_sprite = 13;
-      tile->mirroring = 1;
-    }
-    if (h3m::Tile* tile = safeGetTile(map, x + 2, y + 1))
-    {
-      tile->terrain_sprite = 17;
-      tile->mirroring = 2;
-    }
-    if (h3m::Tile* tile = safeGetTile(map, x + 2, y + 2))
-    {
-      tile->terrain_sprite = 17;
-      tile->mirroring = 0;
-    }
-    if (h3m::Tile* tile = safeGetTile(map, x + 2, y + 3))
-    {
-      tile->terrain_sprite = 15;
-      tile->mirroring = 3;
-    }
-    if (h3m::Tile* tile = safeGetTile(map, x + 3, y + 1))
-    {
-      tile->terrain_sprite = 13;
-      tile->mirroring = 1;
-    }
-    if (h3m::Tile* tile = safeGetTile(map, x + 3, y + 2))
-    {
-      tile->terrain_sprite = 15;
-      tile->mirroring = 3;
-    }
-  }
-
-  // Draws a "fake" mini-island at the specified location.
-  //
-  // A "fake" mini-island is a 2x2 region with specific Water tiles, which
-  // look as if there's a small spot of land in the center, but actually it's all water.
-  // \param map - map to modify.
-  // \param x - X coordinate of the top left corner of the mini-island.
-  // \param y - Y coordinate of the top left corner of the mini-island.
-  void drawFakeMiniIsland(h3m::Map& map, std::uint32_t x, std::uint32_t y)
-  {
-    // Sprites [12; 15] v [18; 19] look like coast in the SouthEastern corner of the tile.
-    constexpr std::uint8_t kSprites[] = { 12, 13, 14, 15, 18, 19 };
-    constexpr std::size_t kNumSprites = std::size(kSprites);
-    std::random_device rd;
-    std::mt19937 gen(rd());
-    std::uniform_int_distribution<> distrib(0, kNumSprites - 1);
-    const auto generate_random_sprite = [&]() {
-      return kSprites[distrib(gen)];
-      };
-
-    if (h3m::Tile* tile = safeGetTile(map, x, y))
-    {
-      tile->terrain_sprite = generate_random_sprite();
-      tile->mirroring = 0;
-    }
-    if (h3m::Tile* tile = safeGetTile(map, x + 1, y))
-    {
-      tile->terrain_sprite = generate_random_sprite();
-      tile->mirroring = 1;
-    }
-    if (h3m::Tile* tile = safeGetTile(map, x, y + 1))
-    {
-      tile->terrain_sprite = generate_random_sprite();
-      tile->mirroring = 2;
-    }
-    if (h3m::Tile* tile = safeGetTile(map, x + 1, y + 1))
-    {
-      tile->terrain_sprite = generate_random_sprite();
-      tile->mirroring = 3;
-    }
-  }
-
-  // Draws a "fake" vertical strip of land at the specified location.
-  //
-  // A "fake" vertical strip of land is a 2xN region with specific Water tiles, which
-  // look as if it's thin strip of land, but actually it's all water.
-  // \param map - map to modify.
-  // \param x - X coordinate of the top left corner of the strip.
-  // \param y - Y coordinate of the top left corner of the strip.
-  // \param length - the length of the strip in H3M tiles.
-  void drawFakeVerticalLandStrip(h3m::Map& map, std::uint32_t x, std::uint32_t y, std::uint32_t length)
-  {
-    // Sprites [4; 7] look like coast to the West of the tile.
-    std::random_device rd;
-    std::mt19937 gen(rd());
-    std::uniform_int_distribution<> distrib(4, 7);
-    const auto generate_random_sprite = [&]() {
-      return distrib(gen);
-      };
-
-    for (std::uint32_t i = 0; i < length; ++i)
-    {
-      if (h3m::Tile* tile = safeGetTile(map, x, y + i))
-      {
-        tile->terrain_sprite = generate_random_sprite();
-        tile->mirroring = 1;
-      }
-      if (h3m::Tile* tile = safeGetTile(map, x + 1, y + i))
-      {
-        tile->terrain_sprite = generate_random_sprite();
-        tile->mirroring = 0;
-      }
-    }
-  }
-
-  // (N+4)xN region which looks like a diagonal strip of land from NW to SE, but actually it's all water.
-  void drawFakeDiagonalLandStripSE(h3m::Map& map, std::uint32_t x, std::uint32_t y, std::uint32_t length)
-  {
-    std::random_device rd;
-    std::mt19937 gen(rd());
-    // Sprites [12; 15] v [18; 19] look like coast in the SouthEastern corner of the tile.
-    constexpr std::uint8_t kCornerCoastSprites[] = { 12, 13, 14, 15, 18, 19 };
-    std::uniform_int_distribution<> corner_coast_distrib(0, std::size(kCornerCoastSprites) - 1);
-    const auto generate_corner_coast_sprite = [&]() {
-      return kCornerCoastSprites[corner_coast_distrib(gen)];
-      };
-    // Sprites [16; 17] look like diagonal coast NorthWest of the tile.
-    std::uniform_int_distribution<> diagonal_coast_distrib(16, 17);
-    const auto generate_diagonal_coast_sprite = [&]() {
-      return diagonal_coast_distrib(gen);
-      };
-
-    for (std::uint32_t i = 0; i < length; ++i)
-    {
-      if (h3m::Tile* tile = safeGetTile(map, x + i, y + i))
-      {
-        tile->terrain_sprite = generate_corner_coast_sprite();
-        tile->mirroring = 2;
-      }
-      if (h3m::Tile* tile = safeGetTile(map, x + i + 1, y + i))
-      {
-        tile->terrain_sprite = generate_diagonal_coast_sprite();
-        tile->mirroring = 1;
-      }
-      if (h3m::Tile* tile = safeGetTile(map, x + i + 2, y + i))
-      {
-        tile->terrain_sprite = generate_diagonal_coast_sprite();
-        tile->mirroring = 2;
-      }
-      if (h3m::Tile* tile = safeGetTile(map, x + i + 3, y + i))
-      {
-        tile->terrain_sprite = generate_corner_coast_sprite();
-        tile->mirroring = 1;
-      }
-    }
-  }
-
   void drawFakeIslands(h3m::Map& map)
   {
+    drawFakeIsland(map, 5, 5);
+    drawFakeIsland(map, 5, 9);
+    drawFakeIsland(map, 9, 5);
     drawFakeIsland(map, 9, 9);
     drawFakeMiniIsland(map, 20, 8);
     drawFakeMiniIsland(map, 20, 10);
@@ -510,10 +302,10 @@ int main(int argc, char** argv)
   {
     const fs::path path_map(argv[1]);
     std::ofstream out_stream(path_map, std::ios_base::out | std::ios_base::binary);
-    const h3m::Map map = generateMapWithHeroes();
-    //h3m::Map map = generateTestMap();
-    //fillWithWaterTiles(map);
-    //drawFakeIslands(map);
+    //const h3m::Map map = generateMapWithHeroes();
+    h3m::Map map = generateTestMap();
+    fillWithWaterTiles(map);
+    drawFakeIslands(map);
     h3m::writeh3m(out_stream, map);
   }
   catch (const std::exception& error)

@@ -40,4 +40,6 @@ namespace h3m
   enum class TerrainType : std::uint8_t;
 
   enum class VictoryConditionType : std::uint8_t;
+
+  struct Map;
 }

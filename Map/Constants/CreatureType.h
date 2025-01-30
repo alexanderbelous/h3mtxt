@@ -155,6 +155,8 @@ enum class CreatureType : std::uint16_t
   // Secret stuff.
   // This is somewhat risk-prone: apparently, with the SoD_SP plugin they work fine,
   // but without it the game crashes on the "War Machine's turn".
+  // TODO: maybe it's not about SoD_SP but about whether the owning hero has a secondary
+  // skill for this war machine. Check.
   CATAPULT = 145,
   BALLISTA = 146,
   FIRST_AID_TENT = 147,

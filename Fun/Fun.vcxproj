@@ -151,6 +151,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="fakeIslands.cpp" />
+    <ClCompile Include="fillWithWaterTiles.cpp" />
     <ClCompile Include="fun.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -160,6 +162,11 @@
     <ProjectReference Include="..\Map\Map.vcxproj">
       <Project>{856f5d07-6dc0-4e66-813e-12c26f28d606}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="fakeIslands.h" />
+    <ClInclude Include="fillWithWaterTiles.h" />
+    <ClInclude Include="Util.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
