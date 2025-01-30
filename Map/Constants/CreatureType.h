@@ -153,10 +153,10 @@ enum class CreatureType : std::uint16_t
   ROGUE = 143,
   TROLL = 144,
   // Secret stuff.
-  // This is somewhat risk-prone: apparently, with the SoD_SP plugin they work fine,
-  // but without it the game crashes on the "War Machine's turn".
-  // TODO: maybe it's not about SoD_SP but about whether the owning hero has a secondary
-  // skill for this war machine. Check.
+  // Note that during battlefield it's only safe to put war machines as creatures if they are
+  // units in the army of some hero who has secondary skills for these machines. Otherwise
+  // (e.g., if you try to put them as neutral creatures), the game will crash when it's the
+  // "War Machine's turn" (their speed is 0, so after all creatures).
   CATAPULT = 145,
   BALLISTA = 146,
   FIRST_AID_TENT = 147,
