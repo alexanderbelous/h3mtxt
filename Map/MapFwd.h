@@ -12,6 +12,8 @@ namespace h3m
 
   enum class ObjectClass : std::uint32_t;
 
+  enum class PlayerBehavior : std::uint8_t;
+
   enum class QuestType : std::uint8_t;
 
   enum class RewardType : std::uint8_t;

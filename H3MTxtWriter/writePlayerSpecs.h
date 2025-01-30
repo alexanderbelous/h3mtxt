@@ -2,6 +2,7 @@
 
 #include <h3mtxt/Map/PlayerSpecs.h>
 #include <h3mtxt/H3MTxtWriter/H3MTxtWriter.h>
+#include <h3mtxt/H3MTxtWriter/getEnumString.h>
 
 namespace Util_NS
 {
@@ -58,6 +59,11 @@ namespace Util_NS
       out.writeField("can_be_human", value.can_be_human);
       out.writeField("can_be_computer", value.can_be_computer);
       out.writeField("behavior", value.behavior);
+      if (auto enum_str = h3m::getEnumString(value.behavior); !enum_str.empty())
+      {
+        out.writeComma();
+        out.writeComment(enum_str, false);
+      }
       out.writeField("customized_alignments", value.customized_alignments);
       out.writeField("allowed_alignments", value.allowed_alignments.town_types);
       out.writeField("random_town", value.random_town);

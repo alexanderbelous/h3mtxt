@@ -6,7 +6,7 @@
 
 namespace h3m
 {
-  std::string_view getEnumString(h3m::Disposition value) noexcept
+  std::string_view getEnumString(Disposition value) noexcept
   {
     static constexpr std::string_view kNames[] = {
       "Compliant",
@@ -19,15 +19,15 @@ namespace h3m
     return (idx < std::size(kNames)) ? kNames[idx] : std::string_view{};
   }
 
-  std::string_view getEnumString(h3m::Gender value) noexcept
+  std::string_view getEnumString(Gender value) noexcept
   {
     switch (value)
     {
-    case h3m::Gender::Male:
+    case Gender::Male:
       return "Male";
-    case h3m::Gender::Female:
+    case Gender::Female:
       return "Female";
-    case h3m::Gender::Default:
+    case Gender::Default:
       return "Default";
     default:
       return {};
@@ -313,6 +313,18 @@ namespace h3m
     return {};
   }
 
+  std::string_view getEnumString(PlayerBehavior value) noexcept
+  {
+    static constexpr std::string_view kNames[] = {
+      "Random",
+      "Warrior",
+      "Builder",
+      "Explorer"
+    };
+    const std::size_t idx = static_cast<std::size_t>(value);
+    return (idx < std::size(kNames)) ? kNames[idx] : std::string_view{};
+  }
+
   std::string_view getEnumString(RewardType value) noexcept
   {
     static constexpr std::string_view kNames[] = {
@@ -390,7 +402,7 @@ namespace h3m
     return (idx < std::size(kNames)) ? kNames[idx] : std::string_view{};
   }
 
-  std::string_view getEnumString(h3m::RiverType value) noexcept
+  std::string_view getEnumString(RiverType value) noexcept
   {
     static constexpr std::string_view kNames[] = {
       "None",
@@ -403,7 +415,7 @@ namespace h3m
     return (idx < std::size(kNames)) ? kNames[idx] : std::string_view{};
   }
 
-  std::string_view getEnumString(h3m::RoadType value) noexcept
+  std::string_view getEnumString(RoadType value) noexcept
   {
     static constexpr std::string_view kNames[] = {
       "None",
@@ -457,6 +469,6 @@ namespace h3m
     {
       return kNames[idx];
     }
-    return value == h3m::VictoryConditionType::Normal ? "Normal" : std::string_view{};
+    return value == VictoryConditionType::Normal ? "Normal" : std::string_view{};
   }
 }

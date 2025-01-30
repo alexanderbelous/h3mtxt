@@ -6,9 +6,9 @@
 
 namespace h3m
 {
-  std::string_view getEnumString(h3m::Disposition value) noexcept;
+  std::string_view getEnumString(Disposition value) noexcept;
 
-  std::string_view getEnumString(h3m::Gender value) noexcept;
+  std::string_view getEnumString(Gender value) noexcept;
 
   // Returns a human-readable name for the given enum constant.
   // \param value - input MetaObjectType.
@@ -17,6 +17,8 @@ namespace h3m
   std::string_view getEnumString(MetaObjectType value) noexcept;
 
   std::string_view getEnumString(ObjectClass value) noexcept;
+
+  std::string_view getEnumString(PlayerBehavior value) noexcept;
 
   std::string_view getEnumString(QuestType value) noexcept;
 
