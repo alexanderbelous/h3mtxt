@@ -154,6 +154,7 @@
     <ClCompile Include="fakeIslands.cpp" />
     <ClCompile Include="fillWithWaterTiles.cpp" />
     <ClCompile Include="fun.cpp" />
+    <ClCompile Include="generatePlayerSpecs.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\H3MWriter\H3MWriter.vcxproj">
@@ -166,6 +167,7 @@
   <ItemGroup>
     <ClInclude Include="fakeIslands.h" />
     <ClInclude Include="fillWithWaterTiles.h" />
+    <ClInclude Include="generatePlayerSpecs.h" />
     <ClInclude Include="Util.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
