@@ -21,19 +21,29 @@ namespace h3m
   // * The hero cannot change the level of that secondary skill when gaining experience.
   // * If you visit a Witch Hut that grants the same secondary skill, it will have no effect
   //   (it is considered that the hero has already learned it).
+  // * If you open a Pandora's Box that grants the same secondary skill (no matter the level),
+  //   it will have no effect.
   // * If you visit a Scholar that grants the same secondary skill, this skill will added
   //   to the first free slot at Basic level. The slot that was originally occupied by the "hexed"
   //   skill (i.e. with the value > 3) will contain junk after that.
+  // TODO: check the behavior when getting the same secondary skill from Event, Seer's Hut, University.
   template<SecondarySkillType T>
   struct SecondarySkillLevel;
 
   template<>
   struct SecondarySkillLevel<SecondarySkillType::Scouting>
   {
-    // Allows your hero to see 4 squares further into the shroud. 
+    // Decreases the scouting radius by 1 square (the new scouting radius = 4).
     static constexpr std::uint8_t k4Tiles = 0xFF;
+    // Decreases the scouting radius by 2 squares (the new scouting radius = 3).
+    static constexpr std::uint8_t k3Tiles = 0xFE;
+    // Decreases the scouting radius by 3 squares (the new scouting radius = 2).
+    static constexpr std::uint8_t k2Tiles = 0xFD;
+    // Decreases the scouting radius by 4 squares (the new scouting radius = 1).
+    static constexpr std::uint8_t k1Tile = 0xFC;
     // Reveals the entire map.
     static constexpr std::uint8_t kFullMap = 0xF9;
+    static constexpr std::uint8_t kFullMap2 = 0xFB;
   };
 
   template<>
@@ -91,6 +101,27 @@ namespace h3m
   {
     // Reduces all damage inflicted against the hero's troops by 50%.
     static constexpr std::uint8_t k50Percent = 0xFB;
+  };
+
+  template<>
+  struct SecondarySkillLevel<SecondarySkillType::Intelligence>
+  {
+    // Increases a hero's normal maximum spell points by 15%
+    static constexpr std::uint8_t k15Percent = 0xFF;
+    // Increases a hero's normal maximum spell points by 10%
+    static constexpr std::uint8_t k10Percent = 0xFE;
+    // Increases a hero's normal maximum spell points by 5%
+    static constexpr std::uint8_t k5Percent = 0xFD;
+    // Increases a hero's normal maximum spell points by 30%
+    static constexpr std::uint8_t k30Percent = 0xFB;
+    // Increases a hero's normal maximum spell points by 20%
+    static constexpr std::uint8_t k20Percent = 0xFA;
+    // Increases a hero's normal maximum spell points by 10%
+    static constexpr std::uint8_t k10Percent1 = 0xF9;
+    // Increases a hero's normal maximum spell points by 60%
+    static constexpr std::uint8_t k60Percent = 0xEF;
+    // Increases a hero's normal maximum spell points by 40%
+    static constexpr std::uint8_t k40Percent = 0xE9;
   };
 
   template<>

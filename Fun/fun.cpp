@@ -210,6 +210,36 @@ namespace
     };
   }
 
+  h3m::ObjectAttributes makeObjectAttributesScholar()
+  {
+    return h3m::ObjectAttributes{
+      .def = "AVXschl0.def",
+      .passability {255, 255, 255, 255, 255, 127},
+      .actionability {0, 0, 0, 0, 0, 128},
+      .allowed_landscapes = 511,
+      .landscape_group = 255,
+      .object_class = h3m::ObjectClass::SCHOLAR,
+      .object_number = 0,
+      .object_group = h3m::ObjectGroup::Terrain,
+      .is_ground = 0
+    };
+  }
+
+  h3m::ObjectAttributes makeObjectAttributesPandorasBox()
+  {
+    return h3m::ObjectAttributes{
+      .def = "AVA0128.def",
+      .passability {255, 255, 255, 255, 255, 127},
+      .actionability {0, 0, 0, 0, 0, 128},
+      .allowed_landscapes = 511,
+      .landscape_group = 1,
+      .object_class = h3m::ObjectClass::PANDORAS_BOX,
+      .object_number = 0,
+      .object_group = h3m::ObjectGroup::Artifact,
+      .is_ground = 0
+    };
+  }
+
   h3m::Map generateMapWithHeroes()
   {
     constexpr h3m::PlayerColor player1 = h3m::PlayerColor::Red;
@@ -236,6 +266,7 @@ namespace
     }
     constexpr std::uint32_t kHeroKind = 0;
     constexpr std::uint32_t kSpellScrollKind = 1;
+    constexpr std::uint32_t kPandorasBoxKind = 2;
     // Add heroes.
     map.objects_attributes.push_back(h3m::ObjectAttributes{
       .def = "ah00_e.def",
@@ -256,8 +287,11 @@ namespace
         .owner = 0,
         .type = h3m::HeroType::H3M_HERO_ORRIN,
         .secondary_skills = std::vector<h3m::SecondarySkill> {
-          h3m::SecondarySkill {.type = h3m::SecondarySkillType::Estates, .level = 0xFF},
+          h3m::SecondarySkill {.type = h3m::SecondarySkillType::Mysticism, .level = 0xFC},
           h3m::SecondarySkill {.type = h3m::SecondarySkillType::Artillery, .level = 3},
+          h3m::SecondarySkill {.type = h3m::SecondarySkillType::FirstAid, .level = 3},
+          h3m::SecondarySkill {.type = h3m::SecondarySkillType::Archery, .level = 3},
+          h3m::SecondarySkill {.type = h3m::SecondarySkillType::Logistics, .level = 3},
         },
         .creatures = std::array<h3m::CreatureStack, 7> {
           h3m::CreatureStack {.type = h3m::CreatureType::ARCHANGEL, .count = 10},
@@ -268,7 +302,13 @@ namespace
           h3m::CreatureStack {.type = h3m::CreatureType{0xFFFF}, .count = 0},
           h3m::CreatureStack {.type = h3m::CreatureType{0xFFFF}, .count = 0}
         },
-        .patrol_radius = 255
+        .patrol_radius = 255,
+        .primary_skills = h3m::PrimarySkills {
+          .attack = 0,
+          .defense = 0,
+          .spell_power = 10,
+          .knowledge = 10
+        }
       }
     });
     map.objects_details.push_back(h3m::ObjectDetails{
@@ -284,7 +324,7 @@ namespace
           h3m::SecondarySkill {.type = h3m::SecondarySkillType::Artillery, .level = 3}
         },
         .creatures = std::array<h3m::CreatureStack, 7> {
-          h3m::CreatureStack {.type = h3m::CreatureType::IMP, .count = 1},
+          h3m::CreatureStack {.type = h3m::CreatureType::IMP, .count = 50},
           h3m::CreatureStack {.type = h3m::CreatureType::BALLISTA, .count = 20},
           h3m::CreatureStack {.type = h3m::CreatureType{0xFFFF}, .count = 0},
             h3m::CreatureStack {.type = h3m::CreatureType{0xFFFF}, .count = 0},
@@ -306,6 +346,21 @@ namespace
         .spell = h3m::SpellType::SLOW
       }
     });
+    // Add a scholar.
+    map.objects_attributes.push_back(makeObjectAttributesPandorasBox());
+    map.objects_details.push_back(h3m::ObjectDetails{
+      .x = 2,
+      .y = 3,
+      .z = 0,
+      .kind = kPandorasBoxKind,
+      .details = h3m::ObjectDetailsData<h3m::MetaObjectType::PANDORAS_BOX> {
+        h3m::EventBase {
+          .secondary_skills {
+            h3m::SecondarySkill {.type = h3m::SecondarySkillType::Mysticism, .level = 0x01 }
+          }
+        }
+      }
+      });
     return map;
   }
 }
