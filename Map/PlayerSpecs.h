@@ -5,6 +5,7 @@
 #include <h3mtxt/Map/Constants/PlayerBehavior.h>
 #include <h3mtxt/Map/Constants/TownType.h>
 #include <h3mtxt/Map/Base.h>
+#include <h3mtxt/Map/Utils/BitSet.h>
 
 #include <cstdint>
 #include <optional>
