@@ -1,6 +1,7 @@
 #include <h3mtxt/Fun/fakeIslands.h>
 #include <h3mtxt/Fun/fillWithWaterTiles.h>
 #include <h3mtxt/Fun/generatePlayerSpecs.h>
+#include <h3mtxt/Fun/makeDefaultObjectAttributes.h>
 #include <h3mtxt/Fun/Util.h>
 #include <h3mtxt/H3MWriter/writeh3m.h>
 #include <h3mtxt/Map/Map.h>
@@ -195,51 +196,6 @@ namespace
     return map;
   }
 
-  h3m::ObjectAttributes makeObjectAttributesSpellScroll()
-  {
-    return h3m::ObjectAttributes{
-      .def = "AVA0001.def",
-      .passability {255, 255, 255, 255, 255, 127},
-      .actionability {0, 0, 0, 0, 0, 128},
-      .allowed_landscapes = 511,
-      .landscape_group = 1,
-      .object_class = h3m::ObjectClass::SPELL_SCROLL,
-      .object_number = 0,
-      .object_group = h3m::ObjectGroup::Artifact,
-      .is_ground = 0
-    };
-  }
-
-  h3m::ObjectAttributes makeObjectAttributesScholar()
-  {
-    return h3m::ObjectAttributes{
-      .def = "AVXschl0.def",
-      .passability {255, 255, 255, 255, 255, 127},
-      .actionability {0, 0, 0, 0, 0, 128},
-      .allowed_landscapes = 511,
-      .landscape_group = 255,
-      .object_class = h3m::ObjectClass::SCHOLAR,
-      .object_number = 0,
-      .object_group = h3m::ObjectGroup::Terrain,
-      .is_ground = 0
-    };
-  }
-
-  h3m::ObjectAttributes makeObjectAttributesPandorasBox()
-  {
-    return h3m::ObjectAttributes{
-      .def = "AVA0128.def",
-      .passability {255, 255, 255, 255, 255, 127},
-      .actionability {0, 0, 0, 0, 0, 128},
-      .allowed_landscapes = 511,
-      .landscape_group = 1,
-      .object_class = h3m::ObjectClass::PANDORAS_BOX,
-      .object_number = 0,
-      .object_group = h3m::ObjectGroup::Artifact,
-      .is_ground = 0
-    };
-  }
-
   h3m::Map generateMapWithHeroes()
   {
     constexpr h3m::PlayerColor player1 = h3m::PlayerColor::Red;
@@ -336,7 +292,7 @@ namespace
       }
     });
     // Add a spell scroll.
-    map.objects_attributes.push_back(makeObjectAttributesSpellScroll());
+    map.objects_attributes.push_back(h3m::makeDefaultObjectAttributes(h3m::ObjectClass::SPELL_SCROLL));
     map.objects_details.push_back(h3m::ObjectDetails{
       .x = 2,
       .y = 2,
@@ -346,8 +302,8 @@ namespace
         .spell = h3m::SpellType::SLOW
       }
     });
-    // Add a scholar.
-    map.objects_attributes.push_back(makeObjectAttributesPandorasBox());
+    // Add a Pandora's Box.
+    map.objects_attributes.push_back(h3m::makeDefaultObjectAttributes(h3m::ObjectClass::PANDORAS_BOX));
     map.objects_details.push_back(h3m::ObjectDetails{
       .x = 2,
       .y = 3,
@@ -356,7 +312,7 @@ namespace
       .details = h3m::ObjectDetailsData<h3m::MetaObjectType::PANDORAS_BOX> {
         h3m::EventBase {
           .secondary_skills {
-            h3m::SecondarySkill {.type = h3m::SecondarySkillType::Mysticism, .level = 0x01 }
+            h3m::SecondarySkill {.type = h3m::SecondarySkillType::Mysticism, .level = 0x0 }
           }
         }
       }

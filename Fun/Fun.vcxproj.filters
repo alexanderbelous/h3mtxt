@@ -27,6 +27,9 @@
     <ClCompile Include="generatePlayerSpecs.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="makeDefaultObjectAttributes.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Util.h">
@@ -39,6 +42,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="generatePlayerSpecs.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="makeDefaultObjectAttributes.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
