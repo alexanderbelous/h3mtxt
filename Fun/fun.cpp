@@ -245,7 +245,6 @@ namespace
         .secondary_skills = std::vector<h3m::SecondarySkill> {
           h3m::SecondarySkill {.type = h3m::SecondarySkillType::Mysticism, .level = 0xFC},
           h3m::SecondarySkill {.type = h3m::SecondarySkillType::Artillery, .level = 3},
-          h3m::SecondarySkill {.type = h3m::SecondarySkillType::FirstAid, .level = 3},
           h3m::SecondarySkill {.type = h3m::SecondarySkillType::Archery, .level = 3},
           h3m::SecondarySkill {.type = h3m::SecondarySkillType::Logistics, .level = 3},
         },
@@ -312,11 +311,83 @@ namespace
       .details = h3m::ObjectDetailsData<h3m::MetaObjectType::PANDORAS_BOX> {
         h3m::EventBase {
           .secondary_skills {
-            h3m::SecondarySkill {.type = h3m::SecondarySkillType::Mysticism, .level = 0x0 }
+            h3m::SecondarySkill {.type = h3m::SecondarySkillType::Mysticism, .level = 0xFF }
           }
         }
       }
+    });
+    // Add a Scholar.
+    map.objects_attributes.push_back(h3m::makeDefaultObjectAttributes(h3m::ObjectClass::SCHOLAR));
+    map.objects_details.push_back(h3m::ObjectDetails{
+      .x = 2,
+      .y = 4,
+      .z = 0,
+      .kind = static_cast<std::uint32_t>(map.objects_attributes.size() - 1),
+      .details = h3m::ObjectDetailsData<h3m::MetaObjectType::SCHOLAR> {
+        .reward_type = h3m::ScholarRewardType::SecondarySkill,
+        .reward_value = static_cast<std::uint8_t>(h3m::SecondarySkillType::Mysticism)
+      }
+    });
+    // Add an Event.
+    map.objects_attributes.push_back(h3m::makeDefaultObjectAttributes(h3m::ObjectClass::EVENT));
+    {
+      h3m::ObjectDetailsData<h3m::MetaObjectType::EVENT> event_details{
+        h3m::EventBase{
+          .spell_points = -999
+        },
+      };
+      event_details.affected_players.bitset = 0xFF;
+      event_details.remove_after_first_visit = true;
+      map.objects_details.push_back(h3m::ObjectDetails{
+        .x = 0,
+        .y = 1,
+        .z = 0,
+        .kind = static_cast<std::uint32_t>(map.objects_attributes.size() - 1),
+        .details = std::move(event_details)
       });
+    }
+    map.objects_attributes.push_back(h3m::makeDefaultObjectAttributes(h3m::ObjectClass::EVENT));
+    {
+      h3m::ObjectDetailsData<h3m::MetaObjectType::EVENT> event_details{
+        h3m::EventBase{
+          .secondary_skills {
+            h3m::SecondarySkill {.type = h3m::SecondarySkillType::Mysticism, .level = 0xFF}
+          }
+        },
+      };
+      event_details.affected_players.bitset = 0xFF;
+      event_details.remove_after_first_visit = true;
+      map.objects_details.push_back(h3m::ObjectDetails{
+        .x = 0,
+        .y = 2,
+        .z = 0,
+        .kind = static_cast<std::uint32_t>(map.objects_attributes.size() - 1),
+        .details = std::move(event_details)
+        });
+    }
+    // Add a Seer's Hut.
+    map.objects_attributes.push_back(h3m::makeDefaultObjectAttributes(h3m::ObjectClass::SEER_HUT));
+    map.objects_details.push_back(h3m::ObjectDetails{
+      .x = 4,
+      .y = 5,
+      .z = 0,
+      .kind = static_cast<std::uint32_t>(map.objects_attributes.size() - 1),
+      .details = h3m::ObjectDetailsData<h3m::MetaObjectType::SEERS_HUT> {
+        .quest {
+          .details = h3m::QuestDetails<h3m::QuestType::BeHero> {
+            .hero = hero1
+          }
+        },
+        .reward {
+          .details = h3m::RewardDetails<h3m::RewardType::SecondarySkill> {
+            .skill {
+              .type = h3m::SecondarySkillType::Mysticism,
+              .level = 0xFF
+            }
+          }
+        }
+      }
+    });
     return map;
   }
 }

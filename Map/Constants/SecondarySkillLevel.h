@@ -11,22 +11,22 @@ namespace h3m
   //   https://docs.google.com/spreadsheets/d/1JwdFy51rODCJ_3WT8iVBRX7QeblD0BPK11qYH5jhkO0
   //
   // Note that 0 is a valid value for all secondary skills. It is equivalent to not having
-  // that secondary skill at all, but it nevertheless occupies a slot and the hero won't be
-  // offered to increase the level when gaining experience. However, if the hero visits a
-  // Scholar/Witch Hut that grants the same secondary skill (Basic), this skill (Basic) will
-  // be added to the first free slot. The slot that was originally occupied by the Level0 skill
-  // will contain junk after that.
+  // that secondary skill at all, but it nevertheless occupies a slot.
   //
-  // For values > 3 the rules are interesting:
-  // * The hero cannot change the level of that secondary skill when gaining experience.
-  // * If you visit a Witch Hut that grants the same secondary skill, it will have no effect
-  //   (it is considered that the hero has already learned it).
-  // * If you open a Pandora's Box that grants the same secondary skill (no matter the level),
-  //   it will have no effect.
-  // * If you visit a Scholar that grants the same secondary skill, this skill will added
+  // * The hero won't be offered an opportunity to change the level of the secondary skill
+  //   when gaining experience.
+  // * If the hero visits a Scholar that grants the same secondary skill, this skill will added
   //   to the first free slot at Basic level. The slot that was originally occupied by the "hexed"
   //   skill (i.e. with the value > 3) will contain junk after that.
-  // TODO: check the behavior when getting the same secondary skill from Event, Seer's Hut, University.
+  // * If the hero visits a Witch Hut / visits a Seer's Hut / triggers an Event / opens a Pandora's Box
+  //   that grants the same secondary skill (at level N):
+  //     * If level == 0, this skill (at level N) will be added to the first free slot.
+  //       The original slot will contain junk after that.
+  //     * Otherwise (if level > 3), it will have no effect (it is considered that the hero has already learned it).
+  //
+  // By saying "will contain junk after that" I mean that the hero screen will display some nonsense instead
+  // of the original skill (likely "Basic First Aid"); clicking on the details will cause the game to crash.
+  // TODO: check the behavior when getting the same secondary skill from University.
   template<SecondarySkillType T>
   struct SecondarySkillLevel;
 

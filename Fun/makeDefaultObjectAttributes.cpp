@@ -9,6 +9,19 @@ namespace h3m
   {
     switch (object_class)
     {
+    case ObjectClass::EVENT:
+      return ObjectAttributes
+      {
+        .def = "AVZevnt0.def",
+        .passability {255, 255, 255, 255, 255, 127},
+        .actionability {0, 0, 0, 0, 0, 128},
+        .allowed_landscapes = 511,
+        .landscape_group = 511,
+        .object_class = h3m::ObjectClass::EVENT,
+        .object_number = 0,
+        .object_group = h3m::ObjectGroup::Terrain,
+        .is_ground = 0
+      };
     case ObjectClass::PANDORAS_BOX:
       return ObjectAttributes
       {
@@ -30,6 +43,18 @@ namespace h3m
         .allowed_landscapes = 511,
         .landscape_group = 255,
         .object_class = h3m::ObjectClass::SCHOLAR,
+        .object_number = 0,
+        .object_group = h3m::ObjectGroup::Terrain,
+        .is_ground = 0
+      };
+    case ObjectClass::SEER_HUT:
+      return h3m::ObjectAttributes{
+        .def = "AVXseer0.def",
+        .passability {255, 255, 255, 255, 255, 191},
+        .actionability {0, 0, 0, 0, 0, 64},
+        .allowed_landscapes = 511,
+        .landscape_group = 255,
+        .object_class = h3m::ObjectClass::SEER_HUT,
         .object_number = 0,
         .object_group = h3m::ObjectGroup::Terrain,
         .is_ground = 0

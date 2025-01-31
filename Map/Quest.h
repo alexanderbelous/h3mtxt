@@ -112,7 +112,7 @@ namespace h3m
     // So screw it. The fields below will just be ignored during reading/writing if type() is None.
 
     // 0 - impossible to fulfill; 0xFFFFFFFF - none.
-    std::uint32_t deadline{};
+    std::uint32_t deadline = 0xFFFFFFFF;
     std::string proposal{};
     std::string progress{};
     std::string completion{};
