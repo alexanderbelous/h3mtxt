@@ -120,7 +120,10 @@ namespace
       if (isEligibleLavaTile(tile))
       {
         tile.terrain_sprite = distrib_sprite(gen);
-        tile.mirroring = distrib_mirror(gen);
+        // Only overwrite the 2 bits for terrain mirroring, don't modify anything else
+        // (e.g., roads, rivers).
+        tile.mirroring &= (~std::uint8_t{ 0x03 });
+        tile.mirroring |= distrib_mirror(gen);
       }
     }
   }
@@ -214,10 +217,18 @@ namespace
     {
       tile.terrain_type = h3m::TerrainType::Dirt;
       tile.terrain_sprite = 29;
+      // Use the following patter for mirroring:
+      // 103210321032
+      // 321032103210
+      // 103210321032
+      // 321032103210
+      // Coordinates of the tile:
       const std::uint8_t x = static_cast<std::uint8_t>(std::distance(map.tiles.data(), &tile) % 36);
       const std::uint8_t y = static_cast<std::uint8_t>(std::distance(map.tiles.data(), &tile) / 36);
-      const std::uint8_t mirror_x = (x % 2 == 0) ? 0 : 1;
-      const std::uint8_t mirror_y = (y % 2 == 0) ? 0 : 1;
+      const std::uint8_t mirror_x = (x % 2 == 0) ? 1 : 0;
+      const std::uint8_t mirror_y = ((x / 2) % 2 != (y % 2)) ? 1 : 0;
+      //const std::uint8_t mirror_y = (y % 2 == 0) ? 0 : 1;
+      //const std::uint8_t mirror_x = ((y / 2) % 2 != (x % 2)) ? 0 : 1;
       tile.mirroring = mirror_x | (mirror_y << 1);
     }
     constexpr std::uint32_t kHeroKind = 0;
@@ -243,7 +254,7 @@ namespace
         .owner = 0,
         .type = h3m::HeroType::H3M_HERO_ORRIN,
         .secondary_skills = std::vector<h3m::SecondarySkill> {
-          h3m::SecondarySkill {.type = h3m::SecondarySkillType::Mysticism, .level = 0xFC},
+          h3m::SecondarySkill {.type = h3m::SecondarySkillType::Mysticism, .level = 0xFF},
           h3m::SecondarySkill {.type = h3m::SecondarySkillType::Artillery, .level = 3},
           h3m::SecondarySkill {.type = h3m::SecondarySkillType::Archery, .level = 3},
           h3m::SecondarySkill {.type = h3m::SecondarySkillType::Logistics, .level = 3},
@@ -351,7 +362,7 @@ namespace
       h3m::ObjectDetailsData<h3m::MetaObjectType::EVENT> event_details{
         h3m::EventBase{
           .secondary_skills {
-            h3m::SecondarySkill {.type = h3m::SecondarySkillType::Mysticism, .level = 0xFF}
+            h3m::SecondarySkill {.type = h3m::SecondarySkillType::FirstAid, .level = 3}
           }
         },
       };

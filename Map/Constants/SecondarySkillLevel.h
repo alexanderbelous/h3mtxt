@@ -17,7 +17,7 @@ namespace h3m
   //   when gaining experience.
   // * If the hero visits a Scholar that grants the same secondary skill, this skill will added
   //   to the first free slot at Basic level. The slot that was originally occupied by the "hexed"
-  //   skill (i.e. with the value > 3) will contain junk after that.
+  //   skill (i.e. with the value outside [1; 3]) will contain junk after that.
   // * If the hero visits a Witch Hut / visits a Seer's Hut / triggers an Event / opens a Pandora's Box
   //   that grants the same secondary skill (at level N):
   //     * If level == 0, this skill (at level N) will be added to the first free slot.

@@ -158,6 +158,9 @@
     <ClCompile Include="makeDefaultObjectAttributes.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\H3MReader\H3MReader.vcxproj">
+      <Project>{f12bf262-83e7-44ae-94ef-5f8335050322}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\H3MWriter\H3MWriter.vcxproj">
       <Project>{0ec4d6f4-74f5-4e17-872f-aab8640ac90e}</Project>
     </ProjectReference>
