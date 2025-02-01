@@ -156,6 +156,7 @@
     <ClCompile Include="fun.cpp" />
     <ClCompile Include="generatePlayerSpecs.cpp" />
     <ClCompile Include="makeDefaultObjectAttributes.cpp" />
+    <ClCompile Include="makeUltimateLava.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\H3MReader\H3MReader.vcxproj">
@@ -173,6 +174,7 @@
     <ClInclude Include="fillWithWaterTiles.h" />
     <ClInclude Include="generatePlayerSpecs.h" />
     <ClInclude Include="makeDefaultObjectAttributes.h" />
+    <ClInclude Include="makeUltimateLava.h" />
     <ClInclude Include="Util.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

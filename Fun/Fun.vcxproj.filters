@@ -30,6 +30,9 @@
     <ClCompile Include="makeDefaultObjectAttributes.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="makeUltimateLava.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Util.h">
@@ -45,6 +48,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="makeDefaultObjectAttributes.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="makeUltimateLava.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
