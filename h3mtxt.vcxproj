@@ -87,6 +87,9 @@
     <ClCompile Include="h3mtxt.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="H3MJsonReader\H3MJsonReader.vcxproj">
+      <Project>{845816a8-fee8-4703-a6df-8da4525839ae}</Project>
+    </ProjectReference>
     <ProjectReference Include="H3MReader\H3MReader.vcxproj">
       <Project>{f12bf262-83e7-44ae-94ef-5f8335050322}</Project>
     </ProjectReference>
