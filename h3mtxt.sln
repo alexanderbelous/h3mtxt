@@ -20,6 +20,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Fun", "Fun\Fun.vcxproj", "{
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "H3MTxtWriter", "H3MTxtWriter\H3MTxtWriter.vcxproj", "{4EE1074B-517F-4978-BDB2-F2F3CA43D1C3}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "H3MJsonReader", "H3MJsonReader\H3MJsonReader.vcxproj", "{845816A8-FEE8-4703-A6DF-8DA4525839AE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -54,6 +56,10 @@ Global
 		{4EE1074B-517F-4978-BDB2-F2F3CA43D1C3}.Debug|x64.Build.0 = Debug|x64
 		{4EE1074B-517F-4978-BDB2-F2F3CA43D1C3}.Release|x64.ActiveCfg = Release|x64
 		{4EE1074B-517F-4978-BDB2-F2F3CA43D1C3}.Release|x64.Build.0 = Release|x64
+		{845816A8-FEE8-4703-A6DF-8DA4525839AE}.Debug|x64.ActiveCfg = Debug|x64
+		{845816A8-FEE8-4703-A6DF-8DA4525839AE}.Debug|x64.Build.0 = Debug|x64
+		{845816A8-FEE8-4703-A6DF-8DA4525839AE}.Release|x64.ActiveCfg = Release|x64
+		{845816A8-FEE8-4703-A6DF-8DA4525839AE}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
