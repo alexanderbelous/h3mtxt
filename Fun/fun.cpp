@@ -1,5 +1,5 @@
 #include <h3mtxt/Fun/fakeIslands.h>
-#include <h3mtxt/Fun/fillWithWaterTiles.h>
+#include <h3mtxt/Fun/fillWithTerrain.h>
 #include <h3mtxt/Fun/generatePlayerSpecs.h>
 #include <h3mtxt/Fun/makeDefaultObjectAttributes.h>
 #include <h3mtxt/Fun/Util.h>
@@ -18,7 +18,6 @@ using h3m::drawFakeDiagonalLandStripSE;
 using h3m::drawFakeIsland;
 using h3m::drawFakeMiniIsland;
 using h3m::drawFakeVerticalLandStrip;
-using h3m::fillWithWaterTiles;
 using h3m::kAbsentPlayerSpecs;
 using h3m::safeGetTile;
 
@@ -170,6 +169,63 @@ namespace
     return map;
   }
 
+  void drawCarpetBlock(h3m::Map& map, h3m::TerrainType terrain_type, std::uint8_t terrain_sprite,
+                       std::uint32_t x, std::uint32_t y)
+  {
+    struct TileData
+    {
+      std::uint8_t x {};
+      std::uint8_t y {};
+      std::uint8_t mirroring {};
+    };
+    constexpr TileData kTilesToDraw[] = {
+      {.x = 0, .y = 0, .mirroring = 1},
+      {.x = 1, .y = 0, .mirroring = 0},
+      {.x = 0, .y = 1, .mirroring = 3},
+      {.x = 1, .y = 1, .mirroring = 2},
+    };
+    for (const TileData& tile_data : kTilesToDraw)
+    {
+      if (h3m::Tile* tile = safeGetTile(map, x + tile_data.x, y + tile_data.y))
+      {
+        tile->terrain_type = terrain_type;
+        tile->terrain_sprite = terrain_sprite;
+        // Clear the 2 least significant bits.
+        tile->mirroring &= (~0b11);
+        // Set the 2 least significant bits.
+        tile->mirroring |= tile_data.mirroring;
+      }
+    }
+  }
+
+  void drawCarpet(h3m::Map& map)
+  {
+    if (map.tiles.size() != h3m::countTiles(map.basic_info))
+    {
+      throw std::runtime_error("drawCarpet(): wrong number of elements in map.tiles.");
+    }
+    const std::uint32_t map_size = map.basic_info.map_size;
+    for (std::uint32_t y = 0; y < map_size; ++y)
+    {
+      for (std::uint32_t x = 0; x < map_size; ++x)
+      {
+        h3m::Tile& tile = map.tiles[y * map_size + x];
+        tile.terrain_type = h3m::TerrainType::Dirt;
+        tile.terrain_sprite = 29;
+        // Use the following patter for mirroring:
+        // 103210321032
+        // 321032103210
+        // 103210321032
+        // 321032103210
+        const std::uint8_t mirror_x = (x % 2 == 0) ? 1 : 0;
+        const std::uint8_t mirror_y = ((x / 2) % 2 != (y % 2)) ? 1 : 0;
+        //const std::uint8_t mirror_y = (y % 2 == 0) ? 0 : 1;
+        //const std::uint8_t mirror_x = ((y / 2) % 2 != (x % 2)) ? 0 : 1;
+        tile.mirroring = mirror_x | (mirror_y << 1);
+      }
+    }
+  }
+
   h3m::Map generateMapWithHeroes()
   {
     constexpr h3m::PlayerColor player1 = h3m::PlayerColor::Red;
@@ -184,24 +240,16 @@ namespace
     map.players[static_cast<std::size_t>(player1)] = h3m::generatePlayerSpecsNoTown(true, hero1);
     map.players[static_cast<std::size_t>(player2)] = h3m::generatePlayerSpecsNoTown(false, hero2);
 
-    for (h3m::Tile& tile : map.tiles)
-    {
-      tile.terrain_type = h3m::TerrainType::Dirt;
-      tile.terrain_sprite = 29;
-      // Use the following patter for mirroring:
-      // 103210321032
-      // 321032103210
-      // 103210321032
-      // 321032103210
-      // Coordinates of the tile:
-      const std::uint8_t x = static_cast<std::uint8_t>(std::distance(map.tiles.data(), &tile) % 36);
-      const std::uint8_t y = static_cast<std::uint8_t>(std::distance(map.tiles.data(), &tile) / 36);
-      const std::uint8_t mirror_x = (x % 2 == 0) ? 1 : 0;
-      const std::uint8_t mirror_y = ((x / 2) % 2 != (y % 2)) ? 1 : 0;
-      //const std::uint8_t mirror_y = (y % 2 == 0) ? 0 : 1;
-      //const std::uint8_t mirror_x = ((y / 2) % 2 != (x % 2)) ? 0 : 1;
-      tile.mirroring = mirror_x | (mirror_y << 1);
-    }
+    //drawCarpet(map);
+    h3m::fillWithTerrain(map, h3m::TerrainType::Dirt);
+    drawCarpetBlock(map, h3m::TerrainType::Dirt, 29, 10, 10);
+    drawCarpetBlock(map, h3m::TerrainType::Dirt, 29, 10, 12);
+    drawCarpetBlock(map, h3m::TerrainType::Dirt, 29, 12, 9);
+    drawCarpetBlock(map, h3m::TerrainType::Dirt, 29, 12, 11);
+    drawCarpetBlock(map, h3m::TerrainType::Dirt, 29, 12, 13);
+    drawCarpetBlock(map, h3m::TerrainType::Dirt, 29, 14, 10);
+    drawCarpetBlock(map, h3m::TerrainType::Dirt, 29, 14, 12);
+
     constexpr std::uint32_t kHeroKind = 0;
     constexpr std::uint32_t kSpellScrollKind = 1;
     constexpr std::uint32_t kPandorasBoxKind = 2;
@@ -387,7 +435,7 @@ int main(int argc, char** argv)
 
     const h3m::Map map = generateMapWithHeroes();
     //h3m::Map map = generateTestMap();
-    //fillWithWaterTiles(map);
+    //fillWithTerrain(map, h3m::TerrainType::Water);
     //drawFakeIslands(map);
 
     std::ofstream out_stream(path_map, std::ios_base::out | std::ios_base::binary);

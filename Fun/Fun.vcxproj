@@ -152,7 +152,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="fakeIslands.cpp" />
-    <ClCompile Include="fillWithWaterTiles.cpp" />
+    <ClCompile Include="fillWithTerrain.cpp" />
     <ClCompile Include="fun.cpp" />
     <ClCompile Include="generatePlayerSpecs.cpp" />
     <ClCompile Include="makeDefaultObjectAttributes.cpp" />
@@ -171,7 +171,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="fakeIslands.h" />
-    <ClInclude Include="fillWithWaterTiles.h" />
+    <ClInclude Include="fillWithTerrain.h" />
     <ClInclude Include="generatePlayerSpecs.h" />
     <ClInclude Include="makeDefaultObjectAttributes.h" />
     <ClInclude Include="makeUltimateLava.h" />

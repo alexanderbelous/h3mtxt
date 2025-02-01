@@ -18,7 +18,7 @@
     <ClCompile Include="fun.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="fillWithWaterTiles.cpp">
+    <ClCompile Include="fillWithTerrain.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="fakeIslands.cpp">
@@ -38,7 +38,7 @@
     <ClInclude Include="Util.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="fillWithWaterTiles.h">
+    <ClInclude Include="fillWithTerrain.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="fakeIslands.h">
