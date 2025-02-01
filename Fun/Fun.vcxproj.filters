@@ -33,6 +33,9 @@
     <ClCompile Include="makeUltimateLava.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="drawCarpet.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Util.h">
@@ -51,6 +54,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="makeUltimateLava.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawCarpet.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -151,6 +151,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="drawCarpet.cpp" />
     <ClCompile Include="fakeIslands.cpp" />
     <ClCompile Include="fillWithTerrain.cpp" />
     <ClCompile Include="fun.cpp" />
@@ -170,6 +171,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="drawCarpet.h" />
     <ClInclude Include="fakeIslands.h" />
     <ClInclude Include="fillWithTerrain.h" />
     <ClInclude Include="generatePlayerSpecs.h" />
