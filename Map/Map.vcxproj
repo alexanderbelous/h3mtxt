@@ -74,6 +74,7 @@
     <ClInclude Include="SpellsBitmask.h" />
     <ClInclude Include="Tile.h" />
     <ClInclude Include="TimedEventBase.h" />
+    <ClInclude Include="TownsBitmask.h" />
     <ClInclude Include="Utils\BitSet.h" />
     <ClInclude Include="Utils\ReservedData.h" />
     <ClInclude Include="VictoryCondition.h" />

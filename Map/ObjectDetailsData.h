@@ -197,6 +197,7 @@ namespace h3m
     // If 0, the dwelling's alignment is not tied to a specific town.
     std::uint32_t town_absod_id {};
     // This field is only read/written if town_absod_id == 0.
+    // TODO: replace with TownsBitmask.
     BitSet<2> alignment;
     // 0-based.
     std::uint8_t min_level {};
@@ -221,6 +222,7 @@ namespace h3m
     // If 0, the dwelling's alignment is not tied to a specific town.
     std::uint32_t town_absod_id {};
     // This field is only read/written if town_absod_id == 0.
+    // TODO: replace with TownsBitmask.
     BitSet<2> alignment;
   };
 

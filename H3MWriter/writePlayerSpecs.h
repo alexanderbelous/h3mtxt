@@ -59,7 +59,7 @@ namespace h3m
       writeData(stream, value.can_be_computer);
       writeData(stream, value.behavior);
       writeData(stream, value.customized_alignments);
-      writeData(stream, value.allowed_alignments.town_types);
+      writeData(stream, value.allowed_alignments.bitset);
       writeData(stream, value.random_town);
       writeData(stream, value.main_town);
       writeData(stream, value.starting_hero);

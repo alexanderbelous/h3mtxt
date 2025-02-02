@@ -65,7 +65,7 @@ namespace Util_NS
         out.writeComment(enum_str, false);
       }
       out.writeField("customized_alignments", value.customized_alignments);
-      out.writeField("allowed_alignments", value.allowed_alignments.town_types);
+      out.writeField("allowed_alignments", value.allowed_alignments.bitset);
       out.writeField("random_town", value.random_town);
       if (value.main_town)
       {

@@ -79,7 +79,7 @@ PlayerSpecs readPlayerSpecs(std::istream& stream)
   player.can_be_computer = readBool(stream);
   player.behavior = readEnum<PlayerBehavior>(stream);
   player.customized_alignments = readInt<std::uint8_t>(stream);
-  player.allowed_alignments.town_types = readBitSet<2>(stream);
+  player.allowed_alignments.bitset = readBitSet<2>(stream);
   player.random_town = readInt<std::uint8_t>(stream);
   const bool has_main_town = readBool(stream);
   if (has_main_town)
