@@ -43,6 +43,11 @@ int main(int argc, char** argv)
   {
     const fs::path path_map(argv[1]);
     std::ifstream stream(path_map, std::ios_base::in | std::ios_base::binary);
+    if (!stream)
+    {
+      std::cerr << "Failed to open: " << path_map.string();
+      return -1;
+    }
     const bool is_h3m_file = isH3mFile(stream);
     const h3m::Map map = is_h3m_file ? h3m::parseh3m(stream) : h3m::readH3mJson(stream);
     stream.close();
@@ -60,10 +65,12 @@ int main(int argc, char** argv)
   catch (const std::exception& error)
   {
     std::cerr << error.what() << std::endl;
+    return -1;
   }
   catch (...)
   {
     std::cerr << "Unknown error." << std::endl;
+    return -1;
   }
 
   return 0;

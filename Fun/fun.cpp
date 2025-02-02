@@ -209,7 +209,7 @@ namespace
         .owner = 0,
         .type = h3m::HeroType::H3M_HERO_ORRIN,
         .secondary_skills = std::vector<h3m::SecondarySkill> {
-          h3m::SecondarySkill {.type = h3m::SecondarySkillType::Mysticism, .level = 0xFF},
+          h3m::SecondarySkill {.type = h3m::SecondarySkillType::Mysticism, .level = 3},
           h3m::SecondarySkill {.type = h3m::SecondarySkillType::Artillery, .level = 3},
           h3m::SecondarySkill {.type = h3m::SecondarySkillType::Archery, .level = 3},
           h3m::SecondarySkill {.type = h3m::SecondarySkillType::Logistics, .level = 3},
@@ -277,7 +277,7 @@ namespace
       .details = h3m::ObjectDetailsData<h3m::MetaObjectType::PANDORAS_BOX> {
         h3m::EventBase {
           .secondary_skills {
-            h3m::SecondarySkill {.type = h3m::SecondarySkillType::Mysticism, .level = 0xFF }
+            h3m::SecondarySkill {.type = h3m::SecondarySkillType::Mysticism, .level = 3 }
           }
         }
       }
@@ -348,7 +348,7 @@ namespace
           .details = h3m::RewardDetails<h3m::RewardType::SecondarySkill> {
             .skill {
               .type = h3m::SecondarySkillType::Mysticism,
-              .level = 0xFF
+              .level = 3
             }
           }
         }
