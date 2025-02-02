@@ -34,33 +34,48 @@ namespace
 
 int main(int argc, char** argv)
 {
-  if (argc != 2) {
-    std::cout << "Usage: h3mtxt map-path" << std::endl;
+  if (argc != 3)
+  {
+    std::cout << "Usage: h3mtxt <input_path> <output_path>\n"
+                 "\n"
+                 "If <input_path> is a .h3m file, the program will read the map and write it as a\n"
+                 "JSON document to <output_path>.\n"
+                 "Otherwise, the program will attempt to read <input_path> as a JSON document\n"
+                 "representing a H3M map, and then write it as .h3m file to <output_path>.\n"
+                 "\n"
+                 "The filename extension in <input_path> is not important - the program will\n"
+                 "determine the format from the file data." << std::endl;
     return -1;
   }
 
   try
   {
-    const fs::path path_map(argv[1]);
-    std::ifstream stream(path_map, std::ios_base::in | std::ios_base::binary);
+    const fs::path path_input(argv[1]);
+    const fs::path path_output(argv[2]);
+    std::ifstream stream(path_input, std::ios_base::in | std::ios_base::binary);
     if (!stream)
     {
-      std::cerr << "Failed to open: " << path_map.string();
+      std::cerr << "Failed to open: " << path_input.string();
       return -1;
     }
     const bool is_h3m_file = isH3mFile(stream);
     const h3m::Map map = is_h3m_file ? h3m::parseh3m(stream) : h3m::readH3mJson(stream);
     stream.close();
+    std::ofstream out_stream(path_output, std::ios_base::out | std::ios_base::binary);
+    if (!out_stream)
+    {
+      std::cerr << "Failed to open: " << path_output.string();
+      return -1;
+    }
     if (is_h3m_file)
     {
-      h3m::writeH3mTxt(std::cout, map);
+      h3m::writeH3mTxt(out_stream, map);
     }
     else
     {
-      std::ofstream out_stream("rewritten.h3m", std::ios_base::out | std::ios_base::binary);
       h3m::writeh3m(out_stream, map);
-      out_stream.close();
     }
+    out_stream.close();
   }
   catch (const std::exception& error)
   {
