@@ -18,7 +18,14 @@ namespace Util_NS
     void operator()(FieldsWriter& out, const h3m::TeamsInfo& value) const
     {
       out.writeField("num_teams", value.num_teams);
-      out.writeField("team_for_player", value.team_for_player);
+      if (value.num_teams != 0)
+      {
+        out.writeField("team_for_player", value.team_for_player);
+      }
+      else
+      {
+        out.writeComment("\"team_for_player\" field is missing because teams are disabled.");
+      }
     }
   };
 
@@ -93,14 +100,7 @@ namespace Util_NS
     {
       out.writeField("victory_condition", value.victory_condition);
       out.writeField("loss_condition", value.loss_condition);
-      if (value.teams.num_teams != 0)
-      {
-        out.writeField( "teams", value.teams);
-      }
-      else
-      {
-        out.writeComment("\"teams\" field is missing because teams are disabled.");
-      }
+      out.writeField( "teams", value.teams);
       out.writeField("heroes_availability", value.heroes_availability);
       out.writeField("placeholder_heroes", value.placeholder_heroes);
       out.writeField("custom_heroes", value.custom_heroes);
