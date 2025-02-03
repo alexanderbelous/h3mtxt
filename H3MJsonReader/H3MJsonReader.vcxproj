@@ -86,6 +86,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="JsonReader.h" />
     <ClInclude Include="readH3mJson.h" />
   </ItemGroup>
   <ItemGroup>
