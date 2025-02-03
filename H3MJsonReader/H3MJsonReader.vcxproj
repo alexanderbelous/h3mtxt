@@ -90,6 +90,7 @@
     <ClInclude Include="readH3mJson.h" />
     <ClInclude Include="readLossCondition.h" />
     <ClInclude Include="readMapAdditionalInfo.h" />
+    <ClInclude Include="readPlayersBitmask.h" />
     <ClInclude Include="readPlayerSpecs.h" />
     <ClInclude Include="readVictoryCondition.h" />
   </ItemGroup>
