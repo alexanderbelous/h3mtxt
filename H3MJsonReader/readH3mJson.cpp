@@ -1,5 +1,6 @@
 #include <h3mtxt/H3MJsonReader/readH3mJson.h>
 
+#include <h3mtxt/JsonCommon/FieldName.h>
 #include <h3mtxt/H3MJsonReader/JsonReader.h>
 #include <h3mtxt/H3MJsonReader/readPlayerSpecs.h>
 
@@ -67,13 +68,15 @@ namespace h3m
   {
     Map operator()(const Json::Value& value) const
     {
+      using Fields = FieldNames<Map>;
+
       Map map;
-      map.format = readField<MapFormat>(value, "format");
-      map.basic_info = readField<MapBasicInfo>(value, "basic_info");
-      map.players = readField<std::array<PlayerSpecs, kMaxPlayers>>(value, "players");
-      map.tiles = readField<std::vector<Tile>>(value, "tiles");
-      map.objects_attributes = readField<std::vector<ObjectAttributes>>(value, "objects_attributes");
-      map.padding = readField<ReservedData<124>>(value, "padding");
+      map.format = readField<MapFormat>(value, Fields::kFormat);
+      map.basic_info = readField<MapBasicInfo>(value, Fields::kBasicInfo);
+      map.players = readField<std::array<PlayerSpecs, kMaxPlayers>>(value, Fields::kPlayers);
+      map.tiles = readField<std::vector<Tile>>(value, Fields::kTiles);
+      map.objects_attributes = readField<std::vector<ObjectAttributes>>(value, Fields::kObjectsAttributes);
+      map.padding = readField<ReservedData<124>>(value, Fields::kPadding);
       // TODO: read the rest of the fields.
       return map;
     }

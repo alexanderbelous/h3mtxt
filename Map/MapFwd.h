@@ -25,6 +25,8 @@ namespace h3m
 
   enum class PlayerBehavior : std::uint8_t;
 
+  enum class PlayerColor : std::uint8_t;
+
   enum class QuestType : std::uint8_t;
 
   enum class RewardType : std::uint8_t;
@@ -42,4 +44,6 @@ namespace h3m
   enum class VictoryConditionType : std::uint8_t;
 
   struct Map;
+
+  struct PlayersBitmask;
 }

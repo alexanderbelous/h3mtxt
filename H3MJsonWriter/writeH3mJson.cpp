@@ -1,5 +1,6 @@
 #include <h3mtxt/H3MJsonWriter/writeH3mJson.h>
 
+#include <h3mtxt/JsonCommon/FieldName.h>
 #include <h3mtxt/Map/Map.h>
 #include <h3mtxt/H3MJsonWriter/getEnumString.h>
 #include <h3mtxt/H3MJsonWriter/H3MJsonWriter.h>
@@ -243,17 +244,19 @@ namespace Util_NS
   {
     void operator()(FieldsWriter& out, const h3m::Map& map) const
     {
-      out.writeField("format", map.format);
-      out.writeField("basic_info", map.basic_info);
-      out.writeField("players", map.players);
-      out.writeField("additional_info", map.additional_info);
+      using FieldNames = h3m::FieldNames<h3m::Map>;
+
+      out.writeField(FieldNames::kFormat, map.format);
+      out.writeField(FieldNames::kBasicInfo, map.basic_info);
+      out.writeField(FieldNames::kPlayers, map.players);
+      out.writeField(FieldNames::kAdditionalInfo, map.additional_info);
       // Not writing tiles directly because I want to write each tile's coordinates in a comment.
-      out.writeField("tiles", TilesWithMapSize(map.tiles, map.basic_info.map_size, map.basic_info.has_two_levels));
-      out.writeField("objects_attributes", map.objects_attributes);
+      out.writeField(FieldNames::kTiles, TilesWithMapSize(map.tiles, map.basic_info.map_size, map.basic_info.has_two_levels));
+      out.writeField(FieldNames::kObjectsAttributes, map.objects_attributes);
       // Not writing object_details directly because I want to write ObjectClass for each object in a comment.
-      out.writeField("objects_details", H3MObjects(map.objects_attributes, map.objects_details));
-      out.writeField("global_events", map.global_events);
-      out.writeField("padding", map.padding);
+      out.writeField(FieldNames::kObjectsDetails, H3MObjects(map.objects_attributes, map.objects_details));
+      out.writeField(FieldNames::kGlobalEvents, map.global_events);
+      out.writeField(FieldNames::kPadding, map.padding);
     }
   };
 }
