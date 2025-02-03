@@ -30,6 +30,9 @@
     <ClInclude Include="readMapAdditionalInfo.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="readLossCondition.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="readH3mJson.cpp">
