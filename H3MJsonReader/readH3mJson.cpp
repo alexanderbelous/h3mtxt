@@ -52,6 +52,7 @@ namespace h3m
       map.basic_info = readField<MapBasicInfo>(value, "basic_info");
       map.players = readField<std::array<PlayerSpecs, kMaxPlayers>>(value, "players");
       map.tiles = readField<std::vector<Tile>>(value, "tiles");
+      map.padding = readField<ReservedData<124>>(value, "padding");
       // TODO: read the rest of the fields.
       return map;
     }

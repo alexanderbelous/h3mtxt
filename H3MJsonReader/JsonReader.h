@@ -1,9 +1,11 @@
 #pragma once
 
 #include <h3mtxt/Map/Utils/BitSet.h>
+#include <h3mtxt/Map/Utils/ReservedData.h>
 
 #include <json/json.h>
 
+#include <algorithm>
 #include <array>
 #include <limits>
 #include <optional>
@@ -176,6 +178,25 @@ namespace h3m
     BitSet<NumBytes> operator()(const Json::Value& value) const
     {
       return BitSet<NumBytes>(fromJson<std::array<std::uint8_t, NumBytes>>(value));
+    }
+  };
+
+  // Partial specialization for ReservedData.
+  template<std::size_t NumBytes>
+  struct JsonReader<ReservedData<NumBytes>>
+  {
+    ReservedData<NumBytes> operator()(const Json::Value& value) const
+    {
+      std::array<std::byte, NumBytes> data = fromJson<std::array<std::byte, NumBytes>>(value);
+      const bool is_all_zeros = std::all_of(data.cbegin(), data.cend(), [](std::byte element)
+        {
+          return element == std::byte{ 0 };
+        });
+      if (is_all_zeros)
+      {
+        return ReservedData<NumBytes>();
+      }
+      return ReservedData<NumBytes>(data);
     }
   };
 }
