@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="writeH3mTxt.cpp">
+    <ClCompile Include="writeH3mJson.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="getEnumString.cpp">

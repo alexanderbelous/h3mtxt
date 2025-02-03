@@ -152,7 +152,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="getEnumString.cpp" />
-    <ClCompile Include="writeH3mTxt.cpp" />
+    <ClCompile Include="writeH3mJson.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="getEnumString.h" />
