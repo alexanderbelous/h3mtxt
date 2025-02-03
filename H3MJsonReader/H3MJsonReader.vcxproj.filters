@@ -21,6 +21,9 @@
     <ClInclude Include="JsonReader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="readPlayerSpecs.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="readH3mJson.cpp">
