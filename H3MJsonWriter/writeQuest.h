@@ -1,11 +1,11 @@
 #pragma once
 
 #include <h3mtxt/Map/Quest.h>
-#include <h3mtxt/H3MTxtWriter/getEnumString.h>
-#include <h3mtxt/H3MTxtWriter/H3MTxtWriter.h>
-#include <h3mtxt/H3MTxtWriter/writeCreatureStack.h>
-#include <h3mtxt/H3MTxtWriter/writePrimarySkills.h>
-#include <h3mtxt/H3MTxtWriter/writeResources.h>
+#include <h3mtxt/H3MJsonWriter/getEnumString.h>
+#include <h3mtxt/H3MJsonWriter/H3MJsonWriter.h>
+#include <h3mtxt/H3MJsonWriter/writeCreatureStack.h>
+#include <h3mtxt/H3MJsonWriter/writePrimarySkills.h>
+#include <h3mtxt/H3MJsonWriter/writeResources.h>
 
 namespace Util_NS
 {

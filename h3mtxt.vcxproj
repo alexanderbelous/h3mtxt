@@ -93,7 +93,7 @@
     <ProjectReference Include="H3MReader\H3MReader.vcxproj">
       <Project>{f12bf262-83e7-44ae-94ef-5f8335050322}</Project>
     </ProjectReference>
-    <ProjectReference Include="H3MTxtWriter\H3MTxtWriter.vcxproj">
+    <ProjectReference Include="H3MJsonWriter\H3MJsonWriter.vcxproj">
       <Project>{4ee1074b-517f-4978-bdb2-f2f3ca43d1c3}</Project>
     </ProjectReference>
     <ProjectReference Include="H3MWriter\H3MWriter.vcxproj">

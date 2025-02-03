@@ -2,7 +2,7 @@
 
 #include <h3mtxt/Map/Constants/Constants.h>
 #include <h3mtxt/Map/PlayersBitmask.h>
-#include <h3mtxt/H3MTxtWriter/H3MTxtWriter.h>
+#include <h3mtxt/H3MJsonWriter/H3MJsonWriter.h>
 
 #include <iterator>
 #include <string_view>

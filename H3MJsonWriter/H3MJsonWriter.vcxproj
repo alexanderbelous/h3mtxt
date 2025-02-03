@@ -22,7 +22,7 @@
     <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
     <ProjectGuid>{4ee1074b-517f-4978-bdb2-f2f3ca43d1c3}</ProjectGuid>
-    <RootNamespace>H3MTxtWriter</RootNamespace>
+    <RootNamespace>H3MJsonWriter</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -156,10 +156,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="getEnumString.h" />
-    <ClInclude Include="H3MTxtWriter.h" />
+    <ClInclude Include="H3MJsonWriter.h" />
     <ClInclude Include="writeCreatureStack.h" />
     <ClInclude Include="writeGlobalEvent.h" />
-    <ClInclude Include="writeH3mTxt.h" />
+    <ClInclude Include="writeH3mJson.h" />
     <ClInclude Include="writeHeroArtifacts.h" />
     <ClInclude Include="writeLossCondition.h" />
     <ClInclude Include="writeMapAdditionalInfo.h" />

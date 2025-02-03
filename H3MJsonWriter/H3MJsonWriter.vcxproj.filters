@@ -23,10 +23,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="writeH3mTxt.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="H3MTxtWriter.h">
+    <ClInclude Include="writeH3mJson.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="writeMapBasicInfo.h">
@@ -90,6 +87,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="writeReward.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="H3MJsonWriter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,7 +1,7 @@
 #pragma once
 
 #include <h3mtxt/Map/SecondarySkillsBitmask.h>
-#include <h3mtxt/H3MTxtWriter/H3MTxtWriter.h>
+#include <h3mtxt/H3MJsonWriter/H3MJsonWriter.h>
 
 #include <array>
 #include <cstdint>

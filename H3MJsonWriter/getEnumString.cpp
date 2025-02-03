@@ -1,4 +1,4 @@
-#include <h3mtxt/H3MTxtWriter/getEnumString.h>
+#include <h3mtxt/H3MJsonWriter/getEnumString.h>
 #include <h3mtxt/Map/Constants/Gender.h>
 #include <h3mtxt/Map/Constants/LossConditionType.h>
 #include <h3mtxt/Map/Constants/ScholarRewardType.h>

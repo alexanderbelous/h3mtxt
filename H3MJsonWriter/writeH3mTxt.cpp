@@ -1,15 +1,15 @@
-#include <h3mtxt/H3MTxtWriter/writeH3mTxt.h>
+#include <h3mtxt/H3MJsonWriter/writeH3mJson.h>
 
 #include <h3mtxt/Map/Map.h>
-#include <h3mtxt/H3MTxtWriter/getEnumString.h>
-#include <h3mtxt/H3MTxtWriter/H3MTxtWriter.h>
-#include <h3mtxt/H3MTxtWriter/writeGlobalEvent.h>
-#include <h3mtxt/H3MTxtWriter/writeMapBasicInfo.h>
-#include <h3mtxt/H3MTxtWriter/writeMapAdditionalInfo.h>
-#include <h3mtxt/H3MTxtWriter/writeObjectAttributes.h>
-#include <h3mtxt/H3MTxtWriter/writeObjectDetailsData.h>
-#include <h3mtxt/H3MTxtWriter/writePlayerSpecs.h>
-#include <h3mtxt/H3MTxtWriter/writeTile.h>
+#include <h3mtxt/H3MJsonWriter/getEnumString.h>
+#include <h3mtxt/H3MJsonWriter/H3MJsonWriter.h>
+#include <h3mtxt/H3MJsonWriter/writeGlobalEvent.h>
+#include <h3mtxt/H3MJsonWriter/writeMapBasicInfo.h>
+#include <h3mtxt/H3MJsonWriter/writeMapAdditionalInfo.h>
+#include <h3mtxt/H3MJsonWriter/writeObjectAttributes.h>
+#include <h3mtxt/H3MJsonWriter/writeObjectDetailsData.h>
+#include <h3mtxt/H3MJsonWriter/writePlayerSpecs.h>
+#include <h3mtxt/H3MJsonWriter/writeTile.h>
 
 #include <span>
 #include <sstream>
@@ -260,7 +260,7 @@ namespace Util_NS
 
 namespace h3m
 {
-  void writeH3mTxt(std::ostream& stream, const Map& map)
+  void writeH3mJson(std::ostream& stream, const Map& map)
   {
     Util_NS::JsonDocumentWriter writer(stream, 0);
     Util_NS::writeValue(writer, map);

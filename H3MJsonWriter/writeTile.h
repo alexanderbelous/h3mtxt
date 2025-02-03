@@ -1,8 +1,8 @@
 #pragma once
 
 #include <h3mtxt/Map/Tile.h>
-#include <h3mtxt/H3MTxtWriter/getEnumString.h>
-#include <h3mtxt/H3MTxtWriter/H3MTxtWriter.h>
+#include <h3mtxt/H3MJsonWriter/getEnumString.h>
+#include <h3mtxt/H3MJsonWriter/H3MJsonWriter.h>
 
 namespace Util_NS
 {

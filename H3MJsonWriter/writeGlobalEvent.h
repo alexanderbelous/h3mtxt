@@ -1,8 +1,8 @@
 #pragma once
 
 #include <h3mtxt/Map/GlobalEvent.h>
-#include <h3mtxt/H3MTxtWriter/H3MTxtWriter.h>
-#include <h3mtxt/H3MTxtWriter/writeTimedEventBase.h>
+#include <h3mtxt/H3MJsonWriter/H3MJsonWriter.h>
+#include <h3mtxt/H3MJsonWriter/writeTimedEventBase.h>
 
 namespace Util_NS
 {

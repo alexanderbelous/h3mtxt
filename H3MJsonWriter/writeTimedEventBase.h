@@ -1,9 +1,9 @@
 #pragma once
 
 #include <h3mtxt/Map/TimedEventBase.h>
-#include <h3mtxt/H3MTxtWriter/H3MTxtWriter.h>
-#include <h3mtxt/H3MTxtWriter/writePlayersBitmask.h>
-#include <h3mtxt/H3MTxtWriter/writeResources.h>
+#include <h3mtxt/H3MJsonWriter/H3MJsonWriter.h>
+#include <h3mtxt/H3MJsonWriter/writePlayersBitmask.h>
+#include <h3mtxt/H3MJsonWriter/writeResources.h>
 
 namespace Util_NS
 {

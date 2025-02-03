@@ -1,14 +1,14 @@
 #pragma once
 
 #include <h3mtxt/Map/MapAdditionalInfo.h>
-#include <h3mtxt/H3MTxtWriter/H3MTxtWriter.h>
-#include <h3mtxt/H3MTxtWriter/writeHeroArtifacts.h>
-#include <h3mtxt/H3MTxtWriter/writeLossCondition.h>
-#include <h3mtxt/H3MTxtWriter/writePrimarySkills.h>
-#include <h3mtxt/H3MTxtWriter/writeSecondarySkill.h>
-#include <h3mtxt/H3MTxtWriter/writeSecondarySkillsBitmask.h>
-#include <h3mtxt/H3MTxtWriter/writeSpellsBitmask.h>
-#include <h3mtxt/H3MTxtWriter/writeVictoryCondition.h>
+#include <h3mtxt/H3MJsonWriter/H3MJsonWriter.h>
+#include <h3mtxt/H3MJsonWriter/writeHeroArtifacts.h>
+#include <h3mtxt/H3MJsonWriter/writeLossCondition.h>
+#include <h3mtxt/H3MJsonWriter/writePrimarySkills.h>
+#include <h3mtxt/H3MJsonWriter/writeSecondarySkill.h>
+#include <h3mtxt/H3MJsonWriter/writeSecondarySkillsBitmask.h>
+#include <h3mtxt/H3MJsonWriter/writeSpellsBitmask.h>
+#include <h3mtxt/H3MJsonWriter/writeVictoryCondition.h>
 
 namespace Util_NS
 {

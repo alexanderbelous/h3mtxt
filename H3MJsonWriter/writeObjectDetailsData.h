@@ -1,18 +1,18 @@
 #pragma once
 
 #include <h3mtxt/Map/ObjectDetailsData.h>
-#include <h3mtxt/H3MTxtWriter/getEnumString.h>
-#include <h3mtxt/H3MTxtWriter/H3MTxtWriter.h>
-#include <h3mtxt/H3MTxtWriter/writeCreatureStack.h>
-#include <h3mtxt/H3MTxtWriter/writeHeroArtifacts.h>
-#include <h3mtxt/H3MTxtWriter/writePrimarySkills.h>
-#include <h3mtxt/H3MTxtWriter/writeQuest.h>
-#include <h3mtxt/H3MTxtWriter/writeResources.h>
-#include <h3mtxt/H3MTxtWriter/writeReward.h>
-#include <h3mtxt/H3MTxtWriter/writeSecondarySkill.h>
-#include <h3mtxt/H3MTxtWriter/writeSecondarySkillsBitmask.h>
-#include <h3mtxt/H3MTxtWriter/writeSpellsBitmask.h>
-#include <h3mtxt/H3MTxtWriter/writeTimedEventBase.h>
+#include <h3mtxt/H3MJsonWriter/getEnumString.h>
+#include <h3mtxt/H3MJsonWriter/H3MJsonWriter.h>
+#include <h3mtxt/H3MJsonWriter/writeCreatureStack.h>
+#include <h3mtxt/H3MJsonWriter/writeHeroArtifacts.h>
+#include <h3mtxt/H3MJsonWriter/writePrimarySkills.h>
+#include <h3mtxt/H3MJsonWriter/writeQuest.h>
+#include <h3mtxt/H3MJsonWriter/writeResources.h>
+#include <h3mtxt/H3MJsonWriter/writeReward.h>
+#include <h3mtxt/H3MJsonWriter/writeSecondarySkill.h>
+#include <h3mtxt/H3MJsonWriter/writeSecondarySkillsBitmask.h>
+#include <h3mtxt/H3MJsonWriter/writeSpellsBitmask.h>
+#include <h3mtxt/H3MJsonWriter/writeTimedEventBase.h>
 
 namespace Util_NS
 {

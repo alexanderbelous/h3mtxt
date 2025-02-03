@@ -1,7 +1,7 @@
 #include <h3mtxt/H3MJsonReader/readH3mJson.h>
 #include <h3mtxt/H3MReader/parseh3m.h>
 #include <h3mtxt/H3MWriter/writeh3m.h>
-#include <h3mtxt/H3MTxtWriter/writeH3mTxt.h>
+#include <h3mtxt/H3MJsonWriter/writeH3mJson.h>
 
 #include <filesystem>
 #include <fstream>
@@ -69,7 +69,7 @@ int main(int argc, char** argv)
     }
     if (is_h3m_file)
     {
-      h3m::writeH3mTxt(out_stream, map);
+      h3m::writeH3mJson(out_stream, map);
     }
     else
     {
