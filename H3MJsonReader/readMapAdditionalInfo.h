@@ -2,6 +2,7 @@
 
 #include <h3mtxt/H3MJsonReader/JsonReader.h>
 #include <h3mtxt/H3MJsonReader/readLossCondition.h>
+#include <h3mtxt/H3MJsonReader/readPlayersBitmask.h>
 #include <h3mtxt/H3MJsonReader/readVictoryCondition.h>
 #include <h3mtxt/Map/MapAdditionalInfo.h>
 
@@ -43,8 +44,7 @@ namespace h3m
       hero.type = readField<HeroType>(value, "type");
       hero.portrait = readField<HeroPortrait>(value, "portrait");
       hero.name = readField<std::string>(value, "name");
-      // TODO: read as as object with 8 boolean fields.
-      //hero.can_hire.bitset = readField<std::uint8_t>(value, "can_hire");
+      hero.can_hire = readField<PlayersBitmask>(value, "can_hire");
       return hero;
     }
   };
