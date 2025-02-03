@@ -43,6 +43,26 @@ namespace h3m
   };
 
   template<>
+  struct JsonReader<ObjectAttributes>
+  {
+    ObjectAttributes operator()(const Json::Value& value) const
+    {
+      ObjectAttributes object_attributes {};
+      object_attributes.def = readField<std::string>(value, "def");
+      object_attributes.passability = readField<std::array<std::uint8_t, 6>>(value, "passability");
+      object_attributes.actionability = readField<std::array<std::uint8_t, 6>>(value, "actionability");
+      object_attributes.allowed_landscapes = readField<std::uint16_t>(value, "allowed_landscapes");
+      object_attributes.landscape_group = readField<std::uint16_t>(value, "landscape_group");
+      object_attributes.object_class = readField<ObjectClass>(value, "object_class");
+      object_attributes.object_number = readField<std::uint32_t>(value, "object_number");
+      object_attributes.object_group = readField<ObjectGroup>(value, "object_group");
+      object_attributes.is_ground = readField<Bool>(value, "is_ground");
+      object_attributes.unknown = readField<ReservedData<16>>(value, "unknown");
+      return object_attributes;
+    }
+  };
+
+  template<>
   struct JsonReader<Map>
   {
     Map operator()(const Json::Value& value) const
@@ -52,6 +72,7 @@ namespace h3m
       map.basic_info = readField<MapBasicInfo>(value, "basic_info");
       map.players = readField<std::array<PlayerSpecs, kMaxPlayers>>(value, "players");
       map.tiles = readField<std::vector<Tile>>(value, "tiles");
+      map.objects_attributes = readField<std::vector<ObjectAttributes>>(value, "objects_attributes");
       map.padding = readField<ReservedData<124>>(value, "padding");
       // TODO: read the rest of the fields.
       return map;
