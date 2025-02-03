@@ -88,7 +88,9 @@
   <ItemGroup>
     <ClInclude Include="JsonReader.h" />
     <ClInclude Include="readH3mJson.h" />
+    <ClInclude Include="readMapAdditionalInfo.h" />
     <ClInclude Include="readPlayerSpecs.h" />
+    <ClInclude Include="readVictoryCondition.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="readH3mJson.cpp" />
