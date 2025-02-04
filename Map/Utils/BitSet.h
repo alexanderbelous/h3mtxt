@@ -18,6 +18,8 @@ template<std::size_t NumBytes>
 class BitSet
 {
 public:
+  static constexpr std::size_t kNumBits = NumBytes * 8;
+
   // Constructs a bitset with all bits set to 0.
   constexpr BitSet() noexcept = default;
 
@@ -26,17 +28,17 @@ public:
 
   // Read-only access to the specified bit.
   // \param index - 0-based index of the bit. No bounds checking is performed; the behavior is undefined if
-  //        index >= NumBytes * 8.
+  //        index >= kNumBits.
   // \return the value of the specified bit.
   constexpr bool operator[](std::size_t index) const;
 
-  // Same as above, but throws std::out_of_range if index >= NumBytes * 8.
+  // Same as above, but throws std::out_of_range if index >= kNumBits.
   constexpr bool at(std::size_t index) const;
 
   // Assigns a value to the specified bit.
   // \param index - 0-based index of the bit.
   // \param value - value to assign.
-  // \throw std::out_of_range if index >= NumBytes * 8.
+  // \throw std::out_of_range if index >= kNumBits.
   constexpr void set(std::size_t index, bool value);
 
   // \return the underlying array of bytes (mutable).
@@ -70,7 +72,7 @@ constexpr bool BitSet<NumBytes>::operator[](std::size_t index) const
 template<std::size_t NumBytes>
 constexpr bool BitSet<NumBytes>::at(std::size_t index) const
 {
-  if (index >= NumBytes * 8)
+  if (index >= kNumBits)
   {
     throw std::out_of_range("BitSet::at(): index is out of range");
   }
@@ -80,7 +82,7 @@ constexpr bool BitSet<NumBytes>::at(std::size_t index) const
 template<std::size_t NumBytes>
 constexpr void BitSet<NumBytes>::set(std::size_t index, bool value)
 {
-  if (index >= NumBytes * 8)
+  if (index >= kNumBits)
   {
     throw std::out_of_range("BitSet::set(): index is out of range");
   }

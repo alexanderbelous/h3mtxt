@@ -1,5 +1,6 @@
 #pragma once
 
+#include <h3mtxt/JsonCommon/FieldName.h>
 #include <h3mtxt/Map/MapAdditionalInfo.h>
 #include <h3mtxt/H3MJsonWriter/H3MJsonWriter.h>
 #include <h3mtxt/H3MJsonWriter/writeHeroArtifacts.h>
@@ -98,18 +99,20 @@ namespace Util_NS
   {
     void operator()(FieldsWriter& out, const h3m::MapAdditionalInfo& value) const
     {
-      out.writeField("victory_condition", value.victory_condition);
-      out.writeField("loss_condition", value.loss_condition);
-      out.writeField( "teams", value.teams);
-      out.writeField("heroes_availability", value.heroes_availability);
-      out.writeField("placeholder_heroes", value.placeholder_heroes);
-      out.writeField("custom_heroes", value.custom_heroes);
-      out.writeField("reserved", value.reserved);
-      out.writeField("artifacts_nonavailability", value.artifacts_nonavailability);
-      out.writeField("disabled_spells", value.disabled_spells);
-      out.writeField("disabled_skills", value.disabled_skills);
-      out.writeField("rumors", value.rumors);
-      out.writeField("heroes_settings", value.heroes_settings.settings());
+      using Fields = h3m::FieldNames<h3m::MapAdditionalInfo>;
+
+      out.writeField(Fields::kVictoryCondition, value.victory_condition);
+      out.writeField(Fields::kLossCondition, value.loss_condition);
+      out.writeField(Fields::kTeams, value.teams);
+      out.writeField(Fields::kHeroesAvailability, value.heroes_availability);
+      out.writeField(Fields::kPlaceholderHeroes, value.placeholder_heroes);
+      out.writeField(Fields::kCustomHeroes, value.custom_heroes);
+      out.writeField(Fields::kReserved, value.reserved);
+      out.writeField(Fields::kArtifactsNonavailability, value.artifacts_nonavailability);
+      out.writeField(Fields::kDisabledSpells, value.disabled_spells);
+      out.writeField(Fields::kDisabledSkills, value.disabled_skills);
+      out.writeField(Fields::kRumors, value.rumors);
+      out.writeField(Fields::kHeroesSettings, value.heroes_settings.settings());
     }
   };
 }

@@ -36,6 +36,9 @@
     <ClInclude Include="readPlayersBitmask.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="readSecondarySkillsBitmask.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="readH3mJson.cpp">

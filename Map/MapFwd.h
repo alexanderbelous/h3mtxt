@@ -16,7 +16,7 @@ namespace h3m
 
   enum class MapDifficulty : std::uint8_t;
 
-  // No underlying type because this enum is not serialized anywhere in H3M.
+  // No explicit underlying type because this enum is not serialized anywhere in H3M.
   enum class MetaObjectType;
 
   enum class ObjectClass : std::uint32_t;
@@ -45,5 +45,9 @@ namespace h3m
 
   struct Map;
 
+  struct MapAdditionalInfo;
+
   struct PlayersBitmask;
+
+  struct SecondarySkillsBitmask;
 }

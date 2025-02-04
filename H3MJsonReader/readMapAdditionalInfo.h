@@ -1,8 +1,10 @@
 #pragma once
 
+#include <h3mtxt/JsonCommon/FieldName.h>
 #include <h3mtxt/H3MJsonReader/JsonReader.h>
 #include <h3mtxt/H3MJsonReader/readLossCondition.h>
 #include <h3mtxt/H3MJsonReader/readPlayersBitmask.h>
+#include <h3mtxt/H3MJsonReader/readSecondarySkillsBitmask.h>
 #include <h3mtxt/H3MJsonReader/readVictoryCondition.h>
 #include <h3mtxt/Map/MapAdditionalInfo.h>
 
@@ -54,17 +56,20 @@ namespace h3m
   {
     MapAdditionalInfo operator()(const Json::Value& value) const
     {
+      using Fields = FieldNames<MapAdditionalInfo>;
+
       MapAdditionalInfo info;
-      info.victory_condition = readField<VictoryCondition>(value, "victory_condition");
-      info.loss_condition = readField<LossCondition>(value, "loss_condition");
-      info.teams = readField<TeamsInfo>(value, "teams");
-      info.heroes_availability.data = readField<BitSet<20>>(value, "heroes_availability");
-      info.placeholder_heroes = readField<std::vector<HeroType>>(value, "placeholder_heroes");
-      info.custom_heroes = readField<std::vector<MapAdditionalInfo::CustomHero>>(value, "custom_heroes");
-      info.reserved = readField<ReservedData<31>>(value, "reserved");
-      info.artifacts_nonavailability = readField<BitSet<18>>(value, "artifacts_nonavailability");
-      info.disabled_spells.bitset = readField<BitSet<9>>(value, "disabled_spells");
-      info.rumors = readField<std::vector<Rumor>>(value, "rumors");
+      info.victory_condition = readField<VictoryCondition>(value, Fields::kVictoryCondition);
+      info.loss_condition = readField<LossCondition>(value, Fields::kLossCondition);
+      info.teams = readField<TeamsInfo>(value, Fields::kTeams);
+      info.heroes_availability.data = readField<BitSet<20>>(value, Fields::kHeroesAvailability);
+      info.placeholder_heroes = readField<std::vector<HeroType>>(value, Fields::kPlaceholderHeroes);
+      info.custom_heroes = readField<std::vector<MapAdditionalInfo::CustomHero>>(value, Fields::kCustomHeroes);
+      info.reserved = readField<ReservedData<31>>(value, Fields::kReserved);
+      info.artifacts_nonavailability = readField<BitSet<18>>(value, Fields::kArtifactsNonavailability);
+      info.disabled_spells.bitset = readField<BitSet<9>>(value, Fields::kDisabledSpells);
+      info.disabled_skills = readField<SecondarySkillsBitmask>(value, Fields::kDisabledSkills);
+      info.rumors = readField<std::vector<Rumor>>(value, Fields::kRumors);
       // TODO: add the rest
       return info;
     }

@@ -2,6 +2,7 @@
 
 #include <h3mtxt/JsonCommon/FieldName.h>
 #include <h3mtxt/H3MJsonReader/JsonReader.h>
+#include <h3mtxt/H3MJsonReader/readMapAdditionalInfo.h>
 #include <h3mtxt/H3MJsonReader/readPlayerSpecs.h>
 
 #include <istream>
@@ -74,6 +75,7 @@ namespace h3m
       map.format = readField<MapFormat>(value, Fields::kFormat);
       map.basic_info = readField<MapBasicInfo>(value, Fields::kBasicInfo);
       map.players = readField<std::array<PlayerSpecs, kMaxPlayers>>(value, Fields::kPlayers);
+      map.additional_info = readField<MapAdditionalInfo>(value, Fields::kAdditionalInfo);
       map.tiles = readField<std::vector<Tile>>(value, Fields::kTiles);
       map.objects_attributes = readField<std::vector<ObjectAttributes>>(value, Fields::kObjectsAttributes);
       map.padding = readField<ReservedData<124>>(value, Fields::kPadding);

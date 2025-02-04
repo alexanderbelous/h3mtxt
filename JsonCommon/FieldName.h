@@ -50,4 +50,63 @@ namespace h3m
     static inline constexpr std::string_view kGlobalEvents = "global_events";
     static inline constexpr std::string_view kPadding = "padding";
   };
+
+  template<>
+  struct FieldNames<MapAdditionalInfo>
+  {
+    static inline constexpr std::string_view kVictoryCondition = "victory_condition";
+    static inline constexpr std::string_view kLossCondition = "loss_condition";
+    static inline constexpr std::string_view kTeams = "teams";
+    static inline constexpr std::string_view kHeroesAvailability = "heroes_availability";
+    static inline constexpr std::string_view kPlaceholderHeroes = "placeholder_heroes";
+    static inline constexpr std::string_view kCustomHeroes = "custom_heroes";
+    static inline constexpr std::string_view kReserved = "reserved";
+    static inline constexpr std::string_view kArtifactsNonavailability = "artifacts_nonavailability";
+    static inline constexpr std::string_view kDisabledSpells = "disabled_spells";
+    static inline constexpr std::string_view kDisabledSkills = "disabled_skills";
+    static inline constexpr std::string_view kRumors = "rumors";
+    static inline constexpr std::string_view kHeroesSettings = "heroes_settings";
+  };
+
+  template<>
+  struct FieldNames<SecondarySkillsBitmask>
+  {
+    // The number of bit fields in SecondarySkillsBitmask.
+    static constexpr std::size_t kNumBits = 32;
+    // Name for each bit field in SecondarySkillsBitmask.
+    static inline constexpr std::array<std::string_view, kNumBits> kNames{
+        "pathfinding",
+        "archery",
+        "logistics",
+        "scouting",
+        "diplomacy",
+        "navigation",
+        "leadership",
+        "wisdom",
+        "mysticism",
+        "luck",
+        "ballistics",
+        "eagle_eye",
+        "necromancy",
+        "estates",
+        "fire_magic",
+        "air_magic",
+        "water_magic",
+        "earth_magic",
+        "scholar",
+        "tactics",
+        "artillery",
+        "learning",
+        "offense",
+        "armorer",
+        "intelligence",
+        "sorcery",
+        "resistance",
+        "first_aid",
+        "padding_28",
+        "padding_29",
+        "padding_30",
+        "padding_31"
+    };
+  };
 }
