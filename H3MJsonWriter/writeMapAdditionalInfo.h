@@ -18,10 +18,11 @@ namespace Util_NS
   {
     void operator()(FieldsWriter& out, const h3m::TeamsInfo& value) const
     {
-      out.writeField("num_teams", value.num_teams);
+      using Fields = h3m::FieldNames<h3m::TeamsInfo>;
+      out.writeField(Fields::kNumTeams, value.num_teams);
       if (value.num_teams != 0)
       {
-        out.writeField("team_for_player", value.team_for_player);
+        out.writeField(Fields::kTeamForPlayer, value.team_for_player);
       }
       else
       {
@@ -56,8 +57,9 @@ namespace Util_NS
   {
     void operator()(FieldsWriter& out, const h3m::Rumor& value) const
     {
-      out.writeField("name", value.name);
-      out.writeField("description", value.description);
+      using Fields = h3m::FieldNames<h3m::Rumor>;
+      out.writeField(Fields::kName, value.name);
+      out.writeField(Fields::kDescription, value.description);
     }
   };
 
@@ -66,30 +68,31 @@ namespace Util_NS
   {
     void operator()(FieldsWriter& out, const h3m::HeroSettings& value) const
     {
+      using Fields = h3m::FieldNames<h3m::HeroSettings>;
       if (value.experience)
       {
-        out.writeField("experience", *value.experience);
+        out.writeField(Fields::kExperience, *value.experience);
       }
       if (value.secondary_skills)
       {
-        out.writeField("secondary_skills", *value.secondary_skills);
+        out.writeField(Fields::kSecondarySkills, *value.secondary_skills);
       }
       if (value.artifacts)
       {
-        out.writeField("artifacts", *value.artifacts);
+        out.writeField(Fields::kArtifacts, *value.artifacts);
       }
       if (value.biography)
       {
-        out.writeField("biography", *value.biography);
+        out.writeField(Fields::kBiography, *value.biography);
       }
-      out.writeField("gender", value.gender);
+      out.writeField(Fields::kGender, value.gender);
       if (value.spells)
       {
-        out.writeField("spells", *value.spells);
+        out.writeField(Fields::kSpells , *value.spells);
       }
       if (value.primary_skills)
       {
-        out.writeField("primary_skills", *value.primary_skills);
+        out.writeField(Fields::kPrimarySkills, *value.primary_skills);
       }
     }
   };

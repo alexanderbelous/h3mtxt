@@ -16,11 +16,12 @@ namespace h3m
   {
     TeamsInfo operator()(const Json::Value& value) const
     {
+      using Fields = FieldNames<TeamsInfo>;
       TeamsInfo info;
-      info.num_teams = readField<std::uint8_t>(value, "num_teams");
+      readField(info.num_teams, value, Fields::kNumTeams);
       if (info.num_teams != 0)
       {
-        info.team_for_player = readField<std::array<std::uint8_t, 8>>(value, "team_for_player");
+        readField(info.team_for_player, value, Fields::kTeamForPlayer);
       }
       return info;
     }
@@ -31,9 +32,10 @@ namespace h3m
   {
     Rumor operator()(const Json::Value& value) const
     {
+      using Fields = FieldNames<Rumor>;
       Rumor rumor;
-      rumor.name = readField<std::string>(value, "name");
-      rumor.description = readField<std::string>(value, "description");
+      readField(rumor.name, value, Fields::kName);
+      readField(rumor.description, value, Fields::kDescription);
       return rumor;
     }
   };
@@ -81,18 +83,18 @@ namespace h3m
       using Fields = FieldNames<MapAdditionalInfo>;
 
       MapAdditionalInfo info;
-      info.victory_condition = readField<VictoryCondition>(value, Fields::kVictoryCondition);
-      info.loss_condition = readField<LossCondition>(value, Fields::kLossCondition);
-      info.teams = readField<TeamsInfo>(value, Fields::kTeams);
-      info.heroes_availability.data = readField<BitSet<20>>(value, Fields::kHeroesAvailability);
-      info.placeholder_heroes = readField<std::vector<HeroType>>(value, Fields::kPlaceholderHeroes);
-      info.custom_heroes = readField<std::vector<MapAdditionalInfo::CustomHero>>(value, Fields::kCustomHeroes);
-      info.reserved = readField<ReservedData<31>>(value, Fields::kReserved);
-      info.artifacts_nonavailability = readField<BitSet<18>>(value, Fields::kArtifactsNonavailability);
-      info.disabled_spells.bitset = readField<BitSet<9>>(value, Fields::kDisabledSpells);
-      info.disabled_skills = readField<SecondarySkillsBitmask>(value, Fields::kDisabledSkills);
-      info.rumors = readField<std::vector<Rumor>>(value, Fields::kRumors);
-      info.heroes_settings = readField<HeroesSettings>(value, Fields::kHeroesSettings);
+      readField(info.victory_condition, value, Fields::kVictoryCondition);
+      readField(info.loss_condition, value, Fields::kLossCondition);
+      readField(info.teams, value, Fields::kTeams);
+      readField(info.heroes_availability.data, value, Fields::kHeroesAvailability);
+      readField(info.placeholder_heroes, value, Fields::kPlaceholderHeroes);
+      readField(info.custom_heroes, value, Fields::kCustomHeroes);
+      readField(info.reserved, value, Fields::kReserved);
+      readField(info.artifacts_nonavailability, value, Fields::kArtifactsNonavailability);
+      readField(info.disabled_spells.bitset, value, Fields::kDisabledSpells);
+      readField(info.disabled_skills, value, Fields::kDisabledSkills);
+      readField(info.rumors, value, Fields::kRumors);
+      readField(info.heroes_settings, value, Fields::kHeroesSettings);
       return info;
     }
   };

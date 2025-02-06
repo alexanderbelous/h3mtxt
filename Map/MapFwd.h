@@ -47,9 +47,17 @@ namespace h3m
 
   struct Map;
 
+  struct MapBasicInfo;
+
   struct MapAdditionalInfo;
 
   struct PlayersBitmask;
 
+  struct Rumor;
+
   struct SecondarySkillsBitmask;
+
+  struct TeamsInfo;
+
+  struct Tile;
 }

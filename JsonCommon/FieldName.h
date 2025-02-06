@@ -64,6 +64,18 @@ namespace h3m
   };
 
   template<>
+  struct FieldNames<MapBasicInfo>
+  {
+    static inline constexpr std::string_view kIsPlayable = "is_playable";
+    static inline constexpr std::string_view kMapSize = "map_size";
+    static inline constexpr std::string_view kHasTwoLevels = "has_two_levels";
+    static inline constexpr std::string_view kName = "name";
+    static inline constexpr std::string_view kDescription = "description";
+    static inline constexpr std::string_view kDifficulty = "difficulty";
+    static inline constexpr std::string_view kMaxHeroLevel = "max_hero_level";
+  };
+
+  template<>
   struct FieldNames<MapAdditionalInfo>
   {
     static inline constexpr std::string_view kVictoryCondition = "victory_condition";
@@ -78,6 +90,13 @@ namespace h3m
     static inline constexpr std::string_view kDisabledSkills = "disabled_skills";
     static inline constexpr std::string_view kRumors = "rumors";
     static inline constexpr std::string_view kHeroesSettings = "heroes_settings";
+  };
+
+  template<>
+  struct FieldNames<Rumor>
+  {
+    static inline constexpr std::string_view kName = "name";
+    static inline constexpr std::string_view kDescription = "description";
   };
 
   template<>
@@ -120,5 +139,24 @@ namespace h3m
         "padding_30",
         "padding_31"
     };
+  };
+
+  template<>
+  struct FieldNames<TeamsInfo>
+  {
+    static inline constexpr std::string_view kNumTeams = "num_teams";
+    static inline constexpr std::string_view kTeamForPlayer = "team_for_player";
+  };
+
+  template<>
+  struct FieldNames<Tile>
+  {
+    static inline constexpr std::string_view kTerrainType = "terrain_type";
+    static inline constexpr std::string_view kTerrainSprite = "terrain_sprite";
+    static inline constexpr std::string_view kRiverType = "river_type";
+    static inline constexpr std::string_view kRiverSprite = "river_sprite";
+    static inline constexpr std::string_view kRoadType = "road_type";
+    static inline constexpr std::string_view kRoadSprite = "road_sprite";
+    static inline constexpr std::string_view kMirroring = "mirroring";
   };
 }

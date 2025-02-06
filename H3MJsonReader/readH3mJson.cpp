@@ -15,14 +15,15 @@ namespace h3m
   {
     MapBasicInfo operator()(const Json::Value& value) const
     {
+      using Fields = FieldNames<MapBasicInfo>;
       MapBasicInfo basic_info{};
-      basic_info.is_playable = readField<Bool>(value, "is_playable");
-      basic_info.map_size = readField<std::uint32_t>(value, "map_size");
-      basic_info.has_two_levels = readField<Bool>(value, "has_two_levels");
-      basic_info.name = readField<std::string>(value, "name");
-      basic_info.description = readField<std::string>(value, "description");
-      basic_info.difficulty = readField<MapDifficulty>(value, "difficulty");
-      basic_info.max_hero_level = readField<std::uint8_t>(value, "max_hero_level");
+      readField(basic_info.is_playable, value, Fields::kIsPlayable);
+      readField(basic_info.map_size, value, Fields::kMapSize);
+      readField(basic_info.has_two_levels, value, Fields::kHasTwoLevels);
+      readField(basic_info.name, value, Fields::kName);
+      readField(basic_info.description, value, Fields::kDescription);
+      readField(basic_info.difficulty, value, Fields::kDifficulty);
+      readField(basic_info.max_hero_level, value, Fields::kMaxHeroLevel);
       return basic_info;
     }
   };
@@ -32,14 +33,15 @@ namespace h3m
   {
     Tile operator()(const Json::Value& value) const
     {
+      using Fields = FieldNames<Tile>;
       Tile tile {};
-      tile.terrain_type = readField<TerrainType>(value, "terrain_type");
-      tile.terrain_sprite = readField<std::uint8_t>(value, "terrain_sprite");
-      tile.river_type = readField<RiverType>(value, "river_type");
-      tile.river_sprite = readField<std::uint8_t>(value, "river_sprite");
-      tile.road_type = readField<RoadType>(value, "road_type");
-      tile.road_sprite = readField<std::uint8_t>(value, "road_sprite");
-      tile.mirroring = readField<std::uint8_t>(value, "mirroring");
+      readField(tile.terrain_type, value, Fields::kTerrainType);
+      readField(tile.terrain_sprite, value, Fields::kTerrainSprite);
+      readField(tile.river_type, value, Fields::kRiverType);
+      readField(tile.river_sprite, value, Fields::kRiverSprite);
+      readField(tile.road_type, value, Fields::kRoadType);
+      readField(tile.road_sprite, value, Fields::kRoadSprite);
+      readField(tile.mirroring, value, Fields::kMirroring);
       return tile;
     }
   };
@@ -72,13 +74,13 @@ namespace h3m
       using Fields = FieldNames<Map>;
 
       Map map;
-      map.format = readField<MapFormat>(value, Fields::kFormat);
-      map.basic_info = readField<MapBasicInfo>(value, Fields::kBasicInfo);
-      map.players = readField<std::array<PlayerSpecs, kMaxPlayers>>(value, Fields::kPlayers);
-      map.additional_info = readField<MapAdditionalInfo>(value, Fields::kAdditionalInfo);
-      map.tiles = readField<std::vector<Tile>>(value, Fields::kTiles);
-      map.objects_attributes = readField<std::vector<ObjectAttributes>>(value, Fields::kObjectsAttributes);
-      map.padding = readField<ReservedData<124>>(value, Fields::kPadding);
+      readField(map.format, value, Fields::kFormat);
+      readField(map.basic_info, value, Fields::kBasicInfo);
+      readField(map.players, value, Fields::kPlayers);
+      readField(map.additional_info, value, Fields::kAdditionalInfo);
+      readField(map.tiles, value, Fields::kTiles);
+      readField(map.objects_attributes, value, Fields::kObjectsAttributes);
+      readField(map.padding, value, Fields::kPadding);
       // TODO: read the rest of the fields.
       return map;
     }
