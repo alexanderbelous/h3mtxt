@@ -91,6 +91,14 @@ struct Rumor
 };
 
 // Stores settings for all heroes.
+//
+// In .h3m these are stored like std::array<std::optional<HeroSettings>, kNumHeroes> -
+// a boolean value is written first, indicating if this hero has non-default settings;
+// HeroSettings is only written if this boolean value is true.
+//
+// However, generally only a few heroes have non-default settings in MapAdditionalInfo
+// (they are more likely to be customized for heroes on the adventure map), so it would
+// be memory-inefficient to explicitly store 156 values (whether as std::optional or as a pointer).
 class HeroesSettings
 {
 public:

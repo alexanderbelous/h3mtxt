@@ -2,6 +2,7 @@
 
 #include <h3mtxt/JsonCommon/FieldName.h>
 #include <h3mtxt/H3MJsonReader/JsonReader.h>
+#include <h3mtxt/H3MJsonReader/readHeroSettings.h>
 #include <h3mtxt/H3MJsonReader/readLossCondition.h>
 #include <h3mtxt/H3MJsonReader/readPlayersBitmask.h>
 #include <h3mtxt/H3MJsonReader/readSecondarySkillsBitmask.h>
@@ -52,6 +53,27 @@ namespace h3m
   };
 
   template<>
+  struct JsonReader<HeroesSettings>
+  {
+    HeroesSettings operator()(const Json::Value& value) const
+    {
+      if (!value.isArray())
+      {
+        throw std::runtime_error("JsonReader<HeroesSettings>(): expected array, got " + value.toStyledString());
+      }
+      HeroesSettings heroes_settings;
+      for (const Json::Value& keyval : value)
+      {
+        // TODO: rename "key" and "value" to "hero" and "settings".
+        const HeroType hero = readField<HeroType>(keyval, "key");
+        HeroSettings settings = readField<HeroSettings>(keyval, "value");
+        heroes_settings[hero] = std::move(settings);
+      }
+      return heroes_settings;
+    }
+  };
+
+  template<>
   struct JsonReader<MapAdditionalInfo>
   {
     MapAdditionalInfo operator()(const Json::Value& value) const
@@ -70,7 +92,7 @@ namespace h3m
       info.disabled_spells.bitset = readField<BitSet<9>>(value, Fields::kDisabledSpells);
       info.disabled_skills = readField<SecondarySkillsBitmask>(value, Fields::kDisabledSkills);
       info.rumors = readField<std::vector<Rumor>>(value, Fields::kRumors);
-      // TODO: add the rest
+      info.heroes_settings = readField<HeroesSettings>(value, Fields::kHeroesSettings);
       return info;
     }
   };

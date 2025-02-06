@@ -16,6 +16,18 @@ namespace h3m
   struct FieldNames;
 
   template<>
+  struct FieldNames<HeroSettings>
+  {
+    static inline constexpr std::string_view kExperience = "experience";
+    static inline constexpr std::string_view kSecondarySkills = "secondary_skills";
+    static inline constexpr std::string_view kArtifacts = "artifacts";
+    static inline constexpr std::string_view kBiography = "biography";
+    static inline constexpr std::string_view kGender = "gender";
+    static inline constexpr std::string_view kSpells = "spells";
+    static inline constexpr std::string_view kPrimarySkills = "primary_skills";
+  };
+
+  template<>
   struct FieldNames<PlayersBitmask>
   {
   private:
