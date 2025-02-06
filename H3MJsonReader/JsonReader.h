@@ -48,6 +48,18 @@ namespace h3m
     throw std::runtime_error("readH3mJson(): missing field " + std::string(field_name));
   }
 
+  // Same as above, but the parsed value is assigned to the output parameter.
+  template<class T>
+  void readField(T& out, const Json::Value& value, std::string_view field_name)
+  {
+    if (const Json::Value* field = value.find(field_name.data(), field_name.data() + field_name.size()))
+    {
+      out = fromJson<T>(*field);
+      return;
+    }
+    throw std::runtime_error("readH3mJson(): missing field " + std::string(field_name));
+  }
+
   // Utility function for reading optional fields.
   template<class T>
   std::optional<T> readOptionalField(const Json::Value& value, std::string_view field_name)
@@ -57,6 +69,19 @@ namespace h3m
       return fromJson<T>(*field);
     }
     return std::nullopt;
+  }
+
+  template<class T>
+  void readOptionalField(std::optional<T>& out, const Json::Value& value, std::string_view field_name)
+  {
+    if (const Json::Value* field = value.find(field_name.data(), field_name.data() + field_name.size()))
+    {
+      out = fromJson<T>(*field);
+    }
+    else
+    {
+      out = std::nullopt;
+    }
   }
 
   // Full specialization for bool.

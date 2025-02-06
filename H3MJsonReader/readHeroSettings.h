@@ -13,11 +13,11 @@ namespace h3m
     {
       using Fields = FieldNames<HeroSettings>;
       HeroSettings settings;
-      settings.experience = readOptionalField<std::uint32_t>(value, Fields::kExperience);
+      readOptionalField(settings.experience, value, Fields::kExperience);
       //settings.secondary_skills = readOptionalField<std::vector<SecondarySkill>>(value, Fields::kSecondarySkills);
       //settings.artifacts = readOptionalField<HeroArtifacts>(value, Fields::kArtifacts);
-      settings.biography = readOptionalField<std::string>(value, Fields::kBiography);
-      settings.gender = readField<Gender>(value, Fields::kGender);
+      readOptionalField(settings.biography, value, Fields::kBiography);
+      readField(settings.gender, value, Fields::kGender);
       //settings.spells = readOptionalField<SpellsBitmask>(value, Fields::kSpells);
       //settings.primary_skills = readOptionalField<PrimarySkills>(value, Fields::kPrimarySkills);
       return settings;
