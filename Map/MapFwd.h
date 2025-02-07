@@ -51,6 +51,8 @@ namespace h3m
 
   struct MapAdditionalInfo;
 
+  struct PlayerSpecs;
+
   struct PlayersBitmask;
 
   struct Rumor;

@@ -1,5 +1,6 @@
 #pragma once
 
+#include <h3mtxt/JsonCommon/FieldName.h>
 #include <h3mtxt/H3MJsonReader/JsonReader.h>
 #include <h3mtxt/Map/PlayerSpecs.h>
 
@@ -75,18 +76,19 @@ namespace h3m
   {
     PlayerSpecs operator()(const Json::Value& value) const
     {
+      using Fields = FieldNames<PlayerSpecs>;
       PlayerSpecs player {};
-      player.can_be_human = readField<Bool>(value, "can_be_human");
-      player.can_be_computer = readField<Bool>(value, "can_be_computer");
-      player.behavior = readField<PlayerBehavior>(value, "behavior");
-      player.customized_alignments = readField<Bool>(value, "customized_alignments");
-      player.allowed_alignments = readField<TownsBitmask>(value, "allowed_alignments");
-      player.random_town = readField<Bool>(value, "random_town");
-      player.main_town = readOptionalField<MainTown>(value, "main_town");
-      player.starting_hero = readField<StartingHero>(value, "starting_hero");
+      readField(player.can_be_human, value, Fields::kCanBeHuman);
+      readField(player.can_be_computer, value, Fields::kCanBeComputer);
+      readField(player.behavior, value, Fields::kBehavior);
+      readField(player.customized_alignments, value, Fields::kCustomizedAlignments);
+      readField(player.allowed_alignments, value, Fields::kAllowedAlignments);
+      readField(player.random_town, value, Fields::kRandomTown);
+      readOptionalField(player.main_town, value, Fields::kMainTown);
+      readField(player.starting_hero, value, Fields::kStartingHero);
       if (shouldHaveAdditionalPlayerInfo(player))
       {
-        player.additional_info = readField<AdditionalPlayerInfo>(value, "additional_info");
+        readField(player.additional_info, value, Fields::kAdditionalInfo);
       }
       return player;
     }

@@ -1,5 +1,6 @@
 #pragma once
 
+#include <h3mtxt/JsonCommon/FieldName.h>
 #include <h3mtxt/Map/PlayerSpecs.h>
 #include <h3mtxt/H3MJsonWriter/H3MJsonWriter.h>
 #include <h3mtxt/H3MJsonWriter/getEnumString.h>
@@ -56,25 +57,26 @@ namespace Util_NS
   {
     void operator()(FieldsWriter& out, const h3m::PlayerSpecs& value) const
     {
-      out.writeField("can_be_human", value.can_be_human);
-      out.writeField("can_be_computer", value.can_be_computer);
-      out.writeField("behavior", value.behavior);
+      using Fields = h3m::FieldNames<h3m::PlayerSpecs>;
+      out.writeField(Fields::kCanBeHuman, value.can_be_human);
+      out.writeField(Fields::kCanBeComputer, value.can_be_computer);
+      out.writeField(Fields::kBehavior, value.behavior);
       if (auto enum_str = h3m::getEnumString(value.behavior); !enum_str.empty())
       {
         out.writeComma();
         out.writeComment(enum_str, false);
       }
-      out.writeField("customized_alignments", value.customized_alignments);
-      out.writeField("allowed_alignments", value.allowed_alignments.bitset);
-      out.writeField("random_town", value.random_town);
+      out.writeField(Fields::kCustomizedAlignments, value.customized_alignments);
+      out.writeField(Fields::kAllowedAlignments, value.allowed_alignments.bitset);
+      out.writeField(Fields::kRandomTown, value.random_town);
       if (value.main_town)
       {
-        out.writeField("main_town", *value.main_town);
+        out.writeField(Fields::kMainTown, *value.main_town);
       }
-      out.writeField("starting_hero", value.starting_hero);
+      out.writeField(Fields::kStartingHero, value.starting_hero);
       if (h3m::shouldHaveAdditionalPlayerInfo(value))
       {
-        out.writeField("additional_info", value.additional_info);
+        out.writeField(Fields::kAdditionalInfo, value.additional_info);
       }
     }
   };

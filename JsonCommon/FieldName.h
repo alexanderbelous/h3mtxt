@@ -28,6 +28,20 @@ namespace h3m
   };
 
   template<>
+  struct FieldNames<PlayerSpecs>
+  {
+    static inline constexpr std::string_view kCanBeHuman = "can_be_human";
+    static inline constexpr std::string_view kCanBeComputer = "can_be_computer";
+    static inline constexpr std::string_view kBehavior = "behavior";
+    static inline constexpr std::string_view kCustomizedAlignments = "customized_alignments";
+    static inline constexpr std::string_view kAllowedAlignments = "allowed_alignments";
+    static inline constexpr std::string_view kRandomTown = "random_town";
+    static inline constexpr std::string_view kMainTown = "main_town";
+    static inline constexpr std::string_view kStartingHero = "starting_hero";
+    static inline constexpr std::string_view kAdditionalInfo = "additional_info";
+  };
+
+  template<>
   struct FieldNames<PlayersBitmask>
   {
   private:
