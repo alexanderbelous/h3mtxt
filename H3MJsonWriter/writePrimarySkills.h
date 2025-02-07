@@ -1,5 +1,6 @@
 #pragma once
 
+#include <h3mtxt/JsonCommon/FieldName.h>
 #include <h3mtxt/Map/PrimarySkills.h>
 #include <h3mtxt/H3MJsonWriter/H3MJsonWriter.h>
 
@@ -10,10 +11,11 @@ namespace Util_NS
   {
     void operator()(FieldsWriter& out, const h3m::PrimarySkills& value) const
     {
-      out.writeField("attack", value.attack);
-      out.writeField("defense", value.defense);
-      out.writeField("spell_power", value.spell_power);
-      out.writeField("knowledge", value.knowledge);
+      using Fields = h3m::FieldNames<h3m::PrimarySkills>;
+      out.writeField(Fields::kAttack, value.attack);
+      out.writeField(Fields::kDefense, value.defense);
+      out.writeField(Fields::kSpellPower, value.spell_power);
+      out.writeField(Fields::kKnowledge, value.knowledge);
     }
   };
 }

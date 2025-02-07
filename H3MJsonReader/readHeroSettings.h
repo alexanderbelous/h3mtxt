@@ -1,6 +1,7 @@
 #pragma once
 
 #include <h3mtxt/H3MJsonReader/JsonReader.h>
+#include <h3mtxt/H3MJsonReader/readPrimarySkills.h>
 #include <h3mtxt/JsonCommon/FieldName.h>
 #include <h3mtxt/Map/HeroSettings.h>
 
@@ -19,7 +20,7 @@ namespace h3m
       readOptionalField(settings.biography, value, Fields::kBiography);
       readField(settings.gender, value, Fields::kGender);
       //settings.spells = readOptionalField<SpellsBitmask>(value, Fields::kSpells);
-      //settings.primary_skills = readOptionalField<PrimarySkills>(value, Fields::kPrimarySkills);
+      readOptionalField(settings.primary_skills, value, Fields::kPrimarySkills);
       return settings;
     }
   };

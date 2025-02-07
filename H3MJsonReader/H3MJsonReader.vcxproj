@@ -93,6 +93,7 @@
     <ClInclude Include="readMapAdditionalInfo.h" />
     <ClInclude Include="readPlayersBitmask.h" />
     <ClInclude Include="readPlayerSpecs.h" />
+    <ClInclude Include="readPrimarySkills.h" />
     <ClInclude Include="readSecondarySkillsBitmask.h" />
     <ClInclude Include="readVictoryCondition.h" />
   </ItemGroup>

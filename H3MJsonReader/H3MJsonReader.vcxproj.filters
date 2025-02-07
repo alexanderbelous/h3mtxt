@@ -42,6 +42,9 @@
     <ClInclude Include="readHeroSettings.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="readPrimarySkills.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="readH3mJson.cpp">

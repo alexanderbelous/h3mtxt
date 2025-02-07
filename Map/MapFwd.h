@@ -55,6 +55,8 @@ namespace h3m
 
   struct PlayersBitmask;
 
+  struct PrimarySkills;
+
   struct Rumor;
 
   struct SecondarySkillsBitmask;
