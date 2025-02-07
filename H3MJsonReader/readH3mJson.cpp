@@ -51,17 +51,18 @@ namespace h3m
   {
     ObjectAttributes operator()(const Json::Value& value) const
     {
+      using Fields = FieldNames<ObjectAttributes>;
       ObjectAttributes object_attributes {};
-      object_attributes.def = readField<std::string>(value, "def");
-      object_attributes.passability = readField<std::array<std::uint8_t, 6>>(value, "passability");
-      object_attributes.actionability = readField<std::array<std::uint8_t, 6>>(value, "actionability");
-      object_attributes.allowed_landscapes = readField<std::uint16_t>(value, "allowed_landscapes");
-      object_attributes.landscape_group = readField<std::uint16_t>(value, "landscape_group");
-      object_attributes.object_class = readField<ObjectClass>(value, "object_class");
-      object_attributes.object_number = readField<std::uint32_t>(value, "object_number");
-      object_attributes.object_group = readField<ObjectGroup>(value, "object_group");
-      object_attributes.is_ground = readField<Bool>(value, "is_ground");
-      object_attributes.unknown = readField<ReservedData<16>>(value, "unknown");
+      readField(object_attributes.def, value, Fields::kDef);
+      readField(object_attributes.passability, value, Fields::kPassability);
+      readField(object_attributes.actionability, value, Fields::kActionability);
+      readField(object_attributes.allowed_landscapes, value, Fields::kAllowedLandscapes);
+      readField(object_attributes.landscape_group, value, Fields::kLandscapeGroup);
+      readField(object_attributes.object_class, value, Fields::kObjectClass);
+      readField(object_attributes.object_number, value, Fields::kObjectNumber);
+      readField(object_attributes.object_group, value, Fields::kObjectGroup);
+      readField(object_attributes.is_ground, value, Fields::kIsGround);
+      readField(object_attributes.unknown, value, Fields::kUnknown);
       return object_attributes;
     }
   };

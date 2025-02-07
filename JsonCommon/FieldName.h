@@ -71,6 +71,21 @@ namespace h3m
   };
 
   template<>
+  struct FieldNames<ObjectAttributes>
+  {
+    static inline constexpr std::string_view kDef = "def";
+    static inline constexpr std::string_view kPassability = "passability";
+    static inline constexpr std::string_view kActionability = "actionability";
+    static inline constexpr std::string_view kAllowedLandscapes = "allowed_landscapes";
+    static inline constexpr std::string_view kLandscapeGroup = "landscape_group";
+    static inline constexpr std::string_view kObjectClass = "object_class";
+    static inline constexpr std::string_view kObjectNumber = "object_number";
+    static inline constexpr std::string_view kObjectGroup = "object_group";
+    static inline constexpr std::string_view kIsGround = "is_ground";
+    static inline constexpr std::string_view kUnknown = "unknown";
+  };
+
+  template<>
   struct FieldNames<PlayerSpecs>
   {
     static inline constexpr std::string_view kCanBeHuman = "can_be_human";
