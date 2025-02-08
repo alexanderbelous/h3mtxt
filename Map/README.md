@@ -7,4 +7,4 @@ The goal of h3mtxt is to provide a convenient way to modify *almost* any byte/va
 * Unknown enum values are generally accepted (there are nice use cases for this, for example, `CreatureType{146}` is a Ballista, even though neither the official Editor nor Unleashed Editor allow setting Ballista where a creature is expected). However, in some places enum fields specify the *type* of the next field (e.g., in [VictoryCondition](VictoryCondition.h)). If the value of such an enum field is out of range, it's not clear what should be read/written after it. h3mtxt uses `std::variant` in cases like that, making it impossible to use invalid enum values.
 
 All classes in this library deal only with representing the map and providing convenient getters/setters.
-Serialization/deserialization is implemented in other libraries (e.g., [H3MReader](../H3MReader), [.H3MWriter](../H3MWriter), [H3MTxtWriter](../H3MTxtWriter)).
+Serialization/deserialization is implemented in other libraries (e.g., [H3MReader](../H3MReader), [H3MWriter](../H3MWriter), [H3MJsonWriter](../H3MJsonWriter)).
