@@ -57,6 +57,8 @@ namespace h3m
 
   struct ObjectAttributes;
 
+  struct ObjectDetails;
+
   struct PlayerSpecs;
 
   struct PlayersBitmask;

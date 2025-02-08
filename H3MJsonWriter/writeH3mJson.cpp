@@ -181,14 +181,16 @@ namespace Util_NS
   {
     void operator()(FieldsWriter& out, const H3MObject& object) const
     {
+      using Fields = h3m::FieldNames<h3m::ObjectDetails>;
+
       const h3m::ObjectClass object_class = object.attributes.object_class;
       const h3m::MetaObjectType meta_object_type = object.details.details.getMetaObjectType();
       const std::string_view object_class_name = h3m::getEnumString(object_class);
       const std::string_view meta_object_type_name = h3m::getEnumString(meta_object_type);
 
-      out.writeField("x", object.details.x);
-      out.writeField("y", object.details.y);
-      out.writeField("z", object.details.z);
+      out.writeField(Fields::kX, object.details.x);
+      out.writeField(Fields::kY, object.details.y);
+      out.writeField(Fields::kZ, object.details.z);
       out.writeComma();
       // Print ObjectClass in a comment.
       comment_builder_.clear();
@@ -206,14 +208,14 @@ namespace Util_NS
         comment_builder_ << " (" << meta_object_type_name << ")";
       }
       out.writeComment(comment_builder_.str());
-      out.writeField("kind", object.details.kind);
-      out.writeField("unknown", object.details.unknown);
+      out.writeField(Fields::kKind, object.details.kind);
+      out.writeField(Fields::kUnknown, object.details.unknown);
       if (meta_object_type != h3m::MetaObjectType::GENERIC_NO_PROPERTIES)
       {
         object.details.details.visit(
           [&out](auto&& details)
           {
-            out.writeField("details", std::forward<decltype(details)>(details));
+            out.writeField(Fields::kDetails, std::forward<decltype(details)>(details));
           });
       }
     }

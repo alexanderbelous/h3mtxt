@@ -111,6 +111,17 @@ namespace h3m
   };
 
   template<>
+  struct FieldNames<ObjectDetails>
+  {
+    static inline constexpr std::string_view kX = "x";
+    static inline constexpr std::string_view kY = "y";
+    static inline constexpr std::string_view kZ = "z";
+    static inline constexpr std::string_view kKind = "kind";
+    static inline constexpr std::string_view kUnknown = "unknown";
+    static inline constexpr std::string_view kDetails = "details";
+  };
+
+  template<>
   struct FieldNames<PlayerSpecs>
   {
     static inline constexpr std::string_view kCanBeHuman = "can_be_human";
