@@ -45,6 +45,9 @@
     <ClInclude Include="readPrimarySkills.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="readSecondarySkill.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="readH3mJson.cpp">

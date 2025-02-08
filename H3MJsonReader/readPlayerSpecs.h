@@ -84,7 +84,7 @@ namespace h3m
       readField(player.customized_alignments, value, Fields::kCustomizedAlignments);
       readField(player.allowed_alignments, value, Fields::kAllowedAlignments);
       readField(player.random_town, value, Fields::kRandomTown);
-      readOptionalField(player.main_town, value, Fields::kMainTown);
+      readField(player.main_town, value, Fields::kMainTown);
       readField(player.starting_hero, value, Fields::kStartingHero);
       if (shouldHaveAdditionalPlayerInfo(player))
       {

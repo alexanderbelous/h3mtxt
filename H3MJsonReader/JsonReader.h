@@ -17,6 +17,33 @@
 
 namespace h3m
 {
+  namespace Detail_NS
+  {
+    template<class T>
+    struct IsOptionalImpl : std::false_type {};
+
+    template<class T>
+    struct IsOptionalImpl<std::optional<T>> : std::true_type {};
+
+    template<class T>
+    inline constexpr bool IsOptional = IsOptionalImpl<T>::value;
+
+    template<class T>
+    struct RemoveOptionalImpl
+    {
+      using type = T;
+    };
+
+    template<class T>
+    struct RemoveOptionalImpl<std::optional<T>>
+    {
+      using type = T;
+    };
+
+    template<class T>
+    using RemoveOptional = typename RemoveOptionalImpl<T>::type;
+  }
+
   // Template class for deserializing Json::Value into the specified type.
   template<class T, class Enable = void>
   struct JsonReader
@@ -36,52 +63,34 @@ namespace h3m
   // Utility function for parsing a single field of the input JSON value.
   // \param value - input JSON value.
   // \param field_name - name of the field.
-  // \return the value of the specified field as T.
-  // \throw std::runtime_error if @value doesn't have a field named @field_name.
+  // \return the field @field_name of @value deserialized as T,
+  //         or std::nullopt if T is an instantiation of std::optional and
+  //         @value doesn't have a field a named @field_name.
+  // \throw std::runtime error if T is not an instantiation of std::optional and
+  //        @value doesn't have a field a named @field_name.
   template<class T>
   T readField(const Json::Value& value, std::string_view field_name)
   {
     if (const Json::Value* field = value.find(field_name.data(), field_name.data() + field_name.size()))
     {
-      return fromJson<T>(*field);
+      return fromJson<Detail_NS::RemoveOptional<T>>(*field);
     }
-    throw std::runtime_error("readH3mJson(): missing field " + std::string(field_name));
-  }
-
-  // Same as above, but the parsed value is assigned to the output parameter.
-  template<class T>
-  void readField(T& out, const Json::Value& value, std::string_view field_name)
-  {
-    if (const Json::Value* field = value.find(field_name.data(), field_name.data() + field_name.size()))
+    if constexpr (Detail_NS::IsOptional<T>)
     {
-      out = fromJson<T>(*field);
-      return;
-    }
-    throw std::runtime_error("readH3mJson(): missing field " + std::string(field_name));
-  }
-
-  // Utility function for reading optional fields.
-  template<class T>
-  std::optional<T> readOptionalField(const Json::Value& value, std::string_view field_name)
-  {
-    if (const Json::Value* field = value.find(field_name.data(), field_name.data() + field_name.size()))
-    {
-      return fromJson<T>(*field);
-    }
-    return std::nullopt;
-  }
-
-  template<class T>
-  void readOptionalField(std::optional<T>& out, const Json::Value& value, std::string_view field_name)
-  {
-    if (const Json::Value* field = value.find(field_name.data(), field_name.data() + field_name.size()))
-    {
-      out = fromJson<T>(*field);
+      return std::nullopt;
     }
     else
     {
-      out = std::nullopt;
+      throw std::runtime_error("readH3mJson(): missing field " + std::string(field_name));
     }
+  }
+
+  // Same as above, but assigns the deserialized value to the output parameter.
+  // This is useful for template argument deduction.
+  template<class T>
+  void readField(T& out, const Json::Value& value, std::string_view field_name)
+  {
+    out = readField<T>(value, field_name);
   }
 
   // Full specialization for bool.
@@ -114,7 +123,7 @@ namespace h3m
 
   // Partial specialization for integer types.
   template<class T>
-  struct JsonReader <T, std::enable_if_t<std::is_integral_v<T>>>
+  struct JsonReader<T, std::enable_if_t<std::is_integral_v<T>>>
   {
     T operator()(const Json::Value& value) const
     {
@@ -143,7 +152,7 @@ namespace h3m
 
   // Partial specialization for enum types.
   template<class T>
-  struct JsonReader <T, std::enable_if_t<std::is_enum_v<T>>>
+  struct JsonReader<T, std::enable_if_t<std::is_enum_v<T>>>
   {
     T operator()(const Json::Value& value) const
     {

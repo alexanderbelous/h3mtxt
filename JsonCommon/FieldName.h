@@ -138,6 +138,13 @@ namespace h3m
   };
 
   template<>
+  struct FieldNames<SecondarySkill>
+  {
+    static inline constexpr std::string_view kType = "type";
+    static inline constexpr std::string_view kLevel = "level";
+  };
+
+  template<>
   struct FieldNames<SecondarySkillsBitmask>
   {
     // The number of bit fields in SecondarySkillsBitmask.

@@ -61,6 +61,8 @@ namespace h3m
 
   struct Rumor;
 
+  struct SecondarySkill;
+
   struct SecondarySkillsBitmask;
 
   struct TeamsInfo;
