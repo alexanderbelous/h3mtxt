@@ -4,70 +4,15 @@
 #include <h3mtxt/H3MJsonReader/JsonReader.h>
 #include <h3mtxt/H3MJsonReader/readGlobalEvent.h>
 #include <h3mtxt/H3MJsonReader/readMapAdditionalInfo.h>
+#include <h3mtxt/H3MJsonReader/readMapBasicInfo.h>
+#include <h3mtxt/H3MJsonReader/readObjectAttributes.h>
 #include <h3mtxt/H3MJsonReader/readPlayerSpecs.h>
+#include <h3mtxt/H3MJsonReader/readTile.h>
 
-#include <istream>
 #include <stdexcept>
 
 namespace h3m
 {
-  template<>
-  struct JsonReader<MapBasicInfo>
-  {
-    MapBasicInfo operator()(const Json::Value& value) const
-    {
-      using Fields = FieldNames<MapBasicInfo>;
-      MapBasicInfo basic_info{};
-      readField(basic_info.is_playable, value, Fields::kIsPlayable);
-      readField(basic_info.map_size, value, Fields::kMapSize);
-      readField(basic_info.has_two_levels, value, Fields::kHasTwoLevels);
-      readField(basic_info.name, value, Fields::kName);
-      readField(basic_info.description, value, Fields::kDescription);
-      readField(basic_info.difficulty, value, Fields::kDifficulty);
-      readField(basic_info.max_hero_level, value, Fields::kMaxHeroLevel);
-      return basic_info;
-    }
-  };
-
-  template<>
-  struct JsonReader<Tile>
-  {
-    Tile operator()(const Json::Value& value) const
-    {
-      using Fields = FieldNames<Tile>;
-      Tile tile {};
-      readField(tile.terrain_type, value, Fields::kTerrainType);
-      readField(tile.terrain_sprite, value, Fields::kTerrainSprite);
-      readField(tile.river_type, value, Fields::kRiverType);
-      readField(tile.river_sprite, value, Fields::kRiverSprite);
-      readField(tile.road_type, value, Fields::kRoadType);
-      readField(tile.road_sprite, value, Fields::kRoadSprite);
-      readField(tile.mirroring, value, Fields::kMirroring);
-      return tile;
-    }
-  };
-
-  template<>
-  struct JsonReader<ObjectAttributes>
-  {
-    ObjectAttributes operator()(const Json::Value& value) const
-    {
-      using Fields = FieldNames<ObjectAttributes>;
-      ObjectAttributes object_attributes {};
-      readField(object_attributes.def, value, Fields::kDef);
-      readField(object_attributes.passability, value, Fields::kPassability);
-      readField(object_attributes.actionability, value, Fields::kActionability);
-      readField(object_attributes.allowed_landscapes, value, Fields::kAllowedLandscapes);
-      readField(object_attributes.landscape_group, value, Fields::kLandscapeGroup);
-      readField(object_attributes.object_class, value, Fields::kObjectClass);
-      readField(object_attributes.object_number, value, Fields::kObjectNumber);
-      readField(object_attributes.object_group, value, Fields::kObjectGroup);
-      readField(object_attributes.is_ground, value, Fields::kIsGround);
-      readField(object_attributes.unknown, value, Fields::kUnknown);
-      return object_attributes;
-    }
-  };
-
   // TODO: return as ObjectDetails, not as std::optional.
   static std::optional<ObjectDetails> tryReadObjectDetails(
     const Json::Value& value,

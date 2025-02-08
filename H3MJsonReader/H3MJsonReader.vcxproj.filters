@@ -63,6 +63,15 @@
     <ClInclude Include="readResources.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="readMapBasicInfo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="readTile.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="readObjectAttributes.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="readH3mJson.cpp">
