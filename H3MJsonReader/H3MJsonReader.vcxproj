@@ -87,6 +87,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="JsonReader.h" />
+    <ClInclude Include="readGlobalEvent.h" />
     <ClInclude Include="readH3mJson.h" />
     <ClInclude Include="readHeroArtifacts.h" />
     <ClInclude Include="readHeroSettings.h" />
@@ -95,13 +96,16 @@
     <ClInclude Include="readPlayersBitmask.h" />
     <ClInclude Include="readPlayerSpecs.h" />
     <ClInclude Include="readPrimarySkills.h" />
+    <ClInclude Include="readResources.h" />
     <ClInclude Include="readSecondarySkill.h" />
     <ClInclude Include="readSecondarySkillsBitmask.h" />
     <ClInclude Include="readSpellsBitmask.h" />
+    <ClInclude Include="readTimedEventBase.h" />
     <ClInclude Include="readVictoryCondition.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="readH3mJson.cpp" />
+    <ClCompile Include="readTimedEventBase.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\JsonCommon\JsonCommon.vcxproj">

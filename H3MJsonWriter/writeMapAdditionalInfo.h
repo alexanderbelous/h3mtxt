@@ -5,6 +5,7 @@
 #include <h3mtxt/H3MJsonWriter/H3MJsonWriter.h>
 #include <h3mtxt/H3MJsonWriter/writeHeroArtifacts.h>
 #include <h3mtxt/H3MJsonWriter/writeLossCondition.h>
+#include <h3mtxt/H3MJsonWriter/writePlayersBitmask.h>
 #include <h3mtxt/H3MJsonWriter/writePrimarySkills.h>
 #include <h3mtxt/H3MJsonWriter/writeSecondarySkill.h>
 #include <h3mtxt/H3MJsonWriter/writeSecondarySkillsBitmask.h>

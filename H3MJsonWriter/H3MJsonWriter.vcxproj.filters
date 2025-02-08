@@ -21,6 +21,9 @@
     <ClCompile Include="getEnumString.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="writeTimedEventBase.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="writeH3mJson.h">

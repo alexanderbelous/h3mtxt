@@ -43,6 +43,8 @@ namespace h3m
 
   enum class VictoryConditionType : std::uint8_t;
 
+  struct GlobalEvent;
+
   struct HeroArtifacts;
 
   struct HeroSettings;
@@ -61,6 +63,9 @@ namespace h3m
 
   struct PrimarySkills;
 
+  template<class T>
+  struct Resources;
+
   struct Rumor;
 
   struct SecondarySkill;
@@ -70,4 +75,6 @@ namespace h3m
   struct TeamsInfo;
 
   struct Tile;
+
+  struct TimedEventBase;
 }

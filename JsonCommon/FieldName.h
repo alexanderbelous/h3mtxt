@@ -155,6 +155,20 @@ namespace h3m
     static inline constexpr std::string_view kKnowledge = "knowledge";
   };
 
+  struct FieldNamesResourcesBase
+  {
+    static inline constexpr std::string_view kWood = "wood";
+    static inline constexpr std::string_view kMercury = "mercury";
+    static inline constexpr std::string_view kOre = "ore";
+    static inline constexpr std::string_view kSulfur = "sulfur";
+    static inline constexpr std::string_view kCrystal = "crystal";
+    static inline constexpr std::string_view kGems = "gems";
+    static inline constexpr std::string_view kGold = "gold";
+  };
+
+  template<class T>
+  struct FieldNames<Resources<T>> : FieldNamesResourcesBase {};
+
   template<>
   struct FieldNames<Rumor>
   {
@@ -228,5 +242,19 @@ namespace h3m
     static inline constexpr std::string_view kRoadType = "road_type";
     static inline constexpr std::string_view kRoadSprite = "road_sprite";
     static inline constexpr std::string_view kMirroring = "mirroring";
+  };
+
+  template<>
+  struct FieldNames<TimedEventBase>
+  {
+    static inline constexpr std::string_view kName = "name";
+    static inline constexpr std::string_view kMessage = "message";
+    static inline constexpr std::string_view kResources = "resources";
+    static inline constexpr std::string_view kAffectedPlayers = "affected_players";
+    static inline constexpr std::string_view kAppliesToHuman = "applies_to_human";
+    static inline constexpr std::string_view kAppliesToComputer = "applies_to_computer";
+    static inline constexpr std::string_view kDayOfFirstOccurence = "day_of_first_occurence";
+    static inline constexpr std::string_view kRepeatAfterDays = "repeat_after_days";
+    static inline constexpr std::string_view kUnknown = "unknown";
   };
 }

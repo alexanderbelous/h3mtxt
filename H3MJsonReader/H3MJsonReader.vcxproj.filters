@@ -54,9 +54,21 @@
     <ClInclude Include="readHeroArtifacts.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="readTimedEventBase.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="readGlobalEvent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="readResources.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="readH3mJson.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="readTimedEventBase.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

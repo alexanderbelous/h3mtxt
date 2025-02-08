@@ -2,6 +2,7 @@
 
 #include <h3mtxt/JsonCommon/FieldName.h>
 #include <h3mtxt/H3MJsonReader/JsonReader.h>
+#include <h3mtxt/H3MJsonReader/readGlobalEvent.h>
 #include <h3mtxt/H3MJsonReader/readMapAdditionalInfo.h>
 #include <h3mtxt/H3MJsonReader/readPlayerSpecs.h>
 
@@ -81,6 +82,7 @@ namespace h3m
       readField(map.additional_info, value, Fields::kAdditionalInfo);
       readField(map.tiles, value, Fields::kTiles);
       readField(map.objects_attributes, value, Fields::kObjectsAttributes);
+      readField(map.global_events, value, Fields::kGlobalEvents);
       readField(map.padding, value, Fields::kPadding);
       // TODO: read the rest of the fields.
       return map;

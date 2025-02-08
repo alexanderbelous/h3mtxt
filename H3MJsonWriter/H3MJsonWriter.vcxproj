@@ -86,6 +86,7 @@
   <ItemGroup>
     <ClCompile Include="getEnumString.cpp" />
     <ClCompile Include="writeH3mJson.cpp" />
+    <ClCompile Include="writeTimedEventBase.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="getEnumString.h" />
