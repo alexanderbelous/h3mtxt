@@ -131,7 +131,7 @@ namespace h3m
           value.find(Fields::kObjectsDetails.data(), Fields::kObjectsDetails.data() + Fields::kObjectsDetails.size());
         if (!objects_details_json)
         {
-          throw std::runtime_error("readH3mJson(): missing field " + std::string(Fields::kObjectsDetails));
+          throw MissingJsonFieldError(Fields::kObjectsDetails);
         }
         readObjectsDetails(map.objects_details, *objects_details_json, map.objects_attributes);
       }

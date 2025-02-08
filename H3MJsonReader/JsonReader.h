@@ -44,6 +44,14 @@ namespace h3m
     using RemoveOptional = typename RemoveOptionalImpl<T>::type;
   }
 
+  class MissingJsonFieldError : public std::runtime_error
+  {
+  public:
+    explicit MissingJsonFieldError(std::string_view field_name):
+      std::runtime_error("readH3mJson(): missing field " + std::string(field_name))
+    {}
+  };
+
   // Template class for deserializing Json::Value into the specified type.
   template<class T, class Enable = void>
   struct JsonReader
@@ -66,7 +74,7 @@ namespace h3m
   // \return the field @field_name of @value deserialized as T,
   //         or std::nullopt if T is an instantiation of std::optional and
   //         @value doesn't have a field a named @field_name.
-  // \throw std::runtime error if T is not an instantiation of std::optional and
+  // \throw MissingJsonFieldError if T is not an instantiation of std::optional and
   //        @value doesn't have a field a named @field_name.
   template<class T>
   T readField(const Json::Value& value, std::string_view field_name)
@@ -81,7 +89,7 @@ namespace h3m
     }
     else
     {
-      throw std::runtime_error("readH3mJson(): missing field " + std::string(field_name));
+      throw MissingJsonFieldError(field_name);
     }
   }
 
@@ -173,7 +181,7 @@ namespace h3m
       if (value.size() != N)
       {
         throw std::runtime_error("readH3mJson(): expected array of " + std::to_string(N) +
-                                  " elements, got an array of " + std::to_string(value.size()) + " elements");
+                                 " elements, got an array of " + std::to_string(value.size()) + " elements");
       }
       std::array<T, N> result;
       for (std::size_t i = 0; i < N; ++i)
