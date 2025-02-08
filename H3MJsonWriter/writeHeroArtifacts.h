@@ -1,5 +1,6 @@
 #pragma once
 
+#include <h3mtxt/JsonCommon/FieldName.h>
 #include <h3mtxt/Map/HeroArtifacts.h>
 #include <h3mtxt/H3MJsonWriter/H3MJsonWriter.h>
 
@@ -10,26 +11,28 @@ namespace Util_NS
   {
     void operator()(FieldsWriter& out, const h3m::HeroArtifacts& value) const
     {
-      out.writeField("headwear", value.headwear);
-      out.writeField("shoulders", value.shoulders);
-      out.writeField("neck", value.neck);
-      out.writeField("right_hand", value.right_hand);
-      out.writeField("left_hand", value.left_hand);
-      out.writeField("torso", value.torso);
-      out.writeField("right_ring", value.right_ring);
-      out.writeField("left_ring", value.left_ring);
-      out.writeField("feet", value.feet);
-      out.writeField("misc1", value.misc1);
-      out.writeField("misc2", value.misc2);
-      out.writeField("misc3", value.misc3);
-      out.writeField("misc4", value.misc4);
-      out.writeField("device1", value.device1);
-      out.writeField("device2", value.device2);
-      out.writeField("device3", value.device3);
-      out.writeField("device4", value.device4);
-      out.writeField("spellbook", value.spellbook);
-      out.writeField("misc5", value.misc5);
-      out.writeField("backpack", value.backpack);
+      using Fields = h3m::FieldNames<h3m::HeroArtifacts>;
+      // TODO: print artifacts' names in comments.
+      out.writeField(Fields::kHeadwear, value.headwear);
+      out.writeField(Fields::kShoulders, value.shoulders);
+      out.writeField(Fields::kNeck, value.neck);
+      out.writeField(Fields::kRightHand, value.right_hand);
+      out.writeField(Fields::kLeftHand, value.left_hand);
+      out.writeField(Fields::kTorso, value.torso);
+      out.writeField(Fields::kRightRing, value.right_ring);
+      out.writeField(Fields::kLeftRing, value.left_ring);
+      out.writeField(Fields::kFeet, value.feet);
+      out.writeField(Fields::kMisc1, value.misc1);
+      out.writeField(Fields::kMisc2, value.misc2);
+      out.writeField(Fields::kMisc3, value.misc3);
+      out.writeField(Fields::kMisc4, value.misc4);
+      out.writeField(Fields::kMisc5, value.misc5);
+      out.writeField(Fields::kDevice1, value.device1);
+      out.writeField(Fields::kDevice2, value.device2);
+      out.writeField(Fields::kDevice3, value.device3);
+      out.writeField(Fields::kDevice4, value.device4);
+      out.writeField(Fields::kSpellbook, value.spellbook);
+      out.writeField(Fields::kBackpack, value.backpack);
     }
   };
 }

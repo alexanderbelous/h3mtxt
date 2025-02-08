@@ -16,6 +16,31 @@ namespace h3m
   struct FieldNames;
 
   template<>
+  struct FieldNames<HeroArtifacts>
+  {
+    static inline constexpr std::string_view kHeadwear = "headwear";
+    static inline constexpr std::string_view kShoulders = "shoulders";
+    static inline constexpr std::string_view kNeck = "neck";
+    static inline constexpr std::string_view kRightHand = "right_hand";
+    static inline constexpr std::string_view kLeftHand = "left_hand";
+    static inline constexpr std::string_view kTorso = "torso";
+    static inline constexpr std::string_view kRightRing = "right_ring";
+    static inline constexpr std::string_view kLeftRing = "left_ring";
+    static inline constexpr std::string_view kFeet = "feet";
+    static inline constexpr std::string_view kMisc1 = "misc1";
+    static inline constexpr std::string_view kMisc2 = "misc2";
+    static inline constexpr std::string_view kMisc3 = "misc3";
+    static inline constexpr std::string_view kMisc4 = "misc4";
+    static inline constexpr std::string_view kMisc5 = "misc5";
+    static inline constexpr std::string_view kDevice1 = "device1";
+    static inline constexpr std::string_view kDevice2 = "device2";
+    static inline constexpr std::string_view kDevice3 = "device3";
+    static inline constexpr std::string_view kDevice4 = "device4";
+    static inline constexpr std::string_view kSpellbook = "spellbook";
+    static inline constexpr std::string_view kBackpack = "backpack";
+  };
+
+  template<>
   struct FieldNames<HeroSettings>
   {
     static inline constexpr std::string_view kExperience = "experience";
