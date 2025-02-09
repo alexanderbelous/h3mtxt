@@ -1,4 +1,4 @@
-#include <h3mtxt/TextWriter/ScopedStructWriter.h>
+#include <h3mtxt/JsonWriter/ScopedStructWriter.h>
 
 #include <ostream>
 

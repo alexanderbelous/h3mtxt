@@ -1,7 +1,7 @@
 #pragma once
 
 #include <h3mtxt/Map/MapFwd.h>
-#include <h3mtxt/TextWriter/JsonWriterFwd.h>
+#include <h3mtxt/JsonWriter/JsonWriterFwd.h>
 
 namespace Util_NS
 {

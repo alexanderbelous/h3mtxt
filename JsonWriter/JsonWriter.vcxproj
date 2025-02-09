@@ -14,7 +14,7 @@
     <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
     <ProjectGuid>{7fec82c0-c267-495d-90f7-3e0624763b46}</ProjectGuid>
-    <RootNamespace>TextWriter</RootNamespace>
+    <RootNamespace>JsonWriter</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />

@@ -1,7 +1,7 @@
 #pragma once
 
-#include <h3mtxt/TextWriter/JsonWriterFwd.h>
-#include <h3mtxt/TextWriter/JsonValueWriter.h>
+#include <h3mtxt/JsonWriter/JsonWriterFwd.h>
+#include <h3mtxt/JsonWriter/JsonValueWriter.h>
 
 #include <string_view>
 

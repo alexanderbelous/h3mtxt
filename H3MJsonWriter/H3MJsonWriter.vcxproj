@@ -120,7 +120,7 @@
     <ProjectReference Include="..\Map\Map.vcxproj">
       <Project>{856f5d07-6dc0-4e66-813e-12c26f28d606}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\TextWriter\TextWriter.vcxproj">
+    <ProjectReference Include="..\JsonWriter\JsonWriter.vcxproj">
       <Project>{7fec82c0-c267-495d-90f7-3e0624763b46}</Project>
     </ProjectReference>
   </ItemGroup>

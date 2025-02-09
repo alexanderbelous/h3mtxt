@@ -1,4 +1,4 @@
-#include <h3mtxt/TextWriter/JsonWriterContext.h>
+#include <h3mtxt/JsonWriter/JsonWriterContext.h>
 
 #include <algorithm>
 #include <iterator>

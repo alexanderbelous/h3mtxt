@@ -1,4 +1,4 @@
-#include <h3mtxt/TextWriter/ScopedArrayWriter.h>
+#include <h3mtxt/JsonWriter/ScopedArrayWriter.h>
 
 #include <ostream>
 

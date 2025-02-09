@@ -1,6 +1,6 @@
 #pragma once
 
-#include <h3mtxt/TextWriter/JsonWriterFwd.h>
+#include <h3mtxt/JsonWriter/JsonWriterFwd.h>
 
 #include <cstddef>
 #include <iosfwd>

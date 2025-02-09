@@ -1,8 +1,8 @@
 #pragma once
 
-#include <h3mtxt/TextWriter/JsonDocumentWriter.h>
-#include <h3mtxt/TextWriter/ScopedArrayWriter.h>
-#include <h3mtxt/TextWriter/ScopedStructWriter.h>
+#include <h3mtxt/JsonWriter/JsonDocumentWriter.h>
+#include <h3mtxt/JsonWriter/ScopedArrayWriter.h>
+#include <h3mtxt/JsonWriter/ScopedStructWriter.h>
 
 #include <array>
 #include <functional>
