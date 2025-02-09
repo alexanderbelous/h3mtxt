@@ -72,6 +72,9 @@
     <ClInclude Include="readObjectAttributes.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="readObjectDetailsData.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="readH3mJson.cpp">

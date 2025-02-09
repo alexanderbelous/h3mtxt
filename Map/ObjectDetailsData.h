@@ -1,5 +1,6 @@
 #pragma once
 
+#include <h3mtxt/Map/MapFwd.h>
 #include <h3mtxt/Map/PlayersBitmask.h>
 #include <h3mtxt/Map/Base.h>
 #include <h3mtxt/Map/Constants/ArtifactType.h>
@@ -58,10 +59,6 @@ namespace h3m
     std::vector<CreatureStack> creatures;
     ReservedData<8> unknown {};
   };
-
-  // "Extension" of ObjectDetails specific to ObjectClass of this object.
-  template<MetaObjectType T>
-  struct ObjectDetailsData;
 
   template<>
   struct ObjectDetailsData<MetaObjectType::ABANDONED_MINE>
@@ -345,6 +342,7 @@ namespace h3m
   template<>
   struct ObjectDetailsData<MetaObjectType::WITCH_HUT>
   {
+    // TODO: rename to potential_skills.
     SecondarySkillsBitmask skills_availability;
   };
 }

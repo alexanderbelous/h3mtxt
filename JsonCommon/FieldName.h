@@ -1,6 +1,7 @@
 #pragma once
 
 #include <h3mtxt/Map/MapFwd.h>
+#include <h3mtxt/Map/Constants/MetaObjectType.h>
 
 #include <array>
 #include <string_view>
@@ -119,6 +120,38 @@ namespace h3m
     static inline constexpr std::string_view kKind = "kind";
     static inline constexpr std::string_view kUnknown = "unknown";
     static inline constexpr std::string_view kDetails = "details";
+  };
+
+  template<>
+  struct FieldNames<ObjectDetailsData<MetaObjectType::GRAIL>>
+  {
+    static inline constexpr std::string_view kAllowableRadius = "allowable_radius";
+  };
+
+  template<>
+  struct FieldNames<ObjectDetailsData<MetaObjectType::SHRINE>>
+  {
+    static inline constexpr std::string_view kSpell = "spell";
+    static inline constexpr std::string_view kUnknown = "unknown";
+  };
+
+  template<>
+  struct FieldNames<ObjectDetailsData<MetaObjectType::SIGN>>
+  {
+    static inline constexpr std::string_view kMessage = "message";
+    static inline constexpr std::string_view kUnknown = "unknown";
+  };
+
+  template<>
+  struct FieldNames<ObjectDetailsData<MetaObjectType::TRIVIAL_OWNED_OBJECT>>
+  {
+    static inline constexpr std::string_view kOwner = "owner";
+  };
+
+  template<>
+  struct FieldNames<ObjectDetailsData<MetaObjectType::WITCH_HUT>>
+  {
+    static inline constexpr std::string_view kSkillsAvailability = "skills_availability";
   };
 
   template<>

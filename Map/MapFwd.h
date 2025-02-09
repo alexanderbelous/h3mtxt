@@ -59,6 +59,10 @@ namespace h3m
 
   struct ObjectDetails;
 
+  // "Extension" of ObjectDetails specific to ObjectClass of this object.
+  template<MetaObjectType T>
+  struct ObjectDetailsData;
+
   struct PlayerSpecs;
 
   struct PlayersBitmask;

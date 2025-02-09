@@ -6,6 +6,7 @@
 #include <h3mtxt/H3MJsonReader/readMapAdditionalInfo.h>
 #include <h3mtxt/H3MJsonReader/readMapBasicInfo.h>
 #include <h3mtxt/H3MJsonReader/readObjectAttributes.h>
+#include <h3mtxt/H3MJsonReader/readObjectDetailsData.h>
 #include <h3mtxt/H3MJsonReader/readPlayerSpecs.h>
 #include <h3mtxt/H3MJsonReader/readTile.h>
 
@@ -13,46 +14,112 @@
 
 namespace h3m
 {
-  // TODO: return as ObjectDetails, not as std::optional.
-  static std::optional<ObjectDetails> tryReadObjectDetails(
-    const Json::Value& value,
-    const std::vector<ObjectAttributes>& objects_attributes)
+  namespace
   {
-    using Fields = FieldNames<ObjectDetails>;
-    ObjectDetails object_details;
-    readField(object_details.x, value, Fields::kX);
-    readField(object_details.y, value, Fields::kY);
-    readField(object_details.z, value, Fields::kZ);
-    readField(object_details.kind, value, Fields::kKind);
-    readField(object_details.unknown, value, Fields::kUnknown);
-
-    const ObjectAttributes& object_attributes = objects_attributes.at(object_details.kind);
-    const h3m::MetaObjectType meta_object_type = getMetaObjectType(object_attributes.object_class);
-    if (meta_object_type == h3m::MetaObjectType::GENERIC_NO_PROPERTIES)
+    // Utility wrapper around fromJson<ObjectDetailsData<T>>(), which returns the result
+    // as ObjectDetailsDataVariant.
+    template<MetaObjectType T>
+    ObjectDetailsDataVariant readObjectDetailsDataAsVariant(const Json::Value& value)
     {
+      return fromJson<ObjectDetailsData<T>>(value);
+    }
+
+    // Reads ObjectDetailsData for the specified MetaObjectType.
+    // \param value - input JSON value.
+    // \param meta_object_type - MetaObjectType of the object.
+    // \return the deserialized data as ObjectDetailsDataVariant.
+    ObjectDetailsDataVariant readObjectDetailsDataVariant(const Json::Value& value, MetaObjectType meta_object_type)
+    {
+      // The underlying integer type for MetaObjectType.
+      using MetaObjectTypeIdx = std::underlying_type_t<MetaObjectType>;
+      // Type of a pointer to a function that takes std::istream& and returns ObjectDetails::Data.
+      using ReadObjectDetailsDataPtr = ObjectDetailsDataVariant(*)(const Json::Value&);
+      // Generate (at compile time) an array of function pointers for each instantiation of
+      // readObjectDetailsDataAsVariant() ordered by MetaObjectType.
+      constexpr
+        std::array<ReadObjectDetailsDataPtr, kNumMetaObjectTypes> kObjectDetailsDataReaders =
+        [] <MetaObjectTypeIdx... meta_object_type_idx>
+        (std::integer_sequence<MetaObjectTypeIdx, meta_object_type_idx...> seq)
+        consteval
+      {
+        return std::array<ReadObjectDetailsDataPtr, sizeof...(meta_object_type_idx)>
+        { &readObjectDetailsDataAsVariant<static_cast<MetaObjectType>(meta_object_type_idx)>... };
+      }(std::make_integer_sequence<MetaObjectTypeIdx, kNumMetaObjectTypes>{});
+      // Invoke a function from the generated array.
+      return kObjectDetailsDataReaders.at(static_cast<MetaObjectTypeIdx>(meta_object_type))(value);
+    }
+
+    // TODO: remove.
+    bool isImplementedObjectDetailsDataReader(MetaObjectType meta_object_type)
+    {
+      // The underlying integer type for MetaObjectType.
+      using MetaObjectTypeIdx = std::underlying_type_t<MetaObjectType>;
+      // Compile-time table.
+      constexpr
+        std::array<bool, kNumMetaObjectTypes> kIsDefaultImplementation =
+        [] <MetaObjectTypeIdx... meta_object_type_idx>
+        (std::integer_sequence<MetaObjectTypeIdx, meta_object_type_idx...> seq)
+        consteval
+      {
+        return std::array<bool, sizeof...(meta_object_type_idx)>
+        { std::is_base_of_v<DefaultObjectDetailsDataReaderBase,
+                            JsonReader<ObjectDetailsData<static_cast<MetaObjectType>(meta_object_type_idx)>>>... };
+      }(std::make_integer_sequence<MetaObjectTypeIdx, kNumMetaObjectTypes>{});
+      return !kIsDefaultImplementation.at(static_cast<MetaObjectTypeIdx>(meta_object_type));
+    }
+
+    // TODO: return as ObjectDetails, not as std::optional.
+    std::optional<ObjectDetails> tryReadObjectDetails(
+      const Json::Value& value,
+      const std::vector<ObjectAttributes>& objects_attributes)
+    {
+      using Fields = FieldNames<ObjectDetails>;
+      ObjectDetails object_details;
+      readField(object_details.x, value, Fields::kX);
+      readField(object_details.y, value, Fields::kY);
+      readField(object_details.z, value, Fields::kZ);
+      readField(object_details.kind, value, Fields::kKind);
+      readField(object_details.unknown, value, Fields::kUnknown);
+
+      const ObjectAttributes& object_attributes = objects_attributes.at(object_details.kind);
+      const h3m::MetaObjectType meta_object_type = getMetaObjectType(object_attributes.object_class);
+
+      // TODO: remove.
+      if (!isImplementedObjectDetailsDataReader(meta_object_type))
+      {
+        return std::nullopt;
+      }
+      if (meta_object_type != h3m::MetaObjectType::GENERIC_NO_PROPERTIES)
+      {
+        const Json::Value* details_json = value.find(Fields::kDetails.data(),
+                                                     Fields::kDetails.data() + Fields::kDetails.size());
+        if (!details_json)
+        {
+          throw MissingJsonFieldError(Fields::kDetails);
+        }
+        object_details.details = readObjectDetailsDataVariant(*details_json, meta_object_type);
+      }
       return object_details;
     }
-    // TODO: read details.
-    return std::nullopt;
-  }
 
-  static void readObjectsDetails(std::vector<ObjectDetails>& objects_details,
-                                 const Json::Value& value,
-                                 const std::vector<ObjectAttributes>& objects_attributes)
-  {
-    if (!value.isArray())
+    void readObjectsDetails(std::vector<ObjectDetails>& objects_details,
+                                   const Json::Value& value,
+                                   const std::vector<ObjectAttributes>& objects_attributes)
     {
-      throw std::runtime_error("readH3mJson(): expected array, got " + value.toStyledString());
-    }
-    const std::size_t num_elements = value.size();
-    objects_details.reserve(objects_details.size() + num_elements);
-    for (std::size_t i = 0; i < num_elements; ++i)
-    {
-      const Json::Value& object_details_json = value[static_cast<Json::ArrayIndex>(i)];
-      std::optional<ObjectDetails> object_details = tryReadObjectDetails(object_details_json, objects_attributes);
-      if (object_details)
+      if (!value.isArray())
       {
-        objects_details.push_back(std::move(*object_details));
+        throw std::runtime_error("readH3mJson(): expected array, got " + value.toStyledString());
+      }
+      const std::size_t num_elements = value.size();
+      objects_details.reserve(objects_details.size() + num_elements);
+      for (std::size_t i = 0; i < num_elements; ++i)
+      {
+        const Json::Value& object_details_json = value[static_cast<Json::ArrayIndex>(i)];
+        std::optional<ObjectDetails> object_details = tryReadObjectDetails(object_details_json, objects_attributes);
+        if (object_details)
+        {
+          objects_details.push_back(std::move(*object_details));
+        }
       }
     }
   }

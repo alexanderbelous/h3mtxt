@@ -1,5 +1,6 @@
 #pragma once
 
+#include <h3mtxt/JsonCommon/FieldName.h>
 #include <h3mtxt/Map/ObjectDetailsData.h>
 #include <h3mtxt/H3MJsonWriter/getEnumString.h>
 #include <h3mtxt/H3MJsonWriter/H3MJsonWriter.h>
@@ -148,10 +149,12 @@ namespace Util_NS
   template<>
   struct JsonObjectWriter<h3m::ObjectDetailsData<h3m::MetaObjectType::GRAIL>>
   {
-    void operator()(FieldsWriter& out,
-                    const h3m::ObjectDetailsData<h3m::MetaObjectType::GRAIL>& data) const
+    using DetailsData = h3m::ObjectDetailsData<h3m::MetaObjectType::GRAIL>;
+
+    void operator()(FieldsWriter& out, const DetailsData& data) const
     {
-      out.writeField("allowable_radius", data.allowable_radius);
+      using Fields = h3m::FieldNames<DetailsData>;
+      out.writeField(Fields::kAllowableRadius, data.allowable_radius);
     }
   };
 
@@ -376,22 +379,26 @@ namespace Util_NS
   template<>
   struct JsonObjectWriter<h3m::ObjectDetailsData<h3m::MetaObjectType::SHRINE>>
   {
-    void operator()(FieldsWriter& out,
-                    const h3m::ObjectDetailsData<h3m::MetaObjectType::SHRINE>& data) const
+    using DetailsData = h3m::ObjectDetailsData<h3m::MetaObjectType::SHRINE>;
+
+    void operator()(FieldsWriter& out, const DetailsData& data) const
     {
-      out.writeField("spell", data.spell);
-      out.writeField("unknown", data.unknown);
+      using Fields = h3m::FieldNames<DetailsData>;
+      out.writeField(Fields::kSpell, data.spell);
+      out.writeField(Fields::kUnknown, data.unknown);
     }
   };
 
   template<>
   struct JsonObjectWriter<h3m::ObjectDetailsData<h3m::MetaObjectType::SIGN>>
   {
-    void operator()(FieldsWriter& out,
-                    const h3m::ObjectDetailsData<h3m::MetaObjectType::SIGN>& data) const
+    using DetailsData = h3m::ObjectDetailsData<h3m::MetaObjectType::SIGN>;
+
+    void operator()(FieldsWriter& out, const DetailsData& data) const
     {
-      out.writeField("message", data.message);
-      out.writeField("unknown", data.unknown);
+      using Fields = h3m::FieldNames<DetailsData>;
+      out.writeField(Fields::kMessage, data.message);
+      out.writeField(Fields::kUnknown, data.unknown);
     }
   };
 
@@ -446,21 +453,25 @@ namespace Util_NS
   template<>
   struct JsonObjectWriter<h3m::ObjectDetailsData<h3m::MetaObjectType::TRIVIAL_OWNED_OBJECT>>
   {
-    void operator()(FieldsWriter& out,
-      const h3m::ObjectDetailsData<h3m::MetaObjectType::TRIVIAL_OWNED_OBJECT>& data) const
+    using DetailsData = h3m::ObjectDetailsData<h3m::MetaObjectType::TRIVIAL_OWNED_OBJECT>;
+
+    void operator()(FieldsWriter& out, const DetailsData& data) const
     {
+      using Fields = h3m::FieldNames<DetailsData>;
       // TODO: consider printing as the name of the enum constant if it's within the range.
-      out.writeField("owner", data.owner);
+      out.writeField(Fields::kOwner, data.owner);
     }
   };
 
   template<>
   struct JsonObjectWriter<h3m::ObjectDetailsData<h3m::MetaObjectType::WITCH_HUT>>
   {
-    void operator()(FieldsWriter& out,
-      const h3m::ObjectDetailsData<h3m::MetaObjectType::WITCH_HUT>& witch_hut) const
+    using DetailsData = h3m::ObjectDetailsData<h3m::MetaObjectType::WITCH_HUT>;
+
+    void operator()(FieldsWriter& out, const DetailsData& witch_hut) const
     {
-      out.writeField("skills_availability", witch_hut.skills_availability);
+      using Fields = h3m::FieldNames<DetailsData>;
+      out.writeField(Fields::kSkillsAvailability, witch_hut.skills_availability);
     }
   };
 }

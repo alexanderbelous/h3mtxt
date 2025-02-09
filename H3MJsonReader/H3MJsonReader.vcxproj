@@ -95,6 +95,7 @@
     <ClInclude Include="readMapAdditionalInfo.h" />
     <ClInclude Include="readMapBasicInfo.h" />
     <ClInclude Include="readObjectAttributes.h" />
+    <ClInclude Include="readObjectDetailsData.h" />
     <ClInclude Include="readPlayersBitmask.h" />
     <ClInclude Include="readPlayerSpecs.h" />
     <ClInclude Include="readPrimarySkills.h" />
