@@ -57,11 +57,13 @@ namespace Util_NS
   {
     void operator()(FieldsWriter& out, const h3m::Guardians& guardians) const
     {
-      out.writeField("message", guardians.message);
+      using Fields = h3m::FieldNames<h3m::Guardians>;
+      out.writeField(Fields::kMessage, guardians.message);
       if (guardians.creatures)
       {
-        out.writeField("guardians", *guardians.creatures);
+        out.writeField(Fields::kCreatures, *guardians.creatures);
       }
+      out.writeField(Fields::kUnknown, guardians.unknown);
     }
   };
 
@@ -100,12 +102,14 @@ namespace Util_NS
   template<>
   struct JsonObjectWriter<h3m::ObjectDetailsData<h3m::MetaObjectType::ARTIFACT>>
   {
-    void operator()(FieldsWriter& out,
-                    const h3m::ObjectDetailsData<h3m::MetaObjectType::ARTIFACT>& artifact) const
+    using DetailsData = h3m::ObjectDetailsData<h3m::MetaObjectType::ARTIFACT>;
+
+    void operator()(FieldsWriter& out, const DetailsData& artifact) const
     {
+      using Fields = h3m::FieldNames<DetailsData>;
       if (artifact.guardians)
       {
-        out.writeField("guardians", *artifact.guardians);
+        out.writeField(Fields::kGuardians, *artifact.guardians);
       }
     }
   };

@@ -43,7 +43,11 @@ namespace h3m
 
   enum class VictoryConditionType : std::uint8_t;
 
+  struct CreatureStack;
+
   struct GlobalEvent;
+
+  struct Guardians;
 
   struct HeroArtifacts;
 

@@ -17,6 +17,21 @@ namespace h3m
   struct FieldNames;
 
   template<>
+  struct FieldNames<CreatureStack>
+  {
+    static inline constexpr std::string_view kType = "type";
+    static inline constexpr std::string_view kCount = "count";
+  };
+
+  template<>
+  struct FieldNames<Guardians>
+  {
+    static inline constexpr std::string_view kMessage = "message";
+    static inline constexpr std::string_view kCreatures = "creatures";
+    static inline constexpr std::string_view kUnknown = "unknown";
+  };
+
+  template<>
   struct FieldNames<HeroArtifacts>
   {
     static inline constexpr std::string_view kHeadwear = "headwear";
@@ -127,6 +142,12 @@ namespace h3m
   {
     static inline constexpr std::string_view kPotentialResources = "potential_resources";
     static inline constexpr std::string_view kUnknown = "unknown";
+  };
+
+  template<>
+  struct FieldNames<ObjectDetailsData<MetaObjectType::ARTIFACT>>
+  {
+    static inline constexpr std::string_view kGuardians = "guardians";
   };
 
   template<>

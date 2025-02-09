@@ -87,6 +87,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="JsonReader.h" />
+    <ClInclude Include="readCreatureStack.h" />
     <ClInclude Include="readGlobalEvent.h" />
     <ClInclude Include="readH3mJson.h" />
     <ClInclude Include="readHeroArtifacts.h" />

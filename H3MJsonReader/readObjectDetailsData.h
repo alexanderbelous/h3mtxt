@@ -1,12 +1,27 @@
 #pragma once
 
 #include <h3mtxt/H3MJsonReader/JsonReader.h>
+#include <h3mtxt/H3MJsonReader/readCreatureStack.h>
 #include <h3mtxt/H3MJsonReader/readSecondarySkillsBitmask.h>
 #include <h3mtxt/JsonCommon/FieldName.h>
 #include <h3mtxt/Map/ObjectDetailsData.h>
 
 namespace h3m
 {
+  template<>
+  struct JsonReader<Guardians>
+  {
+    Guardians operator()(const Json::Value& value) const
+    {
+      using Fields = FieldNames<Guardians>;
+      Guardians guardians;
+      readField(guardians.message, value, Fields::kMessage);
+      readField(guardians.creatures, value, Fields::kCreatures);
+      readField(guardians.unknown, value, Fields::kUnknown);
+      return guardians;
+    }
+  };
+
   template<>
   struct JsonReader<ResourcesBitmask>
   {
@@ -46,6 +61,20 @@ namespace h3m
       DetailsData details;
       readField(details.potential_resources, value, Fields::kPotentialResources);
       readField(details.unknown, value, Fields::kUnknown);
+      return details;
+    }
+  };
+
+  template<>
+  struct JsonReader<ObjectDetailsData<MetaObjectType::ARTIFACT>>
+  {
+    using DetailsData = ObjectDetailsData<MetaObjectType::ARTIFACT>;
+
+    DetailsData operator()(const Json::Value& value) const
+    {
+      using Fields = FieldNames<DetailsData>;
+      DetailsData details;
+      readField(details.guardians, value, Fields::kGuardians);
       return details;
     }
   };
