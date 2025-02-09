@@ -149,6 +149,7 @@ namespace h3m
     static constexpr std::uint8_t k40Percent2 = 0xED;
     // Causes a hero's spells to inflict an additional 50% damage in combat.
     static constexpr std::uint8_t k50Percent = 0xEE;
+    static constexpr std::uint8_t k50Percent2 = 0xDF;
     // Causes a hero's spells to inflict an additional 60% damage in combat.
     static constexpr std::uint8_t k60Percent = 0xF3;
     static constexpr std::uint8_t k60Percent2 = 0xEF;
