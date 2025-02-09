@@ -135,5 +135,24 @@ namespace h3m
     static constexpr std::uint8_t k40Percent2 = 0xF9;
   };
 
+  template<>
+  struct SecondarySkillLevel<SecondarySkillType::Sorcery>
+  {
+    // Causes a hero's spells to inflict an additional 20% damage in combat.
+    static constexpr std::uint8_t k20Percent = 0xFE;
+    static constexpr std::uint8_t k20Percent2 = 0xF7;
+    static constexpr std::uint8_t k20Percent3 = 0xF1;
+    // Causes a hero's spells to inflict an additional 30% damage in combat.
+    static constexpr std::uint8_t k30Percent = 0xFF;
+    // Causes a hero's spells to inflict an additional 40% damage in combat.
+    static constexpr std::uint8_t k40Percent = 0xF2;
+    static constexpr std::uint8_t k40Percent2 = 0xED;
+    // Causes a hero's spells to inflict an additional 50% damage in combat.
+    static constexpr std::uint8_t k50Percent = 0xEE;
+    // Causes a hero's spells to inflict an additional 60% damage in combat.
+    static constexpr std::uint8_t k60Percent = 0xF3;
+    static constexpr std::uint8_t k60Percent2 = 0xEF;
+  };
+
   // TODO: add the rest.
 }
