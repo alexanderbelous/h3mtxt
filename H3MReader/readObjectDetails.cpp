@@ -124,7 +124,7 @@ namespace h3m
       data.affected_players.bitset = readInt<std::uint8_t>(stream);
       data.applies_to_computer = readBool(stream);
       data.remove_after_first_visit = readBool(stream);
-      data.unknown = readReservedData<4>(stream);
+      data.unknown2 = readReservedData<4>(stream);
       return data;
     }
 

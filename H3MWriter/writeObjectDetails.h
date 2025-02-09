@@ -93,7 +93,7 @@ namespace h3m
       writeData(stream, event.affected_players);
       writeData(stream, event.applies_to_computer);
       writeData(stream, event.remove_after_first_visit);
-      writeData(stream, event.unknown);
+      writeData(stream, event.unknown2);
     }
   };
 

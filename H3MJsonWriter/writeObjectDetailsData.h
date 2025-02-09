@@ -69,21 +69,22 @@ namespace Medea_NS
 
   inline void printEventBase(FieldsWriter& out, const h3m::EventBase& event)
   {
+    using Fields = h3m::FieldNames<h3m::EventBase>;
     if (event.guardians)
     {
-      out.writeField("guardians", *event.guardians);
+      out.writeField(Fields::kGuardians, *event.guardians);
     }
-    out.writeField("experience", event.experience);
-    out.writeField("spell_points", event.spell_points);
-    out.writeField("morale", event.morale);
-    out.writeField("luck", event.luck);
-    out.writeField("resources", event.resources);
-    out.writeField("primary_skills", event.primary_skills);
-    out.writeField("secondary_skills", event.secondary_skills);
-    out.writeField("artifacts", event.artifacts);
-    out.writeField("spells", event.spells);
-    out.writeField("creatures", event.creatures);
-    out.writeField("unknown", event.unknown);
+    out.writeField(Fields::kExperience, event.experience);
+    out.writeField(Fields::kSpellPoints, event.spell_points);
+    out.writeField(Fields::kMorale, event.morale);
+    out.writeField(Fields::kLuck, event.luck);
+    out.writeField(Fields::kResources, event.resources);
+    out.writeField(Fields::kPrimarySkills, event.primary_skills);
+    out.writeField(Fields::kSecondarySkills, event.secondary_skills);
+    out.writeField(Fields::kArtifacts, event.artifacts);
+    out.writeField(Fields::kSpells, event.spells);
+    out.writeField(Fields::kCreatures, event.creatures);
+    out.writeField(Fields::kUnknown, event.unknown);
   }
 
   template<>
@@ -117,14 +118,16 @@ namespace Medea_NS
   template<>
   struct JsonObjectWriter<h3m::ObjectDetailsData<h3m::MetaObjectType::EVENT>>
   {
-    void operator()(FieldsWriter& out,
-                    const h3m::ObjectDetailsData<h3m::MetaObjectType::EVENT>& event) const
+    using DetailsData = h3m::ObjectDetailsData<h3m::MetaObjectType::EVENT>;
+
+    void operator()(FieldsWriter& out, const DetailsData& event) const
     {
+      using Fields = h3m::FieldNames<DetailsData>;
       printEventBase(out, event);
-      out.writeField("affected_players", event.affected_players);
-      out.writeField("applies_to_computer", event.applies_to_computer);
-      out.writeField("remove_after_first_visit", event.remove_after_first_visit);
-      out.writeField("unknown", event.unknown);
+      out.writeField(Fields::kAffectedPlayers, event.affected_players);
+      out.writeField(Fields::kAppliesToComputer, event.applies_to_computer);
+      out.writeField(Fields::kRemoveAfterFirstVisit, event.remove_after_first_visit);
+      out.writeField(Fields::kUnknown2, event.unknown2);
     }
   };
 

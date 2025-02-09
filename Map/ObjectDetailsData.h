@@ -79,7 +79,7 @@ namespace h3m
     PlayersBitmask affected_players;
     Bool applies_to_computer{};
     Bool remove_after_first_visit{};
-    ReservedData<4> unknown{};
+    ReservedData<4> unknown2{};
   };
 
   template<>

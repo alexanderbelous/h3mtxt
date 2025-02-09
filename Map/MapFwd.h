@@ -45,6 +45,8 @@ namespace h3m
 
   struct CreatureStack;
 
+  struct EventBase;
+
   struct GlobalEvent;
 
   struct Guardians;

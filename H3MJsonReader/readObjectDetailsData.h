@@ -2,12 +2,20 @@
 
 #include <h3mtxt/H3MJsonReader/JsonReader.h>
 #include <h3mtxt/H3MJsonReader/readCreatureStack.h>
+#include <h3mtxt/H3MJsonReader/readHeroArtifacts.h>
+#include <h3mtxt/H3MJsonReader/readPlayersBitmask.h>
 #include <h3mtxt/H3MJsonReader/readSecondarySkillsBitmask.h>
+#include <h3mtxt/H3MJsonReader/readSpellsBitmask.h>
 #include <h3mtxt/JsonCommon/FieldName.h>
 #include <h3mtxt/Map/ObjectDetailsData.h>
 
 namespace h3m
 {
+  namespace Detail_NS
+  {
+    void readEventBase(const Json::Value& value, EventBase& event);
+  }
+
   template<>
   struct JsonReader<Guardians>
   {
@@ -69,6 +77,24 @@ namespace h3m
       using Fields = FieldNames<DetailsData>;
       DetailsData details;
       readField(details.guardians, value, Fields::kGuardians);
+      return details;
+    }
+  };
+
+  template<>
+  struct JsonReader<ObjectDetailsData<MetaObjectType::EVENT>>
+  {
+    using DetailsData = ObjectDetailsData<MetaObjectType::EVENT>;
+
+    DetailsData operator()(const Json::Value& value) const
+    {
+      using Fields = FieldNames<DetailsData>;
+      DetailsData details;
+      Detail_NS::readEventBase(value, details);
+      readField(details.affected_players, value, Fields::kAffectedPlayers);
+      readField(details.applies_to_computer, value, Fields::kAppliesToComputer);
+      readField(details.remove_after_first_visit, value, Fields::kRemoveAfterFirstVisit);
+      readField(details.unknown2, value, Fields::kUnknown2);
       return details;
     }
   };

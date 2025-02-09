@@ -24,6 +24,23 @@ namespace h3m
   };
 
   template<>
+  struct FieldNames<EventBase>
+  {
+    static inline constexpr std::string_view kGuardians = "guardians";
+    static inline constexpr std::string_view kExperience = "experience";
+    static inline constexpr std::string_view kSpellPoints = "spell_points";
+    static inline constexpr std::string_view kMorale = "morale";
+    static inline constexpr std::string_view kLuck = "luck";
+    static inline constexpr std::string_view kResources = "resources";
+    static inline constexpr std::string_view kPrimarySkills = "primary_skills";
+    static inline constexpr std::string_view kSecondarySkills = "secondary_skills";
+    static inline constexpr std::string_view kArtifacts = "artifacts";
+    static inline constexpr std::string_view kSpells = "spells";
+    static inline constexpr std::string_view kCreatures = "creatures";
+    static inline constexpr std::string_view kUnknown = "unknown";
+  };
+
+  template<>
   struct FieldNames<Guardians>
   {
     static inline constexpr std::string_view kMessage = "message";
@@ -148,6 +165,15 @@ namespace h3m
   struct FieldNames<ObjectDetailsData<MetaObjectType::ARTIFACT>>
   {
     static inline constexpr std::string_view kGuardians = "guardians";
+  };
+
+  template<>
+  struct FieldNames<ObjectDetailsData<MetaObjectType::EVENT>> : FieldNames<EventBase>
+  {
+    static inline constexpr std::string_view kAffectedPlayers = "affected_players";
+    static inline constexpr std::string_view kAppliesToComputer = "applies_to_computer";
+    static inline constexpr std::string_view kRemoveAfterFirstVisit = "remove_after_first_visit";
+    static inline constexpr std::string_view kUnknown2 = "unknown2";
   };
 
   template<>
