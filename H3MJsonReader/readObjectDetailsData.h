@@ -42,13 +42,7 @@ namespace h3m
 
   // TODO: remove once JsonReader is specialized for all ObjectDetailsData.
   template<MetaObjectType T>
-  struct JsonReader<ObjectDetailsData<T>> : DefaultObjectDetailsDataReaderBase
-  {
-    ObjectDetailsData<T> operator()(const Json::Value&) const
-    {
-      throw std::runtime_error("NotImplemented.");
-    }
-  };
+  struct JsonReader<ObjectDetailsData<T>> : DefaultObjectDetailsDataReaderBase {};
 
   template<>
   struct JsonReader<ObjectDetailsData<MetaObjectType::ABANDONED_MINE>>

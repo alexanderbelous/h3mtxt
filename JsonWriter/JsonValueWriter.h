@@ -2,7 +2,7 @@
 
 #include <h3mtxt/JsonWriter/JsonDocumentWriter.h>
 #include <h3mtxt/JsonWriter/ScopedArrayWriter.h>
-#include <h3mtxt/JsonWriter/ScopedStructWriter.h>
+#include <h3mtxt/JsonWriter/ScopedObjectWriter.h>
 
 #include <array>
 #include <functional>
@@ -66,7 +66,7 @@ namespace Medea_NS
   void JsonValueWriter<T, Enable>::operator()(JsonDocumentWriter& out, const T& value) const
   {
     JsonObjectWriter<T> struct_writer {};
-    FieldsWriter fields_writer = out.writeStruct();
+    FieldsWriter fields_writer = out.writeObject();
     struct_writer(fields_writer, value);
   }
 
@@ -140,7 +140,7 @@ namespace Medea_NS
   {
     void operator()(JsonDocumentWriter& out, const Detail_NS::KeyValCRef<Key, Value>& keyval) const
     {
-      ScopedStructWriter fields_writer = out.writeStruct();
+      ScopedObjectWriter fields_writer = out.writeObject();
       fields_writer.writeField("key", keyval.data.get().first);
       fields_writer.writeField("value", keyval.data.get().second);
     }

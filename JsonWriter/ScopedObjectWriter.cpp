@@ -1,10 +1,10 @@
-#include <h3mtxt/JsonWriter/ScopedStructWriter.h>
+#include <h3mtxt/JsonWriter/ScopedObjectWriter.h>
 
 #include <ostream>
 
 namespace Medea_NS
 {
-  ScopedStructWriter::ScopedStructWriter(const Detail_NS::JsonWriterContext& context):
+  ScopedObjectWriter::ScopedObjectWriter(const Detail_NS::JsonWriterContext& context):
     context_(context)
   {
     context_.writeNewlineIfNeeded();
@@ -13,7 +13,7 @@ namespace Medea_NS
     context_.needs_newline_ = true;
   }
 
-  ScopedStructWriter::~ScopedStructWriter()
+  ScopedObjectWriter::~ScopedObjectWriter()
   {
     try
     {
@@ -27,7 +27,7 @@ namespace Medea_NS
     }
   }
 
-  void ScopedStructWriter::writeComment(std::string_view comment, bool newline)
+  void ScopedObjectWriter::writeComment(std::string_view comment, bool newline)
   {
     // If the last token was a comment, write a newline anyway.
     if (!newline && (last_token_ != Token::Comment))
@@ -40,7 +40,7 @@ namespace Medea_NS
     last_token_ = Token::Comment;
   }
 
-  void ScopedStructWriter::writeComma()
+  void ScopedObjectWriter::writeComma()
   {
     static constexpr std::string_view kCommaStr = ", ";
     if (needs_comma_)
@@ -60,7 +60,7 @@ namespace Medea_NS
     }
   }
 
-  void ScopedStructWriter::writeFieldName(std::string_view field_name)
+  void ScopedObjectWriter::writeFieldName(std::string_view field_name)
   {
     static constexpr std::string_view kSeparator = ": ";
     // Write a comma, if needed.

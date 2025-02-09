@@ -1,6 +1,6 @@
 #include <h3mtxt/JsonWriter/JsonDocumentWriter.h>
 
-#include <h3mtxt/JsonWriter/ScopedStructWriter.h>
+#include <h3mtxt/JsonWriter/ScopedObjectWriter.h>
 
 #include <ostream>
 #include <stdexcept>
@@ -50,10 +50,10 @@ namespace Medea_NS
     is_done_ = true;
   }
 
-  ScopedStructWriter JsonDocumentWriter::writeStruct()
+  ScopedObjectWriter JsonDocumentWriter::writeObject()
   {
     checkNotDone();
     is_done_ = true;
-    return ScopedStructWriter(context_);
+    return ScopedObjectWriter(context_);
   }
 }

@@ -8,22 +8,22 @@
 namespace Medea_NS
 {
   // Class for writing fields of a JSON object.
-  class ScopedStructWriter
+  class ScopedObjectWriter
   {
   public:
     // Writes an opening brace '{' and increases the indent.
     // Note that the constructor of JsonWriterContext is private, so you won't be able to
-    // construct ScopedStructWriter manually; use JsonDocumentWriter::writeStruct() instead.
-    explicit ScopedStructWriter(const Detail_NS::JsonWriterContext& context);
+    // construct ScopedObjectWriter manually; use JsonDocumentWriter::writeObject() instead.
+    explicit ScopedObjectWriter(const Detail_NS::JsonWriterContext& context);
 
     // Decreases the indent of the underlying JsonDocumentWriter and writes the closing brace '}'.
-    ~ScopedStructWriter();
+    ~ScopedObjectWriter();
 
     // Non-copyable, non-movable.
-    ScopedStructWriter(const ScopedStructWriter&) = delete;
-    ScopedStructWriter(ScopedStructWriter&&) = delete;
-    ScopedStructWriter& operator=(const ScopedStructWriter&) = delete;
-    ScopedStructWriter& operator=(ScopedStructWriter&&) = delete;
+    ScopedObjectWriter(const ScopedObjectWriter&) = delete;
+    ScopedObjectWriter(ScopedObjectWriter&&) = delete;
+    ScopedObjectWriter& operator=(const ScopedObjectWriter&) = delete;
+    ScopedObjectWriter& operator=(ScopedObjectWriter&&) = delete;
 
     // Writes a single field.
     template<class T>
@@ -56,7 +56,7 @@ namespace Medea_NS
   };
 
   template<class T>
-  void ScopedStructWriter::writeField(std::string_view field_name, const T& value)
+  void ScopedObjectWriter::writeField(std::string_view field_name, const T& value)
   {
     writeFieldName(field_name);
     JsonDocumentWriter document_writer(context_);

@@ -16,7 +16,7 @@ namespace Medea_NS
     {
       friend JsonDocumentWriter;
       friend ScopedArrayWriterBase;
-      friend ScopedStructWriter;
+      friend ScopedObjectWriter;
 
       explicit constexpr JsonWriterContext(std::ostream& stream, unsigned int initial_indent = 0) noexcept:
         stream_(stream),

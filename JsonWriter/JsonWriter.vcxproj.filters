@@ -18,13 +18,13 @@
     <ClCompile Include="JsonDocumentWriter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ScopedStructWriter.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="ScopedArrayWriter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="JsonWriterContext.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ScopedObjectWriter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -38,13 +38,13 @@
     <ClInclude Include="JsonValueWriter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ScopedStructWriter.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="ScopedArrayWriter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="JsonWriterContext.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ScopedObjectWriter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

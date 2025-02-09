@@ -86,13 +86,13 @@
   <ItemGroup>
     <ClCompile Include="JsonWriterContext.cpp" />
     <ClCompile Include="ScopedArrayWriter.cpp" />
-    <ClCompile Include="ScopedStructWriter.cpp" />
+    <ClCompile Include="ScopedObjectWriter.cpp" />
     <ClCompile Include="JsonDocumentWriter.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="JsonWriterContext.h" />
     <ClInclude Include="ScopedArrayWriter.h" />
-    <ClInclude Include="ScopedStructWriter.h" />
+    <ClInclude Include="ScopedObjectWriter.h" />
     <ClInclude Include="JsonDocumentWriter.h" />
     <ClInclude Include="JsonWriterFwd.h" />
     <ClInclude Include="JsonValueWriter.h" />

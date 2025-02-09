@@ -16,12 +16,39 @@ namespace h3m
 {
   namespace
   {
+    // Checks if JsonReader is specialized for ObjectDetailsData<T> where T == meta_object_type.
+    // TODO: remove.
+    constexpr bool isImplementedObjectDetailsDataReader(MetaObjectType meta_object_type)
+    {
+      // The underlying integer type for MetaObjectType.
+      using MetaObjectTypeIdx = std::underlying_type_t<MetaObjectType>;
+      // Compile-time table.
+      constexpr
+        std::array<bool, kNumMetaObjectTypes> kIsDefaultImplementation =
+        [] <MetaObjectTypeIdx... meta_object_type_idx>
+        (std::integer_sequence<MetaObjectTypeIdx, meta_object_type_idx...> seq)
+        consteval
+      {
+        return std::array<bool, sizeof...(meta_object_type_idx)>
+        { std::is_base_of_v<DefaultObjectDetailsDataReaderBase,
+                            JsonReader<ObjectDetailsData<static_cast<MetaObjectType>(meta_object_type_idx)>>>... };
+      }(std::make_integer_sequence<MetaObjectTypeIdx, kNumMetaObjectTypes>{});
+      return !kIsDefaultImplementation.at(static_cast<MetaObjectTypeIdx>(meta_object_type));
+    }
+
     // Utility wrapper around fromJson<ObjectDetailsData<T>>(), which returns the result
     // as ObjectDetailsDataVariant.
     template<MetaObjectType T>
     ObjectDetailsDataVariant readObjectDetailsDataAsVariant(const Json::Value& value)
     {
-      return fromJson<ObjectDetailsData<T>>(value);
+      if constexpr (isImplementedObjectDetailsDataReader(T))
+      {
+        return fromJson<ObjectDetailsData<T>>(value);
+      }
+      else
+      {
+        throw std::runtime_error("NotImplemented.");
+      }
     }
 
     // Reads ObjectDetailsData for the specified MetaObjectType.
@@ -47,25 +74,6 @@ namespace h3m
       }(std::make_integer_sequence<MetaObjectTypeIdx, kNumMetaObjectTypes>{});
       // Invoke a function from the generated array.
       return kObjectDetailsDataReaders.at(static_cast<MetaObjectTypeIdx>(meta_object_type))(value);
-    }
-
-    // TODO: remove.
-    bool isImplementedObjectDetailsDataReader(MetaObjectType meta_object_type)
-    {
-      // The underlying integer type for MetaObjectType.
-      using MetaObjectTypeIdx = std::underlying_type_t<MetaObjectType>;
-      // Compile-time table.
-      constexpr
-        std::array<bool, kNumMetaObjectTypes> kIsDefaultImplementation =
-        [] <MetaObjectTypeIdx... meta_object_type_idx>
-        (std::integer_sequence<MetaObjectTypeIdx, meta_object_type_idx...> seq)
-        consteval
-      {
-        return std::array<bool, sizeof...(meta_object_type_idx)>
-        { std::is_base_of_v<DefaultObjectDetailsDataReaderBase,
-                            JsonReader<ObjectDetailsData<static_cast<MetaObjectType>(meta_object_type_idx)>>>... };
-      }(std::make_integer_sequence<MetaObjectTypeIdx, kNumMetaObjectTypes>{});
-      return !kIsDefaultImplementation.at(static_cast<MetaObjectTypeIdx>(meta_object_type));
     }
 
     // TODO: return as ObjectDetails, not as std::optional.

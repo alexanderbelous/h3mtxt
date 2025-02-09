@@ -43,11 +43,11 @@ namespace Medea_NS
 
     // Start writing a structure.
     //
-    // Note that ScopedStructWriter is non-copyable and non-movable, but we can still return it
+    // Note that ScopedObjectWriter is non-copyable and non-movable, but we can still return it
     // by value from this function thanks to guaranteed copy elision.
     //
-    // \return a ScopedStructWriter object that can be used to write the fields of the structure.
-    ScopedStructWriter writeStruct();
+    // \return a ScopedObjectWriter object that can be used to write the fields of the structure.
+    ScopedObjectWriter writeObject();
 
     // Start writing an array.
     //

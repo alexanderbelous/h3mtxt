@@ -10,9 +10,9 @@ namespace Medea_NS
   template<class T>
   class ScopedArrayWriter;
 
-  class ScopedStructWriter;
+  class ScopedObjectWriter;
 
-  using FieldsWriter = ScopedStructWriter;
+  using FieldsWriter = ScopedObjectWriter;
 
   // Class for writing JSON values.
   //
