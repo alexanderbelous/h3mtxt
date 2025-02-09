@@ -131,13 +131,15 @@ namespace Util_NS
   template<>
   struct JsonObjectWriter<h3m::ObjectDetailsData<h3m::MetaObjectType::GARRISON>>
   {
-    void operator()(FieldsWriter& out,
-                    const h3m::ObjectDetailsData<h3m::MetaObjectType::GARRISON>& garrison) const
+    using DetailsData = h3m::ObjectDetailsData<h3m::MetaObjectType::GARRISON>;
+
+    void operator()(FieldsWriter& out, const DetailsData& garrison) const
     {
-      out.writeField("owner", garrison.owner);
-      out.writeField("creatures", garrison.creatures);
-      out.writeField("can_remove_units", garrison.can_remove_units);
-      out.writeField("unknown", garrison.unknown);
+      using Fields = h3m::FieldNames<DetailsData>;
+      out.writeField(Fields::kOwner, garrison.owner);
+      out.writeField(Fields::kCreatures, garrison.creatures);
+      out.writeField(Fields::kCanRemoveUnits, garrison.can_remove_units);
+      out.writeField(Fields::kUnknown, garrison.unknown);
     }
   };
 
@@ -339,15 +341,17 @@ namespace Util_NS
   template<>
   struct JsonObjectWriter<h3m::ObjectDetailsData<h3m::MetaObjectType::RESOURCE>>
   {
-    void operator()(FieldsWriter& out,
-                    const h3m::ObjectDetailsData<h3m::MetaObjectType::RESOURCE>& data) const
+    using DetailsData = h3m::ObjectDetailsData<h3m::MetaObjectType::RESOURCE>;
+
+    void operator()(FieldsWriter& out, const DetailsData& data) const
     {
+      using Fields = h3m::FieldNames<DetailsData>;
       if (data.guardians)
       {
-        out.writeField("guardians", *data.guardians);
+        out.writeField(Fields::kGuardians, *data.guardians);
       }
-      out.writeField("quantity", data.quantity);
-      out.writeField("unknown", data.unknown);
+      out.writeField(Fields::kQuantity, data.quantity);
+      out.writeField(Fields::kUnknown, data.unknown);
     }
   };
 
@@ -409,15 +413,17 @@ namespace Util_NS
   template<>
   struct JsonObjectWriter<h3m::ObjectDetailsData<h3m::MetaObjectType::SPELL_SCROLL>>
   {
-    void operator()(FieldsWriter& out,
-      const h3m::ObjectDetailsData<h3m::MetaObjectType::SPELL_SCROLL>& spell_scroll) const
+    using DetailsData = h3m::ObjectDetailsData<h3m::MetaObjectType::SPELL_SCROLL>;
+
+    void operator()(FieldsWriter& out, const DetailsData& spell_scroll) const
     {
+      using Fields = h3m::FieldNames<DetailsData>;
       if (spell_scroll.guardians)
       {
-        out.writeField("guardians", *spell_scroll.guardians);
+        out.writeField(Fields::kGuardians, *spell_scroll.guardians);
       }
-      out.writeField("spell", spell_scroll.spell);
-      out.writeField("unknown", spell_scroll.unknown);
+      out.writeField(Fields::kSpell, spell_scroll.spell);
+      out.writeField(Fields::kUnknown, spell_scroll.unknown);
     }
   };
 

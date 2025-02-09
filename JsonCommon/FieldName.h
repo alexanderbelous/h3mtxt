@@ -151,9 +151,26 @@ namespace h3m
   };
 
   template<>
+  struct FieldNames<ObjectDetailsData<MetaObjectType::GARRISON>>
+  {
+    static inline constexpr std::string_view kOwner = "owner";
+    static inline constexpr std::string_view kCreatures = "creatures";
+    static inline constexpr std::string_view kCanRemoveUnits = "can_remove_units";
+    static inline constexpr std::string_view kUnknown = "unknown";
+  };
+
+  template<>
   struct FieldNames<ObjectDetailsData<MetaObjectType::GRAIL>>
   {
     static inline constexpr std::string_view kAllowableRadius = "allowable_radius";
+  };
+
+  template<>
+  struct FieldNames<ObjectDetailsData<MetaObjectType::RESOURCE>>
+  {
+    static inline constexpr std::string_view kGuardians = "guardians";
+    static inline constexpr std::string_view kQuantity = "quantity";
+    static inline constexpr std::string_view kUnknown = "unknown";
   };
 
   template<>
@@ -167,6 +184,14 @@ namespace h3m
   struct FieldNames<ObjectDetailsData<MetaObjectType::SIGN>>
   {
     static inline constexpr std::string_view kMessage = "message";
+    static inline constexpr std::string_view kUnknown = "unknown";
+  };
+
+  template<>
+  struct FieldNames<ObjectDetailsData<MetaObjectType::SPELL_SCROLL>>
+  {
+    static inline constexpr std::string_view kGuardians = "guardians";
+    static inline constexpr std::string_view kSpell = "spell";
     static inline constexpr std::string_view kUnknown = "unknown";
   };
 

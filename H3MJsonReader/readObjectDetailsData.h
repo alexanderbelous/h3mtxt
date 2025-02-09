@@ -90,6 +90,23 @@ namespace h3m
   };
 
   template<>
+  struct JsonReader<ObjectDetailsData<MetaObjectType::GARRISON>>
+  {
+    using DetailsData = ObjectDetailsData<MetaObjectType::GARRISON>;
+
+    DetailsData operator()(const Json::Value& value) const
+    {
+      using Fields = FieldNames<DetailsData>;
+      DetailsData details;
+      readField(details.owner, value, Fields::kOwner);
+      readField(details.creatures, value, Fields::kCreatures);
+      readField(details.can_remove_units, value, Fields::kCanRemoveUnits);
+      readField(details.unknown, value, Fields::kUnknown);
+      return details;
+    }
+  };
+
+  template<>
   struct JsonReader<ObjectDetailsData<MetaObjectType::GRAIL>>
   {
     using DetailsData = ObjectDetailsData<MetaObjectType::GRAIL>;
@@ -99,6 +116,22 @@ namespace h3m
       using Fields = FieldNames<DetailsData>;
       DetailsData details;
       readField(details.allowable_radius, value, Fields::kAllowableRadius);
+      return details;
+    }
+  };
+
+  template<>
+  struct JsonReader<ObjectDetailsData<MetaObjectType::RESOURCE>>
+  {
+    using DetailsData = ObjectDetailsData<MetaObjectType::RESOURCE>;
+
+    DetailsData operator()(const Json::Value& value) const
+    {
+      using Fields = FieldNames<DetailsData>;
+      DetailsData details;
+      readField(details.guardians, value, Fields::kGuardians);
+      readField(details.quantity, value, Fields::kQuantity);
+      readField(details.unknown, value, Fields::kUnknown);
       return details;
     }
   };
@@ -128,6 +161,22 @@ namespace h3m
       using Fields = FieldNames<DetailsData>;
       DetailsData details;
       readField(details.message, value, Fields::kMessage);
+      readField(details.unknown, value, Fields::kUnknown);
+      return details;
+    }
+  };
+
+  template<>
+  struct JsonReader<ObjectDetailsData<MetaObjectType::SPELL_SCROLL>>
+  {
+    using DetailsData = ObjectDetailsData<MetaObjectType::SPELL_SCROLL>;
+
+    DetailsData operator()(const Json::Value& value) const
+    {
+      using Fields = FieldNames<DetailsData>;
+      DetailsData details;
+      readField(details.guardians, value, Fields::kGuardians);
+      readField(details.spell, value, Fields::kSpell);
       readField(details.unknown, value, Fields::kUnknown);
       return details;
     }
