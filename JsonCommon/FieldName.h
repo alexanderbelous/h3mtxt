@@ -166,6 +166,27 @@ namespace h3m
   };
 
   template<>
+  struct FieldNames<ObjectDetailsData<MetaObjectType::HERO>>
+  {
+    static inline constexpr std::string_view kAbsodId = "absod_id";
+    static inline constexpr std::string_view kOwner = "owner";
+    static inline constexpr std::string_view kType = "type";
+    static inline constexpr std::string_view kName = "name";
+    static inline constexpr std::string_view kExperience = "experience";
+    static inline constexpr std::string_view kPortrait = "portrait";
+    static inline constexpr std::string_view kSecondarySkills = "secondary_skills";
+    static inline constexpr std::string_view kCreatures = "creatures";
+    static inline constexpr std::string_view kFormation = "formation";
+    static inline constexpr std::string_view kArtifacts = "artifacts";
+    static inline constexpr std::string_view kPatrolRadius = "patrol_radius";
+    static inline constexpr std::string_view kBiography = "biography";
+    static inline constexpr std::string_view kGender = "gender";
+    static inline constexpr std::string_view kSpells = "spells";
+    static inline constexpr std::string_view kPrimarySkills = "primary_skills";
+    static inline constexpr std::string_view kUnknown = "unknown";
+  };
+
+  template<>
   struct FieldNames<ObjectDetailsData<MetaObjectType::RESOURCE>>
   {
     static inline constexpr std::string_view kGuardians = "guardians";

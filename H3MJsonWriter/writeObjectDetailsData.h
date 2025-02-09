@@ -167,43 +167,45 @@ namespace Util_NS
   template<>
   struct JsonObjectWriter<h3m::ObjectDetailsData<h3m::MetaObjectType::HERO>>
   {
-    void operator()(FieldsWriter& out,
-                    const h3m::ObjectDetailsData<h3m::MetaObjectType::HERO>& hero) const
+    using DetailsData = h3m::ObjectDetailsData<h3m::MetaObjectType::HERO>;
+
+    void operator()(FieldsWriter& out, const DetailsData& hero) const
     {
-      out.writeField("absod_id", hero.absod_id);
-      out.writeField("owner", hero.owner);
-      out.writeField("type", hero.type);
+      using Fields = h3m::FieldNames<DetailsData>;
+      out.writeField(Fields::kAbsodId, hero.absod_id);
+      out.writeField(Fields::kOwner, hero.owner);
+      out.writeField(Fields::kType, hero.type);
       if (hero.name)
       {
-        out.writeField("name", *hero.name);
+        out.writeField(Fields::kName, *hero.name);
       }
       if (hero.experience)
       {
-        out.writeField("experience", *hero.experience);
+        out.writeField(Fields::kExperience, *hero.experience);
       }
       if (hero.portrait)
       {
-        out.writeField("portrait", *hero.portrait);
+        out.writeField(Fields::kPortrait, *hero.portrait);
       }
       if (hero.secondary_skills)
       {
-        out.writeField("secondary_skills", *hero.secondary_skills);
+        out.writeField(Fields::kSecondarySkills, *hero.secondary_skills);
       }
       if (hero.creatures)
       {
-        out.writeField("creatures", *hero.creatures);
+        out.writeField(Fields::kCreatures, *hero.creatures);
       }
-      out.writeField("formation", hero.formation);
+      out.writeField(Fields::kFormation, hero.formation);
       if (hero.artifacts)
       {
-        out.writeField("artifacts", *hero.artifacts);
+        out.writeField(Fields::kArtifacts, *hero.artifacts);
       }
-      out.writeField("patrol_radius", hero.patrol_radius);
+      out.writeField(Fields::kPatrolRadius, hero.patrol_radius);
       if (hero.biography)
       {
-        out.writeField("biography", *hero.biography);
+        out.writeField(Fields::kBiography, *hero.biography);
       }
-      out.writeField("gender", hero.gender);
+      out.writeField(Fields::kGender, hero.gender);
       if (auto enum_str = h3m::getEnumString(hero.gender); !enum_str.empty())
       {
         out.writeComma();
@@ -211,13 +213,13 @@ namespace Util_NS
       }
       if (hero.spells)
       {
-        out.writeField("spells", *hero.spells);
+        out.writeField(Fields::kSpells, *hero.spells);
       }
       if (hero.primary_skills)
       {
-        out.writeField("primary_skills", *hero.primary_skills);
+        out.writeField(Fields::kPrimarySkills, *hero.primary_skills);
       }
-      out.writeField("unknown", hero.unknown);
+      out.writeField(Fields::kUnknown, hero.unknown);
     }
   };
 

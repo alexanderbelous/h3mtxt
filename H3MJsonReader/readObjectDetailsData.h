@@ -83,7 +83,7 @@ namespace h3m
   template<>
   struct JsonReader<ObjectDetailsData<MetaObjectType::GENERIC_NO_PROPERTIES>>
   {
-    ObjectDetailsData<MetaObjectType::GENERIC_NO_PROPERTIES> operator()(const Json::Value& value) const
+    ObjectDetailsData<MetaObjectType::GENERIC_NO_PROPERTIES> operator()(const Json::Value&) const
     {
       return {};
     }
@@ -116,6 +116,35 @@ namespace h3m
       using Fields = FieldNames<DetailsData>;
       DetailsData details;
       readField(details.allowable_radius, value, Fields::kAllowableRadius);
+      return details;
+    }
+  };
+
+  template<>
+  struct JsonReader<ObjectDetailsData<MetaObjectType::HERO>>
+  {
+    using DetailsData = ObjectDetailsData<MetaObjectType::HERO>;
+
+    DetailsData operator()(const Json::Value& value) const
+    {
+      using Fields = FieldNames<DetailsData>;
+      DetailsData details;
+      readField(details.absod_id, value, Fields::kAbsodId);
+      readField(details.owner, value, Fields::kOwner);
+      readField(details.type, value, Fields::kType);
+      readField(details.name, value, Fields::kName);
+      readField(details.experience, value, Fields::kExperience);
+      readField(details.portrait, value, Fields::kPortrait);
+      readField(details.secondary_skills, value, Fields::kSecondarySkills);
+      readField(details.creatures, value, Fields::kCreatures);
+      readField(details.formation, value, Fields::kFormation);
+      readField(details.artifacts, value, Fields::kArtifacts);
+      readField(details.patrol_radius, value, Fields::kPatrolRadius);
+      readField(details.biography, value, Fields::kBiography);
+      readField(details.gender, value, Fields::kGender);
+      readField(details.spells, value, Fields::kSpells);
+      readField(details.primary_skills, value, Fields::kPrimarySkills);
+      readField(details.unknown, value, Fields::kUnknown);
       return details;
     }
   };
