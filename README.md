@@ -23,7 +23,7 @@ h3mtxt my_map.h3m.json my_map_new.h3m
 The filename extensions are not important - the program will check if the input file contains a .h3m map or a JSON document and convert it to JSON or .h3m respectively
 
 # Status
-Structured represenation of a .h3m map is complete (see [h3m::Map](Map/Map.h)), but some cosmetic changes (e.g., wrappers for some bitmaks) might be added in the future.
+Structured represenation of a .h3m map is complete (see [h3m::Map](Map/Map.h)), but some cosmetic changes (e.g., wrappers for some bitmasks) might be added in the future.
 
 Reading and writing .h3m maps is fully implemented ([H3MReader](H3MReader) and [H3MWriter](H3MWriter) libraries).
 
