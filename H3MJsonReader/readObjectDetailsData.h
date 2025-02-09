@@ -50,6 +50,16 @@ namespace h3m
     }
   };
 
+  // ObjectDetailsData<MetaObjectType::GENERIC_NO_PROPERTIES> has no fields.
+  template<>
+  struct JsonReader<ObjectDetailsData<MetaObjectType::GENERIC_NO_PROPERTIES>>
+  {
+    ObjectDetailsData<MetaObjectType::GENERIC_NO_PROPERTIES> operator()(const Json::Value& value) const
+    {
+      return {};
+    }
+  };
+
   template<>
   struct JsonReader<ObjectDetailsData<MetaObjectType::GRAIL>>
   {
