@@ -22,12 +22,10 @@ namespace Util_NS
   {
     void operator()(FieldsWriter& out, const h3m::ResourcesBitmask& resources_bitmask) const
     {
-      static constexpr std::string_view kFieldNames[] = {
-        "wood", "mercury", "ore", "sulfur", "crystal", "gems", "gold", "unknown"
-      };
+      using Fields = h3m::FieldNames<h3m::ResourcesBitmask>;
       for (std::uint8_t i = 0; i < 8; ++i)
       {
-        out.writeField(kFieldNames[i], resources_bitmask[static_cast<h3m::ResourceType>(i)]);
+        out.writeField(Fields::kNames[i], resources_bitmask[static_cast<h3m::ResourceType>(i)]);
       }
     }
   };
@@ -89,11 +87,13 @@ namespace Util_NS
   template<>
   struct JsonObjectWriter<h3m::ObjectDetailsData<h3m::MetaObjectType::ABANDONED_MINE>>
   {
-    void operator()(FieldsWriter& out,
-                    const h3m::ObjectDetailsData<h3m::MetaObjectType::ABANDONED_MINE>& data) const
+    using DetailsData = h3m::ObjectDetailsData<h3m::MetaObjectType::ABANDONED_MINE>;
+
+    void operator()(FieldsWriter& out, const DetailsData& data) const
     {
-      out.writeField("potential_resources", data.potential_resources);
-      out.writeField("unknown", data.unknown);
+      using Fields = h3m::FieldNames<DetailsData>;
+      out.writeField(Fields::kPotentialResources, data.potential_resources);
+      out.writeField(Fields::kUnknown, data.unknown);
     }
   };
 

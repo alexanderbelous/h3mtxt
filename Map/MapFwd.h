@@ -72,6 +72,8 @@ namespace h3m
   template<class T>
   struct Resources;
 
+  struct ResourcesBitmask;
+
   struct Rumor;
 
   struct SecondarySkill;

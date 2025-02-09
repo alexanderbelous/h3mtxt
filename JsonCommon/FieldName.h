@@ -123,6 +123,13 @@ namespace h3m
   };
 
   template<>
+  struct FieldNames<ObjectDetailsData<MetaObjectType::ABANDONED_MINE>>
+  {
+    static inline constexpr std::string_view kPotentialResources = "potential_resources";
+    static inline constexpr std::string_view kUnknown = "unknown";
+  };
+
+  template<>
   struct FieldNames<ObjectDetailsData<MetaObjectType::GRAIL>>
   {
     static inline constexpr std::string_view kAllowableRadius = "allowable_radius";
@@ -212,6 +219,15 @@ namespace h3m
 
   template<class T>
   struct FieldNames<Resources<T>> : FieldNamesResourcesBase {};
+
+  template<>
+  struct FieldNames<ResourcesBitmask>
+  {
+    // Name for each bit in the bitmask (from LSB to MSB).
+    static inline constexpr std::string_view kNames[] = {
+      "wood", "mercury", "ore", "sulfur", "crystal", "gems", "gold", "unknown"
+    };
+  };
 
   template<>
   struct FieldNames<Rumor>

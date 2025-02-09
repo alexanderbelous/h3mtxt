@@ -7,6 +7,21 @@
 
 namespace h3m
 {
+  template<>
+  struct JsonReader<ResourcesBitmask>
+  {
+    ResourcesBitmask operator()(const Json::Value& value) const
+    {
+      using Fields = FieldNames<ResourcesBitmask>;
+      ResourcesBitmask bitmask;
+      for (std::uint8_t i = 0; i < 8; ++i)
+      {
+        bitmask.set(static_cast<h3m::ResourceType>(i), readField<bool>(value, Fields::kNames[i]));
+      }
+      return bitmask;
+    }
+  };
+
   // TODO: remove.
   struct DefaultObjectDetailsDataReaderBase {};
 
@@ -17,6 +32,21 @@ namespace h3m
     ObjectDetailsData<T> operator()(const Json::Value&) const
     {
       throw std::runtime_error("NotImplemented.");
+    }
+  };
+
+  template<>
+  struct JsonReader<ObjectDetailsData<MetaObjectType::ABANDONED_MINE>>
+  {
+    using DetailsData = ObjectDetailsData<MetaObjectType::ABANDONED_MINE>;
+
+    DetailsData operator()(const Json::Value& value) const
+    {
+      using Fields = FieldNames<DetailsData>;
+      DetailsData details;
+      readField(details.potential_resources, value, Fields::kPotentialResources);
+      readField(details.unknown, value, Fields::kUnknown);
+      return details;
     }
   };
 
