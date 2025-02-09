@@ -11,14 +11,25 @@ Or, if you want, you can use the C++ API from this repo to programmatically modi
 
 Note: only **Shadow of Death** maps are supported. Currently, I have no plans to support other versions (e.g., Restoration of Erathia) or mods.
 
+# Usage
+Just pass the paths to the input map (h3m or JSON) and the output file.
+```sh
+# Convert the map from .h3m to JSON.
+h3mtxt my_map.h3m my_map.h3m.json
+
+# Convert the map from JSON to .h3m.
+h3mtxt my_map.h3m.json my_map_new.h3m
+```
+The filename extensions are not important - the program will check if the input file contains a .h3m map or a JSON document and convert it to JSON or .h3m respectively
+
 # Status
 Structured represenation of a .h3m map is complete (see [h3m::Map](Map/Map.h)), but some cosmetic changes (e.g., wrappers for some bitmaks) might be added in the future.
 
 Reading and writing .h3m maps is fully implemented ([H3MReader](H3MReader) and [H3MWriter](H3MWriter) libraries).
 
-Conversion to JSON is done, but more comments will be added in the future.
+Conversion to JSON ([H3MJsonWriter](H3MJsonWriter)) is done, but more comments will be added in the future.
 
-Conversion from JSON to H3M is currently in progress.
+Conversion from JSON to H3M ([H3MJsonReader](H3MJsonReader)) is currently in progress; some objects on the adventure map are skipped.
 
 # Acknowledgment
 I would like to thank the authors of [HeroWO-js/h3m2json](https://github.com/HeroWO-js/h3m2json/) and [potmdehex/homm3tools](https://github.com/potmdehex/homm3tools)
