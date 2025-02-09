@@ -5,7 +5,7 @@
 
 #include <string_view>
 
-namespace Util_NS
+namespace Medea_NS
 {
   // Non-template base of ScopedArrayWriter.
   class ScopedArrayWriterBase

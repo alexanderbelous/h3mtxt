@@ -6,7 +6,7 @@
 #include <h3mtxt/H3MJsonWriter/writePlayersBitmask.h>
 #include <h3mtxt/H3MJsonWriter/writeResources.h>
 
-namespace Util_NS
+namespace Medea_NS
 {
   void printTimedEventBase(FieldsWriter& out, const h3m::TimedEventBase& event)
   {

@@ -2,7 +2,7 @@
 
 #include <ostream>
 
-namespace Util_NS
+namespace Medea_NS
 {
   ScopedArrayWriterBase::ScopedArrayWriterBase(const Detail_NS::JsonWriterContext& context, bool one_element_per_line):
     context_(context),

@@ -5,7 +5,7 @@
 
 #include <string_view>
 
-namespace Util_NS
+namespace Medea_NS
 {
   // Class for writing fields of a JSON object.
   class ScopedStructWriter

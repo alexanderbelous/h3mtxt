@@ -4,7 +4,7 @@
 #include <h3mtxt/Map/Utils/ReservedData.h>
 #include <h3mtxt/JsonWriter/JsonValueWriter.h>
 
-namespace Util_NS
+namespace Medea_NS
 {
   template<std::size_t NumBytes>
   struct JsonValueWriter<h3m::ReservedData<NumBytes>>

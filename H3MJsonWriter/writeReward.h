@@ -5,7 +5,7 @@
 #include <h3mtxt/H3MJsonWriter/H3MJsonWriter.h>
 #include <h3mtxt/H3MJsonWriter/writeSecondarySkill.h>
 
-namespace Util_NS
+namespace Medea_NS
 {
   template<>
   struct JsonObjectWriter<h3m::RewardDetails<h3m::RewardType::None>>

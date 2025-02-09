@@ -12,7 +12,7 @@
 #include <type_traits>
 #include <vector>
 
-namespace Util_NS
+namespace Medea_NS
 {
   namespace Detail_NS
   {

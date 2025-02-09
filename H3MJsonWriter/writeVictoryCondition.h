@@ -4,7 +4,7 @@
 #include <h3mtxt/H3MJsonWriter/getEnumString.h>
 #include <h3mtxt/H3MJsonWriter/H3MJsonWriter.h>
 
-namespace Util_NS
+namespace Medea_NS
 {
   inline void writeSpecialVictoryConditionBase(FieldsWriter& out, const h3m::SpecialVictoryConditionBase& base)
   {

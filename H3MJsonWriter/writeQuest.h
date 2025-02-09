@@ -7,7 +7,7 @@
 #include <h3mtxt/H3MJsonWriter/writePrimarySkills.h>
 #include <h3mtxt/H3MJsonWriter/writeResources.h>
 
-namespace Util_NS
+namespace Medea_NS
 {
   template<>
   struct JsonObjectWriter<h3m::QuestDetails<h3m::QuestType::None>>

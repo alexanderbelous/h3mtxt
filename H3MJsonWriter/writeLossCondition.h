@@ -4,7 +4,7 @@
 #include <h3mtxt/H3MJsonWriter/getEnumString.h>
 #include <h3mtxt/H3MJsonWriter/H3MJsonWriter.h>
 
-namespace Util_NS
+namespace Medea_NS
 {
   template<class T>
   struct JsonObjectWriter<T, std::enable_if_t<std::is_same_v<T, h3m::LossConditionDetails<h3m::LossConditionType::LoseTown>> ||

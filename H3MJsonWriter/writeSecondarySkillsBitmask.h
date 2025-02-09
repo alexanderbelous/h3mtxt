@@ -6,7 +6,7 @@
 
 #include <cstdint>
 
-namespace Util_NS
+namespace Medea_NS
 {
   template<>
   struct JsonObjectWriter<h3m::SecondarySkillsBitmask>

@@ -4,7 +4,7 @@
 #include <h3mtxt/H3MJsonWriter/H3MJsonWriter.h>
 #include <h3mtxt/H3MJsonWriter/writeTimedEventBase.h>
 
-namespace Util_NS
+namespace Medea_NS
 {
   template<>
   struct JsonObjectWriter<h3m::GlobalEvent>

@@ -7,7 +7,7 @@
 #include <string_view>
 #include <type_traits>
 
-namespace Util_NS
+namespace Medea_NS
 {
   // Class for writing a JSON document.
   // This class only allows writing a single JSON value.

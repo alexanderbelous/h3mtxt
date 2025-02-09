@@ -2,7 +2,7 @@
 
 #include <ostream>
 
-namespace Util_NS
+namespace Medea_NS
 {
   ScopedStructWriter::ScopedStructWriter(const Detail_NS::JsonWriterContext& context):
     context_(context)

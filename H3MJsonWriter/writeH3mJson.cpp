@@ -19,7 +19,7 @@
 #include <string_view>
 #include <type_traits>
 
-namespace Util_NS
+namespace Medea_NS
 {
   namespace
   {
@@ -267,7 +267,7 @@ namespace h3m
 {
   void writeH3mJson(std::ostream& stream, const Map& map)
   {
-    Util_NS::JsonDocumentWriter writer(stream, 0);
-    Util_NS::writeValue(writer, map);
+    Medea_NS::JsonDocumentWriter writer(stream, 0);
+    Medea_NS::writeValue(writer, map);
   }
 }

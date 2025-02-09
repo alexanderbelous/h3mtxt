@@ -5,7 +5,7 @@
 #include <ostream>
 #include <stdexcept>
 
-namespace Util_NS
+namespace Medea_NS
 {
   void JsonDocumentWriter::checkNotDone() const
   {
