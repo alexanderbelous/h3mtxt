@@ -10,6 +10,8 @@ namespace h3m
 {
   enum class Disposition : std::uint8_t;
 
+  enum class Formation : std::uint8_t;
+
   enum class Gender : std::uint8_t;
 
   enum class LossConditionType : std::uint8_t;

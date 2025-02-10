@@ -12,6 +12,8 @@ namespace h3m
 {
   std::string_view getEnumString(Disposition value) noexcept;
 
+  std::string_view getEnumString(Formation value) noexcept;
+
   std::string_view getEnumString(Gender value) noexcept;
 
   std::string_view getEnumString(LossConditionType value) noexcept;

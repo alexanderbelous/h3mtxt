@@ -1,4 +1,5 @@
 #include <h3mtxt/H3MJsonWriter/getEnumString.h>
+#include <h3mtxt/Map/Constants/Formation.h>
 #include <h3mtxt/Map/Constants/Gender.h>
 #include <h3mtxt/Map/Constants/LossConditionType.h>
 #include <h3mtxt/Map/Constants/ScholarRewardType.h>
@@ -19,6 +20,19 @@ namespace h3m
     };
     const std::size_t idx = static_cast<std::size_t>(value);
     return (idx < std::size(kNames)) ? kNames[idx] : std::string_view{};
+  }
+
+  std::string_view getEnumString(Formation value) noexcept
+  {
+    switch (value)
+    {
+    case Formation::Spread:
+      return "Spread";
+    case Formation::Grouped:
+      return "Grouped";
+    default:
+      return {};
+    }
   }
 
   std::string_view getEnumString(Gender value) noexcept

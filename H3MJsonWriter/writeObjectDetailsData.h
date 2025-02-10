@@ -199,6 +199,11 @@ namespace Medea_NS
         out.writeField(Fields::kCreatures, *hero.creatures);
       }
       out.writeField(Fields::kFormation, hero.formation);
+      if (auto enum_str = h3m::getEnumString(hero.formation); !enum_str.empty())
+      {
+        out.writeComma();
+        out.writeComment(enum_str, false);
+      }
       if (hero.artifacts)
       {
         out.writeField(Fields::kArtifacts, *hero.artifacts);
@@ -451,6 +456,11 @@ namespace Medea_NS
         out.writeField("creatures", *town.creatures);
       }
       out.writeField("formation", town.formation);
+      if (auto enum_str = h3m::getEnumString(town.formation); !enum_str.empty())
+      {
+        out.writeComma();
+        out.writeComment(enum_str, false);
+      }
       if (town.buildings)
       {
         out.writeField("buildings", *town.buildings);

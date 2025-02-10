@@ -1,7 +1,6 @@
 #pragma once
 
-#include <h3mtxt/JsonCommon/FieldName.h>
-#include <h3mtxt/Map/MapAdditionalInfo.h>
+#include <h3mtxt/H3MJsonWriter/getEnumString.h>
 #include <h3mtxt/H3MJsonWriter/H3MJsonWriter.h>
 #include <h3mtxt/H3MJsonWriter/writeHeroArtifacts.h>
 #include <h3mtxt/H3MJsonWriter/writeLossCondition.h>
@@ -11,6 +10,8 @@
 #include <h3mtxt/H3MJsonWriter/writeSecondarySkillsBitmask.h>
 #include <h3mtxt/H3MJsonWriter/writeSpellsBitmask.h>
 #include <h3mtxt/H3MJsonWriter/writeVictoryCondition.h>
+#include <h3mtxt/JsonCommon/FieldName.h>
+#include <h3mtxt/Map/MapAdditionalInfo.h>
 
 namespace Medea_NS
 {
@@ -87,6 +88,14 @@ namespace Medea_NS
         out.writeField(Fields::kBiography, *value.biography);
       }
       out.writeField(Fields::kGender, value.gender);
+      if (auto enum_str = h3m::getEnumString(value.gender); !enum_str.empty())
+      {
+        if (value.spells.has_value() || value.primary_skills.has_value())
+        {
+          out.writeComma();
+        }
+        out.writeComment(enum_str, false);
+      }
       if (value.spells)
       {
         out.writeField(Fields::kSpells , *value.spells);
