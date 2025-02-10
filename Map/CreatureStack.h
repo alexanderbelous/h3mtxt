@@ -8,7 +8,7 @@ namespace h3m
 {
   // Represents a stack of creatures.
   //
-  // This appears in multiple places in .h3m, e.g., in a hero's army, a garrisson,
+  // This appears in multiple places in .h3m, e.g., in a hero's army, a garrison,
   // a quest, etc.
   //
   // The default-constructed CreatureStack represents an empty stack.
