@@ -217,6 +217,14 @@ namespace h3m
   {};
 
   template<>
+  struct FieldNames<ObjectDetailsData<MetaObjectType::PLACEHOLDER_HERO>>
+  {
+    static inline constexpr std::string_view kOwner = "owner";
+    static inline constexpr std::string_view kType = "type";
+    static inline constexpr std::string_view kPowerRating = "power_rating";
+  };
+
+  template<>
   struct FieldNames<ObjectDetailsData<MetaObjectType::RESOURCE>>
   {
     static inline constexpr std::string_view kGuardians = "guardians";

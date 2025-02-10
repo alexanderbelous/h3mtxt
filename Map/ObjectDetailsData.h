@@ -10,6 +10,7 @@
 #include <h3mtxt/Map/Constants/HeroPortrait.h>
 #include <h3mtxt/Map/Constants/HeroType.h>
 #include <h3mtxt/Map/Constants/MetaObjectType.h>
+#include <h3mtxt/Map/Constants/PlayerColor.h>
 #include <h3mtxt/Map/Constants/ScholarRewardType.h>
 #include <h3mtxt/Map/Constants/SpellType.h>
 #include <h3mtxt/Map/CreatureStack.h>
@@ -172,8 +173,7 @@ namespace h3m
   template<>
   struct ObjectDetailsData<MetaObjectType::PLACEHOLDER_HERO>
   {
-    // TODO: make this an enum.
-    std::uint8_t owner {};
+    PlayerColor owner {};
     HeroType type {};
     // Only read/written if type == 0xFF.
     std::uint8_t power_rating {};

@@ -261,7 +261,7 @@ namespace h3m
       constexpr HeroType kRandomHeroType {0xFF};
 
       ObjectDetailsData<MetaObjectType::PLACEHOLDER_HERO> data;
-      data.owner = readInt<std::uint8_t>(stream);
+      data.owner = readEnum<PlayerColor>(stream);
       data.type = readEnum<HeroType>(stream);
       if (data.type == kRandomHeroType)
       {

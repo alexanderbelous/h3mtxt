@@ -275,16 +275,18 @@ namespace Medea_NS
   template<>
   struct JsonObjectWriter<h3m::ObjectDetailsData<h3m::MetaObjectType::PLACEHOLDER_HERO>>
   {
-    void operator()(FieldsWriter& out,
-                    const h3m::ObjectDetailsData<h3m::MetaObjectType::PLACEHOLDER_HERO>& hero) const
+    using DetailsData = h3m::ObjectDetailsData<h3m::MetaObjectType::PLACEHOLDER_HERO>;
+
+    void operator()(FieldsWriter& out, const DetailsData& hero) const
     {
+      using Fields = h3m::FieldNames<DetailsData>;
       constexpr h3m::HeroType kRandomHeroType {0xFF};
 
-      out.writeField("owner", hero.owner);
-      out.writeField("type", hero.type);
+      out.writeField(Fields::kOwner, hero.owner);
+      out.writeField(Fields::kType, hero.type);
       if (hero.type == kRandomHeroType)
       {
-        out.writeField("power_rating", hero.power_rating);
+        out.writeField(Fields::kPowerRating, hero.power_rating);
       }
     }
   };

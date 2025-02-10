@@ -99,16 +99,6 @@ namespace h3m
     }
   };
 
-  // ObjectDetailsData<MetaObjectType::GENERIC_NO_PROPERTIES> has no fields.
-  template<>
-  struct JsonReader<ObjectDetailsData<MetaObjectType::GENERIC_NO_PROPERTIES>>
-  {
-    ObjectDetailsData<MetaObjectType::GENERIC_NO_PROPERTIES> operator()(const Json::Value&) const
-    {
-      return {};
-    }
-  };
-
   template<>
   struct JsonReader<ObjectDetailsData<MetaObjectType::GARRISON>>
   {
@@ -123,6 +113,16 @@ namespace h3m
       readField(details.can_remove_units, value, Fields::kCanRemoveUnits);
       readField(details.unknown, value, Fields::kUnknown);
       return details;
+    }
+  };
+
+  // ObjectDetailsData<MetaObjectType::GENERIC_NO_PROPERTIES> has no fields.
+  template<>
+  struct JsonReader<ObjectDetailsData<MetaObjectType::GENERIC_NO_PROPERTIES>>
+  {
+    ObjectDetailsData<MetaObjectType::GENERIC_NO_PROPERTIES> operator()(const Json::Value&) const
+    {
+      return {};
     }
   };
 
@@ -178,6 +178,27 @@ namespace h3m
     {
       DetailsData details;
       Detail_NS::readEventBase(value, details);
+      return details;
+    }
+  };
+
+  template<>
+  struct JsonReader<ObjectDetailsData<MetaObjectType::PLACEHOLDER_HERO>>
+  {
+    using DetailsData = ObjectDetailsData<MetaObjectType::PLACEHOLDER_HERO>;
+
+    DetailsData operator()(const Json::Value& value) const
+    {
+      using Fields = FieldNames<DetailsData>;
+      constexpr h3m::HeroType kRandomHeroType {0xFF};
+
+      DetailsData details;
+      readField(details.owner, value, Fields::kOwner);
+      readField(details.type, value, Fields::kType);
+      if (details.type == kRandomHeroType)
+      {
+        readField(details.power_rating, value, Fields::kPowerRating);
+      }
       return details;
     }
   };
