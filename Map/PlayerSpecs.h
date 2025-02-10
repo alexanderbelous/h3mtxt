@@ -99,6 +99,13 @@ constexpr bool shouldHaveAdditionalPlayerInfo(const PlayerSpecs& player_specs) n
   {
     return true;
   }
+  // Hack for a special case where this is a playable player with a placeholder hero
+  const bool has_allowed_alignments = (player_specs.allowed_alignments.bitset.data()[0] != 0) ||
+                                      (player_specs.allowed_alignments.bitset.data()[1] != 0);
+  if (has_allowed_alignments)
+  {
+    return true;
+  }
   return false;
 }
 

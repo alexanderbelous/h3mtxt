@@ -46,13 +46,20 @@ MainTown readMainTown(std::istream& stream)
   return main_town;
 }
 
-StartingHero readStartingHero(std::istream& stream)
+StartingHero readStartingHero(std::istream& stream, bool is_playable)
 {
   StartingHero starting_hero;
   starting_hero.is_random = readBool(stream);
   starting_hero.type = readEnum<HeroType>(stream);
-  starting_hero.portrait = readEnum<HeroPortrait>(stream);
-  starting_hero.name = readString(stream);
+  // TODO: this is weird. It seems that the 2 fields below should not be read/written
+  // if is_random == 0 && type == 0xFF; for example, this is what happens if you
+  // convert "Oblivion's Edge" scenario from the "Armageddon's Blade" campaign to SOD.
+  // Apparently, the logic is that this condition indicates a placeholder hero.
+  if (!is_playable || (starting_hero.is_random || (starting_hero.type != HeroType{ 0xFF })))
+  {
+    starting_hero.portrait = readEnum<HeroPortrait>(stream);
+    starting_hero.name = readString(stream);
+  }
   return starting_hero;
 }
 
@@ -86,7 +93,8 @@ PlayerSpecs readPlayerSpecs(std::istream& stream)
   {
     player.main_town = readMainTown(stream);
   }
-  player.starting_hero = readStartingHero(stream);
+  const bool is_playable = player.can_be_human || player.can_be_computer;
+  player.starting_hero = readStartingHero(stream, is_playable);
   if (shouldHaveAdditionalPlayerInfo(player))
   {
     player.additional_info = readAdditionalPlayerInfo(stream);
