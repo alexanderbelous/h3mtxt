@@ -446,4 +446,12 @@ namespace h3m
     static inline constexpr std::string_view kIsBuilt = "is_built";
     static inline constexpr std::string_view kIsDisabled = "is_disabled";
   };
+
+  template<>
+  struct FieldNames<TownEvent> : FieldNames<TimedEventBase>
+  {
+    static inline constexpr std::string_view kBuildings = "buildings";
+    static inline constexpr std::string_view kCreatures = "creatures";
+    static inline constexpr std::string_view kUnknown2 = "unknown2";
+  };
 }

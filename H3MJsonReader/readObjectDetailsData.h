@@ -6,6 +6,7 @@
 #include <h3mtxt/H3MJsonReader/readPlayersBitmask.h>
 #include <h3mtxt/H3MJsonReader/readSecondarySkillsBitmask.h>
 #include <h3mtxt/H3MJsonReader/readSpellsBitmask.h>
+#include <h3mtxt/H3MJsonReader/readTimedEventBase.h>
 #include <h3mtxt/JsonCommon/FieldName.h>
 #include <h3mtxt/Map/ObjectDetailsData.h>
 
@@ -42,6 +43,35 @@ namespace h3m
         bitmask.set(static_cast<h3m::ResourceType>(i), readField<bool>(value, Fields::kNames[i]));
       }
       return bitmask;
+    }
+  };
+
+  template<>
+  struct JsonReader<TownBuildings>
+  {
+    TownBuildings operator()(const Json::Value& value) const
+    {
+      using Fields = FieldNames<TownBuildings>;
+      TownBuildings town_buildings;
+      readField(town_buildings.is_built, value, Fields::kIsBuilt);
+      readField(town_buildings.is_disabled, value, Fields::kIsDisabled);
+      return town_buildings;
+    }
+  };
+
+
+  template<>
+  struct JsonReader<TownEvent>
+  {
+    TownEvent operator()(const Json::Value& value) const
+    {
+      using Fields = FieldNames<TownEvent>;
+      TownEvent event;
+      ::h3m::H3MJsonReader_NS::readTimedEventBase(event, value);
+      readField(event.buildings, value, Fields::kBuildings);
+      readField(event.creatures, value, Fields::kCreatures);
+      readField(event.unknown2, value, Fields::kUnknown2);
+      return event;
     }
   };
 
@@ -260,6 +290,34 @@ namespace h3m
       DetailsData details;
       readField(details.guardians, value, Fields::kGuardians);
       readField(details.spell, value, Fields::kSpell);
+      readField(details.unknown, value, Fields::kUnknown);
+      return details;
+    }
+  };
+
+  template<>
+  struct JsonReader<ObjectDetailsData<MetaObjectType::TOWN>>
+  {
+    using DetailsData = ObjectDetailsData<MetaObjectType::TOWN>;
+
+    DetailsData operator()(const Json::Value& value) const
+    {
+      using Fields = FieldNames<DetailsData>;
+      DetailsData details;
+      readField(details.absod_id, value, Fields::kAbsodId);
+      readField(details.owner, value, Fields::kOwner);
+      readField(details.name, value, Fields::kName);
+      readField(details.creatures, value, Fields::kCreatures);
+      readField(details.formation, value, Fields::kFormation);
+      readField(details.buildings, value, Fields::kBuildings);
+      if (!details.buildings)
+      {
+        readField(details.has_fort, value, Fields::kHasFort);
+      }
+      readField(details.must_have_spell, value, Fields::kMustHaveSpell);
+      readField(details.may_not_have_spell, value, Fields::kMayNotHaveSpell);
+      readField(details.events, value, Fields::kEvents);
+      readField(details.alignment, value, Fields::kAlignment);
       readField(details.unknown, value, Fields::kUnknown);
       return details;
     }

@@ -46,10 +46,11 @@ namespace Medea_NS
   {
     void operator()(FieldsWriter& out, const h3m::TownEvent& town_event) const
     {
+      using Fields = h3m::FieldNames<h3m::TownEvent>;
       printTimedEventBase(out, town_event);
-      out.writeField("buildings", town_event.buildings);
-      out.writeField("creatures", town_event.creatures);
-      out.writeField("unknown2", town_event.unknown2);
+      out.writeField(Fields::kBuildings, town_event.buildings);
+      out.writeField(Fields::kCreatures, town_event.creatures);
+      out.writeField(Fields::kUnknown2, town_event.unknown2);
     }
   };
 

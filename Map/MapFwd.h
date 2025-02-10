@@ -97,4 +97,6 @@ namespace h3m
   struct TimedEventBase;
 
   struct TownBuildings;
+
+  struct TownEvent;
 }
