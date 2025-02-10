@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/alexanderbelous/h3mtxt/refs/heads/master/schema.json",
+  "title": "H3mMap",
+  "description": "A map for Heroes of Might and Magic III",
+  "type": "object",
+  "properties": {
+    "format": {
+      "description": "Format of the map. Only Shadow of Death is supported, so this must always be equal to 28.",
+      "type": "integer",
+      "minimum": 28,
+      "maximum": 28,
+    },
+    "basic_info": {
+      "description": "Basic information about the map. Only Shadow of Death is supported, so this must always be equal to 28.",
+      "type": "object",
+      "properties": {
+        "is_playable": {
+          "description": "Indicates whether the map is playable. This should be either 0 or 1, but .h3m stores it as 1 byte.",
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 255
+        },
+        "map_size": {
+          "description": "Width and height of the map (in tiles).",
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 4294967295
+        },
+        "has_two_levels": {
+          "description": "Indicates whether the map has the underground level. This should be either 0 or 1, but .h3m stores it as 1 byte.",
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 255
+        },
+        "name": {
+          "description": "The name of the map",
+          "type": "string"
+        },
+        "description": {
+          "description": "Description of the map",
+          "type": "string"
+        },
+        "difficulty": {
+          "description": "Difficulty of the map. The known values are [0; 4], but .h3m stores in as 1 byte.",
+          "type": "integer",
+          "minimum:" : 0,
+          "maximum:" : 255
+        },
+        "max_hero_level": {
+          "description": "Maximum allowed level for all heroes. 0 means to limit.",
+          "type": "integer",
+          "minimum:" : 0,
+          "maximum:" : 255
+        }
+      }
+    }
+  },
+  "required": [ "format", "basic_info" ]
+}
+
