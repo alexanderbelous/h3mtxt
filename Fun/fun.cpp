@@ -215,13 +215,13 @@ namespace
           h3m::SecondarySkill {.type = h3m::SecondarySkillType::Logistics, .level = 3},
         },
         .creatures = std::array<h3m::CreatureStack, 7> {
-          h3m::CreatureStack {.type = h3m::CreatureType::ARCHANGEL, .count = 10},
-          h3m::CreatureStack {.type = h3m::CreatureType::BALLISTA, .count = 20},
-          h3m::CreatureStack {.type = h3m::CreatureType::TITAN, .count = 10},
-          h3m::CreatureStack {.type = h3m::CreatureType{0xFFFF}, .count = 0},
-          h3m::CreatureStack {.type = h3m::CreatureType{0xFFFF}, .count = 0},
-          h3m::CreatureStack {.type = h3m::CreatureType{0xFFFF}, .count = 0},
-          h3m::CreatureStack {.type = h3m::CreatureType{0xFFFF}, .count = 0}
+          h3m::CreatureStack {.type = h3m::CreatureType::Archangel, .count = 10},
+          h3m::CreatureStack {.type = h3m::CreatureType::Ballista, .count = 20},
+          h3m::CreatureStack {.type = h3m::CreatureType::Titan, .count = 10},
+          h3m::CreatureStack{},
+          h3m::CreatureStack{},
+          h3m::CreatureStack{},
+          h3m::CreatureStack{}
         },
         .patrol_radius = 255,
         .primary_skills = h3m::PrimarySkills {
@@ -245,13 +245,13 @@ namespace
           h3m::SecondarySkill {.type = h3m::SecondarySkillType::Artillery, .level = 3}
         },
         .creatures = std::array<h3m::CreatureStack, 7> {
-          h3m::CreatureStack {.type = h3m::CreatureType::IMP, .count = 50},
-          h3m::CreatureStack {.type = h3m::CreatureType::BALLISTA, .count = 20},
-          h3m::CreatureStack {.type = h3m::CreatureType{0xFFFF}, .count = 0},
-            h3m::CreatureStack {.type = h3m::CreatureType{0xFFFF}, .count = 0},
-            h3m::CreatureStack {.type = h3m::CreatureType{0xFFFF}, .count = 0},
-            h3m::CreatureStack {.type = h3m::CreatureType{0xFFFF}, .count = 0},
-            h3m::CreatureStack {.type = h3m::CreatureType{0xFFFF}, .count = 0}
+          h3m::CreatureStack {.type = h3m::CreatureType::Imp, .count = 50},
+          h3m::CreatureStack {.type = h3m::CreatureType::Ballista, .count = 20},
+          h3m::CreatureStack{},
+          h3m::CreatureStack{},
+          h3m::CreatureStack{},
+          h3m::CreatureStack{},
+          h3m::CreatureStack{}
         },
         .patrol_radius = 255
       }
