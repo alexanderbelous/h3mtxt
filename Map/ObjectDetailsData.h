@@ -304,7 +304,7 @@ namespace h3m
     BitSet<6> buildings;
     // Extra creatures for each creature level.
     std::array<std::uint16_t, 7> creatures {};
-    ReservedData<4> unknown;
+    ReservedData<4> unknown2;
   };
 
   template<>
@@ -316,6 +316,7 @@ namespace h3m
     // If std::nullopt, some default name will be assigned.
     std::optional<std::string> name {};
     // 0xFFFF in CreatureStack.type means no creature.
+    // TODO: rename to garrison.
     std::optional<std::array<CreatureStack, 7>> creatures;
     Formation formation {};
     std::optional<TownBuildings> buildings;

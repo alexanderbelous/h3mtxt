@@ -401,7 +401,7 @@ namespace h3m
       {
         creature_growth = readInt<std::uint16_t>(stream);
       }
-      event.unknown = readReservedData<4>(stream);
+      event.unknown2 = readReservedData<4>(stream);
       return event;
     }
 

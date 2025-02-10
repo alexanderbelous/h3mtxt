@@ -95,4 +95,6 @@ namespace h3m
   struct Tile;
 
   struct TimedEventBase;
+
+  struct TownBuildings;
 }

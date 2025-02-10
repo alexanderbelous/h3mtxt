@@ -255,6 +255,23 @@ namespace h3m
   };
 
   template<>
+  struct FieldNames<ObjectDetailsData<MetaObjectType::TOWN>>
+  {
+    static inline constexpr std::string_view kAbsodId = "absod_id";
+    static inline constexpr std::string_view kOwner = "owner";
+    static inline constexpr std::string_view kName = "name";
+    static inline constexpr std::string_view kCreatures = "creatures";
+    static inline constexpr std::string_view kFormation = "formation";
+    static inline constexpr std::string_view kBuildings = "buildings";
+    static inline constexpr std::string_view kHasFort = "has_fort";
+    static inline constexpr std::string_view kMustHaveSpell = "must_have_spell";
+    static inline constexpr std::string_view kMayNotHaveSpell = "may_not_have_spell";
+    static inline constexpr std::string_view kEvents = "events";
+    static inline constexpr std::string_view kAlignment = "alignment";
+    static inline constexpr std::string_view kUnknown = "unknown";
+  };
+
+  template<>
   struct FieldNames<ObjectDetailsData<MetaObjectType::TRIVIAL_OWNED_OBJECT>>
   {
     static inline constexpr std::string_view kOwner = "owner";
@@ -421,5 +438,12 @@ namespace h3m
     static inline constexpr std::string_view kDayOfFirstOccurence = "day_of_first_occurence";
     static inline constexpr std::string_view kRepeatAfterDays = "repeat_after_days";
     static inline constexpr std::string_view kUnknown = "unknown";
+  };
+
+  template<>
+  struct FieldNames<TownBuildings>
+  {
+    static inline constexpr std::string_view kIsBuilt = "is_built";
+    static inline constexpr std::string_view kIsDisabled = "is_disabled";
   };
 }

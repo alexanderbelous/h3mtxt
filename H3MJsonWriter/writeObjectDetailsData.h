@@ -35,8 +35,9 @@ namespace Medea_NS
   {
     void operator()(FieldsWriter& out, const h3m::TownBuildings& town_buildings) const
     {
-      out.writeField("is_built", town_buildings.is_built);
-      out.writeField("is_disabled", town_buildings.is_disabled);
+      using Fields = h3m::FieldNames<h3m::TownBuildings>;
+      out.writeField(Fields::kIsBuilt, town_buildings.is_built);
+      out.writeField(Fields::kIsDisabled, town_buildings.is_disabled);
     }
   };
 
@@ -48,7 +49,7 @@ namespace Medea_NS
       printTimedEventBase(out, town_event);
       out.writeField("buildings", town_event.buildings);
       out.writeField("creatures", town_event.creatures);
-      out.writeField("unknown", town_event.unknown);
+      out.writeField("unknown2", town_event.unknown2);
     }
   };
 
@@ -442,20 +443,22 @@ namespace Medea_NS
   template<>
   struct JsonObjectWriter<h3m::ObjectDetailsData<h3m::MetaObjectType::TOWN>>
   {
-    void operator()(FieldsWriter& out,
-                    const h3m::ObjectDetailsData<h3m::MetaObjectType::TOWN>& town) const
+    using DetailsData = h3m::ObjectDetailsData<h3m::MetaObjectType::TOWN>;
+
+    void operator()(FieldsWriter& out, const DetailsData& town) const
     {
-      out.writeField("absod_id", town.absod_id);
-      out.writeField("owner", town.owner);
+      using Fields = h3m::FieldNames<DetailsData>;
+      out.writeField(Fields::kAbsodId, town.absod_id);
+      out.writeField(Fields::kOwner, town.owner);
       if (town.name)
       {
-        out.writeField("name", *town.name);
+        out.writeField(Fields::kName, *town.name);
       }
       if (town.creatures)
       {
-        out.writeField("creatures", *town.creatures);
+        out.writeField(Fields::kCreatures, *town.creatures);
       }
-      out.writeField("formation", town.formation);
+      out.writeField(Fields::kFormation, town.formation);
       if (auto enum_str = h3m::getEnumString(town.formation); !enum_str.empty())
       {
         out.writeComma();
@@ -463,17 +466,17 @@ namespace Medea_NS
       }
       if (town.buildings)
       {
-        out.writeField("buildings", *town.buildings);
+        out.writeField(Fields::kBuildings, *town.buildings);
       }
       else
       {
-        out.writeField("has_fort", town.has_fort);
+        out.writeField(Fields::kHasFort, town.has_fort);
       }
-      out.writeField("must_have_spell", town.must_have_spell);
-      out.writeField("may_not_have_spell", town.may_not_have_spell);
-      out.writeField("events", town.events);
-      out.writeField("alignment", town.alignment);
-      out.writeField("unknown", town.unknown);
+      out.writeField(Fields::kMustHaveSpell, town.must_have_spell);
+      out.writeField(Fields::kMayNotHaveSpell, town.may_not_have_spell);
+      out.writeField(Fields::kEvents, town.events);
+      out.writeField(Fields::kAlignment, town.alignment);
+      out.writeField(Fields::kUnknown, town.unknown);
     }
   };
 

@@ -61,7 +61,7 @@ namespace h3m
       writeTimedEventBase(stream, event);
       writeData(stream, event.buildings);
       writeData(stream, event.creatures);
-      writeData(stream, event.unknown);
+      writeData(stream, event.unknown2);
     }
   };
 
