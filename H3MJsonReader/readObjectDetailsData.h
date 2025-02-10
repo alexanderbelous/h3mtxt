@@ -170,6 +170,19 @@ namespace h3m
   };
 
   template<>
+  struct JsonReader<ObjectDetailsData<MetaObjectType::PANDORAS_BOX>>
+  {
+    using DetailsData = ObjectDetailsData<MetaObjectType::PANDORAS_BOX>;
+
+    DetailsData operator()(const Json::Value& value) const
+    {
+      DetailsData details;
+      Detail_NS::readEventBase(value, details);
+      return details;
+    }
+  };
+
+  template<>
   struct JsonReader<ObjectDetailsData<MetaObjectType::RESOURCE>>
   {
     using DetailsData = ObjectDetailsData<MetaObjectType::RESOURCE>;

@@ -213,6 +213,10 @@ namespace h3m
   };
 
   template<>
+  struct FieldNames<ObjectDetailsData<MetaObjectType::PANDORAS_BOX>> : FieldNames<EventBase>
+  {};
+
+  template<>
   struct FieldNames<ObjectDetailsData<MetaObjectType::RESOURCE>>
   {
     static inline constexpr std::string_view kGuardians = "guardians";
