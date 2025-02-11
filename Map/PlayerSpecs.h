@@ -32,11 +32,13 @@ struct MainTown
 };
 
 // Information about the player's starting hero (displayed when starting a new game).
-// Note that the starting hero is NOT displayed if portrait == HeroPortrait::DEFAULT (0xFF).
-// My hypothesis is that the default portrait is defined in MapAdditionalInfo::custom_heroes,
-// so using 0xFF here does not provide enough information to render the starting hero in the
-// main menu.
-// TODO: check whether the starting hero is rendered if name.empty().
+//
+// The logic is quite interesting:
+// * If type == 0xFF, then the starting hero will not be displayed (the game will show "None"
+//   instead).
+// * Even if type != 0xFF but portrait == 0xFF, then the starting hero will not be displayed (also "None").
+// * You can "lie" about any detail about the starting hero (type, portrait, name),
+//   e.g., claim that the player starts with Gelu even though Gelu is not one of the starting heroes.
 struct StartingHero
 {
   // HeroType of the starting hero, or 0xFF if None (i.e. if
@@ -45,7 +47,10 @@ struct StartingHero
 
   // The fields below are only read/written if type != 0xFF.
 
-  // Portrait of the starting hero, or 0xFF for default.
+  // Portrait of the starting hero.
+  // The starting hero will not be displayed if portrait == 0xFF. However, the Editor
+  // does sometimes set this to 0xFF, which causes "None" to be displayed instead of the
+  // starting hero.
   HeroPortrait portrait = HeroPortrait::DEFAULT;
   // Hero's name. Empty string means that the default name is used.
   std::string name;
@@ -71,8 +76,9 @@ struct PlayerSpecs
   Bool random_town {};
   // Info about the main town, std::nullopt if the player doesn't have a main town.
   std::optional<MainTown> main_town;
-  // 1 if the player starts with at least 1 Random Hero, 0 otherwise.
+  // 1 if the player starts with at least one Random Hero, 0 otherwise.
   Bool has_random_heroes {};
+  // Starting hero as displayed when starting a new game.
   StartingHero starting_hero;
   // The number of non-specific placeholder heroes (i.e. configured as "Power Rating" rather than "Specific hero")
   // at the beginning of the game.
