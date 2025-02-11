@@ -51,6 +51,11 @@ struct StartingHero
   // The starting hero will not be displayed if portrait == 0xFF. However, the Editor
   // does sometimes set this to 0xFF, which causes "None" to be displayed instead of the
   // starting hero.
+  //
+  // If portrait == 163 (the value immediately after the last valid portrait), a portrait
+  // with a question mark ('?') will be displayed.
+  // If portrait is within [164; 254], the game will crash when you go to advanced options
+  // in the main menu.
   HeroPortrait portrait = HeroPortrait::DEFAULT;
   // Hero's name. Empty string means that the default name is used.
   std::string name;
@@ -90,6 +95,11 @@ struct PlayerSpecs
   // Info about the main town, std::nullopt if the player doesn't have a main town.
   std::optional<MainTown> main_town;
   // 1 if the player starts with at least one Random Hero, 0 otherwise.
+  // This only affects the main menu when you start a new game; if has_random_heroes != 0,
+  // then you will be offered to select the starting hero, otherwise you won't be.
+  // If has_random_heroes != 0 but the player doesn't actually have random heroes (on the
+  // adventure map or generated in the main town) you will still be offered to select the
+  // starting hero, but this will have no effect.
   Bool has_random_heroes {};
   // Starting hero as displayed when starting a new game.
   StartingHero starting_hero;
