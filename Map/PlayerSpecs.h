@@ -32,6 +32,11 @@ struct MainTown
 };
 
 // Information about the player's starting hero (displayed when starting a new game).
+// Note that the starting hero is NOT displayed if portrait == HeroPortrait::DEFAULT (0xFF).
+// My hypothesis is that the default portrait is defined in MapAdditionalInfo::custom_heroes,
+// so using 0xFF here does not provide enough information to render the starting hero in the
+// main menu.
+// TODO: check whether the starting hero is rendered if name.empty().
 struct StartingHero
 {
   // HeroType of the starting hero, or 0xFF if None (i.e. if
