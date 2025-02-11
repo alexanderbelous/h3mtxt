@@ -25,11 +25,12 @@ namespace Medea_NS
   {
     void operator()(FieldsWriter& out, const h3m::StartingHero& value) const
     {
-      out.writeField("type", value.type);
+      using Fields = h3m::FieldNames<h3m::StartingHero>;
+      out.writeField(Fields::kType, value.type);
       if (value.type != h3m::HeroType{0xFF})
       {
-        out.writeField("portrait", value.portrait);
-        out.writeField("name", value.name);
+        out.writeField(Fields::kPortrait, value.portrait);
+        out.writeField(Fields::kName, value.name);
       }
       else
       {
@@ -68,6 +69,11 @@ namespace Medea_NS
       if (value.main_town)
       {
         out.writeField(Fields::kMainTown, *value.main_town);
+      }
+      else
+      {
+        out.writeComma();
+        out.writeComment("\"main_town\" field is missing because the player doesn't have a designated main town.");
       }
       out.writeField(Fields::kHasRandomHeroes, value.has_random_heroes);
       out.writeField(Fields::kStartingHero, value.starting_hero);

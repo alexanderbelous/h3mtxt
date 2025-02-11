@@ -38,12 +38,13 @@ namespace h3m
   {
     StartingHero operator()(const Json::Value& value) const
     {
+      using Fields = FieldNames<StartingHero>;
       StartingHero hero {};
-      hero.type = readField<HeroType>(value, "type");
+      readField(hero.type, value, Fields::kType);
       if (hero.type != HeroType{0xFF})
       {
-        hero.portrait = readField<HeroPortrait>(value, "portrait");
-        hero.name = readField<std::string>(value, "name");
+        readField(hero.portrait, value, Fields::kPortrait);
+        readField(hero.name, value, Fields::kName);
       }
       return hero;
     }

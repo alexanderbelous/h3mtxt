@@ -90,6 +90,8 @@ namespace h3m
 
   struct SecondarySkillsBitmask;
 
+  struct StartingHero;
+
   struct TeamsInfo;
 
   struct Tile;
