@@ -56,6 +56,19 @@ struct StartingHero
   std::string name;
 };
 
+// "Map Specifications" -> "Player Specs" in the Editor.
+// The Editor doesn't allow to modify some fields, though.
+//
+// Note that some other H3M parsers have a different interpretation of this
+// structure: they assume that StartingHero always has @portrait and @name
+// fields, yet @num_nonspecific_placeholder_heroes and @heroes might be
+// missing. However, they are wrong and I'm right, lol. It's a lucky
+// coincidence that when starting_hero.type = 0xFF and the player has no
+// specific heroes in the beginning, the binary data is "compatible" - the
+// length of the string in StartingHero::name is serialized as uint32, same as
+// the number of elements in @heroes. If, however, the player does start with
+// specific placeholder heroes (which is common in campaigns), then the
+// other interpretation is incorrect.
 struct PlayerSpecs
 {
   struct HeroInfo
