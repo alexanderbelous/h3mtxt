@@ -1,9 +1,17 @@
 #include <h3mtxt/Fun/generatePlayerSpecs.h>
 
+#include <stdexcept>
+
 namespace h3m
 {
   PlayerSpecs generatePlayerSpecsNoTown(bool can_be_human, HeroType hero)
   {
+    if (hero == HeroType{0xFF})
+    {
+      // TODO: actually, it's fine if it's 0xFF, we just shouldn't add this hero to PlayerSpecs::heroes.
+      throw std::invalid_argument("generatePlayerSpecsNoTown(): hero shouldn't be 0xFF.");
+    }
+
     return PlayerSpecs
     {
       .can_be_human = can_be_human,
@@ -13,16 +21,14 @@ namespace h3m
       .allowed_alignments {},
       .random_town = false,
       .main_town {},
+      .has_random_heroes = false,
       .starting_hero {
-        .is_random = false,
         .type = hero,
         .portrait = HeroPortrait::DEFAULT
       },
-      .additional_info {
-        .num_placeholder_heroes = 0,
-        .heroes {
-          AdditionalPlayerInfo::HeroInfo {.type = hero, .name {}}
-        }
+      .num_nonspecific_placeholder_heroes = 0,
+      .heroes {
+        PlayerSpecs::HeroInfo {.type = hero, .name {}}
       }
     };
   }

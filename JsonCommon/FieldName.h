@@ -293,8 +293,10 @@ namespace h3m
     static inline constexpr std::string_view kAllowedAlignments = "allowed_alignments";
     static inline constexpr std::string_view kRandomTown = "random_town";
     static inline constexpr std::string_view kMainTown = "main_town";
+    static inline constexpr std::string_view kHasRandomHeroes = "has_random_heroes";
     static inline constexpr std::string_view kStartingHero = "starting_hero";
-    static inline constexpr std::string_view kAdditionalInfo = "additional_info";
+    static inline constexpr std::string_view kNumNonspecificPlaceholderHeroes = "num_nonspecific_placeholder_heroes";
+    static inline constexpr std::string_view kHeroes = "heroes";
   };
 
   template<>

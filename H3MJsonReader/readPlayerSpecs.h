@@ -39,34 +39,24 @@ namespace h3m
     StartingHero operator()(const Json::Value& value) const
     {
       StartingHero hero {};
-      hero.is_random = readField<Bool>(value, "is_random");
       hero.type = readField<HeroType>(value, "type");
-      hero.portrait = readField<HeroPortrait>(value, "portrait");
-      hero.name = readField<std::string>(value, "name");
+      if (hero.type != HeroType{0xFF})
+      {
+        hero.portrait = readField<HeroPortrait>(value, "portrait");
+        hero.name = readField<std::string>(value, "name");
+      }
       return hero;
     }
   };
 
   template<>
-  struct JsonReader<AdditionalPlayerInfo::HeroInfo>
+  struct JsonReader<PlayerSpecs::HeroInfo>
   {
-    AdditionalPlayerInfo::HeroInfo operator()(const Json::Value& value) const
+    PlayerSpecs::HeroInfo operator()(const Json::Value& value) const
     {
-      AdditionalPlayerInfo::HeroInfo info{};
+      PlayerSpecs::HeroInfo info{};
       info.type = readField<HeroType>(value, "type");
       info.name = readField<std::string>(value, "name");
-      return info;
-    }
-  };
-
-  template<>
-  struct JsonReader<AdditionalPlayerInfo>
-  {
-    AdditionalPlayerInfo operator()(const Json::Value& value) const
-    {
-      AdditionalPlayerInfo info {};
-      info.num_placeholder_heroes = readField<std::uint8_t>(value, "num_placeholder_heroes");
-      info.heroes = readField<std::vector<AdditionalPlayerInfo::HeroInfo>>(value, "heroes");
       return info;
     }
   };
@@ -85,11 +75,10 @@ namespace h3m
       readField(player.allowed_alignments, value, Fields::kAllowedAlignments);
       readField(player.random_town, value, Fields::kRandomTown);
       readField(player.main_town, value, Fields::kMainTown);
+      readField(player.has_random_heroes, value, Fields::kHasRandomHeroes);
       readField(player.starting_hero, value, Fields::kStartingHero);
-      if (shouldHaveAdditionalPlayerInfo(player))
-      {
-        readField(player.additional_info, value, Fields::kAdditionalInfo);
-      }
+      readField(player.num_nonspecific_placeholder_heroes, value, Fields::kNumNonspecificPlaceholderHeroes);
+      readField(player.heroes, value, Fields::kHeroes);
       return player;
     }
   };

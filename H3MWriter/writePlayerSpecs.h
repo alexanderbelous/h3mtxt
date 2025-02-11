@@ -23,30 +23,22 @@ namespace h3m
   {
     void operator()(std::ostream& stream, const StartingHero& value) const
     {
-      writeData(stream, value.is_random);
       writeData(stream, value.type);
-      writeData(stream, value.portrait);
-      writeData(stream, value.name);
+      if (value.type != HeroType{0xFF})
+      {
+        writeData(stream, value.portrait);
+        writeData(stream, value.name);
+      }
     }
   };
 
   template<>
-  struct H3MWriter<AdditionalPlayerInfo::HeroInfo>
+  struct H3MWriter<PlayerSpecs::HeroInfo>
   {
-    void operator()(std::ostream& stream, const AdditionalPlayerInfo::HeroInfo& value) const
+    void operator()(std::ostream& stream, const PlayerSpecs::HeroInfo& value) const
     {
       writeData(stream, value.type);
       writeData(stream, value.name);
-    }
-  };
-
-  template<>
-  struct H3MWriter<AdditionalPlayerInfo>
-  {
-    void operator()(std::ostream& stream, const AdditionalPlayerInfo& value) const
-    {
-      writeData(stream, value.num_placeholder_heroes);
-      writeVector<std::uint32_t>(stream, value.heroes);
     }
   };
 
@@ -62,11 +54,10 @@ namespace h3m
       writeData(stream, value.allowed_alignments.bitset);
       writeData(stream, value.random_town);
       writeData(stream, value.main_town);
+      writeData(stream, value.has_random_heroes);
       writeData(stream, value.starting_hero);
-      if (shouldHaveAdditionalPlayerInfo(value))
-      {
-        writeData(stream, value.additional_info);
-      }
+      writeData(stream, value.num_nonspecific_placeholder_heroes);
+      writeVector<std::uint32_t>(stream, value.heroes);
     }
   };
 }

@@ -13,12 +13,10 @@ namespace h3m
       .allowed_alignments {},
       .random_town = false,
       .main_town {},
+      .has_random_heroes = false,
       .starting_hero {
-        .is_random = false,
-        .type = static_cast<HeroType>(0xFF),
-        .portrait = HeroPortrait::DEFAULT
-      },
-      .additional_info {}
+        .type = static_cast<HeroType>(0xFF)
+      }
   };
 
   // Generates PlayerSpecs for a player that will only have 1 (non-random) hero on the map,

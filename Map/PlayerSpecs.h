@@ -31,37 +31,32 @@ struct MainTown
   std::uint8_t z {};
 };
 
-// Information about the player's starting hero.
+// Information about the player's starting hero (displayed when starting a new game).
 struct StartingHero
 {
-  Bool is_random {};
-  // 0xFF if random.
-  HeroType type {};
-  // 0xFF for default.
+  // HeroType of the starting hero, or 0xFF if None (i.e. if
+  // the game shouldn't display the starting hero when starting a new game).
+  HeroType type {0xFF};
+
+  // The fields below are only read/written if type != 0xFF.
+
+  // Portrait of the starting hero, or 0xFF for default.
   HeroPortrait portrait = HeroPortrait::DEFAULT;
   // Hero's name. Empty string means that the default name is used.
   std::string name;
 };
 
-struct AdditionalPlayerInfo
+struct PlayerSpecs
 {
   struct HeroInfo
   {
-    HeroType type {};
+    HeroType type{};
     // If empty, the default name is implied.
     std::string name;
   };
 
-  std::uint8_t num_placeholder_heroes {};
-  // Includes Visiting heroes and regular hero objects (not random);
-  // includes placeholder heroes configured as "Specific hero" rather than "Power rating";
-  // type/name match the object's.
-  std::vector<HeroInfo> heroes;
-};
-
-struct PlayerSpecs
-{
   Bool can_be_human {};
+  // The Editor doesn't allow unchecking "Can be Computer".
   Bool can_be_computer {};
   PlayerBehavior behavior {};
   Bool customized_alignments {};
@@ -71,35 +66,16 @@ struct PlayerSpecs
   Bool random_town {};
   // Info about the main town, std::nullopt if the player doesn't have a main town.
   std::optional<MainTown> main_town;
+  // 1 if the player starts with at least 1 Random Hero, 0 otherwise.
+  Bool has_random_heroes {};
   StartingHero starting_hero;
-  // AdditionalPlayerInfo is not always present - see the comments for
-  // shouldHaveAdditionalPlayerInfo() below.
-  AdditionalPlayerInfo additional_info;
+  // The number of non-specific placeholder heroes (i.e. configured as "Power Rating" rather than "Specific hero")
+  // at the beginning of the game.
+  std::uint8_t num_nonspecific_placeholder_heroes {};
+  // Specific heroes that the player has at the beginning of the game:
+  // * Includes Visiting heroes and regular hero objects (not random).
+  // * Includes placeholder heroes configured as "Specific hero" rather than "Power rating".
+  std::vector<HeroInfo> heroes;
 };
-
-// Checks if AdditionalPlayerInfo should be read/written for the given PlayerSpecs.
-//
-// AdditionalPlayerInfo is not always present in PlayerSpecs. The external description of the H3M file format
-// is somewhat unclear on when exactly it's missing. This function seems to determine the condition correctly,
-// but it would be nice to verify it somehow.
-// \param player_specs - input PlayerSpecs.
-constexpr bool shouldHaveAdditionalPlayerInfo(const PlayerSpecs& player_specs) noexcept
-{
-  // The Editor doesn't allow unchecking "Can be Computer";
-  // Both can_be_human and can_be_computer are false for players that are not present on the map
-  // at all.
-  // TODO: this condition might be redundant - the Editor always sets starting_hero.type to 0xFF for
-  // players that are not present on the map.
-  if (!player_specs.can_be_human && !player_specs.can_be_computer)
-  {
-    return false;
-  }
-  // If the starting hero is not random - AdditionalPlayerInfo should be present.
-  if (player_specs.starting_hero.type != HeroType{ 0xFF })
-  {
-    return true;
-  }
-  return false;
-}
 
 }

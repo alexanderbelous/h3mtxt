@@ -25,30 +25,26 @@ namespace Medea_NS
   {
     void operator()(FieldsWriter& out, const h3m::StartingHero& value) const
     {
-      out.writeField("is_random", value.is_random);
       out.writeField("type", value.type);
-      out.writeField("portrait", value.portrait);
-      out.writeField("name", value.name);
+      if (value.type != h3m::HeroType{0xFF})
+      {
+        out.writeField("portrait", value.portrait);
+        out.writeField("name", value.name);
+      }
+      else
+      {
+        out.writeComment("None", false);
+      }
     }
   };
 
   template<>
-  struct JsonObjectWriter<h3m::AdditionalPlayerInfo::HeroInfo>
+  struct JsonObjectWriter<h3m::PlayerSpecs::HeroInfo>
   {
-    void operator()(FieldsWriter& out, const h3m::AdditionalPlayerInfo::HeroInfo& value) const
+    void operator()(FieldsWriter& out, const h3m::PlayerSpecs::HeroInfo& value) const
     {
       out.writeField("type", value.type);
       out.writeField("name", value.name);
-    }
-  };
-
-  template<>
-  struct JsonObjectWriter<h3m::AdditionalPlayerInfo>
-  {
-    void operator()(FieldsWriter& out, const h3m::AdditionalPlayerInfo& value) const
-    {
-      out.writeField("num_placeholder_heroes", value.num_placeholder_heroes);
-      out.writeField("heroes", value.heroes);
     }
   };
 
@@ -73,11 +69,10 @@ namespace Medea_NS
       {
         out.writeField(Fields::kMainTown, *value.main_town);
       }
+      out.writeField(Fields::kHasRandomHeroes, value.has_random_heroes);
       out.writeField(Fields::kStartingHero, value.starting_hero);
-      if (h3m::shouldHaveAdditionalPlayerInfo(value))
-      {
-        out.writeField(Fields::kAdditionalInfo, value.additional_info);
-      }
+      out.writeField(Fields::kNumNonspecificPlaceholderHeroes, value.num_nonspecific_placeholder_heroes);
+      out.writeField(Fields::kHeroes, value.heroes);
     }
   };
 }

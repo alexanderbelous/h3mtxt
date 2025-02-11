@@ -49,27 +49,21 @@ MainTown readMainTown(std::istream& stream)
 StartingHero readStartingHero(std::istream& stream)
 {
   StartingHero starting_hero;
-  starting_hero.is_random = readBool(stream);
   starting_hero.type = readEnum<HeroType>(stream);
-  starting_hero.portrait = readEnum<HeroPortrait>(stream);
-  starting_hero.name = readString(stream);
+  if (starting_hero.type != HeroType{0xFF})
+  {
+    starting_hero.portrait = readEnum<HeroPortrait>(stream);
+    starting_hero.name = readString(stream);
+  }
   return starting_hero;
 }
 
-AdditionalPlayerInfo readAdditionalPlayerInfo(std::istream& stream)
+PlayerSpecs::HeroInfo readPlayerSpecsHeroInfo(std::istream& stream)
 {
-  AdditionalPlayerInfo additional_info;
-  additional_info.num_placeholder_heroes = readInt<std::uint8_t>(stream);
-  const std::uint32_t num_heroes = readInt<std::uint32_t>(stream);
-  additional_info.heroes.reserve(num_heroes);
-  for (std::uint32_t i = 0; i < num_heroes; ++i)
-  {
-    AdditionalPlayerInfo::HeroInfo hero;
-    hero.type = readEnum<HeroType>(stream);
-    hero.name = readString(stream);
-    additional_info.heroes.push_back(std::move(hero));
-  }
-  return additional_info;
+  PlayerSpecs::HeroInfo hero;
+  hero.type = readEnum<HeroType>(stream);
+  hero.name = readString(stream);
+  return hero;
 }
 
 PlayerSpecs readPlayerSpecs(std::istream& stream)
@@ -86,10 +80,14 @@ PlayerSpecs readPlayerSpecs(std::istream& stream)
   {
     player.main_town = readMainTown(stream);
   }
+  player.has_random_heroes = readBool(stream);
   player.starting_hero = readStartingHero(stream);
-  if (shouldHaveAdditionalPlayerInfo(player))
+  player.num_nonspecific_placeholder_heroes = readInt<std::uint8_t>(stream);
+  const std::uint32_t num_heroes = readInt<std::uint32_t>(stream);
+  player.heroes.reserve(num_heroes);
+  for (std::uint32_t i = 0; i < num_heroes; ++i)
   {
-    player.additional_info = readAdditionalPlayerInfo(stream);
+    player.heroes.push_back(readPlayerSpecsHeroInfo(stream));
   }
   return player;
 }
