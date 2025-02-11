@@ -85,6 +85,9 @@ struct PlayerSpecs
 
   Bool can_be_human {};
   // The Editor doesn't allow unchecking "Can be Computer".
+  // Even if can_be_computer == 0 but can_be_human != 0, this player can be controlled by AI.
+  // If both can_be_computer == 0 and can_be_human == 0, then this player will not be present
+  // on the map at all.
   Bool can_be_computer {};
   PlayerBehavior behavior {};
   Bool customized_alignments {};
@@ -103,6 +106,7 @@ struct PlayerSpecs
   //   where you will be controlling both sides.
   // * The Editor will crash if you try to view Player Specs for this player.
   // TL;DR: you probably don't want to specify a town that doesn't belong to this player.
+  // TODO: check what happens if you generate a hero in an ally's town.
   std::optional<MainTown> main_town;
   // 1 if the player starts with at least one Random Hero, 0 otherwise.
   // This only affects the main menu when you start a new game; if has_random_heroes != 0,
