@@ -174,8 +174,8 @@ namespace
   {
     constexpr h3m::PlayerColor player1 = h3m::PlayerColor::Red;
     constexpr h3m::PlayerColor player2 = h3m::PlayerColor::Blue;
-    constexpr h3m::HeroType hero1 = h3m::HeroType::H3M_HERO_ORRIN;
-    constexpr h3m::HeroType hero2 = h3m::HeroType::H3M_HERO_XERON;
+    constexpr h3m::HeroType hero1 = h3m::HeroType::ORRIN;
+    constexpr h3m::HeroType hero2 = h3m::HeroType::XERON;
 
     h3m::Map map = generateTestMap(36);
     map.basic_info.is_playable = true;
@@ -207,7 +207,7 @@ namespace
       .details = h3m::ObjectDetailsData<h3m::MetaObjectType::HERO> {
         .absod_id = 69,
         .owner = 0,
-        .type = h3m::HeroType::H3M_HERO_ORRIN,
+        .type = hero1,
         .secondary_skills = std::vector<h3m::SecondarySkill> {
           h3m::SecondarySkill {.type = h3m::SecondarySkillType::Mysticism, .level = 3},
           h3m::SecondarySkill {.type = h3m::SecondarySkillType::Artillery, .level = 3},
@@ -240,7 +240,7 @@ namespace
       .details = h3m::ObjectDetailsData<h3m::MetaObjectType::HERO> {
         .absod_id = 666,
         .owner = 1,
-        .type = h3m::HeroType::H3M_HERO_XERON,
+        .type = hero2,
         .secondary_skills = std::vector<h3m::SecondarySkill>{
           h3m::SecondarySkill {.type = h3m::SecondarySkillType::Artillery, .level = 3}
         },

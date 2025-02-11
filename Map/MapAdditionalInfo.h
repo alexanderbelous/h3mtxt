@@ -69,7 +69,7 @@ constexpr HeroesAvailability HeroesAvailability::makeDefaultAvailability() noexc
   {
     result.set(static_cast<HeroType>(hero_idx), false);
   }
-  result.set(HeroType::H3M_HERO_LORD_HAART, false);
+  result.set(HeroType::LORD_HAART, false);
   return result;
 }
 
