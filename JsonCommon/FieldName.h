@@ -86,6 +86,16 @@ namespace h3m
   };
 
   template<>
+  struct FieldNames<MainTown>
+  {
+    static inline constexpr std::string_view kGenerateHero = "generate_hero";
+    static inline constexpr std::string_view kTownType = "town_type";
+    static inline constexpr std::string_view kX = "x";
+    static inline constexpr std::string_view kY = "y";
+    static inline constexpr std::string_view kZ = "z";
+  };
+
+  template<>
   struct FieldNames<Map>
   {
     static inline constexpr std::string_view kFormat = "format";

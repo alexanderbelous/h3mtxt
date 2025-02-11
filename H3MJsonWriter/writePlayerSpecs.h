@@ -12,11 +12,12 @@ namespace Medea_NS
   {
     void operator()(FieldsWriter& out, const h3m::MainTown& value) const
     {
-      out.writeField("generate_hero", value.generate_hero);
-      out.writeField("town_type", value.town_type);
-      out.writeField("x", value.x);
-      out.writeField("y", value.y);
-      out.writeField("z", value.z);
+      using Fields = h3m::FieldNames<h3m::MainTown>;
+      out.writeField(Fields::kGenerateHero, value.generate_hero);
+      out.writeField(Fields::kTownType, value.town_type);
+      out.writeField(Fields::kX, value.x);
+      out.writeField(Fields::kY, value.y);
+      out.writeField(Fields::kZ, value.z);
     }
   };
 

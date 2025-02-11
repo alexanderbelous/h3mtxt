@@ -23,12 +23,13 @@ namespace h3m
   {
     MainTown operator()(const Json::Value& value) const
     {
+      using Fields = FieldNames<MainTown>;
       MainTown main_town {};
-      main_town.generate_hero = readField<Bool>(value, "generate_hero");
-      main_town.town_type = readField<TownType>(value, "town_type");
-      main_town.x = readField<std::uint8_t>(value, "x");
-      main_town.y = readField<std::uint8_t>(value, "y");
-      main_town.z = readField<std::uint8_t>(value, "z");
+      readField(main_town.generate_hero, value, Fields::kGenerateHero);
+      readField(main_town.town_type, value, Fields::kTownType);
+      readField(main_town.x, value, Fields::kX);
+      readField(main_town.y, value, Fields::kY);
+      readField(main_town.z, value, Fields::kZ);
       return main_town;
     }
   };

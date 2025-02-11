@@ -59,6 +59,8 @@ namespace h3m
 
   struct HeroSettings;
 
+  struct MainTown;
+
   struct Map;
 
   struct MapBasicInfo;
