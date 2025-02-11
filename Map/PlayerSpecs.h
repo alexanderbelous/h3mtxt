@@ -93,6 +93,16 @@ struct PlayerSpecs
   // If true, implies that all town types are enabled.
   Bool random_town {};
   // Info about the main town, std::nullopt if the player doesn't have a main town.
+  // Note: technically, you can specify a town that doesn't belong to this player. If generate_hero != 0,
+  // the behavior seems to be well-defined, but insane:
+  // * The hero will be indeed generated at that town.
+  // * On Day 1 the generated hero will be inside this town, but the town will not belong to the player.
+  // * If you try to enter the town by pressing the Space bar and there are no troops in the garrison,
+  //   the town will immediately become yours.
+  // * Otherwise, if there are troops in the town but no enemy hero, then you will start a battle with *yourself*,
+  //   where you will be controlling both sides.
+  // * The Editor will crash if you try to view Player Specs for this player.
+  // TL;DR: you probably don't want to specify a town that doesn't belong to this player.
   std::optional<MainTown> main_town;
   // 1 if the player starts with at least one Random Hero, 0 otherwise.
   // This only affects the main menu when you start a new game; if has_random_heroes != 0,
