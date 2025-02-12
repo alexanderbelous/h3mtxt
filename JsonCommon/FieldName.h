@@ -263,6 +263,14 @@ namespace h3m
   };
 
   template<>
+  struct FieldNames<ObjectDetailsData<MetaObjectType::SCHOLAR>>
+  {
+    static inline constexpr std::string_view kRewardType = "reward_type";
+    static inline constexpr std::string_view kRewardValue = "reward_value";
+    static inline constexpr std::string_view kUnknown = "unknown";
+  };
+
+  template<>
   struct FieldNames<ObjectDetailsData<MetaObjectType::SHRINE>>
   {
     static inline constexpr std::string_view kSpell = "spell";

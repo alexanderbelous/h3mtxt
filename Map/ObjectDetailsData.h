@@ -236,18 +236,15 @@ namespace h3m
   template<>
   struct ObjectDetailsData<MetaObjectType::SCHOLAR>
   {
-    // TODO: consider replacing with std::variant<Empty, PrimarySkillType, SecondarySkill, Spell>.
+    // TODO: consider replacing with std::variant<Empty, PrimarySkillType, SecondarySkillType, Spell>.
     ScholarRewardType reward_type {};
     // The meaning of reward_value depends on reward_type:
     //   Random:
     //     should be 0.
     //   PrimarySkill:
-    //     0: +1 Attack;
-    //     1: +1 Defense;
-    //     2: +1 Spell Power;
-    //     3: +1 Knowledge
+    //     static_cast<PrimarySkillType>(reward_value)
     //   SecondarySkill:
-    //     static_cast<SecondarySkillType>(reward_value).
+    //     static_cast<SecondarySkillType>(reward_value)
     //   Spell:
     //     static_cast<SpellType>(reward_value)
     std::uint8_t reward_value {};

@@ -375,17 +375,19 @@ namespace Medea_NS
   template<>
   struct JsonObjectWriter<h3m::ObjectDetailsData<h3m::MetaObjectType::SCHOLAR>>
   {
-    void operator()(FieldsWriter& out,
-                    const h3m::ObjectDetailsData<h3m::MetaObjectType::SCHOLAR>& data) const
+    using DetailsData = h3m::ObjectDetailsData<h3m::MetaObjectType::SCHOLAR>;
+
+    void operator()(FieldsWriter& out, const DetailsData& data) const
     {
-      out.writeField("reward_type", data.reward_type);
+      using Fields = h3m::FieldNames<DetailsData>;
+      out.writeField(Fields::kRewardType, data.reward_type);
       if (auto enum_str = h3m::getEnumString(data.reward_type); !enum_str.empty())
       {
         out.writeComma();
         out.writeComment(enum_str, false);
       }
-      out.writeField("reward_value", data.reward_value);
-      out.writeField("unknown", data.unknown);
+      out.writeField(Fields::kRewardValue, data.reward_value);
+      out.writeField(Fields::kUnknown, data.unknown);
     }
   };
 

@@ -285,6 +285,22 @@ namespace h3m
   };
 
   template<>
+  struct JsonReader<ObjectDetailsData<MetaObjectType::SCHOLAR>>
+  {
+    using DetailsData = ObjectDetailsData<MetaObjectType::SCHOLAR>;
+
+    DetailsData operator()(const Json::Value& value) const
+    {
+      using Fields = FieldNames<DetailsData>;
+      DetailsData details;
+      readField(details.reward_type, value, Fields::kRewardType);
+      readField(details.reward_value, value, Fields::kRewardValue);
+      readField(details.unknown, value, Fields::kUnknown);
+      return details;
+    }
+  };
+
+  template<>
   struct JsonReader<ObjectDetailsData<MetaObjectType::SHRINE>>
   {
     using DetailsData = ObjectDetailsData<MetaObjectType::SHRINE>;
