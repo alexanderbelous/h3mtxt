@@ -4,6 +4,7 @@
 #include <h3mtxt/H3MJsonReader/readCreatureStack.h>
 #include <h3mtxt/H3MJsonReader/readHeroArtifacts.h>
 #include <h3mtxt/H3MJsonReader/readPlayersBitmask.h>
+#include <h3mtxt/H3MJsonReader/readResources.h>
 #include <h3mtxt/H3MJsonReader/readSecondarySkillsBitmask.h>
 #include <h3mtxt/H3MJsonReader/readSpellsBitmask.h>
 #include <h3mtxt/H3MJsonReader/readTimedEventBase.h>
@@ -28,6 +29,20 @@ namespace h3m
       readField(guardians.creatures, value, Fields::kCreatures);
       readField(guardians.unknown, value, Fields::kUnknown);
       return guardians;
+    }
+  };
+
+  template<>
+  struct JsonReader<MessageAndTreasure>
+  {
+    MessageAndTreasure operator()(const Json::Value& value) const
+    {
+      using Fields = FieldNames<MessageAndTreasure>;
+      MessageAndTreasure message_and_treasure;
+      readField(message_and_treasure.message, value, Fields::kMessage);
+      readField(message_and_treasure.resources, value, Fields::kResources);
+      readField(message_and_treasure.artifact, value, Fields::kArtifact);
+      return message_and_treasure;
     }
   };
 
@@ -194,6 +209,26 @@ namespace h3m
       readField(details.gender, value, Fields::kGender);
       readField(details.spells, value, Fields::kSpells);
       readField(details.primary_skills, value, Fields::kPrimarySkills);
+      readField(details.unknown, value, Fields::kUnknown);
+      return details;
+    }
+  };
+
+  template<>
+  struct JsonReader<ObjectDetailsData<MetaObjectType::MONSTER>>
+  {
+    using DetailsData = ObjectDetailsData<MetaObjectType::MONSTER>;
+
+    DetailsData operator()(const Json::Value& value) const
+    {
+      using Fields = FieldNames<DetailsData>;
+      DetailsData details;
+      readField(details.absod_id, value, Fields::kAbsodId);
+      readField(details.count, value, Fields::kCount);
+      readField(details.disposition, value, Fields::kDisposition);
+      readField(details.message_and_treasure, value, Fields::kMessageAndTreasure);
+      readField(details.never_flees, value, Fields::kNeverFlees);
+      readField(details.does_not_grow, value, Fields::kDoesNotGrow);
       readField(details.unknown, value, Fields::kUnknown);
       return details;
     }

@@ -139,6 +139,14 @@ namespace h3m
   };
 
   template<>
+  struct FieldNames<MessageAndTreasure>
+  {
+    static inline constexpr std::string_view kMessage = "message";
+    static inline constexpr std::string_view kResources = "resources";
+    static inline constexpr std::string_view kArtifact = "artifact";
+  };
+
+  template<>
   struct FieldNames<ObjectAttributes>
   {
     static inline constexpr std::string_view kDef = "def";
@@ -219,6 +227,18 @@ namespace h3m
     static inline constexpr std::string_view kGender = "gender";
     static inline constexpr std::string_view kSpells = "spells";
     static inline constexpr std::string_view kPrimarySkills = "primary_skills";
+    static inline constexpr std::string_view kUnknown = "unknown";
+  };
+
+  template<>
+  struct FieldNames<ObjectDetailsData<MetaObjectType::MONSTER>>
+  {
+    static inline constexpr std::string_view kAbsodId = "absod_id";
+    static inline constexpr std::string_view kCount = "count";
+    static inline constexpr std::string_view kDisposition = "disposition";
+    static inline constexpr std::string_view kMessageAndTreasure = "message_and_treasure";
+    static inline constexpr std::string_view kNeverFlees = "never_flees";
+    static inline constexpr std::string_view kDoesNotGrow = "does_not_grow";
     static inline constexpr std::string_view kUnknown = "unknown";
   };
 

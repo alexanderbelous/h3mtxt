@@ -43,6 +43,15 @@ namespace h3m
     ReservedData<4> unknown;
   };
 
+  // Only appears in ObjectDetailsData<MetaObjectType::MONSTER>.
+  struct MessageAndTreasure
+  {
+    std::string message;
+    Resources<std::uint32_t> resources {};
+    // 0xFFFF means no artifact.
+    ArtifactType artifact {};
+  };
+
   // Base class for ObjectDetailsData<MetaObjectType::PANDORAS_BOX> and
   // ObjectDetailsData<MetaObjectType::EVENT>.
   struct EventBase
@@ -147,14 +156,6 @@ namespace h3m
   template<>
   struct ObjectDetailsData<MetaObjectType::MONSTER>
   {
-    struct MessageAndTreasure
-    {
-      std::string message;
-      Resources<std::uint32_t> resources {};
-      // 0xFFFF means no artifact.
-      ArtifactType artifact {};
-    };
-
     std::uint32_t absod_id {};
     // 0 means random.
     std::uint16_t count {};

@@ -69,6 +69,18 @@ namespace Medea_NS
     }
   };
 
+  template<>
+  struct JsonObjectWriter<h3m::MessageAndTreasure>
+  {
+    void operator()(FieldsWriter& out, const h3m::MessageAndTreasure& data) const
+    {
+      using Fields = h3m::FieldNames<h3m::MessageAndTreasure>;
+      out.writeField(Fields::kMessage, data.message);
+      out.writeField(Fields::kResources, data.resources);
+      out.writeField(Fields::kArtifact, data.artifact);
+    }
+  };
+
   inline void printEventBase(FieldsWriter& out, const h3m::EventBase& event)
   {
     using Fields = h3m::FieldNames<h3m::EventBase>;
@@ -234,26 +246,17 @@ namespace Medea_NS
   };
 
   template<>
-  struct JsonObjectWriter<h3m::ObjectDetailsData<h3m::MetaObjectType::MONSTER>::MessageAndTreasure>
-  {
-    void operator()(FieldsWriter& out,
-                    const h3m::ObjectDetailsData<h3m::MetaObjectType::MONSTER>::MessageAndTreasure& data) const
-    {
-      out.writeField("message", data.message);
-      out.writeField("resources", data.resources);
-      out.writeField("artifact", data.artifact);
-    }
-  };
-
-  template<>
   struct JsonObjectWriter<h3m::ObjectDetailsData<h3m::MetaObjectType::MONSTER>>
   {
-    void operator()(FieldsWriter& out,
-                    const h3m::ObjectDetailsData<h3m::MetaObjectType::MONSTER>& monster) const
+    using DetailsData = h3m::ObjectDetailsData<h3m::MetaObjectType::MONSTER>;
+
+    void operator()(FieldsWriter& out, const DetailsData& monster) const
     {
-      out.writeField("absod_id", monster.absod_id);
-      out.writeField("count", monster.count);
-      out.writeField("disposition", monster.disposition);
+      using Fields = h3m::FieldNames<DetailsData>;
+
+      out.writeField(Fields::kAbsodId, monster.absod_id);
+      out.writeField(Fields::kCount, monster.count);
+      out.writeField(Fields::kDisposition, monster.disposition);
       if (auto enum_str = h3m::getEnumString(monster.disposition); !enum_str.empty())
       {
         out.writeComma();
@@ -261,11 +264,11 @@ namespace Medea_NS
       }
       if (monster.message_and_treasure)
       {
-        out.writeField("message_and_treasure", *monster.message_and_treasure);
+        out.writeField(Fields::kMessageAndTreasure, *monster.message_and_treasure);
       }
-      out.writeField("never_flees", monster.never_flees);
-      out.writeField("does_not_grow", monster.does_not_grow);
-      out.writeField("unknown", monster.unknown);
+      out.writeField(Fields::kNeverFlees, monster.never_flees);
+      out.writeField(Fields::kDoesNotGrow, monster.does_not_grow);
+      out.writeField(Fields::kUnknown, monster.unknown);
     }
   };
 

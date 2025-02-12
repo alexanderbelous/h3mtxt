@@ -216,10 +216,9 @@ namespace h3m
       return data;
     }
 
-    ObjectDetailsData<MetaObjectType::MONSTER>::MessageAndTreasure
-    readMessageAndTreasure(std::istream& stream)
+    MessageAndTreasure readMessageAndTreasure(std::istream& stream)
     {
-      ObjectDetailsData<MetaObjectType::MONSTER>::MessageAndTreasure data;
+      MessageAndTreasure data;
       data.message = readString(stream);
       data.resources = readResources<std::uint32_t>(stream);
       data.artifact = readEnum<ArtifactType>(stream);

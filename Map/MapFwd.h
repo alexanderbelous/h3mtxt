@@ -67,6 +67,8 @@ namespace h3m
 
   struct MapAdditionalInfo;
 
+  struct MessageAndTreasure;
+
   struct ObjectAttributes;
 
   struct ObjectDetails;
