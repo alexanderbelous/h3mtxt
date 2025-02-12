@@ -34,5 +34,9 @@ namespace h3m
     Sorcery,        // 19
     Resistance,     // 1A
     FirstAid,       // 1B
+
+    // Apparently, SecondarySkillType{35} at Basic level is equivalent to nwcnebuchadnezzar cheat
+    // (1,000,000 move points). It's somewhat "buggy", though.
+    // This is used in the map "Awakening from Abyss" by LC.
   };
 }
