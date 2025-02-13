@@ -14,7 +14,10 @@ namespace h3m
   struct ObjectAttributes
   {
     // Name of the *.def sprite to use.
-    // TODO: check what happens if it's an empty string.
+    // If this is an empty string:
+    // * The Editor will crash with the error "ResourceManager::GetSprite could not find the "sprite" resource ""."
+    // * The game will also report an error, but the game will not crash; the object will be rendered invisible,
+    //   occupying a single tile (the coordinates of the object).
     std::string def;
     std::array<std::uint8_t, 6> passability{};
     std::array<std::uint8_t, 6> actionability{};
