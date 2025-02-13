@@ -112,6 +112,7 @@
   <ItemGroup>
     <ClCompile Include="readH3mJson.cpp" />
     <ClCompile Include="readObjectDetailsData.cpp" />
+    <ClCompile Include="readQuest.cpp" />
     <ClCompile Include="readTimedEventBase.cpp" />
   </ItemGroup>
   <ItemGroup>

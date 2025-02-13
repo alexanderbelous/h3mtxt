@@ -92,5 +92,8 @@
     <ClCompile Include="readObjectDetailsData.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="readQuest.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
