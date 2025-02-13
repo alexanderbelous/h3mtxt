@@ -2,6 +2,7 @@
 
 #include <h3mtxt/JsonCommon/FieldName.h>
 #include <h3mtxt/Map/HeroArtifacts.h>
+#include <h3mtxt/H3MJsonWriter/getEnumString.h>
 #include <h3mtxt/H3MJsonWriter/H3MJsonWriter.h>
 
 namespace Medea_NS
@@ -9,29 +10,42 @@ namespace Medea_NS
   template<>
   struct JsonObjectWriter<h3m::HeroArtifacts>
   {
+  private:
+    void writeField(FieldsWriter& out, std::string_view field_name, h3m::ArtifactType artifact) const
+    {
+      out.writeField(field_name, artifact);
+      const std::string_view enum_str = artifact == h3m::ArtifactType{0xFFFF} ? "(Default)"
+                                                                              : h3m::getEnumString(artifact);
+      if (!enum_str.empty())
+      {
+        out.writeComma();
+        out.writeComment(enum_str, false);
+      }
+    }
+
+  public:
     void operator()(FieldsWriter& out, const h3m::HeroArtifacts& value) const
     {
       using Fields = h3m::FieldNames<h3m::HeroArtifacts>;
-      // TODO: print artifacts' names in comments.
-      out.writeField(Fields::kHeadwear, value.headwear);
-      out.writeField(Fields::kShoulders, value.shoulders);
-      out.writeField(Fields::kNeck, value.neck);
-      out.writeField(Fields::kRightHand, value.right_hand);
-      out.writeField(Fields::kLeftHand, value.left_hand);
-      out.writeField(Fields::kTorso, value.torso);
-      out.writeField(Fields::kRightRing, value.right_ring);
-      out.writeField(Fields::kLeftRing, value.left_ring);
-      out.writeField(Fields::kFeet, value.feet);
-      out.writeField(Fields::kMisc1, value.misc1);
-      out.writeField(Fields::kMisc2, value.misc2);
-      out.writeField(Fields::kMisc3, value.misc3);
-      out.writeField(Fields::kMisc4, value.misc4);
-      out.writeField(Fields::kMisc5, value.misc5);
-      out.writeField(Fields::kDevice1, value.device1);
-      out.writeField(Fields::kDevice2, value.device2);
-      out.writeField(Fields::kDevice3, value.device3);
-      out.writeField(Fields::kDevice4, value.device4);
-      out.writeField(Fields::kSpellbook, value.spellbook);
+      writeField(out, Fields::kHeadwear, value.headwear);
+      writeField(out, Fields::kShoulders, value.shoulders);
+      writeField(out, Fields::kNeck, value.neck);
+      writeField(out, Fields::kRightHand, value.right_hand);
+      writeField(out, Fields::kLeftHand, value.left_hand);
+      writeField(out, Fields::kTorso, value.torso);
+      writeField(out, Fields::kRightRing, value.right_ring);
+      writeField(out, Fields::kLeftRing, value.left_ring);
+      writeField(out, Fields::kFeet, value.feet);
+      writeField(out, Fields::kMisc1, value.misc1);
+      writeField(out, Fields::kMisc2, value.misc2);
+      writeField(out, Fields::kMisc3, value.misc3);
+      writeField(out, Fields::kMisc4, value.misc4);
+      writeField(out, Fields::kMisc5, value.misc5);
+      writeField(out, Fields::kDevice1, value.device1);
+      writeField(out, Fields::kDevice2, value.device2);
+      writeField(out, Fields::kDevice3, value.device3);
+      writeField(out, Fields::kDevice4, value.device4);
+      writeField(out, Fields::kSpellbook, value.spellbook);
       out.writeField(Fields::kBackpack, value.backpack);
     }
   };

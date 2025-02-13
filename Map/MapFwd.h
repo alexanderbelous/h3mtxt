@@ -8,6 +8,8 @@
 // match the actual integer type used in the H3M file format.
 namespace h3m
 {
+  enum class ArtifactType : std::uint16_t;
+
   enum class CreatureType : std::uint16_t;
 
   enum class Disposition : std::uint8_t;
