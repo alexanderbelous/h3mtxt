@@ -261,6 +261,32 @@ namespace h3m
   };
 
   template<>
+  struct FieldNames<ObjectDetailsData<MetaObjectType::RANDOM_DWELLING>>
+  {
+    static inline constexpr std::string_view kOwner = "owner";
+    static inline constexpr std::string_view kTownAbsodId = "town_absod_id";
+    static inline constexpr std::string_view kAlignment = "alignment";
+    static inline constexpr std::string_view kMinLevel = "min_level";
+    static inline constexpr std::string_view kMaxLevel = "max_level";
+  };
+
+  template<>
+  struct FieldNames<ObjectDetailsData<MetaObjectType::RANDOM_DWELLING_PRESET_ALIGNMENT>>
+  {
+    static inline constexpr std::string_view kOwner = "owner";
+    static inline constexpr std::string_view kMinLevel = "min_level";
+    static inline constexpr std::string_view kMaxLevel = "max_level";
+  };
+
+  template<>
+  struct FieldNames<ObjectDetailsData<MetaObjectType::RANDOM_DWELLING_PRESET_LEVEL>>
+  {
+    static inline constexpr std::string_view kOwner = "owner";
+    static inline constexpr std::string_view kTownAbsodId = "town_absod_id";
+    static inline constexpr std::string_view kAlignment = "alignment";
+  };
+
+  template<>
   struct FieldNames<ObjectDetailsData<MetaObjectType::RESOURCE>>
   {
     static inline constexpr std::string_view kGuardians = "guardians";

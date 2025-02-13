@@ -284,6 +284,62 @@ namespace h3m
   };
 
   template<>
+  struct JsonReader<ObjectDetailsData<MetaObjectType::RANDOM_DWELLING>>
+  {
+    using DetailsData = ObjectDetailsData<MetaObjectType::RANDOM_DWELLING>;
+
+    DetailsData operator()(const Json::Value& value) const
+    {
+      using Fields = FieldNames<DetailsData>;
+      DetailsData details;
+      readField(details.owner, value, Fields::kOwner);
+      readField(details.town_absod_id, value, Fields::kTownAbsodId);
+      if (details.town_absod_id == 0)
+      {
+        readField(details.alignment, value, Fields::kAlignment);
+      }
+      readField(details.min_level, value, Fields::kMinLevel);
+      readField(details.max_level, value, Fields::kMaxLevel);
+      return details;
+    }
+  };
+
+  template<>
+  struct JsonReader<ObjectDetailsData<MetaObjectType::RANDOM_DWELLING_PRESET_ALIGNMENT>>
+  {
+    using DetailsData = ObjectDetailsData<MetaObjectType::RANDOM_DWELLING_PRESET_ALIGNMENT>;
+
+    DetailsData operator()(const Json::Value& value) const
+    {
+      using Fields = FieldNames<DetailsData>;
+      DetailsData details;
+      readField(details.owner, value, Fields::kOwner);
+      readField(details.min_level, value, Fields::kMinLevel);
+      readField(details.max_level, value, Fields::kMaxLevel);
+      return details;
+    }
+  };
+
+  template<>
+  struct JsonReader<ObjectDetailsData<MetaObjectType::RANDOM_DWELLING_PRESET_LEVEL>>
+  {
+    using DetailsData = ObjectDetailsData<MetaObjectType::RANDOM_DWELLING_PRESET_LEVEL>;
+
+    DetailsData operator()(const Json::Value& value) const
+    {
+      using Fields = FieldNames<DetailsData>;
+      DetailsData details;
+      readField(details.owner, value, Fields::kOwner);
+      readField(details.town_absod_id, value, Fields::kTownAbsodId);
+      if (details.town_absod_id == 0)
+      {
+        readField(details.alignment, value, Fields::kAlignment);
+      }
+      return details;
+    }
+  };
+
+  template<>
   struct JsonReader<ObjectDetailsData<MetaObjectType::RESOURCE>>
   {
     using DetailsData = ObjectDetailsData<MetaObjectType::RESOURCE>;

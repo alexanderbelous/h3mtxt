@@ -316,43 +316,49 @@ namespace Medea_NS
   template<>
   struct JsonObjectWriter<h3m::ObjectDetailsData<h3m::MetaObjectType::RANDOM_DWELLING>>
   {
-    void operator()(FieldsWriter& out,
-                    const h3m::ObjectDetailsData<h3m::MetaObjectType::RANDOM_DWELLING>& dwelling) const
+    using DetailsData = h3m::ObjectDetailsData<h3m::MetaObjectType::RANDOM_DWELLING>;
+
+    void operator()(FieldsWriter& out, const DetailsData& dwelling) const
     {
-      out.writeField("owner", dwelling.owner);
-      out.writeField("town_absod_id", dwelling.town_absod_id);
-      if (dwelling.town_absod_id != 0)
+      using Fields = h3m::FieldNames<DetailsData>;
+      out.writeField(Fields::kOwner, dwelling.owner);
+      out.writeField(Fields::kTownAbsodId, dwelling.town_absod_id);
+      if (dwelling.town_absod_id == 0)
       {
-        out.writeField("alignment", dwelling.alignment);
+        out.writeField(Fields::kAlignment, dwelling.alignment);
       }
-      out.writeField("min_level", dwelling.min_level);
-      out.writeField("max_level", dwelling.max_level);
+      out.writeField(Fields::kMinLevel, dwelling.min_level);
+      out.writeField(Fields::kMaxLevel, dwelling.max_level);
     }
   };
 
   template<>
   struct JsonObjectWriter<h3m::ObjectDetailsData<h3m::MetaObjectType::RANDOM_DWELLING_PRESET_ALIGNMENT>>
   {
-    void operator()(FieldsWriter& out,
-                    const h3m::ObjectDetailsData<h3m::MetaObjectType::RANDOM_DWELLING_PRESET_ALIGNMENT>& dwelling) const
+    using DetailsData = h3m::ObjectDetailsData<h3m::MetaObjectType::RANDOM_DWELLING_PRESET_ALIGNMENT>;
+
+    void operator()(FieldsWriter& out, const DetailsData& dwelling) const
     {
-      out.writeField("owner", dwelling.owner);
-      out.writeField("min_level", dwelling.min_level);
-      out.writeField("max_level", dwelling.max_level);
+      using Fields = h3m::FieldNames<DetailsData>;
+      out.writeField(Fields::kOwner, dwelling.owner);
+      out.writeField(Fields::kMinLevel, dwelling.min_level);
+      out.writeField(Fields::kMaxLevel, dwelling.max_level);
     }
   };
 
   template<>
   struct JsonObjectWriter<h3m::ObjectDetailsData<h3m::MetaObjectType::RANDOM_DWELLING_PRESET_LEVEL>>
   {
-    void operator()(FieldsWriter& out,
-                    const h3m::ObjectDetailsData<h3m::MetaObjectType::RANDOM_DWELLING_PRESET_LEVEL>& dwelling) const
+    using DetailsData = h3m::ObjectDetailsData<h3m::MetaObjectType::RANDOM_DWELLING_PRESET_LEVEL>;
+
+    void operator()(FieldsWriter& out, const DetailsData& dwelling) const
     {
-      out.writeField("owner", dwelling.owner);
-      out.writeField("town_absod_id", dwelling.town_absod_id);
-      if (dwelling.town_absod_id != 0)
+      using Fields = h3m::FieldNames<DetailsData>;
+      out.writeField(Fields::kOwner, dwelling.owner);
+      out.writeField(Fields::kTownAbsodId, dwelling.town_absod_id);
+      if (dwelling.town_absod_id == 0)
       {
-        out.writeField("alignment", dwelling.alignment);
+        out.writeField(Fields::kAlignment, dwelling.alignment);
       }
     }
   };
