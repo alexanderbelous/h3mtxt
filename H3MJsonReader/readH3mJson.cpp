@@ -17,37 +17,12 @@ namespace h3m
 {
   namespace
   {
-    // Checks if JsonReader is specialized for ObjectDetailsData<T> where T == meta_object_type.
-    // TODO: remove.
-    constexpr bool isImplementedObjectDetailsDataReader(MetaObjectType meta_object_type)
-    {
-      // Compile-time table.
-      constexpr
-        std::array<bool, kNumMetaObjectTypes> kIsDefaultImplementation =
-        [] <MetaObjectType... meta_object_types>
-        (EnumSequence<MetaObjectType, meta_object_types...> seq)
-        consteval
-      {
-        return std::array<bool, sizeof...(meta_object_types)>
-        { std::is_base_of_v<DefaultObjectDetailsDataReaderBase,
-                            JsonReader<ObjectDetailsData<meta_object_types>>>... };
-      }(MakeEnumSequence<MetaObjectType, kNumMetaObjectTypes>{});
-      return !kIsDefaultImplementation.at(static_cast<std::size_t>(meta_object_type));
-    }
-
     // Utility wrapper around fromJson<ObjectDetailsData<T>>(), which returns the result
     // as ObjectDetailsDataVariant.
     template<MetaObjectType T>
     ObjectDetailsDataVariant readObjectDetailsDataAsVariant(const Json::Value& value)
     {
-      if constexpr (isImplementedObjectDetailsDataReader(T))
-      {
-        return fromJson<ObjectDetailsData<T>>(value);
-      }
-      else
-      {
-        throw std::runtime_error("NotImplemented.");
-      }
+      return fromJson<ObjectDetailsData<T>>(value);
     }
 
     // Reads ObjectDetailsData for the specified MetaObjectType.
@@ -72,10 +47,8 @@ namespace h3m
       return kObjectDetailsDataReaders.at(static_cast<std::size_t>(meta_object_type))(value);
     }
 
-    // TODO: return as ObjectDetails, not as std::optional.
-    std::optional<ObjectDetails> tryReadObjectDetails(
-      const Json::Value& value,
-      const std::vector<ObjectAttributes>& objects_attributes)
+    ObjectDetails readObjectDetails(const Json::Value& value,
+                                    const std::vector<ObjectAttributes>& objects_attributes)
     {
       using Fields = FieldNames<ObjectDetails>;
       ObjectDetails object_details;
@@ -88,11 +61,6 @@ namespace h3m
       const ObjectAttributes& object_attributes = objects_attributes.at(object_details.kind);
       const h3m::MetaObjectType meta_object_type = getMetaObjectType(object_attributes.object_class);
 
-      // TODO: remove.
-      if (!isImplementedObjectDetailsDataReader(meta_object_type))
-      {
-        return std::nullopt;
-      }
       if (meta_object_type != h3m::MetaObjectType::GENERIC_NO_PROPERTIES)
       {
         const Json::Value* details_json = value.find(Fields::kDetails.data(),
@@ -119,11 +87,7 @@ namespace h3m
       for (std::size_t i = 0; i < num_elements; ++i)
       {
         const Json::Value& object_details_json = value[static_cast<Json::ArrayIndex>(i)];
-        std::optional<ObjectDetails> object_details = tryReadObjectDetails(object_details_json, objects_attributes);
-        if (object_details)
-        {
-          objects_details.push_back(std::move(*object_details));
-        }
+        objects_details.push_back(readObjectDetails(object_details_json, objects_attributes));
       }
     }
   }

@@ -76,7 +76,6 @@ namespace h3m
     }
   };
 
-
   template<>
   struct JsonReader<TownEvent>
   {
@@ -91,13 +90,6 @@ namespace h3m
       return event;
     }
   };
-
-  // TODO: remove.
-  struct DefaultObjectDetailsDataReaderBase {};
-
-  // TODO: remove once JsonReader is specialized for all ObjectDetailsData.
-  template<MetaObjectType T>
-  struct JsonReader<ObjectDetailsData<T>> : DefaultObjectDetailsDataReaderBase {};
 
   template<>
   struct JsonReader<ObjectDetailsData<MetaObjectType::ABANDONED_MINE>>
