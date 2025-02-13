@@ -1,6 +1,7 @@
 #pragma once
 
 #include <h3mtxt/Map/ObjectDetailsData.h>
+#include <h3mtxt/Map/Utils/EnumSequence.h>
 
 #include <array>
 #include <cstddef>
@@ -94,18 +95,14 @@ namespace h3m
     template<class Types>
     struct ObjectDetailsVariantImplTraits;
 
-    template<std::underlying_type_t<MetaObjectType>... meta_object_type_idx>
-    struct ObjectDetailsVariantImplTraits<std::integer_sequence<std::underlying_type_t<MetaObjectType>,
-                                                                meta_object_type_idx...>>
+    template<MetaObjectType... meta_object_types>
+    struct ObjectDetailsVariantImplTraits<EnumSequence<MetaObjectType, meta_object_types...>>
     {
-      using type = std::variant<
-        ObjectDetailsVariantAlternative<static_cast<MetaObjectType>(meta_object_type_idx)>...
-      >;
+      using type = std::variant<ObjectDetailsVariantAlternative<meta_object_types>...>;
     };
 
     using ObjectDetailsVariantImpl =
-      typename ObjectDetailsVariantImplTraits<std::make_integer_sequence<std::underlying_type_t<MetaObjectType>,
-                                                                         kNumMetaObjectTypes>>::type;
+      typename ObjectDetailsVariantImplTraits<MakeEnumSequence<MetaObjectType, kNumMetaObjectTypes>>::type;
   }
 
   // This is so that we can guarantee that ObjectDetailsDataVariant never stores a null pointer

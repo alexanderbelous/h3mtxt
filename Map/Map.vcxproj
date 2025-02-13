@@ -68,6 +68,7 @@
     <ClInclude Include="TimedEventBase.h" />
     <ClInclude Include="TownsBitmask.h" />
     <ClInclude Include="Utils\BitSet.h" />
+    <ClInclude Include="Utils\EnumSequence.h" />
     <ClInclude Include="Utils\ReservedData.h" />
     <ClInclude Include="VictoryCondition.h" />
   </ItemGroup>

@@ -2,6 +2,7 @@
 
 #include <h3mtxt/H3MReader/readSecondarySkillsVector.h>
 #include <h3mtxt/H3MReader/Utils.h>
+#include <h3mtxt/Map/Utils/EnumSequence.h>
 
 #include <array>
 
@@ -117,28 +118,22 @@ namespace h3m
     // \return the deserialized data as Reward::Details.
     Reward::Details readRewardDetailsVariant(std::istream& stream, RewardType reward_type)
     {
-      // The underlying integer type for RewardType.
-      using RewardTypeIdx = std::underlying_type_t<RewardType>;
-
       // Type of a pointer to a function that takes std::istream& and returns Reward::Details.
       using ReadRewardDetailsPtr = Reward::Details(*)(std::istream& stream);
-
       // Generate (at compile time) an array of function pointers for each instantiation of
       // readRewardDetails() ordered by RewardType.
-      constexpr
-      std::array<ReadRewardDetailsPtr, kNumRewardTypes> kRewardDetailsReaders =
-        [] <RewardTypeIdx... reward_type_idx>
-        (std::integer_sequence<RewardTypeIdx, reward_type_idx...> seq)
+      constexpr std::array<ReadRewardDetailsPtr, kNumRewardTypes> kRewardDetailsReaders =
+        [] <RewardType... reward_types>
+        (EnumSequence<RewardType, reward_types...> seq)
         consteval
-      {
-        return std::array<ReadRewardDetailsPtr, sizeof...(reward_type_idx)>
         {
-          &readRewardDetailsAsVariant<static_cast<RewardType>(reward_type_idx)>...
-        };
-      }(std::make_integer_sequence<RewardTypeIdx, kNumRewardTypes>{});
-
+          return std::array<ReadRewardDetailsPtr, sizeof...(reward_types)>
+          {
+            &readRewardDetailsAsVariant<reward_types>...
+          };
+        }(MakeEnumSequence<RewardType, kNumRewardTypes>{});
       // Invoke a function from the generated array.
-      return kRewardDetailsReaders.at(static_cast<RewardTypeIdx>(reward_type))(stream);
+      return kRewardDetailsReaders.at(static_cast<std::size_t>(reward_type))(stream);
     }
   }
 

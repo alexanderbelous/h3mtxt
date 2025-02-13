@@ -9,6 +9,7 @@
 #include <h3mtxt/H3MJsonReader/readObjectDetailsData.h>
 #include <h3mtxt/H3MJsonReader/readPlayerSpecs.h>
 #include <h3mtxt/H3MJsonReader/readTile.h>
+#include <h3mtxt/Map/Utils/EnumSequence.h>
 
 #include <stdexcept>
 
@@ -20,20 +21,18 @@ namespace h3m
     // TODO: remove.
     constexpr bool isImplementedObjectDetailsDataReader(MetaObjectType meta_object_type)
     {
-      // The underlying integer type for MetaObjectType.
-      using MetaObjectTypeIdx = std::underlying_type_t<MetaObjectType>;
       // Compile-time table.
       constexpr
         std::array<bool, kNumMetaObjectTypes> kIsDefaultImplementation =
-        [] <MetaObjectTypeIdx... meta_object_type_idx>
-        (std::integer_sequence<MetaObjectTypeIdx, meta_object_type_idx...> seq)
+        [] <MetaObjectType... meta_object_types>
+        (EnumSequence<MetaObjectType, meta_object_types...> seq)
         consteval
       {
-        return std::array<bool, sizeof...(meta_object_type_idx)>
+        return std::array<bool, sizeof...(meta_object_types)>
         { std::is_base_of_v<DefaultObjectDetailsDataReaderBase,
-                            JsonReader<ObjectDetailsData<static_cast<MetaObjectType>(meta_object_type_idx)>>>... };
-      }(std::make_integer_sequence<MetaObjectTypeIdx, kNumMetaObjectTypes>{});
-      return !kIsDefaultImplementation.at(static_cast<MetaObjectTypeIdx>(meta_object_type));
+                            JsonReader<ObjectDetailsData<meta_object_types>>>... };
+      }(MakeEnumSequence<MetaObjectType, kNumMetaObjectTypes>{});
+      return !kIsDefaultImplementation.at(static_cast<std::size_t>(meta_object_type));
     }
 
     // Utility wrapper around fromJson<ObjectDetailsData<T>>(), which returns the result
@@ -57,23 +56,20 @@ namespace h3m
     // \return the deserialized data as ObjectDetailsDataVariant.
     ObjectDetailsDataVariant readObjectDetailsDataVariant(const Json::Value& value, MetaObjectType meta_object_type)
     {
-      // The underlying integer type for MetaObjectType.
-      using MetaObjectTypeIdx = std::underlying_type_t<MetaObjectType>;
       // Type of a pointer to a function that takes std::istream& and returns ObjectDetails::Data.
       using ReadObjectDetailsDataPtr = ObjectDetailsDataVariant(*)(const Json::Value&);
       // Generate (at compile time) an array of function pointers for each instantiation of
       // readObjectDetailsDataAsVariant() ordered by MetaObjectType.
-      constexpr
-        std::array<ReadObjectDetailsDataPtr, kNumMetaObjectTypes> kObjectDetailsDataReaders =
-        [] <MetaObjectTypeIdx... meta_object_type_idx>
-        (std::integer_sequence<MetaObjectTypeIdx, meta_object_type_idx...> seq)
+      constexpr std::array<ReadObjectDetailsDataPtr, kNumMetaObjectTypes> kObjectDetailsDataReaders =
+        [] <MetaObjectType... meta_object_types>
+        (EnumSequence<MetaObjectType, meta_object_types...> seq)
         consteval
-      {
-        return std::array<ReadObjectDetailsDataPtr, sizeof...(meta_object_type_idx)>
-        { &readObjectDetailsDataAsVariant<static_cast<MetaObjectType>(meta_object_type_idx)>... };
-      }(std::make_integer_sequence<MetaObjectTypeIdx, kNumMetaObjectTypes>{});
+        {
+          return std::array<ReadObjectDetailsDataPtr, sizeof...(meta_object_types)>
+          { &readObjectDetailsDataAsVariant<meta_object_types>... };
+        }(MakeEnumSequence<MetaObjectType, kNumMetaObjectTypes>{});
       // Invoke a function from the generated array.
-      return kObjectDetailsDataReaders.at(static_cast<MetaObjectTypeIdx>(meta_object_type))(value);
+      return kObjectDetailsDataReaders.at(static_cast<std::size_t>(meta_object_type))(value);
     }
 
     // TODO: return as ObjectDetails, not as std::optional.

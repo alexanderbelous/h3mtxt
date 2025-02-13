@@ -5,6 +5,7 @@
 #include <h3mtxt/H3MJsonReader/readCreatureStack.h>
 #include <h3mtxt/H3MJsonReader/readResources.h>
 #include <h3mtxt/Map/Quest.h>
+#include <h3mtxt/Map/Utils/EnumSequence.h>
 
 #include <array>
 #include <type_traits>
@@ -134,25 +135,22 @@ namespace h3m
     // \return the deserialized data as Quest::Details.
     inline Quest::Details readQuestDetailsVariant(const Json::Value& value, QuestType quest_type)
     {
-      // The underlying integer type for QuestType.
-      using QuestTypeIdx = std::underlying_type_t<QuestType>;
       // Type of a pointer to a function that takes const Json::Value& and returns Quest::Details.
       using ReadQuestDetailsPtr = Quest::Details(*)(const Json::Value&);
       // Generate (at compile time) an array of function pointers for each instantiation of
       // readQuestDetailsAsVariant() ordered by QuestType.
-      constexpr
-        std::array<ReadQuestDetailsPtr, kNumQuestTypes> kQuestDetailsReaders =
-        [] <QuestTypeIdx... quest_type_idx>
-        (std::integer_sequence<QuestTypeIdx, quest_type_idx...> seq)
+      constexpr std::array<ReadQuestDetailsPtr, kNumQuestTypes> kQuestDetailsReaders =
+        [] <QuestType... quest_types>
+        (EnumSequence<QuestType, quest_types...> seq)
         consteval
-      {
-        return std::array<ReadQuestDetailsPtr, sizeof...(quest_type_idx)>
         {
-          &readQuestDetailsAsVariant<static_cast<QuestType>(quest_type_idx)>...
-        };
-      }(std::make_integer_sequence<QuestTypeIdx, kNumQuestTypes>{});
+          return std::array<ReadQuestDetailsPtr, sizeof...(quest_types)>
+          {
+            &readQuestDetailsAsVariant<quest_types>...
+          };
+        }(MakeEnumSequence<QuestType, kNumQuestTypes>{});
       // Invoke a function from the generated array.
-      return kQuestDetailsReaders.at(static_cast<QuestTypeIdx>(quest_type))(value);
+      return kQuestDetailsReaders.at(static_cast<std::size_t>(quest_type))(value);
     }
   }
 

@@ -198,5 +198,8 @@
     <ClInclude Include="TownsBitmask.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Utils\EnumSequence.h">
+      <Filter>Header Files\Utils</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
