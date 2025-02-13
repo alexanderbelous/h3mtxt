@@ -304,10 +304,12 @@ namespace Medea_NS
   template<>
   struct JsonObjectWriter<h3m::ObjectDetailsData<h3m::MetaObjectType::QUEST_GUARD>>
   {
-    void operator()(FieldsWriter& out,
-                    const h3m::ObjectDetailsData<h3m::MetaObjectType::QUEST_GUARD>& quest_guard) const
+    using DetailsData = h3m::ObjectDetailsData<h3m::MetaObjectType::QUEST_GUARD>;
+
+    void operator()(FieldsWriter& out, const DetailsData& quest_guard) const
     {
-      out.writeField("quest", quest_guard.quest);
+      using Fields = h3m::FieldNames<DetailsData>;
+      out.writeField(Fields::kQuest, quest_guard.quest);
     }
   };
 

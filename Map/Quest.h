@@ -1,5 +1,6 @@
 #pragma once
 
+#include <h3mtxt/Map/MapFwd.h>
 #include <h3mtxt/Map/Constants/ArtifactType.h>
 #include <h3mtxt/Map/Constants/HeroType.h>
 #include <h3mtxt/Map/Constants/PlayerColor.h>
@@ -16,10 +17,6 @@
 
 namespace h3m
 {
-  // Details specific for a QuestType.
-  template<QuestType T>
-  struct QuestDetails;
-
   template<>
   struct QuestDetails<QuestType::None>
   {};

@@ -1,5 +1,6 @@
 #pragma once
 
+#include <h3mtxt/JsonCommon/FieldName.h>
 #include <h3mtxt/Map/Quest.h>
 #include <h3mtxt/H3MJsonWriter/getEnumString.h>
 #include <h3mtxt/H3MJsonWriter/H3MJsonWriter.h>
@@ -103,8 +104,9 @@ namespace Medea_NS
   {
     void operator()(FieldsWriter& out, const h3m::Quest& quest) const
     {
+      using Fields = h3m::FieldNames<h3m::Quest>;
       const bool has_details = quest.type() != h3m::QuestType::None;
-      out.writeField("type", quest.type());
+      out.writeField(Fields::kType, quest.type());
       if (has_details)
       {
         out.writeComma();
@@ -112,12 +114,12 @@ namespace Medea_NS
       out.writeComment(h3m::getEnumString(quest.type()), false);
       if (has_details)
       {
-        std::visit([&out](auto&& details) { out.writeField("details", std::forward<decltype(details)>(details)); },
+        std::visit([&out](auto&& details) { out.writeField(Fields::kDetails, std::forward<decltype(details)>(details)); },
                    quest.details);
-        out.writeField("deadline", quest.deadline);
-        out.writeField("proposal", quest.proposal);
-        out.writeField("progress", quest.progress);
-        out.writeField("completion", quest.completion);
+        out.writeField(Fields::kDeadline, quest.deadline);
+        out.writeField(Fields::kProposal, quest.proposal);
+        out.writeField(Fields::kProgress, quest.progress);
+        out.writeField(Fields::kCompletion, quest.completion);
       }
     }
   };

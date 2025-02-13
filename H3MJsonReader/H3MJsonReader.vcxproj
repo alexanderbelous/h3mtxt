@@ -100,6 +100,7 @@
     <ClInclude Include="readPlayersBitmask.h" />
     <ClInclude Include="readPlayerSpecs.h" />
     <ClInclude Include="readPrimarySkills.h" />
+    <ClInclude Include="readQuest.h" />
     <ClInclude Include="readResources.h" />
     <ClInclude Include="readSecondarySkill.h" />
     <ClInclude Include="readSecondarySkillsBitmask.h" />

@@ -83,6 +83,12 @@ namespace h3m
 
   struct PrimarySkills;
 
+  struct Quest;
+
+  // "Extension" of Quest specific to QuestType.
+  template<QuestType T>
+  struct QuestDetails;
+
   template<class T>
   struct Resources;
 

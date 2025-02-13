@@ -255,6 +255,12 @@ namespace h3m
   };
 
   template<>
+  struct FieldNames<ObjectDetailsData<MetaObjectType::QUEST_GUARD>>
+  {
+    static inline constexpr std::string_view kQuest = "quest";
+  };
+
+  template<>
   struct FieldNames<ObjectDetailsData<MetaObjectType::RESOURCE>>
   {
     static inline constexpr std::string_view kGuardians = "guardians";
@@ -366,6 +372,17 @@ namespace h3m
     static inline constexpr std::string_view kDefense = "defense";
     static inline constexpr std::string_view kSpellPower = "spell_power";
     static inline constexpr std::string_view kKnowledge = "knowledge";
+  };
+
+  template<>
+  struct FieldNames<Quest>
+  {
+    static inline constexpr std::string_view kType = "type";
+    static inline constexpr std::string_view kDetails = "details";
+    static inline constexpr std::string_view kDeadline = "deadline";
+    static inline constexpr std::string_view kProposal = "proposal";
+    static inline constexpr std::string_view kProgress = "progress";
+    static inline constexpr std::string_view kCompletion = "completion";
   };
 
   struct FieldNamesResourcesBase

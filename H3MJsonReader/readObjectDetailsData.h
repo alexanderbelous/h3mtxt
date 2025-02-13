@@ -4,6 +4,7 @@
 #include <h3mtxt/H3MJsonReader/readCreatureStack.h>
 #include <h3mtxt/H3MJsonReader/readHeroArtifacts.h>
 #include <h3mtxt/H3MJsonReader/readPlayersBitmask.h>
+#include <h3mtxt/H3MJsonReader/readQuest.h>
 #include <h3mtxt/H3MJsonReader/readResources.h>
 #include <h3mtxt/H3MJsonReader/readSecondarySkillsBitmask.h>
 #include <h3mtxt/H3MJsonReader/readSpellsBitmask.h>
@@ -264,6 +265,20 @@ namespace h3m
       {
         readField(details.power_rating, value, Fields::kPowerRating);
       }
+      return details;
+    }
+  };
+
+  template<>
+  struct JsonReader<ObjectDetailsData<MetaObjectType::QUEST_GUARD>>
+  {
+    using DetailsData = ObjectDetailsData<MetaObjectType::QUEST_GUARD>;
+
+    DetailsData operator()(const Json::Value& value) const
+    {
+      using Fields = FieldNames<DetailsData>;
+      DetailsData details;
+      readField(details.quest, value, Fields::kQuest);
       return details;
     }
   };

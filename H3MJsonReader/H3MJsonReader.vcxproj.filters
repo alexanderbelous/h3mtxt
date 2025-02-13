@@ -78,6 +78,9 @@
     <ClInclude Include="readCreatureStack.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="readQuest.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="readH3mJson.cpp">
