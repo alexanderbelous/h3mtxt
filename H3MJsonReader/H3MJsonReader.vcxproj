@@ -102,6 +102,7 @@
     <ClInclude Include="readPrimarySkills.h" />
     <ClInclude Include="readQuest.h" />
     <ClInclude Include="readResources.h" />
+    <ClInclude Include="readReward.h" />
     <ClInclude Include="readSecondarySkill.h" />
     <ClInclude Include="readSecondarySkillsBitmask.h" />
     <ClInclude Include="readSpellsBitmask.h" />
@@ -113,6 +114,7 @@
     <ClCompile Include="readH3mJson.cpp" />
     <ClCompile Include="readObjectDetailsData.cpp" />
     <ClCompile Include="readQuest.cpp" />
+    <ClCompile Include="readReward.cpp" />
     <ClCompile Include="readTimedEventBase.cpp" />
   </ItemGroup>
   <ItemGroup>

@@ -402,12 +402,14 @@ namespace Medea_NS
   template<>
   struct JsonObjectWriter<h3m::ObjectDetailsData<h3m::MetaObjectType::SEERS_HUT>>
   {
-    void operator()(FieldsWriter& out,
-                    const h3m::ObjectDetailsData<h3m::MetaObjectType::SEERS_HUT>& data) const
+    using DetailsData = h3m::ObjectDetailsData<h3m::MetaObjectType::SEERS_HUT>;
+
+    void operator()(FieldsWriter& out, const DetailsData& data) const
     {
-      out.writeField("quest", data.quest);
-      out.writeField("reward", data.reward);
-      out.writeField("unknown", data.unknown);
+      using Fields = h3m::FieldNames<DetailsData>;
+      out.writeField(Fields::kQuest, data.quest);
+      out.writeField(Fields::kReward, data.reward);
+      out.writeField(Fields::kUnknown, data.unknown);
     }
   };
 

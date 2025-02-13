@@ -6,6 +6,7 @@
 #include <h3mtxt/H3MJsonReader/readPlayersBitmask.h>
 #include <h3mtxt/H3MJsonReader/readQuest.h>
 #include <h3mtxt/H3MJsonReader/readResources.h>
+#include <h3mtxt/H3MJsonReader/readReward.h>
 #include <h3mtxt/H3MJsonReader/readSecondarySkillsBitmask.h>
 #include <h3mtxt/H3MJsonReader/readSpellsBitmask.h>
 #include <h3mtxt/H3MJsonReader/readTimedEventBase.h>
@@ -350,6 +351,22 @@ namespace h3m
       DetailsData details;
       readField(details.guardians, value, Fields::kGuardians);
       readField(details.quantity, value, Fields::kQuantity);
+      readField(details.unknown, value, Fields::kUnknown);
+      return details;
+    }
+  };
+
+  template<>
+  struct JsonReader<ObjectDetailsData<MetaObjectType::SEERS_HUT>>
+  {
+    using DetailsData = ObjectDetailsData<MetaObjectType::SEERS_HUT>;
+
+    DetailsData operator()(const Json::Value& value) const
+    {
+      using Fields = FieldNames<DetailsData>;
+      DetailsData details;
+      readField(details.quest, value, Fields::kQuest);
+      readField(details.reward, value, Fields::kReward);
       readField(details.unknown, value, Fields::kUnknown);
       return details;
     }

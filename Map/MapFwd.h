@@ -96,6 +96,8 @@ namespace h3m
 
   struct ResourcesBitmask;
 
+  struct Reward;
+
   struct Rumor;
 
   struct SecondarySkill;

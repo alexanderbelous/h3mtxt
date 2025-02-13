@@ -303,6 +303,14 @@ namespace h3m
   };
 
   template<>
+  struct FieldNames<ObjectDetailsData<MetaObjectType::SEERS_HUT>>
+  {
+    static inline constexpr std::string_view kQuest = "quest";
+    static inline constexpr std::string_view kReward = "reward";
+    static inline constexpr std::string_view kUnknown = "unknown";
+  };
+
+  template<>
   struct FieldNames<ObjectDetailsData<MetaObjectType::SHRINE>>
   {
     static inline constexpr std::string_view kSpell = "spell";
@@ -432,6 +440,13 @@ namespace h3m
     static inline constexpr std::string_view kNames[] = {
       "wood", "mercury", "ore", "sulfur", "crystal", "gems", "gold", "unknown"
     };
+  };
+
+  template<>
+  struct FieldNames<Reward>
+  {
+    static inline constexpr std::string_view kType = "type";
+    static inline constexpr std::string_view kDetails = "details";
   };
 
   template<>

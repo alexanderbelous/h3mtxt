@@ -81,6 +81,9 @@
     <ClInclude Include="readQuest.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="readReward.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="readH3mJson.cpp">
@@ -93,6 +96,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="readQuest.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="readReward.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

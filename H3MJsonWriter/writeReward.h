@@ -1,9 +1,10 @@
 #pragma once
 
-#include <h3mtxt/Map/Reward.h>
+#include <h3mtxt/JsonCommon/FieldName.h>
 #include <h3mtxt/H3MJsonWriter/getEnumString.h>
 #include <h3mtxt/H3MJsonWriter/H3MJsonWriter.h>
 #include <h3mtxt/H3MJsonWriter/writeSecondarySkill.h>
+#include <h3mtxt/Map/Reward.h>
 
 namespace Medea_NS
 {
@@ -113,8 +114,9 @@ namespace Medea_NS
   {
     void operator()(FieldsWriter& out, const h3m::Reward& reward) const
     {
+      using Fields = h3m::FieldNames<h3m::Reward>;
       const bool has_details = reward.type() != h3m::RewardType::None;
-      out.writeField("type", reward.type());
+      out.writeField(Fields::kType, reward.type());
       if (has_details)
       {
         out.writeComma();
@@ -122,7 +124,8 @@ namespace Medea_NS
       out.writeComment(h3m::getEnumString(reward.type()), false);
       if (has_details)
       {
-        std::visit([&out](auto&& details) { out.writeField("details", std::forward<decltype(details)>(details)); },
+        std::visit([&out] <h3m::RewardType T> (const h3m::RewardDetails<T>& details)
+                   { out.writeField(Fields::kDetails, details); },
                    reward.details);
       }
     }
