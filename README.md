@@ -22,15 +22,6 @@ h3mtxt my_map.h3m.json my_map_new.h3m
 ```
 The filename extensions are not important - the program will check if the input file contains a .h3m map or a JSON document and convert it to JSON or .h3m respectively
 
-# Status
-Structured represenation of a .h3m map is complete (see [h3m::Map](Map/Map.h)), but some cosmetic changes (e.g., wrappers for some bitmasks) might be added in the future.
-
-Reading and writing .h3m maps is fully implemented ([H3MReader](H3MReader) and [H3MWriter](H3MWriter) libraries).
-
-Conversion to JSON ([H3MJsonWriter](H3MJsonWriter)) is done, but more comments will be added in the future.
-
-Conversion from JSON to H3M ([H3MJsonReader](H3MJsonReader)) is currently in progress; some objects on the adventure map are skipped.
-
 # Acknowledgment
 I would like to thank the authors of [HeroWO-js/h3m2json](https://github.com/HeroWO-js/h3m2json/) and [potmdehex/homm3tools](https://github.com/potmdehex/homm3tools)
 for the detailed description of the .h3m file format. These projects share some similarities with *h3mtxt*, but their goals and programming languages (PHP and C respectively) are different.
