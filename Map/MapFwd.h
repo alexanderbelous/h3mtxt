@@ -35,6 +35,8 @@ namespace h3m
 
   enum class QuestType : std::uint8_t;
 
+  enum class ResourceType : std::uint8_t;
+
   enum class RewardType : std::uint8_t;
 
   enum class RiverType : std::uint8_t;

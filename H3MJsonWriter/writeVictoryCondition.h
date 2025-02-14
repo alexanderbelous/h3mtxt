@@ -20,6 +20,10 @@ namespace Medea_NS
     {
       writeSpecialVictoryConditionBase(out, value);
       out.writeField("artifact_type", value.artifact_type);
+      if (std::string_view enum_str = h3m::getEnumString(value.artifact_type); !enum_str.empty())
+      {
+        out.writeComment(enum_str, false);
+      }
     }
   };
 
@@ -31,6 +35,11 @@ namespace Medea_NS
     {
       writeSpecialVictoryConditionBase(out, value);
       out.writeField("creature_type", value.creature_type);
+      if (std::string_view enum_str = h3m::getEnumString(value.creature_type); !enum_str.empty())
+      {
+        out.writeComma();
+        out.writeComment(enum_str, false);
+      }
       out.writeField("count", value.count);
     }
   };
@@ -43,6 +52,11 @@ namespace Medea_NS
     {
       writeSpecialVictoryConditionBase(out, value);
       out.writeField("resource_type", value.resource_type);
+      if (std::string_view enum_str = h3m::getEnumString(value.resource_type); !enum_str.empty())
+      {
+        out.writeComma();
+        out.writeComment(enum_str, false);
+      }
       out.writeField("amount", value.amount);
     }
   };
@@ -95,6 +109,12 @@ namespace Medea_NS
     {
       writeSpecialVictoryConditionBase(out, value);
       out.writeField("artifact_type", value.artifact_type);
+      if (std::string_view enum_str = h3m::getEnumString(static_cast<h3m::ArtifactType>(value.artifact_type));
+          !enum_str.empty())
+      {
+        out.writeComma();
+        out.writeComment(enum_str, false);
+      }
       out.writeField("x", value.x);
       out.writeField("y", value.y);
       out.writeField("z", value.z);

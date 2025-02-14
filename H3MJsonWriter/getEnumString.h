@@ -34,6 +34,8 @@ namespace h3m
 
   std::string_view getEnumString(QuestType value) noexcept;
 
+  std::string_view getEnumString(ResourceType value) noexcept;
+
   std::string_view getEnumString(RewardType value) noexcept;
 
   std::string_view getEnumString(RiverType value) noexcept;
