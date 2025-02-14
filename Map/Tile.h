@@ -83,4 +83,27 @@ constexpr std::uint8_t countSprites(TerrainType terrain) noexcept
   }
 }
 
+// Returns the number of valid sprites for the specified RiverType.
+//
+// \param river_type - type of the river.
+// \return the number N of valid sprites for @river_type, or 0 if @river_type is not a valid river type.
+//         The values [0; N) are safe to use in Tile::river_sprite for @river_type.
+constexpr std::uint8_t countSprites(RiverType river_type) noexcept
+{
+  switch (river_type)
+  {
+  case RiverType::None:
+    // FYI: it seems that for RiverType::None you can use any value from [0; 255] as the sprite -
+    // no river will be drawn anyway. However, the Editor only uses sprite 0 for this type.
+    return 1;
+  case RiverType::Clear:
+  case RiverType::Icy:
+  case RiverType::Muddy:
+  case RiverType::Lava:
+    return 13;
+  default:
+    return 0;
+  }
+}
+
 }
