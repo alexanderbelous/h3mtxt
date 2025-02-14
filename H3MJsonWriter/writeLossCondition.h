@@ -1,8 +1,9 @@
 #pragma once
 
-#include <h3mtxt/Map/LossCondition.h>
 #include <h3mtxt/H3MJsonWriter/getEnumString.h>
 #include <h3mtxt/H3MJsonWriter/H3MJsonWriter.h>
+#include <h3mtxt/JsonCommon/FieldName.h>
+#include <h3mtxt/Map/LossCondition.h>
 
 namespace Medea_NS
 {
@@ -42,8 +43,9 @@ namespace Medea_NS
   {
     void operator()(FieldsWriter& out, const h3m::LossCondition& loss_condition) const
     {
+      using Fields = h3m::FieldNames<h3m::LossCondition>;
       const bool has_details = loss_condition.type() != h3m::LossConditionType::Normal;
-      out.writeField("type", loss_condition.type());
+      out.writeField(Fields::kType, loss_condition.type());
       if (has_details)
       {
         out.writeComma();
@@ -51,7 +53,8 @@ namespace Medea_NS
       out.writeComment(h3m::getEnumString(loss_condition.type()), false);
       if (has_details)
       {
-        std::visit([&out](auto&& details) { out.writeField("details", std::forward<decltype(details)>(details)); },
+        std::visit([&out] <h3m::LossConditionType T> (const h3m::LossConditionDetails<T>& details)
+                   { out.writeField(Fields::kDetails, details); },
                    loss_condition.details);
       }
     }

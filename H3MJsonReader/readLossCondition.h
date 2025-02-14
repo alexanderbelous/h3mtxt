@@ -1,6 +1,7 @@
 #pragma once
 
 #include <h3mtxt/H3MJsonReader/JsonReader.h>
+#include <h3mtxt/JsonCommon/FieldName.h>
 #include <h3mtxt/Map/LossCondition.h>
 
 namespace h3m
@@ -47,15 +48,16 @@ namespace h3m
   {
     LossCondition operator()(const Json::Value& value) const
     {
-      const LossConditionType loss_condition_type = readField<LossConditionType>(value, "type");
+      using Fields = FieldNames<LossCondition>;
+      const LossConditionType loss_condition_type = readField<LossConditionType>(value, Fields::kType);
       switch (loss_condition_type)
       {
       case LossConditionType::LoseTown:
-        return readField<LossConditionDetails<LossConditionType::LoseTown>>(value, "details");
+        return readField<LossConditionDetails<LossConditionType::LoseTown>>(value, Fields::kDetails);
       case LossConditionType::LoseHero:
-        return readField<LossConditionDetails<LossConditionType::LoseHero>>(value, "details");
+        return readField<LossConditionDetails<LossConditionType::LoseHero>>(value, Fields::kDetails);
       case LossConditionType::TimeExpires:
-        return readField<LossConditionDetails<LossConditionType::TimeExpires>>(value, "details");
+        return readField<LossConditionDetails<LossConditionType::TimeExpires>>(value, Fields::kDetails);
       case LossConditionType::Normal:
         return LossCondition();
       default:

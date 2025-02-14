@@ -61,6 +61,8 @@ namespace h3m
 
   struct HeroSettings;
 
+  class LossCondition;
+
   struct MainTown;
 
   struct Map;

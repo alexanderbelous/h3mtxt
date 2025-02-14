@@ -86,6 +86,16 @@ namespace h3m
   };
 
   template<>
+  struct FieldNames<LossCondition>
+  {
+    // Note: LossCondition has only 1 data member `details`, which is a std::variant.
+    // However, it is serialized as 2 fields: `type` (LossConditionType) and
+    // `details` (LossConditionDetails<type>).
+    static inline constexpr std::string_view kType = "type";
+    static inline constexpr std::string_view kDetails = "details";
+  };
+
+  template<>
   struct FieldNames<MainTown>
   {
     static inline constexpr std::string_view kGenerateHero = "generate_hero";
