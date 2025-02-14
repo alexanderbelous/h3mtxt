@@ -36,6 +36,12 @@
     <ClCompile Include="drawCarpet.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="generateMapWithAllTerrainSprites.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="generateMapWithAllRiverSprites.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Util.h">
@@ -57,6 +63,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="drawCarpet.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="generateMapWithAllTerrainSprites.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="generateMapWithAllRiverSprites.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

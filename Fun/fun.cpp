@@ -1,6 +1,7 @@
 #include <h3mtxt/Fun/drawCarpet.h>
 #include <h3mtxt/Fun/fakeIslands.h>
 #include <h3mtxt/Fun/fillWithTerrain.h>
+#include <h3mtxt/Fun/generateMapWithAllRiverSprites.h>
 #include <h3mtxt/Fun/generatePlayerSpecs.h>
 #include <h3mtxt/Fun/makeDefaultObjectAttributes.h>
 #include <h3mtxt/Fun/Util.h>
@@ -117,57 +118,6 @@ namespace
     drawFakeVerticalLandStrip(map, 14, 15, 10);
     drawFakeDiagonalLandStripSE(map, 20, 20, 10);
     drawFakeDiagonalLandStripSE(map, 24, 20, 10);
-  }
-
-  h3m::Map generateMapWithAllTerrainSprites()
-  {
-    constexpr std::uint8_t kNumTerrainTypes = 10;
-
-    h3m::Map map = generateTestMap(108);
-    map.basic_info.name = "All terrain sprites";
-    map.basic_info.description = "This map is a cheatsheet for viewing terrain sprites in H3M.\n"
-                                 "Each tile (X, Y) has the terrain type X and the terrain sprite Y.\n"
-                                 "If X is not a valid terrain type or Y is not a valid sprite for X, "
-                                 "the tile has a campfire object on that tile.";
-    for (h3m::Tile& tile : map.tiles)
-    {
-      tile.terrain_type = h3m::TerrainType::Rock;
-      tile.terrain_sprite = 0;
-    }
-    for (std::uint8_t terrain_type_idx = 0; terrain_type_idx < kNumTerrainTypes; ++terrain_type_idx)
-    {
-      const h3m::TerrainType terrain_type = static_cast<h3m::TerrainType>(terrain_type_idx);
-      const std::uint8_t num_sprites = h3m::countSprites(terrain_type);
-      for (std::uint8_t sprite = 0; sprite < num_sprites; ++sprite)
-      {
-        if (h3m::Tile* tile = safeGetTile(map, sprite, terrain_type_idx))
-        {
-          tile->terrain_type = terrain_type;
-          tile->terrain_sprite = sprite;
-        }
-      }
-    }
-    map.objects_attributes.push_back(h3m::ObjectAttributes{
-      .def = "adcfra.def",
-      .object_class = h3m::ObjectClass::CAMPFIRE,
-      .object_number = 0,
-      .object_group = h3m::ObjectGroup::Treasure,
-      });
-    for (std::uint32_t y = 0; y < map.basic_info.map_size; ++y)
-    {
-      const std::uint8_t num_sprites =
-        (y >= kNumTerrainTypes) ? 0 : h3m::countSprites(static_cast<h3m::TerrainType>(y));
-      for (std::uint32_t x = num_sprites; x < map.basic_info.map_size; ++x)
-      {
-        map.objects_details.push_back(h3m::ObjectDetails{
-          .x = static_cast<std::uint8_t>(x),
-          .y = static_cast<std::uint8_t>(y),
-          .z = 0,
-          .kind = 0
-          });
-      }
-    }
-    return map;
   }
 
   h3m::Map generateMapWithHeroes()

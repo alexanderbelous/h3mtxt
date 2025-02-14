@@ -89,6 +89,8 @@
     <ClCompile Include="fakeIslands.cpp" />
     <ClCompile Include="fillWithTerrain.cpp" />
     <ClCompile Include="fun.cpp" />
+    <ClCompile Include="generateMapWithAllRiverSprites.cpp" />
+    <ClCompile Include="generateMapWithAllTerrainSprites.cpp" />
     <ClCompile Include="generatePlayerSpecs.cpp" />
     <ClCompile Include="makeDefaultObjectAttributes.cpp" />
     <ClCompile Include="makeUltimateLava.cpp" />
@@ -108,6 +110,8 @@
     <ClInclude Include="drawCarpet.h" />
     <ClInclude Include="fakeIslands.h" />
     <ClInclude Include="fillWithTerrain.h" />
+    <ClInclude Include="generateMapWithAllRiverSprites.h" />
+    <ClInclude Include="generateMapWithAllTerrainSprites.h" />
     <ClInclude Include="generatePlayerSpecs.h" />
     <ClInclude Include="makeDefaultObjectAttributes.h" />
     <ClInclude Include="makeUltimateLava.h" />
