@@ -21,6 +21,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "H3MJsonReader", "H3MJsonRea
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "JsonCommon", "JsonCommon\JsonCommon.vcxproj", "{95C9F38B-98E4-4CA8-9A8E-9EDBC646B241}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Campaign", "Campaign\Campaign.vcxproj", "{E12579EE-1D2E-4342-86AF-EC0B7FCBD9E8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -63,6 +65,10 @@ Global
 		{95C9F38B-98E4-4CA8-9A8E-9EDBC646B241}.Debug|x64.Build.0 = Debug|x64
 		{95C9F38B-98E4-4CA8-9A8E-9EDBC646B241}.Release|x64.ActiveCfg = Release|x64
 		{95C9F38B-98E4-4CA8-9A8E-9EDBC646B241}.Release|x64.Build.0 = Release|x64
+		{E12579EE-1D2E-4342-86AF-EC0B7FCBD9E8}.Debug|x64.ActiveCfg = Debug|x64
+		{E12579EE-1D2E-4342-86AF-EC0B7FCBD9E8}.Debug|x64.Build.0 = Debug|x64
+		{E12579EE-1D2E-4342-86AF-EC0B7FCBD9E8}.Release|x64.ActiveCfg = Release|x64
+		{E12579EE-1D2E-4342-86AF-EC0B7FCBD9E8}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
