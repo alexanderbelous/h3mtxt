@@ -95,8 +95,8 @@ namespace h3m
   enum class StartingOptionsType : std::uint8_t
   {
     StartingBonus = 1,
-    CrossoverHeroes = 2,
-    StartingHeroes = 3
+    HeroCrossover = 2,
+    StartingHero = 3
   };
 
   template<StartingOptionsType>
@@ -144,20 +144,20 @@ namespace h3m
   };
 
   template<>
-  struct StartingOptionsDetails<StartingOptionsType::CrossoverHeroes>
+  struct StartingOptionsDetails<StartingOptionsType::HeroCrossover>
   {
-    struct CrossoverHero
+    struct Hero
     {
       PlayerColor player {};
-      std::uint8_t scenario {};
+      std::uint8_t source_scenario {};
     };
 
     // Size is serialized as std::uint8_t.
-    std::vector<CrossoverHero> options;
+    std::vector<Hero> options;
   };
 
   template<>
-  struct StartingOptionsDetails<StartingOptionsType::StartingHeroes>
+  struct StartingOptionsDetails<StartingOptionsType::StartingHero>
   {
     struct Hero
     {
@@ -174,8 +174,8 @@ namespace h3m
   {
     using Details = std::variant<
       StartingOptionsDetails<StartingOptionsType::StartingBonus>,
-      StartingOptionsDetails<StartingOptionsType::CrossoverHeroes>,
-      StartingOptionsDetails<StartingOptionsType::StartingHeroes>
+      StartingOptionsDetails<StartingOptionsType::HeroCrossover>,
+      StartingOptionsDetails<StartingOptionsType::StartingHero>
     >;
 
     constexpr StartingOptionsType type() const noexcept;
