@@ -1,5 +1,6 @@
 #include <h3mtxt/H3MReader/parseh3c.h>
 
+#include <h3mtxt/H3MReader/readStartingBonus.h>
 #include <h3mtxt/H3MReader/Utils.h>
 
 #include <h3mtxt/thirdparty/zstr/src/zstr.hpp>
@@ -27,48 +28,6 @@ namespace h3m
       options.creatures = readBitSet<19>(stream);
       options.artifacts = readBitSet<18>(stream);
       return options;
-    }
-
-    template<StartingBonusType T>
-    StartingBonusDetails<T> readStartingBonusDetails(std::istream& stream)
-    {
-      throw std::runtime_error("readStartingBonusDetails(): NotImplmented().");
-    }
-
-    template<>
-    StartingBonusDetails<StartingBonusType::Spell>
-    readStartingBonusDetails<StartingBonusType::Spell>(std::istream& stream)
-    {
-      StartingBonusDetails<StartingBonusType::Spell> details;
-      details.hero = readInt<std::uint16_t>(stream);
-      details.spell = readEnum<SpellType>(stream);
-      return details;
-    }
-
-    StartingBonus readStartingBonus(std::istream& stream)
-    {
-      const StartingBonusType bonus_type = readEnum<StartingBonusType>(stream);
-      switch (bonus_type)
-      {
-      case StartingBonusType::Spell:
-        return readStartingBonusDetails<StartingBonusType::Spell>(stream);
-      case StartingBonusType::Creature:
-        return readStartingBonusDetails<StartingBonusType::Creature>(stream);
-      case StartingBonusType::Building:
-        return readStartingBonusDetails<StartingBonusType::Building>(stream);
-      case StartingBonusType::Artifact:
-        return readStartingBonusDetails<StartingBonusType::Artifact>(stream);
-      case StartingBonusType::SpellScroll:
-        return readStartingBonusDetails<StartingBonusType::SpellScroll>(stream);
-      case StartingBonusType::PrimarySkills:
-        return readStartingBonusDetails<StartingBonusType::PrimarySkills>(stream);
-      case StartingBonusType::SecondarySkill:
-        return readStartingBonusDetails<StartingBonusType::SecondarySkill>(stream);
-      case StartingBonusType::Resource:
-        return readStartingBonusDetails<StartingBonusType::Resource>(stream);
-      default:
-        throw std::runtime_error("readStartingBonus(): invalid bonus_type.");
-      }
     }
 
     StartingOptionsDetails<StartingOptionsType::StartingBonus> readStartingBonusOptions(std::istream& stream)
@@ -160,6 +119,14 @@ namespace h3m
       campaign.description = readString(stream);
       campaign.allow_selecting_difficulty = readBool(stream);
       campaign.theme_music = readEnum<CampaignMusic>(stream);
+      // TODO: check if this is the actual behavior (that the number of scenarios
+      // always matches the number of regions).
+      const std::uint8_t max_num_scenarios = countMapRegions(campaign.id);
+      campaign.scenarios.reserve(max_num_scenarios);
+      for (std::uint8_t i = 0; i < max_num_scenarios; ++i)
+      {
+        campaign.scenarios.push_back(readCampaignScenario(stream));
+      }
       return campaign;
     }
   }
