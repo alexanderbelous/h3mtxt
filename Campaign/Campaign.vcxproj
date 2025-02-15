@@ -90,6 +90,13 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Campaign.h" />
+    <ClInclude Include="CampaignScenario.h" />
+    <ClInclude Include="Constants\CampaignFormat.h" />
+    <ClInclude Include="Constants\CampaignId.h" />
+    <ClInclude Include="Constants\CampaignMusic.h" />
+    <ClInclude Include="Constants\CampaignVideo.h" />
+    <ClInclude Include="Constants\RegionColor.h" />
+    <ClInclude Include="StartingOptions.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
