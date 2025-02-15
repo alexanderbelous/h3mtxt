@@ -94,6 +94,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="IntegerWidth.h" />
+    <ClInclude Include="parseh3c.h" />
     <ClInclude Include="parseh3m.h" />
     <ClInclude Include="readCreatureStack.h" />
     <ClInclude Include="readHeroArtifacts.h" />
@@ -108,6 +109,7 @@
     <ClInclude Include="Utils.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="parseh3c.cpp" />
     <ClCompile Include="parseh3m.cpp" />
     <ClCompile Include="readCreatureStack.cpp" />
     <ClCompile Include="readHeroArtifacts.cpp" />
@@ -121,6 +123,9 @@
     <ClCompile Include="Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Campaign\Campaign.vcxproj">
+      <Project>{e12579ee-1d2e-4342-86af-ec0b7fcbd9e8}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\Map\Map.vcxproj">
       <Project>{856f5d07-6dc0-4e66-813e-12c26f28d606}</Project>
     </ProjectReference>

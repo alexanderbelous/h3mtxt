@@ -96,6 +96,8 @@
     <ClInclude Include="Constants\CampaignMusic.h" />
     <ClInclude Include="Constants\CampaignVideo.h" />
     <ClInclude Include="Constants\RegionColor.h" />
+    <ClInclude Include="Constants\StartingBonusType.h" />
+    <ClInclude Include="StartingBonus.h" />
     <ClInclude Include="StartingOptions.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

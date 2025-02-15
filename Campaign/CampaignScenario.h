@@ -22,8 +22,9 @@ namespace h3m
 
   struct CrossoverOptions
   {
-    // Bitmask. TODO: replace with a wrapper.
-    std::byte crossover_heroes_retain {};
+    // Bitmask indicating what crossover heroes retain.
+    // TODO: replace with a wrapper.
+    std::byte retained_features {};
     // Which creatures crossover heroes retain.
     // Bitmask CreatureType -> bool. TODO: replace with a wrapper.
     BitSet<19> creatures {};

@@ -1,9 +1,10 @@
 #pragma once
 
+#include <h3mtxt/Campaign/StartingBonus.h>
 #include <h3mtxt/Map/Constants/PlayerColor.h>
-#include <h3mtxt/Map/Constants/SpellType.h>
 
 #include <cstdint>
+#include <utility>
 #include <variant>
 #include <vector>
 
@@ -11,6 +12,9 @@ namespace h3m
 {
   enum class StartingOptionsType : std::uint8_t
   {
+    // TODO: apparently 0 is also a valid value, indicating no options.
+    // The Campaign Editor doesn't allow selecting it, though.
+    // Check, and if this is correct, add an enum constant.
     StartingBonus = 1,
     HeroCrossover = 2,
     StartingHero = 3
@@ -18,39 +22,6 @@ namespace h3m
 
   template<StartingOptionsType>
   struct StartingOptionsDetails;
-
-  enum class StartingBonusType : std::uint8_t
-  {
-    Spell = 0,
-    Creature = 1,
-    Building = 2,
-    Artifact = 3,
-    SpellScroll = 4,
-    PrimarySkills = 5,
-    SecondarySkill = 6,
-    Resource = 7,
-  };
-
-  template<StartingBonusType>
-  struct StartingBonusDetails;
-
-  template<>
-  struct StartingBonusDetails<StartingBonusType::Spell>
-  {
-    // HeroType or 0xFDFF for the most powerful hero.
-    std::uint16_t hero {};
-    SpellType spell {};
-  };
-
-  struct StartingBonus
-  {
-    using Details = std::variant<
-      StartingBonusDetails<StartingBonusType::Spell>
-      // TODO: add the rest
-    >;
-
-    Details details;
-  };
 
   template<>
   struct StartingOptionsDetails<StartingOptionsType::StartingBonus>
@@ -94,6 +65,18 @@ namespace h3m
       StartingOptionsDetails<StartingOptionsType::HeroCrossover>,
       StartingOptionsDetails<StartingOptionsType::StartingHero>
     >;
+
+    constexpr StartingOptions() noexcept = default;
+
+    template<StartingOptionsType T>
+    constexpr StartingOptions(const StartingOptionsDetails<T>& details):
+      details(details)
+    {}
+
+    template<StartingOptionsType T>
+    constexpr StartingOptions(StartingOptionsDetails<T>&& details) :
+      details(std::move(details))
+    {}
 
     constexpr StartingOptionsType type() const noexcept;
 

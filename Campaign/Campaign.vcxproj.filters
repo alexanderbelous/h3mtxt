@@ -42,5 +42,11 @@
     <ClInclude Include="CampaignScenario.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Constants\StartingBonusType.h">
+      <Filter>Header Files\Constants</Filter>
+    </ClInclude>
+    <ClInclude Include="StartingBonus.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
