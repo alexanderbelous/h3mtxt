@@ -368,7 +368,7 @@ namespace h3m
   template<>
   struct FieldNames<ObjectDetailsData<MetaObjectType::WITCH_HUT>>
   {
-    static inline constexpr std::string_view kSkillsAvailability = "skills_availability";
+    static inline constexpr std::string_view kPotentialSkills = "potential_skills";
   };
 
   template<>

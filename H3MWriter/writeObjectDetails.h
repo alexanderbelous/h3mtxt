@@ -353,7 +353,7 @@ namespace h3m
   {
     void operator()(std::ostream& stream, const ObjectDetailsData<MetaObjectType::WITCH_HUT>& witch_hut) const
     {
-      writeData(stream, witch_hut.skills_availability);
+      writeData(stream, witch_hut.potential_skills);
     }
   };
 

@@ -517,7 +517,7 @@ namespace Medea_NS
     void operator()(FieldsWriter& out, const DetailsData& witch_hut) const
     {
       using Fields = h3m::FieldNames<DetailsData>;
-      out.writeField(Fields::kSkillsAvailability, witch_hut.skills_availability);
+      out.writeField(Fields::kPotentialSkills, witch_hut.potential_skills);
     }
   };
 }

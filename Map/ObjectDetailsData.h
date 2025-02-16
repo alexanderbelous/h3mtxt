@@ -345,7 +345,6 @@ namespace h3m
   template<>
   struct ObjectDetailsData<MetaObjectType::WITCH_HUT>
   {
-    // TODO: rename to potential_skills.
-    SecondarySkillsBitmask skills_availability;
+    SecondarySkillsBitmask potential_skills;
   };
 }

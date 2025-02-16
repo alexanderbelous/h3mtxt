@@ -477,7 +477,7 @@ namespace h3m
     {
       using Fields = FieldNames<DetailsData>;
       DetailsData details;
-      readField(details.skills_availability, value, Fields::kSkillsAvailability);
+      readField(details.potential_skills, value, Fields::kPotentialSkills);
       return details;
     }
   };
