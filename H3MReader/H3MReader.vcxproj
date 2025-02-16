@@ -96,6 +96,7 @@
     <ClInclude Include="IntegerWidth.h" />
     <ClInclude Include="parseh3c.h" />
     <ClInclude Include="parseh3m.h" />
+    <ClInclude Include="readCampaignScenario.h" />
     <ClInclude Include="readCreatureStack.h" />
     <ClInclude Include="readHeroArtifacts.h" />
     <ClInclude Include="readObjectDetails.h" />
@@ -112,6 +113,7 @@
   <ItemGroup>
     <ClCompile Include="parseh3c.cpp" />
     <ClCompile Include="parseh3m.cpp" />
+    <ClCompile Include="readCampaignScenario.cpp" />
     <ClCompile Include="readCreatureStack.cpp" />
     <ClCompile Include="readHeroArtifacts.cpp" />
     <ClCompile Include="readObjectDetails.cpp" />
