@@ -42,7 +42,7 @@ namespace h3m
     RewardDetails<RewardType::Morale> readRewardDetails<RewardType::Morale>(std::istream& stream)
     {
       RewardDetails<RewardType::Morale> details;
-      details.morale = readInt<std::uint8_t>(stream);
+      details.morale = readInt<std::int8_t>(stream);
       return details;
     }
 
@@ -50,7 +50,7 @@ namespace h3m
     RewardDetails<RewardType::Luck> readRewardDetails<RewardType::Luck>(std::istream& stream)
     {
       RewardDetails<RewardType::Luck> details;
-      details.luck = readInt<std::uint8_t>(stream);
+      details.luck = readInt<std::int8_t>(stream);
       return details;
     }
 
@@ -68,7 +68,7 @@ namespace h3m
     {
       RewardDetails<RewardType::PrimarySkill> details;
       details.type = readEnum<PrimarySkillType>(stream);
-      details.value = readInt<std::uint8_t>(stream);
+      details.value = readInt<std::int8_t>(stream);
       return details;
     }
 

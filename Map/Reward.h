@@ -44,16 +44,21 @@ namespace h3m
   struct RewardDetails<RewardType::Morale>
   {
     // The Map Editor only allows setting a value from [1; 3].
-    // However, it's perfectly fine to use a value > 3; this can have a
-    // meaningful effect if, for example, the hero has creatures from 7 different towns
-    // (-5 morale).
-    std::uint8_t morale {};
+    //
+    // * 0 is OKish: it doesn't change the hero's morale, but the game displays it as "Good Morale" anyway.
+    //   The Map Editor displays it as "+0 Morale".
+    // * Values within [4; 127] are fine; this can have a meaningful effect if, for example,
+    //   the hero has creatures from 7 different towns (-5 morale).
+    // * Negative values are OKish: the hero's morale will be decreased by the specified value, but
+    //   the game displays it as "Good Morale" anyway. The Map Editor displays it as "+-N Morale".
+    std::int8_t morale {};
   };
 
   template<>
   struct RewardDetails<RewardType::Luck>
   {
-    std::uint8_t luck {};
+    // Same as with RewardType::Morale.
+    std::int8_t luck {};
   };
 
   template<>
@@ -67,7 +72,16 @@ namespace h3m
   struct RewardDetails<RewardType::PrimarySkill>
   {
     PrimarySkillType type {};
-    std::uint8_t value {};
+    // The Map Editor only allows using a value within [1; 99].
+    //
+    // 0 is OK (no effect).
+    // Negative values are a bit weird:
+    // * Both the Map Editor and the game will show them like "+-N attack".
+    // * If, after accepting the reward, the hero's new primary skill level becomes
+    //   negative, it will be displayed as 0, and will be treated as 0 during combat.
+    //   It will stay this way until you increase the level to an actually positive
+    //   number.
+    std::int8_t value {};
   };
 
   template<>
