@@ -218,7 +218,7 @@ namespace h3m
       writeData(stream, dwelling.town_absod_id);
       if (dwelling.town_absod_id == 0)
       {
-        writeData(stream, dwelling.alignment);
+        writeData(stream, dwelling.alignment.bitset);
       }
       writeData(stream, dwelling.min_level);
       writeData(stream, dwelling.max_level);
@@ -247,7 +247,7 @@ namespace h3m
       writeData(stream, dwelling.town_absod_id);
       if (dwelling.town_absod_id == 0)
       {
-        writeData(stream, dwelling.alignment);
+        writeData(stream, dwelling.alignment.bitset);
       }
     }
   };

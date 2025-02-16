@@ -10,6 +10,7 @@
 #include <h3mtxt/H3MJsonReader/readSecondarySkillsBitmask.h>
 #include <h3mtxt/H3MJsonReader/readSpellsBitmask.h>
 #include <h3mtxt/H3MJsonReader/readTimedEventBase.h>
+#include <h3mtxt/H3MJsonReader/readTownsBitmask.h>
 #include <h3mtxt/JsonCommon/FieldName.h>
 #include <h3mtxt/Map/ObjectDetailsData.h>
 

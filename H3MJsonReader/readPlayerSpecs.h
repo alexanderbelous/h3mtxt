@@ -2,22 +2,11 @@
 
 #include <h3mtxt/JsonCommon/FieldName.h>
 #include <h3mtxt/H3MJsonReader/JsonReader.h>
+#include <h3mtxt/H3MJsonReader/readTownsBitmask.h>
 #include <h3mtxt/Map/PlayerSpecs.h>
 
 namespace h3m
 {
-  // TODO: move to a separate header.
-  template<>
-  struct JsonReader<TownsBitmask>
-  {
-    TownsBitmask operator()(const Json::Value& value) const
-    {
-      TownsBitmask towns_bitmask {};
-      towns_bitmask.bitset = fromJson<BitSet<2>>(value);
-      return towns_bitmask;
-    }
-  };
-
   template<>
   struct JsonReader<MainTown>
   {

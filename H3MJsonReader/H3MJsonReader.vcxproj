@@ -109,6 +109,7 @@
     <ClInclude Include="readSpellsBitmask.h" />
     <ClInclude Include="readTile.h" />
     <ClInclude Include="readTimedEventBase.h" />
+    <ClInclude Include="readTownsBitmask.h" />
     <ClInclude Include="readVictoryCondition.h" />
   </ItemGroup>
   <ItemGroup>

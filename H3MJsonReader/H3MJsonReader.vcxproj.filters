@@ -84,6 +84,9 @@
     <ClInclude Include="readReward.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="readTownsBitmask.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="readH3mJson.cpp">

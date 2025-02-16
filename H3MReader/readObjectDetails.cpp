@@ -288,7 +288,7 @@ namespace h3m
       dwelling.town_absod_id = readInt<std::uint32_t>(stream);
       if (dwelling.town_absod_id == 0)
       {
-        dwelling.alignment = readBitSet<2>(stream);
+        dwelling.alignment.bitset = readBitSet<2>(stream);
       }
       dwelling.min_level = readInt<std::uint8_t>(stream);
       dwelling.max_level = readInt<std::uint8_t>(stream);
@@ -315,7 +315,7 @@ namespace h3m
       dwelling.town_absod_id = readInt<std::uint32_t>(stream);
       if (dwelling.town_absod_id == 0)
       {
-        dwelling.alignment = readBitSet<2>(stream);
+        dwelling.alignment.bitset = readBitSet<2>(stream);
       }
       return dwelling;
     }

@@ -325,7 +325,7 @@ namespace Medea_NS
       out.writeField(Fields::kTownAbsodId, dwelling.town_absod_id);
       if (dwelling.town_absod_id == 0)
       {
-        out.writeField(Fields::kAlignment, dwelling.alignment);
+        out.writeField(Fields::kAlignment, dwelling.alignment.bitset);
       }
       out.writeField(Fields::kMinLevel, dwelling.min_level);
       out.writeField(Fields::kMaxLevel, dwelling.max_level);
@@ -358,7 +358,7 @@ namespace Medea_NS
       out.writeField(Fields::kTownAbsodId, dwelling.town_absod_id);
       if (dwelling.town_absod_id == 0)
       {
-        out.writeField(Fields::kAlignment, dwelling.alignment);
+        out.writeField(Fields::kAlignment, dwelling.alignment.bitset);
       }
     }
   };
