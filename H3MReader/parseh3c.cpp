@@ -78,6 +78,8 @@ namespace h3m
       const StartingOptionsType starting_options_type = readEnum<StartingOptionsType>(stream);
       switch (starting_options_type)
       {
+      case StartingOptionsType::None:
+        return StartingOptionsDetails<StartingOptionsType::None>{};
       case StartingOptionsType::StartingBonus:
         return readStartingBonusOptions(stream);
       case StartingOptionsType::HeroCrossover:
@@ -108,6 +110,7 @@ namespace h3m
       }
       scenario.crossover_options = readCrossoverOptions(stream);
       scenario.starting_options = readStartingOptions(stream);
+      return scenario;
     }
 
     Campaign parseh3cUncompressed(std::istream& stream)

@@ -12,9 +12,9 @@ namespace h3m
 {
   enum class StartingOptionsType : std::uint8_t
   {
-    // TODO: apparently 0 is also a valid value, indicating no options.
-    // The Campaign Editor doesn't allow selecting it, though.
-    // Check, and if this is correct, add an enum constant.
+    // The Campaign Editor doesn't allow selecting None for existing scenarios,
+    // but this is nevertheless the value used for absent scenarios.
+    None = 0,
     StartingBonus = 1,
     HeroCrossover = 2,
     StartingHero = 3
@@ -22,6 +22,11 @@ namespace h3m
 
   template<StartingOptionsType>
   struct StartingOptionsDetails;
+
+  template<>
+  struct StartingOptionsDetails<StartingOptionsType::None>
+  {
+  };
 
   template<>
   struct StartingOptionsDetails<StartingOptionsType::StartingBonus>
@@ -61,11 +66,14 @@ namespace h3m
   struct StartingOptions
   {
     using Details = std::variant<
+      StartingOptionsDetails<StartingOptionsType::None>,
       StartingOptionsDetails<StartingOptionsType::StartingBonus>,
       StartingOptionsDetails<StartingOptionsType::HeroCrossover>,
       StartingOptionsDetails<StartingOptionsType::StartingHero>
     >;
 
+    // Constructs a StartingOptions object holding a
+    // StartingOptionsDetails<StartingOptionsType::None> alternative.
     constexpr StartingOptions() noexcept = default;
 
     template<StartingOptionsType T>
@@ -78,13 +86,11 @@ namespace h3m
       details(std::move(details))
     {}
 
-    constexpr StartingOptionsType type() const noexcept;
+    constexpr StartingOptionsType type() const noexcept
+    {
+      return static_cast<StartingOptionsType>(details.index());
+    }
 
     Details details;
   };
-
-  constexpr StartingOptionsType StartingOptions::type() const noexcept
-  {
-    return static_cast<StartingOptionsType>(details.index() + 1);
-  }
 }
