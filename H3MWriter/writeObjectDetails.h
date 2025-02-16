@@ -324,7 +324,7 @@ namespace h3m
       writeData(stream, town.absod_id);
       writeData(stream, town.owner);
       writeData(stream, town.name);
-      writeData(stream, town.creatures);
+      writeData(stream, town.garrison);
       writeData(stream, town.formation);
       writeData(stream, town.buildings);
       if (!town.buildings)

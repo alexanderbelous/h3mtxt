@@ -438,7 +438,7 @@ namespace h3m
       readField(details.absod_id, value, Fields::kAbsodId);
       readField(details.owner, value, Fields::kOwner);
       readField(details.name, value, Fields::kName);
-      readField(details.creatures, value, Fields::kCreatures);
+      readField(details.garrison, value, Fields::kGarrison);
       readField(details.formation, value, Fields::kFormation);
       readField(details.buildings, value, Fields::kBuildings);
       if (!details.buildings)

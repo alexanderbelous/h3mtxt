@@ -348,7 +348,7 @@ namespace h3m
     static inline constexpr std::string_view kAbsodId = "absod_id";
     static inline constexpr std::string_view kOwner = "owner";
     static inline constexpr std::string_view kName = "name";
-    static inline constexpr std::string_view kCreatures = "creatures";
+    static inline constexpr std::string_view kGarrison = "garrison";
     static inline constexpr std::string_view kFormation = "formation";
     static inline constexpr std::string_view kBuildings = "buildings";
     static inline constexpr std::string_view kHasFort = "has_fort";

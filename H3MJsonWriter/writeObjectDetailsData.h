@@ -470,9 +470,9 @@ namespace Medea_NS
       {
         out.writeField(Fields::kName, *town.name);
       }
-      if (town.creatures)
+      if (town.garrison)
       {
-        out.writeField(Fields::kCreatures, *town.creatures);
+        out.writeField(Fields::kGarrison, *town.garrison);
       }
       out.writeField(Fields::kFormation, town.formation);
       if (auto enum_str = h3m::getEnumString(town.formation); !enum_str.empty())

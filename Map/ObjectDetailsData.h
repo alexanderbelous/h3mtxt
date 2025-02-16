@@ -318,8 +318,7 @@ namespace h3m
     // If std::nullopt, some default name will be assigned.
     std::optional<std::string> name {};
     // 0xFFFF in CreatureStack.type means no creature.
-    // TODO: rename to garrison.
-    std::optional<std::array<CreatureStack, 7>> creatures;
+    std::optional<std::array<CreatureStack, 7>> garrison;
     Formation formation {};
     std::optional<TownBuildings> buildings;
     // This field is only read/written if !buildings.has_value().

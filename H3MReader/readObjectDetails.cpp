@@ -417,10 +417,10 @@ namespace h3m
       {
         town.name = readString(stream);
       }
-      const Bool has_creatures = readBool(stream);
-      if (has_creatures)
+      const Bool has_garrison = readBool(stream);
+      if (has_garrison)
       {
-        town.creatures = readCreatureStackArray(stream);
+        town.garrison = readCreatureStackArray(stream);
       }
       town.formation = readEnum<Formation>(stream);
       const Bool has_buildings = readBool(stream);
