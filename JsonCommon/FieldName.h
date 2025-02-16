@@ -570,4 +570,31 @@ namespace h3m
     static inline constexpr std::string_view kCreatures = "creatures";
     static inline constexpr std::string_view kUnknown2 = "unknown2";
   };
+
+  template<>
+  struct FieldNames<TownsBitmask>
+  {
+    // The number of bit fields in TownsBitmask.
+    static constexpr std::size_t kNumBits = 16;
+    // Name for each bit field in TownsBitmask.
+    static inline constexpr std::array<std::string_view, kNumBits> kNames
+    {
+      "castle",
+      "rampart",
+      "tower",
+      "inferno",
+      "necropolis",
+      "dungeon",
+      "stronghold",
+      "fortress",
+      "conflux",
+      "padding_9",
+      "padding_10",
+      "padding_11",
+      "padding_12",
+      "padding_13",
+      "padding_14",
+      "padding_15",
+    };
+  };
 }

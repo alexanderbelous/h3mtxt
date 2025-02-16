@@ -11,9 +11,8 @@ namespace h3m
   // Note that there are only 9 towns in Shadow of Death, but this bitmask
   // stores 16 bits. The last 7 bits are normally set to 0 in .h3m regardless of the meaning
   // of the bitmask.
-  class TownsBitmask
+  struct TownsBitmask
   {
-  public:
     // Constructs a bitset with all town types disabled.
     constexpr TownsBitmask() noexcept = default;
 

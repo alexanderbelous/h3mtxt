@@ -95,5 +95,8 @@
     <ClInclude Include="H3MJsonWriter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="writeTownsBitmask.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

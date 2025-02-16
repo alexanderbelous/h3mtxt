@@ -14,6 +14,7 @@
 #include <h3mtxt/H3MJsonWriter/writeSecondarySkillsBitmask.h>
 #include <h3mtxt/H3MJsonWriter/writeSpellsBitmask.h>
 #include <h3mtxt/H3MJsonWriter/writeTimedEventBase.h>
+#include <h3mtxt/H3MJsonWriter/writeTownsBitmask.h>
 
 namespace Medea_NS
 {
@@ -325,7 +326,7 @@ namespace Medea_NS
       out.writeField(Fields::kTownAbsodId, dwelling.town_absod_id);
       if (dwelling.town_absod_id == 0)
       {
-        out.writeField(Fields::kAlignment, dwelling.alignment.bitset);
+        out.writeField(Fields::kAlignment, dwelling.alignment);
       }
       out.writeField(Fields::kMinLevel, dwelling.min_level);
       out.writeField(Fields::kMaxLevel, dwelling.max_level);
@@ -358,7 +359,7 @@ namespace Medea_NS
       out.writeField(Fields::kTownAbsodId, dwelling.town_absod_id);
       if (dwelling.town_absod_id == 0)
       {
-        out.writeField(Fields::kAlignment, dwelling.alignment.bitset);
+        out.writeField(Fields::kAlignment, dwelling.alignment);
       }
     }
   };

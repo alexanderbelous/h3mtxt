@@ -4,6 +4,7 @@
 #include <h3mtxt/Map/PlayerSpecs.h>
 #include <h3mtxt/H3MJsonWriter/H3MJsonWriter.h>
 #include <h3mtxt/H3MJsonWriter/getEnumString.h>
+#include <h3mtxt/H3MJsonWriter/writeTownsBitmask.h>
 
 namespace Medea_NS
 {
@@ -65,7 +66,7 @@ namespace Medea_NS
         out.writeComment(enum_str, false);
       }
       out.writeField(Fields::kCustomizedAlignments, value.customized_alignments);
-      out.writeField(Fields::kAllowedAlignments, value.allowed_alignments.bitset);
+      out.writeField(Fields::kAllowedAlignments, value.allowed_alignments);
       out.writeField(Fields::kRandomTown, value.random_town);
       if (value.main_town)
       {

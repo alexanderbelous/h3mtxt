@@ -112,6 +112,7 @@
     <ClInclude Include="writeSpellsBitmask.h" />
     <ClInclude Include="writeTile.h" />
     <ClInclude Include="writeTimedEventBase.h" />
+    <ClInclude Include="writeTownsBitmask.h" />
     <ClInclude Include="writeVictoryCondition.h" />
   </ItemGroup>
   <ItemGroup>
