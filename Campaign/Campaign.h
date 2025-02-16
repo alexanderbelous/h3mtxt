@@ -20,6 +20,8 @@ namespace h3m
     std::string description;
     Bool allow_selecting_difficulty {};
     CampaignMusic theme_music {};
+    // The number of elements should be equal to countMapRegions(this->id),
+    // even if the campaign has unused regions.
     std::vector<CampaignScenario> scenarios;
     // TODO: Maps are serialized after all scenarios, but there is some padding/unknown data in between.
     // std::vector<Map> maps;
