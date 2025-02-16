@@ -62,7 +62,11 @@ namespace h3m
     std::int8_t morale {};
     std::int8_t luck {};
     Resources<std::int32_t> resources;
+    // FYI: the Map Editor interprets the value of each primary skill as int8_t (not uint8_t),
+    // but in the game negative values are ignored (they have the same effect as 0).
     PrimarySkills primary_skills;
+    // FYI: you can use more than 8 secondary skills, but the game will only consider the first 8
+    // (the rest will be ignored).
     std::vector<SecondarySkill> secondary_skills;
     std::vector<ArtifactType> artifacts;
     std::vector<SpellType> spells;
