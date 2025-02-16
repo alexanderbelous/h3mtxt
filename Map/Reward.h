@@ -28,20 +28,31 @@ namespace h3m
   template<>
   struct RewardDetails<RewardType::SpellPoints>
   {
-    std::uint32_t spell_points {};
+    // The Map Editor only allows setting a value from [1; 999].
+    //
+    // 0 is OK (no spell points granted).
+    // Values within [1000; 2147483647] are generally ok (I think I've observed a crash at 32768,
+    // but I haven't been able to reproduce it), but you will only be granted 999 points anyway.
+    // Negative values are weird:
+    // * If N is negative and the hero has -N or more spell points, the hero will lose -N spell points.
+    // * However, if N is negative and the hero has less than -N spell points,
+    //   the hero will *gain* 10 spell points.
+    std::int32_t spell_points {};
   };
 
   template<>
   struct RewardDetails<RewardType::Morale>
   {
-    // TODO: test what happens if it's > 3.
+    // The Map Editor only allows setting a value from [1; 3].
+    // However, it's perfectly fine to use a value > 3; this can have a
+    // meaningful effect if, for example, the hero has creatures from 7 different towns
+    // (-5 morale).
     std::uint8_t morale {};
   };
 
   template<>
   struct RewardDetails<RewardType::Luck>
   {
-    // TODO: test what happens if it's > 3.
     std::uint8_t luck {};
   };
 

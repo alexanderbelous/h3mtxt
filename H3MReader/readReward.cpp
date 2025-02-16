@@ -34,7 +34,7 @@ namespace h3m
     RewardDetails<RewardType::SpellPoints> readRewardDetails<RewardType::SpellPoints>(std::istream& stream)
     {
       RewardDetails<RewardType::SpellPoints> details;
-      details.spell_points = readInt<std::uint32_t>(stream);
+      details.spell_points = readInt<std::int32_t>(stream);
       return details;
     }
 
