@@ -49,7 +49,7 @@ namespace Medea_NS
       void clear()
       {
         // Replace the contents with an empty string.
-        constexpr std::string kEmptyString;
+        const std::string kEmptyString;
         stream_.str(kEmptyString);
         // Clear state flags.
         stream_.clear();
