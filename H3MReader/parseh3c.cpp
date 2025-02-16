@@ -1,5 +1,6 @@
 #include <h3mtxt/H3MReader/parseh3c.h>
 
+#include <h3mtxt/H3MReader/parseh3m.h>
 #include <h3mtxt/H3MReader/readStartingBonus.h>
 #include <h3mtxt/H3MReader/Utils.h>
 
@@ -122,13 +123,17 @@ namespace h3m
       campaign.description = readString(stream);
       campaign.allow_selecting_difficulty = readBool(stream);
       campaign.theme_music = readEnum<CampaignMusic>(stream);
-      // TODO: check if this is the actual behavior (that the number of scenarios
-      // always matches the number of regions).
       const std::uint8_t max_num_scenarios = countMapRegions(campaign.id);
       campaign.scenarios.reserve(max_num_scenarios);
       for (std::uint8_t i = 0; i < max_num_scenarios; ++i)
       {
         campaign.scenarios.push_back(readCampaignScenario(stream));
+      }
+      const std::size_t num_scenarios = countScenarios(campaign);
+      campaign.maps.reserve(num_scenarios);
+      for (std::size_t i = 0; i < num_scenarios; ++i)
+      {
+        campaign.maps.push_back(parseh3m(stream));
       }
       return campaign;
     }
