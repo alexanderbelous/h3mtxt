@@ -38,6 +38,7 @@ namespace h3m
     StartingBonusDetails<StartingBonusType::Building>
     readStartingBonusDetails<StartingBonusType::Building>(std::istream&)
     {
+      // TODO: implement.
       throw std::runtime_error("readStartingBonusDetails(): NotImplemented for Building.");
     }
 

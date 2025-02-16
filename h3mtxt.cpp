@@ -2,6 +2,7 @@
 #include <h3mtxt/H3MJsonWriter/writeH3mJson.h>
 #include <h3mtxt/H3MReader/parseh3m.h>
 #include <h3mtxt/H3MWriter/writeh3m.h>
+#include <h3mtxt/Map/Constants/MapFormat.h>
 
 #include <filesystem>
 #include <fstream>
@@ -18,13 +19,14 @@ namespace
   bool isH3mFile(std::istream& stream)
   {
     constexpr char kGzipFirstByte = 0x1F;
-    constexpr char kH3mUncompressedFirstByte = 0x1C;
 
     const int first_byte = stream.peek();
     switch (first_byte)
     {
     case kGzipFirstByte:
-    case kH3mUncompressedFirstByte:
+    case static_cast<char>(h3m::MapFormat::RestorationOfErathia):
+    case static_cast<char>(h3m::MapFormat::ArmageddonsBlade):
+    case static_cast<char>(h3m::MapFormat::ShadowOfDeath):
       return true;
     default:
       return false;

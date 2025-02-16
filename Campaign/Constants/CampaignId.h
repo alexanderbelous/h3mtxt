@@ -4,7 +4,7 @@
 
 namespace h3m
 {
-  // Template to use for the campaign (see CampText.txt).
+  // Template to use for the campaign.
   // The Campaign Editor calls it "Campaign Map".
   enum class CampaignId : std::uint8_t
   {
@@ -14,7 +14,7 @@ namespace h3m
     DungeonsAndDevils = 4,
     LongLivetheKing = 5,
     SpoilsOfWar = 6,
-    SeedsofDiscontent = 7,
+    SeedsOfDiscontent = 7,
     Bracada = 8,
     Islands = 9,
     Krewlod = 10,
@@ -43,7 +43,7 @@ namespace h3m
       return 4;
     case CampaignId::SpoilsOfWar:
       return 3;
-    case CampaignId::SeedsofDiscontent:
+    case CampaignId::SeedsOfDiscontent:
       return 3;
     case CampaignId::Bracada:
     case CampaignId::Krewlod:
