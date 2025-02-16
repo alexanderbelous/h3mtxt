@@ -65,7 +65,11 @@ namespace h3m
   struct RewardDetails<RewardType::Resource>
   {
     ResourceType type {};
-    std::uint32_t amount {};
+    // The Map Editor only allow setting a value within [1; 32767].
+    // However, the behavior is fine for all int32_t values:
+    // * 0 has no effect (no resources given).
+    // * Negative values reduce your current amount of this resource, but it won't go below 0.
+    std::int32_t amount {};
   };
 
   template<>

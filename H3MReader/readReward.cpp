@@ -59,7 +59,7 @@ namespace h3m
     {
       RewardDetails<RewardType::Resource> details;
       details.type = readEnum<ResourceType>(stream);
-      details.amount = readInt<std::uint32_t>(stream);
+      details.amount = readInt<std::int32_t>(stream);
       return details;
     }
 

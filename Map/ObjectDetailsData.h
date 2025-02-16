@@ -65,7 +65,7 @@ namespace h3m
     // FYI: the Map Editor interprets the value of each primary skill as int8_t (not uint8_t),
     // but in the game negative values are ignored (they have the same effect as 0).
     PrimarySkills primary_skills;
-    // FYI: you can use more than 8 secondary skills, but the game will only consider the first 8
+    // FYI: you can add more than 8 secondary skills, but the game will only consider the first 8
     // (the rest will be ignored).
     std::vector<SecondarySkill> secondary_skills;
     std::vector<ArtifactType> artifacts;
@@ -103,8 +103,7 @@ namespace h3m
     // TODO: replace with PlayerColor. Note that sizeof(PlayerColor) == 1,
     // so you'll need to add ReservedData<3> after it.
     std::uint32_t owner {};
-    // Note: h3m2json claims that here 0xFF in CreatureStack.type means "no creature", but
-    // in other places 0xFFFF is used instead.
+    // 0xFFFF in CreatureStack.type means "no creature".
     std::array<CreatureStack, 7> creatures {};
     Bool can_remove_units {};
     ReservedData<8> unknown;
@@ -305,6 +304,16 @@ namespace h3m
     // Each bit indicates whether the building gets built.
     BitSet<6> buildings;
     // Extra creatures for each creature level.
+    // FYI: this is "semi-signed":
+    // * The Map Editor displays numbers > 32767 as negative numbers.
+    // * In the game, however, the behavior varies:
+    //   * When the event occurs, the numbers are unsigned (e.g, "65535 Archangels arrive to Innsmouth").
+    //   * On the Castle Screen the numbers are signed (e.g., "-399 Archangels available").
+    //   * In Kingdom Overview the numbers are also signed (both in vanilla and in HD mod).
+    //   * (HD mod only) On the Town Screen the numbers are unsigned (e.g., "65137 Archangels available").
+    // In the vanilla game you cannot hire creatures if the available amount is negative. In HD mod,
+    // however, you can use Ctrl+LeftMouseButton the maximum possible amount of creatures (within the available
+    // resources), and HD mod incorrectly interprets this as an unsigned number. Looks like a bug in HD mod.
     std::array<std::uint16_t, 7> creatures {};
     ReservedData<4> unknown2;
   };
