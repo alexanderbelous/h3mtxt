@@ -94,8 +94,8 @@ namespace h3m
     CampaignScenario readCampaignScenario(std::istream& stream)
     {
       CampaignScenario scenario;
-      scenario.format = readEnum<MapFormat>(stream);
       scenario.map_filename = readString(stream);
+      scenario.compressed_map_size = readInt<std::uint32_t>(stream);
       scenario.prerequisites = readInt<std::uint8_t>(stream);
       scenario.region_color = readEnum<RegionColor>(stream);
       scenario.default_difficulty = readEnum<MapDifficulty>(stream);

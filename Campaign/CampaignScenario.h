@@ -5,7 +5,6 @@
 #include <h3mtxt/Campaign/Constants/RegionColor.h>
 #include <h3mtxt/Campaign/StartingOptions.h>
 #include <h3mtxt/Map/Constants/MapDifficulty.h>
-#include <h3mtxt/Map/Constants/MapFormat.h>
 #include <h3mtxt/Map/Utils/BitSet.h>
 
 #include <optional>
@@ -34,8 +33,9 @@ namespace h3m
 
   struct CampaignScenario
   {
-    MapFormat format = MapFormat::ShadowOfDeath;
     std::string map_filename;
+    // The size of the gzip-compressed map file in bytes.
+    std::uint32_t compressed_map_size {};
     // Bitmask.
     std::uint8_t prerequisites {};
     RegionColor region_color {};
