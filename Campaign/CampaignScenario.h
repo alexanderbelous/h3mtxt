@@ -19,14 +19,38 @@ namespace h3m
     std::string message;
   };
 
+  // Bitset describing what crossover heroes retain.
+  struct CrossoverFeatures
+  {
+    enum class Type : std::uint8_t
+    {
+      Experience = 0,
+      PrimarySkills = 1,
+      SecondarySkills = 2,
+      Spells = 3,
+      Artifacts = 4
+    };
+
+    constexpr bool operator[](Type feature) const
+    {
+      return bitset.at(static_cast<std::size_t>(feature));
+    }
+
+    constexpr void set(Type feature, bool value)
+    {
+      bitset.set(static_cast<std::size_t>(feature), value);
+    }
+
+    BitSet<1> bitset;
+  };
+
   struct CrossoverOptions
   {
     // Bitmask indicating what crossover heroes retain.
-    // TODO: replace with a wrapper.
-    std::byte retained_features {};
+    CrossoverFeatures retained_features;
     // Which creatures crossover heroes retain.
     // Bitmask CreatureType -> bool. TODO: replace with a wrapper.
-    BitSet<19> creatures {};
+    BitSet<19> creatures;
     // Which artifacts crossover heroes retain.
     BitSet<18> artifacts;
   };
