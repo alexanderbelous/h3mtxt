@@ -35,8 +35,11 @@ namespace h3m
     Resistance,     // 1A
     FirstAid,       // 1B
 
-    // Apparently, SecondarySkillType{35} at Basic level is equivalent to nwcnebuchadnezzar cheat
-    // (1,000,000 move points). It's somewhat "buggy", though.
+    // SecondarySkillType{35} at Basic level is equivalent to nwcnebuchadnezzar cheat
+    // (1,000,000 move points). It's somewhat "buggy", though: if a hero with such skill
+    // gets Wisdom later, the slot corresponding to SecondarySkillType{35} will start
+    // displaying "Basic First Aid" with Widsom logo; clicking on that slot will crash the game.
+    // At Advanced/Expert level it is already displayed as "Basic First Aid" with the above-mentioned behavior.
     // This is used in the map "Awakening from Abyss" by LC.
   };
 }

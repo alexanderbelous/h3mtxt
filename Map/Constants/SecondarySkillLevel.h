@@ -46,6 +46,24 @@ namespace h3m
     static constexpr std::uint8_t kFullMap2 = 0xFB;
   };
 
+  // During combat morale will always be clamped to [-3; 3], i.e. even with
+  // a "hexed" secondary skill you cannot increase the odds of getting Good/Bad morale.
+  // However, such "hexed" skills can still be useful if you want to ensure that a hero
+  // will have +3 morale even if it's decreased due to some factors (e.g., troops of 7
+  // different alignments decrease morale by 5; presence of Undead decreases it by 1;
+  // Bone/Ghost Dragons in the opposing army decrease it by 1, etc).
+  template<>
+  struct SecondarySkillLevel<SecondarySkillType::Leadership>
+  {
+    // Increases your hero's troops' morale by 101,058,054.
+    static constexpr std::uint8_t k101058054 = 0xF2;
+    // Increases your hero's troops' morale by 100,860,675.
+    static constexpr std::uint8_t k100860675 = 0xEC;
+    // Increases your hero's troops' morale by 33,554,432.
+    // This is commented out because it causes a crash when right-clicking on the skill.
+    //static constexpr std::uint8_t k33554432 = 0x80;
+  };
+
   template<>
   struct SecondarySkillLevel<SecondarySkillType::Wisdom>
   {
@@ -66,6 +84,33 @@ namespace h3m
     static constexpr std::uint8_t kNoPoints = 0xFC;
     static constexpr std::uint8_t kNoPoints2 = 0xF8;
     static constexpr std::uint8_t kNoPoints3 = 0xF4;
+  };
+
+  // During combat luck will always be clamped to [-3; 3], i.e. even with
+  // a "hexed" secondary skill you cannot increase the odds of getting Good/Bad luck.
+  // However, such "hexed" skills can still be useful if you want to ensure that a hero
+  // will have +3 luck even if it's decreased due to some factors.
+  template<>
+  struct SecondarySkillLevel<SecondarySkillType::Luck>
+  {
+    // Increases your hero's troops' luck by 101,058,054.
+    // "Defense Luck"
+    static constexpr std::uint8_t k101058054 = 0xF6;
+    // Increases your hero's troops' luck by 100,860,675.
+    // "Dark blue Luck"
+    static constexpr std::uint8_t k100860675 = 0xF0;
+    // Increases your hero's troops' luck by 1028.
+    // "Create strong guardians Luck"
+    static constexpr std::uint8_t k1028 = 0x98;
+    // Increases your hero's troops' luck by 771.
+    // "const_strong_monsters, Luck"
+    static constexpr std::uint8_t k771 = 0x97;
+    // Increases your hero's troops' luck by 33,686,018.
+    // "Include a random amount of water Luck"
+    static constexpr std::uint8_t k33686018 = 0x90;
+    // Increases your hero's troops' luck by 1280.
+    // This is commented out because it causes a crash when right-clicking on the skill.
+    //static constexpr std::uint8_t k1280 = 0x80;
   };
 
   template<>
