@@ -1,5 +1,6 @@
 #pragma once
 
+#include <cstddef>
 #include <cstdint>
 
 // Forward declarations of some types used in h3m::Map.
@@ -47,11 +48,44 @@ namespace h3m
 
   enum class SecondarySkillType : std::uint8_t;
 
+  enum class SpellType : std::uint8_t;
+
   enum class TerrainType : std::uint8_t;
+
+  enum class TownType : std::uint8_t;
 
   enum class VictoryConditionType : std::uint8_t;
 
   struct CreatureStack;
+
+  // Wrapper around BitSet<NumBytes>.
+  // * More convenient access to the stored bits - no need to explicitly cast enum values to integers.
+  // * It improves type safety: EnumBitmask<PlayerColor, 1> cannot be used where EnumBitmask<ResourceType, 1>
+  //   is expected, even though they are both simply wrappers around BitSet<1>.
+  template<class Enum, std::size_t NumBytes>
+  struct EnumBitmask;
+
+  // Bitmask storing a bit for each player.
+  //
+  // .h3m file format uses such bitmasks in multiple places, e.g. which players can hire
+  // a specific hero, Global Event, Event object on the adventure map, or a Event in a town).
+  using PlayersBitmask = EnumBitmask<PlayerColor, 1>;
+
+  // Bitmask storing a bit for each resource type.
+  //
+  // This is only used in ObjectDetailsData<MetaObjectType::ABANDONED_MINE>.
+  using ResourcesBitmask = EnumBitmask<ResourceType, 1>;
+
+  // Note that there are only 28 secondary skills in Shadow of Death, but this bitmask stores 32 bits.
+  // The last 4 bits are normally set to 0 in .h3m regardless of the meaning of the bitmask.
+  using SecondarySkillsBitmask = EnumBitmask<SecondarySkillType, 4>;
+
+  // Note that there are only 70 spells in Shadow of Death, but this bitmask stores 72 bits.
+  using SpellsBitmask = EnumBitmask<SpellType, 9>;
+
+  // Note that there are only 9 towns in Shadow of Death, but this bitmask stores 16 bits.
+  // The last 7 bits are normally set to 0 in .h3m regardless of the meaning of the bitmask.
+  using TownsBitmask = EnumBitmask<TownType, 2>;
 
   struct EventBase;
 
@@ -85,8 +119,6 @@ namespace h3m
 
   struct PlayerSpecs;
 
-  struct PlayersBitmask;
-
   struct PrimarySkills;
 
   struct Quest;
@@ -98,15 +130,11 @@ namespace h3m
   template<class T>
   struct Resources;
 
-  struct ResourcesBitmask;
-
   struct Reward;
 
   struct Rumor;
 
   struct SecondarySkill;
-
-  struct SecondarySkillsBitmask;
 
   struct StartingHero;
 
@@ -119,6 +147,4 @@ namespace h3m
   struct TownBuildings;
 
   struct TownEvent;
-
-  struct TownsBitmask;
 }

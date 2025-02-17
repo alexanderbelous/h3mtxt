@@ -11,7 +11,7 @@ namespace h3m
     event.name = readString(stream);
     event.message = readString(stream);
     event.resources = readResources<std::int32_t>(stream);
-    event.affected_players.bitset = readInt<std::uint8_t>(stream);
+    event.affected_players = readEnumBitmask<PlayerColor, 1>(stream);
     event.applies_to_human = readBool(stream);
     event.applies_to_computer = readBool(stream);
     event.day_of_first_occurence = readInt<std::uint16_t>(stream);

@@ -1,7 +1,8 @@
 #pragma once
 
-#include <h3mtxt/Map/SpellsBitmask.h>
 #include <h3mtxt/H3MJsonWriter/H3MJsonWriter.h>
+#include <h3mtxt/Map/MapFwd.h>
+#include <h3mtxt/Map/Utils/EnumBitmask.h>
 
 namespace Medea_NS
 {

@@ -57,9 +57,6 @@
     <ClInclude Include="writeResources.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="writePlayersBitmask.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="writeTimedEventBase.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -76,12 +73,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="writeReward.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="writeSecondarySkillsBitmask.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="writeSpellsBitmask.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

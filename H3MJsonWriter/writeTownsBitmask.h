@@ -1,8 +1,9 @@
 #pragma once
 
-#include <h3mtxt/JsonCommon/FieldName.h>
-#include <h3mtxt/Map/TownsBitmask.h>
 #include <h3mtxt/H3MJsonWriter/H3MJsonWriter.h>
+#include <h3mtxt/JsonCommon/FieldName.h>
+#include <h3mtxt/Map/MapFwd.h>
+#include <h3mtxt/Map/Utils/EnumBitmask.h>
 
 #include <cstdint>
 

@@ -1,15 +1,14 @@
 #pragma once
 
+#include <h3mtxt/Map/MapFwd.h>
 #include <h3mtxt/Map/Constants/HeroPortrait.h>
 #include <h3mtxt/Map/Constants/HeroType.h>
-#include <h3mtxt/Map/PlayersBitmask.h>
+#include <h3mtxt/Map/Utils/BitSet.h>
+#include <h3mtxt/Map/Utils/EnumBitmask.h>
+#include <h3mtxt/Map/Utils/ReservedData.h>
 #include <h3mtxt/Map/HeroSettings.h>
 #include <h3mtxt/Map/LossCondition.h>
-#include <h3mtxt/Map/SecondarySkillsBitmask.h>
-#include <h3mtxt/Map/SpellsBitmask.h>
 #include <h3mtxt/Map/VictoryCondition.h>
-#include <h3mtxt/Map/Utils/BitSet.h>
-#include <h3mtxt/Map/Utils/ReservedData.h>
 
 #include <array>
 #include <cstdint>

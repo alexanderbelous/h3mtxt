@@ -13,7 +13,6 @@
   <ItemGroup>
     <ClInclude Include="Constants\SecondarySkillLevel.h" />
     <ClInclude Include="MapFwd.h" />
-    <ClInclude Include="PlayersBitmask.h" />
     <ClInclude Include="Base.h" />
     <ClInclude Include="Constants\ArtifactType.h" />
     <ClInclude Include="Constants\Constants.h" />
@@ -59,15 +58,12 @@
     <ClInclude Include="PrimarySkills.h" />
     <ClInclude Include="Quest.h" />
     <ClInclude Include="Resources.h" />
-    <ClInclude Include="ResourcesBitmask.h" />
     <ClInclude Include="Reward.h" />
     <ClInclude Include="SecondarySkill.h" />
-    <ClInclude Include="SecondarySkillsBitmask.h" />
-    <ClInclude Include="SpellsBitmask.h" />
     <ClInclude Include="Tile.h" />
     <ClInclude Include="TimedEventBase.h" />
-    <ClInclude Include="TownsBitmask.h" />
     <ClInclude Include="Utils\BitSet.h" />
+    <ClInclude Include="Utils\EnumBitmask.h" />
     <ClInclude Include="Utils\EnumSequence.h" />
     <ClInclude Include="Utils\ReservedData.h" />
     <ClInclude Include="VictoryCondition.h" />

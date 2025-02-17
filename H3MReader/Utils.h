@@ -3,6 +3,7 @@
 #include <h3mtxt/H3MReader/IntegerWidth.h>
 #include <h3mtxt/Map/Base.h>
 #include <h3mtxt/Map/Utils/BitSet.h>
+#include <h3mtxt/Map/Utils/EnumBitmask.h>
 #include <h3mtxt/Map/Utils/ReservedData.h>
 
 #include <array>
@@ -84,6 +85,13 @@ namespace h3m
   BitSet<NumBytes> readBitSet(std::istream& stream)
   {
     return BitSet<NumBytes>(readByteArray<NumBytes>(stream));
+  }
+
+  // Reads a EnumBitmask from the stream.
+  template<class Enum, std::size_t NumBytes>
+  EnumBitmask<Enum, NumBytes> readEnumBitmask(std::istream& stream)
+  {
+    return EnumBitmask<Enum, NumBytes>(readBitSet<NumBytes>(stream));
   }
 
   // Reads ReservedData from the stream.

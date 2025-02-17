@@ -146,7 +146,7 @@ MapAdditionalInfo::CustomHero readCustomHero(std::istream& stream)
   custom_hero.type = readEnum<HeroType>(stream);
   custom_hero.portrait = readEnum<HeroPortrait>(stream);
   custom_hero.name = readString(stream);
-  custom_hero.can_hire.bitset = readInt<std::uint8_t>(stream);
+  custom_hero.can_hire = readEnumBitmask<PlayerColor, 1>(stream);
   return custom_hero;
 }
 
@@ -180,7 +180,7 @@ HeroSettings readHeroSettings(std::istream& stream)
   settings.gender = readEnum<Gender>(stream);
   if (const Bool has_spells = readBool(stream))
   {
-    settings.spells = SpellsBitmask{ .bitset = readBitSet<9>(stream) };
+    settings.spells = readEnumBitmask<SpellType, 9>(stream);
   }
   if (const Bool has_primary_skills = readBool(stream))
   {

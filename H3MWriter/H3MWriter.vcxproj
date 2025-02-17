@@ -88,7 +88,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="H3MWriter.h" />
-    <ClInclude Include="writePlayersBitmask.h" />
     <ClInclude Include="writeCreatureStack.h" />
     <ClInclude Include="writeGlobalEvent.h" />
     <ClInclude Include="writeh3m.h" />
@@ -105,8 +104,6 @@
     <ClInclude Include="writeResources.h" />
     <ClInclude Include="writeReward.h" />
     <ClInclude Include="writeSecondarySkill.h" />
-    <ClInclude Include="writeSecondarySkillsBitmask.h" />
-    <ClInclude Include="writeSpellsBitmask.h" />
     <ClInclude Include="writeTile.h" />
     <ClInclude Include="writeTimedEventBase.h" />
     <ClInclude Include="writeVictoryCondition.h" />

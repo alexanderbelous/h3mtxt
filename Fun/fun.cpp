@@ -86,9 +86,7 @@ namespace
             .resources {
               .data {10, 5, 10, 5, 5, 5, 10000}
              },
-            .affected_players {
-              .bitset = 0xFF
-            },
+            .affected_players {std::array<std::uint8_t, 1>{ 0xFF }},
             .applies_to_human = true,
             .applies_to_computer = true,
             .day_of_first_occurence = 0,
@@ -252,7 +250,7 @@ namespace
           .spell_points = -999
         },
       };
-      event_details.affected_players.bitset = 0xFF;
+      event_details.affected_players.bitset = h3m::BitSet<1>(std::array<std::uint8_t, 1>{0xFF});
       event_details.remove_after_first_visit = true;
       map.objects_details.push_back(h3m::ObjectDetails{
         .x = 0,
@@ -271,7 +269,7 @@ namespace
           }
         },
       };
-      event_details.affected_players.bitset = 0xFF;
+      event_details.affected_players.bitset = h3m::BitSet<1>(std::array<std::uint8_t, 1>{0xFF});
       event_details.remove_after_first_visit = true;
       map.objects_details.push_back(h3m::ObjectDetails{
         .x = 0,

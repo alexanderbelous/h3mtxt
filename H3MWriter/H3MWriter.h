@@ -1,7 +1,9 @@
 #pragma once
 
+#include <h3mtxt/Map/MapFwd.h>
 #include <h3mtxt/Map/Base.h>
 #include <h3mtxt/Map/Utils/BitSet.h>
+#include <h3mtxt/Map/Utils/EnumBitmask.h>
 #include <h3mtxt/Map/Utils/ReservedData.h>
 
 #include <array>
@@ -158,6 +160,16 @@ namespace h3m
     void operator()(std::ostream& stream, const BitSet<NumBytes>& value) const
     {
       writeData(stream, value.data());
+    }
+  };
+
+  // Partial specialization for EnumBitmask.
+  template<class Enum, std::size_t NumBytes>
+  struct H3MWriter<EnumBitmask<Enum, NumBytes>>
+  {
+    void operator()(std::ostream& stream, const EnumBitmask<Enum, NumBytes>& value) const
+    {
+      writeData(stream, value.bitset);
     }
   };
 

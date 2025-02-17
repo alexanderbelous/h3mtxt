@@ -2,7 +2,9 @@
 
 #include <h3mtxt/H3MJsonReader/JsonReader.h>
 #include <h3mtxt/JsonCommon/FieldName.h>
-#include <h3mtxt/Map/SpellsBitmask.h>
+#include <h3mtxt/Map/MapFwd.h>
+#include <h3mtxt/Map/Utils/EnumBitmask.h>
+
 
 namespace h3m
 {

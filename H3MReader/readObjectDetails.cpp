@@ -98,7 +98,7 @@ namespace h3m
     readObjectDetailsData<MetaObjectType::ABANDONED_MINE>(std::istream& stream)
     {
       ObjectDetailsData<MetaObjectType::ABANDONED_MINE> data;
-      data.potential_resources.bitset = Detail_NS::readByte(stream);
+      data.potential_resources = readEnumBitmask<ResourceType, 1>(stream);
       data.unknown = readReservedData<3>(stream);
       return data;
     }
@@ -122,7 +122,7 @@ namespace h3m
     {
       ObjectDetailsData<MetaObjectType::EVENT> data;
       readEventBase(stream, data);
-      data.affected_players.bitset = readInt<std::uint8_t>(stream);
+      data.affected_players = readEnumBitmask<PlayerColor, 1>(stream);
       data.applies_to_computer = readBool(stream);
       data.remove_after_first_visit = readBool(stream);
       data.unknown2 = readReservedData<4>(stream);
@@ -206,7 +206,7 @@ namespace h3m
       const Bool has_spells = readBool(stream);
       if (has_spells)
       {
-        data.spells = SpellsBitmask{ .bitset = readBitSet<9>(stream) };
+        data.spells = readEnumBitmask<SpellType, 9>(stream);
       }
       const Bool has_primary_skills = readBool(stream);
       if (has_primary_skills)
@@ -288,7 +288,7 @@ namespace h3m
       dwelling.town_absod_id = readInt<std::uint32_t>(stream);
       if (dwelling.town_absod_id == 0)
       {
-        dwelling.alignment.bitset = readBitSet<2>(stream);
+        dwelling.alignment = readEnumBitmask<TownType, 2>(stream);
       }
       dwelling.min_level = readInt<std::uint8_t>(stream);
       dwelling.max_level = readInt<std::uint8_t>(stream);
@@ -315,7 +315,7 @@ namespace h3m
       dwelling.town_absod_id = readInt<std::uint32_t>(stream);
       if (dwelling.town_absod_id == 0)
       {
-        dwelling.alignment.bitset = readBitSet<2>(stream);
+        dwelling.alignment = readEnumBitmask<TownType, 2>(stream);
       }
       return dwelling;
     }
@@ -434,8 +434,8 @@ namespace h3m
       {
         town.has_fort = readBool(stream);
       }
-      town.must_have_spell.bitset = readBitSet<9>(stream);
-      town.may_not_have_spell.bitset = readBitSet<9>(stream);
+      town.must_have_spell = readEnumBitmask<SpellType, 9>(stream);
+      town.may_not_have_spell = readEnumBitmask<SpellType, 9>(stream);
       const std::uint32_t num_events = readInt<std::uint32_t>(stream);
       town.events.reserve(num_events);
       for (std::uint32_t i = 0; i < num_events; ++i)
@@ -461,7 +461,7 @@ namespace h3m
     readObjectDetailsData<MetaObjectType::WITCH_HUT>(std::istream& stream)
     {
       ObjectDetailsData<MetaObjectType::WITCH_HUT> data;
-      data.potential_skills.bitset = readBitSet<4>(stream);
+      data.potential_skills = readEnumBitmask<SecondarySkillType, 4>(stream);
       return data;
     }
 

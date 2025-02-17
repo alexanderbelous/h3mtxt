@@ -3,14 +3,11 @@
 #include <h3mtxt/H3MWriter/H3MWriter.h>
 #include <h3mtxt/H3MWriter/writeCreatureStack.h>
 #include <h3mtxt/H3MWriter/writeHeroArtifacts.h>
-#include <h3mtxt/H3MWriter/writePlayersBitmask.h>
 #include <h3mtxt/H3MWriter/writePrimarySkills.h>
 #include <h3mtxt/H3MWriter/writeQuest.h>
 #include <h3mtxt/H3MWriter/writeResources.h>
 #include <h3mtxt/H3MWriter/writeReward.h>
 #include <h3mtxt/H3MWriter/writeSecondarySkill.h>
-#include <h3mtxt/H3MWriter/writeSecondarySkillsBitmask.h>
-#include <h3mtxt/H3MWriter/writeSpellsBitmask.h>
 #include <h3mtxt/H3MWriter/writeTimedEventBase.h>
 #include <h3mtxt/Map/ObjectDetails.h>
 
@@ -70,7 +67,7 @@ namespace h3m
   {
     void operator()(std::ostream& stream, const ObjectDetailsData<MetaObjectType::ABANDONED_MINE>& data) const
     {
-      writeData(stream, data.potential_resources.bitset);
+      writeData(stream, data.potential_resources);
       writeData(stream, data.unknown);
     }
   };
@@ -218,7 +215,7 @@ namespace h3m
       writeData(stream, dwelling.town_absod_id);
       if (dwelling.town_absod_id == 0)
       {
-        writeData(stream, dwelling.alignment.bitset);
+        writeData(stream, dwelling.alignment);
       }
       writeData(stream, dwelling.min_level);
       writeData(stream, dwelling.max_level);
@@ -247,7 +244,7 @@ namespace h3m
       writeData(stream, dwelling.town_absod_id);
       if (dwelling.town_absod_id == 0)
       {
-        writeData(stream, dwelling.alignment.bitset);
+        writeData(stream, dwelling.alignment);
       }
     }
   };

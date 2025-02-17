@@ -1,11 +1,12 @@
 #pragma once
 
+#include <h3mtxt/Map/MapFwd.h>
 #include <h3mtxt/Map/Constants/HeroPortrait.h>
 #include <h3mtxt/Map/Constants/HeroType.h>
 #include <h3mtxt/Map/Constants/PlayerBehavior.h>
 #include <h3mtxt/Map/Constants/TownType.h>
+#include <h3mtxt/Map/Utils/EnumBitmask.h>
 #include <h3mtxt/Map/Base.h>
-#include <h3mtxt/Map/TownsBitmask.h>
 
 #include <cstdint>
 #include <optional>

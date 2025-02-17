@@ -1,11 +1,11 @@
 #pragma once
 
-#include <h3mtxt/Map/Utils/BitSet.h>
+#include <h3mtxt/Map/MapFwd.h>
 #include <h3mtxt/Map/Constants/Gender.h>
+#include <h3mtxt/Map/Utils/EnumBitmask.h>
 #include <h3mtxt/Map/HeroArtifacts.h>
 #include <h3mtxt/Map/PrimarySkills.h>
 #include <h3mtxt/Map/SecondarySkill.h>
-#include <h3mtxt/Map/SpellsBitmask.h>
 
 #include <cstdint>
 #include <optional>

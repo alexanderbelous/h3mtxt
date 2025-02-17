@@ -138,9 +138,6 @@
     <ClInclude Include="Constants\PlayerColor.h">
       <Filter>Header Files\Constants</Filter>
     </ClInclude>
-    <ClInclude Include="PlayersBitmask.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Constants\QuestType.h">
       <Filter>Header Files\Constants</Filter>
     </ClInclude>
@@ -180,25 +177,16 @@
     <ClInclude Include="Constants\HeroPortrait.h">
       <Filter>Header Files\Constants</Filter>
     </ClInclude>
-    <ClInclude Include="SecondarySkillsBitmask.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SpellsBitmask.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ResourcesBitmask.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Constants\SecondarySkillLevel.h">
       <Filter>Header Files\Constants</Filter>
     </ClInclude>
     <ClInclude Include="MapFwd.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="TownsBitmask.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Utils\EnumSequence.h">
+      <Filter>Header Files\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils\EnumBitmask.h">
       <Filter>Header Files\Utils</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,8 +1,6 @@
 #pragma once
 
 #include <h3mtxt/Map/MapFwd.h>
-#include <h3mtxt/Map/PlayersBitmask.h>
-#include <h3mtxt/Map/Base.h>
 #include <h3mtxt/Map/Constants/ArtifactType.h>
 #include <h3mtxt/Map/Constants/Disposition.h>
 #include <h3mtxt/Map/Constants/Formation.h>
@@ -13,20 +11,18 @@
 #include <h3mtxt/Map/Constants/PlayerColor.h>
 #include <h3mtxt/Map/Constants/ScholarRewardType.h>
 #include <h3mtxt/Map/Constants/SpellType.h>
+#include <h3mtxt/Map/Utils/BitSet.h>
+#include <h3mtxt/Map/Utils/EnumBitmask.h>
+#include <h3mtxt/Map/Utils/ReservedData.h>
+#include <h3mtxt/Map/Base.h>
 #include <h3mtxt/Map/CreatureStack.h>
 #include <h3mtxt/Map/HeroArtifacts.h>
 #include <h3mtxt/Map/PrimarySkills.h>
 #include <h3mtxt/Map/Resources.h>
-#include <h3mtxt/Map/ResourcesBitmask.h>
 #include <h3mtxt/Map/Reward.h>
 #include <h3mtxt/Map/SecondarySkill.h>
-#include <h3mtxt/Map/SecondarySkillsBitmask.h>
-#include <h3mtxt/Map/SpellsBitmask.h>
 #include <h3mtxt/Map/TimedEventBase.h>
-#include <h3mtxt/Map/TownsBitmask.h>
 #include <h3mtxt/Map/Quest.h>
-#include <h3mtxt/Map/Utils/BitSet.h>
-#include <h3mtxt/Map/Utils/ReservedData.h>
 
 #include <array>
 #include <cstdint>
