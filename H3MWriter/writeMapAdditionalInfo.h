@@ -23,15 +23,6 @@ namespace h3m
   };
 
   template<>
-  struct H3MWriter<HeroesAvailability>
-  {
-    void operator()(std::ostream& stream, const HeroesAvailability& value) const
-    {
-      writeData(stream, value.data);
-    }
-  };
-
-  template<>
   struct H3MWriter<MapAdditionalInfo::CustomHero>
   {
     void operator()(std::ostream& stream, const MapAdditionalInfo::CustomHero& value) const

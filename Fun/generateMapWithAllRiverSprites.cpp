@@ -36,7 +36,7 @@ namespace h3m
       },
       .additional_info {
         // Enable all heroes.
-        .heroes_availability = HeroesAvailability::makeAllAvailability(),
+        .heroes_availability = makeAllHeroesAvailability(),
         .artifacts_nonavailability {},
         .disabled_spells {},
         .disabled_skills {},

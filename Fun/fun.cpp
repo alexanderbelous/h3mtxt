@@ -56,7 +56,7 @@ namespace
         // No teams.
         .teams {},
         // Enable all heroes.
-        .heroes_availability = h3m::HeroesAvailability::makeAllAvailability(),
+        .heroes_availability = h3m::makeAllHeroesAvailability(),
         // No placeholder heroes.
         .placeholder_heroes {},
         // No custom heroes.

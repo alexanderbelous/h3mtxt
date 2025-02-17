@@ -35,11 +35,11 @@ namespace Medea_NS
   };
 
   template<>
-  struct JsonValueWriter<h3m::HeroesAvailability>
+  struct JsonValueWriter<h3m::HeroesBitmask>
   {
-    void operator()(JsonDocumentWriter& out, const h3m::HeroesAvailability& value) const
+    void operator()(JsonDocumentWriter& out, const h3m::HeroesBitmask& value) const
     {
-      writeValue(out, value.data);
+      writeValue(out, value.bitset);
     }
   };
 

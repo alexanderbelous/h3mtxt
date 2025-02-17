@@ -29,57 +29,31 @@ struct TeamsInfo
   std::array<std::uint8_t, 8> team_for_player {};
 };
 
-class HeroesAvailability
+// TODO: move to a separate header file and consider using an inline constexpr variable instead.
+// \return HeroesBitmask in which all heroes are enabled.
+constexpr HeroesBitmask makeAllHeroesAvailability() noexcept
 {
-public:
-  constexpr HeroesAvailability() noexcept = default;
-
-  constexpr explicit HeroesAvailability(const BitSet<20>& data) noexcept:
-    data(data)
-  {}
-
-  // \return HeroesAvailability matching the default one in the Editor -
-  // all heroes are enabled except special campaign heroes (e.g., Catherine, Gelu, Xeron)
-  // and Lord Haart (Estates specialist).
-  static constexpr HeroesAvailability makeDefaultAvailability() noexcept;
-
-  // \return HeroesAvailability in which all heroes are enabled.
-  static constexpr HeroesAvailability makeAllAvailability() noexcept;
-
-  constexpr bool operator[](HeroType hero) const
-  {
-    return data.at(static_cast<std::size_t>(hero));
-  }
-
-  constexpr void set(HeroType hero, bool is_available)
-  {
-    data.set(static_cast<std::size_t>(hero), is_available);
-  }
-
-  BitSet<20> data;
-};
-
-constexpr HeroesAvailability HeroesAvailability::makeDefaultAvailability() noexcept
-{
-  constexpr std::uint8_t kSpecialCampaignHeroFirst = 145;
-  HeroesAvailability result = makeAllAvailability();
-  // Disable special campaign heroes;
-  for (std::uint8_t hero_idx = kSpecialCampaignHeroFirst; hero_idx <= kNumHeroes; ++hero_idx)
-  {
-    result.set(static_cast<HeroType>(hero_idx), false);
-  }
-  result.set(HeroType::LORD_HAART, false);
-  return result;
-}
-
-// \return HeroesAvailability in which all heroes are enabled.
-constexpr HeroesAvailability HeroesAvailability::makeAllAvailability() noexcept
-{
-  HeroesAvailability result;
+  HeroesBitmask result;
   for (std::uint8_t hero_idx = 0; hero_idx < kNumHeroes; ++hero_idx)
   {
     result.set(static_cast<HeroType>(hero_idx), true);
   }
+  return result;
+}
+
+// \return HeroesBitmask matching the default one in the Editor -
+//         all heroes are enabled except special campaign heroes (e.g., Catherine, Gelu, Xeron)
+//         and Lord Haart (Estates specialist).
+constexpr HeroesBitmask makeDefaultHeroesAvailability() noexcept
+{
+  constexpr std::uint8_t kSpecialCampaignHeroFirst = 145;
+  HeroesBitmask result = makeAllHeroesAvailability();
+  // Disable special campaign heroes;
+  for (std::uint8_t hero_idx = kSpecialCampaignHeroFirst; hero_idx < kNumHeroes; ++hero_idx)
+  {
+    result.set(static_cast<HeroType>(hero_idx), false);
+  }
+  result.set(HeroType::LORD_HAART, false);
   return result;
 }
 
@@ -162,7 +136,8 @@ struct MapAdditionalInfo
   VictoryCondition victory_condition {};
   LossCondition loss_condition {};
   TeamsInfo teams;
-  HeroesAvailability heroes_availability;
+  // TODO: rename to enabled_heroes.
+  HeroesBitmask heroes_availability;
   std::vector<HeroType> placeholder_heroes;
   std::vector<CustomHero> custom_heroes;
   // Must be all 0s; kept here to ensure compatibility.

@@ -87,7 +87,7 @@ namespace h3m
       readField(info.victory_condition, value, Fields::kVictoryCondition);
       readField(info.loss_condition, value, Fields::kLossCondition);
       readField(info.teams, value, Fields::kTeams);
-      readField(info.heroes_availability.data, value, Fields::kHeroesAvailability);
+      readField(info.heroes_availability.bitset, value, Fields::kHeroesAvailability);
       readField(info.placeholder_heroes, value, Fields::kPlaceholderHeroes);
       readField(info.custom_heroes, value, Fields::kCustomHeroes);
       readField(info.reserved, value, Fields::kReserved);

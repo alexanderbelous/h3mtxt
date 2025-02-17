@@ -19,6 +19,8 @@ namespace h3m
 
   enum class Gender : std::uint8_t;
 
+  enum class HeroType : std::uint8_t;
+
   enum class LossConditionType : std::uint8_t;
 
   enum class MapDifficulty : std::uint8_t;
@@ -70,6 +72,11 @@ namespace h3m
   // There are 144 artifacts in Shadow of Death (the last 3 of them are unused content);
   // this bitmask stores exactly 144 bits.
   using ArtifactsBitmask = EnumBitmask<ArtifactType, 18>;
+
+  // Bitmask storing a bit for each valid hero.
+  //
+  // Note that there are 156 heroes in Shadow of Death, but this bitmask stores 160 bits.
+  using HeroesBitmask = EnumBitmask<HeroType, 20>;
 
   // Bitmask storing a bit for each player.
   //

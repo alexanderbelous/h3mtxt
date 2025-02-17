@@ -195,7 +195,7 @@ MapAdditionalInfo readMapAdditionalInfo(std::istream& stream)
   additional_info.victory_condition = readVictoryCondition(stream);
   additional_info.loss_condition = readLossCondition(stream);
   additional_info.teams = readTeamsInfo(stream);
-  additional_info.heroes_availability.data = readBitSet<20>(stream);
+  additional_info.heroes_availability = readEnumBitmask<HeroType, 20>(stream);
   // Read placeholder heroes.
   const std::uint32_t num_placeholder_heroes = readInt<std::uint32_t>(stream);
   additional_info.placeholder_heroes.reserve(num_placeholder_heroes);
