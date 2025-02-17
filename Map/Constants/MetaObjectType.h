@@ -65,10 +65,6 @@ namespace h3m
       return MetaObjectType::ARTIFACT;
     case ObjectClass::EVENT:
       return MetaObjectType::EVENT;
-    // TODO: this might be misleading - apparently, ObjectClass::GARRISON is the old
-    // garrison from Restoration of Erathia, which uses a slightly different format than
-    // the one in Armageddon's Blade / Shadow of Death. I don't know if such objects can
-    // even appear in SoD.
     case ObjectClass::GARRISON:
     case ObjectClass::GARRISON2:
       return MetaObjectType::GARRISON;

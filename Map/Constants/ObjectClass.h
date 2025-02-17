@@ -40,6 +40,7 @@ namespace h3m
     FOUNTAIN_OF_FORTUNE = 30,
     FOUNTAIN_OF_YOUTH = 31,
     GARDEN_OF_REVELATION = 32,
+    // Horizontal garrison (normal or anti-magic).
     GARRISON = 33,
     HERO = 34,
     HILL_FORT = 35,
@@ -226,6 +227,7 @@ namespace h3m
     RANDOM_DWELLING = 216,
     RANDOM_DWELLING_LVL = 217,        // subtype creature level
     RANDOM_DWELLING_FACTION = 218,    // subtype faction
+    // Vertical garrison (normal or anti-magic).
     GARRISON2 = 219,
     ABANDONED_MINE = 220,
     TRADING_POST_SNOW = 221,
