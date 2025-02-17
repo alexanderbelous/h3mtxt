@@ -3,7 +3,6 @@
 #include <h3mtxt/Map/MapFwd.h>
 #include <h3mtxt/Map/Constants/HeroPortrait.h>
 #include <h3mtxt/Map/Constants/HeroType.h>
-#include <h3mtxt/Map/Utils/BitSet.h>
 #include <h3mtxt/Map/Utils/EnumBitmask.h>
 #include <h3mtxt/Map/Utils/ReservedData.h>
 #include <h3mtxt/Map/HeroSettings.h>
