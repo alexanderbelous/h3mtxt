@@ -98,5 +98,8 @@
     <ClInclude Include="writeTownsBitmask.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="writeArtifactsBitmask.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -65,6 +65,12 @@ namespace h3m
   template<class Enum, std::size_t NumBytes>
   struct EnumBitmask;
 
+  // Bitmask storing a bit for each artifact.
+  //
+  // There are 144 artifacts in Shadow of Death (the last 3 of them are unused content);
+  // this bitmask stores exactly 144 bits.
+  using ArtifactsBitmask = EnumBitmask<ArtifactType, 18>;
+
   // Bitmask storing a bit for each player.
   //
   // .h3m file format uses such bitmasks in multiple places, e.g. which players can hire

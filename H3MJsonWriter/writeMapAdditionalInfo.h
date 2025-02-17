@@ -2,6 +2,7 @@
 
 #include <h3mtxt/H3MJsonWriter/getEnumString.h>
 #include <h3mtxt/H3MJsonWriter/H3MJsonWriter.h>
+#include <h3mtxt/H3MJsonWriter/writeArtifactsBitmask.h>
 #include <h3mtxt/H3MJsonWriter/writeHeroArtifacts.h>
 #include <h3mtxt/H3MJsonWriter/writeLossCondition.h>
 #include <h3mtxt/H3MJsonWriter/writePlayersBitmask.h>

@@ -92,6 +92,7 @@
   <ItemGroup>
     <ClInclude Include="getEnumString.h" />
     <ClInclude Include="H3MJsonWriter.h" />
+    <ClInclude Include="writeArtifactsBitmask.h" />
     <ClInclude Include="writeCreatureStack.h" />
     <ClInclude Include="writeGlobalEvent.h" />
     <ClInclude Include="writeH3mJson.h" />

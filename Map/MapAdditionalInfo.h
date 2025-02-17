@@ -167,9 +167,9 @@ struct MapAdditionalInfo
   std::vector<CustomHero> custom_heroes;
   // Must be all 0s; kept here to ensure compatibility.
   ReservedData<31> reserved {};
-  // TODO: add a wrapper class and rename to "disabled_artifacts".
+  // TODO: rename to "disabled_artifacts".
   // TODO: check what happens if you disable the spell book or war machines.
-  BitSet<18> artifacts_nonavailability;
+  ArtifactsBitmask artifacts_nonavailability;
   // 1 bit per spell; 1 means disabled, 0 means enabled.
   SpellsBitmask disabled_spells;
   // 1 bit per secondary skill; 1 means disabled, 0 means enabled.

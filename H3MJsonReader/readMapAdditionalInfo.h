@@ -2,6 +2,7 @@
 
 #include <h3mtxt/JsonCommon/FieldName.h>
 #include <h3mtxt/H3MJsonReader/JsonReader.h>
+#include <h3mtxt/H3MJsonReader/readArtifactsBitmask.h>
 #include <h3mtxt/H3MJsonReader/readHeroSettings.h>
 #include <h3mtxt/H3MJsonReader/readLossCondition.h>
 #include <h3mtxt/H3MJsonReader/readPlayersBitmask.h>

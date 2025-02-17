@@ -4,8 +4,10 @@
 #include <h3mtxt/Campaign/Constants/CampaignVideo.h>
 #include <h3mtxt/Campaign/Constants/RegionColor.h>
 #include <h3mtxt/Campaign/StartingOptions.h>
+#include <h3mtxt/Map/MapFwd.h>
 #include <h3mtxt/Map/Constants/MapDifficulty.h>
 #include <h3mtxt/Map/Utils/BitSet.h>
+#include <h3mtxt/Map/Utils/EnumBitmask.h>
 
 #include <optional>
 #include <string>
@@ -52,7 +54,7 @@ namespace h3m
     // Bitmask CreatureType -> bool. TODO: replace with a wrapper.
     BitSet<19> creatures;
     // Which artifacts crossover heroes retain.
-    BitSet<18> artifacts;
+    ArtifactsBitmask artifacts;
   };
 
   struct CampaignScenario

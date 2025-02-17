@@ -23,7 +23,7 @@ namespace h3m
       CrossoverOptions options;
       options.retained_features.bitset = readBitSet<1>(stream);
       options.creatures = readBitSet<19>(stream);
-      options.artifacts = readBitSet<18>(stream);
+      options.artifacts = readEnumBitmask<ArtifactType, 18>(stream);
       return options;
     }
 
