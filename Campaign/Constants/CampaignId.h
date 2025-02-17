@@ -21,15 +21,13 @@ namespace h3m
     Nighon = 11,
     Tatalia = 12,
     Armageddon = 13,
-
-    // TODO: add the rest:
-    /*
-    HackAndSlash,
-    BirthOfABarbarian,
-    ...
-    UnholyAlliance - 12 regions!
-    SpecterOfPower
-    */
+    HackAndSlash = 14,
+    BirthOfABarbarian = 15,
+    NewBeginning = 16,
+    ElixirOfLife = 17,
+    RiseOfTheNecromancer = 18,
+    UnholyAlliance = 19,
+    SpecterOfPower = 20,
   };
 
   // Returns the maximum number of map regions for the given CampaignId.
@@ -62,6 +60,18 @@ namespace h3m
       return 3;
     case CampaignId::Armageddon:
       return 8;
+    case CampaignId::HackAndSlash:
+      return 4;
+    case CampaignId::BirthOfABarbarian:
+      return 5;
+    case CampaignId::NewBeginning:
+    case CampaignId::ElixirOfLife:
+    case CampaignId::RiseOfTheNecromancer:
+      return 4;
+    case CampaignId::UnholyAlliance:
+      return 12;
+    case CampaignId::SpecterOfPower:
+      return 4;
     default:
       return 0;
     }
