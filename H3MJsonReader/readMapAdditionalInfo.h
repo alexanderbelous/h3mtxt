@@ -29,6 +29,21 @@ namespace h3m
   };
 
   template<>
+  struct JsonReader<HeroesBitmask>
+  {
+    HeroesBitmask operator()(const Json::Value& value) const
+    {
+      using Fields = FieldNames<HeroesBitmask>;
+      HeroesBitmask heroes_bitmask;
+      for (std::size_t i = 0; i < HeroesBitmask::kNumBits; ++i)
+      {
+        heroes_bitmask.bitset.set(i, readField<bool>(value, Fields::kNames[i]));
+      }
+      return heroes_bitmask;
+    }
+  };
+
+  template<>
   struct JsonReader<Rumor>
   {
     Rumor operator()(const Json::Value& value) const
@@ -87,7 +102,7 @@ namespace h3m
       readField(info.victory_condition, value, Fields::kVictoryCondition);
       readField(info.loss_condition, value, Fields::kLossCondition);
       readField(info.teams, value, Fields::kTeams);
-      readField(info.heroes_availability.bitset, value, Fields::kHeroesAvailability);
+      readField(info.heroes_availability, value, Fields::kHeroesAvailability);
       readField(info.placeholder_heroes, value, Fields::kPlaceholderHeroes);
       readField(info.custom_heroes, value, Fields::kCustomHeroes);
       readField(info.reserved, value, Fields::kReserved);

@@ -135,7 +135,9 @@ struct MapAdditionalInfo
   VictoryCondition victory_condition {};
   LossCondition loss_condition {};
   TeamsInfo teams;
-  // TODO: rename to enabled_heroes.
+  // 1 bit per hero:
+  // * 0 if the hero is disabled (Map Specifications -> Heroes in the Map Editor) or already placed on the map.
+  // * 1 otherwise.
   HeroesBitmask heroes_availability;
   std::vector<HeroType> placeholder_heroes;
   std::vector<CustomHero> custom_heroes;
