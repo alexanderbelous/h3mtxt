@@ -1,11 +1,14 @@
 #include <h3mtxt/H3MJsonWriter/getEnumString.h>
+#include <h3mtxt/Map/Constants/Constants.h>
 #include <h3mtxt/Map/Constants/Formation.h>
 #include <h3mtxt/Map/Constants/Gender.h>
+#include <h3mtxt/Map/Constants/HeroPortrait.h>
 #include <h3mtxt/Map/Constants/LossConditionType.h>
 #include <h3mtxt/Map/Constants/ScholarRewardType.h>
 #include <h3mtxt/Map/Constants/VictoryConditionType.h>
 
 #include <iterator>
+#include <type_traits>
 
 namespace h3m
 {
@@ -369,6 +372,35 @@ namespace h3m
       return "Default";
     default:
       return {};
+    }
+  }
+
+  std::string_view getEnumString(HeroPortrait value) noexcept
+  {
+    using UnderlyingType = std::underlying_type_t<HeroPortrait>;
+    const UnderlyingType idx = static_cast<UnderlyingType>(value);
+    if (idx < kNumHeroes)
+    {
+      return getEnumString(static_cast<HeroType>(idx));
+    }
+    switch (value)
+    {
+    case HeroPortrait::GENERAL_KENDAL:
+      return "General Kendal";
+    case HeroPortrait::CHRISTIAN2:
+      return "Christian2";
+    case HeroPortrait::ORDWALD:
+      return "Ordwald";
+    case HeroPortrait::FINNEAS:
+      return "Finneas";
+    case HeroPortrait::GEM2:
+      return "Gem2";
+    case HeroPortrait::SANDRO2:
+      return "Sandro2";
+    case HeroPortrait::YOG2:
+      return "Yog2";
+    default:
+      return std::string_view{};
     }
   }
 

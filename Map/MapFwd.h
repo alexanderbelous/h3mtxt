@@ -19,6 +19,8 @@ namespace h3m
 
   enum class Gender : std::uint8_t;
 
+  enum class HeroPortrait : std::uint8_t;
+
   enum class HeroType : std::uint8_t;
 
   enum class LossConditionType : std::uint8_t;

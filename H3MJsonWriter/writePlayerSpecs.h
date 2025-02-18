@@ -42,6 +42,11 @@ namespace Medea_NS
       if (has_starting_hero)
       {
         out.writeField(Fields::kPortrait, value.portrait);
+        if (auto enum_str = h3m::getEnumString(value.portrait); !enum_str.empty())
+        {
+          out.writeComma();
+          out.writeComment(enum_str, false);
+        }
         out.writeField(Fields::kName, value.name);
       }
     }
