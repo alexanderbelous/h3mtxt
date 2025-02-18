@@ -48,8 +48,21 @@ namespace Medea_NS
   {
     void operator()(FieldsWriter& out, const h3m::MapAdditionalInfo::CustomHero& value) const
     {
+      constexpr h3m::HeroPortrait kDefaultPortrait {0xFF};
       out.writeField("type", value.type);
+      if (auto enum_str = h3m::getEnumString(value.type); !enum_str.empty())
+      {
+        out.writeComma();
+        out.writeComment(enum_str, false);
+      }
       out.writeField("portrait", value.portrait);
+      const std::string_view hero_portrait_str =
+        (value.portrait == kDefaultPortrait) ? "(Default)" : h3m::getEnumString(value.portrait);
+      if (!hero_portrait_str.empty())
+      {
+        out.writeComma();
+        out.writeComment(hero_portrait_str, false);
+      }
       out.writeField("name", value.name);
       out.writeField("can_hire", value.can_hire);
     }

@@ -58,6 +58,11 @@ namespace Medea_NS
     void operator()(FieldsWriter& out, const h3m::PlayerSpecs::HeroInfo& value) const
     {
       out.writeField("type", value.type);
+      if (auto enum_str = h3m::getEnumString(value.type); !enum_str.empty())
+      {
+        out.writeComma();
+        out.writeComment(enum_str, false);
+      }
       out.writeField("name", value.name);
     }
   };

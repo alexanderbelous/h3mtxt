@@ -87,6 +87,10 @@ namespace Medea_NS
     void operator()(FieldsWriter& out, const h3m::QuestDetails<h3m::QuestType::BeHero>& details) const
     {
       out.writeField("hero", details.hero);
+      if (auto enum_str = h3m::getEnumString(details.hero); !enum_str.empty())
+      {
+        out.writeComment(enum_str, false);
+      }
     }
   };
 

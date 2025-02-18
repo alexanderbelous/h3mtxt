@@ -193,6 +193,11 @@ namespace Medea_NS
       out.writeField(Fields::kAbsodId, hero.absod_id);
       out.writeField(Fields::kOwner, hero.owner);
       out.writeField(Fields::kType, hero.type);
+      if (auto enum_str = h3m::getEnumString(hero.type); !enum_str.empty())
+      {
+        out.writeComma();
+        out.writeComment(enum_str, false);
+      }
       if (hero.name)
       {
         out.writeField(Fields::kName, *hero.name);
