@@ -3,6 +3,7 @@
 #include <h3mtxt/Fun/fillWithTerrain.h>
 #include <h3mtxt/Fun/generateMapWithAllRiverSprites.h>
 #include <h3mtxt/Fun/generatePlayerSpecs.h>
+#include <h3mtxt/Fun/HeroesAvailability.h>
 #include <h3mtxt/Fun/makeDefaultObjectAttributes.h>
 #include <h3mtxt/Fun/Util.h>
 #include <h3mtxt/H3MWriter/writeh3m.h>
@@ -56,7 +57,7 @@ namespace
         // No teams.
         .teams {},
         // Enable all heroes.
-        .heroes_availability = h3m::makeAllHeroesAvailability(),
+        .heroes_availability = h3m::kAllHeroesAvailability,
         // No placeholder heroes.
         .placeholder_heroes {},
         // No custom heroes.

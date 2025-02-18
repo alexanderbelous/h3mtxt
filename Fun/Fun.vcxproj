@@ -113,6 +113,7 @@
     <ClInclude Include="generateMapWithAllRiverSprites.h" />
     <ClInclude Include="generateMapWithAllTerrainSprites.h" />
     <ClInclude Include="generatePlayerSpecs.h" />
+    <ClInclude Include="HeroesAvailability.h" />
     <ClInclude Include="makeDefaultObjectAttributes.h" />
     <ClInclude Include="makeUltimateLava.h" />
     <ClInclude Include="Util.h" />

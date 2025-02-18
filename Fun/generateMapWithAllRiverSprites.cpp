@@ -1,6 +1,7 @@
 #include <h3mtxt/Fun/generateMapWithAllRiverSprites.h>
 
 #include <h3mtxt/Fun/generatePlayerSpecs.h>
+#include <h3mtxt/Fun/HeroesAvailability.h>
 #include <h3mtxt/Fun/Util.h>
 
 namespace h3m
@@ -36,7 +37,7 @@ namespace h3m
       },
       .additional_info {
         // Enable all heroes.
-        .heroes_availability = makeAllHeroesAvailability(),
+        .heroes_availability = kAllHeroesAvailability,
         .artifacts_nonavailability {},
         .disabled_spells {},
         .disabled_skills {},

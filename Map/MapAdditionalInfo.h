@@ -28,34 +28,6 @@ struct TeamsInfo
   std::array<std::uint8_t, 8> team_for_player {};
 };
 
-// TODO: move to a separate header file and consider using an inline constexpr variable instead.
-// \return HeroesBitmask in which all heroes are enabled.
-constexpr HeroesBitmask makeAllHeroesAvailability() noexcept
-{
-  HeroesBitmask result;
-  for (std::uint8_t hero_idx = 0; hero_idx < kNumHeroes; ++hero_idx)
-  {
-    result.set(static_cast<HeroType>(hero_idx), true);
-  }
-  return result;
-}
-
-// \return HeroesBitmask matching the default one in the Editor -
-//         all heroes are enabled except special campaign heroes (e.g., Catherine, Gelu, Xeron)
-//         and Lord Haart (Estates specialist).
-constexpr HeroesBitmask makeDefaultHeroesAvailability() noexcept
-{
-  constexpr std::uint8_t kSpecialCampaignHeroFirst = 145;
-  HeroesBitmask result = makeAllHeroesAvailability();
-  // Disable special campaign heroes;
-  for (std::uint8_t hero_idx = kSpecialCampaignHeroFirst; hero_idx < kNumHeroes; ++hero_idx)
-  {
-    result.set(static_cast<HeroType>(hero_idx), false);
-  }
-  result.set(HeroType::LORD_HAART, false);
-  return result;
-}
-
 struct Rumor
 {
   std::string name;

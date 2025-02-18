@@ -71,5 +71,8 @@
     <ClInclude Include="generateMapWithAllRiverSprites.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="HeroesAvailability.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
