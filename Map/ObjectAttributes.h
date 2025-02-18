@@ -21,7 +21,7 @@ namespace h3m
     std::string def;
     std::array<std::uint8_t, 6> passability{};
     std::array<std::uint8_t, 6> actionability{};
-    // TODO: replace with a wrapper class around BitSet.
+    // TODO: replace with EnumBitmask.
     std::uint16_t allowed_landscapes {};
     // Bitfield.
     std::uint16_t landscape_group {};

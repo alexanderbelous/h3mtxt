@@ -189,5 +189,8 @@
     <ClInclude Include="Utils\EnumBitmask.h">
       <Filter>Header Files\Utils</Filter>
     </ClInclude>
+    <ClInclude Include="Constants\TownBuildingType.h">
+      <Filter>Header Files\Constants</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

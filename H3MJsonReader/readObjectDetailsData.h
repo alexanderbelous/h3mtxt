@@ -65,6 +65,15 @@ namespace h3m
   };
 
   template<>
+  struct JsonReader<TownsBuildingsBitmask>
+  {
+    TownsBuildingsBitmask operator()(const Json::Value& value) const
+    {
+      return TownsBuildingsBitmask(fromJson<BitSet<6>>(value));
+    }
+  };
+
+  template<>
   struct JsonReader<TownBuildings>
   {
     TownBuildings operator()(const Json::Value& value) const

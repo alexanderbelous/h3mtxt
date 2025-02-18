@@ -396,7 +396,7 @@ namespace h3m
     {
       TownEvent event;
       readTimedEventBase(stream, event);
-      event.buildings = readBitSet<6>(stream);
+      event.buildings = readEnumBitmask<TownBuildingType, 6>(stream);
       for (std::uint16_t& creature_growth : event.creatures)
       {
         creature_growth = readInt<std::uint16_t>(stream);
@@ -427,8 +427,8 @@ namespace h3m
       if (has_buildings)
       {
         town.buildings.emplace();
-        town.buildings->is_built = readBitSet<6>(stream);
-        town.buildings->is_disabled = readBitSet<6>(stream);
+        town.buildings->is_built = readEnumBitmask<TownBuildingType, 6>(stream);
+        town.buildings->is_disabled = readEnumBitmask<TownBuildingType, 6>(stream);
       }
       else
       {

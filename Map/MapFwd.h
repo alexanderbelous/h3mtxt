@@ -56,6 +56,8 @@ namespace h3m
 
   enum class TerrainType : std::uint8_t;
 
+  enum class TownBuildingType : std::uint8_t;
+
   enum class TownType : std::uint8_t;
 
   enum class VictoryConditionType : std::uint8_t;
@@ -109,6 +111,9 @@ namespace h3m
   // Note that there are only 9 towns in Shadow of Death, but this bitmask stores 16 bits.
   // The last 7 bits are normally set to 0 in .h3m regardless of the meaning of the bitmask.
   using TownsBitmask = EnumBitmask<TownType, 2>;
+
+  // Note that there are only 41 town building types in Shadow of Death, but this bitmask stores 48 bits.
+  using TownsBuildingsBitmask = EnumBitmask<TownBuildingType, 6>;
 
   struct EventBase;
 

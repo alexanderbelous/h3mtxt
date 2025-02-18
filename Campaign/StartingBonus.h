@@ -35,7 +35,7 @@ namespace h3m
   template<>
   struct StartingBonusDetails<StartingBonusType::Building>
   {
-    // TODO
+    // TODO: apparently it's just 1 byte for TownBuildingType.
   };
 
   template<>

@@ -11,7 +11,6 @@
 #include <h3mtxt/Map/Constants/PlayerColor.h>
 #include <h3mtxt/Map/Constants/ScholarRewardType.h>
 #include <h3mtxt/Map/Constants/SpellType.h>
-#include <h3mtxt/Map/Utils/BitSet.h>
 #include <h3mtxt/Map/Utils/EnumBitmask.h>
 #include <h3mtxt/Map/Utils/ReservedData.h>
 #include <h3mtxt/Map/Base.h>
@@ -289,15 +288,15 @@ namespace h3m
   struct TownBuildings
   {
     // Each bit indicates whether the building is built.
-    BitSet<6> is_built {};
+    TownsBuildingsBitmask is_built {};
     // Each bit indicates whether the building is disabled.
-    BitSet<6> is_disabled {};
+    TownsBuildingsBitmask is_disabled {};
   };
 
   struct TownEvent : TimedEventBase
   {
     // Each bit indicates whether the building gets built.
-    BitSet<6> buildings;
+    TownsBuildingsBitmask buildings;
     // Extra creatures for each creature level.
     // FYI: this is "semi-signed":
     // * The Map Editor displays numbers > 32767 as negative numbers.
