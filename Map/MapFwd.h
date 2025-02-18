@@ -75,6 +75,14 @@ namespace h3m
   // this bitmask stores exactly 144 bits.
   using ArtifactsBitmask = EnumBitmask<ArtifactType, 18>;
 
+  // Bitmask storing a bit for each creature type.
+  //
+  // There are 150 creature types in Shadow of Death (the last 5 of them are war machines and arrow towers),
+  // but this bitmask stores 152 bits.
+  //
+  // This is only used in CrossoverOptions.
+  using CreaturesBitmask = EnumBitmask<CreatureType, 19>;
+
   // Bitmask storing a bit for each valid hero.
   //
   // Note that there are 156 heroes in Shadow of Death, but this bitmask stores 160 bits.

@@ -21,8 +21,8 @@ namespace h3m
     CrossoverOptions readCrossoverOptions(std::istream& stream)
     {
       CrossoverOptions options;
-      options.retained_features.bitset = readBitSet<1>(stream);
-      options.creatures = readBitSet<19>(stream);
+      options.retained_features = readEnumBitmask<CrossoverFeature, 1>(stream);
+      options.creatures = readEnumBitmask<CreatureType, 19>(stream);
       options.artifacts = readEnumBitmask<ArtifactType, 18>(stream);
       return options;
     }
