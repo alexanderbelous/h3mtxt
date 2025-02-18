@@ -20,6 +20,8 @@ namespace h3m
 
   std::string_view getEnumString(Gender value) noexcept;
 
+  std::string_view getEnumString(HeroType value) noexcept;
+
   std::string_view getEnumString(LossConditionType value) noexcept;
 
   std::string_view getEnumString(MapDifficulty value) noexcept;

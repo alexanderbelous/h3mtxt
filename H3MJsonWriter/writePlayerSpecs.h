@@ -29,14 +29,20 @@ namespace Medea_NS
     {
       using Fields = h3m::FieldNames<h3m::StartingHero>;
       out.writeField(Fields::kType, value.type);
-      if (value.type != h3m::HeroType{0xFF})
+      const bool has_starting_hero = (value.type != h3m::HeroType{ 0xFF });
+      const std::string_view hero_type_str = has_starting_hero ? h3m::getEnumString(value.type) : "(None)";
+      if (!hero_type_str.empty())
+      {
+        if (has_starting_hero)
+        {
+          out.writeComma();
+        }
+        out.writeComment(hero_type_str, false);
+      }
+      if (has_starting_hero)
       {
         out.writeField(Fields::kPortrait, value.portrait);
         out.writeField(Fields::kName, value.name);
-      }
-      else
-      {
-        out.writeComment("None", false);
       }
     }
   };
