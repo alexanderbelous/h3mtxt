@@ -26,14 +26,17 @@ namespace h3m
 
     Shipyard  = 16,
     Grail = 17,
-    // Lighthouse | Mystic Pond | Library | brimstoneStormclouds |
-    // coverOfDarkness | manaVortex | escapeTunnel | cageOfWarlords | magicUniversity
+    // Lighthouse            | Mystic Pond       | Library          |
+    // Brimstone Stormclouds | Cover Of Darkness | Mana Vortex      |
+    // Escape Tunnel         | Cage Of Warlords  | Magic University
     SpecialBuilding1 = 18, 
-    // brotherhoodOfSword | fountainOfFortune | wallOfKnowledge | castleGate |
-    // necromancyAmplifier | portalOfSummoning | freelancerGuild | glyphsOfFear
+    // Brotherhood Of Sword | Fountain Of Fortune  | Wall Of Knowledge |
+    // Castle Gate          | Necromancy Amplifier | portalOfSummoning |
+    // Freelancer Guild     | Glyphs Of Fear
     SpecialBuilding2 = 19,
-    // Stables | Treasury | Lookout Tower | Order Of Fire | skeletonTransformer |
-    // battleScholarAcademy | ballistaYard | bloodObelisk
+    // Stables       | Treasury             | Lookout Tower          |
+    // Order Of Fire | Skeleton Transformer | Battle Scholar Academy |
+    // Ballista Yard | Blood Obelisk
     SpecialBuilding3 = 20,
     // Hall of Valhalla
     SpecialBuilding4 = 21,
