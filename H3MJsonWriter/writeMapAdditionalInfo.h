@@ -125,6 +125,36 @@ namespace Medea_NS
     }
   };
 
+  using HeroesSettingsEntry = std::pair<const h3m::HeroType, h3m::HeroSettings>;
+
+  template<>
+  struct JsonObjectWriter<HeroesSettingsEntry>
+  {
+    void operator()(FieldsWriter& out, const HeroesSettingsEntry& entry) const
+    {
+      out.writeField("hero", entry.first);
+      if (auto enum_str = h3m::getEnumString(entry.first); !enum_str.empty())
+      {
+        out.writeComma();
+        out.writeComment(enum_str, false);
+      }
+      out.writeField("settings", entry.second);
+    }
+  };
+
+  template<>
+  struct JsonValueWriter<h3m::HeroesSettings>
+  {
+    void operator()(JsonDocumentWriter& out, const h3m::HeroesSettings& value) const
+    {
+      auto scoped_array_writer = out.writeArray<HeroesSettingsEntry>();
+      for (const HeroesSettingsEntry& entry : value.settings())
+      {
+        scoped_array_writer.writeElement(entry);
+      }
+    }
+  };
+
   template<>
   struct JsonObjectWriter<h3m::MapAdditionalInfo>
   {
@@ -143,7 +173,7 @@ namespace Medea_NS
       out.writeField(Fields::kDisabledSpells, value.disabled_spells);
       out.writeField(Fields::kDisabledSkills, value.disabled_skills);
       out.writeField(Fields::kRumors, value.rumors);
-      out.writeField(Fields::kHeroesSettings, value.heroes_settings.settings());
+      out.writeField(Fields::kHeroesSettings, value.heroes_settings);
     }
   };
 }

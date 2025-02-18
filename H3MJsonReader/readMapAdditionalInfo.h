@@ -82,9 +82,8 @@ namespace h3m
       HeroesSettings heroes_settings;
       for (const Json::Value& keyval : value)
       {
-        // TODO: rename "key" and "value" to "hero" and "settings".
-        const HeroType hero = readField<HeroType>(keyval, "key");
-        HeroSettings settings = readField<HeroSettings>(keyval, "value");
+        const HeroType hero = readField<HeroType>(keyval, "hero");
+        HeroSettings settings = readField<HeroSettings>(keyval, "settings");
         heroes_settings[hero] = std::move(settings);
       }
       return heroes_settings;

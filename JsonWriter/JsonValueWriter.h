@@ -5,8 +5,6 @@
 #include <h3mtxt/JsonWriter/ScopedObjectWriter.h>
 
 #include <array>
-#include <functional>
-#include <map>
 #include <span>
 #include <string>
 #include <type_traits>
@@ -29,12 +27,6 @@ namespace Medea_NS
         scoped_array_writer.writeElement(element);
       }
     }
-
-    template<class Key, class Value>
-    struct KeyValCRef
-    {
-      std::reference_wrapper<const std::pair<const Key, Value>> data;
-    };
   }
 
   // Class for writing *values* with indent.
@@ -131,42 +123,6 @@ namespace Medea_NS
     void operator()(JsonDocumentWriter& out, const std::vector<T, Alloc>& vec) const
     {
       Detail_NS::writeSpan<T>(out, vec);
-    }
-  };
-
-  // Partial specialization for Detail_NS::KeyValCRef.
-  template<class Key, class Value>
-  struct JsonValueWriter<Detail_NS::KeyValCRef<Key, Value>>
-  {
-    void operator()(JsonDocumentWriter& out, const Detail_NS::KeyValCRef<Key, Value>& keyval) const
-    {
-      ScopedObjectWriter fields_writer = out.writeObject();
-      fields_writer.writeField("key", keyval.data.get().first);
-      fields_writer.writeField("value", keyval.data.get().second);
-    }
-  };
-
-  // Partial specialization for std::map.
-  // TODO: consider adding ScopedMapWriter with the printed text like:
-  // my_map: {
-  //   "Anna": 42,
-  //   "John": 10,
-  //   "Tom": 15
-  // }
-  // Note that entries are separated by commas unlike named fields in structures. Although, maybe
-  // named fields should be separated by commas too.
-  template<class Key, class Value, class Cmp, class Alloc>
-  struct JsonValueWriter<std::map<Key, Value, Cmp, Alloc>>
-  {
-    void operator()(JsonDocumentWriter& out, const std::map<Key, Value, Cmp, Alloc>& map) const
-    {
-      using ElementType = Detail_NS::KeyValCRef<Key, Value>;
-
-      ScopedArrayWriter<ElementType> scoped_array_writer = out.writeArray<ElementType>();
-      for (const auto& keyval : map)
-      {
-        scoped_array_writer.writeElement(ElementType{keyval});
-      }
     }
   };
 }
