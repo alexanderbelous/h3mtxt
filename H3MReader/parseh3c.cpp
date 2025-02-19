@@ -17,6 +17,10 @@ namespace h3m
     {
       Campaign campaign;
       campaign.format = readEnum<CampaignFormat>(stream);
+      if (campaign.format != CampaignFormat::ShadowOfDeath)
+      {
+        throw std::runtime_error("Unsupported CampaignFormat. Only ShadowOfDeath is supported.");
+      }
       campaign.id = readEnum<CampaignId>(stream);
       campaign.name = readString(stream);
       campaign.description = readString(stream);

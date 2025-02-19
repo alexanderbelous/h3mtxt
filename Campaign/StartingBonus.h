@@ -106,6 +106,11 @@ namespace h3m
       details(std::move(details))
     {}
 
+    constexpr StartingBonusType type() const noexcept
+    {
+      return static_cast<StartingBonusType>(details.index());
+    }
+
     Details details;
   };
 }

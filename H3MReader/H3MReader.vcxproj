@@ -94,6 +94,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="IntegerWidth.h" />
+    <ClInclude Include="parseh3.h" />
     <ClInclude Include="parseh3c.h" />
     <ClInclude Include="parseh3m.h" />
     <ClInclude Include="readCampaignScenario.h" />
@@ -111,6 +112,7 @@
     <ClInclude Include="Utils.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="parseh3.cpp" />
     <ClCompile Include="parseh3c.cpp" />
     <ClCompile Include="parseh3m.cpp" />
     <ClCompile Include="readCampaignScenario.cpp" />

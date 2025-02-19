@@ -86,6 +86,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="getEnumString.cpp" />
+    <ClCompile Include="writeH3cJson.cpp" />
     <ClCompile Include="writeH3mJson.cpp" />
     <ClCompile Include="writeMap.cpp" />
     <ClCompile Include="writeTimedEventBase.cpp" />
@@ -94,8 +95,10 @@
     <ClInclude Include="getEnumString.h" />
     <ClInclude Include="H3MJsonWriter.h" />
     <ClInclude Include="writeArtifactsBitmask.h" />
+    <ClInclude Include="writeCampaign.h" />
     <ClInclude Include="writeCreatureStack.h" />
     <ClInclude Include="writeGlobalEvent.h" />
+    <ClInclude Include="writeH3cJson.h" />
     <ClInclude Include="writeH3mJson.h" />
     <ClInclude Include="writeHeroArtifacts.h" />
     <ClInclude Include="writeLossCondition.h" />
@@ -113,6 +116,8 @@
     <ClInclude Include="writeSecondarySkill.h" />
     <ClInclude Include="writeSecondarySkillsBitmask.h" />
     <ClInclude Include="writeSpellsBitmask.h" />
+    <ClInclude Include="writeStartingBonus.h" />
+    <ClInclude Include="writeStartingOptions.h" />
     <ClInclude Include="writeTile.h" />
     <ClInclude Include="writeTimedEventBase.h" />
     <ClInclude Include="writeTownsBitmask.h" />

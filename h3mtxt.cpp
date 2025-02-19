@@ -1,11 +1,10 @@
 #include <h3mtxt/Campaign/Constants/CampaignFormat.h>
 #include <h3mtxt/H3MJsonReader/readH3mJson.h>
+#include <h3mtxt/H3MJsonWriter/writeH3cJson.h>
 #include <h3mtxt/H3MJsonWriter/writeH3mJson.h>
-#include <h3mtxt/H3MReader/parseh3m.h>
+#include <h3mtxt/H3MReader/parseh3.h>
 #include <h3mtxt/H3MWriter/writeh3m.h>
 #include <h3mtxt/Map/Constants/MapFormat.h>
-
-#include <h3mtxt/thirdparty/zstr/src/zstr.hpp>
 
 #include <filesystem>
 #include <fstream>
@@ -16,89 +15,67 @@ namespace fs = std::filesystem;
 
 namespace
 {
-  enum class FileType
-  {
-    GZip,
-    UncompressedH3M,
-    UncompressedH3C,
-    Other
-  };
-
-  // Determines the type of the file by reading the 0th byte without extracting it.
+  // Checks if the input file is a (possibly gzip-compressed) .h3m or .h3c file.
   // \param stream - input stream containing the file data.
-  // \return FileType for the file contained in @stream.
-  FileType getFileType(std::istream& stream)
+  // \return true if @stream contains a (possibly gzip-compressed) .h3m or .h3c file, false otherwise.
+  bool isH3File(std::istream& stream)
   {
     constexpr char kGzipFirstByte = 0x1F;
-
     const int first_byte = stream.peek();
     switch (first_byte)
     {
     case kGzipFirstByte:
-      return FileType::GZip;
     case static_cast<std::uint8_t>(h3m::MapFormat::RestorationOfErathia):
     case static_cast<std::uint8_t>(h3m::MapFormat::ArmageddonsBlade):
     case static_cast<std::uint8_t>(h3m::MapFormat::ShadowOfDeath):
-      return FileType::UncompressedH3M;
     case static_cast<std::uint8_t>(h3m::CampaignFormat::RestorationOfErathia):
     case static_cast<std::uint8_t>(h3m::CampaignFormat::ArmageddonsBlade):
     case static_cast<std::uint8_t>(h3m::CampaignFormat::ShadowOfDeath):
-      return FileType::UncompressedH3C;
+      return true;
     default:
-      return FileType::Other;
+      return false;
     }
   }
 
   struct Input
   {
-    // TODO: replace with std::variant<h3m::Map, h3m::Campaign>.
-    h3m::Map map;
+    std::variant<h3m::Map, h3m::Campaign> data;
     // True if the input file is a JSON document, false otherwise.
     bool is_json {};
   };
 
-  // Reads a h3m::Map or a h3m::Campaign from the input stream.
-  // TODO: change the type of the returned value to std::variant<h3m::Map, h3m::Campaign>.
-  h3m::Map readUncompressedH3(std::istream& stream)
-  {
-    switch (getFileType(stream))
-    {
-    case FileType::UncompressedH3M:
-      return h3m::parseh3m(stream);
-    case FileType::UncompressedH3C:
-      throw std::runtime_error(".h3c files are not supported yet.");
-    default:
-      throw std::runtime_error("Unknown file format.");
-    }
-  }
-
   Input readInput(std::istream& stream)
   {
-    const FileType file_type = getFileType(stream);
-    switch (file_type)
+    if (isH3File(stream))
     {
-    case FileType::GZip:
-    {
-      zstr::istream zstr_stream(stream);
-      return Input{ .map = readUncompressedH3(zstr_stream), .is_json = false };
+      return Input{ .data = h3m::parseh3(stream), .is_json = false };
     }
-    case FileType::UncompressedH3C:
-    case FileType::UncompressedH3M:
-      return Input{ .map = readUncompressedH3(stream), .is_json = false };
-    default:
-      return Input{ .map = h3m::readH3mJson(stream), .is_json = true };
-    }
+    return Input{ .data = h3m::readH3mJson(stream), .is_json = true };
   }
 
   void writeOutput(std::ostream& stream, const Input& input)
   {
     if (input.is_json)
     {
-      h3m::writeh3m(stream, input.map);
+      if (const h3m::Map* map = std::get_if<h3m::Map>(&input.data))
+      {
+        h3m::writeh3m(stream, *map);
+      }
+      else
+      {
+        throw std::runtime_error("Conversion from JSON to .h3c is not supported yet.");
+      }
     }
     else
     {
-      h3m::writeH3mJson(stream, input.map);
+      if (const h3m::Map* map = std::get_if<h3m::Map>(&input.data))
+      {
+        h3m::writeH3mJson(stream, *map);
+      }
+      else
+      {
+        h3m::writeH3cJson(stream, std::get<h3m::Campaign>(input.data));
+      }
     }
   }
 }
