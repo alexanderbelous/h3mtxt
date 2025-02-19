@@ -144,7 +144,9 @@ namespace Medea_NS
       ScopedArrayWriter<h3m::PlayerSpecs> array_writer = out.writeArray<h3m::PlayerSpecs>();
       for (std::size_t i = 0; i < h3m::kMaxPlayers; ++i)
       {
-        array_writer.writeComment(comment_builder.build("Player ", i));
+        const h3m::PlayerColor player = static_cast<h3m::PlayerColor>(i);
+        const std::string_view player_str = h3m::getEnumString(player);
+        array_writer.writeComment(comment_builder.build("Player ", i, " (", player_str, ")"));
         array_writer.writeElement(players[i]);
       }
     }
