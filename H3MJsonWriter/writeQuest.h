@@ -100,6 +100,10 @@ namespace Medea_NS
     void operator()(FieldsWriter& out, const h3m::QuestDetails<h3m::QuestType::BePlayer>& details) const
     {
       out.writeField("player", details.player);
+      if (auto enum_str = h3m::getEnumString(details.player); !enum_str.empty())
+      {
+        out.writeComment(enum_str, false);
+      }
     }
   };
 

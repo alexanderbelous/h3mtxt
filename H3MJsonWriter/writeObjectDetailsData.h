@@ -305,6 +305,11 @@ namespace Medea_NS
       constexpr h3m::HeroType kRandomHeroType {0xFF};
 
       out.writeField(Fields::kOwner, hero.owner);
+      if (auto enum_str = h3m::getEnumString(hero.owner); !enum_str.empty())
+      {
+        out.writeComma();
+        out.writeComment(enum_str, false);
+      }
       out.writeField(Fields::kType, hero.type);
       if (hero.type == kRandomHeroType)
       {

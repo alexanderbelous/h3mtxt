@@ -38,6 +38,8 @@ namespace h3m
 
   enum class PlayerColor : std::uint8_t;
 
+  enum class PrimarySkillType : std::uint8_t;
+
   enum class QuestType : std::uint8_t;
 
   enum class ResourceType : std::uint8_t;

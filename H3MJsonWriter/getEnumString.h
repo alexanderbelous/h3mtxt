@@ -36,6 +36,10 @@ namespace h3m
 
   std::string_view getEnumString(PlayerBehavior value) noexcept;
 
+  std::string_view getEnumString(PlayerColor value) noexcept;
+
+  std::string_view getEnumString(PrimarySkillType value) noexcept;
+
   std::string_view getEnumString(QuestType value) noexcept;
 
   std::string_view getEnumString(ResourceType value) noexcept;

@@ -58,6 +58,11 @@ namespace Medea_NS
     void operator()(FieldsWriter& out, const h3m::RewardDetails<h3m::RewardType::Resource>& details) const
     {
       out.writeField("type", details.type);
+      if (auto enum_str = h3m::getEnumString(details.type); !enum_str.empty())
+      {
+        out.writeComma();
+        out.writeComment(enum_str, false);
+      }
       out.writeField("amount", details.amount);
     }
   };
@@ -68,6 +73,11 @@ namespace Medea_NS
     void operator()(FieldsWriter& out, const h3m::RewardDetails<h3m::RewardType::PrimarySkill>& details) const
     {
       out.writeField("type", details.type);
+      if (auto enum_str = h3m::getEnumString(details.type); !enum_str.empty())
+      {
+        out.writeComma();
+        out.writeComment(enum_str, false);
+      }
       out.writeField("value", details.value);
     }
   };
@@ -87,6 +97,10 @@ namespace Medea_NS
     void operator()(FieldsWriter& out, const h3m::RewardDetails<h3m::RewardType::Artifact>& details) const
     {
       out.writeField("artifact", details.artifact);
+      if (auto enum_str = h3m::getEnumString(details.artifact); !enum_str.empty())
+      {
+        out.writeComment(enum_str, false);
+      }
     }
   };
 
@@ -96,6 +110,10 @@ namespace Medea_NS
     void operator()(FieldsWriter& out, const h3m::RewardDetails<h3m::RewardType::Spell>& details) const
     {
       out.writeField("spell", details.spell);
+      if (auto enum_str = h3m::getEnumString(details.spell); !enum_str.empty())
+      {
+        out.writeComment(enum_str, false);
+      }
     }
   };
 
@@ -105,6 +123,11 @@ namespace Medea_NS
     void operator()(FieldsWriter& out, const h3m::RewardDetails<h3m::RewardType::Creature>& details) const
     {
       out.writeField("type", details.type);
+      if (auto enum_str = h3m::getEnumString(details.type); !enum_str.empty())
+      {
+        out.writeComma();
+        out.writeComment(enum_str, false);
+      }
       out.writeField("count", details.count);
     }
   };
