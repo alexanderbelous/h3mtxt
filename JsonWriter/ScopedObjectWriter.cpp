@@ -18,8 +18,10 @@ namespace Medea_NS
     try
     {
       context_.decreaseIndent();
-      // TODO: don't write a newline if no fields have been written.
-      context_.writeNewlineIfNeeded();
+      if (last_token_ != Token::None)
+      {
+        context_.writeNewlineIfNeeded();
+      }
       context_.stream_.put('}');
     }
     catch (...)
