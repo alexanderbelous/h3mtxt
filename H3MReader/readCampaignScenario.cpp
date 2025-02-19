@@ -89,12 +89,19 @@ namespace h3m
     }
   }
 
-  CampaignScenario readCampaignScenario(std::istream& stream)
+  CampaignScenario readCampaignScenario(std::istream& stream, CampaignId campaign_id)
   {
     CampaignScenario scenario;
     scenario.map_filename = readString(stream);
     scenario.compressed_map_size = readInt<std::uint32_t>(stream);
-    scenario.prerequisites = readInt<std::uint8_t>(stream);
+    if (campaign_id == CampaignId::UnholyAlliance)
+    {
+      scenario.prerequisites = readBitSet<2>(stream);
+    }
+    else
+    {
+      scenario.prerequisites.data()[0] = readInt<std::uint8_t>(stream);
+    }
     scenario.region_color = readEnum<RegionColor>(stream);
     scenario.default_difficulty = readEnum<MapDifficulty>(stream);
     scenario.region_righ_click_text = readString(stream);

@@ -6,6 +6,7 @@
 #include <h3mtxt/Campaign/StartingOptions.h>
 #include <h3mtxt/Map/MapFwd.h>
 #include <h3mtxt/Map/Constants/MapDifficulty.h>
+#include <h3mtxt/Map/Utils/BitSet.h>
 #include <h3mtxt/Map/Utils/EnumBitmask.h>
 
 #include <optional>
@@ -46,8 +47,16 @@ namespace h3m
     std::string map_filename;
     // The size of the gzip-compressed map file in bytes.
     std::uint32_t compressed_map_size {};
-    // Bitmask.
-    std::uint8_t prerequisites {};
+    // 1 bit per scenario in Campaign::scenarios, indicating whether that scenario must be finished
+    // before playing the current scenario.
+    //
+    // The Campaign Editor doesn't set bits for transitive dependencies: e.g., if scenarioA
+    // has scenarioB as a prerequisite, and scenarioB has scenarioC as a prerequisite,
+    // then only 1 bit will be set for scenarioA.
+    //
+    // Note that the bitmask is serialized as 1 byte if the number of regions N <= 8, but
+    // as 2 bytes if 8 < N <= 16 ("Unholy Alliance").
+    BitSet<2> prerequisites {};
     RegionColor region_color {};
     MapDifficulty default_difficulty {};
     std::string region_righ_click_text;

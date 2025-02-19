@@ -26,7 +26,7 @@ namespace h3m
       campaign.scenarios.reserve(max_num_scenarios);
       for (std::uint8_t i = 0; i < max_num_scenarios; ++i)
       {
-        campaign.scenarios.push_back(readCampaignScenario(stream));
+        campaign.scenarios.push_back(readCampaignScenario(stream, campaign.id));
       }
       const std::size_t num_scenarios = countScenarios(campaign);
       campaign.maps.reserve(num_scenarios);
