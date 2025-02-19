@@ -69,7 +69,13 @@ namespace h3m
   {
     TownsBuildingsBitmask operator()(const Json::Value& value) const
     {
-      return TownsBuildingsBitmask(fromJson<BitSet<6>>(value));
+      using Fields = FieldNames<TownsBuildingsBitmask>;
+      TownsBuildingsBitmask bitmask;
+      for (std::size_t i = 0; i < TownsBuildingsBitmask::kNumBits; ++i)
+      {
+        bitmask.bitset.set(i, readField<bool>(value, Fields::kNames[i]));
+      }
+      return bitmask;
     }
   };
 

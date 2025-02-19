@@ -735,6 +735,65 @@ namespace h3m
   };
 
   template<>
+  struct FieldNames<TownsBuildingsBitmask>
+  {
+    // The number of bit fields in TownsBuildingsBitmask.
+    static constexpr std::size_t kNumBits = 48;
+    // Name for each bit field in TownsBuildingsBitmask.
+    static inline constexpr std::array<std::string_view, kNumBits> kNames
+    {
+      "town_hall",
+      "city_hall",
+      "capitol",
+      "fort",
+      "citadel",
+      "castle",
+      "tavern",
+      "blacksmith",
+      "marketplace",
+      "resource_silo",
+      "artifact_merchants",
+      "mage_guild_1",
+      "mage_guild_2",
+      "mage_guild_3",
+      "mage_guild_4",
+      "mage_guild_5",
+      "shipyard",
+      "grail",
+      "special_building_1",
+      "special_building_2",
+      "special_building_3",
+      "special_building_4",
+      "dwelling_1",
+      "dwelling_1u",
+      "horde_1",
+      "dwelling_2",
+      "dwelling_2u",
+      "horde_2",
+      "dwelling_3",
+      "dwelling_3u",
+      "horde_3",
+      "dwelling_4",
+      "dwelling_4u",
+      "horde_4",
+      "dwelling_5",
+      "dwelling_5u",
+      "horde_5",
+      "dwelling_6",
+      "dwelling_6u",
+      "dwelling_7",
+      "dwelling_7u",
+      "padding_41",
+      "padding_42",
+      "padding_43",
+      "padding_44",
+      "padding_45",
+      "padding_46",
+      "padding_47"
+    };
+  };
+
+  template<>
   struct FieldNames<TownEvent> : FieldNames<TimedEventBase>
   {
     static inline constexpr std::string_view kBuildings = "buildings";

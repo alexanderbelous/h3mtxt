@@ -24,14 +24,14 @@ namespace h3m
     MageGuild4 = 14,
     MageGuild5 = 15,
 
-    Shipyard  = 16,
+    Shipyard = 16,
     Grail = 17,
     // Lighthouse            | Mystic Pond       | Library          |
     // Brimstone Stormclouds | Cover Of Darkness | Mana Vortex      |
     // Escape Tunnel         | Cage Of Warlords  | Magic University
-    SpecialBuilding1 = 18, 
-    // Brotherhood Of Sword | Fountain Of Fortune  | Wall Of Knowledge |
-    // Castle Gate          | Necromancy Amplifier | portalOfSummoning |
+    SpecialBuilding1 = 18,
+    // Brotherhood Of Sword | Fountain Of Fortune  | Wall Of Knowledge   |
+    // Castle Gate          | Necromancy Amplifier | Portal Of Summoning |
     // Freelancer Guild     | Glyphs Of Fear
     SpecialBuilding2 = 19,
     // Stables       | Treasury             | Lookout Tower          |

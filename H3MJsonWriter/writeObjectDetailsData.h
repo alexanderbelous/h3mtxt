@@ -32,13 +32,26 @@ namespace Medea_NS
   };
 
   template<>
+  struct JsonObjectWriter<h3m::TownsBuildingsBitmask>
+  {
+    void operator()(FieldsWriter& out, const h3m::TownsBuildingsBitmask& buildings_bitmask) const
+    {
+      using Fields = h3m::FieldNames<h3m::TownsBuildingsBitmask>;
+      for (std::size_t i = 0; i < h3m::TownsBuildingsBitmask::kNumBits; ++i)
+      {
+        out.writeField(Fields::kNames[i], buildings_bitmask.bitset[i]);
+      }
+    }
+  };
+
+  template<>
   struct JsonObjectWriter<h3m::TownBuildings>
   {
     void operator()(FieldsWriter& out, const h3m::TownBuildings& town_buildings) const
     {
       using Fields = h3m::FieldNames<h3m::TownBuildings>;
-      out.writeField(Fields::kIsBuilt, town_buildings.is_built.bitset);
-      out.writeField(Fields::kIsDisabled, town_buildings.is_disabled.bitset);
+      out.writeField(Fields::kIsBuilt, town_buildings.is_built);
+      out.writeField(Fields::kIsDisabled, town_buildings.is_disabled);
     }
   };
 
@@ -49,7 +62,7 @@ namespace Medea_NS
     {
       using Fields = h3m::FieldNames<h3m::TownEvent>;
       printTimedEventBase(out, town_event);
-      out.writeField(Fields::kBuildings, town_event.buildings.bitset);
+      out.writeField(Fields::kBuildings, town_event.buildings);
       out.writeField(Fields::kCreatures, town_event.creatures);
       out.writeField(Fields::kUnknown2, town_event.unknown2);
     }
