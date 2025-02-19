@@ -50,6 +50,8 @@ namespace h3m
 
   std::string_view getEnumString(SecondarySkillType value) noexcept;
 
+  std::string_view getEnumString(SpellType value) noexcept;
+
   std::string_view getEnumString(TerrainType value) noexcept;
 
   std::string_view getEnumString(VictoryConditionType value) noexcept;

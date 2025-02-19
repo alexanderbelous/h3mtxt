@@ -79,6 +79,12 @@ namespace Medea_NS
       out.writeField(Fields::kMessage, data.message);
       out.writeField(Fields::kResources, data.resources);
       out.writeField(Fields::kArtifact, data.artifact);
+      const std::string_view artifact_str = (data.artifact == h3m::ArtifactType{ 0xFFFF }) ?
+        "(None)" : h3m::getEnumString(data.artifact);
+      if (!artifact_str.empty())
+      {
+        out.writeComment(artifact_str, false);
+      }
     }
   };
 
@@ -428,6 +434,13 @@ namespace Medea_NS
     {
       using Fields = h3m::FieldNames<DetailsData>;
       out.writeField(Fields::kSpell, data.spell);
+      const std::string_view spell_str = (data.spell == h3m::SpellType{ 0xFF }) ?
+        "(Random)" : h3m::getEnumString(data.spell);
+      if (!spell_str.empty())
+      {
+        out.writeComma();
+        out.writeComment(spell_str, false);
+      }
       out.writeField(Fields::kUnknown, data.unknown);
     }
   };
@@ -458,6 +471,11 @@ namespace Medea_NS
         out.writeField(Fields::kGuardians, *spell_scroll.guardians);
       }
       out.writeField(Fields::kSpell, spell_scroll.spell);
+      if (std::string_view enum_str = h3m::getEnumString(spell_scroll.spell); !enum_str.empty())
+      {
+        out.writeComma();
+        out.writeComment(enum_str, false);
+      }
       out.writeField(Fields::kUnknown, spell_scroll.unknown);
     }
   };
