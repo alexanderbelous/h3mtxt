@@ -84,14 +84,14 @@ namespace h3m
   template<std::size_t NumBytes>
   BitSet<NumBytes> readBitSet(std::istream& stream)
   {
-    return BitSet<NumBytes>(readByteArray<NumBytes>(stream));
+    return BitSet<NumBytes>{readByteArray<NumBytes>(stream)};
   }
 
   // Reads a EnumBitmask from the stream.
   template<class Enum, std::size_t NumBytes>
   EnumBitmask<Enum, NumBytes> readEnumBitmask(std::istream& stream)
   {
-    return EnumBitmask<Enum, NumBytes>(readBitSet<NumBytes>(stream));
+    return EnumBitmask<Enum, NumBytes>{readBitSet<NumBytes>(stream)};
   }
 
   // Reads ReservedData from the stream.

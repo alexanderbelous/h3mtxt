@@ -251,7 +251,7 @@ namespace
           .spell_points = -999
         },
       };
-      event_details.affected_players.bitset = h3m::BitSet<1>(std::array<std::uint8_t, 1>{0xFF});
+      event_details.affected_players.bitset.data = std::array<std::uint8_t, 1>{0xFF};
       event_details.remove_after_first_visit = true;
       map.objects_details.push_back(h3m::ObjectDetails{
         .x = 0,
@@ -270,7 +270,7 @@ namespace
           }
         },
       };
-      event_details.affected_players.bitset = h3m::BitSet<1>(std::array<std::uint8_t, 1>{0xFF});
+      event_details.affected_players.bitset.data = std::array<std::uint8_t, 1>{0xFF};
       event_details.remove_after_first_visit = true;
       map.objects_details.push_back(h3m::ObjectDetails{
         .x = 0,

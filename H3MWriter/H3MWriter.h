@@ -159,7 +159,7 @@ namespace h3m
   {
     void operator()(std::ostream& stream, const BitSet<NumBytes>& value) const
     {
-      writeData(stream, value.data());
+      writeData(stream, value.data);
     }
   };
 

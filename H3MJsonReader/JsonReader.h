@@ -219,7 +219,7 @@ namespace h3m
   {
     BitSet<NumBytes> operator()(const Json::Value& value) const
     {
-      return BitSet<NumBytes>(fromJson<std::array<std::uint8_t, NumBytes>>(value));
+      return BitSet<NumBytes>{fromJson<std::array<std::uint8_t, NumBytes>>(value)};
     }
   };
 

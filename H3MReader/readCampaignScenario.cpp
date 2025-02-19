@@ -100,7 +100,7 @@ namespace h3m
     }
     else
     {
-      scenario.prerequisites.data()[0] = readInt<std::uint8_t>(stream);
+      scenario.prerequisites.data[0] = readInt<std::uint8_t>(stream);
     }
     scenario.region_color = readEnum<RegionColor>(stream);
     scenario.default_difficulty = readEnum<MapDifficulty>(stream);

@@ -18,13 +18,6 @@ namespace h3m
     static constexpr std::size_t kNumBytes = NumBytes;
     static constexpr std::size_t kNumBits = NumBytes * 8;
 
-    // Constructs a bitmask with all bits set to 0.
-    constexpr EnumBitmask() noexcept = default;
-
-    explicit constexpr EnumBitmask(const std::array<std::uint8_t, NumBytes>& data) noexcept;
-
-    explicit constexpr EnumBitmask(const BitSet<NumBytes>& bitset) noexcept;
-
     // Returns the value for the specified enum constant.
     // \param enum_value - input enum constant.
     // \return the value of the bit for @enum_value.
@@ -37,18 +30,8 @@ namespace h3m
     // \throw std::out_of_range if std::size_t(enum_value) >= NumBytes * 8.
     constexpr void set(Enum enum_value, bool value);
 
-    BitSet<NumBytes> bitset {};
+    BitSet<NumBytes> bitset;
   };
-
-  template<class Enum, std::size_t NumBytes>
-  constexpr EnumBitmask<Enum, NumBytes>::EnumBitmask(const std::array<std::uint8_t, NumBytes>& data) noexcept :
-    bitset(data)
-  {}
-
-  template<class Enum, std::size_t NumBytes>
-  constexpr EnumBitmask<Enum, NumBytes>::EnumBitmask(const BitSet<NumBytes>& bitset) noexcept :
-    bitset(bitset)
-  {}
 
   template<class Enum, std::size_t NumBytes>
   constexpr bool EnumBitmask<Enum, NumBytes>::operator[](Enum enum_value) const

@@ -25,7 +25,7 @@ namespace Medea_NS
   {
     void operator()(JsonDocumentWriter& out, const h3m::BitSet<NumBytes>& value)
     {
-      writeValue(out, value.data());
+      writeValue(out, value.data);
     }
   };
 }
