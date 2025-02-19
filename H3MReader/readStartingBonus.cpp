@@ -36,10 +36,11 @@ namespace h3m
 
     template<>
     StartingBonusDetails<StartingBonusType::Building>
-    readStartingBonusDetails<StartingBonusType::Building>(std::istream&)
+    readStartingBonusDetails<StartingBonusType::Building>(std::istream& stream)
     {
-      // TODO: implement.
-      throw std::runtime_error("readStartingBonusDetails(): NotImplemented for Building.");
+      StartingBonusDetails<StartingBonusType::Building> details;
+      details.building = readEnum<TownBuildingType>(stream);
+      return details;
     }
 
     template<>
