@@ -169,7 +169,7 @@ namespace Medea_NS
       out.writeField(Fields::kPlaceholderHeroes, value.placeholder_heroes);
       out.writeField(Fields::kCustomHeroes, value.custom_heroes);
       out.writeField(Fields::kReserved, value.reserved);
-      out.writeField(Fields::kArtifactsNonavailability, value.artifacts_nonavailability);
+      out.writeField(Fields::kDisabledArtifacts, value.disabled_artifacts);
       out.writeField(Fields::kDisabledSpells, value.disabled_spells);
       out.writeField(Fields::kDisabledSkills, value.disabled_skills);
       out.writeField(Fields::kRumors, value.rumors);

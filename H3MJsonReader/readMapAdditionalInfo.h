@@ -105,7 +105,7 @@ namespace h3m
       readField(info.placeholder_heroes, value, Fields::kPlaceholderHeroes);
       readField(info.custom_heroes, value, Fields::kCustomHeroes);
       readField(info.reserved, value, Fields::kReserved);
-      readField(info.artifacts_nonavailability, value, Fields::kArtifactsNonavailability);
+      readField(info.disabled_artifacts, value, Fields::kDisabledArtifacts);
       readField(info.disabled_spells.bitset, value, Fields::kDisabledSpells);
       readField(info.disabled_skills, value, Fields::kDisabledSkills);
       readField(info.rumors, value, Fields::kRumors);

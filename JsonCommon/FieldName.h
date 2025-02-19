@@ -312,7 +312,7 @@ namespace h3m
     static inline constexpr std::string_view kPlaceholderHeroes = "placeholder_heroes";
     static inline constexpr std::string_view kCustomHeroes = "custom_heroes";
     static inline constexpr std::string_view kReserved = "reserved";
-    static inline constexpr std::string_view kArtifactsNonavailability = "artifacts_nonavailability";
+    static inline constexpr std::string_view kDisabledArtifacts = "disabled_artifacts";
     static inline constexpr std::string_view kDisabledSpells = "disabled_spells";
     static inline constexpr std::string_view kDisabledSkills = "disabled_skills";
     static inline constexpr std::string_view kRumors = "rumors";

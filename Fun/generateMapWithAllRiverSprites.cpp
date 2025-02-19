@@ -38,9 +38,6 @@ namespace h3m
       .additional_info {
         // Enable all heroes.
         .heroes_availability = kAllHeroesAvailability,
-        .artifacts_nonavailability {},
-        .disabled_spells {},
-        .disabled_skills {},
       },
       .tiles = std::vector<Tile>(kMapSize * kMapSize, Tile{
         .terrain_type = TerrainType::Rock,

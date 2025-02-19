@@ -212,7 +212,7 @@ MapAdditionalInfo readMapAdditionalInfo(std::istream& stream)
   }
   // Read reserved data.
   additional_info.reserved = readReservedData<31>(stream);
-  additional_info.artifacts_nonavailability = readEnumBitmask<ArtifactType, 18>(stream);
+  additional_info.disabled_artifacts = readEnumBitmask<ArtifactType, 18>(stream);
   additional_info.disabled_spells = readEnumBitmask<SpellType, 9>(stream);
   additional_info.disabled_skills = readEnumBitmask<SecondarySkillType, 4>(stream);
   // Read rumors.

@@ -63,7 +63,7 @@ namespace
         // No custom heroes.
         .custom_heroes {},
         .reserved {},
-        .artifacts_nonavailability {},
+        .disabled_artifacts {},
         .disabled_spells {},
         .disabled_skills {},
         .rumors {

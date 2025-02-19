@@ -56,7 +56,7 @@ namespace h3m
       writeVector<std::uint32_t>(stream, value.placeholder_heroes);
       writeVector<std::uint8_t>(stream, value.custom_heroes);
       writeData(stream, value.reserved);
-      writeData(stream, value.artifacts_nonavailability);
+      writeData(stream, value.disabled_artifacts);
       writeData(stream, value.disabled_spells);
       writeData(stream, value.disabled_skills);
       writeVector<std::uint32_t>(stream, value.rumors);
