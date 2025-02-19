@@ -86,6 +86,14 @@
   <ItemGroup>
     <ClInclude Include="FieldName.h" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Campaign\Campaign.vcxproj">
+      <Project>{e12579ee-1d2e-4342-86af-ec0b7fcbd9e8}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\Map\Map.vcxproj">
+      <Project>{856f5d07-6dc0-4e66-813e-12c26f28d606}</Project>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

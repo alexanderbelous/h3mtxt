@@ -87,6 +87,7 @@
   <ItemGroup>
     <ClCompile Include="getEnumString.cpp" />
     <ClCompile Include="writeH3mJson.cpp" />
+    <ClCompile Include="writeMap.cpp" />
     <ClCompile Include="writeTimedEventBase.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -98,6 +99,7 @@
     <ClInclude Include="writeH3mJson.h" />
     <ClInclude Include="writeHeroArtifacts.h" />
     <ClInclude Include="writeLossCondition.h" />
+    <ClInclude Include="writeMap.h" />
     <ClInclude Include="writeMapAdditionalInfo.h" />
     <ClInclude Include="writeMapBasicInfo.h" />
     <ClInclude Include="writeObjectAttributes.h" />
@@ -117,6 +119,9 @@
     <ClInclude Include="writeVictoryCondition.h" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Campaign\Campaign.vcxproj">
+      <Project>{e12579ee-1d2e-4342-86af-ec0b7fcbd9e8}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\JsonCommon\JsonCommon.vcxproj">
       <Project>{95c9f38b-98e4-4ca8-9a8e-9edbc646b241}</Project>
     </ProjectReference>

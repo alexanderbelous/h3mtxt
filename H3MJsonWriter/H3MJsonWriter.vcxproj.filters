@@ -24,6 +24,9 @@
     <ClCompile Include="writeTimedEventBase.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="writeMap.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="writeH3mJson.h">
@@ -99,6 +102,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="writeArtifactsBitmask.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="writeMap.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
