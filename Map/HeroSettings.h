@@ -27,6 +27,10 @@ struct HeroSettings
   std::optional<std::string> biography;
   Gender gender = Gender::Default;
   std::optional<SpellsBitmask> spells;
+  // Treated as uint8_t in the Map Editor; in the game they will be initialized as int8_t,
+  // so 0xFF becomes -1.
+  // Negative Attack/Defense is displayed as 0 and is treated as 0 during combat.
+  // Nonpositive Spell Power/Knowledge is displayed as 1 and is treated as 1.
   std::optional<PrimarySkills> primary_skills;
 };
 

@@ -30,6 +30,9 @@ namespace h3m
   template<>
   struct QuestDetails<QuestType::PrimarySkills>
   {
+    // Nonpositive values are ignored: e.g., even if the hero's Attack is -128, and the
+    // Quest requires achieving -10 Attack, the game will consider that the hero has
+    // completed the quest.
     PrimarySkills skills;
   };
 

@@ -58,8 +58,7 @@ namespace h3m
     std::int8_t morale {};
     std::int8_t luck {};
     Resources<std::int32_t> resources;
-    // FYI: the Map Editor interprets the value of each primary skill as int8_t (not uint8_t),
-    // but in the game negative values are ignored (they have the same effect as 0).
+    // FYI: in the game negative values are ignored (they have the same effect as 0).
     PrimarySkills primary_skills;
     // FYI: you can add more than 8 secondary skills, but the game will only consider the first 8
     // (the rest will be ignored).
@@ -147,6 +146,10 @@ namespace h3m
     std::optional<std::string> biography;
     Gender gender {};
     std::optional<SpellsBitmask> spells;
+    // Treated as uint8_t in the Map Editor; in the game they will be initialized as int8_t,
+    // so 0xFF becomes -1.
+    // Negative Attack/Defense is displayed as 0 and is treated as 0 during combat.
+    // Nonpositive Spell Power/Knowledge is displayed as 1 and is treated as 1.
     std::optional<PrimarySkills> primary_skills;
     // 0s by default; kept here for compatibility.
     ReservedData<16> unknown;
