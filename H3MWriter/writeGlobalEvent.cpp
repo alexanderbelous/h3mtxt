@@ -3,7 +3,7 @@
 
 namespace h3m
 {
-  void H3MWriter<GlobalEvent>::operator()(std::ostream& stream, const GlobalEvent& global_event) const
+  void H3Writer<GlobalEvent>::operator()(std::ostream& stream, const GlobalEvent& global_event) const
   {
     writeTimedEventBase(stream, global_event);
   }

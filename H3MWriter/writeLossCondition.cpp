@@ -41,7 +41,7 @@ namespace h3m
     }
   }
 
-  void H3MWriter<LossCondition>::operator()(std::ostream& stream, const LossCondition& loss_condition) const
+  void H3Writer<LossCondition>::operator()(std::ostream& stream, const LossCondition& loss_condition) const
   {
     writeData(stream, loss_condition.type());
     std::visit([&stream] <LossConditionType T> (const LossConditionDetails<T>& details)

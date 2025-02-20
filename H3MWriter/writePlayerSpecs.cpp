@@ -5,7 +5,7 @@
 namespace h3m
 {
   template<>
-  struct H3MWriter<PlayerSpecs::HeroInfo>
+  struct H3Writer<PlayerSpecs::HeroInfo>
   {
     void operator()(std::ostream& stream, const PlayerSpecs::HeroInfo& value) const
     {
@@ -14,7 +14,7 @@ namespace h3m
     }
   };
 
-  void H3MWriter<MainTown>::operator()(std::ostream& stream, const MainTown& value) const
+  void H3Writer<MainTown>::operator()(std::ostream& stream, const MainTown& value) const
   {
     writeData(stream, value.generate_hero);
     writeData(stream, value.town_type);
@@ -23,7 +23,7 @@ namespace h3m
     writeData(stream, value.z);
   }
 
-  void H3MWriter<StartingHero>::operator()(std::ostream& stream, const StartingHero& value) const
+  void H3Writer<StartingHero>::operator()(std::ostream& stream, const StartingHero& value) const
   {
     writeData(stream, value.type);
     if (value.type != HeroType{0xFF})
@@ -33,7 +33,7 @@ namespace h3m
     }
   }
 
-  void H3MWriter<PlayerSpecs>::operator()(std::ostream& stream, const PlayerSpecs& value) const
+  void H3Writer<PlayerSpecs>::operator()(std::ostream& stream, const PlayerSpecs& value) const
   {
     writeData(stream, value.can_be_human);
     writeData(stream, value.can_be_computer);

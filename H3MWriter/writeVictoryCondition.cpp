@@ -19,7 +19,7 @@ namespace h3m
   }
 
   template<>
-  struct H3MWriter<VictoryConditionDetails<VictoryConditionType::AcquireArtifact>>
+  struct H3Writer<VictoryConditionDetails<VictoryConditionType::AcquireArtifact>>
   {
     void operator()(std::ostream& stream, const VictoryConditionDetails<VictoryConditionType::AcquireArtifact>& value) const
     {
@@ -29,7 +29,7 @@ namespace h3m
   };
 
   template<>
-  struct H3MWriter<VictoryConditionDetails<VictoryConditionType::AccumulateCreatures>>
+  struct H3Writer<VictoryConditionDetails<VictoryConditionType::AccumulateCreatures>>
   {
     void operator()(std::ostream& stream, const VictoryConditionDetails<VictoryConditionType::AccumulateCreatures>& value) const
     {
@@ -40,7 +40,7 @@ namespace h3m
   };
 
   template<>
-  struct H3MWriter<VictoryConditionDetails<VictoryConditionType::AccumulateResources>>
+  struct H3Writer<VictoryConditionDetails<VictoryConditionType::AccumulateResources>>
   {
     void operator()(std::ostream& stream, const VictoryConditionDetails<VictoryConditionType::AccumulateResources>& value) const
     {
@@ -51,7 +51,7 @@ namespace h3m
   };
 
   template<>
-  struct H3MWriter<VictoryConditionDetails<VictoryConditionType::UpgradeTown>>
+  struct H3Writer<VictoryConditionDetails<VictoryConditionType::UpgradeTown>>
   {
     void operator()(std::ostream& stream, const VictoryConditionDetails<VictoryConditionType::UpgradeTown>& value) const
     {
@@ -65,7 +65,7 @@ namespace h3m
   };
 
   template<class T>
-  struct H3MWriter<T, std::enable_if_t<std::is_same_v<T, VictoryConditionDetails<VictoryConditionType::BuildGrail>> ||
+  struct H3Writer<T, std::enable_if_t<std::is_same_v<T, VictoryConditionDetails<VictoryConditionType::BuildGrail>> ||
                                        std::is_same_v<T, VictoryConditionDetails<VictoryConditionType::DefeatHero>> || 
                                        std::is_same_v<T, VictoryConditionDetails<VictoryConditionType::CaptureTown>> ||
                                        std::is_same_v<T, VictoryConditionDetails<VictoryConditionType::DefeatMonster>>>>
@@ -80,7 +80,7 @@ namespace h3m
   };
 
   template<class T>
-  struct H3MWriter<T, std::enable_if_t<std::is_same_v<T, VictoryConditionDetails<VictoryConditionType::FlagDwellings>> ||
+  struct H3Writer<T, std::enable_if_t<std::is_same_v<T, VictoryConditionDetails<VictoryConditionType::FlagDwellings>> ||
                                        std::is_same_v<T, VictoryConditionDetails<VictoryConditionType::FlagMines>>>>
   {
     void operator()(std::ostream& stream, const T& value) const
@@ -90,7 +90,7 @@ namespace h3m
   };
 
   template<>
-  struct H3MWriter<VictoryConditionDetails<VictoryConditionType::TransportArtifact>>
+  struct H3Writer<VictoryConditionDetails<VictoryConditionType::TransportArtifact>>
   {
     void operator()(std::ostream& stream, const VictoryConditionDetails<VictoryConditionType::TransportArtifact>& value) const
     {
@@ -103,14 +103,14 @@ namespace h3m
   };
 
   template<>
-  struct H3MWriter<VictoryConditionDetails<VictoryConditionType::Normal>>
+  struct H3Writer<VictoryConditionDetails<VictoryConditionType::Normal>>
   {
     void operator()(std::ostream&, const VictoryConditionDetails<VictoryConditionType::Normal>&) const
     {
     }
   };
 
-  void H3MWriter<VictoryCondition>::operator()(std::ostream& stream, const VictoryCondition& victory_condition) const
+  void H3Writer<VictoryCondition>::operator()(std::ostream& stream, const VictoryCondition& victory_condition) const
   {
     writeData(stream, victory_condition.type());
     std::visit([&stream] <VictoryConditionType T> (const VictoryConditionDetails<T>& value)

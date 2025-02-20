@@ -4,7 +4,7 @@
 
 namespace h3m
 {
-  void H3MWriter<MapBasicInfo>::operator()(std::ostream& stream, const MapBasicInfo& value) const
+  void H3Writer<MapBasicInfo>::operator()(std::ostream& stream, const MapBasicInfo& value) const
   {
     writeData(stream, value.is_playable);
     writeData(stream, value.map_size);

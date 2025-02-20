@@ -4,7 +4,7 @@
 
 namespace h3m
 {
-  void H3MWriter<HeroArtifacts>::operator()(std::ostream& stream, const HeroArtifacts& artifacts) const
+  void H3Writer<HeroArtifacts>::operator()(std::ostream& stream, const HeroArtifacts& artifacts) const
   {
     writeData(stream, artifacts.headwear);
     writeData(stream, artifacts.shoulders);

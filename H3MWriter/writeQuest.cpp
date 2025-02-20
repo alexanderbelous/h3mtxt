@@ -5,7 +5,7 @@
 namespace h3m
 {
   template<>
-  struct H3MWriter<QuestDetails<QuestType::None>>
+  struct H3Writer<QuestDetails<QuestType::None>>
   {
     void operator()(std::ostream&, const QuestDetails<QuestType::None>&) const
     {
@@ -13,7 +13,7 @@ namespace h3m
   };
 
   template<>
-  struct H3MWriter<QuestDetails<QuestType::Level>>
+  struct H3Writer<QuestDetails<QuestType::Level>>
   {
     void operator()(std::ostream& stream, const QuestDetails<QuestType::Level>& data) const
     {
@@ -22,7 +22,7 @@ namespace h3m
   };
 
   template<>
-  struct H3MWriter<QuestDetails<QuestType::PrimarySkills>>
+  struct H3Writer<QuestDetails<QuestType::PrimarySkills>>
   {
     void operator()(std::ostream& stream, const QuestDetails<QuestType::PrimarySkills>& data) const
     {
@@ -31,7 +31,7 @@ namespace h3m
   };
 
   template<>
-  struct H3MWriter<QuestDetails<QuestType::DefeatHero>>
+  struct H3Writer<QuestDetails<QuestType::DefeatHero>>
   {
     void operator()(std::ostream& stream, const QuestDetails<QuestType::DefeatHero>& data) const
     {
@@ -40,7 +40,7 @@ namespace h3m
   };
 
   template<>
-  struct H3MWriter<QuestDetails<QuestType::DefeatMonster>>
+  struct H3Writer<QuestDetails<QuestType::DefeatMonster>>
   {
     void operator()(std::ostream& stream, const QuestDetails<QuestType::DefeatMonster>& data) const
     {
@@ -49,7 +49,7 @@ namespace h3m
   };
 
   template<>
-  struct H3MWriter<QuestDetails<QuestType::Artifacts>>
+  struct H3Writer<QuestDetails<QuestType::Artifacts>>
   {
     void operator()(std::ostream& stream, const QuestDetails<QuestType::Artifacts>& data) const
     {
@@ -58,7 +58,7 @@ namespace h3m
   };
 
   template<>
-  struct H3MWriter<QuestDetails<QuestType::Creatures>>
+  struct H3Writer<QuestDetails<QuestType::Creatures>>
   {
     void operator()(std::ostream& stream, const QuestDetails<QuestType::Creatures>& data) const
     {
@@ -67,7 +67,7 @@ namespace h3m
   };
 
   template<>
-  struct H3MWriter<QuestDetails<QuestType::Resources>>
+  struct H3Writer<QuestDetails<QuestType::Resources>>
   {
     void operator()(std::ostream& stream, const QuestDetails<QuestType::Resources>& data) const
     {
@@ -76,7 +76,7 @@ namespace h3m
   };
 
   template<>
-  struct H3MWriter<QuestDetails<QuestType::BeHero>>
+  struct H3Writer<QuestDetails<QuestType::BeHero>>
   {
     void operator()(std::ostream& stream, const QuestDetails<QuestType::BeHero>& data) const
     {
@@ -85,7 +85,7 @@ namespace h3m
   };
 
   template<>
-  struct H3MWriter<QuestDetails<QuestType::BePlayer>>
+  struct H3Writer<QuestDetails<QuestType::BePlayer>>
   {
     void operator()(std::ostream& stream, const QuestDetails<QuestType::BePlayer>& data) const
     {
@@ -93,7 +93,7 @@ namespace h3m
     }
   };
 
-  void H3MWriter<Quest>::operator()(std::ostream& stream, const Quest& quest) const
+  void H3Writer<Quest>::operator()(std::ostream& stream, const Quest& quest) const
   {
     writeData(stream, quest.type());
     std::visit([&stream] <QuestType T> (const QuestDetails<T>& value) { writeData(stream, value); },

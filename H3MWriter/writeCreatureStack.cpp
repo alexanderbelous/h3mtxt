@@ -4,7 +4,7 @@
 
 namespace h3m
 {
-  void H3MWriter<CreatureStack>::operator()(std::ostream& stream, const CreatureStack& value) const
+  void H3Writer<CreatureStack>::operator()(std::ostream& stream, const CreatureStack& value) const
   {
     writeData(stream, value.type);
     writeData(stream, value.count);

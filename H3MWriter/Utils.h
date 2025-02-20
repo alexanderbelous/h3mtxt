@@ -41,14 +41,14 @@ namespace h3m
 
   // Full specialization for std::byte.
   template<>
-  struct H3MWriter<std::byte>
+  struct H3Writer<std::byte>
   {
     void operator()(std::ostream& stream, std::byte value) const;
   };
 
   // Partial specialization for integer types.
   template<class T>
-  struct H3MWriter<T, std::enable_if_t<std::is_integral_v<T>>>
+  struct H3Writer<T, std::enable_if_t<std::is_integral_v<T>>>
   {
     void operator()(std::ostream& stream, T value) const
     {
@@ -71,7 +71,7 @@ namespace h3m
 
   // Partial specialization for enum types.
   template<class T>
-  struct H3MWriter<T, std::enable_if_t<std::is_enum_v<T>>>
+  struct H3Writer<T, std::enable_if_t<std::is_enum_v<T>>>
   {
     void operator()(std::ostream& stream, T value) const
     {
@@ -81,7 +81,7 @@ namespace h3m
 
   // Full specialization for std::string.
   template<>
-  struct H3MWriter<std::string>
+  struct H3Writer<std::string>
   {
     void operator()(std::ostream& stream, const std::string& value) const;
   };
@@ -90,7 +90,7 @@ namespace h3m
   // In H3M arrays of known width are always encoded as a sequence of
   // individually encoded elements (the size of the array is not encoded).
   template<class T, std::size_t N>
-  struct H3MWriter<std::array<T, N>>
+  struct H3Writer<std::array<T, N>>
   {
     void operator()(std::ostream& stream, const std::array<T, N>& values) const
     {
@@ -112,7 +112,7 @@ namespace h3m
 
   // Partial specialization for std::optional.
   template<class T>
-  struct H3MWriter<std::optional<T>>
+  struct H3Writer<std::optional<T>>
   {
     void operator()(std::ostream& stream, const std::optional<T>& value) const
     {
@@ -126,7 +126,7 @@ namespace h3m
 
   // Partial specialization for ReservedData.
   template<std::size_t NumBytes>
-  struct H3MWriter<ReservedData<NumBytes>>
+  struct H3Writer<ReservedData<NumBytes>>
   {
     void operator()(std::ostream& stream, const ReservedData<NumBytes>& reserved_data) const
     {
@@ -136,7 +136,7 @@ namespace h3m
 
   // Partial specialization for BitSet.
   template<std::size_t NumBytes>
-  struct H3MWriter<BitSet<NumBytes>>
+  struct H3Writer<BitSet<NumBytes>>
   {
     void operator()(std::ostream& stream, const BitSet<NumBytes>& value) const
     {
@@ -146,7 +146,7 @@ namespace h3m
 
   // Partial specialization for EnumBitmask.
   template<class Enum, std::size_t NumBytes>
-  struct H3MWriter<EnumBitmask<Enum, NumBytes>>
+  struct H3Writer<EnumBitmask<Enum, NumBytes>>
   {
     void operator()(std::ostream& stream, const EnumBitmask<Enum, NumBytes>& value) const
     {

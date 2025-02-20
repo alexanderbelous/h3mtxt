@@ -4,7 +4,7 @@
 
 namespace h3m
 {
-  void H3MWriter<SecondarySkill>::operator()(std::ostream& stream, const SecondarySkill& secondary_skill) const
+  void H3Writer<SecondarySkill>::operator()(std::ostream& stream, const SecondarySkill& secondary_skill) const
   {
     writeData(stream, secondary_skill.type);
     writeData(stream, secondary_skill.level);

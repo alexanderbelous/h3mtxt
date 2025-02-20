@@ -48,12 +48,12 @@ namespace h3m
     }
   }
 
-  void H3MWriter<std::byte>::operator()(std::ostream& stream, std::byte value) const
+  void H3Writer<std::byte>::operator()(std::ostream& stream, std::byte value) const
   {
     stream.put(static_cast<char>(value));
   }
 
-  void H3MWriter<std::string>::operator()(std::ostream& stream, const std::string& value) const
+  void H3Writer<std::string>::operator()(std::ostream& stream, const std::string& value) const
   {
     if (value.size() > std::numeric_limits<std::uint32_t>::max())
     {

@@ -19,7 +19,7 @@ namespace h3m
       // Check that the number of tiles is correct.
       if (map.tiles.size() != countTiles(map.basic_info))
       {
-        throw std::runtime_error("H3MWriter<Map>: Wrong number of elements in Map::tiles.");
+        throw std::runtime_error("H3Writer<Map>: Wrong number of elements in Map::tiles.");
       }
       // Check that each ObjectDetails refers to an existing ObjectAttributes and
       // has the same MetaObjectType.
@@ -27,20 +27,20 @@ namespace h3m
       {
         if (object_details.kind >= map.objects_attributes.size())
         {
-          throw std::runtime_error("H3MWriter<Map>: ObjectDetails::kind is out of range.");
+          throw std::runtime_error("H3Writer<Map>: ObjectDetails::kind is out of range.");
         }
         const ObjectAttributes& object_attributes = map.objects_attributes[object_details.kind];
         const MetaObjectType meta_object_type_expected = getMetaObjectType(object_attributes.object_class);
         if (object_details.details.getMetaObjectType() != meta_object_type_expected)
         {
-          throw std::runtime_error("H3MWriter<Map>: ObjectDetails::details has MetaObjectType different "
+          throw std::runtime_error("H3Writer<Map>: ObjectDetails::details has MetaObjectType different "
                                    "from the ObjectAttributes it refers to.");
         }
       }
     }
   }
 
-  void H3MWriter<Map>::operator()(std::ostream& stream, const Map& map) const
+  void H3Writer<Map>::operator()(std::ostream& stream, const Map& map) const
   {
     // Check tha the map is grammatically (not necessarily semantically) correct.
     checkMap(map);

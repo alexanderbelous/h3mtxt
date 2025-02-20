@@ -4,7 +4,7 @@
 
 namespace h3m
 {
-  void H3MWriter<Tile>::operator()(std::ostream& stream, const Tile& value) const
+  void H3Writer<Tile>::operator()(std::ostream& stream, const Tile& value) const
   {
     writeData(stream, value.terrain_type);
     writeData(stream, value.terrain_sprite);

@@ -5,7 +5,7 @@
 namespace h3m
 {
   template<>
-  struct H3MWriter<RewardDetails<RewardType::None>>
+  struct H3Writer<RewardDetails<RewardType::None>>
   {
     void operator()(std::ostream&, const RewardDetails<RewardType::None>&) const
     {
@@ -13,7 +13,7 @@ namespace h3m
   };
 
   template<>
-  struct H3MWriter<RewardDetails<RewardType::Experience>>
+  struct H3Writer<RewardDetails<RewardType::Experience>>
   {
     void operator()(std::ostream& stream, const RewardDetails<RewardType::Experience>& data) const
     {
@@ -22,7 +22,7 @@ namespace h3m
   };
 
   template<>
-  struct H3MWriter<RewardDetails<RewardType::SpellPoints>>
+  struct H3Writer<RewardDetails<RewardType::SpellPoints>>
   {
     void operator()(std::ostream& stream, const RewardDetails<RewardType::SpellPoints>& data) const
     {
@@ -31,7 +31,7 @@ namespace h3m
   };
 
   template<>
-  struct H3MWriter<RewardDetails<RewardType::Morale>>
+  struct H3Writer<RewardDetails<RewardType::Morale>>
   {
     void operator()(std::ostream& stream, const RewardDetails<RewardType::Morale>& data) const
     {
@@ -40,7 +40,7 @@ namespace h3m
   };
 
   template<>
-  struct H3MWriter<RewardDetails<RewardType::Luck>>
+  struct H3Writer<RewardDetails<RewardType::Luck>>
   {
     void operator()(std::ostream& stream, const RewardDetails<RewardType::Luck>& data) const
     {
@@ -49,7 +49,7 @@ namespace h3m
   };
 
   template<>
-  struct H3MWriter<RewardDetails<RewardType::Resource>>
+  struct H3Writer<RewardDetails<RewardType::Resource>>
   {
     void operator()(std::ostream& stream, const RewardDetails<RewardType::Resource>& data) const
     {
@@ -59,7 +59,7 @@ namespace h3m
   };
 
   template<>
-  struct H3MWriter<RewardDetails<RewardType::PrimarySkill>>
+  struct H3Writer<RewardDetails<RewardType::PrimarySkill>>
   {
     void operator()(std::ostream& stream, const RewardDetails<RewardType::PrimarySkill>& data) const
     {
@@ -69,7 +69,7 @@ namespace h3m
   };
 
   template<>
-  struct H3MWriter<RewardDetails<RewardType::SecondarySkill>>
+  struct H3Writer<RewardDetails<RewardType::SecondarySkill>>
   {
     void operator()(std::ostream& stream, const RewardDetails<RewardType::SecondarySkill>& data) const
     {
@@ -78,7 +78,7 @@ namespace h3m
   };
 
   template<>
-  struct H3MWriter<RewardDetails<RewardType::Artifact>>
+  struct H3Writer<RewardDetails<RewardType::Artifact>>
   {
     void operator()(std::ostream& stream, const RewardDetails<RewardType::Artifact>& data) const
     {
@@ -87,7 +87,7 @@ namespace h3m
   };
 
   template<>
-  struct H3MWriter<RewardDetails<RewardType::Spell>>
+  struct H3Writer<RewardDetails<RewardType::Spell>>
   {
     void operator()(std::ostream& stream, const RewardDetails<RewardType::Spell>& data) const
     {
@@ -96,7 +96,7 @@ namespace h3m
   };
 
   template<>
-  struct H3MWriter<RewardDetails<RewardType::Creature>>
+  struct H3Writer<RewardDetails<RewardType::Creature>>
   {
     void operator()(std::ostream& stream, const RewardDetails<RewardType::Creature>& data) const
     {
@@ -105,7 +105,7 @@ namespace h3m
     }
   };
 
-  void H3MWriter<Reward>::operator()(std::ostream& stream, const Reward& reward) const
+  void H3Writer<Reward>::operator()(std::ostream& stream, const Reward& reward) const
   {
     writeData(stream, reward.type());
     std::visit([&stream] <RewardType T> (const RewardDetails<T>& value) { writeData(stream, value); },

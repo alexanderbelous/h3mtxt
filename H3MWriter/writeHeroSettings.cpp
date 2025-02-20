@@ -4,7 +4,7 @@
 
 namespace h3m
 {
-  void H3MWriter<HeroSettings>::operator()(std::ostream& stream, const HeroSettings& settings) const
+  void H3Writer<HeroSettings>::operator()(std::ostream& stream, const HeroSettings& settings) const
   {
     writeData(stream, settings.experience);
     // Write secondary skills.

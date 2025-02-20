@@ -4,7 +4,7 @@
 
 namespace h3m
 {
-  void H3MWriter<ObjectAttributes>::operator()(std::ostream& stream, const ObjectAttributes& value) const
+  void H3Writer<ObjectAttributes>::operator()(std::ostream& stream, const ObjectAttributes& value) const
   {
     writeData(stream, value.def);
     writeData(stream, value.passability);
