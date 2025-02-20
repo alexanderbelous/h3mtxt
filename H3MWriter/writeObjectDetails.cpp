@@ -343,7 +343,6 @@ namespace h3m
     writeData(stream, object_details.z);
     writeData(stream, object_details.kind);
     writeData(stream, object_details.unknown);
-    // TODO: Check that MetaObjectType in object_details.details matches the one in ObjectAttributes.
     object_details.details.visit([&stream] <MetaObjectType T> (const ObjectDetailsData<T>& value)
                                  { writeData(stream, value); });
   }
