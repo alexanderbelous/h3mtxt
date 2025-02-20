@@ -1,5 +1,6 @@
-#include <h3mtxt/H3MReader/H3Reader.h>
 #include <h3mtxt/H3MReader/parseh3.h>
+
+#include <h3mtxt/H3MReader/H3Reader.h>
 
 #include <h3mtxt/thirdparty/zstr/src/zstr.hpp>
 

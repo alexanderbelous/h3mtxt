@@ -4,11 +4,8 @@
 
 #include <h3mtxt/thirdparty/zstr/src/zstr.hpp>
 
-#include <cstddef>
 #include <istream>
-#include <span>
 #include <stdexcept>
-#include <type_traits>
 
 namespace h3m::H3Reader_NS
 {
