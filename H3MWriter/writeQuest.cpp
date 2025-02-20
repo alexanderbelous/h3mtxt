@@ -1,9 +1,5 @@
-#pragma once
-
-#include <h3mtxt/H3MWriter/H3MWriter.h>
-#include <h3mtxt/H3MWriter/writeCreatureStack.h>
-#include <h3mtxt/H3MWriter/writePrimarySkills.h>
-#include <h3mtxt/H3MWriter/writeResources.h>
+#include <h3mtxt/H3MWriter/H3Writer.h>
+#include <h3mtxt/H3MWriter/Utils.h>
 #include <h3mtxt/Map/Quest.h>
 
 namespace h3m
@@ -97,21 +93,17 @@ namespace h3m
     }
   };
 
-  template<>
-  struct H3MWriter<Quest>
+  void H3MWriter<Quest>::operator()(std::ostream& stream, const Quest& quest) const
   {
-    void operator()(std::ostream& stream, const Quest& quest) const
+    writeData(stream, quest.type());
+    std::visit([&stream] <QuestType T> (const QuestDetails<T>& value) { writeData(stream, value); },
+               quest.details);
+    if (quest.type() != QuestType::None)
     {
-      writeData(stream, quest.type());
-      std::visit([&stream](auto&& value) { writeData(stream, std::forward<decltype(value)>(value)); },
-                 quest.details);
-      if (quest.type() != QuestType::None)
-      {
-        writeData(stream, quest.deadline);
-        writeData(stream, quest.proposal);
-        writeData(stream, quest.progress);
-        writeData(stream, quest.completion);
-      }
+      writeData(stream, quest.deadline);
+      writeData(stream, quest.proposal);
+      writeData(stream, quest.progress);
+      writeData(stream, quest.completion);
     }
-  };
+  }
 }

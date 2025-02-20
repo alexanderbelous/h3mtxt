@@ -1,66 +1,48 @@
-#pragma once
-
-#include <h3mtxt/H3MWriter/H3MWriter.h>
-#include <h3mtxt/H3MWriter/writeCreatureStack.h>
-#include <h3mtxt/H3MWriter/writeHeroArtifacts.h>
-#include <h3mtxt/H3MWriter/writePrimarySkills.h>
-#include <h3mtxt/H3MWriter/writeQuest.h>
-#include <h3mtxt/H3MWriter/writeResources.h>
-#include <h3mtxt/H3MWriter/writeReward.h>
-#include <h3mtxt/H3MWriter/writeSecondarySkill.h>
-#include <h3mtxt/H3MWriter/writeTimedEventBase.h>
+#include <h3mtxt/H3MWriter/H3Writer.h>
+#include <h3mtxt/H3MWriter/Utils.h>
 #include <h3mtxt/Map/ObjectDetails.h>
 
 namespace h3m
 {
-  template<>
-  struct H3MWriter<Guardians>
+  namespace
   {
-    void operator()(std::ostream& stream, const Guardians& guardians) const
+    void writeEventBase(std::ostream& stream, const EventBase& event)
     {
-      writeData(stream, guardians.message);
-      writeData(stream, guardians.creatures);
-      writeData(stream, guardians.unknown);
+      writeData(stream, event.guardians);
+      writeData(stream, event.experience);
+      writeData(stream, event.spell_points);
+      writeData(stream, event.morale);
+      writeData(stream, event.luck);
+      writeData(stream, event.resources);
+      writeData(stream, event.primary_skills);
+      writeVector<std::uint8_t>(stream, event.secondary_skills);
+      writeVector<std::uint8_t>(stream, event.artifacts);
+      writeVector<std::uint8_t>(stream, event.spells);
+      writeVector<std::uint8_t>(stream, event.creatures);
+      writeData(stream, event.unknown);
     }
-  };
-
-  inline void writeEventBase(std::ostream& stream, const EventBase& event)
-  {
-    writeData(stream, event.guardians);
-    writeData(stream, event.experience);
-    writeData(stream, event.spell_points);
-    writeData(stream, event.morale);
-    writeData(stream, event.luck);
-    writeData(stream, event.resources);
-    writeData(stream, event.primary_skills);
-    writeVector<std::uint8_t>(stream, event.secondary_skills);
-    writeVector<std::uint8_t>(stream, event.artifacts);
-    writeVector<std::uint8_t>(stream, event.spells);
-    writeVector<std::uint8_t>(stream, event.creatures);
-    writeData(stream, event.unknown);
   }
 
-  template<>
-  struct H3MWriter<TownBuildings>
+  void H3MWriter<Guardians>::operator()(std::ostream& stream, const Guardians& guardians) const
   {
-    void operator()(std::ostream& stream, const TownBuildings& town_buildings) const
-    {
-      writeData(stream, town_buildings.is_built);
-      writeData(stream, town_buildings.is_disabled);
-    }
-  };
+    writeData(stream, guardians.message);
+    writeData(stream, guardians.creatures);
+    writeData(stream, guardians.unknown);
+  }
 
-  template<>
-  struct H3MWriter<TownEvent>
+  void H3MWriter<TownBuildings>::operator()(std::ostream& stream, const TownBuildings& town_buildings) const
   {
-    void operator()(std::ostream& stream, const TownEvent& event) const
-    {
-      writeTimedEventBase(stream, event);
-      writeData(stream, event.buildings);
-      writeData(stream, event.creatures);
-      writeData(stream, event.unknown2);
-    }
-  };
+    writeData(stream, town_buildings.is_built);
+    writeData(stream, town_buildings.is_disabled);
+  }
+
+  void H3MWriter<TownEvent>::operator()(std::ostream& stream, const TownEvent& event) const
+  {
+    writeTimedEventBase(stream, event);
+    writeData(stream, event.buildings);
+    writeData(stream, event.creatures);
+    writeData(stream, event.unknown2);
+  }
 
   template<>
   struct H3MWriter<ObjectDetailsData<MetaObjectType::ABANDONED_MINE>>
@@ -354,22 +336,15 @@ namespace h3m
     }
   };
 
-  template<>
-  struct H3MWriter<ObjectDetails>
+  void H3MWriter<ObjectDetails>::operator()(std::ostream& stream, const ObjectDetails& object_details) const
   {
-    void operator()(std::ostream& stream, const ObjectDetails& object_details) const
-    {
-      writeData(stream, object_details.x);
-      writeData(stream, object_details.y);
-      writeData(stream, object_details.z);
-      writeData(stream, object_details.kind);
-      writeData(stream, object_details.unknown);
-      // TODO: Check that MetaObjectType in object_details.details matches the one in ObjectAttributes.
-      object_details.details.visit(
-        [&stream](auto&& value)
-        {
-          writeData(stream, std::forward<decltype(value)>(value));
-        });
-    }
-  };
+    writeData(stream, object_details.x);
+    writeData(stream, object_details.y);
+    writeData(stream, object_details.z);
+    writeData(stream, object_details.kind);
+    writeData(stream, object_details.unknown);
+    // TODO: Check that MetaObjectType in object_details.details matches the one in ObjectAttributes.
+    object_details.details.visit([&stream] <MetaObjectType T> (const ObjectDetailsData<T>& value)
+                                 { writeData(stream, value); });
+  }
 }

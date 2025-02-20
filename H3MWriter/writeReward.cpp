@@ -1,7 +1,5 @@
-#pragma once
-
-#include <h3mtxt/H3MWriter/H3MWriter.h>
-#include <h3mtxt/H3MWriter/writeSecondarySkill.h>
+#include <h3mtxt/H3MWriter/H3Writer.h>
+#include <h3mtxt/H3MWriter/Utils.h>
 #include <h3mtxt/Map/Reward.h>
 
 namespace h3m
@@ -107,14 +105,10 @@ namespace h3m
     }
   };
 
-  template<>
-  struct H3MWriter<Reward>
+  void H3MWriter<Reward>::operator()(std::ostream& stream, const Reward& reward) const
   {
-    void operator()(std::ostream& stream, const Reward& reward) const
-    {
-      writeData(stream, reward.type());
-      std::visit([&stream](auto&& value) { writeData(stream, std::forward<decltype(value)>(value)); },
-                 reward.details);
-    }
-  };
+    writeData(stream, reward.type());
+    std::visit([&stream] <RewardType T> (const RewardDetails<T>& value) { writeData(stream, value); },
+               reward.details);
+  }
 }

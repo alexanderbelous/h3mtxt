@@ -1,12 +1,10 @@
-#pragma once
-
-#include <h3mtxt/H3MWriter/H3MWriter.h>
+#include <h3mtxt/H3MWriter/H3Writer.h>
+#include <h3mtxt/H3MWriter/Utils.h>
 #include <h3mtxt/Map/TimedEventBase.h>
 
 namespace h3m
 {
-  // TODO: consider moving the implementation to .cpp.
-  inline void writeTimedEventBase(std::ostream& stream, const TimedEventBase& event)
+  void writeTimedEventBase(std::ostream& stream, const TimedEventBase& event)
   {
     writeData(stream, event.name);
     writeData(stream, event.message);

@@ -18,61 +18,10 @@
     <ClInclude Include="writeh3m.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="H3MWriter.h">
+    <ClInclude Include="Utils.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="writeVictoryCondition.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="writeLossCondition.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="writeMapBasicInfo.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="writeObjectAttributes.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="writePlayerSpecs.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="writeHeroArtifacts.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="writeHeroSettings.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="writeSecondarySkill.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="writePrimarySkills.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="writeMapAdditionalInfo.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="writeTile.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="writeResources.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="writeTimedEventBase.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="writeGlobalEvent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="writeObjectDetails.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="writeQuest.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="writeCreatureStack.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="writeReward.h">
+    <ClInclude Include="H3Writer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -80,7 +29,64 @@
     <ClCompile Include="writeh3m.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="H3MWriter.cpp">
+    <ClCompile Include="Utils.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="writeSecondarySkill.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="writeTile.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="writeResources.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="writePrimarySkills.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="writeCreatureStack.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="writeHeroArtifacts.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="writeMapBasicInfo.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="writeHeroSettings.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="writeMapAdditionalInfo.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="writeObjectAttributes.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="writePlayerSpecs.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="writeLossCondition.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="writeVictoryCondition.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="writeQuest.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="writeReward.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="writeTimedEventBase.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="writeGlobalEvent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="writeObjectDetails.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="writeMap.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

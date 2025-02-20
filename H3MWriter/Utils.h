@@ -1,6 +1,6 @@
 #pragma once
 
-#include <h3mtxt/Map/MapFwd.h>
+#include <h3mtxt/H3MWriter/H3Writer.h>
 #include <h3mtxt/Map/Base.h>
 #include <h3mtxt/Map/Utils/BitSet.h>
 #include <h3mtxt/Map/Utils/EnumBitmask.h>
@@ -37,25 +37,6 @@ namespace h3m
     //        that should be used to write the size of the vector as.
     // \throw std::runtime_error if num_elements > max_value_for_type.
     void checkVectorSize(std::size_t num_elements, std::size_t max_value_for_type);
-  }
-
-  // Template for writing values into a binary stream storing a .h3m map.
-  template<class T, class Enable = void>
-  struct H3MWriter
-  {
-    // \param stream - output stream.
-    // \param value - value to append.
-    void operator()(std::ostream& stream, const T& value) const;
-  };
-
-  // Writes a value into a binary stream storing a .h3m map.
-  // \param stream - output stream.
-  // \param value - value to append.
-  template<class T>
-  void writeData(std::ostream& stream, const T& value)
-  {
-    const H3MWriter<T> writer;
-    writer(stream, value);
   }
 
   // Full specialization for std::byte.

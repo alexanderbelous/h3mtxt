@@ -1,19 +1,21 @@
-#pragma once
-
-#include <h3mtxt/H3MWriter/H3MWriter.h>
+#include <h3mtxt/H3MWriter/H3Writer.h>
+#include <h3mtxt/H3MWriter/Utils.h>
 #include <h3mtxt/Map/VictoryCondition.h>
 
 #include <type_traits>
 
 namespace h3m
 {
-  // Writes common data of a special victory conditions into the given stream.
-  // \param stream - output stream.
-  // \param base - common data of a special victory condtion.
-  inline void writeSpecialVictoryConditionBase(std::ostream& stream, const SpecialVictoryConditionBase& base)
+  namespace
   {
-    writeData(stream, base.allow_normal_win);
-    writeData(stream, base.applies_to_computer);
+    // Writes common data of a special victory conditions into the given stream.
+    // \param stream - output stream.
+    // \param base - common data of a special victory condtion.
+    void writeSpecialVictoryConditionBase(std::ostream& stream, const SpecialVictoryConditionBase& base)
+    {
+      writeData(stream, base.allow_normal_win);
+      writeData(stream, base.applies_to_computer);
+    }
   }
 
   template<>
@@ -108,14 +110,11 @@ namespace h3m
     }
   };
 
-  template<>
-  struct H3MWriter<VictoryCondition>
+  void H3MWriter<VictoryCondition>::operator()(std::ostream& stream, const VictoryCondition& victory_condition) const
   {
-    void operator()(std::ostream& stream, const VictoryCondition& victory_condition) const
-    {
-      writeData(stream, victory_condition.type());
-      std::visit([&stream](auto&& value) { writeData(stream, std::forward<decltype(value)>(value)); },
-                 victory_condition.details);
-    }
-  };
+    writeData(stream, victory_condition.type());
+    std::visit([&stream] <VictoryConditionType T> (const VictoryConditionDetails<T>& value)
+               { writeData(stream, value); },
+                victory_condition.details);
+  }
 }
