@@ -65,9 +65,9 @@ namespace h3m
   template<>
   struct QuestDetails<QuestType::Resources>
   {
-    // TODO: test what happens if all amounts are 0.
-    // If the amount is negative for some resource, it won't be displayed as a part of the quest
-    // (equivalent to 0), but once you complete the quest your amount will increase.
+    // * If the amount is negative for some resource, it won't be displayed as a part of the quest
+    //   (equivalent to 0), but once you complete the quest your amount will increase.
+    // * If all amounts are <= 0, it is considered that you have completed the quest.
     Resources resources {};
   };
 
