@@ -1,6 +1,7 @@
-#include <h3mtxt/H3MReader/readCampaignScenario.h>
+#include <h3mtxt/H3MReader/H3Reader.h>
 
-#include <h3mtxt/H3MReader/readStartingBonus.h>
+#include <h3mtxt/Campaign/Constants/CampaignId.h>
+#include <h3mtxt/Campaign/CampaignScenario.h>
 #include <h3mtxt/H3MReader/Utils.h>
 
 #include <stdexcept>

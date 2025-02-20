@@ -1,15 +1,9 @@
-#include <h3mtxt/H3MReader/readObjectDetails.h>
-
-#include <h3mtxt/H3MReader/readCreatureStack.h>
-#include <h3mtxt/H3MReader/readHeroArtifacts.h>
-#include <h3mtxt/H3MReader/readPrimarySkills.h>
-#include <h3mtxt/H3MReader/readReward.h>
-#include <h3mtxt/H3MReader/readQuest.h>
+#include <h3mtxt/H3MReader/H3Reader.h>
 #include <h3mtxt/H3MReader/readResources.h>
 #include <h3mtxt/H3MReader/readSecondarySkillsVector.h>
-#include <h3mtxt/H3MReader/readTimedEventBase.h>
 #include <h3mtxt/H3MReader/Utils.h>
 #include <h3mtxt/Map/ObjectAttributes.h>
+#include <h3mtxt/Map/ObjectDetails.h>
 #include <h3mtxt/Map/Utils/EnumSequence.h>
 
 #include <stdexcept>
@@ -497,7 +491,8 @@ namespace h3m
   }
 
   ObjectDetails readObjectDetails(std::istream& stream,
-                                  std::span<const ObjectAttributes> objects_attributes)
+                                  const ObjectAttributes* objects_attributes,
+                                  std::size_t num_objects_attributes)
   {
     ObjectDetails result;
     result.x = readInt<std::uint8_t>(stream);
@@ -506,7 +501,7 @@ namespace h3m
     result.kind = readInt<std::uint32_t>(stream);
     result.unknown = readReservedData<5>(stream);
 
-    if (result.kind >= objects_attributes.size())
+    if (result.kind >= num_objects_attributes)
     {
       throw std::runtime_error("readObjectDetails(): invalid object kind.");
     }

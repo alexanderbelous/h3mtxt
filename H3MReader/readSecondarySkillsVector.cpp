@@ -1,17 +1,9 @@
+#include <h3mtxt/H3MReader/H3Reader.h>
 #include <h3mtxt/H3MReader/readSecondarySkillsVector.h>
-
 #include <h3mtxt/H3MReader/Utils.h>
 
 namespace h3m
 {
-  SecondarySkill readSecondarySkill(std::istream& stream)
-  {
-    SecondarySkill secondary_skill;
-    secondary_skill.type = readEnum<SecondarySkillType>(stream);
-    secondary_skill.level = readInt<std::uint8_t>(stream);
-    return secondary_skill;
-  }
-
   namespace Detail_NS
   {
     std::vector<SecondarySkill> readSecondarySkillsVectorImpl(std::istream& stream, IntegerWidth sizeof_num_elements)

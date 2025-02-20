@@ -1,6 +1,5 @@
+#include <h3mtxt/H3MReader/H3Reader.h>
 #include <h3mtxt/H3MReader/parseh3.h>
-#include <h3mtxt/H3MReader/parseh3c.h>
-#include <h3mtxt/H3MReader/parseh3m.h>
 
 #include <h3mtxt/thirdparty/zstr/src/zstr.hpp>
 
@@ -13,14 +12,14 @@ namespace h3m
       const int first_byte = stream.peek();
       switch (first_byte)
       {
-      case static_cast<std::uint8_t>(h3m::MapFormat::RestorationOfErathia):
-      case static_cast<std::uint8_t>(h3m::MapFormat::ArmageddonsBlade):
-      case static_cast<std::uint8_t>(h3m::MapFormat::ShadowOfDeath):
-        return h3m::parseh3m(stream);
-      case static_cast<std::uint8_t>(h3m::CampaignFormat::RestorationOfErathia):
-      case static_cast<std::uint8_t>(h3m::CampaignFormat::ArmageddonsBlade):
-      case static_cast<std::uint8_t>(h3m::CampaignFormat::ShadowOfDeath):
-        return h3m::parseh3c(stream);
+      case static_cast<std::uint8_t>(MapFormat::RestorationOfErathia):
+      case static_cast<std::uint8_t>(MapFormat::ArmageddonsBlade):
+      case static_cast<std::uint8_t>(MapFormat::ShadowOfDeath):
+        return readMap(stream);
+      case static_cast<std::uint8_t>(CampaignFormat::RestorationOfErathia):
+      case static_cast<std::uint8_t>(CampaignFormat::ArmageddonsBlade):
+      case static_cast<std::uint8_t>(CampaignFormat::ShadowOfDeath):
+        return readCampaign(stream);
       default:
         throw std::runtime_error("parseh3(): Unknown file format.");
       }

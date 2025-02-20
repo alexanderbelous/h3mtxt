@@ -1,8 +1,7 @@
-#include <h3mtxt/H3MReader/readReward.h>
-
-#include <h3mtxt/H3MReader/readSecondarySkillsVector.h>
+#include <h3mtxt/H3MReader/H3Reader.h>
 #include <h3mtxt/H3MReader/Utils.h>
 #include <h3mtxt/Map/Utils/EnumSequence.h>
+#include <h3mtxt/Map/Reward.h>
 
 #include <array>
 

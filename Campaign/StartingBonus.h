@@ -1,5 +1,6 @@
 #pragma once
 
+#include <h3mtxt/Campaign/CampaignFwd.h>
 #include <h3mtxt/Campaign/Constants/StartingBonusType.h>
 #include <h3mtxt/Map/Constants/ArtifactType.h>
 #include <h3mtxt/Map/Constants/SpellType.h>
@@ -14,9 +15,6 @@
 
 namespace h3m
 {
-  template<StartingBonusType>
-  struct StartingBonusDetails;
-
   template<>
   struct StartingBonusDetails<StartingBonusType::Spell>
   {

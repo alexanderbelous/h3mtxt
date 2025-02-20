@@ -177,4 +177,6 @@ namespace h3m
   struct TownBuildings;
 
   struct TownEvent;
+
+  struct VictoryCondition;
 }

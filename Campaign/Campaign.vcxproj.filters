@@ -48,5 +48,11 @@
     <ClInclude Include="StartingBonus.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="CampaignFwd.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Constants\StartingOptionsType.h">
+      <Filter>Header Files\Constants</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

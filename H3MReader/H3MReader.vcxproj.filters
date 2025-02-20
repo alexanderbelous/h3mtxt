@@ -18,16 +18,7 @@
     <ClInclude Include="parseh3m.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="readObjectDetails.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Utils.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="readHeroArtifacts.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="readPrimarySkills.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="readResources.h">
@@ -36,34 +27,16 @@
     <ClInclude Include="readSecondarySkillsVector.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="readTimedEventBase.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="readQuest.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="readCreatureStack.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="readReward.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="readVictoryCondition.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="IntegerWidth.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="parseh3c.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="readStartingBonus.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="readCampaignScenario.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="parseh3.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="H3Reader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -111,6 +84,15 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="parseh3.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="readSecondarySkill.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="readMap.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="readCampaign.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

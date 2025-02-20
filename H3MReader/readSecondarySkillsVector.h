@@ -14,8 +14,6 @@ namespace h3m
     std::vector<SecondarySkill> readSecondarySkillsVectorImpl(std::istream& stream, IntegerWidth sizeof_num_elements);
   }
 
-  SecondarySkill readSecondarySkill(std::istream& stream);
-
   // Reads a vector of secondary skills.
   // \param VectorSizeType - unsigned integer type in which the number of secondary skills is encoded.
   //        Usually it's uint32, but in Pandora's Box it's uint8.

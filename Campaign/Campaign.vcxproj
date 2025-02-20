@@ -90,6 +90,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Campaign.h" />
+    <ClInclude Include="CampaignFwd.h" />
     <ClInclude Include="CampaignScenario.h" />
     <ClInclude Include="Constants\CampaignFormat.h" />
     <ClInclude Include="Constants\CampaignId.h" />
@@ -97,6 +98,7 @@
     <ClInclude Include="Constants\CampaignVideo.h" />
     <ClInclude Include="Constants\RegionColor.h" />
     <ClInclude Include="Constants\StartingBonusType.h" />
+    <ClInclude Include="Constants\StartingOptionsType.h" />
     <ClInclude Include="StartingBonus.h" />
     <ClInclude Include="StartingOptions.h" />
   </ItemGroup>

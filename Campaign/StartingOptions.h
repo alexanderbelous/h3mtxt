@@ -1,5 +1,7 @@
 #pragma once
 
+#include <h3mtxt/Campaign/CampaignFwd.h>
+#include <h3mtxt/Campaign/Constants/StartingOptionsType.h>
 #include <h3mtxt/Campaign/StartingBonus.h>
 #include <h3mtxt/Map/Constants/PlayerColor.h>
 
@@ -10,19 +12,6 @@
 
 namespace h3m
 {
-  enum class StartingOptionsType : std::uint8_t
-  {
-    // The Campaign Editor doesn't allow selecting None for existing scenarios,
-    // but this is nevertheless the value used for absent scenarios.
-    None = 0,
-    StartingBonus = 1,
-    HeroCrossover = 2,
-    StartingHero = 3
-  };
-
-  template<StartingOptionsType>
-  struct StartingOptionsDetails;
-
   template<>
   struct StartingOptionsDetails<StartingOptionsType::None>
   {

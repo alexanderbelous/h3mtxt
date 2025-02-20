@@ -93,35 +93,29 @@
     </ProjectReference>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="H3Reader.h" />
     <ClInclude Include="IntegerWidth.h" />
     <ClInclude Include="parseh3.h" />
     <ClInclude Include="parseh3c.h" />
     <ClInclude Include="parseh3m.h" />
-    <ClInclude Include="readCampaignScenario.h" />
-    <ClInclude Include="readCreatureStack.h" />
-    <ClInclude Include="readHeroArtifacts.h" />
-    <ClInclude Include="readObjectDetails.h" />
-    <ClInclude Include="readPrimarySkills.h" />
-    <ClInclude Include="readQuest.h" />
     <ClInclude Include="readResources.h" />
-    <ClInclude Include="readReward.h" />
     <ClInclude Include="readSecondarySkillsVector.h" />
-    <ClInclude Include="readStartingBonus.h" />
-    <ClInclude Include="readTimedEventBase.h" />
-    <ClInclude Include="readVictoryCondition.h" />
     <ClInclude Include="Utils.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="parseh3.cpp" />
     <ClCompile Include="parseh3c.cpp" />
     <ClCompile Include="parseh3m.cpp" />
+    <ClCompile Include="readCampaign.cpp" />
     <ClCompile Include="readCampaignScenario.cpp" />
     <ClCompile Include="readCreatureStack.cpp" />
     <ClCompile Include="readHeroArtifacts.cpp" />
+    <ClCompile Include="readMap.cpp" />
     <ClCompile Include="readObjectDetails.cpp" />
     <ClCompile Include="readPrimarySkills.cpp" />
     <ClCompile Include="readQuest.cpp" />
     <ClCompile Include="readReward.cpp" />
+    <ClCompile Include="readSecondarySkill.cpp" />
     <ClCompile Include="readSecondarySkillsVector.cpp" />
     <ClCompile Include="readStartingBonus.cpp" />
     <ClCompile Include="readTimedEventBase.cpp" />

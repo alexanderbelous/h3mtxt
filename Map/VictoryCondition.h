@@ -102,9 +102,8 @@ struct VictoryConditionDetails<VictoryConditionType::TransportArtifact> : Specia
   std::uint8_t z {};
 };
 
-class VictoryCondition
+struct VictoryCondition
 {
-public:
   // Constructs a normal victory condition.
   constexpr VictoryCondition() noexcept;
 
