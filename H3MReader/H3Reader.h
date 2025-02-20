@@ -11,6 +11,10 @@ namespace h3m::H3Reader_NS
 {
   Campaign readCampaign(std::istream& stream);
 
+  CrossoverOptions readCrossoverOptions(std::istream& stream);
+
+  CutScene readCutScene(std::istream& stream);
+
   CampaignScenario readCampaignScenario(std::istream& stream, CampaignId campaign_id);
 
   CreatureStack readCreatureStack(std::istream& stream);

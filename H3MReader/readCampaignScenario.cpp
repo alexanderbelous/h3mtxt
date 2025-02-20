@@ -8,25 +8,22 @@
 
 namespace h3m::H3Reader_NS
 {
-  namespace
+  CrossoverOptions readCrossoverOptions(std::istream& stream)
   {
-    CutScene readCutScene(std::istream& stream)
-    {
-      CutScene cutscene;
-      cutscene.movie = readEnum<CampaignVideo>(stream);
-      cutscene.music = readEnum<CampaignMusic>(stream);
-      cutscene.message = readString(stream);
-      return cutscene;
-    }
+    CrossoverOptions options;
+    options.retained_features = readEnumBitmask<CrossoverFeature, 1>(stream);
+    options.creatures = readEnumBitmask<CreatureType, 19>(stream);
+    options.artifacts = readEnumBitmask<ArtifactType, 18>(stream);
+    return options;
+  }
 
-    CrossoverOptions readCrossoverOptions(std::istream& stream)
-    {
-      CrossoverOptions options;
-      options.retained_features = readEnumBitmask<CrossoverFeature, 1>(stream);
-      options.creatures = readEnumBitmask<CreatureType, 19>(stream);
-      options.artifacts = readEnumBitmask<ArtifactType, 18>(stream);
-      return options;
-    }
+  CutScene readCutScene(std::istream& stream)
+  {
+    CutScene cutscene;
+    cutscene.movie = readEnum<CampaignVideo>(stream);
+    cutscene.music = readEnum<CampaignMusic>(stream);
+    cutscene.message = readString(stream);
+    return cutscene;
   }
 
   CampaignScenario readCampaignScenario(std::istream& stream, CampaignId campaign_id)

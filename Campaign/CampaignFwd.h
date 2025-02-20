@@ -14,6 +14,10 @@ namespace h3m
 
   struct CampaignScenario;
 
+  struct CrossoverOptions;
+
+  struct CutScene;
+
   struct StartingBonus;
 
   template<StartingBonusType>
