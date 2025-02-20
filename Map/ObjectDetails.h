@@ -7,6 +7,10 @@
 
 namespace h3m
 {
+// TODO: consider renaming:
+// * ObjectDetails -> Object
+// * ObjectAttributes -> ObjectTemplate
+// * ObjectDetailsData -> ObjectDetails.
 struct ObjectDetails
 {
   // Coordinates of the bottom right corner.
