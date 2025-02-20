@@ -2,7 +2,7 @@
 #include <h3mtxt/H3MReader/readSecondarySkillsVector.h>
 #include <h3mtxt/H3MReader/Utils.h>
 
-namespace h3m
+namespace h3m::H3Reader_NS
 {
   namespace Detail_NS
   {

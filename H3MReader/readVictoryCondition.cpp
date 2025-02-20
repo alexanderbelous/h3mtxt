@@ -6,7 +6,7 @@
 #include <stdexcept>
 #include <type_traits>
 
-namespace h3m
+namespace h3m::H3Reader_NS
 {
   namespace
   {

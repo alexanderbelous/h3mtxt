@@ -3,7 +3,7 @@
 
 #include <h3mtxt/Campaign/Campaign.h>
 
-namespace h3m
+namespace h3m::H3Reader_NS
 {
   Campaign readCampaign(std::istream& stream)
   {

@@ -2,7 +2,7 @@
 #include <h3mtxt/H3MReader/Utils.h>
 #include <h3mtxt/Map/HeroArtifacts.h>
 
-namespace h3m
+namespace h3m::H3Reader_NS
 {
   HeroArtifacts readHeroArtifacts(std::istream& stream)
   {

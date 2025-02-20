@@ -5,7 +5,7 @@
 
 #include <iosfwd>
 
-namespace h3m
+namespace h3m::H3Reader_NS
 {
   template<class T>
   Resources<T> readResources(std::istream& stream)

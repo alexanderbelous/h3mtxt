@@ -7,7 +7,7 @@
 #include <istream>
 #include <stdexcept>
 
-namespace h3m
+namespace h3m::H3Reader_NS
 {
   Campaign parseh3c(std::istream& stream)
   {

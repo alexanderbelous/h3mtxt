@@ -114,6 +114,7 @@
     <ClCompile Include="readObjectDetails.cpp" />
     <ClCompile Include="readPrimarySkills.cpp" />
     <ClCompile Include="readQuest.cpp" />
+    <ClCompile Include="readStartingOptions.cpp" />
     <ClCompile Include="readReward.cpp" />
     <ClCompile Include="readSecondarySkill.cpp" />
     <ClCompile Include="readSecondarySkillsVector.cpp" />

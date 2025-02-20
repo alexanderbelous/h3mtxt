@@ -95,5 +95,8 @@
     <ClCompile Include="readCampaign.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="readStartingOptions.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

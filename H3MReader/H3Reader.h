@@ -7,7 +7,7 @@
 #include <iosfwd>
 
 // API for reading various H3 structures from an *UNCOMPRESSED* .h3m/.h3c file.
-namespace h3m
+namespace h3m::H3Reader_NS
 {
   Campaign readCampaign(std::istream& stream);
 
@@ -57,6 +57,8 @@ namespace h3m
   StartingBonus readStartingBonus(std::istream& stream);
 
   StartingHero readStartingHero(std::istream& stream);
+
+  StartingOptions readStartingOptions(std::istream& stream);
 
   SecondarySkill readSecondarySkill(std::istream& stream);
 

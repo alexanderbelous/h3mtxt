@@ -3,7 +3,7 @@
 
 #include <h3mtxt/thirdparty/zstr/src/zstr.hpp>
 
-namespace h3m
+namespace h3m::H3Reader_NS
 {
   namespace
   {

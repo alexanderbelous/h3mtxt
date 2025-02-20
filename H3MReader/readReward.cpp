@@ -5,7 +5,7 @@
 
 #include <array>
 
-namespace h3m
+namespace h3m::H3Reader_NS
 {
   namespace
   {

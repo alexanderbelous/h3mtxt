@@ -4,7 +4,7 @@
 #include <istream>
 #include <stdexcept>
 
-namespace h3m
+namespace h3m::H3Reader_NS
 {
   namespace Detail_NS
   {

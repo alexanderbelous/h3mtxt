@@ -14,7 +14,7 @@
 #include <type_traits>
 #include <utility>
 
-namespace h3m
+namespace h3m::H3Reader_NS
 {
   namespace Detail_NS
   {
