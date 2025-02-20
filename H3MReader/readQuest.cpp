@@ -1,5 +1,4 @@
 #include <h3mtxt/H3MReader/H3Reader.h>
-#include <h3mtxt/H3MReader/readResources.h>
 #include <h3mtxt/H3MReader/Utils.h>
 #include <h3mtxt/Map/Quest.h>
 #include <h3mtxt/Map/Utils/EnumSequence.h>
@@ -85,7 +84,7 @@ namespace h3m::H3Reader_NS
     QuestDetails<QuestType::Resources> readQuestDetails<QuestType::Resources>(std::istream& stream)
     {
       QuestDetails<QuestType::Resources> details;
-      details.resources = readResources<std::uint32_t>(stream);
+      details.resources = readResources(stream);
       return details;
     }
 

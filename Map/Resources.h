@@ -10,30 +10,27 @@ namespace h3m
 {
   // Represents an amount of resources.
   //
-  // In SoD the amount is always stored as either int32 or uint32:
-  // * In Timed Events and Pandora's Boxes it's int32.
-  // * In Quest Guards and as a reward for defeating a monster it's uint32.
-  template<class T>
+  // In H3M the amount is always interpreted as int32, even though the Map Editor
+  // doesn't allow entering negative values in some contexts (Quest Guard and
+  // as a reward for defeating a monster).
   struct Resources
   {
     // \return the amount for the specified ResouceType.
-    constexpr T& operator[](ResourceType resource_type);
+    constexpr std::int32_t& operator[](ResourceType resource_type);
 
     // \return the amount for the specified ResouceType.
-    constexpr T operator[](ResourceType resource_type) const;
+    constexpr std::int32_t operator[](ResourceType resource_type) const;
 
     // The amount for each resource type.
-    std::array<T, kNumResources> data {};
+    std::array<std::int32_t, kNumResources> data {};
   };
 
-  template<class T>
-  constexpr T& Resources<T>::operator[](ResourceType resource_type)
+  constexpr std::int32_t& Resources::operator[](ResourceType resource_type)
   {
     return data.at(static_cast<std::size_t>(resource_type));
   }
 
-  template<class T>
-  constexpr T Resources<T>::operator[](ResourceType resource_type) const
+  constexpr std::int32_t Resources::operator[](ResourceType resource_type) const
   {
     return data.at(static_cast<std::size_t>(resource_type));
   }

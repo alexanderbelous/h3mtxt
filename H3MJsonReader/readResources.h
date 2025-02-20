@@ -6,13 +6,13 @@
 
 namespace h3m
 {
-  template<class T>
-  struct JsonReader<Resources<T>>
+  template<>
+  struct JsonReader<Resources>
   {
-    Resources<T> operator()(const Json::Value& value) const
+    Resources operator()(const Json::Value& value) const
     {
-      using Fields = FieldNames<Resources<T>>;
-      Resources<T> resources;
+      using Fields = FieldNames<Resources>;
+      Resources resources;
       readField(resources[h3m::ResourceType::Wood], value, Fields::kWood);
       readField(resources[h3m::ResourceType::Mercury], value, Fields::kMercury);
       readField(resources[h3m::ResourceType::Ore], value, Fields::kOre);

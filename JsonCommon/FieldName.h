@@ -600,7 +600,8 @@ namespace h3m
     static inline constexpr std::string_view kCompletion = "completion";
   };
 
-  struct FieldNamesResourcesBase
+  template<>
+  struct FieldNames<Resources>
   {
     static inline constexpr std::string_view kWood = "wood";
     static inline constexpr std::string_view kMercury = "mercury";
@@ -610,9 +611,6 @@ namespace h3m
     static inline constexpr std::string_view kGems = "gems";
     static inline constexpr std::string_view kGold = "gold";
   };
-
-  template<class T>
-  struct FieldNames<Resources<T>> : FieldNamesResourcesBase {};
 
   template<>
   struct FieldNames<ResourcesBitmask>

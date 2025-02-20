@@ -1,5 +1,4 @@
 #include <h3mtxt/H3MReader/H3Reader.h>
-#include <h3mtxt/H3MReader/readResources.h>
 #include <h3mtxt/H3MReader/readSecondarySkillsVector.h>
 #include <h3mtxt/H3MReader/Utils.h>
 #include <h3mtxt/Map/Map.h>

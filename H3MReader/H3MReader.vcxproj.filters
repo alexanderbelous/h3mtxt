@@ -21,9 +21,6 @@
     <ClInclude Include="Utils.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="readResources.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="readSecondarySkillsVector.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -96,6 +93,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="readStartingOptions.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="readResources.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

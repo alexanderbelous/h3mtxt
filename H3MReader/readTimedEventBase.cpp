@@ -1,5 +1,4 @@
 #include <h3mtxt/H3MReader/H3Reader.h>
-#include <h3mtxt/H3MReader/readResources.h>
 #include <h3mtxt/H3MReader/Utils.h>
 #include <h3mtxt/Map/TimedEventBase.h>
 
@@ -9,7 +8,7 @@ namespace h3m::H3Reader_NS
   {
     event.name = readString(stream);
     event.message = readString(stream);
-    event.resources = readResources<std::int32_t>(stream);
+    event.resources = readResources(stream);
     event.affected_players = readEnumBitmask<PlayerColor, 1>(stream);
     event.applies_to_human = readBool(stream);
     event.applies_to_computer = readBool(stream);

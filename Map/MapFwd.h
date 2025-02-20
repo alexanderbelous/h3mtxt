@@ -157,7 +157,6 @@ namespace h3m
   template<QuestType T>
   struct QuestDetails;
 
-  template<class T>
   struct Resources;
 
   struct Reward;

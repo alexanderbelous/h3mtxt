@@ -18,7 +18,7 @@ namespace h3m
     std::string name;
     std::string message;
     // Given/taken resources.
-    Resources<std::int32_t> resources;
+    Resources resources;
     PlayersBitmask affected_players;
     Bool applies_to_human {};
     Bool applies_to_computer {};

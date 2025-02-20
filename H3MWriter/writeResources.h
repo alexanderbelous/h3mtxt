@@ -5,10 +5,10 @@
 
 namespace h3m
 {
-  template<class T>
-  struct H3MWriter<Resources<T>>
+  template<>
+  struct H3MWriter<Resources>
   {
-    void operator()(std::ostream& stream, const Resources<T>& resources) const
+    void operator()(std::ostream& stream, const Resources& resources) const
     {
       writeData(stream, resources.data);
     }

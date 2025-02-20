@@ -54,6 +54,8 @@ namespace h3m::H3Reader_NS
 
   Quest readQuest(std::istream& stream);
 
+  Resources readResources(std::istream& stream);
+
   Reward readReward(std::istream& stream);
 
   Rumor readRumor(std::istream& stream);

@@ -43,7 +43,12 @@ namespace h3m
   struct MessageAndTreasure
   {
     std::string message;
-    Resources<std::uint32_t> resources {};
+    // The amount for each resource can be negative, but the logic is interesting:
+    // * The Map Editor will display 0 if the amount is negative.
+    // * In the game, if the amount == -N for some resource (N > 0):
+    //   * if you have >= N of this resource, then you lose N units.
+    //   * if you have < N of this resource, then your new amount becomes 0.
+    Resources resources {};
     // 0xFFFF means no artifact.
     ArtifactType artifact {};
   };
@@ -57,7 +62,7 @@ namespace h3m
     std::int32_t spell_points {};
     std::int8_t morale {};
     std::int8_t luck {};
-    Resources<std::int32_t> resources;
+    Resources resources;
     // FYI: in the game negative values are ignored (they have the same effect as 0).
     PrimarySkills primary_skills;
     // FYI: you can add more than 8 secondary skills, but the game will only consider the first 8

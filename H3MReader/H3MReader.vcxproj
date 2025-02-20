@@ -98,7 +98,6 @@
     <ClInclude Include="parseh3.h" />
     <ClInclude Include="parseh3c.h" />
     <ClInclude Include="parseh3m.h" />
-    <ClInclude Include="readResources.h" />
     <ClInclude Include="readSecondarySkillsVector.h" />
     <ClInclude Include="Utils.h" />
   </ItemGroup>
@@ -114,6 +113,7 @@
     <ClCompile Include="readObjectDetails.cpp" />
     <ClCompile Include="readPrimarySkills.cpp" />
     <ClCompile Include="readQuest.cpp" />
+    <ClCompile Include="readResources.cpp" />
     <ClCompile Include="readStartingOptions.cpp" />
     <ClCompile Include="readReward.cpp" />
     <ClCompile Include="readSecondarySkill.cpp" />

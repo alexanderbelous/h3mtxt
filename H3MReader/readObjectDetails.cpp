@@ -1,5 +1,4 @@
 #include <h3mtxt/H3MReader/H3Reader.h>
-#include <h3mtxt/H3MReader/readResources.h>
 #include <h3mtxt/H3MReader/readSecondarySkillsVector.h>
 #include <h3mtxt/H3MReader/Utils.h>
 #include <h3mtxt/Map/ObjectAttributes.h>
@@ -50,7 +49,7 @@ namespace h3m::H3Reader_NS
       event.spell_points = readInt<std::int32_t>(stream);
       event.morale = readInt<std::int8_t>(stream);
       event.luck = readInt<std::int8_t>(stream);
-      event.resources = readResources<std::int32_t>(stream);
+      event.resources = readResources(stream);
       event.primary_skills = readPrimarySkills(stream);
       event.secondary_skills = readSecondarySkillsVector<std::uint8_t>(stream);
       const std::uint8_t num_artifacts = readInt<std::uint8_t>(stream);
@@ -215,7 +214,7 @@ namespace h3m::H3Reader_NS
     {
       MessageAndTreasure data;
       data.message = readString(stream);
-      data.resources = readResources<std::uint32_t>(stream);
+      data.resources = readResources(stream);
       data.artifact = readEnum<ArtifactType>(stream);
       return data;
     }

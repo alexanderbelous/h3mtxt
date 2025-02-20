@@ -6,12 +6,12 @@
 
 namespace Medea_NS
 {
-  template<class T>
-  struct JsonObjectWriter<h3m::Resources<T>>
+  template<>
+  struct JsonObjectWriter<h3m::Resources>
   {
-    void operator()(FieldsWriter& out, const h3m::Resources<T>& resources) const
+    void operator()(FieldsWriter& out, const h3m::Resources& resources) const
     {
-      using Fields = h3m::FieldNames<h3m::Resources<T>>;
+      using Fields = h3m::FieldNames<h3m::Resources>;
       out.writeField(Fields::kWood, resources[h3m::ResourceType::Wood]);
       out.writeField(Fields::kMercury, resources[h3m::ResourceType::Mercury]);
       out.writeField(Fields::kOre, resources[h3m::ResourceType::Ore]);
