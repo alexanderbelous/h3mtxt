@@ -13,19 +13,19 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{4a9c7a3d-0d17-42c8-bb98-1083a4ae9b11}</ProjectGuid>
-    <RootNamespace>h3mtxt</RootNamespace>
+    <ProjectGuid>{f12bf262-83e7-44ae-94ef-5f8335050322}</ProjectGuid>
+    <RootNamespace>H3Reader</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -38,36 +38,41 @@
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\thirdparty\zlib.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\thirdparty\zlib.props" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <OutDir>$(SolutionDir)bin\$(Platform)\$(Configuration)\</OutDir>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <OutDir>$(SolutionDir)lib\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)build\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <OutDir>$(SolutionDir)bin\$(Platform)\$(Configuration)\</OutDir>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <OutDir>$(SolutionDir)lib\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)build\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
+      <WarningLevel>Level4</WarningLevel>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <LanguageStandard>stdcpp20</LanguageStandard>
       <AdditionalIncludeDirectories>$(SolutionDir)..\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>true</LinkLibraryDependencies>
+    </ProjectReference>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
+      <WarningLevel>Level4</WarningLevel>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
@@ -83,27 +88,46 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>true</LinkLibraryDependencies>
+    </ProjectReference>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="h3mtxt.cpp" />
+    <ClInclude Include="H3Reader.h" />
+    <ClInclude Include="IntegerWidth.h" />
+    <ClInclude Include="parseh3.h" />
+    <ClInclude Include="parseh3c.h" />
+    <ClInclude Include="parseh3m.h" />
+    <ClInclude Include="readSecondarySkillsVector.h" />
+    <ClInclude Include="Utils.h" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="Campaign\Campaign.vcxproj">
+    <ClCompile Include="parseh3.cpp" />
+    <ClCompile Include="parseh3c.cpp" />
+    <ClCompile Include="parseh3m.cpp" />
+    <ClCompile Include="readCampaign.cpp" />
+    <ClCompile Include="readCampaignScenario.cpp" />
+    <ClCompile Include="readCreatureStack.cpp" />
+    <ClCompile Include="readHeroArtifacts.cpp" />
+    <ClCompile Include="readMap.cpp" />
+    <ClCompile Include="readObjectDetails.cpp" />
+    <ClCompile Include="readPrimarySkills.cpp" />
+    <ClCompile Include="readQuest.cpp" />
+    <ClCompile Include="readResources.cpp" />
+    <ClCompile Include="readStartingOptions.cpp" />
+    <ClCompile Include="readReward.cpp" />
+    <ClCompile Include="readSecondarySkill.cpp" />
+    <ClCompile Include="readSecondarySkillsVector.cpp" />
+    <ClCompile Include="readStartingBonus.cpp" />
+    <ClCompile Include="readTimedEventBase.cpp" />
+    <ClCompile Include="readVictoryCondition.cpp" />
+    <ClCompile Include="Utils.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Campaign\Campaign.vcxproj">
       <Project>{e12579ee-1d2e-4342-86af-ec0b7fcbd9e8}</Project>
     </ProjectReference>
-    <ProjectReference Include="H3MJsonReader\H3MJsonReader.vcxproj">
-      <Project>{845816a8-fee8-4703-a6df-8da4525839ae}</Project>
-    </ProjectReference>
-    <ProjectReference Include="H3Reader\H3Reader.vcxproj">
-      <Project>{f12bf262-83e7-44ae-94ef-5f8335050322}</Project>
-    </ProjectReference>
-    <ProjectReference Include="H3MJsonWriter\H3MJsonWriter.vcxproj">
-      <Project>{4ee1074b-517f-4978-bdb2-f2f3ca43d1c3}</Project>
-    </ProjectReference>
-    <ProjectReference Include="H3Writer\H3Writer.vcxproj">
-      <Project>{0ec4d6f4-74f5-4e17-872f-aab8640ac90e}</Project>
-    </ProjectReference>
-    <ProjectReference Include="Map\Map.vcxproj">
+    <ProjectReference Include="..\Map\Map.vcxproj">
       <Project>{856f5d07-6dc0-4e66-813e-12c26f28d606}</Project>
     </ProjectReference>
   </ItemGroup>

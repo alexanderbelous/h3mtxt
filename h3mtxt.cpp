@@ -2,8 +2,8 @@
 #include <h3mtxt/H3MJsonReader/readH3mJson.h>
 #include <h3mtxt/H3MJsonWriter/writeH3cJson.h>
 #include <h3mtxt/H3MJsonWriter/writeH3mJson.h>
-#include <h3mtxt/H3MReader/parseh3.h>
-#include <h3mtxt/H3MWriter/writeh3m.h>
+#include <h3mtxt/H3Reader/parseh3.h>
+#include <h3mtxt/H3Writer/writeh3m.h>
 #include <h3mtxt/Map/Constants/MapFormat.h>
 
 #include <filesystem>

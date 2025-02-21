@@ -6,7 +6,7 @@
 #include <h3mtxt/Fun/HeroesAvailability.h>
 #include <h3mtxt/Fun/makeDefaultObjectAttributes.h>
 #include <h3mtxt/Fun/Util.h>
-#include <h3mtxt/H3MWriter/writeh3m.h>
+#include <h3mtxt/H3Writer/writeh3m.h>
 #include <h3mtxt/Map/Map.h>
 
 #include <filesystem>
