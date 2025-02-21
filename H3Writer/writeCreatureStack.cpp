@@ -2,7 +2,7 @@
 #include <h3mtxt/H3Writer/Utils.h>
 #include <h3mtxt/Map/CreatureStack.h>
 
-namespace h3m
+namespace h3m::H3Writer_NS
 {
   void H3Writer<CreatureStack>::operator()(std::ostream& stream, const CreatureStack& value) const
   {

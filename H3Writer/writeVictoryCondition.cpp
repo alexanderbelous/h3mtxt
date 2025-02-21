@@ -4,7 +4,7 @@
 
 #include <type_traits>
 
-namespace h3m
+namespace h3m::H3Writer_NS
 {
   namespace
   {

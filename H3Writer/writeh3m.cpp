@@ -4,7 +4,7 @@
 
 #include <h3mtxt/thirdparty/zstr/src/zstr.hpp>
 
-namespace h3m
+namespace h3m::H3Writer_NS
 {
   void writeh3m(std::ostream& stream, const Map& map, bool compress)
   {

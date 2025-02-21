@@ -5,7 +5,7 @@
 #include <ostream>
 #include <stdexcept>
 
-namespace h3m
+namespace h3m::H3Writer_NS
 {
   namespace Detail_NS
   {

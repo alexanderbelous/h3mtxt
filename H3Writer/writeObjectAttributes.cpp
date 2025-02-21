@@ -2,7 +2,7 @@
 #include <h3mtxt/H3Writer/Utils.h>
 #include <h3mtxt/Map/ObjectAttributes.h>
 
-namespace h3m
+namespace h3m::H3Writer_NS
 {
   void H3Writer<ObjectAttributes>::operator()(std::ostream& stream, const ObjectAttributes& value) const
   {

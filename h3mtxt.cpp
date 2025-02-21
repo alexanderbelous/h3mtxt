@@ -59,7 +59,7 @@ namespace
     {
       if (const h3m::Map* map = std::get_if<h3m::Map>(&input.data))
       {
-        h3m::writeh3m(stream, *map);
+        h3m::H3Writer_NS::writeh3m(stream, *map);
       }
       else
       {

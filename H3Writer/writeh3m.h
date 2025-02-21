@@ -1,11 +1,11 @@
 #pragma once
 
+#include <h3mtxt/Map/MapFwd.h>
+
 #include <iosfwd>
 
-namespace h3m
+namespace h3m::H3Writer_NS
 {
-  struct Map;
-
   // Writes H3M data into the given stream.
   // \param stream - output stream.
   // \param map - map to write.

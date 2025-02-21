@@ -5,7 +5,7 @@
 #include <iosfwd>
 
 // API for writing various H3 structures into an *UNCOMPRESSED* .h3m/.h3c file.
-namespace h3m
+namespace h3m::H3Writer_NS
 {
   // Template for writing H3 values into a binary stream storing a .h3m/.h3c file.
   template<class T, class Enable = void>

@@ -2,7 +2,7 @@
 #include <h3mtxt/H3Writer/Utils.h>
 #include <h3mtxt/Map/PrimarySkills.h>
 
-namespace h3m
+namespace h3m::H3Writer_NS
 {
   void H3Writer<PrimarySkills>::operator()(std::ostream& stream, const PrimarySkills& primary_skills) const
   {

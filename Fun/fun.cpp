@@ -324,7 +324,7 @@ int main(int argc, char** argv)
     //drawFakeIslands(map);
 
     std::ofstream out_stream(path_map, std::ios_base::out | std::ios_base::binary);
-    h3m::writeh3m(out_stream, map);
+    h3m::H3Writer_NS::writeh3m(out_stream, map);
   }
   catch (const std::exception& error)
   {

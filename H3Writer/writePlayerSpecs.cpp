@@ -2,7 +2,7 @@
 #include <h3mtxt/H3Writer/Utils.h>
 #include <h3mtxt/Map/PlayerSpecs.h>
 
-namespace h3m
+namespace h3m::H3Writer_NS
 {
   template<>
   struct H3Writer<PlayerSpecs::HeroInfo>

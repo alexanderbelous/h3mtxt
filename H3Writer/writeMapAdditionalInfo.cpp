@@ -3,7 +3,7 @@
 #include <h3mtxt/Map/Constants/Constants.h>
 #include <h3mtxt/Map/MapAdditionalInfo.h>
 
-namespace h3m
+namespace h3m::H3Writer_NS
 {
   // TODO: it's kinda bad that the specialization itself is declared here.
   // Consider unnesting CustomHero, so that it can be forward-declared.
