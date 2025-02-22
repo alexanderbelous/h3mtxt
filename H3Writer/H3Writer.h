@@ -1,5 +1,6 @@
 #pragma once
 
+#include <h3mtxt/Campaign/CampaignFwd.h>
 #include <h3mtxt/Map/MapFwd.h>
 
 #include <iosfwd>
@@ -177,4 +178,22 @@ namespace h3m::H3Writer_NS
   };
 
   void writeTimedEventBase(std::ostream& stream, const TimedEventBase& event);
+
+  // Campaign:
+  template<>
+  void H3Writer<Campaign>::operator()(std::ostream& stream, const Campaign& campaign) const;
+
+  template<>
+  void H3Writer<CrossoverOptions>::operator()(std::ostream& stream, const CrossoverOptions& options) const;
+
+  template<>
+  void H3Writer<CutScene>::operator()(std::ostream& stream, const CutScene& cutscene) const;
+
+  template<>
+  void H3Writer<StartingBonus>::operator()(std::ostream& stream, const StartingBonus& bonus) const;
+
+  template<>
+  void H3Writer<StartingOptions>::operator()(std::ostream& stream, const StartingOptions& options) const;
+
+  void writeCampaignScenario(std::ostream& stream, const CampaignScenario& scenario, CampaignId campaign_id);
 }

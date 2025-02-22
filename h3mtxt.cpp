@@ -3,6 +3,7 @@
 #include <h3mtxt/H3MJsonWriter/writeH3cJson.h>
 #include <h3mtxt/H3MJsonWriter/writeH3mJson.h>
 #include <h3mtxt/H3Reader/parseh3.h>
+#include <h3mtxt/H3Writer/writeh3c.h>
 #include <h3mtxt/H3Writer/writeh3m.h>
 #include <h3mtxt/Map/Constants/MapFormat.h>
 
@@ -50,6 +51,7 @@ namespace
     {
       return Input{ .data = h3m::H3Reader_NS::parseh3(stream), .is_json = false };
     }
+    // TODO: add support for reading .h3c.json files.
     return Input{ .data = h3m::readH3mJson(stream), .is_json = true };
   }
 
@@ -63,7 +65,7 @@ namespace
       }
       else
       {
-        throw std::runtime_error("Conversion from JSON to .h3c is not supported yet.");
+        h3m::H3Writer_NS::writeh3c(stream, std::get<h3m::Campaign>(input.data));
       }
     }
     else
