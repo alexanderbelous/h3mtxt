@@ -6,10 +6,11 @@
 
 namespace h3m::H3Writer_NS
 {
-  // Writes the inpit h3m::Campaign into the specified stream.
+  // Writes the given h3m::Campaign as a .h3c file into the specified stream.
+  //
+  // The Campaign Editor does not support uncompressed files, so there is no @compress
+  // param like in writeh3m().
   // \param stream - output stream.
   // \param campaign - campaign to write.
-  // \param compress - if true, the function will write (gzip) compressed .h3c data,
-  //        otherwise uncompressed data.
-  void writeh3c(std::ostream& stream, const Campaign& campaign, bool compress = true);
+  void writeh3c(std::ostream& stream, const Campaign& campaign);
 }

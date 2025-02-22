@@ -14,7 +14,7 @@ namespace h3m::H3Writer_NS
 
     template<>
     void writeStartingOptionsDetails<StartingOptionsType::None>(
-      std::ostream& stream, const StartingOptionsDetails<StartingOptionsType::None>& details)
+      std::ostream&, const StartingOptionsDetails<StartingOptionsType::None>&)
     {
     }
 

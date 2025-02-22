@@ -94,7 +94,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Utils.cpp" />
-    <ClCompile Include="writeCampaign.cpp" />
     <ClCompile Include="writeCampaignScenario.cpp" />
     <ClCompile Include="writeCreatureStack.cpp" />
     <ClCompile Include="writeGlobalEvent.cpp" />

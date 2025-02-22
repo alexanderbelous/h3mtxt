@@ -92,9 +92,6 @@
     <ClCompile Include="writeMap.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="writeCampaign.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="writeCampaignScenario.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

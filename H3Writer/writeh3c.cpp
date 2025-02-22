@@ -1,21 +1,82 @@
 #include <h3mtxt/H3Writer/writeh3c.h>
-
 #include <h3mtxt/H3Writer/H3Writer.h>
+#include <h3mtxt/H3Writer/Utils.h>
+#include <h3mtxt/H3Writer/writeh3m.h>
+#include <h3mtxt/Campaign/Campaign.h>
 
 #include <h3mtxt/thirdparty/zstr/src/zstr.hpp>
 
+#include <sstream>
+#include <stdexcept>
+#include <vector>
+
 namespace h3m::H3Writer_NS
 {
-  void writeh3c(std::ostream& stream, const Campaign& campaign, bool compress)
+  namespace
   {
-    if (compress)
+    void checkCampaign(const Campaign& campaign)
+    {
+      if (campaign.scenarios.size() != countMapRegions(campaign.id))
+      {
+        throw std::runtime_error("H3Writer<Campaign>: wrong number of scenarios.");
+      }
+      const std::size_t num_existing_scenarios = countScenarios(campaign);
+      if (campaign.maps.size() != num_existing_scenarios)
+      {
+        throw std::runtime_error("H3Writer<Campaign>: wrong number of maps.");
+      }
+    }
+
+    std::string compressMap(const h3m::Map& map)
+    {
+      std::stringstream stream;
+      writeh3m(stream, map, true);
+      return std::move(stream).str();
+    }
+
+    std::vector<std::string> compressMaps(const std::vector<h3m::Map>& maps)
+    {
+      std::vector<std::string> compressed_maps;
+      compressed_maps.reserve(maps.size());
+      for (const h3m::Map& map : maps)
+      {
+        compressed_maps.push_back(compressMap(map));
+      }
+      return compressed_maps;
+    }
+  }
+
+  void writeh3c(std::ostream& stream, const Campaign& campaign)
+  {
+    checkCampaign(campaign);
+    // Compress each map.
+    const std::vector<std::string> compressed_maps = compressMaps(campaign.maps);
+    std::size_t map_idx = 0;
+    // Write the header as a gzip stream.
     {
       zstr::ostream zstr_stream(stream);
-      writeData(zstr_stream, campaign);
+      writeData(zstr_stream, campaign.format);
+      writeData(zstr_stream, campaign.id);
+      writeData(zstr_stream, campaign.name);
+      writeData(zstr_stream, campaign.description);
+      writeData(zstr_stream, campaign.allow_selecting_difficulty);
+      writeData(zstr_stream, campaign.theme_music);
+      for (const CampaignScenario& scenario : campaign.scenarios)
+      {
+        std::uint32_t compressed_map_size = 0;
+        if (!scenario.map_filename.empty())
+        {
+          // 4GB ought to be enough for any mapmaker.
+          compressed_map_size = static_cast<std::uint32_t>(compressed_maps.at(map_idx).size());
+          ++map_idx;
+        }
+        writeCampaignScenario(zstr_stream, scenario, campaign.id, compressed_map_size);
+      }
     }
-    else
+    // Append the compressed maps.
+    for (const std::string& compressed_map : compressed_maps)
     {
-      writeData(stream, campaign);
+      stream.write(compressed_map.data(), compressed_map.size());
     }
   }
 }

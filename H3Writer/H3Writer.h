@@ -180,8 +180,19 @@ namespace h3m::H3Writer_NS
   void writeTimedEventBase(std::ostream& stream, const TimedEventBase& event);
 
   // Campaign:
+
+  // Forbid writing Campaign via H3Writer.
+  // .h3c is weird - it's actually a sequence of concatenated gzip streams:
+  // * The first stream contains everything in h3m::Campaign except the maps
+  // * Each next stream contains a single h3m::Map from Campaign::maps.
+  //
+  // During decompression gzip file format treats such concatenated streams
+  // as if they were originally one file.
   template<>
-  void H3Writer<Campaign>::operator()(std::ostream& stream, const Campaign& campaign) const;
+  struct H3Writer<Campaign>
+  {
+    void operator()(std::ostream& stream, const Campaign& campaign) const = delete;
+  };
 
   template<>
   void H3Writer<CrossoverOptions>::operator()(std::ostream& stream, const CrossoverOptions& options) const;
@@ -195,5 +206,8 @@ namespace h3m::H3Writer_NS
   template<>
   void H3Writer<StartingOptions>::operator()(std::ostream& stream, const StartingOptions& options) const;
 
-  void writeCampaignScenario(std::ostream& stream, const CampaignScenario& scenario, CampaignId campaign_id);
+  void writeCampaignScenario(std::ostream& stream,
+                             const CampaignScenario& scenario,
+                             CampaignId campaign_id,
+                             std::uint32_t compressed_map_size);
 }

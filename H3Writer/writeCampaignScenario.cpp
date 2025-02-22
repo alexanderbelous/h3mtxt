@@ -19,10 +19,13 @@ namespace h3m::H3Writer_NS
     writeData(stream, cutscene.message);
   }
 
-  void writeCampaignScenario(std::ostream& stream, const CampaignScenario& scenario, CampaignId campaign_id)
+  void writeCampaignScenario(std::ostream& stream,
+                             const CampaignScenario& scenario,
+                             CampaignId campaign_id,
+                             std::uint32_t compressed_map_size)
   {
     writeData(stream, scenario.map_filename);
-    writeData(stream, scenario.compressed_map_size);
+    writeData(stream, compressed_map_size);
     if (campaign_id == CampaignId::UnholyAlliance)
     {
       writeData(stream, scenario.prerequisites);
