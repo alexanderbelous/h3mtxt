@@ -105,7 +105,7 @@
     <ClCompile Include="parseh3.cpp" />
     <ClCompile Include="parseh3c.cpp" />
     <ClCompile Include="parseh3m.cpp" />
-    <ClCompile Include="readCampaign.cpp" />
+    <ClCompile Include="readCampaignHeader.cpp" />
     <ClCompile Include="readCampaignScenario.cpp" />
     <ClCompile Include="readCreatureStack.cpp" />
     <ClCompile Include="readHeroArtifacts.cpp" />

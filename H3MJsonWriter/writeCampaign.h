@@ -55,9 +55,9 @@ namespace Medea_NS
   };
 
   template<>
-  struct JsonObjectWriter<h3m::Campaign>
+  struct JsonObjectWriter<h3m::CampaignHeader>
   {
-    void operator()(FieldsWriter& out, const h3m::Campaign& campaign) const
+    void operator()(FieldsWriter& out, const h3m::CampaignHeader& campaign) const
     {
       out.writeField("format", campaign.format);
       out.writeField("id", campaign.id);
@@ -65,6 +65,15 @@ namespace Medea_NS
       out.writeField("description", campaign.description);
       out.writeField("allow_selecting_difficulty", campaign.allow_selecting_difficulty);
       out.writeField("scenarios", campaign.scenarios);
+    }
+  };
+
+  template<>
+  struct JsonObjectWriter<h3m::Campaign>
+  {
+    void operator()(FieldsWriter& out, const h3m::Campaign& campaign) const
+    {
+      out.writeField("header", campaign.header);
       out.writeField("maps", campaign.maps);
     }
   };

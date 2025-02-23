@@ -6,27 +6,6 @@
 
 namespace h3m::H3Reader_NS
 {
-  namespace
-  {
-    std::variant<Map, Campaign> parseh3Uncompressed(std::istream& stream)
-    {
-      const int first_byte = stream.peek();
-      switch (first_byte)
-      {
-      case static_cast<std::uint8_t>(MapFormat::RestorationOfErathia):
-      case static_cast<std::uint8_t>(MapFormat::ArmageddonsBlade):
-      case static_cast<std::uint8_t>(MapFormat::ShadowOfDeath):
-        return readMap(stream);
-      case static_cast<std::uint8_t>(CampaignFormat::RestorationOfErathia):
-      case static_cast<std::uint8_t>(CampaignFormat::ArmageddonsBlade):
-      case static_cast<std::uint8_t>(CampaignFormat::ShadowOfDeath):
-        return readCampaign(stream);
-      default:
-        throw std::runtime_error("parseh3(): Unknown file format.");
-      }
-    }
-  }
-
   std::variant<Map, Campaign> parseh3(std::istream& stream)
   {
     constexpr char kGzipFirstByte = 0x1F;
@@ -40,14 +19,43 @@ namespace h3m::H3Reader_NS
     {
       throw std::runtime_error("parseh3(): Empty stream passed.");
     }
-    if (first_byte != kGzipFirstByte)
+    // If @stream doesn't start with a gzip stream, then it cannot be a *.h3c file.
+    switch (first_byte)
     {
-      return parseh3Uncompressed(stream);
+    case static_cast<std::uint8_t>(MapFormat::RestorationOfErathia):
+    case static_cast<std::uint8_t>(MapFormat::ArmageddonsBlade):
+    case static_cast<std::uint8_t>(MapFormat::ShadowOfDeath):
+      return readMap(stream);
+    case kGzipFirstByte:
+      break;
+    default:
+      throw std::runtime_error("parseh3(): Unknown file format.");
     }
-    else
+    // OK, the stream starts with a gzip stream.
+    zstr::istream zstr_stream(stream);
+    const int first_decompressed_byte = zstr_stream.peek();
+    switch (first_decompressed_byte)
     {
-      zstr::istream zstr_stream(stream);
-      return parseh3Uncompressed(zstr_stream);
+    case static_cast<std::uint8_t>(MapFormat::RestorationOfErathia):
+    case static_cast<std::uint8_t>(MapFormat::ArmageddonsBlade):
+    case static_cast<std::uint8_t>(MapFormat::ShadowOfDeath):
+      return readMap(zstr_stream);
+    case static_cast<std::uint8_t>(CampaignFormat::RestorationOfErathia):
+    case static_cast<std::uint8_t>(CampaignFormat::ArmageddonsBlade):
+    case static_cast<std::uint8_t>(CampaignFormat::ShadowOfDeath):
+    {
+      Campaign campaign { .header = readCampaignHeader(zstr_stream) };
+      const std::size_t num_scenarios = countScenarios(campaign.header);
+      campaign.maps.reserve(num_scenarios);
+      for (std::size_t i = 0; i < num_scenarios; ++i)
+      {
+        // TODO: add support for the case when one or more maps are not gzip-compressed.
+        campaign.maps.push_back(readMap(zstr_stream));
+      }
+      return campaign;
+    }
+    default:
+      throw std::runtime_error("parseh3(): Unknown file format.");
     }
   }
 }

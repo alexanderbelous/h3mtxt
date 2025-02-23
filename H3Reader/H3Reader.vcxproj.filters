@@ -10,7 +10,7 @@
     <ClCompile Include="parseh3m.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="readCampaign.cpp">
+    <ClCompile Include="readCampaignHeader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="readCampaignScenario.cpp">

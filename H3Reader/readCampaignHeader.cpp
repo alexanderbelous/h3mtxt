@@ -1,13 +1,13 @@
 #include <h3mtxt/H3Reader/H3Reader.h>
 #include <h3mtxt/H3Reader/Utils.h>
 
-#include <h3mtxt/Campaign/Campaign.h>
+#include <h3mtxt/Campaign/CampaignHeader.h>
 
 namespace h3m::H3Reader_NS
 {
-  Campaign readCampaign(std::istream& stream)
+  CampaignHeader readCampaignHeader(std::istream& stream)
   {
-    Campaign campaign;
+    CampaignHeader campaign;
     campaign.format = readEnum<CampaignFormat>(stream);
     if (campaign.format != CampaignFormat::ShadowOfDeath)
     {
@@ -23,12 +23,6 @@ namespace h3m::H3Reader_NS
     for (std::uint8_t i = 0; i < max_num_scenarios; ++i)
     {
       campaign.scenarios.push_back(readCampaignScenario(stream, campaign.id));
-    }
-    const std::size_t num_scenarios = countScenarios(campaign);
-    campaign.maps.reserve(num_scenarios);
-    for (std::size_t i = 0; i < num_scenarios; ++i)
-    {
-      campaign.maps.push_back(readMap(stream));
     }
     return campaign;
   }

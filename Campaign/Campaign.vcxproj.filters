@@ -54,5 +54,8 @@
     <ClInclude Include="Constants\StartingOptionsType.h">
       <Filter>Header Files\Constants</Filter>
     </ClInclude>
+    <ClInclude Include="CampaignHeader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

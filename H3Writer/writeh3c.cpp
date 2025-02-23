@@ -16,14 +16,14 @@ namespace h3m::H3Writer_NS
   {
     void checkCampaign(const Campaign& campaign)
     {
-      if (campaign.scenarios.size() != countMapRegions(campaign.id))
+      if (campaign.header.scenarios.size() != countMapRegions(campaign.header.id))
       {
-        throw std::runtime_error("H3Writer<Campaign>: wrong number of scenarios.");
+        throw std::runtime_error("writeh3c(): wrong number of scenarios.");
       }
-      const std::size_t num_existing_scenarios = countScenarios(campaign);
+      const std::size_t num_existing_scenarios = countScenarios(campaign.header);
       if (campaign.maps.size() != num_existing_scenarios)
       {
-        throw std::runtime_error("H3Writer<Campaign>: wrong number of maps.");
+        throw std::runtime_error("writeh3c(): wrong number of maps.");
       }
     }
 
@@ -55,13 +55,13 @@ namespace h3m::H3Writer_NS
     // Write the header as a gzip stream.
     {
       zstr::ostream zstr_stream(stream);
-      writeData(zstr_stream, campaign.format);
-      writeData(zstr_stream, campaign.id);
-      writeData(zstr_stream, campaign.name);
-      writeData(zstr_stream, campaign.description);
-      writeData(zstr_stream, campaign.allow_selecting_difficulty);
-      writeData(zstr_stream, campaign.theme_music);
-      for (const CampaignScenario& scenario : campaign.scenarios)
+      writeData(zstr_stream, campaign.header.format);
+      writeData(zstr_stream, campaign.header.id);
+      writeData(zstr_stream, campaign.header.name);
+      writeData(zstr_stream, campaign.header.description);
+      writeData(zstr_stream, campaign.header.allow_selecting_difficulty);
+      writeData(zstr_stream, campaign.header.theme_music);
+      for (const CampaignScenario& scenario : campaign.header.scenarios)
       {
         std::uint32_t compressed_map_size = 0;
         if (!scenario.map_filename.empty())
@@ -70,7 +70,7 @@ namespace h3m::H3Writer_NS
           compressed_map_size = static_cast<std::uint32_t>(compressed_maps.at(map_idx).size());
           ++map_idx;
         }
-        writeCampaignScenario(zstr_stream, scenario, campaign.id, compressed_map_size);
+        writeCampaignScenario(zstr_stream, scenario, campaign.header.id, compressed_map_size);
       }
     }
     // Append the compressed maps.

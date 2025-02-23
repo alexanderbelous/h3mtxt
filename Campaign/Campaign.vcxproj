@@ -91,6 +91,7 @@
   <ItemGroup>
     <ClInclude Include="Campaign.h" />
     <ClInclude Include="CampaignFwd.h" />
+    <ClInclude Include="CampaignHeader.h" />
     <ClInclude Include="CampaignScenario.h" />
     <ClInclude Include="Constants\CampaignFormat.h" />
     <ClInclude Include="Constants\CampaignId.h" />

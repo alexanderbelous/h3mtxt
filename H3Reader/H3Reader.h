@@ -9,7 +9,7 @@
 // API for reading various H3 structures from an *UNCOMPRESSED* .h3m/.h3c file.
 namespace h3m::H3Reader_NS
 {
-  Campaign readCampaign(std::istream& stream);
+  CampaignHeader readCampaignHeader(std::istream& stream);
 
   CrossoverOptions readCrossoverOptions(std::istream& stream);
 

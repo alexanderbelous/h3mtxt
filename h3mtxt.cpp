@@ -1,4 +1,3 @@
-#include <h3mtxt/Campaign/Constants/CampaignFormat.h>
 #include <h3mtxt/H3MJsonReader/readH3mJson.h>
 #include <h3mtxt/H3MJsonWriter/writeH3cJson.h>
 #include <h3mtxt/H3MJsonWriter/writeH3mJson.h>
@@ -29,9 +28,6 @@ namespace
     case static_cast<std::uint8_t>(h3m::MapFormat::RestorationOfErathia):
     case static_cast<std::uint8_t>(h3m::MapFormat::ArmageddonsBlade):
     case static_cast<std::uint8_t>(h3m::MapFormat::ShadowOfDeath):
-    case static_cast<std::uint8_t>(h3m::CampaignFormat::RestorationOfErathia):
-    case static_cast<std::uint8_t>(h3m::CampaignFormat::ArmageddonsBlade):
-    case static_cast<std::uint8_t>(h3m::CampaignFormat::ShadowOfDeath):
       return true;
     default:
       return false;

@@ -12,6 +12,8 @@ namespace h3m
 
   struct Campaign;
 
+  struct CampaignHeader;
+
   struct CampaignScenario;
 
   struct CrossoverOptions;

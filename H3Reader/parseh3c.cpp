@@ -1,6 +1,8 @@
 #include <h3mtxt/H3Reader/parseh3c.h>
 
 #include <h3mtxt/H3Reader/H3Reader.h>
+#include <h3mtxt/H3Reader/Utils.h>
+#include <h3mtxt/Campaign/Campaign.h>
 
 #include <h3mtxt/thirdparty/zstr/src/zstr.hpp>
 
@@ -17,8 +19,7 @@ namespace h3m::H3Reader_NS
       throw std::runtime_error("parseh3c(): Bad istream.");
     }
     using Traits = std::istream::traits_type;
-    // Check the first byte. If it's 0x1F, then it cannot be an uncompressed .h3c file,
-    // so assume that it's a compressed one.
+    // Check that the stream starts with a gzip stream (containing CampaignHeader).
     const int first_byte = stream.peek();
     if (first_byte == Traits::eof())
     {
@@ -26,12 +27,18 @@ namespace h3m::H3Reader_NS
     }
     if (first_byte != kGzipFirstByte)
     {
-      return readCampaign(stream);
+      throw std::runtime_error("parseh3c(): Not a valid .h3c file.");
     }
-    else
+    Campaign campaign;
+    zstr::istream zstr_stream(stream);
+    campaign.header = readCampaignHeader(zstr_stream);
+    // TODO: add support for the case when one or more maps are not gzip-compressed.
+    const std::size_t num_scenarios = countScenarios(campaign.header);
+    campaign.maps.reserve(num_scenarios);
+    for (std::size_t i = 0; i < num_scenarios; ++i)
     {
-      zstr::istream zstr_stream(stream);
-      return readCampaign(zstr_stream);
+      campaign.maps.push_back(readMap(zstr_stream));
     }
+    return campaign;
   }
 }
