@@ -28,154 +28,79 @@ namespace h3m::H3Writer_NS
   }
 
   template<>
-  struct H3Writer<CreatureStack>
-  {
-    void operator()(std::ostream& stream, const CreatureStack& value) const;
-  };
+  void H3Writer<CreatureStack>::operator()(std::ostream& stream, const CreatureStack& value) const;
 
   template<>
-  struct H3Writer<GlobalEvent>
-  {
-    void operator()(std::ostream& stream, const GlobalEvent& global_event) const;
-  };
+  void H3Writer<GlobalEvent>::operator()(std::ostream& stream, const GlobalEvent& global_event) const;
 
   template<>
-  struct H3Writer<Guardians>
-  {
-    void operator()(std::ostream& stream, const Guardians& guardians) const;
-  };
+  void H3Writer<Guardians>::operator()(std::ostream& stream, const Guardians& guardians) const;
 
   template<>
-  struct H3Writer<HeroArtifacts>
-  {
-    void operator()(std::ostream& stream, const HeroArtifacts& artifacts) const;
-  };
+  void H3Writer<HeroArtifacts>::operator()(std::ostream& stream, const HeroArtifacts& artifacts) const;
 
   template<>
-  struct H3Writer<HeroSettings>
-  {
-    void operator()(std::ostream& stream, const HeroSettings& settings) const;
-  };
+  void H3Writer<HeroSettings>::operator()(std::ostream& stream, const HeroSettings& settings) const;
 
   template<>
-  struct H3Writer<LossCondition>
-  {
-    void operator()(std::ostream& stream, const LossCondition& loss_condition) const;
-  };
+  void H3Writer<LossCondition>::operator()(std::ostream& stream, const LossCondition& loss_condition) const;
 
   template<>
-  struct H3Writer<MainTown>
-  {
-    void operator()(std::ostream& stream, const MainTown& value) const;
-  };
+  void H3Writer<MainTown>::operator()(std::ostream& stream, const MainTown& value) const;
 
   template<>
-  struct H3Writer<Map>
-  {
-    void operator()(std::ostream& stream, const Map& map) const;
-  };
+  void H3Writer<Map>::operator()(std::ostream& stream, const Map& map) const;
 
   template<>
-  struct H3Writer<MapAdditionalInfo>
-  {
-    void operator()(std::ostream& stream, const MapAdditionalInfo& value) const;
-  };
+  void H3Writer<MapAdditionalInfo>::operator()(std::ostream& stream, const MapAdditionalInfo& value) const;
 
   template<>
-  struct H3Writer<MapBasicInfo>
-  {
-    void operator()(std::ostream& stream, const MapBasicInfo& value) const;
-  };
+  void H3Writer<MapBasicInfo>::operator()(std::ostream& stream, const MapBasicInfo& value) const;
 
   template<>
-  struct H3Writer<ObjectAttributes>
-  {
-    void operator()(std::ostream& stream, const ObjectAttributes& value) const;
-  };
+  void H3Writer<ObjectAttributes>::operator()(std::ostream& stream, const ObjectAttributes& value) const;
 
   template<>
-  struct H3Writer<ObjectDetails>
-  {
-    void operator()(std::ostream& stream, const ObjectDetails& object_details) const;
-  };
+  void H3Writer<ObjectDetails>::operator()(std::ostream& stream, const ObjectDetails& object_details) const;
 
   template<>
-  struct H3Writer<PlayerSpecs>
-  {
-    void operator()(std::ostream& stream, const PlayerSpecs& value) const;
-  };
+  void H3Writer<PlayerSpecs>::operator()(std::ostream& stream, const PlayerSpecs& value) const;
 
   template<>
-  struct H3Writer<PrimarySkills>
-  {
-    void operator()(std::ostream& stream, const PrimarySkills& primary_skills) const;
-  };
+  void H3Writer<PrimarySkills>::operator()(std::ostream& stream, const PrimarySkills& primary_skills) const;
 
   template<>
-  struct H3Writer<Quest>
-  {
-    void operator()(std::ostream& stream, const Quest& quest) const;
-  };
+  void H3Writer<Quest>::operator()(std::ostream& stream, const Quest& quest) const;
 
   template<>
-  struct H3Writer<Resources>
-  {
-    void operator()(std::ostream& stream, const Resources& resources) const;
-  };
+  void H3Writer<Resources>::operator()(std::ostream& stream, const Resources& resources) const;
 
   template<>
-  struct H3Writer<Reward>
-  {
-    void operator()(std::ostream& stream, const Reward& reward) const;
-  };
+  void H3Writer<Reward>::operator()(std::ostream& stream, const Reward& reward) const;
 
   template<>
-  struct H3Writer<Rumor>
-  {
-    void operator()(std::ostream& stream, const Rumor& value) const;
-  };
+  void H3Writer<Rumor>::operator()(std::ostream& stream, const Rumor& value) const;
 
   template<>
-  struct H3Writer<SecondarySkill>
-  {
-    void operator()(std::ostream& stream, const SecondarySkill& secondary_skill) const;
-  };
+  void H3Writer<SecondarySkill>::operator()(std::ostream& stream, const SecondarySkill& secondary_skill) const;
 
   template<>
-  struct H3Writer<StartingHero>
-  {
-    void operator()(std::ostream& stream, const StartingHero& value) const;
-  };
+  void H3Writer<StartingHero>::operator()(std::ostream& stream, const StartingHero& value) const;
 
   template<>
-  struct H3Writer<TeamsInfo>
-  {
-    void operator()(std::ostream& stream, const TeamsInfo& teams) const;
-  };
+  void H3Writer<TeamsInfo>::operator()(std::ostream& stream, const TeamsInfo& teams) const;
 
   template<>
-  struct H3Writer<Tile>
-  {
-    void operator()(std::ostream& stream, const Tile& value) const;
-  };
+  void H3Writer<Tile>::operator()(std::ostream& stream, const Tile& value) const;
 
   template<>
-  struct H3Writer<TownBuildings>
-  {
-    void operator()(std::ostream& stream, const TownBuildings& town_buildings) const;
-  };
+  void H3Writer<TownBuildings>::operator()(std::ostream& stream, const TownBuildings& town_buildings) const;
 
   template<>
-  struct H3Writer<TownEvent>
-  {
-    void operator()(std::ostream& stream, const TownEvent& event) const;
-  };
+  void H3Writer<TownEvent>::operator()(std::ostream& stream, const TownEvent& event) const;
 
   template<>
-  struct H3Writer<VictoryCondition>
-  {
-    void operator()(std::ostream& stream, const VictoryCondition& victory_condition) const;
-  };
+  void H3Writer<VictoryCondition>::operator()(std::ostream& stream, const VictoryCondition& victory_condition) const;
 
   void writeTimedEventBase(std::ostream& stream, const TimedEventBase& event);
 
