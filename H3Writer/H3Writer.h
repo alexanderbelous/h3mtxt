@@ -5,10 +5,10 @@
 
 #include <iosfwd>
 
-// API for writing various H3 structures into an *UNCOMPRESSED* .h3m/.h3c file.
+// API for writing uncompressed H3 data.
 namespace h3m::H3Writer_NS
 {
-  // Template for writing H3 values into a binary stream storing a .h3m/.h3c file.
+  // Template for writing uncompressed H3 values into a binary stream.
   template<class T, class Enable = void>
   struct H3Writer
   {
@@ -17,7 +17,7 @@ namespace h3m::H3Writer_NS
     void operator()(std::ostream& stream, const T& value) const;
   };
 
-  // Utility function that writes a value into a binary stream storing a .h3m/.h3c file.
+  // Utility function that writes an uncompressed H3 value into a binary stream.
   // \param stream - output stream.
   // \param value - value to append.
   template<class T>
