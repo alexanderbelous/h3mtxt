@@ -58,5 +58,7 @@ namespace h3m
 
   std::string_view getEnumString(TerrainType value) noexcept;
 
+  std::string_view getEnumString(TownType value) noexcept;
+
   std::string_view getEnumString(VictoryConditionType value) noexcept;
 }

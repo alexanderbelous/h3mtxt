@@ -1114,6 +1114,23 @@ namespace h3m
     return (idx < std::size(kNames)) ? kNames[idx] : std::string_view{};
   }
 
+  std::string_view getEnumString(TownType value) noexcept
+  {
+    static constexpr std::string_view kNames[] = {
+      "Castle",
+      "Rampart",
+      "Tower",
+      "Inferno",
+      "Necropolis",
+      "Dungeon",
+      "Stronghold",
+      "Fortress",
+      "Conflux"
+    };
+    const std::size_t idx = static_cast<std::size_t>(value);
+    return (idx < std::size(kNames)) ? kNames[idx] : std::string_view{};
+  }
+
   std::string_view getEnumString(RiverType value) noexcept
   {
     static constexpr std::string_view kNames[] = {

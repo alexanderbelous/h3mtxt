@@ -13,9 +13,17 @@ namespace Medea_NS
   {
     void operator()(FieldsWriter& out, const h3m::MainTown& value) const
     {
+      constexpr h3m::TownType kRandomTownType {0xFF};
       using Fields = h3m::FieldNames<h3m::MainTown>;
       out.writeField(Fields::kGenerateHero, value.generate_hero);
       out.writeField(Fields::kTownType, value.town_type);
+      const std::string_view town_type_str =
+        (value.town_type == kRandomTownType) ? "(Random)" : h3m::getEnumString(value.town_type);
+      if (!town_type_str.empty())
+      {
+        out.writeComma();
+        out.writeComment(town_type_str, false);
+      }
       out.writeField(Fields::kX, value.x);
       out.writeField(Fields::kY, value.y);
       out.writeField(Fields::kZ, value.z);

@@ -4,20 +4,18 @@
 
 namespace h3m
 {
-
-enum class TownType : std::uint8_t
-{
-  Castle = 0,
-  Rampart = 1,
-  Tower = 2,
-  Inferno = 3,
-  Necropolis = 4,
-  Dungeon = 5,
-  Stronghold = 6,
-  Fortress = 7,
-  Conflux = 8,
-  // TODO: this probably shouldn't be an enum constant.
-  Random = 0xFF,
-};
-
+  enum class TownType : std::uint8_t
+  {
+    Castle = 0,
+    Rampart = 1,
+    Tower = 2,
+    Inferno = 3,
+    Necropolis = 4,
+    Dungeon = 5,
+    Stronghold = 6,
+    Fortress = 7,
+    Conflux = 8,
+    // TODO: this probably shouldn't be an enum constant.
+    Random = 0xFF,
+  };
 }
