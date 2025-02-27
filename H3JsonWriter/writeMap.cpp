@@ -255,7 +255,7 @@ namespace Medea_NS
     out.writeField(FieldNames::kTiles, TilesWithMapSize(map.tiles, map.basic_info.map_size, map.basic_info.has_two_levels));
     out.writeField(FieldNames::kObjectsTemplates, map.objects_templates);
     // Not writing object_details directly because I want to write ObjectClass for each object in a comment.
-    out.writeField(FieldNames::kObjectsDetails, H3MObjects(map.objects_templates, map.objects));
+    out.writeField(FieldNames::kObjects, H3MObjects(map.objects_templates, map.objects));
     out.writeField(FieldNames::kGlobalEvents, map.global_events);
     out.writeField(FieldNames::kPadding, map.padding);
   }

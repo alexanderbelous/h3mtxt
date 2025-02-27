@@ -65,13 +65,13 @@ namespace h3m::H3JsonReader_NS
     readField(map.tiles, value, Fields::kTiles);
     readField(map.objects_templates, value, Fields::kObjectsTemplates);
     {
-      const Json::Value* objects_details_json =
-        value.find(Fields::kObjectsDetails.data(), Fields::kObjectsDetails.data() + Fields::kObjectsDetails.size());
-      if (!objects_details_json)
+      const Json::Value* objects_json =
+        value.find(Fields::kObjects.data(), Fields::kObjects.data() + Fields::kObjects.size());
+      if (!objects_json)
       {
-        throw MissingJsonFieldError(Fields::kObjectsDetails);
+        throw MissingJsonFieldError(Fields::kObjects);
       }
-      readObjects(map.objects, *objects_details_json, map.objects_templates);
+      readObjects(map.objects, *objects_json, map.objects_templates);
     }
     readField(map.global_events, value, Fields::kGlobalEvents);
     readField(map.padding, value, Fields::kPadding);

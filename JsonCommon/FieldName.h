@@ -285,7 +285,7 @@ namespace h3m
     static inline constexpr std::string_view kAdditionalInfo = "additional_info";
     static inline constexpr std::string_view kTiles = "tiles";
     static inline constexpr std::string_view kObjectsTemplates = "objects_templates";
-    static inline constexpr std::string_view kObjectsDetails = "objects";
+    static inline constexpr std::string_view kObjects = "objects";
     static inline constexpr std::string_view kGlobalEvents = "global_events";
     static inline constexpr std::string_view kPadding = "padding";
   };
