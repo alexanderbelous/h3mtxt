@@ -87,38 +87,37 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="JsonReader.h" />
-    <ClInclude Include="readArtifactsBitmask.h" />
-    <ClInclude Include="readCreatureStack.h" />
-    <ClInclude Include="readGlobalEvent.h" />
+    <ClInclude Include="H3JsonReader.h" />
+    <ClInclude Include="Utils.h" />
     <ClInclude Include="readH3mJson.h" />
-    <ClInclude Include="readHeroArtifacts.h" />
-    <ClInclude Include="readHeroSettings.h" />
-    <ClInclude Include="readLossCondition.h" />
-    <ClInclude Include="readMapAdditionalInfo.h" />
-    <ClInclude Include="readMapBasicInfo.h" />
-    <ClInclude Include="readObjectAttributes.h" />
-    <ClInclude Include="readObjectDetailsData.h" />
-    <ClInclude Include="readPlayersBitmask.h" />
-    <ClInclude Include="readPlayerSpecs.h" />
-    <ClInclude Include="readPrimarySkills.h" />
-    <ClInclude Include="readQuest.h" />
-    <ClInclude Include="readResources.h" />
-    <ClInclude Include="readReward.h" />
-    <ClInclude Include="readSecondarySkill.h" />
-    <ClInclude Include="readSecondarySkillsBitmask.h" />
-    <ClInclude Include="readSpellsBitmask.h" />
-    <ClInclude Include="readTile.h" />
-    <ClInclude Include="readTimedEventBase.h" />
-    <ClInclude Include="readTownsBitmask.h" />
-    <ClInclude Include="readVictoryCondition.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="readArtifactsBitmask.cpp" />
+    <ClCompile Include="readCreatureStack.cpp" />
+    <ClCompile Include="readGlobalEvent.cpp" />
     <ClCompile Include="readH3mJson.cpp" />
+    <ClCompile Include="readHeroArtifacts.cpp" />
+    <ClCompile Include="readHeroSettings.cpp" />
+    <ClCompile Include="readLossCondition.cpp" />
+    <ClCompile Include="readMap.cpp" />
+    <ClCompile Include="readMapAdditionalInfo.cpp" />
+    <ClCompile Include="readMapBasicInfo.cpp" />
+    <ClCompile Include="readObjectAttributes.cpp" />
     <ClCompile Include="readObjectDetailsData.cpp" />
+    <ClCompile Include="readPlayersBitmask.cpp" />
+    <ClCompile Include="readPlayerSpecs.cpp" />
+    <ClCompile Include="readPrimarySkills.cpp" />
     <ClCompile Include="readQuest.cpp" />
+    <ClCompile Include="readResources.cpp" />
     <ClCompile Include="readReward.cpp" />
+    <ClCompile Include="readSecondarySkill.cpp" />
+    <ClCompile Include="readSecondarySkillsBitmask.cpp" />
+    <ClCompile Include="readSpellsBitmask.cpp" />
+    <ClCompile Include="readTile.cpp" />
     <ClCompile Include="readTimedEventBase.cpp" />
+    <ClCompile Include="readTownsBitmask.cpp" />
+    <ClCompile Include="readVictoryCondition.cpp" />
+    <ClCompile Include="Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\JsonCommon\JsonCommon.vcxproj">

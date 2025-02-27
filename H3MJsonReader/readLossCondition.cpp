@@ -1,6 +1,4 @@
-#pragma once
-
-#include <h3mtxt/H3MJsonReader/JsonReader.h>
+#include <h3mtxt/H3MJsonReader/Utils.h>
 #include <h3mtxt/JsonCommon/FieldName.h>
 #include <h3mtxt/Map/LossCondition.h>
 
@@ -43,26 +41,22 @@ namespace h3m
     }
   };
 
-  template<>
-  struct JsonReader<LossCondition>
+  LossCondition JsonReader<LossCondition>::operator()(const Json::Value& value) const
   {
-    LossCondition operator()(const Json::Value& value) const
+    using Fields = FieldNames<LossCondition>;
+    const LossConditionType loss_condition_type = readField<LossConditionType>(value, Fields::kType);
+    switch (loss_condition_type)
     {
-      using Fields = FieldNames<LossCondition>;
-      const LossConditionType loss_condition_type = readField<LossConditionType>(value, Fields::kType);
-      switch (loss_condition_type)
-      {
-      case LossConditionType::LoseTown:
-        return readField<LossConditionDetails<LossConditionType::LoseTown>>(value, Fields::kDetails);
-      case LossConditionType::LoseHero:
-        return readField<LossConditionDetails<LossConditionType::LoseHero>>(value, Fields::kDetails);
-      case LossConditionType::TimeExpires:
-        return readField<LossConditionDetails<LossConditionType::TimeExpires>>(value, Fields::kDetails);
-      case LossConditionType::Normal:
-        return LossCondition();
-      default:
-        throw std::runtime_error("JsonReader<LossCondition>: invalid loss_condition_type");
-      }
+    case LossConditionType::LoseTown:
+      return readField<LossConditionDetails<LossConditionType::LoseTown>>(value, Fields::kDetails);
+    case LossConditionType::LoseHero:
+      return readField<LossConditionDetails<LossConditionType::LoseHero>>(value, Fields::kDetails);
+    case LossConditionType::TimeExpires:
+      return readField<LossConditionDetails<LossConditionType::TimeExpires>>(value, Fields::kDetails);
+    case LossConditionType::Normal:
+      return LossCondition();
+    default:
+      throw std::runtime_error("JsonReader<LossCondition>: invalid loss_condition_type");
     }
-  };
+  }
 }

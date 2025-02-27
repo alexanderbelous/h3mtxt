@@ -115,6 +115,7 @@ namespace h3m
   using TownsBitmask = EnumBitmask<TownType, 2>;
 
   // Note that there are only 41 town building types in Shadow of Death, but this bitmask stores 48 bits.
+  // TODO: rename to TownBuildingsBitmask.
   using TownsBuildingsBitmask = EnumBitmask<TownBuildingType, 6>;
 
   struct EventBase;
@@ -126,6 +127,8 @@ namespace h3m
   struct HeroArtifacts;
 
   struct HeroSettings;
+
+  class HeroesSettings;
 
   class LossCondition;
 
@@ -146,6 +149,8 @@ namespace h3m
   // "Extension" of ObjectDetails specific to ObjectClass of this object.
   template<MetaObjectType T>
   struct ObjectDetailsData;
+
+  class ObjectDetailsDataVariant;
 
   struct PlayerSpecs;
 

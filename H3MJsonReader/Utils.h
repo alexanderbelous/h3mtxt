@@ -1,5 +1,6 @@
 #pragma once
 
+#include <h3mtxt/H3MJsonReader/H3JsonReader.h>
 #include <h3mtxt/Map/Utils/BitSet.h>
 #include <h3mtxt/Map/Utils/ReservedData.h>
 
@@ -52,13 +53,6 @@ namespace h3m
     {}
   };
 
-  // Template class for deserializing Json::Value into the specified type.
-  template<class T, class Enable = void>
-  struct JsonReader
-  {
-    static_assert(false, "NotImplemented.");
-  };
-
   // Utility wrapper for JsonReader.
   // \param value - input JSON value.
   // \return the value of type T deserialized from @value using JsonReader<T>.
@@ -101,32 +95,11 @@ namespace h3m
     out = readField<T>(value, field_name);
   }
 
-  // Full specialization for bool.
-  template<>
-  struct JsonReader<bool>
-  {
-    bool operator()(const Json::Value& value) const
-    {
-      if (!value.isBool())
-      {
-        throw std::runtime_error("readH3mJson(): expected bool, got " + value.toStyledString());
-      }
-      return value.asBool();
-    }
-  };
-
   // Full specialization for std::string.
   template<>
   struct JsonReader<std::string>
   {
-    std::string operator()(const Json::Value& value) const
-    {
-      if (!value.isString())
-      {
-        throw std::runtime_error("readH3mJson(): expected std::string, got " + value.toStyledString());
-      }
-      return value.asString();
-    }
+    std::string operator()(const Json::Value& value) const;
   };
 
   // Partial specialization for integer types.
