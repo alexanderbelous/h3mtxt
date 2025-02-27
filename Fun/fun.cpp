@@ -148,7 +148,7 @@ namespace
       .object_group = h3m::ObjectGroup::Hero,
       .is_ground = 0
       });
-    map.objects_details.push_back(h3m::ObjectDetails{
+    map.objects.push_back(h3m::Object{
       .x = 1,
       .y = 0,
       .z = 0,
@@ -181,7 +181,7 @@ namespace
         }
       }
     });
-    map.objects_details.push_back(h3m::ObjectDetails{
+    map.objects.push_back(h3m::Object{
       .x = 10,
       .y = 10,
       .z = 0,
@@ -207,7 +207,7 @@ namespace
     });
     // Add a spell scroll.
     map.objects_templates.push_back(h3m::makeStandardObjectTemplate(h3m::ObjectClass::SPELL_SCROLL));
-    map.objects_details.push_back(h3m::ObjectDetails{
+    map.objects.push_back(h3m::Object{
       .x = 2,
       .y = 2,
       .z = 0,
@@ -218,7 +218,7 @@ namespace
     });
     // Add a Pandora's Box.
     map.objects_templates.push_back(h3m::makeStandardObjectTemplate(h3m::ObjectClass::PANDORAS_BOX));
-    map.objects_details.push_back(h3m::ObjectDetails{
+    map.objects.push_back(h3m::Object{
       .x = 2,
       .y = 3,
       .z = 0,
@@ -233,7 +233,7 @@ namespace
     });
     // Add a Scholar.
     map.objects_templates.push_back(h3m::makeStandardObjectTemplate(h3m::ObjectClass::SCHOLAR));
-    map.objects_details.push_back(h3m::ObjectDetails{
+    map.objects.push_back(h3m::Object{
       .x = 2,
       .y = 4,
       .z = 0,
@@ -253,7 +253,7 @@ namespace
       };
       event_details.affected_players.bitset.data = std::array<std::uint8_t, 1>{0xFF};
       event_details.remove_after_first_visit = true;
-      map.objects_details.push_back(h3m::ObjectDetails{
+      map.objects.push_back(h3m::Object{
         .x = 0,
         .y = 1,
         .z = 0,
@@ -272,7 +272,7 @@ namespace
       };
       event_details.affected_players.bitset.data = std::array<std::uint8_t, 1>{0xFF};
       event_details.remove_after_first_visit = true;
-      map.objects_details.push_back(h3m::ObjectDetails{
+      map.objects.push_back(h3m::Object{
         .x = 0,
         .y = 2,
         .z = 0,
@@ -282,7 +282,7 @@ namespace
     }
     // Add a Seer's Hut.
     map.objects_templates.push_back(h3m::makeStandardObjectTemplate(h3m::ObjectClass::SEER_HUT));
-    map.objects_details.push_back(h3m::ObjectDetails{
+    map.objects.push_back(h3m::Object{
       .x = 4,
       .y = 5,
       .z = 0,

@@ -6,7 +6,7 @@
 #include <h3mtxt/Map/MapAdditionalInfo.h>
 #include <h3mtxt/Map/MapBasicInfo.h>
 #include <h3mtxt/Map/ObjectTemplate.h>
-#include <h3mtxt/Map/ObjectDetails.h>
+#include <h3mtxt/Map/Object.h>
 #include <h3mtxt/Map/PlayerSpecs.h>
 #include <h3mtxt/Map/Utils/ReservedData.h>
 #include <h3mtxt/Map/Tile.h>
@@ -39,7 +39,7 @@ struct Map
   // (called "Properties" in the Map Editor and Unleashed Editor).
   std::vector<ObjectTemplate> objects_templates;
   // Objects on the Adventure Map.
-  std::vector<ObjectDetails> objects_details;
+  std::vector<Object> objects;
   // Global events on this map ("Map Specifications"/"Timed Events" tab in the Editor).
   std::vector<GlobalEvent> global_events;
   // Should be 0s. Kept here for compatibility.

@@ -106,7 +106,7 @@
     <ClCompile Include="writeMapAdditionalInfo.cpp" />
     <ClCompile Include="writeMapBasicInfo.cpp" />
     <ClCompile Include="writeObjectTemplate.cpp" />
-    <ClCompile Include="writeObjectDetails.cpp" />
+    <ClCompile Include="writeObject.cpp" />
     <ClCompile Include="writePlayerSpecs.cpp" />
     <ClCompile Include="writePrimarySkills.cpp" />
     <ClCompile Include="writeQuest.cpp" />

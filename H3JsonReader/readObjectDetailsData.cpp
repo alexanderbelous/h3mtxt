@@ -498,7 +498,7 @@ namespace h3m::H3JsonReader_NS
   // \return the deserialized data as ObjectDetailsDataVariant.
   ObjectDetailsDataVariant readObjectDetailsDataVariant(const Json::Value& value, MetaObjectType meta_object_type)
   {
-    // Type of a pointer to a function that takes std::istream& and returns ObjectDetails::Data.
+    // Type of a pointer to a function that takes std::istream& and returns Object::Data.
     using ReadObjectDetailsDataPtr = ObjectDetailsDataVariant(*)(const Json::Value&);
     // Generate (at compile time) an array of function pointers for each instantiation of
     // readObjectDetailsDataAsVariant() ordered by MetaObjectType.

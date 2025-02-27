@@ -61,7 +61,7 @@ namespace h3m::H3Writer_NS
   void H3Writer<ObjectTemplate>::operator()(std::ostream& stream, const ObjectTemplate& value) const;
 
   template<>
-  void H3Writer<ObjectDetails>::operator()(std::ostream& stream, const ObjectDetails& object_details) const;
+  void H3Writer<Object>::operator()(std::ostream& stream, const Object& object) const;
 
   template<>
   void H3Writer<PlayerSpecs>::operator()(std::ostream& stream, const PlayerSpecs& value) const;

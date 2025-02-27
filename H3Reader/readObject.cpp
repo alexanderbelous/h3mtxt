@@ -2,7 +2,7 @@
 #include <h3mtxt/H3Reader/readSecondarySkillsVector.h>
 #include <h3mtxt/H3Reader/Utils.h>
 #include <h3mtxt/Map/ObjectTemplate.h>
-#include <h3mtxt/Map/ObjectDetails.h>
+#include <h3mtxt/Map/Object.h>
 #include <h3mtxt/Map/Utils/EnumSequence.h>
 
 #include <stdexcept>
@@ -472,7 +472,7 @@ namespace h3m::H3Reader_NS
     // \return the deserialized data as ObjectDetailsDataVariant.
     ObjectDetailsDataVariant readObjectDetailsDataVariant(std::istream& stream, MetaObjectType meta_object_type)
     {
-      // Type of a pointer to a function that takes std::istream& and returns ObjectDetails::Data.
+      // Type of a pointer to a function that takes std::istream& and returns ObjectDetailsDataVariant.
       using ReadObjectDetailsDataPtr = ObjectDetailsDataVariant(*)(std::istream& stream);
       // Generate (at compile time) an array of function pointers for each instantiation of
       // readObjectDetailsDataAsVariant() ordered by MetaObjectType.
@@ -489,11 +489,11 @@ namespace h3m::H3Reader_NS
     }
   }
 
-  ObjectDetails readObjectDetails(std::istream& stream,
-                                  const ObjectTemplate* objects_templates,
-                                  std::size_t num_objects_templates)
+  Object readObject(std::istream& stream,
+                    const ObjectTemplate* objects_templates,
+                    std::size_t num_objects_templates)
   {
-    ObjectDetails result;
+    Object result;
     result.x = readInt<std::uint8_t>(stream);
     result.y = readInt<std::uint8_t>(stream);
     result.z = readInt<std::uint8_t>(stream);
@@ -502,7 +502,7 @@ namespace h3m::H3Reader_NS
 
     if (result.kind >= num_objects_templates)
     {
-      throw std::runtime_error("readObjectDetails(): invalid object kind.");
+      throw std::runtime_error("readObject(): invalid object kind.");
     }
     const ObjectTemplate& object_template = objects_templates[result.kind];
     const MetaObjectType meta_object_type = getMetaObjectType(object_template.object_class);

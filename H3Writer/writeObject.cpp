@@ -1,6 +1,6 @@
 #include <h3mtxt/H3Writer/H3Writer.h>
 #include <h3mtxt/H3Writer/Utils.h>
-#include <h3mtxt/Map/ObjectDetails.h>
+#include <h3mtxt/Map/Object.h>
 
 namespace h3m::H3Writer_NS
 {
@@ -336,14 +336,14 @@ namespace h3m::H3Writer_NS
     }
   };
 
-  void H3Writer<ObjectDetails>::operator()(std::ostream& stream, const ObjectDetails& object_details) const
+  void H3Writer<Object>::operator()(std::ostream& stream, const Object& object) const
   {
-    writeData(stream, object_details.x);
-    writeData(stream, object_details.y);
-    writeData(stream, object_details.z);
-    writeData(stream, object_details.kind);
-    writeData(stream, object_details.unknown);
-    object_details.details.visit([&stream] <MetaObjectType T> (const ObjectDetailsData<T>& value)
-                                 { writeData(stream, value); });
+    writeData(stream, object.x);
+    writeData(stream, object.y);
+    writeData(stream, object.z);
+    writeData(stream, object.kind);
+    writeData(stream, object.unknown);
+    object.details.visit([&stream] <MetaObjectType T> (const ObjectDetailsData<T>& value)
+                         { writeData(stream, value); });
   }
 }

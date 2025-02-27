@@ -86,7 +86,7 @@
     <ClCompile Include="writeGlobalEvent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="writeObjectDetails.cpp">
+    <ClCompile Include="writeObject.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="writeMap.cpp">

@@ -147,9 +147,9 @@ namespace h3m
 
   struct ObjectTemplate;
 
-  struct ObjectDetails;
+  struct Object;
 
-  // "Extension" of ObjectDetails specific to ObjectClass of this object.
+  // "Extension" of Object specific to ObjectClass of this object.
   template<MetaObjectType T>
   struct ObjectDetailsData;
 

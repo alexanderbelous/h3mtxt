@@ -52,7 +52,7 @@
     <ClInclude Include="MapAdditionalInfo.h" />
     <ClInclude Include="MapBasicInfo.h" />
     <ClInclude Include="ObjectTemplate.h" />
-    <ClInclude Include="ObjectDetails.h" />
+    <ClInclude Include="Object.h" />
     <ClInclude Include="ObjectDetailsData.h" />
     <ClInclude Include="ObjectDetailsDataVariant.h" />
     <ClInclude Include="PlayerSpecs.h" />

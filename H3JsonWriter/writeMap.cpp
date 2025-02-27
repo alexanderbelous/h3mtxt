@@ -101,34 +101,34 @@ namespace Medea_NS
       bool has_two_levels_ = false;
     };
 
-    // Wrapper for std::vector<ObjectDetails> that also keeps a reference to
+    // Wrapper for std::vector<Object> that also keeps a reference to
     // std::vector<h3m::ObjectTemplate>.
     class H3MObjects
     {
     public:
       constexpr H3MObjects(const std::vector<h3m::ObjectTemplate>& objects_templates,
-                           const std::vector<h3m::ObjectDetails>& objects_details) noexcept:
+                           const std::vector<h3m::Object>& objects) noexcept:
         objects_templates(objects_templates),
-        details(objects_details)
+        objects(objects)
       {}
 
       const std::vector<h3m::ObjectTemplate>& objects_templates;
-      const std::vector<h3m::ObjectDetails>& details;
+      const std::vector<h3m::Object>& objects;
     };
 
-    // Wrapper for ObjectDetails that also keeps a reference to the corresponding
+    // Wrapper for Object that also keeps a reference to the corresponding
     // ObjectTemplate.
     class H3MObject
     {
     public:
       constexpr H3MObject(const h3m::ObjectTemplate& object_template,
-                          const h3m::ObjectDetails& object_details) noexcept:
+                          const h3m::Object& object) noexcept:
         object_template(object_template),
-        details(object_details)
+        object(object)
       {}
 
       const h3m::ObjectTemplate& object_template;
-      const h3m::ObjectDetails& details;
+      const h3m::Object& object;
     };
   }
 
@@ -180,18 +180,19 @@ namespace Medea_NS
   template<>
   struct JsonObjectWriter<H3MObject>
   {
-    void operator()(FieldsWriter& out, const H3MObject& object) const
+    void operator()(FieldsWriter& out, const H3MObject& wrapped_object) const
     {
-      using Fields = h3m::FieldNames<h3m::ObjectDetails>;
+      using Fields = h3m::FieldNames<h3m::Object>;
 
-      const h3m::ObjectClass object_class = object.object_template.object_class;
-      const h3m::MetaObjectType meta_object_type = object.details.details.getMetaObjectType();
+      const h3m::Object& object = wrapped_object.object;
+      const h3m::ObjectClass object_class = wrapped_object.object_template.object_class;
+      const h3m::MetaObjectType meta_object_type = object.details.getMetaObjectType();
       const std::string_view object_class_name = h3m::getEnumString(object_class);
       const std::string_view meta_object_type_name = h3m::getEnumString(meta_object_type);
 
-      out.writeField(Fields::kX, object.details.x);
-      out.writeField(Fields::kY, object.details.y);
-      out.writeField(Fields::kZ, object.details.z);
+      out.writeField(Fields::kX, object.x);
+      out.writeField(Fields::kY, object.y);
+      out.writeField(Fields::kZ, object.z);
       out.writeComma();
       // Print ObjectClass in a comment.
       comment_builder_.clear();
@@ -209,11 +210,11 @@ namespace Medea_NS
         comment_builder_ << " (" << meta_object_type_name << ")";
       }
       out.writeComment(comment_builder_.str());
-      out.writeField(Fields::kKind, object.details.kind);
-      out.writeField(Fields::kUnknown, object.details.unknown);
+      out.writeField(Fields::kKind, object.kind);
+      out.writeField(Fields::kUnknown, object.unknown);
       if (meta_object_type != h3m::MetaObjectType::GENERIC_NO_PROPERTIES)
       {
-        object.details.details.visit(
+        object.details.visit(
           [&out](auto&& details)
           {
             out.writeField(Fields::kDetails, std::forward<decltype(details)>(details));
@@ -228,16 +229,16 @@ namespace Medea_NS
   template<>
   struct JsonValueWriter<H3MObjects>
   {
-    void operator()(JsonDocumentWriter& out, const H3MObjects& objects) const
+    void operator()(JsonDocumentWriter& out, const H3MObjects& wrapped_objects) const
     {
       CommentBuilder comment_builder;
       ScopedArrayWriter<H3MObject> array_writer = out.writeArray<H3MObject>();
-      for (std::size_t i = 0; i < objects.details.size(); ++i)
+      for (std::size_t i = 0; i < wrapped_objects.objects.size(); ++i)
       {
         array_writer.writeComment(comment_builder.build("Object ", i));
-        const h3m::ObjectDetails& details = objects.details[i];
-        const h3m::ObjectTemplate& object_template = objects.objects_templates.at(details.kind);
-        array_writer.writeElement(H3MObject(object_template, details));
+        const h3m::Object& object = wrapped_objects.objects[i];
+        const h3m::ObjectTemplate& object_template = wrapped_objects.objects_templates.at(object.kind);
+        array_writer.writeElement(H3MObject(object_template, object));
       }
     }
   };
@@ -254,7 +255,7 @@ namespace Medea_NS
     out.writeField(FieldNames::kTiles, TilesWithMapSize(map.tiles, map.basic_info.map_size, map.basic_info.has_two_levels));
     out.writeField(FieldNames::kObjectsTemplates, map.objects_templates);
     // Not writing object_details directly because I want to write ObjectClass for each object in a comment.
-    out.writeField(FieldNames::kObjectsDetails, H3MObjects(map.objects_templates, map.objects_details));
+    out.writeField(FieldNames::kObjectsDetails, H3MObjects(map.objects_templates, map.objects));
     out.writeField(FieldNames::kGlobalEvents, map.global_events);
     out.writeField(FieldNames::kPadding, map.padding);
   }

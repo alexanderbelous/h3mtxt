@@ -7,14 +7,14 @@
 
 namespace h3m
 {
-  // ObjectDetails in H3M are different depending on ObjectTemplate.object_class.
+  // Object in H3M are different depending on ObjectTemplate.object_class.
   // However, a lot of object classes have the same details, so another layer of abstraction
   // is added here - an enum which groups object classes that have the same details.
   //
   // AFAIU, there's no explicit concept of MetaObjectType in the H3M format - this is just
-  // added here to simplify the representation of ObjectDetails. Other H3M parsers may
+  // added here to simplify the representation of Object. Other H3M parsers may
   // define this enum differently in order to disambiguate between objects that have the
-  // same "ObjectDetails" but serve different purposes. Here, however, we only care about
+  // same set of properties but serve different purposes. Here, however, we only care about
   // the stored data, so all objects that have the same "details" are grouped into the same
   // "MetaObjectType".
   enum class MetaObjectType
@@ -23,7 +23,7 @@ namespace h3m
     ARTIFACT,
     EVENT,
     GARRISON,
-    GENERIC_NO_PROPERTIES,  // Any object for which ObjectDetails doesn't store any additional info.
+    GENERIC_NO_PROPERTIES,  // Any object for which Object doesn't store any additional info.
     GRAIL,
     HERO,  // HERO, PRISON and RANDOM_HERO
     MONSTER,

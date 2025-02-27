@@ -110,7 +110,7 @@
     <ClCompile Include="readCreatureStack.cpp" />
     <ClCompile Include="readHeroArtifacts.cpp" />
     <ClCompile Include="readMap.cpp" />
-    <ClCompile Include="readObjectDetails.cpp" />
+    <ClCompile Include="readObject.cpp" />
     <ClCompile Include="readPrimarySkills.cpp" />
     <ClCompile Include="readQuest.cpp" />
     <ClCompile Include="readResources.cpp" />

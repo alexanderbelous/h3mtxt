@@ -69,7 +69,7 @@ namespace h3m
         (y >= kNumRiverTypes) ? 0 : countSprites(static_cast<RiverType>(y));
       for (std::uint32_t x = num_sprites; x < map.basic_info.map_size; ++x)
       {
-        map.objects_details.push_back(ObjectDetails{
+        map.objects.push_back(Object{
           .x = static_cast<std::uint8_t>(x),
           .y = static_cast<std::uint8_t>(y),
           .z = 0,

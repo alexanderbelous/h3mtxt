@@ -114,7 +114,7 @@
     <ClInclude Include="MapBasicInfo.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ObjectDetails.h">
+    <ClInclude Include="Object.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="PlayerSpecs.h">
