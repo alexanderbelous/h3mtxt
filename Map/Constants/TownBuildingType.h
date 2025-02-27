@@ -53,7 +53,7 @@ namespace h3m
     Dwelling4 = 31,
 
     Dwelling4U = 32,
-    Horde4 = 33,
+    Horde4 = 33,  // Unused in SoD: there are no towns in SoD with Horde buildings for Level 4 creatures.
     Dwelling5 = 34,
     Dwelling5U = 35,
     Horde5 = 36,
