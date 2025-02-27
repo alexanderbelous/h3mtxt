@@ -1078,7 +1078,7 @@ namespace h3m
       "Slow",
       "Slayer",
       "Frenzy",
-      "Titans Lightning Bolt",
+      "Titan's Lightning Bolt",
       "Counterstrike",
       "Berserk",
       "Hypnotize",
