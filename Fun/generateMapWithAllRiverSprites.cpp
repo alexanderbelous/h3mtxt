@@ -60,7 +60,7 @@ namespace h3m
     map.objects_attributes.push_back(ObjectAttributes{
       .def = "adcfra.def",
       .object_class = ObjectClass::CAMPFIRE,
-      .object_number = 0,
+      .object_subclass = 0,
       .object_group = ObjectGroup::Treasure,
       });
     for (std::uint32_t y = 0; y < map.basic_info.map_size; ++y)

@@ -40,9 +40,10 @@ namespace h3m
     // (e.g., "Dirt Objects", "Sand Objects", etc) in the Map Editor, 0 otherwise.
     // Note that the Map Editor only displays standard objects in Objects tabs.
     TerrainsBitmask landscape_group {};
+    // Called "Type" in Unleashed Editor.
     ObjectClass object_class {};
-    // aka subclass.
-    std::uint32_t object_number {};
+    // Called "Subtype" in Unleashed Editor.
+    std::uint32_t object_subclass {};
     // "Group" for such objects (see ObjectGroup enum).
     // AFAIU, this doesn't matter for the game; apparently, it was meant to be used in the Map Editor
     // to choose which tab to show this object in, but the editor only does it for standard objects.

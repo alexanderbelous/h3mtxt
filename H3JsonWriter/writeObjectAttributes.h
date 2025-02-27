@@ -33,7 +33,7 @@ namespace Medea_NS
         out.writeComma();
         out.writeComment(enum_str, false);
       }
-      out.writeField(Fields::kObjectNumber, value.object_number);
+      out.writeField(Fields::kObjectSubclass, value.object_subclass);
       out.writeField(Fields::kObjectGroup, value.object_group);
       if (auto enum_str = h3m::getEnumString(value.object_group); !enum_str.empty())
       {

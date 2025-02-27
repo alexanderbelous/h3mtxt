@@ -18,7 +18,7 @@ namespace h3m
         .allowed_landscapes {0b11111111, 0b00000001},
         .landscape_group {0b11111111, 0b00000001},
         .object_class = h3m::ObjectClass::EVENT,
-        .object_number = 0,
+        .object_subclass = 0,
         .object_group = h3m::ObjectGroup::Terrain,
         .is_ground = 0
       };
@@ -31,7 +31,7 @@ namespace h3m
         .allowed_landscapes {0b11111111, 0b00000001},
         .landscape_group {0b00000001, 0b00000000},
         .object_class = h3m::ObjectClass::PANDORAS_BOX,
-        .object_number = 0,
+        .object_subclass = 0,
         .object_group = h3m::ObjectGroup::Artifact,
         .is_ground = 0
       };
@@ -43,7 +43,7 @@ namespace h3m
         .allowed_landscapes {0b11111111, 0b00000001},
         .landscape_group {0b11111111, 0b00000000},
         .object_class = h3m::ObjectClass::SCHOLAR,
-        .object_number = 0,
+        .object_subclass = 0,
         .object_group = h3m::ObjectGroup::Terrain,
         .is_ground = 0
       };
@@ -55,7 +55,7 @@ namespace h3m
         .allowed_landscapes {0b11111111, 0b00000001},
         .landscape_group {0b11111111, 0b00000000},
         .object_class = h3m::ObjectClass::SEER_HUT,
-        .object_number = 0,
+        .object_subclass = 0,
         .object_group = h3m::ObjectGroup::Terrain,
         .is_ground = 0
       };
@@ -67,7 +67,7 @@ namespace h3m
         .allowed_landscapes {0b11111111, 0b00000001},
         .landscape_group {0b00000001, 0b00000000},
         .object_class = h3m::ObjectClass::SPELL_SCROLL,
-        .object_number = 0,
+        .object_subclass = 0,
         .object_group = h3m::ObjectGroup::Artifact,
         .is_ground = 0
       };

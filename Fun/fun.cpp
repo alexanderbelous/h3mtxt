@@ -144,7 +144,7 @@ namespace
       .passability {255, 255, 255, 255, 255, 191},
       .actionability {0, 0, 0, 0, 0, 64},
       .object_class = h3m::ObjectClass::HERO,
-      .object_number = 0,
+      .object_subclass = 0,
       .object_group = h3m::ObjectGroup::Hero,
       .is_ground = 0
       });

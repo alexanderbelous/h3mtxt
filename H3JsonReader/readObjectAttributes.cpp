@@ -14,7 +14,7 @@ namespace h3m::H3JsonReader_NS
     readField(object_attributes.allowed_landscapes, value, Fields::kAllowedLandscapes);
     readField(object_attributes.landscape_group, value, Fields::kLandscapeGroup);
     readField(object_attributes.object_class, value, Fields::kObjectClass);
-    readField(object_attributes.object_number, value, Fields::kObjectNumber);
+    readField(object_attributes.object_subclass, value, Fields::kObjectSubclass);
     readField(object_attributes.object_group, value, Fields::kObjectGroup);
     readField(object_attributes.is_ground, value, Fields::kIsGround);
     readField(object_attributes.unknown, value, Fields::kUnknown);

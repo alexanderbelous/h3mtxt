@@ -12,7 +12,7 @@ namespace h3m::H3Writer_NS
     writeData(stream, value.allowed_landscapes);
     writeData(stream, value.landscape_group);
     writeData(stream, value.object_class);
-    writeData(stream, value.object_number);
+    writeData(stream, value.object_subclass);
     writeData(stream, value.object_group);
     writeData(stream, value.is_ground);
     writeData(stream, value.unknown);
