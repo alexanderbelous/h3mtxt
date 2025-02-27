@@ -8,6 +8,15 @@
 namespace Medea_NS
 {
   template<>
+  struct JsonValueWriter<h3m::TerrainsBitmask>
+  {
+    void operator()(JsonDocumentWriter& out, const h3m::TerrainsBitmask& bitmask) const
+    {
+      writeValue(out, bitmask.bitset);
+    }
+  };
+
+  template<>
   struct JsonObjectWriter<h3m::ObjectAttributes>
   {
     void operator()(FieldsWriter& out, const h3m::ObjectAttributes& value) const

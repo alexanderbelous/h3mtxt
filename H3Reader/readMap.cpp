@@ -238,8 +238,8 @@ namespace h3m::H3Reader_NS
     result.def = readString(stream);
     result.passability = readByteArray<6>(stream);
     result.actionability = readByteArray<6>(stream);
-    result.allowed_landscapes = readInt<std::uint16_t>(stream);
-    result.landscape_group = readInt<std::uint16_t>(stream);
+    result.allowed_landscapes = readEnumBitmask<TerrainType, 2>(stream);
+    result.landscape_group = readEnumBitmask<TerrainType, 2>(stream);
     result.object_class = readEnum<ObjectClass>(stream);
     result.object_number = readInt<std::uint32_t>(stream);
     result.object_group = readEnum<ObjectGroup>(stream);

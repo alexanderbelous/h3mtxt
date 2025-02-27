@@ -1,8 +1,10 @@
 #pragma once
 
+#include <h3mtxt/Map/MapFwd.h>
 #include <h3mtxt/Map/Base.h>
 #include <h3mtxt/Map/Constants/ObjectClass.h>
 #include <h3mtxt/Map/Constants/ObjectGroup.h>
+#include <h3mtxt/Map/Utils/EnumBitmask.h>
 #include <h3mtxt/Map/Utils/ReservedData.h>
 
 #include <array>
@@ -21,10 +23,18 @@ namespace h3m
     std::string def;
     std::array<std::uint8_t, 6> passability{};
     std::array<std::uint8_t, 6> actionability{};
-    // TODO: replace with EnumBitmask.
-    std::uint16_t allowed_landscapes {};
-    // Bitfield.
-    std::uint16_t landscape_group {};
+    // 1 bit per TerrainType: 1 if objects of this kind should be allowed to be placed
+    // on the specified terrain in the Map Editor, 0 otherwise.
+    // * This only applies to impassable tiles.
+    // * Rock has a special behavior in the Map Editor: in order to put an object
+    //   on Rock it must satisfy the following:
+    //   * no impassable tiles (passability == [0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF]).
+    //   * is_ground == 0.
+    TerrainsBitmask allowed_landscapes {};
+    // 1 bit per TerrainType: 1 if this kind should appear in the respective Objects tab
+    // (e.g., "Dirt Objects", "Sand Objects", etc) in the Map Editor, 0 otherwise.
+    // Note that the Map Editor only displays standard objects in Objects tabs.
+    TerrainsBitmask landscape_group {};
     ObjectClass object_class {};
     // aka subclass.
     std::uint32_t object_number {};

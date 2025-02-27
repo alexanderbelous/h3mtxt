@@ -113,6 +113,7 @@
     <ClCompile Include="readSecondarySkill.cpp" />
     <ClCompile Include="readSecondarySkillsBitmask.cpp" />
     <ClCompile Include="readSpellsBitmask.cpp" />
+    <ClCompile Include="readTerrainsBitmask.cpp" />
     <ClCompile Include="readTile.cpp" />
     <ClCompile Include="readTimedEventBase.cpp" />
     <ClCompile Include="readTownsBitmask.cpp" />

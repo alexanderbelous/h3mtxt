@@ -31,7 +31,7 @@
 
 namespace h3m
 {
-  // TODO: move to a separate header
+  // Appears in ARTIFACT, EVENT, PANDORAS_BOX, RESOURCE, SPELL_SCROLL.
   struct Guardians
   {
     std::string message;

@@ -105,6 +105,9 @@ namespace h3m::H3JsonReader_NS
   TeamsInfo JsonReader<TeamsInfo>::operator()(const Json::Value& value) const;
 
   template<>
+  TerrainsBitmask JsonReader<TerrainsBitmask>::operator()(const Json::Value& value) const;
+
+  template<>
   Tile JsonReader<Tile>::operator()(const Json::Value& value) const;
 
   template<>
