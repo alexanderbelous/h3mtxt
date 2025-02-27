@@ -15,7 +15,6 @@ namespace h3m::H3JsonReader_NS
     // \param value - input JSON value.
     // \return @value deserialized as an object of type T.
     T operator()(const Json::Value& value) const;
-    //static_assert(false, "NotImplemented.");
   };
 
   template<>
