@@ -1,6 +1,6 @@
 #include <h3mtxt/H3JsonReader/readH3mJson.h>
-#include <h3mtxt/H3MJsonWriter/writeH3cJson.h>
-#include <h3mtxt/H3MJsonWriter/writeH3mJson.h>
+#include <h3mtxt/H3JsonWriter/writeH3cJson.h>
+#include <h3mtxt/H3JsonWriter/writeH3mJson.h>
 #include <h3mtxt/H3Reader/parseh3.h>
 #include <h3mtxt/H3Writer/writeh3c.h>
 #include <h3mtxt/H3Writer/writeh3m.h>
