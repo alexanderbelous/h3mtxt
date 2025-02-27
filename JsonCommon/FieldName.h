@@ -733,11 +733,11 @@ namespace h3m
   };
 
   template<>
-  struct FieldNames<TownsBuildingsBitmask>
+  struct FieldNames<TownBuildingsBitmask>
   {
-    // The number of bit fields in TownsBuildingsBitmask.
+    // The number of bit fields in TownBuildingsBitmask.
     static constexpr std::size_t kNumBits = 48;
-    // Name for each bit field in TownsBuildingsBitmask.
+    // Name for each bit field in TownBuildingsBitmask.
     static inline constexpr std::array<std::string_view, kNumBits> kNames
     {
       "town_hall",

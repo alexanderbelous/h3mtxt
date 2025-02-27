@@ -32,12 +32,12 @@ namespace Medea_NS
   };
 
   template<>
-  struct JsonObjectWriter<h3m::TownsBuildingsBitmask>
+  struct JsonObjectWriter<h3m::TownBuildingsBitmask>
   {
-    void operator()(FieldsWriter& out, const h3m::TownsBuildingsBitmask& buildings_bitmask) const
+    void operator()(FieldsWriter& out, const h3m::TownBuildingsBitmask& buildings_bitmask) const
     {
-      using Fields = h3m::FieldNames<h3m::TownsBuildingsBitmask>;
-      for (std::size_t i = 0; i < h3m::TownsBuildingsBitmask::kNumBits; ++i)
+      using Fields = h3m::FieldNames<h3m::TownBuildingsBitmask>;
+      for (std::size_t i = 0; i < h3m::TownBuildingsBitmask::kNumBits; ++i)
       {
         out.writeField(Fields::kNames[i], buildings_bitmask.bitset[i]);
       }

@@ -111,7 +111,7 @@ namespace h3m::H3JsonReader_NS
   TownBuildings JsonReader<TownBuildings>::operator()(const Json::Value& value) const;
 
   template<>
-  TownsBuildingsBitmask JsonReader<TownsBuildingsBitmask>::operator()(const Json::Value& value) const;
+  TownBuildingsBitmask JsonReader<TownBuildingsBitmask>::operator()(const Json::Value& value) const;
 
   template<>
   TownEvent JsonReader<TownEvent>::operator()(const Json::Value& value) const;

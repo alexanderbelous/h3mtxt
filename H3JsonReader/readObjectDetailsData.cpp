@@ -59,11 +59,11 @@ namespace h3m::H3JsonReader_NS
     return bitmask;
   }
 
-  TownsBuildingsBitmask JsonReader<TownsBuildingsBitmask>::operator()(const Json::Value& value) const
+  TownBuildingsBitmask JsonReader<TownBuildingsBitmask>::operator()(const Json::Value& value) const
   {
-    using Fields = FieldNames<TownsBuildingsBitmask>;
-    TownsBuildingsBitmask bitmask;
-    for (std::size_t i = 0; i < TownsBuildingsBitmask::kNumBits; ++i)
+    using Fields = FieldNames<TownBuildingsBitmask>;
+    TownBuildingsBitmask bitmask;
+    for (std::size_t i = 0; i < TownBuildingsBitmask::kNumBits; ++i)
     {
       bitmask.bitset.set(i, readField<bool>(value, Fields::kNames[i]));
     }

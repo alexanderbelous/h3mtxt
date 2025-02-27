@@ -296,15 +296,15 @@ namespace h3m
   struct TownBuildings
   {
     // Each bit indicates whether the building is built.
-    TownsBuildingsBitmask is_built {};
+    TownBuildingsBitmask is_built {};
     // Each bit indicates whether the building is disabled.
-    TownsBuildingsBitmask is_disabled {};
+    TownBuildingsBitmask is_disabled {};
   };
 
   struct TownEvent : TimedEventBase
   {
     // Each bit indicates whether the building gets built.
-    TownsBuildingsBitmask buildings;
+    TownBuildingsBitmask buildings;
     // Extra creatures for each creature level.
     // FYI: this is "semi-signed":
     // * The Map Editor displays numbers > 32767 as negative numbers.

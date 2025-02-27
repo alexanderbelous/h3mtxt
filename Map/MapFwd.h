@@ -110,13 +110,12 @@ namespace h3m
   // Note that there are only 70 spells in Shadow of Death, but this bitmask stores 72 bits.
   using SpellsBitmask = EnumBitmask<SpellType, 9>;
 
+  // Note that there are only 41 town building types in Shadow of Death, but this bitmask stores 48 bits.
+  using TownBuildingsBitmask = EnumBitmask<TownBuildingType, 6>;
+
   // Note that there are only 9 towns in Shadow of Death, but this bitmask stores 16 bits.
   // The last 7 bits are normally set to 0 in .h3m regardless of the meaning of the bitmask.
   using TownsBitmask = EnumBitmask<TownType, 2>;
-
-  // Note that there are only 41 town building types in Shadow of Death, but this bitmask stores 48 bits.
-  // TODO: rename to TownBuildingsBitmask.
-  using TownsBuildingsBitmask = EnumBitmask<TownBuildingType, 6>;
 
   struct EventBase;
 
