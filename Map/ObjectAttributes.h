@@ -21,7 +21,12 @@ namespace h3m
     // * The game will also report an error, but the game will not crash; the object will be rendered invisible,
     //   occupying a single tile (the coordinates of the object).
     std::string def;
+    // 1 bit per tile for a 6x8 matrix of bits (6 rows, 8 columns); A[5][7] is the bottom right corner.
+    // 1 means that the tile is passable, 0 means that it's not.
     std::array<std::uint8_t, 6> passability{};
+    // Same as above, but determines whether the tile is actionable.
+    // All standard objects only set actionability for impassable bits. If you set actionability for a passable tile,
+    // the game will treat it as impassable.
     std::array<std::uint8_t, 6> actionability{};
     // 1 bit per TerrainType: 1 if objects of this kind should be allowed to be placed
     // on the specified terrain in the Map Editor, 0 otherwise.
