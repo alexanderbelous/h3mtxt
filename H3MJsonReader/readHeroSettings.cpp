@@ -2,7 +2,7 @@
 #include <h3mtxt/JsonCommon/FieldName.h>
 #include <h3mtxt/Map/HeroSettings.h>
 
-namespace h3m
+namespace h3m::H3JsonReader_NS
 {
   HeroSettings JsonReader<HeroSettings>::operator()(const Json::Value& value) const
   {

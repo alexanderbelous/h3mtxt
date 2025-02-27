@@ -2,7 +2,7 @@
 #include <h3mtxt/JsonCommon/FieldName.h>
 #include <h3mtxt/Map/Tile.h>
 
-namespace h3m
+namespace h3m::H3JsonReader_NS
 {
   Tile JsonReader<Tile>::operator()(const Json::Value& value) const
   {

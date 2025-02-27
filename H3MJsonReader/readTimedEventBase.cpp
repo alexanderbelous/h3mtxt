@@ -1,10 +1,9 @@
 #include <h3mtxt/H3MJsonReader/H3JsonReader.h>
-
-#include <h3mtxt/JsonCommon/FieldName.h>
 #include <h3mtxt/H3MJsonReader/Utils.h>
+#include <h3mtxt/JsonCommon/FieldName.h>
 #include <h3mtxt/Map/TimedEventBase.h>
 
-namespace h3m::H3MJsonReader_NS
+namespace h3m::H3JsonReader_NS
 {
   void readTimedEventBase(TimedEventBase& event, const Json::Value& value)
   {

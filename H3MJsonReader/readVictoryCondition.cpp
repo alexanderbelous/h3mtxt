@@ -3,7 +3,7 @@
 
 #include <stdexcept>
 
-namespace h3m
+namespace h3m::H3JsonReader_NS
 {
   namespace
   {

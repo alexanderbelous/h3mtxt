@@ -48,7 +48,7 @@ namespace
       return Input{ .data = h3m::H3Reader_NS::parseh3(stream), .is_json = false };
     }
     // TODO: add support for reading .h3c.json files.
-    return Input{ .data = h3m::readH3mJson(stream), .is_json = true };
+    return Input{ .data = h3m::H3JsonReader_NS::readH3mJson(stream), .is_json = true };
   }
 
   void writeOutput(std::ostream& stream, const Input& input)

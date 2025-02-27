@@ -4,7 +4,7 @@
 
 #include <stdexcept>
 
-namespace h3m
+namespace h3m::H3JsonReader_NS
 {
   bool JsonReader<bool>::operator()(const Json::Value& value) const
   {

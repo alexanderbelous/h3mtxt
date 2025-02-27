@@ -2,7 +2,7 @@
 #include <h3mtxt/JsonCommon/FieldName.h>
 #include <h3mtxt/Map/SecondarySkill.h>
 
-namespace h3m
+namespace h3m::H3JsonReader_NS
 {
   SecondarySkill JsonReader<SecondarySkill>::operator()(const Json::Value& value) const
   {

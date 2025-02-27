@@ -3,7 +3,7 @@
 #include <h3mtxt/JsonCommon/FieldName.h>
 #include <h3mtxt/Map/CreatureStack.h>
 
-namespace h3m
+namespace h3m::H3JsonReader_NS
 {
   CreatureStack JsonReader<CreatureStack>::operator()(const Json::Value& value) const
   {

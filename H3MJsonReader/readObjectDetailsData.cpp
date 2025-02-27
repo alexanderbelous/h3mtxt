@@ -5,7 +5,7 @@
 
 #include <array>
 
-namespace h3m
+namespace h3m::H3JsonReader_NS
 {
   namespace
   {
@@ -83,7 +83,7 @@ namespace h3m
   {
     using Fields = FieldNames<TownEvent>;
     TownEvent event;
-    ::h3m::H3MJsonReader_NS::readTimedEventBase(event, value);
+    readTimedEventBase(event, value);
     readField(event.buildings, value, Fields::kBuildings);
     readField(event.creatures, value, Fields::kCreatures);
     readField(event.unknown2, value, Fields::kUnknown2);
@@ -481,39 +481,36 @@ namespace h3m
     }
   };
 
-  namespace H3MJsonReader_NS
+  namespace
   {
-    namespace
+    // Utility wrapper around fromJson<ObjectDetailsData<T>>(), which returns the result
+    // as ObjectDetailsDataVariant.
+    template<MetaObjectType T>
+    ObjectDetailsDataVariant readObjectDetailsDataAsVariant(const Json::Value& value)
     {
-      // Utility wrapper around fromJson<ObjectDetailsData<T>>(), which returns the result
-      // as ObjectDetailsDataVariant.
-      template<MetaObjectType T>
-      ObjectDetailsDataVariant readObjectDetailsDataAsVariant(const Json::Value& value)
-      {
-        return fromJson<ObjectDetailsData<T>>(value);
-      }
+      return fromJson<ObjectDetailsData<T>>(value);
     }
+  }
 
-    // Reads ObjectDetailsData for the specified MetaObjectType.
-    // \param value - input JSON value.
-    // \param meta_object_type - MetaObjectType of the object.
-    // \return the deserialized data as ObjectDetailsDataVariant.
-    ObjectDetailsDataVariant readObjectDetailsDataVariant(const Json::Value& value, MetaObjectType meta_object_type)
-    {
-      // Type of a pointer to a function that takes std::istream& and returns ObjectDetails::Data.
-      using ReadObjectDetailsDataPtr = ObjectDetailsDataVariant(*)(const Json::Value&);
-      // Generate (at compile time) an array of function pointers for each instantiation of
-      // readObjectDetailsDataAsVariant() ordered by MetaObjectType.
-      constexpr std::array<ReadObjectDetailsDataPtr, kNumMetaObjectTypes> kObjectDetailsDataReaders =
-        [] <MetaObjectType... meta_object_types>
-        (EnumSequence<MetaObjectType, meta_object_types...> seq)
-        consteval
-        {
-          return std::array<ReadObjectDetailsDataPtr, sizeof...(meta_object_types)>
-          { &readObjectDetailsDataAsVariant<meta_object_types>... };
-        }(MakeEnumSequence<MetaObjectType, kNumMetaObjectTypes>{});
-      // Invoke a function from the generated array.
-      return kObjectDetailsDataReaders.at(static_cast<std::size_t>(meta_object_type))(value);
-    }
+  // Reads ObjectDetailsData for the specified MetaObjectType.
+  // \param value - input JSON value.
+  // \param meta_object_type - MetaObjectType of the object.
+  // \return the deserialized data as ObjectDetailsDataVariant.
+  ObjectDetailsDataVariant readObjectDetailsDataVariant(const Json::Value& value, MetaObjectType meta_object_type)
+  {
+    // Type of a pointer to a function that takes std::istream& and returns ObjectDetails::Data.
+    using ReadObjectDetailsDataPtr = ObjectDetailsDataVariant(*)(const Json::Value&);
+    // Generate (at compile time) an array of function pointers for each instantiation of
+    // readObjectDetailsDataAsVariant() ordered by MetaObjectType.
+    constexpr std::array<ReadObjectDetailsDataPtr, kNumMetaObjectTypes> kObjectDetailsDataReaders =
+      [] <MetaObjectType... meta_object_types>
+      (EnumSequence<MetaObjectType, meta_object_types...> seq)
+      consteval
+      {
+        return std::array<ReadObjectDetailsDataPtr, sizeof...(meta_object_types)>
+        { &readObjectDetailsDataAsVariant<meta_object_types>... };
+      }(MakeEnumSequence<MetaObjectType, kNumMetaObjectTypes>{});
+    // Invoke a function from the generated array.
+    return kObjectDetailsDataReaders.at(static_cast<std::size_t>(meta_object_type))(value);
   }
 }

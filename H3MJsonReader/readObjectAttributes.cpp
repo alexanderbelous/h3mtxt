@@ -2,7 +2,7 @@
 #include <h3mtxt/JsonCommon/FieldName.h>
 #include <h3mtxt/Map/ObjectAttributes.h>
 
-namespace h3m
+namespace h3m::H3JsonReader_NS
 {
   ObjectAttributes JsonReader<ObjectAttributes>::operator()(const Json::Value& value) const
   {

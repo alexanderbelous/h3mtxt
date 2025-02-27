@@ -16,7 +16,7 @@
 #include <type_traits>
 #include <vector>
 
-namespace h3m
+namespace h3m::H3JsonReader_NS
 {
   namespace Detail_NS
   {

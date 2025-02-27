@@ -1,11 +1,11 @@
-#include <h3mtxt/JsonCommon/FieldName.h>
 #include <h3mtxt/H3MJsonReader/H3JsonReader.h>
 #include <h3mtxt/H3MJsonReader/Utils.h>
+#include <h3mtxt/JsonCommon/FieldName.h>
 #include <h3mtxt/Map/Map.h>
 
 #include <stdexcept>
 
-namespace h3m
+namespace h3m::H3JsonReader_NS
 {
   namespace
   {
@@ -31,7 +31,7 @@ namespace h3m
         {
           throw MissingJsonFieldError(Fields::kDetails);
         }
-        object_details.details = H3MJsonReader_NS::readObjectDetailsDataVariant(*details_json, meta_object_type);
+        object_details.details = H3JsonReader_NS::readObjectDetailsDataVariant(*details_json, meta_object_type);
       }
       return object_details;
     }

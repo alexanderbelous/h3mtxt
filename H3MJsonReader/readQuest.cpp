@@ -1,11 +1,11 @@
-#include <h3mtxt/JsonCommon/FieldName.h>
 #include <h3mtxt/H3MJsonReader/Utils.h>
+#include <h3mtxt/JsonCommon/FieldName.h>
 #include <h3mtxt/Map/Utils/EnumSequence.h>
 #include <h3mtxt/Map/Quest.h>
 
 #include <array>
 
-namespace h3m
+namespace h3m::H3JsonReader_NS
 {
   template<>
   struct JsonReader<QuestDetails<QuestType::None>>

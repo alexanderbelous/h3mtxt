@@ -3,7 +3,7 @@
 #include <h3mtxt/Map/Constants/Constants.h>
 #include <h3mtxt/Map/Utils/EnumBitmask.h>
 
-namespace h3m
+namespace h3m::H3JsonReader_NS
 {
   PlayersBitmask JsonReader<PlayersBitmask>::operator()(const Json::Value& value) const
   {

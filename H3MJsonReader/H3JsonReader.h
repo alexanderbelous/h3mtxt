@@ -6,7 +6,7 @@
 #include <json/forwards.h>
 
 // API for deserializing H3 data from JSON.
-namespace h3m  //::H3JsonReader_NS
+namespace h3m::H3JsonReader_NS
 {
   // Template class for deserializing Json::Value as the specified type.
   template<class T, class Enable = void>
@@ -122,10 +122,7 @@ namespace h3m  //::H3JsonReader_NS
 
   template<>
   VictoryCondition JsonReader<VictoryCondition>::operator()(const Json::Value& value) const;
-}
 
-namespace h3m::H3MJsonReader_NS
-{
   ObjectDetailsDataVariant readObjectDetailsDataVariant(const Json::Value& value, MetaObjectType meta_object_type);
 
   void readTimedEventBase(TimedEventBase& event, const Json::Value& value);

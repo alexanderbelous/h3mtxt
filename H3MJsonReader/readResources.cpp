@@ -2,7 +2,7 @@
 #include <h3mtxt/JsonCommon/FieldName.h>
 #include <h3mtxt/Map/Resources.h>
 
-namespace h3m
+namespace h3m::H3JsonReader_NS
 {
   Resources JsonReader<Resources>::operator()(const Json::Value& value) const
   {

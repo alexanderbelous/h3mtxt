@@ -4,7 +4,7 @@
 
 #include <iosfwd>
 
-namespace h3m
+namespace h3m::H3JsonReader_NS
 {
   // Reads a H3M map from the given JSON file.
   // \param stream - input stream containing the JSON data.
