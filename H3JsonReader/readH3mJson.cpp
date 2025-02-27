@@ -1,6 +1,6 @@
-#include <h3mtxt/H3MJsonReader/readH3mJson.h>
+#include <h3mtxt/H3JsonReader/readH3mJson.h>
 
-#include <h3mtxt/H3MJsonReader/H3JsonReader.h>
+#include <h3mtxt/H3JsonReader/H3JsonReader.h>
 
 #include <json/json.h>
 

@@ -1,5 +1,5 @@
-#include <h3mtxt/H3MJsonReader/H3JsonReader.h>
-#include <h3mtxt/H3MJsonReader/Utils.h>
+#include <h3mtxt/H3JsonReader/H3JsonReader.h>
+#include <h3mtxt/H3JsonReader/Utils.h>
 #include <h3mtxt/JsonCommon/FieldName.h>
 #include <h3mtxt/Map/TimedEventBase.h>
 

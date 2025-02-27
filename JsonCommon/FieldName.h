@@ -9,7 +9,7 @@
 namespace h3m
 {
   // Stores the names of JSON fields for the specified class.
-  // This is to ensure that H3MJsonWriter and H3MJsonReader use the same names:
+  // This is to ensure that H3MJsonWriter and H3JsonReader use the same names:
   // * A typo in a string will only be discovered at runtime, but a typo in a static
   //   data member will cause a compilation error.
   // * This should also guarantee that these strings are only stored once in the binary.

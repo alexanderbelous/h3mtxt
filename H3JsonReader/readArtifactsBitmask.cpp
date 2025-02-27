@@ -1,4 +1,4 @@
-#include <h3mtxt/H3MJsonReader/Utils.h>
+#include <h3mtxt/H3JsonReader/Utils.h>
 #include <h3mtxt/Map/Utils/EnumBitmask.h>
 
 namespace h3m::H3JsonReader_NS

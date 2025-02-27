@@ -1,4 +1,4 @@
-#include <h3mtxt/H3MJsonReader/Utils.h>
+#include <h3mtxt/H3JsonReader/Utils.h>
 #include <h3mtxt/Map/VictoryCondition.h>
 
 #include <stdexcept>
