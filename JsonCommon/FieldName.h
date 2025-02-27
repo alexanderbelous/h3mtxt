@@ -284,7 +284,7 @@ namespace h3m
     static inline constexpr std::string_view kPlayers = "players";
     static inline constexpr std::string_view kAdditionalInfo = "additional_info";
     static inline constexpr std::string_view kTiles = "tiles";
-    static inline constexpr std::string_view kObjectsAttributes = "objects_attributes";
+    static inline constexpr std::string_view kObjectsTemplates = "objects_templates";
     static inline constexpr std::string_view kObjectsDetails = "objects_details";
     static inline constexpr std::string_view kGlobalEvents = "global_events";
     static inline constexpr std::string_view kPadding = "padding";
@@ -328,7 +328,7 @@ namespace h3m
   };
 
   template<>
-  struct FieldNames<ObjectAttributes>
+  struct FieldNames<ObjectTemplate>
   {
     static inline constexpr std::string_view kDef = "def";
     static inline constexpr std::string_view kPassability = "passability";

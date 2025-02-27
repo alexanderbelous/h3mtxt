@@ -5,7 +5,7 @@
 #include <h3mtxt/Map/GlobalEvent.h>
 #include <h3mtxt/Map/MapAdditionalInfo.h>
 #include <h3mtxt/Map/MapBasicInfo.h>
-#include <h3mtxt/Map/ObjectAttributes.h>
+#include <h3mtxt/Map/ObjectTemplate.h>
 #include <h3mtxt/Map/ObjectDetails.h>
 #include <h3mtxt/Map/PlayerSpecs.h>
 #include <h3mtxt/Map/Utils/ReservedData.h>
@@ -33,9 +33,12 @@ struct Map
   // The number of elements should be (has_two_levels ? 2 : 1) * map_size * map_size.
   // Tile (x, y, z) has the index ((z * map_size + y) * map_size + x).
   std::vector<Tile> tiles;
-  // Object properties are split into two structures: attributes (common for all objects of the same kind)
-  // and details (as many as there are objects on map).
-  std::vector<ObjectAttributes> objects_attributes;
+  // "Templates" for objects on the Adventure Map.
+  // .h3m splits objects' properties into 2 structures: a template (called "Advanced Properties"
+  // in Unleashed Editor), which can be shared between multiple objects, and everything else
+  // (called "Properties" in the Map Editor and Unleashed Editor).
+  std::vector<ObjectTemplate> objects_templates;
+  // Objects on the Adventure Map.
   std::vector<ObjectDetails> objects_details;
   // Global events on this map ("Map Specifications"/"Timed Events" tab in the Editor).
   std::vector<GlobalEvent> global_events;

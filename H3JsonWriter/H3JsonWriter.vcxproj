@@ -105,7 +105,7 @@
     <ClInclude Include="writeMap.h" />
     <ClInclude Include="writeMapAdditionalInfo.h" />
     <ClInclude Include="writeMapBasicInfo.h" />
-    <ClInclude Include="writeObjectAttributes.h" />
+    <ClInclude Include="writeObjectTemplate.h" />
     <ClInclude Include="writeObjectDetailsData.h" />
     <ClInclude Include="writePlayersBitmask.h" />
     <ClInclude Include="writePlayerSpecs.h" />

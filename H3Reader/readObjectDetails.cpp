@@ -1,7 +1,7 @@
 #include <h3mtxt/H3Reader/H3Reader.h>
 #include <h3mtxt/H3Reader/readSecondarySkillsVector.h>
 #include <h3mtxt/H3Reader/Utils.h>
-#include <h3mtxt/Map/ObjectAttributes.h>
+#include <h3mtxt/Map/ObjectTemplate.h>
 #include <h3mtxt/Map/ObjectDetails.h>
 #include <h3mtxt/Map/Utils/EnumSequence.h>
 
@@ -490,8 +490,8 @@ namespace h3m::H3Reader_NS
   }
 
   ObjectDetails readObjectDetails(std::istream& stream,
-                                  const ObjectAttributes* objects_attributes,
-                                  std::size_t num_objects_attributes)
+                                  const ObjectTemplate* objects_templates,
+                                  std::size_t num_objects_templates)
   {
     ObjectDetails result;
     result.x = readInt<std::uint8_t>(stream);
@@ -500,12 +500,12 @@ namespace h3m::H3Reader_NS
     result.kind = readInt<std::uint32_t>(stream);
     result.unknown = readReservedData<5>(stream);
 
-    if (result.kind >= num_objects_attributes)
+    if (result.kind >= num_objects_templates)
     {
       throw std::runtime_error("readObjectDetails(): invalid object kind.");
     }
-    const ObjectAttributes& object_attributes = objects_attributes[result.kind];
-    const MetaObjectType meta_object_type = getMetaObjectType(object_attributes.object_class);
+    const ObjectTemplate& object_template = objects_templates[result.kind];
+    const MetaObjectType meta_object_type = getMetaObjectType(object_template.object_class);
     result.details = readObjectDetailsDataVariant(stream, meta_object_type);
     return result;
   }

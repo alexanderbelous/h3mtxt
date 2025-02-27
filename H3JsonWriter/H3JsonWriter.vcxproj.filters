@@ -47,7 +47,7 @@
     <ClInclude Include="writeLossCondition.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="writeObjectAttributes.h">
+    <ClInclude Include="writeObjectTemplate.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="writeTile.h">

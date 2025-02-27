@@ -145,7 +145,7 @@ namespace h3m
 
   struct MessageAndTreasure;
 
-  struct ObjectAttributes;
+  struct ObjectTemplate;
 
   struct ObjectDetails;
 

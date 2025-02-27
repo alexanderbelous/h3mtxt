@@ -4,7 +4,7 @@
 #include <h3mtxt/Fun/generateMapWithAllRiverSprites.h>
 #include <h3mtxt/Fun/generatePlayerSpecs.h>
 #include <h3mtxt/Fun/HeroesAvailability.h>
-#include <h3mtxt/Fun/makeDefaultObjectAttributes.h>
+#include <h3mtxt/Fun/makeStandardObjectTemplate.h>
 #include <h3mtxt/Fun/Util.h>
 #include <h3mtxt/H3Writer/writeh3m.h>
 #include <h3mtxt/Map/Map.h>
@@ -139,7 +139,7 @@ namespace
     constexpr std::uint32_t kSpellScrollKind = 1;
     constexpr std::uint32_t kPandorasBoxKind = 2;
     // Add heroes.
-    map.objects_attributes.push_back(h3m::ObjectAttributes{
+    map.objects_templates.push_back(h3m::ObjectTemplate{
       .def = "ah00_e.def",
       .passability {255, 255, 255, 255, 255, 191},
       .actionability {0, 0, 0, 0, 0, 64},
@@ -206,7 +206,7 @@ namespace
       }
     });
     // Add a spell scroll.
-    map.objects_attributes.push_back(h3m::makeDefaultObjectAttributes(h3m::ObjectClass::SPELL_SCROLL));
+    map.objects_templates.push_back(h3m::makeStandardObjectTemplate(h3m::ObjectClass::SPELL_SCROLL));
     map.objects_details.push_back(h3m::ObjectDetails{
       .x = 2,
       .y = 2,
@@ -217,7 +217,7 @@ namespace
       }
     });
     // Add a Pandora's Box.
-    map.objects_attributes.push_back(h3m::makeDefaultObjectAttributes(h3m::ObjectClass::PANDORAS_BOX));
+    map.objects_templates.push_back(h3m::makeStandardObjectTemplate(h3m::ObjectClass::PANDORAS_BOX));
     map.objects_details.push_back(h3m::ObjectDetails{
       .x = 2,
       .y = 3,
@@ -232,19 +232,19 @@ namespace
       }
     });
     // Add a Scholar.
-    map.objects_attributes.push_back(h3m::makeDefaultObjectAttributes(h3m::ObjectClass::SCHOLAR));
+    map.objects_templates.push_back(h3m::makeStandardObjectTemplate(h3m::ObjectClass::SCHOLAR));
     map.objects_details.push_back(h3m::ObjectDetails{
       .x = 2,
       .y = 4,
       .z = 0,
-      .kind = static_cast<std::uint32_t>(map.objects_attributes.size() - 1),
+      .kind = static_cast<std::uint32_t>(map.objects_templates.size() - 1),
       .details = h3m::ObjectDetailsData<h3m::MetaObjectType::SCHOLAR> {
         .reward_type = h3m::ScholarRewardType::SecondarySkill,
         .reward_value = static_cast<std::uint8_t>(h3m::SecondarySkillType::Mysticism)
       }
     });
     // Add an Event.
-    map.objects_attributes.push_back(h3m::makeDefaultObjectAttributes(h3m::ObjectClass::EVENT));
+    map.objects_templates.push_back(h3m::makeStandardObjectTemplate(h3m::ObjectClass::EVENT));
     {
       h3m::ObjectDetailsData<h3m::MetaObjectType::EVENT> event_details{
         h3m::EventBase{
@@ -257,11 +257,11 @@ namespace
         .x = 0,
         .y = 1,
         .z = 0,
-        .kind = static_cast<std::uint32_t>(map.objects_attributes.size() - 1),
+        .kind = static_cast<std::uint32_t>(map.objects_templates.size() - 1),
         .details = std::move(event_details)
       });
     }
-    map.objects_attributes.push_back(h3m::makeDefaultObjectAttributes(h3m::ObjectClass::EVENT));
+    map.objects_templates.push_back(h3m::makeStandardObjectTemplate(h3m::ObjectClass::EVENT));
     {
       h3m::ObjectDetailsData<h3m::MetaObjectType::EVENT> event_details{
         h3m::EventBase{
@@ -276,17 +276,17 @@ namespace
         .x = 0,
         .y = 2,
         .z = 0,
-        .kind = static_cast<std::uint32_t>(map.objects_attributes.size() - 1),
+        .kind = static_cast<std::uint32_t>(map.objects_templates.size() - 1),
         .details = std::move(event_details)
         });
     }
     // Add a Seer's Hut.
-    map.objects_attributes.push_back(h3m::makeDefaultObjectAttributes(h3m::ObjectClass::SEER_HUT));
+    map.objects_templates.push_back(h3m::makeStandardObjectTemplate(h3m::ObjectClass::SEER_HUT));
     map.objects_details.push_back(h3m::ObjectDetails{
       .x = 4,
       .y = 5,
       .z = 0,
-      .kind = static_cast<std::uint32_t>(map.objects_attributes.size() - 1),
+      .kind = static_cast<std::uint32_t>(map.objects_templates.size() - 1),
       .details = h3m::ObjectDetailsData<h3m::MetaObjectType::SEERS_HUT> {
         .quest {
           .details = h3m::QuestDetails<h3m::QuestType::BeHero> {

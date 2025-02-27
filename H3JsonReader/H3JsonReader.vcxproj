@@ -102,7 +102,7 @@
     <ClCompile Include="readMap.cpp" />
     <ClCompile Include="readMapAdditionalInfo.cpp" />
     <ClCompile Include="readMapBasicInfo.cpp" />
-    <ClCompile Include="readObjectAttributes.cpp" />
+    <ClCompile Include="readObjectTemplate.cpp" />
     <ClCompile Include="readObjectDetailsData.cpp" />
     <ClCompile Include="readPlayersBitmask.cpp" />
     <ClCompile Include="readPlayerSpecs.cpp" />

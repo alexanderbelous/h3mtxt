@@ -27,7 +27,7 @@
     <ClCompile Include="generatePlayerSpecs.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="makeDefaultObjectAttributes.cpp">
+    <ClCompile Include="makeStandardObjectTemplate.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="makeUltimateLava.cpp">
@@ -56,7 +56,7 @@
     <ClInclude Include="generatePlayerSpecs.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="makeDefaultObjectAttributes.h">
+    <ClInclude Include="makeStandardObjectTemplate.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="makeUltimateLava.h">

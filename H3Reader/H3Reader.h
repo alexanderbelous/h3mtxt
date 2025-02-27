@@ -35,18 +35,18 @@ namespace h3m::H3Reader_NS
 
   MapBasicInfo readMapBasicInfo(std::istream& stream);
 
-  ObjectAttributes readObjectAttributes(std::istream& stream);
+  ObjectTemplate readObjectTemplate(std::istream& stream);
 
   // Reads a single ObjectDetails entry from the stream.
   // \param stream - input stream.
-  // \param objects_attributes - pointer to the 0th ObjectAttributes.
+  // \param objects_templates - pointer to the 0th ObjectTemplate.
   //        I'd very much prefer to pass it via std::span, but std::span currently
   //        doesn't allow incomplete types.
-  // \param num_objects_attributres - the total number of ObjectAttributes.
+  // \param num_objects_templates - the number of elements in @objects_templates array.
   // \return the parsed ObjectDetails.
   ObjectDetails readObjectDetails(std::istream& stream,
-                                  const ObjectAttributes* objects_attributes,
-                                  std::size_t num_objects_attributes);
+                                  const ObjectTemplate* objects_templates,
+                                  std::size_t num_objects_templates);
 
   PlayerSpecs readPlayerSpecs(std::istream& stream);
 

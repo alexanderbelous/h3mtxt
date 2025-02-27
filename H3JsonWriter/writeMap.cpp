@@ -6,7 +6,7 @@
 #include <h3mtxt/H3JsonWriter/writeGlobalEvent.h>
 #include <h3mtxt/H3JsonWriter/writeMapBasicInfo.h>
 #include <h3mtxt/H3JsonWriter/writeMapAdditionalInfo.h>
-#include <h3mtxt/H3JsonWriter/writeObjectAttributes.h>
+#include <h3mtxt/H3JsonWriter/writeObjectTemplate.h>
 #include <h3mtxt/H3JsonWriter/writeObjectDetailsData.h>
 #include <h3mtxt/H3JsonWriter/writePlayerSpecs.h>
 #include <h3mtxt/H3JsonWriter/writeTile.h>
@@ -102,32 +102,32 @@ namespace Medea_NS
     };
 
     // Wrapper for std::vector<ObjectDetails> that also keeps a reference to
-    // std::vector<h3m::ObjectAttributes>.
+    // std::vector<h3m::ObjectTemplate>.
     class H3MObjects
     {
     public:
-      constexpr H3MObjects(const std::vector<h3m::ObjectAttributes>& objects_attributes,
+      constexpr H3MObjects(const std::vector<h3m::ObjectTemplate>& objects_templates,
                            const std::vector<h3m::ObjectDetails>& objects_details) noexcept:
-        attributes(objects_attributes),
+        objects_templates(objects_templates),
         details(objects_details)
       {}
 
-      const std::vector<h3m::ObjectAttributes>& attributes;
+      const std::vector<h3m::ObjectTemplate>& objects_templates;
       const std::vector<h3m::ObjectDetails>& details;
     };
 
     // Wrapper for ObjectDetails that also keeps a reference to the corresponding
-    // ObjectAttributes.
+    // ObjectTemplate.
     class H3MObject
     {
     public:
-      constexpr H3MObject(const h3m::ObjectAttributes& object_attributes,
+      constexpr H3MObject(const h3m::ObjectTemplate& object_template,
                           const h3m::ObjectDetails& object_details) noexcept:
-        attributes(object_attributes),
+        object_template(object_template),
         details(object_details)
       {}
 
-      const h3m::ObjectAttributes& attributes;
+      const h3m::ObjectTemplate& object_template;
       const h3m::ObjectDetails& details;
     };
   }
@@ -184,7 +184,7 @@ namespace Medea_NS
     {
       using Fields = h3m::FieldNames<h3m::ObjectDetails>;
 
-      const h3m::ObjectClass object_class = object.attributes.object_class;
+      const h3m::ObjectClass object_class = object.object_template.object_class;
       const h3m::MetaObjectType meta_object_type = object.details.details.getMetaObjectType();
       const std::string_view object_class_name = h3m::getEnumString(object_class);
       const std::string_view meta_object_type_name = h3m::getEnumString(meta_object_type);
@@ -236,8 +236,8 @@ namespace Medea_NS
       {
         array_writer.writeComment(comment_builder.build("Object ", i));
         const h3m::ObjectDetails& details = objects.details[i];
-        const h3m::ObjectAttributes& attributes = objects.attributes.at(details.kind);
-        array_writer.writeElement(H3MObject(attributes, details));
+        const h3m::ObjectTemplate& object_template = objects.objects_templates.at(details.kind);
+        array_writer.writeElement(H3MObject(object_template, details));
       }
     }
   };
@@ -252,9 +252,9 @@ namespace Medea_NS
     out.writeField(FieldNames::kAdditionalInfo, map.additional_info);
     // Not writing tiles directly because I want to write each tile's coordinates in a comment.
     out.writeField(FieldNames::kTiles, TilesWithMapSize(map.tiles, map.basic_info.map_size, map.basic_info.has_two_levels));
-    out.writeField(FieldNames::kObjectsAttributes, map.objects_attributes);
+    out.writeField(FieldNames::kObjectsTemplates, map.objects_templates);
     // Not writing object_details directly because I want to write ObjectClass for each object in a comment.
-    out.writeField(FieldNames::kObjectsDetails, H3MObjects(map.objects_attributes, map.objects_details));
+    out.writeField(FieldNames::kObjectsDetails, H3MObjects(map.objects_templates, map.objects_details));
     out.writeField(FieldNames::kGlobalEvents, map.global_events);
     out.writeField(FieldNames::kPadding, map.padding);
   }

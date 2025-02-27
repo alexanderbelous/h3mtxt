@@ -1,16 +1,16 @@
-#include <h3mtxt/Fun/makeDefaultObjectAttributes.h>
+#include <h3mtxt/Fun/makeStandardObjectTemplate.h>
 
 #include <string_view>
 #include <stdexcept>
 
 namespace h3m
 {
-  ObjectAttributes makeDefaultObjectAttributes(ObjectClass object_class)
+  ObjectTemplate makeStandardObjectTemplate(ObjectClass object_class)
   {
     switch (object_class)
     {
     case ObjectClass::EVENT:
-      return ObjectAttributes
+      return ObjectTemplate
       {
         .def = "AVZevnt0.def",
         .passability {255, 255, 255, 255, 255, 127},
@@ -23,7 +23,7 @@ namespace h3m
         .is_ground = 0
       };
     case ObjectClass::PANDORAS_BOX:
-      return ObjectAttributes
+      return ObjectTemplate
       {
         .def = "AVA0128.def",
         .passability {255, 255, 255, 255, 255, 127},
@@ -36,7 +36,7 @@ namespace h3m
         .is_ground = 0
       };
     case ObjectClass::SCHOLAR:
-      return h3m::ObjectAttributes{
+      return h3m::ObjectTemplate{
         .def = "AVXschl0.def",
         .passability {255, 255, 255, 255, 255, 127},
         .actionability {0, 0, 0, 0, 0, 128},
@@ -48,7 +48,7 @@ namespace h3m
         .is_ground = 0
       };
     case ObjectClass::SEER_HUT:
-      return h3m::ObjectAttributes{
+      return h3m::ObjectTemplate{
         .def = "AVXseer0.def",
         .passability {255, 255, 255, 255, 255, 191},
         .actionability {0, 0, 0, 0, 0, 64},
@@ -60,7 +60,7 @@ namespace h3m
         .is_ground = 0
       };
     case ObjectClass::SPELL_SCROLL:
-      return h3m::ObjectAttributes{
+      return h3m::ObjectTemplate{
         .def = "AVA0001.def",
         .passability {255, 255, 255, 255, 255, 127},
         .actionability {0, 0, 0, 0, 0, 128},
@@ -72,7 +72,7 @@ namespace h3m
         .is_ground = 0
       };
     default:
-      throw std::logic_error("makeDefaultObjectAttributes(): NotImplemented.");
+      throw std::logic_error("makeStandardObjectTemplate(): NotImplemented.");
     }
   }
 }

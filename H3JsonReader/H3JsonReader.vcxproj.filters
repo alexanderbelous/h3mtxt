@@ -65,7 +65,7 @@
     <ClCompile Include="readGlobalEvent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="readObjectAttributes.cpp">
+    <ClCompile Include="readObjectTemplate.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="readHeroSettings.cpp">

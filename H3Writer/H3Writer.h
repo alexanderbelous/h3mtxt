@@ -58,7 +58,7 @@ namespace h3m::H3Writer_NS
   void H3Writer<MapBasicInfo>::operator()(std::ostream& stream, const MapBasicInfo& value) const;
 
   template<>
-  void H3Writer<ObjectAttributes>::operator()(std::ostream& stream, const ObjectAttributes& value) const;
+  void H3Writer<ObjectTemplate>::operator()(std::ostream& stream, const ObjectTemplate& value) const;
 
   template<>
   void H3Writer<ObjectDetails>::operator()(std::ostream& stream, const ObjectDetails& object_details) const;

@@ -63,7 +63,7 @@ namespace h3m::H3JsonReader_NS
   MessageAndTreasure JsonReader<MessageAndTreasure>::operator()(const Json::Value& value) const;
 
   template<>
-  ObjectAttributes JsonReader<ObjectAttributes>::operator()(const Json::Value& value) const;
+  ObjectTemplate JsonReader<ObjectTemplate>::operator()(const Json::Value& value) const;
 
   template<>
   PlayerSpecs JsonReader<PlayerSpecs>::operator()(const Json::Value & value) const;

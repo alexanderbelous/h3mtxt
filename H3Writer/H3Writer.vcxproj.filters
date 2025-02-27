@@ -62,7 +62,7 @@
     <ClCompile Include="writeMapAdditionalInfo.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="writeObjectAttributes.cpp">
+    <ClCompile Include="writeObjectTemplate.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="writePlayerSpecs.cpp">

@@ -57,7 +57,7 @@ namespace h3m
         }
       }
     }
-    map.objects_attributes.push_back(ObjectAttributes{
+    map.objects_templates.push_back(ObjectTemplate{
       .def = "adcfra.def",
       .object_class = ObjectClass::CAMPFIRE,
       .object_subclass = 0,

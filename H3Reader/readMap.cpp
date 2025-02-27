@@ -232,9 +232,9 @@ namespace h3m::H3Reader_NS
     return tile;
   }
 
-  ObjectAttributes readObjectAttributes(std::istream& stream)
+  ObjectTemplate readObjectTemplate(std::istream& stream)
   {
-    ObjectAttributes result;
+    ObjectTemplate result;
     result.def = readString(stream);
     result.passability = readByteArray<6>(stream);
     result.actionability = readByteArray<6>(stream);
@@ -276,12 +276,12 @@ namespace h3m::H3Reader_NS
     {
       map.tiles.push_back(readTile(stream));
     }
-    // Read objects' attributes.
+    // Read objects' templates.
     const std::uint32_t num_object_kinds = readInt<std::uint32_t>(stream);
-    map.objects_attributes.reserve(num_object_kinds);
+    map.objects_templates.reserve(num_object_kinds);
     for (std::uint32_t i = 0; i < num_object_kinds; ++i)
     {
-      map.objects_attributes.push_back(readObjectAttributes(stream));
+      map.objects_templates.push_back(readObjectTemplate(stream));
     }
     // Read objects' details.
     const std::uint32_t num_objects = readInt<std::uint32_t>(stream);
@@ -289,8 +289,8 @@ namespace h3m::H3Reader_NS
     for (std::uint32_t i = 0; i < num_objects; ++i)
     {
       map.objects_details.push_back(readObjectDetails(stream,
-                                                      map.objects_attributes.data(),
-                                                      map.objects_attributes.size()));
+                                                      map.objects_templates.data(),
+                                                      map.objects_templates.size()));
     }
     // Read global events.
     const std::uint32_t num_global_events = readInt<std::uint32_t>(stream);

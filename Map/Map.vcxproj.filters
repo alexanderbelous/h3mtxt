@@ -114,9 +114,6 @@
     <ClInclude Include="MapBasicInfo.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ObjectAttributes.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="ObjectDetails.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -191,6 +188,9 @@
     </ClInclude>
     <ClInclude Include="Constants\TownBuildingType.h">
       <Filter>Header Files\Constants</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectTemplate.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

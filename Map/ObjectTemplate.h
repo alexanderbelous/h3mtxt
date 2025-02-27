@@ -13,7 +13,7 @@
 
 namespace h3m
 {
-  struct ObjectAttributes
+  struct ObjectTemplate
   {
     // Name of the *.def sprite to use.
     // If this is an empty string:

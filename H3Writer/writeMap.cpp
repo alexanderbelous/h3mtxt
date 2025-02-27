@@ -21,20 +21,20 @@ namespace h3m::H3Writer_NS
       {
         throw std::runtime_error("H3Writer<Map>: Wrong number of elements in Map::tiles.");
       }
-      // Check that each ObjectDetails refers to an existing ObjectAttributes and
+      // Check that each ObjectDetails refers to an existing ObjectTemplate and
       // has the same MetaObjectType.
       for (const ObjectDetails& object_details : map.objects_details)
       {
-        if (object_details.kind >= map.objects_attributes.size())
+        if (object_details.kind >= map.objects_templates.size())
         {
           throw std::runtime_error("H3Writer<Map>: ObjectDetails::kind is out of range.");
         }
-        const ObjectAttributes& object_attributes = map.objects_attributes[object_details.kind];
-        const MetaObjectType meta_object_type_expected = getMetaObjectType(object_attributes.object_class);
+        const ObjectTemplate& object_template = map.objects_templates[object_details.kind];
+        const MetaObjectType meta_object_type_expected = getMetaObjectType(object_template.object_class);
         if (object_details.details.getMetaObjectType() != meta_object_type_expected)
         {
           throw std::runtime_error("H3Writer<Map>: ObjectDetails::details has MetaObjectType different "
-                                   "from the ObjectAttributes it refers to.");
+                                   "from the ObjectTemplate it refers to.");
         }
       }
     }
@@ -53,7 +53,7 @@ namespace h3m::H3Writer_NS
     {
       writeData(stream, tile);
     }
-    writeVector<std::uint32_t>(stream, map.objects_attributes);
+    writeVector<std::uint32_t>(stream, map.objects_templates);
     writeVector<std::uint32_t>(stream, map.objects_details);
     writeVector<std::uint32_t>(stream, map.global_events);
     writeData(stream, map.padding);

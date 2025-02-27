@@ -1,10 +1,10 @@
 #include <h3mtxt/H3Writer/H3Writer.h>
 #include <h3mtxt/H3Writer/Utils.h>
-#include <h3mtxt/Map/ObjectAttributes.h>
+#include <h3mtxt/Map/ObjectTemplate.h>
 
 namespace h3m::H3Writer_NS
 {
-  void H3Writer<ObjectAttributes>::operator()(std::ostream& stream, const ObjectAttributes& value) const
+  void H3Writer<ObjectTemplate>::operator()(std::ostream& stream, const ObjectTemplate& value) const
   {
     writeData(stream, value.def);
     writeData(stream, value.passability);

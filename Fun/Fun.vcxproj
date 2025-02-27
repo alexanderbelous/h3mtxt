@@ -92,7 +92,7 @@
     <ClCompile Include="generateMapWithAllRiverSprites.cpp" />
     <ClCompile Include="generateMapWithAllTerrainSprites.cpp" />
     <ClCompile Include="generatePlayerSpecs.cpp" />
-    <ClCompile Include="makeDefaultObjectAttributes.cpp" />
+    <ClCompile Include="makeStandardObjectTemplate.cpp" />
     <ClCompile Include="makeUltimateLava.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -114,7 +114,7 @@
     <ClInclude Include="generateMapWithAllTerrainSprites.h" />
     <ClInclude Include="generatePlayerSpecs.h" />
     <ClInclude Include="HeroesAvailability.h" />
-    <ClInclude Include="makeDefaultObjectAttributes.h" />
+    <ClInclude Include="makeStandardObjectTemplate.h" />
     <ClInclude Include="makeUltimateLava.h" />
     <ClInclude Include="Util.h" />
   </ItemGroup>

@@ -7,7 +7,7 @@
 
 namespace h3m
 {
-  // ObjectDetails in H3M are different depending on ObjectAttributes.object_class.
+  // ObjectDetails in H3M are different depending on ObjectTemplate.object_class.
   // However, a lot of object classes have the same details, so another layer of abstraction
   // is added here - an enum which groups object classes that have the same details.
   //
