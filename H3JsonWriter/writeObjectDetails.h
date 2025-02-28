@@ -2,19 +2,10 @@
 
 #include <h3mtxt/JsonCommon/FieldName.h>
 #include <h3mtxt/Map/ObjectDetails.h>
+#include <h3mtxt/H3JsonWriter/API.h>
 #include <h3mtxt/H3JsonWriter/getEnumString.h>
 #include <h3mtxt/H3JsonWriter/H3JsonWriter.h>
-#include <h3mtxt/H3JsonWriter/writeCreatureStack.h>
-#include <h3mtxt/H3JsonWriter/writeHeroArtifacts.h>
-#include <h3mtxt/H3JsonWriter/writePrimarySkills.h>
-#include <h3mtxt/H3JsonWriter/writeQuest.h>
-#include <h3mtxt/H3JsonWriter/writeResources.h>
 #include <h3mtxt/H3JsonWriter/writeReward.h>
-#include <h3mtxt/H3JsonWriter/writeSecondarySkill.h>
-#include <h3mtxt/H3JsonWriter/writeSecondarySkillsBitmask.h>
-#include <h3mtxt/H3JsonWriter/writeSpellsBitmask.h>
-#include <h3mtxt/H3JsonWriter/writeTimedEventBase.h>
-#include <h3mtxt/H3JsonWriter/writeTownsBitmask.h>
 
 namespace Medea_NS
 {

@@ -30,15 +30,60 @@
     <ClCompile Include="writeH3cJson.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="writeArtifactsBitmask.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="writeCreatureStack.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="writeHeroArtifacts.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="writePrimarySkills.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="writeResources.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="writeTile.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="writeSecondarySkill.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="writeMapBasicInfo.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="writeObjectTemplate.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="writePlayersBitmask.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="writeGlobalEvent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="writeTownsBitmask.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="writePlayerSpecs.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="writeSecondarySkillsBitmask.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="writeSpellsBitmask.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="writeQuest.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="writeMapAdditionalInfo.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="writeH3mJson.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="writeMapBasicInfo.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="writePlayerSpecs.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="writeVictoryCondition.h">
@@ -47,64 +92,16 @@
     <ClInclude Include="writeLossCondition.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="writeObjectTemplate.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="writeTile.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="writePrimarySkills.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="writeHeroArtifacts.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="writeSecondarySkill.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="writeMapAdditionalInfo.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="writeSecondarySkillsBitmask.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="writeSpellsBitmask.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="writeTimedEventBase.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="writeGlobalEvent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="writeResources.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="writePlayersBitmask.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="writeObjectDetails.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="getEnumString.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="writeQuest.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="writeCreatureStack.h">
+    <ClInclude Include="writeQuestDetails.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="writeReward.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="writeTownsBitmask.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="writeArtifactsBitmask.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="writeMap.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="writeStartingBonus.h">
@@ -120,6 +117,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="H3JsonWriter.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="API.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

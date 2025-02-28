@@ -1,5 +1,6 @@
 #pragma once
 
+#include <h3mtxt/JsonWriter/JsonWriterFwd.h>
 #include <h3mtxt/JsonWriter/JsonDocumentWriter.h>
 #include <h3mtxt/JsonWriter/ScopedArrayWriter.h>
 #include <h3mtxt/JsonWriter/ScopedObjectWriter.h>
@@ -28,17 +29,6 @@ namespace Medea_NS
       }
     }
   }
-
-  // Class for writing *values* with indent.
-  //
-  // Native specializations support some common types (e.g., std::string, integer types, std::vector).
-  // You can specialize it for other types.
-  // The default implementation assumes that T is a structure and invokes JsonObjectWriter<T>.
-  template<class T, class Enable>
-  struct JsonValueWriter
-  {
-    void operator()(JsonDocumentWriter& out, const T& value) const;
-  };
 
   // Writes the specified value using JsonValueWriter.
   //

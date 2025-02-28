@@ -86,41 +86,41 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="getEnumString.cpp" />
+    <ClCompile Include="writeArtifactsBitmask.cpp" />
+    <ClCompile Include="writeCreatureStack.cpp" />
+    <ClCompile Include="writeGlobalEvent.cpp" />
     <ClCompile Include="writeH3cJson.cpp" />
     <ClCompile Include="writeH3mJson.cpp" />
+    <ClCompile Include="writeHeroArtifacts.cpp" />
     <ClCompile Include="writeMap.cpp" />
+    <ClCompile Include="writeMapAdditionalInfo.cpp" />
+    <ClCompile Include="writeMapBasicInfo.cpp" />
+    <ClCompile Include="writeObjectTemplate.cpp" />
+    <ClCompile Include="writePlayersBitmask.cpp" />
+    <ClCompile Include="writePlayerSpecs.cpp" />
+    <ClCompile Include="writePrimarySkills.cpp" />
+    <ClCompile Include="writeQuest.cpp" />
+    <ClCompile Include="writeResources.cpp" />
+    <ClCompile Include="writeSecondarySkill.cpp" />
+    <ClCompile Include="writeSecondarySkillsBitmask.cpp" />
+    <ClCompile Include="writeSpellsBitmask.cpp" />
+    <ClCompile Include="writeTile.cpp" />
     <ClCompile Include="writeTimedEventBase.cpp" />
+    <ClCompile Include="writeTownsBitmask.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="API.h" />
     <ClInclude Include="getEnumString.h" />
     <ClInclude Include="H3JsonWriter.h" />
-    <ClInclude Include="writeArtifactsBitmask.h" />
     <ClInclude Include="writeCampaign.h" />
-    <ClInclude Include="writeCreatureStack.h" />
-    <ClInclude Include="writeGlobalEvent.h" />
     <ClInclude Include="writeH3cJson.h" />
     <ClInclude Include="writeH3mJson.h" />
-    <ClInclude Include="writeHeroArtifacts.h" />
     <ClInclude Include="writeLossCondition.h" />
-    <ClInclude Include="writeMap.h" />
-    <ClInclude Include="writeMapAdditionalInfo.h" />
-    <ClInclude Include="writeMapBasicInfo.h" />
-    <ClInclude Include="writeObjectTemplate.h" />
     <ClInclude Include="writeObjectDetails.h" />
-    <ClInclude Include="writePlayersBitmask.h" />
-    <ClInclude Include="writePlayerSpecs.h" />
-    <ClInclude Include="writePrimarySkills.h" />
-    <ClInclude Include="writeQuest.h" />
-    <ClInclude Include="writeResources.h" />
+    <ClInclude Include="writeQuestDetails.h" />
     <ClInclude Include="writeReward.h" />
-    <ClInclude Include="writeSecondarySkill.h" />
-    <ClInclude Include="writeSecondarySkillsBitmask.h" />
-    <ClInclude Include="writeSpellsBitmask.h" />
     <ClInclude Include="writeStartingBonus.h" />
     <ClInclude Include="writeStartingOptions.h" />
-    <ClInclude Include="writeTile.h" />
-    <ClInclude Include="writeTimedEventBase.h" />
-    <ClInclude Include="writeTownsBitmask.h" />
     <ClInclude Include="writeVictoryCondition.h" />
   </ItemGroup>
   <ItemGroup>

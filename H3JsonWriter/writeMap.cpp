@@ -1,15 +1,9 @@
-#include <h3mtxt/H3JsonWriter/writeMap.h>
-
-#include <h3mtxt/JsonCommon/FieldName.h>
+#include <h3mtxt/H3JsonWriter/API.h>
 #include <h3mtxt/H3JsonWriter/getEnumString.h>
 #include <h3mtxt/H3JsonWriter/H3JsonWriter.h>
-#include <h3mtxt/H3JsonWriter/writeGlobalEvent.h>
-#include <h3mtxt/H3JsonWriter/writeMapBasicInfo.h>
-#include <h3mtxt/H3JsonWriter/writeMapAdditionalInfo.h>
-#include <h3mtxt/H3JsonWriter/writeObjectTemplate.h>
 #include <h3mtxt/H3JsonWriter/writeObjectDetails.h>
-#include <h3mtxt/H3JsonWriter/writePlayerSpecs.h>
-#include <h3mtxt/H3JsonWriter/writeTile.h>
+#include <h3mtxt/JsonCommon/FieldName.h>
+#include <h3mtxt/Map/Map.h>
 
 #include <span>
 #include <sstream>

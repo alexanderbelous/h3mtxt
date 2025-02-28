@@ -1,10 +1,7 @@
-#include <h3mtxt/H3JsonWriter/writeTimedEventBase.h>
-
+#include <h3mtxt/H3JsonWriter/API.h>
+#include <h3mtxt/H3JsonWriter/H3JsonWriter.h>
 #include <h3mtxt/JsonCommon/FieldName.h>
 #include <h3mtxt/Map/TimedEventBase.h>
-#include <h3mtxt/H3JsonWriter/H3JsonWriter.h>
-#include <h3mtxt/H3JsonWriter/writePlayersBitmask.h>
-#include <h3mtxt/H3JsonWriter/writeResources.h>
 
 namespace Medea_NS
 {
