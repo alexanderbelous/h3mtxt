@@ -32,7 +32,7 @@ namespace h3m
     // on the specified terrain in the Map Editor, 0 otherwise.
     // * This only applies to impassable tiles.
     // * Rock has a special behavior in the Map Editor: in order to put an object
-    //   on Rock it must satisfy the following:
+    //   on Rock, it must satisfy the following:
     //   * no impassable tiles (passability == [0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF]).
     //   * is_ground == 0.
     TerrainsBitmask allowed_landscapes {};
