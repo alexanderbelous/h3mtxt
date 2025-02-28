@@ -175,6 +175,9 @@ namespace h3m
 
   struct Reward;
 
+  template<RewardType T>
+  struct RewardDetails;
+
   struct Rumor;
 
   struct SecondarySkill;

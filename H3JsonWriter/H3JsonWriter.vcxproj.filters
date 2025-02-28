@@ -81,6 +81,9 @@
     <ClCompile Include="writeMapAdditionalInfo.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="writeReward.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="writeH3mJson.h">
@@ -101,7 +104,7 @@
     <ClInclude Include="writeQuestDetails.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="writeReward.h">
+    <ClInclude Include="writeRewardDetails.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="writeStartingBonus.h">

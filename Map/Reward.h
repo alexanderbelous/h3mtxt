@@ -1,5 +1,6 @@
 #pragma once
 
+#include <h3mtxt/Map/MapFwd.h>
 #include <h3mtxt/Map/Constants/ArtifactType.h>
 #include <h3mtxt/Map/Constants/CreatureType.h>
 #include <h3mtxt/Map/Constants/SpellType.h>
@@ -12,9 +13,6 @@
 
 namespace h3m
 {
-  template<RewardType T>
-  struct RewardDetails;
-
   template<>
   struct RewardDetails<RewardType::None>
   {};

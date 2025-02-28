@@ -101,6 +101,7 @@
     <ClCompile Include="writePrimarySkills.cpp" />
     <ClCompile Include="writeQuest.cpp" />
     <ClCompile Include="writeResources.cpp" />
+    <ClCompile Include="writeReward.cpp" />
     <ClCompile Include="writeSecondarySkill.cpp" />
     <ClCompile Include="writeSecondarySkillsBitmask.cpp" />
     <ClCompile Include="writeSpellsBitmask.cpp" />
@@ -118,7 +119,7 @@
     <ClInclude Include="writeLossCondition.h" />
     <ClInclude Include="writeObjectDetails.h" />
     <ClInclude Include="writeQuestDetails.h" />
-    <ClInclude Include="writeReward.h" />
+    <ClInclude Include="writeRewardDetails.h" />
     <ClInclude Include="writeStartingBonus.h" />
     <ClInclude Include="writeStartingOptions.h" />
     <ClInclude Include="writeVictoryCondition.h" />
