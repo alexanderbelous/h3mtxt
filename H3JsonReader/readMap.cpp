@@ -16,10 +16,10 @@ namespace h3m::H3JsonReader_NS
       readField(object.x, value, Fields::kX);
       readField(object.y, value, Fields::kY);
       readField(object.z, value, Fields::kZ);
-      readField(object.kind, value, Fields::kKind);
+      readField(object.template_idx, value, Fields::kTemplateIdx);
       readField(object.unknown, value, Fields::kUnknown);
 
-      const ObjectTemplate& object_template = objects_templates.at(object.kind);
+      const ObjectTemplate& object_template = objects_templates.at(object.template_idx);
       const h3m::MetaObjectType meta_object_type = getMetaObjectType(object_template.object_class);
 
       if (meta_object_type != h3m::MetaObjectType::GENERIC_NO_PROPERTIES)

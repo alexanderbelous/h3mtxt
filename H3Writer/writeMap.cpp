@@ -25,11 +25,11 @@ namespace h3m::H3Writer_NS
       // has the same MetaObjectType.
       for (const Object& object_details : map.objects)
       {
-        if (object_details.kind >= map.objects_templates.size())
+        if (object_details.template_idx >= map.objects_templates.size())
         {
-          throw std::runtime_error("H3Writer<Map>: Object::kind is out of range.");
+          throw std::runtime_error("H3Writer<Map>: Object::template_idx is out of range.");
         }
-        const ObjectTemplate& object_template = map.objects_templates[object_details.kind];
+        const ObjectTemplate& object_template = map.objects_templates[object_details.template_idx];
         const MetaObjectType meta_object_type_expected = getMetaObjectType(object_template.object_class);
         if (object_details.details.getMetaObjectType() != meta_object_type_expected)
         {

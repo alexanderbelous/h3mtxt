@@ -341,7 +341,7 @@ namespace h3m::H3Writer_NS
     writeData(stream, object.x);
     writeData(stream, object.y);
     writeData(stream, object.z);
-    writeData(stream, object.kind);
+    writeData(stream, object.template_idx);
     writeData(stream, object.unknown);
     object.details.visit([&stream] <MetaObjectType T> (const ObjectDetails<T>& value)
                          { writeData(stream, value); });

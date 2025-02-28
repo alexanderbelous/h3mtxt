@@ -495,14 +495,14 @@ namespace h3m::H3Reader_NS
     result.x = readInt<std::uint8_t>(stream);
     result.y = readInt<std::uint8_t>(stream);
     result.z = readInt<std::uint8_t>(stream);
-    result.kind = readInt<std::uint32_t>(stream);
+    result.template_idx = readInt<std::uint32_t>(stream);
     result.unknown = readReservedData<5>(stream);
 
-    if (result.kind >= num_objects_templates)
+    if (result.template_idx >= num_objects_templates)
     {
-      throw std::runtime_error("readObject(): invalid object kind.");
+      throw std::runtime_error("readObject(): invalid template_idx.");
     }
-    const ObjectTemplate& object_template = objects_templates[result.kind];
+    const ObjectTemplate& object_template = objects_templates[result.template_idx];
     const MetaObjectType meta_object_type = getMetaObjectType(object_template.object_class);
     result.details = readObjectDetailsVariant(stream, meta_object_type);
     return result;

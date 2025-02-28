@@ -135,9 +135,9 @@ namespace
 
     h3m::drawCarpet(map, h3m::TerrainType::Lava, 30, 1);
 
-    constexpr std::uint32_t kHeroKind = 0;
-    constexpr std::uint32_t kSpellScrollKind = 1;
-    constexpr std::uint32_t kPandorasBoxKind = 2;
+    constexpr std::uint32_t kHeroTemplateIdx = 0;
+    constexpr std::uint32_t kSpellScrollTemplateIdx = 1;
+    constexpr std::uint32_t kPandorasBoxTemplateIdx = 2;
     // Add heroes.
     map.objects_templates.push_back(h3m::ObjectTemplate{
       .def = "ah00_e.def",
@@ -152,7 +152,7 @@ namespace
       .x = 1,
       .y = 0,
       .z = 0,
-      .kind = kHeroKind,
+      .template_idx = kHeroTemplateIdx,
       .details = h3m::ObjectDetails<h3m::MetaObjectType::HERO> {
         .absod_id = 69,
         .owner = 0,
@@ -185,7 +185,7 @@ namespace
       .x = 10,
       .y = 10,
       .z = 0,
-      .kind = kHeroKind,
+      .template_idx = kHeroTemplateIdx,
       .details = h3m::ObjectDetails<h3m::MetaObjectType::HERO> {
         .absod_id = 666,
         .owner = 1,
@@ -211,7 +211,7 @@ namespace
       .x = 2,
       .y = 2,
       .z = 0,
-      .kind = kSpellScrollKind,
+      .template_idx = kSpellScrollTemplateIdx,
       .details = h3m::ObjectDetails<h3m::MetaObjectType::SPELL_SCROLL> {
         .spell = h3m::SpellType::SLOW
       }
@@ -222,7 +222,7 @@ namespace
       .x = 2,
       .y = 3,
       .z = 0,
-      .kind = kPandorasBoxKind,
+      .template_idx = kPandorasBoxTemplateIdx,
       .details = h3m::ObjectDetails<h3m::MetaObjectType::PANDORAS_BOX> {
         h3m::EventBase {
           .secondary_skills {
@@ -237,7 +237,7 @@ namespace
       .x = 2,
       .y = 4,
       .z = 0,
-      .kind = static_cast<std::uint32_t>(map.objects_templates.size() - 1),
+      .template_idx = static_cast<std::uint32_t>(map.objects_templates.size() - 1),
       .details = h3m::ObjectDetails<h3m::MetaObjectType::SCHOLAR> {
         .reward_type = h3m::ScholarRewardType::SecondarySkill,
         .reward_value = static_cast<std::uint8_t>(h3m::SecondarySkillType::Mysticism)
@@ -257,7 +257,7 @@ namespace
         .x = 0,
         .y = 1,
         .z = 0,
-        .kind = static_cast<std::uint32_t>(map.objects_templates.size() - 1),
+        .template_idx = static_cast<std::uint32_t>(map.objects_templates.size() - 1),
         .details = std::move(event_details)
       });
     }
@@ -276,7 +276,7 @@ namespace
         .x = 0,
         .y = 2,
         .z = 0,
-        .kind = static_cast<std::uint32_t>(map.objects_templates.size() - 1),
+        .template_idx = static_cast<std::uint32_t>(map.objects_templates.size() - 1),
         .details = std::move(event_details)
         });
     }
@@ -286,7 +286,7 @@ namespace
       .x = 4,
       .y = 5,
       .z = 0,
-      .kind = static_cast<std::uint32_t>(map.objects_templates.size() - 1),
+      .template_idx = static_cast<std::uint32_t>(map.objects_templates.size() - 1),
       .details = h3m::ObjectDetails<h3m::MetaObjectType::SEERS_HUT> {
         .quest {
           .details = h3m::QuestDetails<h3m::QuestType::BeHero> {

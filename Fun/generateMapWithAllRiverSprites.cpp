@@ -73,7 +73,7 @@ namespace h3m
           .x = static_cast<std::uint8_t>(x),
           .y = static_cast<std::uint8_t>(y),
           .z = 0,
-          .kind = 0
+          .template_idx = 0
           });
       }
     }

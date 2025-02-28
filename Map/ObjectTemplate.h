@@ -36,7 +36,7 @@ namespace h3m
     //   * no impassable tiles (passability == [0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF]).
     //   * is_ground == 0.
     TerrainsBitmask allowed_landscapes {};
-    // 1 bit per TerrainType: 1 if this kind should appear in the respective Objects tab
+    // 1 bit per TerrainType: 1 if this template should appear in the respective Objects tab
     // (e.g., "Dirt Objects", "Sand Objects", etc) in the Map Editor, 0 otherwise.
     // Note that the Map Editor only displays standard objects in Objects tabs.
     TerrainsBitmask landscape_group {};

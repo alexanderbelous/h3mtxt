@@ -210,7 +210,7 @@ namespace Medea_NS
         comment_builder_ << " (" << meta_object_type_name << ")";
       }
       out.writeComment(comment_builder_.str());
-      out.writeField(Fields::kKind, object.kind);
+      out.writeField(Fields::kTemplateIdx, object.template_idx);
       out.writeField(Fields::kUnknown, object.unknown);
       if (meta_object_type != h3m::MetaObjectType::GENERIC_NO_PROPERTIES)
       {
@@ -237,7 +237,7 @@ namespace Medea_NS
       {
         array_writer.writeComment(comment_builder.build("Object ", i));
         const h3m::Object& object = wrapped_objects.objects[i];
-        const h3m::ObjectTemplate& object_template = wrapped_objects.objects_templates.at(object.kind);
+        const h3m::ObjectTemplate& object_template = wrapped_objects.objects_templates.at(object.template_idx);
         array_writer.writeElement(H3MObject(object_template, object));
       }
     }
