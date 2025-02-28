@@ -145,8 +145,6 @@ namespace h3m
 
   struct MessageAndTreasure;
 
-  struct ObjectTemplate;
-
   struct Object;
 
   // "Extension" of Object specific to ObjectClass of this object.
@@ -154,6 +152,8 @@ namespace h3m
   struct ObjectDetails;
 
   class ObjectDetailsVariant;
+
+  struct ObjectTemplate;
 
   struct PlayerSpecs;
 
