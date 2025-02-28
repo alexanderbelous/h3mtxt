@@ -30,7 +30,7 @@ namespace h3m::H3JsonReader_NS
         {
           throw MissingJsonFieldError(Fields::kDetails);
         }
-        object.details = H3JsonReader_NS::readObjectDetailsDataVariant(*details_json, meta_object_type);
+        object.details = readObjectDetailsVariant(*details_json, meta_object_type);
       }
       return object;
     }

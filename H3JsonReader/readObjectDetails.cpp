@@ -93,12 +93,12 @@ namespace h3m::H3JsonReader_NS
   template<>
   struct JsonReader<ObjectDetails<MetaObjectType::ABANDONED_MINE>>
   {
-    using DetailsData = ObjectDetails<MetaObjectType::ABANDONED_MINE>;
+    using Details = ObjectDetails<MetaObjectType::ABANDONED_MINE>;
 
-    DetailsData operator()(const Json::Value& value) const
+    Details operator()(const Json::Value& value) const
     {
-      using Fields = FieldNames<DetailsData>;
-      DetailsData details;
+      using Fields = FieldNames<Details>;
+      Details details;
       readField(details.potential_resources, value, Fields::kPotentialResources);
       readField(details.unknown, value, Fields::kUnknown);
       return details;
@@ -108,12 +108,12 @@ namespace h3m::H3JsonReader_NS
   template<>
   struct JsonReader<ObjectDetails<MetaObjectType::ARTIFACT>>
   {
-    using DetailsData = ObjectDetails<MetaObjectType::ARTIFACT>;
+    using Details = ObjectDetails<MetaObjectType::ARTIFACT>;
 
-    DetailsData operator()(const Json::Value& value) const
+    Details operator()(const Json::Value& value) const
     {
-      using Fields = FieldNames<DetailsData>;
-      DetailsData details;
+      using Fields = FieldNames<Details>;
+      Details details;
       readField(details.guardians, value, Fields::kGuardians);
       return details;
     }
@@ -122,12 +122,12 @@ namespace h3m::H3JsonReader_NS
   template<>
   struct JsonReader<ObjectDetails<MetaObjectType::EVENT>>
   {
-    using DetailsData = ObjectDetails<MetaObjectType::EVENT>;
+    using Details = ObjectDetails<MetaObjectType::EVENT>;
 
-    DetailsData operator()(const Json::Value& value) const
+    Details operator()(const Json::Value& value) const
     {
-      using Fields = FieldNames<DetailsData>;
-      DetailsData details;
+      using Fields = FieldNames<Details>;
+      Details details;
       readEventBase(value, details);
       readField(details.affected_players, value, Fields::kAffectedPlayers);
       readField(details.applies_to_computer, value, Fields::kAppliesToComputer);
@@ -140,12 +140,12 @@ namespace h3m::H3JsonReader_NS
   template<>
   struct JsonReader<ObjectDetails<MetaObjectType::GARRISON>>
   {
-    using DetailsData = ObjectDetails<MetaObjectType::GARRISON>;
+    using Details = ObjectDetails<MetaObjectType::GARRISON>;
 
-    DetailsData operator()(const Json::Value& value) const
+    Details operator()(const Json::Value& value) const
     {
-      using Fields = FieldNames<DetailsData>;
-      DetailsData details;
+      using Fields = FieldNames<Details>;
+      Details details;
       readField(details.owner, value, Fields::kOwner);
       readField(details.creatures, value, Fields::kCreatures);
       readField(details.can_remove_units, value, Fields::kCanRemoveUnits);
@@ -167,12 +167,12 @@ namespace h3m::H3JsonReader_NS
   template<>
   struct JsonReader<ObjectDetails<MetaObjectType::GRAIL>>
   {
-    using DetailsData = ObjectDetails<MetaObjectType::GRAIL>;
+    using Details = ObjectDetails<MetaObjectType::GRAIL>;
 
-    DetailsData operator()(const Json::Value& value) const
+    Details operator()(const Json::Value& value) const
     {
-      using Fields = FieldNames<DetailsData>;
-      DetailsData details;
+      using Fields = FieldNames<Details>;
+      Details details;
       readField(details.allowable_radius, value, Fields::kAllowableRadius);
       return details;
     }
@@ -181,12 +181,12 @@ namespace h3m::H3JsonReader_NS
   template<>
   struct JsonReader<ObjectDetails<MetaObjectType::HERO>>
   {
-    using DetailsData = ObjectDetails<MetaObjectType::HERO>;
+    using Details = ObjectDetails<MetaObjectType::HERO>;
 
-    DetailsData operator()(const Json::Value& value) const
+    Details operator()(const Json::Value& value) const
     {
-      using Fields = FieldNames<DetailsData>;
-      DetailsData details;
+      using Fields = FieldNames<Details>;
+      Details details;
       readField(details.absod_id, value, Fields::kAbsodId);
       readField(details.owner, value, Fields::kOwner);
       readField(details.type, value, Fields::kType);
@@ -210,12 +210,12 @@ namespace h3m::H3JsonReader_NS
   template<>
   struct JsonReader<ObjectDetails<MetaObjectType::MONSTER>>
   {
-    using DetailsData = ObjectDetails<MetaObjectType::MONSTER>;
+    using Details = ObjectDetails<MetaObjectType::MONSTER>;
 
-    DetailsData operator()(const Json::Value& value) const
+    Details operator()(const Json::Value& value) const
     {
-      using Fields = FieldNames<DetailsData>;
-      DetailsData details;
+      using Fields = FieldNames<Details>;
+      Details details;
       readField(details.absod_id, value, Fields::kAbsodId);
       readField(details.count, value, Fields::kCount);
       readField(details.disposition, value, Fields::kDisposition);
@@ -230,11 +230,11 @@ namespace h3m::H3JsonReader_NS
   template<>
   struct JsonReader<ObjectDetails<MetaObjectType::PANDORAS_BOX>>
   {
-    using DetailsData = ObjectDetails<MetaObjectType::PANDORAS_BOX>;
+    using Details = ObjectDetails<MetaObjectType::PANDORAS_BOX>;
 
-    DetailsData operator()(const Json::Value& value) const
+    Details operator()(const Json::Value& value) const
     {
-      DetailsData details;
+      Details details;
       readEventBase(value, details);
       return details;
     }
@@ -243,14 +243,14 @@ namespace h3m::H3JsonReader_NS
   template<>
   struct JsonReader<ObjectDetails<MetaObjectType::PLACEHOLDER_HERO>>
   {
-    using DetailsData = ObjectDetails<MetaObjectType::PLACEHOLDER_HERO>;
+    using Details = ObjectDetails<MetaObjectType::PLACEHOLDER_HERO>;
 
-    DetailsData operator()(const Json::Value& value) const
+    Details operator()(const Json::Value& value) const
     {
-      using Fields = FieldNames<DetailsData>;
+      using Fields = FieldNames<Details>;
       constexpr h3m::HeroType kRandomHeroType {0xFF};
 
-      DetailsData details;
+      Details details;
       readField(details.owner, value, Fields::kOwner);
       readField(details.type, value, Fields::kType);
       if (details.type == kRandomHeroType)
@@ -264,12 +264,12 @@ namespace h3m::H3JsonReader_NS
   template<>
   struct JsonReader<ObjectDetails<MetaObjectType::QUEST_GUARD>>
   {
-    using DetailsData = ObjectDetails<MetaObjectType::QUEST_GUARD>;
+    using Details = ObjectDetails<MetaObjectType::QUEST_GUARD>;
 
-    DetailsData operator()(const Json::Value& value) const
+    Details operator()(const Json::Value& value) const
     {
-      using Fields = FieldNames<DetailsData>;
-      DetailsData details;
+      using Fields = FieldNames<Details>;
+      Details details;
       readField(details.quest, value, Fields::kQuest);
       return details;
     }
@@ -278,12 +278,12 @@ namespace h3m::H3JsonReader_NS
   template<>
   struct JsonReader<ObjectDetails<MetaObjectType::RANDOM_DWELLING>>
   {
-    using DetailsData = ObjectDetails<MetaObjectType::RANDOM_DWELLING>;
+    using Details = ObjectDetails<MetaObjectType::RANDOM_DWELLING>;
 
-    DetailsData operator()(const Json::Value& value) const
+    Details operator()(const Json::Value& value) const
     {
-      using Fields = FieldNames<DetailsData>;
-      DetailsData details;
+      using Fields = FieldNames<Details>;
+      Details details;
       readField(details.owner, value, Fields::kOwner);
       readField(details.town_absod_id, value, Fields::kTownAbsodId);
       if (details.town_absod_id == 0)
@@ -299,12 +299,12 @@ namespace h3m::H3JsonReader_NS
   template<>
   struct JsonReader<ObjectDetails<MetaObjectType::RANDOM_DWELLING_PRESET_ALIGNMENT>>
   {
-    using DetailsData = ObjectDetails<MetaObjectType::RANDOM_DWELLING_PRESET_ALIGNMENT>;
+    using Details = ObjectDetails<MetaObjectType::RANDOM_DWELLING_PRESET_ALIGNMENT>;
 
-    DetailsData operator()(const Json::Value& value) const
+    Details operator()(const Json::Value& value) const
     {
-      using Fields = FieldNames<DetailsData>;
-      DetailsData details;
+      using Fields = FieldNames<Details>;
+      Details details;
       readField(details.owner, value, Fields::kOwner);
       readField(details.min_level, value, Fields::kMinLevel);
       readField(details.max_level, value, Fields::kMaxLevel);
@@ -315,12 +315,12 @@ namespace h3m::H3JsonReader_NS
   template<>
   struct JsonReader<ObjectDetails<MetaObjectType::RANDOM_DWELLING_PRESET_LEVEL>>
   {
-    using DetailsData = ObjectDetails<MetaObjectType::RANDOM_DWELLING_PRESET_LEVEL>;
+    using Details = ObjectDetails<MetaObjectType::RANDOM_DWELLING_PRESET_LEVEL>;
 
-    DetailsData operator()(const Json::Value& value) const
+    Details operator()(const Json::Value& value) const
     {
-      using Fields = FieldNames<DetailsData>;
-      DetailsData details;
+      using Fields = FieldNames<Details>;
+      Details details;
       readField(details.owner, value, Fields::kOwner);
       readField(details.town_absod_id, value, Fields::kTownAbsodId);
       if (details.town_absod_id == 0)
@@ -334,12 +334,12 @@ namespace h3m::H3JsonReader_NS
   template<>
   struct JsonReader<ObjectDetails<MetaObjectType::RESOURCE>>
   {
-    using DetailsData = ObjectDetails<MetaObjectType::RESOURCE>;
+    using Details = ObjectDetails<MetaObjectType::RESOURCE>;
 
-    DetailsData operator()(const Json::Value& value) const
+    Details operator()(const Json::Value& value) const
     {
-      using Fields = FieldNames<DetailsData>;
-      DetailsData details;
+      using Fields = FieldNames<Details>;
+      Details details;
       readField(details.guardians, value, Fields::kGuardians);
       readField(details.quantity, value, Fields::kQuantity);
       readField(details.unknown, value, Fields::kUnknown);
@@ -350,12 +350,12 @@ namespace h3m::H3JsonReader_NS
   template<>
   struct JsonReader<ObjectDetails<MetaObjectType::SEERS_HUT>>
   {
-    using DetailsData = ObjectDetails<MetaObjectType::SEERS_HUT>;
+    using Details = ObjectDetails<MetaObjectType::SEERS_HUT>;
 
-    DetailsData operator()(const Json::Value& value) const
+    Details operator()(const Json::Value& value) const
     {
-      using Fields = FieldNames<DetailsData>;
-      DetailsData details;
+      using Fields = FieldNames<Details>;
+      Details details;
       readField(details.quest, value, Fields::kQuest);
       readField(details.reward, value, Fields::kReward);
       readField(details.unknown, value, Fields::kUnknown);
@@ -366,12 +366,12 @@ namespace h3m::H3JsonReader_NS
   template<>
   struct JsonReader<ObjectDetails<MetaObjectType::SCHOLAR>>
   {
-    using DetailsData = ObjectDetails<MetaObjectType::SCHOLAR>;
+    using Details = ObjectDetails<MetaObjectType::SCHOLAR>;
 
-    DetailsData operator()(const Json::Value& value) const
+    Details operator()(const Json::Value& value) const
     {
-      using Fields = FieldNames<DetailsData>;
-      DetailsData details;
+      using Fields = FieldNames<Details>;
+      Details details;
       readField(details.reward_type, value, Fields::kRewardType);
       readField(details.reward_value, value, Fields::kRewardValue);
       readField(details.unknown, value, Fields::kUnknown);
@@ -382,12 +382,12 @@ namespace h3m::H3JsonReader_NS
   template<>
   struct JsonReader<ObjectDetails<MetaObjectType::SHRINE>>
   {
-    using DetailsData = ObjectDetails<MetaObjectType::SHRINE>;
+    using Details = ObjectDetails<MetaObjectType::SHRINE>;
 
-    DetailsData operator()(const Json::Value& value) const
+    Details operator()(const Json::Value& value) const
     {
-      using Fields = FieldNames<DetailsData>;
-      DetailsData details;
+      using Fields = FieldNames<Details>;
+      Details details;
       readField(details.spell, value, Fields::kSpell);
       readField(details.unknown, value, Fields::kUnknown);
       return details;
@@ -397,12 +397,12 @@ namespace h3m::H3JsonReader_NS
   template<>
   struct JsonReader<ObjectDetails<MetaObjectType::SIGN>>
   {
-    using DetailsData = ObjectDetails<MetaObjectType::SIGN>;
+    using Details = ObjectDetails<MetaObjectType::SIGN>;
 
-    DetailsData operator()(const Json::Value& value) const
+    Details operator()(const Json::Value& value) const
     {
-      using Fields = FieldNames<DetailsData>;
-      DetailsData details;
+      using Fields = FieldNames<Details>;
+      Details details;
       readField(details.message, value, Fields::kMessage);
       readField(details.unknown, value, Fields::kUnknown);
       return details;
@@ -412,12 +412,12 @@ namespace h3m::H3JsonReader_NS
   template<>
   struct JsonReader<ObjectDetails<MetaObjectType::SPELL_SCROLL>>
   {
-    using DetailsData = ObjectDetails<MetaObjectType::SPELL_SCROLL>;
+    using Details = ObjectDetails<MetaObjectType::SPELL_SCROLL>;
 
-    DetailsData operator()(const Json::Value& value) const
+    Details operator()(const Json::Value& value) const
     {
-      using Fields = FieldNames<DetailsData>;
-      DetailsData details;
+      using Fields = FieldNames<Details>;
+      Details details;
       readField(details.guardians, value, Fields::kGuardians);
       readField(details.spell, value, Fields::kSpell);
       readField(details.unknown, value, Fields::kUnknown);
@@ -428,12 +428,12 @@ namespace h3m::H3JsonReader_NS
   template<>
   struct JsonReader<ObjectDetails<MetaObjectType::TOWN>>
   {
-    using DetailsData = ObjectDetails<MetaObjectType::TOWN>;
+    using Details = ObjectDetails<MetaObjectType::TOWN>;
 
-    DetailsData operator()(const Json::Value& value) const
+    Details operator()(const Json::Value& value) const
     {
-      using Fields = FieldNames<DetailsData>;
-      DetailsData details;
+      using Fields = FieldNames<Details>;
+      Details details;
       readField(details.absod_id, value, Fields::kAbsodId);
       readField(details.owner, value, Fields::kOwner);
       readField(details.name, value, Fields::kName);
@@ -456,12 +456,12 @@ namespace h3m::H3JsonReader_NS
   template<>
   struct JsonReader<ObjectDetails<MetaObjectType::TRIVIAL_OWNED_OBJECT>>
   {
-    using DetailsData = ObjectDetails<MetaObjectType::TRIVIAL_OWNED_OBJECT>;
+    using Details = ObjectDetails<MetaObjectType::TRIVIAL_OWNED_OBJECT>;
 
-    DetailsData operator()(const Json::Value& value) const
+    Details operator()(const Json::Value& value) const
     {
-      using Fields = FieldNames<DetailsData>;
-      DetailsData details;
+      using Fields = FieldNames<Details>;
+      Details details;
       readField(details.owner, value, Fields::kOwner);
       return details;
     }
@@ -470,12 +470,12 @@ namespace h3m::H3JsonReader_NS
   template<>
   struct JsonReader<ObjectDetails<MetaObjectType::WITCH_HUT>>
   {
-    using DetailsData = ObjectDetails<MetaObjectType::WITCH_HUT>;
+    using Details = ObjectDetails<MetaObjectType::WITCH_HUT>;
 
-    DetailsData operator()(const Json::Value& value) const
+    Details operator()(const Json::Value& value) const
     {
-      using Fields = FieldNames<DetailsData>;
-      DetailsData details;
+      using Fields = FieldNames<Details>;
+      Details details;
       readField(details.potential_skills, value, Fields::kPotentialSkills);
       return details;
     }
@@ -486,7 +486,7 @@ namespace h3m::H3JsonReader_NS
     // Utility wrapper around fromJson<ObjectDetails<T>>(), which returns the result
     // as ObjectDetailsVariant.
     template<MetaObjectType T>
-    ObjectDetailsVariant readObjectDetailsDataAsVariant(const Json::Value& value)
+    ObjectDetailsVariant readObjectDetailsAsVariant(const Json::Value& value)
     {
       return fromJson<ObjectDetails<T>>(value);
     }
@@ -496,21 +496,21 @@ namespace h3m::H3JsonReader_NS
   // \param value - input JSON value.
   // \param meta_object_type - MetaObjectType of the object.
   // \return the deserialized data as ObjectDetailsVariant.
-  ObjectDetailsVariant readObjectDetailsDataVariant(const Json::Value& value, MetaObjectType meta_object_type)
+  ObjectDetailsVariant readObjectDetailsVariant(const Json::Value& value, MetaObjectType meta_object_type)
   {
     // Type of a pointer to a function that takes std::istream& and returns ObjectDetailsVariant.
-    using ReadObjectDetailsDataPtr = ObjectDetailsVariant(*)(const Json::Value&);
+    using ReadObjectDetailsPtr = ObjectDetailsVariant(*)(const Json::Value&);
     // Generate (at compile time) an array of function pointers for each instantiation of
-    // readObjectDetailsDataAsVariant() ordered by MetaObjectType.
-    constexpr std::array<ReadObjectDetailsDataPtr, kNumMetaObjectTypes> kObjectDetailsDataReaders =
+    // readObjectDetailsAsVariant() ordered by MetaObjectType.
+    constexpr std::array<ReadObjectDetailsPtr, kNumMetaObjectTypes> kObjectDetailsReaders =
       [] <MetaObjectType... meta_object_types>
       (EnumSequence<MetaObjectType, meta_object_types...> seq)
       consteval
       {
-        return std::array<ReadObjectDetailsDataPtr, sizeof...(meta_object_types)>
-        { &readObjectDetailsDataAsVariant<meta_object_types>... };
+        return std::array<ReadObjectDetailsPtr, sizeof...(meta_object_types)>
+        { &readObjectDetailsAsVariant<meta_object_types>... };
       }(MakeEnumSequence<MetaObjectType, kNumMetaObjectTypes>{});
     // Invoke a function from the generated array.
-    return kObjectDetailsDataReaders.at(static_cast<std::size_t>(meta_object_type))(value);
+    return kObjectDetailsReaders.at(static_cast<std::size_t>(meta_object_type))(value);
   }
 }
