@@ -1,7 +1,7 @@
 #pragma once
 
 #include <h3mtxt/H3Writer/H3Writer.h>
-#include <h3mtxt/Map/Base.h>
+#include <h3mtxt/Map/MapFwd.h>
 #include <h3mtxt/Map/Utils/BitSet.h>
 #include <h3mtxt/Map/Utils/EnumBitmask.h>
 #include <h3mtxt/Map/Utils/ReservedData.h>

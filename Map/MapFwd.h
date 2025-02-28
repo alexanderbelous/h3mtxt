@@ -9,6 +9,12 @@
 // match the actual integer type used in the H3M file format.
 namespace h3m
 {
+  // H3M file format uses a single byte to store a boolean. Normally, the stored value
+  // should be either 0 or 1, but there are some fields which sometimes store other values
+  // (interpreted as "true"). Just to be safe, h3mtxt stores the exact value for boolean
+  // fields.
+  using Bool = std::uint8_t;
+
   enum class ArtifactType : std::uint16_t;
 
   enum class CreatureType : std::uint16_t;

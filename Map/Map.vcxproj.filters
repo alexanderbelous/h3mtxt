@@ -87,9 +87,6 @@
     <ClInclude Include="Constants\VictoryConditionType.h">
       <Filter>Header Files\Constants</Filter>
     </ClInclude>
-    <ClInclude Include="Base.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="CreatureStack.h">
       <Filter>Header Files</Filter>
     </ClInclude>

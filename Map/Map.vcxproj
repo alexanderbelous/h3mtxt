@@ -14,7 +14,6 @@
     <ClInclude Include="Constants\SecondarySkillLevel.h" />
     <ClInclude Include="Constants\TownBuildingType.h" />
     <ClInclude Include="MapFwd.h" />
-    <ClInclude Include="Base.h" />
     <ClInclude Include="Constants\ArtifactType.h" />
     <ClInclude Include="Constants\Constants.h" />
     <ClInclude Include="Constants\CreatureType.h" />

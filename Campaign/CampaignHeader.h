@@ -4,7 +4,7 @@
 #include <h3mtxt/Campaign/Constants/CampaignId.h>
 #include <h3mtxt/Campaign/Constants/CampaignMusic.h>
 #include <h3mtxt/Campaign/CampaignScenario.h>
-#include <h3mtxt/Map/Base.h>
+#include <h3mtxt/Map/MapFwd.h>
 
 #include <string>
 #include <vector>

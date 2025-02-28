@@ -13,7 +13,6 @@
 #include <h3mtxt/Map/Constants/SpellType.h>
 #include <h3mtxt/Map/Utils/EnumBitmask.h>
 #include <h3mtxt/Map/Utils/ReservedData.h>
-#include <h3mtxt/Map/Base.h>
 #include <h3mtxt/Map/CreatureStack.h>
 #include <h3mtxt/Map/HeroArtifacts.h>
 #include <h3mtxt/Map/PrimarySkills.h>
