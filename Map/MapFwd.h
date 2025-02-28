@@ -100,7 +100,7 @@ namespace h3m
 
   // Bitmask storing a bit for each resource type.
   //
-  // This is only used in ObjectDetailsData<MetaObjectType::ABANDONED_MINE>.
+  // This is only used in ObjectDetails<MetaObjectType::ABANDONED_MINE>.
   using ResourcesBitmask = EnumBitmask<ResourceType, 1>;
 
   // Note that there are only 28 secondary skills in Shadow of Death, but this bitmask stores 32 bits.
@@ -151,9 +151,9 @@ namespace h3m
 
   // "Extension" of Object specific to ObjectClass of this object.
   template<MetaObjectType T>
-  struct ObjectDetailsData;
+  struct ObjectDetails;
 
-  class ObjectDetailsDataVariant;
+  class ObjectDetailsVariant;
 
   struct PlayerSpecs;
 

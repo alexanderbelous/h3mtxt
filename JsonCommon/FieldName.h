@@ -354,20 +354,20 @@ namespace h3m
   };
 
   template<>
-  struct FieldNames<ObjectDetailsData<MetaObjectType::ABANDONED_MINE>>
+  struct FieldNames<ObjectDetails<MetaObjectType::ABANDONED_MINE>>
   {
     static inline constexpr std::string_view kPotentialResources = "potential_resources";
     static inline constexpr std::string_view kUnknown = "unknown";
   };
 
   template<>
-  struct FieldNames<ObjectDetailsData<MetaObjectType::ARTIFACT>>
+  struct FieldNames<ObjectDetails<MetaObjectType::ARTIFACT>>
   {
     static inline constexpr std::string_view kGuardians = "guardians";
   };
 
   template<>
-  struct FieldNames<ObjectDetailsData<MetaObjectType::EVENT>> : FieldNames<EventBase>
+  struct FieldNames<ObjectDetails<MetaObjectType::EVENT>> : FieldNames<EventBase>
   {
     static inline constexpr std::string_view kAffectedPlayers = "affected_players";
     static inline constexpr std::string_view kAppliesToComputer = "applies_to_computer";
@@ -376,7 +376,7 @@ namespace h3m
   };
 
   template<>
-  struct FieldNames<ObjectDetailsData<MetaObjectType::GARRISON>>
+  struct FieldNames<ObjectDetails<MetaObjectType::GARRISON>>
   {
     static inline constexpr std::string_view kOwner = "owner";
     static inline constexpr std::string_view kCreatures = "creatures";
@@ -385,13 +385,13 @@ namespace h3m
   };
 
   template<>
-  struct FieldNames<ObjectDetailsData<MetaObjectType::GRAIL>>
+  struct FieldNames<ObjectDetails<MetaObjectType::GRAIL>>
   {
     static inline constexpr std::string_view kAllowableRadius = "allowable_radius";
   };
 
   template<>
-  struct FieldNames<ObjectDetailsData<MetaObjectType::HERO>>
+  struct FieldNames<ObjectDetails<MetaObjectType::HERO>>
   {
     static inline constexpr std::string_view kAbsodId = "absod_id";
     static inline constexpr std::string_view kOwner = "owner";
@@ -412,7 +412,7 @@ namespace h3m
   };
 
   template<>
-  struct FieldNames<ObjectDetailsData<MetaObjectType::MONSTER>>
+  struct FieldNames<ObjectDetails<MetaObjectType::MONSTER>>
   {
     static inline constexpr std::string_view kAbsodId = "absod_id";
     static inline constexpr std::string_view kCount = "count";
@@ -424,11 +424,11 @@ namespace h3m
   };
 
   template<>
-  struct FieldNames<ObjectDetailsData<MetaObjectType::PANDORAS_BOX>> : FieldNames<EventBase>
+  struct FieldNames<ObjectDetails<MetaObjectType::PANDORAS_BOX>> : FieldNames<EventBase>
   {};
 
   template<>
-  struct FieldNames<ObjectDetailsData<MetaObjectType::PLACEHOLDER_HERO>>
+  struct FieldNames<ObjectDetails<MetaObjectType::PLACEHOLDER_HERO>>
   {
     static inline constexpr std::string_view kOwner = "owner";
     static inline constexpr std::string_view kType = "type";
@@ -436,13 +436,13 @@ namespace h3m
   };
 
   template<>
-  struct FieldNames<ObjectDetailsData<MetaObjectType::QUEST_GUARD>>
+  struct FieldNames<ObjectDetails<MetaObjectType::QUEST_GUARD>>
   {
     static inline constexpr std::string_view kQuest = "quest";
   };
 
   template<>
-  struct FieldNames<ObjectDetailsData<MetaObjectType::RANDOM_DWELLING>>
+  struct FieldNames<ObjectDetails<MetaObjectType::RANDOM_DWELLING>>
   {
     static inline constexpr std::string_view kOwner = "owner";
     static inline constexpr std::string_view kTownAbsodId = "town_absod_id";
@@ -452,7 +452,7 @@ namespace h3m
   };
 
   template<>
-  struct FieldNames<ObjectDetailsData<MetaObjectType::RANDOM_DWELLING_PRESET_ALIGNMENT>>
+  struct FieldNames<ObjectDetails<MetaObjectType::RANDOM_DWELLING_PRESET_ALIGNMENT>>
   {
     static inline constexpr std::string_view kOwner = "owner";
     static inline constexpr std::string_view kMinLevel = "min_level";
@@ -460,7 +460,7 @@ namespace h3m
   };
 
   template<>
-  struct FieldNames<ObjectDetailsData<MetaObjectType::RANDOM_DWELLING_PRESET_LEVEL>>
+  struct FieldNames<ObjectDetails<MetaObjectType::RANDOM_DWELLING_PRESET_LEVEL>>
   {
     static inline constexpr std::string_view kOwner = "owner";
     static inline constexpr std::string_view kTownAbsodId = "town_absod_id";
@@ -468,7 +468,7 @@ namespace h3m
   };
 
   template<>
-  struct FieldNames<ObjectDetailsData<MetaObjectType::RESOURCE>>
+  struct FieldNames<ObjectDetails<MetaObjectType::RESOURCE>>
   {
     static inline constexpr std::string_view kGuardians = "guardians";
     static inline constexpr std::string_view kQuantity = "quantity";
@@ -476,7 +476,7 @@ namespace h3m
   };
 
   template<>
-  struct FieldNames<ObjectDetailsData<MetaObjectType::SCHOLAR>>
+  struct FieldNames<ObjectDetails<MetaObjectType::SCHOLAR>>
   {
     static inline constexpr std::string_view kRewardType = "reward_type";
     static inline constexpr std::string_view kRewardValue = "reward_value";
@@ -484,7 +484,7 @@ namespace h3m
   };
 
   template<>
-  struct FieldNames<ObjectDetailsData<MetaObjectType::SEERS_HUT>>
+  struct FieldNames<ObjectDetails<MetaObjectType::SEERS_HUT>>
   {
     static inline constexpr std::string_view kQuest = "quest";
     static inline constexpr std::string_view kReward = "reward";
@@ -492,21 +492,21 @@ namespace h3m
   };
 
   template<>
-  struct FieldNames<ObjectDetailsData<MetaObjectType::SHRINE>>
+  struct FieldNames<ObjectDetails<MetaObjectType::SHRINE>>
   {
     static inline constexpr std::string_view kSpell = "spell";
     static inline constexpr std::string_view kUnknown = "unknown";
   };
 
   template<>
-  struct FieldNames<ObjectDetailsData<MetaObjectType::SIGN>>
+  struct FieldNames<ObjectDetails<MetaObjectType::SIGN>>
   {
     static inline constexpr std::string_view kMessage = "message";
     static inline constexpr std::string_view kUnknown = "unknown";
   };
 
   template<>
-  struct FieldNames<ObjectDetailsData<MetaObjectType::SPELL_SCROLL>>
+  struct FieldNames<ObjectDetails<MetaObjectType::SPELL_SCROLL>>
   {
     static inline constexpr std::string_view kGuardians = "guardians";
     static inline constexpr std::string_view kSpell = "spell";
@@ -514,7 +514,7 @@ namespace h3m
   };
 
   template<>
-  struct FieldNames<ObjectDetailsData<MetaObjectType::TOWN>>
+  struct FieldNames<ObjectDetails<MetaObjectType::TOWN>>
   {
     static inline constexpr std::string_view kAbsodId = "absod_id";
     static inline constexpr std::string_view kOwner = "owner";
@@ -531,13 +531,13 @@ namespace h3m
   };
 
   template<>
-  struct FieldNames<ObjectDetailsData<MetaObjectType::TRIVIAL_OWNED_OBJECT>>
+  struct FieldNames<ObjectDetails<MetaObjectType::TRIVIAL_OWNED_OBJECT>>
   {
     static inline constexpr std::string_view kOwner = "owner";
   };
 
   template<>
-  struct FieldNames<ObjectDetailsData<MetaObjectType::WITCH_HUT>>
+  struct FieldNames<ObjectDetails<MetaObjectType::WITCH_HUT>>
   {
     static inline constexpr std::string_view kPotentialSkills = "potential_skills";
   };

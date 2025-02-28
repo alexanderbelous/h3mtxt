@@ -39,7 +39,7 @@ namespace h3m
     ReservedData<4> unknown;
   };
 
-  // Only appears in ObjectDetailsData<MetaObjectType::MONSTER>.
+  // Only appears in ObjectDetails<MetaObjectType::MONSTER>.
   struct MessageAndTreasure
   {
     std::string message;
@@ -53,8 +53,8 @@ namespace h3m
     ArtifactType artifact {};
   };
 
-  // Base class for ObjectDetailsData<MetaObjectType::PANDORAS_BOX> and
-  // ObjectDetailsData<MetaObjectType::EVENT>.
+  // Base class for ObjectDetails<MetaObjectType::PANDORAS_BOX> and
+  // ObjectDetails<MetaObjectType::EVENT>.
   struct EventBase
   {
     std::optional<Guardians> guardians;
@@ -75,20 +75,20 @@ namespace h3m
   };
 
   template<>
-  struct ObjectDetailsData<MetaObjectType::ABANDONED_MINE>
+  struct ObjectDetails<MetaObjectType::ABANDONED_MINE>
   {
     ResourcesBitmask potential_resources;
     ReservedData<3> unknown;
   };
 
   template<>
-  struct ObjectDetailsData<MetaObjectType::ARTIFACT>
+  struct ObjectDetails<MetaObjectType::ARTIFACT>
   {
     std::optional<Guardians> guardians;
   };
 
   template<>
-  struct ObjectDetailsData<MetaObjectType::EVENT> : EventBase
+  struct ObjectDetails<MetaObjectType::EVENT> : EventBase
   {
     PlayersBitmask affected_players;
     Bool applies_to_computer{};
@@ -97,7 +97,7 @@ namespace h3m
   };
 
   template<>
-  struct ObjectDetailsData<MetaObjectType::GARRISON>
+  struct ObjectDetails<MetaObjectType::GARRISON>
   {
     // 0xFF means no owner.
     // TODO: replace with PlayerColor. Note that sizeof(PlayerColor) == 1,
@@ -110,12 +110,12 @@ namespace h3m
   };
 
   template<>
-  struct ObjectDetailsData<MetaObjectType::GENERIC_NO_PROPERTIES>
+  struct ObjectDetails<MetaObjectType::GENERIC_NO_PROPERTIES>
   {
   };
 
   template<>
-  struct ObjectDetailsData<MetaObjectType::GRAIL>
+  struct ObjectDetails<MetaObjectType::GRAIL>
   {
     std::uint32_t allowable_radius {};
   };
@@ -127,7 +127,7 @@ namespace h3m
   // Note that this struct is similar to HeroSettings, but it has extra fields in between,
   // so I'm not reusing that struct.
   template<>
-  struct ObjectDetailsData<MetaObjectType::HERO>
+  struct ObjectDetails<MetaObjectType::HERO>
   {
     std::uint32_t absod_id {};
     // Should always be 0xFF for ObjectClass::PRISON.
@@ -161,7 +161,7 @@ namespace h3m
   };
 
   template<>
-  struct ObjectDetailsData<MetaObjectType::MONSTER>
+  struct ObjectDetails<MetaObjectType::MONSTER>
   {
     std::uint32_t absod_id {};
     // 0 means random.
@@ -174,12 +174,12 @@ namespace h3m
   };
 
   template<>
-  struct ObjectDetailsData<MetaObjectType::PANDORAS_BOX> : EventBase
+  struct ObjectDetails<MetaObjectType::PANDORAS_BOX> : EventBase
   {
   };
 
   template<>
-  struct ObjectDetailsData<MetaObjectType::PLACEHOLDER_HERO>
+  struct ObjectDetails<MetaObjectType::PLACEHOLDER_HERO>
   {
     PlayerColor owner {};
     HeroType type {};
@@ -188,13 +188,13 @@ namespace h3m
   };
 
   template<>
-  struct ObjectDetailsData<MetaObjectType::QUEST_GUARD>
+  struct ObjectDetails<MetaObjectType::QUEST_GUARD>
   {
     Quest quest;
   };
 
   template<>
-  struct ObjectDetailsData<MetaObjectType::RANDOM_DWELLING>
+  struct ObjectDetails<MetaObjectType::RANDOM_DWELLING>
   {
     // 0xFF if none.
     std::uint32_t owner {};
@@ -209,7 +209,7 @@ namespace h3m
   };
 
   template<>
-  struct ObjectDetailsData<MetaObjectType::RANDOM_DWELLING_PRESET_ALIGNMENT>
+  struct ObjectDetails<MetaObjectType::RANDOM_DWELLING_PRESET_ALIGNMENT>
   {
     // 0xFF if none.
     std::uint32_t owner {};
@@ -218,7 +218,7 @@ namespace h3m
   };
 
   template<>
-  struct ObjectDetailsData<MetaObjectType::RANDOM_DWELLING_PRESET_LEVEL>
+  struct ObjectDetails<MetaObjectType::RANDOM_DWELLING_PRESET_LEVEL>
   {
     // 0xFF if none.
     std::uint32_t owner {};
@@ -230,7 +230,7 @@ namespace h3m
   };
 
   template<>
-  struct ObjectDetailsData<MetaObjectType::RESOURCE>
+  struct ObjectDetails<MetaObjectType::RESOURCE>
   {
     std::optional<Guardians> guardians;
     // Multiply by 100 for gold, i.e. subclass 6.
@@ -239,7 +239,7 @@ namespace h3m
   };
 
   template<>
-  struct ObjectDetailsData<MetaObjectType::SCHOLAR>
+  struct ObjectDetails<MetaObjectType::SCHOLAR>
   {
     // TODO: consider replacing with std::variant<Empty, PrimarySkillType, SecondarySkillType, Spell>.
     ScholarRewardType reward_type {};
@@ -257,7 +257,7 @@ namespace h3m
   };
 
   template<>
-  struct ObjectDetailsData<MetaObjectType::SEERS_HUT>
+  struct ObjectDetails<MetaObjectType::SEERS_HUT>
   {
     Quest quest;
     Reward reward;
@@ -265,7 +265,7 @@ namespace h3m
   };
 
   template<>
-  struct ObjectDetailsData<MetaObjectType::SHRINE>
+  struct ObjectDetails<MetaObjectType::SHRINE>
   {
     // h3mlib and h3m2json interpret this a bit differently: they act as if the spell is written as uint32,
     // even though the last 3 bytes should always be 0. I think it makes more sense to interpet this as
@@ -276,7 +276,7 @@ namespace h3m
   };
 
   template<>
-  struct ObjectDetailsData<MetaObjectType::SIGN>
+  struct ObjectDetails<MetaObjectType::SIGN>
   {
     // Empty string means random message.
     std::string message;
@@ -285,7 +285,7 @@ namespace h3m
   };
 
   template<>
-  struct ObjectDetailsData<MetaObjectType::SPELL_SCROLL>
+  struct ObjectDetails<MetaObjectType::SPELL_SCROLL>
   {
     std::optional<Guardians> guardians;
     // FYI: unlike SHRINE, 0xFF is not allowed here (causes the game to crash).
@@ -321,7 +321,7 @@ namespace h3m
   };
 
   template<>
-  struct ObjectDetailsData<MetaObjectType::TOWN>
+  struct ObjectDetails<MetaObjectType::TOWN>
   {
     std::uint32_t absod_id {};
     // 0xFF if none.
@@ -346,14 +346,14 @@ namespace h3m
   };
 
   template<>
-  struct ObjectDetailsData<MetaObjectType::TRIVIAL_OWNED_OBJECT>
+  struct ObjectDetails<MetaObjectType::TRIVIAL_OWNED_OBJECT>
   {
     // 0xFF means that there is no owner.
     std::uint32_t owner {};
   };
 
   template<>
-  struct ObjectDetailsData<MetaObjectType::WITCH_HUT>
+  struct ObjectDetails<MetaObjectType::WITCH_HUT>
   {
     SecondarySkillsBitmask potential_skills;
   };

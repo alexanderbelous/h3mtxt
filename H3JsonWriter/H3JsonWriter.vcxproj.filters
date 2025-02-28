@@ -83,7 +83,7 @@
     <ClInclude Include="writePlayersBitmask.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="writeObjectDetailsData.h">
+    <ClInclude Include="writeObjectDetails.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="getEnumString.h">

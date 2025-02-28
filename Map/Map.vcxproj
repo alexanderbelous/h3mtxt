@@ -53,8 +53,8 @@
     <ClInclude Include="MapBasicInfo.h" />
     <ClInclude Include="ObjectTemplate.h" />
     <ClInclude Include="Object.h" />
-    <ClInclude Include="ObjectDetailsData.h" />
-    <ClInclude Include="ObjectDetailsDataVariant.h" />
+    <ClInclude Include="ObjectDetails.h" />
+    <ClInclude Include="ObjectDetailsVariant.h" />
     <ClInclude Include="PlayerSpecs.h" />
     <ClInclude Include="PrimarySkills.h" />
     <ClInclude Include="Quest.h" />

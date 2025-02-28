@@ -7,7 +7,7 @@
 #include <h3mtxt/H3JsonWriter/writeMapBasicInfo.h>
 #include <h3mtxt/H3JsonWriter/writeMapAdditionalInfo.h>
 #include <h3mtxt/H3JsonWriter/writeObjectTemplate.h>
-#include <h3mtxt/H3JsonWriter/writeObjectDetailsData.h>
+#include <h3mtxt/H3JsonWriter/writeObjectDetails.h>
 #include <h3mtxt/H3JsonWriter/writePlayerSpecs.h>
 #include <h3mtxt/H3JsonWriter/writeTile.h>
 

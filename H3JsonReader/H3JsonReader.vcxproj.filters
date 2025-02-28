@@ -32,7 +32,7 @@
     <ClCompile Include="readTimedEventBase.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="readObjectDetailsData.cpp">
+    <ClCompile Include="readObjectDetails.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="readQuest.cpp">

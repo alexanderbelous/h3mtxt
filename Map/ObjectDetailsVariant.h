@@ -1,6 +1,6 @@
 #pragma once
 
-#include <h3mtxt/Map/ObjectDetailsData.h>
+#include <h3mtxt/Map/ObjectDetails.h>
 #include <h3mtxt/Map/Utils/EnumSequence.h>
 
 #include <array>
@@ -17,12 +17,12 @@ namespace h3m
     // The size of the inline storage (in bytes) for ObjectDetailsDataVariantDynamic.
     inline constexpr std::size_t kInlineStorageSize = sizeof(void*);
 
-    // \return true if ObjectDetailsData<T> should be inline, false otherwise.
+    // \return true if ObjectDetails<T> should be inline, false otherwise.
     template<MetaObjectType T>
     consteval bool isInline()
     {
-      return (sizeof(ObjectDetailsData<T>) <= kInlineStorageSize) &&
-             (alignof(ObjectDetailsData<T>) <= alignof(void*));
+      return (sizeof(ObjectDetails<T>) <= kInlineStorageSize) &&
+             (alignof(ObjectDetails<T>) <= alignof(void*));
     }
 
     template<class T, class... Args>
@@ -86,11 +86,11 @@ namespace h3m
       std::unique_ptr<T> impl_;
     };
 
-    // Alias template storing ObjectDetailsData<T> for types that should be inline,
-    // NonInlineAlternative<ObjectDetailsData> otherwise.
+    // Alias template storing ObjectDetails<T> for types that should be inline,
+    // NonInlineAlternative<ObjectDetails> otherwise.
     template<MetaObjectType T>
     using ObjectDetailsVariantAlternative =
-      std::conditional_t<isInline<T>(), ObjectDetailsData<T>, NonInlineAlternative<ObjectDetailsData<T>>>;
+      std::conditional_t<isInline<T>(), ObjectDetails<T>, NonInlineAlternative<ObjectDetails<T>>>;
 
     template<class Types>
     struct ObjectDetailsVariantImplTraits;
@@ -105,78 +105,78 @@ namespace h3m
       typename ObjectDetailsVariantImplTraits<MakeEnumSequence<MetaObjectType, kNumMetaObjectTypes>>::type;
   }
 
-  // This is so that we can guarantee that ObjectDetailsDataVariant never stores a null pointer
+  // This is so that we can guarantee that ObjectDetailsVariant never stores a null pointer
   // for some non-inline alternative.
   static_assert(Detail_NS::isInline<MetaObjectType::GENERIC_NO_PROPERTIES>(),
-                "ObjectDetailsData<MetaObjectType::GENERIC_NO_PROPERTIES> "
+                "ObjectDetails<MetaObjectType::GENERIC_NO_PROPERTIES> "
                 "must be stored in the inline storage.");
-  static_assert(std::is_nothrow_default_constructible_v<ObjectDetailsData<MetaObjectType::GENERIC_NO_PROPERTIES>>,
-                "ObjectDetailsData<MetaObjectType::GENERIC_NO_PROPERTIES> "
+  static_assert(std::is_nothrow_default_constructible_v<ObjectDetails<MetaObjectType::GENERIC_NO_PROPERTIES>>,
+                "ObjectDetails<MetaObjectType::GENERIC_NO_PROPERTIES> "
                 "must have a non-throwing default constructor");
 
-  // Eldritch abomination capable of storing any ObjectDetailsData<T>.
+  // Eldritch abomination capable of storing any ObjectDetails<T>.
   //
   // This is similar to std::variant, but unlike std::variant, it stores the data on heap
-  // for large ObjectDetailsData<T>. The reason for this is that ObjectDetailsData can be quite
+  // for large ObjectDetails<T>. The reason for this is that ObjectDetails can be quite
   // large for some MetaObjectTypes, but most objects on the map it will be small. std::variant
   // is memory-inefficient in this scenario.
   //
   // In order to reduce the number of dynamic memory allocations, this class stores sufficiently small
-  // ObjectDetailsData<T> in the inline storage (similar to Small String Optimization).
-  class ObjectDetailsDataVariant
+  // ObjectDetails<T> in the inline storage (similar to Small String Optimization).
+  class ObjectDetailsVariant
   {
   public:
-    // Constructs ObjectDetailsDataVariantDynamic holding ObjectDetailsData<MetaObjectType::GENERIC_NO_PROPERTIES>.
-    constexpr ObjectDetailsDataVariant() noexcept;
+    // Constructs ObjectDetailsDataVariantDynamic holding ObjectDetails<MetaObjectType::GENERIC_NO_PROPERTIES>.
+    constexpr ObjectDetailsVariant() noexcept;
 
-    // Constructs ObjectDetailsDataVariantDynamic holding the specified ObjectDetailsData.
+    // Constructs ObjectDetailsDataVariantDynamic holding the specified ObjectDetails.
     template<MetaObjectType T>
-    ObjectDetailsDataVariant(const ObjectDetailsData<T>& data);
+    ObjectDetailsVariant(const ObjectDetails<T>& data);
 
-    // Constructs ObjectDetailsDataVariantDynamic holding the specified ObjectDetailsData.
+    // Constructs ObjectDetailsDataVariantDynamic holding the specified ObjectDetails.
     template<MetaObjectType T>
-    ObjectDetailsDataVariant(ObjectDetailsData<T>&& data);
+    ObjectDetailsVariant(ObjectDetails<T>&& data);
 
     // Copy constructor.
-    ObjectDetailsDataVariant(const ObjectDetailsDataVariant& other) = default;
+    ObjectDetailsVariant(const ObjectDetailsVariant& other) = default;
 
     // Move constructor.
-    // \param other - ObjectDetailsDataVariant to move from.
+    // \param other - ObjectDetailsVariant to move from.
     // After this call @other will be in a valid state holding GENERIC_NO_PROPERTIES.
-    inline ObjectDetailsDataVariant(ObjectDetailsDataVariant&& other)
+    inline ObjectDetailsVariant(ObjectDetailsVariant&& other)
       noexcept(std::is_nothrow_move_constructible_v<Detail_NS::ObjectDetailsVariantImpl>);
 
     // Copy assignment operator.
-    ObjectDetailsDataVariant& operator=(const ObjectDetailsDataVariant& other) = default;
+    ObjectDetailsVariant& operator=(const ObjectDetailsVariant& other) = default;
 
     // Move assignment operator.
-    inline ObjectDetailsDataVariant& operator=(ObjectDetailsDataVariant&& other)
+    inline ObjectDetailsVariant& operator=(ObjectDetailsVariant&& other)
       noexcept(std::is_nothrow_move_assignable_v<Detail_NS::ObjectDetailsVariantImpl>);
 
-    ~ObjectDetailsDataVariant() = default;
+    ~ObjectDetailsVariant() = default;
 
-    // \return MetaObjectType of the stored ObjectDetailsData.
+    // \return MetaObjectType of the stored ObjectDetails.
     constexpr MetaObjectType getMetaObjectType() const noexcept;
 
-    // \return a reference to the stored ObjectDetailsData<T>.
+    // \return a reference to the stored ObjectDetails<T>.
     // \throw std::bad_variant_access if getMetaObjectType() != T.
     template<MetaObjectType T>
-    ObjectDetailsData<T>& get();
+    ObjectDetails<T>& get();
 
-    // \return a const reference to the stored ObjectDetailsData<T>.
+    // \return a const reference to the stored ObjectDetails<T>.
     // \throw std::bad_variant_access if getMetaObjectType() != T.
     template<MetaObjectType T>
-    const ObjectDetailsData<T>& get() const;
+    const ObjectDetails<T>& get() const;
 
-    // \return a pointer to the stored ObjectDetailsData<T>,
+    // \return a pointer to the stored ObjectDetails<T>,
     //         or nullptr if getMetaObjectType() != T.
     template<MetaObjectType T>
-    ObjectDetailsData<T>* get_if() noexcept;
+    ObjectDetails<T>* get_if() noexcept;
 
-    // \return a pointer to the stored ObjectDetailsData<T>,
+    // \return a pointer to the stored ObjectDetails<T>,
     //         or nullptr if getMetaObjectType() != T.
     template<MetaObjectType T>
-    const ObjectDetailsData<T>* get_if() const noexcept;
+    const ObjectDetails<T>* get_if() const noexcept;
 
     template<class Visitor>
     void visit(Visitor&& visitor);
@@ -191,55 +191,55 @@ namespace h3m
     Detail_NS::ObjectDetailsVariantImpl impl_;
   };
 
-  constexpr ObjectDetailsDataVariant::ObjectDetailsDataVariant() noexcept:
-    impl_(std::in_place_type<ObjectDetailsData<MetaObjectType::GENERIC_NO_PROPERTIES>>)
+  constexpr ObjectDetailsVariant::ObjectDetailsVariant() noexcept:
+    impl_(std::in_place_type<ObjectDetails<MetaObjectType::GENERIC_NO_PROPERTIES>>)
   {
   }
 
   template<MetaObjectType T>
-  ObjectDetailsDataVariant::ObjectDetailsDataVariant(const ObjectDetailsData<T>& data):
+  ObjectDetailsVariant::ObjectDetailsVariant(const ObjectDetails<T>& data):
     impl_(std::in_place_type<Detail_NS::ObjectDetailsVariantAlternative<T>>, data)
   {
   }
 
   template<MetaObjectType T>
-  ObjectDetailsDataVariant::ObjectDetailsDataVariant(ObjectDetailsData<T>&& data) :
+  ObjectDetailsVariant::ObjectDetailsVariant(ObjectDetails<T>&& data) :
     impl_(std::in_place_type<Detail_NS::ObjectDetailsVariantAlternative<T>>, std::move(data))
   {
   }
 
-  ObjectDetailsDataVariant::ObjectDetailsDataVariant(ObjectDetailsDataVariant&& other)
+  ObjectDetailsVariant::ObjectDetailsVariant(ObjectDetailsVariant&& other)
     noexcept(std::is_nothrow_move_constructible_v<Detail_NS::ObjectDetailsVariantImpl>) :
     impl_(std::move(other.impl_))
   {
     // Assign GENERIC_NO_PROPERTIES to @other to ensure that it doesn't store a null unique_ptr.
-    other.impl_.emplace<ObjectDetailsData<MetaObjectType::GENERIC_NO_PROPERTIES>>();
+    other.impl_.emplace<ObjectDetails<MetaObjectType::GENERIC_NO_PROPERTIES>>();
   }
 
-  ObjectDetailsDataVariant& ObjectDetailsDataVariant::operator=(ObjectDetailsDataVariant&& other)
+  ObjectDetailsVariant& ObjectDetailsVariant::operator=(ObjectDetailsVariant&& other)
     noexcept(std::is_nothrow_move_assignable_v<Detail_NS::ObjectDetailsVariantImpl>)
   {
     impl_ = std::move(other.impl_);
     // Assign GENERIC_NO_PROPERTIES to @other to ensure that it doesn't store a null unique_ptr.
-    other.impl_.emplace<ObjectDetailsData<MetaObjectType::GENERIC_NO_PROPERTIES>>();
+    other.impl_.emplace<ObjectDetails<MetaObjectType::GENERIC_NO_PROPERTIES>>();
     return *this;
   }
 
-  constexpr MetaObjectType ObjectDetailsDataVariant::getMetaObjectType() const noexcept
+  constexpr MetaObjectType ObjectDetailsVariant::getMetaObjectType() const noexcept
   {
     return static_cast<MetaObjectType>(impl_.index());
   }
 
   template<MetaObjectType T>
-  ObjectDetailsData<T>& ObjectDetailsDataVariant::get()
+  ObjectDetails<T>& ObjectDetailsVariant::get()
   {
-    return const_cast<ObjectDetailsData<T>&>(std::as_const(*this).get<T>());
+    return const_cast<ObjectDetails<T>&>(std::as_const(*this).get<T>());
   }
 
   template<MetaObjectType T>
-  const ObjectDetailsData<T>& ObjectDetailsDataVariant::get() const
+  const ObjectDetails<T>& ObjectDetailsVariant::get() const
   {
-    if (const ObjectDetailsData<T>* data_ptr = get_if<T>())
+    if (const ObjectDetails<T>* data_ptr = get_if<T>())
     {
       return *data_ptr;
     }
@@ -247,13 +247,13 @@ namespace h3m
   }
 
   template<MetaObjectType T>
-  ObjectDetailsData<T>* ObjectDetailsDataVariant::get_if() noexcept
+  ObjectDetails<T>* ObjectDetailsVariant::get_if() noexcept
   {
-    return const_cast<ObjectDetailsData<T>*>(std::as_const(*this).get_if<T>());
+    return const_cast<ObjectDetails<T>*>(std::as_const(*this).get_if<T>());
   }
 
   template<MetaObjectType T>
-  const ObjectDetailsData<T>* ObjectDetailsDataVariant::get_if() const noexcept
+  const ObjectDetails<T>* ObjectDetailsVariant::get_if() const noexcept
   {
     const Detail_NS::ObjectDetailsVariantAlternative<T>* alt = std::get_if<static_cast<std::size_t>(T)>(&impl_);
     if constexpr (Detail_NS::isInline<T>())
@@ -271,13 +271,13 @@ namespace h3m
   }
 
   template<class Visitor>
-  void ObjectDetailsDataVariant::visit(Visitor&& visitor)
+  void ObjectDetailsVariant::visit(Visitor&& visitor)
   {
     visitImpl(std::forward<Visitor>(visitor), *this);
   }
 
   template<class Visitor>
-  void ObjectDetailsDataVariant::visit(Visitor&& visitor) const
+  void ObjectDetailsVariant::visit(Visitor&& visitor) const
   {
     visitImpl(std::forward<Visitor>(visitor), *this);
   }
@@ -324,7 +324,7 @@ namespace h3m
   }
 
   template<class Visitor, class Self>
-  void ObjectDetailsDataVariant::visitImpl(Visitor&& visitor, Self&& self)
+  void ObjectDetailsVariant::visitImpl(Visitor&& visitor, Self&& self)
   {
     std::visit(Detail_NS::makeVisitorHelper(std::forward<Visitor>(visitor)), std::forward<Self>(self).impl_);
   }
