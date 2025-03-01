@@ -16,6 +16,9 @@ namespace Medea_NS
   void JsonObjectWriter<h3m::GlobalEvent>::operator()(FieldsWriter& out, const h3m::GlobalEvent& global_event) const;
 
   template<>
+  void JsonObjectWriter<h3m::Guardians>::operator()(FieldsWriter& out, const h3m::Guardians& guardians) const;
+
+  template<>
   void JsonObjectWriter<h3m::HeroArtifacts>::operator()(FieldsWriter& out, const h3m::HeroArtifacts& value) const;
 
   template<>
@@ -41,6 +44,10 @@ namespace Medea_NS
   void JsonObjectWriter<h3m::MapBasicInfo>::operator()(FieldsWriter& out, const h3m::MapBasicInfo& value) const;
 
   template<>
+  void JsonObjectWriter<h3m::MessageAndTreasure>::operator()(FieldsWriter& out,
+                                                             const h3m::MessageAndTreasure& data) const;
+
+  template<>
   void JsonObjectWriter<h3m::ObjectTemplate>::operator()(FieldsWriter& out, const h3m::ObjectTemplate& value) const;
 
   template<>
@@ -58,6 +65,10 @@ namespace Medea_NS
 
   template<>
   void JsonObjectWriter<h3m::Resources>::operator()(FieldsWriter& out, const h3m::Resources& resources) const;
+
+  template<>
+  void JsonObjectWriter<h3m::ResourcesBitmask>::operator()(FieldsWriter& out,
+                                                           const h3m::ResourcesBitmask& resources_bitmask) const;
 
   template<>
   void JsonObjectWriter<h3m::Reward>::operator()(FieldsWriter& out, const h3m::Reward& reward) const;
@@ -90,7 +101,20 @@ namespace Medea_NS
   void JsonObjectWriter<h3m::Tile>::operator()(FieldsWriter& out, const h3m::Tile& value) const;
 
   template<>
+  void JsonObjectWriter<h3m::TownBuildingsBitmask>::operator()(
+    FieldsWriter& out, const h3m::TownBuildingsBitmask& buildings_bitmask) const;
+
+  template<>
+  void JsonObjectWriter<h3m::TownBuildings>::operator()(FieldsWriter& out,
+                                                        const h3m::TownBuildings& town_buildings) const;
+
+  template<>
+  void JsonObjectWriter<h3m::TownEvent>::operator()(FieldsWriter& out, const h3m::TownEvent& town_event) const;
+
+  template<>
   void JsonObjectWriter<h3m::TownsBitmask>::operator()(FieldsWriter& out, const h3m::TownsBitmask& bitmask) const;
+
+  void printEventBase(FieldsWriter& out, const h3m::EventBase& event);
 
   void printTimedEventBase(FieldsWriter& out, const h3m::TimedEventBase& event);
 }

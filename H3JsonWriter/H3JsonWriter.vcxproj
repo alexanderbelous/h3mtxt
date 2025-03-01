@@ -95,6 +95,7 @@
     <ClCompile Include="writeMap.cpp" />
     <ClCompile Include="writeMapAdditionalInfo.cpp" />
     <ClCompile Include="writeMapBasicInfo.cpp" />
+    <ClCompile Include="writeObject.cpp" />
     <ClCompile Include="writeObjectTemplate.cpp" />
     <ClCompile Include="writePlayersBitmask.cpp" />
     <ClCompile Include="writePlayerSpecs.cpp" />
