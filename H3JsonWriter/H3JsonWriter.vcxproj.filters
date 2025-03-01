@@ -87,15 +87,24 @@
     <ClCompile Include="writeObject.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="writeCampaign.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="writeStartingOptions.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="writeStartingBonus.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="writeLossCondition.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="writeVictoryCondition.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="writeH3mJson.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="writeVictoryCondition.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="writeLossCondition.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="writeObjectDetails.h">
@@ -110,13 +119,7 @@
     <ClInclude Include="writeRewardDetails.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="writeStartingBonus.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="writeStartingOptions.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="writeCampaign.h">
+    <ClInclude Include="writeStartingBonusDetails.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="writeH3cJson.h">
@@ -126,6 +129,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="H3JsonWriter.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="writeStartingOptionsDetails.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

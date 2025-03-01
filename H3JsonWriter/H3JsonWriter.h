@@ -1,5 +1,6 @@
 #pragma once
 
+#include <h3mtxt/Campaign/CampaignFwd.h>
 #include <h3mtxt/JsonWriter/JsonWriterFwd.h>
 #include <h3mtxt/Map/MapFwd.h>
 
@@ -30,6 +31,10 @@ namespace Medea_NS
   template<>
   void JsonValueWriter<h3m::HeroesSettings>::operator()(JsonDocumentWriter& out,
                                                         const h3m::HeroesSettings& value) const;
+
+  template<>
+  void JsonObjectWriter<h3m::LossCondition>::operator()(FieldsWriter& out,
+                                                        const h3m::LossCondition& loss_condition) const;
 
   template<>
   void JsonObjectWriter<h3m::MainTown>::operator()(FieldsWriter& out, const h3m::MainTown& value) const;
@@ -114,7 +119,36 @@ namespace Medea_NS
   template<>
   void JsonObjectWriter<h3m::TownsBitmask>::operator()(FieldsWriter& out, const h3m::TownsBitmask& bitmask) const;
 
+  template<>
+  void JsonObjectWriter<h3m::VictoryCondition>::operator()(FieldsWriter& out,
+                                                           const h3m::VictoryCondition& value) const;
+
   void printEventBase(FieldsWriter& out, const h3m::EventBase& event);
 
   void printTimedEventBase(FieldsWriter& out, const h3m::TimedEventBase& event);
+
+  // === Campaign ===
+  template<>
+  void JsonObjectWriter<h3m::Campaign>::operator()(FieldsWriter& out, const h3m::Campaign& campaign) const;
+
+  template<>
+  void JsonObjectWriter<h3m::CampaignHeader>::operator()(FieldsWriter& out, const h3m::CampaignHeader& campaign) const;
+
+  template<>
+  void JsonObjectWriter<h3m::CampaignScenario>::operator()(FieldsWriter& out,
+                                                           const h3m::CampaignScenario& scenario) const;
+
+  template<>
+  void JsonObjectWriter<h3m::CutScene>::operator()(FieldsWriter& out, const h3m::CutScene& cutscene) const;
+
+  template<>
+  void JsonObjectWriter<h3m::CrossoverOptions>::operator()(FieldsWriter& out,
+                                                           const h3m::CrossoverOptions& cutscene) const;
+
+  template<>
+  void JsonObjectWriter<h3m::StartingBonus>::operator()(FieldsWriter& out, const h3m::StartingBonus& bonus) const;
+
+  template<>
+  void JsonObjectWriter<h3m::StartingOptions>::operator()(FieldsWriter& out,
+                                                          const h3m::StartingOptions& starting_options) const;
 }

@@ -825,4 +825,14 @@ namespace h3m
       "padding_15",
     };
   };
+
+  template<>
+  struct FieldNames<VictoryCondition>
+  {
+    // Note: VictoryCondition has only 1 data member `details`, which is a std::variant.
+    // However, it is serialized as 2 fields: `type` (VictoryConditionType) and
+    // `details` (VictoryConditionDetails<type>).
+    static inline constexpr std::string_view kType = "type";
+    static inline constexpr std::string_view kDetails = "details";
+  };
 }

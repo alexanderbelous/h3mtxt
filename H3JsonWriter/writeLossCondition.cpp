@@ -1,15 +1,16 @@
-#pragma once
-
 #include <h3mtxt/H3JsonWriter/getEnumString.h>
+#include <h3mtxt/H3JsonWriter/H3JsonWriter.h>
 #include <h3mtxt/H3JsonWriter/Utils.h>
 #include <h3mtxt/JsonCommon/FieldName.h>
 #include <h3mtxt/Map/LossCondition.h>
+
+#include <type_traits>
 
 namespace Medea_NS
 {
   template<class T>
   struct JsonObjectWriter<T, std::enable_if_t<std::is_same_v<T, h3m::LossConditionDetails<h3m::LossConditionType::LoseTown>> ||
-                                          std::is_same_v<T, h3m::LossConditionDetails<h3m::LossConditionType::LoseHero>>>>
+                                              std::is_same_v<T, h3m::LossConditionDetails<h3m::LossConditionType::LoseHero>>>>
   {
     void operator()(FieldsWriter& out, const T& value) const
     {
@@ -38,25 +39,22 @@ namespace Medea_NS
     }
   };
 
-  template<>
-  struct JsonObjectWriter<h3m::LossCondition>
+  void JsonObjectWriter<h3m::LossCondition>::operator()(FieldsWriter& out,
+                                                        const h3m::LossCondition& loss_condition) const
   {
-    void operator()(FieldsWriter& out, const h3m::LossCondition& loss_condition) const
+    using Fields = h3m::FieldNames<h3m::LossCondition>;
+    const bool has_details = loss_condition.type() != h3m::LossConditionType::Normal;
+    out.writeField(Fields::kType, loss_condition.type());
+    if (has_details)
     {
-      using Fields = h3m::FieldNames<h3m::LossCondition>;
-      const bool has_details = loss_condition.type() != h3m::LossConditionType::Normal;
-      out.writeField(Fields::kType, loss_condition.type());
-      if (has_details)
-      {
-        out.writeComma();
-      }
-      out.writeComment(h3m::getEnumString(loss_condition.type()), false);
-      if (has_details)
-      {
-        std::visit([&out] <h3m::LossConditionType T> (const h3m::LossConditionDetails<T>& details)
-                   { out.writeField(Fields::kDetails, details); },
-                   loss_condition.details);
-      }
+      out.writeComma();
     }
-  };
+    out.writeComment(h3m::getEnumString(loss_condition.type()), false);
+    if (has_details)
+    {
+      std::visit([&out] <h3m::LossConditionType T> (const h3m::LossConditionDetails<T>& details)
+                  { out.writeField(Fields::kDetails, details); },
+                  loss_condition.details);
+    }
+  }
 }

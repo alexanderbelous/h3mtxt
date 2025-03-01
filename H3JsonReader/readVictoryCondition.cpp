@@ -1,4 +1,5 @@
 #include <h3mtxt/H3JsonReader/Utils.h>
+#include <h3mtxt/JsonCommon/FieldName.h>
 #include <h3mtxt/Map/VictoryCondition.h>
 
 #include <stdexcept>
@@ -116,31 +117,32 @@ namespace h3m::H3JsonReader_NS
 
   VictoryCondition JsonReader<VictoryCondition>::operator()(const Json::Value& value) const
   {
-    const VictoryConditionType victory_condition_type = readField<VictoryConditionType>(value, "type");
+    using Fields = FieldNames<VictoryCondition>;
+    const VictoryConditionType victory_condition_type = readField<VictoryConditionType>(value, Fields::kType);
     switch (victory_condition_type)
     {
     case VictoryConditionType::AcquireArtifact:
-      return readField<VictoryConditionDetails<VictoryConditionType::AcquireArtifact>>(value, "details");
+      return readField<VictoryConditionDetails<VictoryConditionType::AcquireArtifact>>(value, Fields::kDetails);
     case VictoryConditionType::AccumulateCreatures:
-      return readField<VictoryConditionDetails<VictoryConditionType::AccumulateCreatures>>(value, "details");
+      return readField<VictoryConditionDetails<VictoryConditionType::AccumulateCreatures>>(value, Fields::kDetails);
     case VictoryConditionType::AccumulateResources:
-      return readField<VictoryConditionDetails<VictoryConditionType::AccumulateResources>>(value, "details");
+      return readField<VictoryConditionDetails<VictoryConditionType::AccumulateResources>>(value, Fields::kDetails);
     case VictoryConditionType::UpgradeTown:
-      return readField<VictoryConditionDetails<VictoryConditionType::UpgradeTown>>(value, "details");
+      return readField<VictoryConditionDetails<VictoryConditionType::UpgradeTown>>(value, Fields::kDetails);
     case VictoryConditionType::BuildGrail:
-      return readField<VictoryConditionDetails<VictoryConditionType::BuildGrail>>(value, "details");
+      return readField<VictoryConditionDetails<VictoryConditionType::BuildGrail>>(value, Fields::kDetails);
     case VictoryConditionType::DefeatHero:
-      return readField<VictoryConditionDetails<VictoryConditionType::DefeatHero>>(value, "details");
+      return readField<VictoryConditionDetails<VictoryConditionType::DefeatHero>>(value, Fields::kDetails);
     case VictoryConditionType::CaptureTown:
-      return readField<VictoryConditionDetails<VictoryConditionType::CaptureTown>>(value, "details");
+      return readField<VictoryConditionDetails<VictoryConditionType::CaptureTown>>(value, Fields::kDetails);
     case VictoryConditionType::DefeatMonster:
-      return readField<VictoryConditionDetails<VictoryConditionType::DefeatMonster>>(value, "details");
+      return readField<VictoryConditionDetails<VictoryConditionType::DefeatMonster>>(value, Fields::kDetails);
     case VictoryConditionType::FlagDwellings:
-      return readField<VictoryConditionDetails<VictoryConditionType::FlagDwellings>>(value, "details");
+      return readField<VictoryConditionDetails<VictoryConditionType::FlagDwellings>>(value, Fields::kDetails);
     case VictoryConditionType::FlagMines:
-      return readField<VictoryConditionDetails<VictoryConditionType::FlagMines>>(value, "details");
+      return readField<VictoryConditionDetails<VictoryConditionType::FlagMines>>(value, Fields::kDetails);
     case VictoryConditionType::TransportArtifact:
-      return readField<VictoryConditionDetails<VictoryConditionType::TransportArtifact>>(value, "details");
+      return readField<VictoryConditionDetails<VictoryConditionType::TransportArtifact>>(value, Fields::kDetails);
     case VictoryConditionType::Normal:
       return VictoryCondition();
     default:

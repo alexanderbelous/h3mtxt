@@ -1,9 +1,9 @@
 #include <h3mtxt/H3JsonWriter/H3JsonWriter.h>
 #include <h3mtxt/H3JsonWriter/getEnumString.h>
 #include <h3mtxt/H3JsonWriter/Utils.h>
+#include <h3mtxt/H3JsonWriter/writeObjectDetails.h>
 #include <h3mtxt/JsonCommon/FieldName.h>
 #include <h3mtxt/Map/ObjectDetails.h>
-
 
 namespace Medea_NS
 {
@@ -88,5 +88,355 @@ namespace Medea_NS
     out.writeField(Fields::kSpells, event.spells);
     out.writeField(Fields::kCreatures, event.creatures);
     out.writeField(Fields::kUnknown, event.unknown);
+  }
+
+  void JsonObjectWriter<h3m::ObjectDetails<h3m::MetaObjectType::ABANDONED_MINE>>::operator()(
+    FieldsWriter& out, const h3m::ObjectDetails<h3m::MetaObjectType::ABANDONED_MINE>& details) const
+  {
+    using Details = h3m::ObjectDetails<h3m::MetaObjectType::ABANDONED_MINE>;
+    using Fields = h3m::FieldNames<Details>;
+    out.writeField(Fields::kPotentialResources, details.potential_resources);
+    out.writeField(Fields::kUnknown, details.unknown);
+  }
+
+  void JsonObjectWriter<h3m::ObjectDetails<h3m::MetaObjectType::ARTIFACT>>::operator()(
+    FieldsWriter& out, const h3m::ObjectDetails<h3m::MetaObjectType::ARTIFACT>& artifact) const
+  {
+    using Details = h3m::ObjectDetails<h3m::MetaObjectType::ARTIFACT>;
+    using Fields = h3m::FieldNames<Details>;
+    if (artifact.guardians)
+    {
+      out.writeField(Fields::kGuardians, *artifact.guardians);
+    }
+  }
+
+  void JsonObjectWriter<h3m::ObjectDetails<h3m::MetaObjectType::EVENT>>::operator()(
+    FieldsWriter& out, const h3m::ObjectDetails<h3m::MetaObjectType::EVENT>& event) const
+  {
+    using Details = h3m::ObjectDetails<h3m::MetaObjectType::EVENT>;
+    using Fields = h3m::FieldNames<Details>;
+    printEventBase(out, event);
+    out.writeField(Fields::kAffectedPlayers, event.affected_players);
+    out.writeField(Fields::kAppliesToComputer, event.applies_to_computer);
+    out.writeField(Fields::kRemoveAfterFirstVisit, event.remove_after_first_visit);
+    out.writeField(Fields::kUnknown2, event.unknown2);
+  }
+
+  void JsonObjectWriter<h3m::ObjectDetails<h3m::MetaObjectType::GARRISON>>::operator()(
+    FieldsWriter& out, const h3m::ObjectDetails<h3m::MetaObjectType::GARRISON>& garrison) const
+  {
+    using Details = h3m::ObjectDetails<h3m::MetaObjectType::GARRISON>;
+    using Fields = h3m::FieldNames<Details>;
+    out.writeField(Fields::kOwner, garrison.owner);
+    out.writeField(Fields::kCreatures, garrison.creatures);
+    out.writeField(Fields::kCanRemoveUnits, garrison.can_remove_units);
+    out.writeField(Fields::kUnknown, garrison.unknown);
+  }
+
+  void JsonObjectWriter<h3m::ObjectDetails<h3m::MetaObjectType::GENERIC_NO_PROPERTIES>>::operator()(
+    FieldsWriter&, const h3m::ObjectDetails<h3m::MetaObjectType::GENERIC_NO_PROPERTIES>&) const
+  {
+  }
+
+  void JsonObjectWriter<h3m::ObjectDetails<h3m::MetaObjectType::GRAIL>>::operator()(
+    FieldsWriter& out, const h3m::ObjectDetails<h3m::MetaObjectType::GRAIL>& grail) const
+  {
+    using Details = h3m::ObjectDetails<h3m::MetaObjectType::GRAIL>;
+    using Fields = h3m::FieldNames<Details>;
+    out.writeField(Fields::kAllowableRadius, grail.allowable_radius);
+  }
+
+  void JsonObjectWriter<h3m::ObjectDetails<h3m::MetaObjectType::HERO>>::operator()(
+    FieldsWriter& out, const h3m::ObjectDetails<h3m::MetaObjectType::HERO>& hero) const
+  {
+    using Details = h3m::ObjectDetails<h3m::MetaObjectType::HERO>;
+    using Fields = h3m::FieldNames<Details>;
+    out.writeField(Fields::kAbsodId, hero.absod_id);
+    out.writeField(Fields::kOwner, hero.owner);
+    out.writeField(Fields::kType, hero.type);
+    if (auto enum_str = h3m::getEnumString(hero.type); !enum_str.empty())
+    {
+      out.writeComma();
+      out.writeComment(enum_str, false);
+    }
+    if (hero.name)
+    {
+      out.writeField(Fields::kName, *hero.name);
+    }
+    if (hero.experience)
+    {
+      out.writeField(Fields::kExperience, *hero.experience);
+    }
+    if (hero.portrait)
+    {
+      out.writeField(Fields::kPortrait, *hero.portrait);
+    }
+    if (hero.secondary_skills)
+    {
+      out.writeField(Fields::kSecondarySkills, *hero.secondary_skills);
+    }
+    if (hero.creatures)
+    {
+      out.writeField(Fields::kCreatures, *hero.creatures);
+    }
+    out.writeField(Fields::kFormation, hero.formation);
+    if (auto enum_str = h3m::getEnumString(hero.formation); !enum_str.empty())
+    {
+      out.writeComma();
+      out.writeComment(enum_str, false);
+    }
+    if (hero.artifacts)
+    {
+      out.writeField(Fields::kArtifacts, *hero.artifacts);
+    }
+    out.writeField(Fields::kPatrolRadius, hero.patrol_radius);
+    if (hero.biography)
+    {
+      out.writeField(Fields::kBiography, *hero.biography);
+    }
+    out.writeField(Fields::kGender, hero.gender);
+    if (auto enum_str = h3m::getEnumString(hero.gender); !enum_str.empty())
+    {
+      out.writeComma();
+      out.writeComment(enum_str, false);
+    }
+    if (hero.spells)
+    {
+      out.writeField(Fields::kSpells, *hero.spells);
+    }
+    if (hero.primary_skills)
+    {
+      out.writeField(Fields::kPrimarySkills, *hero.primary_skills);
+    }
+    out.writeField(Fields::kUnknown, hero.unknown);
+  }
+
+  void JsonObjectWriter<h3m::ObjectDetails<h3m::MetaObjectType::MONSTER>>::operator()(
+    FieldsWriter& out, const h3m::ObjectDetails<h3m::MetaObjectType::MONSTER>& monster) const
+  {
+    using Details = h3m::ObjectDetails<h3m::MetaObjectType::MONSTER>;
+    using Fields = h3m::FieldNames<Details>;
+
+    out.writeField(Fields::kAbsodId, monster.absod_id);
+    out.writeField(Fields::kCount, monster.count);
+    out.writeField(Fields::kDisposition, monster.disposition);
+    if (auto enum_str = h3m::getEnumString(monster.disposition); !enum_str.empty())
+    {
+      out.writeComma();
+      out.writeComment(enum_str, false);
+    }
+    if (monster.message_and_treasure)
+    {
+      out.writeField(Fields::kMessageAndTreasure, *monster.message_and_treasure);
+    }
+    out.writeField(Fields::kNeverFlees, monster.never_flees);
+    out.writeField(Fields::kDoesNotGrow, monster.does_not_grow);
+    out.writeField(Fields::kUnknown, monster.unknown);
+  }
+
+  void JsonObjectWriter<h3m::ObjectDetails<h3m::MetaObjectType::PANDORAS_BOX>>::operator()(
+    FieldsWriter& out, const h3m::ObjectDetails<h3m::MetaObjectType::PANDORAS_BOX>& pandoras_box) const
+  {
+    printEventBase(out, pandoras_box);
+  }
+
+  void JsonObjectWriter<h3m::ObjectDetails<h3m::MetaObjectType::PLACEHOLDER_HERO>>::operator()(
+    FieldsWriter& out, const h3m::ObjectDetails<h3m::MetaObjectType::PLACEHOLDER_HERO>& hero) const
+  {
+    using Details = h3m::ObjectDetails<h3m::MetaObjectType::PLACEHOLDER_HERO>;
+    using Fields = h3m::FieldNames<Details>;
+    constexpr h3m::HeroType kRandomHeroType {0xFF};
+
+    out.writeField(Fields::kOwner, hero.owner);
+    if (auto enum_str = h3m::getEnumString(hero.owner); !enum_str.empty())
+    {
+      out.writeComma();
+      out.writeComment(enum_str, false);
+    }
+    out.writeField(Fields::kType, hero.type);
+    if (hero.type == kRandomHeroType)
+    {
+      out.writeField(Fields::kPowerRating, hero.power_rating);
+    }
+  }
+
+  void JsonObjectWriter<h3m::ObjectDetails<h3m::MetaObjectType::QUEST_GUARD>>::operator()(
+    FieldsWriter& out, const h3m::ObjectDetails<h3m::MetaObjectType::QUEST_GUARD>& quest_guard) const
+  {
+    using Details = h3m::ObjectDetails<h3m::MetaObjectType::QUEST_GUARD>;
+    using Fields = h3m::FieldNames<Details>;
+    out.writeField(Fields::kQuest, quest_guard.quest);
+  }
+
+  void JsonObjectWriter<h3m::ObjectDetails<h3m::MetaObjectType::RANDOM_DWELLING>>::operator()(
+    FieldsWriter& out, const h3m::ObjectDetails<h3m::MetaObjectType::RANDOM_DWELLING>& dwelling) const
+  {
+    using Details = h3m::ObjectDetails<h3m::MetaObjectType::RANDOM_DWELLING>;
+    using Fields = h3m::FieldNames<Details>;
+    out.writeField(Fields::kOwner, dwelling.owner);
+    out.writeField(Fields::kTownAbsodId, dwelling.town_absod_id);
+    if (dwelling.town_absod_id == 0)
+    {
+      out.writeField(Fields::kAlignment, dwelling.alignment);
+    }
+    out.writeField(Fields::kMinLevel, dwelling.min_level);
+    out.writeField(Fields::kMaxLevel, dwelling.max_level);
+  }
+
+  void JsonObjectWriter<h3m::ObjectDetails<h3m::MetaObjectType::RANDOM_DWELLING_PRESET_ALIGNMENT>>::operator()(
+    FieldsWriter& out, const h3m::ObjectDetails<h3m::MetaObjectType::RANDOM_DWELLING_PRESET_ALIGNMENT>& dwelling) const
+  {
+    using Details = h3m::ObjectDetails<h3m::MetaObjectType::RANDOM_DWELLING_PRESET_ALIGNMENT>;
+    using Fields = h3m::FieldNames<Details>;
+    out.writeField(Fields::kOwner, dwelling.owner);
+    out.writeField(Fields::kMinLevel, dwelling.min_level);
+    out.writeField(Fields::kMaxLevel, dwelling.max_level);
+  }
+
+  void JsonObjectWriter<h3m::ObjectDetails<h3m::MetaObjectType::RANDOM_DWELLING_PRESET_LEVEL>>::operator()(
+    FieldsWriter& out, const h3m::ObjectDetails<h3m::MetaObjectType::RANDOM_DWELLING_PRESET_LEVEL>& dwelling) const
+  {
+    using Details = h3m::ObjectDetails<h3m::MetaObjectType::RANDOM_DWELLING_PRESET_LEVEL>;
+    using Fields = h3m::FieldNames<Details>;
+    out.writeField(Fields::kOwner, dwelling.owner);
+    out.writeField(Fields::kTownAbsodId, dwelling.town_absod_id);
+    if (dwelling.town_absod_id == 0)
+    {
+      out.writeField(Fields::kAlignment, dwelling.alignment);
+    }
+  }
+
+  void JsonObjectWriter<h3m::ObjectDetails<h3m::MetaObjectType::RESOURCE>>::operator()(
+    FieldsWriter& out, const h3m::ObjectDetails<h3m::MetaObjectType::RESOURCE>& details) const
+  {
+    using Details = h3m::ObjectDetails<h3m::MetaObjectType::RESOURCE>;
+    using Fields = h3m::FieldNames<Details>;
+    if (details.guardians)
+    {
+      out.writeField(Fields::kGuardians, *details.guardians);
+    }
+    out.writeField(Fields::kQuantity, details.quantity);
+    out.writeField(Fields::kUnknown, details.unknown);
+  }
+
+  void JsonObjectWriter<h3m::ObjectDetails<h3m::MetaObjectType::SCHOLAR>>::operator()(
+    FieldsWriter& out, const h3m::ObjectDetails<h3m::MetaObjectType::SCHOLAR>& scholar) const
+  {
+    using Details = h3m::ObjectDetails<h3m::MetaObjectType::SCHOLAR>;
+    using Fields = h3m::FieldNames<Details>;
+    out.writeField(Fields::kRewardType, scholar.reward_type);
+    if (std::string_view enum_str = h3m::getEnumString(scholar.reward_type); !enum_str.empty())
+    {
+      out.writeComma();
+      out.writeComment(enum_str, false);
+    }
+    out.writeField(Fields::kRewardValue, scholar.reward_value);
+    out.writeField(Fields::kUnknown, scholar.unknown);
+  }
+
+  void JsonObjectWriter<h3m::ObjectDetails<h3m::MetaObjectType::SEERS_HUT>>::operator()(
+    FieldsWriter& out, const h3m::ObjectDetails<h3m::MetaObjectType::SEERS_HUT>& seers_hut) const
+  {
+    using Details = h3m::ObjectDetails<h3m::MetaObjectType::SEERS_HUT>;
+    using Fields = h3m::FieldNames<Details>;
+    out.writeField(Fields::kQuest, seers_hut.quest);
+    out.writeField(Fields::kReward, seers_hut.reward);
+    out.writeField(Fields::kUnknown, seers_hut.unknown);
+  }
+
+  void JsonObjectWriter<h3m::ObjectDetails<h3m::MetaObjectType::SHRINE>>::operator()(
+    FieldsWriter& out, const h3m::ObjectDetails<h3m::MetaObjectType::SHRINE>& shrine) const
+  {
+    using Details = h3m::ObjectDetails<h3m::MetaObjectType::SHRINE>;
+    using Fields = h3m::FieldNames<Details>;
+    out.writeField(Fields::kSpell, shrine.spell);
+    const std::string_view spell_str = (shrine.spell == h3m::SpellType{ 0xFF }) ?
+      "(Random)" : h3m::getEnumString(shrine.spell);
+    if (!spell_str.empty())
+    {
+      out.writeComma();
+      out.writeComment(spell_str, false);
+    }
+    out.writeField(Fields::kUnknown, shrine.unknown);
+  }
+
+  void JsonObjectWriter<h3m::ObjectDetails<h3m::MetaObjectType::SIGN>>::operator()(
+    FieldsWriter& out, const h3m::ObjectDetails<h3m::MetaObjectType::SIGN>& sign) const
+  {
+    using Details = h3m::ObjectDetails<h3m::MetaObjectType::SIGN>;
+    using Fields = h3m::FieldNames<Details>;
+    out.writeField(Fields::kMessage, sign.message);
+    out.writeField(Fields::kUnknown, sign.unknown);
+  }
+
+  void JsonObjectWriter<h3m::ObjectDetails<h3m::MetaObjectType::SPELL_SCROLL>>::operator()(
+    FieldsWriter& out, const h3m::ObjectDetails<h3m::MetaObjectType::SPELL_SCROLL>& spell_scroll) const
+  {
+    using Details = h3m::ObjectDetails<h3m::MetaObjectType::SPELL_SCROLL>;
+    using Fields = h3m::FieldNames<Details>;
+    if (spell_scroll.guardians)
+    {
+      out.writeField(Fields::kGuardians, *spell_scroll.guardians);
+    }
+    out.writeField(Fields::kSpell, spell_scroll.spell);
+    if (std::string_view enum_str = h3m::getEnumString(spell_scroll.spell); !enum_str.empty())
+    {
+      out.writeComma();
+      out.writeComment(enum_str, false);
+    }
+    out.writeField(Fields::kUnknown, spell_scroll.unknown);
+  }
+
+  void JsonObjectWriter<h3m::ObjectDetails<h3m::MetaObjectType::TOWN>>::operator()(
+    FieldsWriter& out, const h3m::ObjectDetails<h3m::MetaObjectType::TOWN>& town) const
+  {
+    using Details = h3m::ObjectDetails<h3m::MetaObjectType::TOWN>;
+    using Fields = h3m::FieldNames<Details>;
+    out.writeField(Fields::kAbsodId, town.absod_id);
+    out.writeField(Fields::kOwner, town.owner);
+    if (town.name)
+    {
+      out.writeField(Fields::kName, *town.name);
+    }
+    if (town.garrison)
+    {
+      out.writeField(Fields::kGarrison, *town.garrison);
+    }
+    out.writeField(Fields::kFormation, town.formation);
+    if (auto enum_str = h3m::getEnumString(town.formation); !enum_str.empty())
+    {
+      out.writeComma();
+      out.writeComment(enum_str, false);
+    }
+    if (town.buildings)
+    {
+      out.writeField(Fields::kBuildings, *town.buildings);
+    }
+    else
+    {
+      out.writeField(Fields::kHasFort, town.has_fort);
+    }
+    out.writeField(Fields::kMustHaveSpell, town.must_have_spell);
+    out.writeField(Fields::kMayNotHaveSpell, town.may_not_have_spell);
+    out.writeField(Fields::kEvents, town.events);
+    out.writeField(Fields::kAlignment, town.alignment);
+    out.writeField(Fields::kUnknown, town.unknown);
+  }
+
+  void JsonObjectWriter<h3m::ObjectDetails<h3m::MetaObjectType::TRIVIAL_OWNED_OBJECT>>::operator()(
+    FieldsWriter& out, const h3m::ObjectDetails<h3m::MetaObjectType::TRIVIAL_OWNED_OBJECT>& details) const
+  {
+    using Details = h3m::ObjectDetails<h3m::MetaObjectType::TRIVIAL_OWNED_OBJECT>;
+    using Fields = h3m::FieldNames<Details>;
+    // TODO: consider printing as the name of the enum constant if it's within the range.
+    out.writeField(Fields::kOwner, details.owner);
+  }
+
+  void JsonObjectWriter<h3m::ObjectDetails<h3m::MetaObjectType::WITCH_HUT>>::operator()(
+    FieldsWriter& out, const h3m::ObjectDetails<h3m::MetaObjectType::WITCH_HUT>& witch_hut) const
+  {
+    using Details = h3m::ObjectDetails<h3m::MetaObjectType::WITCH_HUT>;
+    using Fields = h3m::FieldNames<Details>;
+    out.writeField(Fields::kPotentialSkills, witch_hut.potential_skills);
   }
 }

@@ -87,11 +87,13 @@
   <ItemGroup>
     <ClCompile Include="getEnumString.cpp" />
     <ClCompile Include="writeArtifactsBitmask.cpp" />
+    <ClCompile Include="writeCampaign.cpp" />
     <ClCompile Include="writeCreatureStack.cpp" />
     <ClCompile Include="writeGlobalEvent.cpp" />
     <ClCompile Include="writeH3cJson.cpp" />
     <ClCompile Include="writeH3mJson.cpp" />
     <ClCompile Include="writeHeroArtifacts.cpp" />
+    <ClCompile Include="writeLossCondition.cpp" />
     <ClCompile Include="writeMap.cpp" />
     <ClCompile Include="writeMapAdditionalInfo.cpp" />
     <ClCompile Include="writeMapBasicInfo.cpp" />
@@ -106,24 +108,24 @@
     <ClCompile Include="writeSecondarySkill.cpp" />
     <ClCompile Include="writeSecondarySkillsBitmask.cpp" />
     <ClCompile Include="writeSpellsBitmask.cpp" />
+    <ClCompile Include="writeStartingBonus.cpp" />
+    <ClCompile Include="writeStartingOptions.cpp" />
     <ClCompile Include="writeTile.cpp" />
     <ClCompile Include="writeTimedEventBase.cpp" />
     <ClCompile Include="writeTownsBitmask.cpp" />
+    <ClCompile Include="writeVictoryCondition.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="H3JsonWriter.h" />
     <ClInclude Include="getEnumString.h" />
     <ClInclude Include="Utils.h" />
-    <ClInclude Include="writeCampaign.h" />
     <ClInclude Include="writeH3cJson.h" />
     <ClInclude Include="writeH3mJson.h" />
-    <ClInclude Include="writeLossCondition.h" />
     <ClInclude Include="writeObjectDetails.h" />
     <ClInclude Include="writeQuestDetails.h" />
     <ClInclude Include="writeRewardDetails.h" />
-    <ClInclude Include="writeStartingBonus.h" />
-    <ClInclude Include="writeStartingOptions.h" />
-    <ClInclude Include="writeVictoryCondition.h" />
+    <ClInclude Include="writeStartingBonusDetails.h" />
+    <ClInclude Include="writeStartingOptionsDetails.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Campaign\Campaign.vcxproj">
