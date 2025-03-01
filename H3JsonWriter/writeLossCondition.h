@@ -1,7 +1,7 @@
 #pragma once
 
 #include <h3mtxt/H3JsonWriter/getEnumString.h>
-#include <h3mtxt/H3JsonWriter/H3JsonWriter.h>
+#include <h3mtxt/H3JsonWriter/Utils.h>
 #include <h3mtxt/JsonCommon/FieldName.h>
 #include <h3mtxt/Map/LossCondition.h>
 

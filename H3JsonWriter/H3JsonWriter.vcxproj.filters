@@ -122,10 +122,10 @@
     <ClInclude Include="writeH3cJson.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="H3JsonWriter.h">
+    <ClInclude Include="Utils.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="API.h">
+    <ClInclude Include="H3JsonWriter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

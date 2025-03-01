@@ -1,6 +1,6 @@
 #include <h3mtxt/H3JsonWriter/writeH3mJson.h>
 
-#include <h3mtxt/H3JsonWriter/API.h>
+#include <h3mtxt/H3JsonWriter/H3JsonWriter.h>
 #include <h3mtxt/JsonWriter/JsonDocumentWriter.h>
 
 namespace h3m

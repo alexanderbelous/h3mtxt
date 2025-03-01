@@ -1,4 +1,4 @@
-#include <h3mtxt/H3JsonWriter/API.h>
+#include <h3mtxt/H3JsonWriter/H3JsonWriter.h>
 #include <h3mtxt/Map/GlobalEvent.h>
 
 namespace Medea_NS

@@ -1,5 +1,5 @@
-#include <h3mtxt/H3JsonWriter/API.h>
 #include <h3mtxt/H3JsonWriter/H3JsonWriter.h>
+#include <h3mtxt/H3JsonWriter/Utils.h>
 #include <h3mtxt/JsonCommon/FieldName.h>
 #include <h3mtxt/Map/Constants/Constants.h>
 #include <h3mtxt/Map/Utils/EnumBitmask.h>

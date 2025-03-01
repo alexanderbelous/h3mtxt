@@ -1,8 +1,8 @@
 #pragma once
 
 #include <h3mtxt/Campaign/Campaign.h>
-#include <h3mtxt/H3JsonWriter/API.h>
 #include <h3mtxt/H3JsonWriter/H3JsonWriter.h>
+#include <h3mtxt/H3JsonWriter/Utils.h>
 #include <h3mtxt/H3JsonWriter/writeStartingOptions.h>
 
 namespace Medea_NS

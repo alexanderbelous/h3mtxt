@@ -2,7 +2,7 @@
 
 #include <h3mtxt/Map/VictoryCondition.h>
 #include <h3mtxt/H3JsonWriter/getEnumString.h>
-#include <h3mtxt/H3JsonWriter/H3JsonWriter.h>
+#include <h3mtxt/H3JsonWriter/Utils.h>
 
 namespace Medea_NS
 {

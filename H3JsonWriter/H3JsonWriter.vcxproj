@@ -111,9 +111,9 @@
     <ClCompile Include="writeTownsBitmask.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="API.h" />
-    <ClInclude Include="getEnumString.h" />
     <ClInclude Include="H3JsonWriter.h" />
+    <ClInclude Include="getEnumString.h" />
+    <ClInclude Include="Utils.h" />
     <ClInclude Include="writeCampaign.h" />
     <ClInclude Include="writeH3cJson.h" />
     <ClInclude Include="writeH3mJson.h" />
