@@ -116,6 +116,7 @@
     <ClCompile Include="writeVictoryCondition.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CommentBuilder.h" />
     <ClInclude Include="H3JsonWriter.h" />
     <ClInclude Include="getEnumString.h" />
     <ClInclude Include="Utils.h" />

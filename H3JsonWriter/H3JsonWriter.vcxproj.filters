@@ -134,5 +134,8 @@
     <ClInclude Include="writeStartingOptionsDetails.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="CommentBuilder.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

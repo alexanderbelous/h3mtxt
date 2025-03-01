@@ -4,6 +4,8 @@
 #include <h3mtxt/JsonWriter/JsonWriterFwd.h>
 #include <h3mtxt/Map/MapFwd.h>
 
+#include <cstddef>
+
 // API for JSON serialization of H3 structures.
 namespace Medea_NS
 {
@@ -151,4 +153,12 @@ namespace Medea_NS
   template<>
   void JsonObjectWriter<h3m::StartingOptions>::operator()(FieldsWriter& out,
                                                           const h3m::StartingOptions& starting_options) const;
+}
+
+namespace h3m::H3JsonWriter_NS
+{
+  void printObject(Medea_NS::FieldsWriter& out,
+                   const Object& object,
+                   const ObjectTemplate* objects_templates,
+                   std::size_t num_objects_templates);
 }

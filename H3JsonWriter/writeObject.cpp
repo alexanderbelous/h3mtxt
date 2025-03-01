@@ -1,9 +1,13 @@
+#include <h3mtxt/H3JsonWriter/CommentBuilder.h>
 #include <h3mtxt/H3JsonWriter/H3JsonWriter.h>
 #include <h3mtxt/H3JsonWriter/getEnumString.h>
 #include <h3mtxt/H3JsonWriter/Utils.h>
 #include <h3mtxt/H3JsonWriter/writeObjectDetails.h>
 #include <h3mtxt/JsonCommon/FieldName.h>
-#include <h3mtxt/Map/ObjectDetails.h>
+#include <h3mtxt/Map/Object.h>
+#include <h3mtxt/Map/ObjectTemplate.h>
+
+#include <stdexcept>
 
 namespace Medea_NS
 {
@@ -438,5 +442,65 @@ namespace Medea_NS
     using Details = h3m::ObjectDetails<h3m::MetaObjectType::WITCH_HUT>;
     using Fields = h3m::FieldNames<Details>;
     out.writeField(Fields::kPotentialSkills, witch_hut.potential_skills);
+  }
+}
+
+namespace h3m::H3JsonWriter_NS
+{
+  namespace
+  {
+    std::string makeObjectTemplateComment(const ObjectTemplate& object_template)
+    {
+      const h3m::ObjectClass object_class = object_template.object_class;
+      const h3m::MetaObjectType meta_object_type = getMetaObjectType(object_class);
+
+      CommentBuilder comment_builder;
+      comment_builder << "ObjectClass: " << static_cast<std::size_t>(object_class);
+      if (std::string_view enum_str = h3m::getEnumString(object_class); !enum_str.empty())
+      {
+        comment_builder << " (" << enum_str << ")";
+      }
+      comment_builder << "\nMetaObjectType: " << static_cast<std::size_t>(meta_object_type);
+      if (std::string_view enum_str = h3m::getEnumString(meta_object_type); !enum_str.empty())
+      {
+        comment_builder << " (" << enum_str << ")";
+      }
+      return comment_builder.str();
+    }
+  }
+
+  void printObject(Medea_NS::FieldsWriter& out,
+                   const Object& object,
+                   const ObjectTemplate* objects_templates,
+                   std::size_t num_objects_templates)
+  {
+    if (!objects_templates)
+    {
+      throw std::runtime_error("printObject(): objects_templates must not be a null pointer.");
+    }
+    if (object.template_idx >= num_objects_templates)
+    {
+      throw std::runtime_error("printObject(): Object::template_idx is out of range.");
+    }
+    const ObjectTemplate& object_template = objects_templates[object.template_idx];
+    if (getMetaObjectType(object_template.object_class) != object.details.getMetaObjectType())
+    {
+      throw std::runtime_error("printObject(): Object::details has MetaObjectType different "
+                                "from the ObjectTemplate it refers to.");
+    }
+
+    using Fields = h3m::FieldNames<h3m::Object>;
+    out.writeField(Fields::kX, object.x);
+    out.writeField(Fields::kY, object.y);
+    out.writeField(Fields::kZ, object.z);
+    out.writeComma();
+    out.writeComment(makeObjectTemplateComment(object_template));
+    out.writeField(Fields::kTemplateIdx, object.template_idx);
+    out.writeField(Fields::kUnknown, object.unknown);
+    if (object.details.getMetaObjectType() != h3m::MetaObjectType::GENERIC_NO_PROPERTIES)
+    {
+      object.details.visit([&out] <h3m::MetaObjectType T> (const h3m::ObjectDetails<T>& details)
+                           { out.writeField(Fields::kDetails, details); });
+    }
   }
 }
