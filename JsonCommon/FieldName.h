@@ -1,5 +1,6 @@
 #pragma once
 
+#include <h3mtxt/Campaign/CampaignFwd.h>
 #include <h3mtxt/Map/MapFwd.h>
 #include <h3mtxt/Map/Constants/MetaObjectType.h>
 
@@ -834,5 +835,56 @@ namespace h3m
     // `details` (VictoryConditionDetails<type>).
     static inline constexpr std::string_view kType = "type";
     static inline constexpr std::string_view kDetails = "details";
+  };
+
+  // === Campaign ===
+  template<>
+  struct FieldNames<Campaign>
+  {
+    static inline constexpr std::string_view kHeader = "header";
+    static inline constexpr std::string_view kMaps = "maps";
+  };
+
+  template<>
+  struct FieldNames<CampaignHeader>
+  {
+    static inline constexpr std::string_view kFormat = "format";
+    static inline constexpr std::string_view kId = "id";
+    static inline constexpr std::string_view kName = "name";
+    static inline constexpr std::string_view kDescription = "description";
+    static inline constexpr std::string_view kAllowSelectingDifficulty = "allow_selecting_difficulty";
+    static inline constexpr std::string_view kThemeMusic = "theme_music";
+    static inline constexpr std::string_view kScenarios = "scenarios";
+  };
+
+  template<>
+  struct FieldNames<CampaignScenario>
+  {
+    static inline constexpr std::string_view kMapFilename = "map_filename";
+    static inline constexpr std::string_view kCompressedMapSize = "compressed_map_size";
+    static inline constexpr std::string_view kPrerequisites = "prerequisites";
+    static inline constexpr std::string_view kRegionColor = "region_color";
+    static inline constexpr std::string_view kDefaultDifficulty = "default_difficulty";
+    static inline constexpr std::string_view kRegionRightClickText = "region_righ_click_text";
+    static inline constexpr std::string_view kPrologue = "prologue";
+    static inline constexpr std::string_view kEpilogue = "epilogue";
+    static inline constexpr std::string_view kCrossoverOptions = "crossover_options";
+    static inline constexpr std::string_view kStartingOptions = "starting_options";
+  };
+
+  template<>
+  struct FieldNames<CrossoverOptions>
+  {
+    static inline constexpr std::string_view kRetainedFeatures = "retained_features";
+    static inline constexpr std::string_view kCreatures = "creatures";
+    static inline constexpr std::string_view kArtifacts = "artifacts";
+  };
+
+  template<>
+  struct FieldNames<CutScene>
+  {
+    static inline constexpr std::string_view kMovie = "movie";
+    static inline constexpr std::string_view kMusic = "music";
+    static inline constexpr std::string_view kMessage = "message";
   };
 }
