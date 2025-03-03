@@ -128,4 +128,26 @@ namespace h3m::H3JsonReader_NS
   ObjectDetailsVariant readObjectDetailsVariant(const Json::Value& value, MetaObjectType meta_object_type);
 
   void readTimedEventBase(TimedEventBase& event, const Json::Value& value);
+
+  // === Campaign ===
+  template<>
+  Campaign JsonReader<Campaign>::operator()(const Json::Value& value) const;
+
+  template<>
+  CampaignHeader JsonReader<CampaignHeader>::operator()(const Json::Value& value) const;
+
+  template<>
+  CampaignScenario JsonReader<CampaignScenario>::operator()(const Json::Value& value) const;
+
+  template<>
+  CrossoverOptions JsonReader<CrossoverOptions>::operator()(const Json::Value& value) const;
+
+  template<>
+  CutScene JsonReader<CutScene>::operator()(const Json::Value& value) const;
+
+  template<>
+  StartingBonus JsonReader<StartingBonus>::operator()(const Json::Value& value) const;
+
+  template<>
+  StartingOptions JsonReader<StartingOptions>::operator()(const Json::Value& value) const;
 }
