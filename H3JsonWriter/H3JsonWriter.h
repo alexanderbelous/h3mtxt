@@ -10,7 +10,7 @@
 namespace Medea_NS
 {
   template<>
-  void JsonValueWriter<h3m::ArtifactsBitmask>::operator()(JsonDocumentWriter& out, const h3m::ArtifactsBitmask& bitmask) const;
+  void JsonObjectWriter<h3m::ArtifactsBitmask>::operator()(FieldsWriter& out, const h3m::ArtifactsBitmask& bitmask) const;
 
   template<>
   void JsonObjectWriter<h3m::CreatureStack>::operator()(FieldsWriter& out, const h3m::CreatureStack& creature_stack) const;

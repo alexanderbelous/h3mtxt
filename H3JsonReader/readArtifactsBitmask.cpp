@@ -1,12 +1,17 @@
 #include <h3mtxt/H3JsonReader/Utils.h>
+#include <h3mtxt/JsonCommon/FieldName.h>
 #include <h3mtxt/Map/Utils/EnumBitmask.h>
 
 namespace h3m::H3JsonReader_NS
 {
   ArtifactsBitmask JsonReader<ArtifactsBitmask>::operator()(const Json::Value& value) const
   {
-    ArtifactsBitmask artifacts_bitmask;
-    artifacts_bitmask.bitset = fromJson<BitSet<18>>(value);
-    return artifacts_bitmask;
+    using Fields = FieldNames<ArtifactsBitmask>;
+    ArtifactsBitmask bitmask;
+    for (std::size_t i = 0; i < bitmask.bitset.kNumBits; ++i)
+    {
+      bitmask.bitset.set(i, readField<bool>(value, Fields::kNames[i]));
+    }
+    return bitmask;
   }
 }

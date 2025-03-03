@@ -6,9 +6,23 @@
 
 #include <array>
 #include <string_view>
+#include <type_traits>
 
 namespace h3m
 {
+  namespace Detail_NS
+  {
+    template<class T>
+    struct EnumBitmaskSize {};
+
+    template<class Enum, std::size_t NumBytes>
+    struct EnumBitmaskSize<EnumBitmask<Enum, NumBytes>> : std::integral_constant<std::size_t, NumBytes> {};
+
+    // The size of the input EnumBitmask in bytes.
+    template<class T>
+    inline constexpr std::size_t EnumBitmaskSize_v = EnumBitmaskSize<T>::value;
+  }
+
   // Stores the names of JSON fields for the specified class.
   // This is to ensure that H3JsonWriter and H3JsonReader use the same names:
   // * A typo in a string will only be discovered at runtime, but a typo in a static
@@ -16,6 +30,161 @@ namespace h3m
   // * This should also guarantee that these strings are only stored once in the binary.
   template<class T>
   struct FieldNames;
+
+  template<>
+  struct FieldNames<ArtifactsBitmask>
+  {
+    // The number of bits in TownsBitmask.
+    static constexpr std::size_t kNumBits = Detail_NS::EnumBitmaskSize_v<ArtifactsBitmask> * 8;
+    // Name for each bit field in TownsBitmask.
+    static inline constexpr std::array<std::string_view, kNumBits> kNames
+    {
+      "spellbook",
+      "spell_scroll",
+      "grail",
+      "catapult",
+      "ballista",
+      "ammo_cart",
+      "first_aid_tent",
+      "centaur_axe",
+      "blackshard_of_the_dead_knight",
+      "greater_gnolls_flail",
+      "ogres_club_of_havoc",
+      "sword_of_hellfire",
+      "titans_gladius",
+      "shield_of_the_dwarven_lords",
+      "shield_of_the_yawning_dead",
+      "buckler_of_the_gnoll_king",
+      "targ_of_the_rampaging_ogre",
+      "shield_of_the_damned",
+      "sentinels_shield",
+      "helm_of_the_alabaster_unicorn",
+      "skull_helmet",
+      "helm_of_chaos",
+      "crown_of_the_supreme_magi",
+      "hellstorm_helmet",
+      "thunder_helmet",
+      "breastplate_of_petrified_wood",
+      "rib_cage",
+      "scales_of_the_greater_basilisk",
+      "tunic_of_the_cyclops_king",
+      "breastplate_of_brimstone",
+      "titans_cuirass",
+      "armor_of_wonder",
+      "sandals_of_the_saint",
+      "celestial_necklace_of_bliss",
+      "lions_shield_of_courage",
+      "sword_of_judgement",
+      "helm_of_heavenly_enlightenment",
+      "quiet_eye_of_the_dragon",
+      "red_dragon_flame_tongue",
+      "dragon_scale_shield",
+      "dragon_scale_armor",
+      "dragonbone_greaves",
+      "dragon_wing_tabard",
+      "necklace_of_dragonteeth",
+      "crown_of_dragontooth",
+      "still_eye_of_the_dragon",
+      "clover_of_fortune",
+      "cards_of_prophecy",
+      "ladybird_of_luck",
+      "badge_of_courage",
+      "crest_of_valor",
+      "glyph_of_gallantry",
+      "speculum",
+      "spyglass",
+      "amulet_of_the_undertaker",
+      "vampires_cowl",
+      "dead_mans_boots",
+      "garniture_of_interference",
+      "surcoat_of_counterpoise",
+      "boots_of_polarity",
+      "bow_of_elven_cherrywood",
+      "bowstring_of_the_unicorns_mane",
+      "angel_feather_arrows",
+      "bird_of_perception",
+      "stoic_watchman",
+      "emblem_of_cognizance",
+      "statesmans_medal",
+      "diplomats_ring",
+      "ambassadors_sash",
+      "ring_of_the_wayfarer",
+      "equestrians_gloves",
+      "necklace_of_ocean_guidance",
+      "angel_wings",
+      "charm_of_mana",
+      "talisman_of_mana",
+      "mystic_orb_of_mana",
+      "collar_of_conjuring",
+      "ring_of_conjuring",
+      "cape_of_conjuring",
+      "orb_of_the_firmament",
+      "orb_of_silt",
+      "orb_of_tempestuous_fire",
+      "orb_of_driving_rain",
+      "recanters_cloak",
+      "spirit_of_oppression",
+      "hourglass_of_the_evil_hour",
+      "tome_of_fire_magic",
+      "tome_of_air_magic",
+      "tome_of_water_magic",
+      "tome_of_earth_magic",
+      "boots_of_levitation",
+      "golden_bow",
+      "sphere_of_permanence",
+      "orb_of_vulnerability",
+      "ring_of_vitality",
+      "ring_of_life",
+      "vial_of_lifeblood",
+      "necklace_of_swiftness",
+      "boots_of_speed",
+      "cape_of_velocity",
+      "pendant_of_dispassion",
+      "pendant_of_second_sight",
+      "pendant_of_holiness",
+      "pendant_of_life",
+      "pendant_of_death",
+      "pendant_of_free_will",
+      "pendant_of_negativity",
+      "pendant_of_total_recall",
+      "pendant_of_courage",
+      "everflowing_crystal_cloak",
+      "ring_of_infinite_gems",
+      "everpouring_vial_of_mercury",
+      "inexhaustible_cart_of_ore",
+      "eversmoking_ring_of_sulfur",
+      "inexhaustible_cart_of_lumber",
+      "endless_sack_of_gold",
+      "endless_bag_of_gold",
+      "endless_purse_of_gold",
+      "legs_of_legion",
+      "loins_of_legion",
+      "torso_of_legion",
+      "arms_of_legion",
+      "head_of_legion",
+      "sea_captains_hat",
+      "spellbinders_hat",
+      "shackles_of_war",
+      "orb_of_inhibition",
+      "vial_of_dragon_blood",
+      "armageddons_blade",
+      "angelic_alliance",
+      "cloak_of_the_undead_king",
+      "elixir_of_life",
+      "armor_of_the_damned",
+      "statue_of_legion",
+      "power_of_the_dragon_father",
+      "titans_thunder",
+      "admirals_hat",
+      "bow_of_the_sharpshooter",
+      "wizards_well",
+      "ring_of_the_magi",
+      "cornucopia",
+      "diplomats_suit",
+      "mired_in_neutrality",
+      "ironfist_of_the_ogre"
+    };
+  };
 
   template<>
   struct FieldNames<CreatureStack>
@@ -89,8 +258,8 @@ namespace h3m
   template<>
   struct FieldNames<HeroesBitmask>
   {
-    // The number of bit fields in HeroesBitmask.
-    static constexpr std::size_t kNumBits = 160;
+    // The number of bits in HeroesBitmask.
+    static constexpr std::size_t kNumBits = Detail_NS::EnumBitmaskSize_v<HeroesBitmask> * 8;
     // Name for each bit field in HeroesBitmask.
     static inline constexpr std::array<std::string_view, kNumBits> kNames
     {
@@ -646,8 +815,8 @@ namespace h3m
   template<>
   struct FieldNames<SecondarySkillsBitmask>
   {
-    // The number of bit fields in SecondarySkillsBitmask.
-    static constexpr std::size_t kNumBits = 32;
+    // The number of bits in SecondarySkillsBitmask.
+    static constexpr std::size_t kNumBits = Detail_NS::EnumBitmaskSize_v<SecondarySkillsBitmask> * 8;
     // Name for each bit field in SecondarySkillsBitmask.
     static inline constexpr std::array<std::string_view, kNumBits> kNames{
         "pathfinding",
@@ -736,8 +905,8 @@ namespace h3m
   template<>
   struct FieldNames<TownBuildingsBitmask>
   {
-    // The number of bit fields in TownBuildingsBitmask.
-    static constexpr std::size_t kNumBits = 48;
+    // The number of bits in TownBuildingsBitmask.
+    static constexpr std::size_t kNumBits = Detail_NS::EnumBitmaskSize_v<TownBuildingsBitmask> * 8;
     // Name for each bit field in TownBuildingsBitmask.
     static inline constexpr std::array<std::string_view, kNumBits> kNames
     {
@@ -803,8 +972,8 @@ namespace h3m
   template<>
   struct FieldNames<TownsBitmask>
   {
-    // The number of bit fields in TownsBitmask.
-    static constexpr std::size_t kNumBits = 16;
+    // The number of bits in TownsBitmask.
+    static constexpr std::size_t kNumBits = Detail_NS::EnumBitmaskSize_v<TownsBitmask> * 8;
     // Name for each bit field in TownsBitmask.
     static inline constexpr std::array<std::string_view, kNumBits> kNames
     {
