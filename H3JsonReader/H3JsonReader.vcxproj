@@ -88,6 +88,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="H3JsonReader.h" />
+    <ClInclude Include="readH3cJson.h" />
+    <ClInclude Include="readH3Json.h" />
     <ClInclude Include="Utils.h" />
     <ClInclude Include="readH3mJson.h" />
   </ItemGroup>
@@ -96,6 +98,8 @@
     <ClCompile Include="readCampaign.cpp" />
     <ClCompile Include="readCreatureStack.cpp" />
     <ClCompile Include="readGlobalEvent.cpp" />
+    <ClCompile Include="readH3cJson.cpp" />
+    <ClCompile Include="readH3Json.cpp" />
     <ClCompile Include="readH3mJson.cpp" />
     <ClCompile Include="readHeroArtifacts.cpp" />
     <ClCompile Include="readHeroSettings.cpp" />

@@ -19,6 +19,7 @@ namespace Medea_NS
     out.writeField(Fields::kId, campaign.id);
     out.writeField(Fields::kName, campaign.name);
     out.writeField(Fields::kDescription, campaign.description);
+    out.writeField(Fields::kThemeMusic, campaign.theme_music);
     out.writeField(Fields::kAllowSelectingDifficulty, campaign.allow_selecting_difficulty);
     out.writeField(Fields::kScenarios, campaign.scenarios);
   }
