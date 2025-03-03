@@ -143,6 +143,9 @@ namespace h3m::H3JsonReader_NS
   CrossoverOptions JsonReader<CrossoverOptions>::operator()(const Json::Value& value) const;
 
   template<>
+  CrossoverFeaturesBitmask JsonReader<CrossoverFeaturesBitmask>::operator()(const Json::Value& value) const;
+
+  template<>
   CutScene JsonReader<CutScene>::operator()(const Json::Value& value) const;
 
   template<>

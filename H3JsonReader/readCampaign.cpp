@@ -48,10 +48,21 @@ namespace h3m::H3JsonReader_NS
   {
     using Fields = FieldNames<CrossoverOptions>;
     CrossoverOptions options;
-    readField(options.retained_features.bitset, value, Fields::kRetainedFeatures);
+    readField(options.retained_features, value, Fields::kRetainedFeatures);
     readField(options.creatures.bitset, value, Fields::kCreatures);
     readField(options.artifacts, value, Fields::kArtifacts);
     return options;
+  }
+
+  CrossoverFeaturesBitmask JsonReader<CrossoverFeaturesBitmask>::operator()(const Json::Value& value) const
+  {
+    using Fields = FieldNames<CrossoverFeaturesBitmask>;
+    CrossoverFeaturesBitmask bitmask;
+    for (std::size_t i = 0; i < bitmask.bitset.kNumBits; ++i)
+    {
+      bitmask.bitset.set(i, readField<bool>(value, Fields::kNames[i]));
+    }
+    return bitmask;
   }
 
   CutScene JsonReader<CutScene>::operator()(const Json::Value& value) const

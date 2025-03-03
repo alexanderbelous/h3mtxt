@@ -141,11 +141,15 @@ namespace Medea_NS
                                                            const h3m::CampaignScenario& scenario) const;
 
   template<>
-  void JsonObjectWriter<h3m::CutScene>::operator()(FieldsWriter& out, const h3m::CutScene& cutscene) const;
+  void JsonObjectWriter<h3m::CrossoverFeaturesBitmask>::operator()(FieldsWriter& out,
+                                                                   const h3m::CrossoverFeaturesBitmask& bitmask) const;
 
   template<>
   void JsonObjectWriter<h3m::CrossoverOptions>::operator()(FieldsWriter& out,
                                                            const h3m::CrossoverOptions& cutscene) const;
+
+  template<>
+  void JsonObjectWriter<h3m::CutScene>::operator()(FieldsWriter& out, const h3m::CutScene& cutscene) const;
 
   template<>
   void JsonObjectWriter<h3m::StartingBonus>::operator()(FieldsWriter& out, const h3m::StartingBonus& bonus) const;

@@ -45,19 +45,29 @@ namespace Medea_NS
     out.writeField(Fields::kStartingOptions, scenario.starting_options);
   }
 
+  void JsonObjectWriter<h3m::CrossoverFeaturesBitmask>::operator()(FieldsWriter& out,
+                                                                   const h3m::CrossoverFeaturesBitmask& bitmask) const
+  {
+    using Fields = h3m::FieldNames<h3m::CrossoverFeaturesBitmask>;
+    for (std::size_t i = 0; i < bitmask.bitset.kNumBits; ++i)
+    {
+      out.writeField(Fields::kNames[i], bitmask.bitset[i]);
+    }
+  }
+
+  void JsonObjectWriter<h3m::CrossoverOptions>::operator()(FieldsWriter& out, const h3m::CrossoverOptions& cutscene) const
+  {
+    using Fields = h3m::FieldNames<h3m::CrossoverOptions>;
+    out.writeField(Fields::kRetainedFeatures, cutscene.retained_features);
+    out.writeField(Fields::kCreatures, cutscene.creatures.bitset);
+    out.writeField(Fields::kArtifacts, cutscene.artifacts);
+  }
+
   void JsonObjectWriter<h3m::CutScene>::operator()(FieldsWriter& out, const h3m::CutScene& cutscene) const
   {
     using Fields = h3m::FieldNames<h3m::CutScene>;
     out.writeField(Fields::kMovie, cutscene.movie);
     out.writeField(Fields::kMusic, cutscene.music);
     out.writeField(Fields::kMessage, cutscene.message);
-  }
-
-  void JsonObjectWriter<h3m::CrossoverOptions>::operator()(FieldsWriter& out, const h3m::CrossoverOptions& cutscene) const
-  {
-    using Fields = h3m::FieldNames<h3m::CrossoverOptions>;
-    out.writeField(Fields::kRetainedFeatures, cutscene.retained_features.bitset);
-    out.writeField(Fields::kCreatures, cutscene.creatures.bitset);
-    out.writeField(Fields::kArtifacts, cutscene.artifacts);
   }
 }

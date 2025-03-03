@@ -97,6 +97,7 @@
     <ClInclude Include="Constants\CampaignId.h" />
     <ClInclude Include="Constants\CampaignMusic.h" />
     <ClInclude Include="Constants\CampaignVideo.h" />
+    <ClInclude Include="Constants\CrossoverFeature.h" />
     <ClInclude Include="Constants\RegionColor.h" />
     <ClInclude Include="Constants\StartingBonusType.h" />
     <ClInclude Include="Constants\StartingOptionsType.h" />

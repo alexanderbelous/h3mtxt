@@ -194,6 +194,25 @@ namespace h3m
   };
 
   template<>
+  struct FieldNames<CrossoverFeaturesBitmask>
+  {
+    // The number of bits in CrossoverFeaturesBitmask.
+    static constexpr std::size_t kNumBits = Detail_NS::EnumBitmaskSize_v<CrossoverFeaturesBitmask> * 8;
+    // Name for each bit field in CrossoverFeaturesBitmask.
+    static inline constexpr std::array<std::string_view, kNumBits> kNames
+    {
+      "experience",
+      "primary_skills",
+      "secondary_skills",
+      "spells",
+      "artifacts",
+      "padding_5",
+      "padding_6",
+      "padding_7",
+    };
+  };
+
+  template<>
   struct FieldNames<EventBase>
   {
     static inline constexpr std::string_view kGuardians = "guardians";

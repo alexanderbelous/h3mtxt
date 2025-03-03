@@ -1,7 +1,9 @@
 #pragma once
 
+#include <h3mtxt/Campaign/CampaignFwd.h>
 #include <h3mtxt/Campaign/Constants/CampaignMusic.h>
 #include <h3mtxt/Campaign/Constants/CampaignVideo.h>
+#include <h3mtxt/Campaign/Constants/CrossoverFeature.h>
 #include <h3mtxt/Campaign/Constants/RegionColor.h>
 #include <h3mtxt/Campaign/StartingOptions.h>
 #include <h3mtxt/Map/MapFwd.h>
@@ -20,17 +22,6 @@ namespace h3m
     CampaignMusic music {};
     std::string message;
   };
-
-  enum class CrossoverFeature : std::uint8_t
-  {
-    Experience = 0,
-    PrimarySkills = 1,
-    SecondarySkills = 2,
-    Spells = 3,
-    Artifacts = 4
-  };
-
-  using CrossoverFeaturesBitmask = EnumBitmask<CrossoverFeature, 1>;
 
   struct CrossoverOptions
   {

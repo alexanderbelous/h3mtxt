@@ -57,5 +57,8 @@
     <ClInclude Include="CampaignHeader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Constants\CrossoverFeature.h">
+      <Filter>Header Files\Constants</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
