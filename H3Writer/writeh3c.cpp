@@ -63,14 +63,14 @@ namespace h3m::H3Writer_NS
       writeData(zstr_stream, campaign.header.theme_music);
       for (const CampaignScenario& scenario : campaign.header.scenarios)
       {
-        std::uint32_t compressed_map_size = 0;
+        std::uint32_t map_file_size = 0;
         if (!scenario.map_filename.empty())
         {
           // 4GB ought to be enough for any mapmaker.
-          compressed_map_size = static_cast<std::uint32_t>(compressed_maps.at(map_idx).size());
+          map_file_size = static_cast<std::uint32_t>(compressed_maps.at(map_idx).size());
           ++map_idx;
         }
-        writeCampaignScenario(zstr_stream, scenario, campaign.header.id, compressed_map_size);
+        writeCampaignScenario(zstr_stream, scenario, campaign.header.id, map_file_size);
       }
     }
     // Append the compressed maps.

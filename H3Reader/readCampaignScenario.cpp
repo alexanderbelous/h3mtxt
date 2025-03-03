@@ -30,7 +30,7 @@ namespace h3m::H3Reader_NS
   {
     CampaignScenario scenario;
     scenario.map_filename = readString(stream);
-    scenario.compressed_map_size = readInt<std::uint32_t>(stream);
+    scenario.map_file_size = readInt<std::uint32_t>(stream);
     if (campaign_id == CampaignId::UnholyAlliance)
     {
       scenario.prerequisites = readBitSet<2>(stream);

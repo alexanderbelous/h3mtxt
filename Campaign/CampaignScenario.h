@@ -36,8 +36,9 @@ namespace h3m
   struct CampaignScenario
   {
     std::string map_filename;
-    // The size of the gzip-compressed map file in bytes.
-    std::uint32_t compressed_map_size {};
+    // The size of the map file in bytes.
+    // Note that maps in .h3c aren't necessarily compressed.
+    std::uint32_t map_file_size {};
     // 1 bit per scenario in Campaign::scenarios, indicating whether that scenario must be finished
     // before playing the current scenario.
     //

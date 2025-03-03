@@ -1049,7 +1049,7 @@ namespace h3m
   struct FieldNames<CampaignScenario>
   {
     static inline constexpr std::string_view kMapFilename = "map_filename";
-    static inline constexpr std::string_view kCompressedMapSize = "compressed_map_size";
+    static inline constexpr std::string_view kMapFileSize = "map_file_size";
     static inline constexpr std::string_view kPrerequisites = "prerequisites";
     static inline constexpr std::string_view kRegionColor = "region_color";
     static inline constexpr std::string_view kDefaultDifficulty = "default_difficulty";

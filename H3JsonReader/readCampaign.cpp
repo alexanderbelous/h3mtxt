@@ -32,7 +32,7 @@ namespace h3m::H3JsonReader_NS
     using Fields = FieldNames<CampaignScenario>;
     CampaignScenario scenario;
     readField(scenario.map_filename, value, Fields::kMapFilename);
-    readField(scenario.compressed_map_size, value, Fields::kCompressedMapSize);
+    readField(scenario.map_file_size, value, Fields::kMapFileSize);
     readField(scenario.prerequisites, value, Fields::kPrerequisites);
     readField(scenario.region_color, value, Fields::kRegionColor);
     readField(scenario.default_difficulty, value, Fields::kDefaultDifficulty);

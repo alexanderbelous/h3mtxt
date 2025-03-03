@@ -28,7 +28,7 @@ namespace Medea_NS
   {
     using Fields = h3m::FieldNames<h3m::CampaignScenario>;
     out.writeField(Fields::kMapFilename, scenario.map_filename);
-    out.writeField(Fields::kCompressedMapSize, scenario.compressed_map_size);
+    out.writeField(Fields::kMapFileSize, scenario.map_file_size);
     out.writeField(Fields::kPrerequisites, scenario.prerequisites);
     out.writeField(Fields::kRegionColor, scenario.region_color);
     out.writeField(Fields::kDefaultDifficulty, scenario.default_difficulty);

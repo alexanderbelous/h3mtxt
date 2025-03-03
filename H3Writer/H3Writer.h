@@ -134,5 +134,5 @@ namespace h3m::H3Writer_NS
   void writeCampaignScenario(std::ostream& stream,
                              const CampaignScenario& scenario,
                              CampaignId campaign_id,
-                             std::uint32_t compressed_map_size);
+                             std::uint32_t map_file_size);
 }
