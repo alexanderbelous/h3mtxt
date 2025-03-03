@@ -6,6 +6,15 @@
 
 namespace h3m::H3JsonReader_NS
 {
+  const Json::Value& getJsonField(const Json::Value& value, std::string_view field_name)
+  {
+    if (const Json::Value* field = value.find(field_name.data(), field_name.data() + field_name.size()))
+    {
+      return *field;
+    }
+    throw MissingJsonFieldError(field_name);
+  }
+
   bool JsonReader<bool>::operator()(const Json::Value& value) const
   {
     if (!value.isBool())

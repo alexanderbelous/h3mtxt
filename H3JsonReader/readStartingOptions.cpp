@@ -1,4 +1,5 @@
 #include <h3mtxt/H3JsonReader/Utils.h>
+#include <h3mtxt/H3JsonReader/VariantJsonReader.h>
 #include <h3mtxt/JsonCommon/FieldName.h>
 #include <h3mtxt/Campaign/StartingOptions.h>
 
@@ -6,6 +7,15 @@
 
 namespace h3m::H3JsonReader_NS
 {
+  template<>
+  struct JsonReader<StartingOptionsDetails<StartingOptionsType::None>>
+  {
+    StartingOptionsDetails<StartingOptionsType::None> operator()(const Json::Value&) const
+    {
+      return {};
+    }
+  };
+
   template<>
   struct JsonReader<StartingOptionsDetails<StartingOptionsType::StartingBonus>>
   {
@@ -68,18 +78,13 @@ namespace h3m::H3JsonReader_NS
   {
     using Fields = FieldNames<StartingOptions>;
     const StartingOptionsType starting_options_type = readField<StartingOptionsType>(value, Fields::kType);
-    switch (starting_options_type)
+    StartingOptions starting_options;
+    if (starting_options_type != StartingOptionsType::None)
     {
-    case StartingOptionsType::None:
-      return StartingOptionsDetails<StartingOptionsType::None>();
-    case StartingOptionsType::StartingBonus:
-      return readField<StartingOptionsDetails<StartingOptionsType::StartingBonus>>(value, Fields::kDetails);
-    case StartingOptionsType::HeroCrossover:
-      return readField<StartingOptionsDetails<StartingOptionsType::HeroCrossover>>(value, Fields::kDetails);
-    case StartingOptionsType::StartingHero:
-      return readField<StartingOptionsDetails<StartingOptionsType::StartingHero>>(value, Fields::kDetails);
-    default:
-      throw std::runtime_error("JsonReader<StartingOptions>: invalid starting_options_type.");
+      VariantJsonReader<StartingOptions::Details> variant_reader;
+      starting_options.details = variant_reader(getJsonField(value, Fields::kDetails),
+                                                StartingOptions::getAlternativeIdx(starting_options_type));
     }
+    return starting_options;
   }
 }

@@ -53,6 +53,8 @@ namespace h3m::H3JsonReader_NS
     {}
   };
 
+  const Json::Value& getJsonField(const Json::Value& value, std::string_view field_name);
+
   // Utility wrapper for JsonReader.
   // \param value - input JSON value.
   // \return the value of type T deserialized from @value using JsonReader<T>.

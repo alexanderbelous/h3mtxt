@@ -80,6 +80,16 @@ namespace h3m
       return static_cast<StartingOptionsType>(details.index());
     }
 
+    // Get the 0-based index of the alternative corresponding to the given StartingOptionsType.
+    // \param options_type - input StartingOptionsType.
+    // \return 0-based index of the alternative from StartingOptions::Details that has the type
+    //         StartignOptionsDetails<options_type>, or std::variant_npos if there is no such alternative.
+    static constexpr std::size_t getAlternativeIdx(StartingOptionsType options_type) noexcept
+    {
+      const std::size_t idx = static_cast<std::size_t>(options_type);
+      return idx < std::variant_size_v<Details> ? idx : std::variant_npos;
+    }
+
     Details details;
   };
 }

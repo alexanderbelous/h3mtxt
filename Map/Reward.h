@@ -131,11 +131,23 @@ namespace h3m
     // \return the type of the reward.
     constexpr RewardType type() const noexcept;
 
+    // Get the 0-based index of the alternative corresponding to the given RewardType.
+    // \param reward_type - type of the reward.
+    // \return 0-based index of the alternative from Reward::Details that has the type
+    //         RewardDetails<reward_type>, or std::variant_npos if there is no such alternative.
+    static constexpr std::size_t getAlternativeIdx(RewardType reward_type) noexcept;
+
     Details details;
   };
 
   constexpr RewardType Reward::type() const noexcept
   {
     return static_cast<RewardType>(details.index());
+  }
+
+  constexpr std::size_t Reward::getAlternativeIdx(RewardType reward_type) noexcept
+  {
+    const std::size_t idx = static_cast<std::size_t>(reward_type);
+    return idx < std::variant_size_v<Details> ? idx : std::variant_npos;
   }
 }

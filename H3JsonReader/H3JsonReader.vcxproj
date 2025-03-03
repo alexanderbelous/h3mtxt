@@ -92,6 +92,7 @@
     <ClInclude Include="readH3Json.h" />
     <ClInclude Include="Utils.h" />
     <ClInclude Include="readH3mJson.h" />
+    <ClInclude Include="VariantJsonReader.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="readArtifactsBitmask.cpp" />

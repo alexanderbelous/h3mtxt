@@ -102,6 +102,12 @@ namespace h3m
     // \return the type of the quest.
     constexpr QuestType type() const noexcept;
 
+    // Get the 0-based index of the alternative corresponding to the given QuestType.
+    // \param quest_type - type of the quest.
+    // \return 0-based index of the alternative from Quest::Details that has the type
+    //         QuestDetails<quest_type>, or std::variant_npos if there is no such alternative.
+    static constexpr std::size_t getAlternativeIdx(QuestType quest_type) noexcept;
+
     Details details {};
 
     // The fields below should not be read/written if type() == QuestType::None.
@@ -123,5 +129,11 @@ namespace h3m
   constexpr QuestType Quest::type() const noexcept
   {
     return static_cast<QuestType>(details.index());
+  }
+
+  constexpr std::size_t Quest::getAlternativeIdx(QuestType quest_type) noexcept
+  {
+    const std::size_t idx = static_cast<std::size_t>(quest_type);
+    return idx < std::variant_size_v<Details> ? idx : std::variant_npos;
   }
 }
