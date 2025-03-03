@@ -125,5 +125,8 @@
     <ClCompile Include="readH3Json.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="readStartingBonus.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

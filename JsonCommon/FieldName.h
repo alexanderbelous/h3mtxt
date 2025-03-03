@@ -1075,4 +1075,18 @@ namespace h3m
     static inline constexpr std::string_view kMusic = "music";
     static inline constexpr std::string_view kMessage = "message";
   };
+
+  template<>
+  struct FieldNames<StartingBonus>
+  {
+    static inline constexpr std::string_view kType = "type";
+    static inline constexpr std::string_view kDetails = "details";
+  };
+
+  template<>
+  struct FieldNames<StartingOptions>
+  {
+    static inline constexpr std::string_view kType = "type";
+    static inline constexpr std::string_view kDetails = "details";
+  };
 }

@@ -105,10 +105,11 @@ namespace Medea_NS
 
   void JsonObjectWriter<h3m::StartingBonus>::operator()(FieldsWriter& out, const h3m::StartingBonus& bonus) const
   {
-    out.writeField("type", bonus.type());
+    using Fields = h3m::FieldNames<h3m::StartingBonus>;
+    out.writeField(Fields::kType, bonus.type());
     // TODO: write the name of the enum in a comment.
     std::visit([&out] <h3m::StartingBonusType T> (const h3m::StartingBonusDetails<T>& details)
-                { out.writeField("details", details); },
+                { out.writeField(Fields::kDetails, details); },
                 bonus.details);
   }
 }

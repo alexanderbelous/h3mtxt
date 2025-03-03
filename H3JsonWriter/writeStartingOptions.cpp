@@ -3,6 +3,7 @@
 #include <h3mtxt/H3JsonWriter/H3JsonWriter.h>
 #include <h3mtxt/H3JsonWriter/Utils.h>
 #include <h3mtxt/H3JsonWriter/writeStartingOptionsDetails.h>
+#include <h3mtxt/JsonCommon/FieldName.h>
 
 #include <limits>
 #include <type_traits>
@@ -91,10 +92,11 @@ namespace Medea_NS
   void JsonObjectWriter<h3m::StartingOptions>::operator()(FieldsWriter& out,
                                                           const h3m::StartingOptions& starting_options) const
   {
-    out.writeField("type", starting_options.type());
+    using Fields = h3m::FieldNames<h3m::StartingOptions>;
+    out.writeField(Fields::kType, starting_options.type());
     // TODO: write the name of the enum in a comment.
     std::visit([&out] <h3m::StartingOptionsType T> (const h3m::StartingOptionsDetails<T>& details)
-                { out.writeField("details", details); },
+                { out.writeField(Fields::kDetails, details); },
                 starting_options.details);
   }
 }
