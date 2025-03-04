@@ -78,7 +78,7 @@ namespace h3m
   template<>
   struct QuestDetails<QuestType::BeHero>
   {
-    // TODO: test what happens if its 0xFF (random hero).
+    // Must be a valid HeroType from [0; 156).
     HeroType hero {};
   };
 
