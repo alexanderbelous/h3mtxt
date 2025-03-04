@@ -51,14 +51,18 @@ namespace h3m
   template<>
   struct QuestDetails<QuestType::Artifacts>
   {
-    // TODO: test what happens if it's empty.
+    // The Editor doesn't allow an empty array here. If you set it manually:
+    // * The Editor will freeze when you try to view the properties of this Quest Guard / Seer's Hut.
+    // * The game will not crash, but the quest will be impossible to complete.
     std::vector<ArtifactType> artifacts;
   };
 
   template<>
   struct QuestDetails<QuestType::Creatures>
   {
-    // TODO: test what happens if it's empty.
+    // The Editor doesn't allow an empty array here. If you set it manually:
+    // * The Editor will freeze when you try to view the properties of this Quest Guard / Seer's Hut.
+    // * The game will not crash, but the quest will be impossible to complete.
     std::vector<CreatureStack> creatures;
   };
 

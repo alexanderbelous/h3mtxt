@@ -120,11 +120,22 @@ namespace h3m
   };
 
   // Additional info for ObjectClass::HERO, ObjectClass::RANDOM_HERO and ObjectClass::PRISON.
-  // TODO: this implies that you can set name, portrait, biography and gender for a random hero,
-  // or set a random hero in a prison. Check if this is true.
   //
-  // Note that this struct is similar to HeroSettings, but it has extra fields in between,
-  // so I'm not reusing that struct.
+  // This struct is similar to HeroSettings, but it has extra fields in between, so I'm not reusing that struct.
+  //
+  // Undocumented features:
+  // 1. Neither the official Map Editor nor the Unleashed Editor supports setting a custom name
+  //    portrait, biography or gender for a Random Hero. The behavior is well-defined, though, if you do it manually:
+  //    * A custom name will be correctly shown in the game.
+  //    * A custom biography will be correctly shown in the game.
+  //    * A custom portrait will NOT be shown in the game - a random hero will get the default portrait for this HeroType
+  //      (which can still be customized through `MapAdditionalInfo::custom_heroes`.
+  //    * Customizing the gender seems to work fine, but it has no visible impact on the game anyway.
+  // 2. Neither the official Map Editor nor the Unleashed Editor supports putting a random hero in a Prison.
+  //    The game does support it, though, and you can customize the name/biography of such random hero as described
+  //    above.
+  //    Note, however, that both the official Map Editor and the Unleashed Editor will report an error
+  //    "Invalid or corrupt map file." if you try to open a map that has a random hero in a Prison.
   template<>
   struct ObjectDetails<MetaObjectType::HERO>
   {
@@ -240,17 +251,17 @@ namespace h3m
   template<>
   struct ObjectDetails<MetaObjectType::SCHOLAR>
   {
-    // TODO: consider replacing with std::variant<Empty, PrimarySkillType, SecondarySkillType, Spell>.
+    // TODO: consider replacing with std::variant<PrimarySkillType, SecondarySkillType, Spell, RandomScholarRewardType>.
     ScholarRewardType reward_type {};
     // The meaning of reward_value depends on reward_type:
-    //   Random:
-    //     should be 0.
     //   PrimarySkill:
     //     static_cast<PrimarySkillType>(reward_value)
     //   SecondarySkill:
     //     static_cast<SecondarySkillType>(reward_value)
     //   Spell:
     //     static_cast<SpellType>(reward_value)
+    //   Random:
+    //     should be 0.
     std::uint8_t reward_value {};
     ReservedData<6> unknown {};
   };
