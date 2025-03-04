@@ -1,5 +1,5 @@
 # h3mtxt
-Command-line utility for converting .h3m files (maps for Heroes of Might and Magic 3) to a human-readable format (JSON) or vice versa.
+Command-line utility for converting .h3m/.h3c files (maps and campaigns for Heroes of Might and Magic 3) to a human-readable format (JSON) or vice versa.
 
 This tool is primarily intended for HoMM3 mapmakers who want to add undocumented features to their maps.
 
@@ -7,20 +7,26 @@ HoMM3 maps are written as (possibly gzip-encoded) binary data. Normally, they ar
 
 *h3mtxt* offers an alternative solution: instead of modifying a .h3m file direclty, you can first convert it to a human-readable format (JSON), edit it, and then convert it back to .h3m.
 
-Or, if you want, you can use the C++ API from this repo to programmatically modify a `h3m::Map` object.
+Or, if you want, you can use the C++ API from this repository to programmatically modify a `h3m::Map` (or `h3m::Campaign`) object.
 
 Note: only **Shadow of Death** maps are supported. Currently, I have no plans to support other versions (e.g., Restoration of Erathia) or mods.
 
 # Usage
-Just pass the paths to the input map (h3m or JSON) and the output file.
+Just pass the paths to the input map or campaign (.h3m/.h3c or JSON) and the output file:
 ```sh
 # Convert the map from .h3m to JSON.
 h3mtxt my_map.h3m my_map.h3m.json
 
 # Convert the map from JSON to .h3m.
 h3mtxt my_map.h3m.json my_map_new.h3m
+
+# Convert the campaign from .h3c to JSON.
+h3mtxt my_campaign.h3c my_campaign.h3c.json
+
+# Convert the campaign from JSON to .h3c.
+h3mtxt my_campaign.h3c.json my_campaign_new.h3c
 ```
-The filename extensions are not important - the program will check if the input file contains a .h3m map or a JSON document and convert it to JSON or .h3m respectively
+The filename extensions are not important - the program will detect the file type by inspecting the data.
 
 # Acknowledgment
 I would like to thank the authors of [HeroWO-js/h3m2json](https://github.com/HeroWO-js/h3m2json/) and [potmdehex/homm3tools](https://github.com/potmdehex/homm3tools)
