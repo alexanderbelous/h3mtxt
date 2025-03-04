@@ -24,7 +24,7 @@ namespace Medea_NS
   void JsonObjectWriter<h3m::HeroArtifacts>::operator()(FieldsWriter& out, const h3m::HeroArtifacts& value) const
   {
     using Fields = h3m::FieldNames<h3m::HeroArtifacts>;
-    writeArtifact(out, Fields::kHeadwear, value.headwear);
+    writeArtifact(out, Fields::kHead, value.head);
     writeArtifact(out, Fields::kShoulders, value.shoulders);
     writeArtifact(out, Fields::kNeck, value.neck);
     writeArtifact(out, Fields::kRightHand, value.right_hand);

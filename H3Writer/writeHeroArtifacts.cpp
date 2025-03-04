@@ -6,7 +6,7 @@ namespace h3m::H3Writer_NS
 {
   void H3Writer<HeroArtifacts>::operator()(std::ostream& stream, const HeroArtifacts& artifacts) const
   {
-    writeData(stream, artifacts.headwear);
+    writeData(stream, artifacts.head);
     writeData(stream, artifacts.shoulders);
     writeData(stream, artifacts.neck);
     writeData(stream, artifacts.right_hand);

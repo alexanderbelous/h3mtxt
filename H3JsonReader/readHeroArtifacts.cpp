@@ -8,7 +8,7 @@ namespace h3m::H3JsonReader_NS
   {
     using Fields = FieldNames<HeroArtifacts>;
     HeroArtifacts artifacts;
-    readField(artifacts.headwear, value, Fields::kHeadwear);
+    readField(artifacts.head, value, Fields::kHead);
     readField(artifacts.shoulders, value, Fields::kShoulders);
     readField(artifacts.neck, value, Fields::kNeck);
     readField(artifacts.right_hand, value, Fields::kRightHand);

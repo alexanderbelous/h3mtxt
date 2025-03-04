@@ -7,7 +7,7 @@ namespace h3m::H3Reader_NS
   HeroArtifacts readHeroArtifacts(std::istream& stream)
   {
     HeroArtifacts artifacts;
-    artifacts.headwear = readEnum<ArtifactType>(stream);
+    artifacts.head = readEnum<ArtifactType>(stream);
     artifacts.shoulders = readEnum<ArtifactType>(stream);
     artifacts.neck = readEnum<ArtifactType>(stream);
     artifacts.right_hand = readEnum<ArtifactType>(stream);

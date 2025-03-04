@@ -240,7 +240,7 @@ namespace h3m
   template<>
   struct FieldNames<HeroArtifacts>
   {
-    static inline constexpr std::string_view kHeadwear = "headwear";
+    static inline constexpr std::string_view kHead = "head";
     static inline constexpr std::string_view kShoulders = "shoulders";
     static inline constexpr std::string_view kNeck = "neck";
     static inline constexpr std::string_view kRightHand = "right_hand";

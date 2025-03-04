@@ -2,7 +2,6 @@
 
 #include <h3mtxt/Map/Constants/ArtifactType.h>
 
-#include <cstdint>
 #include <vector>
 
 namespace h3m
@@ -10,7 +9,7 @@ namespace h3m
   // 0xFFFF implies "default" (generally empty) for any slot.
   struct HeroArtifacts
   {
-    ArtifactType headwear {0xFFFF};
+    ArtifactType head {0xFFFF};
     ArtifactType shoulders {0xFFFF};
     ArtifactType neck {0xFFFF};
     ArtifactType right_hand {0xFFFF};
@@ -23,7 +22,7 @@ namespace h3m
     ArtifactType misc2 {0xFFFF};
     ArtifactType misc3 {0xFFFF};
     ArtifactType misc4 {0xFFFF};
-    ArtifactType device1 {0xFFFF};
+    ArtifactType device1 {0xFFFF};  // TODO: rename to war_machine_1
     ArtifactType device2 {0xFFFF};
     ArtifactType device3 {0xFFFF};
     // Catapult's slot, not accessible via the Editor, always empty.
