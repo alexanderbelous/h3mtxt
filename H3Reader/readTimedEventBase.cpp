@@ -13,7 +13,7 @@ namespace h3m::H3Reader_NS
     event.applies_to_human = readBool(stream);
     event.applies_to_computer = readBool(stream);
     event.day_of_first_occurence = readInt<std::uint16_t>(stream);
-    event.repeat_after_days = readInt<std::uint8_t>(stream);
-    event.unknown = readReservedData<17>(stream);
+    event.repeat_after_days = readInt<std::uint16_t>(stream);
+    event.unknown = readReservedData<16>(stream);
   }
 }
