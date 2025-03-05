@@ -9,9 +9,9 @@ namespace h3m
       .can_be_human = false,
       .can_be_computer = false,
       .behavior = PlayerBehavior::Random,
-      .customized_alignments = false,
+      .has_customized_alignments = false,
       .allowed_alignments {},
-      .random_town = false,
+      .allow_random_alignment = false,
       .main_town {},
       .has_random_heroes = false,
       .starting_hero {

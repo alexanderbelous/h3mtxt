@@ -737,9 +737,9 @@ namespace h3m
     static inline constexpr std::string_view kCanBeHuman = "can_be_human";
     static inline constexpr std::string_view kCanBeComputer = "can_be_computer";
     static inline constexpr std::string_view kBehavior = "behavior";
-    static inline constexpr std::string_view kCustomizedAlignments = "customized_alignments";
+    static inline constexpr std::string_view kHasCustomizedAlignments = "has_customized_alignments";
     static inline constexpr std::string_view kAllowedAlignments = "allowed_alignments";
-    static inline constexpr std::string_view kRandomTown = "random_town";
+    static inline constexpr std::string_view kAllowRandomAlignment = "allow_random_alignment";
     static inline constexpr std::string_view kMainTown = "main_town";
     static inline constexpr std::string_view kHasRandomHeroes = "has_random_heroes";
     static inline constexpr std::string_view kStartingHero = "starting_hero";

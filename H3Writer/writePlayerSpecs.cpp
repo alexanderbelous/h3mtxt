@@ -38,9 +38,9 @@ namespace h3m::H3Writer_NS
     writeData(stream, value.can_be_human);
     writeData(stream, value.can_be_computer);
     writeData(stream, value.behavior);
-    writeData(stream, value.customized_alignments);
+    writeData(stream, value.has_customized_alignments);
     writeData(stream, value.allowed_alignments);
-    writeData(stream, value.random_town);
+    writeData(stream, value.allow_random_alignment);
     writeData(stream, value.main_town);
     writeData(stream, value.has_random_heroes);
     writeData(stream, value.starting_hero);

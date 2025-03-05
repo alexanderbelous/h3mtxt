@@ -48,9 +48,9 @@ namespace h3m::H3JsonReader_NS
     readField(player.can_be_human, value, Fields::kCanBeHuman);
     readField(player.can_be_computer, value, Fields::kCanBeComputer);
     readField(player.behavior, value, Fields::kBehavior);
-    readField(player.customized_alignments, value, Fields::kCustomizedAlignments);
+    readField(player.has_customized_alignments, value, Fields::kHasCustomizedAlignments);
     readField(player.allowed_alignments, value, Fields::kAllowedAlignments);
-    readField(player.random_town, value, Fields::kRandomTown);
+    readField(player.allow_random_alignment, value, Fields::kAllowRandomAlignment);
     readField(player.main_town, value, Fields::kMainTown);
     readField(player.has_random_heroes, value, Fields::kHasRandomHeroes);
     readField(player.starting_hero, value, Fields::kStartingHero);

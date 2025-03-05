@@ -89,11 +89,17 @@ namespace h3m
     // on the map at all.
     Bool can_be_computer {};
     PlayerBehavior behavior {};
-    Bool customized_alignments {};
+    // True if the player's alignment is customized, false otherwise.
+    // This reflects the state of the "Customize" checkbox in "Map Specifications/Player Specs/Allowed alignments".
+    Bool has_customized_alignments {};
     TownsBitmask allowed_alignments;
-    // True if the player's alignment is random, false otherwise.
-    // If true, implies that all town types are enabled.
-    Bool random_town {};
+    // True if Random alignment is enabled, false otherwise.
+    // This reflects the state of the "Random" checkbox in "Map Specifications/Player Specs/Allowed alignments".
+    //
+    // The field is somewhat useless - normally, when you enable it in the Editor it enables all town types. If you
+    // enable it manually in the binary data but keep one or more town types disabled, the player will only be able
+    // to choose one of the enabled types + Conflux.
+    Bool allow_random_alignment {};
     // Info about the main town, std::nullopt if the player doesn't have a main town.
     // Note: technically, you can specify a town that doesn't belong to this player. If generate_hero != 0,
     // the behavior seems to be well-defined, but insane:

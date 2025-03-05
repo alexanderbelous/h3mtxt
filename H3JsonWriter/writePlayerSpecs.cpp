@@ -76,9 +76,9 @@ namespace Medea_NS
       out.writeComma();
       out.writeComment(enum_str, false);
     }
-    out.writeField(Fields::kCustomizedAlignments, value.customized_alignments);
+    out.writeField(Fields::kHasCustomizedAlignments, value.has_customized_alignments);
     out.writeField(Fields::kAllowedAlignments, value.allowed_alignments);
-    out.writeField(Fields::kRandomTown, value.random_town);
+    out.writeField(Fields::kAllowRandomAlignment, value.allow_random_alignment);
     if (value.main_town)
     {
       out.writeField(Fields::kMainTown, *value.main_town);
