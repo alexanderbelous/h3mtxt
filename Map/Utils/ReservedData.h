@@ -16,7 +16,7 @@ namespace h3m
     {
     public:
       // Constructs an implicit array.
-      constexpr ReservedDataStorage() = default;
+      constexpr ReservedDataStorage() noexcept = default;
 
       // Copy constructor.
       ReservedDataStorage(const ReservedDataStorage& other):
@@ -52,12 +52,12 @@ namespace h3m
 
       // \return a pointer to the stored array of NumBytes elements,
       //         or nullptr if the stored elements are is implicitly 0s.
-      std::byte* data() noexcept
+      constexpr std::byte* data() noexcept
       {
         return data_.get();
       }
 
-      const std::byte* data() const noexcept
+      constexpr const std::byte* data() const noexcept
       {
         return data_.get();
       }
@@ -94,19 +94,19 @@ namespace h3m
     {
     public:
       // \return a pointer to the stored array of NumBytes elements.
-      std::byte* data() noexcept
+      constexpr std::byte* data() noexcept
       {
         return data_.data();
       }
 
       // \return a pointer to the stored array of NumBytes elements.
-      const std::byte* data() const noexcept
+      constexpr const std::byte* data() const noexcept
       {
         return data_.data();
       }
 
       // No-op. The array is always explicit in this specialization.
-      void makeExplicit() noexcept
+      constexpr void makeExplicit() noexcept
       {
       }
 
@@ -150,11 +150,11 @@ namespace h3m
 
     // \return a pointer to the stored array of NumBytes elements,
     //         or nullptr if !isExplicit().
-    std::byte* data() noexcept;
+    constexpr std::byte* data() noexcept;
 
     // \return a pointer to the stored array of NumBytes elements,
     //         or nullptr if !isExplicit().
-    const std::byte* data() const noexcept;
+    constexpr const std::byte* data() const noexcept;
 
     // \return true if the data is explicit, false otherwise.
     constexpr bool isExplicit() const noexcept;
@@ -198,13 +198,13 @@ namespace h3m
   }
 
   template<std::size_t NumBytes>
-  std::byte* ReservedData<NumBytes>::data() noexcept
+  constexpr std::byte* ReservedData<NumBytes>::data() noexcept
   {
     return storage_.data();
   }
 
   template<std::size_t NumBytes>
-  const std::byte* ReservedData<NumBytes>::data() const noexcept
+  constexpr const std::byte* ReservedData<NumBytes>::data() const noexcept
   {
     return storage_.data();
   }
