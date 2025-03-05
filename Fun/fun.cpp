@@ -155,7 +155,7 @@ namespace
       .template_idx = kHeroTemplateIdx,
       .details = h3m::ObjectDetails<h3m::MetaObjectType::HERO> {
         .absod_id = 69,
-        .owner = 0,
+        .owner = h3m::PlayerColor::Red,
         .type = hero1,
         .secondary_skills = std::vector<h3m::SecondarySkill> {
           h3m::SecondarySkill {.type = h3m::SecondarySkillType::Mysticism, .level = 3},
@@ -188,7 +188,7 @@ namespace
       .template_idx = kHeroTemplateIdx,
       .details = h3m::ObjectDetails<h3m::MetaObjectType::HERO> {
         .absod_id = 666,
-        .owner = 1,
+        .owner = h3m::PlayerColor::Blue,
         .type = hero2,
         .secondary_skills = std::vector<h3m::SecondarySkill>{
           h3m::SecondarySkill {.type = h3m::SecondarySkillType::Artillery, .level = 3}

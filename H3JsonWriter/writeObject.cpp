@@ -157,6 +157,11 @@ namespace Medea_NS
     using Fields = h3m::FieldNames<Details>;
     out.writeField(Fields::kAbsodId, hero.absod_id);
     out.writeField(Fields::kOwner, hero.owner);
+    if (auto enum_str = h3m::getEnumString(hero.owner); !enum_str.empty())
+    {
+      out.writeComma();
+      out.writeComment(enum_str, false);
+    }
     out.writeField(Fields::kType, hero.type);
     if (auto enum_str = h3m::getEnumString(hero.type); !enum_str.empty())
     {
@@ -398,6 +403,11 @@ namespace Medea_NS
     using Fields = h3m::FieldNames<Details>;
     out.writeField(Fields::kAbsodId, town.absod_id);
     out.writeField(Fields::kOwner, town.owner);
+    if (std::string_view enum_str = h3m::getEnumString(town.owner); !enum_str.empty())
+    {
+      out.writeComma();
+      out.writeComment(enum_str, false);
+    }
     if (town.name)
     {
       out.writeField(Fields::kName, *town.name);

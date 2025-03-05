@@ -140,8 +140,9 @@ namespace h3m
   struct ObjectDetails<MetaObjectType::HERO>
   {
     std::uint32_t absod_id {};
-    // Should always be 0xFF for ObjectClass::PRISON.
-    std::uint8_t owner {};
+    // Owner for HERO and RANDOM_HERO. For PRISON it is normally set to 0xFF (none); setting a different value doesn't
+    // seem to have any effect - you will still become the owner when you release the hero from the prison.
+    PlayerColor owner {};
     // 0xFF if random.
     HeroType type {};
     std::optional<std::string> name;
@@ -335,7 +336,7 @@ namespace h3m
   {
     std::uint32_t absod_id {};
     // 0xFF if none.
-    std::uint8_t owner {};
+    PlayerColor owner {};
     // If std::nullopt, some default name will be assigned.
     std::optional<std::string> name {};
     // 0xFFFF in CreatureStack.type means no creature.

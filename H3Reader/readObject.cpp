@@ -156,7 +156,7 @@ namespace h3m::H3Reader_NS
     {
       ObjectDetails<MetaObjectType::HERO> data;
       data.absod_id = readInt<std::uint32_t>(stream);
-      data.owner = readInt<std::uint8_t>(stream);
+      data.owner = readEnum<PlayerColor>(stream);
       data.type = readEnum<HeroType>(stream);
       const Bool has_name = readBool(stream);
       if (has_name)
@@ -404,7 +404,7 @@ namespace h3m::H3Reader_NS
     {
       ObjectDetails<MetaObjectType::TOWN> town;
       town.absod_id = readInt<std::uint32_t>(stream);
-      town.owner = readInt<std::uint8_t>(stream);
+      town.owner = readEnum<PlayerColor>(stream);
       const Bool has_name = readBool(stream);
       if (has_name)
       {
