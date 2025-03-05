@@ -254,10 +254,10 @@ namespace h3m
     static inline constexpr std::string_view kMisc3 = "misc3";
     static inline constexpr std::string_view kMisc4 = "misc4";
     static inline constexpr std::string_view kMisc5 = "misc5";
-    static inline constexpr std::string_view kDevice1 = "device1";
-    static inline constexpr std::string_view kDevice2 = "device2";
-    static inline constexpr std::string_view kDevice3 = "device3";
-    static inline constexpr std::string_view kDevice4 = "device4";
+    static inline constexpr std::string_view kWarMachine1 = "war_machine1";
+    static inline constexpr std::string_view kWarMachine2 = "war_machine2";
+    static inline constexpr std::string_view kWarMachine3 = "war_machine3";
+    static inline constexpr std::string_view kWarMachine4 = "war_machine4";
     static inline constexpr std::string_view kSpellbook = "spellbook";
     static inline constexpr std::string_view kBackpack = "backpack";
   };

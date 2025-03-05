@@ -19,10 +19,10 @@ namespace h3m::H3Writer_NS
     writeData(stream, artifacts.misc2);
     writeData(stream, artifacts.misc3);
     writeData(stream, artifacts.misc4);
-    writeData(stream, artifacts.device1);
-    writeData(stream, artifacts.device2);
-    writeData(stream, artifacts.device3);
-    writeData(stream, artifacts.device4);
+    writeData(stream, artifacts.war_machine1);
+    writeData(stream, artifacts.war_machine2);
+    writeData(stream, artifacts.war_machine3);
+    writeData(stream, artifacts.war_machine4);
     writeData(stream, artifacts.spellbook);
     writeData(stream, artifacts.misc5);
     writeVector<std::uint16_t>(stream, artifacts.backpack);

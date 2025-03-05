@@ -22,11 +22,11 @@ namespace h3m
     ArtifactType misc2 {0xFFFF};
     ArtifactType misc3 {0xFFFF};
     ArtifactType misc4 {0xFFFF};
-    ArtifactType device1 {0xFFFF};  // TODO: rename to war_machine_1
-    ArtifactType device2 {0xFFFF};
-    ArtifactType device3 {0xFFFF};
+    ArtifactType war_machine1 {0xFFFF};
+    ArtifactType war_machine2 {0xFFFF};
+    ArtifactType war_machine3 {0xFFFF};
     // Catapult's slot, not accessible via the Editor, always empty.
-    ArtifactType device4 {0xFFFF};
+    ArtifactType war_machine4 {0xFFFF};
     ArtifactType spellbook {0xFFFF};
     ArtifactType misc5 {0xFFFF};
     std::vector<ArtifactType> backpack;

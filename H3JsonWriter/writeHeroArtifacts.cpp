@@ -38,10 +38,10 @@ namespace Medea_NS
     writeArtifact(out, Fields::kMisc3, value.misc3);
     writeArtifact(out, Fields::kMisc4, value.misc4);
     writeArtifact(out, Fields::kMisc5, value.misc5);
-    writeArtifact(out, Fields::kDevice1, value.device1);
-    writeArtifact(out, Fields::kDevice2, value.device2);
-    writeArtifact(out, Fields::kDevice3, value.device3);
-    writeArtifact(out, Fields::kDevice4, value.device4);
+    writeArtifact(out, Fields::kWarMachine1, value.war_machine1);
+    writeArtifact(out, Fields::kWarMachine2, value.war_machine2);
+    writeArtifact(out, Fields::kWarMachine3, value.war_machine3);
+    writeArtifact(out, Fields::kWarMachine4, value.war_machine4);
     writeArtifact(out, Fields::kSpellbook, value.spellbook);
     out.writeField(Fields::kBackpack, value.backpack);
   }

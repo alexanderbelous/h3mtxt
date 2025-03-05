@@ -22,10 +22,10 @@ namespace h3m::H3JsonReader_NS
     readField(artifacts.misc3, value, Fields::kMisc3);
     readField(artifacts.misc4, value, Fields::kMisc4);
     readField(artifacts.misc5, value, Fields::kMisc5);
-    readField(artifacts.device1, value, Fields::kDevice1);
-    readField(artifacts.device2, value, Fields::kDevice2);
-    readField(artifacts.device3, value, Fields::kDevice3);
-    readField(artifacts.device4, value, Fields::kDevice4);
+    readField(artifacts.war_machine1, value, Fields::kWarMachine1);
+    readField(artifacts.war_machine2, value, Fields::kWarMachine2);
+    readField(artifacts.war_machine3, value, Fields::kWarMachine3);
+    readField(artifacts.war_machine4, value, Fields::kWarMachine4);
     readField(artifacts.spellbook, value, Fields::kSpellbook);
     readField(artifacts.backpack, value, Fields::kBackpack);
     return artifacts;

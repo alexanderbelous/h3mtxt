@@ -20,10 +20,10 @@ namespace h3m::H3Reader_NS
     artifacts.misc2 = readEnum<ArtifactType>(stream);
     artifacts.misc3 = readEnum<ArtifactType>(stream);
     artifacts.misc4 = readEnum<ArtifactType>(stream);
-    artifacts.device1 = readEnum<ArtifactType>(stream);
-    artifacts.device2 = readEnum<ArtifactType>(stream);
-    artifacts.device3 = readEnum<ArtifactType>(stream);
-    artifacts.device4 = readEnum<ArtifactType>(stream);
+    artifacts.war_machine1 = readEnum<ArtifactType>(stream);
+    artifacts.war_machine2 = readEnum<ArtifactType>(stream);
+    artifacts.war_machine3 = readEnum<ArtifactType>(stream);
+    artifacts.war_machine4 = readEnum<ArtifactType>(stream);
     artifacts.spellbook = readEnum<ArtifactType>(stream);
     artifacts.misc5 = readEnum<ArtifactType>(stream);
     const std::uint16_t backpack_count = readInt<std::uint16_t>(stream);
