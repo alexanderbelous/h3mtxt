@@ -115,38 +115,53 @@ namespace h3m::H3JsonReader_NS
     }
   };
 
+  namespace
+  {
+    VictoryCondition::Details readVictoryConditionDetailsVariant(const Json::Value& value,
+                                                                 VictoryConditionType victory_condition_type)
+    {
+      switch (victory_condition_type)
+      {
+      case VictoryConditionType::AcquireArtifact:
+        return fromJson<VictoryConditionDetails<VictoryConditionType::AcquireArtifact>>(value);
+      case VictoryConditionType::AccumulateCreatures:
+        return fromJson<VictoryConditionDetails<VictoryConditionType::AccumulateCreatures>>(value);
+      case VictoryConditionType::AccumulateResources:
+        return fromJson<VictoryConditionDetails<VictoryConditionType::AccumulateResources>>(value);
+      case VictoryConditionType::UpgradeTown:
+        return fromJson<VictoryConditionDetails<VictoryConditionType::UpgradeTown>>(value);
+      case VictoryConditionType::BuildGrail:
+        return fromJson<VictoryConditionDetails<VictoryConditionType::BuildGrail>>(value);
+      case VictoryConditionType::DefeatHero:
+        return fromJson<VictoryConditionDetails<VictoryConditionType::DefeatHero>>(value);
+      case VictoryConditionType::CaptureTown:
+        return fromJson<VictoryConditionDetails<VictoryConditionType::CaptureTown>>(value);
+      case VictoryConditionType::DefeatMonster:
+        return fromJson<VictoryConditionDetails<VictoryConditionType::DefeatMonster>>(value);
+      case VictoryConditionType::FlagDwellings:
+        return fromJson<VictoryConditionDetails<VictoryConditionType::FlagDwellings>>(value);
+      case VictoryConditionType::FlagMines:
+        return fromJson<VictoryConditionDetails<VictoryConditionType::FlagMines>>(value);
+      case VictoryConditionType::TransportArtifact:
+        return fromJson<VictoryConditionDetails<VictoryConditionType::TransportArtifact>>(value);
+      case VictoryConditionType::Normal:
+        return VictoryCondition::Details{};
+      default:
+        throw std::runtime_error("JsonReader<VictoryCondition>: invalid victory_condition_type");
+      }
+    }
+  }
+
   VictoryCondition JsonReader<VictoryCondition>::operator()(const Json::Value& value) const
   {
     using Fields = FieldNames<VictoryCondition>;
     const VictoryConditionType victory_condition_type = readField<VictoryConditionType>(value, Fields::kType);
-    switch (victory_condition_type)
+    VictoryCondition victory_condition;
+    if (victory_condition_type != VictoryConditionType::Normal)
     {
-    case VictoryConditionType::AcquireArtifact:
-      return readField<VictoryConditionDetails<VictoryConditionType::AcquireArtifact>>(value, Fields::kDetails);
-    case VictoryConditionType::AccumulateCreatures:
-      return readField<VictoryConditionDetails<VictoryConditionType::AccumulateCreatures>>(value, Fields::kDetails);
-    case VictoryConditionType::AccumulateResources:
-      return readField<VictoryConditionDetails<VictoryConditionType::AccumulateResources>>(value, Fields::kDetails);
-    case VictoryConditionType::UpgradeTown:
-      return readField<VictoryConditionDetails<VictoryConditionType::UpgradeTown>>(value, Fields::kDetails);
-    case VictoryConditionType::BuildGrail:
-      return readField<VictoryConditionDetails<VictoryConditionType::BuildGrail>>(value, Fields::kDetails);
-    case VictoryConditionType::DefeatHero:
-      return readField<VictoryConditionDetails<VictoryConditionType::DefeatHero>>(value, Fields::kDetails);
-    case VictoryConditionType::CaptureTown:
-      return readField<VictoryConditionDetails<VictoryConditionType::CaptureTown>>(value, Fields::kDetails);
-    case VictoryConditionType::DefeatMonster:
-      return readField<VictoryConditionDetails<VictoryConditionType::DefeatMonster>>(value, Fields::kDetails);
-    case VictoryConditionType::FlagDwellings:
-      return readField<VictoryConditionDetails<VictoryConditionType::FlagDwellings>>(value, Fields::kDetails);
-    case VictoryConditionType::FlagMines:
-      return readField<VictoryConditionDetails<VictoryConditionType::FlagMines>>(value, Fields::kDetails);
-    case VictoryConditionType::TransportArtifact:
-      return readField<VictoryConditionDetails<VictoryConditionType::TransportArtifact>>(value, Fields::kDetails);
-    case VictoryConditionType::Normal:
-      return VictoryCondition();
-    default:
-      throw std::runtime_error("JsonReader<VictoryCondition>: invalid victory_condition_type");
+      const Json::Value& details_json = getJsonField(value, Fields::kDetails);
+      victory_condition.details = readVictoryConditionDetailsVariant(details_json, victory_condition_type);
     }
+    return victory_condition;
   }
 }

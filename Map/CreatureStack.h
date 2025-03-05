@@ -16,6 +16,6 @@ namespace h3m
   {
     // 0xFFFF means "no creature".
     CreatureType type {0xFFFF};
-    std::uint16_t count{};
+    std::uint16_t count {};
   };
 }

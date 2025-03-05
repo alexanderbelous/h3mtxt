@@ -99,7 +99,7 @@ namespace h3m::H3Reader_NS
       details.x = readInt<std::uint8_t>(stream);
       details.y = readInt<std::uint8_t>(stream);
       details.z = readInt<std::uint8_t>(stream);
-      return details;
+      return LossCondition{details};
     }
     case LossConditionType::LoseHero:
     {
@@ -107,16 +107,16 @@ namespace h3m::H3Reader_NS
       details.x = readInt<std::uint8_t>(stream);
       details.y = readInt<std::uint8_t>(stream);
       details.z = readInt<std::uint8_t>(stream);
-      return details;
+      return LossCondition{details};
     }
     case LossConditionType::TimeExpires:
     {
       LossConditionDetails<LossConditionType::TimeExpires> details;
       details.days = readInt<std::uint16_t>(stream);
-      return details;
+      return LossCondition{details};
     }
     case LossConditionType::Normal:
-      return LossConditionDetails<LossConditionType::Normal>();
+      return LossCondition{};
     default:
       throw std::runtime_error("Invalid loss condition type.");
     }

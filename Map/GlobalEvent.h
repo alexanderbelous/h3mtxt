@@ -4,10 +4,8 @@
 
 namespace h3m
 {
-
-// GlobalEvent doesn't actually have any extra fields, but I want it to be different type.
-struct GlobalEvent : TimedEventBase
-{
-};
-
+  // GlobalEvent doesn't actually have any extra fields, but I want it to be different type.
+  struct GlobalEvent : TimedEventBase
+  {
+  };
 }

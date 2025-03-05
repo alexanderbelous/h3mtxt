@@ -137,39 +137,45 @@ namespace h3m::H3Reader_NS
     {
       return ReadVictoryConditionDetails<T>{}(stream);
     }
+
+    VictoryCondition::Details readVictoryConditionDetailsVariant(std::istream& stream,
+                                                                 VictoryConditionType victory_condition_type)
+    {
+      switch (victory_condition_type)
+      {
+      case VictoryConditionType::AcquireArtifact:
+        return readVictoryConditionDetails<VictoryConditionType::AcquireArtifact>(stream);
+      case VictoryConditionType::AccumulateCreatures:
+        return readVictoryConditionDetails<VictoryConditionType::AccumulateCreatures>(stream);
+      case VictoryConditionType::AccumulateResources:
+        return readVictoryConditionDetails<VictoryConditionType::AccumulateResources>(stream);
+      case VictoryConditionType::UpgradeTown:
+        return readVictoryConditionDetails<VictoryConditionType::UpgradeTown>(stream);
+      case VictoryConditionType::BuildGrail:
+        return readVictoryConditionDetails<VictoryConditionType::BuildGrail>(stream);
+      case VictoryConditionType::DefeatHero:
+        return readVictoryConditionDetails<VictoryConditionType::DefeatHero>(stream);
+      case VictoryConditionType::CaptureTown:
+        return readVictoryConditionDetails<VictoryConditionType::CaptureTown>(stream);
+      case VictoryConditionType::DefeatMonster:
+        return readVictoryConditionDetails<VictoryConditionType::DefeatMonster>(stream);
+      case VictoryConditionType::FlagDwellings:
+        return readVictoryConditionDetails<VictoryConditionType::FlagDwellings>(stream);
+      case VictoryConditionType::FlagMines:
+        return readVictoryConditionDetails<VictoryConditionType::FlagMines>(stream);
+      case VictoryConditionType::TransportArtifact:
+        return readVictoryConditionDetails<VictoryConditionType::TransportArtifact>(stream);
+      case VictoryConditionType::Normal:
+        return readVictoryConditionDetails<VictoryConditionType::Normal>(stream);
+      default:
+        throw std::runtime_error("Invalid victory condition type.");
+      }
+    }
   }
 
   VictoryCondition readVictoryCondition(std::istream& stream)
   {
     const VictoryConditionType victory_condition_type = readEnum<VictoryConditionType>(stream);
-    switch (victory_condition_type)
-    {
-    case VictoryConditionType::AcquireArtifact:
-      return readVictoryConditionDetails<VictoryConditionType::AcquireArtifact>(stream);
-    case VictoryConditionType::AccumulateCreatures:
-      return readVictoryConditionDetails<VictoryConditionType::AccumulateCreatures>(stream);
-    case VictoryConditionType::AccumulateResources:
-      return readVictoryConditionDetails<VictoryConditionType::AccumulateResources>(stream);
-    case VictoryConditionType::UpgradeTown:
-      return readVictoryConditionDetails<VictoryConditionType::UpgradeTown>(stream);
-    case VictoryConditionType::BuildGrail:
-      return readVictoryConditionDetails<VictoryConditionType::BuildGrail>(stream);
-    case VictoryConditionType::DefeatHero:
-      return readVictoryConditionDetails<VictoryConditionType::DefeatHero>(stream);
-    case VictoryConditionType::CaptureTown:
-      return readVictoryConditionDetails<VictoryConditionType::CaptureTown>(stream);
-    case VictoryConditionType::DefeatMonster:
-      return readVictoryConditionDetails<VictoryConditionType::DefeatMonster>(stream);
-    case VictoryConditionType::FlagDwellings:
-      return readVictoryConditionDetails<VictoryConditionType::FlagDwellings>(stream);
-    case VictoryConditionType::FlagMines:
-      return readVictoryConditionDetails<VictoryConditionType::FlagMines>(stream);
-    case VictoryConditionType::TransportArtifact:
-      return readVictoryConditionDetails<VictoryConditionType::TransportArtifact>(stream);
-    case VictoryConditionType::Normal:
-      return readVictoryConditionDetails<VictoryConditionType::Normal>(stream);
-    default:
-      throw std::runtime_error("Invalid victory condition type.");
-    }
+    return VictoryCondition{readVictoryConditionDetailsVariant(stream, victory_condition_type)};
   }
 }

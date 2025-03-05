@@ -114,8 +114,7 @@ struct MapAdditionalInfo
   HeroesBitmask heroes_availability;
   std::vector<HeroType> placeholder_heroes;
   std::vector<CustomHero> custom_heroes;
-  // Must be all 0s; kept here to ensure compatibility.
-  // TODO: 31 is a suspicious number. Check if this is possibly disabled_creatures and/or disabled_buildings.
+  // Reserved data; 0s by default.
   ReservedData<31> reserved {};
   // 1 bit per artifact; 1 means disabled, 0 means enabled.
   // TODO: check what happens if you disable the spell book or war machines.

@@ -48,13 +48,13 @@ namespace h3m::H3JsonReader_NS
     switch (loss_condition_type)
     {
     case LossConditionType::LoseTown:
-      return readField<LossConditionDetails<LossConditionType::LoseTown>>(value, Fields::kDetails);
+      return LossCondition{readField<LossConditionDetails<LossConditionType::LoseTown>>(value, Fields::kDetails)};
     case LossConditionType::LoseHero:
-      return readField<LossConditionDetails<LossConditionType::LoseHero>>(value, Fields::kDetails);
+      return LossCondition{readField<LossConditionDetails<LossConditionType::LoseHero>>(value, Fields::kDetails)};
     case LossConditionType::TimeExpires:
-      return readField<LossConditionDetails<LossConditionType::TimeExpires>>(value, Fields::kDetails);
+      return LossCondition{readField<LossConditionDetails<LossConditionType::TimeExpires>>(value, Fields::kDetails)};
     case LossConditionType::Normal:
-      return LossCondition();
+      return LossCondition{};
     default:
       throw std::runtime_error("JsonReader<LossCondition>: invalid loss_condition_type");
     }
