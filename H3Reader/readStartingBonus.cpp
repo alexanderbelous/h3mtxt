@@ -97,21 +97,21 @@ namespace h3m::H3Reader_NS
     switch (bonus_type)
     {
     case StartingBonusType::Spell:
-      return readStartingBonusDetails<StartingBonusType::Spell>(stream);
+      return StartingBonus{ readStartingBonusDetails<StartingBonusType::Spell>(stream) };
     case StartingBonusType::Creature:
-      return readStartingBonusDetails<StartingBonusType::Creature>(stream);
+      return StartingBonus{ readStartingBonusDetails<StartingBonusType::Creature>(stream) };
     case StartingBonusType::Building:
-      return readStartingBonusDetails<StartingBonusType::Building>(stream);
+      return StartingBonus{ readStartingBonusDetails<StartingBonusType::Building>(stream) };
     case StartingBonusType::Artifact:
-      return readStartingBonusDetails<StartingBonusType::Artifact>(stream);
+      return StartingBonus{ readStartingBonusDetails<StartingBonusType::Artifact>(stream) };
     case StartingBonusType::SpellScroll:
-      return readStartingBonusDetails<StartingBonusType::SpellScroll>(stream);
+      return StartingBonus{ readStartingBonusDetails<StartingBonusType::SpellScroll>(stream) };
     case StartingBonusType::PrimarySkills:
-      return readStartingBonusDetails<StartingBonusType::PrimarySkills>(stream);
+      return StartingBonus{ readStartingBonusDetails<StartingBonusType::PrimarySkills>(stream) };
     case StartingBonusType::SecondarySkill:
-      return readStartingBonusDetails<StartingBonusType::SecondarySkill>(stream);
+      return StartingBonus{ readStartingBonusDetails<StartingBonusType::SecondarySkill>(stream) };
     case StartingBonusType::Resource:
-      return readStartingBonusDetails<StartingBonusType::Resource>(stream);
+      return StartingBonus{ readStartingBonusDetails<StartingBonusType::Resource>(stream) };
     default:
       throw std::runtime_error("readStartingBonus(): invalid bonus_type.");
     }

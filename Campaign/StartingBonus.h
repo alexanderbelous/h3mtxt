@@ -92,18 +92,6 @@ namespace h3m
       StartingBonusDetails<StartingBonusType::Resource>
     >;
 
-    constexpr StartingBonus() noexcept = default;
-
-    template<StartingBonusType T>
-    constexpr StartingBonus(const StartingBonusDetails<T>& details):
-      details(details)
-    {}
-
-    template<StartingBonusType T>
-    constexpr StartingBonus(StartingBonusDetails<T>&& details):
-      details(std::move(details))
-    {}
-
     constexpr StartingBonusType type() const noexcept
     {
       return static_cast<StartingBonusType>(details.index());

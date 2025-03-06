@@ -58,13 +58,13 @@ namespace h3m::H3Reader_NS
     switch (starting_options_type)
     {
     case StartingOptionsType::None:
-      return StartingOptionsDetails<StartingOptionsType::None>{};
+      return StartingOptions{};
     case StartingOptionsType::StartingBonus:
-      return readStartingBonusOptions(stream);
+      return StartingOptions{ readStartingBonusOptions(stream) };
     case StartingOptionsType::HeroCrossover:
-      return readHeroCrossoverOptions(stream);
+      return StartingOptions{ readHeroCrossoverOptions(stream) };
     case StartingOptionsType::StartingHero:
-      return readStartingHeroOptions(stream);
+      return StartingOptions{ readStartingHeroOptions(stream) };
     default:
       throw std::runtime_error("Invalid starting_options_type.");
     }

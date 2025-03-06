@@ -61,20 +61,6 @@ namespace h3m
       StartingOptionsDetails<StartingOptionsType::StartingHero>
     >;
 
-    // Constructs a StartingOptions object holding a
-    // StartingOptionsDetails<StartingOptionsType::None> alternative.
-    constexpr StartingOptions() noexcept = default;
-
-    template<StartingOptionsType T>
-    constexpr StartingOptions(const StartingOptionsDetails<T>& details):
-      details(details)
-    {}
-
-    template<StartingOptionsType T>
-    constexpr StartingOptions(StartingOptionsDetails<T>&& details) :
-      details(std::move(details))
-    {}
-
     constexpr StartingOptionsType type() const noexcept
     {
       return static_cast<StartingOptionsType>(details.index());
