@@ -278,9 +278,6 @@ namespace h3m
   template<>
   struct ObjectProperties<MetaObjectType::SHRINE>
   {
-    // h3mlib and h3m2json interpret this a bit differently: they act as if the spell is written as uint32,
-    // even though the last 3 bytes should always be 0. I think it makes more sense to interpet this as
-    // 1 byte for the spell followed by 3 reserved bytes; besides, it improves type safety.
     // 0xFF means random.
     SpellType spell {};
     ReservedData<3> unknown;
