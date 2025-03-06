@@ -43,8 +43,11 @@ namespace h3m
   {
     CreatureType creature_type {};
     // The number of creatures to accumulate.
-    // TODO: check what happens if it's > 65535 (the maximum number of creatures in CreatureStack).
-    std::uint32_t count {};
+    // * The Map Editor only allows a value within [1; 32767], but values greater than 32767 (e.g., 99999)
+    //   are correctly handled in the game.
+    // * Both the game and the Map Editor considers the value to be signed.
+    //   A negative value almost immediately leads to a victory, though.
+    std::int32_t count {};
   };
 
   // Specialization for AccumulateResources.

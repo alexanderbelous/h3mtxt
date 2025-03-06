@@ -45,7 +45,7 @@ namespace h3m::H3Reader_NS
         VictoryConditionDetails<VictoryConditionType::AccumulateCreatures> details;
         readSpecialVictoryConditionBase(stream, details);
         details.creature_type = readEnum<CreatureType>(stream);
-        details.count = readInt<std::uint32_t>(stream);
+        details.count = readInt<std::int32_t>(stream);
         return details;
       }
     };

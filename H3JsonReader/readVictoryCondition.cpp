@@ -35,7 +35,7 @@ namespace h3m::H3JsonReader_NS
       VictoryConditionDetails<VictoryConditionType::AccumulateCreatures> details;
       readSpecialVictoryConditionBaseFromJson(value, details);
       details.creature_type = readField<CreatureType>(value, "creature_type");
-      details.count = readField<std::uint32_t>(value, "count");
+      details.count = readField<std::int32_t>(value, "count");
       return details;
     }
   };
