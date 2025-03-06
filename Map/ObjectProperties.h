@@ -360,7 +360,8 @@ namespace h3m
   struct ObjectProperties<MetaObjectType::TRIVIAL_OWNED_OBJECT>
   {
     // 0xFF means that there is no owner.
-    std::uint32_t owner {};
+    PlayerColor owner {};
+    ReservedData<3> unknown;
   };
 
   template<>

@@ -463,6 +463,7 @@ namespace h3m::H3JsonReader_NS
       using Fields = FieldNames<Details>;
       Details details;
       readField(details.owner, value, Fields::kOwner);
+      readField(details.unknown, value, Fields::kUnknown);
       return details;
     }
   };

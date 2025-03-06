@@ -723,6 +723,7 @@ namespace h3m
   struct FieldNames<ObjectProperties<MetaObjectType::TRIVIAL_OWNED_OBJECT>>
   {
     static inline constexpr std::string_view kOwner = "owner";
+    static inline constexpr std::string_view kUnknown = "unknown";
   };
 
   template<>

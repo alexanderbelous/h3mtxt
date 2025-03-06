@@ -445,7 +445,8 @@ namespace h3m::H3Reader_NS
     readObjectProperties<MetaObjectType::TRIVIAL_OWNED_OBJECT>(std::istream& stream)
     {
       ObjectProperties<MetaObjectType::TRIVIAL_OWNED_OBJECT> data;
-      data.owner = readInt<std::uint32_t>(stream);
+      data.owner = readEnum<PlayerColor>(stream);
+      data.unknown = readReservedData<3>(stream);
       return data;
     }
 

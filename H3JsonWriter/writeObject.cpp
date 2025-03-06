@@ -442,8 +442,13 @@ namespace Medea_NS
   {
     using Details = h3m::ObjectProperties<h3m::MetaObjectType::TRIVIAL_OWNED_OBJECT>;
     using Fields = h3m::FieldNames<Details>;
-    // TODO: consider printing as the name of the enum constant if it's within the range.
     out.writeField(Fields::kOwner, details.owner);
+    if (std::string_view enum_str = h3m::getEnumString(details.owner); !enum_str.empty())
+    {
+      out.writeComma();
+      out.writeComment(enum_str, false);
+    }
+    out.writeField(Fields::kUnknown, details.unknown);
   }
 
   void JsonObjectWriter<h3m::ObjectProperties<h3m::MetaObjectType::WITCH_HUT>>::operator()(

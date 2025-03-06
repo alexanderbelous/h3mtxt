@@ -324,6 +324,7 @@ namespace h3m::H3Writer_NS
     void operator()(std::ostream& stream, const ObjectProperties<MetaObjectType::TRIVIAL_OWNED_OBJECT>& data) const
     {
       writeData(stream, data.owner);
+      writeData(stream, data.unknown);
     }
   };
 
