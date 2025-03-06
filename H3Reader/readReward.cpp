@@ -74,9 +74,7 @@ namespace h3m::H3Reader_NS
     template<>
     RewardDetails<RewardType::SecondarySkill> readRewardDetails<RewardType::SecondarySkill>(std::istream& stream)
     {
-      RewardDetails<RewardType::SecondarySkill> details;
-      details.skill = readSecondarySkill(stream);
-      return details;
+      return RewardDetails<RewardType::SecondarySkill> { readSecondarySkill(stream) };
     }
 
     template<>
@@ -98,10 +96,7 @@ namespace h3m::H3Reader_NS
     template<>
     RewardDetails<RewardType::Creature> readRewardDetails<RewardType::Creature>(std::istream& stream)
     {
-      RewardDetails<RewardType::Creature> details;
-      details.type = readEnum<CreatureType>(stream);
-      details.count = readInt<std::uint16_t>(stream);
-      return details;
+      return RewardDetails<RewardType::Creature> { readCreatureStack(stream) };
     }
 
     // Wrapper around readRewardDetails(), which returns the result as Reward::Details variant.

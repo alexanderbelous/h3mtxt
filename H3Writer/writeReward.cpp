@@ -73,7 +73,7 @@ namespace h3m::H3Writer_NS
   {
     void operator()(std::ostream& stream, const RewardDetails<RewardType::SecondarySkill>& data) const
     {
-      writeData(stream, data.skill);
+      writeData<SecondarySkill>(stream, data);
     }
   };
 
@@ -100,8 +100,7 @@ namespace h3m::H3Writer_NS
   {
     void operator()(std::ostream& stream, const RewardDetails<RewardType::Creature>& data) const
     {
-      writeData(stream, data.type);
-      writeData(stream, data.count);
+      writeData<CreatureStack>(stream, data);
     }
   };
 

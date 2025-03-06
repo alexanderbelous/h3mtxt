@@ -87,9 +87,7 @@ namespace h3m::H3JsonReader_NS
   {
     RewardDetails<RewardType::SecondarySkill> operator()(const Json::Value& value) const
     {
-      RewardDetails<RewardType::SecondarySkill> details;
-      readField(details.skill, value, "skill");
-      return details;
+      return RewardDetails<RewardType::SecondarySkill> { fromJson<h3m::SecondarySkill>(value) };
     }
   };
 
@@ -120,10 +118,7 @@ namespace h3m::H3JsonReader_NS
   {
     RewardDetails<RewardType::Creature> operator()(const Json::Value& value) const
     {
-      RewardDetails<RewardType::Creature> details;
-      readField(details.type, value, "type");
-      readField(details.count, value, "count");
-      return details;
+      return RewardDetails<RewardType::Creature> { fromJson<h3m::CreatureStack>(value) };
     }
   };
 

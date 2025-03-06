@@ -295,7 +295,7 @@ namespace
         },
         .reward {
           .details = h3m::RewardDetails<h3m::RewardType::SecondarySkill> {
-            .skill {
+            h3m::SecondarySkill {
               .type = h3m::SecondarySkillType::Mysticism,
               .level = 3
             }

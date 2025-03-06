@@ -63,7 +63,8 @@ namespace Medea_NS
   void JsonObjectWriter<h3m::RewardDetails<h3m::RewardType::SecondarySkill>>::operator()(
     FieldsWriter& out, const h3m::RewardDetails<h3m::RewardType::SecondarySkill>& details) const
   {
-    out.writeField("skill", details.skill);
+    JsonObjectWriter<h3m::SecondarySkill> secondary_skill_writer {};
+    secondary_skill_writer(out, static_cast<const h3m::SecondarySkill&>(details));
   }
 
   void JsonObjectWriter<h3m::RewardDetails<h3m::RewardType::Artifact>>::operator()(
@@ -89,13 +90,8 @@ namespace Medea_NS
   void JsonObjectWriter<h3m::RewardDetails<h3m::RewardType::Creature>>::operator()(
     FieldsWriter& out, const h3m::RewardDetails<h3m::RewardType::Creature>& details) const
   {
-    out.writeField("type", details.type);
-    if (auto enum_str = h3m::getEnumString(details.type); !enum_str.empty())
-    {
-      out.writeComma();
-      out.writeComment(enum_str, false);
-    }
-    out.writeField("count", details.count);
+    JsonObjectWriter<h3m::CreatureStack> creature_writer {};
+    creature_writer(out, static_cast<const h3m::CreatureStack&>(details));
   }
 
   void JsonObjectWriter<h3m::Reward>::operator()(FieldsWriter& out, const h3m::Reward& reward) const

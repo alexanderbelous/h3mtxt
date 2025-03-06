@@ -2,11 +2,11 @@
 
 #include <h3mtxt/Map/MapFwd.h>
 #include <h3mtxt/Map/Constants/ArtifactType.h>
-#include <h3mtxt/Map/Constants/CreatureType.h>
 #include <h3mtxt/Map/Constants/SpellType.h>
 #include <h3mtxt/Map/Constants/PrimarySkillType.h>
 #include <h3mtxt/Map/Constants/ResourceType.h>
 #include <h3mtxt/Map/Constants/RewardType.h>
+#include <h3mtxt/Map/CreatureStack.h>
 #include <h3mtxt/Map/SecondarySkill.h>
 
 #include <variant>
@@ -87,9 +87,8 @@ namespace h3m
   };
 
   template<>
-  struct RewardDetails<RewardType::SecondarySkill>
+  struct RewardDetails<RewardType::SecondarySkill> : SecondarySkill
   {
-    SecondarySkill skill;
   };
 
   template<>
@@ -105,11 +104,8 @@ namespace h3m
   };
 
   template<>
-  struct RewardDetails<RewardType::Creature>
+  struct RewardDetails<RewardType::Creature> : CreatureStack
   {
-    // TODO: this is the same as in CreatureStack. Consider merging.
-    CreatureType type {};
-    std::uint16_t count {};
   };
 
   struct Reward
