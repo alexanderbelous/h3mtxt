@@ -125,7 +125,7 @@ namespace h3m::H3JsonReader_NS
   template<>
   VictoryCondition JsonReader<VictoryCondition>::operator()(const Json::Value& value) const;
 
-  ObjectDetailsVariant readObjectDetailsVariant(const Json::Value& value, MetaObjectType meta_object_type);
+  ObjectPropertiesVariant readObjectPropertiesVariant(const Json::Value& value, MetaObjectType meta_object_type);
 
   void readTimedEventBase(TimedEventBase& event, const Json::Value& value);
 

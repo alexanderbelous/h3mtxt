@@ -41,7 +41,7 @@
     <ClCompile Include="readTimedEventBase.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="readObjectDetails.cpp">
+    <ClCompile Include="readObjectProperties.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="readQuest.cpp">

@@ -38,7 +38,7 @@ namespace h3m
     ReservedData<4> unknown;
   };
 
-  // Only appears in ObjectDetails<MetaObjectType::MONSTER>.
+  // Only appears in ObjectProperties<MetaObjectType::MONSTER>.
   struct MessageAndTreasure
   {
     std::string message;
@@ -52,8 +52,8 @@ namespace h3m
     ArtifactType artifact {};
   };
 
-  // Base class for ObjectDetails<MetaObjectType::PANDORAS_BOX> and
-  // ObjectDetails<MetaObjectType::EVENT>.
+  // Base class for ObjectProperties<MetaObjectType::PANDORAS_BOX> and
+  // ObjectProperties<MetaObjectType::EVENT>.
   struct EventBase
   {
     std::optional<Guardians> guardians;
@@ -74,20 +74,20 @@ namespace h3m
   };
 
   template<>
-  struct ObjectDetails<MetaObjectType::ABANDONED_MINE>
+  struct ObjectProperties<MetaObjectType::ABANDONED_MINE>
   {
     ResourcesBitmask potential_resources;
     ReservedData<3> unknown;
   };
 
   template<>
-  struct ObjectDetails<MetaObjectType::ARTIFACT>
+  struct ObjectProperties<MetaObjectType::ARTIFACT>
   {
     std::optional<Guardians> guardians;
   };
 
   template<>
-  struct ObjectDetails<MetaObjectType::EVENT> : EventBase
+  struct ObjectProperties<MetaObjectType::EVENT> : EventBase
   {
     PlayersBitmask affected_players;
     Bool applies_to_computer{};
@@ -96,7 +96,7 @@ namespace h3m
   };
 
   template<>
-  struct ObjectDetails<MetaObjectType::GARRISON>
+  struct ObjectProperties<MetaObjectType::GARRISON>
   {
     // 0xFF means no owner.
     // TODO: replace with PlayerColor. Note that sizeof(PlayerColor) == 1,
@@ -109,12 +109,12 @@ namespace h3m
   };
 
   template<>
-  struct ObjectDetails<MetaObjectType::GENERIC_NO_PROPERTIES>
+  struct ObjectProperties<MetaObjectType::GENERIC_NO_PROPERTIES>
   {
   };
 
   template<>
-  struct ObjectDetails<MetaObjectType::GRAIL>
+  struct ObjectProperties<MetaObjectType::GRAIL>
   {
     std::uint32_t allowable_radius {};
   };
@@ -137,7 +137,7 @@ namespace h3m
   //    Note, however, that both the official Map Editor and the Unleashed Editor will report an error
   //    "Invalid or corrupt map file." if you try to open a map that has a random hero in a Prison.
   template<>
-  struct ObjectDetails<MetaObjectType::HERO>
+  struct ObjectProperties<MetaObjectType::HERO>
   {
     std::uint32_t absod_id {};
     // Owner for HERO and RANDOM_HERO. For PRISON it is normally set to 0xFF (none); setting a different value doesn't
@@ -172,7 +172,7 @@ namespace h3m
   };
 
   template<>
-  struct ObjectDetails<MetaObjectType::MONSTER>
+  struct ObjectProperties<MetaObjectType::MONSTER>
   {
     std::uint32_t absod_id {};
     // 0 means random.
@@ -185,12 +185,12 @@ namespace h3m
   };
 
   template<>
-  struct ObjectDetails<MetaObjectType::PANDORAS_BOX> : EventBase
+  struct ObjectProperties<MetaObjectType::PANDORAS_BOX> : EventBase
   {
   };
 
   template<>
-  struct ObjectDetails<MetaObjectType::PLACEHOLDER_HERO>
+  struct ObjectProperties<MetaObjectType::PLACEHOLDER_HERO>
   {
     PlayerColor owner {};
     HeroType type {};
@@ -199,13 +199,13 @@ namespace h3m
   };
 
   template<>
-  struct ObjectDetails<MetaObjectType::QUEST_GUARD>
+  struct ObjectProperties<MetaObjectType::QUEST_GUARD>
   {
     Quest quest;
   };
 
   template<>
-  struct ObjectDetails<MetaObjectType::RANDOM_DWELLING>
+  struct ObjectProperties<MetaObjectType::RANDOM_DWELLING>
   {
     // 0xFF if none.
     std::uint32_t owner {};
@@ -220,7 +220,7 @@ namespace h3m
   };
 
   template<>
-  struct ObjectDetails<MetaObjectType::RANDOM_DWELLING_PRESET_ALIGNMENT>
+  struct ObjectProperties<MetaObjectType::RANDOM_DWELLING_PRESET_ALIGNMENT>
   {
     // 0xFF if none.
     std::uint32_t owner {};
@@ -229,7 +229,7 @@ namespace h3m
   };
 
   template<>
-  struct ObjectDetails<MetaObjectType::RANDOM_DWELLING_PRESET_LEVEL>
+  struct ObjectProperties<MetaObjectType::RANDOM_DWELLING_PRESET_LEVEL>
   {
     // 0xFF if none.
     std::uint32_t owner {};
@@ -241,7 +241,7 @@ namespace h3m
   };
 
   template<>
-  struct ObjectDetails<MetaObjectType::RESOURCE>
+  struct ObjectProperties<MetaObjectType::RESOURCE>
   {
     std::optional<Guardians> guardians;
     // Multiply by 100 for gold, i.e. subclass 6.
@@ -250,7 +250,7 @@ namespace h3m
   };
 
   template<>
-  struct ObjectDetails<MetaObjectType::SCHOLAR>
+  struct ObjectProperties<MetaObjectType::SCHOLAR>
   {
     // TODO: consider replacing with std::variant<PrimarySkillType, SecondarySkillType, Spell, RandomScholarRewardType>.
     ScholarRewardType reward_type {};
@@ -268,7 +268,7 @@ namespace h3m
   };
 
   template<>
-  struct ObjectDetails<MetaObjectType::SEERS_HUT>
+  struct ObjectProperties<MetaObjectType::SEERS_HUT>
   {
     Quest quest;
     Reward reward;
@@ -276,7 +276,7 @@ namespace h3m
   };
 
   template<>
-  struct ObjectDetails<MetaObjectType::SHRINE>
+  struct ObjectProperties<MetaObjectType::SHRINE>
   {
     // h3mlib and h3m2json interpret this a bit differently: they act as if the spell is written as uint32,
     // even though the last 3 bytes should always be 0. I think it makes more sense to interpet this as
@@ -287,7 +287,7 @@ namespace h3m
   };
 
   template<>
-  struct ObjectDetails<MetaObjectType::SIGN>
+  struct ObjectProperties<MetaObjectType::SIGN>
   {
     // Empty string means random message.
     std::string message;
@@ -296,7 +296,7 @@ namespace h3m
   };
 
   template<>
-  struct ObjectDetails<MetaObjectType::SPELL_SCROLL>
+  struct ObjectProperties<MetaObjectType::SPELL_SCROLL>
   {
     std::optional<Guardians> guardians;
     // FYI: unlike SHRINE, 0xFF is not allowed here (causes the game to crash).
@@ -332,7 +332,7 @@ namespace h3m
   };
 
   template<>
-  struct ObjectDetails<MetaObjectType::TOWN>
+  struct ObjectProperties<MetaObjectType::TOWN>
   {
     std::uint32_t absod_id {};
     // 0xFF if none.
@@ -357,14 +357,14 @@ namespace h3m
   };
 
   template<>
-  struct ObjectDetails<MetaObjectType::TRIVIAL_OWNED_OBJECT>
+  struct ObjectProperties<MetaObjectType::TRIVIAL_OWNED_OBJECT>
   {
     // 0xFF means that there is no owner.
     std::uint32_t owner {};
   };
 
   template<>
-  struct ObjectDetails<MetaObjectType::WITCH_HUT>
+  struct ObjectProperties<MetaObjectType::WITCH_HUT>
   {
     SecondarySkillsBitmask potential_skills;
   };

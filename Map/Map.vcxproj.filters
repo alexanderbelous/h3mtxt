@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <Filter Include="Source Files">
@@ -159,10 +159,7 @@
     <ClInclude Include="Utils\ReservedData.h">
       <Filter>Header Files\Utils</Filter>
     </ClInclude>
-    <ClInclude Include="ObjectDetails.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ObjectDetailsVariant.h">
+    <ClInclude Include="ObjectProperties.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="TimedEventBase.h">
@@ -187,6 +184,9 @@
       <Filter>Header Files\Constants</Filter>
     </ClInclude>
     <ClInclude Include="ObjectTemplate.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectPropertiesVariant.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

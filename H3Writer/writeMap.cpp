@@ -23,17 +23,17 @@ namespace h3m::H3Writer_NS
       }
       // Check that each Object refers to an existing ObjectTemplate and
       // has the same MetaObjectType.
-      for (const Object& object_details : map.objects)
+      for (const Object& object : map.objects)
       {
-        if (object_details.template_idx >= map.objects_templates.size())
+        if (object.template_idx >= map.objects_templates.size())
         {
           throw std::runtime_error("H3Writer<Map>: Object::template_idx is out of range.");
         }
-        const ObjectTemplate& object_template = map.objects_templates[object_details.template_idx];
+        const ObjectTemplate& object_template = map.objects_templates[object.template_idx];
         const MetaObjectType meta_object_type_expected = getMetaObjectType(object_template.object_class);
-        if (object_details.details.getMetaObjectType() != meta_object_type_expected)
+        if (object.properties.getMetaObjectType() != meta_object_type_expected)
         {
-          throw std::runtime_error("H3Writer<Map>: Object::details has MetaObjectType different "
+          throw std::runtime_error("H3Writer<Map>: Object::properties has MetaObjectType different "
                                    "from the ObjectTemplate it refers to.");
         }
       }

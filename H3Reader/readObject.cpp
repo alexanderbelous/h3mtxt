@@ -76,31 +76,31 @@ namespace h3m::H3Reader_NS
       event.unknown = readReservedData<8>(stream);
     }
 
-    // Reads ObjectDetails<T> from the stream.
+    // Reads ObjectProperties<T> from the stream.
     // This function needs to be specialized for each valid MetaObjectType. The default implementation
     // cannot be instantiated - it causes a compilation error, reporting a missing specialization.
     template<MetaObjectType T>
-    ObjectDetails<T> readObjectDetails(std::istream& stream)
+    ObjectProperties<T> readObjectProperties(std::istream& stream)
     {
-      static_assert(false, "Missing specialization for readObjectDetails<T>().");
+      static_assert(false, "Missing specialization for readObjectProperties<T>().");
       return {};
     }
 
     template<>
-    ObjectDetails<MetaObjectType::ABANDONED_MINE>
-    readObjectDetails<MetaObjectType::ABANDONED_MINE>(std::istream& stream)
+    ObjectProperties<MetaObjectType::ABANDONED_MINE>
+    readObjectProperties<MetaObjectType::ABANDONED_MINE>(std::istream& stream)
     {
-      ObjectDetails<MetaObjectType::ABANDONED_MINE> data;
+      ObjectProperties<MetaObjectType::ABANDONED_MINE> data;
       data.potential_resources = readEnumBitmask<ResourceType, 1>(stream);
       data.unknown = readReservedData<3>(stream);
       return data;
     }
 
     template<>
-    ObjectDetails<MetaObjectType::ARTIFACT>
-    readObjectDetails<MetaObjectType::ARTIFACT>(std::istream& stream)
+    ObjectProperties<MetaObjectType::ARTIFACT>
+    readObjectProperties<MetaObjectType::ARTIFACT>(std::istream& stream)
     {
-      ObjectDetails<MetaObjectType::ARTIFACT> data;
+      ObjectProperties<MetaObjectType::ARTIFACT> data;
       const Bool has_guardians = readBool(stream);
       if (has_guardians)
       {
@@ -110,10 +110,10 @@ namespace h3m::H3Reader_NS
     }
 
     template<>
-    ObjectDetails<MetaObjectType::EVENT>
-    readObjectDetails<MetaObjectType::EVENT>(std::istream& stream)
+    ObjectProperties<MetaObjectType::EVENT>
+    readObjectProperties<MetaObjectType::EVENT>(std::istream& stream)
     {
-      ObjectDetails<MetaObjectType::EVENT> data;
+      ObjectProperties<MetaObjectType::EVENT> data;
       readEventBase(stream, data);
       data.affected_players = readEnumBitmask<PlayerColor, 1>(stream);
       data.applies_to_computer = readBool(stream);
@@ -123,10 +123,10 @@ namespace h3m::H3Reader_NS
     }
 
     template<>
-    ObjectDetails<MetaObjectType::GARRISON>
-    readObjectDetails<MetaObjectType::GARRISON>(std::istream& stream)
+    ObjectProperties<MetaObjectType::GARRISON>
+    readObjectProperties<MetaObjectType::GARRISON>(std::istream& stream)
     {
-      ObjectDetails<MetaObjectType::GARRISON> data;
+      ObjectProperties<MetaObjectType::GARRISON> data;
       data.owner = readInt<std::uint32_t>(stream);
       data.creatures = readCreatureStackArray(stream);
       data.can_remove_units = readBool(stream);
@@ -135,26 +135,26 @@ namespace h3m::H3Reader_NS
     }
 
     template<>
-    ObjectDetails<MetaObjectType::GENERIC_NO_PROPERTIES>
-    readObjectDetails<MetaObjectType::GENERIC_NO_PROPERTIES>(std::istream&)
+    ObjectProperties<MetaObjectType::GENERIC_NO_PROPERTIES>
+    readObjectProperties<MetaObjectType::GENERIC_NO_PROPERTIES>(std::istream&)
     {
       return {};
     }
 
     template<>
-    ObjectDetails<MetaObjectType::GRAIL>
-    readObjectDetails<MetaObjectType::GRAIL>(std::istream& stream)
+    ObjectProperties<MetaObjectType::GRAIL>
+    readObjectProperties<MetaObjectType::GRAIL>(std::istream& stream)
     {
-      ObjectDetails<MetaObjectType::GRAIL> data;
+      ObjectProperties<MetaObjectType::GRAIL> data;
       data.allowable_radius = readInt<std::uint32_t>(stream);
       return data;
     }
 
     template<>
-    ObjectDetails<MetaObjectType::HERO>
-    readObjectDetails<MetaObjectType::HERO>(std::istream& stream)
+    ObjectProperties<MetaObjectType::HERO>
+    readObjectProperties<MetaObjectType::HERO>(std::istream& stream)
     {
-      ObjectDetails<MetaObjectType::HERO> data;
+      ObjectProperties<MetaObjectType::HERO> data;
       data.absod_id = readInt<std::uint32_t>(stream);
       data.owner = readEnum<PlayerColor>(stream);
       data.type = readEnum<HeroType>(stream);
@@ -220,10 +220,10 @@ namespace h3m::H3Reader_NS
     }
 
     template<>
-    ObjectDetails<MetaObjectType::MONSTER>
-    readObjectDetails<MetaObjectType::MONSTER>(std::istream& stream)
+    ObjectProperties<MetaObjectType::MONSTER>
+    readObjectProperties<MetaObjectType::MONSTER>(std::istream& stream)
     {
-      ObjectDetails<MetaObjectType::MONSTER> monster;
+      ObjectProperties<MetaObjectType::MONSTER> monster;
       monster.absod_id = readInt<std::uint32_t>(stream);
       monster.count = readInt<std::uint16_t>(stream);
       monster.disposition = readEnum<Disposition>(stream);
@@ -239,21 +239,21 @@ namespace h3m::H3Reader_NS
     }
 
     template<>
-    ObjectDetails<MetaObjectType::PANDORAS_BOX>
-    readObjectDetails<MetaObjectType::PANDORAS_BOX>(std::istream& stream)
+    ObjectProperties<MetaObjectType::PANDORAS_BOX>
+    readObjectProperties<MetaObjectType::PANDORAS_BOX>(std::istream& stream)
     {
-      ObjectDetails<MetaObjectType::PANDORAS_BOX> data;
+      ObjectProperties<MetaObjectType::PANDORAS_BOX> data;
       readEventBase(stream, data);
       return data;
     }
 
     template<>
-    ObjectDetails<MetaObjectType::PLACEHOLDER_HERO>
-    readObjectDetails<MetaObjectType::PLACEHOLDER_HERO>(std::istream& stream)
+    ObjectProperties<MetaObjectType::PLACEHOLDER_HERO>
+    readObjectProperties<MetaObjectType::PLACEHOLDER_HERO>(std::istream& stream)
     {
       constexpr HeroType kRandomHeroType {0xFF};
 
-      ObjectDetails<MetaObjectType::PLACEHOLDER_HERO> data;
+      ObjectProperties<MetaObjectType::PLACEHOLDER_HERO> data;
       data.owner = readEnum<PlayerColor>(stream);
       data.type = readEnum<HeroType>(stream);
       if (data.type == kRandomHeroType)
@@ -264,19 +264,19 @@ namespace h3m::H3Reader_NS
     }
 
     template<>
-    ObjectDetails<MetaObjectType::QUEST_GUARD>
-    readObjectDetails<MetaObjectType::QUEST_GUARD>(std::istream& stream)
+    ObjectProperties<MetaObjectType::QUEST_GUARD>
+    readObjectProperties<MetaObjectType::QUEST_GUARD>(std::istream& stream)
     {
-      ObjectDetails<MetaObjectType::QUEST_GUARD> quest_guard;
+      ObjectProperties<MetaObjectType::QUEST_GUARD> quest_guard;
       quest_guard.quest = readQuest(stream);
       return quest_guard;
     }
 
     template<>
-    ObjectDetails<MetaObjectType::RANDOM_DWELLING>
-    readObjectDetails<MetaObjectType::RANDOM_DWELLING>(std::istream& stream)
+    ObjectProperties<MetaObjectType::RANDOM_DWELLING>
+    readObjectProperties<MetaObjectType::RANDOM_DWELLING>(std::istream& stream)
     {
-      ObjectDetails<MetaObjectType::RANDOM_DWELLING> dwelling;
+      ObjectProperties<MetaObjectType::RANDOM_DWELLING> dwelling;
       dwelling.owner = readInt<std::uint32_t>(stream);
       dwelling.town_absod_id = readInt<std::uint32_t>(stream);
       if (dwelling.town_absod_id == 0)
@@ -289,10 +289,10 @@ namespace h3m::H3Reader_NS
     }
 
     template<>
-    ObjectDetails<MetaObjectType::RANDOM_DWELLING_PRESET_ALIGNMENT>
-    readObjectDetails<MetaObjectType::RANDOM_DWELLING_PRESET_ALIGNMENT>(std::istream& stream)
+    ObjectProperties<MetaObjectType::RANDOM_DWELLING_PRESET_ALIGNMENT>
+    readObjectProperties<MetaObjectType::RANDOM_DWELLING_PRESET_ALIGNMENT>(std::istream& stream)
     {
-      ObjectDetails<MetaObjectType::RANDOM_DWELLING_PRESET_ALIGNMENT> dwelling;
+      ObjectProperties<MetaObjectType::RANDOM_DWELLING_PRESET_ALIGNMENT> dwelling;
       dwelling.owner = readInt<std::uint32_t>(stream);
       dwelling.min_level = readInt<std::uint8_t>(stream);
       dwelling.max_level = readInt<std::uint8_t>(stream);
@@ -300,10 +300,10 @@ namespace h3m::H3Reader_NS
     }
 
     template<>
-    ObjectDetails<MetaObjectType::RANDOM_DWELLING_PRESET_LEVEL>
-    readObjectDetails<MetaObjectType::RANDOM_DWELLING_PRESET_LEVEL>(std::istream& stream)
+    ObjectProperties<MetaObjectType::RANDOM_DWELLING_PRESET_LEVEL>
+    readObjectProperties<MetaObjectType::RANDOM_DWELLING_PRESET_LEVEL>(std::istream& stream)
     {
-      ObjectDetails<MetaObjectType::RANDOM_DWELLING_PRESET_LEVEL> dwelling;
+      ObjectProperties<MetaObjectType::RANDOM_DWELLING_PRESET_LEVEL> dwelling;
       dwelling.owner = readInt<std::uint32_t>(stream);
       dwelling.town_absod_id = readInt<std::uint32_t>(stream);
       if (dwelling.town_absod_id == 0)
@@ -314,10 +314,10 @@ namespace h3m::H3Reader_NS
     }
 
     template<>
-    ObjectDetails<MetaObjectType::RESOURCE>
-    readObjectDetails<MetaObjectType::RESOURCE>(std::istream& stream)
+    ObjectProperties<MetaObjectType::RESOURCE>
+    readObjectProperties<MetaObjectType::RESOURCE>(std::istream& stream)
     {
-      ObjectDetails<MetaObjectType::RESOURCE> data;
+      ObjectProperties<MetaObjectType::RESOURCE> data;
       const Bool has_guardians = readBool(stream);
       if (has_guardians)
       {
@@ -329,10 +329,10 @@ namespace h3m::H3Reader_NS
     }
 
     template<>
-    ObjectDetails<MetaObjectType::SCHOLAR>
-    readObjectDetails<MetaObjectType::SCHOLAR>(std::istream& stream)
+    ObjectProperties<MetaObjectType::SCHOLAR>
+    readObjectProperties<MetaObjectType::SCHOLAR>(std::istream& stream)
     {
-       ObjectDetails<MetaObjectType::SCHOLAR> data;
+       ObjectProperties<MetaObjectType::SCHOLAR> data;
        data.reward_type = readEnum<ScholarRewardType>(stream);
        data.reward_value = readInt<std::uint8_t>(stream);
        data.unknown = readReservedData<6>(stream);
@@ -340,10 +340,10 @@ namespace h3m::H3Reader_NS
     }
 
     template<>
-    ObjectDetails<MetaObjectType::SEERS_HUT>
-    readObjectDetails<MetaObjectType::SEERS_HUT>(std::istream& stream)
+    ObjectProperties<MetaObjectType::SEERS_HUT>
+    readObjectProperties<MetaObjectType::SEERS_HUT>(std::istream& stream)
     {
-      ObjectDetails<MetaObjectType::SEERS_HUT> data;
+      ObjectProperties<MetaObjectType::SEERS_HUT> data;
       data.quest = readQuest(stream);
       data.reward = readReward(stream);
       data.unknown = readReservedData<2>(stream);
@@ -351,30 +351,30 @@ namespace h3m::H3Reader_NS
     }
 
     template<>
-    ObjectDetails<MetaObjectType::SHRINE>
-    readObjectDetails<MetaObjectType::SHRINE>(std::istream& stream)
+    ObjectProperties<MetaObjectType::SHRINE>
+    readObjectProperties<MetaObjectType::SHRINE>(std::istream& stream)
     {
-      ObjectDetails<MetaObjectType::SHRINE> data;
+      ObjectProperties<MetaObjectType::SHRINE> data;
       data.spell = readEnum<SpellType>(stream);
       data.unknown = readReservedData<3>(stream);
       return data;
     }
 
     template<>
-    ObjectDetails<MetaObjectType::SIGN>
-    readObjectDetails<MetaObjectType::SIGN>(std::istream& stream)
+    ObjectProperties<MetaObjectType::SIGN>
+    readObjectProperties<MetaObjectType::SIGN>(std::istream& stream)
     {
-      ObjectDetails<MetaObjectType::SIGN> data;
+      ObjectProperties<MetaObjectType::SIGN> data;
       data.message = readString(stream);
       data.unknown = readReservedData<4>(stream);
       return data;
     }
 
     template<>
-    ObjectDetails<MetaObjectType::SPELL_SCROLL>
-    readObjectDetails<MetaObjectType::SPELL_SCROLL>(std::istream& stream)
+    ObjectProperties<MetaObjectType::SPELL_SCROLL>
+    readObjectProperties<MetaObjectType::SPELL_SCROLL>(std::istream& stream)
     {
-      ObjectDetails<MetaObjectType::SPELL_SCROLL> data;
+      ObjectProperties<MetaObjectType::SPELL_SCROLL> data;
       const Bool has_guardians = readBool(stream);
       if (has_guardians)
       {
@@ -399,10 +399,10 @@ namespace h3m::H3Reader_NS
     }
 
     template<>
-    ObjectDetails<MetaObjectType::TOWN>
-    readObjectDetails<MetaObjectType::TOWN>(std::istream& stream)
+    ObjectProperties<MetaObjectType::TOWN>
+    readObjectProperties<MetaObjectType::TOWN>(std::istream& stream)
     {
-      ObjectDetails<MetaObjectType::TOWN> town;
+      ObjectProperties<MetaObjectType::TOWN> town;
       town.absod_id = readInt<std::uint32_t>(stream);
       town.owner = readEnum<PlayerColor>(stream);
       const Bool has_name = readBool(stream);
@@ -441,51 +441,50 @@ namespace h3m::H3Reader_NS
     }
 
     template<>
-    ObjectDetails<MetaObjectType::TRIVIAL_OWNED_OBJECT>
-    readObjectDetails<MetaObjectType::TRIVIAL_OWNED_OBJECT>(std::istream& stream)
+    ObjectProperties<MetaObjectType::TRIVIAL_OWNED_OBJECT>
+    readObjectProperties<MetaObjectType::TRIVIAL_OWNED_OBJECT>(std::istream& stream)
     {
-      ObjectDetails<MetaObjectType::TRIVIAL_OWNED_OBJECT> data;
+      ObjectProperties<MetaObjectType::TRIVIAL_OWNED_OBJECT> data;
       data.owner = readInt<std::uint32_t>(stream);
       return data;
     }
 
     template<>
-    ObjectDetails<MetaObjectType::WITCH_HUT>
-    readObjectDetails<MetaObjectType::WITCH_HUT>(std::istream& stream)
+    ObjectProperties<MetaObjectType::WITCH_HUT>
+    readObjectProperties<MetaObjectType::WITCH_HUT>(std::istream& stream)
     {
-      ObjectDetails<MetaObjectType::WITCH_HUT> data;
+      ObjectProperties<MetaObjectType::WITCH_HUT> data;
       data.potential_skills = readEnumBitmask<SecondarySkillType, 4>(stream);
       return data;
     }
 
-    // Utility wrapper around readObjectDetails(), which returns the result
-    // as ObjectDetailsVariant.
+    // Utility wrapper around readObjectProperties(), which returns the result as ObjectPropertiesVariant.
     template<MetaObjectType T>
-    ObjectDetailsVariant readObjectDetailsAsVariant(std::istream& stream)
+    ObjectPropertiesVariant readObjectPropertiesAsVariant(std::istream& stream)
     {
-      return readObjectDetails<T>(stream);
+      return readObjectProperties<T>(stream);
     }
 
-    // Reads ObjectDetails for the specified MetaObjectType.
+    // Reads ObjectProperties for the specified MetaObjectType.
     // \param stream - input stream.
     // \param meta_object_type - MetaObjectType of the object.
-    // \return the deserialized data as ObjectDetailsVariant.
-    ObjectDetailsVariant readObjectDetailsVariant(std::istream& stream, MetaObjectType meta_object_type)
+    // \return the deserialized data as ObjectPropertiesVariant.
+    ObjectPropertiesVariant readObjectPropertiesVariant(std::istream& stream, MetaObjectType meta_object_type)
     {
-      // Type of a pointer to a function that takes std::istream& and returns ObjectDetailsVariant.
-      using ReadObjectDetailsDataPtr = ObjectDetailsVariant(*)(std::istream& stream);
+      // Type of a pointer to a function that takes std::istream& and returns ObjectPropertiesVariant.
+      using ReadObjectPropertiesPtr = ObjectPropertiesVariant(*)(std::istream& stream);
       // Generate (at compile time) an array of function pointers for each instantiation of
-      // readObjectDetailsDataAsVariant() ordered by MetaObjectType.
-      constexpr std::array<ReadObjectDetailsDataPtr, kNumMetaObjectTypes> kObjectDetailsDataReaders =
+      // readObjectPropertiesAsVariant() ordered by MetaObjectType.
+      constexpr std::array<ReadObjectPropertiesPtr, kNumMetaObjectTypes> kObjectPropertiesReaders =
         [] <MetaObjectType... meta_object_types>
         (EnumSequence<MetaObjectType, meta_object_types...> seq)
         consteval
         {
-          return std::array<ReadObjectDetailsDataPtr, sizeof...(meta_object_types)>
-          { &readObjectDetailsAsVariant<meta_object_types>... };
+          return std::array<ReadObjectPropertiesPtr, sizeof...(meta_object_types)>
+          { &readObjectPropertiesAsVariant<meta_object_types>... };
         }(MakeEnumSequence<MetaObjectType, kNumMetaObjectTypes>{});
       // Invoke a function from the generated array.
-      return kObjectDetailsDataReaders.at(static_cast<std::size_t>(meta_object_type))(stream);
+      return kObjectPropertiesReaders.at(static_cast<std::size_t>(meta_object_type))(stream);
     }
   }
 
@@ -504,7 +503,7 @@ namespace h3m::H3Reader_NS
     }
     const ObjectTemplate& object_template = objects_templates[result.template_idx];
     const MetaObjectType meta_object_type = getMetaObjectType(object_template.object_class);
-    result.details = readObjectDetailsVariant(stream, meta_object_type);
+    result.properties = readObjectPropertiesVariant(stream, meta_object_type);
     return result;
   }
 }

@@ -153,7 +153,7 @@ namespace
       .y = 0,
       .z = 0,
       .template_idx = kHeroTemplateIdx,
-      .details = h3m::ObjectDetails<h3m::MetaObjectType::HERO> {
+      .properties = h3m::ObjectProperties<h3m::MetaObjectType::HERO> {
         .absod_id = 69,
         .owner = h3m::PlayerColor::Red,
         .type = hero1,
@@ -186,7 +186,7 @@ namespace
       .y = 10,
       .z = 0,
       .template_idx = kHeroTemplateIdx,
-      .details = h3m::ObjectDetails<h3m::MetaObjectType::HERO> {
+      .properties = h3m::ObjectProperties<h3m::MetaObjectType::HERO> {
         .absod_id = 666,
         .owner = h3m::PlayerColor::Blue,
         .type = hero2,
@@ -212,7 +212,7 @@ namespace
       .y = 2,
       .z = 0,
       .template_idx = kSpellScrollTemplateIdx,
-      .details = h3m::ObjectDetails<h3m::MetaObjectType::SPELL_SCROLL> {
+      .properties = h3m::ObjectProperties<h3m::MetaObjectType::SPELL_SCROLL> {
         .spell = h3m::SpellType::SLOW
       }
     });
@@ -223,7 +223,7 @@ namespace
       .y = 3,
       .z = 0,
       .template_idx = kPandorasBoxTemplateIdx,
-      .details = h3m::ObjectDetails<h3m::MetaObjectType::PANDORAS_BOX> {
+      .properties = h3m::ObjectProperties<h3m::MetaObjectType::PANDORAS_BOX> {
         h3m::EventBase {
           .secondary_skills {
             h3m::SecondarySkill {.type = h3m::SecondarySkillType::Mysticism, .level = 3 }
@@ -238,7 +238,7 @@ namespace
       .y = 4,
       .z = 0,
       .template_idx = static_cast<std::uint32_t>(map.objects_templates.size() - 1),
-      .details = h3m::ObjectDetails<h3m::MetaObjectType::SCHOLAR> {
+      .properties = h3m::ObjectProperties<h3m::MetaObjectType::SCHOLAR> {
         .reward_type = h3m::ScholarRewardType::SecondarySkill,
         .reward_value = static_cast<std::uint8_t>(h3m::SecondarySkillType::Mysticism)
       }
@@ -246,7 +246,7 @@ namespace
     // Add an Event.
     map.objects_templates.push_back(h3m::makeStandardObjectTemplate(h3m::ObjectClass::EVENT));
     {
-      h3m::ObjectDetails<h3m::MetaObjectType::EVENT> event_details{
+      h3m::ObjectProperties<h3m::MetaObjectType::EVENT> event_details{
         h3m::EventBase{
           .spell_points = -999
         },
@@ -258,12 +258,12 @@ namespace
         .y = 1,
         .z = 0,
         .template_idx = static_cast<std::uint32_t>(map.objects_templates.size() - 1),
-        .details = std::move(event_details)
+        .properties = std::move(event_details)
       });
     }
     map.objects_templates.push_back(h3m::makeStandardObjectTemplate(h3m::ObjectClass::EVENT));
     {
-      h3m::ObjectDetails<h3m::MetaObjectType::EVENT> event_details{
+      h3m::ObjectProperties<h3m::MetaObjectType::EVENT> event_details{
         h3m::EventBase{
           .secondary_skills {
             h3m::SecondarySkill {.type = h3m::SecondarySkillType::FirstAid, .level = 3}
@@ -277,7 +277,7 @@ namespace
         .y = 2,
         .z = 0,
         .template_idx = static_cast<std::uint32_t>(map.objects_templates.size() - 1),
-        .details = std::move(event_details)
+        .properties = std::move(event_details)
         });
     }
     // Add a Seer's Hut.
@@ -287,7 +287,7 @@ namespace
       .y = 5,
       .z = 0,
       .template_idx = static_cast<std::uint32_t>(map.objects_templates.size() - 1),
-      .details = h3m::ObjectDetails<h3m::MetaObjectType::SEERS_HUT> {
+      .properties = h3m::ObjectProperties<h3m::MetaObjectType::SEERS_HUT> {
         .quest {
           .details = h3m::QuestDetails<h3m::QuestType::BeHero> {
             .hero = hero1

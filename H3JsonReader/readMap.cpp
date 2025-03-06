@@ -24,32 +24,27 @@ namespace h3m::H3JsonReader_NS
 
       if (meta_object_type != h3m::MetaObjectType::GENERIC_NO_PROPERTIES)
       {
-        const Json::Value* details_json = value.find(Fields::kDetails.data(),
-                                                     Fields::kDetails.data() + Fields::kDetails.size());
-        if (!details_json)
-        {
-          throw MissingJsonFieldError(Fields::kDetails);
-        }
-        object.details = readObjectDetailsVariant(*details_json, meta_object_type);
+        const Json::Value& properties_json = getJsonField(value, Fields::kProperties);
+        object.properties = readObjectPropertiesVariant(properties_json, meta_object_type);
       }
       return object;
     }
 
-    void readObjects(std::vector<Object>& objects,
-                     const Json::Value& value,
-                     const std::vector<ObjectTemplate>& objects_templates)
+    std::vector<Object> readObjects(const Json::Value& value, const std::vector<ObjectTemplate>& objects_templates)
     {
       if (!value.isArray())
       {
         throw std::runtime_error("readH3mJson(): expected array, got " + value.toStyledString());
       }
       const std::size_t num_elements = value.size();
-      objects.reserve(objects.size() + num_elements);
+      std::vector<Object> objects;
+      objects.reserve(num_elements);
       for (std::size_t i = 0; i < num_elements; ++i)
       {
-        const Json::Value& object_details_json = value[static_cast<Json::ArrayIndex>(i)];
-        objects.push_back(readObject(object_details_json, objects_templates));
+        const Json::Value& object_json = value[static_cast<Json::ArrayIndex>(i)];
+        objects.push_back(readObject(object_json, objects_templates));
       }
+      return objects;
     }
   }
 
@@ -64,15 +59,7 @@ namespace h3m::H3JsonReader_NS
     readField(map.additional_info, value, Fields::kAdditionalInfo);
     readField(map.tiles, value, Fields::kTiles);
     readField(map.objects_templates, value, Fields::kObjectsTemplates);
-    {
-      const Json::Value* objects_json =
-        value.find(Fields::kObjects.data(), Fields::kObjects.data() + Fields::kObjects.size());
-      if (!objects_json)
-      {
-        throw MissingJsonFieldError(Fields::kObjects);
-      }
-      readObjects(map.objects, *objects_json, map.objects_templates);
-    }
+    map.objects = readObjects(getJsonField(value, Fields::kObjects), map.objects_templates);
     readField(map.global_events, value, Fields::kGlobalEvents);
     readField(map.padding, value, Fields::kPadding);
     return map;

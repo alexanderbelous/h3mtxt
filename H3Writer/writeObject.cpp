@@ -45,9 +45,9 @@ namespace h3m::H3Writer_NS
   }
 
   template<>
-  struct H3Writer<ObjectDetails<MetaObjectType::ABANDONED_MINE>>
+  struct H3Writer<ObjectProperties<MetaObjectType::ABANDONED_MINE>>
   {
-    void operator()(std::ostream& stream, const ObjectDetails<MetaObjectType::ABANDONED_MINE>& data) const
+    void operator()(std::ostream& stream, const ObjectProperties<MetaObjectType::ABANDONED_MINE>& data) const
     {
       writeData(stream, data.potential_resources);
       writeData(stream, data.unknown);
@@ -55,18 +55,18 @@ namespace h3m::H3Writer_NS
   };
 
   template<>
-  struct H3Writer<ObjectDetails<MetaObjectType::ARTIFACT>>
+  struct H3Writer<ObjectProperties<MetaObjectType::ARTIFACT>>
   {
-    void operator()(std::ostream& stream, const ObjectDetails<MetaObjectType::ARTIFACT>& data) const
+    void operator()(std::ostream& stream, const ObjectProperties<MetaObjectType::ARTIFACT>& artifact) const
     {
-      writeData(stream, data.guardians);
+      writeData(stream, artifact.guardians);
     }
   };
 
   template<>
-  struct H3Writer<ObjectDetails<MetaObjectType::EVENT>>
+  struct H3Writer<ObjectProperties<MetaObjectType::EVENT>>
   {
-    void operator()(std::ostream& stream, const ObjectDetails<MetaObjectType::EVENT>& event) const
+    void operator()(std::ostream& stream, const ObjectProperties<MetaObjectType::EVENT>& event) const
     {
       writeEventBase(stream, event);
       writeData(stream, event.affected_players);
@@ -77,9 +77,9 @@ namespace h3m::H3Writer_NS
   };
 
   template<>
-  struct H3Writer<ObjectDetails<MetaObjectType::GARRISON>>
+  struct H3Writer<ObjectProperties<MetaObjectType::GARRISON>>
   {
-    void operator()(std::ostream& stream, const ObjectDetails<MetaObjectType::GARRISON>& garrison) const
+    void operator()(std::ostream& stream, const ObjectProperties<MetaObjectType::GARRISON>& garrison) const
     {
       writeData(stream, garrison.owner);
       writeData(stream, garrison.creatures);
@@ -89,26 +89,26 @@ namespace h3m::H3Writer_NS
   };
 
   template<>
-  struct H3Writer<ObjectDetails<MetaObjectType::GENERIC_NO_PROPERTIES>>
+  struct H3Writer<ObjectProperties<MetaObjectType::GENERIC_NO_PROPERTIES>>
   {
-    void operator()(std::ostream&, const ObjectDetails<MetaObjectType::GENERIC_NO_PROPERTIES>&) const
+    void operator()(std::ostream&, const ObjectProperties<MetaObjectType::GENERIC_NO_PROPERTIES>&) const
     {
     }
   };
 
   template<>
-  struct H3Writer<ObjectDetails<MetaObjectType::GRAIL>>
+  struct H3Writer<ObjectProperties<MetaObjectType::GRAIL>>
   {
-    void operator()(std::ostream& stream, const ObjectDetails<MetaObjectType::GRAIL>& grail) const
+    void operator()(std::ostream& stream, const ObjectProperties<MetaObjectType::GRAIL>& grail) const
     {
       writeData(stream, grail.allowable_radius);
     }
   };
 
   template<>
-  struct H3Writer<ObjectDetails<MetaObjectType::HERO>>
+  struct H3Writer<ObjectProperties<MetaObjectType::HERO>>
   {
-    void operator()(std::ostream& stream, const ObjectDetails<MetaObjectType::HERO>& hero) const
+    void operator()(std::ostream& stream, const ObjectProperties<MetaObjectType::HERO>& hero) const
     {
       writeData(stream, hero.absod_id);
       writeData(stream, hero.owner);
@@ -134,9 +134,9 @@ namespace h3m::H3Writer_NS
   };
 
   template<>
-  struct H3Writer<ObjectDetails<MetaObjectType::MONSTER>>
+  struct H3Writer<ObjectProperties<MetaObjectType::MONSTER>>
   {
-    void operator()(std::ostream& stream, const ObjectDetails<MetaObjectType::MONSTER>& monster) const
+    void operator()(std::ostream& stream, const ObjectProperties<MetaObjectType::MONSTER>& monster) const
     {
       writeData(stream, monster.absod_id);
       writeData(stream, monster.count);
@@ -155,18 +155,18 @@ namespace h3m::H3Writer_NS
   };
 
   template<>
-  struct H3Writer<ObjectDetails<MetaObjectType::PANDORAS_BOX>>
+  struct H3Writer<ObjectProperties<MetaObjectType::PANDORAS_BOX>>
   {
-    void operator()(std::ostream& stream, const ObjectDetails<MetaObjectType::PANDORAS_BOX>& pandoras_box) const
+    void operator()(std::ostream& stream, const ObjectProperties<MetaObjectType::PANDORAS_BOX>& pandoras_box) const
     {
       writeEventBase(stream, pandoras_box);
     }
   };
 
   template<>
-  struct H3Writer<ObjectDetails<MetaObjectType::PLACEHOLDER_HERO>>
+  struct H3Writer<ObjectProperties<MetaObjectType::PLACEHOLDER_HERO>>
   {
-    void operator()(std::ostream& stream, const ObjectDetails<MetaObjectType::PLACEHOLDER_HERO>& hero) const
+    void operator()(std::ostream& stream, const ObjectProperties<MetaObjectType::PLACEHOLDER_HERO>& hero) const
     {
       constexpr HeroType kRandomHeroType {0xFF};
 
@@ -180,18 +180,18 @@ namespace h3m::H3Writer_NS
   };
 
   template<>
-  struct H3Writer<ObjectDetails<MetaObjectType::QUEST_GUARD>>
+  struct H3Writer<ObjectProperties<MetaObjectType::QUEST_GUARD>>
   {
-    void operator()(std::ostream& stream, const ObjectDetails<MetaObjectType::QUEST_GUARD>& quest_guard) const
+    void operator()(std::ostream& stream, const ObjectProperties<MetaObjectType::QUEST_GUARD>& quest_guard) const
     {
       writeData(stream, quest_guard.quest);
     }
   };
 
   template<>
-  struct H3Writer<ObjectDetails<MetaObjectType::RANDOM_DWELLING>>
+  struct H3Writer<ObjectProperties<MetaObjectType::RANDOM_DWELLING>>
   {
-    void operator()(std::ostream& stream, const ObjectDetails<MetaObjectType::RANDOM_DWELLING>& dwelling) const
+    void operator()(std::ostream& stream, const ObjectProperties<MetaObjectType::RANDOM_DWELLING>& dwelling) const
     {
       writeData(stream, dwelling.owner);
       writeData(stream, dwelling.town_absod_id);
@@ -205,10 +205,10 @@ namespace h3m::H3Writer_NS
   };
 
   template<>
-  struct H3Writer<ObjectDetails<MetaObjectType::RANDOM_DWELLING_PRESET_ALIGNMENT>>
+  struct H3Writer<ObjectProperties<MetaObjectType::RANDOM_DWELLING_PRESET_ALIGNMENT>>
   {
     void operator()(std::ostream& stream,
-                    const ObjectDetails<MetaObjectType::RANDOM_DWELLING_PRESET_ALIGNMENT>& dwelling) const
+                    const ObjectProperties<MetaObjectType::RANDOM_DWELLING_PRESET_ALIGNMENT>& dwelling) const
     {
       writeData(stream, dwelling.owner);
       writeData(stream, dwelling.min_level);
@@ -217,10 +217,10 @@ namespace h3m::H3Writer_NS
   };
 
   template<>
-  struct H3Writer<ObjectDetails<MetaObjectType::RANDOM_DWELLING_PRESET_LEVEL>>
+  struct H3Writer<ObjectProperties<MetaObjectType::RANDOM_DWELLING_PRESET_LEVEL>>
   {
     void operator()(std::ostream& stream,
-                    const ObjectDetails<MetaObjectType::RANDOM_DWELLING_PRESET_LEVEL>& dwelling) const
+                    const ObjectProperties<MetaObjectType::RANDOM_DWELLING_PRESET_LEVEL>& dwelling) const
     {
       writeData(stream, dwelling.owner);
       writeData(stream, dwelling.town_absod_id);
@@ -232,9 +232,9 @@ namespace h3m::H3Writer_NS
   };
 
   template<>
-  struct H3Writer<ObjectDetails<MetaObjectType::RESOURCE>>
+  struct H3Writer<ObjectProperties<MetaObjectType::RESOURCE>>
   {
-    void operator()(std::ostream& stream, const ObjectDetails<MetaObjectType::RESOURCE>& data) const
+    void operator()(std::ostream& stream, const ObjectProperties<MetaObjectType::RESOURCE>& data) const
     {
       writeData(stream, data.guardians);
       writeData(stream, data.quantity);
@@ -243,9 +243,9 @@ namespace h3m::H3Writer_NS
   };
 
   template<>
-  struct H3Writer<ObjectDetails<MetaObjectType::SCHOLAR>>
+  struct H3Writer<ObjectProperties<MetaObjectType::SCHOLAR>>
   {
-    void operator()(std::ostream& stream, const ObjectDetails<MetaObjectType::SCHOLAR>& scholar) const
+    void operator()(std::ostream& stream, const ObjectProperties<MetaObjectType::SCHOLAR>& scholar) const
     {
       writeData(stream, scholar.reward_type);
       writeData(stream, scholar.reward_value);
@@ -254,9 +254,9 @@ namespace h3m::H3Writer_NS
   };
 
   template<>
-  struct H3Writer<ObjectDetails<MetaObjectType::SEERS_HUT>>
+  struct H3Writer<ObjectProperties<MetaObjectType::SEERS_HUT>>
   {
-    void operator()(std::ostream& stream, const ObjectDetails<MetaObjectType::SEERS_HUT>& seers_hut) const
+    void operator()(std::ostream& stream, const ObjectProperties<MetaObjectType::SEERS_HUT>& seers_hut) const
     {
       writeData(stream, seers_hut.quest);
       writeData(stream, seers_hut.reward);
@@ -265,9 +265,9 @@ namespace h3m::H3Writer_NS
   };
 
   template<>
-  struct H3Writer<ObjectDetails<MetaObjectType::SHRINE>>
+  struct H3Writer<ObjectProperties<MetaObjectType::SHRINE>>
   {
-    void operator()(std::ostream& stream, const ObjectDetails<MetaObjectType::SHRINE>& shrine) const
+    void operator()(std::ostream& stream, const ObjectProperties<MetaObjectType::SHRINE>& shrine) const
     {
       writeData(stream, shrine.spell);
       writeData(stream, shrine.unknown);
@@ -275,9 +275,9 @@ namespace h3m::H3Writer_NS
   };
 
   template<>
-  struct H3Writer<ObjectDetails<MetaObjectType::SIGN>>
+  struct H3Writer<ObjectProperties<MetaObjectType::SIGN>>
   {
-    void operator()(std::ostream& stream, const ObjectDetails<MetaObjectType::SIGN>& sign) const
+    void operator()(std::ostream& stream, const ObjectProperties<MetaObjectType::SIGN>& sign) const
     {
       writeData(stream, sign.message);
       writeData(stream, sign.unknown);
@@ -285,9 +285,9 @@ namespace h3m::H3Writer_NS
   };
 
   template<>
-  struct H3Writer<ObjectDetails<MetaObjectType::SPELL_SCROLL>>
+  struct H3Writer<ObjectProperties<MetaObjectType::SPELL_SCROLL>>
   {
-    void operator()(std::ostream& stream, const ObjectDetails<MetaObjectType::SPELL_SCROLL>& spell_scroll) const
+    void operator()(std::ostream& stream, const ObjectProperties<MetaObjectType::SPELL_SCROLL>& spell_scroll) const
     {
       writeData(stream, spell_scroll.guardians);
       writeData(stream, spell_scroll.spell);
@@ -296,9 +296,9 @@ namespace h3m::H3Writer_NS
   };
 
   template<>
-  struct H3Writer<ObjectDetails<MetaObjectType::TOWN>>
+  struct H3Writer<ObjectProperties<MetaObjectType::TOWN>>
   {
-    void operator()(std::ostream& stream, const ObjectDetails<MetaObjectType::TOWN>& town) const
+    void operator()(std::ostream& stream, const ObjectProperties<MetaObjectType::TOWN>& town) const
     {
       writeData(stream, town.absod_id);
       writeData(stream, town.owner);
@@ -319,18 +319,18 @@ namespace h3m::H3Writer_NS
   };
 
   template<>
-  struct H3Writer<ObjectDetails<MetaObjectType::TRIVIAL_OWNED_OBJECT>>
+  struct H3Writer<ObjectProperties<MetaObjectType::TRIVIAL_OWNED_OBJECT>>
   {
-    void operator()(std::ostream& stream, const ObjectDetails<MetaObjectType::TRIVIAL_OWNED_OBJECT>& data) const
+    void operator()(std::ostream& stream, const ObjectProperties<MetaObjectType::TRIVIAL_OWNED_OBJECT>& data) const
     {
       writeData(stream, data.owner);
     }
   };
 
   template<>
-  struct H3Writer<ObjectDetails<MetaObjectType::WITCH_HUT>>
+  struct H3Writer<ObjectProperties<MetaObjectType::WITCH_HUT>>
   {
-    void operator()(std::ostream& stream, const ObjectDetails<MetaObjectType::WITCH_HUT>& witch_hut) const
+    void operator()(std::ostream& stream, const ObjectProperties<MetaObjectType::WITCH_HUT>& witch_hut) const
     {
       writeData(stream, witch_hut.potential_skills);
     }
@@ -343,7 +343,7 @@ namespace h3m::H3Writer_NS
     writeData(stream, object.z);
     writeData(stream, object.template_idx);
     writeData(stream, object.unknown);
-    object.details.visit([&stream] <MetaObjectType T> (const ObjectDetails<T>& value)
-                         { writeData(stream, value); });
+    object.properties.visit([&stream] <MetaObjectType T> (const ObjectProperties<T>& value)
+                            { writeData(stream, value); });
   }
 }

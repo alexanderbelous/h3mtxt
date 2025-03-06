@@ -107,7 +107,7 @@
     <ClInclude Include="writeH3mJson.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="writeObjectDetails.h">
+    <ClInclude Include="writeObjectProperties.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="getEnumString.h">

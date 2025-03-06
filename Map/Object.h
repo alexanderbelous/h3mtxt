@@ -1,6 +1,6 @@
 #pragma once
 
-#include <h3mtxt/Map/ObjectDetailsVariant.h>
+#include <h3mtxt/Map/ObjectPropertiesVariant.h>
 #include <h3mtxt/Map/Utils/ReservedData.h>
 
 #include <cstdint>
@@ -19,7 +19,6 @@ namespace h3m
     // Should be all 0s; kept here for compatibility.
     ReservedData<5> unknown {};
     // Data specific to ObjectTemplate corresponding to this object.
-    // TODO: consider renaming to `properties` to match the name in the Editor.
-    ObjectDetailsVariant details;
+    ObjectPropertiesVariant properties;
   };
 }

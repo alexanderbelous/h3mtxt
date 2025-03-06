@@ -1,7 +1,7 @@
 #include <h3mtxt/H3JsonReader/Utils.h>
 #include <h3mtxt/JsonCommon/FieldName.h>
 #include <h3mtxt/Map/Utils/EnumSequence.h>
-#include <h3mtxt/Map/ObjectDetailsVariant.h>
+#include <h3mtxt/Map/ObjectPropertiesVariant.h>
 
 #include <array>
 
@@ -91,9 +91,9 @@ namespace h3m::H3JsonReader_NS
   }
 
   template<>
-  struct JsonReader<ObjectDetails<MetaObjectType::ABANDONED_MINE>>
+  struct JsonReader<ObjectProperties<MetaObjectType::ABANDONED_MINE>>
   {
-    using Details = ObjectDetails<MetaObjectType::ABANDONED_MINE>;
+    using Details = ObjectProperties<MetaObjectType::ABANDONED_MINE>;
 
     Details operator()(const Json::Value& value) const
     {
@@ -106,9 +106,9 @@ namespace h3m::H3JsonReader_NS
   };
 
   template<>
-  struct JsonReader<ObjectDetails<MetaObjectType::ARTIFACT>>
+  struct JsonReader<ObjectProperties<MetaObjectType::ARTIFACT>>
   {
-    using Details = ObjectDetails<MetaObjectType::ARTIFACT>;
+    using Details = ObjectProperties<MetaObjectType::ARTIFACT>;
 
     Details operator()(const Json::Value& value) const
     {
@@ -120,9 +120,9 @@ namespace h3m::H3JsonReader_NS
   };
 
   template<>
-  struct JsonReader<ObjectDetails<MetaObjectType::EVENT>>
+  struct JsonReader<ObjectProperties<MetaObjectType::EVENT>>
   {
-    using Details = ObjectDetails<MetaObjectType::EVENT>;
+    using Details = ObjectProperties<MetaObjectType::EVENT>;
 
     Details operator()(const Json::Value& value) const
     {
@@ -138,9 +138,9 @@ namespace h3m::H3JsonReader_NS
   };
 
   template<>
-  struct JsonReader<ObjectDetails<MetaObjectType::GARRISON>>
+  struct JsonReader<ObjectProperties<MetaObjectType::GARRISON>>
   {
-    using Details = ObjectDetails<MetaObjectType::GARRISON>;
+    using Details = ObjectProperties<MetaObjectType::GARRISON>;
 
     Details operator()(const Json::Value& value) const
     {
@@ -154,20 +154,20 @@ namespace h3m::H3JsonReader_NS
     }
   };
 
-  // ObjectDetails<MetaObjectType::GENERIC_NO_PROPERTIES> has no fields.
+  // ObjectProperties<MetaObjectType::GENERIC_NO_PROPERTIES> has no fields.
   template<>
-  struct JsonReader<ObjectDetails<MetaObjectType::GENERIC_NO_PROPERTIES>>
+  struct JsonReader<ObjectProperties<MetaObjectType::GENERIC_NO_PROPERTIES>>
   {
-    ObjectDetails<MetaObjectType::GENERIC_NO_PROPERTIES> operator()(const Json::Value&) const
+    ObjectProperties<MetaObjectType::GENERIC_NO_PROPERTIES> operator()(const Json::Value&) const
     {
       return {};
     }
   };
 
   template<>
-  struct JsonReader<ObjectDetails<MetaObjectType::GRAIL>>
+  struct JsonReader<ObjectProperties<MetaObjectType::GRAIL>>
   {
-    using Details = ObjectDetails<MetaObjectType::GRAIL>;
+    using Details = ObjectProperties<MetaObjectType::GRAIL>;
 
     Details operator()(const Json::Value& value) const
     {
@@ -179,9 +179,9 @@ namespace h3m::H3JsonReader_NS
   };
 
   template<>
-  struct JsonReader<ObjectDetails<MetaObjectType::HERO>>
+  struct JsonReader<ObjectProperties<MetaObjectType::HERO>>
   {
-    using Details = ObjectDetails<MetaObjectType::HERO>;
+    using Details = ObjectProperties<MetaObjectType::HERO>;
 
     Details operator()(const Json::Value& value) const
     {
@@ -208,9 +208,9 @@ namespace h3m::H3JsonReader_NS
   };
 
   template<>
-  struct JsonReader<ObjectDetails<MetaObjectType::MONSTER>>
+  struct JsonReader<ObjectProperties<MetaObjectType::MONSTER>>
   {
-    using Details = ObjectDetails<MetaObjectType::MONSTER>;
+    using Details = ObjectProperties<MetaObjectType::MONSTER>;
 
     Details operator()(const Json::Value& value) const
     {
@@ -228,9 +228,9 @@ namespace h3m::H3JsonReader_NS
   };
 
   template<>
-  struct JsonReader<ObjectDetails<MetaObjectType::PANDORAS_BOX>>
+  struct JsonReader<ObjectProperties<MetaObjectType::PANDORAS_BOX>>
   {
-    using Details = ObjectDetails<MetaObjectType::PANDORAS_BOX>;
+    using Details = ObjectProperties<MetaObjectType::PANDORAS_BOX>;
 
     Details operator()(const Json::Value& value) const
     {
@@ -241,9 +241,9 @@ namespace h3m::H3JsonReader_NS
   };
 
   template<>
-  struct JsonReader<ObjectDetails<MetaObjectType::PLACEHOLDER_HERO>>
+  struct JsonReader<ObjectProperties<MetaObjectType::PLACEHOLDER_HERO>>
   {
-    using Details = ObjectDetails<MetaObjectType::PLACEHOLDER_HERO>;
+    using Details = ObjectProperties<MetaObjectType::PLACEHOLDER_HERO>;
 
     Details operator()(const Json::Value& value) const
     {
@@ -262,9 +262,9 @@ namespace h3m::H3JsonReader_NS
   };
 
   template<>
-  struct JsonReader<ObjectDetails<MetaObjectType::QUEST_GUARD>>
+  struct JsonReader<ObjectProperties<MetaObjectType::QUEST_GUARD>>
   {
-    using Details = ObjectDetails<MetaObjectType::QUEST_GUARD>;
+    using Details = ObjectProperties<MetaObjectType::QUEST_GUARD>;
 
     Details operator()(const Json::Value& value) const
     {
@@ -276,9 +276,9 @@ namespace h3m::H3JsonReader_NS
   };
 
   template<>
-  struct JsonReader<ObjectDetails<MetaObjectType::RANDOM_DWELLING>>
+  struct JsonReader<ObjectProperties<MetaObjectType::RANDOM_DWELLING>>
   {
-    using Details = ObjectDetails<MetaObjectType::RANDOM_DWELLING>;
+    using Details = ObjectProperties<MetaObjectType::RANDOM_DWELLING>;
 
     Details operator()(const Json::Value& value) const
     {
@@ -297,9 +297,9 @@ namespace h3m::H3JsonReader_NS
   };
 
   template<>
-  struct JsonReader<ObjectDetails<MetaObjectType::RANDOM_DWELLING_PRESET_ALIGNMENT>>
+  struct JsonReader<ObjectProperties<MetaObjectType::RANDOM_DWELLING_PRESET_ALIGNMENT>>
   {
-    using Details = ObjectDetails<MetaObjectType::RANDOM_DWELLING_PRESET_ALIGNMENT>;
+    using Details = ObjectProperties<MetaObjectType::RANDOM_DWELLING_PRESET_ALIGNMENT>;
 
     Details operator()(const Json::Value& value) const
     {
@@ -313,9 +313,9 @@ namespace h3m::H3JsonReader_NS
   };
 
   template<>
-  struct JsonReader<ObjectDetails<MetaObjectType::RANDOM_DWELLING_PRESET_LEVEL>>
+  struct JsonReader<ObjectProperties<MetaObjectType::RANDOM_DWELLING_PRESET_LEVEL>>
   {
-    using Details = ObjectDetails<MetaObjectType::RANDOM_DWELLING_PRESET_LEVEL>;
+    using Details = ObjectProperties<MetaObjectType::RANDOM_DWELLING_PRESET_LEVEL>;
 
     Details operator()(const Json::Value& value) const
     {
@@ -332,9 +332,9 @@ namespace h3m::H3JsonReader_NS
   };
 
   template<>
-  struct JsonReader<ObjectDetails<MetaObjectType::RESOURCE>>
+  struct JsonReader<ObjectProperties<MetaObjectType::RESOURCE>>
   {
-    using Details = ObjectDetails<MetaObjectType::RESOURCE>;
+    using Details = ObjectProperties<MetaObjectType::RESOURCE>;
 
     Details operator()(const Json::Value& value) const
     {
@@ -348,9 +348,9 @@ namespace h3m::H3JsonReader_NS
   };
 
   template<>
-  struct JsonReader<ObjectDetails<MetaObjectType::SEERS_HUT>>
+  struct JsonReader<ObjectProperties<MetaObjectType::SEERS_HUT>>
   {
-    using Details = ObjectDetails<MetaObjectType::SEERS_HUT>;
+    using Details = ObjectProperties<MetaObjectType::SEERS_HUT>;
 
     Details operator()(const Json::Value& value) const
     {
@@ -364,9 +364,9 @@ namespace h3m::H3JsonReader_NS
   };
 
   template<>
-  struct JsonReader<ObjectDetails<MetaObjectType::SCHOLAR>>
+  struct JsonReader<ObjectProperties<MetaObjectType::SCHOLAR>>
   {
-    using Details = ObjectDetails<MetaObjectType::SCHOLAR>;
+    using Details = ObjectProperties<MetaObjectType::SCHOLAR>;
 
     Details operator()(const Json::Value& value) const
     {
@@ -380,9 +380,9 @@ namespace h3m::H3JsonReader_NS
   };
 
   template<>
-  struct JsonReader<ObjectDetails<MetaObjectType::SHRINE>>
+  struct JsonReader<ObjectProperties<MetaObjectType::SHRINE>>
   {
-    using Details = ObjectDetails<MetaObjectType::SHRINE>;
+    using Details = ObjectProperties<MetaObjectType::SHRINE>;
 
     Details operator()(const Json::Value& value) const
     {
@@ -395,9 +395,9 @@ namespace h3m::H3JsonReader_NS
   };
 
   template<>
-  struct JsonReader<ObjectDetails<MetaObjectType::SIGN>>
+  struct JsonReader<ObjectProperties<MetaObjectType::SIGN>>
   {
-    using Details = ObjectDetails<MetaObjectType::SIGN>;
+    using Details = ObjectProperties<MetaObjectType::SIGN>;
 
     Details operator()(const Json::Value& value) const
     {
@@ -410,9 +410,9 @@ namespace h3m::H3JsonReader_NS
   };
 
   template<>
-  struct JsonReader<ObjectDetails<MetaObjectType::SPELL_SCROLL>>
+  struct JsonReader<ObjectProperties<MetaObjectType::SPELL_SCROLL>>
   {
-    using Details = ObjectDetails<MetaObjectType::SPELL_SCROLL>;
+    using Details = ObjectProperties<MetaObjectType::SPELL_SCROLL>;
 
     Details operator()(const Json::Value& value) const
     {
@@ -426,9 +426,9 @@ namespace h3m::H3JsonReader_NS
   };
 
   template<>
-  struct JsonReader<ObjectDetails<MetaObjectType::TOWN>>
+  struct JsonReader<ObjectProperties<MetaObjectType::TOWN>>
   {
-    using Details = ObjectDetails<MetaObjectType::TOWN>;
+    using Details = ObjectProperties<MetaObjectType::TOWN>;
 
     Details operator()(const Json::Value& value) const
     {
@@ -454,9 +454,9 @@ namespace h3m::H3JsonReader_NS
   };
 
   template<>
-  struct JsonReader<ObjectDetails<MetaObjectType::TRIVIAL_OWNED_OBJECT>>
+  struct JsonReader<ObjectProperties<MetaObjectType::TRIVIAL_OWNED_OBJECT>>
   {
-    using Details = ObjectDetails<MetaObjectType::TRIVIAL_OWNED_OBJECT>;
+    using Details = ObjectProperties<MetaObjectType::TRIVIAL_OWNED_OBJECT>;
 
     Details operator()(const Json::Value& value) const
     {
@@ -468,9 +468,9 @@ namespace h3m::H3JsonReader_NS
   };
 
   template<>
-  struct JsonReader<ObjectDetails<MetaObjectType::WITCH_HUT>>
+  struct JsonReader<ObjectProperties<MetaObjectType::WITCH_HUT>>
   {
-    using Details = ObjectDetails<MetaObjectType::WITCH_HUT>;
+    using Details = ObjectProperties<MetaObjectType::WITCH_HUT>;
 
     Details operator()(const Json::Value& value) const
     {
@@ -483,34 +483,34 @@ namespace h3m::H3JsonReader_NS
 
   namespace
   {
-    // Utility wrapper around fromJson<ObjectDetails<T>>(), which returns the result
-    // as ObjectDetailsVariant.
+    // Utility wrapper around fromJson<ObjectProperties<T>>(), which returns the result
+    // as ObjectPropertiesVariant.
     template<MetaObjectType T>
-    ObjectDetailsVariant readObjectDetailsAsVariant(const Json::Value& value)
+    ObjectPropertiesVariant readObjectPropertiesAsVariant(const Json::Value& value)
     {
-      return fromJson<ObjectDetails<T>>(value);
+      return fromJson<ObjectProperties<T>>(value);
     }
   }
 
-  // Reads ObjectDetails for the specified MetaObjectType.
+  // Reads ObjectProperties for the specified MetaObjectType.
   // \param value - input JSON value.
   // \param meta_object_type - MetaObjectType of the object.
-  // \return the deserialized data as ObjectDetailsVariant.
-  ObjectDetailsVariant readObjectDetailsVariant(const Json::Value& value, MetaObjectType meta_object_type)
+  // \return the deserialized data as ObjectPropertiesVariant.
+  ObjectPropertiesVariant readObjectPropertiesVariant(const Json::Value& value, MetaObjectType meta_object_type)
   {
-    // Type of a pointer to a function that takes std::istream& and returns ObjectDetailsVariant.
-    using ReadObjectDetailsPtr = ObjectDetailsVariant(*)(const Json::Value&);
+    // Type of a pointer to a function that takes std::istream& and returns ObjectPropertiesVariant.
+    using ReadObjectPropertiesPtr = ObjectPropertiesVariant(*)(const Json::Value&);
     // Generate (at compile time) an array of function pointers for each instantiation of
-    // readObjectDetailsAsVariant() ordered by MetaObjectType.
-    constexpr std::array<ReadObjectDetailsPtr, kNumMetaObjectTypes> kObjectDetailsReaders =
+    // readObjectPropertiesAsVariant() ordered by MetaObjectType.
+    constexpr std::array<ReadObjectPropertiesPtr, kNumMetaObjectTypes> kObjectPropertiesReaders =
       [] <MetaObjectType... meta_object_types>
       (EnumSequence<MetaObjectType, meta_object_types...> seq)
       consteval
       {
-        return std::array<ReadObjectDetailsPtr, sizeof...(meta_object_types)>
-        { &readObjectDetailsAsVariant<meta_object_types>... };
+        return std::array<ReadObjectPropertiesPtr, sizeof...(meta_object_types)>
+        { &readObjectPropertiesAsVariant<meta_object_types>... };
       }(MakeEnumSequence<MetaObjectType, kNumMetaObjectTypes>{});
     // Invoke a function from the generated array.
-    return kObjectDetailsReaders.at(static_cast<std::size_t>(meta_object_type))(value);
+    return kObjectPropertiesReaders.at(static_cast<std::size_t>(meta_object_type))(value);
   }
 }
