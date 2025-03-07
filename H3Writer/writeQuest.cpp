@@ -58,6 +58,16 @@ namespace h3m::H3Writer_NS
   };
 
   template<>
+  struct H3Writer<QuestDetails<QuestType::Creatures>::Creature>
+  {
+    void operator()(std::ostream& stream, const QuestDetails<QuestType::Creatures>::Creature& creature) const
+    {
+      writeData(stream, creature.type);
+      writeData(stream, creature.count);
+    }
+  };
+
+  template<>
   struct H3Writer<QuestDetails<QuestType::Creatures>>
   {
     void operator()(std::ostream& stream, const QuestDetails<QuestType::Creatures>& data) const

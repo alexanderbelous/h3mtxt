@@ -110,6 +110,8 @@ namespace h3m
   template<>
   struct RewardDetails<RewardType::Creature> : CreatureStack
   {
+    // FYI: CreatureStack::count can be negative, in which case the number of creatures in your stack will
+    // decrease.
   };
 
   struct Reward

@@ -34,6 +34,9 @@ namespace h3m
   struct Guardians
   {
     std::string message;
+    // FYI: CreatureStack::count can be negative. Stacks with negative numbers of creatures will be
+    // present on the battlefield, but the behavior is weird (such a stack can only move 1 hex during the 1st turn,
+    // and then it will never get a chance to move again).
     std::optional<std::array<CreatureStack, 7>> creatures;
     ReservedData<4> unknown;
   };
@@ -71,6 +74,7 @@ namespace h3m
     std::vector<SecondarySkill> secondary_skills;
     std::vector<ArtifactType> artifacts;
     std::vector<SpellType> spells;
+    // FYI: if CreatureStack::count is negative, the number of creatures in the hero's stack will decrease.
     std::vector<CreatureStack> creatures;
     ReservedData<8> unknown {};
   };
@@ -104,7 +108,8 @@ namespace h3m
     // TODO: replace with PlayerColor. Note that sizeof(PlayerColor) == 1,
     // so you'll need to add ReservedData<3> after it.
     std::uint32_t owner {};
-    // 0xFFFF in CreatureStack.type means "no creature".
+    // 0xFFFF in CreatureStack::type means "no creature".
+    // CreatureStack::count can be negative - such stacks will be present in the garrison.
     std::array<CreatureStack, 7> creatures {};
     Bool can_remove_units {};
     ReservedData<8> unknown;
@@ -155,8 +160,8 @@ namespace h3m
     // If 2 or more elements have the same SecondarySkillType, the game will only
     // consider the first such element (and its level).
     std::optional<std::vector<SecondarySkill>> secondary_skills;
-    // 0xFFFF in CreatureStack.type means no creature.
-    // If std::int16_t(CreatureStack::count) <= 0 for any stack, this stack will become empty when the game starts.
+    // 0xFFFF in CreatureStack::type means no creature.
+    // If CreatureStack::count <= 0 for any slot, this slot will become empty when the game starts.
     std::optional<std::array<CreatureStack, 7>> creatures;
     Formation formation {};
     std::optional<HeroArtifacts> artifacts;
@@ -341,7 +346,8 @@ namespace h3m
     PlayerColor owner {};
     // If std::nullopt, some default name will be assigned.
     std::optional<std::string> name {};
-    // 0xFFFF in CreatureStack.type means no creature.
+    // 0xFFFF in CreatureStack::type means no creature.
+    // If CreatureStack::count <= 0 for any slot, this slot will become empty when the game starts.
     std::optional<std::array<CreatureStack, 7>> garrison;
     Formation formation {};
     std::optional<TownBuildings> buildings;

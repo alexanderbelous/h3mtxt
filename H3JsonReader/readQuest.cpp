@@ -70,6 +70,18 @@ namespace h3m::H3JsonReader_NS
   };
 
   template<>
+  struct JsonReader<QuestDetails<QuestType::Creatures>::Creature>
+  {
+    QuestDetails<QuestType::Creatures>::Creature operator()(const Json::Value& value) const
+    {
+      QuestDetails<QuestType::Creatures>::Creature creature;
+      readField(creature.type, value, "type");
+      readField(creature.count, value, "count");
+      return creature;
+    }
+  };
+
+  template<>
   struct JsonReader<QuestDetails<QuestType::Creatures>>
   {
     QuestDetails<QuestType::Creatures> operator()(const Json::Value& value) const

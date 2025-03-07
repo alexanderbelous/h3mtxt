@@ -2,10 +2,10 @@
 
 #include <h3mtxt/Map/MapFwd.h>
 #include <h3mtxt/Map/Constants/ArtifactType.h>
+#include <h3mtxt/Map/Constants/CreatureType.h>
 #include <h3mtxt/Map/Constants/HeroType.h>
 #include <h3mtxt/Map/Constants/PlayerColor.h>
 #include <h3mtxt/Map/Constants/QuestType.h>
-#include <h3mtxt/Map/CreatureStack.h>
 #include <h3mtxt/Map/PrimarySkills.h>
 #include <h3mtxt/Map/Resources.h>
 
@@ -60,10 +60,22 @@ namespace h3m
   template<>
   struct QuestDetails<QuestType::Creatures>
   {
+    // Not using CreatureStack here, because CreatureStack::count is a signed 16-bit integer,
+    // but counts in quests are interpreted as unisnged 16-bit integers.
+    struct Creature
+    {
+      // Note that 0xFFFF is NOT a valid value here (in CreatureStack it means "no creature") -
+      // it causes the game to crash.
+      CreatureType type {};
+      // The Map Editor only allows values from [1; 9999] for the number of creatures, but any
+      // unsigned 16-bit integer can be used here.
+      std::uint16_t count {};
+    };
+
     // The Editor doesn't allow an empty array here. If you set it manually:
     // * The Editor will freeze when you try to view the properties of this Quest Guard / Seer's Hut.
     // * The game will not crash, but the quest will be impossible to complete.
-    std::vector<CreatureStack> creatures;
+    std::vector<Creature> creatures;
   };
 
   template<>

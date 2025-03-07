@@ -75,7 +75,10 @@ namespace h3m::H3Reader_NS
       details.creatures.reserve(num_creatures);
       for (std::uint8_t i = 0; i < num_creatures; ++i)
       {
-        details.creatures.push_back(readCreatureStack(stream));
+        QuestDetails<QuestType::Creatures>::Creature creature;
+        creature.type = readEnum<CreatureType>(stream);
+        creature.count = readInt<std::uint16_t>(stream);
+        details.creatures.push_back(std::move(creature));
       }
       return details;
     }

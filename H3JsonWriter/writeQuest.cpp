@@ -42,6 +42,21 @@ namespace Medea_NS
     out.writeField("artifacts", details.artifacts);
   }
 
+  template<>
+  struct JsonObjectWriter<h3m::QuestDetails<h3m::QuestType::Creatures>::Creature>
+  {
+    void operator()(FieldsWriter& out, const h3m::QuestDetails<h3m::QuestType::Creatures>::Creature& creature) const
+    {
+      out.writeField("type", creature.type);
+      if (auto enum_str = h3m::getEnumString(creature.type); !enum_str.empty())
+      {
+        out.writeComma();
+        out.writeComment(enum_str, false);
+      }
+      out.writeField("count", creature.count);
+    }
+  };
+
   void JsonObjectWriter<h3m::QuestDetails<h3m::QuestType::Creatures>>::operator()(
     FieldsWriter& out, const h3m::QuestDetails<h3m::QuestType::Creatures>& details) const
   {
