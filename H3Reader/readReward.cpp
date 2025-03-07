@@ -25,7 +25,7 @@ namespace h3m::H3Reader_NS
     RewardDetails<RewardType::Experience> readRewardDetails<RewardType::Experience>(std::istream& stream)
     {
       RewardDetails<RewardType::Experience> details;
-      details.experience = readInt<std::uint32_t>(stream);
+      details.experience = readInt<std::int32_t>(stream);
       return details;
     }
 

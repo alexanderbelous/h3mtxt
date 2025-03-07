@@ -20,7 +20,11 @@ namespace h3m
   template<>
   struct RewardDetails<RewardType::Experience>
   {
-    std::uint32_t experience {};
+    // The Map Editor only allows using values from [1; 99,999,999], but any signed 32-bit integer can be used here:
+    // * 0 has no effect (the hero's experience remains the same).
+    // * Negative experience points are handled correctly: the hero's experience decreases, and the level gets
+    //   recalculated (i.e. the level can also decrease after the reward).
+    std::int32_t experience {};
   };
 
   template<>

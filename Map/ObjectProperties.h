@@ -244,7 +244,9 @@ namespace h3m
   struct ObjectProperties<MetaObjectType::RESOURCE>
   {
     std::optional<Guardians> guardians;
-    // Multiply by 100 for gold, i.e. subclass 6.
+    // Multiply by 100 for Gold (i.e. subclass 6); 0 means Random.
+    // The Map Editor only allows setting a value within [1; 99999]. Values greater than 99999 are OK,
+    // but the game uses quantity MOD 524288, so the amount will always be within [1; 524287] or Random.
     std::uint32_t quantity {};
     ReservedData<4> unknown {};
   };
