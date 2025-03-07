@@ -36,7 +36,7 @@ namespace h3m::H3JsonReader_NS
     LossConditionDetails<LossConditionType::TimeExpires> operator()(const Json::Value& value) const
     {
       LossConditionDetails<LossConditionType::TimeExpires> details;
-      details.days = readField<std::uint16_t>(value, "days");
+      readField(details.days, value, "days");
       return details;
     }
   };

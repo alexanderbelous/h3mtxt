@@ -48,7 +48,7 @@ namespace h3m::H3JsonReader_NS
       VictoryConditionDetails<VictoryConditionType::AccumulateResources> details;
       readSpecialVictoryConditionBaseFromJson(value, details);
       details.resource_type = readField<ResourceType>(value, "resource_type");
-      details.amount = readField<std::uint32_t>(value, "amount");
+      details.amount = readField<std::int32_t>(value, "amount");
       return details;
     }
   };

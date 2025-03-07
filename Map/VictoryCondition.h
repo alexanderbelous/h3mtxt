@@ -43,10 +43,9 @@ namespace h3m
   {
     CreatureType creature_type {};
     // The number of creatures to accumulate.
-    // * The Map Editor only allows a value within [1; 32767], but values greater than 32767 (e.g., 99999)
-    //   are correctly handled in the game.
-    // * Both the game and the Map Editor considers the value to be signed.
-    //   A negative value almost immediately leads to a victory, though.
+    // * The Map Editor only allows a value within [1; 99999], but any signed 32-bit integer can be used here
+    //   (e.g., 1,000,000 Peasants).
+    // * A negative value almost immediately leads to a victory, though.
     std::int32_t count {};
   };
 
@@ -56,7 +55,8 @@ namespace h3m
   {
     ResourceType resource_type {};
     // The amount to accumulate.
-    std::uint32_t amount {};
+    // The Map Editor only allows setting a value from [1; 9999999], but any signed 32-bit integer can be used here.
+    std::int32_t amount {};
   };
 
   // Specialization for UpgradeTown.
@@ -98,6 +98,8 @@ namespace h3m
   struct VictoryConditionDetails<VictoryConditionType::TransportArtifact> : SpecialVictoryConditionBase
   {
     // Interestingly, the type is stored here in a single byte, even though in AcquireArtifact it's stored in 2 bytes.
+    // The game supports "unusual" artifacts here (e.g., Spellbook), even though the Map Editor might freeze
+    // for some of them when viewing the Victory Condition.
     std::uint8_t artifact_type {};
     std::uint8_t x {};
     std::uint8_t y {};

@@ -30,7 +30,11 @@ namespace h3m
   template<>
   struct LossConditionDetails<LossConditionType::TimeExpires>
   {
-    std::uint16_t days {};
+    // The Map Editor only allows a number from a small set (2-6 days, 1-7 weeks, 2-12 months),
+    // but any signed 16-bit integer can be used here. The Map Editor will freeze when viewing the
+    // details of the Loss Condition if a value outside of the above-mentioned set is used, but
+    // the game handles them correctly.
+    std::int16_t days {};
   };
 
   // Specialization for Normal.

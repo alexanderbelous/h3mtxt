@@ -112,7 +112,7 @@ namespace h3m::H3Reader_NS
     case LossConditionType::TimeExpires:
     {
       LossConditionDetails<LossConditionType::TimeExpires> details;
-      details.days = readInt<std::uint16_t>(stream);
+      details.days = readInt<std::int16_t>(stream);
       return LossCondition{details};
     }
     case LossConditionType::Normal:

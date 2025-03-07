@@ -58,7 +58,7 @@ namespace h3m::H3Reader_NS
         VictoryConditionDetails<VictoryConditionType::AccumulateResources> details;
         readSpecialVictoryConditionBase(stream, details);
         details.resource_type = readEnum<ResourceType>(stream);
-        details.amount = readInt<std::uint32_t>(stream);
+        details.amount = readInt<std::int32_t>(stream);
         return details;
       }
     };
