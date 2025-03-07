@@ -189,5 +189,8 @@
     <ClInclude Include="ObjectPropertiesVariant.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Constants\ExperienceLevels.h">
+      <Filter>Header Files\Constants</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

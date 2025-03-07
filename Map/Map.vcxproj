@@ -11,6 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Constants\ExperienceLevels.h" />
     <ClInclude Include="Constants\SecondarySkillLevel.h" />
     <ClInclude Include="Constants\TownBuildingType.h" />
     <ClInclude Include="MapFwd.h" />

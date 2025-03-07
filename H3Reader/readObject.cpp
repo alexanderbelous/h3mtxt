@@ -166,7 +166,7 @@ namespace h3m::H3Reader_NS
       const Bool has_experience = readBool(stream);
       if (has_experience)
       {
-        data.experience = readInt<std::uint32_t>(stream);
+        data.experience = readInt<std::int32_t>(stream);
       }
       const Bool has_portrait = readBool(stream);
       if (has_portrait)

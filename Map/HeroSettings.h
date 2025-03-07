@@ -20,7 +20,8 @@ namespace h3m
   // is changed, a CustomHero is created and stored in MapAdditionalInfo.
   struct HeroSettings
   {
-    std::optional<std::uint32_t> experience;
+    // Note that experience points can be negative.
+    std::optional<std::int32_t> experience;
     std::optional<std::vector<SecondarySkill>> secondary_skills;
     std::optional<HeroArtifacts> artifacts;
     std::optional<std::string> biography;

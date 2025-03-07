@@ -149,7 +149,7 @@ namespace h3m::H3Reader_NS
     HeroSettings settings;
     if (const Bool has_experience = readBool(stream))
     {
-      settings.experience = readInt<std::uint32_t>(stream);
+      settings.experience = readInt<std::int32_t>(stream);
     }
     if (const Bool has_secondary_skills = readBool(stream))
     {

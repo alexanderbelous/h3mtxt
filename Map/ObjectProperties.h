@@ -147,7 +147,7 @@ namespace h3m
     HeroType type {};
     std::optional<std::string> name;
     // Note: in RoE/AB experience is not optional.
-    std::optional<std::uint32_t> experience;
+    std::optional<std::int32_t> experience;
     std::optional<HeroPortrait> portrait;
     // The size of the vector is serialized as uint32.
     // If 2 or more elements have the same SecondarySkillType, the game will only
