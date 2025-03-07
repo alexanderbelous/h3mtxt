@@ -16,6 +16,7 @@ namespace h3m
   {
     // 0xFFFF means "no creature".
     CreatureType type {0xFFFF};
+    // TODO: seems to be signed.
     std::uint16_t count {};
   };
 }

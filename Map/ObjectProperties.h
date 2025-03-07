@@ -156,6 +156,7 @@ namespace h3m
     // consider the first such element (and its level).
     std::optional<std::vector<SecondarySkill>> secondary_skills;
     // 0xFFFF in CreatureStack.type means no creature.
+    // If std::int16_t(CreatureStack::count) <= 0 for any stack, this stack will become empty when the game starts.
     std::optional<std::array<CreatureStack, 7>> creatures;
     Formation formation {};
     std::optional<HeroArtifacts> artifacts;
