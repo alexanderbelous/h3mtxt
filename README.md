@@ -28,6 +28,10 @@ h3mtxt my_campaign.h3c.json my_campaign_new.h3c
 ```
 The filename extensions are not important - the program will detect the file type by inspecting the data.
 
+# Undocumented features
+
+See the comments in the source code in [Map](Map) or the brief overview in https://gist.github.com/alexanderbelous/e5f0766845476d93eda10469c5667d9b 
+
 # Acknowledgment
 I would like to thank the authors of [HeroWO-js/h3m2json](https://github.com/HeroWO-js/h3m2json/) and [potmdehex/homm3tools](https://github.com/potmdehex/homm3tools)
 for the detailed description of the .h3m file format. These projects share some similarities with *h3mtxt*, but their goals and programming languages (PHP and C respectively) are different.
