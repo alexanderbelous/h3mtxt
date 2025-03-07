@@ -45,7 +45,7 @@ namespace h3m::H3Reader_NS
       {
         event.guardians = std::nullopt;
       }
-      event.experience = readInt<std::uint32_t>(stream);
+      event.experience = readInt<std::int32_t>(stream);
       event.spell_points = readInt<std::int32_t>(stream);
       event.morale = readInt<std::int8_t>(stream);
       event.luck = readInt<std::int8_t>(stream);
