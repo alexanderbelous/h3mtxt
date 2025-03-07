@@ -57,7 +57,8 @@ namespace h3m
   struct EventBase
   {
     std::optional<Guardians> guardians;
-    // FYI: in the game negative experience points are ignored (they have the same effect as 0).
+    // The Map Editor only allows using values from [0; 99999999].
+    // Negative experience points are allowed, but the game ignores them (they have the same effect as 0).
     std::int32_t experience {};
     std::int32_t spell_points {};
     std::int8_t morale {};
