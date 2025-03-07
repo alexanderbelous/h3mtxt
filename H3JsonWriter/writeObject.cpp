@@ -179,6 +179,11 @@ namespace Medea_NS
     if (hero.portrait)
     {
       out.writeField(Fields::kPortrait, *hero.portrait);
+      if (std::string_view enum_str = h3m::getEnumString(*hero.portrait); !enum_str.empty())
+      {
+        out.writeComma();
+        out.writeComment(enum_str, false);
+      }
     }
     if (hero.secondary_skills)
     {
