@@ -23,6 +23,23 @@ namespace h3m
     // Difficulty level.
     MapDifficulty difficulty {};
     // Maximum allowed level for all heroes. 0 means to limit.
+    //
+    // For "normal" levels (max_hero_level <= 74) this behaves as expected:
+    // e.g., if max_hero_level == 20, heroes will not be able to go above level 20.
+    //
+    // For "nonstandard" levels (e.g., 88, 100, 108 and 868) it's trickier, but a solution exists
+    // (credits to RoseKavalier):
+    // +----------------+------------------+
+    // | max_hero_level | Actual level cap |
+    // +----------------+------------------+
+    // | 75             | 88               |
+    // | 89             | 100              |
+    // | 101            | 108              |
+    // | 109            | 868              |
+    // | 171            | 108              |
+    // | 187            | 108              |
+    // | 247            | 108              |
+    // +----------------+------------------+
     std::uint8_t max_hero_level {};
   };
 
