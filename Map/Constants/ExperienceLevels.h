@@ -6,6 +6,21 @@
 namespace h3m
 {
   // Provides experience points for each hero level.
+  //
+  // * Levels [1; 74] are "normal": their experience points fit into [0; 2147483647].
+  // * Levels [75; 6424] are "abnormal": their experience points don't fit into [0; 2147483647].
+  //   However, the game uses modulo arithmetic, so there are a few "stable" levels whose experience
+  //   points, when converted to int32_t, fit into [0; 2147483647] and are greater than the experience
+  //   points for all previous levels. Specifically, these are:
+  //     [75; 88], [89; 100], [101; 108], [109; 868], [869; 3732], [3733; 5920], [5921; 6424].
+  //   75 is technically "normal", but I'm listing it here because when a hero advances to level 75
+  //   they will immediately advance to level 88, which is "abnormal".
+  // * Level 0 has well-defined behavior in the game, but it's basically a dead end.
+  //
+  // Levels greater than 6424 seem to be to impossible to achieve without modding or savegame editing:
+  // in theory, experience points >= 2147400657 represent level 6425, but the game freezes if you try to
+  // set such values as hero's experience (probably goes into an infinite loop trying to find the next
+  // stable level, but there are no other stable levels in [6426; 65535].
   struct ExperienceLevels
   {
     // Hard-coded values for levels [0; 12].
@@ -27,21 +42,9 @@ namespace h3m
               20'600,  // Level 12
     };
 
-    // Levels after 75 are weird: the experience points don't fit into int32_t, but the game
-    // uses modular arithmetic, so there are a few "stable" levels.
-    static constexpr std::int32_t kLevel88   =  1'810'034'207;
-    static constexpr std::int32_t kLevel100  =  2'073'739'175;
-    static constexpr std::int32_t kLevel108  =  2'099'639'276;
-    static constexpr std::int32_t kLevel868  =  2'144'641'867;
-    static constexpr std::int32_t kLevel3732 =  2'146'553'679;
-    static constexpr std::int32_t kLevel5920 =  2'146'673'313;
-    static constexpr std::int32_t kLevel6424 =  2'147'293'156;
-
     // Calculates the experience needed to achieve the specified level.
     // \param level - hero level.
     // \return hero experience needed to achieve level @level.
-    //         Note that most values > 74 are unstable in the game. Stable levels are
-    //         {0-75, 88, 100, 108, 868, 3732, 5920, 6424}.
     static constexpr std::int32_t getExperienceForLevel(std::uint16_t level) noexcept;
   };
 
@@ -54,7 +57,7 @@ namespace h3m
     //   f(N) = f(N-1) + floor((f(N-1) - f(N-2)) * 1.2),
     // i.e. the difference (in experience points) is multiplied by 1.2 for each level.
     //
-    // This works fine until level 75 where f(75) overflows int32_t. In C++ signed integer overflow is UB,
+    // This works fine until level 76 where f(76) overflows int32_t. In C++ signed integer overflow is UB,
     // but HoMM3 uses modulo arithmetic. This function reproduces the behavior in HoMM3 by using uint32_t
     // instead of int32_t for internal calculations.
     //
@@ -76,24 +79,15 @@ namespace h3m
     {
       return kHardcodedLevels[level];
     }
-    // Special case for non-standard "stable" levels.
-    // TODO: this should be in the formula below, but it doesn't match for some reason.
-    switch (level)
-    {
-      case 88:   return kLevel88;
-      case 100:  return kLevel100;
-      case 108:  return kLevel108;
-      case 868:  return kLevel868;
-      case 3732: return kLevel3732;
-      case 5920: return kLevel5920;
-      case 6424: return kLevel6424;
-      default:
-        break;
-    }
     // Experience needed to achieve level 12.
     std::int32_t experience = ExperienceLevels::kHardcodedLevels[12];
     // Difference (in experience points) between level 12 and level 11.
     std::int32_t exp_diff_prev = ExperienceLevels::kHardcodedLevels[12] - ExperienceLevels::kHardcodedLevels[11];
+    // For "abnormal" levels: keep track of the highest encountered experience threshold.
+    std::int32_t highest_experience = 0;
+    // TODO: while it's cool that this formula covers all supported levels, it would be inefficient to
+    // do 6412 iterations to compute getExperienceForLevel(6246). As an optimization, consider handling all
+    // abnormal levels outside the loop.
     for (std::uint16_t i = 12; i < level; ++i)
     {
       const std::uint32_t experience_prev_unsigned = static_cast<std::uint32_t>(experience);
@@ -101,14 +95,18 @@ namespace h3m
       // This is basically exp_diff_prev * 1.2, but overflow must be handled carefully.
       const std::uint32_t exp_diff_unsigned =
         static_cast<std::uint32_t>(exp_diff_prev) + static_cast<std::uint32_t>(exp_diff_prev / 5);
-      const std::uint32_t experience_unsigned = experience_prev_unsigned + exp_diff_unsigned;
       // Update experience to store f(i+1).
-      experience = static_cast<std::int32_t>(experience_unsigned);
+      experience = static_cast<std::int32_t>(experience_prev_unsigned + exp_diff_unsigned);
+      // Update highest_experience if needed.
+      if (experience > highest_experience)
+      {
+        highest_experience = experience;
+      }
       // Update exp_diff_prev to store f(i+1) - f(i).
       // This is equivalent to static_cast<std::int32_t>(experience_unsigned - experience_prev_unsigned).
       exp_diff_prev = static_cast<std::int32_t>(exp_diff_unsigned);
     }
-    return experience;
+    return highest_experience;
   }
 
   // Level  Exp[N] uint32   Exp[N] int32     Diff[N]=Exp[N]-Exp[N-1]   Diff[N]*1.2 uint32   Diff[N]*1.2 int32
@@ -185,13 +183,24 @@ namespace h3m
   static_assert(ExperienceLevels::getExperienceForLevel(73) == 1'256'968'851);
   static_assert(ExperienceLevels::getExperienceForLevel(74) == 1'508'362'195);
   // Nonstandard levels.
-  static_assert(ExperienceLevels::getExperienceForLevel(75) ==  1'810'034'207);
-  static_assert(ExperienceLevels::getExperienceForLevel(76) == -2'122'926'675);
-  static_assert(ExperienceLevels::getExperienceForLevel(77) == -1'688'518'979);
-  static_assert(ExperienceLevels::getExperienceForLevel(78) == -1'167'229'744);
-  static_assert(ExperienceLevels::getExperienceForLevel(79) ==   -541'682'662);
-  static_assert(ExperienceLevels::getExperienceForLevel(80) ==    208'973'836);
-  static_assert(ExperienceLevels::getExperienceForLevel(85) == -1'677'658'290);
-  static_assert(ExperienceLevels::getExperienceForLevel(86) ==    563'789'998);
-  static_assert(ExperienceLevels::getExperienceForLevel(87) == -1'900'432'811);
+  static_assert(ExperienceLevels::getExperienceForLevel(75) ==   1'810'034'207);
+  static_assert(ExperienceLevels::getExperienceForLevel(88) ==   1'810'034'207);
+  static_assert(ExperienceLevels::getExperienceForLevel(100) ==  2'073'739'175);
+  static_assert(ExperienceLevels::getExperienceForLevel(108) ==  2'099'639'276);
+  static_assert(ExperienceLevels::getExperienceForLevel(868) ==  2'144'641'867);
+  static_assert(ExperienceLevels::getExperienceForLevel(3732) == 2'146'553'679);
+  static_assert(ExperienceLevels::getExperienceForLevel(5920) == 2'146'673'313);
+  static_assert(ExperienceLevels::getExperienceForLevel(6424) == 2'147'293'156);
+
+  // Disregard, this is out of date.
+  // These values are not for levels but for the experience thresholds yielded by MapBasicInfo::max_hero_level.
+  // TODO: move elsewhere or remove altogether.
+  //static_assert(ExperienceLevels::getExperienceForLevel(76) == -2'122'926'675);
+  //static_assert(ExperienceLevels::getExperienceForLevel(77) == -1'688'518'979);
+  //static_assert(ExperienceLevels::getExperienceForLevel(78) == -1'167'229'744);
+  //static_assert(ExperienceLevels::getExperienceForLevel(79) ==   -541'682'662);
+  //static_assert(ExperienceLevels::getExperienceForLevel(80) ==    208'973'836);
+  //static_assert(ExperienceLevels::getExperienceForLevel(85) == -1'677'658'290);
+  //static_assert(ExperienceLevels::getExperienceForLevel(86) ==    563'789'998);
+  //static_assert(ExperienceLevels::getExperienceForLevel(87) == -1'900'432'811);
 }
