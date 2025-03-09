@@ -18,24 +18,10 @@
 // we need to convert the difference to int32_t before dividing it by 5, and then convert the result back
 // to uint32_t.
 //
-// Level  Exp[N] uint32   Exp[N] int32     Diff[N]=Exp[N]-Exp[N-1]   Diff[N]*1.2 uint32   Diff[N]*1.2 int32
-//
-// 73:    1'256'968'851                    209'494'454               251'393'344.8
-// 74:    1'508'362'195                    251'393'344               301'672'012.8
-// 75:    1'810'034'207                    301'672'012               362'006'414.4
-// 76:    2'172'040'621   -2'122'926'675   362'006'414               434'407'696.8
-// 77:    2'606'448'317   -1'688'518'979   434'407'696               521'289'235.2
-// 86:    563'789'998
-// 87:    2'394'534'485   -1'900'432'811   1'830'744'487             2'196'893'384.4      -2'098'073'912
-// 88:    ?
-//
-// FYI: an approximation can be calculated much faster.
-// After level 11 the formula is approximately:
-//     f(N+1) = f(N)*1.2 - 400,
-// i.e.
-//     f(11+N) = 15500*(1.2^N) + 2000  (proof by mathematical induction).
-// The error grows with the level. It's relatively small for levels [12; 74]:
-// f(74) returns 1,509,213,824, which is close enough to 1,508,362,195.
+// FYI: without floor() the formula above could be simplified to
+//   g(N) = 15500 * 1.2^(N-11) + 2000,  N >= 11  (proof by mathematical induction).
+// However, the error in this approximation grows with the level: e.g.,
+// g(74) returns 1,509,213,824, but in reality the experience for level 74 is 1,508,362,195.
 namespace h3m
 {
   namespace Detail_NS
@@ -63,13 +49,19 @@ namespace h3m
   // Calculates the experience needed to achieve the specified level.
   //
   // * Levels [1; 74] are "normal": their experience points fit into [0; 2147483647].
-  // * Levels [75; 6424] are "abnormal": their experience points don't fit into [0; 2147483647].
-  //   However, the game uses modulo arithmetic, so there are a few "stable" levels whose experience
-  //   points, when converted to int32_t, fit into [0; 2147483647] and are greater than the experience
-  //   points for all previous levels. Specifically, these are: 88, 100, 108, 868, 3732, 5920, 6424.
-  //
-  //   75 is technically "normal", but I'm listing it here because when a hero advances to level 75
-  //   they will immediately advance to level 88, which is "abnormal".
+  // * Levels [76; 6424] are "abnormal": their experience points don't fit into [0; 2147483647].
+  //   The game treats overflow in an interesting way: it uses modulo arithmetic, and the
+  //   actual formula is
+  //     experience(N) = max(f(i), 0 <= i <= N)
+  //   As a consequence, these levels have the same experience points:
+  //     [75; 88]
+  //     [89; 100]
+  //     [101; 108]
+  //     [109; 868]
+  //     [869; 3732]
+  //     [3733; 5920]
+  //     [5921; 6424]
+  //   Because of this, levels 88, 100, 108, 868, 3732, 5920, 6424 are considered "stable", and the rest are not.
   // * Level 0 has well-defined behavior in the game, but it's basically a dead end.
   //
   // Levels greater than 6424 seem to be to impossible to achieve without modding or savegame editing:
