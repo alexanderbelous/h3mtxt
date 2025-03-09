@@ -108,6 +108,48 @@ namespace h3m
     return highest_experience;
   }
 
+  // Finds the hero level corresponding to the given experience points.
+  // \param experience - experience points.
+  // \return hero level corresponding to @experience,
+  //         or 65535 if experience >= 2,147,400,657 (such values cannot be used in the game).
+  constexpr std::uint16_t getLevelForExperience(const std::int32_t experience) noexcept
+  {
+    // FYI: this can be done faster with binary search, but it would require hard-coding or precomputing an array.
+
+    // Special case for levels [0; 11].
+    if (experience < Detail_NS::kExperienceForLevel[12])
+    {
+      for (std::uint16_t level = 0; level < 11; ++level)
+      {
+        if (experience < Detail_NS::kExperienceForLevel[level + 1])
+        {
+          return level;
+        }
+      }
+    }
+    // f(i) = experience needed to achieve level i; i == 12 initially.
+    std::int32_t exp = Detail_NS::kExperienceForLevel[12];
+    // diff(i) = f(i) - f(i-1); i == 12 initially.
+    std::int32_t exp_diff = Detail_NS::kExperienceForLevel[12] - Detail_NS::kExperienceForLevel[11];
+    for (std::uint16_t i = 12; i < 6425; ++i)
+    {
+      // Update `exp_diff` to store diff(i+1) = f(i+1) - f(i).
+      // This is basically multiplying by 1.2, but overflow must be handled carefully.
+      exp_diff = static_cast<std::int32_t>(
+        static_cast<std::uint32_t>(exp_diff) + static_cast<std::uint32_t>(exp_diff / 5));
+      // Update `exp` to store f(i+1).
+      exp = static_cast<std::int32_t>(
+        static_cast<std::uint32_t>(exp) + static_cast<std::uint32_t>(exp_diff));
+      // Break if f(i+1) > `experience`.
+      if (exp > experience)
+      {
+        return i;
+      }
+    }
+    // Degenerate case: experience >= 2,147,400,657.
+    return 65535;
+  }
+
   static_assert(getExperienceForLevel(13)   ==        24'320);
   static_assert(getExperienceForLevel(14)   ==        28'784);
   static_assert(getExperienceForLevel(15)   ==        34'140);
@@ -179,6 +221,23 @@ namespace h3m
   static_assert(getExperienceForLevel(3732) == 2'146'553'679);
   static_assert(getExperienceForLevel(5920) == 2'146'673'313);
   static_assert(getExperienceForLevel(6424) == 2'147'293'156);
+
+  static_assert(getLevelForExperience(-2'147'483'648) ==     0);
+  static_assert(getLevelForExperience(            -1) ==     0);
+  static_assert(getLevelForExperience(             0) ==     1);
+  static_assert(getLevelForExperience(           500) ==     1);
+  static_assert(getLevelForExperience(          1000) ==     2);
+  static_assert(getLevelForExperience( 1'508'362'195) ==    74);
+  static_assert(getLevelForExperience( 1'810'034'206) ==    74);
+  static_assert(getLevelForExperience( 1'810'034'207) ==    88);
+  static_assert(getLevelForExperience( 2'073'739'175) ==   100);
+  static_assert(getLevelForExperience( 2'099'639'276) ==   108);
+  static_assert(getLevelForExperience( 2'144'641'867) ==   868);
+  static_assert(getLevelForExperience( 2'146'553'679) ==  3732);
+  static_assert(getLevelForExperience( 2'146'673'313) ==  5920);
+  static_assert(getLevelForExperience( 2'147'293'155) ==  5920);
+  static_assert(getLevelForExperience( 2'147'293'156) ==  6424);
+  static_assert(getLevelForExperience( 2'147'400'657) == 65535);
 
   // Disregard: these values are not for levels but for
   // the experience thresholds yielded by MapBasicInfo::max_hero_level.

@@ -2,6 +2,7 @@
 #include <h3mtxt/H3JsonWriter/H3JsonWriter.h>
 #include <h3mtxt/H3JsonWriter/Utils.h>
 #include <h3mtxt/JsonCommon/FieldName.h>
+#include <h3mtxt/Map/Constants/ExperienceLevels.h>
 #include <h3mtxt/Map/MapAdditionalInfo.h>
 
 namespace Medea_NS
@@ -67,6 +68,8 @@ namespace Medea_NS
     if (value.experience)
     {
       out.writeField(Fields::kExperience, *value.experience);
+      out.writeComma();
+      out.writeComment("Level " + std::to_string(h3m::getLevelForExperience(*value.experience)), false);
     }
     if (value.secondary_skills)
     {

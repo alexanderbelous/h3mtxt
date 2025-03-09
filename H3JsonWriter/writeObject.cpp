@@ -4,6 +4,7 @@
 #include <h3mtxt/H3JsonWriter/Utils.h>
 #include <h3mtxt/H3JsonWriter/writeObjectProperties.h>
 #include <h3mtxt/JsonCommon/FieldName.h>
+#include <h3mtxt/Map/Constants/ExperienceLevels.h>
 #include <h3mtxt/Map/Object.h>
 #include <h3mtxt/Map/ObjectTemplate.h>
 
@@ -175,6 +176,8 @@ namespace Medea_NS
     if (hero.experience)
     {
       out.writeField(Fields::kExperience, *hero.experience);
+      out.writeComma();
+      out.writeComment("Level " + std::to_string(h3m::getLevelForExperience(*hero.experience)), false);
     }
     if (hero.portrait)
     {
