@@ -27,7 +27,7 @@ namespace h3m
     // For "normal" levels (max_hero_level <= 74) this behaves as expected:
     // e.g., if max_hero_level == 20, heroes will not be able to go above level 20.
     //
-    // For "nonstandard" levels (e.g., 88, 100, 108 and 868) it's trickier, but a solution exists
+    // For some "abnormal" levels (88, 100, 108 and 868) it's trickier, but a solution exists
     // (credits to RoseKavalier):
     // +----------------+------------------+
     // | max_hero_level | Actual level cap |

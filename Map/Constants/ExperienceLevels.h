@@ -10,10 +10,10 @@
 // http://heroescommunity.com/viewthread.php3?TID=42328&PID=1375711#focus
 //
 // This works fine until level 76 where f(76) overflows int32_t. In C++ signed integer overflow is UB,
-// but HoMM3 uses modulo arithmetic. This function reproduces the behavior in HoMM3 by using uint32_t
+// but HoMM3 uses modular arithmetic. This function reproduces the behavior in HoMM3 by using uint32_t
 // instead of int32_t for internal calculations.
 //
-// Then things get even hackier at level 87 because f(N-1) - f(N-2) overflows. Note that we cannot simply
+// Then, things get even hackier at level 87 because f(N-1) - f(N-2) overflows. Note that we cannot simply
 // treat f(N-1) - f(N-2) as an unsigned integer - multiplication by 1.2 is done via integer division, so
 // we need to convert the difference to int32_t before dividing it by 5, and then convert the result back
 // to uint32_t.
@@ -26,7 +26,7 @@
 // * Level 0 has well-defined behavior in the game, but it's basically a dead end.
 // * Levels [1; 74] are "normal": their experience points fit into [0; 2147483647].
 // * Levels after 75 are "abnormal": their experience points don't fit into [0; 2147483647].
-//   The game treats overflow in an interesting way: it uses modulo arithmetic, and the
+//   The game treats overflow in an interesting way: it uses modular arithmetic, and the
 //   actual formula is
 //     experience(N) = max(f(i), 0 <= i <= N)
 //   As a consequence, these levels have the same experience points:
