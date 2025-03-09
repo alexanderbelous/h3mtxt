@@ -117,7 +117,7 @@ namespace h3m
     // Special case for levels [0; 11].
     if (experience < Detail_NS::kExperienceForLevel[12])
     {
-      for (std::uint16_t level = 0; level < 11; ++level)
+      for (std::uint16_t level = 0; level < 12; ++level)
       {
         if (experience < Detail_NS::kExperienceForLevel[level + 1])
         {
@@ -225,6 +225,11 @@ namespace h3m
   static_assert(getLevelForExperience(             0) ==     1);
   static_assert(getLevelForExperience(           500) ==     1);
   static_assert(getLevelForExperience(          1000) ==     2);
+  static_assert(getLevelForExperience(        17'500) ==    11);
+  static_assert(getLevelForExperience(        20'599) ==    11);
+  static_assert(getLevelForExperience(        20'600) ==    12);
+  static_assert(getLevelForExperience(        24'319) ==    12);
+  static_assert(getLevelForExperience(        24'320) ==    13);
   static_assert(getLevelForExperience( 1'508'362'195) ==    74);
   static_assert(getLevelForExperience( 1'810'034'206) ==    74);
   static_assert(getLevelForExperience( 1'810'034'207) ==    88);
