@@ -240,6 +240,7 @@ namespace h3m
   static_assert(getLevelForExperience( 2'146'673'313) ==  5920);
   static_assert(getLevelForExperience( 2'147'293'155) ==  5920);
   static_assert(getLevelForExperience( 2'147'293'156) ==  6424);
+  static_assert(getLevelForExperience( 2'147'400'656) ==  6424);
   static_assert(getLevelForExperience( 2'147'400'657) == 65535);
 
   // Disregard: these values are not for levels but for
