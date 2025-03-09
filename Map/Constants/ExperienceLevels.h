@@ -86,9 +86,7 @@ namespace h3m
     std::int32_t exp_diff = Detail_NS::kExperienceForLevel[12] - Detail_NS::kExperienceForLevel[11];
     // For "abnormal" levels: keep track of the highest encountered experience threshold.
     std::int32_t highest_experience = 0;
-    // TODO: while it's cool that this formula covers all supported levels, it is somewhat inefficient to
-    // do 6412 iterations to compute getExperienceForLevel(6424). As an optimization, consider handling all
-    // abnormal levels outside the loop.
+    // FYI: this can be done faster for "abnormal" levels, but it would require hard-coding or precomputing them.
     for (std::uint32_t i = 12; i < level; ++i)
     {
       // Update `exp_diff` to store diff(i+1) = f(i+1) - f(i).
