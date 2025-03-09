@@ -64,10 +64,13 @@ namespace h3m
   //     [5921; 6424]
   //   Because of this, levels 88, 100, 108, 868, 3732, 5920, 6424 are considered "stable", and the rest are not.
   //
-  //   Levels greater than 6424 seem to be to impossible to achieve without modding or savegame editing:
-  //   in theory, experience points >= 2,147,400,657 represent level 6425, but the game freezes if you try to
-  //   set such values as hero's experience (probably goes into an infinite loop trying to find the next
-  //   "stable" level, but there are no other "stable" levels in [6426; 65535].
+  //   Levels greater than 6424 seem to be to impossible to achieve without modding or savegame editing.
+  //   In theory, there are a few more "stable" levels after 6424:
+  //     [6425;  72924] with experience = 2,147,400,657
+  //     [72925; 78666] with experience = 2,147,418,494
+  //     [78667; ?]     with experience = 2,147,436,852
+  //   However, the game freezes if you try to set such values as hero's experience. I suspect that it goes into an
+  //   infinite loop trying to find the next "stable" level, but uses a 16-bit integer for the level.
   //
   // \param level - hero level.
   // \return hero experience needed to achieve level @level.
