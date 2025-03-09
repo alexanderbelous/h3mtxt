@@ -43,9 +43,12 @@
 //   In theory, there are a few more "stable" levels after 6424:
 //     [6425;  72924] with experience = 2,147,400,657
 //     [72925; 78666] with experience = 2,147,418,494
-//     [78667; ?]     with experience = 2,147,436,852
-//   However, the game freezes if you try to set such values as hero's experience. I suspect that it goes into an
-//   infinite loop trying to find the next "stable" level but using a 16-bit integer for the level.
+//     [78667; +inf)  with experience = 2,147,436,852
+//   All levels >= 78667 have the same experience because there is a loop in f(N):
+//     f(78667) = f(167483) = f(256299) = f(345115) = ...
+//   However, the game freezes if you try to set the a value >= 2,147,400,657 as the hero's experience.
+//   I suspect that it goes into an infinite loop trying to find the next "stable" level
+//   but using a 16-bit integer for the level.
 namespace h3m
 {
   namespace Detail_NS
