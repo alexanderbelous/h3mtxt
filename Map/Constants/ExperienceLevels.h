@@ -22,6 +22,30 @@
 //   g(N) = 15500 * 1.2^(N-11) + 2000,  N >= 11  (proof by mathematical induction).
 // However, the error in this approximation grows with the level: e.g.,
 // g(74) returns 1,509,213,824, but in reality the experience for level 74 is 1,508,362,195.
+//
+// * Level 0 has well-defined behavior in the game, but it's basically a dead end.
+// * Levels [1; 74] are "normal": their experience points fit into [0; 2147483647].
+// * Levels after 75 are "abnormal": their experience points don't fit into [0; 2147483647].
+//   The game treats overflow in an interesting way: it uses modulo arithmetic, and the
+//   actual formula is
+//     experience(N) = max(f(i), 0 <= i <= N)
+//   As a consequence, these levels have the same experience points:
+//     [  75;   88] with experience = 1,810,034,207
+//     [  89;  100] with experience = 2,073,739,175
+//     [ 101;  108] with experience = 2,099,639,276
+//     [ 109;  868] with experience = 2,144,641,867
+//     [ 869; 3732] with experience = 2,146,553,679
+//     [3733; 5920] with experience = 2,146,673,313
+//     [5921; 6424] with experience = 2,147,293,156
+//   Because of this, levels 88, 100, 108, 868, 3732, 5920, 6424 are considered "stable", and the rest are not.
+//
+// * Levels greater than 6424 seem to be to impossible to achieve without modding or savegame editing.
+//   In theory, there are a few more "stable" levels after 6424:
+//     [6425;  72924] with experience = 2,147,400,657
+//     [72925; 78666] with experience = 2,147,418,494
+//     [78667; ?]     with experience = 2,147,436,852
+//   However, the game freezes if you try to set such values as hero's experience. I suspect that it goes into an
+//   infinite loop trying to find the next "stable" level but using a 16-bit integer for the level.
 namespace h3m
 {
   namespace Detail_NS
@@ -47,31 +71,6 @@ namespace h3m
   }
 
   // Calculates the experience needed to achieve the specified level.
-  //
-  // * Level 0 has a well-defined behavior in the game, but it's basically a dead end.
-  // * Levels [1; 74] are "normal": their experience points fit into [0; 2147483647].
-  // * Levels after 75 are "abnormal": their experience points don't fit into [0; 2147483647].
-  //   The game treats overflow in an interesting way: it uses modulo arithmetic, and the
-  //   actual formula is
-  //     experience(N) = max(f(i), 0 <= i <= N)
-  //   As a consequence, these levels have the same experience points:
-  //     [75; 88]
-  //     [89; 100]
-  //     [101; 108]
-  //     [109; 868]
-  //     [869; 3732]
-  //     [3733; 5920]
-  //     [5921; 6424]
-  //   Because of this, levels 88, 100, 108, 868, 3732, 5920, 6424 are considered "stable", and the rest are not.
-  //
-  //   Levels greater than 6424 seem to be to impossible to achieve without modding or savegame editing.
-  //   In theory, there are a few more "stable" levels after 6424:
-  //     [6425;  72924] with experience = 2,147,400,657
-  //     [72925; 78666] with experience = 2,147,418,494
-  //     [78667; ?]     with experience = 2,147,436,852
-  //   However, the game freezes if you try to set such values as hero's experience. I suspect that it goes into an
-  //   infinite loop trying to find the next "stable" level, but uses a 16-bit integer for the level.
-  //
   // \param level - hero level.
   // \return hero experience needed to achieve level @level.
   constexpr std::int32_t getExperienceForLevel(std::uint16_t level) noexcept
