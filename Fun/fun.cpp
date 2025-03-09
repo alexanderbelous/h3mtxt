@@ -125,7 +125,9 @@ namespace
     constexpr h3m::PlayerColor player1 = h3m::PlayerColor::Red;
     constexpr h3m::PlayerColor player2 = h3m::PlayerColor::Blue;
     constexpr h3m::HeroType hero1 = h3m::HeroType::ORRIN;
+    constexpr std::uint32_t hero_class1 = 0; // Knight
     constexpr h3m::HeroType hero2 = h3m::HeroType::XERON;
+    constexpr std::uint32_t hero_class2 = 6; // Demoniac
 
     h3m::Map map = generateTestMap(kMapSize);
     map.basic_info.is_playable = true;
@@ -136,24 +138,13 @@ namespace
 
     h3m::drawCarpet(map, h3m::TerrainType::Lava, 30, 1);
 
-    constexpr std::uint32_t kHeroTemplateIdx = 0;
-    constexpr std::uint32_t kSpellScrollTemplateIdx = 1;
-    constexpr std::uint32_t kPandorasBoxTemplateIdx = 2;
     // Add heroes.
-    map.objects_templates.push_back(h3m::ObjectTemplate{
-      .def = "ah00_e.def",
-      .passability {255, 255, 255, 255, 255, 191},
-      .actionability {0, 0, 0, 0, 0, 64},
-      .object_class = h3m::ObjectClass::HERO,
-      .object_subclass = 0,
-      .object_group = h3m::ObjectGroup::Hero,
-      .is_ground = 0
-      });
+    map.objects_templates.push_back(h3m::makeStandardObjectTemplate(h3m::ObjectClass::HERO, hero_class1));
     map.objects.push_back(h3m::Object{
       .x = 1,
       .y = 0,
       .z = 0,
-      .template_idx = kHeroTemplateIdx,
+      .template_idx = static_cast<std::uint32_t>(map.objects_templates.size() - 1),
       .properties = h3m::ObjectProperties<h3m::MetaObjectType::HERO> {
         .absod_id = 69,
         .owner = h3m::PlayerColor::Red,
@@ -182,11 +173,12 @@ namespace
         }
       }
     });
+    map.objects_templates.push_back(h3m::makeStandardObjectTemplate(h3m::ObjectClass::HERO, hero_class2));
     map.objects.push_back(h3m::Object{
       .x = 10,
       .y = 10,
       .z = 0,
-      .template_idx = kHeroTemplateIdx,
+      .template_idx = static_cast<std::uint32_t>(map.objects_templates.size() - 1),
       .properties = h3m::ObjectProperties<h3m::MetaObjectType::HERO> {
         .absod_id = 666,
         .owner = h3m::PlayerColor::Blue,
@@ -212,7 +204,7 @@ namespace
       .x = 2,
       .y = 2,
       .z = 0,
-      .template_idx = kSpellScrollTemplateIdx,
+      .template_idx = static_cast<std::uint32_t>(map.objects_templates.size() - 1),
       .properties = h3m::ObjectProperties<h3m::MetaObjectType::SPELL_SCROLL> {
         .spell = h3m::SpellType::SLOW
       }
@@ -223,7 +215,7 @@ namespace
       .x = 2,
       .y = 3,
       .z = 0,
-      .template_idx = kPandorasBoxTemplateIdx,
+      .template_idx = static_cast<std::uint32_t>(map.objects_templates.size() - 1),
       .properties = h3m::ObjectProperties<h3m::MetaObjectType::PANDORAS_BOX> {
         h3m::EventBase {
           .secondary_skills {
