@@ -24,7 +24,8 @@ namespace h3m
   template<>
   struct QuestDetails<QuestType::Level>
   {
-    std::uint32_t level {};
+    // The Map Editor only allows values from [1; 99], but any signed 32-bit integer can be used here.
+    std::int32_t level {};
   };
 
   template<>

@@ -26,7 +26,7 @@ namespace h3m::H3Reader_NS
     QuestDetails<QuestType::Level> readQuestDetails<QuestType::Level>(std::istream& stream)
     {
       QuestDetails<QuestType::Level> details;
-      details.level = readInt<std::uint32_t>(stream);
+      details.level = readInt<std::int32_t>(stream);
       return details;
     }
 
