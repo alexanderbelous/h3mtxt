@@ -102,6 +102,7 @@ namespace h3m::H3Writer_NS
     void operator()(std::ostream& stream, const ObjectProperties<MetaObjectType::GRAIL>& grail) const
     {
       writeData(stream, grail.allowable_radius);
+      writeData(stream, grail.unknown);
     }
   };
 

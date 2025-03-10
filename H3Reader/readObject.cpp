@@ -146,7 +146,8 @@ namespace h3m::H3Reader_NS
     readObjectProperties<MetaObjectType::GRAIL>(std::istream& stream)
     {
       ObjectProperties<MetaObjectType::GRAIL> data;
-      data.allowable_radius = readInt<std::uint32_t>(stream);
+      data.allowable_radius = readInt<std::uint8_t>(stream);
+      data.unknown = readReservedData<3>(stream);
       return data;
     }
 

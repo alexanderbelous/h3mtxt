@@ -123,7 +123,10 @@ namespace h3m
   template<>
   struct ObjectProperties<MetaObjectType::GRAIL>
   {
-    std::uint32_t allowable_radius {};
+    // The Map Editor only allows values from [0; 127], but any 8-bit integer can be used here.
+    // The Map Editor interprets it as int8_t, but the game interprets it as uint8_t: 0xFF means 255, not -1.
+    std::uint8_t allowable_radius {};
+    ReservedData<3> unknown;
   };
 
   // Additional info for ObjectClass::HERO, ObjectClass::RANDOM_HERO and ObjectClass::PRISON.

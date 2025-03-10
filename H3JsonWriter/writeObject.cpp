@@ -149,6 +149,7 @@ namespace Medea_NS
     using Details = h3m::ObjectProperties<h3m::MetaObjectType::GRAIL>;
     using Fields = h3m::FieldNames<Details>;
     out.writeField(Fields::kAllowableRadius, grail.allowable_radius);
+    out.writeField(Fields::kUnknown, grail.unknown);
   }
 
   void JsonObjectWriter<h3m::ObjectProperties<h3m::MetaObjectType::HERO>>::operator()(

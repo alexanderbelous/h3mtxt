@@ -577,6 +577,7 @@ namespace h3m
   struct FieldNames<ObjectProperties<MetaObjectType::GRAIL>>
   {
     static inline constexpr std::string_view kAllowableRadius = "allowable_radius";
+    static inline constexpr std::string_view kUnknown = "unknown";
   };
 
   template<>
