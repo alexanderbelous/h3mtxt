@@ -381,9 +381,14 @@ namespace h3m
   template<>
   struct ObjectProperties<MetaObjectType::WITCH_HUT>
   {
-    // If all skills are disabled, the Witch Hut will teach you a random globally enabled skill. If all
-    // skills are globablly disabled, the Witch Hut will not teach you anything
-    // (the game will say that "it has been deserted for some time").
+    // Normally, the Witch Hut grants you one of the enabled skills from `potential_skills` except those
+    // that are disabled globally (see MapAdditionalInfo::disabled_skills).
+    //
+    // Edge cases:
+    // 1) If all bits [0; 27] are set to 0 in `potential_skills`, the behavior is the same as if all skills
+    //    are enabled, i.e. the Witch Hut will teach you a random globally enabled skill.
+    // 2) If all enabled skills are disabled globally, the Witch Hut won't teach you anything
+    //    (the game will say that "it has been deserted for some time").
     SecondarySkillsBitmask potential_skills;
   };
 }
