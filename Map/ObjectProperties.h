@@ -168,7 +168,8 @@ namespace h3m
     std::optional<std::array<CreatureStack, 7>> creatures;
     Formation formation {};
     std::optional<HeroArtifacts> artifacts;
-    // 0xFF means no patrol.
+    // The Map Editor only allows values from [0; 10] or 0xFF (no patrol).
+    // TODO: check what other values do, especially the ones > 127.
     std::uint8_t patrol_radius {};
     std::optional<std::string> biography;
     Gender gender {};
@@ -186,7 +187,9 @@ namespace h3m
   struct ObjectProperties<MetaObjectType::MONSTER>
   {
     std::uint32_t absod_id {};
-    // 0 means random.
+    // The Map Editor only allows values from [0; 4000] (0 means random), but any 16-bit integer can be used here.
+    // However, in the game the number of creatures will be initialized with count % 4096 (4096 also means random),
+    // so values > 4095 are somewhat useless.
     std::uint16_t count {};
     Disposition disposition {};
     std::optional<MessageAndTreasure> message_and_treasure;
