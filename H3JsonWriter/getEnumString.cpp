@@ -1055,7 +1055,7 @@ namespace h3m
       "Protection from Fire",
       "Protection from Water",
       "Protection from Earth",
-      "Anti Magic",
+      "Anti-Magic",
       "Dispel",
       "Magic Mirror",
       "Cure",

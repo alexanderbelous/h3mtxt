@@ -876,6 +876,88 @@ namespace h3m
   };
 
   template<>
+  struct FieldNames<SpellsBitmask>
+  {
+    // The number of bits in SpellsBitmask.
+    static constexpr std::size_t kNumBits = Detail_NS::EnumBitmaskSize_v<SpellsBitmask> * 8;
+    // Name for each bit field in SpellsBitmask.
+    static inline constexpr std::array<std::string_view, kNumBits> kNames{
+      "summon_boat",
+      "scuttle_boat",
+      "visions",
+      "view_earth",
+      "disguise",
+      "view_air",
+      "fly",
+      "water_walk",
+      "dimension_door",
+      "town_portal",
+      "quick_sand",
+      "land_mine",
+      "force_field",
+      "fire_wall",
+      "earthquake",
+      "magic_arrow",
+      "ice_bolt",
+      "lightning_bolt",
+      "implosion",
+      "chain_lightning",
+      "frost_ring",
+      "fireball",
+      "inferno",
+      "meteor_shower",
+      "death_ripple",
+      "destroy_undead",
+      "armageddon",
+      "shield",
+      "air_shield",
+      "fire_shield",
+      "protection_from_air",
+      "protection_from_fire",
+      "protection_from_water",
+      "protection_from_earth",
+      "anti_magic",
+      "dispel",
+      "magic_mirror",
+      "cure",
+      "resurrection",
+      "animate_dead",
+      "sacrifice",
+      "bless",
+      "curse",
+      "bloodlust",
+      "precision",
+      "weakness",
+      "stone_skin",
+      "disrupting_ray",
+      "prayer",
+      "mirth",
+      "sorrow",
+      "fortune",
+      "misfortune",
+      "haste",
+      "slow",
+      "slayer",
+      "frenzy",
+      "titans_lightning_bolt",
+      "counterstrike",
+      "berserk",
+      "hypnotize",
+      "forgetfulness",
+      "blind",
+      "teleport",
+      "remove_obstacle",
+      "clone",
+      "fire_elemental",
+      "earth_elemental",
+      "water_elemental",
+      "air_elemental",
+      "padding_70",
+      "padding_71"
+    };
+  };
+
+  template<>
   struct FieldNames<StartingHero>
   {
     static inline constexpr std::string_view kType = "type";

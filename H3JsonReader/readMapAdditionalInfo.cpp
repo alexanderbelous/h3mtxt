@@ -79,7 +79,7 @@ namespace h3m::H3JsonReader_NS
     readField(info.custom_heroes, value, Fields::kCustomHeroes);
     readField(info.reserved, value, Fields::kReserved);
     readField(info.disabled_artifacts, value, Fields::kDisabledArtifacts);
-    readField(info.disabled_spells.bitset, value, Fields::kDisabledSpells);
+    readField(info.disabled_spells, value, Fields::kDisabledSpells);
     readField(info.disabled_skills, value, Fields::kDisabledSkills);
     readField(info.rumors, value, Fields::kRumors);
     readField(info.heroes_settings, value, Fields::kHeroesSettings);

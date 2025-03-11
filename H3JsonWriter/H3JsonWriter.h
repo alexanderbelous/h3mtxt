@@ -91,8 +91,7 @@ namespace Medea_NS
                                                                  const h3m::SecondarySkillsBitmask& bitmask) const;
 
   template<>
-  void JsonValueWriter<h3m::SpellsBitmask>::operator()(JsonDocumentWriter& out,
-                                                       const h3m::SpellsBitmask& bitmask) const;
+  void JsonObjectWriter<h3m::SpellsBitmask>::operator()(FieldsWriter& out, const h3m::SpellsBitmask& bitmask) const;
 
   template<>
   void JsonObjectWriter<h3m::StartingHero>::operator()(FieldsWriter& out, const h3m::StartingHero& value) const;

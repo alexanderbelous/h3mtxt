@@ -6,8 +6,13 @@ namespace h3m::H3JsonReader_NS
 {
   SpellsBitmask JsonReader<SpellsBitmask>::operator()(const Json::Value& value) const
   {
-    SpellsBitmask spells_bitmask;
-    spells_bitmask.bitset = fromJson<BitSet<9>>(value);
-    return spells_bitmask;
+    using Fields = FieldNames<SpellsBitmask>;
+    static_assert(Fields::kNames.size() == SpellsBitmask::kNumBits);
+    SpellsBitmask bitmask;
+    for (std::size_t i = 0; i < bitmask.bitset.kNumBits; ++i)
+    {
+      bitmask.bitset.set(i, readField<bool>(value, Fields::kNames[i]));
+    }
+    return bitmask;
   }
 }
