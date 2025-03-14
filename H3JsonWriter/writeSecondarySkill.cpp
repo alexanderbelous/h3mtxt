@@ -19,7 +19,6 @@ namespace Medea_NS
     out.writeField(Fields::kLevel, skill.level);
     if (std::string_view enum_str = h3m::getSecondarySkillLevelString(skill.type, skill.level); !enum_str.empty())
     {
-      out.writeComma();
       out.writeComment(enum_str, false);
     }
   }
