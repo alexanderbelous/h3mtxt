@@ -15,7 +15,7 @@ namespace h3m
   //
   // * The hero won't be offered an opportunity to change the level of the secondary skill
   //   when gaining experience.
-  // * If the hero visits a Scholar that grants the same secondary skill, this skill will added
+  // * If the hero visits a Scholar or a University that grants the same secondary skill, this skill will added
   //   to the first free slot at Basic level. The slot that was originally occupied by the "hexed"
   //   skill (i.e. with the value outside [1; 3]) will contain junk after that.
   // * If the hero visits a Witch Hut / visits a Seer's Hut / triggers an Event / opens a Pandora's Box
@@ -26,7 +26,6 @@ namespace h3m
   //
   // By saying "will contain junk after that" I mean that the hero screen will display some nonsense instead
   // of the original skill (likely "Basic First Aid"); clicking on the details will cause the game to crash.
-  // TODO: check the behavior when getting the same secondary skill from University.
   template<SecondarySkillType T>
   struct SecondarySkillLevel;
 
