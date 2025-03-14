@@ -102,6 +102,9 @@
     <ClCompile Include="writeVictoryCondition.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="getSecondarySkillLevelString.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="writeH3mJson.h">
@@ -135,6 +138,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="CommentBuilder.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="getSecondarySkillLevelString.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

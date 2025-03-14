@@ -198,6 +198,4 @@ namespace h3m
     static constexpr std::uint8_t k60Percent = 0xF3;
     static constexpr std::uint8_t k60Percent2 = 0xEF;
   };
-
-  // TODO: add the rest.
 }
