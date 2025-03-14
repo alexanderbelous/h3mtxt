@@ -95,7 +95,6 @@ namespace h3m::H3Writer_NS
     void operator()(std::ostream& stream, const std::array<T, N>& values) const
     {
       // Optimization for std::uint8_t and std::int8_t.
-      // TODO: this can be used for enums whose underlying type is int8_t or uint8_t.
       if constexpr (std::is_same_v<T, std::uint8_t> || std::is_same_v<T, std::int8_t>)
       {
         Detail_NS::writeByteArrayImpl(stream, std::as_bytes(std::span{values}));
