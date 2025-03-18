@@ -15,7 +15,6 @@ namespace Medea_NS
                                                                               : h3m::getEnumString(artifact);
       if (!enum_str.empty())
       {
-        out.writeComma();
         out.writeComment(enum_str, false);
       }
     }

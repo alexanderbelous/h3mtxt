@@ -133,6 +133,10 @@ namespace Medea_NS
     using Details = h3m::ObjectProperties<h3m::MetaObjectType::GARRISON>;
     using Fields = h3m::FieldNames<Details>;
     out.writeField(Fields::kOwner, garrison.owner);
+    if (std::string_view enum_str = h3m::getEnumString(garrison.owner); !enum_str.empty())
+    {
+      out.writeComment(enum_str, false);
+    }
     out.writeField(Fields::kUnknown, garrison.unknown);
     out.writeField(Fields::kCreatures, garrison.creatures);
     out.writeField(Fields::kCanRemoveUnits, garrison.can_remove_units);
@@ -162,13 +166,11 @@ namespace Medea_NS
     out.writeField(Fields::kOwner, hero.owner);
     if (auto enum_str = h3m::getEnumString(hero.owner); !enum_str.empty())
     {
-      out.writeComma();
       out.writeComment(enum_str, false);
     }
     out.writeField(Fields::kType, hero.type);
     if (auto enum_str = h3m::getEnumString(hero.type); !enum_str.empty())
     {
-      out.writeComma();
       out.writeComment(enum_str, false);
     }
     if (hero.name)
@@ -178,7 +180,6 @@ namespace Medea_NS
     if (hero.experience)
     {
       out.writeField(Fields::kExperience, *hero.experience);
-      out.writeComma();
       out.writeComment("Level " + std::to_string(h3m::getLevelForExperience(*hero.experience)), false);
     }
     if (hero.portrait)
@@ -186,7 +187,6 @@ namespace Medea_NS
       out.writeField(Fields::kPortrait, *hero.portrait);
       if (std::string_view enum_str = h3m::getEnumString(*hero.portrait); !enum_str.empty())
       {
-        out.writeComma();
         out.writeComment(enum_str, false);
       }
     }
@@ -201,7 +201,6 @@ namespace Medea_NS
     out.writeField(Fields::kFormation, hero.formation);
     if (auto enum_str = h3m::getEnumString(hero.formation); !enum_str.empty())
     {
-      out.writeComma();
       out.writeComment(enum_str, false);
     }
     if (hero.artifacts)
@@ -216,7 +215,6 @@ namespace Medea_NS
     out.writeField(Fields::kGender, hero.gender);
     if (auto enum_str = h3m::getEnumString(hero.gender); !enum_str.empty())
     {
-      out.writeComma();
       out.writeComment(enum_str, false);
     }
     if (hero.spells)
@@ -241,7 +239,6 @@ namespace Medea_NS
     out.writeField(Fields::kDisposition, monster.disposition);
     if (auto enum_str = h3m::getEnumString(monster.disposition); !enum_str.empty())
     {
-      out.writeComma();
       out.writeComment(enum_str, false);
     }
     if (monster.message_and_treasure)
@@ -269,7 +266,6 @@ namespace Medea_NS
     out.writeField(Fields::kOwner, hero.owner);
     if (auto enum_str = h3m::getEnumString(hero.owner); !enum_str.empty())
     {
-      out.writeComma();
       out.writeComment(enum_str, false);
     }
     out.writeField(Fields::kType, hero.type);
@@ -346,7 +342,6 @@ namespace Medea_NS
     out.writeField(Fields::kRewardType, scholar.reward_type);
     if (std::string_view enum_str = h3m::getEnumString(scholar.reward_type); !enum_str.empty())
     {
-      out.writeComma();
       out.writeComment(enum_str, false);
     }
     out.writeField(Fields::kRewardValue, scholar.reward_value);
@@ -373,7 +368,6 @@ namespace Medea_NS
       "(Random)" : h3m::getEnumString(shrine.spell);
     if (!spell_str.empty())
     {
-      out.writeComma();
       out.writeComment(spell_str, false);
     }
     out.writeField(Fields::kUnknown, shrine.unknown);
@@ -400,7 +394,6 @@ namespace Medea_NS
     out.writeField(Fields::kSpell, spell_scroll.spell);
     if (std::string_view enum_str = h3m::getEnumString(spell_scroll.spell); !enum_str.empty())
     {
-      out.writeComma();
       out.writeComment(enum_str, false);
     }
     out.writeField(Fields::kUnknown, spell_scroll.unknown);
@@ -415,7 +408,6 @@ namespace Medea_NS
     out.writeField(Fields::kOwner, town.owner);
     if (std::string_view enum_str = h3m::getEnumString(town.owner); !enum_str.empty())
     {
-      out.writeComma();
       out.writeComment(enum_str, false);
     }
     if (town.name)
@@ -429,7 +421,6 @@ namespace Medea_NS
     out.writeField(Fields::kFormation, town.formation);
     if (auto enum_str = h3m::getEnumString(town.formation); !enum_str.empty())
     {
-      out.writeComma();
       out.writeComment(enum_str, false);
     }
     if (town.buildings)
@@ -455,7 +446,6 @@ namespace Medea_NS
     out.writeField(Fields::kOwner, details.owner);
     if (std::string_view enum_str = h3m::getEnumString(details.owner); !enum_str.empty())
     {
-      out.writeComma();
       out.writeComment(enum_str, false);
     }
     out.writeField(Fields::kUnknown, details.unknown);
@@ -518,7 +508,6 @@ namespace h3m::H3JsonWriter_NS
     out.writeField(Fields::kX, object.x);
     out.writeField(Fields::kY, object.y);
     out.writeField(Fields::kZ, object.z);
-    out.writeComma();
     out.writeComment(makeObjectTemplateComment(object_template));
     out.writeField(Fields::kTemplateIdx, object.template_idx);
     out.writeField(Fields::kUnknown, object.unknown);

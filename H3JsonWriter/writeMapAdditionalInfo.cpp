@@ -16,7 +16,6 @@ namespace Medea_NS
       out.writeField("type", value.type);
       if (auto enum_str = h3m::getEnumString(value.type); !enum_str.empty())
       {
-        out.writeComma();
         out.writeComment(enum_str, false);
       }
       out.writeField("portrait", value.portrait);
@@ -24,7 +23,6 @@ namespace Medea_NS
         (value.portrait == kDefaultPortrait) ? "(Default)" : h3m::getEnumString(value.portrait);
       if (!hero_portrait_str.empty())
       {
-        out.writeComma();
         out.writeComment(hero_portrait_str, false);
       }
       out.writeField("name", value.name);
@@ -68,7 +66,6 @@ namespace Medea_NS
     if (value.experience)
     {
       out.writeField(Fields::kExperience, *value.experience);
-      out.writeComma();
       out.writeComment("Level " + std::to_string(h3m::getLevelForExperience(*value.experience)), false);
     }
     if (value.secondary_skills)
@@ -86,10 +83,6 @@ namespace Medea_NS
     out.writeField(Fields::kGender, value.gender);
     if (auto enum_str = h3m::getEnumString(value.gender); !enum_str.empty())
     {
-      if (value.spells.has_value() || value.primary_skills.has_value())
-      {
-        out.writeComma();
-      }
       out.writeComment(enum_str, false);
     }
     if (value.spells)
@@ -112,7 +105,6 @@ namespace Medea_NS
       out.writeField("hero", entry.first);
       if (std::string_view enum_str = h3m::getEnumString(entry.first); !enum_str.empty())
       {
-        out.writeComma();
         out.writeComment(enum_str, false);
       }
       out.writeField("settings", entry.second);

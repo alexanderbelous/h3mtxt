@@ -17,7 +17,6 @@ namespace Medea_NS
     out.writeField(Fields::kDifficulty, value.difficulty);
     if (std::string_view enum_str = h3m::getEnumString(value.difficulty); !enum_str.empty())
     {
-      out.writeComma();
       out.writeComment(enum_str, false);
     }
     out.writeField(Fields::kMaxHeroLevel, value.max_hero_level);

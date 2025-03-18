@@ -19,7 +19,6 @@ namespace Medea_NS
       out.writeField("player", hero.player);
       if (std::string_view enum_str = h3m::getEnumString(hero.player); !enum_str.empty())
       {
-        out.writeComma();
         out.writeComment(enum_str, false);
       }
       out.writeField("source_scenario", hero.source_scenario);
@@ -49,7 +48,6 @@ namespace Medea_NS
       out.writeField("player", hero.player);
       if (std::string_view enum_str = h3m::getEnumString(hero.player); !enum_str.empty())
       {
-        out.writeComma();
         out.writeComment(enum_str, false);
       }
       out.writeField("type", hero.type);
@@ -71,7 +69,6 @@ namespace Medea_NS
     out.writeField("player", details.player);
     if (std::string_view enum_str = h3m::getEnumString(details.player); !enum_str.empty())
     {
-      out.writeComma();
       out.writeComment(enum_str, false);
     }
     out.writeField("options", details.options);

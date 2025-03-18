@@ -3,6 +3,7 @@
 #include <h3mtxt/JsonWriter/JsonWriterFwd.h>
 #include <h3mtxt/JsonWriter/JsonValueWriter.h>
 
+#include <string>
 #include <string_view>
 
 namespace Medea_NS
@@ -30,29 +31,29 @@ namespace Medea_NS
     void writeField(std::string_view field_name, const T& value);
 
     // Write a comment line.
-    // \param comment - comment text.
+    // \param comment - comment text. Empty comments are ignored.
     // \param newline - if true, the comment will be written on a new line,
     //        otherwise it will be written on the current line.
     void writeComment(std::string_view comment, bool newline = true);
 
-    // Appends a comma after the last written field, if needed.
-    void writeComma();
-
   private:
-    enum class Token
-    {
-      None,
-      Field,
-      Comment,
-      Comma
-    };
-
+    // Appends a comma after the last written field, if needed,
+    // calls flushComments(),
+    // and prints the name of the field.
     void writeFieldName(std::string_view field_name);
 
+    // Actually writes the comments to the underlying stream.
+    void flushComments();
+
     Detail_NS::JsonWriterContext context_;
-    Token last_token_ = Token::None;
-    // True if a comma needs to be appended before writing another field, false otherwise.
-    bool needs_comma_ = false;
+    // Comment(s) to print after the last printed field, or an empty string if no comments should be printed.
+    // Comments are concatenated into a single string (newline-delimited).
+    std::string comment_;
+    bool is_inline_comment_ = false;
+    // True if 1 or more comments have been written, false otherwise.
+    bool has_comments_ = false;
+    // True if 1 or more fields have been written, false otherwise.
+    bool has_fields_ = false;
   };
 
   template<class T>
@@ -63,7 +64,5 @@ namespace Medea_NS
     JsonValueWriter<T> value_writer{};
     value_writer(document_writer, value);
     context_.needs_newline_ = true;
-    needs_comma_ = true;
-    last_token_ = Token::Field;
   }
 }

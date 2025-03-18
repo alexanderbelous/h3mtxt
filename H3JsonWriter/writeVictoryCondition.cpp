@@ -40,7 +40,6 @@ namespace Medea_NS
       out.writeField("creature_type", value.creature_type);
       if (std::string_view enum_str = h3m::getEnumString(value.creature_type); !enum_str.empty())
       {
-        out.writeComma();
         out.writeComment(enum_str, false);
       }
       out.writeField("count", value.count);
@@ -57,7 +56,6 @@ namespace Medea_NS
       out.writeField("resource_type", value.resource_type);
       if (std::string_view enum_str = h3m::getEnumString(value.resource_type); !enum_str.empty())
       {
-        out.writeComma();
         out.writeComment(enum_str, false);
       }
       out.writeField("amount", value.amount);
@@ -115,7 +113,6 @@ namespace Medea_NS
       if (std::string_view enum_str = h3m::getEnumString(static_cast<h3m::ArtifactType>(value.artifact_type));
           !enum_str.empty())
       {
-        out.writeComma();
         out.writeComment(enum_str, false);
       }
       out.writeField("x", value.x);
@@ -135,14 +132,9 @@ namespace Medea_NS
   void JsonObjectWriter<h3m::VictoryCondition>::operator()(FieldsWriter& out, const h3m::VictoryCondition& value) const
   {
     using Fields = h3m::FieldNames<h3m::VictoryCondition>;
-    const bool has_details = value.type() != h3m::VictoryConditionType::Normal;
     out.writeField(Fields::kType, value.type());
-    if (has_details)
-    {
-      out.writeComma();
-    }
     out.writeComment(h3m::getEnumString(value.type()), false);
-    if (has_details)
+    if (value.type() != h3m::VictoryConditionType::Normal)
     {
       std::visit([&out] <h3m::VictoryConditionType T> (const h3m::VictoryConditionDetails<T>& details)
                  { out.writeField(Fields::kDetails, details); },

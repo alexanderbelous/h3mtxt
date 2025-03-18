@@ -13,7 +13,6 @@ namespace Medea_NS
     const std::string_view terrain_type_name = h3m::getEnumString(value.terrain_type);
     if (!terrain_type_name.empty())
     {
-      out.writeComma();
       out.writeComment(terrain_type_name, false);
     }
     out.writeField(Fields::kTerrainSprite, value.terrain_sprite);
@@ -21,7 +20,6 @@ namespace Medea_NS
     const std::string_view river_type_name = h3m::getEnumString(value.river_type);
     if (!river_type_name.empty())
     {
-      out.writeComma();
       out.writeComment(river_type_name, false);
     }
     out.writeField(Fields::kRiverSprite, value.river_sprite);
@@ -29,7 +27,6 @@ namespace Medea_NS
     const std::string_view road_type_name = h3m::getEnumString(value.road_type);
     if (!road_type_name.empty())
     {
-      out.writeComma();
       out.writeComment(road_type_name, false);
     }
     out.writeField(Fields::kRoadSprite, value.road_sprite);

@@ -30,7 +30,6 @@ namespace Medea_NS
       out.writeField("hero", hero);
       if (std::string_view enum_str = getStartingBonusHeroString(hero); !enum_str.empty())
       {
-        out.writeComma();
         out.writeComment(enum_str, false);
       }
     }

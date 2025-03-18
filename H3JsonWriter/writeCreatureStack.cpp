@@ -12,7 +12,6 @@ namespace Medea_NS
     out.writeField(Fields::kType, creature_stack.type);
     if (auto enum_str = h3m::getEnumString(creature_stack.type); !enum_str.empty())
     {
-      out.writeComma();
       out.writeComment(enum_str, false);
     }
     out.writeField(Fields::kCount, creature_stack.count);

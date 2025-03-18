@@ -43,18 +43,13 @@ namespace Medea_NS
                                                         const h3m::LossCondition& loss_condition) const
   {
     using Fields = h3m::FieldNames<h3m::LossCondition>;
-    const bool has_details = loss_condition.type() != h3m::LossConditionType::Normal;
     out.writeField(Fields::kType, loss_condition.type());
-    if (has_details)
-    {
-      out.writeComma();
-    }
     out.writeComment(h3m::getEnumString(loss_condition.type()), false);
-    if (has_details)
+    if (loss_condition.type() != h3m::LossConditionType::Normal)
     {
       std::visit([&out] <h3m::LossConditionType T> (const h3m::LossConditionDetails<T>& details)
-                  { out.writeField(Fields::kDetails, details); },
-                  loss_condition.details);
+                 { out.writeField(Fields::kDetails, details); },
+                 loss_condition.details);
     }
   }
 }

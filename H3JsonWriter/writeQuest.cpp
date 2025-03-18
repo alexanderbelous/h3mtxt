@@ -50,7 +50,6 @@ namespace Medea_NS
       out.writeField("type", creature.type);
       if (auto enum_str = h3m::getEnumString(creature.type); !enum_str.empty())
       {
-        out.writeComma();
         out.writeComment(enum_str, false);
       }
       out.writeField("count", creature.count);
@@ -92,14 +91,9 @@ namespace Medea_NS
   void JsonObjectWriter<h3m::Quest>::operator()(FieldsWriter& out, const h3m::Quest& quest) const
   {
     using Fields = h3m::FieldNames<h3m::Quest>;
-    const bool has_details = quest.type() != h3m::QuestType::None;
     out.writeField(Fields::kType, quest.type());
-    if (has_details)
-    {
-      out.writeComma();
-    }
     out.writeComment(h3m::getEnumString(quest.type()), false);
-    if (has_details)
+    if (quest.type() != h3m::QuestType::None)
     {
       std::visit([&out] <h3m::QuestType T> (const h3m::QuestDetails<T>& details)
                  { out.writeField(Fields::kDetails, details); },

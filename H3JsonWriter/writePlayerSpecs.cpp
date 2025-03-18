@@ -14,7 +14,6 @@ namespace Medea_NS
       out.writeField("type", value.type);
       if (auto enum_str = h3m::getEnumString(value.type); !enum_str.empty())
       {
-        out.writeComma();
         out.writeComment(enum_str, false);
       }
       out.writeField("name", value.name);
@@ -31,7 +30,6 @@ namespace Medea_NS
       (value.town_type == kRandomTownType) ? "(Random)" : h3m::getEnumString(value.town_type);
     if (!town_type_str.empty())
     {
-      out.writeComma();
       out.writeComment(town_type_str, false);
     }
     out.writeField(Fields::kX, value.x);
@@ -47,10 +45,6 @@ namespace Medea_NS
     const std::string_view hero_type_str = has_starting_hero ? h3m::getEnumString(value.type) : "(None)";
     if (!hero_type_str.empty())
     {
-      if (has_starting_hero)
-      {
-        out.writeComma();
-      }
       out.writeComment(hero_type_str, false);
     }
     if (has_starting_hero)
@@ -58,7 +52,6 @@ namespace Medea_NS
       out.writeField(Fields::kPortrait, value.portrait);
       if (auto enum_str = h3m::getEnumString(value.portrait); !enum_str.empty())
       {
-        out.writeComma();
         out.writeComment(enum_str, false);
       }
       out.writeField(Fields::kName, value.name);
@@ -73,7 +66,6 @@ namespace Medea_NS
     out.writeField(Fields::kBehavior, value.behavior);
     if (auto enum_str = h3m::getEnumString(value.behavior); !enum_str.empty())
     {
-      out.writeComma();
       out.writeComment(enum_str, false);
     }
     out.writeField(Fields::kHasCustomizedAlignments, value.has_customized_alignments);
@@ -85,7 +77,6 @@ namespace Medea_NS
     }
     else
     {
-      out.writeComma();
       out.writeComment("\"main_town\" field is missing because the player doesn't have a designated main town.");
     }
     out.writeField(Fields::kHasRandomHeroes, value.has_random_heroes);

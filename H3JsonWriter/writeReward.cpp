@@ -42,7 +42,6 @@ namespace Medea_NS
     out.writeField("type", details.type);
     if (auto enum_str = h3m::getEnumString(details.type); !enum_str.empty())
     {
-      out.writeComma();
       out.writeComment(enum_str, false);
     }
     out.writeField("amount", details.amount);
@@ -54,7 +53,6 @@ namespace Medea_NS
     out.writeField("type", details.type);
     if (auto enum_str = h3m::getEnumString(details.type); !enum_str.empty())
     {
-      out.writeComma();
       out.writeComment(enum_str, false);
     }
     out.writeField("value", details.value);
@@ -97,14 +95,9 @@ namespace Medea_NS
   void JsonObjectWriter<h3m::Reward>::operator()(FieldsWriter& out, const h3m::Reward& reward) const
   {
     using Fields = h3m::FieldNames<h3m::Reward>;
-    const bool has_details = reward.type() != h3m::RewardType::None;
     out.writeField(Fields::kType, reward.type());
-    if (has_details)
-    {
-      out.writeComma();
-    }
     out.writeComment(h3m::getEnumString(reward.type()), false);
-    if (has_details)
+    if (reward.type() != h3m::RewardType::None)
     {
       std::visit([&out] <h3m::RewardType T> (const h3m::RewardDetails<T>& details)
                   { out.writeField(Fields::kDetails, details); },

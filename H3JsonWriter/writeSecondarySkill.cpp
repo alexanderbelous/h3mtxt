@@ -13,7 +13,6 @@ namespace Medea_NS
     out.writeField(Fields::kType, skill.type);
     if (std::string_view enum_str = h3m::getEnumString(skill.type); !enum_str.empty())
     {
-      out.writeComma();
       out.writeComment(enum_str, false);
     }
     out.writeField(Fields::kLevel, skill.level);
