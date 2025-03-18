@@ -117,7 +117,9 @@ struct MapAdditionalInfo
   // Reserved data; 0s by default.
   ReservedData<31> reserved {};
   // 1 bit per artifact; 1 means disabled, 0 means enabled.
-  // TODO: check what happens if you disable the spell book or war machines.
+  // Spell Book, War Machines and Grail are not affected by this bitmask: they are enabled by default
+  // by the Map Editor, but you will be able to purchase them (or dig them out in case of Grail) even
+  // if you disable them manually.
   ArtifactsBitmask disabled_artifacts;
   // 1 bit per spell; 1 means disabled, 0 means enabled.
   SpellsBitmask disabled_spells;

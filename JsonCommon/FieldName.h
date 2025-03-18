@@ -568,9 +568,10 @@ namespace h3m
   struct FieldNames<ObjectProperties<MetaObjectType::GARRISON>>
   {
     static inline constexpr std::string_view kOwner = "owner";
+    static inline constexpr std::string_view kUnknown = "unknown";
     static inline constexpr std::string_view kCreatures = "creatures";
     static inline constexpr std::string_view kCanRemoveUnits = "can_remove_units";
-    static inline constexpr std::string_view kUnknown = "unknown";
+    static inline constexpr std::string_view kUnknown2 = "unknown2";
   };
 
   template<>

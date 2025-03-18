@@ -133,9 +133,10 @@ namespace Medea_NS
     using Details = h3m::ObjectProperties<h3m::MetaObjectType::GARRISON>;
     using Fields = h3m::FieldNames<Details>;
     out.writeField(Fields::kOwner, garrison.owner);
+    out.writeField(Fields::kUnknown, garrison.unknown);
     out.writeField(Fields::kCreatures, garrison.creatures);
     out.writeField(Fields::kCanRemoveUnits, garrison.can_remove_units);
-    out.writeField(Fields::kUnknown, garrison.unknown);
+    out.writeField(Fields::kUnknown2, garrison.unknown2);
   }
 
   void JsonObjectWriter<h3m::ObjectProperties<h3m::MetaObjectType::GENERIC_NO_PROPERTIES>>::operator()(

@@ -147,9 +147,10 @@ namespace h3m::H3JsonReader_NS
       using Fields = FieldNames<Details>;
       Details details;
       readField(details.owner, value, Fields::kOwner);
+      readField(details.unknown, value, Fields::kUnknown);
       readField(details.creatures, value, Fields::kCreatures);
       readField(details.can_remove_units, value, Fields::kCanRemoveUnits);
-      readField(details.unknown, value, Fields::kUnknown);
+      readField(details.unknown2, value, Fields::kUnknown2);
       return details;
     }
   };

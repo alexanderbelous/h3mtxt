@@ -127,10 +127,11 @@ namespace h3m::H3Reader_NS
     readObjectProperties<MetaObjectType::GARRISON>(std::istream& stream)
     {
       ObjectProperties<MetaObjectType::GARRISON> data;
-      data.owner = readInt<std::uint32_t>(stream);
+      data.owner = readEnum<PlayerColor>(stream);
+      data.unknown = readReservedData<3>(stream);
       data.creatures = readCreatureStackArray(stream);
       data.can_remove_units = readBool(stream);
-      data.unknown = readReservedData<8>(stream);
+      data.unknown2 = readReservedData<8>(stream);
       return data;
     }
 

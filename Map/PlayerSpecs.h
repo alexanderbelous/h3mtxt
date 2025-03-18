@@ -101,17 +101,25 @@ namespace h3m
     // to choose one of the enabled types + Conflux.
     Bool allow_random_alignment {};
     // Info about the main town, std::nullopt if the player doesn't have a main town.
+    //
     // Note: technically, you can specify a town that doesn't belong to this player. If generate_hero != 0,
-    // the behavior seems to be well-defined, but insane:
+    // the behavior seems to be well-defined, but weird:
     // * The hero will be indeed generated at that town.
-    // * On Day 1 the generated hero will be inside this town, but the town will not belong to the player.
-    // * If you try to enter the town by pressing the Space bar and there are no troops in the garrison,
-    //   the town will immediately become yours.
-    // * Otherwise, if there are troops in the town but no enemy hero, then you will start a battle with *yourself*,
-    //   where you will be controlling both sides.
-    // * The Editor will crash if you try to view Player Specs for this player.
-    // TL;DR: you probably don't want to specify a town that doesn't belong to this player.
-    // TODO: check what happens if you generate a hero in an ally's town.
+    // * This player will not be the owner of the town.
+    // * The Editor will crash if you try to view Player Specs for this player, unless they have no towns or heroes.
+    // * If there is another visiting/generated hero in this town:
+    //   !!! This is equivalent to object overlap, although the Unleashed Editor will not report it.
+    // * Otherwise:
+    //   * Apparently, the owner (if there is one) will not be able to hire a hero in this town while you are
+    //     standing there.
+    //   * If this is an ally's town:
+    //     You can safely enter the town on Day 1 by pressing the Space bar.
+    //   * Otherwise (if this is an opponent's or neutral town):
+    //     * If there are no troops in the garrison:
+    //       if you try to enter the town by pressing the Space bar, the town will immediately become yours.
+    //     * Otherwise, if there are troops in the garrison but no enemy hero:
+    //       !!! Pressing the Space bar will start a battle with a copy of your hero,
+    //           and you will be controlling both sides.
     std::optional<MainTown> main_town;
     // 1 if the player starts with at least one Random Hero, 0 otherwise.
     // This only affects the main menu when you start a new game; if has_random_heroes != 0,

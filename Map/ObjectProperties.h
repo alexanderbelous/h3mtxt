@@ -105,14 +105,13 @@ namespace h3m
   struct ObjectProperties<MetaObjectType::GARRISON>
   {
     // 0xFF means no owner.
-    // TODO: replace with PlayerColor. Note that sizeof(PlayerColor) == 1,
-    // so you'll need to add ReservedData<3> after it.
-    std::uint32_t owner {};
+    PlayerColor owner {};
+    ReservedData<3> unknown;
     // 0xFFFF in CreatureStack::type means "no creature".
     // CreatureStack::count can be negative - such stacks will be present in the garrison.
     std::array<CreatureStack, 7> creatures {};
     Bool can_remove_units {};
-    ReservedData<8> unknown;
+    ReservedData<8> unknown2;
   };
 
   template<>

@@ -82,9 +82,10 @@ namespace h3m::H3Writer_NS
     void operator()(std::ostream& stream, const ObjectProperties<MetaObjectType::GARRISON>& garrison) const
     {
       writeData(stream, garrison.owner);
+      writeData(stream, garrison.unknown);
       writeData(stream, garrison.creatures);
       writeData(stream, garrison.can_remove_units);
-      writeData(stream, garrison.unknown);
+      writeData(stream, garrison.unknown2);
     }
   };
 
