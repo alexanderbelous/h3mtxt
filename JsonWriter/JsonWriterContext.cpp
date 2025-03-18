@@ -5,104 +5,123 @@
 #include <ostream>
 #include <ranges>
 
-namespace Medea_NS
+namespace Medea_NS::Detail_NS
 {
-  namespace Detail_NS
+  namespace
   {
-    namespace
+    constexpr std::string_view getEscapeSequence(char c) noexcept
     {
-      constexpr std::string_view getEscapeSequence(char c) noexcept
+      switch (c)
       {
-        switch (c)
-        {
-        case '"':
-          return "\\\"";
-        case '\\':
-          return "\\\\";
-        case '/':
-          return "\\/";
-        case '\b':
-          return "\\b";
-        case '\f':
-          return "\\f";
-        case '\n':
-          return "\\n";
-        case '\r':
-          return "\\r";
-        case '\t':
-          return "\\t";
-        default:
-          return {};
-        }
+      case '"':
+        return "\\\"";
+      case '\\':
+        return "\\\\";
+      case '/':
+        return "\\/";
+      case '\b':
+        return "\\b";
+      case '\f':
+        return "\\f";
+      case '\n':
+        return "\\n";
+      case '\r':
+        return "\\r";
+      case '\t':
+        return "\\t";
+      default:
+        return {};
       }
     }
+  }
 
-    void JsonWriterContext::writeComment(std::string_view comment)
-    {
-      // Writes a single comment line.
-      // \param part - comment text. @part should not contain newline characters.
-      const auto write_comment_part = [this](std::string_view part)
+  void JsonWriterContext::writeComment(std::string_view comment)
+  {
+    // Writes a single comment line.
+    // \param part - comment text. @part should not contain newline characters.
+    const auto write_comment_part = [this](std::string_view part)
+      {
+        constexpr std::string_view kCommentPrefix = "//";
+        writeNewlineIfNeeded();
+        stream_.write(kCommentPrefix.data(), kCommentPrefix.size());
+        if (!part.empty())
         {
-          constexpr std::string_view kCommentPrefix = "//";
-          writeNewlineIfNeeded();
-          stream_.write(kCommentPrefix.data(), kCommentPrefix.size());
-          if (!part.empty())
-          {
-            stream_.put(' ');
-            stream_.write(part.data(), part.size());
-          }
-          needs_newline_ = true;
-        };
+          stream_.put(' ');
+          stream_.write(part.data(), part.size());
+        }
+        needs_newline_ = true;
+      };
 
-      if (comment.empty())
+    if (comment.empty())
+    {
+      write_comment_part(comment);
+      return;
+    }
+    for (auto part : std::views::split(comment, '\n'))
+    {
+      const std::string_view part_str(part.begin(), part.end());
+      write_comment_part(part_str);
+    }
+  }
+
+  void JsonWriterContext::writeBool(bool value)
+  {
+    static constexpr std::string_view kFalseStr = "false";
+    static constexpr std::string_view kTrueStr = "true";
+
+    writeNewlineIfNeeded();
+    const std::string_view str = value ? kTrueStr : kFalseStr;
+    stream_.write(str.data(), str.size());
+  }
+
+  void JsonWriterContext::writeInt(std::intmax_t value)
+  {
+    writeNewlineIfNeeded();
+    stream_ << value;
+  }
+
+  void JsonWriterContext::writeUInt(std::uintmax_t value)
+  {
+    writeNewlineIfNeeded();
+    stream_ << value;
+  }
+
+  void JsonWriterContext::writeString(std::string_view value)
+  {
+    writeNewlineIfNeeded();
+    stream_.put('"');
+    const char* iter = value.data();
+    const char* const last = iter + value.size();
+    while (iter != last)
+    {
+      // Check if *iter a special character.
+      const std::string_view escape_seq = getEscapeSequence(*iter);
+      if (!escape_seq.empty())
       {
-        write_comment_part(comment);
-        return;
+        stream_.write(escape_seq.data(), escape_seq.size());
+        ++iter;
+        continue;
       }
-      for (auto part : std::views::split(comment, '\n'))
+      else
       {
-        const std::string_view part_str(part.begin(), part.end());
-        write_comment_part(part_str);
+        // Find the next special character.
+        const char* const iter_next_special =
+          std::find_if(iter, last, [](char c) { return !getEscapeSequence(c).empty(); });
+        // Write [iter; iter_next_special).
+        stream_.write(iter, std::distance(iter, iter_next_special));
+        iter = iter_next_special;
       }
     }
+    stream_.put('"');
+  }
 
-    void JsonWriterContext::writeString(std::string_view value)
+  void JsonWriterContext::writeNewlineIfNeeded()
+  {
+    if (needs_newline_)
     {
-      writeNewlineIfNeeded();
-      stream_.put('"');
-      const char* iter = value.data();
-      const char* const last = iter + value.size();
-      while (iter != last)
-      {
-        // Check if *iter a special character.
-        const std::string_view escape_seq = getEscapeSequence(*iter);
-        if (!escape_seq.empty())
-        {
-          stream_.write(escape_seq.data(), escape_seq.size());
-          ++iter;
-          continue;
-        }
-        else
-        {
-          // Find the next special character.
-          const char* const iter_next_special =
-            std::find_if(iter, last, [](char c) { return !getEscapeSequence(c).empty(); });
-          // Write [iter; iter_next_special).
-          stream_.write(iter, std::distance(iter, iter_next_special));
-          iter = iter_next_special;
-        }
-      }
-      stream_.put('"');
-    }
-
-    void JsonWriterContext::writeNewlineIfNeeded()
-    {
-      if (needs_newline_)
-      {
-        stream_.put('\n');
-        std::fill_n(std::ostream_iterator<char>(stream_), indent_, ' ');
-        needs_newline_ = false;
-      }
+      stream_.put('\n');
+      std::fill_n(std::ostream_iterator<char>(stream_), indent_, ' ');
+      needs_newline_ = false;
     }
   }
 }

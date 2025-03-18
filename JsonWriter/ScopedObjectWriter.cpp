@@ -4,7 +4,7 @@
 
 namespace Medea_NS
 {
-  ScopedObjectWriter::ScopedObjectWriter(const Detail_NS::JsonWriterContext& context):
+  ScopedObjectWriter::ScopedObjectWriter(Detail_NS::JsonWriterContext& context):
     context_(context)
   {
     context_.writeNewlineIfNeeded();

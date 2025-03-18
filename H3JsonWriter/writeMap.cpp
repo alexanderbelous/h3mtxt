@@ -86,32 +86,36 @@ namespace Medea_NS
   // Explicit specialization for std::array<std::array<h3m::PlayerSpecs, h3m::kMaxPlayers>
   // to print comments.
   template<>
-  struct JsonValueWriter<std::array<h3m::PlayerSpecs, h3m::kMaxPlayers>>
+  struct JsonArrayWriter<std::array<h3m::PlayerSpecs, h3m::kMaxPlayers>>
   {
-    void operator()(JsonDocumentWriter& out, const std::array<h3m::PlayerSpecs, h3m::kMaxPlayers>& players) const
+    using ElementType = h3m::PlayerSpecs;
+
+    void operator()(ScopedArrayWriter<h3m::PlayerSpecs>& scoped_array_writer,
+                    const std::array<h3m::PlayerSpecs, h3m::kMaxPlayers>& players) const
     {
       h3m::H3JsonWriter_NS::CommentBuilder comment_builder;
-      ScopedArrayWriter<h3m::PlayerSpecs> array_writer = out.writeArray<h3m::PlayerSpecs>();
       for (std::size_t i = 0; i < h3m::kMaxPlayers; ++i)
       {
         const h3m::PlayerColor player = static_cast<h3m::PlayerColor>(i);
         const std::string_view player_str = h3m::getEnumString(player);
-        array_writer.writeComment(comment_builder.build("Player ", i, " (", player_str, ")"));
-        array_writer.writeElement(players[i]);
+        scoped_array_writer.writeComment(comment_builder.build("Player ", i, " (", player_str, ")"));
+        scoped_array_writer.writeElement(players[i]);
       }
     }
   };
 
+  // Serialize TilesWithMapSize as a JSON array.
   template<>
-  struct JsonValueWriter<TilesWithMapSize>
+  struct JsonArrayWriter<TilesWithMapSize>
   {
-    void operator()(JsonDocumentWriter& out, const TilesWithMapSize& value) const
+    using ElementType = h3m::Tile;
+
+    void operator()(ScopedArrayWriter<h3m::Tile>& scoped_array_writer, const TilesWithMapSize& value) const
     {
       h3m::H3JsonWriter_NS::CommentBuilder comment_builder;
       const std::uint32_t num_levels = value.hasTwoLevels() ? 2 : 1;
       const std::uint32_t map_size = value.mapSize();
       const std::span<const h3m::Tile> tiles = value.tiles();
-      ScopedArrayWriter<h3m::Tile> array_writer = out.writeArray<h3m::Tile>();
       auto iter = tiles.begin();
       for (std::uint32_t z = 0; z < num_levels; ++z)
       {
@@ -119,8 +123,8 @@ namespace Medea_NS
         {
           for (std::uint32_t x = 0; x < map_size; ++x)
           {
-            array_writer.writeComment(comment_builder.build("Tile (", x, ", ", y, ", ", z, ")"));
-            array_writer.writeElement(*iter);
+            scoped_array_writer.writeComment(comment_builder.build("Tile (", x, ", ", y, ", ", z, ")"));
+            scoped_array_writer.writeElement(*iter);
             ++iter;
           }
         }
@@ -140,17 +144,19 @@ namespace Medea_NS
     }
   };
 
+  // Serialize WrappedObjects as a JSON array.
   template<>
-  struct JsonValueWriter<WrappedObjects>
+  struct JsonArrayWriter<WrappedObjects>
   {
-    void operator()(JsonDocumentWriter& out, const WrappedObjects& wrapped_objects) const
+    using ElementType = WrappedObject;
+
+    void operator()(ScopedArrayWriter<WrappedObject>& scoped_array_writer, const WrappedObjects& wrapped_objects) const
     {
       h3m::H3JsonWriter_NS::CommentBuilder comment_builder;
-      ScopedArrayWriter<WrappedObject> array_writer = out.writeArray<WrappedObject>();
       for (std::size_t i = 0; i < wrapped_objects.objects.size(); ++i)
       {
-        array_writer.writeComment(comment_builder.build("Object ", i));
-        array_writer.writeElement(WrappedObject(wrapped_objects.objects_templates, wrapped_objects.objects[i]));
+        scoped_array_writer.writeComment(comment_builder.build("Object ", i));
+        scoped_array_writer.writeElement(WrappedObject(wrapped_objects.objects_templates, wrapped_objects.objects[i]));
       }
     }
   };

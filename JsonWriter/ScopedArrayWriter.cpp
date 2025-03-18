@@ -4,7 +4,7 @@
 
 namespace Medea_NS
 {
-  ScopedArrayWriterBase::ScopedArrayWriterBase(const Detail_NS::JsonWriterContext& context, bool one_element_per_line):
+  ScopedArrayWriterBase::ScopedArrayWriterBase(Detail_NS::JsonWriterContext& context, bool one_element_per_line):
     context_(context),
     one_element_per_line_(one_element_per_line)
   {

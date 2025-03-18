@@ -6,10 +6,10 @@
 
 namespace Medea_NS
 {
-  void JsonValueWriter<h3m::TerrainsBitmask>::operator()(JsonDocumentWriter& out,
+  void JsonArrayWriter<h3m::TerrainsBitmask>::operator()(ScopedArrayWriter<std::uint8_t>& elements_writer,
                                                          const h3m::TerrainsBitmask& bitmask) const
   {
-    writeValue(out, bitmask.bitset);
+    writeArray(bitmask.bitset, elements_writer);
   }
 
   void JsonObjectWriter<h3m::ObjectTemplate>::operator()(FieldsWriter& out, const h3m::ObjectTemplate& value) const

@@ -111,14 +111,21 @@ namespace Medea_NS
     }
   };
 
-  void JsonValueWriter<h3m::HeroesSettings>::operator()(JsonDocumentWriter& out, const h3m::HeroesSettings& value) const
+  // Serialize h3m::HeroesSettings as a JSON array.
+  template<>
+  struct JsonArrayWriter<h3m::HeroesSettings>
   {
-    auto scoped_array_writer = out.writeArray<HeroesSettingsEntry>();
-    for (const HeroesSettingsEntry& entry : value.settings())
+    using ElementType = HeroesSettingsEntry;
+
+    void operator()(ScopedArrayWriter<HeroesSettingsEntry>& elements_writer,
+                    const h3m::HeroesSettings& value) const
     {
-      scoped_array_writer.writeElement(entry);
+      for (const HeroesSettingsEntry& entry : value.settings())
+      {
+        elements_writer.writeElement(entry);
+      }
     }
-  }
+  };
 
   void JsonObjectWriter<h3m::MapAdditionalInfo>::operator()(FieldsWriter& out, const h3m::MapAdditionalInfo& value) const
   {

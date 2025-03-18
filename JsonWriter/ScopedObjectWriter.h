@@ -1,7 +1,7 @@
 #pragma once
 
 #include <h3mtxt/JsonWriter/JsonWriterFwd.h>
-#include <h3mtxt/JsonWriter/JsonValueWriter.h>
+#include <h3mtxt/JsonWriter/writeValue.h>
 
 #include <string>
 #include <string_view>
@@ -15,7 +15,7 @@ namespace Medea_NS
     // Writes an opening brace '{' and increases the indent.
     // Note that the constructor of JsonWriterContext is private, so you won't be able to
     // construct ScopedObjectWriter manually; use JsonDocumentWriter::writeObject() instead.
-    explicit ScopedObjectWriter(const Detail_NS::JsonWriterContext& context);
+    explicit ScopedObjectWriter(Detail_NS::JsonWriterContext& context);
 
     // Decreases the indent of the underlying JsonDocumentWriter and writes the closing brace '}'.
     ~ScopedObjectWriter();
@@ -45,7 +45,7 @@ namespace Medea_NS
     // Actually writes the comments to the underlying stream.
     void flushComments();
 
-    Detail_NS::JsonWriterContext context_;
+    Detail_NS::JsonWriterContext& context_;
     // Comment(s) to print after the last printed field, or an empty string if no comments should be printed.
     // Comments are concatenated into a single string (newline-delimited).
     std::string comment_;
@@ -60,9 +60,7 @@ namespace Medea_NS
   void ScopedObjectWriter::writeField(std::string_view field_name, const T& value)
   {
     writeFieldName(field_name);
-    JsonDocumentWriter document_writer(context_);
-    JsonValueWriter<T> value_writer{};
-    value_writer(document_writer, value);
+    Detail_NS::writeValue(context_, value);
     context_.needs_newline_ = true;
   }
 }

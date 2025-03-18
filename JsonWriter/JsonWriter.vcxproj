@@ -88,15 +88,16 @@
     <ClCompile Include="JsonWriterContext.cpp" />
     <ClCompile Include="ScopedArrayWriter.cpp" />
     <ClCompile Include="ScopedObjectWriter.cpp" />
-    <ClCompile Include="JsonDocumentWriter.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="JsonArrayWriter.h" />
     <ClInclude Include="JsonWriterContext.h" />
+    <ClInclude Include="JsonWriterTraits.h" />
     <ClInclude Include="ScopedArrayWriter.h" />
     <ClInclude Include="ScopedObjectWriter.h" />
-    <ClInclude Include="JsonDocumentWriter.h" />
     <ClInclude Include="JsonWriterFwd.h" />
     <ClInclude Include="JsonValueWriter.h" />
+    <ClInclude Include="writeValue.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
