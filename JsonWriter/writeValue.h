@@ -54,9 +54,9 @@ namespace Medea_NS
         constexpr bool kOneElementPerLine = JsonArrayWriterTraits<T>::kOneElementPerLine;
         JsonArrayWriter<T> array_writer {};
         ScopedArrayWriter<ElementType> elements_writer{ context, kOneElementPerLine };
-        //context.beginAggregate('[');
+        context.beginAggregate('[');
         array_writer(elements_writer, value);
-        //context.endAggregate(']', kOneElementPerLine);
+        context.endAggregate(']', kOneElementPerLine);
       }
       else if constexpr (Traits::kValueType == JsonValueType::Object)
       {

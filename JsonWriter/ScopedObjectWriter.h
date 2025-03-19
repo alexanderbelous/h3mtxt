@@ -1,6 +1,7 @@
 #pragma once
 
 #include <h3mtxt/JsonWriter/JsonWriterFwd.h>
+#include <h3mtxt/JsonWriter/JsonWriterContext.h>
 #include <h3mtxt/JsonWriter/writeValue.h>
 
 #include <string>
@@ -13,8 +14,21 @@ namespace Medea_NS
   {
   public:
     explicit ScopedObjectWriter(Detail_NS::JsonWriterContext& context);
+    //  context_(context)
+    //{
+    //  context_.beginAggregate('{');
+    //}
 
     ~ScopedObjectWriter();
+    //{
+    //  try
+    //  {
+    //    context_.endAggregate('}', true);
+    //  }
+    //  catch (...)
+    //  {
+    //  }
+    //}
 
     // Non-copyable, non-movable.
     ScopedObjectWriter(const ScopedObjectWriter&) = delete;
@@ -31,6 +45,9 @@ namespace Medea_NS
     // \param newline - if true, the comment will be written on a new line,
     //        otherwise it will be written on the current line.
     void writeComment(std::string_view comment, bool newline = true);
+    //{
+    //  context_.writeComment(comment, newline);
+    //}
 
   private:
     Detail_NS::JsonWriterContext& context_;

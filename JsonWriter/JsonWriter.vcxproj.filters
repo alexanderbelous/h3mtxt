@@ -18,9 +18,6 @@
     <ClCompile Include="JsonWriterContext.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ScopedArrayWriter.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="ScopedObjectWriter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

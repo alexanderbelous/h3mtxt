@@ -86,7 +86,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="JsonWriterContext.cpp" />
-    <ClCompile Include="ScopedArrayWriter.cpp" />
     <ClCompile Include="ScopedObjectWriter.cpp" />
   </ItemGroup>
   <ItemGroup>
