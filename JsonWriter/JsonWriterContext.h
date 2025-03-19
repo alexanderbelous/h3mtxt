@@ -5,6 +5,7 @@
 #include <cstddef>
 #include <cstdint>
 #include <iosfwd>
+#include <string>
 #include <string_view>
 
 namespace Medea_NS
@@ -44,9 +45,6 @@ namespace Medea_NS
 
       constexpr ~JsonWriterContext() = default;
 
-      // Writes a comment to the output stream.
-      void writeComment(std::string_view comment);
-
       // Writes a boolean value to the output stream.
       // \param value - value to write.
       void writeBool(bool value);
@@ -62,24 +60,43 @@ namespace Medea_NS
 
       void writeNewlineIfNeeded();
 
-      constexpr void increaseIndent() noexcept
-      {
-        indent_ += 2;
-      }
+      void beginAggregate(char bracket);
 
-      constexpr void decreaseIndent() noexcept
+      void endAggregate(char bracket);
+
+      // Queues a comment.
+      //
+      // Comments are not written immediately in order to avoid trailing commas in printing objects/arrays.
+      // \param comment - comment to write. Empty comments are ignored.
+      // \param newline - if true, the comment will be written on a new line,
+      //        otherwise on the same line as the last printed entry.
+      //        This parameter is ignored if !comment_.empty() - in that case @comment will be appended to
+      //        comment_ after a newline character.
+      void lazyWriteComment(std::string_view comment, bool newline);
+
+      void flushComments();
+
+      // \return true if there's an unflushed comment, false otherwise.
+      constexpr bool hasUnflushedComment() const noexcept
       {
-        // This should never happen.
-        if (indent_ < 2)
-        {
-          indent_ = 0;
-        }
-        indent_ -= 2;
+        return !comment_.empty();
       }
 
       std::ostream& stream_;
+      // Comment(s) to print after the last printed entry (i.e. value or field),
+      // or an empty string if no comments should be printed.
+      // Comments are concatenated into a single string (newline-delimited). Comments are only written
+      // to @stream_ when the next entry is printed or when the scope ends, to avoid trailing commas.
+      std::string comment_;
+      // Indicates whether @comment_ should be printed on the same line as the last printed entry.
+      bool is_inline_comment_ = false;
+      // The number of spaces to indent entries by.
       unsigned int indent_ = 0;
       bool needs_newline_ = false;
+      // True if one or more entries (i.e. values or fields) have been printed in the current scope, false otherwise.
+      bool has_members_in_scope_ = false;
+      // True if one or more comments have been printed in the current scope, false otherwise.
+      bool has_comments_in_scope_ = false;
     };
   }
 }

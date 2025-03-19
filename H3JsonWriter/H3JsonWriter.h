@@ -9,7 +9,6 @@
 // API for JSON serialization of H3 structures.
 namespace Medea_NS
 {
-
   // Serialize h3m::TerrainsBitmask as a JSON array.
   template<>
   struct JsonArrayWriter<h3m::TerrainsBitmask>

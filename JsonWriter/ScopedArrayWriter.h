@@ -31,18 +31,11 @@ namespace Medea_NS
 
     void afterWriteElement();
 
-    enum class Token
-    {
-      Nothing,
-      Element,
-      Comment
-    };
-
     Detail_NS::JsonWriterContext& context_;
-    // The last token written via this object.
-    Token last_token_ = Token::Nothing;
     // True if each element should be a written on a new line, false otherwise.
     bool one_element_per_line_ = true;
+    // True if 1 or more elements have been written, false otherwise.
+    bool has_elements_ = false;
   };
 
   // Class for writing an array of values with indent.

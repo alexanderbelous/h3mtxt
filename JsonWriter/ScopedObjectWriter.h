@@ -42,16 +42,7 @@ namespace Medea_NS
     // and prints the name of the field.
     void writeFieldName(std::string_view field_name);
 
-    // Actually writes the comments to the underlying stream.
-    void flushComments();
-
     Detail_NS::JsonWriterContext& context_;
-    // Comment(s) to print after the last printed field, or an empty string if no comments should be printed.
-    // Comments are concatenated into a single string (newline-delimited).
-    std::string comment_;
-    bool is_inline_comment_ = false;
-    // True if 1 or more comments have been written, false otherwise.
-    bool has_comments_ = false;
     // True if 1 or more fields have been written, false otherwise.
     bool has_fields_ = false;
   };
