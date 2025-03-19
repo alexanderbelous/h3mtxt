@@ -9,7 +9,7 @@ namespace Medea_NS
 
     // Serializes the given value as formatted JSON.
     template<class T>
-    void writeValue(JsonWriterContext& context, const T& value);
+    void writeValueRaw(JsonWriterContext& context, const T& value);
   }
 
   // Defines supported JSON value types.
@@ -22,8 +22,6 @@ namespace Medea_NS
   // should not be serialized as a JSON object, this trait should be specialized for T.
   template<class T, class Enable = void>
   struct JsonWriterTraits;
-
-  class ScopedArrayWriterBase;
 
   template<class T>
   class ScopedArrayWriter;

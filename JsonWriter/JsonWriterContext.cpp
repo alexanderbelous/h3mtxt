@@ -35,33 +35,53 @@ namespace Medea_NS::Detail_NS
     }
   }
 
+  void JsonWriterContext::beforeWriteValue(bool newline)
+  {
+    const bool has_unflushed_comments = hasUnflushedComment();
+    if (has_members_in_scope_)
+    {
+      stream_.put(',');
+      // Append a space if the next element will be written on the same line.
+      if (!newline && !has_unflushed_comments)
+      {
+        stream_.put(' ');
+      }
+    }
+    // Flush comments.
+    flushComments();
+    // Write a newline character and indent, if needed.
+    if (newline || has_unflushed_comments)
+    {
+      writeNewline();
+    }
+  }
+
   void JsonWriterContext::writeBool(bool value)
   {
     static constexpr std::string_view kFalseStr = "false";
     static constexpr std::string_view kTrueStr = "true";
 
-    writeNewlineIfNeeded();
     const std::string_view str = value ? kTrueStr : kFalseStr;
     stream_.write(str.data(), str.size());
+    has_members_in_scope_ = true;
   }
 
   void JsonWriterContext::writeInt(std::intmax_t value)
   {
-    writeNewlineIfNeeded();
     std::string int_str = std::to_string(value);
     stream_.write(int_str.data(), int_str.size());
+    has_members_in_scope_ = true;
   }
 
   void JsonWriterContext::writeUInt(std::uintmax_t value)
   {
-    writeNewlineIfNeeded();
     std::string int_str = std::to_string(value);
     stream_.write(int_str.data(), int_str.size());
+    has_members_in_scope_ = true;
   }
 
   void JsonWriterContext::writeString(std::string_view value)
   {
-    writeNewlineIfNeeded();
     stream_.put('"');
     const char* iter = value.data();
     const char* const last = iter + value.size();
@@ -86,44 +106,50 @@ namespace Medea_NS::Detail_NS
       }
     }
     stream_.put('"');
+    has_members_in_scope_ = true;
   }
 
-  void JsonWriterContext::writeNewlineIfNeeded()
+  void JsonWriterContext::writeNewline()
   {
-    if (needs_newline_)
-    {
-      stream_.put('\n');
-      std::fill_n(std::ostream_iterator<char>(stream_), indent_, ' ');
-      needs_newline_ = false;
-    }
+    stream_.put('\n');
+    std::fill_n(std::ostream_iterator<char>(stream_), indent_, ' ');
   }
 
   void JsonWriterContext::beginAggregate(char bracket)
   {
-    writeNewlineIfNeeded();
     stream_.put(bracket);
     indent_ += 2;
-    needs_newline_ = true;
     has_members_in_scope_ = false;
     has_comments_in_scope_ = false;
   }
 
-  void JsonWriterContext::endAggregate(char bracket)
+  void JsonWriterContext::endAggregate(char bracket, bool newline)
   {
+    const bool has_unflushed_comments = hasUnflushedComment();
     flushComments();
     // Sanity check.
     if (indent_ >= 2)
     {
       indent_ -= 2;
     }
-    writeNewlineIfNeeded();
+    if (has_unflushed_comments || (newline && has_members_in_scope_))
+    {
+      writeNewline();
+    }
     stream_.put(bracket);
     // We've just finished writing an object/array, so the outer aggregate (whether it's an object or an array)
     // has at least 1 element.
     has_members_in_scope_ = true;
   }
 
-  void JsonWriterContext::lazyWriteComment(std::string_view comment, bool newline)
+  void JsonWriterContext::writeFieldName(std::string_view field_name)
+  {
+    constexpr std::string_view kSeparator = ": ";
+    writeString(field_name);
+    stream_.write(kSeparator.data(), kSeparator.size());
+  }
+
+  void JsonWriterContext::writeComment(std::string_view comment, bool newline)
   {
     if (comment.empty())
     {
@@ -142,6 +168,8 @@ namespace Medea_NS::Detail_NS
 
   void JsonWriterContext::flushComments()
   {
+    constexpr std::string_view kCommentPrefix = "//";
+
     if (comment_.empty())
     {
       return;
@@ -150,33 +178,23 @@ namespace Medea_NS::Detail_NS
     if (is_inline_comment_ && has_members_in_scope_)
     {
       stream_.put(' ');
-      // Instruct JsonWriterContext not to write a newline character.
-      needs_newline_ = false;
     }
-    // Writes a single comment line.
-    // \param part - comment text. @part should not contain newline characters.
-    const auto write_comment_part = [this](std::string_view part)
-      {
-        constexpr std::string_view kCommentPrefix = "//";
-        writeNewlineIfNeeded();
-        stream_.write(kCommentPrefix.data(), kCommentPrefix.size());
-        if (!part.empty())
-        {
-          stream_.put(' ');
-          stream_.write(part.data(), part.size());
-        }
-        needs_newline_ = true;
-      };
+    bool needs_newline = !is_inline_comment_;
 
-    if (comment_.empty())
-    {
-      write_comment_part(comment_);
-      return;
-    }
     for (auto part : std::views::split(comment_, '\n'))
     {
       const std::string_view part_str(part.begin(), part.end());
-      write_comment_part(part_str);
+      if (needs_newline)
+      {
+        writeNewline();
+      }
+      stream_.write(kCommentPrefix.data(), kCommentPrefix.size());
+      if (!part_str.empty())
+      {
+        stream_.put(' ');
+        stream_.write(part_str.data(), part_str.size());
+      }
+      needs_newline = true;
     }
     // Clean-up.
     comment_.clear();

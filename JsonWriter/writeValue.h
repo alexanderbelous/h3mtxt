@@ -18,7 +18,7 @@ namespace Medea_NS
     // \param context - output JsonWriterContext.
     // \param value - input value.
     template<class T>
-    void writeValue(JsonWriterContext& context, const T& value)
+    void writeValueRaw(JsonWriterContext& context, const T& value)
     {
       using Traits = JsonWriterTraits<T>;
 
@@ -51,15 +51,20 @@ namespace Medea_NS
       else if constexpr (Traits::kValueType == JsonValueType::Array)
       {
         using ElementType = typename JsonArrayWriter<T>::ElementType;
+        constexpr bool kOneElementPerLine = JsonArrayWriterTraits<T>::kOneElementPerLine;
         JsonArrayWriter<T> array_writer {};
-        ScopedArrayWriter<ElementType> elements_writer{ context, JsonArrayWriterTraits<T>::kOneElementPerLine };
+        ScopedArrayWriter<ElementType> elements_writer{ context, kOneElementPerLine };
+        //context.beginAggregate('[');
         array_writer(elements_writer, value);
+        //context.endAggregate(']', kOneElementPerLine);
       }
       else if constexpr (Traits::kValueType == JsonValueType::Object)
       {
         JsonObjectWriter<T> object_writer {};
         ScopedObjectWriter fields_writer{ context };
+        //context.beginAggregate('{');
         object_writer(fields_writer, value);
+        //context.endAggregate('}', true);
       }
       else
       {

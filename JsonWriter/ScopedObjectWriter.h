@@ -12,12 +12,8 @@ namespace Medea_NS
   class ScopedObjectWriter
   {
   public:
-    // Writes an opening brace '{' and increases the indent.
-    // Note that the constructor of JsonWriterContext is private, so you won't be able to
-    // construct ScopedObjectWriter manually; use JsonDocumentWriter::writeObject() instead.
     explicit ScopedObjectWriter(Detail_NS::JsonWriterContext& context);
 
-    // Decreases the indent of the underlying JsonDocumentWriter and writes the closing brace '}'.
     ~ScopedObjectWriter();
 
     // Non-copyable, non-movable.
@@ -37,21 +33,14 @@ namespace Medea_NS
     void writeComment(std::string_view comment, bool newline = true);
 
   private:
-    // Appends a comma after the last written field, if needed,
-    // calls flushComments(),
-    // and prints the name of the field.
-    void writeFieldName(std::string_view field_name);
-
     Detail_NS::JsonWriterContext& context_;
-    // True if 1 or more fields have been written, false otherwise.
-    bool has_fields_ = false;
   };
 
   template<class T>
   void ScopedObjectWriter::writeField(std::string_view field_name, const T& value)
   {
-    writeFieldName(field_name);
-    Detail_NS::writeValue(context_, value);
-    context_.needs_newline_ = true;
+    context_.beforeWriteValue(true);
+    context_.writeFieldName(field_name);
+    Detail_NS::writeValueRaw(context_, value);
   }
 }

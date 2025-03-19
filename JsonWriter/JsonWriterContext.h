@@ -21,21 +21,17 @@ namespace Medea_NS
     // This class cannot be used directly - all members are private.
     class JsonWriterContext
     {
-      friend ScopedArrayWriterBase;
-      friend ScopedObjectWriter;
+    public:
+      //friend ScopedArrayWriterBase;
+      //friend ScopedObjectWriter;
 
       // writeValue() is a friend because it calls member functins writeBool(), writeString(), etc.
-      template<class T>
-      friend void writeValue(JsonWriterContext& context, const T& value);
+      //template<class T>
+      //friend void writeValueRaw(JsonWriterContext& context, const T& value);
 
       // writeJson() is a friend because it needs to construct JsonWriterContext.
       template<class T>
       friend void ::Medea_NS::writeJson(std::ostream& stream, const T& value, unsigned int initial_indent);
-
-      explicit constexpr JsonWriterContext(std::ostream& stream, unsigned int initial_indent = 0) noexcept:
-        stream_(stream),
-        indent_(initial_indent)
-      {}
 
       // Non-copyable, non-movable.
       constexpr JsonWriterContext(const JsonWriterContext&) noexcept = delete;
@@ -46,7 +42,6 @@ namespace Medea_NS
       constexpr ~JsonWriterContext() = default;
 
       // Writes a boolean value to the output stream.
-      // \param value - value to write.
       void writeBool(bool value);
 
       // Writes a signed integer value to the output stream.
@@ -58,11 +53,11 @@ namespace Medea_NS
       // Writes a string value to the output stream.
       void writeString(std::string_view value);
 
-      void writeNewlineIfNeeded();
-
       void beginAggregate(char bracket);
 
-      void endAggregate(char bracket);
+      void endAggregate(char bracket, bool newline);
+
+      void writeFieldName(std::string_view field_name);
 
       // Queues a comment.
       //
@@ -72,15 +67,25 @@ namespace Medea_NS
       //        otherwise on the same line as the last printed entry.
       //        This parameter is ignored if !comment_.empty() - in that case @comment will be appended to
       //        comment_ after a newline character.
-      void lazyWriteComment(std::string_view comment, bool newline);
+      void writeComment(std::string_view comment, bool newline);
 
-      void flushComments();
+      void beforeWriteValue(bool newline);
+
+    private:
+      explicit constexpr JsonWriterContext(std::ostream& stream, unsigned int initial_indent = 0) noexcept :
+        stream_(stream),
+        indent_(initial_indent)
+      {}
+
+      void writeNewline();
 
       // \return true if there's an unflushed comment, false otherwise.
       constexpr bool hasUnflushedComment() const noexcept
       {
         return !comment_.empty();
       }
+
+      void flushComments();
 
       std::ostream& stream_;
       // Comment(s) to print after the last printed entry (i.e. value or field),
@@ -92,7 +97,6 @@ namespace Medea_NS
       bool is_inline_comment_ = false;
       // The number of spaces to indent entries by.
       unsigned int indent_ = 0;
-      bool needs_newline_ = false;
       // True if one or more entries (i.e. values or fields) have been printed in the current scope, false otherwise.
       bool has_members_in_scope_ = false;
       // True if one or more comments have been printed in the current scope, false otherwise.

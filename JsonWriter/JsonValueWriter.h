@@ -15,6 +15,7 @@ namespace Medea_NS
   void writeJson(std::ostream& stream, const T& value, unsigned int initial_indent = 0)
   {
     Detail_NS::JsonWriterContext context(stream, initial_indent);
-    Detail_NS::writeValue(context, value);
+    // TODO: write initial indent.
+    Detail_NS::writeValueRaw(context, value);
   }
 }

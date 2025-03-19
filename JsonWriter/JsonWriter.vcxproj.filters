@@ -15,10 +15,10 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="ScopedArrayWriter.cpp">
+    <ClCompile Include="JsonWriterContext.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="JsonWriterContext.cpp">
+    <ClCompile Include="ScopedArrayWriter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="ScopedObjectWriter.cpp">
