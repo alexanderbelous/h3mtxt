@@ -4,7 +4,6 @@
 #include <h3mtxt/JsonWriter/JsonWriterContext.h>
 #include <h3mtxt/JsonWriter/writeValue.h>
 
-#include <string>
 #include <string_view>
 
 namespace Medea_NS
@@ -44,10 +43,10 @@ namespace Medea_NS
     // \param comment - comment text. Empty comments are ignored.
     // \param newline - if true, the comment will be written on a new line,
     //        otherwise it will be written on the current line.
-    void writeComment(std::string_view comment, bool newline = true);
-    //{
-    //  context_.writeComment(comment, newline);
-    //}
+    void writeComment(std::string_view comment, bool newline = true)
+    {
+      context_.writeComment(comment, newline);
+    }
 
   private:
     Detail_NS::JsonWriterContext& context_;

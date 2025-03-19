@@ -18,9 +18,4 @@ namespace Medea_NS
     {
     }
   }
-
-  void ScopedObjectWriter::writeComment(std::string_view comment, bool newline)
-  {
-    context_.writeComment(comment, newline);
-  }
 }
