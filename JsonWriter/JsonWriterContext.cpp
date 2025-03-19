@@ -48,13 +48,15 @@ namespace Medea_NS::Detail_NS
   void JsonWriterContext::writeInt(std::intmax_t value)
   {
     writeNewlineIfNeeded();
-    stream_ << value;
+    std::string int_str = std::to_string(value);
+    stream_.write(int_str.data(), int_str.size());
   }
 
   void JsonWriterContext::writeUInt(std::uintmax_t value)
   {
     writeNewlineIfNeeded();
-    stream_ << value;
+    std::string int_str = std::to_string(value);
+    stream_.write(int_str.data(), int_str.size());
   }
 
   void JsonWriterContext::writeString(std::string_view value)
