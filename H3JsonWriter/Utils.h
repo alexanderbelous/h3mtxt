@@ -52,8 +52,8 @@ namespace Medea_NS
     using Fields = h3m::FieldNames<h3m::EnumBitmask<Enum, NumBytes>>;
     static_assert(std::is_same_v<std::remove_cvref_t<decltype(Fields::kNames)>,
                                  std::array<std::string_view, NumBytes * 8>>,
-                  "h3m::FieldNames<h3m::EnumBitmask<Enum, NumBytes>> must be a "
-                  "std::array of NumBytes * 8 string_views.");
+                  "h3m::FieldNames<h3m::EnumBitmask<Enum, NumBytes>> must have a "
+                  "static data member kNames of the type std::array<std::string_view, NumBytes * 8>.");
     Detail_NS::printEnumBitmaskImpl(out, bitmask.bitset.data, Fields::kNames.data());
   }
 }
