@@ -1,6 +1,5 @@
 #include <h3mtxt/H3Reader/Utils.h>
 
-#include <algorithm>
 #include <istream>
 #include <stdexcept>
 
@@ -45,14 +44,6 @@ namespace h3m::H3Reader_NS
       {
         throw std::runtime_error("Failed to read an array of bytes.");
       }
-    }
-
-    bool isAllZeros(std::span<const std::byte> data)
-    {
-      return std::all_of(data.begin(), data.end(), [](std::byte value)
-        {
-          return value == std::byte{ 0 };
-        });
     }
   }
 

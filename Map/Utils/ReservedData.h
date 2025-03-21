@@ -3,6 +3,7 @@
 #include <algorithm>
 #include <cstddef>
 #include <memory>
+#include <span>
 #include <stdexcept>
 #include <type_traits>
 
@@ -113,6 +114,16 @@ namespace h3m
     private:
       std::array<std::byte, NumBytes> data_ {};
     };
+
+    // Checks if all bytes in the array are 0.
+    // \param data - input array.
+    // \return true if all bytes in @data are 0, false otherwise.
+    constexpr bool isAllZeros(std::span<const std::byte> data)
+    {
+      const std::byte* const first = data.data();
+      const std::byte* const last = first + data.size();
+      return std::all_of(first, last, [](std::byte value) { return value == std::byte{ 0 }; });
+    }
   }
 
   // Byte array optimized for the special case when all elements are 0.

@@ -6,10 +6,10 @@
 
 #include <json/json.h>
 
-#include <algorithm>
 #include <array>
 #include <limits>
 #include <optional>
+#include <span>
 #include <stdexcept>
 #include <string>
 #include <string_view>
@@ -43,6 +43,26 @@ namespace h3m::H3JsonReader_NS
 
     template<class T>
     using RemoveOptional = typename RemoveOptionalImpl<T>::type;
+
+    template<class T>
+    void readArrayImpl(const Json::Value& value, std::span<T> elements)
+    {
+      const std::size_t num_elements = elements.size();
+      if (!value.isArray())
+      {
+        throw std::runtime_error("readH3mJson(): expected array, got " + value.toStyledString());
+      }
+      if (value.size() != num_elements)
+      {
+        throw std::runtime_error("readH3mJson(): expected array of " + std::to_string(num_elements) +
+                                 " elements, got an array of " + std::to_string(value.size()) + " elements");
+      }
+      T* data = elements.data();
+      for (std::size_t i = 0; i < num_elements; ++i)
+      {
+        data[i] = fromJson<T>(value[static_cast<Json::ArrayIndex>(i)]);
+      }
+    }
   }
 
   class MissingJsonFieldError : public std::runtime_error
@@ -149,20 +169,8 @@ namespace h3m::H3JsonReader_NS
   {
     std::array<T, N> operator()(const Json::Value& value) const
     {
-      if (!value.isArray())
-      {
-        throw std::runtime_error("readH3mJson(): expected array, got " + value.toStyledString());
-      }
-      if (value.size() != N)
-      {
-        throw std::runtime_error("readH3mJson(): expected array of " + std::to_string(N) +
-                                 " elements, got an array of " + std::to_string(value.size()) + " elements");
-      }
       std::array<T, N> result;
-      for (std::size_t i = 0; i < N; ++i)
-      {
-        result[i] = fromJson<T>(value[static_cast<Json::ArrayIndex>(i)]);
-      }
+      Detail_NS::readArrayImpl<T>(value, result);
       return result;
     }
   };
@@ -205,11 +213,7 @@ namespace h3m::H3JsonReader_NS
     ReservedData<NumBytes> operator()(const Json::Value& value) const
     {
       std::array<std::byte, NumBytes> data = fromJson<std::array<std::byte, NumBytes>>(value);
-      const bool is_all_zeros = std::all_of(data.cbegin(), data.cend(), [](std::byte element)
-        {
-          return element == std::byte{ 0 };
-        });
-      if (is_all_zeros)
+      if (h3m::Detail_NS::isAllZeros(data))
       {
         return ReservedData<NumBytes>();
       }

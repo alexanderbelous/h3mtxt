@@ -29,11 +29,6 @@ namespace h3m::H3Reader_NS
 
     // Reads an array of bytes from the given stream.
     void readByteArrayImpl(std::istream& stream, std::span<std::byte> data);
-
-    // Checks if all bytes in the array are 0.
-    // \param data - input array.
-    // \return true if all bytes in @data are 0, false otherwise.
-    bool isAllZeros(std::span<const std::byte> data);
   }
 
   // Reads a little-endian integer from the stream.
@@ -100,7 +95,7 @@ namespace h3m::H3Reader_NS
   {
     std::array<std::byte, N> data;
     Detail_NS::readByteArrayImpl(stream, std::span{data});
-    if (Detail_NS::isAllZeros(data))
+    if (h3m::Detail_NS::isAllZeros(data))
     {
       return ReservedData<N>();
     }
