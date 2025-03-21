@@ -62,9 +62,9 @@ namespace Medea_NS
       {
         JsonObjectWriter<T> object_writer {};
         ScopedObjectWriter fields_writer{ context };
-        //context.beginAggregate('{');
+        context.beginAggregate('{');
         object_writer(fields_writer, value);
-        //context.endAggregate('}', true);
+        context.endAggregate('}', true);
       }
       else
       {

@@ -18,17 +18,10 @@ namespace Medea_NS
   {
     // Internal class for writing formatted JSON.
     //
-    // This class cannot be used directly - all members are private.
+    // This class cannot be used directly because only writeJson() has access to the constructor.
     class JsonWriterContext
     {
     public:
-      //friend ScopedArrayWriterBase;
-      //friend ScopedObjectWriter;
-
-      // writeValue() is a friend because it calls member functins writeBool(), writeString(), etc.
-      //template<class T>
-      //friend void writeValueRaw(JsonWriterContext& context, const T& value);
-
       // writeJson() is a friend because it needs to construct JsonWriterContext.
       template<class T>
       friend void ::Medea_NS::writeJson(std::ostream& stream, const T& value, unsigned int initial_indent);
