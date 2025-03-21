@@ -25,6 +25,9 @@ namespace Medea_NS
   void JsonObjectWriter<h3m::CreatureStack>::operator()(FieldsWriter& out, const h3m::CreatureStack& creature_stack) const;
 
   template<>
+  void JsonObjectWriter<h3m::EventBase>::operator()(FieldsWriter& out, const h3m::EventBase& event) const;
+
+  template<>
   void JsonObjectWriter<h3m::GlobalEvent>::operator()(FieldsWriter& out, const h3m::GlobalEvent& global_event) const;
 
   template<>
@@ -58,6 +61,26 @@ namespace Medea_NS
   template<>
   void JsonObjectWriter<h3m::MessageAndTreasure>::operator()(FieldsWriter& out,
                                                              const h3m::MessageAndTreasure& data) const;
+
+  template<>
+  struct JsonObjectWriter<h3m::Object>
+  {
+    // Constructs a writer that won't print any comments about the object's template.
+    constexpr JsonObjectWriter() noexcept = default;
+
+    // Constructs a writer that will print comments about the object's template.
+    constexpr JsonObjectWriter(const h3m::ObjectTemplate* objects_templates,
+                               std::size_t num_objects_templates) noexcept:
+      objects_templates_(objects_templates),
+      num_objects_templates_(num_objects_templates)
+    {}
+
+    void operator()(FieldsWriter& out, const h3m::Object& object) const;
+
+  private:
+    const h3m::ObjectTemplate* objects_templates_ = nullptr;
+    std::size_t num_objects_templates_ = 0;
+  };
 
   template<>
   void JsonObjectWriter<h3m::ObjectTemplate>::operator()(FieldsWriter& out, const h3m::ObjectTemplate& value) const;
@@ -108,6 +131,9 @@ namespace Medea_NS
   void JsonObjectWriter<h3m::Tile>::operator()(FieldsWriter& out, const h3m::Tile& value) const;
 
   template<>
+  void JsonObjectWriter<h3m::TimedEventBase>::operator()(FieldsWriter& out, const h3m::TimedEventBase& event) const;
+
+  template<>
   void JsonObjectWriter<h3m::TownBuildingsBitmask>::operator()(
     FieldsWriter& out, const h3m::TownBuildingsBitmask& buildings_bitmask) const;
 
@@ -124,10 +150,6 @@ namespace Medea_NS
   template<>
   void JsonObjectWriter<h3m::VictoryCondition>::operator()(FieldsWriter& out,
                                                            const h3m::VictoryCondition& value) const;
-
-  void printEventBase(FieldsWriter& out, const h3m::EventBase& event);
-
-  void printTimedEventBase(FieldsWriter& out, const h3m::TimedEventBase& event);
 
   // === Campaign ===
   template<>
@@ -157,12 +179,4 @@ namespace Medea_NS
   template<>
   void JsonObjectWriter<h3m::StartingOptions>::operator()(FieldsWriter& out,
                                                           const h3m::StartingOptions& starting_options) const;
-}
-
-namespace h3m::H3JsonWriter_NS
-{
-  void printObject(Medea_NS::FieldsWriter& out,
-                   const Object& object,
-                   const ObjectTemplate* objects_templates,
-                   std::size_t num_objects_templates);
 }

@@ -137,10 +137,9 @@ namespace Medea_NS
   {
     void operator()(FieldsWriter& out, const WrappedObject& wrapped_object) const
     {
-      h3m::H3JsonWriter_NS::printObject(out,
-                                        wrapped_object.object,
-                                        wrapped_object.objects_templates.data(),
-                                        wrapped_object.objects_templates.size());
+      const JsonObjectWriter<h3m::Object> object_writer(wrapped_object.objects_templates.data(),
+                                                        wrapped_object.objects_templates.size());
+      object_writer(out, wrapped_object.object);
     }
   };
 

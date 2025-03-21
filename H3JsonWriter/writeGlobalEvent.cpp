@@ -5,6 +5,6 @@ namespace Medea_NS
 {
   void JsonObjectWriter<h3m::GlobalEvent>::operator()(FieldsWriter& out, const h3m::GlobalEvent& global_event) const
   {
-    printTimedEventBase(out, global_event);
+    JsonObjectWriter<h3m::TimedEventBase>{}(out, global_event);
   }
 }

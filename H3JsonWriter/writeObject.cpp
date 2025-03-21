@@ -10,6 +10,31 @@
 
 #include <stdexcept>
 
+namespace h3m
+{
+  namespace
+  {
+    std::string makeObjectTemplateComment(const ObjectTemplate& object_template)
+    {
+      const ObjectClass object_class = object_template.object_class;
+      const MetaObjectType meta_object_type = getMetaObjectType(object_class);
+
+      H3JsonWriter_NS::CommentBuilder comment_builder;
+      comment_builder << "ObjectClass: " << static_cast<std::size_t>(object_class);
+      if (std::string_view enum_str = getEnumString(object_class); !enum_str.empty())
+      {
+        comment_builder << " (" << enum_str << ")";
+      }
+      comment_builder << "\nMetaObjectType: " << static_cast<std::size_t>(meta_object_type);
+      if (std::string_view enum_str = getEnumString(meta_object_type); !enum_str.empty())
+      {
+        comment_builder << " (" << enum_str << ")";
+      }
+      return comment_builder.str();
+    }
+  }
+}
+
 namespace Medea_NS
 {
   void JsonObjectWriter<h3m::ResourcesBitmask>::operator()(FieldsWriter& out,
@@ -43,7 +68,7 @@ namespace Medea_NS
   void JsonObjectWriter<h3m::TownEvent>::operator()(FieldsWriter& out, const h3m::TownEvent& town_event) const
   {
     using Fields = h3m::FieldNames<h3m::TownEvent>;
-    printTimedEventBase(out, town_event);
+    JsonObjectWriter<h3m::TimedEventBase>{}(out, town_event);
     out.writeField(Fields::kBuildings, town_event.buildings);
     out.writeField(Fields::kCreatures, town_event.creatures);
     out.writeField(Fields::kUnknown2, town_event.unknown2);
@@ -75,7 +100,7 @@ namespace Medea_NS
     }
   }
 
-  void printEventBase(FieldsWriter& out, const h3m::EventBase& event)
+  void JsonObjectWriter<h3m::EventBase>::operator()(FieldsWriter& out, const h3m::EventBase& event) const
   {
     using Fields = h3m::FieldNames<h3m::EventBase>;
     if (event.guardians)
@@ -120,7 +145,7 @@ namespace Medea_NS
   {
     using Details = h3m::ObjectProperties<h3m::MetaObjectType::EVENT>;
     using Fields = h3m::FieldNames<Details>;
-    printEventBase(out, event);
+    JsonObjectWriter<h3m::EventBase>{}(out, event);
     out.writeField(Fields::kAffectedPlayers, event.affected_players);
     out.writeField(Fields::kAppliesToComputer, event.applies_to_computer);
     out.writeField(Fields::kRemoveAfterFirstVisit, event.remove_after_first_visit);
@@ -253,7 +278,7 @@ namespace Medea_NS
   void JsonObjectWriter<h3m::ObjectProperties<h3m::MetaObjectType::PANDORAS_BOX>>::operator()(
     FieldsWriter& out, const h3m::ObjectProperties<h3m::MetaObjectType::PANDORAS_BOX>& pandoras_box) const
   {
-    printEventBase(out, pandoras_box);
+    JsonObjectWriter<h3m::EventBase>{}(out, pandoras_box);
   }
 
   void JsonObjectWriter<h3m::ObjectProperties<h3m::MetaObjectType::PLACEHOLDER_HERO>>::operator()(
@@ -458,57 +483,27 @@ namespace Medea_NS
     using Fields = h3m::FieldNames<Details>;
     out.writeField(Fields::kPotentialSkills, witch_hut.potential_skills);
   }
-}
 
-namespace h3m::H3JsonWriter_NS
-{
-  namespace
+  void JsonObjectWriter<h3m::Object>::operator()(FieldsWriter& out, const h3m::Object& object) const
   {
-    std::string makeObjectTemplateComment(const ObjectTemplate& object_template)
-    {
-      const h3m::ObjectClass object_class = object_template.object_class;
-      const h3m::MetaObjectType meta_object_type = getMetaObjectType(object_class);
-
-      CommentBuilder comment_builder;
-      comment_builder << "ObjectClass: " << static_cast<std::size_t>(object_class);
-      if (std::string_view enum_str = h3m::getEnumString(object_class); !enum_str.empty())
-      {
-        comment_builder << " (" << enum_str << ")";
-      }
-      comment_builder << "\nMetaObjectType: " << static_cast<std::size_t>(meta_object_type);
-      if (std::string_view enum_str = h3m::getEnumString(meta_object_type); !enum_str.empty())
-      {
-        comment_builder << " (" << enum_str << ")";
-      }
-      return comment_builder.str();
-    }
-  }
-
-  void printObject(Medea_NS::FieldsWriter& out,
-                   const Object& object,
-                   const ObjectTemplate* objects_templates,
-                   std::size_t num_objects_templates)
-  {
-    if (!objects_templates)
-    {
-      throw std::runtime_error("printObject(): objects_templates must not be a null pointer.");
-    }
-    if (object.template_idx >= num_objects_templates)
-    {
-      throw std::runtime_error("printObject(): Object::template_idx is out of range.");
-    }
-    const ObjectTemplate& object_template = objects_templates[object.template_idx];
-    if (getMetaObjectType(object_template.object_class) != object.properties.getMetaObjectType())
-    {
-      throw std::runtime_error("printObject(): Object::details has MetaObjectType different "
-                                "from the ObjectTemplate it refers to.");
-    }
-
     using Fields = h3m::FieldNames<h3m::Object>;
     out.writeField(Fields::kX, object.x);
     out.writeField(Fields::kY, object.y);
     out.writeField(Fields::kZ, object.z);
-    out.writeComment(makeObjectTemplateComment(object_template));
+    if (objects_templates_)
+    {
+      if (object.template_idx >= num_objects_templates_)
+      {
+        throw std::runtime_error("JsonObjectWriter<h3m::Object>: Object::template_idx is out of range.");
+      }
+      const h3m::ObjectTemplate& object_template = objects_templates_[object.template_idx];
+      if (h3m::getMetaObjectType(object_template.object_class) != object.properties.getMetaObjectType())
+      {
+        throw std::runtime_error("JsonObjectWriter<h3m::Object>: Object::properties has MetaObjectType different "
+                                 "from the ObjectTemplate it refers to.");
+      }
+      out.writeComment(h3m::makeObjectTemplateComment(object_template));
+    }
     out.writeField(Fields::kTemplateIdx, object.template_idx);
     out.writeField(Fields::kUnknown, object.unknown);
     if (object.properties.getMetaObjectType() != h3m::MetaObjectType::GENERIC_NO_PROPERTIES)
