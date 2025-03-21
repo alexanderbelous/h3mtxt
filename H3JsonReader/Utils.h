@@ -44,23 +44,21 @@ namespace h3m::H3JsonReader_NS
     template<class T>
     using RemoveOptional = typename RemoveOptionalImpl<T>::type;
 
+    // Checks that the given JSON value is an array with the specified number of elements.
+    // \param value - input JSON value.
+    // \param n - expected number of elements.
+    // \throw std::runtime_error if @value is not a JSON array with @n elements.
+    void checkArraySize(const Json::Value& value, std::size_t n);
+
     template<class T>
     void readArrayImpl(const Json::Value& value, std::span<T> elements)
     {
       const std::size_t num_elements = elements.size();
-      if (!value.isArray())
-      {
-        throw std::runtime_error("readH3mJson(): expected array, got " + value.toStyledString());
-      }
-      if (value.size() != num_elements)
-      {
-        throw std::runtime_error("readH3mJson(): expected array of " + std::to_string(num_elements) +
-                                 " elements, got an array of " + std::to_string(value.size()) + " elements");
-      }
+      checkArraySize(value, num_elements);
       T* data = elements.data();
       for (std::size_t i = 0; i < num_elements; ++i)
       {
-        data[i] = fromJson<T>(value[static_cast<Json::ArrayIndex>(i)]);
+        data[i] = JsonReader<T>{}(value[static_cast<Json::ArrayIndex>(i)]);
       }
     }
   }

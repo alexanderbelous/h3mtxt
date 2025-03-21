@@ -6,6 +6,22 @@
 
 namespace h3m::H3JsonReader_NS
 {
+  namespace Detail_NS
+  {
+    void checkArraySize(const Json::Value& value, std::size_t n)
+    {
+      if (!value.isArray())
+      {
+        throw std::runtime_error("readH3mJson(): expected array, got " + value.toStyledString());
+      }
+      if (value.size() != n)
+      {
+        throw std::runtime_error("readH3mJson(): expected array of " + std::to_string(n) +
+                                 " elements, got an array of " + std::to_string(value.size()) + " elements");
+      }
+    }
+  }
+
   const Json::Value& getJsonField(const Json::Value& value, std::string_view field_name)
   {
     if (const Json::Value* field = value.find(field_name.data(), field_name.data() + field_name.size()))
