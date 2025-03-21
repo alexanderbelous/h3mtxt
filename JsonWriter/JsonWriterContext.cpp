@@ -37,20 +37,19 @@ namespace Medea_NS::Detail_NS
 
   void JsonWriterContext::beforeWriteValue(bool newline)
   {
-    const bool has_unflushed_comments = hasUnflushedComment();
+    const bool needs_newline = newline || hasUnflushedComment();
     if (has_members_in_scope_)
     {
       stream_.put(',');
       // Append a space if the next element will be written on the same line.
-      if (!newline && !has_unflushed_comments)
+      if (!needs_newline)
       {
         stream_.put(' ');
       }
     }
-    // Flush comments.
     flushComments();
     // Write a newline character and indent, if needed.
-    if (newline || has_unflushed_comments)
+    if (needs_newline)
     {
       writeNewline();
     }
@@ -120,7 +119,6 @@ namespace Medea_NS::Detail_NS
     stream_.put(bracket);
     indent_ += 2;
     has_members_in_scope_ = false;
-    has_comments_in_scope_ = false;
   }
 
   void JsonWriterContext::endAggregate(char bracket, bool newline)
@@ -199,6 +197,5 @@ namespace Medea_NS::Detail_NS
     // Clean-up.
     comment_.clear();
     is_inline_comment_ = false;
-    has_comments_in_scope_ = true;
   }
 }

@@ -92,8 +92,6 @@ namespace Medea_NS
       unsigned int indent_ = 0;
       // True if one or more entries (i.e. values or fields) have been printed in the current scope, false otherwise.
       bool has_members_in_scope_ = false;
-      // True if one or more comments have been printed in the current scope, false otherwise.
-      bool has_comments_in_scope_ = false;
     };
   }
 }

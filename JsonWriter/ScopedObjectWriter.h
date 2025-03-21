@@ -12,11 +12,11 @@ namespace Medea_NS
   class ScopedObjectWriter
   {
   public:
-    explicit ScopedObjectWriter(Detail_NS::JsonWriterContext& context):
+    explicit constexpr ScopedObjectWriter(Detail_NS::JsonWriterContext& context) noexcept:
       context_(context)
     {}
 
-    ~ScopedObjectWriter() = default;
+    constexpr ~ScopedObjectWriter() = default;
 
     // Non-copyable, non-movable.
     ScopedObjectWriter(const ScopedObjectWriter&) = delete;

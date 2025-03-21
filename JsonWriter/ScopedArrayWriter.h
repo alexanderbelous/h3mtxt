@@ -13,7 +13,8 @@ namespace Medea_NS
   class ScopedArrayWriter
   {
   public:
-    explicit ScopedArrayWriter(Detail_NS::JsonWriterContext& context, bool one_element_per_line = true);
+    explicit constexpr ScopedArrayWriter(Detail_NS::JsonWriterContext& context,
+                                         bool one_element_per_line = true) noexcept;
 
     ~ScopedArrayWriter() = default;
 
@@ -39,7 +40,8 @@ namespace Medea_NS
   };
 
   template<class T>
-  ScopedArrayWriter<T>::ScopedArrayWriter(Detail_NS::JsonWriterContext& context, bool one_element_per_line):
+  constexpr ScopedArrayWriter<T>::ScopedArrayWriter(Detail_NS::JsonWriterContext& context,
+                                                    bool one_element_per_line) noexcept:
     context_(context),
     one_element_per_line_(one_element_per_line)
   {}
