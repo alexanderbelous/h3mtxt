@@ -100,7 +100,7 @@ namespace Medea_NS
       {
         const h3m::PlayerColor player = static_cast<h3m::PlayerColor>(i);
         const std::string_view player_str = h3m::getEnumString(player);
-        scoped_array_writer.writeComment(comment_builder.build("Player ", i, " (", player_str, ")"));
+        scoped_array_writer.writeComment(comment_builder.build({ "Player ", i, " (", player_str, ")" }));
         scoped_array_writer.writeElement(players[i]);
       }
     }
@@ -125,7 +125,7 @@ namespace Medea_NS
         {
           for (std::uint32_t x = 0; x < map_size; ++x)
           {
-            scoped_array_writer.writeComment(comment_builder.build("Tile (", x, ", ", y, ", ", z, ")"));
+            scoped_array_writer.writeComment(comment_builder.build({ "Tile (", x, ", ", y, ", ", z, ")" }));
             scoped_array_writer.writeElement(*iter);
             ++iter;
           }
@@ -156,7 +156,7 @@ namespace Medea_NS
       h3m::H3JsonWriter_NS::CommentBuilder comment_builder;
       for (std::size_t i = 0; i < wrapped_objects.objects.size(); ++i)
       {
-        scoped_array_writer.writeComment(comment_builder.build("Object ", i));
+        scoped_array_writer.writeComment(comment_builder.build({ "Object ", i }));
         scoped_array_writer.writeElement(WrappedObject(wrapped_objects.objects_templates, wrapped_objects.objects[i]));
       }
     }
