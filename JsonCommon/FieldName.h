@@ -27,7 +27,8 @@ namespace h3m
   // This is to ensure that H3JsonWriter and H3JsonReader use the same names:
   // * A typo in a string will only be discovered at runtime, but a typo in a static
   //   data member will cause a compilation error.
-  // * This should also guarantee that these strings are only stored once in the binary.
+  // * This also guarantees that these strings are only stored once in the binary,
+  //   even if string pooling is disabled.
   template<class T>
   struct FieldNames;
 
@@ -37,7 +38,7 @@ namespace h3m
     // The number of bits in TownsBitmask.
     static constexpr std::size_t kNumBits = Detail_NS::EnumBitmaskSize_v<ArtifactsBitmask> * 8;
     // Name for each bit field in TownsBitmask.
-    static inline constexpr std::array<std::string_view, kNumBits> kNames
+    static constexpr std::array<std::string_view, kNumBits> kNames
     {
       "spellbook",
       "spell_scroll",
@@ -189,8 +190,8 @@ namespace h3m
   template<>
   struct FieldNames<CreatureStack>
   {
-    static inline constexpr std::string_view kType = "type";
-    static inline constexpr std::string_view kCount = "count";
+    static constexpr std::string_view kType = "type";
+    static constexpr std::string_view kCount = "count";
   };
 
   template<>
@@ -199,7 +200,7 @@ namespace h3m
     // The number of bits in CrossoverFeaturesBitmask.
     static constexpr std::size_t kNumBits = Detail_NS::EnumBitmaskSize_v<CrossoverFeaturesBitmask> * 8;
     // Name for each bit field in CrossoverFeaturesBitmask.
-    static inline constexpr std::array<std::string_view, kNumBits> kNames
+    static constexpr std::array<std::string_view, kNumBits> kNames
     {
       "experience",
       "primary_skills",
@@ -215,63 +216,63 @@ namespace h3m
   template<>
   struct FieldNames<EventBase>
   {
-    static inline constexpr std::string_view kGuardians = "guardians";
-    static inline constexpr std::string_view kExperience = "experience";
-    static inline constexpr std::string_view kSpellPoints = "spell_points";
-    static inline constexpr std::string_view kMorale = "morale";
-    static inline constexpr std::string_view kLuck = "luck";
-    static inline constexpr std::string_view kResources = "resources";
-    static inline constexpr std::string_view kPrimarySkills = "primary_skills";
-    static inline constexpr std::string_view kSecondarySkills = "secondary_skills";
-    static inline constexpr std::string_view kArtifacts = "artifacts";
-    static inline constexpr std::string_view kSpells = "spells";
-    static inline constexpr std::string_view kCreatures = "creatures";
-    static inline constexpr std::string_view kUnknown = "unknown";
+    static constexpr std::string_view kGuardians = "guardians";
+    static constexpr std::string_view kExperience = "experience";
+    static constexpr std::string_view kSpellPoints = "spell_points";
+    static constexpr std::string_view kMorale = "morale";
+    static constexpr std::string_view kLuck = "luck";
+    static constexpr std::string_view kResources = "resources";
+    static constexpr std::string_view kPrimarySkills = "primary_skills";
+    static constexpr std::string_view kSecondarySkills = "secondary_skills";
+    static constexpr std::string_view kArtifacts = "artifacts";
+    static constexpr std::string_view kSpells = "spells";
+    static constexpr std::string_view kCreatures = "creatures";
+    static constexpr std::string_view kUnknown = "unknown";
   };
 
   template<>
   struct FieldNames<Guardians>
   {
-    static inline constexpr std::string_view kMessage = "message";
-    static inline constexpr std::string_view kCreatures = "creatures";
-    static inline constexpr std::string_view kUnknown = "unknown";
+    static constexpr std::string_view kMessage = "message";
+    static constexpr std::string_view kCreatures = "creatures";
+    static constexpr std::string_view kUnknown = "unknown";
   };
 
   template<>
   struct FieldNames<HeroArtifacts>
   {
-    static inline constexpr std::string_view kHead = "head";
-    static inline constexpr std::string_view kShoulders = "shoulders";
-    static inline constexpr std::string_view kNeck = "neck";
-    static inline constexpr std::string_view kRightHand = "right_hand";
-    static inline constexpr std::string_view kLeftHand = "left_hand";
-    static inline constexpr std::string_view kTorso = "torso";
-    static inline constexpr std::string_view kRightRing = "right_ring";
-    static inline constexpr std::string_view kLeftRing = "left_ring";
-    static inline constexpr std::string_view kFeet = "feet";
-    static inline constexpr std::string_view kMisc1 = "misc1";
-    static inline constexpr std::string_view kMisc2 = "misc2";
-    static inline constexpr std::string_view kMisc3 = "misc3";
-    static inline constexpr std::string_view kMisc4 = "misc4";
-    static inline constexpr std::string_view kMisc5 = "misc5";
-    static inline constexpr std::string_view kWarMachine1 = "war_machine1";
-    static inline constexpr std::string_view kWarMachine2 = "war_machine2";
-    static inline constexpr std::string_view kWarMachine3 = "war_machine3";
-    static inline constexpr std::string_view kWarMachine4 = "war_machine4";
-    static inline constexpr std::string_view kSpellbook = "spellbook";
-    static inline constexpr std::string_view kBackpack = "backpack";
+    static constexpr std::string_view kHead = "head";
+    static constexpr std::string_view kShoulders = "shoulders";
+    static constexpr std::string_view kNeck = "neck";
+    static constexpr std::string_view kRightHand = "right_hand";
+    static constexpr std::string_view kLeftHand = "left_hand";
+    static constexpr std::string_view kTorso = "torso";
+    static constexpr std::string_view kRightRing = "right_ring";
+    static constexpr std::string_view kLeftRing = "left_ring";
+    static constexpr std::string_view kFeet = "feet";
+    static constexpr std::string_view kMisc1 = "misc1";
+    static constexpr std::string_view kMisc2 = "misc2";
+    static constexpr std::string_view kMisc3 = "misc3";
+    static constexpr std::string_view kMisc4 = "misc4";
+    static constexpr std::string_view kMisc5 = "misc5";
+    static constexpr std::string_view kWarMachine1 = "war_machine1";
+    static constexpr std::string_view kWarMachine2 = "war_machine2";
+    static constexpr std::string_view kWarMachine3 = "war_machine3";
+    static constexpr std::string_view kWarMachine4 = "war_machine4";
+    static constexpr std::string_view kSpellbook = "spellbook";
+    static constexpr std::string_view kBackpack = "backpack";
   };
 
   template<>
   struct FieldNames<HeroSettings>
   {
-    static inline constexpr std::string_view kExperience = "experience";
-    static inline constexpr std::string_view kSecondarySkills = "secondary_skills";
-    static inline constexpr std::string_view kArtifacts = "artifacts";
-    static inline constexpr std::string_view kBiography = "biography";
-    static inline constexpr std::string_view kGender = "gender";
-    static inline constexpr std::string_view kSpells = "spells";
-    static inline constexpr std::string_view kPrimarySkills = "primary_skills";
+    static constexpr std::string_view kExperience = "experience";
+    static constexpr std::string_view kSecondarySkills = "secondary_skills";
+    static constexpr std::string_view kArtifacts = "artifacts";
+    static constexpr std::string_view kBiography = "biography";
+    static constexpr std::string_view kGender = "gender";
+    static constexpr std::string_view kSpells = "spells";
+    static constexpr std::string_view kPrimarySkills = "primary_skills";
   };
 
   template<>
@@ -280,7 +281,7 @@ namespace h3m
     // The number of bits in HeroesBitmask.
     static constexpr std::size_t kNumBits = Detail_NS::EnumBitmaskSize_v<HeroesBitmask> * 8;
     // Name for each bit field in HeroesBitmask.
-    static inline constexpr std::array<std::string_view, kNumBits> kNames
+    static constexpr std::array<std::string_view, kNumBits> kNames
     {
       "orrin",
       "valeska",
@@ -451,167 +452,167 @@ namespace h3m
     // Note: LossCondition has only 1 data member `details`, which is a std::variant.
     // However, it is serialized as 2 fields: `type` (LossConditionType) and
     // `details` (LossConditionDetails<type>).
-    static inline constexpr std::string_view kType = "type";
-    static inline constexpr std::string_view kDetails = "details";
+    static constexpr std::string_view kType = "type";
+    static constexpr std::string_view kDetails = "details";
   };
 
   template<>
   struct FieldNames<MainTown>
   {
-    static inline constexpr std::string_view kGenerateHero = "generate_hero";
-    static inline constexpr std::string_view kTownType = "town_type";
-    static inline constexpr std::string_view kX = "x";
-    static inline constexpr std::string_view kY = "y";
-    static inline constexpr std::string_view kZ = "z";
+    static constexpr std::string_view kGenerateHero = "generate_hero";
+    static constexpr std::string_view kTownType = "town_type";
+    static constexpr std::string_view kX = "x";
+    static constexpr std::string_view kY = "y";
+    static constexpr std::string_view kZ = "z";
   };
 
   template<>
   struct FieldNames<Map>
   {
-    static inline constexpr std::string_view kFormat = "format";
-    static inline constexpr std::string_view kBasicInfo = "basic_info";
-    static inline constexpr std::string_view kPlayers = "players";
-    static inline constexpr std::string_view kAdditionalInfo = "additional_info";
-    static inline constexpr std::string_view kTiles = "tiles";
-    static inline constexpr std::string_view kObjectsTemplates = "objects_templates";
-    static inline constexpr std::string_view kObjects = "objects";
-    static inline constexpr std::string_view kGlobalEvents = "global_events";
-    static inline constexpr std::string_view kPadding = "padding";
+    static constexpr std::string_view kFormat = "format";
+    static constexpr std::string_view kBasicInfo = "basic_info";
+    static constexpr std::string_view kPlayers = "players";
+    static constexpr std::string_view kAdditionalInfo = "additional_info";
+    static constexpr std::string_view kTiles = "tiles";
+    static constexpr std::string_view kObjectsTemplates = "objects_templates";
+    static constexpr std::string_view kObjects = "objects";
+    static constexpr std::string_view kGlobalEvents = "global_events";
+    static constexpr std::string_view kPadding = "padding";
   };
 
   template<>
   struct FieldNames<MapBasicInfo>
   {
-    static inline constexpr std::string_view kIsPlayable = "is_playable";
-    static inline constexpr std::string_view kMapSize = "map_size";
-    static inline constexpr std::string_view kHasTwoLevels = "has_two_levels";
-    static inline constexpr std::string_view kName = "name";
-    static inline constexpr std::string_view kDescription = "description";
-    static inline constexpr std::string_view kDifficulty = "difficulty";
-    static inline constexpr std::string_view kMaxHeroLevel = "max_hero_level";
+    static constexpr std::string_view kIsPlayable = "is_playable";
+    static constexpr std::string_view kMapSize = "map_size";
+    static constexpr std::string_view kHasTwoLevels = "has_two_levels";
+    static constexpr std::string_view kName = "name";
+    static constexpr std::string_view kDescription = "description";
+    static constexpr std::string_view kDifficulty = "difficulty";
+    static constexpr std::string_view kMaxHeroLevel = "max_hero_level";
   };
 
   template<>
   struct FieldNames<MapAdditionalInfo>
   {
-    static inline constexpr std::string_view kVictoryCondition = "victory_condition";
-    static inline constexpr std::string_view kLossCondition = "loss_condition";
-    static inline constexpr std::string_view kTeams = "teams";
-    static inline constexpr std::string_view kHeroesAvailability = "heroes_availability";
-    static inline constexpr std::string_view kPlaceholderHeroes = "placeholder_heroes";
-    static inline constexpr std::string_view kCustomHeroes = "custom_heroes";
-    static inline constexpr std::string_view kReserved = "reserved";
-    static inline constexpr std::string_view kDisabledArtifacts = "disabled_artifacts";
-    static inline constexpr std::string_view kDisabledSpells = "disabled_spells";
-    static inline constexpr std::string_view kDisabledSkills = "disabled_skills";
-    static inline constexpr std::string_view kRumors = "rumors";
-    static inline constexpr std::string_view kHeroesSettings = "heroes_settings";
+    static constexpr std::string_view kVictoryCondition = "victory_condition";
+    static constexpr std::string_view kLossCondition = "loss_condition";
+    static constexpr std::string_view kTeams = "teams";
+    static constexpr std::string_view kHeroesAvailability = "heroes_availability";
+    static constexpr std::string_view kPlaceholderHeroes = "placeholder_heroes";
+    static constexpr std::string_view kCustomHeroes = "custom_heroes";
+    static constexpr std::string_view kReserved = "reserved";
+    static constexpr std::string_view kDisabledArtifacts = "disabled_artifacts";
+    static constexpr std::string_view kDisabledSpells = "disabled_spells";
+    static constexpr std::string_view kDisabledSkills = "disabled_skills";
+    static constexpr std::string_view kRumors = "rumors";
+    static constexpr std::string_view kHeroesSettings = "heroes_settings";
   };
 
   template<>
   struct FieldNames<MessageAndTreasure>
   {
-    static inline constexpr std::string_view kMessage = "message";
-    static inline constexpr std::string_view kResources = "resources";
-    static inline constexpr std::string_view kArtifact = "artifact";
+    static constexpr std::string_view kMessage = "message";
+    static constexpr std::string_view kResources = "resources";
+    static constexpr std::string_view kArtifact = "artifact";
   };
 
   template<>
   struct FieldNames<ObjectTemplate>
   {
-    static inline constexpr std::string_view kDef = "def";
-    static inline constexpr std::string_view kPassability = "passability";
-    static inline constexpr std::string_view kActionability = "actionability";
-    static inline constexpr std::string_view kAllowedLandscapes = "allowed_landscapes";
-    static inline constexpr std::string_view kLandscapeGroup = "landscape_group";
-    static inline constexpr std::string_view kObjectClass = "object_class";
-    static inline constexpr std::string_view kObjectSubclass = "object_subclass";
-    static inline constexpr std::string_view kObjectGroup = "object_group";
-    static inline constexpr std::string_view kIsGround = "is_ground";
-    static inline constexpr std::string_view kUnknown = "unknown";
+    static constexpr std::string_view kDef = "def";
+    static constexpr std::string_view kPassability = "passability";
+    static constexpr std::string_view kActionability = "actionability";
+    static constexpr std::string_view kAllowedLandscapes = "allowed_landscapes";
+    static constexpr std::string_view kLandscapeGroup = "landscape_group";
+    static constexpr std::string_view kObjectClass = "object_class";
+    static constexpr std::string_view kObjectSubclass = "object_subclass";
+    static constexpr std::string_view kObjectGroup = "object_group";
+    static constexpr std::string_view kIsGround = "is_ground";
+    static constexpr std::string_view kUnknown = "unknown";
   };
 
   template<>
   struct FieldNames<Object>
   {
-    static inline constexpr std::string_view kX = "x";
-    static inline constexpr std::string_view kY = "y";
-    static inline constexpr std::string_view kZ = "z";
-    static inline constexpr std::string_view kTemplateIdx = "template_idx";
-    static inline constexpr std::string_view kUnknown = "unknown";
-    static inline constexpr std::string_view kProperties = "properties";
+    static constexpr std::string_view kX = "x";
+    static constexpr std::string_view kY = "y";
+    static constexpr std::string_view kZ = "z";
+    static constexpr std::string_view kTemplateIdx = "template_idx";
+    static constexpr std::string_view kUnknown = "unknown";
+    static constexpr std::string_view kProperties = "properties";
   };
 
   template<>
   struct FieldNames<ObjectProperties<MetaObjectType::ABANDONED_MINE>>
   {
-    static inline constexpr std::string_view kPotentialResources = "potential_resources";
-    static inline constexpr std::string_view kUnknown = "unknown";
+    static constexpr std::string_view kPotentialResources = "potential_resources";
+    static constexpr std::string_view kUnknown = "unknown";
   };
 
   template<>
   struct FieldNames<ObjectProperties<MetaObjectType::ARTIFACT>>
   {
-    static inline constexpr std::string_view kGuardians = "guardians";
+    static constexpr std::string_view kGuardians = "guardians";
   };
 
   template<>
   struct FieldNames<ObjectProperties<MetaObjectType::EVENT>> : FieldNames<EventBase>
   {
-    static inline constexpr std::string_view kAffectedPlayers = "affected_players";
-    static inline constexpr std::string_view kAppliesToComputer = "applies_to_computer";
-    static inline constexpr std::string_view kRemoveAfterFirstVisit = "remove_after_first_visit";
-    static inline constexpr std::string_view kUnknown2 = "unknown2";
+    static constexpr std::string_view kAffectedPlayers = "affected_players";
+    static constexpr std::string_view kAppliesToComputer = "applies_to_computer";
+    static constexpr std::string_view kRemoveAfterFirstVisit = "remove_after_first_visit";
+    static constexpr std::string_view kUnknown2 = "unknown2";
   };
 
   template<>
   struct FieldNames<ObjectProperties<MetaObjectType::GARRISON>>
   {
-    static inline constexpr std::string_view kOwner = "owner";
-    static inline constexpr std::string_view kUnknown = "unknown";
-    static inline constexpr std::string_view kCreatures = "creatures";
-    static inline constexpr std::string_view kCanRemoveUnits = "can_remove_units";
-    static inline constexpr std::string_view kUnknown2 = "unknown2";
+    static constexpr std::string_view kOwner = "owner";
+    static constexpr std::string_view kUnknown = "unknown";
+    static constexpr std::string_view kCreatures = "creatures";
+    static constexpr std::string_view kCanRemoveUnits = "can_remove_units";
+    static constexpr std::string_view kUnknown2 = "unknown2";
   };
 
   template<>
   struct FieldNames<ObjectProperties<MetaObjectType::GRAIL>>
   {
-    static inline constexpr std::string_view kAllowableRadius = "allowable_radius";
-    static inline constexpr std::string_view kUnknown = "unknown";
+    static constexpr std::string_view kAllowableRadius = "allowable_radius";
+    static constexpr std::string_view kUnknown = "unknown";
   };
 
   template<>
   struct FieldNames<ObjectProperties<MetaObjectType::HERO>>
   {
-    static inline constexpr std::string_view kAbsodId = "absod_id";
-    static inline constexpr std::string_view kOwner = "owner";
-    static inline constexpr std::string_view kType = "type";
-    static inline constexpr std::string_view kName = "name";
-    static inline constexpr std::string_view kExperience = "experience";
-    static inline constexpr std::string_view kPortrait = "portrait";
-    static inline constexpr std::string_view kSecondarySkills = "secondary_skills";
-    static inline constexpr std::string_view kCreatures = "creatures";
-    static inline constexpr std::string_view kFormation = "formation";
-    static inline constexpr std::string_view kArtifacts = "artifacts";
-    static inline constexpr std::string_view kPatrolRadius = "patrol_radius";
-    static inline constexpr std::string_view kBiography = "biography";
-    static inline constexpr std::string_view kGender = "gender";
-    static inline constexpr std::string_view kSpells = "spells";
-    static inline constexpr std::string_view kPrimarySkills = "primary_skills";
-    static inline constexpr std::string_view kUnknown = "unknown";
+    static constexpr std::string_view kAbsodId = "absod_id";
+    static constexpr std::string_view kOwner = "owner";
+    static constexpr std::string_view kType = "type";
+    static constexpr std::string_view kName = "name";
+    static constexpr std::string_view kExperience = "experience";
+    static constexpr std::string_view kPortrait = "portrait";
+    static constexpr std::string_view kSecondarySkills = "secondary_skills";
+    static constexpr std::string_view kCreatures = "creatures";
+    static constexpr std::string_view kFormation = "formation";
+    static constexpr std::string_view kArtifacts = "artifacts";
+    static constexpr std::string_view kPatrolRadius = "patrol_radius";
+    static constexpr std::string_view kBiography = "biography";
+    static constexpr std::string_view kGender = "gender";
+    static constexpr std::string_view kSpells = "spells";
+    static constexpr std::string_view kPrimarySkills = "primary_skills";
+    static constexpr std::string_view kUnknown = "unknown";
   };
 
   template<>
   struct FieldNames<ObjectProperties<MetaObjectType::MONSTER>>
   {
-    static inline constexpr std::string_view kAbsodId = "absod_id";
-    static inline constexpr std::string_view kCount = "count";
-    static inline constexpr std::string_view kDisposition = "disposition";
-    static inline constexpr std::string_view kMessageAndTreasure = "message_and_treasure";
-    static inline constexpr std::string_view kNeverFlees = "never_flees";
-    static inline constexpr std::string_view kDoesNotGrow = "does_not_grow";
-    static inline constexpr std::string_view kUnknown = "unknown";
+    static constexpr std::string_view kAbsodId = "absod_id";
+    static constexpr std::string_view kCount = "count";
+    static constexpr std::string_view kDisposition = "disposition";
+    static constexpr std::string_view kMessageAndTreasure = "message_and_treasure";
+    static constexpr std::string_view kNeverFlees = "never_flees";
+    static constexpr std::string_view kDoesNotGrow = "does_not_grow";
+    static constexpr std::string_view kUnknown = "unknown";
   };
 
   template<>
@@ -621,140 +622,140 @@ namespace h3m
   template<>
   struct FieldNames<ObjectProperties<MetaObjectType::PLACEHOLDER_HERO>>
   {
-    static inline constexpr std::string_view kOwner = "owner";
-    static inline constexpr std::string_view kType = "type";
-    static inline constexpr std::string_view kPowerRating = "power_rating";
+    static constexpr std::string_view kOwner = "owner";
+    static constexpr std::string_view kType = "type";
+    static constexpr std::string_view kPowerRating = "power_rating";
   };
 
   template<>
   struct FieldNames<ObjectProperties<MetaObjectType::QUEST_GUARD>>
   {
-    static inline constexpr std::string_view kQuest = "quest";
+    static constexpr std::string_view kQuest = "quest";
   };
 
   template<>
   struct FieldNames<ObjectProperties<MetaObjectType::RANDOM_DWELLING>>
   {
-    static inline constexpr std::string_view kOwner = "owner";
-    static inline constexpr std::string_view kTownAbsodId = "town_absod_id";
-    static inline constexpr std::string_view kAlignment = "alignment";
-    static inline constexpr std::string_view kMinLevel = "min_level";
-    static inline constexpr std::string_view kMaxLevel = "max_level";
+    static constexpr std::string_view kOwner = "owner";
+    static constexpr std::string_view kTownAbsodId = "town_absod_id";
+    static constexpr std::string_view kAlignment = "alignment";
+    static constexpr std::string_view kMinLevel = "min_level";
+    static constexpr std::string_view kMaxLevel = "max_level";
   };
 
   template<>
   struct FieldNames<ObjectProperties<MetaObjectType::RANDOM_DWELLING_PRESET_ALIGNMENT>>
   {
-    static inline constexpr std::string_view kOwner = "owner";
-    static inline constexpr std::string_view kMinLevel = "min_level";
-    static inline constexpr std::string_view kMaxLevel = "max_level";
+    static constexpr std::string_view kOwner = "owner";
+    static constexpr std::string_view kMinLevel = "min_level";
+    static constexpr std::string_view kMaxLevel = "max_level";
   };
 
   template<>
   struct FieldNames<ObjectProperties<MetaObjectType::RANDOM_DWELLING_PRESET_LEVEL>>
   {
-    static inline constexpr std::string_view kOwner = "owner";
-    static inline constexpr std::string_view kTownAbsodId = "town_absod_id";
-    static inline constexpr std::string_view kAlignment = "alignment";
+    static constexpr std::string_view kOwner = "owner";
+    static constexpr std::string_view kTownAbsodId = "town_absod_id";
+    static constexpr std::string_view kAlignment = "alignment";
   };
 
   template<>
   struct FieldNames<ObjectProperties<MetaObjectType::RESOURCE>>
   {
-    static inline constexpr std::string_view kGuardians = "guardians";
-    static inline constexpr std::string_view kQuantity = "quantity";
-    static inline constexpr std::string_view kUnknown = "unknown";
+    static constexpr std::string_view kGuardians = "guardians";
+    static constexpr std::string_view kQuantity = "quantity";
+    static constexpr std::string_view kUnknown = "unknown";
   };
 
   template<>
   struct FieldNames<ObjectProperties<MetaObjectType::SCHOLAR>>
   {
-    static inline constexpr std::string_view kRewardType = "reward_type";
-    static inline constexpr std::string_view kRewardValue = "reward_value";
-    static inline constexpr std::string_view kUnknown = "unknown";
+    static constexpr std::string_view kRewardType = "reward_type";
+    static constexpr std::string_view kRewardValue = "reward_value";
+    static constexpr std::string_view kUnknown = "unknown";
   };
 
   template<>
   struct FieldNames<ObjectProperties<MetaObjectType::SEERS_HUT>>
   {
-    static inline constexpr std::string_view kQuest = "quest";
-    static inline constexpr std::string_view kReward = "reward";
-    static inline constexpr std::string_view kUnknown = "unknown";
+    static constexpr std::string_view kQuest = "quest";
+    static constexpr std::string_view kReward = "reward";
+    static constexpr std::string_view kUnknown = "unknown";
   };
 
   template<>
   struct FieldNames<ObjectProperties<MetaObjectType::SHRINE>>
   {
-    static inline constexpr std::string_view kSpell = "spell";
-    static inline constexpr std::string_view kUnknown = "unknown";
+    static constexpr std::string_view kSpell = "spell";
+    static constexpr std::string_view kUnknown = "unknown";
   };
 
   template<>
   struct FieldNames<ObjectProperties<MetaObjectType::SIGN>>
   {
-    static inline constexpr std::string_view kMessage = "message";
-    static inline constexpr std::string_view kUnknown = "unknown";
+    static constexpr std::string_view kMessage = "message";
+    static constexpr std::string_view kUnknown = "unknown";
   };
 
   template<>
   struct FieldNames<ObjectProperties<MetaObjectType::SPELL_SCROLL>>
   {
-    static inline constexpr std::string_view kGuardians = "guardians";
-    static inline constexpr std::string_view kSpell = "spell";
-    static inline constexpr std::string_view kUnknown = "unknown";
+    static constexpr std::string_view kGuardians = "guardians";
+    static constexpr std::string_view kSpell = "spell";
+    static constexpr std::string_view kUnknown = "unknown";
   };
 
   template<>
   struct FieldNames<ObjectProperties<MetaObjectType::TOWN>>
   {
-    static inline constexpr std::string_view kAbsodId = "absod_id";
-    static inline constexpr std::string_view kOwner = "owner";
-    static inline constexpr std::string_view kName = "name";
-    static inline constexpr std::string_view kGarrison = "garrison";
-    static inline constexpr std::string_view kFormation = "formation";
-    static inline constexpr std::string_view kBuildings = "buildings";
-    static inline constexpr std::string_view kHasFort = "has_fort";
-    static inline constexpr std::string_view kMustHaveSpell = "must_have_spell";
-    static inline constexpr std::string_view kMayNotHaveSpell = "may_not_have_spell";
-    static inline constexpr std::string_view kEvents = "events";
-    static inline constexpr std::string_view kAlignment = "alignment";
-    static inline constexpr std::string_view kUnknown = "unknown";
+    static constexpr std::string_view kAbsodId = "absod_id";
+    static constexpr std::string_view kOwner = "owner";
+    static constexpr std::string_view kName = "name";
+    static constexpr std::string_view kGarrison = "garrison";
+    static constexpr std::string_view kFormation = "formation";
+    static constexpr std::string_view kBuildings = "buildings";
+    static constexpr std::string_view kHasFort = "has_fort";
+    static constexpr std::string_view kMustHaveSpell = "must_have_spell";
+    static constexpr std::string_view kMayNotHaveSpell = "may_not_have_spell";
+    static constexpr std::string_view kEvents = "events";
+    static constexpr std::string_view kAlignment = "alignment";
+    static constexpr std::string_view kUnknown = "unknown";
   };
 
   template<>
   struct FieldNames<ObjectProperties<MetaObjectType::TRIVIAL_OWNED_OBJECT>>
   {
-    static inline constexpr std::string_view kOwner = "owner";
-    static inline constexpr std::string_view kUnknown = "unknown";
+    static constexpr std::string_view kOwner = "owner";
+    static constexpr std::string_view kUnknown = "unknown";
   };
 
   template<>
   struct FieldNames<ObjectProperties<MetaObjectType::WITCH_HUT>>
   {
-    static inline constexpr std::string_view kPotentialSkills = "potential_skills";
+    static constexpr std::string_view kPotentialSkills = "potential_skills";
   };
 
   template<>
   struct FieldNames<PlayerSpecs>
   {
-    static inline constexpr std::string_view kCanBeHuman = "can_be_human";
-    static inline constexpr std::string_view kCanBeComputer = "can_be_computer";
-    static inline constexpr std::string_view kBehavior = "behavior";
-    static inline constexpr std::string_view kHasCustomizedAlignments = "has_customized_alignments";
-    static inline constexpr std::string_view kAllowedAlignments = "allowed_alignments";
-    static inline constexpr std::string_view kAllowRandomAlignment = "allow_random_alignment";
-    static inline constexpr std::string_view kMainTown = "main_town";
-    static inline constexpr std::string_view kHasRandomHeroes = "has_random_heroes";
-    static inline constexpr std::string_view kStartingHero = "starting_hero";
-    static inline constexpr std::string_view kNumNonspecificPlaceholderHeroes = "num_nonspecific_placeholder_heroes";
-    static inline constexpr std::string_view kHeroes = "heroes";
+    static constexpr std::string_view kCanBeHuman = "can_be_human";
+    static constexpr std::string_view kCanBeComputer = "can_be_computer";
+    static constexpr std::string_view kBehavior = "behavior";
+    static constexpr std::string_view kHasCustomizedAlignments = "has_customized_alignments";
+    static constexpr std::string_view kAllowedAlignments = "allowed_alignments";
+    static constexpr std::string_view kAllowRandomAlignment = "allow_random_alignment";
+    static constexpr std::string_view kMainTown = "main_town";
+    static constexpr std::string_view kHasRandomHeroes = "has_random_heroes";
+    static constexpr std::string_view kStartingHero = "starting_hero";
+    static constexpr std::string_view kNumNonspecificPlaceholderHeroes = "num_nonspecific_placeholder_heroes";
+    static constexpr std::string_view kHeroes = "heroes";
   };
 
   template<>
   struct FieldNames<PlayersBitmask>
   {
   private:
-    static inline constexpr std::array<std::string_view, 8> kPlayersNames = {
+    static constexpr std::array<std::string_view, 8> kPlayersNames = {
       "red", "blue", "tan", "green", "orange", "purple", "teal", "pink"
     };
 
@@ -775,40 +776,40 @@ namespace h3m
   template<>
   struct FieldNames<PrimarySkills>
   {
-    static inline constexpr std::string_view kAttack = "attack";
-    static inline constexpr std::string_view kDefense = "defense";
-    static inline constexpr std::string_view kSpellPower = "spell_power";
-    static inline constexpr std::string_view kKnowledge = "knowledge";
+    static constexpr std::string_view kAttack = "attack";
+    static constexpr std::string_view kDefense = "defense";
+    static constexpr std::string_view kSpellPower = "spell_power";
+    static constexpr std::string_view kKnowledge = "knowledge";
   };
 
   template<>
   struct FieldNames<Quest>
   {
-    static inline constexpr std::string_view kType = "type";
-    static inline constexpr std::string_view kDetails = "details";
-    static inline constexpr std::string_view kDeadline = "deadline";
-    static inline constexpr std::string_view kProposal = "proposal";
-    static inline constexpr std::string_view kProgress = "progress";
-    static inline constexpr std::string_view kCompletion = "completion";
+    static constexpr std::string_view kType = "type";
+    static constexpr std::string_view kDetails = "details";
+    static constexpr std::string_view kDeadline = "deadline";
+    static constexpr std::string_view kProposal = "proposal";
+    static constexpr std::string_view kProgress = "progress";
+    static constexpr std::string_view kCompletion = "completion";
   };
 
   template<>
   struct FieldNames<Resources>
   {
-    static inline constexpr std::string_view kWood = "wood";
-    static inline constexpr std::string_view kMercury = "mercury";
-    static inline constexpr std::string_view kOre = "ore";
-    static inline constexpr std::string_view kSulfur = "sulfur";
-    static inline constexpr std::string_view kCrystal = "crystal";
-    static inline constexpr std::string_view kGems = "gems";
-    static inline constexpr std::string_view kGold = "gold";
+    static constexpr std::string_view kWood = "wood";
+    static constexpr std::string_view kMercury = "mercury";
+    static constexpr std::string_view kOre = "ore";
+    static constexpr std::string_view kSulfur = "sulfur";
+    static constexpr std::string_view kCrystal = "crystal";
+    static constexpr std::string_view kGems = "gems";
+    static constexpr std::string_view kGold = "gold";
   };
 
   template<>
   struct FieldNames<ResourcesBitmask>
   {
     // Name for each bit in the bitmask (from LSB to MSB).
-    static inline constexpr std::string_view kNames[] = {
+    static constexpr std::string_view kNames[] = {
       "wood", "mercury", "ore", "sulfur", "crystal", "gems", "gold", "unknown"
     };
   };
@@ -816,22 +817,22 @@ namespace h3m
   template<>
   struct FieldNames<Reward>
   {
-    static inline constexpr std::string_view kType = "type";
-    static inline constexpr std::string_view kDetails = "details";
+    static constexpr std::string_view kType = "type";
+    static constexpr std::string_view kDetails = "details";
   };
 
   template<>
   struct FieldNames<Rumor>
   {
-    static inline constexpr std::string_view kName = "name";
-    static inline constexpr std::string_view kDescription = "description";
+    static constexpr std::string_view kName = "name";
+    static constexpr std::string_view kDescription = "description";
   };
 
   template<>
   struct FieldNames<SecondarySkill>
   {
-    static inline constexpr std::string_view kType = "type";
-    static inline constexpr std::string_view kLevel = "level";
+    static constexpr std::string_view kType = "type";
+    static constexpr std::string_view kLevel = "level";
   };
 
   template<>
@@ -840,7 +841,7 @@ namespace h3m
     // The number of bits in SecondarySkillsBitmask.
     static constexpr std::size_t kNumBits = Detail_NS::EnumBitmaskSize_v<SecondarySkillsBitmask> * 8;
     // Name for each bit field in SecondarySkillsBitmask.
-    static inline constexpr std::array<std::string_view, kNumBits> kNames{
+    static constexpr std::array<std::string_view, kNumBits> kNames{
         "pathfinding",
         "archery",
         "logistics",
@@ -882,7 +883,7 @@ namespace h3m
     // The number of bits in SpellsBitmask.
     static constexpr std::size_t kNumBits = Detail_NS::EnumBitmaskSize_v<SpellsBitmask> * 8;
     // Name for each bit field in SpellsBitmask.
-    static inline constexpr std::array<std::string_view, kNumBits> kNames{
+    static constexpr std::array<std::string_view, kNumBits> kNames{
       "summon_boat",
       "scuttle_boat",
       "visions",
@@ -961,49 +962,49 @@ namespace h3m
   template<>
   struct FieldNames<StartingHero>
   {
-    static inline constexpr std::string_view kType = "type";
-    static inline constexpr std::string_view kPortrait = "portrait";
-    static inline constexpr std::string_view kName = "name";
+    static constexpr std::string_view kType = "type";
+    static constexpr std::string_view kPortrait = "portrait";
+    static constexpr std::string_view kName = "name";
   };
 
   template<>
   struct FieldNames<TeamsInfo>
   {
-    static inline constexpr std::string_view kNumTeams = "num_teams";
-    static inline constexpr std::string_view kTeamForPlayer = "team_for_player";
+    static constexpr std::string_view kNumTeams = "num_teams";
+    static constexpr std::string_view kTeamForPlayer = "team_for_player";
   };
 
   template<>
   struct FieldNames<Tile>
   {
-    static inline constexpr std::string_view kTerrainType = "terrain_type";
-    static inline constexpr std::string_view kTerrainSprite = "terrain_sprite";
-    static inline constexpr std::string_view kRiverType = "river_type";
-    static inline constexpr std::string_view kRiverSprite = "river_sprite";
-    static inline constexpr std::string_view kRoadType = "road_type";
-    static inline constexpr std::string_view kRoadSprite = "road_sprite";
-    static inline constexpr std::string_view kMirroring = "mirroring";
+    static constexpr std::string_view kTerrainType = "terrain_type";
+    static constexpr std::string_view kTerrainSprite = "terrain_sprite";
+    static constexpr std::string_view kRiverType = "river_type";
+    static constexpr std::string_view kRiverSprite = "river_sprite";
+    static constexpr std::string_view kRoadType = "road_type";
+    static constexpr std::string_view kRoadSprite = "road_sprite";
+    static constexpr std::string_view kMirroring = "mirroring";
   };
 
   template<>
   struct FieldNames<TimedEventBase>
   {
-    static inline constexpr std::string_view kName = "name";
-    static inline constexpr std::string_view kMessage = "message";
-    static inline constexpr std::string_view kResources = "resources";
-    static inline constexpr std::string_view kAffectedPlayers = "affected_players";
-    static inline constexpr std::string_view kAppliesToHuman = "applies_to_human";
-    static inline constexpr std::string_view kAppliesToComputer = "applies_to_computer";
-    static inline constexpr std::string_view kDayOfFirstOccurence = "day_of_first_occurence";
-    static inline constexpr std::string_view kRepeatAfterDays = "repeat_after_days";
-    static inline constexpr std::string_view kUnknown = "unknown";
+    static constexpr std::string_view kName = "name";
+    static constexpr std::string_view kMessage = "message";
+    static constexpr std::string_view kResources = "resources";
+    static constexpr std::string_view kAffectedPlayers = "affected_players";
+    static constexpr std::string_view kAppliesToHuman = "applies_to_human";
+    static constexpr std::string_view kAppliesToComputer = "applies_to_computer";
+    static constexpr std::string_view kDayOfFirstOccurence = "day_of_first_occurence";
+    static constexpr std::string_view kRepeatAfterDays = "repeat_after_days";
+    static constexpr std::string_view kUnknown = "unknown";
   };
 
   template<>
   struct FieldNames<TownBuildings>
   {
-    static inline constexpr std::string_view kIsBuilt = "is_built";
-    static inline constexpr std::string_view kIsDisabled = "is_disabled";
+    static constexpr std::string_view kIsBuilt = "is_built";
+    static constexpr std::string_view kIsDisabled = "is_disabled";
   };
 
   template<>
@@ -1012,7 +1013,7 @@ namespace h3m
     // The number of bits in TownBuildingsBitmask.
     static constexpr std::size_t kNumBits = Detail_NS::EnumBitmaskSize_v<TownBuildingsBitmask> * 8;
     // Name for each bit field in TownBuildingsBitmask.
-    static inline constexpr std::array<std::string_view, kNumBits> kNames
+    static constexpr std::array<std::string_view, kNumBits> kNames
     {
       "town_hall",
       "city_hall",
@@ -1068,9 +1069,9 @@ namespace h3m
   template<>
   struct FieldNames<TownEvent> : FieldNames<TimedEventBase>
   {
-    static inline constexpr std::string_view kBuildings = "buildings";
-    static inline constexpr std::string_view kCreatures = "creatures";
-    static inline constexpr std::string_view kUnknown2 = "unknown2";
+    static constexpr std::string_view kBuildings = "buildings";
+    static constexpr std::string_view kCreatures = "creatures";
+    static constexpr std::string_view kUnknown2 = "unknown2";
   };
 
   template<>
@@ -1079,7 +1080,7 @@ namespace h3m
     // The number of bits in TownsBitmask.
     static constexpr std::size_t kNumBits = Detail_NS::EnumBitmaskSize_v<TownsBitmask> * 8;
     // Name for each bit field in TownsBitmask.
-    static inline constexpr std::array<std::string_view, kNumBits> kNames
+    static constexpr std::array<std::string_view, kNumBits> kNames
     {
       "castle",
       "rampart",
@@ -1106,72 +1107,72 @@ namespace h3m
     // Note: VictoryCondition has only 1 data member `details`, which is a std::variant.
     // However, it is serialized as 2 fields: `type` (VictoryConditionType) and
     // `details` (VictoryConditionDetails<type>).
-    static inline constexpr std::string_view kType = "type";
-    static inline constexpr std::string_view kDetails = "details";
+    static constexpr std::string_view kType = "type";
+    static constexpr std::string_view kDetails = "details";
   };
 
   // === Campaign ===
   template<>
   struct FieldNames<Campaign>
   {
-    static inline constexpr std::string_view kHeader = "header";
-    static inline constexpr std::string_view kMaps = "maps";
+    static constexpr std::string_view kHeader = "header";
+    static constexpr std::string_view kMaps = "maps";
   };
 
   template<>
   struct FieldNames<CampaignHeader>
   {
-    static inline constexpr std::string_view kFormat = "format";
-    static inline constexpr std::string_view kId = "id";
-    static inline constexpr std::string_view kName = "name";
-    static inline constexpr std::string_view kDescription = "description";
-    static inline constexpr std::string_view kAllowSelectingDifficulty = "allow_selecting_difficulty";
-    static inline constexpr std::string_view kThemeMusic = "theme_music";
-    static inline constexpr std::string_view kScenarios = "scenarios";
+    static constexpr std::string_view kFormat = "format";
+    static constexpr std::string_view kId = "id";
+    static constexpr std::string_view kName = "name";
+    static constexpr std::string_view kDescription = "description";
+    static constexpr std::string_view kAllowSelectingDifficulty = "allow_selecting_difficulty";
+    static constexpr std::string_view kThemeMusic = "theme_music";
+    static constexpr std::string_view kScenarios = "scenarios";
   };
 
   template<>
   struct FieldNames<CampaignScenario>
   {
-    static inline constexpr std::string_view kMapFilename = "map_filename";
-    static inline constexpr std::string_view kMapFileSize = "map_file_size";
-    static inline constexpr std::string_view kPrerequisites = "prerequisites";
-    static inline constexpr std::string_view kRegionColor = "region_color";
-    static inline constexpr std::string_view kDefaultDifficulty = "default_difficulty";
-    static inline constexpr std::string_view kRegionRightClickText = "region_righ_click_text";
-    static inline constexpr std::string_view kPrologue = "prologue";
-    static inline constexpr std::string_view kEpilogue = "epilogue";
-    static inline constexpr std::string_view kCrossoverOptions = "crossover_options";
-    static inline constexpr std::string_view kStartingOptions = "starting_options";
+    static constexpr std::string_view kMapFilename = "map_filename";
+    static constexpr std::string_view kMapFileSize = "map_file_size";
+    static constexpr std::string_view kPrerequisites = "prerequisites";
+    static constexpr std::string_view kRegionColor = "region_color";
+    static constexpr std::string_view kDefaultDifficulty = "default_difficulty";
+    static constexpr std::string_view kRegionRightClickText = "region_righ_click_text";
+    static constexpr std::string_view kPrologue = "prologue";
+    static constexpr std::string_view kEpilogue = "epilogue";
+    static constexpr std::string_view kCrossoverOptions = "crossover_options";
+    static constexpr std::string_view kStartingOptions = "starting_options";
   };
 
   template<>
   struct FieldNames<CrossoverOptions>
   {
-    static inline constexpr std::string_view kRetainedFeatures = "retained_features";
-    static inline constexpr std::string_view kCreatures = "creatures";
-    static inline constexpr std::string_view kArtifacts = "artifacts";
+    static constexpr std::string_view kRetainedFeatures = "retained_features";
+    static constexpr std::string_view kCreatures = "creatures";
+    static constexpr std::string_view kArtifacts = "artifacts";
   };
 
   template<>
   struct FieldNames<CutScene>
   {
-    static inline constexpr std::string_view kMovie = "movie";
-    static inline constexpr std::string_view kMusic = "music";
-    static inline constexpr std::string_view kMessage = "message";
+    static constexpr std::string_view kMovie = "movie";
+    static constexpr std::string_view kMusic = "music";
+    static constexpr std::string_view kMessage = "message";
   };
 
   template<>
   struct FieldNames<StartingBonus>
   {
-    static inline constexpr std::string_view kType = "type";
-    static inline constexpr std::string_view kDetails = "details";
+    static constexpr std::string_view kType = "type";
+    static constexpr std::string_view kDetails = "details";
   };
 
   template<>
   struct FieldNames<StartingOptions>
   {
-    static inline constexpr std::string_view kType = "type";
-    static inline constexpr std::string_view kDetails = "details";
+    static constexpr std::string_view kType = "type";
+    static constexpr std::string_view kDetails = "details";
   };
 }
