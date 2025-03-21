@@ -2,6 +2,7 @@
 #include <h3mtxt/H3JsonWriter/H3JsonWriter.h>
 #include <h3mtxt/H3JsonWriter/Utils.h>
 #include <h3mtxt/JsonCommon/FieldName.h>
+#include <h3mtxt/JsonWriter/ScopedObjectWriter.h>
 
 namespace Medea_NS
 {
@@ -43,16 +44,6 @@ namespace Medea_NS
     }
     out.writeField(Fields::kCrossoverOptions, scenario.crossover_options);
     out.writeField(Fields::kStartingOptions, scenario.starting_options);
-  }
-
-  void JsonObjectWriter<h3m::CrossoverFeaturesBitmask>::operator()(FieldsWriter& out,
-                                                                   const h3m::CrossoverFeaturesBitmask& bitmask) const
-  {
-    using Fields = h3m::FieldNames<h3m::CrossoverFeaturesBitmask>;
-    for (std::size_t i = 0; i < bitmask.bitset.kNumBits; ++i)
-    {
-      out.writeField(Fields::kNames[i], bitmask.bitset[i]);
-    }
   }
 
   void JsonObjectWriter<h3m::CrossoverOptions>::operator()(FieldsWriter& out, const h3m::CrossoverOptions& cutscene) const

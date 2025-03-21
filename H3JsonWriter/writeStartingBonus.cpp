@@ -4,6 +4,7 @@
 #include <h3mtxt/H3JsonWriter/Utils.h>
 #include <h3mtxt/H3JsonWriter/writeStartingBonusDetails.h>
 #include <h3mtxt/JsonCommon/FieldName.h>
+#include <h3mtxt/JsonWriter/ScopedObjectWriter.h>
 
 #include <limits>
 #include <type_traits>

@@ -195,25 +195,6 @@ namespace h3m
   };
 
   template<>
-  struct FieldNames<CrossoverFeaturesBitmask>
-  {
-    // The number of bits in CrossoverFeaturesBitmask.
-    static constexpr std::size_t kNumBits = Detail_NS::EnumBitmaskSize_v<CrossoverFeaturesBitmask> * 8;
-    // Name for each bit field in CrossoverFeaturesBitmask.
-    static constexpr std::array<std::string_view, kNumBits> kNames
-    {
-      "experience",
-      "primary_skills",
-      "secondary_skills",
-      "spells",
-      "artifacts",
-      "padding_5",
-      "padding_6",
-      "padding_7",
-    };
-  };
-
-  template<>
   struct FieldNames<EventBase>
   {
     static constexpr std::string_view kGuardians = "guardians";
@@ -754,23 +735,13 @@ namespace h3m
   template<>
   struct FieldNames<PlayersBitmask>
   {
-  private:
-    static constexpr std::array<std::string_view, 8> kPlayersNames = {
+    // The number of bits in PlayersBitmask.
+    static constexpr std::size_t kNumBits = Detail_NS::EnumBitmaskSize_v<PlayersBitmask> *8;
+    // Name for each bit in the bitmask (from LSB to MSB).
+    static constexpr std::array<std::string_view, kNumBits> kNames =
+    {
       "red", "blue", "tan", "green", "orange", "purple", "teal", "pink"
     };
-
-  public:
-    // Returns the name of the field for the specified player in PlayersBitmask.
-    //
-    // PlayersBitmask is stored as 1 byte in .h3m, but in JSON it's serialized as
-    // 8 boolean fields (1 per player).
-    // \param player - input PlayerColor.
-    // \return the name of the field for @player in PlayersBitmask.
-    // \throw std::out_of_range if int(player) >= 8.
-    static constexpr std::string_view get(PlayerColor player)
-    {
-      return kPlayersNames.at(static_cast<std::size_t>(player));
-    }
   };
 
   template<>
@@ -808,8 +779,11 @@ namespace h3m
   template<>
   struct FieldNames<ResourcesBitmask>
   {
+    // The number of bits in ResourcesBitmask.
+    static constexpr std::size_t kNumBits = Detail_NS::EnumBitmaskSize_v<ResourcesBitmask> *8;
     // Name for each bit in the bitmask (from LSB to MSB).
-    static constexpr std::string_view kNames[] = {
+    static constexpr std::array<std::string_view, kNumBits> kNames =
+    {
       "wood", "mercury", "ore", "sulfur", "crystal", "gems", "gold", "unknown"
     };
   };
@@ -1144,6 +1118,25 @@ namespace h3m
     static constexpr std::string_view kEpilogue = "epilogue";
     static constexpr std::string_view kCrossoverOptions = "crossover_options";
     static constexpr std::string_view kStartingOptions = "starting_options";
+  };
+
+  template<>
+  struct FieldNames<CrossoverFeaturesBitmask>
+  {
+    // The number of bits in CrossoverFeaturesBitmask.
+    static constexpr std::size_t kNumBits = Detail_NS::EnumBitmaskSize_v<CrossoverFeaturesBitmask> * 8;
+    // Name for each bit field in CrossoverFeaturesBitmask.
+    static constexpr std::array<std::string_view, kNumBits> kNames
+    {
+      "experience",
+      "primary_skills",
+      "secondary_skills",
+      "spells",
+      "artifacts",
+      "padding_5",
+      "padding_6",
+      "padding_7",
+    };
   };
 
   template<>

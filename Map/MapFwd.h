@@ -70,6 +70,9 @@ namespace h3m
 
   enum class VictoryConditionType : std::uint8_t;
 
+  template<std::size_t NumBytes>
+  struct BitSet;
+
   struct CreatureStack;
 
   // Wrapper around BitSet<NumBytes>.
@@ -170,6 +173,9 @@ namespace h3m
   // "Extension" of Quest specific to QuestType.
   template<QuestType T>
   struct QuestDetails;
+
+  template<std::size_t NumBytes>
+  class ReservedData;
 
   struct Resources;
 

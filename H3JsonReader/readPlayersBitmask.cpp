@@ -1,6 +1,5 @@
 #include <h3mtxt/H3JsonReader/Utils.h>
 #include <h3mtxt/JsonCommon/FieldName.h>
-#include <h3mtxt/Map/Constants/Constants.h>
 #include <h3mtxt/Map/Utils/EnumBitmask.h>
 
 namespace h3m::H3JsonReader_NS
@@ -8,13 +7,11 @@ namespace h3m::H3JsonReader_NS
   PlayersBitmask JsonReader<PlayersBitmask>::operator()(const Json::Value& value) const
   {
     using Fields = FieldNames<PlayersBitmask>;
-    PlayersBitmask players_bitmask;
-    for (std::uint8_t i = 0; i < kMaxPlayers; ++i)
+    PlayersBitmask bitmask;
+    for (std::size_t i = 0; i < bitmask.bitset.kNumBits; ++i)
     {
-      const PlayerColor player = static_cast<PlayerColor>(i);
-      const std::string_view field_name = Fields::get(player);
-      players_bitmask.set(player, readField<bool>(value, field_name));
+      bitmask.bitset.set(i, readField<bool>(value, Fields::kNames[i]));
     }
-    return players_bitmask;
+    return bitmask;
   }
 }

@@ -30,9 +30,6 @@
     <ClCompile Include="writeH3cJson.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="writeArtifactsBitmask.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="writeCreatureStack.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -57,22 +54,10 @@
     <ClCompile Include="writeObjectTemplate.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="writePlayersBitmask.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="writeGlobalEvent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="writeTownsBitmask.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="writePlayerSpecs.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="writeSecondarySkillsBitmask.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="writeSpellsBitmask.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="writeQuest.cpp">
@@ -103,6 +88,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="getSecondarySkillLevelString.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Utils.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

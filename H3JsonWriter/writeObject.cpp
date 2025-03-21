@@ -4,6 +4,7 @@
 #include <h3mtxt/H3JsonWriter/Utils.h>
 #include <h3mtxt/H3JsonWriter/writeObjectProperties.h>
 #include <h3mtxt/JsonCommon/FieldName.h>
+#include <h3mtxt/JsonWriter/ScopedObjectWriter.h>
 #include <h3mtxt/Map/Constants/ExperienceLevels.h>
 #include <h3mtxt/Map/Object.h>
 #include <h3mtxt/Map/ObjectTemplate.h>
@@ -37,26 +38,6 @@ namespace h3m
 
 namespace Medea_NS
 {
-  void JsonObjectWriter<h3m::ResourcesBitmask>::operator()(FieldsWriter& out,
-                                                           const h3m::ResourcesBitmask& resources_bitmask) const
-  {
-    using Fields = h3m::FieldNames<h3m::ResourcesBitmask>;
-    for (std::uint8_t i = 0; i < h3m::ResourcesBitmask::kNumBits; ++i)
-    {
-      out.writeField(Fields::kNames[i], resources_bitmask[static_cast<h3m::ResourceType>(i)]);
-    }
-  }
-
-  void JsonObjectWriter<h3m::TownBuildingsBitmask>::operator()(
-    FieldsWriter& out, const h3m::TownBuildingsBitmask& buildings_bitmask) const
-  {
-    using Fields = h3m::FieldNames<h3m::TownBuildingsBitmask>;
-    for (std::size_t i = 0; i < h3m::TownBuildingsBitmask::kNumBits; ++i)
-    {
-      out.writeField(Fields::kNames[i], buildings_bitmask.bitset[i]);
-    }
-  }
-
   void JsonObjectWriter<h3m::TownBuildings>::operator()(FieldsWriter& out,
                                                         const h3m::TownBuildings& town_buildings) const
   {

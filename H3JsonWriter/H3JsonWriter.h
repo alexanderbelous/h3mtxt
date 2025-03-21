@@ -9,17 +9,34 @@
 // API for JSON serialization of H3 structures.
 namespace Medea_NS
 {
-  // Serialize h3m::TerrainsBitmask as a JSON array.
-  template<>
-  struct JsonArrayWriter<h3m::TerrainsBitmask>
+  // Default implementation for h3m::EnumBitmask: serializes the bitmask as a JSON object.
+  template<class Enum, std::size_t NumBytes>
+  struct JsonObjectWriter<h3m::EnumBitmask<Enum, NumBytes>>
+  {
+    // Defined in Utils.h.
+    void operator()(FieldsWriter& out, const h3m::EnumBitmask<Enum, NumBytes>& bitmask) const;
+  };
+
+  // Serializes h3m::BitSet as a JSON array.
+  template<std::size_t NumBytes>
+  struct JsonArrayWriter<h3m::BitSet<NumBytes>>
   {
     using ElementType = std::uint8_t;
 
-    void operator()(ScopedArrayWriter<std::uint8_t>& scoped_array_writer, const h3m::TerrainsBitmask& bitmask) const;
+    // Defined in Utils.h
+    void operator()(ScopedArrayWriter<std::uint8_t>& elements_writer, const h3m::BitSet<NumBytes>& bitset) const;
   };
 
-  template<>
-  void JsonObjectWriter<h3m::ArtifactsBitmask>::operator()(FieldsWriter& out, const h3m::ArtifactsBitmask& bitmask) const;
+  // Serializes h3m::ReservedData as a JSON array.
+  template<std::size_t NumBytes>
+  struct JsonArrayWriter<h3m::ReservedData<NumBytes>>
+  {
+    using ElementType = std::byte;
+
+    // Defined in Utils.h
+    void operator()(ScopedArrayWriter<std::byte>& elements_writer,
+                    const h3m::ReservedData<NumBytes>& reserved_data) const;
+  };
 
   template<>
   void JsonObjectWriter<h3m::CreatureStack>::operator()(FieldsWriter& out, const h3m::CreatureStack& creature_stack) const;
@@ -38,9 +55,6 @@ namespace Medea_NS
 
   template<>
   void JsonObjectWriter<h3m::HeroSettings>::operator()(FieldsWriter& out, const h3m::HeroSettings& value) const;
-
-  template<>
-  void JsonObjectWriter<h3m::HeroesBitmask>::operator()(FieldsWriter& out, const h3m::HeroesBitmask& value) const;
 
   template<>
   void JsonObjectWriter<h3m::LossCondition>::operator()(FieldsWriter& out,
@@ -89,10 +103,6 @@ namespace Medea_NS
   void JsonObjectWriter<h3m::PlayerSpecs>::operator()(FieldsWriter& out, const h3m::PlayerSpecs& value) const;
 
   template<>
-  void JsonObjectWriter<h3m::PlayersBitmask>::operator()(FieldsWriter& out,
-                                                         const h3m::PlayersBitmask& players_bitmask) const;
-
-  template<>
   void JsonObjectWriter<h3m::PrimarySkills>::operator()(FieldsWriter& out, const h3m::PrimarySkills& value) const;
 
   template<>
@@ -100,10 +110,6 @@ namespace Medea_NS
 
   template<>
   void JsonObjectWriter<h3m::Resources>::operator()(FieldsWriter& out, const h3m::Resources& resources) const;
-
-  template<>
-  void JsonObjectWriter<h3m::ResourcesBitmask>::operator()(FieldsWriter& out,
-                                                           const h3m::ResourcesBitmask& resources_bitmask) const;
 
   template<>
   void JsonObjectWriter<h3m::Reward>::operator()(FieldsWriter& out, const h3m::Reward& reward) const;
@@ -115,17 +121,19 @@ namespace Medea_NS
   void JsonObjectWriter<h3m::SecondarySkill>::operator()(FieldsWriter& out, const h3m::SecondarySkill& skill) const;
 
   template<>
-  void JsonObjectWriter<h3m::SecondarySkillsBitmask>::operator()(FieldsWriter& out,
-                                                                 const h3m::SecondarySkillsBitmask& bitmask) const;
-
-  template<>
-  void JsonObjectWriter<h3m::SpellsBitmask>::operator()(FieldsWriter& out, const h3m::SpellsBitmask& bitmask) const;
-
-  template<>
   void JsonObjectWriter<h3m::StartingHero>::operator()(FieldsWriter& out, const h3m::StartingHero& value) const;
 
   template<>
   void JsonObjectWriter<h3m::TeamsInfo>::operator()(FieldsWriter& out, const h3m::TeamsInfo& value) const;
+
+  // Serialize h3m::TerrainsBitmask as a JSON array.
+  template<>
+  struct JsonArrayWriter<h3m::TerrainsBitmask>
+  {
+    using ElementType = std::uint8_t;
+
+    void operator()(ScopedArrayWriter<std::uint8_t>& scoped_array_writer, const h3m::TerrainsBitmask& bitmask) const;
+  };
 
   template<>
   void JsonObjectWriter<h3m::Tile>::operator()(FieldsWriter& out, const h3m::Tile& value) const;
@@ -134,18 +142,11 @@ namespace Medea_NS
   void JsonObjectWriter<h3m::TimedEventBase>::operator()(FieldsWriter& out, const h3m::TimedEventBase& event) const;
 
   template<>
-  void JsonObjectWriter<h3m::TownBuildingsBitmask>::operator()(
-    FieldsWriter& out, const h3m::TownBuildingsBitmask& buildings_bitmask) const;
-
-  template<>
   void JsonObjectWriter<h3m::TownBuildings>::operator()(FieldsWriter& out,
                                                         const h3m::TownBuildings& town_buildings) const;
 
   template<>
   void JsonObjectWriter<h3m::TownEvent>::operator()(FieldsWriter& out, const h3m::TownEvent& town_event) const;
-
-  template<>
-  void JsonObjectWriter<h3m::TownsBitmask>::operator()(FieldsWriter& out, const h3m::TownsBitmask& bitmask) const;
 
   template<>
   void JsonObjectWriter<h3m::VictoryCondition>::operator()(FieldsWriter& out,
@@ -161,10 +162,6 @@ namespace Medea_NS
   template<>
   void JsonObjectWriter<h3m::CampaignScenario>::operator()(FieldsWriter& out,
                                                            const h3m::CampaignScenario& scenario) const;
-
-  template<>
-  void JsonObjectWriter<h3m::CrossoverFeaturesBitmask>::operator()(FieldsWriter& out,
-                                                                   const h3m::CrossoverFeaturesBitmask& bitmask) const;
 
   template<>
   void JsonObjectWriter<h3m::CrossoverOptions>::operator()(FieldsWriter& out,

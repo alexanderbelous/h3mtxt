@@ -2,6 +2,8 @@
 #include <h3mtxt/H3JsonWriter/H3JsonWriter.h>
 #include <h3mtxt/H3JsonWriter/Utils.h>
 #include <h3mtxt/JsonCommon/FieldName.h>
+#include <h3mtxt/JsonWriter/ScopedArrayWriter.h>
+#include <h3mtxt/JsonWriter/ScopedObjectWriter.h>
 #include <h3mtxt/Map/Constants/ExperienceLevels.h>
 #include <h3mtxt/Map/MapAdditionalInfo.h>
 
@@ -41,15 +43,6 @@ namespace Medea_NS
     else
     {
       out.writeComment("\"team_for_player\" field is missing because teams are disabled.");
-    }
-  }
-
-  void JsonObjectWriter<h3m::HeroesBitmask>::operator()(FieldsWriter& out, const h3m::HeroesBitmask& value) const
-  {
-    using FiledNames = h3m::FieldNames<h3m::HeroesBitmask>;
-    for (std::size_t i = 0; i < h3m::HeroesBitmask::kNumBits; ++i)
-    {
-      out.writeField(FiledNames::kNames[i], value.bitset[i]);
     }
   }
 

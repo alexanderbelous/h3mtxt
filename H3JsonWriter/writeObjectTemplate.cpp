@@ -2,6 +2,8 @@
 #include <h3mtxt/H3JsonWriter/getEnumString.h>
 #include <h3mtxt/H3JsonWriter/Utils.h>
 #include <h3mtxt/JsonCommon/FieldName.h>
+#include <h3mtxt/JsonWriter/ScopedArrayWriter.h>
+#include <h3mtxt/JsonWriter/ScopedObjectWriter.h>
 #include <h3mtxt/Map/ObjectTemplate.h>
 
 namespace Medea_NS
