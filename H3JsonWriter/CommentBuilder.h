@@ -16,34 +16,32 @@ namespace h3m::H3JsonWriter_NS
     class StringOrInteger
     {
     public:
-      // Constructs a StringOrInteger representing an empty string_view.
+      // Constructs an object representing an empty string_view.
       constexpr StringOrInteger() noexcept = default;
 
-      template<class T>
+      // Constructs an object representing a signed integer.
+      template<class T, std::enable_if_t<std::is_integral_v<std::remove_cvref_t<T>> &&
+                                         std::is_signed_v<std::remove_cvref_t<T>>, bool> = true>
+      constexpr StringOrInteger(const T& value) noexcept:
+        str_length_or_tag_{ kIntTag },
+        data_{ .int_value = value }
+      {}
+
+      // Constructs an object representing an unsigned integer.
+      template<class T, std::enable_if_t<std::is_integral_v<std::remove_cvref_t<T>> &&
+                                         std::is_unsigned_v<std::remove_cvref_t<T>>, bool> = true>
+      constexpr StringOrInteger(const T& value) noexcept:
+        str_length_or_tag_{ kUIntTag },
+        data_{ .uint_value = value }
+      {}
+
+      // Constructs an object representing a string_view.
+      template<class T, std::enable_if_t<std::is_convertible_v<const T&, std::string_view>, bool> = true>
       constexpr StringOrInteger(const T& value) noexcept
       {
-        static_assert(std::is_integral_v<std::remove_cvref_t<T>> ||
-                      std::is_convertible_v<const T&, std::string_view>,
-                      "T must be either an integral type or convertible to std::string_view.");
-        if constexpr (std::is_integral_v<std::remove_cvref_t<T>>)
-        {
-          if constexpr (std::is_signed_v<std::remove_cvref_t<T>>)
-          {
-            str_length_or_tag_ = kIntTag;
-            data_.int_value = value;
-          }
-          else
-          {
-            str_length_or_tag_ = kUIntTag;
-            data_.uint_value = value;
-          }
-        }
-        else
-        {
-          const std::string_view str_value = static_cast<std::string_view>(value);
-          str_length_or_tag_ = str_value.size();
-          data_.str_data = str_value.data();
-        }
+        const std::string_view value_str{ value };
+        str_length_or_tag_ = value_str.size();
+        data_.str_data = value_str.data();
       }
 
       void printTo(std::string& dest) const
