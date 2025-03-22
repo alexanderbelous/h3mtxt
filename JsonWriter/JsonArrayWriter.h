@@ -23,20 +23,6 @@ namespace Medea_NS
     }
   }
 
-  // Traits class providing the default policy for ScopedArrayWriter when serializing Vec as a JSON array.
-  template <class Vec, class Enable = void>
-  struct JsonArrayWriterTraits;
-
-  template<class Vec>
-  struct JsonArrayWriterTraits<Vec, std::void_t<typename JsonArrayWriter<Vec>::ElementType>>
-  {
-    using ElementType = typename JsonArrayWriter<Vec>::ElementType;
-
-    // Write an array of numbers or bytes on a single line, everything else - over multiple lines.
-    static constexpr bool kOneElementPerLine =
-      !(std::is_arithmetic_v<ElementType> || std::is_same_v<ElementType, std::byte>);
-  };
-
   // Class for serializing values as JSON arrays.
   //
   // Medea only specializes this class for 2 templates: std::array and std::vector. If you

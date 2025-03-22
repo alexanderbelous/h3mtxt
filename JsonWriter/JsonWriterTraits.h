@@ -25,6 +25,17 @@ namespace Medea_NS
     static constexpr JsonValueType kValueType = JsonValueType::Object;
   };
 
+  // Traits class indicating whether arrays of elements of type T should be serialized
+  // with one element per line or on a single line.
+  //
+  // The default implementation stores true for types that are serialized as Bool, Int or UInt,
+  // false for everything else.
+  template <class ElementType, class Enable>
+  struct IsSingleLineArray : std::bool_constant<JsonWriterTraits<ElementType>::kValueType == JsonValueType::Bool ||
+                                                JsonWriterTraits<ElementType>::kValueType == JsonValueType::Int ||
+                                                JsonWriterTraits<ElementType>::kValueType == JsonValueType::UInt>
+  {};
+
   // Specialization for bool.
   template<>
   struct JsonWriterTraits<bool>

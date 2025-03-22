@@ -51,12 +51,11 @@ namespace Medea_NS
       else if constexpr (Traits::kValueType == JsonValueType::Array)
       {
         using ElementType = typename JsonArrayWriter<T>::ElementType;
-        constexpr bool kOneElementPerLine = JsonArrayWriterTraits<T>::kOneElementPerLine;
         JsonArrayWriter<T> array_writer {};
-        ScopedArrayWriter<ElementType> elements_writer{ context, kOneElementPerLine };
+        ScopedArrayWriter<ElementType> elements_writer{ context };
         context.beginAggregate('[');
         array_writer(elements_writer, value);
-        context.endAggregate(']', kOneElementPerLine);
+        context.endAggregate(']', !IsSingleLineArray<ElementType>::value);
       }
       else if constexpr (Traits::kValueType == JsonValueType::Object)
       {

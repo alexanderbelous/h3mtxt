@@ -2,6 +2,7 @@
 
 #include <h3mtxt/JsonWriter/JsonWriterFwd.h>
 #include <h3mtxt/JsonWriter/JsonWriterContext.h>
+#include <h3mtxt/JsonWriter/JsonWriterTraits.h>
 #include <h3mtxt/JsonWriter/writeValue.h>
 
 #include <string_view>
@@ -13,8 +14,7 @@ namespace Medea_NS
   class ScopedArrayWriter
   {
   public:
-    explicit constexpr ScopedArrayWriter(Detail_NS::JsonWriterContext& context,
-                                         bool one_element_per_line = true) noexcept;
+    explicit constexpr ScopedArrayWriter(Detail_NS::JsonWriterContext& context) noexcept;
 
     ~ScopedArrayWriter() = default;
 
@@ -25,31 +25,30 @@ namespace Medea_NS
     ScopedArrayWriter& operator=(ScopedArrayWriter&&) = delete;
 
     // Writes a single element.
-    void writeElement(const T& value);
+    void writeElement(const T& value) const;
 
     // Write a comment line.
-    void writeComment(std::string_view comment)
-    {
-      context_.writeComment(comment, true);
-    }
+    void writeComment(std::string_view comment) const;
 
   private:
     Detail_NS::JsonWriterContext& context_;
-    // True if each element should be a written on a new line, false otherwise.
-    bool one_element_per_line_ = true;
   };
 
   template<class T>
-  constexpr ScopedArrayWriter<T>::ScopedArrayWriter(Detail_NS::JsonWriterContext& context,
-                                                    bool one_element_per_line) noexcept:
-    context_(context),
-    one_element_per_line_(one_element_per_line)
+  constexpr ScopedArrayWriter<T>::ScopedArrayWriter(Detail_NS::JsonWriterContext& context) noexcept:
+    context_(context)
   {}
 
   template<class T>
-  void ScopedArrayWriter<T>::writeElement(const T& value)
+  void ScopedArrayWriter<T>::writeElement(const T& value) const
   {
-    context_.beforeWriteValue(one_element_per_line_);
+    context_.beforeWriteValue(!IsSingleLineArray<T>::value);
     Detail_NS::writeValueRaw(context_, value);
+  }
+
+  template<class T>
+  void ScopedArrayWriter<T>::writeComment(std::string_view comment) const
+  {
+    context_.writeComment(comment, true);
   }
 }

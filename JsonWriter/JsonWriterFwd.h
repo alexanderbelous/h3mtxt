@@ -23,6 +23,11 @@ namespace Medea_NS
   template<class T, class Enable = void>
   struct JsonWriterTraits;
 
+  // Traits class indicating whether arrays of elements of type T should be serialized
+  // with one element per line or on a single line.
+  template <class ElementType, class Enable = void>
+  struct IsSingleLineArray;
+
   template<class T>
   class ScopedArrayWriter;
 
