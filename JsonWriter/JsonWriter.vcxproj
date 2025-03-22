@@ -88,14 +88,11 @@
     <ClCompile Include="JsonWriterContext.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="JsonArrayWriter.h" />
+    <ClInclude Include="JsonWriter.h" />
     <ClInclude Include="JsonWriterContext.h" />
-    <ClInclude Include="JsonWriterTraits.h" />
-    <ClInclude Include="ScopedArrayWriter.h" />
-    <ClInclude Include="ScopedObjectWriter.h" />
     <ClInclude Include="JsonWriterFwd.h" />
-    <ClInclude Include="JsonValueWriter.h" />
-    <ClInclude Include="writeValue.h" />
+    <ClInclude Include="writeJson.h" />
+    <ClInclude Include="API.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -2,8 +2,7 @@
 #include <h3mtxt/H3JsonWriter/H3JsonWriter.h>
 #include <h3mtxt/H3JsonWriter/Utils.h>
 #include <h3mtxt/JsonCommon/FieldName.h>
-#include <h3mtxt/JsonWriter/ScopedArrayWriter.h>
-#include <h3mtxt/JsonWriter/ScopedObjectWriter.h>
+#include <h3mtxt/JsonWriter/JsonWriter.h>
 #include <h3mtxt/Map/Constants/ExperienceLevels.h>
 #include <h3mtxt/Map/MapAdditionalInfo.h>
 
@@ -108,10 +107,7 @@ namespace Medea_NS
   template<>
   struct JsonArrayWriter<h3m::HeroesSettings>
   {
-    using ElementType = HeroesSettingsEntry;
-
-    void operator()(ScopedArrayWriter<HeroesSettingsEntry>& elements_writer,
-                    const h3m::HeroesSettings& value) const
+    void operator()(const ScopedArrayWriter& elements_writer, const h3m::HeroesSettings& value) const
     {
       for (const HeroesSettingsEntry& entry : value.settings())
       {

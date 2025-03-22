@@ -3,8 +3,7 @@
 #include <h3mtxt/H3JsonWriter/getEnumString.h>
 #include <h3mtxt/H3JsonWriter/Utils.h>
 #include <h3mtxt/JsonCommon/FieldName.h>
-#include <h3mtxt/JsonWriter/ScopedArrayWriter.h>
-#include <h3mtxt/JsonWriter/ScopedObjectWriter.h>
+#include <h3mtxt/JsonWriter/JsonWriter.h>
 #include <h3mtxt/Map/Map.h>
 
 #include <span>
@@ -90,9 +89,7 @@ namespace Medea_NS
   template<>
   struct JsonArrayWriter<std::array<h3m::PlayerSpecs, h3m::kMaxPlayers>>
   {
-    using ElementType = h3m::PlayerSpecs;
-
-    void operator()(ScopedArrayWriter<h3m::PlayerSpecs>& scoped_array_writer,
+    void operator()(const ScopedArrayWriter& scoped_array_writer,
                     const std::array<h3m::PlayerSpecs, h3m::kMaxPlayers>& players) const
     {
       h3m::H3JsonWriter_NS::CommentBuilder comment_builder;
@@ -110,9 +107,7 @@ namespace Medea_NS
   template<>
   struct JsonArrayWriter<TilesWithMapSize>
   {
-    using ElementType = h3m::Tile;
-
-    void operator()(ScopedArrayWriter<h3m::Tile>& scoped_array_writer, const TilesWithMapSize& value) const
+    void operator()(const ScopedArrayWriter& scoped_array_writer, const TilesWithMapSize& value) const
     {
       h3m::H3JsonWriter_NS::CommentBuilder comment_builder;
       const std::uint32_t num_levels = value.hasTwoLevels() ? 2 : 1;
@@ -149,9 +144,7 @@ namespace Medea_NS
   template<>
   struct JsonArrayWriter<WrappedObjects>
   {
-    using ElementType = WrappedObject;
-
-    void operator()(ScopedArrayWriter<WrappedObject>& scoped_array_writer, const WrappedObjects& wrapped_objects) const
+    void operator()(const ScopedArrayWriter& scoped_array_writer, const WrappedObjects& wrapped_objects) const
     {
       h3m::H3JsonWriter_NS::CommentBuilder comment_builder;
       for (std::size_t i = 0; i < wrapped_objects.objects.size(); ++i)

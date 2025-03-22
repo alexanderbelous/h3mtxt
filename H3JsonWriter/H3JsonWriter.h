@@ -21,20 +21,20 @@ namespace Medea_NS
   template<std::size_t NumBytes>
   struct JsonArrayWriter<h3m::BitSet<NumBytes>>
   {
-    using ElementType = std::uint8_t;
+    static constexpr bool kOneElementPerLine = false;
 
     // Defined in Utils.h
-    void operator()(ScopedArrayWriter<std::uint8_t>& elements_writer, const h3m::BitSet<NumBytes>& bitset) const;
+    void operator()(const ScopedArrayWriter& elements_writer, const h3m::BitSet<NumBytes>& bitset) const;
   };
 
   // Serializes h3m::ReservedData as a JSON array.
   template<std::size_t NumBytes>
   struct JsonArrayWriter<h3m::ReservedData<NumBytes>>
   {
-    using ElementType = std::byte;
+    static constexpr bool kOneElementPerLine = false;
 
     // Defined in Utils.h
-    void operator()(ScopedArrayWriter<std::byte>& elements_writer,
+    void operator()(const ScopedArrayWriter& elements_writer,
                     const h3m::ReservedData<NumBytes>& reserved_data) const;
   };
 
@@ -130,9 +130,9 @@ namespace Medea_NS
   template<>
   struct JsonArrayWriter<h3m::TerrainsBitmask>
   {
-    using ElementType = std::uint8_t;
+    static constexpr bool kOneElementPerLine = false;
 
-    void operator()(ScopedArrayWriter<std::uint8_t>& scoped_array_writer, const h3m::TerrainsBitmask& bitmask) const;
+    void operator()(const ScopedArrayWriter& scoped_array_writer, const h3m::TerrainsBitmask& bitmask) const;
   };
 
   template<>

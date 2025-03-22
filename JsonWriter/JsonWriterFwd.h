@@ -1,5 +1,7 @@
 #pragma once
 
+#include <type_traits>
+
 namespace Medea_NS
 {
   namespace Detail_NS
@@ -12,23 +14,17 @@ namespace Medea_NS
     void writeValueRaw(JsonWriterContext& context, const T& value);
   }
 
-  // Defines supported JSON value types.
-  enum class JsonValueType;
+  // Supported JSON value types.
+  enum class JsonValueType
+  {
+    Bool,
+    Int,
+    UInt,
+    String,
+    Array,
+    Object
+  };
 
-  // Type trait indicating how the given type should be serialized in JSON.
-  //
-  // Medea provides built-in specializations for a few types (e.g., std::string, std::vector)
-  // and assumes that all other types should be serialized as JSON objects. If the type T
-  // should not be serialized as a JSON object, this trait should be specialized for T.
-  template<class T, class Enable = void>
-  struct JsonWriterTraits;
-
-  // Traits class indicating whether arrays of elements of type T should be serialized
-  // with one element per line or on a single line.
-  template <class ElementType, class Enable = void>
-  struct IsSingleLineArray;
-
-  template<class T>
   class ScopedArrayWriter;
 
   class ScopedObjectWriter;
@@ -37,11 +33,12 @@ namespace Medea_NS
 
   // Class for writing JSON arrays.
   template<class T, class Enable = void>
-  struct JsonArrayWriter;
+  struct JsonArrayWriter {};
   //{
-  //  using ElementType = ...;
+  //  // Optional; if missing, implies true.
+  //  static constexpr bool kOneElementPerLine = false;
   //
-  //  void operator()(ScopedArrayWriter<ElementType>& out, const T& elements) const;
+  //  void operator()(const ScopedArrayWriter& out, const T& elements) const;
   //};
 
   // Class for writing JSON objects.
@@ -52,5 +49,25 @@ namespace Medea_NS
   struct JsonObjectWriter
   {
     void operator()(FieldsWriter& out, const T& value) const;
+  };
+
+  // Type trait indicating how the given type should be serialized in JSON.
+  //
+  // The default implementation of JsonWriterTraits assumes that the type T should be serialized as a JSON object.
+  //
+  // BuilInTypes.h provides built-in specializations for a few types (e.g., bool, std::string, std::vector)
+  // and assumes that all other types should be serialized as JSON objects. If the type T
+  // should not be serialized as a JSON object, this trait should be specialized for T.
+  template<class T, class Enable = void>
+  struct JsonWriterTraits
+  {
+    static constexpr JsonValueType kValueType = JsonValueType::Object;
+  };
+
+  // Partial specialization for types for which JsonArrayWriter<T> can be invoked.
+  template<class T>
+  struct JsonWriterTraits<T, std::enable_if_t<std::is_invocable_v<JsonArrayWriter<T>, const ScopedArrayWriter&, const T&>>>
+  {
+    static constexpr JsonValueType kValueType = JsonValueType::Array;
   };
 }

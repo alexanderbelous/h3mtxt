@@ -1,12 +1,11 @@
 #include <h3mtxt/H3JsonWriter/Utils.h>
-#include <h3mtxt/JsonWriter/ScopedArrayWriter.h>
-#include <h3mtxt/JsonWriter/ScopedObjectWriter.h>
+#include <h3mtxt/JsonWriter/JsonWriter.h>
 
 namespace Medea_NS
 {
   namespace Detail_NS
   {
-    void printReservedDataImpl(ScopedArrayWriter<std::byte>& elements_writer,
+    void printReservedDataImpl(const ScopedArrayWriter& elements_writer,
                                const std::byte* data,
                                std::size_t num_bytes)
     {
@@ -32,7 +31,7 @@ namespace Medea_NS
       }
     }
 
-    void printBitSetImpl(ScopedArrayWriter<std::uint8_t>& elements_writer,
+    void printBitSetImpl(const ScopedArrayWriter& elements_writer,
                          std::span<const std::uint8_t> bitset_bytes)
     {
       for (std::size_t byte_idx = 0; byte_idx < bitset_bytes.size(); ++byte_idx)

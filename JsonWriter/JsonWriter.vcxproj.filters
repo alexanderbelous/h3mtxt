@@ -23,25 +23,16 @@
     <ClInclude Include="JsonWriterFwd.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="JsonValueWriter.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ScopedArrayWriter.h">
+    <ClInclude Include="writeJson.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="JsonWriterContext.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ScopedObjectWriter.h">
+    <ClInclude Include="API.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="JsonWriterTraits.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="JsonArrayWriter.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="writeValue.h">
+    <ClInclude Include="JsonWriter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

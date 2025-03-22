@@ -2,16 +2,15 @@
 #include <h3mtxt/H3JsonWriter/getEnumString.h>
 #include <h3mtxt/H3JsonWriter/Utils.h>
 #include <h3mtxt/JsonCommon/FieldName.h>
-#include <h3mtxt/JsonWriter/ScopedArrayWriter.h>
-#include <h3mtxt/JsonWriter/ScopedObjectWriter.h>
+#include <h3mtxt/JsonWriter/JsonWriter.h>
 #include <h3mtxt/Map/ObjectTemplate.h>
 
 namespace Medea_NS
 {
-  void JsonArrayWriter<h3m::TerrainsBitmask>::operator()(ScopedArrayWriter<std::uint8_t>& elements_writer,
+  void JsonArrayWriter<h3m::TerrainsBitmask>::operator()(const ScopedArrayWriter& elements_writer,
                                                          const h3m::TerrainsBitmask& bitmask) const
   {
-    writeArray(bitmask.bitset, elements_writer);
+    JsonArrayWriter<h3m::BitSet<2>>{}(elements_writer, bitmask.bitset);
   }
 
   void JsonObjectWriter<h3m::ObjectTemplate>::operator()(FieldsWriter& out, const h3m::ObjectTemplate& value) const
