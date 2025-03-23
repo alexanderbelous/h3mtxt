@@ -1,10 +1,9 @@
 #pragma once
 
 #include <h3mtxt/JsonWriter/JsonWriterFwd.h>
-#include <h3mtxt/JsonWriter/JsonWriterContext.h>
+#include <h3mtxt/JsonWriter/JsonWriterImpl.h>
 
 #include <string_view>
-#include <type_traits>
 
 namespace Medea_NS
 {
@@ -15,14 +14,14 @@ namespace Medea_NS
   template<class T>
   void writeJson(std::ostream& stream, const T& value, unsigned int initial_indent = 0)
   {
-    Detail_NS::JsonWriterContext::writeJson(stream, value, initial_indent);
+    Detail_NS::JsonWriterImpl::writeJson(stream, value, initial_indent);
   }
 
   // Class for serializing elements of a JSON array.
   class ArrayElementsWriter
   {
   public:
-    explicit constexpr ArrayElementsWriter(Detail_NS::JsonWriterContext& context,
+    explicit constexpr ArrayElementsWriter(Detail_NS::JsonWriterImpl& impl,
                                            bool one_element_per_line = true) noexcept;
 
     // Non-copyable, non-movable.
@@ -41,7 +40,7 @@ namespace Medea_NS
     inline void writeComment(std::string_view comment) const;
 
   private:
-    Detail_NS::JsonWriterContext& context_;
+    Detail_NS::JsonWriterImpl& impl_;
     bool one_element_per_line_ {};
   };
 
@@ -49,7 +48,7 @@ namespace Medea_NS
   class FieldsWriter
   {
   public:
-    explicit constexpr FieldsWriter(Detail_NS::JsonWriterContext& context) noexcept;
+    explicit constexpr FieldsWriter(Detail_NS::JsonWriterImpl& impl) noexcept;
 
     // Non-copyable, non-movable.
     FieldsWriter(const FieldsWriter&) = delete;
@@ -70,38 +69,38 @@ namespace Medea_NS
     inline void writeComment(std::string_view comment, bool newline = true) const;
 
   private:
-    Detail_NS::JsonWriterContext& context_;
+    Detail_NS::JsonWriterImpl& impl_;
   };
 
-  constexpr FieldsWriter::FieldsWriter(Detail_NS::JsonWriterContext& context) noexcept :
-    context_(context)
+  constexpr FieldsWriter::FieldsWriter(Detail_NS::JsonWriterImpl& impl) noexcept :
+    impl_(impl)
   {}
 
   template<class T>
   void FieldsWriter::writeField(std::string_view field_name, const T& value) const
   {
-    context_.writeField(field_name, value);
+    impl_.writeField(field_name, value);
   }
 
   void FieldsWriter::writeComment(std::string_view comment, bool newline) const
   {
-    context_.writeComment(comment, newline);
+    impl_.writeComment(comment, newline);
   }
 
-  constexpr ArrayElementsWriter::ArrayElementsWriter(Detail_NS::JsonWriterContext& context,
+  constexpr ArrayElementsWriter::ArrayElementsWriter(Detail_NS::JsonWriterImpl& impl,
                                                      bool one_element_per_line) noexcept:
-    context_(context),
+    impl_(impl),
     one_element_per_line_(one_element_per_line)
   {}
 
   template<class T>
   void ArrayElementsWriter::writeElement(const T& value) const
   {
-    context_.writeValue(value, one_element_per_line_);
+    impl_.writeValue(value, one_element_per_line_);
   }
 
   void ArrayElementsWriter::writeComment(std::string_view comment) const
   {
-    context_.writeComment(comment, true);
+    impl_.writeComment(comment, true);
   }
 }

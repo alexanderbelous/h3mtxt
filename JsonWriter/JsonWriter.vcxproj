@@ -85,11 +85,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="JsonWriterContext.cpp" />
+    <ClCompile Include="JsonWriterImpl.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="JsonWriter.h" />
-    <ClInclude Include="JsonWriterContext.h" />
+    <ClInclude Include="JsonWriterImpl.h" />
     <ClInclude Include="JsonWriterFwd.h" />
     <ClInclude Include="API.h" />
   </ItemGroup>

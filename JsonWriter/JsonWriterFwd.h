@@ -7,7 +7,7 @@ namespace Medea_NS
   namespace Detail_NS
   {
     // Internal class for writing formatted JSON.
-    class JsonWriterContext;
+    class JsonWriterImpl;
   }
 
   // Supported JSON value types.

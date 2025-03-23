@@ -1,4 +1,4 @@
-#include <h3mtxt/JsonWriter/JsonWriterContext.h>
+#include <h3mtxt/JsonWriter/JsonWriterImpl.h>
 #include <h3mtxt/JsonWriter/API.h>
 
 #include <algorithm>
@@ -36,7 +36,7 @@ namespace Medea_NS::Detail_NS
     }
   }
 
-  void JsonWriterContext::beforeWriteValue(bool newline)
+  void JsonWriterImpl::beforeWriteValue(bool newline)
   {
     const bool needs_newline = newline || hasUnflushedComment();
     if (has_members_in_scope_)
@@ -56,7 +56,7 @@ namespace Medea_NS::Detail_NS
     }
   }
 
-  void JsonWriterContext::writeBool(bool value)
+  void JsonWriterImpl::writeBool(bool value)
   {
     static constexpr std::string_view kFalseStr = "false";
     static constexpr std::string_view kTrueStr = "true";
@@ -66,21 +66,21 @@ namespace Medea_NS::Detail_NS
     has_members_in_scope_ = true;
   }
 
-  void JsonWriterContext::writeInt(std::intmax_t value)
+  void JsonWriterImpl::writeInt(std::intmax_t value)
   {
     std::string int_str = std::to_string(value);
     stream_.write(int_str.data(), int_str.size());
     has_members_in_scope_ = true;
   }
 
-  void JsonWriterContext::writeUInt(std::uintmax_t value)
+  void JsonWriterImpl::writeUInt(std::uintmax_t value)
   {
     std::string int_str = std::to_string(value);
     stream_.write(int_str.data(), int_str.size());
     has_members_in_scope_ = true;
   }
 
-  void JsonWriterContext::writeString(std::string_view value)
+  void JsonWriterImpl::writeString(std::string_view value)
   {
     stream_.put('"');
     const char* iter = value.data();
@@ -109,20 +109,20 @@ namespace Medea_NS::Detail_NS
     has_members_in_scope_ = true;
   }
 
-  void JsonWriterContext::writeNewline()
+  void JsonWriterImpl::writeNewline()
   {
     stream_.put('\n');
     std::fill_n(std::ostream_iterator<char>(stream_), indent_, ' ');
   }
 
-  void JsonWriterContext::beginAggregate(char bracket)
+  void JsonWriterImpl::beginAggregate(char bracket)
   {
     stream_.put(bracket);
     indent_ += 2;
     has_members_in_scope_ = false;
   }
 
-  void JsonWriterContext::endAggregate(char bracket, bool newline)
+  void JsonWriterImpl::endAggregate(char bracket, bool newline)
   {
     const bool has_unflushed_comments = hasUnflushedComment();
     flushComments();
@@ -141,7 +141,7 @@ namespace Medea_NS::Detail_NS
     has_members_in_scope_ = true;
   }
 
-  void JsonWriterContext::writeFieldName(std::string_view field_name)
+  void JsonWriterImpl::writeFieldName(std::string_view field_name)
   {
     constexpr std::string_view kSeparator = ": ";
     beforeWriteValue(true);
@@ -149,7 +149,7 @@ namespace Medea_NS::Detail_NS
     stream_.write(kSeparator.data(), kSeparator.size());
   }
 
-  void JsonWriterContext::writeComment(std::string_view comment, bool newline)
+  void JsonWriterImpl::writeComment(std::string_view comment, bool newline)
   {
     if (comment.empty())
     {
@@ -166,7 +166,7 @@ namespace Medea_NS::Detail_NS
     comment_.append(comment);
   }
 
-  void JsonWriterContext::flushComments()
+  void JsonWriterImpl::flushComments()
   {
     constexpr std::string_view kCommentPrefix = "//";
 
@@ -201,14 +201,14 @@ namespace Medea_NS::Detail_NS
     is_inline_comment_ = false;
   }
 
-  void JsonWriterContext::writeArray(ArrayWriterPtr array_writer, const void* value, bool one_element_per_line)
+  void JsonWriterImpl::writeArray(ArrayWriterPtr array_writer, const void* value, bool one_element_per_line)
   {
     beginAggregate('[');
     array_writer(ArrayElementsWriter{ *this, one_element_per_line }, value);
     endAggregate(']', one_element_per_line);
   }
 
-  void JsonWriterContext::writeObject(ObjectWriterPtr object_writer, const void* value)
+  void JsonWriterImpl::writeObject(ObjectWriterPtr object_writer, const void* value)
   {
     beginAggregate('{');
     {

@@ -28,16 +28,16 @@ namespace Medea_NS
     //
     // Note that the constructor is private; only the static member function writeJson()
     // can be used directly.
-    class JsonWriterContext
+    class JsonWriterImpl
     {
     public:
       // Non-copyable, non-movable.
-      constexpr JsonWriterContext(const JsonWriterContext&) = delete;
-      constexpr JsonWriterContext(JsonWriterContext&&) = delete;
-      JsonWriterContext& operator=(const JsonWriterContext&) = delete;
-      JsonWriterContext& operator=(JsonWriterContext&&) = delete;
+      constexpr JsonWriterImpl(const JsonWriterImpl&) = delete;
+      constexpr JsonWriterImpl(JsonWriterImpl&&) = delete;
+      JsonWriterImpl& operator=(const JsonWriterImpl&) = delete;
+      JsonWriterImpl& operator=(JsonWriterImpl&&) = delete;
 
-      constexpr ~JsonWriterContext() = default;
+      constexpr ~JsonWriterImpl() = default;
 
       // Serializes the given value into the specified stream as JSON.
       // \param stream - output stream.
@@ -66,7 +66,7 @@ namespace Medea_NS
       using ArrayWriterPtr = void(*)(const ArrayElementsWriter&, const void*);
       using ObjectWriterPtr = void(*)(FieldsWriter&, const void*);
 
-      explicit constexpr JsonWriterContext(std::ostream& stream, unsigned int initial_indent = 0) noexcept :
+      explicit constexpr JsonWriterImpl(std::ostream& stream, unsigned int initial_indent = 0) noexcept :
         stream_(stream),
         indent_(initial_indent)
       {}
@@ -123,7 +123,7 @@ namespace Medea_NS
     };
 
     template<class T>
-    void JsonWriterContext::writeValueRaw(const T& value)
+    void JsonWriterImpl::writeValueRaw(const T& value)
     {
       using Traits = JsonWriterTraits<T>;
 
@@ -178,23 +178,23 @@ namespace Medea_NS
     }
 
     template<class T>
-    void JsonWriterContext::writeValue(const T& value, bool newline)
+    void JsonWriterImpl::writeValue(const T& value, bool newline)
     {
       beforeWriteValue(newline);
       writeValueRaw(value);
     }
 
     template<class T>
-    void JsonWriterContext::writeField(std::string_view field_name, const T& value)
+    void JsonWriterImpl::writeField(std::string_view field_name, const T& value)
     {
       writeFieldName(field_name);
       writeValueRaw(value);
     }
 
     template<class T>
-    void JsonWriterContext::writeJson(std::ostream& stream, const T& value, unsigned int initial_indent)
+    void JsonWriterImpl::writeJson(std::ostream& stream, const T& value, unsigned int initial_indent)
     {
-      JsonWriterContext context(stream, initial_indent);
+      JsonWriterImpl context(stream, initial_indent);
       // TODO: write initial indent.
       context.writeValueRaw(value);
     }

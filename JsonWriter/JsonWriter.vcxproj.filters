@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="JsonWriterContext.cpp">
+    <ClCompile Include="JsonWriterImpl.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -23,7 +23,7 @@
     <ClInclude Include="JsonWriterFwd.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="JsonWriterContext.h">
+    <ClInclude Include="JsonWriterImpl.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="API.h">

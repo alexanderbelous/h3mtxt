@@ -25,7 +25,7 @@ namespace Medea_NS
                                                   JsonWriterTraits<ElementType>::kValueType == JsonValueType::UInt>
     {};
 
-    // Writes an array of elements into the specified JsonWriterContext.
+    // Writes an array of elements into the specified JsonWriterImpl.
     template<class T>
     void writeSpan(const ArrayElementsWriter& elements_writer, std::span<const T> elements)
     {
