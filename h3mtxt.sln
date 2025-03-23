@@ -5,7 +5,7 @@ VisualStudioVersion = 17.11.35312.102
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "h3mtxt", "h3mtxt.vcxproj", "{4A9C7A3D-0D17-42C8-BB98-1083A4AE9B11}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "JsonWriter", "JsonWriter\JsonWriter.vcxproj", "{7FEC82C0-C267-495D-90F7-3E0624763B46}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Medea", "Medea\Medea.vcxproj", "{7FEC82C0-C267-495D-90F7-3E0624763B46}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Map", "Map\Map.vcxproj", "{856F5D07-6DC0-4E66-813E-12C26F28D606}"
 EndProject

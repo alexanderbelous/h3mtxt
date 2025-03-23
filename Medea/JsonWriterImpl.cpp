@@ -1,5 +1,5 @@
-#include <h3mtxt/JsonWriter/JsonWriterImpl.h>
-#include <h3mtxt/JsonWriter/API.h>
+#include <h3mtxt/Medea/JsonWriterImpl.h>
+#include <h3mtxt/Medea/API.h>
 
 #include <algorithm>
 #include <iterator>

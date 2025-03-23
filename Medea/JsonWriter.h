@@ -2,8 +2,8 @@
 
 // API + built-in support for some types.
 
-#include <h3mtxt/JsonWriter/JsonWriterFwd.h>
-#include <h3mtxt/JsonWriter/API.h>
+#include <h3mtxt/Medea/MedeaFwd.h>
+#include <h3mtxt/Medea/API.h>
 
 #include <array>
 #include <span>

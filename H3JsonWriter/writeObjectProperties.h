@@ -1,6 +1,6 @@
 #pragma once
 
-#include <h3mtxt/JsonWriter/JsonWriterFwd.h>
+#include <h3mtxt/Medea/MedeaFwd.h>
 #include <h3mtxt/Map/MapFwd.h>
 #include <h3mtxt/Map/Constants/MetaObjectType.h>
 

@@ -1,6 +1,6 @@
 #pragma once
 
-#include <h3mtxt/JsonWriter/JsonWriterFwd.h>
+#include <h3mtxt/Medea/MedeaFwd.h>
 #include <h3mtxt/Campaign/CampaignFwd.h>
 #include <h3mtxt/Campaign/Constants/StartingOptionsType.h>
 

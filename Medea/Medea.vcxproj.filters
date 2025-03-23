@@ -20,7 +20,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="JsonWriterFwd.h">
+    <ClInclude Include="MedeaFwd.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="JsonWriterImpl.h">
