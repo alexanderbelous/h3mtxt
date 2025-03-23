@@ -52,7 +52,7 @@ namespace Medea_NS
   //
   // The default implementation of JsonWriterTraits assumes that the type T should be serialized as a JSON object.
   //
-  // BuilInTypes.h provides built-in specializations for a few types (e.g., bool, std::string, std::vector)
+  // Medea.h provides built-in specializations for a few types (e.g., bool, std::string, std::vector)
   // and assumes that all other types should be serialized as JSON objects. If the type T
   // should not be serialized as a JSON object, this trait should be specialized for T.
   template<class T, class Enable = void>
