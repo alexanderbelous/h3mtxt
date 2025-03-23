@@ -26,14 +26,17 @@ namespace Medea_NS
   class FieldsWriter;
 
   // Class for writing JSON arrays.
-  template<class T, class Enable = void>
-  struct JsonArrayWriter {};
-  //{
-  //  // Optional; if missing, implies true.
-  //  static constexpr bool kOneElementPerLine = false;
   //
-  //  void operator()(const ArrayElementsWriter& out, const T& elements) const;
-  //};
+  // This template can be specialized for types that should be serialized as JSON arrays.
+  template<class T, class Enable = void>
+  struct JsonArrayWriter
+  {
+    // Optional; if missing, implies true.
+    // static constexpr bool kOneElementPerLine = false;
+
+    // The function doesn't have to be const-qualified.
+    void operator()(const ArrayElementsWriter& out, const T& elements) const = delete;
+  };
 
   // Class for writing JSON objects.
   //
@@ -42,7 +45,7 @@ namespace Medea_NS
   template<class T, class Enable = void>
   struct JsonObjectWriter
   {
-    void operator()(FieldsWriter& out, const T& value) const;
+    void operator()(FieldsWriter& out, const T& value) const = delete;
   };
 
   // Type trait indicating how the given type should be serialized in JSON.

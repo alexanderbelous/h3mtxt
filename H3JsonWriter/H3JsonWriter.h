@@ -56,6 +56,11 @@ namespace Medea_NS
   template<>
   void JsonObjectWriter<h3m::HeroSettings>::operator()(FieldsWriter& out, const h3m::HeroSettings& value) const;
 
+  // Serialize h3m::HeroesSettings as a JSON array.
+  template<>
+  void JsonArrayWriter<h3m::HeroesSettings>::operator()(const ArrayElementsWriter& out,
+                                                        const h3m::HeroesSettings& value) const;
+
   template<>
   void JsonObjectWriter<h3m::LossCondition>::operator()(FieldsWriter& out,
                                                         const h3m::LossCondition& loss_condition) const;

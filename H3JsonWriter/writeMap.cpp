@@ -89,7 +89,7 @@ namespace Medea_NS
   template<>
   struct JsonArrayWriter<std::array<h3m::PlayerSpecs, h3m::kMaxPlayers>>
   {
-    void operator()(const ArrayElementsWriter& scoped_array_writer,
+    void operator()(const ArrayElementsWriter& out,
                     const std::array<h3m::PlayerSpecs, h3m::kMaxPlayers>& players) const
     {
       h3m::H3JsonWriter_NS::CommentBuilder comment_builder;
@@ -97,63 +97,56 @@ namespace Medea_NS
       {
         const h3m::PlayerColor player = static_cast<h3m::PlayerColor>(i);
         const std::string_view player_str = h3m::getEnumString(player);
-        scoped_array_writer.writeComment(comment_builder.build({ "Player ", i, " (", player_str, ")" }));
-        scoped_array_writer.writeElement(players[i]);
+        out.writeComment(comment_builder.build({ "Player ", i, " (", player_str, ")" }));
+        out.writeElement(players[i]);
       }
     }
   };
 
   // Serialize TilesWithMapSize as a JSON array.
   template<>
-  struct JsonArrayWriter<TilesWithMapSize>
+  void JsonArrayWriter<TilesWithMapSize>::operator()(const ArrayElementsWriter& out,
+                                                     const TilesWithMapSize& value) const
   {
-    void operator()(const ArrayElementsWriter& scoped_array_writer, const TilesWithMapSize& value) const
+    h3m::H3JsonWriter_NS::CommentBuilder comment_builder;
+    const std::uint32_t num_levels = value.hasTwoLevels() ? 2 : 1;
+    const std::uint32_t map_size = value.mapSize();
+    const std::span<const h3m::Tile> tiles = value.tiles();
+    auto iter = tiles.begin();
+    for (std::uint32_t z = 0; z < num_levels; ++z)
     {
-      h3m::H3JsonWriter_NS::CommentBuilder comment_builder;
-      const std::uint32_t num_levels = value.hasTwoLevels() ? 2 : 1;
-      const std::uint32_t map_size = value.mapSize();
-      const std::span<const h3m::Tile> tiles = value.tiles();
-      auto iter = tiles.begin();
-      for (std::uint32_t z = 0; z < num_levels; ++z)
+      for (std::uint32_t y = 0; y < map_size; ++y)
       {
-        for (std::uint32_t y = 0; y < map_size; ++y)
+        for (std::uint32_t x = 0; x < map_size; ++x)
         {
-          for (std::uint32_t x = 0; x < map_size; ++x)
-          {
-            scoped_array_writer.writeComment(comment_builder.build({ "Tile (", x, ", ", y, ", ", z, ")" }));
-            scoped_array_writer.writeElement(*iter);
-            ++iter;
-          }
+          out.writeComment(comment_builder.build({ "Tile (", x, ", ", y, ", ", z, ")" }));
+          out.writeElement(*iter);
+          ++iter;
         }
       }
     }
-  };
+  }
 
   template<>
-  struct JsonObjectWriter<WrappedObject>
+  void JsonObjectWriter<WrappedObject>::operator()(FieldsWriter& out, const WrappedObject& wrapped_object) const
   {
-    void operator()(FieldsWriter& out, const WrappedObject& wrapped_object) const
-    {
-      const JsonObjectWriter<h3m::Object> object_writer(wrapped_object.objects_templates.data(),
-                                                        wrapped_object.objects_templates.size());
-      object_writer(out, wrapped_object.object);
-    }
-  };
+    const JsonObjectWriter<h3m::Object> object_writer(wrapped_object.objects_templates.data(),
+                                                      wrapped_object.objects_templates.size());
+    object_writer(out, wrapped_object.object);
+  }
 
   // Serialize WrappedObjects as a JSON array.
   template<>
-  struct JsonArrayWriter<WrappedObjects>
+  void JsonArrayWriter<WrappedObjects>::operator()(const ArrayElementsWriter& out,
+                                                   const WrappedObjects& wrapped_objects) const
   {
-    void operator()(const ArrayElementsWriter& scoped_array_writer, const WrappedObjects& wrapped_objects) const
+    h3m::H3JsonWriter_NS::CommentBuilder comment_builder;
+    for (std::size_t i = 0; i < wrapped_objects.objects.size(); ++i)
     {
-      h3m::H3JsonWriter_NS::CommentBuilder comment_builder;
-      for (std::size_t i = 0; i < wrapped_objects.objects.size(); ++i)
-      {
-        scoped_array_writer.writeComment(comment_builder.build({ "Object ", i }));
-        scoped_array_writer.writeElement(WrappedObject(wrapped_objects.objects_templates, wrapped_objects.objects[i]));
-      }
+      out.writeComment(comment_builder.build({ "Object ", i }));
+      out.writeElement(WrappedObject(wrapped_objects.objects_templates, wrapped_objects.objects[i]));
     }
-  };
+  }
 
   void JsonObjectWriter<h3m::Map>::operator()(FieldsWriter& out, const h3m::Map& map) const
   {
