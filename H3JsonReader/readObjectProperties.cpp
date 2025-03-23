@@ -48,28 +48,6 @@ namespace h3m::H3JsonReader_NS
     return message_and_treasure;
   }
 
-  ResourcesBitmask JsonReader<ResourcesBitmask>::operator()(const Json::Value& value) const
-  {
-    using Fields = FieldNames<ResourcesBitmask>;
-    ResourcesBitmask bitmask;
-    for (std::uint8_t i = 0; i < 8; ++i)
-    {
-      bitmask.set(static_cast<h3m::ResourceType>(i), readField<bool>(value, Fields::kNames[i]));
-    }
-    return bitmask;
-  }
-
-  TownBuildingsBitmask JsonReader<TownBuildingsBitmask>::operator()(const Json::Value& value) const
-  {
-    using Fields = FieldNames<TownBuildingsBitmask>;
-    TownBuildingsBitmask bitmask;
-    for (std::size_t i = 0; i < TownBuildingsBitmask::kNumBits; ++i)
-    {
-      bitmask.bitset.set(i, readField<bool>(value, Fields::kNames[i]));
-    }
-    return bitmask;
-  }
-
   TownBuildings JsonReader<TownBuildings>::operator()(const Json::Value& value) const
   {
     using Fields = FieldNames<TownBuildings>;

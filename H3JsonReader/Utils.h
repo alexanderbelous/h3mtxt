@@ -1,7 +1,9 @@
 #pragma once
 
 #include <h3mtxt/H3JsonReader/H3JsonReader.h>
+#include <h3mtxt/JsonCommon/FieldName.h>
 #include <h3mtxt/Map/Utils/BitSet.h>
+#include <h3mtxt/Map/Utils/EnumBitmask.h>
 #include <h3mtxt/Map/Utils/ReservedData.h>
 
 #include <json/json.h>
@@ -61,6 +63,10 @@ namespace h3m::H3JsonReader_NS
         data[i] = JsonReader<T>{}(value[static_cast<Json::ArrayIndex>(i)]);
       }
     }
+
+    void readEnumBitmaskImpl(const Json::Value& value,
+                             std::span<std::uint8_t> bitset_bytes,
+                             const std::string_view* field_names);
   }
 
   class MissingJsonFieldError : public std::runtime_error
@@ -216,6 +222,24 @@ namespace h3m::H3JsonReader_NS
         return ReservedData<NumBytes>();
       }
       return ReservedData<NumBytes>(data);
+    }
+  };
+
+  // Partial specialization for EnumBitmask.
+  template<class Enum, std::size_t NumBytes>
+  struct JsonReader<EnumBitmask<Enum, NumBytes>>
+  {
+    EnumBitmask<Enum, NumBytes> operator()(const Json::Value& value) const
+    {
+      using Bitmask = EnumBitmask<Enum, NumBytes>;
+      using Fields = FieldNames<Bitmask>;
+      static_assert(std::is_same_v<std::remove_cvref_t<decltype(Fields::kNames)>,
+                                   std::array<std::string_view, NumBytes * 8>>,
+                    "h3m::FieldNames<h3m::EnumBitmask<Enum, NumBytes>> must have a "
+                    "static data member kNames of the type std::array<std::string_view, NumBytes * 8>.");
+      Bitmask bitmask;
+      Detail_NS::readEnumBitmaskImpl(value, bitmask.bitset.data, Fields::kNames.data());
+      return bitmask;
     }
   };
 }

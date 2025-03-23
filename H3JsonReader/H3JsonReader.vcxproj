@@ -95,7 +95,6 @@
     <ClInclude Include="VariantJsonReader.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="readArtifactsBitmask.cpp" />
     <ClCompile Include="readCampaign.cpp" />
     <ClCompile Include="readCreatureStack.cpp" />
     <ClCompile Include="readGlobalEvent.cpp" />
@@ -110,21 +109,17 @@
     <ClCompile Include="readMapBasicInfo.cpp" />
     <ClCompile Include="readObjectTemplate.cpp" />
     <ClCompile Include="readObjectProperties.cpp" />
-    <ClCompile Include="readPlayersBitmask.cpp" />
     <ClCompile Include="readPlayerSpecs.cpp" />
     <ClCompile Include="readPrimarySkills.cpp" />
     <ClCompile Include="readQuest.cpp" />
     <ClCompile Include="readResources.cpp" />
     <ClCompile Include="readReward.cpp" />
     <ClCompile Include="readSecondarySkill.cpp" />
-    <ClCompile Include="readSecondarySkillsBitmask.cpp" />
-    <ClCompile Include="readSpellsBitmask.cpp" />
     <ClCompile Include="readStartingBonus.cpp" />
     <ClCompile Include="readStartingOptions.cpp" />
     <ClCompile Include="readTerrainsBitmask.cpp" />
     <ClCompile Include="readTile.cpp" />
     <ClCompile Include="readTimedEventBase.cpp" />
-    <ClCompile Include="readTownsBitmask.cpp" />
     <ClCompile Include="readVictoryCondition.cpp" />
     <ClCompile Include="Utils.cpp" />
   </ItemGroup>

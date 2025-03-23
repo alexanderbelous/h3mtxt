@@ -30,17 +30,6 @@ namespace h3m::H3JsonReader_NS
     return info;
   }
 
-  HeroesBitmask JsonReader<HeroesBitmask>::operator()(const Json::Value& value) const
-  {
-    using Fields = FieldNames<HeroesBitmask>;
-    HeroesBitmask heroes_bitmask;
-    for (std::size_t i = 0; i < HeroesBitmask::kNumBits; ++i)
-    {
-      heroes_bitmask.bitset.set(i, readField<bool>(value, Fields::kNames[i]));
-    }
-    return heroes_bitmask;
-  }
-
   Rumor JsonReader<Rumor>::operator()(const Json::Value& value) const
   {
     using Fields = FieldNames<Rumor>;

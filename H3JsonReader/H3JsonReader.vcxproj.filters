@@ -86,22 +86,7 @@
     <ClCompile Include="readPlayerSpecs.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="readTownsBitmask.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Utils.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="readSpellsBitmask.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="readSecondarySkillsBitmask.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="readArtifactsBitmask.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="readPlayersBitmask.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="readMap.cpp">

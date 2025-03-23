@@ -21,9 +21,6 @@ namespace h3m::H3JsonReader_NS
   bool JsonReader<bool>::operator()(const Json::Value& value) const;
 
   template<>
-  ArtifactsBitmask JsonReader<ArtifactsBitmask>::operator()(const Json::Value& value) const;
-
-  template<>
   CreatureStack JsonReader<CreatureStack>::operator()(const Json::Value& value) const;
 
   template<>
@@ -37,9 +34,6 @@ namespace h3m::H3JsonReader_NS
 
   template<>
   HeroSettings JsonReader<HeroSettings>::operator()(const Json::Value & value) const;
-
-  template<>
-  HeroesBitmask JsonReader<HeroesBitmask>::operator()(const Json::Value& value) const;
 
   template<>
   HeroesSettings JsonReader<HeroesSettings>::operator()(const Json::Value& value) const;
@@ -69,9 +63,6 @@ namespace h3m::H3JsonReader_NS
   PlayerSpecs JsonReader<PlayerSpecs>::operator()(const Json::Value & value) const;
 
   template<>
-  PlayersBitmask JsonReader<PlayersBitmask>::operator()(const Json::Value& value) const;
-
-  template<>
   PrimarySkills JsonReader<PrimarySkills>::operator()(const Json::Value& value) const;
 
   template<>
@@ -79,9 +70,6 @@ namespace h3m::H3JsonReader_NS
 
   template<>
   Resources JsonReader<Resources>::operator()(const Json::Value& value) const;
-
-  template<>
-  ResourcesBitmask JsonReader<ResourcesBitmask>::operator()(const Json::Value& value) const;
 
   template<>
   Reward JsonReader<Reward>::operator()(const Json::Value& value) const;
@@ -93,17 +81,13 @@ namespace h3m::H3JsonReader_NS
   SecondarySkill JsonReader<SecondarySkill>::operator()(const Json::Value& value) const;
 
   template<>
-  SecondarySkillsBitmask JsonReader<SecondarySkillsBitmask>::operator()(const Json::Value& value) const;
-
-  template<>
-  SpellsBitmask JsonReader<SpellsBitmask>::operator()(const Json::Value& value) const;
-
-  template<>
   StartingHero JsonReader<StartingHero>::operator()(const Json::Value& value) const;
 
   template<>
   TeamsInfo JsonReader<TeamsInfo>::operator()(const Json::Value& value) const;
 
+  // Full specialization for TerrainsBitmask. The template version from Utils.h
+  // is not used here because TerrainsBitmask is currently serialized as an array of bytes.
   template<>
   TerrainsBitmask JsonReader<TerrainsBitmask>::operator()(const Json::Value& value) const;
 
@@ -114,13 +98,7 @@ namespace h3m::H3JsonReader_NS
   TownBuildings JsonReader<TownBuildings>::operator()(const Json::Value& value) const;
 
   template<>
-  TownBuildingsBitmask JsonReader<TownBuildingsBitmask>::operator()(const Json::Value& value) const;
-
-  template<>
   TownEvent JsonReader<TownEvent>::operator()(const Json::Value& value) const;
-
-  template<>
-  TownsBitmask JsonReader<TownsBitmask>::operator()(const Json::Value& value) const;
 
   template<>
   VictoryCondition JsonReader<VictoryCondition>::operator()(const Json::Value& value) const;
@@ -141,9 +119,6 @@ namespace h3m::H3JsonReader_NS
 
   template<>
   CrossoverOptions JsonReader<CrossoverOptions>::operator()(const Json::Value& value) const;
-
-  template<>
-  CrossoverFeaturesBitmask JsonReader<CrossoverFeaturesBitmask>::operator()(const Json::Value& value) const;
 
   template<>
   CutScene JsonReader<CutScene>::operator()(const Json::Value& value) const;
