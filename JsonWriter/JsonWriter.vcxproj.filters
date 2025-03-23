@@ -23,9 +23,6 @@
     <ClInclude Include="JsonWriterFwd.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="writeJson.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="JsonWriterContext.h">
       <Filter>Header Files</Filter>
     </ClInclude>

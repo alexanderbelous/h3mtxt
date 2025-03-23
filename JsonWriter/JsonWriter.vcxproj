@@ -91,7 +91,6 @@
     <ClInclude Include="JsonWriter.h" />
     <ClInclude Include="JsonWriterContext.h" />
     <ClInclude Include="JsonWriterFwd.h" />
-    <ClInclude Include="writeJson.h" />
     <ClInclude Include="API.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

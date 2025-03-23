@@ -11,10 +11,6 @@
 
 namespace Medea_NS
 {
-  // Forward declaration of writeJson().
-  template<class T>
-  void writeJson(std::ostream& stream, const T& value, unsigned int initial_indent);
-
   namespace Detail_NS
   {
     template<class T, class Enable = void>
@@ -30,21 +26,25 @@ namespace Medea_NS
 
     // Internal class for writing formatted JSON.
     //
-    // This class cannot be used directly because only writeJson() has access to the constructor.
+    // Note that the constructor is private; only the static member function writeJson()
+    // can be used directly.
     class JsonWriterContext
     {
     public:
-      // writeJson() is a friend because it needs to construct JsonWriterContext.
-      template<class T>
-      friend void ::Medea_NS::writeJson(std::ostream& stream, const T& value, unsigned int initial_indent);
-
       // Non-copyable, non-movable.
-      constexpr JsonWriterContext(const JsonWriterContext&) noexcept = delete;
-      constexpr JsonWriterContext(JsonWriterContext&&) noexcept = delete;
+      constexpr JsonWriterContext(const JsonWriterContext&) = delete;
+      constexpr JsonWriterContext(JsonWriterContext&&) = delete;
       JsonWriterContext& operator=(const JsonWriterContext&) = delete;
       JsonWriterContext& operator=(JsonWriterContext&&) = delete;
 
       constexpr ~JsonWriterContext() = default;
+
+      // Serializes the given value into the specified stream as JSON.
+      // \param stream - output stream.
+      // \param value - value to serialize.
+      // \param initial_indent - the initial indent (number of spaces).
+      template<class T>
+      static void writeJson(std::ostream& stream, const T& value, unsigned int initial_indent = 0);
 
       // Queues a comment.
       //
@@ -189,6 +189,14 @@ namespace Medea_NS
     {
       writeFieldName(field_name);
       writeValueRaw(value);
+    }
+
+    template<class T>
+    void JsonWriterContext::writeJson(std::ostream& stream, const T& value, unsigned int initial_indent)
+    {
+      JsonWriterContext context(stream, initial_indent);
+      // TODO: write initial indent.
+      context.writeValueRaw(value);
     }
   }
 }

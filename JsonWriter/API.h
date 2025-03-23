@@ -8,6 +8,16 @@
 
 namespace Medea_NS
 {
+  // Serializes the given value as JSON.
+  // \param stream - output stream.
+  // \param value - input value.
+  // \param initial_indent - the initial indent (number of spaces).
+  template<class T>
+  void writeJson(std::ostream& stream, const T& value, unsigned int initial_indent = 0)
+  {
+    Detail_NS::JsonWriterContext::writeJson(stream, value, initial_indent);
+  }
+
   // Class for serializing elements of a JSON array.
   //
   // The class is CopyConstructible and MoveConstructible, but neither CopyAssignable nor MoveAssignable.
