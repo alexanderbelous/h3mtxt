@@ -16,6 +16,6 @@ namespace Medea_NS
   {
     Detail_NS::JsonWriterContext context(stream, initial_indent);
     // TODO: write initial indent.
-    Detail_NS::writeValueRaw(context, value);
+    context.writeValueRaw(value);
   }
 }

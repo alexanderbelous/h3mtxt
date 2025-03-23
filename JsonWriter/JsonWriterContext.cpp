@@ -1,4 +1,5 @@
 #include <h3mtxt/JsonWriter/JsonWriterContext.h>
+#include <h3mtxt/JsonWriter/API.h>
 
 #include <algorithm>
 #include <iterator>
@@ -143,6 +144,7 @@ namespace Medea_NS::Detail_NS
   void JsonWriterContext::writeFieldName(std::string_view field_name)
   {
     constexpr std::string_view kSeparator = ": ";
+    beforeWriteValue(true);
     writeString(field_name);
     stream_.write(kSeparator.data(), kSeparator.size());
   }
@@ -197,5 +199,21 @@ namespace Medea_NS::Detail_NS
     // Clean-up.
     comment_.clear();
     is_inline_comment_ = false;
+  }
+
+  void JsonWriterContext::writeArray(ArrayWriterPtr array_writer, const void* value, bool one_element_per_line)
+  {
+    beginAggregate('[');
+    ScopedArrayWriter elements_writer{ *this, one_element_per_line };
+    array_writer(elements_writer, value);
+    endAggregate(']', one_element_per_line);
+  }
+
+  void JsonWriterContext::writeObject(ObjectWriterPtr object_writer, const void* value)
+  {
+    beginAggregate('{');
+    ScopedObjectWriter fields_writer{ *this };
+    object_writer(fields_writer, value);
+    endAggregate('}', true);
   }
 }

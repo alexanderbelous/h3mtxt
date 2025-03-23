@@ -8,10 +8,6 @@ namespace Medea_NS
   {
     // Internal class for writing formatted JSON.
     class JsonWriterContext;
-
-    // Serializes the given value as formatted JSON.
-    template<class T>
-    void writeValueRaw(JsonWriterContext& context, const T& value);
   }
 
   // Supported JSON value types.
