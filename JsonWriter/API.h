@@ -19,13 +19,19 @@ namespace Medea_NS
   }
 
   // Class for serializing elements of a JSON array.
-  //
-  // The class is CopyConstructible and MoveConstructible, but neither CopyAssignable nor MoveAssignable.
   class ArrayElementsWriter
   {
   public:
     explicit constexpr ArrayElementsWriter(Detail_NS::JsonWriterContext& context,
                                            bool one_element_per_line = true) noexcept;
+
+    // Non-copyable, non-movable.
+    ArrayElementsWriter(const ArrayElementsWriter&) = delete;
+    ArrayElementsWriter(ArrayElementsWriter&&) = delete;
+    ArrayElementsWriter& operator=(const ArrayElementsWriter&) = delete;
+    ArrayElementsWriter& operator=(ArrayElementsWriter&&) = delete;
+
+    constexpr ~ArrayElementsWriter() = default;
 
     // Writes a single element.
     template<class T>
@@ -40,12 +46,18 @@ namespace Medea_NS
   };
 
   // Class for writing fields of a JSON object.
-  //
-  // The class is CopyConstructible and MoveConstructible, but neither CopyAssignable nor MoveAssignable.
   class FieldsWriter
   {
   public:
     explicit constexpr FieldsWriter(Detail_NS::JsonWriterContext& context) noexcept;
+
+    // Non-copyable, non-movable.
+    FieldsWriter(const FieldsWriter&) = delete;
+    FieldsWriter(FieldsWriter&&) = delete;
+    FieldsWriter& operator=(const FieldsWriter&) = delete;
+    FieldsWriter& operator=(FieldsWriter&&) = delete;
+
+    constexpr ~FieldsWriter() = default;
 
     // Writes a single field.
     template<class T>
@@ -55,7 +67,7 @@ namespace Medea_NS
     // \param comment - comment text. Empty comments are ignored.
     // \param newline - if true, the comment will be written on a new line,
     //        otherwise it will be written on the current line.
-    inline void writeComment(std::string_view comment, bool newline = true);
+    inline void writeComment(std::string_view comment, bool newline = true) const;
 
   private:
     Detail_NS::JsonWriterContext& context_;
@@ -71,7 +83,7 @@ namespace Medea_NS
     context_.writeField(field_name, value);
   }
 
-  void FieldsWriter::writeComment(std::string_view comment, bool newline)
+  void FieldsWriter::writeComment(std::string_view comment, bool newline) const
   {
     context_.writeComment(comment, newline);
   }

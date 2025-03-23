@@ -204,16 +204,17 @@ namespace Medea_NS::Detail_NS
   void JsonWriterContext::writeArray(ArrayWriterPtr array_writer, const void* value, bool one_element_per_line)
   {
     beginAggregate('[');
-    ArrayElementsWriter elements_writer{ *this, one_element_per_line };
-    array_writer(elements_writer, value);
+    array_writer(ArrayElementsWriter{ *this, one_element_per_line }, value);
     endAggregate(']', one_element_per_line);
   }
 
   void JsonWriterContext::writeObject(ObjectWriterPtr object_writer, const void* value)
   {
     beginAggregate('{');
-    FieldsWriter fields_writer{ *this };
-    object_writer(fields_writer, value);
+    {
+      FieldsWriter fields_writer{ *this };
+      object_writer(fields_writer, value);
+    }
     endAggregate('}', true);
   }
 }

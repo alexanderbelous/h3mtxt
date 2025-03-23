@@ -63,7 +63,7 @@ namespace Medea_NS
       void writeField(std::string_view field_name, const T& value);
 
     private:
-      using ArrayWriterPtr = void(*)(ArrayElementsWriter&, const void*);
+      using ArrayWriterPtr = void(*)(const ArrayElementsWriter&, const void*);
       using ObjectWriterPtr = void(*)(FieldsWriter&, const void*);
 
       explicit constexpr JsonWriterContext(std::ostream& stream, unsigned int initial_indent = 0) noexcept :
@@ -156,11 +156,11 @@ namespace Medea_NS
       else if constexpr (Traits::kValueType == JsonValueType::Array)
       {
         constexpr bool kOneElementPerLine = OneElementPerLineImpl<T>::value;
-        writeArray([](ArrayElementsWriter& elements_writer, const void* value_ptr)
+        writeArray([](const ArrayElementsWriter& elements_writer, const void* value_ptr)
                    {
                      JsonArrayWriter<T>{}(elements_writer, *static_cast<const T*>(value_ptr));
                    },
-                   static_cast<const void*>(std::addressof(value)),
+                   std::addressof(value),
                    kOneElementPerLine);
       }
       else if constexpr (Traits::kValueType == JsonValueType::Object)
