@@ -5,7 +5,7 @@ namespace Medea_NS
 {
   namespace Detail_NS
   {
-    void printReservedDataImpl(const ScopedArrayWriter& elements_writer,
+    void printReservedDataImpl(const ArrayElementsWriter& elements_writer,
                                const std::byte* data,
                                std::size_t num_bytes)
     {
@@ -31,7 +31,7 @@ namespace Medea_NS
       }
     }
 
-    void printBitSetImpl(const ScopedArrayWriter& elements_writer,
+    void printBitSetImpl(const ArrayElementsWriter& elements_writer,
                          std::span<const std::uint8_t> bitset_bytes)
     {
       for (std::size_t byte_idx = 0; byte_idx < bitset_bytes.size(); ++byte_idx)

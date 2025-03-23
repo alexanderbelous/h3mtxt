@@ -21,11 +21,9 @@ namespace Medea_NS
     Object
   };
 
-  class ScopedArrayWriter;
+  class ArrayElementsWriter;
 
-  class ScopedObjectWriter;
-
-  using FieldsWriter = ScopedObjectWriter;
+  class FieldsWriter;
 
   // Class for writing JSON arrays.
   template<class T, class Enable = void>
@@ -34,7 +32,7 @@ namespace Medea_NS
   //  // Optional; if missing, implies true.
   //  static constexpr bool kOneElementPerLine = false;
   //
-  //  void operator()(const ScopedArrayWriter& out, const T& elements) const;
+  //  void operator()(const ArrayElementsWriter& out, const T& elements) const;
   //};
 
   // Class for writing JSON objects.
@@ -62,7 +60,7 @@ namespace Medea_NS
 
   // Partial specialization for types for which JsonArrayWriter<T> can be invoked.
   template<class T>
-  struct JsonWriterTraits<T, std::enable_if_t<std::is_invocable_v<JsonArrayWriter<T>, const ScopedArrayWriter&, const T&>>>
+  struct JsonWriterTraits<T, std::enable_if_t<std::is_invocable_v<JsonArrayWriter<T>, const ArrayElementsWriter&, const T&>>>
   {
     static constexpr JsonValueType kValueType = JsonValueType::Array;
   };

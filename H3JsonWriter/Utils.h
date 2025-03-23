@@ -14,21 +14,21 @@ namespace Medea_NS
 {
   namespace Detail_NS
   {
-    void printBitSetImpl(const ScopedArrayWriter& elements_writer,
+    void printBitSetImpl(const ArrayElementsWriter& elements_writer,
                          std::span<const std::uint8_t> bitset_bytes);
 
     void printEnumBitmaskImpl(FieldsWriter& out,
                               std::span<const std::uint8_t> bitset_bytes,
                               const std::string_view* field_names);
 
-    void printReservedDataImpl(const ScopedArrayWriter& elements_writer,
+    void printReservedDataImpl(const ArrayElementsWriter& elements_writer,
                                const std::byte* data,
                                std::size_t num_bytes);
   }
 
   // Serializes h3m::ReservedData as a JSON array.
   template<std::size_t NumBytes>
-  void JsonArrayWriter<h3m::ReservedData<NumBytes>>::operator()(const ScopedArrayWriter& elements_writer,
+  void JsonArrayWriter<h3m::ReservedData<NumBytes>>::operator()(const ArrayElementsWriter& elements_writer,
                                                                 const h3m::ReservedData<NumBytes>& reserved_data) const
   {
     Detail_NS::printReservedDataImpl(elements_writer, reserved_data.data(), NumBytes);
@@ -36,7 +36,7 @@ namespace Medea_NS
 
   // Serializes h3m::BitSet as a JSON array.
   template<std::size_t NumBytes>
-  void JsonArrayWriter<h3m::BitSet<NumBytes>>::operator()(const ScopedArrayWriter& elements_writer,
+  void JsonArrayWriter<h3m::BitSet<NumBytes>>::operator()(const ArrayElementsWriter& elements_writer,
                                                           const h3m::BitSet<NumBytes>& bitset) const
   {
     Detail_NS::printBitSetImpl(elements_writer, bitset.data);

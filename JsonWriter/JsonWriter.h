@@ -27,7 +27,7 @@ namespace Medea_NS
 
     // Writes an array of elements into the specified JsonWriterContext.
     template<class T>
-    void writeSpan(const ScopedArrayWriter& scoped_array_writer, std::span<const T> elements)
+    void writeSpan(const ArrayElementsWriter& scoped_array_writer, std::span<const T> elements)
     {
       for (const T& element : elements)
       {
@@ -91,7 +91,7 @@ namespace Medea_NS
   {
     static constexpr bool kOneElementPerLine = !Detail_NS::IsSingleLineArray<T>::value;
 
-    void operator()(const ScopedArrayWriter& scoped_array_writer, const std::array<T, N>& elements) const
+    void operator()(const ArrayElementsWriter& scoped_array_writer, const std::array<T, N>& elements) const
     {
       Detail_NS::writeSpan<T>(scoped_array_writer, elements);
     }
@@ -103,7 +103,7 @@ namespace Medea_NS
   {
     static constexpr bool kOneElementPerLine = !Detail_NS::IsSingleLineArray<T>::value;
 
-    void operator()(const ScopedArrayWriter& scoped_array_writer, const std::vector<T, Alloc>& elements) const
+    void operator()(const ArrayElementsWriter& scoped_array_writer, const std::vector<T, Alloc>& elements) const
     {
       Detail_NS::writeSpan<T>(scoped_array_writer, elements);
     }

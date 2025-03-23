@@ -107,7 +107,7 @@ namespace Medea_NS
   template<>
   struct JsonArrayWriter<h3m::HeroesSettings>
   {
-    void operator()(const ScopedArrayWriter& elements_writer, const h3m::HeroesSettings& value) const
+    void operator()(const ArrayElementsWriter& elements_writer, const h3m::HeroesSettings& value) const
     {
       for (const HeroesSettingsEntry& entry : value.settings())
       {

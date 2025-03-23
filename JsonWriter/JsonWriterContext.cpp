@@ -204,7 +204,7 @@ namespace Medea_NS::Detail_NS
   void JsonWriterContext::writeArray(ArrayWriterPtr array_writer, const void* value, bool one_element_per_line)
   {
     beginAggregate('[');
-    ScopedArrayWriter elements_writer{ *this, one_element_per_line };
+    ArrayElementsWriter elements_writer{ *this, one_element_per_line };
     array_writer(elements_writer, value);
     endAggregate(']', one_element_per_line);
   }
@@ -212,7 +212,7 @@ namespace Medea_NS::Detail_NS
   void JsonWriterContext::writeObject(ObjectWriterPtr object_writer, const void* value)
   {
     beginAggregate('{');
-    ScopedObjectWriter fields_writer{ *this };
+    FieldsWriter fields_writer{ *this };
     object_writer(fields_writer, value);
     endAggregate('}', true);
   }

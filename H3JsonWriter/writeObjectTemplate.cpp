@@ -7,7 +7,7 @@
 
 namespace Medea_NS
 {
-  void JsonArrayWriter<h3m::TerrainsBitmask>::operator()(const ScopedArrayWriter& elements_writer,
+  void JsonArrayWriter<h3m::TerrainsBitmask>::operator()(const ArrayElementsWriter& elements_writer,
                                                          const h3m::TerrainsBitmask& bitmask) const
   {
     JsonArrayWriter<h3m::BitSet<2>>{}(elements_writer, bitmask.bitset);

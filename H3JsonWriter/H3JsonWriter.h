@@ -24,7 +24,7 @@ namespace Medea_NS
     static constexpr bool kOneElementPerLine = false;
 
     // Defined in Utils.h
-    void operator()(const ScopedArrayWriter& elements_writer, const h3m::BitSet<NumBytes>& bitset) const;
+    void operator()(const ArrayElementsWriter& elements_writer, const h3m::BitSet<NumBytes>& bitset) const;
   };
 
   // Serializes h3m::ReservedData as a JSON array.
@@ -34,7 +34,7 @@ namespace Medea_NS
     static constexpr bool kOneElementPerLine = false;
 
     // Defined in Utils.h
-    void operator()(const ScopedArrayWriter& elements_writer,
+    void operator()(const ArrayElementsWriter& elements_writer,
                     const h3m::ReservedData<NumBytes>& reserved_data) const;
   };
 
@@ -132,7 +132,7 @@ namespace Medea_NS
   {
     static constexpr bool kOneElementPerLine = false;
 
-    void operator()(const ScopedArrayWriter& scoped_array_writer, const h3m::TerrainsBitmask& bitmask) const;
+    void operator()(const ArrayElementsWriter& scoped_array_writer, const h3m::TerrainsBitmask& bitmask) const;
   };
 
   template<>

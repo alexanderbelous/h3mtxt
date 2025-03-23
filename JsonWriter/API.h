@@ -11,11 +11,11 @@ namespace Medea_NS
   // Class for serializing elements of a JSON array.
   //
   // The class is CopyConstructible and MoveConstructible, but neither CopyAssignable nor MoveAssignable.
-  class ScopedArrayWriter
+  class ArrayElementsWriter
   {
   public:
-    explicit constexpr ScopedArrayWriter(Detail_NS::JsonWriterContext& context,
-                                         bool one_element_per_line = true) noexcept;
+    explicit constexpr ArrayElementsWriter(Detail_NS::JsonWriterContext& context,
+                                           bool one_element_per_line = true) noexcept;
 
     // Writes a single element.
     template<class T>
@@ -32,10 +32,10 @@ namespace Medea_NS
   // Class for writing fields of a JSON object.
   //
   // The class is CopyConstructible and MoveConstructible, but neither CopyAssignable nor MoveAssignable.
-  class ScopedObjectWriter
+  class FieldsWriter
   {
   public:
-    explicit constexpr ScopedObjectWriter(Detail_NS::JsonWriterContext& context) noexcept;
+    explicit constexpr FieldsWriter(Detail_NS::JsonWriterContext& context) noexcept;
 
     // Writes a single field.
     template<class T>
@@ -51,34 +51,34 @@ namespace Medea_NS
     Detail_NS::JsonWriterContext& context_;
   };
 
-  constexpr ScopedObjectWriter::ScopedObjectWriter(Detail_NS::JsonWriterContext& context) noexcept :
+  constexpr FieldsWriter::FieldsWriter(Detail_NS::JsonWriterContext& context) noexcept :
     context_(context)
   {}
 
   template<class T>
-  void ScopedObjectWriter::writeField(std::string_view field_name, const T& value) const
+  void FieldsWriter::writeField(std::string_view field_name, const T& value) const
   {
     context_.writeField(field_name, value);
   }
 
-  void ScopedObjectWriter::writeComment(std::string_view comment, bool newline)
+  void FieldsWriter::writeComment(std::string_view comment, bool newline)
   {
     context_.writeComment(comment, newline);
   }
 
-  constexpr ScopedArrayWriter::ScopedArrayWriter(Detail_NS::JsonWriterContext& context,
-                                                 bool one_element_per_line) noexcept:
+  constexpr ArrayElementsWriter::ArrayElementsWriter(Detail_NS::JsonWriterContext& context,
+                                                     bool one_element_per_line) noexcept:
     context_(context),
     one_element_per_line_(one_element_per_line)
   {}
 
   template<class T>
-  void ScopedArrayWriter::writeElement(const T& value) const
+  void ArrayElementsWriter::writeElement(const T& value) const
   {
     context_.writeValue(value, one_element_per_line_);
   }
 
-  void ScopedArrayWriter::writeComment(std::string_view comment) const
+  void ArrayElementsWriter::writeComment(std::string_view comment) const
   {
     context_.writeComment(comment, true);
   }
