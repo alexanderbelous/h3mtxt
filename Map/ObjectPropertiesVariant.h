@@ -219,9 +219,12 @@ namespace h3m
   ObjectPropertiesVariant& ObjectPropertiesVariant::operator=(ObjectPropertiesVariant&& other)
     noexcept(std::is_nothrow_move_assignable_v<Detail_NS::ObjectPropertiesVariantImpl>)
   {
-    impl_ = std::move(other.impl_);
-    // Assign GENERIC_NO_PROPERTIES to @other to ensure that it doesn't store a null unique_ptr.
-    other.impl_.emplace<ObjectProperties<MetaObjectType::GENERIC_NO_PROPERTIES>>();
+    if (this != &other)
+    {
+      impl_ = std::move(other.impl_);
+      // Assign GENERIC_NO_PROPERTIES to @other to ensure that it doesn't store a null unique_ptr.
+      other.impl_.emplace<ObjectProperties<MetaObjectType::GENERIC_NO_PROPERTIES>>();
+    }
     return *this;
   }
 
