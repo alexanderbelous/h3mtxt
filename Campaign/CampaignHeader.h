@@ -28,7 +28,7 @@ namespace h3m
   // Computes the number of existing scenarios in the given Campaign.
   // \param campaign - input campaign. This function will only access campaign.scenarios.
   // \return the number of existing scenarios in @campaign.
-  inline std::size_t countScenarios(const CampaignHeader& campaign)
+  constexpr std::size_t countScenarios(const CampaignHeader& campaign) noexcept
   {
     std::size_t result = 0;
     for (const CampaignScenario& scenario : campaign.scenarios)
