@@ -61,7 +61,7 @@ namespace h3m
 
     constexpr void setBit(std::uint8_t& byte, std::uint8_t bit_index, bool value) noexcept
     {
-      // Bitmask with all bits except @bit_index_in_byte set to 0.
+      // Bitmask with all bits except @bit_index set to 0.
       const std::uint8_t mask = 1 << bit_index;
       if (value)
       {
