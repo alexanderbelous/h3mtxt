@@ -3,7 +3,7 @@
 #include <h3mtxt/H3JsonWriter/Utils.h>
 #include <h3mtxt/H3JsonWriter/writeQuestDetails.h>
 #include <h3mtxt/JsonCommon/FieldName.h>
-#include <h3mtxt/Medea/JsonWriter.h>
+#include <h3mtxt/Medea/Medea.h>
 #include <h3mtxt/Map/Quest.h>
 
 namespace Medea_NS

@@ -1,5 +1,5 @@
 #include <h3mtxt/H3JsonWriter/Utils.h>
-#include <h3mtxt/Medea/JsonWriter.h>
+#include <h3mtxt/Medea/Medea.h>
 
 namespace Medea_NS
 {

@@ -29,7 +29,7 @@
     <ClInclude Include="API.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="JsonWriter.h">
+    <ClInclude Include="Medea.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

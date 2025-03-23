@@ -1,7 +1,7 @@
 #include <h3mtxt/H3JsonWriter/H3JsonWriter.h>
 #include <h3mtxt/H3JsonWriter/Utils.h>
 #include <h3mtxt/JsonCommon/FieldName.h>
-#include <h3mtxt/Medea/JsonWriter.h>
+#include <h3mtxt/Medea/Medea.h>
 #include <h3mtxt/Map/Resources.h>
 
 namespace Medea_NS
