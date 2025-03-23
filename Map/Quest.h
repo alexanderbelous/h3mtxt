@@ -9,7 +9,6 @@
 #include <h3mtxt/Map/PrimarySkills.h>
 #include <h3mtxt/Map/Resources.h>
 
-#include <array>
 #include <cstdint>
 #include <string>
 #include <variant>

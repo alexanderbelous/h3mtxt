@@ -3,7 +3,6 @@
 #include <h3mtxt/Map/ObjectProperties.h>
 #include <h3mtxt/Map/Utils/EnumSequence.h>
 
-#include <array>
 #include <cstddef>
 #include <memory>
 #include <stdexcept>
