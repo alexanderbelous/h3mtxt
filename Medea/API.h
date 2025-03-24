@@ -110,7 +110,7 @@ namespace Medea_NS
   template<class T>
   void ArrayElementsWriter::writeElement(const T& value, bool single_line) const
   {
-    impl_.writeValue(value, single_line);
+    impl_.writeArrayElement(value, single_line);
   }
 
   void ArrayElementsWriter::writeComment(std::string_view comment, bool newline) const

@@ -52,7 +52,7 @@ namespace Medea_NS
       void writeComment(std::string_view comment, bool newline);
 
       template<class T>
-      void writeValue(const T& value, bool single_line);
+      void writeArrayElement(const T& value, bool single_line);
 
       template<class T>
       void writeField(std::string_view field_name, const T& value, bool single_line);
@@ -175,7 +175,7 @@ namespace Medea_NS
     }
 
     template<class T>
-    void JsonWriterImpl::writeValue(const T& value, bool single_line)
+    void JsonWriterImpl::writeArrayElement(const T& value, bool single_line)
     {
       beforeWriteElementOrField();
       writeValueRaw(value, single_line);
