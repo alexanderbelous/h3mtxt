@@ -88,6 +88,8 @@
     <ClCompile Include="JsonWriterImpl.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ArrayElementsWriter.h" />
+    <ClInclude Include="FieldsWriter.h" />
     <ClInclude Include="Medea.h" />
     <ClInclude Include="JsonWriterImpl.h" />
     <ClInclude Include="MedeaFwd.h" />

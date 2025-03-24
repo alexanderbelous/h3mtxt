@@ -3,6 +3,8 @@
 // API + built-in support for some types.
 
 #include <h3mtxt/Medea/MedeaFwd.h>
+#include <h3mtxt/Medea/ArrayElementsWriter.h>
+#include <h3mtxt/Medea/FieldsWriter.h>
 #include <h3mtxt/Medea/API.h>
 
 #include <array>

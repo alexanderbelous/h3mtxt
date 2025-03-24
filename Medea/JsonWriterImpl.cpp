@@ -1,5 +1,6 @@
 #include <h3mtxt/Medea/JsonWriterImpl.h>
-#include <h3mtxt/Medea/API.h>
+#include <h3mtxt/Medea/ArrayElementsWriter.h>
+#include <h3mtxt/Medea/FieldsWriter.h>
 
 #include <algorithm>
 #include <iterator>

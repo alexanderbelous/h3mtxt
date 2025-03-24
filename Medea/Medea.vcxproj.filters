@@ -32,5 +32,11 @@
     <ClInclude Include="Medea.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="ArrayElementsWriter.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FieldsWriter.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
