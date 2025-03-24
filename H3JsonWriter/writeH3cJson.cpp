@@ -1,7 +1,7 @@
 #include <h3mtxt/H3JsonWriter/writeH3cJson.h>
 
 #include <h3mtxt/H3JsonWriter/H3JsonWriter.h>
-#include <h3mtxt/Medea/API.h>
+#include <h3mtxt/Medea/Core.h>
 
 namespace h3m
 {

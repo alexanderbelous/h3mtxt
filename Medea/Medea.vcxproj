@@ -93,7 +93,7 @@
     <ClInclude Include="Medea.h" />
     <ClInclude Include="JsonWriterImpl.h" />
     <ClInclude Include="MedeaFwd.h" />
-    <ClInclude Include="API.h" />
+    <ClInclude Include="Core.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -26,7 +26,7 @@
     <ClInclude Include="JsonWriterImpl.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="API.h">
+    <ClInclude Include="Core.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Medea.h">
