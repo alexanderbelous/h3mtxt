@@ -137,10 +137,8 @@ namespace Medea_NS
 
   // Serialize h3m::TerrainsBitmask as a JSON array.
   template<>
-  struct JsonArrayWriter<h3m::TerrainsBitmask>
-  {
-    void operator()(const ArrayElementsWriter& scoped_array_writer, const h3m::TerrainsBitmask& bitmask) const;
-  };
+  void JsonArrayWriter<h3m::TerrainsBitmask>::operator()(const ArrayElementsWriter& elements_writer,
+                                                         const h3m::TerrainsBitmask& bitmask) const;
 
   // Serialize h3m::TerrainsBitmask on a single line by default.
   template<>
