@@ -10,8 +10,8 @@ namespace Medea_NS
     class JsonWriterImpl;
   }
 
-  // Supported JSON value types.
-  enum class JsonValueType
+  // Supported JSON data types.
+  enum class JsonDataType
   {
     Bool,
     Int,
@@ -55,19 +55,19 @@ namespace Medea_NS
   template<class T, class Enable = void>
   struct JsonWriterTraits
   {
-    static constexpr JsonValueType kValueType = JsonValueType::Object;
+    static constexpr JsonDataType kDataType = JsonDataType::Object;
   };
 
   // Partial specialization for types for which JsonArrayWriter<T> can be invoked.
   template<class T>
   struct JsonWriterTraits<T, std::enable_if_t<std::is_invocable_v<JsonArrayWriter<T>, const ArrayElementsWriter&, const T&>>>
   {
-    static constexpr JsonValueType kValueType = JsonValueType::Array;
+    static constexpr JsonDataType kDataType = JsonDataType::Array;
   };
 
-  // Helper variable template storing JsonValueType for the the specified type T.
+  // Helper variable template storing JsonDataType for the the specified type T.
   template<class T>
-  inline constexpr JsonValueType kJsonDataTypeFor = JsonWriterTraits<T>::kValueType;
+  inline constexpr JsonDataType kJsonDataTypeFor = JsonWriterTraits<T>::kDataType;
 
   // Stores true if values of type T should be serialized on a single line by default, false otherwise.
   //

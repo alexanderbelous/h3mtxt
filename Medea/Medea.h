@@ -30,7 +30,7 @@ namespace Medea_NS
   template<>
   struct JsonWriterTraits<bool>
   {
-    static constexpr JsonValueType kValueType = JsonValueType::Bool;
+    static constexpr JsonDataType kDataType = JsonDataType::Bool;
 
     static constexpr bool getValue(bool value) noexcept
     {
@@ -42,7 +42,7 @@ namespace Medea_NS
   template<class T>
   struct JsonWriterTraits<T, std::enable_if_t<std::is_integral_v<T>>>
   {
-    static constexpr JsonValueType kValueType = std::is_signed_v<T> ? JsonValueType::Int : JsonValueType::UInt;
+    static constexpr JsonDataType kDataType = std::is_signed_v<T> ? JsonDataType::Int : JsonDataType::UInt;
 
     static constexpr T getValue(T value) noexcept
     {
@@ -54,8 +54,8 @@ namespace Medea_NS
   template<class T>
   struct JsonWriterTraits<T, std::enable_if_t<std::is_enum_v<T>>>
   {
-    static constexpr JsonValueType kValueType =
-      std::is_signed_v<std::underlying_type_t<T>> ? JsonValueType::Int : JsonValueType::UInt;
+    static constexpr JsonDataType kDataType =
+      std::is_signed_v<std::underlying_type_t<T>> ? JsonDataType::Int : JsonDataType::UInt;
 
     static constexpr std::underlying_type_t<T> getValue(T value) noexcept
     {
@@ -67,7 +67,7 @@ namespace Medea_NS
   template<>
   struct JsonWriterTraits<std::string>
   {
-    static constexpr JsonValueType kValueType = JsonValueType::String;
+    static constexpr JsonDataType kDataType = JsonDataType::String;
 
     static const std::string& getValue(const std::string& value) noexcept
     {
@@ -88,9 +88,9 @@ namespace Medea_NS
   // Write std::array<T, N> on a single line by default if T is serialized as Bool, Int or UInt,
   // otherwise over multiple lines.
   template<class T, std::size_t N>
-  inline constexpr bool kIsSingleLineByDefault<std::array<T, N>> = kJsonDataTypeFor<T> == JsonValueType::Bool ||
-                                                                   kJsonDataTypeFor<T> == JsonValueType::Int ||
-                                                                   kJsonDataTypeFor<T> == JsonValueType::UInt;
+  inline constexpr bool kIsSingleLineByDefault<std::array<T, N>> = kJsonDataTypeFor<T> == JsonDataType::Bool ||
+                                                                   kJsonDataTypeFor<T> == JsonDataType::Int ||
+                                                                   kJsonDataTypeFor<T> == JsonDataType::UInt;
 
   // Partial specialization for std::vector.
   template<class T, class Alloc>
@@ -105,7 +105,7 @@ namespace Medea_NS
   // Write std::vector<T, Alloc> on a single line by default if T is serialized as Bool, Int or UInt,
   // otherwise over multiple lines.
   template<class T, class Alloc>
-  inline constexpr bool kIsSingleLineByDefault<std::vector<T, Alloc>> = kJsonDataTypeFor<T> == JsonValueType::Bool ||
-                                                                        kJsonDataTypeFor<T> == JsonValueType::Int ||
-                                                                        kJsonDataTypeFor<T> == JsonValueType::UInt;
+  inline constexpr bool kIsSingleLineByDefault<std::vector<T, Alloc>> = kJsonDataTypeFor<T> == JsonDataType::Bool ||
+                                                                        kJsonDataTypeFor<T> == JsonDataType::Int ||
+                                                                        kJsonDataTypeFor<T> == JsonDataType::UInt;
 }

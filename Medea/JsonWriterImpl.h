@@ -124,33 +124,33 @@ namespace Medea_NS
     {
       using Traits = JsonWriterTraits<T>;
 
-      if constexpr (Traits::kValueType == JsonValueType::Bool)
+      if constexpr (Traits::kDataType == JsonDataType::Bool)
       {
         static_assert(std::is_same_v<decltype(Traits::getValue(value)), bool>,
                       "JsonWriterTraits<T>::getValue(value) must return bool.");
         writeBool(Traits::getValue(value));
       }
-      else if constexpr (Traits::kValueType == JsonValueType::Int)
+      else if constexpr (Traits::kDataType == JsonDataType::Int)
       {
         static_assert(std::is_integral_v<decltype(Traits::getValue(value))> &&
                       std::is_signed_v<decltype(Traits::getValue(value))>,
                       "JsonWriterTraits<T>::getValue(value) must return a signed integer.");
         writeInt(static_cast<std::intmax_t>(Traits::getValue(value)));
       }
-      else if constexpr (Traits::kValueType == JsonValueType::UInt)
+      else if constexpr (Traits::kDataType == JsonDataType::UInt)
       {
         static_assert(std::is_integral_v<decltype(Traits::getValue(value))> &&
                       std::is_unsigned_v<decltype(Traits::getValue(value))>,
                       "JsonWriterTraits<T>::getValue(value) must return an unsigned integer.");
         writeUInt(static_cast<std::uintmax_t>(Traits::getValue(value)));
       }
-      else if constexpr (Traits::kValueType == JsonValueType::String)
+      else if constexpr (Traits::kDataType == JsonDataType::String)
       {
         static_assert(std::is_convertible_v<decltype(Traits::getValue(value)), std::string_view>,
                       "JsonWriterTraits<T>::getValue(value) must be convertible to std::string_view.");
         writeString(Traits::getValue(value));
       }
-      else if constexpr (Traits::kValueType == JsonValueType::Array)
+      else if constexpr (Traits::kDataType == JsonDataType::Array)
       {
         writeArray([](const ArrayElementsWriter& elements_writer, const void* value_ptr)
                    {
@@ -159,7 +159,7 @@ namespace Medea_NS
                    std::addressof(value),
                    single_line);
       }
-      else if constexpr (Traits::kValueType == JsonValueType::Object)
+      else if constexpr (Traits::kDataType == JsonDataType::Object)
       {
         writeObject([](FieldsWriter& fields_writer, const void* value_ptr)
                     {
@@ -170,7 +170,7 @@ namespace Medea_NS
       }
       else
       {
-        static_assert(false, "Invalid JsonWriterTraits<T>::kValueType.");
+        static_assert(false, "Invalid JsonWriterTraits<T>::kDataType.");
       }
     }
 
