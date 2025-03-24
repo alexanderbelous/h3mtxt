@@ -17,6 +17,15 @@ namespace Medea_NS
     //
     // Note that the constructor is private; only the static member function writeJson()
     // can be used directly.
+    //
+    // TODO: interestingly, this can be made into an interface, allowing multiple implementations:
+    // * Printing formatted JSON into a stream.
+    // * Printing minified JSON into a stream (no comments, no idents).
+    // * Constructing a JsonCpp object.
+    // * ...
+    //
+    // This will likely have some overhead from virtual functions, but maybe the compiler is smart
+    // enough to devirtualize them in simple cases.
     class JsonWriterImpl
     {
     public:
