@@ -58,7 +58,9 @@ namespace Medea_NS
       void writeField(std::string_view field_name, const T& value, bool single_line);
 
     private:
+      // Type-erased version of JsonArrayWriter<T>.
       using ArrayWriterPtr = void(*)(const ArrayElementsWriter&, const void*);
+      // Type-erased version of JsonObjectWriter<T>.
       using ObjectWriterPtr = void(*)(FieldsWriter&, const void*);
 
       explicit constexpr JsonWriterImpl(std::ostream& stream, unsigned int initial_indent = 0) noexcept :

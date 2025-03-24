@@ -15,7 +15,7 @@ namespace Medea_NS
 {
   namespace Detail_NS
   {
-    // Writes an array of elements into the specified JsonWriterImpl.
+    // Writes a span of elements without any comments.
     template<class T>
     void writeSpan(const ArrayElementsWriter& elements_writer, std::span<const T> elements)
     {
