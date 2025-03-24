@@ -88,6 +88,19 @@ namespace Medea_NS
     }
   };
 
+  // Serialize std::string_view as JsonDataType::String.
+  template<>
+  inline constexpr JsonDataType kJsonDataTypeFor<std::string_view> = JsonDataType::String;
+
+  template<>
+  struct JsonScalarGetter<std::string_view>
+  {
+    constexpr std::string_view operator()(std::string_view value) const noexcept
+    {
+      return value;
+    }
+  };
+
   // Partial specialization for std::array.
   template<class T, std::size_t N>
   struct JsonArrayWriter<std::array<T, N>>
