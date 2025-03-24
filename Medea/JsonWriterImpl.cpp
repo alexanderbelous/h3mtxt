@@ -39,7 +39,7 @@ namespace Medea_NS::Detail_NS
 
   void JsonWriterImpl::beforeWriteElementOrField()
   {
-    const bool needs_newline = (!is_single_line_) || hasUnflushedComment();
+    const bool needs_newline = !is_single_line_ || !comment_.empty();
     if (has_members_in_scope_)
     {
       stream_.put(',');
@@ -125,7 +125,7 @@ namespace Medea_NS::Detail_NS
 
   void JsonWriterImpl::endAggregate(char bracket)
   {
-    const bool has_unflushed_comments = hasUnflushedComment();
+    const bool has_unflushed_comments = !comment_.empty();
     flushComments();
     // Sanity check.
     if (indent_ >= 2)

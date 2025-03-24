@@ -97,12 +97,6 @@ namespace Medea_NS
 
       void writeNewline();
 
-      // \return true if there's an unflushed comment, false otherwise.
-      constexpr bool hasUnflushedComment() const noexcept
-      {
-        return !comment_.empty();
-      }
-
       void flushComments();
 
       std::ostream& stream_;
