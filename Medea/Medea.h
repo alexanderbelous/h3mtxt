@@ -28,50 +28,61 @@ namespace Medea_NS
     }
   }
 
-  // Specialization for bool.
+  // Serialize the fundamental type `bool` as JsonDataType::Bool.
   template<>
-  struct JsonWriterTraits<bool>
-  {
-    static constexpr JsonDataType kDataType = JsonDataType::Bool;
+  inline constexpr JsonDataType kJsonDataTypeFor<bool> = JsonDataType::Bool;
 
-    static constexpr bool getValue(bool value) noexcept
+  template<>
+  struct JsonScalarGetter<bool>
+  {
+    constexpr bool operator()(bool value) const noexcept
     {
       return value;
     }
   };
 
-  // Partial specialization for integer types.
+  // Serialize fundamental integral types (except bool) as either JsonDataType::Int or JsonDataType::UInt.
   template<class T>
-  struct JsonWriterTraits<T, std::enable_if_t<std::is_integral_v<T>>>
-  {
-    static constexpr JsonDataType kDataType = std::is_signed_v<T> ? JsonDataType::Int : JsonDataType::UInt;
+  inline constexpr JsonDataType kJsonDataTypeFor<T, std::enable_if_t<std::is_integral_v<T>>> =
+    std::is_signed_v<T> ? JsonDataType::Int : JsonDataType::UInt;
 
-    static constexpr T getValue(T value) noexcept
+  template<class T>
+  struct JsonScalarGetter<T, std::enable_if_t<std::is_integral_v<T>>>
+  {
+    using ResultType = std::conditional_t<std::is_signed_v<T>, std::intmax_t, std::uintmax_t>;
+
+    constexpr ResultType operator()(T value) const noexcept
     {
-      return value;
+      return static_cast<ResultType>(value);
     }
   };
 
-  // Partial specialization for enum types.
+  // Serialize enumeration types as either JsonDataType::Int or JsonDataType::UInt,
+  // depending on their underlying type.
   template<class T>
-  struct JsonWriterTraits<T, std::enable_if_t<std::is_enum_v<T>>>
-  {
-    static constexpr JsonDataType kDataType =
-      std::is_signed_v<std::underlying_type_t<T>> ? JsonDataType::Int : JsonDataType::UInt;
+  inline constexpr JsonDataType kJsonDataTypeFor<T, std::enable_if_t<std::is_enum_v<T>>> =
+    std::is_signed_v<std::underlying_type_t<T>> ? JsonDataType::Int : JsonDataType::UInt;
 
-    static constexpr std::underlying_type_t<T> getValue(T value) noexcept
+  template<class T>
+  struct JsonScalarGetter<T, std::enable_if_t<std::is_enum_v<T>>>
+  {
+    using UnderlyingType = std::underlying_type_t<T>;
+    using ResultType = std::conditional_t<std::is_signed_v<UnderlyingType>, std::intmax_t, std::uintmax_t>;
+
+    constexpr ResultType operator()(T value) const noexcept
     {
-      return static_cast<std::underlying_type_t<T>>(value);
+      return static_cast<ResultType>(value);
     }
   };
 
-  // Specialization for std::string.
+  // Serialize std::string as JsonDataType::String.
   template<>
-  struct JsonWriterTraits<std::string>
-  {
-    static constexpr JsonDataType kDataType = JsonDataType::String;
+  inline constexpr JsonDataType kJsonDataTypeFor<std::string> = JsonDataType::String;
 
-    static const std::string& getValue(const std::string& value) noexcept
+  template<>
+  struct JsonScalarGetter<std::string>
+  {
+    constexpr const std::string& operator()(const std::string& value) const noexcept
     {
       return value;
     }
