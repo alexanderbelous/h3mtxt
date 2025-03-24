@@ -34,12 +34,12 @@ namespace Medea_NS
       // \param initial_indent - the initial indent (number of spaces).
       // \param single_line - if true, @value will be written on a single line
       //        (unless it's serialized as an object/array and one or more comments will be printed for it),
-      //        otherwise it will be written over multiple lines.
+      //        otherwise over multiple lines.
       template<class T>
       static void writeJson(std::ostream& stream,
                             const T& value,
                             unsigned int initial_indent = 0,
-                            bool single_line = IsSingleLineByDefault<std::remove_cvref_t<T>>::value);
+                            bool single_line = kIsSingleLineByDefault<std::remove_cvref_t<T>>);
 
       // Queues a comment.
       //

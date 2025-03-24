@@ -21,22 +21,26 @@ namespace Medea_NS
   template<std::size_t NumBytes>
   struct JsonArrayWriter<h3m::BitSet<NumBytes>>
   {
-    static constexpr bool kOneElementPerLine = false;
-
     // Defined in Utils.h
     void operator()(const ArrayElementsWriter& elements_writer, const h3m::BitSet<NumBytes>& bitset) const;
   };
+
+  // Serialize h3m::BitSet on a single line by default.
+  template<std::size_t NumBytes>
+  inline constexpr bool kIsSingleLineByDefault<h3m::BitSet<NumBytes>> = true;
 
   // Serializes h3m::ReservedData as a JSON array.
   template<std::size_t NumBytes>
   struct JsonArrayWriter<h3m::ReservedData<NumBytes>>
   {
-    static constexpr bool kOneElementPerLine = false;
-
     // Defined in Utils.h
     void operator()(const ArrayElementsWriter& elements_writer,
                     const h3m::ReservedData<NumBytes>& reserved_data) const;
   };
+
+  // Serialize h3m::ReservedData on a single line by default.
+  template<std::size_t NumBytes>
+  inline constexpr bool kIsSingleLineByDefault<h3m::ReservedData<NumBytes>> = true;
 
   template<>
   void JsonObjectWriter<h3m::CreatureStack>::operator()(FieldsWriter& out, const h3m::CreatureStack& creature_stack) const;
@@ -135,10 +139,12 @@ namespace Medea_NS
   template<>
   struct JsonArrayWriter<h3m::TerrainsBitmask>
   {
-    static constexpr bool kOneElementPerLine = false;
-
     void operator()(const ArrayElementsWriter& scoped_array_writer, const h3m::TerrainsBitmask& bitmask) const;
   };
+
+  // Serialize h3m::TerrainsBitmask on a single line by default.
+  template<>
+  inline constexpr bool kIsSingleLineByDefault<h3m::TerrainsBitmask> = true;
 
   template<>
   void JsonObjectWriter<h3m::Tile>::operator()(FieldsWriter& out, const h3m::Tile& value) const;

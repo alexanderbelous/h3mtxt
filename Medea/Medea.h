@@ -15,16 +15,6 @@ namespace Medea_NS
 {
   namespace Detail_NS
   {
-    // Traits class indicating whether arrays of elements of type T should be serialized
-    // with one element per line or on a single line.
-    //
-    // Stores true for types that are serialized as Bool, Int or UInt, false for everything else.
-    template <class ElementType>
-    struct IsSingleLineArray : std::bool_constant<JsonWriterTraits<ElementType>::kValueType == JsonValueType::Bool ||
-                                                  JsonWriterTraits<ElementType>::kValueType == JsonValueType::Int ||
-                                                  JsonWriterTraits<ElementType>::kValueType == JsonValueType::UInt>
-    {};
-
     // Writes an array of elements into the specified JsonWriterImpl.
     template<class T>
     void writeSpan(const ArrayElementsWriter& elements_writer, std::span<const T> elements)
@@ -89,23 +79,33 @@ namespace Medea_NS
   template<class T, std::size_t N>
   struct JsonArrayWriter<std::array<T, N>>
   {
-    static constexpr bool kOneElementPerLine = !Detail_NS::IsSingleLineArray<T>::value;
-
     void operator()(const ArrayElementsWriter& elements_writer, const std::array<T, N>& elements) const
     {
       Detail_NS::writeSpan<T>(elements_writer, elements);
     }
   };
 
+  // Write std::array<T, N> on a single line by default if T is serialized as Bool, Int or UInt,
+  // otherwise over multiple lines.
+  template<class T, std::size_t N>
+  inline constexpr bool kIsSingleLineByDefault<std::array<T, N>> = kJsonDataTypeFor<T> == JsonValueType::Bool ||
+                                                                   kJsonDataTypeFor<T> == JsonValueType::Int ||
+                                                                   kJsonDataTypeFor<T> == JsonValueType::UInt;
+
   // Partial specialization for std::vector.
   template<class T, class Alloc>
   struct JsonArrayWriter<std::vector<T, Alloc>>
   {
-    static constexpr bool kOneElementPerLine = !Detail_NS::IsSingleLineArray<T>::value;
-
     void operator()(const ArrayElementsWriter& elements_writer, const std::vector<T, Alloc>& elements) const
     {
       Detail_NS::writeSpan<T>(elements_writer, elements);
     }
   };
+
+  // Write std::vector<T, Alloc> on a single line by default if T is serialized as Bool, Int or UInt,
+  // otherwise over multiple lines.
+  template<class T, class Alloc>
+  inline constexpr bool kIsSingleLineByDefault<std::vector<T, Alloc>> = kJsonDataTypeFor<T> == JsonValueType::Bool ||
+                                                                        kJsonDataTypeFor<T> == JsonValueType::Int ||
+                                                                        kJsonDataTypeFor<T> == JsonValueType::UInt;
 }
