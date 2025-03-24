@@ -13,17 +13,6 @@ namespace Medea_NS
 {
   namespace Detail_NS
   {
-    template<class T, class Enable = void>
-    struct OneElementPerLineImpl : std::true_type {};
-
-    // Specialization for types for which JsonArrayWriter<T>
-    // has a static data member kOneElementPerLine of type const bool.
-    template<class T>
-    struct OneElementPerLineImpl<T, std::enable_if_t<std::is_same_v<decltype(JsonArrayWriter<T>::kOneElementPerLine),
-                                                                    const bool>>>
-      : std::bool_constant<JsonArrayWriter<T>::kOneElementPerLine>
-    {};
-
     // Internal class for writing formatted JSON.
     //
     // Note that the constructor is private; only the static member function writeJson()
@@ -43,8 +32,14 @@ namespace Medea_NS
       // \param stream - output stream.
       // \param value - value to serialize.
       // \param initial_indent - the initial indent (number of spaces).
+      // \param single_line - if true, @value will be written on a single line
+      //        (unless it's serialized as an object/array and one or more comments will be printed for it),
+      //        otherwise it will be written over multiple lines.
       template<class T>
-      static void writeJson(std::ostream& stream, const T& value, unsigned int initial_indent = 0);
+      static void writeJson(std::ostream& stream,
+                            const T& value,
+                            unsigned int initial_indent = 0,
+                            bool single_line = IsSingleLineByDefault<std::remove_cvref_t<T>>::value);
 
       // Queues a comment.
       //
@@ -57,10 +52,10 @@ namespace Medea_NS
       void writeComment(std::string_view comment, bool newline);
 
       template<class T>
-      void writeValue(const T& value, bool newline);
+      void writeValue(const T& value, bool single_line);
 
       template<class T>
-      void writeField(std::string_view field_name, const T& value);
+      void writeField(std::string_view field_name, const T& value, bool single_line);
 
     private:
       using ArrayWriterPtr = void(*)(const ArrayElementsWriter&, const void*);
@@ -71,7 +66,7 @@ namespace Medea_NS
         indent_(initial_indent)
       {}
 
-      void beforeWriteValue(bool newline);
+      void beforeWriteElementOrField();
 
       // Writes a boolean value to the output stream.
       void writeBool(bool value);
@@ -85,16 +80,16 @@ namespace Medea_NS
       // Writes a string value to the output stream.
       void writeString(std::string_view value);
 
-      void writeArray(ArrayWriterPtr array_writer, const void* value, bool one_element_per_line);
+      void writeArray(ArrayWriterPtr array_writer, const void* value, bool single_line);
 
-      void writeObject(ObjectWriterPtr object_writer, const void* value);
+      void writeObject(ObjectWriterPtr object_writer, const void* value, bool single_line);
 
       void beginAggregate(char bracket);
 
-      void endAggregate(char bracket, bool newline);
+      void endAggregate(char bracket);
 
       template<class T>
-      void writeValueRaw(const T& value);
+      void writeValueRaw(const T& value, bool single_line);
 
       void writeFieldName(std::string_view field_name);
 
@@ -120,10 +115,12 @@ namespace Medea_NS
       unsigned int indent_ = 0;
       // True if one or more entries (i.e. values or fields) have been printed in the current scope, false otherwise.
       bool has_members_in_scope_ = false;
+      // True if the current value is being serialized on a single line, false otherwise.
+      bool is_single_line_ = false;
     };
 
     template<class T>
-    void JsonWriterImpl::writeValueRaw(const T& value)
+    void JsonWriterImpl::writeValueRaw(const T& value, bool single_line)
     {
       using Traits = JsonWriterTraits<T>;
 
@@ -155,13 +152,12 @@ namespace Medea_NS
       }
       else if constexpr (Traits::kValueType == JsonValueType::Array)
       {
-        constexpr bool kOneElementPerLine = OneElementPerLineImpl<T>::value;
         writeArray([](const ArrayElementsWriter& elements_writer, const void* value_ptr)
                    {
                      JsonArrayWriter<T>{}(elements_writer, *static_cast<const T*>(value_ptr));
                    },
                    std::addressof(value),
-                   kOneElementPerLine);
+                   single_line);
       }
       else if constexpr (Traits::kValueType == JsonValueType::Object)
       {
@@ -169,7 +165,8 @@ namespace Medea_NS
                     {
                       JsonObjectWriter<T>{}(fields_writer, *static_cast<const T*>(value_ptr));
                     },
-                    static_cast<const void*>(std::addressof(value)));
+                    static_cast<const void*>(std::addressof(value)),
+                    single_line);
       }
       else
       {
@@ -178,25 +175,25 @@ namespace Medea_NS
     }
 
     template<class T>
-    void JsonWriterImpl::writeValue(const T& value, bool newline)
+    void JsonWriterImpl::writeValue(const T& value, bool single_line)
     {
-      beforeWriteValue(newline);
-      writeValueRaw(value);
+      beforeWriteElementOrField();
+      writeValueRaw(value, single_line);
     }
 
     template<class T>
-    void JsonWriterImpl::writeField(std::string_view field_name, const T& value)
+    void JsonWriterImpl::writeField(std::string_view field_name, const T& value, bool single_line)
     {
       writeFieldName(field_name);
-      writeValueRaw(value);
+      writeValueRaw(value, single_line);
     }
 
     template<class T>
-    void JsonWriterImpl::writeJson(std::ostream& stream, const T& value, unsigned int initial_indent)
+    void JsonWriterImpl::writeJson(std::ostream& stream, const T& value, unsigned int initial_indent, bool single_line)
     {
       JsonWriterImpl context(stream, initial_indent);
       // TODO: write initial indent.
-      context.writeValueRaw(value);
+      context.writeValueRaw(value, single_line);
     }
   }
 }

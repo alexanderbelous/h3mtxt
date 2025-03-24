@@ -36,9 +36,9 @@ namespace Medea_NS::Detail_NS
     }
   }
 
-  void JsonWriterImpl::beforeWriteValue(bool newline)
+  void JsonWriterImpl::beforeWriteElementOrField()
   {
-    const bool needs_newline = newline || hasUnflushedComment();
+    const bool needs_newline = (!is_single_line_) || hasUnflushedComment();
     if (has_members_in_scope_)
     {
       stream_.put(',');
@@ -122,7 +122,7 @@ namespace Medea_NS::Detail_NS
     has_members_in_scope_ = false;
   }
 
-  void JsonWriterImpl::endAggregate(char bracket, bool newline)
+  void JsonWriterImpl::endAggregate(char bracket)
   {
     const bool has_unflushed_comments = hasUnflushedComment();
     flushComments();
@@ -131,7 +131,7 @@ namespace Medea_NS::Detail_NS
     {
       indent_ -= 2;
     }
-    if (has_unflushed_comments || (newline && has_members_in_scope_))
+    if (has_unflushed_comments || ((!is_single_line_) && has_members_in_scope_))
     {
       writeNewline();
     }
@@ -144,7 +144,7 @@ namespace Medea_NS::Detail_NS
   void JsonWriterImpl::writeFieldName(std::string_view field_name)
   {
     constexpr std::string_view kSeparator = ": ";
-    beforeWriteValue(true);
+    beforeWriteElementOrField();
     writeString(field_name);
     stream_.write(kSeparator.data(), kSeparator.size());
   }
@@ -201,20 +201,26 @@ namespace Medea_NS::Detail_NS
     is_inline_comment_ = false;
   }
 
-  void JsonWriterImpl::writeArray(ArrayWriterPtr array_writer, const void* value, bool one_element_per_line)
+  void JsonWriterImpl::writeArray(ArrayWriterPtr array_writer, const void* value, bool single_line)
   {
+    const bool was_single_line = is_single_line_;
+    is_single_line_ = is_single_line_ || single_line;
     beginAggregate('[');
-    array_writer(ArrayElementsWriter{ *this, one_element_per_line }, value);
-    endAggregate(']', one_element_per_line);
+    array_writer(ArrayElementsWriter{ *this }, value);
+    endAggregate(']');
+    is_single_line_ = was_single_line;
   }
 
-  void JsonWriterImpl::writeObject(ObjectWriterPtr object_writer, const void* value)
+  void JsonWriterImpl::writeObject(ObjectWriterPtr object_writer, const void* value, bool single_line)
   {
+    const bool was_single_line = is_single_line_;
+    is_single_line_ = is_single_line_ || single_line;
     beginAggregate('{');
     {
       FieldsWriter fields_writer{ *this };
       object_writer(fields_writer, value);
     }
-    endAggregate('}', true);
+    endAggregate('}');
+    is_single_line_ = was_single_line;
   }
 }

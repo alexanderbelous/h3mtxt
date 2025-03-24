@@ -12,17 +12,19 @@ namespace Medea_NS
   // \param value - input value.
   // \param initial_indent - the initial indent (number of spaces).
   template<class T>
-  void writeJson(std::ostream& stream, const T& value, unsigned int initial_indent = 0)
+  void writeJson(std::ostream& stream,
+                 const T& value,
+                 unsigned int initial_indent = 0,
+                 bool single_line = Detail_NS::IsSingleLineByDefault<std::remove_cvref_t<T>>::value)
   {
-    Detail_NS::JsonWriterImpl::writeJson(stream, value, initial_indent);
+    Detail_NS::JsonWriterImpl::writeJson(stream, value, initial_indent, single_line);
   }
 
   // Class for serializing elements of a JSON array.
   class ArrayElementsWriter
   {
   public:
-    explicit constexpr ArrayElementsWriter(Detail_NS::JsonWriterImpl& impl,
-                                           bool one_element_per_line = true) noexcept;
+    explicit constexpr ArrayElementsWriter(Detail_NS::JsonWriterImpl& impl) noexcept;
 
     // Non-copyable, non-movable.
     ArrayElementsWriter(const ArrayElementsWriter&) = delete;
@@ -34,14 +36,16 @@ namespace Medea_NS
 
     // Writes a single element.
     template<class T>
-    void writeElement(const T& value) const;
+    void writeElement(const T& value,
+                      bool single_line = Detail_NS::IsSingleLineByDefault<std::remove_cvref_t<T>>::value) const;
 
     // Writes a comment line.
-    inline void writeComment(std::string_view comment) const;
+    // \param newline - if true, the comment will be written on a new line,
+    //        otherwise it will be written on the current line.
+    inline void writeComment(std::string_view comment, bool newline = true) const;
 
   private:
     Detail_NS::JsonWriterImpl& impl_;
-    bool one_element_per_line_ {};
   };
 
   // Class for writing fields of a JSON object.
@@ -59,8 +63,16 @@ namespace Medea_NS
     constexpr ~FieldsWriter() = default;
 
     // Writes a single field.
+    // \param field_name - name of the field.
+    // \param value - value of the field.
+    // \param single_line - if true, @value will be written on a single line
+    //        (unless it's serialized as an object/array and one or more comments will be printed for it),
+    //        otherwise it will be formatted using the default policy.
+    //        This parameter is ignored if the current object is itself being written on a single line.
     template<class T>
-    void writeField(std::string_view field_name, const T& value) const;
+    void writeField(std::string_view field_name,
+                    const T& value,
+                    bool single_line = Detail_NS::IsSingleLineByDefault<T>::value) const;
 
     // Writes a comment line.
     // \param comment - comment text. Empty comments are ignored.
@@ -77,9 +89,9 @@ namespace Medea_NS
   {}
 
   template<class T>
-  void FieldsWriter::writeField(std::string_view field_name, const T& value) const
+  void FieldsWriter::writeField(std::string_view field_name, const T& value, bool single_line) const
   {
-    impl_.writeField(field_name, value);
+    impl_.writeField(field_name, value, single_line);
   }
 
   void FieldsWriter::writeComment(std::string_view comment, bool newline) const
@@ -87,20 +99,18 @@ namespace Medea_NS
     impl_.writeComment(comment, newline);
   }
 
-  constexpr ArrayElementsWriter::ArrayElementsWriter(Detail_NS::JsonWriterImpl& impl,
-                                                     bool one_element_per_line) noexcept:
-    impl_(impl),
-    one_element_per_line_(one_element_per_line)
+  constexpr ArrayElementsWriter::ArrayElementsWriter(Detail_NS::JsonWriterImpl& impl) noexcept:
+    impl_(impl)
   {}
 
   template<class T>
-  void ArrayElementsWriter::writeElement(const T& value) const
+  void ArrayElementsWriter::writeElement(const T& value, bool single_line) const
   {
-    impl_.writeValue(value, one_element_per_line_);
+    impl_.writeValue(value, single_line);
   }
 
-  void ArrayElementsWriter::writeComment(std::string_view comment) const
+  void ArrayElementsWriter::writeComment(std::string_view comment, bool newline) const
   {
-    impl_.writeComment(comment, true);
+    impl_.writeComment(comment, newline);
   }
 }

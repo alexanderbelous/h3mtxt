@@ -67,4 +67,21 @@ namespace Medea_NS
   {
     static constexpr JsonValueType kValueType = JsonValueType::Array;
   };
+
+  // TODO: consider moving to a separate header.
+  namespace Detail_NS
+  {
+    // Stores true if values of type T should be serialized on a single line by default, false otherwise.
+    template<class T, class Enable = void>
+    struct IsSingleLineByDefault : std::false_type {};
+
+    // Specialization for types for which JsonArrayWriter<T>
+    // has a static data member kOneElementPerLine of type const bool.
+    template<class T>
+    struct IsSingleLineByDefault<T, std::enable_if_t<(JsonWriterTraits<T>::kValueType == JsonValueType::Array) &&
+                                                     std::is_same_v<decltype(JsonArrayWriter<T>::kOneElementPerLine),
+                                                                    const bool>>>
+      : std::bool_constant<!JsonArrayWriter<T>::kOneElementPerLine>
+    {};
+  }
 }
