@@ -122,7 +122,7 @@ namespace h3m
     {
       const std::byte* const first = data.data();
       const std::byte* const last = first + data.size();
-      return std::all_of(first, last, [](std::byte value) { return value == std::byte{ 0 }; });
+      return std::all_of(first, last, [](std::byte value) noexcept { return value == std::byte{ 0 }; });
     }
   }
 

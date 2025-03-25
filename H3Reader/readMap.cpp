@@ -272,7 +272,7 @@ namespace h3m::H3Reader_NS
     // Read tiles.
     const std::size_t num_tiles = countTiles(map.basic_info);
     map.tiles.reserve(num_tiles);
-    for (std::size_t i = 0; i != num_tiles; ++i)
+    for (std::size_t i = 0; i < num_tiles; ++i)
     {
       map.tiles.push_back(readTile(stream));
     }
