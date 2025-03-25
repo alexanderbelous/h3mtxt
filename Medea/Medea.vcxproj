@@ -86,14 +86,17 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="JsonWriterImpl.cpp" />
+    <ClCompile Include="MinifiedJsonWriter.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ArrayElementsWriter.h" />
     <ClInclude Include="FieldsWriter.h" />
+    <ClInclude Include="IJsonSerializer.h" />
     <ClInclude Include="Medea.h" />
     <ClInclude Include="JsonWriterImpl.h" />
     <ClInclude Include="MedeaFwd.h" />
     <ClInclude Include="Core.h" />
+    <ClInclude Include="MinifiedJsonWriter.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

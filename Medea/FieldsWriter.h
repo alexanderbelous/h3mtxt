@@ -1,7 +1,7 @@
 #pragma once
 
 #include <h3mtxt/Medea/MedeaFwd.h>
-#include <h3mtxt/Medea/JsonWriterImpl.h>
+#include <h3mtxt/Medea/IJsonSerializer.h>
 
 #include <string_view>
 
@@ -11,7 +11,7 @@ namespace Medea_NS
   class FieldsWriter
   {
   public:
-    explicit constexpr FieldsWriter(Detail_NS::JsonWriterImpl& impl) noexcept;
+    explicit constexpr FieldsWriter(IJsonSerializer& impl) noexcept;
 
     // Non-copyable, non-movable.
     FieldsWriter(const FieldsWriter&) = delete;
@@ -39,10 +39,10 @@ namespace Medea_NS
     inline void writeComment(std::string_view comment, bool newline = true) const;
 
   private:
-    Detail_NS::JsonWriterImpl& impl_;
+    IJsonSerializer& impl_;
   };
 
-  constexpr FieldsWriter::FieldsWriter(Detail_NS::JsonWriterImpl& impl) noexcept :
+  constexpr FieldsWriter::FieldsWriter(IJsonSerializer& impl) noexcept :
     impl_(impl)
   {}
 

@@ -145,7 +145,6 @@ namespace Medea_NS::Detail_NS
   void JsonWriterImpl::writeFieldName(std::string_view field_name)
   {
     constexpr std::string_view kSeparator = ": ";
-    beforeWriteElementOrField();
     writeString(field_name);
     stream_.write(kSeparator.data(), kSeparator.size());
   }

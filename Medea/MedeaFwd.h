@@ -15,6 +15,9 @@ namespace Medea_NS
     Object
   };
 
+  // Interface for JSON serialization.
+  class IJsonSerializer;
+
   class ArrayElementsWriter;
 
   class FieldsWriter;

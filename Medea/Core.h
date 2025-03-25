@@ -11,6 +11,7 @@
 
 #include <h3mtxt/Medea/MedeaFwd.h>
 #include <h3mtxt/Medea/JsonWriterImpl.h>
+#include <h3mtxt/Medea/MinifiedJsonWriter.h>
 
 namespace Medea_NS
 {
@@ -27,5 +28,11 @@ namespace Medea_NS
                  bool single_line = kIsSingleLineByDefault<std::remove_cvref_t<T>>)
   {
     Detail_NS::JsonWriterImpl::writeJson(stream, value, initial_indent, single_line);
+  }
+
+  template<class T>
+  void writeMinifiedJson(std::ostream& stream, const T& value)
+  {
+    MinifiedJsonWriter::writeJson(stream, value);
   }
 }
