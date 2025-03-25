@@ -11,7 +11,7 @@ namespace Medea_NS
   {
     using Fields = h3m::FieldNames<h3m::CreatureStack>;
     out.writeField(Fields::kType, creature_stack.type);
-    if (auto enum_str = h3m::getEnumString(creature_stack.type); !enum_str.empty())
+    if (std::string_view enum_str = h3m::getEnumString(creature_stack.type); !enum_str.empty())
     {
       out.writeComment(enum_str, false);
     }
