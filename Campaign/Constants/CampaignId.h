@@ -30,11 +30,15 @@ namespace h3m
     SpecterOfPower = 20,
   };
 
-  // Returns the maximum number of map regions for the given CampaignId.
+  // Returns the number of regions for the given CampaignId.
+  //
+  // This is the upper bound for the number of playable scenarios in a campaign that uses this CampaignId.
+  // Note that the number of playable scenarios can be less than the number of regions.
+  //
   // \param campaign_map - input CampaignId.
-  // \return the maximum number of map regions for @campaign_map,
+  // \return the number of regions for @campaign_map,
   //         or 0 if @campaign_map is not a valid CampaignId constant.
-  constexpr std::uint8_t countMapRegions(CampaignId campaign_id) noexcept
+  constexpr std::uint8_t countRegions(CampaignId campaign_id) noexcept
   {
     switch (campaign_id)
     {

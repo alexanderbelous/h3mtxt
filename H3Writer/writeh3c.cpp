@@ -16,7 +16,7 @@ namespace h3m::H3Writer_NS
   {
     void checkCampaign(const Campaign& campaign)
     {
-      if (campaign.header.scenarios.size() != countMapRegions(campaign.header.id))
+      if (campaign.header.scenarios.size() != countRegions(campaign.header.id))
       {
         throw std::runtime_error("writeh3c(): wrong number of scenarios.");
       }

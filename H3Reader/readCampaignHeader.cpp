@@ -18,9 +18,9 @@ namespace h3m::H3Reader_NS
     campaign.description = readString(stream);
     campaign.allow_selecting_difficulty = readBool(stream);
     campaign.theme_music = readEnum<CampaignMusic>(stream);
-    const std::uint8_t max_num_scenarios = countMapRegions(campaign.id);
-    campaign.scenarios.reserve(max_num_scenarios);
-    for (std::uint8_t i = 0; i < max_num_scenarios; ++i)
+    const std::uint8_t num_regions = countRegions(campaign.id);
+    campaign.scenarios.reserve(num_regions);
+    for (std::uint8_t i = 0; i < num_regions; ++i)
     {
       campaign.scenarios.push_back(readCampaignScenario(stream, campaign.id));
     }

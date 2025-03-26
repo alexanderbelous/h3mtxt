@@ -20,14 +20,14 @@ namespace h3m
     std::string description;
     Bool allow_selecting_difficulty {};
     CampaignMusic theme_music {};
-    // The number of elements should be equal to countMapRegions(this->id),
+    // The number of elements should be equal to countRegions(this->id),
     // even if the campaign has unused regions.
     std::vector<CampaignScenario> scenarios;
   };
 
-  // Computes the number of existing scenarios in the given Campaign.
+  // Computes the number of playable scenarios in the given Campaign.
   // \param campaign - input campaign. This function will only access campaign.scenarios.
-  // \return the number of existing scenarios in @campaign.
+  // \return the number of playable scenarios in @campaign.
   constexpr std::size_t countScenarios(const CampaignHeader& campaign) noexcept
   {
     std::size_t result = 0;
