@@ -30,7 +30,8 @@ namespace h3m::H3Writer_NS
           throw std::runtime_error("H3Writer<Map>: Object::template_idx is out of range.");
         }
         const ObjectTemplate& object_template = map.objects_templates[object.template_idx];
-        const MetaObjectType meta_object_type_expected = getMetaObjectType(object_template.object_class);
+        const MetaObjectType meta_object_type_expected = getMetaObjectType(object_template.object_class,
+                                                                           object_template.object_subclass);
         if (object.properties.getMetaObjectType() != meta_object_type_expected)
         {
           throw std::runtime_error("H3Writer<Map>: Object::properties has MetaObjectType different "

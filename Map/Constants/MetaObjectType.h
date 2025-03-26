@@ -7,16 +7,22 @@
 
 namespace h3m
 {
-  // Object in H3M are different depending on ObjectTemplate.object_class.
-  // However, a lot of object classes have the same details, so another layer of abstraction
-  // is added here - an enum which groups object classes that have the same details.
+  // Enum type that that makes it easier to determine which properties are applicable to objects
+  // based on their ObjectClass and subtype.
   //
-  // AFAIU, there's no explicit concept of MetaObjectType in the H3M format - this is just
-  // added here to simplify the representation of Object. Other H3M parsers may
-  // define this enum differently in order to disambiguate between objects that have the
-  // same set of properties but serve different purposes. Here, however, we only care about
-  // the stored data, so all objects that have the same "details" are grouped into the same
-  // "MetaObjectType".
+  // Different objects on the Adventure Map have different properties in H3M. Generally, it is
+  // sufficient to know the ObjectClass of the object (ObjectTemplate::object_class) to deduce
+  // which properties it has. However, in the Shadow of Death there are 2 exceptions where the
+  // object's subtype (ObjectTemplate::object_subclass) is also needed: ObjectClass::MINE and
+  // ObjectClass::ABANDONED_MINE. Specifically, their properties are either:
+  // * the owner (PlayerColor) if subtype is within [0; 6], or
+  // * the potential resources (ResourcesBitmask) if subtype == 7 (which represents an Abandoned Mine).
+  //
+  // AFAIU, there's no explicit concept of MetaObjectType in the H3M format - this is just added here
+  // to simplify the representation of Object. Some other H3M parsers define this enum differently
+  // in order to disambiguate between objects that have the same set of properties but serve different
+  // purposes. Here, however, we only care about the stored data, so all objects that have the same
+  // "details" are grouped into the same "MetaObjectType".
   enum class MetaObjectType
   {
     ABANDONED_MINE,
@@ -46,16 +52,21 @@ namespace h3m
 
   inline constexpr std::uint32_t kNumMetaObjectTypes = 23;
 
-  // Returns MetaObjectType for the given object class.
-  // \param object_class - input object class.
-  // \return MetaObjectType for @object_class.
+  // Returns MetaObjectType for the given object.
+  // \param object_class - ObjectClass of the object.
+  // \param object_subtype - subtype of the object.
+  // \return MetaObjectType for the input object.
   // \throw std::runtime_error if @object_class is not a valid object class.
-  constexpr MetaObjectType getMetaObjectType(ObjectClass object_class)
+  constexpr MetaObjectType getMetaObjectType(ObjectClass object_class, std::uint32_t object_subtype)
   {
     switch (object_class)
     {
+    // ObjectClass::MINE and ObjectClass::ABANDONED_MINE are edge cases - their MetaObjectType depends on the subtype.
     case ObjectClass::ABANDONED_MINE:
-      return MetaObjectType::ABANDONED_MINE;
+    case ObjectClass::MINE:
+      return object_subtype == 7 ? MetaObjectType::ABANDONED_MINE : MetaObjectType::TRIVIAL_OWNED_OBJECT;
+
+    // For everything else MetaObjectType can be determined from ObjectClass alone.
     case ObjectClass::ARTIFACT:
     case ObjectClass::RANDOM_ART:
     case ObjectClass::RANDOM_TREASURE_ART:
@@ -316,7 +327,6 @@ namespace h3m
     case ObjectClass::CREATURE_GENERATOR3:
     case ObjectClass::CREATURE_GENERATOR4:
     case ObjectClass::LIGHTHOUSE:
-    case ObjectClass::MINE:
     case ObjectClass::SHIPYARD:
       return MetaObjectType::TRIVIAL_OWNED_OBJECT;
     case ObjectClass::WITCH_HUT:
@@ -332,7 +342,7 @@ namespace h3m
     [] {
       for (std::uint32_t i = 0; i < kNumObjectClasses; ++i)
       {
-        (void)getMetaObjectType(static_cast<ObjectClass>(i));
+        (void)getMetaObjectType(static_cast<ObjectClass>(i), 0);
       }
       return true;
     }(), "getMetaObjectType() is not implemented for 1 or more ObjectClass constants.");

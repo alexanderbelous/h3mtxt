@@ -505,7 +505,8 @@ namespace h3m::H3Reader_NS
       throw std::runtime_error("readObject(): invalid template_idx.");
     }
     const ObjectTemplate& object_template = objects_templates[result.template_idx];
-    const MetaObjectType meta_object_type = getMetaObjectType(object_template.object_class);
+    const MetaObjectType meta_object_type = getMetaObjectType(object_template.object_class,
+                                                              object_template.object_subclass);
     result.properties = readObjectPropertiesVariant(stream, meta_object_type);
     return result;
   }

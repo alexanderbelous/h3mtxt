@@ -61,6 +61,9 @@ namespace h3m
     MARKET_OF_TIME = 50,
     MERCENARY_CAMP = 51,
     MERMAID = 52,
+    // Represents a regular mine if subtype is within [0; 6], or an Abandoned Mine if subtype == 7.
+    // Note that ObjectClass::ABANDONED_MINE has the same behavior. The Map Editor uses both types for
+    // "standard" Abandoned Mines.
     MINE = 53,
     MONSTER = 54,
     MYSTICAL_GARDEN = 55,
@@ -229,6 +232,9 @@ namespace h3m
     RANDOM_DWELLING_FACTION = 218,    // subtype faction
     // Vertical garrison (normal or anti-magic).
     GARRISON2 = 219,
+    // Represents a regular mine if subtype is within [0; 6], or an Abandoned Mine if subtype == 7.
+    // The standard object templates in the Map Editor only use this ObjectClass with subtype == 7,
+    // but other subtypes can be used as well.
     ABANDONED_MINE = 220,
     TRADING_POST_SNOW = 221,
     CLOVER_FIELD = 222,

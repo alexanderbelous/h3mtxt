@@ -20,8 +20,8 @@ namespace h3m::H3JsonReader_NS
       readField(object.unknown, value, Fields::kUnknown);
 
       const ObjectTemplate& object_template = objects_templates.at(object.template_idx);
-      const h3m::MetaObjectType meta_object_type = getMetaObjectType(object_template.object_class);
-
+      const h3m::MetaObjectType meta_object_type = getMetaObjectType(object_template.object_class,
+                                                                     object_template.object_subclass);
       if (meta_object_type != h3m::MetaObjectType::GENERIC_NO_PROPERTIES)
       {
         const Json::Value& properties_json = getJsonField(value, Fields::kProperties);

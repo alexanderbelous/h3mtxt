@@ -18,7 +18,7 @@ namespace h3m
     std::string makeObjectTemplateComment(const ObjectTemplate& object_template)
     {
       const ObjectClass object_class = object_template.object_class;
-      const MetaObjectType meta_object_type = getMetaObjectType(object_class);
+      const MetaObjectType meta_object_type = getMetaObjectType(object_class, object_template.object_subclass);
 
       H3JsonWriter_NS::CommentBuilder comment_builder;
       comment_builder << "ObjectClass: " << static_cast<std::size_t>(object_class);
@@ -478,7 +478,8 @@ namespace Medea_NS
         throw std::runtime_error("JsonObjectWriter<h3m::Object>: Object::template_idx is out of range.");
       }
       const h3m::ObjectTemplate& object_template = objects_templates_[object.template_idx];
-      if (h3m::getMetaObjectType(object_template.object_class) != object.properties.getMetaObjectType())
+      if (h3m::getMetaObjectType(object_template.object_class, object_template.object_subclass) !=
+          object.properties.getMetaObjectType())
       {
         throw std::runtime_error("JsonObjectWriter<h3m::Object>: Object::properties has MetaObjectType different "
                                  "from the ObjectTemplate it refers to.");
