@@ -65,5 +65,7 @@ namespace h3m
 
   // ===== Campaign =====
 
+  std::string_view getEnumString(CampaignId value) noexcept;
+
   std::string_view getEnumString(CampaignMusic value) noexcept;
 }

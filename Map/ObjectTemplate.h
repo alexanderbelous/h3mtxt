@@ -12,6 +12,8 @@
 
 namespace h3m
 {
+  // The Map Editor only allows using templates defined in Objects.txt file inside the H3bitmap.lod resource,
+  // but the game supports custom templates as well.
   struct ObjectTemplate
   {
     // Name of the *.def sprite to use.

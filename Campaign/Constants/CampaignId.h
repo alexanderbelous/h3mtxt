@@ -5,7 +5,9 @@
 namespace h3m
 {
   // Template to use for the campaign.
+  //
   // The Campaign Editor calls it "Campaign Map".
+  // AFAIU, the game loads this data from the CampText.txt file inside the H3bitmap.lod resource.
   enum class CampaignId : std::uint8_t
   {
     LongLiveTheQueen = 1,

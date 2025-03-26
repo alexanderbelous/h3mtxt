@@ -1202,6 +1202,36 @@ namespace h3m
   }
 
   // ===== Campaign =====
+
+  std::string_view getEnumString(CampaignId value) noexcept
+  {
+    static constexpr std::string_view kNames[] = {
+      std::string_view{},
+      "Long Live the Queen",
+      "Liberation",
+      "Song for the Father",
+      "Dungeons and Devils",
+      "Long Live the King",
+      "Spoils of War",
+      "Seeds of Discontent",
+      "Bracada",
+      "Islands",
+      "Krewlod",
+      "Nighon",
+      "Tatalia",
+      "Armageddon",
+      "Hack and Slash",
+      "Birth of a Barbarian",
+      "New Beginning",
+      "Elixir of Life",
+      "Rise of the Necromancer",
+      "Unholy Alliance",
+      "Specter of Power"
+    };
+    const std::size_t idx = static_cast<std::size_t>(value);
+    return (idx < std::size(kNames)) ? kNames[idx] : std::string_view{};
+  }
+
   std::string_view getEnumString(CampaignMusic value) noexcept
   {
     static constexpr std::string_view kNames[] = {

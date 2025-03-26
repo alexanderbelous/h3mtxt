@@ -19,6 +19,10 @@ namespace Medea_NS
     using Fields = h3m::FieldNames<h3m::CampaignHeader>;
     out.writeField(Fields::kFormat, campaign.format);
     out.writeField(Fields::kId, campaign.id);
+    if (std::string_view enum_str = h3m::getEnumString(campaign.id); !enum_str.empty())
+    {
+      out.writeComment(enum_str, false);
+    }
     out.writeField(Fields::kName, campaign.name);
     out.writeField(Fields::kDescription, campaign.description);
     out.writeField(Fields::kThemeMusic, campaign.theme_music);
