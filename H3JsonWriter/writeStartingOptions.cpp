@@ -92,7 +92,10 @@ namespace Medea_NS
   {
     using Fields = h3m::FieldNames<h3m::StartingOptions>;
     out.writeField(Fields::kType, starting_options.type());
-    // TODO: write the name of the enum in a comment.
+    if (std::string_view enum_str = h3m::getEnumString(starting_options.type()); !enum_str.empty())
+    {
+      out.writeComment(enum_str, false);
+    }
     std::visit([&out] <h3m::StartingOptionsType T> (const h3m::StartingOptionsDetails<T>& details)
                 { out.writeField(Fields::kDetails, details); },
                 starting_options.details);

@@ -107,7 +107,10 @@ namespace Medea_NS
   {
     using Fields = h3m::FieldNames<h3m::StartingBonus>;
     out.writeField(Fields::kType, bonus.type());
-    // TODO: write the name of the enum in a comment.
+    if (std::string_view enum_str = h3m::getEnumString(bonus.type()); !enum_str.empty())
+    {
+      out.writeComment(enum_str, false);
+    }
     std::visit([&out] <h3m::StartingBonusType T> (const h3m::StartingBonusDetails<T>& details)
                 { out.writeField(Fields::kDetails, details); },
                 bonus.details);

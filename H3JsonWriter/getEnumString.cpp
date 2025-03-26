@@ -1288,4 +1288,32 @@ namespace h3m
     const std::size_t idx = static_cast<std::size_t>(value);
     return (idx < std::size(kNames)) ? kNames[idx] : std::string_view{};
   }
+
+  std::string_view getEnumString(StartingBonusType value) noexcept
+  {
+    static constexpr std::string_view kNames[] = {
+      "Spell",
+      "Creature",
+      "Building",
+      "Artifact",
+      "Spell scroll",
+      "Primary skill",
+      "Secondary skill",
+      "Resource",
+    };
+    const std::size_t idx = static_cast<std::size_t>(value);
+    return (idx < std::size(kNames)) ? kNames[idx] : std::string_view{};
+  }
+
+  std::string_view getEnumString(StartingOptionsType value) noexcept
+  {
+    static constexpr std::string_view kNames[] = {
+      "None",
+      "Starting bonus options",
+      "Hero crossover options",
+      "Starting hero options"
+    };
+    const std::size_t idx = static_cast<std::size_t>(value);
+    return (idx < std::size(kNames)) ? kNames[idx] : std::string_view{};
+  }
 }
