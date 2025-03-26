@@ -1289,6 +1289,23 @@ namespace h3m
     return (idx < std::size(kNames)) ? kNames[idx] : std::string_view{};
   }
 
+  std::string_view getEnumString(StartingBonusResourceType value) noexcept
+  {
+    static constexpr std::string_view kNames[] = {
+      "Wood",
+      "Mercury",
+      "Ore",
+      "Sulfur",
+      "Crystal",
+      "Gems",
+      "Gold",
+      "Wood and Ore",
+      "Mercury, Sulfur, Crystal and Gems" // Parsley, Sage, Rosemary and Thyme
+    };
+    const std::size_t idx = static_cast<std::size_t>(value);
+    return (idx < std::size(kNames)) ? kNames[idx] : std::string_view{};
+  }
+
   std::string_view getEnumString(StartingBonusType value) noexcept
   {
     static constexpr std::string_view kNames[] = {

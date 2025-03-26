@@ -2,6 +2,7 @@
 
 #include <h3mtxt/Campaign/CampaignFwd.h>
 #include <h3mtxt/Campaign/Constants/StartingBonusType.h>
+#include <h3mtxt/Campaign/Constants/StartingBonusResourceType.h>
 #include <h3mtxt/Map/Constants/ArtifactType.h>
 #include <h3mtxt/Map/Constants/SpellType.h>
 #include <h3mtxt/Map/Constants/TownBuildingType.h>
@@ -72,10 +73,7 @@ namespace h3m
   template<>
   struct StartingBonusDetails<StartingBonusType::Resource>
   {
-    // TODO: replace with an enum. This is a superset of ResourceType:
-    // 0xFD means wood+ore; 0xFE means mercury+sulfur+crystal+gems.
-    // TODO: check if there are other valid values.
-    std::uint8_t type {};
+    StartingBonusResourceType type {};
     std::uint32_t amount {};
   };
 

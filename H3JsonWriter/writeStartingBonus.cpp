@@ -100,6 +100,10 @@ namespace Medea_NS
     FieldsWriter& out, const h3m::StartingBonusDetails<h3m::StartingBonusType::Resource>& details) const
   {
     out.writeField("type", details.type);
+    if (std::string_view enum_str = h3m::getEnumString(details.type); !enum_str.empty())
+    {
+      out.writeComment(enum_str, false);
+    }
     out.writeField("amount", details.amount);
   }
 

@@ -85,7 +85,7 @@ namespace h3m::H3Reader_NS
       readStartingBonusDetails<StartingBonusType::Resource>(std::istream& stream)
     {
       StartingBonusDetails<StartingBonusType::Resource> details;
-      details.type = readInt<std::uint8_t>(stream);
+      details.type = readEnum<StartingBonusResourceType>(stream);
       details.amount = readInt<std::uint32_t>(stream);
       return details;
     }
