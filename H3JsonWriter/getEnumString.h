@@ -1,5 +1,6 @@
 #pragma once
 
+#include <h3mtxt/Campaign/CampaignFwd.h>
 #include <h3mtxt/Map/MapFwd.h>
 
 #include <string_view>
@@ -61,4 +62,8 @@ namespace h3m
   std::string_view getEnumString(TownType value) noexcept;
 
   std::string_view getEnumString(VictoryConditionType value) noexcept;
+
+  // ===== Campaign =====
+
+  std::string_view getEnumString(CampaignMusic value) noexcept;
 }

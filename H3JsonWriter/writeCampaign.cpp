@@ -1,4 +1,5 @@
 #include <h3mtxt/Campaign/Campaign.h>
+#include <h3mtxt/H3JsonWriter/getEnumString.h>
 #include <h3mtxt/H3JsonWriter/H3JsonWriter.h>
 #include <h3mtxt/H3JsonWriter/Utils.h>
 #include <h3mtxt/JsonCommon/FieldName.h>
@@ -21,6 +22,10 @@ namespace Medea_NS
     out.writeField(Fields::kName, campaign.name);
     out.writeField(Fields::kDescription, campaign.description);
     out.writeField(Fields::kThemeMusic, campaign.theme_music);
+    if (std::string_view enum_str = h3m::getEnumString(campaign.theme_music); !enum_str.empty())
+    {
+      out.writeComment(enum_str, false);
+    }
     out.writeField(Fields::kAllowSelectingDifficulty, campaign.allow_selecting_difficulty);
     out.writeField(Fields::kScenarios, campaign.scenarios);
   }
@@ -59,6 +64,10 @@ namespace Medea_NS
     using Fields = h3m::FieldNames<h3m::CutScene>;
     out.writeField(Fields::kMovie, cutscene.movie);
     out.writeField(Fields::kMusic, cutscene.music);
+    if (std::string_view enum_str = h3m::getEnumString(cutscene.music); !enum_str.empty())
+    {
+      out.writeComment(enum_str, false);
+    }
     out.writeField(Fields::kMessage, cutscene.message);
   }
 }

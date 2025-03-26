@@ -1200,4 +1200,62 @@ namespace h3m
     }
     return value == VictoryConditionType::Normal ? "Normal" : std::string_view{};
   }
+
+  // ===== Campaign =====
+  std::string_view getEnumString(CampaignMusic value) noexcept
+  {
+    static constexpr std::string_view kNames[] = {
+      "CampainMusic01",
+      "CampainMusic02",
+      "CampainMusic03",
+      "CampainMusic04",
+      "CampainMusic05",
+      "CampainMusic06",
+      "CampainMusic07",
+      "CampainMusic08",
+      "CampainMusic09",
+      "AiTheme0",
+      "AiTheme1",
+      "AiTheme2",
+      "Combat01",
+      "Combat02",
+      "Combat03",
+      "Combat04",
+      "CstleTown",
+      "TowerTown",
+      "Rampart",
+      "InfernoTown",
+      "NecroTown",
+      "Dungeon",
+      "Stronghold",
+      "FortressTown",
+      "ElemTown",
+      "Dirt",
+      "Sand",
+      "Grass",
+      "Snow",
+      "Swamp",
+      "Rough",
+      "Underground",
+      "Lava",
+      "Water",
+      "GoodTheme",
+      "NeutralTheme",
+      "EvilTheme",
+      "SecretTheme",
+      "LoopLepr",
+      "MainMenu",
+      "Win Scenario",
+      "CampainMusic10",
+      "BladeABCampaign",
+      "BladeDBCampaign",
+      "BladeDSCampaign",
+      "BladeFLCampaign",
+      "BladeFWCampaign",
+      "BladePFCampaign",
+      "CampainMusic11",
+    };
+    const std::size_t idx = static_cast<std::size_t>(value);
+    return (idx < std::size(kNames)) ? kNames[idx] : std::string_view{};
+  }
 }
