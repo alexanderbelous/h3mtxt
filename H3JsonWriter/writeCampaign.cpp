@@ -67,6 +67,10 @@ namespace Medea_NS
   {
     using Fields = h3m::FieldNames<h3m::CutScene>;
     out.writeField(Fields::kMovie, cutscene.movie);
+    if (std::string_view enum_str = h3m::getEnumString(cutscene.movie); !enum_str.empty())
+    {
+      out.writeComment(enum_str, false);
+    }
     out.writeField(Fields::kMusic, cutscene.music);
     if (std::string_view enum_str = h3m::getEnumString(cutscene.music); !enum_str.empty())
     {

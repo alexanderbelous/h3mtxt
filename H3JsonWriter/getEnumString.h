@@ -69,6 +69,8 @@ namespace h3m
 
   std::string_view getEnumString(CampaignMusic value) noexcept;
 
+  std::string_view getEnumString(CampaignVideo value) noexcept;
+
   std::string_view getEnumString(StartingBonusResourceType value) noexcept;
 
   std::string_view getEnumString(StartingBonusType value) noexcept;

@@ -10,6 +10,8 @@ namespace h3m
 
   enum class CampaignMusic : std::uint8_t;
 
+  enum class CampaignVideo : std::uint8_t;
+
   enum class CrossoverFeature : std::uint8_t;
 
   enum class StartingBonusResourceType : std::uint8_t;
