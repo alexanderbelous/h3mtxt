@@ -115,9 +115,9 @@ namespace h3m
 
   // Eldritch abomination capable of storing any ObjectProperties<T>.
   //
-  // This is similar to std::variant, but unlike std::variant, it stores the data on heap
+  // This is similar to std::variant, but, unlike std::variant, it stores the data on heap
   // for large ObjectProperties<T>. The reason for this is that ObjectProperties can be quite
-  // large for some MetaObjectTypes, but most objects on the map it will be small. std::variant
+  // large for some MetaObjectTypes, but for most objects on the map it will be small. std::variant
   // is memory-inefficient in this scenario.
   //
   // In order to reduce the number of dynamic memory allocations, this class stores sufficiently small

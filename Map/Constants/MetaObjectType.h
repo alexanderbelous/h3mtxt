@@ -23,6 +23,8 @@ namespace h3m
   // in order to disambiguate between objects that have the same set of properties but serve different
   // purposes. Here, however, we only care about the stored data, so all objects that have the same
   // "details" are grouped into the same "MetaObjectType".
+  //
+  // TODO: consider renaming to ObjectPropertiesType.
   enum class MetaObjectType
   {
     ABANDONED_MINE,
