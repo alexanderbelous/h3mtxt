@@ -42,6 +42,10 @@ namespace Medea_NS
     out.writeField(Fields::kPrerequisites, scenario.prerequisites);
     out.writeField(Fields::kRegionColor, scenario.region_color);
     out.writeField(Fields::kDefaultDifficulty, scenario.default_difficulty);
+    if (std::string_view enum_str = h3m::getEnumString(scenario.default_difficulty); !enum_str.empty())
+    {
+      out.writeComment(enum_str, false);
+    }
     out.writeField(Fields::kRegionRightClickText, scenario.region_righ_click_text);
     if (scenario.prologue)
     {
