@@ -29,7 +29,7 @@ namespace h3m
 
   std::string_view getEnumString(MapDifficulty value) noexcept;
 
-  std::string_view getEnumString(MetaObjectType value) noexcept;
+  std::string_view getEnumString(ObjectPropertiesType value) noexcept;
 
   std::string_view getEnumString(ObjectClass value) noexcept;
 

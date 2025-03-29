@@ -7,7 +7,7 @@
 #include <h3mtxt/Map/Constants/Gender.h>
 #include <h3mtxt/Map/Constants/HeroPortrait.h>
 #include <h3mtxt/Map/Constants/HeroType.h>
-#include <h3mtxt/Map/Constants/MetaObjectType.h>
+#include <h3mtxt/Map/Constants/ObjectPropertiesType.h>
 #include <h3mtxt/Map/Constants/PlayerColor.h>
 #include <h3mtxt/Map/Constants/ScholarRewardType.h>
 #include <h3mtxt/Map/Constants/SpellType.h>
@@ -41,7 +41,7 @@ namespace h3m
     ReservedData<4> unknown;
   };
 
-  // Only appears in ObjectProperties<MetaObjectType::MONSTER>.
+  // Only appears in ObjectProperties<ObjectPropertiesType::MONSTER>.
   struct MessageAndTreasure
   {
     std::string message;
@@ -55,8 +55,8 @@ namespace h3m
     ArtifactType artifact {};
   };
 
-  // Base class for ObjectProperties<MetaObjectType::PANDORAS_BOX> and
-  // ObjectProperties<MetaObjectType::EVENT>.
+  // Base class for ObjectProperties<ObjectPropertiesType::PANDORAS_BOX> and
+  // ObjectProperties<ObjectPropertiesType::EVENT>.
   struct EventBase
   {
     std::optional<Guardians> guardians;
@@ -80,20 +80,20 @@ namespace h3m
   };
 
   template<>
-  struct ObjectProperties<MetaObjectType::ABANDONED_MINE>
+  struct ObjectProperties<ObjectPropertiesType::ABANDONED_MINE>
   {
     ResourcesBitmask potential_resources;
     ReservedData<3> unknown;
   };
 
   template<>
-  struct ObjectProperties<MetaObjectType::ARTIFACT>
+  struct ObjectProperties<ObjectPropertiesType::ARTIFACT>
   {
     std::optional<Guardians> guardians;
   };
 
   template<>
-  struct ObjectProperties<MetaObjectType::EVENT> : EventBase
+  struct ObjectProperties<ObjectPropertiesType::EVENT> : EventBase
   {
     PlayersBitmask affected_players;
     Bool applies_to_computer{};
@@ -102,7 +102,7 @@ namespace h3m
   };
 
   template<>
-  struct ObjectProperties<MetaObjectType::GARRISON>
+  struct ObjectProperties<ObjectPropertiesType::GARRISON>
   {
     // 0xFF means no owner.
     PlayerColor owner {};
@@ -115,12 +115,12 @@ namespace h3m
   };
 
   template<>
-  struct ObjectProperties<MetaObjectType::GENERIC_NO_PROPERTIES>
+  struct ObjectProperties<ObjectPropertiesType::GENERIC_NO_PROPERTIES>
   {
   };
 
   template<>
-  struct ObjectProperties<MetaObjectType::GRAIL>
+  struct ObjectProperties<ObjectPropertiesType::GRAIL>
   {
     // The Map Editor only allows values from [0; 127], but any 8-bit integer can be used here.
     // The Map Editor interprets it as int8_t, but the game interprets it as uint8_t: 0xFF means 255, not -1.
@@ -146,7 +146,7 @@ namespace h3m
   //    Note, however, that both the official Map Editor and the Unleashed Editor will report an error
   //    "Invalid or corrupt map file." if you try to open a map that has a random hero in a Prison.
   template<>
-  struct ObjectProperties<MetaObjectType::HERO>
+  struct ObjectProperties<ObjectPropertiesType::HERO>
   {
     std::uint32_t absod_id {};
     // Owner for HERO and RANDOM_HERO. For PRISON it is normally set to 0xFF (none); setting a different value doesn't
@@ -183,7 +183,7 @@ namespace h3m
   };
 
   template<>
-  struct ObjectProperties<MetaObjectType::MONSTER>
+  struct ObjectProperties<ObjectPropertiesType::MONSTER>
   {
     std::uint32_t absod_id {};
     // The Map Editor only allows values from [0; 4000] (0 means random), but any 16-bit integer can be used here.
@@ -198,12 +198,12 @@ namespace h3m
   };
 
   template<>
-  struct ObjectProperties<MetaObjectType::PANDORAS_BOX> : EventBase
+  struct ObjectProperties<ObjectPropertiesType::PANDORAS_BOX> : EventBase
   {
   };
 
   template<>
-  struct ObjectProperties<MetaObjectType::PLACEHOLDER_HERO>
+  struct ObjectProperties<ObjectPropertiesType::PLACEHOLDER_HERO>
   {
     PlayerColor owner {};
     HeroType type {};
@@ -212,13 +212,13 @@ namespace h3m
   };
 
   template<>
-  struct ObjectProperties<MetaObjectType::QUEST_GUARD>
+  struct ObjectProperties<ObjectPropertiesType::QUEST_GUARD>
   {
     Quest quest;
   };
 
   template<>
-  struct ObjectProperties<MetaObjectType::RANDOM_DWELLING>
+  struct ObjectProperties<ObjectPropertiesType::RANDOM_DWELLING>
   {
     // 0xFF if none.
     std::uint32_t owner {};
@@ -233,7 +233,7 @@ namespace h3m
   };
 
   template<>
-  struct ObjectProperties<MetaObjectType::RANDOM_DWELLING_PRESET_ALIGNMENT>
+  struct ObjectProperties<ObjectPropertiesType::RANDOM_DWELLING_PRESET_ALIGNMENT>
   {
     // 0xFF if none.
     std::uint32_t owner {};
@@ -242,7 +242,7 @@ namespace h3m
   };
 
   template<>
-  struct ObjectProperties<MetaObjectType::RANDOM_DWELLING_PRESET_LEVEL>
+  struct ObjectProperties<ObjectPropertiesType::RANDOM_DWELLING_PRESET_LEVEL>
   {
     // 0xFF if none.
     std::uint32_t owner {};
@@ -254,7 +254,7 @@ namespace h3m
   };
 
   template<>
-  struct ObjectProperties<MetaObjectType::RESOURCE>
+  struct ObjectProperties<ObjectPropertiesType::RESOURCE>
   {
     std::optional<Guardians> guardians;
     // Multiply by 100 for Gold (i.e. subclass 6); 0 means Random.
@@ -265,7 +265,7 @@ namespace h3m
   };
 
   template<>
-  struct ObjectProperties<MetaObjectType::SCHOLAR>
+  struct ObjectProperties<ObjectPropertiesType::SCHOLAR>
   {
     // TODO: consider replacing with std::variant<PrimarySkillType, SecondarySkillType, Spell, RandomScholarRewardType>.
     ScholarRewardType reward_type {};
@@ -283,7 +283,7 @@ namespace h3m
   };
 
   template<>
-  struct ObjectProperties<MetaObjectType::SEERS_HUT>
+  struct ObjectProperties<ObjectPropertiesType::SEERS_HUT>
   {
     Quest quest;
     Reward reward;
@@ -291,7 +291,7 @@ namespace h3m
   };
 
   template<>
-  struct ObjectProperties<MetaObjectType::SHRINE>
+  struct ObjectProperties<ObjectPropertiesType::SHRINE>
   {
     // 0xFF means random.
     SpellType spell {};
@@ -299,7 +299,7 @@ namespace h3m
   };
 
   template<>
-  struct ObjectProperties<MetaObjectType::SIGN>
+  struct ObjectProperties<ObjectPropertiesType::SIGN>
   {
     // Empty string means random message.
     std::string message;
@@ -308,7 +308,7 @@ namespace h3m
   };
 
   template<>
-  struct ObjectProperties<MetaObjectType::SPELL_SCROLL>
+  struct ObjectProperties<ObjectPropertiesType::SPELL_SCROLL>
   {
     std::optional<Guardians> guardians;
     // FYI: unlike SHRINE, 0xFF is not allowed here (causes the game to crash).
@@ -344,7 +344,7 @@ namespace h3m
   };
 
   template<>
-  struct ObjectProperties<MetaObjectType::TOWN>
+  struct ObjectProperties<ObjectPropertiesType::TOWN>
   {
     std::uint32_t absod_id {};
     // 0xFF if none.
@@ -370,7 +370,7 @@ namespace h3m
   };
 
   template<>
-  struct ObjectProperties<MetaObjectType::TRIVIAL_OWNED_OBJECT>
+  struct ObjectProperties<ObjectPropertiesType::TRIVIAL_OWNED_OBJECT>
   {
     // 0xFF means that there is no owner.
     PlayerColor owner {};
@@ -378,7 +378,7 @@ namespace h3m
   };
 
   template<>
-  struct ObjectProperties<MetaObjectType::WITCH_HUT>
+  struct ObjectProperties<ObjectPropertiesType::WITCH_HUT>
   {
     // Normally, the Witch Hut grants you one of the enabled skills from `potential_skills` except those
     // that are disabled globally (see MapAdditionalInfo::disabled_skills).

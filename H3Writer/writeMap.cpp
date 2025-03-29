@@ -21,8 +21,7 @@ namespace h3m::H3Writer_NS
       {
         throw std::runtime_error("H3Writer<Map>: Wrong number of elements in Map::tiles.");
       }
-      // Check that each Object refers to an existing ObjectTemplate and
-      // has the same MetaObjectType.
+      // Check that each Object refers to an existing ObjectTemplate and has the same ObjectPropertiesType.
       for (const Object& object : map.objects)
       {
         if (object.template_idx >= map.objects_templates.size())
@@ -30,11 +29,10 @@ namespace h3m::H3Writer_NS
           throw std::runtime_error("H3Writer<Map>: Object::template_idx is out of range.");
         }
         const ObjectTemplate& object_template = map.objects_templates[object.template_idx];
-        const MetaObjectType meta_object_type_expected = getMetaObjectType(object_template.object_class,
-                                                                           object_template.object_subclass);
-        if (object.properties.getMetaObjectType() != meta_object_type_expected)
+        if (object.properties.type() !=
+            getObjectPropertiesType(object_template.object_class, object_template.object_subclass))
         {
-          throw std::runtime_error("H3Writer<Map>: Object::properties has MetaObjectType different "
+          throw std::runtime_error("H3Writer<Map>: Object::properties has ObjectPropertiesType different "
                                    "from the ObjectTemplate it refers to.");
         }
       }

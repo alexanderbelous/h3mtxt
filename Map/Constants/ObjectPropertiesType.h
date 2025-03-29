@@ -18,14 +18,12 @@ namespace h3m
   // * the owner (PlayerColor) if subtype is within [0; 6], or
   // * the potential resources (ResourcesBitmask) if subtype == 7 (which represents an Abandoned Mine).
   //
-  // AFAIU, there's no explicit concept of MetaObjectType in the H3M format - this is just added here
+  // AFAIU, there's no explicit concept of ObjectPropertiesType in the H3M format - this is just added here
   // to simplify the representation of Object. Some other H3M parsers define this enum differently
   // in order to disambiguate between objects that have the same set of properties but serve different
   // purposes. Here, however, we only care about the stored data, so all objects that have the same
-  // "details" are grouped into the same "MetaObjectType".
-  //
-  // TODO: consider renaming to ObjectPropertiesType.
-  enum class MetaObjectType
+  // "details" are grouped into the same "ObjectPropertiesType".
+  enum class ObjectPropertiesType
   {
     ABANDONED_MINE,
     ARTIFACT,
@@ -52,35 +50,37 @@ namespace h3m
     WITCH_HUT
   };
 
-  inline constexpr std::uint32_t kNumMetaObjectTypes = 23;
+  inline constexpr std::uint32_t kNumObjectPropertiesTypes = 23;
 
-  // Returns MetaObjectType for the given object.
+  // Returns ObjectPropertiesType for the given object.
   // \param object_class - ObjectClass of the object.
   // \param object_subtype - subtype of the object.
-  // \return MetaObjectType for the input object.
+  // \return ObjectPropertiesType for the input object.
   // \throw std::runtime_error if @object_class is not a valid object class.
-  constexpr MetaObjectType getMetaObjectType(ObjectClass object_class, std::uint32_t object_subtype)
+  constexpr ObjectPropertiesType getObjectPropertiesType(ObjectClass object_class, std::uint32_t object_subtype)
   {
     switch (object_class)
     {
-    // ObjectClass::MINE and ObjectClass::ABANDONED_MINE are edge cases - their MetaObjectType depends on the subtype.
+    // ObjectClass::MINE and ObjectClass::ABANDONED_MINE are edge cases -
+    // their ObjectPropertiesType depends on the subtype.
     case ObjectClass::ABANDONED_MINE:
     case ObjectClass::MINE:
-      return object_subtype == 7 ? MetaObjectType::ABANDONED_MINE : MetaObjectType::TRIVIAL_OWNED_OBJECT;
+      return object_subtype == 7 ? ObjectPropertiesType::ABANDONED_MINE
+                                 : ObjectPropertiesType::TRIVIAL_OWNED_OBJECT;
 
-    // For everything else MetaObjectType can be determined from ObjectClass alone.
+    // For everything else ObjectPropertiesType can be determined from ObjectClass alone.
     case ObjectClass::ARTIFACT:
     case ObjectClass::RANDOM_ART:
     case ObjectClass::RANDOM_TREASURE_ART:
     case ObjectClass::RANDOM_MINOR_ART:
     case ObjectClass::RANDOM_MAJOR_ART:
     case ObjectClass::RANDOM_RELIC_ART:
-      return MetaObjectType::ARTIFACT;
+      return ObjectPropertiesType::ARTIFACT;
     case ObjectClass::EVENT:
-      return MetaObjectType::EVENT;
+      return ObjectPropertiesType::EVENT;
     case ObjectClass::GARRISON:
     case ObjectClass::GARRISON2:
-      return MetaObjectType::GARRISON;
+      return ObjectPropertiesType::GARRISON;
 
     // GENERIC_IMPASSABLE_TERRAIN
     case ObjectClass::NONE_0:
@@ -275,14 +275,14 @@ namespace h3m
     case ObjectClass::TREASURE_CHEST:
     // SUBTERRANEAN_GATE
     case ObjectClass::SUBTERRANEAN_GATE:
-      return MetaObjectType::GENERIC_NO_PROPERTIES;
+      return ObjectPropertiesType::GENERIC_NO_PROPERTIES;
 
     case ObjectClass::GRAIL:
-      return MetaObjectType::GRAIL;
+      return ObjectPropertiesType::GRAIL;
     case ObjectClass::HERO:
     case ObjectClass::PRISON:
     case ObjectClass::RANDOM_HERO:
-      return MetaObjectType::HERO;
+      return ObjectPropertiesType::HERO;
     case ObjectClass::MONSTER:
     case ObjectClass::RANDOM_MONSTER:
     case ObjectClass::RANDOM_MONSTER_L1:
@@ -292,60 +292,60 @@ namespace h3m
     case ObjectClass::RANDOM_MONSTER_L5:
     case ObjectClass::RANDOM_MONSTER_L6:
     case ObjectClass::RANDOM_MONSTER_L7:
-      return MetaObjectType::MONSTER;
+      return ObjectPropertiesType::MONSTER;
     case ObjectClass::PANDORAS_BOX:
-      return MetaObjectType::PANDORAS_BOX;
+      return ObjectPropertiesType::PANDORAS_BOX;
     case ObjectClass::HERO_PLACEHOLDER:
-      return MetaObjectType::PLACEHOLDER_HERO;
+      return ObjectPropertiesType::PLACEHOLDER_HERO;
     case ObjectClass::RANDOM_DWELLING:
-      return MetaObjectType::RANDOM_DWELLING;
+      return ObjectPropertiesType::RANDOM_DWELLING;
     case ObjectClass::RANDOM_DWELLING_LVL:
-      return MetaObjectType::RANDOM_DWELLING_PRESET_LEVEL;
+      return ObjectPropertiesType::RANDOM_DWELLING_PRESET_LEVEL;
     case ObjectClass::RANDOM_DWELLING_FACTION:
-      return MetaObjectType::RANDOM_DWELLING_PRESET_ALIGNMENT;
+      return ObjectPropertiesType::RANDOM_DWELLING_PRESET_ALIGNMENT;
     case ObjectClass::QUEST_GUARD:
-      return MetaObjectType::QUEST_GUARD;
+      return ObjectPropertiesType::QUEST_GUARD;
     case ObjectClass::RESOURCE:
     case ObjectClass::RANDOM_RESOURCE:
-      return MetaObjectType::RESOURCE;
+      return ObjectPropertiesType::RESOURCE;
     case ObjectClass::SCHOLAR:
-      return MetaObjectType::SCHOLAR;
+      return ObjectPropertiesType::SCHOLAR;
     case ObjectClass::SEER_HUT:
-      return MetaObjectType::SEERS_HUT;
+      return ObjectPropertiesType::SEERS_HUT;
     case ObjectClass::SHRINE_OF_MAGIC_INCANTATION:
     case ObjectClass::SHRINE_OF_MAGIC_GESTURE:
     case ObjectClass::SHRINE_OF_MAGIC_THOUGHT:
-      return MetaObjectType::SHRINE;
+      return ObjectPropertiesType::SHRINE;
     case ObjectClass::OCEAN_BOTTLE:
     case ObjectClass::SIGN:
-      return MetaObjectType::SIGN;
+      return ObjectPropertiesType::SIGN;
     case ObjectClass::SPELL_SCROLL:
-      return MetaObjectType::SPELL_SCROLL;
+      return ObjectPropertiesType::SPELL_SCROLL;
     case ObjectClass::RANDOM_TOWN:
     case ObjectClass::TOWN:
-      return MetaObjectType::TOWN;
+      return ObjectPropertiesType::TOWN;
     case ObjectClass::CREATURE_GENERATOR1:
     case ObjectClass::CREATURE_GENERATOR2:
     case ObjectClass::CREATURE_GENERATOR3:
     case ObjectClass::CREATURE_GENERATOR4:
     case ObjectClass::LIGHTHOUSE:
     case ObjectClass::SHIPYARD:
-      return MetaObjectType::TRIVIAL_OWNED_OBJECT;
+      return ObjectPropertiesType::TRIVIAL_OWNED_OBJECT;
     case ObjectClass::WITCH_HUT:
-      return MetaObjectType::WITCH_HUT;
+      return ObjectPropertiesType::WITCH_HUT;
 
     default:
       throw std::runtime_error("Invalid object_class.");
     }
   }
 
-  // Check at compile time that all known ObjectClasses are mapped to some MetaObjectType.
+  // Check at compile time that all known ObjectClasses are mapped to some ObjectPropertiesType.
   static_assert(
     [] {
       for (std::uint32_t i = 0; i < kNumObjectClasses; ++i)
       {
-        (void)getMetaObjectType(static_cast<ObjectClass>(i), 0);
+        (void)getObjectPropertiesType(static_cast<ObjectClass>(i), 0);
       }
       return true;
-    }(), "getMetaObjectType() is not implemented for 1 or more ObjectClass constants.");
+    }(), "getObjectPropertiesType() is not implemented for 1 or more ObjectClass constants.");
 }

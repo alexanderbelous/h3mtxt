@@ -20,12 +20,12 @@ namespace h3m::H3JsonReader_NS
       readField(object.unknown, value, Fields::kUnknown);
 
       const ObjectTemplate& object_template = objects_templates.at(object.template_idx);
-      const h3m::MetaObjectType meta_object_type = getMetaObjectType(object_template.object_class,
-                                                                     object_template.object_subclass);
-      if (meta_object_type != h3m::MetaObjectType::GENERIC_NO_PROPERTIES)
+      const h3m::ObjectPropertiesType object_properties_type =
+        getObjectPropertiesType(object_template.object_class, object_template.object_subclass);
+      if (object_properties_type != h3m::ObjectPropertiesType::GENERIC_NO_PROPERTIES)
       {
         const Json::Value& properties_json = getJsonField(value, Fields::kProperties);
-        object.properties = readObjectPropertiesVariant(properties_json, meta_object_type);
+        object.properties = readObjectPropertiesVariant(properties_json, object_properties_type);
       }
       return object;
     }

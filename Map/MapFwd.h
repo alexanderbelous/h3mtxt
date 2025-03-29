@@ -34,7 +34,7 @@ namespace h3m
   enum class MapDifficulty : std::uint8_t;
 
   // No explicit underlying type because this enum is not serialized anywhere in H3M.
-  enum class MetaObjectType;
+  enum class ObjectPropertiesType;
 
   enum class ObjectClass : std::uint32_t;
 
@@ -109,7 +109,7 @@ namespace h3m
 
   // Bitmask storing a bit for each resource type.
   //
-  // This is only used in ObjectProperties<MetaObjectType::ABANDONED_MINE>.
+  // This is only used in ObjectProperties<ObjectPropertiesType::ABANDONED_MINE>.
   using ResourcesBitmask = EnumBitmask<ResourceType, 1>;
 
   // Note that there are only 28 secondary skills in Shadow of Death, but this bitmask stores 32 bits.
@@ -157,7 +157,7 @@ namespace h3m
   struct Object;
 
   // "Extension" of Object specific to ObjectClass of this object.
-  template<MetaObjectType T>
+  template<ObjectPropertiesType T>
   struct ObjectProperties;
 
   class ObjectPropertiesVariant;

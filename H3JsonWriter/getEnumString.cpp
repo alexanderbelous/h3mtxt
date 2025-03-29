@@ -598,7 +598,7 @@ namespace h3m
     }
   }
 
-  std::string_view getEnumString(MetaObjectType value) noexcept
+  std::string_view getEnumString(ObjectPropertiesType value) noexcept
   {
     static constexpr std::string_view kNames[] = {
       "ABANDONED_MINE",

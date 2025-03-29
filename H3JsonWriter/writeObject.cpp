@@ -18,7 +18,7 @@ namespace h3m
     std::string makeObjectTemplateComment(const ObjectTemplate& object_template)
     {
       const ObjectClass object_class = object_template.object_class;
-      const MetaObjectType meta_object_type = getMetaObjectType(object_class, object_template.object_subclass);
+      const ObjectPropertiesType object_properties_type = getObjectPropertiesType(object_class, object_template.object_subclass);
 
       H3JsonWriter_NS::CommentBuilder comment_builder;
       comment_builder << "ObjectClass: " << static_cast<std::size_t>(object_class);
@@ -26,8 +26,8 @@ namespace h3m
       {
         comment_builder << " (" << enum_str << ")";
       }
-      comment_builder << "\nMetaObjectType: " << static_cast<std::size_t>(meta_object_type);
-      if (std::string_view enum_str = getEnumString(meta_object_type); !enum_str.empty())
+      comment_builder << "\nObjectPropertiesType: " << static_cast<std::size_t>(object_properties_type);
+      if (std::string_view enum_str = getEnumString(object_properties_type); !enum_str.empty())
       {
         comment_builder << " (" << enum_str << ")";
       }
@@ -101,19 +101,19 @@ namespace Medea_NS
     out.writeField(Fields::kUnknown, event.unknown);
   }
 
-  void JsonObjectWriter<h3m::ObjectProperties<h3m::MetaObjectType::ABANDONED_MINE>>::operator()(
-    FieldsWriter& out, const h3m::ObjectProperties<h3m::MetaObjectType::ABANDONED_MINE>& details) const
+  void JsonObjectWriter<h3m::ObjectProperties<h3m::ObjectPropertiesType::ABANDONED_MINE>>::operator()(
+    FieldsWriter& out, const h3m::ObjectProperties<h3m::ObjectPropertiesType::ABANDONED_MINE>& details) const
   {
-    using Details = h3m::ObjectProperties<h3m::MetaObjectType::ABANDONED_MINE>;
+    using Details = h3m::ObjectProperties<h3m::ObjectPropertiesType::ABANDONED_MINE>;
     using Fields = h3m::FieldNames<Details>;
     out.writeField(Fields::kPotentialResources, details.potential_resources);
     out.writeField(Fields::kUnknown, details.unknown);
   }
 
-  void JsonObjectWriter<h3m::ObjectProperties<h3m::MetaObjectType::ARTIFACT>>::operator()(
-    FieldsWriter& out, const h3m::ObjectProperties<h3m::MetaObjectType::ARTIFACT>& artifact) const
+  void JsonObjectWriter<h3m::ObjectProperties<h3m::ObjectPropertiesType::ARTIFACT>>::operator()(
+    FieldsWriter& out, const h3m::ObjectProperties<h3m::ObjectPropertiesType::ARTIFACT>& artifact) const
   {
-    using Details = h3m::ObjectProperties<h3m::MetaObjectType::ARTIFACT>;
+    using Details = h3m::ObjectProperties<h3m::ObjectPropertiesType::ARTIFACT>;
     using Fields = h3m::FieldNames<Details>;
     if (artifact.guardians)
     {
@@ -121,10 +121,10 @@ namespace Medea_NS
     }
   }
 
-  void JsonObjectWriter<h3m::ObjectProperties<h3m::MetaObjectType::EVENT>>::operator()(
-    FieldsWriter& out, const h3m::ObjectProperties<h3m::MetaObjectType::EVENT>& event) const
+  void JsonObjectWriter<h3m::ObjectProperties<h3m::ObjectPropertiesType::EVENT>>::operator()(
+    FieldsWriter& out, const h3m::ObjectProperties<h3m::ObjectPropertiesType::EVENT>& event) const
   {
-    using Details = h3m::ObjectProperties<h3m::MetaObjectType::EVENT>;
+    using Details = h3m::ObjectProperties<h3m::ObjectPropertiesType::EVENT>;
     using Fields = h3m::FieldNames<Details>;
     JsonObjectWriter<h3m::EventBase>{}(out, event);
     out.writeField(Fields::kAffectedPlayers, event.affected_players);
@@ -133,10 +133,10 @@ namespace Medea_NS
     out.writeField(Fields::kUnknown2, event.unknown2);
   }
 
-  void JsonObjectWriter<h3m::ObjectProperties<h3m::MetaObjectType::GARRISON>>::operator()(
-    FieldsWriter& out, const h3m::ObjectProperties<h3m::MetaObjectType::GARRISON>& garrison) const
+  void JsonObjectWriter<h3m::ObjectProperties<h3m::ObjectPropertiesType::GARRISON>>::operator()(
+    FieldsWriter& out, const h3m::ObjectProperties<h3m::ObjectPropertiesType::GARRISON>& garrison) const
   {
-    using Details = h3m::ObjectProperties<h3m::MetaObjectType::GARRISON>;
+    using Details = h3m::ObjectProperties<h3m::ObjectPropertiesType::GARRISON>;
     using Fields = h3m::FieldNames<Details>;
     out.writeField(Fields::kOwner, garrison.owner);
     if (std::string_view enum_str = h3m::getEnumString(garrison.owner); !enum_str.empty())
@@ -149,24 +149,24 @@ namespace Medea_NS
     out.writeField(Fields::kUnknown2, garrison.unknown2);
   }
 
-  void JsonObjectWriter<h3m::ObjectProperties<h3m::MetaObjectType::GENERIC_NO_PROPERTIES>>::operator()(
-    FieldsWriter&, const h3m::ObjectProperties<h3m::MetaObjectType::GENERIC_NO_PROPERTIES>&) const
+  void JsonObjectWriter<h3m::ObjectProperties<h3m::ObjectPropertiesType::GENERIC_NO_PROPERTIES>>::operator()(
+    FieldsWriter&, const h3m::ObjectProperties<h3m::ObjectPropertiesType::GENERIC_NO_PROPERTIES>&) const
   {
   }
 
-  void JsonObjectWriter<h3m::ObjectProperties<h3m::MetaObjectType::GRAIL>>::operator()(
-    FieldsWriter& out, const h3m::ObjectProperties<h3m::MetaObjectType::GRAIL>& grail) const
+  void JsonObjectWriter<h3m::ObjectProperties<h3m::ObjectPropertiesType::GRAIL>>::operator()(
+    FieldsWriter& out, const h3m::ObjectProperties<h3m::ObjectPropertiesType::GRAIL>& grail) const
   {
-    using Details = h3m::ObjectProperties<h3m::MetaObjectType::GRAIL>;
+    using Details = h3m::ObjectProperties<h3m::ObjectPropertiesType::GRAIL>;
     using Fields = h3m::FieldNames<Details>;
     out.writeField(Fields::kAllowableRadius, grail.allowable_radius);
     out.writeField(Fields::kUnknown, grail.unknown);
   }
 
-  void JsonObjectWriter<h3m::ObjectProperties<h3m::MetaObjectType::HERO>>::operator()(
-    FieldsWriter& out, const h3m::ObjectProperties<h3m::MetaObjectType::HERO>& hero) const
+  void JsonObjectWriter<h3m::ObjectProperties<h3m::ObjectPropertiesType::HERO>>::operator()(
+    FieldsWriter& out, const h3m::ObjectProperties<h3m::ObjectPropertiesType::HERO>& hero) const
   {
-    using Details = h3m::ObjectProperties<h3m::MetaObjectType::HERO>;
+    using Details = h3m::ObjectProperties<h3m::ObjectPropertiesType::HERO>;
     using Fields = h3m::FieldNames<Details>;
     out.writeField(Fields::kAbsodId, hero.absod_id);
     out.writeField(Fields::kOwner, hero.owner);
@@ -234,10 +234,10 @@ namespace Medea_NS
     out.writeField(Fields::kUnknown, hero.unknown);
   }
 
-  void JsonObjectWriter<h3m::ObjectProperties<h3m::MetaObjectType::MONSTER>>::operator()(
-    FieldsWriter& out, const h3m::ObjectProperties<h3m::MetaObjectType::MONSTER>& monster) const
+  void JsonObjectWriter<h3m::ObjectProperties<h3m::ObjectPropertiesType::MONSTER>>::operator()(
+    FieldsWriter& out, const h3m::ObjectProperties<h3m::ObjectPropertiesType::MONSTER>& monster) const
   {
-    using Details = h3m::ObjectProperties<h3m::MetaObjectType::MONSTER>;
+    using Details = h3m::ObjectProperties<h3m::ObjectPropertiesType::MONSTER>;
     using Fields = h3m::FieldNames<Details>;
 
     out.writeField(Fields::kAbsodId, monster.absod_id);
@@ -256,16 +256,16 @@ namespace Medea_NS
     out.writeField(Fields::kUnknown, monster.unknown);
   }
 
-  void JsonObjectWriter<h3m::ObjectProperties<h3m::MetaObjectType::PANDORAS_BOX>>::operator()(
-    FieldsWriter& out, const h3m::ObjectProperties<h3m::MetaObjectType::PANDORAS_BOX>& pandoras_box) const
+  void JsonObjectWriter<h3m::ObjectProperties<h3m::ObjectPropertiesType::PANDORAS_BOX>>::operator()(
+    FieldsWriter& out, const h3m::ObjectProperties<h3m::ObjectPropertiesType::PANDORAS_BOX>& pandoras_box) const
   {
     JsonObjectWriter<h3m::EventBase>{}(out, pandoras_box);
   }
 
-  void JsonObjectWriter<h3m::ObjectProperties<h3m::MetaObjectType::PLACEHOLDER_HERO>>::operator()(
-    FieldsWriter& out, const h3m::ObjectProperties<h3m::MetaObjectType::PLACEHOLDER_HERO>& hero) const
+  void JsonObjectWriter<h3m::ObjectProperties<h3m::ObjectPropertiesType::PLACEHOLDER_HERO>>::operator()(
+    FieldsWriter& out, const h3m::ObjectProperties<h3m::ObjectPropertiesType::PLACEHOLDER_HERO>& hero) const
   {
-    using Details = h3m::ObjectProperties<h3m::MetaObjectType::PLACEHOLDER_HERO>;
+    using Details = h3m::ObjectProperties<h3m::ObjectPropertiesType::PLACEHOLDER_HERO>;
     using Fields = h3m::FieldNames<Details>;
     constexpr h3m::HeroType kRandomHeroType {0xFF};
 
@@ -281,18 +281,18 @@ namespace Medea_NS
     }
   }
 
-  void JsonObjectWriter<h3m::ObjectProperties<h3m::MetaObjectType::QUEST_GUARD>>::operator()(
-    FieldsWriter& out, const h3m::ObjectProperties<h3m::MetaObjectType::QUEST_GUARD>& quest_guard) const
+  void JsonObjectWriter<h3m::ObjectProperties<h3m::ObjectPropertiesType::QUEST_GUARD>>::operator()(
+    FieldsWriter& out, const h3m::ObjectProperties<h3m::ObjectPropertiesType::QUEST_GUARD>& quest_guard) const
   {
-    using Details = h3m::ObjectProperties<h3m::MetaObjectType::QUEST_GUARD>;
+    using Details = h3m::ObjectProperties<h3m::ObjectPropertiesType::QUEST_GUARD>;
     using Fields = h3m::FieldNames<Details>;
     out.writeField(Fields::kQuest, quest_guard.quest);
   }
 
-  void JsonObjectWriter<h3m::ObjectProperties<h3m::MetaObjectType::RANDOM_DWELLING>>::operator()(
-    FieldsWriter& out, const h3m::ObjectProperties<h3m::MetaObjectType::RANDOM_DWELLING>& dwelling) const
+  void JsonObjectWriter<h3m::ObjectProperties<h3m::ObjectPropertiesType::RANDOM_DWELLING>>::operator()(
+    FieldsWriter& out, const h3m::ObjectProperties<h3m::ObjectPropertiesType::RANDOM_DWELLING>& dwelling) const
   {
-    using Details = h3m::ObjectProperties<h3m::MetaObjectType::RANDOM_DWELLING>;
+    using Details = h3m::ObjectProperties<h3m::ObjectPropertiesType::RANDOM_DWELLING>;
     using Fields = h3m::FieldNames<Details>;
     out.writeField(Fields::kOwner, dwelling.owner);
     out.writeField(Fields::kTownAbsodId, dwelling.town_absod_id);
@@ -304,20 +304,20 @@ namespace Medea_NS
     out.writeField(Fields::kMaxLevel, dwelling.max_level);
   }
 
-  void JsonObjectWriter<h3m::ObjectProperties<h3m::MetaObjectType::RANDOM_DWELLING_PRESET_ALIGNMENT>>::operator()(
-    FieldsWriter& out, const h3m::ObjectProperties<h3m::MetaObjectType::RANDOM_DWELLING_PRESET_ALIGNMENT>& dwelling) const
+  void JsonObjectWriter<h3m::ObjectProperties<h3m::ObjectPropertiesType::RANDOM_DWELLING_PRESET_ALIGNMENT>>::operator()(
+    FieldsWriter& out, const h3m::ObjectProperties<h3m::ObjectPropertiesType::RANDOM_DWELLING_PRESET_ALIGNMENT>& dwelling) const
   {
-    using Details = h3m::ObjectProperties<h3m::MetaObjectType::RANDOM_DWELLING_PRESET_ALIGNMENT>;
+    using Details = h3m::ObjectProperties<h3m::ObjectPropertiesType::RANDOM_DWELLING_PRESET_ALIGNMENT>;
     using Fields = h3m::FieldNames<Details>;
     out.writeField(Fields::kOwner, dwelling.owner);
     out.writeField(Fields::kMinLevel, dwelling.min_level);
     out.writeField(Fields::kMaxLevel, dwelling.max_level);
   }
 
-  void JsonObjectWriter<h3m::ObjectProperties<h3m::MetaObjectType::RANDOM_DWELLING_PRESET_LEVEL>>::operator()(
-    FieldsWriter& out, const h3m::ObjectProperties<h3m::MetaObjectType::RANDOM_DWELLING_PRESET_LEVEL>& dwelling) const
+  void JsonObjectWriter<h3m::ObjectProperties<h3m::ObjectPropertiesType::RANDOM_DWELLING_PRESET_LEVEL>>::operator()(
+    FieldsWriter& out, const h3m::ObjectProperties<h3m::ObjectPropertiesType::RANDOM_DWELLING_PRESET_LEVEL>& dwelling) const
   {
-    using Details = h3m::ObjectProperties<h3m::MetaObjectType::RANDOM_DWELLING_PRESET_LEVEL>;
+    using Details = h3m::ObjectProperties<h3m::ObjectPropertiesType::RANDOM_DWELLING_PRESET_LEVEL>;
     using Fields = h3m::FieldNames<Details>;
     out.writeField(Fields::kOwner, dwelling.owner);
     out.writeField(Fields::kTownAbsodId, dwelling.town_absod_id);
@@ -327,10 +327,10 @@ namespace Medea_NS
     }
   }
 
-  void JsonObjectWriter<h3m::ObjectProperties<h3m::MetaObjectType::RESOURCE>>::operator()(
-    FieldsWriter& out, const h3m::ObjectProperties<h3m::MetaObjectType::RESOURCE>& details) const
+  void JsonObjectWriter<h3m::ObjectProperties<h3m::ObjectPropertiesType::RESOURCE>>::operator()(
+    FieldsWriter& out, const h3m::ObjectProperties<h3m::ObjectPropertiesType::RESOURCE>& details) const
   {
-    using Details = h3m::ObjectProperties<h3m::MetaObjectType::RESOURCE>;
+    using Details = h3m::ObjectProperties<h3m::ObjectPropertiesType::RESOURCE>;
     using Fields = h3m::FieldNames<Details>;
     if (details.guardians)
     {
@@ -340,10 +340,10 @@ namespace Medea_NS
     out.writeField(Fields::kUnknown, details.unknown);
   }
 
-  void JsonObjectWriter<h3m::ObjectProperties<h3m::MetaObjectType::SCHOLAR>>::operator()(
-    FieldsWriter& out, const h3m::ObjectProperties<h3m::MetaObjectType::SCHOLAR>& scholar) const
+  void JsonObjectWriter<h3m::ObjectProperties<h3m::ObjectPropertiesType::SCHOLAR>>::operator()(
+    FieldsWriter& out, const h3m::ObjectProperties<h3m::ObjectPropertiesType::SCHOLAR>& scholar) const
   {
-    using Details = h3m::ObjectProperties<h3m::MetaObjectType::SCHOLAR>;
+    using Details = h3m::ObjectProperties<h3m::ObjectPropertiesType::SCHOLAR>;
     using Fields = h3m::FieldNames<Details>;
     out.writeField(Fields::kRewardType, scholar.reward_type);
     if (std::string_view enum_str = h3m::getEnumString(scholar.reward_type); !enum_str.empty())
@@ -354,20 +354,20 @@ namespace Medea_NS
     out.writeField(Fields::kUnknown, scholar.unknown);
   }
 
-  void JsonObjectWriter<h3m::ObjectProperties<h3m::MetaObjectType::SEERS_HUT>>::operator()(
-    FieldsWriter& out, const h3m::ObjectProperties<h3m::MetaObjectType::SEERS_HUT>& seers_hut) const
+  void JsonObjectWriter<h3m::ObjectProperties<h3m::ObjectPropertiesType::SEERS_HUT>>::operator()(
+    FieldsWriter& out, const h3m::ObjectProperties<h3m::ObjectPropertiesType::SEERS_HUT>& seers_hut) const
   {
-    using Details = h3m::ObjectProperties<h3m::MetaObjectType::SEERS_HUT>;
+    using Details = h3m::ObjectProperties<h3m::ObjectPropertiesType::SEERS_HUT>;
     using Fields = h3m::FieldNames<Details>;
     out.writeField(Fields::kQuest, seers_hut.quest);
     out.writeField(Fields::kReward, seers_hut.reward);
     out.writeField(Fields::kUnknown, seers_hut.unknown);
   }
 
-  void JsonObjectWriter<h3m::ObjectProperties<h3m::MetaObjectType::SHRINE>>::operator()(
-    FieldsWriter& out, const h3m::ObjectProperties<h3m::MetaObjectType::SHRINE>& shrine) const
+  void JsonObjectWriter<h3m::ObjectProperties<h3m::ObjectPropertiesType::SHRINE>>::operator()(
+    FieldsWriter& out, const h3m::ObjectProperties<h3m::ObjectPropertiesType::SHRINE>& shrine) const
   {
-    using Details = h3m::ObjectProperties<h3m::MetaObjectType::SHRINE>;
+    using Details = h3m::ObjectProperties<h3m::ObjectPropertiesType::SHRINE>;
     using Fields = h3m::FieldNames<Details>;
     out.writeField(Fields::kSpell, shrine.spell);
     const std::string_view spell_str = (shrine.spell == h3m::SpellType{ 0xFF }) ?
@@ -379,19 +379,19 @@ namespace Medea_NS
     out.writeField(Fields::kUnknown, shrine.unknown);
   }
 
-  void JsonObjectWriter<h3m::ObjectProperties<h3m::MetaObjectType::SIGN>>::operator()(
-    FieldsWriter& out, const h3m::ObjectProperties<h3m::MetaObjectType::SIGN>& sign) const
+  void JsonObjectWriter<h3m::ObjectProperties<h3m::ObjectPropertiesType::SIGN>>::operator()(
+    FieldsWriter& out, const h3m::ObjectProperties<h3m::ObjectPropertiesType::SIGN>& sign) const
   {
-    using Details = h3m::ObjectProperties<h3m::MetaObjectType::SIGN>;
+    using Details = h3m::ObjectProperties<h3m::ObjectPropertiesType::SIGN>;
     using Fields = h3m::FieldNames<Details>;
     out.writeField(Fields::kMessage, sign.message);
     out.writeField(Fields::kUnknown, sign.unknown);
   }
 
-  void JsonObjectWriter<h3m::ObjectProperties<h3m::MetaObjectType::SPELL_SCROLL>>::operator()(
-    FieldsWriter& out, const h3m::ObjectProperties<h3m::MetaObjectType::SPELL_SCROLL>& spell_scroll) const
+  void JsonObjectWriter<h3m::ObjectProperties<h3m::ObjectPropertiesType::SPELL_SCROLL>>::operator()(
+    FieldsWriter& out, const h3m::ObjectProperties<h3m::ObjectPropertiesType::SPELL_SCROLL>& spell_scroll) const
   {
-    using Details = h3m::ObjectProperties<h3m::MetaObjectType::SPELL_SCROLL>;
+    using Details = h3m::ObjectProperties<h3m::ObjectPropertiesType::SPELL_SCROLL>;
     using Fields = h3m::FieldNames<Details>;
     if (spell_scroll.guardians)
     {
@@ -405,10 +405,10 @@ namespace Medea_NS
     out.writeField(Fields::kUnknown, spell_scroll.unknown);
   }
 
-  void JsonObjectWriter<h3m::ObjectProperties<h3m::MetaObjectType::TOWN>>::operator()(
-    FieldsWriter& out, const h3m::ObjectProperties<h3m::MetaObjectType::TOWN>& town) const
+  void JsonObjectWriter<h3m::ObjectProperties<h3m::ObjectPropertiesType::TOWN>>::operator()(
+    FieldsWriter& out, const h3m::ObjectProperties<h3m::ObjectPropertiesType::TOWN>& town) const
   {
-    using Details = h3m::ObjectProperties<h3m::MetaObjectType::TOWN>;
+    using Details = h3m::ObjectProperties<h3m::ObjectPropertiesType::TOWN>;
     using Fields = h3m::FieldNames<Details>;
     out.writeField(Fields::kAbsodId, town.absod_id);
     out.writeField(Fields::kOwner, town.owner);
@@ -444,10 +444,10 @@ namespace Medea_NS
     out.writeField(Fields::kUnknown, town.unknown);
   }
 
-  void JsonObjectWriter<h3m::ObjectProperties<h3m::MetaObjectType::TRIVIAL_OWNED_OBJECT>>::operator()(
-    FieldsWriter& out, const h3m::ObjectProperties<h3m::MetaObjectType::TRIVIAL_OWNED_OBJECT>& details) const
+  void JsonObjectWriter<h3m::ObjectProperties<h3m::ObjectPropertiesType::TRIVIAL_OWNED_OBJECT>>::operator()(
+    FieldsWriter& out, const h3m::ObjectProperties<h3m::ObjectPropertiesType::TRIVIAL_OWNED_OBJECT>& details) const
   {
-    using Details = h3m::ObjectProperties<h3m::MetaObjectType::TRIVIAL_OWNED_OBJECT>;
+    using Details = h3m::ObjectProperties<h3m::ObjectPropertiesType::TRIVIAL_OWNED_OBJECT>;
     using Fields = h3m::FieldNames<Details>;
     out.writeField(Fields::kOwner, details.owner);
     if (std::string_view enum_str = h3m::getEnumString(details.owner); !enum_str.empty())
@@ -457,10 +457,10 @@ namespace Medea_NS
     out.writeField(Fields::kUnknown, details.unknown);
   }
 
-  void JsonObjectWriter<h3m::ObjectProperties<h3m::MetaObjectType::WITCH_HUT>>::operator()(
-    FieldsWriter& out, const h3m::ObjectProperties<h3m::MetaObjectType::WITCH_HUT>& witch_hut) const
+  void JsonObjectWriter<h3m::ObjectProperties<h3m::ObjectPropertiesType::WITCH_HUT>>::operator()(
+    FieldsWriter& out, const h3m::ObjectProperties<h3m::ObjectPropertiesType::WITCH_HUT>& witch_hut) const
   {
-    using Details = h3m::ObjectProperties<h3m::MetaObjectType::WITCH_HUT>;
+    using Details = h3m::ObjectProperties<h3m::ObjectPropertiesType::WITCH_HUT>;
     using Fields = h3m::FieldNames<Details>;
     out.writeField(Fields::kPotentialSkills, witch_hut.potential_skills);
   }
@@ -478,19 +478,19 @@ namespace Medea_NS
         throw std::runtime_error("JsonObjectWriter<h3m::Object>: Object::template_idx is out of range.");
       }
       const h3m::ObjectTemplate& object_template = objects_templates_[object.template_idx];
-      if (h3m::getMetaObjectType(object_template.object_class, object_template.object_subclass) !=
-          object.properties.getMetaObjectType())
+      if (object.properties.type() !=
+          h3m::getObjectPropertiesType(object_template.object_class, object_template.object_subclass))
       {
-        throw std::runtime_error("JsonObjectWriter<h3m::Object>: Object::properties has MetaObjectType different "
-                                 "from the ObjectTemplate it refers to.");
+        throw std::runtime_error("JsonObjectWriter<h3m::Object>: Object::properties has ObjectPropertiesType "
+                                 "different from the ObjectTemplate it refers to.");
       }
       out.writeComment(h3m::makeObjectTemplateComment(object_template));
     }
     out.writeField(Fields::kTemplateIdx, object.template_idx);
     out.writeField(Fields::kUnknown, object.unknown);
-    if (object.properties.getMetaObjectType() != h3m::MetaObjectType::GENERIC_NO_PROPERTIES)
+    if (object.properties.type() != h3m::ObjectPropertiesType::GENERIC_NO_PROPERTIES)
     {
-      object.properties.visit([&out] <h3m::MetaObjectType T> (const h3m::ObjectProperties<T>& details)
+      object.properties.visit([&out] <h3m::ObjectPropertiesType T> (const h3m::ObjectProperties<T>& details)
                               { out.writeField(Fields::kProperties, details); });
     }
   }
