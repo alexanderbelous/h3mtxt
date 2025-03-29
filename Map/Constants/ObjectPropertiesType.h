@@ -7,7 +7,7 @@
 
 namespace h3m
 {
-  // Enum type that that makes it easier to determine which properties are applicable to objects
+  // Enum type that makes it easier to determine which properties are applicable to objects
   // based on their ObjectClass and subtype.
   //
   // Different objects on the Adventure Map have different properties in H3M. Generally, it is
@@ -18,11 +18,9 @@ namespace h3m
   // * the owner (PlayerColor) if subtype is within [0; 6], or
   // * the potential resources (ResourcesBitmask) if subtype == 7 (which represents an Abandoned Mine).
   //
-  // AFAIU, there's no explicit concept of ObjectPropertiesType in the H3M format - this is just added here
-  // to simplify the representation of Object. Some other H3M parsers define this enum differently
-  // in order to disambiguate between objects that have the same set of properties but serve different
-  // purposes. Here, however, we only care about the stored data, so all objects that have the same
-  // "details" are grouped into the same "ObjectPropertiesType".
+  // There is no explicit concept of ObjectPropertiesType in the H3M format - this is just added here
+  // to simplify the representation of Object. Objects that have the same set of properties
+  // have the same ObjectPropertiesType.
   enum class ObjectPropertiesType
   {
     ABANDONED_MINE,
