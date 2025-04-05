@@ -4,6 +4,7 @@
 
 #include <cstdint>
 #include <stdexcept>
+#include <type_traits>
 
 namespace h3m
 {
@@ -54,13 +55,13 @@ namespace h3m
   // \param object_class - ObjectClass of the object.
   // \param object_subtype - subtype of the object.
   // \return ObjectPropertiesType for the input object.
-  // \throw std::runtime_error if @object_class is not a valid object class.
+  // \throw std::invalid_argument if @object_class is not a valid ObjectClass enumerator.
   constexpr ObjectPropertiesType getObjectPropertiesType(ObjectClass object_class, std::uint32_t object_subtype)
   {
     // The Shadow of Death has 232 object types; @object_class must be within [0; 231].
     if (static_cast<std::underlying_type_t<ObjectClass>>(object_class) >= kNumObjectClasses)
     {
-      throw std::runtime_error("Invalid object_class.");
+      throw std::invalid_argument("Invalid object_class.");
     }
 
     switch (object_class)
