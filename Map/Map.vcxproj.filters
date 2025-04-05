@@ -190,7 +190,7 @@
       <Filter>Header Files\Constants</Filter>
     </ClInclude>
     <ClInclude Include="Constants\ObjectPropertiesType.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Constants</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
