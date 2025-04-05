@@ -57,6 +57,12 @@ namespace h3m
   // \throw std::runtime_error if @object_class is not a valid object class.
   constexpr ObjectPropertiesType getObjectPropertiesType(ObjectClass object_class, std::uint32_t object_subtype)
   {
+    // The Shadow of Death has 232 object types; @object_class must be within [0; 231].
+    if (static_cast<std::underlying_type_t<ObjectClass>>(object_class) >= kNumObjectClasses)
+    {
+      throw std::runtime_error("Invalid object_class.");
+    }
+
     switch (object_class)
     {
     // ObjectClass::MINE and ObjectClass::ABANDONED_MINE are edge cases -
@@ -79,202 +85,6 @@ namespace h3m
     case ObjectClass::GARRISON:
     case ObjectClass::GARRISON2:
       return ObjectPropertiesType::GARRISON;
-
-    // GENERIC_IMPASSABLE_TERRAIN
-    case ObjectClass::NONE_0:
-    case ObjectClass::BLANK_40:
-    case ObjectClass::IMPASSABLE_BRUSH:
-    case ObjectClass::IMPASSABLE_BUSH:
-    case ObjectClass::IMPASSABLE_CACTUS:
-    case ObjectClass::IMPASSABLE_CANYON:
-    case ObjectClass::IMPASSABLE_CRATER:
-    case ObjectClass::IMPASSABLE_DEADVEGETATION:
-    case ObjectClass::IMPASSABLE_FLOWERS:
-    case ObjectClass::IMPASSABLE_FROZENLIKE:
-    case ObjectClass::IMPASSABLE_HEDGE:
-    case ObjectClass::IMPASSABLE_HILL:
-    case ObjectClass::IMPASSABLE_LAKE:
-    case ObjectClass::IMPASSABLE_LAVAFLOW:
-    case ObjectClass::IMPASSABLE_LAVALAKE:
-    case ObjectClass::IMPASSABLE_MUSHROOMS:
-    case ObjectClass::IMPASSABLE_LOG:
-    case ObjectClass::IMPASSABLE_MANDRAKE:
-    case ObjectClass::IMPASSABLE_MOSS:
-    case ObjectClass::IMPASSABLE_MOUND:
-    case ObjectClass::IMPASSABLE_MOUNTAIN:
-    case ObjectClass::IMPASSABLE_OAKTREES:
-    case ObjectClass::IMPASSABLE_OUTCROPPING:
-    case ObjectClass::IMPASSABLE_PINETREES:
-    case ObjectClass::IMPASSABLE_PLANT:
-    case ObjectClass::IMPASSABLE_RIVERDELTA:
-    case ObjectClass::IMPASSABLE_ROCK:
-    case ObjectClass::IMPASSABLE_SANDDUNE:
-    case ObjectClass::IMPASSABLE_SANDPIT:
-    case ObjectClass::IMPASSABLE_SHRUB:
-    case ObjectClass::IMPASSABLE_SKULL:
-    case ObjectClass::IMPASSABLE_STALAGMITE:
-    case ObjectClass::IMPASSABLE_STUMP:
-    case ObjectClass::IMPASSABLE_TARPIT:
-    case ObjectClass::IMPASSABLE_TREES:
-    case ObjectClass::IMPASSABLE_VINE:
-    case ObjectClass::IMPASSABLE_VOLCANICVENT:
-    case ObjectClass::IMPASSABLE_VOLCANO:
-    case ObjectClass::IMPASSABLE_WILLOWTREES:
-    case ObjectClass::IMPASSABLE_YUCCATREES:
-    case ObjectClass::IMPASSABLE_REEF:
-    // GENERIC_IMPASSABLE_TERRAIN_ABSOD
-    case ObjectClass::IMPASSABLE_BRUSH2:
-    case ObjectClass::IMPASSABLE_BUSH2:
-    case ObjectClass::IMPASSABLE_CACTUS2:
-    case ObjectClass::IMPASSABLE_CANYON2:
-    case ObjectClass::IMPASSABLE_CRATER2:
-    case ObjectClass::IMPASSABLE_DEADVEGETATION2:
-    case ObjectClass::IMPASSABLE_FLOWERS2:
-    case ObjectClass::IMPASSABLE_FROZENLIKE2:
-    case ObjectClass::IMPASSABLE_HEDGE2:
-    case ObjectClass::IMPASSABLE_HILL2:
-    case ObjectClass::IMPASSABLE_LAKE2:
-    case ObjectClass::IMPASSABLE_LAVAFLOW2:
-    case ObjectClass::IMPASSABLE_LAVALAKE2:
-    case ObjectClass::IMPASSABLE_MUSHROOMS2:
-    case ObjectClass::IMPASSABLE_LOG2:
-    case ObjectClass::IMPASSABLE_MANDRAKE2:
-    case ObjectClass::IMPASSABLE_MOSS2:
-    case ObjectClass::IMPASSABLE_MOUND2:
-    case ObjectClass::IMPASSABLE_MOUNTAIN2:
-    case ObjectClass::IMPASSABLE_OAKTREES2:
-    case ObjectClass::IMPASSABLE_OUTCROPPING2:
-    case ObjectClass::IMPASSABLE_PINETREES2:
-    case ObjectClass::IMPASSABLE_PLANT2:
-    case ObjectClass::IMPASSABLE_RIVERDELTA2:
-    case ObjectClass::IMPASSABLE_ROCK2:
-    case ObjectClass::IMPASSABLE_SANDDUNE2:
-    case ObjectClass::IMPASSABLE_SANDPIT2:
-    case ObjectClass::IMPASSABLE_SHRUB2:
-    case ObjectClass::IMPASSABLE_SKULL2:
-    case ObjectClass::IMPASSABLE_STALAGMITE2:
-    case ObjectClass::IMPASSABLE_STUMP2:
-    case ObjectClass::IMPASSABLE_TARPIT2:
-    case ObjectClass::IMPASSABLE_TREES2:
-    case ObjectClass::IMPASSABLE_VINE2:
-    case ObjectClass::IMPASSABLE_VOLCANICVENT2:
-    case ObjectClass::IMPASSABLE_VOLCANO2:
-    case ObjectClass::IMPASSABLE_WILLOWTREES2:
-    case ObjectClass::IMPASSABLE_YUCCATREES2:
-    case ObjectClass::IMPASSABLE_REEF2:
-    case ObjectClass::IMPASSABLE_DESERTHILLS:
-    case ObjectClass::IMPASSABLE_DIRTHILLS:
-    case ObjectClass::IMPASSABLE_GRASSHILLS:
-    case ObjectClass::IMPASSABLE_ROUGHHILLS:
-    case ObjectClass::IMPASSABLE_SUBTERRANEANROCKS:
-    case ObjectClass::IMPASSABLE_SWAMPFOLIAGE:
-    // GENERIC_VISITABLE
-    case ObjectClass::ALTAR_OF_SACRIFICE:
-    case ObjectClass::ANCHOR_POINT:
-    case ObjectClass::ARENA:
-    case ObjectClass::BLACK_MARKET:
-    case ObjectClass::CARTOGRAPHER:
-    case ObjectClass::BUOY:
-    case ObjectClass::SWAN_POND:
-    case ObjectClass::COVER_OF_DARKNESS:
-    case ObjectClass::CREATURE_BANK:
-    case ObjectClass::CORPSE:
-    case ObjectClass::MARLETTO_TOWER:
-    case ObjectClass::DERELICT_SHIP:
-    case ObjectClass::DRAGON_UTOPIA:
-    case ObjectClass::EYE_OF_MAGI:
-    case ObjectClass::FAERIE_RING:
-    case ObjectClass::FOUNTAIN_OF_FORTUNE:
-    case ObjectClass::FOUNTAIN_OF_YOUTH:
-    case ObjectClass::GARDEN_OF_REVELATION:
-    case ObjectClass::HILL_FORT:
-    case ObjectClass::HUT_OF_MAGI:
-    case ObjectClass::IDOL_OF_FORTUNE:
-    case ObjectClass::LEAN_TO:
-    case ObjectClass::LIBRARY_OF_ENLIGHTENMENT:
-    case ObjectClass::SCHOOL_OF_MAGIC:
-    case ObjectClass::MAGIC_SPRING:
-    case ObjectClass::MAGIC_WELL:
-    case ObjectClass::MERCENARY_CAMP:
-    case ObjectClass::MERMAID:
-    case ObjectClass::MYSTICAL_GARDEN:
-    case ObjectClass::OASIS:
-    case ObjectClass::OBELISK:
-    case ObjectClass::REDWOOD_OBSERVATORY:
-    case ObjectClass::PILLAR_OF_FIRE:
-    case ObjectClass::STAR_AXIS:
-    case ObjectClass::RALLY_FLAG:
-    case ObjectClass::BORDERGUARD:
-    case ObjectClass::KEYMASTER:
-    case ObjectClass::REFUGEE_CAMP:
-    case ObjectClass::SANCTUARY:
-    case ObjectClass::CRYPT:
-    case ObjectClass::SHIPWRECK:
-    case ObjectClass::SIRENS:
-    case ObjectClass::STABLES:
-    case ObjectClass::TAVERN:
-    case ObjectClass::TEMPLE:
-    case ObjectClass::DEN_OF_THIEVES:
-    case ObjectClass::TRADING_POST:
-    case ObjectClass::LEARNING_STONE:
-    case ObjectClass::TREE_OF_KNOWLEDGE:
-    case ObjectClass::UNIVERSITY:
-    case ObjectClass::WAGON:
-    case ObjectClass::WAR_MACHINE_FACTORY:
-    case ObjectClass::SCHOOL_OF_WAR:
-    case ObjectClass::WARRIORS_TOMB:
-    case ObjectClass::WATER_WHEEL:
-    case ObjectClass::WATERING_HOLE:
-    case ObjectClass::WHIRLPOOL:
-    case ObjectClass::WINDMILL:
-    case ObjectClass::MARKET_OF_TIME:
-    case ObjectClass::DECORATIVE_TOWN:
-    // GENERIC_VISITABLE_ABSOD
-    case ObjectClass::TRADING_POST_SNOW:
-    case ObjectClass::PYRAMID:
-    case ObjectClass::BORDER_GATE:
-    case ObjectClass::FREELANCERS_GUILD:
-    // GENERIC_BOAT
-    case ObjectClass::BOAT:
-    // GENERIC_PASSABLE_TERRAIN_SOD
-    case ObjectClass::CLOVER_FIELD:
-    case ObjectClass::EVIL_FOG:
-    case ObjectClass::FAVORABLE_WINDS:
-    case ObjectClass::FIERY_FIELDS:
-    case ObjectClass::HOLY_GROUNDS:
-    case ObjectClass::LUCID_POOLS:
-    case ObjectClass::MAGIC_CLOUDS:
-    case ObjectClass::ROCKLANDS:
-    case ObjectClass::CURSED_GROUND2:
-    case ObjectClass::MAGIC_PLAINS2:
-    case ObjectClass::PASSABLE_139:
-    case ObjectClass::PASSABLE_140:
-    case ObjectClass::PASSABLE_141:
-    case ObjectClass::PASSABLE_142:
-    case ObjectClass::PASSABLE_144:
-    case ObjectClass::PASSABLE_145:
-    case ObjectClass::PASSABLE_146:
-    // GENERIC_PASSABLE_TERRAIN
-    case ObjectClass::PASSABLE_HOLE:
-    case ObjectClass::CURSED_GROUND1:
-    case ObjectClass::MAGIC_PLAINS1:
-    case ObjectClass::PASSABLE_KELP:
-    case ObjectClass::PASSABLE_KELP2:
-    case ObjectClass::PASSABLE_HOLE2:
-    // GENERIC_VISITABLE_ABSOD
-    case ObjectClass::MONOLITH_TWO_WAY:
-    case ObjectClass::MONOLITH_ONE_WAY_ENTRANCE:
-    case ObjectClass::MONOLITH_ONE_WAY_EXIT:
-    // GENERIC_TREASURE
-    case ObjectClass::CAMPFIRE:
-    case ObjectClass::FLOTSAM:
-    case ObjectClass::SEA_CHEST:
-    case ObjectClass::SHIPWRECK_SURVIVOR:
-    case ObjectClass::TREASURE_CHEST:
-    // SUBTERRANEAN_GATE
-    case ObjectClass::SUBTERRANEAN_GATE:
-      return ObjectPropertiesType::GENERIC_NO_PROPERTIES;
-
     case ObjectClass::GRAIL:
       return ObjectPropertiesType::GRAIL;
     case ObjectClass::HERO:
@@ -331,19 +141,9 @@ namespace h3m
       return ObjectPropertiesType::TRIVIAL_OWNED_OBJECT;
     case ObjectClass::WITCH_HUT:
       return ObjectPropertiesType::WITCH_HUT;
-
+    // All other objects have no properties.
     default:
-      throw std::runtime_error("Invalid object_class.");
+      return ObjectPropertiesType::GENERIC_NO_PROPERTIES;
     }
   }
-
-  // Check at compile time that all known ObjectClasses are mapped to some ObjectPropertiesType.
-  static_assert(
-    [] {
-      for (std::uint32_t i = 0; i < kNumObjectClasses; ++i)
-      {
-        (void)getObjectPropertiesType(static_cast<ObjectClass>(i), 0);
-      }
-      return true;
-    }(), "getObjectPropertiesType() is not implemented for 1 or more ObjectClass constants.");
 }
