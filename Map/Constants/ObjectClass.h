@@ -14,8 +14,11 @@ namespace h3m
     NONE = 0,
     UNUSED_1 = 1, // Doesn't have an associated name in the game.
     ALTAR_OF_SACRIFICE = 2,
-    // When placed on water, allows docking, which is equivalent to landing on the same tile where the boat is.
-    // If this tile neighbors a terrain tile, the hero will be able to move from the boat to land after docking.
+    // When visited by a hero on a boat (the object needs to have an actionable tile), allows docking,
+    // which is equivalent to landing on the same tile where the boat is. If this tile neighbors a terrain tile,
+    // the hero will be able to move from the boat to land after docking.
+    // Pressing space bar after docking will put your hero back on the boat.
+    // AI cannot dock.
     ANCHOR_POINT = 3,
     ARENA = 4,
     ARTIFACT = 5,
