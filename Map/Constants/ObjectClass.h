@@ -5,11 +5,17 @@
 namespace h3m
 {
   // Object classes in H3M.
+  //
+  // Note that some of these values do not appear in standard maps (i.e. supplied with the game) and
+  // cannot be added via Map Editor. The Unleashed Editor supports all of them.
+  // AFAIU, the Map Editor only uses objects defined in Objects.txt file from H3bitmap.lod resource.
   enum class ObjectClass : std::uint32_t
   {
-    NONE_0 = 0,
-    DECORATIVE_TOWN = 1,  // Consider renaming. The Unleashed Editor doesn't have any name at all for this class.
+    NONE = 0,
+    UNUSED_1 = 1, // Doesn't have an associated name in the game.
     ALTAR_OF_SACRIFICE = 2,
+    // When placed on water, allows docking, which is equivalent to landing on the same tile where the boat is.
+    // If this tile neighbors a terrain tile, the hero will be able to move from the boat to land after docking.
     ANCHOR_POINT = 3,
     ARENA = 4,
     ARTIFACT = 5,
@@ -24,10 +30,10 @@ namespace h3m
     SWAN_POND = 14,
     COVER_OF_DARKNESS = 15,
     CREATURE_BANK = 16,
-    CREATURE_GENERATOR1 = 17,
-    CREATURE_GENERATOR2 = 18,
-    CREATURE_GENERATOR3 = 19,
-    CREATURE_GENERATOR4 = 20,
+    CREATURE_GENERATOR1 = 17, // Creature dwelling that allows hiring creatures of specific type.
+    CREATURE_GENERATOR2 = 18, // Not implemented: the game will fail to start if objects of this type are present on the Adventure Map.
+    CREATURE_GENERATOR3 = 19, // Not implemented: the game will fail to start if objects of this type are present on the Adventure Map.
+    CREATURE_GENERATOR4 = 20, // Creature dwelling that allows hiring creatures of 4 types (i.e. Golems or Elementals).
     CURSED_GROUND1 = 21,
     CORPSE = 22,
     MARLETTO_TOWER = 23,
@@ -40,15 +46,14 @@ namespace h3m
     FOUNTAIN_OF_FORTUNE = 30,
     FOUNTAIN_OF_YOUTH = 31,
     GARDEN_OF_REVELATION = 32,
-    // Horizontal garrison (normal or anti-magic).
-    GARRISON = 33,
+    GARRISON = 33, // Horizontal garrison (normal or anti-magic).
     HERO = 34,
     HILL_FORT = 35,
     GRAIL = 36,
     HUT_OF_MAGI = 37,
     IDOL_OF_FORTUNE = 38,
     LEAN_TO = 39,
-    BLANK_40 = 40,
+    UNUSED_40 = 40, // Doesn't have an associated name in the game.
     LIBRARY_OF_ENLIGHTENMENT = 41,
     LIGHTHOUSE = 42,
     MONOLITH_ONE_WAY_ENTRANCE = 43,
@@ -150,14 +155,14 @@ namespace h3m
     IMPASSABLE_OUTCROPPING = 136,
     IMPASSABLE_PINETREES = 137,
     IMPASSABLE_PLANT = 138,
-    PASSABLE_139 = 139, // <blank>
-    PASSABLE_140 = 140, // Used for ZRain00 in WoG
-    PASSABLE_141 = 141, // <blank>
-    PASSABLE_142 = 142, // <blank>
+    UNUSED_139 = 139, // Doesn't have an associated name in the game.
+    UNUSED_140 = 140, // Doesn't have an associated name in the game.
+    UNUSED_141 = 141, // Doesn't have an associated name in the game.
+    UNUSED_142 = 142, // Doesn't have an associated name in the game.
     IMPASSABLE_RIVERDELTA = 143,
-    PASSABLE_144 = 144, // <blank>
-    PASSABLE_145 = 145, // <blank>
-    PASSABLE_146 = 146, // <blank>
+    UNUSED_144 = 144, // Doesn't have an associated name in the game.
+    UNUSED_145 = 145, // Doesn't have an associated name in the game.
+    UNUSED_146 = 146, // Doesn't have an associated name in the game.
     IMPASSABLE_ROCK = 147,
     IMPASSABLE_SANDDUNE = 148,
     IMPASSABLE_SANDPIT = 149,
@@ -230,8 +235,7 @@ namespace h3m
     RANDOM_DWELLING = 216,
     RANDOM_DWELLING_LVL = 217,        // subtype creature level
     RANDOM_DWELLING_FACTION = 218,    // subtype faction
-    // Vertical garrison (normal or anti-magic).
-    GARRISON2 = 219,
+    GARRISON2 = 219, // Vertical garrison (normal or anti-magic).
     // Represents a regular mine if subtype is within [0; 6], or an Abandoned Mine if subtype == 7.
     // The standard object templates in the Map Editor only use this ObjectClass with subtype == 7,
     // but other subtypes can be used as well.

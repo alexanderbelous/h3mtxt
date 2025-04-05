@@ -134,8 +134,8 @@ namespace h3m
     case ObjectClass::TOWN:
       return ObjectPropertiesType::TOWN;
     case ObjectClass::CREATURE_GENERATOR1:
-    case ObjectClass::CREATURE_GENERATOR2:
-    case ObjectClass::CREATURE_GENERATOR3:
+    // CREATURE_GENERATOR2 and CREATURE_GENERATOR3 are not here because they don't actually have any properties.
+    // They cannot be used in the game anyway, but the Map Editor supports them, so we should read/write them correctly.
     case ObjectClass::CREATURE_GENERATOR4:
     case ObjectClass::LIGHTHOUSE:
     case ObjectClass::SHIPYARD:
