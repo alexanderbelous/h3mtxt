@@ -19,8 +19,6 @@ namespace h3m::H3Reader_NS
 
   CreatureStack readCreatureStack(std::istream& stream);
 
-  GlobalEvent readGlobalEvent(std::istream& stream);
-
   HeroArtifacts readHeroArtifacts(std::istream& stream);
 
   HeroSettings readHeroSettings(std::istream& stream);
@@ -72,7 +70,7 @@ namespace h3m::H3Reader_NS
 
   Tile readTile(std::istream& stream);
 
-  void readTimedEventBase(std::istream& stream, TimedEventBase& event);
+  TimedEvent readTimedEvent(std::istream& stream);
 
   VictoryCondition readVictoryCondition(std::istream& stream);
 }

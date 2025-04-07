@@ -87,9 +87,6 @@
     <ClInclude Include="CreatureStack.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GlobalEvent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="HeroArtifacts.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -159,7 +156,7 @@
     <ClInclude Include="ObjectProperties.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="TimedEventBase.h">
+    <ClInclude Include="TimedEvent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Constants\HeroPortrait.h">

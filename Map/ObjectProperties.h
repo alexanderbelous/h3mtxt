@@ -19,7 +19,7 @@
 #include <h3mtxt/Map/Resources.h>
 #include <h3mtxt/Map/Reward.h>
 #include <h3mtxt/Map/SecondarySkill.h>
-#include <h3mtxt/Map/TimedEventBase.h>
+#include <h3mtxt/Map/TimedEvent.h>
 #include <h3mtxt/Map/Quest.h>
 
 #include <array>
@@ -324,7 +324,7 @@ namespace h3m
     TownBuildingsBitmask is_disabled {};
   };
 
-  struct TownEvent : TimedEventBase
+  struct TownEvent : TimedEvent
   {
     // Each bit indicates whether the building gets built.
     TownBuildingsBitmask buildings;

@@ -961,7 +961,7 @@ namespace h3m
   };
 
   template<>
-  struct FieldNames<TimedEventBase>
+  struct FieldNames<TimedEvent>
   {
     static constexpr std::string_view kName = "name";
     static constexpr std::string_view kMessage = "message";
@@ -1041,7 +1041,7 @@ namespace h3m
   };
 
   template<>
-  struct FieldNames<TownEvent> : FieldNames<TimedEventBase>
+  struct FieldNames<TownEvent> : FieldNames<TimedEvent>
   {
     static constexpr std::string_view kBuildings = "buildings";
     static constexpr std::string_view kCreatures = "creatures";

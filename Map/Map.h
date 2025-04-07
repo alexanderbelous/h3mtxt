@@ -2,7 +2,6 @@
 
 #include <h3mtxt/Map/Constants/Constants.h>
 #include <h3mtxt/Map/Constants/MapFormat.h>
-#include <h3mtxt/Map/GlobalEvent.h>
 #include <h3mtxt/Map/MapAdditionalInfo.h>
 #include <h3mtxt/Map/MapBasicInfo.h>
 #include <h3mtxt/Map/ObjectTemplate.h>
@@ -10,6 +9,7 @@
 #include <h3mtxt/Map/PlayerSpecs.h>
 #include <h3mtxt/Map/Utils/ReservedData.h>
 #include <h3mtxt/Map/Tile.h>
+#include <h3mtxt/Map/TimedEvent.h>
 
 #include <array>
 #include <vector>
@@ -40,7 +40,7 @@ namespace h3m
     // Objects on the Adventure Map.
     std::vector<Object> objects;
     // Global events on this map ("Map Specifications"/"Timed Events" tab in the Editor).
-    std::vector<GlobalEvent> global_events;
+    std::vector<TimedEvent> global_events;
     // Should be 0s. Kept here for compatibility.
     ReservedData<124> padding {};
   };

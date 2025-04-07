@@ -389,8 +389,7 @@ namespace h3m::H3Reader_NS
 
     TownEvent readTownEvent(std::istream& stream)
     {
-      TownEvent event;
-      readTimedEventBase(stream, event);
+      TownEvent event { readTimedEvent(stream) };
       event.buildings = readEnumBitmask<TownBuildingType, 6>(stream);
       for (std::uint16_t& creature_growth : event.creatures)
       {

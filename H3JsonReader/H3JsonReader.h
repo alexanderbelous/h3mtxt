@@ -24,9 +24,6 @@ namespace h3m::H3JsonReader_NS
   CreatureStack JsonReader<CreatureStack>::operator()(const Json::Value& value) const;
 
   template<>
-  GlobalEvent JsonReader<GlobalEvent>::operator()(const Json::Value& value) const;
-
-  template<>
   Guardians JsonReader<Guardians>::operator()(const Json::Value & value) const;
 
   template<>
@@ -95,6 +92,9 @@ namespace h3m::H3JsonReader_NS
   Tile JsonReader<Tile>::operator()(const Json::Value& value) const;
 
   template<>
+  TimedEvent JsonReader<TimedEvent>::operator()(const Json::Value& value) const;
+
+  template<>
   TownBuildings JsonReader<TownBuildings>::operator()(const Json::Value& value) const;
 
   template<>
@@ -104,8 +104,6 @@ namespace h3m::H3JsonReader_NS
   VictoryCondition JsonReader<VictoryCondition>::operator()(const Json::Value& value) const;
 
   ObjectPropertiesVariant readObjectPropertiesVariant(const Json::Value& value, ObjectPropertiesType object_properties_type);
-
-  void readTimedEventBase(TimedEventBase& event, const Json::Value& value);
 
   // === Campaign ===
   template<>

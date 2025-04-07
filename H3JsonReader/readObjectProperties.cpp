@@ -60,8 +60,7 @@ namespace h3m::H3JsonReader_NS
   TownEvent JsonReader<TownEvent>::operator()(const Json::Value& value) const
   {
     using Fields = FieldNames<TownEvent>;
-    TownEvent event;
-    readTimedEventBase(event, value);
+    TownEvent event{ JsonReader<TimedEvent>{}(value) };
     readField(event.buildings, value, Fields::kBuildings);
     readField(event.creatures, value, Fields::kCreatures);
     readField(event.unknown2, value, Fields::kUnknown2);

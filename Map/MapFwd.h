@@ -132,8 +132,6 @@ namespace h3m
 
   struct EventBase;
 
-  struct GlobalEvent;
-
   struct Guardians;
 
   struct HeroArtifacts;
@@ -194,7 +192,7 @@ namespace h3m
 
   struct Tile;
 
-  struct TimedEventBase;
+  struct TimedEvent;
 
   struct TownBuildings;
 

@@ -49,7 +49,7 @@ namespace Medea_NS
   void JsonObjectWriter<h3m::TownEvent>::operator()(FieldsWriter& out, const h3m::TownEvent& town_event) const
   {
     using Fields = h3m::FieldNames<h3m::TownEvent>;
-    JsonObjectWriter<h3m::TimedEventBase>{}(out, town_event);
+    JsonObjectWriter<h3m::TimedEvent>{}(out, town_event);
     out.writeField(Fields::kBuildings, town_event.buildings);
     out.writeField(Fields::kCreatures, town_event.creatures);
     out.writeField(Fields::kUnknown2, town_event.unknown2);

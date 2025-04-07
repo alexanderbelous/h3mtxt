@@ -1,10 +1,10 @@
 #include <h3mtxt/H3Writer/H3Writer.h>
 #include <h3mtxt/H3Writer/Utils.h>
-#include <h3mtxt/Map/TimedEventBase.h>
+#include <h3mtxt/Map/TimedEvent.h>
 
 namespace h3m::H3Writer_NS
 {
-  void writeTimedEventBase(std::ostream& stream, const TimedEventBase& event)
+  void H3Writer<TimedEvent>::operator()(std::ostream& stream, const TimedEvent& event) const
   {
     writeData(stream, event.name);
     writeData(stream, event.message);

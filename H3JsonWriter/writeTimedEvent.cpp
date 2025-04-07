@@ -1,14 +1,14 @@
 #include <h3mtxt/H3JsonWriter/H3JsonWriter.h>
 #include <h3mtxt/H3JsonWriter/Utils.h>
 #include <h3mtxt/JsonCommon/FieldName.h>
+#include <h3mtxt/Map/TimedEvent.h>
 #include <h3mtxt/Medea/Medea.h>
-#include <h3mtxt/Map/TimedEventBase.h>
 
 namespace Medea_NS
 {
-  void JsonObjectWriter<h3m::TimedEventBase>::operator()(FieldsWriter& out, const h3m::TimedEventBase& event) const
+  void JsonObjectWriter<h3m::TimedEvent>::operator()(FieldsWriter& out, const h3m::TimedEvent& event) const
   {
-    using Fields = h3m::FieldNames<h3m::TimedEventBase>;
+    using Fields = h3m::FieldNames<h3m::TimedEvent>;
     out.writeField(Fields::kName, event.name);
     out.writeField(Fields::kMessage, event.message);
     out.writeField(Fields::kResources, event.resources);

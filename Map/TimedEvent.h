@@ -10,8 +10,11 @@
 
 namespace h3m
 {
-  // Base class for GlobalEvent and TownEvent.
-  struct TimedEventBase
+  // Event that is triggered at a specific day.
+  // This class is used in 2 places:
+  // * Map::global_events.
+  // * As a base class for TownEvent.
+  struct TimedEvent
   {
     // Event name as shown in the Editor.
     std::string name;

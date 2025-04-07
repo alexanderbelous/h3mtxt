@@ -248,13 +248,6 @@ namespace h3m::H3Reader_NS
     return result;
   }
 
-  GlobalEvent readGlobalEvent(std::istream& stream)
-  {
-    GlobalEvent global_event;
-    readTimedEventBase(stream, global_event);
-    return global_event;
-  }
-
   Map readMap(std::istream& stream)
   {
     Map map;
@@ -295,7 +288,7 @@ namespace h3m::H3Reader_NS
     map.global_events.reserve(num_global_events);
     for (std::uint32_t i = 0; i < num_global_events; ++i)
     {
-      map.global_events.push_back(readGlobalEvent(stream));
+      map.global_events.push_back(readTimedEvent(stream));
     }
     // Read padding data.
     map.padding = readReservedData<124>(stream);

@@ -38,7 +38,7 @@ namespace h3m::H3Writer_NS
 
   void H3Writer<TownEvent>::operator()(std::ostream& stream, const TownEvent& event) const
   {
-    writeTimedEventBase(stream, event);
+    writeData(stream, static_cast<const TimedEvent&>(event));
     writeData(stream, event.buildings);
     writeData(stream, event.creatures);
     writeData(stream, event.unknown2);

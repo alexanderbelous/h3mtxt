@@ -1,13 +1,14 @@
 #include <h3mtxt/H3JsonReader/H3JsonReader.h>
 #include <h3mtxt/H3JsonReader/Utils.h>
 #include <h3mtxt/JsonCommon/FieldName.h>
-#include <h3mtxt/Map/TimedEventBase.h>
+#include <h3mtxt/Map/TimedEvent.h>
 
 namespace h3m::H3JsonReader_NS
 {
-  void readTimedEventBase(TimedEventBase& event, const Json::Value& value)
+  TimedEvent JsonReader<TimedEvent>::operator()(const Json::Value& value) const
   {
-    using Fields = h3m::FieldNames<h3m::TimedEventBase>;
+    using Fields = h3m::FieldNames<h3m::TimedEvent>;
+    h3m::TimedEvent event;
     readField(event.name, value, Fields::kName);
     readField(event.message, value, Fields::kMessage);
     readField(event.resources, value, Fields::kResources);
@@ -17,5 +18,6 @@ namespace h3m::H3JsonReader_NS
     readField(event.day_of_first_occurence, value, Fields::kDayOfFirstOccurence);
     readField(event.repeat_after_days, value, Fields::kRepeatAfterDays);
     readField(event.unknown, value, Fields::kUnknown);
+    return event;
   }
 }

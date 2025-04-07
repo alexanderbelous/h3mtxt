@@ -49,9 +49,6 @@ namespace Medea_NS
   void JsonObjectWriter<h3m::EventBase>::operator()(FieldsWriter& out, const h3m::EventBase& event) const;
 
   template<>
-  void JsonObjectWriter<h3m::GlobalEvent>::operator()(FieldsWriter& out, const h3m::GlobalEvent& global_event) const;
-
-  template<>
   void JsonObjectWriter<h3m::Guardians>::operator()(FieldsWriter& out, const h3m::Guardians& guardians) const;
 
   template<>
@@ -148,7 +145,7 @@ namespace Medea_NS
   void JsonObjectWriter<h3m::Tile>::operator()(FieldsWriter& out, const h3m::Tile& value) const;
 
   template<>
-  void JsonObjectWriter<h3m::TimedEventBase>::operator()(FieldsWriter& out, const h3m::TimedEventBase& event) const;
+  void JsonObjectWriter<h3m::TimedEvent>::operator()(FieldsWriter& out, const h3m::TimedEvent& event) const;
 
   template<>
   void JsonObjectWriter<h3m::TownBuildings>::operator()(FieldsWriter& out,

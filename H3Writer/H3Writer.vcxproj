@@ -96,7 +96,6 @@
     <ClCompile Include="Utils.cpp" />
     <ClCompile Include="writeCampaignScenario.cpp" />
     <ClCompile Include="writeCreatureStack.cpp" />
-    <ClCompile Include="writeGlobalEvent.cpp" />
     <ClCompile Include="writeh3c.cpp" />
     <ClCompile Include="writeh3m.cpp" />
     <ClCompile Include="writeHeroArtifacts.cpp" />
@@ -117,7 +116,7 @@
     <ClCompile Include="writeStartingOptions.cpp" />
     <ClCompile Include="writeTile.cpp" />
     <ClCompile Include="writeVictoryCondition.cpp" />
-    <ClCompile Include="writeTimedEventBase.cpp" />
+    <ClCompile Include="writeTimedEvent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Campaign\Campaign.vcxproj">

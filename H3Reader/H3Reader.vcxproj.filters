@@ -52,7 +52,7 @@
     <ClCompile Include="readStartingOptions.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="readTimedEventBase.cpp">
+    <ClCompile Include="readTimedEvent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="readVictoryCondition.cpp">

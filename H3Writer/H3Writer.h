@@ -31,9 +31,6 @@ namespace h3m::H3Writer_NS
   void H3Writer<CreatureStack>::operator()(std::ostream& stream, const CreatureStack& value) const;
 
   template<>
-  void H3Writer<GlobalEvent>::operator()(std::ostream& stream, const GlobalEvent& global_event) const;
-
-  template<>
   void H3Writer<Guardians>::operator()(std::ostream& stream, const Guardians& guardians) const;
 
   template<>
@@ -94,6 +91,9 @@ namespace h3m::H3Writer_NS
   void H3Writer<Tile>::operator()(std::ostream& stream, const Tile& value) const;
 
   template<>
+  void H3Writer<TimedEvent>::operator()(std::ostream& stream, const TimedEvent& event) const;
+
+  template<>
   void H3Writer<TownBuildings>::operator()(std::ostream& stream, const TownBuildings& town_buildings) const;
 
   template<>
@@ -101,8 +101,6 @@ namespace h3m::H3Writer_NS
 
   template<>
   void H3Writer<VictoryCondition>::operator()(std::ostream& stream, const VictoryCondition& victory_condition) const;
-
-  void writeTimedEventBase(std::ostream& stream, const TimedEventBase& event);
 
   // Campaign:
 

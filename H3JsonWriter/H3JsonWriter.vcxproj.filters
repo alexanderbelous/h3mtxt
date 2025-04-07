@@ -21,7 +21,7 @@
     <ClCompile Include="getEnumString.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="writeTimedEventBase.cpp">
+    <ClCompile Include="writeTimedEvent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="writeMap.cpp">
@@ -52,9 +52,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="writeObjectTemplate.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="writeGlobalEvent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="writePlayerSpecs.cpp">

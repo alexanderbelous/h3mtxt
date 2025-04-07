@@ -44,7 +44,6 @@
     <ClInclude Include="Constants\TownType.h" />
     <ClInclude Include="Constants\VictoryConditionType.h" />
     <ClInclude Include="CreatureStack.h" />
-    <ClInclude Include="GlobalEvent.h" />
     <ClInclude Include="HeroArtifacts.h" />
     <ClInclude Include="HeroSettings.h" />
     <ClInclude Include="LossCondition.h" />
@@ -62,7 +61,7 @@
     <ClInclude Include="Reward.h" />
     <ClInclude Include="SecondarySkill.h" />
     <ClInclude Include="Tile.h" />
-    <ClInclude Include="TimedEventBase.h" />
+    <ClInclude Include="TimedEvent.h" />
     <ClInclude Include="Utils\BitSet.h" />
     <ClInclude Include="Utils\EnumBitmask.h" />
     <ClInclude Include="Utils\EnumSequence.h" />
