@@ -22,8 +22,18 @@ namespace h3m
     std::uint8_t road_sprite {};
     // Bitfield: horizontal terrain, vertical terrain, horizontal river, vertical river,
     //           horizontal road, vertical road, coast, favorable winds.
-    // Coast is set for non-water tiles adjacent to water tiles, including corners.
-    // TODO: check what happens when setting the coast bit for non-coast tiles.
+    // The Map Editor sets the coast bit to 1 for non-water tiles adjacent to water tiles (including corners),
+    // 0 for all other tiles.
+    // The coast bit does 2 things:
+    // 1. If set to 1, it overrides terrain_type on the battlefield for this tile (the battle will take place
+    //    on the coast).
+    //    * Water tiles are NOT affected - even if you set the coast bit to 1 for a Water tile,
+    //      the battlefield for this tile will still be the ship deck.
+    //    * Rock tiles are affected. Note that normally the game crashes if you start a battle on a Rock tile;
+    //      setting the coast bit to 1 fixes this.
+    // 2. It controls whether landing is possible on this tile: a hero on a boat cannot land on a tile with
+    //    the coast bit set to 0.
+    //    * Note that it's impossible to land on Rock or Water tiles even if they have the coast bit set to 1.
     // TODO: figure out what the "favorable winds" bit does.
     std::uint8_t mirroring {};
   };
