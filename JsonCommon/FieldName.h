@@ -780,7 +780,7 @@ namespace h3m
   struct FieldNames<ResourcesBitmask>
   {
     // The number of bits in ResourcesBitmask.
-    static constexpr std::size_t kNumBits = Detail_NS::EnumBitmaskSize_v<ResourcesBitmask> *8;
+    static constexpr std::size_t kNumBits = Detail_NS::EnumBitmaskSize_v<ResourcesBitmask> * 8;
     // Name for each bit in the bitmask (from LSB to MSB).
     static constexpr std::array<std::string_view, kNumBits> kNames =
     {
@@ -958,6 +958,18 @@ namespace h3m
     static constexpr std::string_view kRoadType = "road_type";
     static constexpr std::string_view kRoadSprite = "road_sprite";
     static constexpr std::string_view kFlags = "flags";
+  };
+
+  template<>
+  struct FieldNames<TileFlags>
+  {
+    // The number of bits in TileFlags.
+    static constexpr std::size_t kNumBits = Detail_NS::EnumBitmaskSize_v<TileFlags> * 8;
+    // Name for each bit in the bitmask (from LSB to MSB).
+    static constexpr std::array<std::string_view, kNumBits> kNames =
+    {
+      "terrain_x", "terrain_y", "river_x", "river_y", "road_x", "road_y", "coast", "unknown"
+    };
   };
 
   template<>
