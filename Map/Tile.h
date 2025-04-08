@@ -1,8 +1,10 @@
 #pragma once
 
 #include <h3mtxt/Map/Constants/TerrainType.h>
+#include <h3mtxt/Map/Constants/TileFlag.h>
 #include <h3mtxt/Map/Constants/RoadType.h>
 #include <h3mtxt/Map/Constants/RiverType.h>
+#include <h3mtxt/Map/Utils/EnumBitmask.h>
 
 #include <cstdint>
 
@@ -20,22 +22,9 @@ namespace h3m
     RoadType road_type {};
     // (0-5 corners, 6 7 |-, 8 9 T, 10 11 | , 12 13 --, 14 ', 15 -, 16 +)
     std::uint8_t road_sprite {};
-    // Bitfield: horizontal terrain, vertical terrain, horizontal river, vertical river,
-    //           horizontal road, vertical road, coast, favorable winds.
-    // The Map Editor sets the coast bit to 1 for non-water tiles adjacent to water tiles (including corners),
-    // 0 for all other tiles.
-    // The coast bit does 2 things:
-    // 1. If set to 1, it overrides terrain_type on the battlefield for this tile (the battle will take place
-    //    on the coast).
-    //    * Water tiles are NOT affected - even if you set the coast bit to 1 for a Water tile,
-    //      the battlefield for this tile will still be the ship deck.
-    //    * Rock tiles are affected. Note that normally the game crashes if you start a battle on a Rock tile;
-    //      setting the coast bit to 1 fixes this.
-    // 2. It controls whether landing is possible on this tile: a hero on a boat cannot land on a tile with
-    //    the coast bit set to 0.
-    //    * Note that it's impossible to land on Rock or Water tiles even if they have the coast bit set to 1.
-    // TODO: figure out what the "favorable winds" bit does.
-    std::uint8_t mirroring {};
+    // 8-bit bitmask storing flags for this tile.
+    // See Map/Constants/TileFlag.h for the details for each flag.
+    TileFlags flags {};
   };
 
   // Returns the number of valid sprites for the specified terrain.

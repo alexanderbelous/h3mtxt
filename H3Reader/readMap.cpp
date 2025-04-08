@@ -228,7 +228,7 @@ namespace h3m::H3Reader_NS
     tile.river_sprite = readInt<std::uint8_t>(stream);
     tile.road_type = readEnum<RoadType>(stream);
     tile.road_sprite = readInt<std::uint8_t>(stream);
-    tile.mirroring = readInt<std::uint8_t>(stream);
+    tile.flags = readEnumBitmask<TileFlag, 1>(stream);
     return tile;
   }
 

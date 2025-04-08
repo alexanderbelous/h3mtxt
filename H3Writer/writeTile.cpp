@@ -12,6 +12,6 @@ namespace h3m::H3Writer_NS
     writeData(stream, value.river_sprite);
     writeData(stream, value.road_type);
     writeData(stream, value.road_sprite);
-    writeData(stream, value.mirroring);
+    writeData(stream, value.flags);
   }
 }

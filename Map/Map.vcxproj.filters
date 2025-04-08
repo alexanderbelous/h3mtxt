@@ -189,5 +189,8 @@
     <ClInclude Include="Constants\ObjectPropertiesType.h">
       <Filter>Header Files\Constants</Filter>
     </ClInclude>
+    <ClInclude Include="Constants\TileFlag.h">
+      <Filter>Header Files\Constants</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

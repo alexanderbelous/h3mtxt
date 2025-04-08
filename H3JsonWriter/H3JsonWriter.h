@@ -144,6 +144,16 @@ namespace Medea_NS
   template<>
   void JsonObjectWriter<h3m::Tile>::operator()(FieldsWriter& out, const h3m::Tile& value) const;
 
+  // Serialize h3m::TileFlags as an integer.
+  template<>
+  inline constexpr JsonDataType kJsonDataTypeFor<h3m::TileFlags> = JsonDataType::UInt;
+
+  template<>
+  struct JsonScalarGetter<h3m::TileFlags>
+  {
+    std::uint8_t operator()(const h3m::TileFlags& tile_flags) const noexcept;
+  };
+
   template<>
   void JsonObjectWriter<h3m::TimedEvent>::operator()(FieldsWriter& out, const h3m::TimedEvent& event) const;
 

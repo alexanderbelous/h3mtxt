@@ -957,7 +957,7 @@ namespace h3m
     static constexpr std::string_view kRiverSprite = "river_sprite";
     static constexpr std::string_view kRoadType = "road_type";
     static constexpr std::string_view kRoadSprite = "road_sprite";
-    static constexpr std::string_view kMirroring = "mirroring";
+    static constexpr std::string_view kFlags = "flags";
   };
 
   template<>

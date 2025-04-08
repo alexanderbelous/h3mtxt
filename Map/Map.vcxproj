@@ -13,6 +13,7 @@
   <ItemGroup>
     <ClInclude Include="Constants\ExperienceLevels.h" />
     <ClInclude Include="Constants\SecondarySkillLevel.h" />
+    <ClInclude Include="Constants\TileFlag.h" />
     <ClInclude Include="Constants\TownBuildingType.h" />
     <ClInclude Include="MapFwd.h" />
     <ClInclude Include="Constants\ArtifactType.h" />

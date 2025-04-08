@@ -64,6 +64,8 @@ namespace h3m
 
   enum class TerrainType : std::uint8_t;
 
+  enum class TileFlag : std::uint8_t;
+
   enum class TownBuildingType : std::uint8_t;
 
   enum class TownType : std::uint8_t;
@@ -122,6 +124,9 @@ namespace h3m
   // Note that there are only 10 terrain types in Shadow of Death, but this bitmask stores 16 bits.
   // The last 7 bits (Rock + padding) are normally set to 0 in .h3m regardless of the meaning of the bitmask.
   using TerrainsBitmask = EnumBitmask<TerrainType, 2>;
+
+  // Bitmask storing flags for a tile on the Adventure Map (glorified uint8).
+  using TileFlags = EnumBitmask<TileFlag, 1>;
 
   // Note that there are only 41 town building types in Shadow of Death, but this bitmask stores 48 bits.
   using TownBuildingsBitmask = EnumBitmask<TownBuildingType, 6>;

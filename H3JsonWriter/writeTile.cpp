@@ -7,6 +7,11 @@
 
 namespace Medea_NS
 {
+  std::uint8_t JsonScalarGetter<h3m::TileFlags>::operator()(const h3m::TileFlags& tile_flags) const noexcept
+  {
+    return tile_flags.bitset.data[0];
+  }
+
   void JsonObjectWriter<h3m::Tile>::operator()(FieldsWriter& out, const h3m::Tile& value) const
   {
     using Fields = h3m::FieldNames<h3m::Tile>;
@@ -28,6 +33,6 @@ namespace Medea_NS
       out.writeComment(enum_str, false);
     }
     out.writeField(Fields::kRoadSprite, value.road_sprite);
-    out.writeField(Fields::kMirroring, value.mirroring);
+    out.writeField(Fields::kFlags, value.flags);
   }
 }

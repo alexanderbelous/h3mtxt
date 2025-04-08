@@ -91,6 +91,11 @@ namespace h3m::H3JsonReader_NS
   template<>
   Tile JsonReader<Tile>::operator()(const Json::Value& value) const;
 
+  // Full specialization for TileFlags. The template version from Utils.h
+  // is not used here because TileFlags is currently serialized as a single byte rather than a JSON object.
+  template<>
+  TileFlags JsonReader<TileFlags>::operator()(const Json::Value& value) const;
+
   template<>
   TimedEvent JsonReader<TimedEvent>::operator()(const Json::Value& value) const;
 
