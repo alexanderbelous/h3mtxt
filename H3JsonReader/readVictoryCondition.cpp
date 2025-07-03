@@ -89,7 +89,8 @@ namespace h3m::H3JsonReader_NS
 
   template<class T>
   struct JsonReader<T, std::enable_if_t<std::is_same_v<T, VictoryConditionDetails<VictoryConditionType::FlagDwellings>> ||
-                                        std::is_same_v<T, VictoryConditionDetails<VictoryConditionType::FlagMines>>
+                                        std::is_same_v<T, VictoryConditionDetails<VictoryConditionType::FlagMines>> ||
+                                        std::is_same_v<T, VictoryConditionDetails<VictoryConditionType::DefeatAllMonsters>>
                                        >>
   {
     T operator()(const Json::Value& value) const
@@ -111,6 +112,18 @@ namespace h3m::H3JsonReader_NS
       details.x = readField<std::uint8_t>(value, "x");
       details.y = readField<std::uint8_t>(value, "y");
       details.z = readField<std::uint8_t>(value, "z");
+      return details;
+    }
+  };
+
+  template<>
+  struct JsonReader<VictoryConditionDetails<VictoryConditionType::SurviveBeyondATimeLimit>>
+  {
+    VictoryConditionDetails<VictoryConditionType::SurviveBeyondATimeLimit> operator()(const Json::Value& value) const
+    {
+      VictoryConditionDetails<VictoryConditionType::SurviveBeyondATimeLimit> details;
+      readSpecialVictoryConditionBaseFromJson(value, details);
+      details.days = readField<std::uint32_t>(value, "days");
       return details;
     }
   };
@@ -144,6 +157,10 @@ namespace h3m::H3JsonReader_NS
         return fromJson<VictoryConditionDetails<VictoryConditionType::FlagMines>>(value);
       case VictoryConditionType::TransportArtifact:
         return fromJson<VictoryConditionDetails<VictoryConditionType::TransportArtifact>>(value);
+      case VictoryConditionType::DefeatAllMonsters:
+        return fromJson<VictoryConditionDetails<VictoryConditionType::DefeatAllMonsters>>(value);
+      case VictoryConditionType::SurviveBeyondATimeLimit:
+        return fromJson<VictoryConditionDetails<VictoryConditionType::SurviveBeyondATimeLimit>>(value);
       case VictoryConditionType::Normal:
         return VictoryCondition::Details{};
       default:

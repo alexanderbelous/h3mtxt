@@ -95,7 +95,8 @@ namespace Medea_NS
 
   template<class T>
   struct JsonObjectWriter<T, std::enable_if_t<std::is_same_v<T, h3m::VictoryConditionDetails<h3m::VictoryConditionType::FlagDwellings>> ||
-                                              std::is_same_v<T, h3m::VictoryConditionDetails<h3m::VictoryConditionType::FlagMines>>>>
+                                              std::is_same_v<T, h3m::VictoryConditionDetails<h3m::VictoryConditionType::FlagMines>> ||
+                                              std::is_same_v<T, h3m::VictoryConditionDetails<h3m::VictoryConditionType::DefeatAllMonsters>>>>
   {
     void operator()(FieldsWriter& out, const T& value) const
     {
@@ -119,6 +120,17 @@ namespace Medea_NS
       out.writeField("x", value.x);
       out.writeField("y", value.y);
       out.writeField("z", value.z);
+    }
+  };
+
+  template<>
+  struct JsonObjectWriter<h3m::VictoryConditionDetails<h3m::VictoryConditionType::SurviveBeyondATimeLimit>>
+  {
+    void operator()(FieldsWriter& out,
+                    const h3m::VictoryConditionDetails<h3m::VictoryConditionType::SurviveBeyondATimeLimit>& value) const
+    {
+      writeSpecialVictoryConditionBase(out, value);
+      out.writeField("days", value.days);
     }
   };
 

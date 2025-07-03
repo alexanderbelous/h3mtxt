@@ -81,7 +81,8 @@ namespace h3m::H3Writer_NS
 
   template<class T>
   struct H3Writer<T, std::enable_if_t<std::is_same_v<T, VictoryConditionDetails<VictoryConditionType::FlagDwellings>> ||
-                                       std::is_same_v<T, VictoryConditionDetails<VictoryConditionType::FlagMines>>>>
+                                      std::is_same_v<T, VictoryConditionDetails<VictoryConditionType::FlagMines>> ||
+                                      std::is_same_v<T, VictoryConditionDetails<VictoryConditionType::DefeatAllMonsters>> >>
   {
     void operator()(std::ostream& stream, const T& value) const
     {
@@ -103,6 +104,17 @@ namespace h3m::H3Writer_NS
   };
 
   template<>
+  struct H3Writer<VictoryConditionDetails<VictoryConditionType::SurviveBeyondATimeLimit>>
+  {
+    void operator()(std::ostream& stream,
+                    const VictoryConditionDetails<VictoryConditionType::SurviveBeyondATimeLimit>& value) const
+    {
+      writeSpecialVictoryConditionBase(stream, value);
+      writeData(stream, value.days);
+    }
+  };
+
+  template<>
   struct H3Writer<VictoryConditionDetails<VictoryConditionType::Normal>>
   {
     void operator()(std::ostream&, const VictoryConditionDetails<VictoryConditionType::Normal>&) const
@@ -115,6 +127,6 @@ namespace h3m::H3Writer_NS
     writeData(stream, victory_condition.type());
     std::visit([&stream] <VictoryConditionType T> (const VictoryConditionDetails<T>& value)
                { writeData(stream, value); },
-                victory_condition.details);
+               victory_condition.details);
   }
 }

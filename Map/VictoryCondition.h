@@ -86,10 +86,11 @@ namespace h3m
     std::uint8_t z {};
   };
 
-  // Partial specialization for FlagDwellings and FlagMines.
+  // Partial specialization for FlagDwellings, FlagMines, DefeatAllMonsters.
   template<VictoryConditionType T>
   struct VictoryConditionDetails<T, std::enable_if_t<T == VictoryConditionType::FlagDwellings ||
-                                                     T == VictoryConditionType::FlagMines>> : SpecialVictoryConditionBase
+                                                     T == VictoryConditionType::FlagMines ||
+                                                     T == VictoryConditionType::DefeatAllMonsters>> : SpecialVictoryConditionBase
   {
   };
 
@@ -104,6 +105,14 @@ namespace h3m
     std::uint8_t x {};
     std::uint8_t y {};
     std::uint8_t z {};
+  };
+
+  // Specialization for SurviveBeyondATimeLimit.
+  template<>
+  struct VictoryConditionDetails<VictoryConditionType::SurviveBeyondATimeLimit> : SpecialVictoryConditionBase
+  {
+    // TODO: check signedness.
+    std::uint32_t days {};
   };
 
   // Victory condition for the map.
@@ -123,6 +132,8 @@ namespace h3m
       VictoryConditionDetails<VictoryConditionType::FlagDwellings>,
       VictoryConditionDetails<VictoryConditionType::FlagMines>,
       VictoryConditionDetails<VictoryConditionType::TransportArtifact>,
+      VictoryConditionDetails<VictoryConditionType::DefeatAllMonsters>,
+      VictoryConditionDetails<VictoryConditionType::SurviveBeyondATimeLimit>,
       VictoryConditionDetails<VictoryConditionType::Normal>
     >;
 
@@ -135,7 +146,7 @@ namespace h3m
 
   constexpr VictoryConditionType VictoryCondition::type() const noexcept
   {
-    constexpr std::size_t kNormalDetailsIndex = 11;
+    constexpr std::size_t kNormalDetailsIndex = 13;
     static_assert(std::is_same_v<std::variant_alternative_t<kNormalDetailsIndex, Details>,
                                  VictoryConditionDetails<VictoryConditionType::Normal>>,
                   "kNormalDetailsIndex must be the index of the alternative for Normal victory condition.");

@@ -98,7 +98,8 @@ namespace h3m::H3Reader_NS
 
     template<VictoryConditionType T>
     struct ReadVictoryConditionDetails<T, std::enable_if_t<T == VictoryConditionType::FlagDwellings ||
-                                                           T == VictoryConditionType::FlagMines>>
+                                                           T == VictoryConditionType::FlagMines ||
+                                                           T == VictoryConditionType::DefeatAllMonsters>>
     {
       VictoryConditionDetails<T> operator()(std::istream& stream) const
       {
@@ -120,6 +121,18 @@ namespace h3m::H3Reader_NS
         details.y = readInt<std::uint8_t>(stream);
         details.z = readInt<std::uint8_t>(stream);
         return details;
+      }
+    };
+
+    template<>
+    struct ReadVictoryConditionDetails<VictoryConditionType::SurviveBeyondATimeLimit>
+    {
+      VictoryConditionDetails<VictoryConditionType::SurviveBeyondATimeLimit> operator()(std::istream& stream) const
+      {
+        VictoryConditionDetails<VictoryConditionType::SurviveBeyondATimeLimit> details;
+        readSpecialVictoryConditionBase(stream, details);
+        details.days = readInt<std::uint32_t>(stream);
+        return {};
       }
     };
 
@@ -165,6 +178,10 @@ namespace h3m::H3Reader_NS
         return readVictoryConditionDetails<VictoryConditionType::FlagMines>(stream);
       case VictoryConditionType::TransportArtifact:
         return readVictoryConditionDetails<VictoryConditionType::TransportArtifact>(stream);
+      case VictoryConditionType::DefeatAllMonsters:
+        return readVictoryConditionDetails<VictoryConditionType::DefeatAllMonsters>(stream);
+      case VictoryConditionType::SurviveBeyondATimeLimit:
+        return readVictoryConditionDetails<VictoryConditionType::SurviveBeyondATimeLimit>(stream);
       case VictoryConditionType::Normal:
         return readVictoryConditionDetails<VictoryConditionType::Normal>(stream);
       default:
