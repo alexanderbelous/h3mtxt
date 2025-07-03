@@ -148,6 +148,19 @@ namespace Medea_NS
     }
   }
 
+  // Serialize std::vector<h3m::ObjectTemplate> as a JSON array.
+  template<>
+  void JsonArrayWriter<std::vector<h3m::ObjectTemplate>>::operator()(const ArrayElementsWriter& out,
+    const std::vector<h3m::ObjectTemplate>& objects_templates) const
+  {
+    h3m::H3JsonWriter_NS::CommentBuilder comment_builder;
+    for (std::size_t i = 0; i < objects_templates.size(); ++i)
+    {
+      out.writeComment(comment_builder.build({ "ObjectTemplate ", i }));
+      out.writeElement(objects_templates[i]);
+    }
+  }
+
   void JsonObjectWriter<h3m::Map>::operator()(FieldsWriter& out, const h3m::Map& map) const
   {
     using FieldNames = h3m::FieldNames<h3m::Map>;
