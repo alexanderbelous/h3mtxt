@@ -135,11 +135,11 @@ namespace h3m::H3JsonReader_NS
       VariantJsonReader<Quest::Details> variant_reader {};
       quest.details = variant_reader(getJsonField(value, Fields::kDetails),
                                      Quest::getAlternativeIdx(quest_type));
+      readField(quest.deadline, value, Fields::kDeadline);
+      readField(quest.proposal, value, Fields::kProposal);
+      readField(quest.progress, value, Fields::kProgress);
+      readField(quest.completion, value, Fields::kCompletion);
     }
-    readField(quest.deadline, value, Fields::kDeadline);
-    readField(quest.proposal, value, Fields::kProposal);
-    readField(quest.progress, value, Fields::kProgress);
-    readField(quest.completion, value, Fields::kCompletion);
     return quest;
   }
 }
