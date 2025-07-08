@@ -73,9 +73,7 @@ namespace Medea_NS
     out.writeField(Fields::kMessage, data.message);
     out.writeField(Fields::kResources, data.resources);
     out.writeField(Fields::kArtifact, data.artifact);
-    const std::string_view artifact_str = (data.artifact == h3m::ArtifactType{ 0xFFFF }) ?
-      "(None)" : h3m::getEnumString(data.artifact);
-    if (!artifact_str.empty())
+    if (std::string_view artifact_str = h3m::getEnumString(data.artifact); !artifact_str.empty())
     {
       out.writeComment(artifact_str, false);
     }

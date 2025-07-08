@@ -12,9 +12,7 @@ namespace Medea_NS
     void writeArtifact(FieldsWriter& out, std::string_view field_name, h3m::ArtifactType artifact)
     {
       out.writeField(field_name, artifact);
-      const std::string_view enum_str = artifact == h3m::ArtifactType{0xFFFF} ? "(Default)"
-                                                                              : h3m::getEnumString(artifact);
-      if (!enum_str.empty())
+      if (std::string_view enum_str = h3m::getEnumString(artifact); !enum_str.empty())
       {
         out.writeComment(enum_str, false);
       }

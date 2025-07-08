@@ -51,8 +51,7 @@ namespace h3m
     //   * if you have >= N of this resource, then you lose N units.
     //   * if you have < N of this resource, then your new amount becomes 0.
     Resources resources {};
-    // 0xFFFF means no artifact.
-    ArtifactType artifact {};
+    ArtifactType artifact = ArtifactType::None;
   };
 
   // Base class for ObjectProperties<ObjectPropertiesType::PANDORAS_BOX> and

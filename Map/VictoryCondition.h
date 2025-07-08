@@ -34,6 +34,8 @@ namespace h3m
   template<>
   struct VictoryConditionDetails<VictoryConditionType::AcquireArtifact> : SpecialVictoryConditionBase
   {
+    // FYI: None (0xFFFF) can be used here, but it will trigger victory at the end of Day 1
+    // ("Congratulations! You have found (null), and can claim victory!").
     ArtifactType artifact_type {};
   };
 

@@ -1,4 +1,5 @@
 #include <h3mtxt/H3JsonWriter/getEnumString.h>
+#include <h3mtxt/Map/Constants/ArtifactType.h>
 #include <h3mtxt/Map/Constants/Constants.h>
 #include <h3mtxt/Map/Constants/Formation.h>
 #include <h3mtxt/Map/Constants/Gender.h>
@@ -160,6 +161,10 @@ namespace h3m
       "Mired in Neutrality",
       "Ironfist of the Ogre"
     };
+    if (value == ArtifactType::None)
+    {
+      return "(None)";
+    }
     const std::size_t idx = static_cast<std::size_t>(value);
     if (idx < std::size(kNames))
     {

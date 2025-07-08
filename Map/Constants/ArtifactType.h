@@ -156,6 +156,8 @@ namespace h3m
     // They also don't have decent sprites.
     DiplomatsSuit,
     MiredInNeutrality,
-    IronfistOfTheOgre
+    IronfistOfTheOgre,
+    // Magic number indicating "None" (the absence of an artifact in the slot).
+    None = 65535
   };
 }

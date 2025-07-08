@@ -98,6 +98,7 @@ namespace h3m
   template<>
   struct RewardDetails<RewardType::Artifact>
   {
+    // FYI: None (0xFFFF) shouldn't be used here - it causes the game to crash when completing the quest.
     ArtifactType artifact {};
   };
 
