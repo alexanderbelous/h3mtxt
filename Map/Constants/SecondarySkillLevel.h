@@ -198,4 +198,7 @@ namespace h3m
     static constexpr std::uint8_t k60Percent = 0xF3;
     static constexpr std::uint8_t k60Percent2 = 0xEF;
   };
+
+  // TODO: apparently, there is a way to learn level 5 spells via hexed Eagle Eye:
+  // https://www.reddit.com/r/heroes3/comments/1iv6kkh/eagle_eye_level_5_spells_catching_in_sod_not_hota/
 }
