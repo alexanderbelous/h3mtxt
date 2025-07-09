@@ -14,95 +14,87 @@ namespace h3m
   struct Tile
   {
     TerrainType terrain_type {};
-    // Object subclass.
     std::uint8_t terrain_sprite {};
     RiverType river_type {};
-    // (0-3 corners, 4 + , 5 6 T, 7 8 |-, 9 10 | , 11 12--)
+    // For normal RiverTypes: (0-3 corners, 4 + , 5 6 T, 7 8 |-, 9 10 | , 11 12--)
     std::uint8_t river_sprite {};
     RoadType road_type {};
-    // (0-5 corners, 6 7 |-, 8 9 T, 10 11 | , 12 13 --, 14 ', 15 -, 16 +)
+    // For normal RoadTypes: (0-5 corners, 6 7 |-, 8 9 T, 10 11 | , 12 13 --, 14 ', 15 -, 16 +)
+    // TODO: Undocumented stuff: Similar to rivers, but note that roads are rendered "half-tile" below the actual tile.
     std::uint8_t road_sprite {};
     // 8-bit bitmask storing flags for this tile.
     // See Map/Constants/TileFlag.h for the details for each flag.
     TileFlags flags {};
   };
 
-  // Returns the number of valid sprites for the specified terrain.
+  // Undocumented stuff:
+  // Normally, RiverType should be within [0; 4], but the game has well-defined behavior for some other values as well.
+  // Most importantly:
+  // * values 15 and 17 allow drawing sprites of uncharted territory instead of river sprites.
+  // * values [246; 255] allow drawing terrain sprites instead of river sprites. For example, you can have a Snow tile
+  //   that looks like Grass.
+  // See the switch statement below for the full list.
   //
-  // Sprites for TerrainType::Water:
-  //   [0; 3] - coast to the West and to the North of the tile.
-  //   [4; 7] - coast to the West of the tile.
-  //   [8; 11] - coast to the North of the tile.
-  //   [12; 15] v [18; 19] - coast in the SouthEastern corner of the tile.
-  //   [16; 17] - diagonal coast NorthWest of the tile.
-  //   [20; 32] - no coast.
+  // Note that the Map Editor does not support RiverTypes outside of [0; 4] (it will report "Invalid or corrupt map file").
   //
-  // FYI: there seem to be some "unused" sprites which may even render correctly (sometimes with a unique picture)
-  //      in the Editor, but I haven't found any that work stable in the game.
-  //      Examples of such "unused" sprites:
-  //          Grass:
-  //              * [0x49; 0x4E] look like some valid sprites (not always Grass) in the Editor; not tested.
-  //              * 0x69 looks like Rock; freezes the game.
-  //          Water:
-  //              * 0x48 looks like a Rock corner in the Editor; in the game in renders as purely black, but
-  //                when the hero moves it doesn't get rerendered, which looks very glitchy (previosly rendered pixels
-  //                at that tile will be shown instead). The game can crash because of this.
-  //              * 0x47 looks like another Rock corner in the Editor; I haven't tested the behavior in the game.
-  //              * 0x76 looks like Rock; not tested in the game.
-  //              * 0x40 is similar - looks like some weird shit, like a border between Water and Rock in the Editor;
-  //                Rock in the game; freezes the game when you move there.
-  //              * 0x2F looks like Rock both in the Editor and in the game, but freezes the game.
-  //              * [0x68; 0x70] look like some wet sand surrounded by Rock in the Editor; freezes the game.
-  //              * [252; 253] look like Rock. 252 appears fine in the Editor, but the game fails to start.
-  //                253 freezes the Editor sometimes.
+  // Returns the number of "usable" sprites for the specified RiverType.
+  // This is an extended version of countSprites().
   //
-  // \param terrain - type of the terrain.
-  // \return the number N of valid sprites for terrain, or 0 if @terrain is not a valid terrain type.
-  //         The values [0; N) are safe to use in Tile.terrain_sprite for this type of the terrain.
-  constexpr std::uint8_t countSprites(TerrainType terrain) noexcept
-  {
-    switch (terrain)
-    {
-    case TerrainType::Dirt:
-      return 45;
-    case TerrainType::Sand:
-      return 24;
-    case TerrainType::Grass:
-    case TerrainType::Snow:
-    case TerrainType::Swamp:
-    case TerrainType::Rough:
-    case TerrainType::Subterranean:
-    case TerrainType::Lava:
-      return 73;
-    case TerrainType::Water:
-      return 33;
-    case TerrainType::Rock:
-      return 48;
-    default:
-      return 0;
-    }
-  }
-
-  // Returns the number of valid sprites for the specified RiverType.
-  //
-  // \param river_type - type of the river.
-  // \return the number N of valid sprites for @river_type, or 0 if @river_type is not a valid river type.
+  // \param river_type - (possibly extended) type of the river.
+  // \return the number N of usable sprites for @river_type..
   //         The values [0; N) are safe to use in Tile::river_sprite for @river_type.
-  constexpr std::uint8_t countSprites(RiverType river_type) noexcept
+  constexpr std::uint8_t countHexedSprites(RiverType river_type) noexcept
   {
-    switch (river_type)
+    const std::uint8_t river_type_idx = static_cast<std::uint8_t>(river_type);
+    switch (river_type_idx)
     {
-    case RiverType::None:
-      // FYI: it seems that for RiverType::None you can use any value from [0; 255] as the sprite -
-      // no river will be drawn anyway. However, the Editor only uses sprite 0 for this type.
-      return 1;
-    case RiverType::Clear:
-    case RiverType::Icy:
-    case RiverType::Muddy:
-    case RiverType::Lava:
-      return 13;
+    // [0; 4] are normal river sprites (0 is "no river").
+    case 0:
+    case 1:
+    case 2:
+    case 3:
+    case 4:
+      return countSprites(river_type);
+    // [6; 8] are road sprites
+    case 6:
+    case 7:
+    case 8:
+      return countSprites(static_cast<RoadType>(river_type_idx - 5));
+    // 9 is the "black marble" around the map when playing the game.
+    case 9:
+      return 36;
+    // 10 is the hero's path (green/red arrows and the cross) on the Adventure Map.
+    case 10:
+      return 50;
+    // 11, 12 and 14 are the gem in the corners of the window around the Adventure Map.
+    case 11:
+    case 12:
+    case 14:
+      return 8;
+    // 15 and 17 are uncharted territory.
+    case 15:
+      return 4;
+    case 17:
+      return 34;
+    // 22 is creatures (partial sprite)
+    case 22:
+      return 128;
+    // [246; 255] are terrain sprites.
+    case 246:
+    case 247:
+    case 248:
+    case 249:
+    case 250:
+    case 251:
+    case 252:
+    case 253:
+    case 254:
+    case 255:
+      return countSprites(static_cast<TerrainType>(river_type_idx - 246));
+    // No sprites for other values of RiverType.
     default:
       return 0;
+    // TODO: 56 or 57 to 64 are flags; 65-72 as well. probably up to 88
     }
   }
 }
