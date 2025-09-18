@@ -15,16 +15,15 @@ set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
 
 # Thirdparty libraries:
 # JsonCpp:
-option(JSONCPP_WITH_TESTS "Compile and (for jsoncpp_check) run JsonCpp test executables" OFF)
+# option(JSONCPP_WITH_TESTS "Compile and (for jsoncpp_check) run JsonCpp test executables" OFF)
 option(BUILD_SHARED_LIBS "Build jsoncpp_lib as a shared library." OFF)
 option(BUILD_STATIC_LIBS "Build jsoncpp_lib as a static library." ON)
 option(BUILD_OBJECT_LIBS "Build jsoncpp_lib as a object library." OFF)
-add_subdirectory(thirdparty/jsoncpp)
+add_subdirectory(thirdparty/jsoncpp EXCLUDE_FROM_ALL)
 add_library(jsoncpp::jsoncpp_static ALIAS jsoncpp_static)
 # zlib:
-option(ZLIB_BUILD_EXAMPLES "Enable Zlib Examples" OFF)
 set(RENAME_ZCONF OFF) # don't rename zconf.h
-add_subdirectory(thirdparty/zlib)
+add_subdirectory(thirdparty/zlib EXCLUDE_FROM_ALL)
 add_library(zlib::zlibstatic ALIAS zlibstatic)
 
 # All subdirectories with source code.
