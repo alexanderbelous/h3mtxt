@@ -62,3 +62,10 @@ if(IPO_SUPPORTED)
     INTERPROCEDURAL_OPTIMIZATION_MINSIZEREL TRUE
   )
 endif()
+
+# Set warning level
+if(MSVC)
+  target_compile_options(H3JsonWriter PRIVATE /W4)
+else()
+  target_compile_options(H3JsonWriter PRIVATE -Wall -Wextra -Wpedantic)
+endif()

@@ -67,3 +67,10 @@ if(IPO_SUPPORTED)
     INTERPROCEDURAL_OPTIMIZATION_MINSIZEREL TRUE
   )
 endif()
+
+# Set warning level
+if(MSVC)
+  target_compile_options(h3mtxt PRIVATE /W4)
+else()
+  target_compile_options(h3mtxt PRIVATE -Wall -Wextra -Wpedantic)
+endif()

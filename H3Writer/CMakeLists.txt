@@ -56,3 +56,10 @@ if(IPO_SUPPORTED)
     INTERPROCEDURAL_OPTIMIZATION_MINSIZEREL TRUE
   )
 endif()
+
+# Set warning level
+if(MSVC)
+  target_compile_options(H3Writer PRIVATE /W4)
+else()
+  target_compile_options(H3Writer PRIVATE -Wall -Wextra -Wpedantic)
+endif()
