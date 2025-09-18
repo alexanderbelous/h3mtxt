@@ -59,7 +59,7 @@ endif()
 
 # Set warning level
 if(MSVC)
-  target_compile_options(H3Writer PRIVATE /W4)
+  target_compile_options(H3Writer PRIVATE /W4 /permissive-)
 else()
   target_compile_options(H3Writer PRIVATE -Wall -Wextra -Wpedantic)
 endif()
