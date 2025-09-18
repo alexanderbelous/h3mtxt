@@ -30,7 +30,15 @@ The filename extensions are not important - the program will detect the file typ
 
 # Undocumented features
 
-See the comments in the source code in [Map](Map) or the brief overview in https://gist.github.com/alexanderbelous/e5f0766845476d93eda10469c5667d9b 
+See the comments in the source code in [Map](Map) or the brief overview in https://gist.github.com/alexanderbelous/e5f0766845476d93eda10469c5667d9b
+
+# Building h3mtxt
+```sh
+git clone --recurse-submodules https://github.com/alexanderbelous/h3mtxt.git
+cd h3mtxt
+cmake -S . -B build
+cmake --build build --config Release
+```
 
 # Acknowledgment
 I would like to thank the authors of [HeroWO-js/h3m2json](https://github.com/HeroWO-js/h3m2json/) and [potmdehex/homm3tools](https://github.com/potmdehex/homm3tools)
