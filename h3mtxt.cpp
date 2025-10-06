@@ -99,8 +99,16 @@ int main(int argc, char** argv)
   {
     const fs::path path_input(argv[1]);
     const fs::path path_output(argv[2]);
-    // Load the localization resource, if present.
-    if (argc == 4)
+    std::ifstream stream(path_input, std::ios_base::in | std::ios_base::binary);
+    if (!stream)
+    {
+      std::cerr << "Failed to open: " << path_input.string();
+      return -1;
+    }
+    const Input input = readInput(stream);
+    stream.close();
+    // If converting to JSON and the localization resource was provided, load it.
+    if (!input.is_json && (argc == 4))
     {
       const fs::path path_resource(argv[3]);
       std::ifstream stream_resouce(path_resource, std::ios_base::in);
@@ -114,14 +122,6 @@ int main(int argc, char** argv)
       stream_resouce.close();
       h3m::H3JsonWriter_NS::LocalizedStringsProvider::initialize(std::move(resouce));
     }
-    std::ifstream stream(path_input, std::ios_base::in | std::ios_base::binary);
-    if (!stream)
-    {
-      std::cerr << "Failed to open: " << path_input.string();
-      return -1;
-    }
-    const Input input = readInput(stream);
-    stream.close();
     std::ofstream out_stream(path_output, std::ios_base::out | std::ios_base::binary);
     if (!out_stream)
     {
