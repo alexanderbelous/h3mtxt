@@ -5,6 +5,17 @@
 namespace h3m::H3JsonWriter_NS
 {
   // Singleton class that provides localized strings.
+  //
+  // Note that Heroes3 does not use UTF-8. AFAIU, different localized versions
+  // use different encodings (e.g. CP-1252 for the English version, CP-1251 for Russian,
+  // GBK for Chinese, etc).
+  //
+  // h3mtxt doesn't put any restrictions on the encoding for the localized strings
+  // (even though standard JSON only allows UTF-8). However, if the map/campaign contains non-English
+  // text, you likely want to use the same encoding for the localized strings as the one used
+  // in the text in the map/campaign. Otherwise, the resulting JSON will be a mix of different encodings,
+  // which is never a good idea: e.g., when opening such JSON in an editor, either the in-game messages
+  // or h3mtxt comments will be displayed incorrectly.
   class LocalizedStringsProvider
   {
   public:
