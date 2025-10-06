@@ -1,6 +1,8 @@
 #include <h3mtxt/H3JsonReader/readH3Json.h>
 #include <h3mtxt/H3JsonWriter/writeH3cJson.h>
 #include <h3mtxt/H3JsonWriter/writeH3mJson.h>
+#include <h3mtxt/H3JsonWriter/LocalizedStringsProvider.h>
+#include <h3mtxt/H3JsonWriter/LocalizedStringsReader.h>
 #include <h3mtxt/H3Reader/parseh3.h>
 #include <h3mtxt/H3Writer/writeh3c.h>
 #include <h3mtxt/H3Writer/writeh3m.h>
@@ -79,7 +81,7 @@ namespace
 
 int main(int argc, char** argv)
 {
-  if (argc != 3)
+  if (argc != 3 && argc != 4)
   {
     std::cout << "Usage: h3mtxt <input_path> <output_path>\n"
                  "\n"
@@ -97,6 +99,21 @@ int main(int argc, char** argv)
   {
     const fs::path path_input(argv[1]);
     const fs::path path_output(argv[2]);
+    // Load the localization resource, if present.
+    if (argc == 4)
+    {
+      const fs::path path_resource(argv[3]);
+      std::ifstream stream_resouce(path_resource, std::ios_base::in);
+      if (!stream_resouce)
+      {
+        std::cerr << "Failed to open: " << path_resource.string();
+        return -1;
+      }
+      h3m::H3JsonWriter_NS::LocalizedStringsData resouce =
+        h3m::H3JsonWriter_NS::readLocalizedStringsFromStream(stream_resouce);
+      stream_resouce.close();
+      h3m::H3JsonWriter_NS::LocalizedStringsProvider::initialize(std::move(resouce));
+    }
     std::ifstream stream(path_input, std::ios_base::in | std::ios_base::binary);
     if (!stream)
     {
