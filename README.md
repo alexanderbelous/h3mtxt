@@ -28,6 +28,8 @@ h3mtxt my_campaign.h3c.json my_campaign_new.h3c
 ```
 The filename extensions are not important - the program will detect the file type by inspecting the data.
 
+See [examples](examples) for more details.
+
 # Undocumented features
 
 See the comments in the source code in [Map](Map) or the brief overview in https://gist.github.com/alexanderbelous/e5f0766845476d93eda10469c5667d9b
