@@ -6,12 +6,65 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 project(
   h3mtxt
-  VERSION 0.9.0
+  VERSION 0.9.1
   LANGUAGES CXX
 )
 
 # Use static (MT/MTd) Windows runtime.
 set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
+
+# Check if IPO (aka Whole Program Optimization) is supported.
+include(CheckIPOSupported)
+check_ipo_supported(RESULT H3MTXT_IPO_SUPPORTED OUTPUT H3MTXT_IPO_SUPPORTED_OUTPUT)
+if (NOT H3MTXT_IPO_SUPPORTED)
+  message("IPO not supported: ${H3MTXT_IPO_SUPPORTED_OUTPUT}")
+endif()
+
+# Sets common compiler options to the specified target.
+# This is to reduce boilerplate in CMakeLists.txt files in subdirectories.
+# \param target - target to modify.
+function(h3mtxt_add_common_compiler_options target)
+  if(MSVC)
+    # Use Unicode Character Set.
+    target_compile_definitions(${target} PRIVATE _UNICODE)
+
+    # Set source and execution character sets to UTF-8.
+    target_compile_options(${target} PUBLIC "/utf-8")
+
+    # Enable Function Level Linking (Release only)
+    target_compile_options(${target} PUBLIC "$<$<CONFIG:Release>:/Gy>")
+
+    # Enable Intrinsic Functions (Release only)
+    target_compile_options(${target} PUBLIC "$<$<CONFIG:Release>:/Oi>")
+
+    # For executables:
+    get_target_property(target_type ${target} TYPE)
+    if (target_type STREQUAL "EXECUTABLE")
+      # Enable COMDAT Folding (Release only)
+      target_link_options(${target} PUBLIC "$<$<CONFIG:Release>:/OPT:ICF>")
+
+      # Do not generate Manifest
+      target_link_options(${target} PUBLIC "/MANIFEST:NO")
+    endif ()
+
+    # Set warning level
+    target_compile_options(${target} PRIVATE /W4 /permissive-)
+  else()
+    # Set warning level
+    target_compile_options(${target} PRIVATE -Wall -Wextra -Wpedantic)
+  endif()
+
+  # Enable Whole Program Optimization in Release if it's supported.
+  if(H3MTXT_IPO_SUPPORTED)
+    set_target_properties(${target} PROPERTIES
+      INTERPROCEDURAL_OPTIMIZATION TRUE
+      INTERPROCEDURAL_OPTIMIZATION_DEBUG FALSE
+      INTERPROCEDURAL_OPTIMIZATION_RELEASE TRUE
+      INTERPROCEDURAL_OPTIMIZATION_RELWITHDEBINFO TRUE
+      INTERPROCEDURAL_OPTIMIZATION_MINSIZEREL TRUE
+    )
+  endif()
+endfunction()
 
 # Thirdparty libraries:
 # JsonCpp:
@@ -36,7 +89,7 @@ add_subdirectory(H3JsonWriter)
 add_subdirectory(H3Reader)
 add_subdirectory(H3Writer)
 
-# The only target is the h3mtxt application.
+# Target for the h3mtxt program.
 add_executable(h3mtxt h3mtxt.cpp)
 
 # Add the parent of the repository to the list of additional include directories,
@@ -52,25 +105,8 @@ target_link_libraries(h3mtxt PRIVATE h3mtxt::H3Writer)
 target_link_libraries(h3mtxt PRIVATE h3mtxt::H3JsonReader)
 target_link_libraries(h3mtxt PRIVATE h3mtxt::H3JsonWriter)
 
-# For Visual Studio: Use Unicode Character Set.
-target_compile_definitions(h3mtxt PRIVATE _UNICODE)
+# Set compiler options for h3mtxt.
+h3mtxt_add_common_compiler_options(h3mtxt)
 
-# Enable Whole Program Optimization in Release if it's supported.
-include(CheckIPOSupported)
-check_ipo_supported(RESULT IPO_SUPPORTED)
-if(IPO_SUPPORTED)
-  set_target_properties(h3mtxt PROPERTIES
-    INTERPROCEDURAL_OPTIMIZATION TRUE
-    INTERPROCEDURAL_OPTIMIZATION_DEBUG FALSE
-    INTERPROCEDURAL_OPTIMIZATION_RELEASE TRUE
-    INTERPROCEDURAL_OPTIMIZATION_RELWITHDEBINFO TRUE
-    INTERPROCEDURAL_OPTIMIZATION_MINSIZEREL TRUE
-  )
-endif()
-
-# Set warning level
-if(MSVC)
-  target_compile_options(h3mtxt PRIVATE /W4 /permissive-)
-else()
-  target_compile_options(h3mtxt PRIVATE -Wall -Wextra -Wpedantic)
-endif()
+# Installation rule for h3mtxt.
+install(TARGETS h3mtxt)

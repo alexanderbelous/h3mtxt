@@ -47,25 +47,5 @@ target_link_libraries(H3JsonWriter PRIVATE h3mtxt::JsonCommon)
 target_link_libraries(H3JsonWriter PUBLIC h3mtxt::Map)
 target_link_libraries(H3JsonWriter PUBLIC h3mtxt::Medea)
 
-# For Visual Studio: Use Unicode Character Set.
-target_compile_definitions(H3JsonWriter PRIVATE _UNICODE)
-
-# Enable Whole Program Optimization in Release if it's supported.
-include(CheckIPOSupported)
-check_ipo_supported(RESULT IPO_SUPPORTED)
-if(IPO_SUPPORTED)
-  set_target_properties(H3JsonWriter PROPERTIES
-    INTERPROCEDURAL_OPTIMIZATION TRUE
-    INTERPROCEDURAL_OPTIMIZATION_DEBUG FALSE
-    INTERPROCEDURAL_OPTIMIZATION_RELEASE TRUE
-    INTERPROCEDURAL_OPTIMIZATION_RELWITHDEBINFO TRUE
-    INTERPROCEDURAL_OPTIMIZATION_MINSIZEREL TRUE
-  )
-endif()
-
-# Set warning level
-if(MSVC)
-  target_compile_options(H3JsonWriter PRIVATE /W4 /permissive-)
-else()
-  target_compile_options(H3JsonWriter PRIVATE -Wall -Wextra -Wpedantic)
-endif()
+# Set compiler options.
+h3mtxt_add_common_compiler_options(H3JsonWriter)

@@ -40,6 +40,7 @@ git clone --recurse-submodules https://github.com/alexanderbelous/h3mtxt.git
 cd h3mtxt
 cmake -S . -B build
 cmake --build build --config Release
+cmake --install build --config Release --prefix .
 ```
 
 # Acknowledgment

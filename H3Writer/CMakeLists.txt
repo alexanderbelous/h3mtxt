@@ -41,25 +41,5 @@ target_link_libraries(H3Writer PUBLIC Map)
 # Thirdparty libraries:
 target_link_libraries(H3Writer PRIVATE zlib::zlibstatic)
 
-# For Visual Studio: Use Unicode Character Set.
-target_compile_definitions(H3Writer PRIVATE _UNICODE)
-
-# Enable Whole Program Optimization in Release if it's supported.
-include(CheckIPOSupported)
-check_ipo_supported(RESULT IPO_SUPPORTED)
-if(IPO_SUPPORTED)
-  set_target_properties(H3Writer PROPERTIES
-    INTERPROCEDURAL_OPTIMIZATION TRUE
-    INTERPROCEDURAL_OPTIMIZATION_DEBUG FALSE
-    INTERPROCEDURAL_OPTIMIZATION_RELEASE TRUE
-    INTERPROCEDURAL_OPTIMIZATION_RELWITHDEBINFO TRUE
-    INTERPROCEDURAL_OPTIMIZATION_MINSIZEREL TRUE
-  )
-endif()
-
-# Set warning level
-if(MSVC)
-  target_compile_options(H3Writer PRIVATE /W4 /permissive-)
-else()
-  target_compile_options(H3Writer PRIVATE -Wall -Wextra -Wpedantic)
-endif()
+# Set compiler options.
+h3mtxt_add_common_compiler_options(H3Writer)
