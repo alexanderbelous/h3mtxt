@@ -131,7 +131,7 @@ namespace h3m::H3Reader_NS
       {
         VictoryConditionDetails<VictoryConditionType::SurviveBeyondATimeLimit> details;
         readSpecialVictoryConditionBase(stream, details);
-        details.days = readInt<std::uint32_t>(stream);
+        details.days = readInt<std::int32_t>(stream);
         return {};
       }
     };

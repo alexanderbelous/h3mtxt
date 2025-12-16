@@ -123,7 +123,7 @@ namespace h3m::H3JsonReader_NS
     {
       VictoryConditionDetails<VictoryConditionType::SurviveBeyondATimeLimit> details;
       readSpecialVictoryConditionBaseFromJson(value, details);
-      details.days = readField<std::uint32_t>(value, "days");
+      details.days = readField<std::int32_t>(value, "days");
       return details;
     }
   };

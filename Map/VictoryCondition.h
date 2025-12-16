@@ -113,8 +113,24 @@ namespace h3m
   template<>
   struct VictoryConditionDetails<VictoryConditionType::SurviveBeyondATimeLimit> : SpecialVictoryConditionBase
   {
-    // TODO: check signedness.
-    std::uint32_t days {};
+    // The number of in-game days that the player needs to survive.
+    // * Both 0 and 1 lead to victory at the end of "Month: 1, Week: 1, Day: 1"
+    //   after all players have completed their turns.
+    // * 2 leads to victory at the end of "Month: 1, Week: 1, Day: 2"
+    //   after all players have completed their turns.
+    // * 3 leads to victory at the end of "Month: 1, Week: 1, Day: 3"
+    //   after all players have completed their turns.
+    // * 7 leads to victory at the end of "Month: 1, Week: 1, Day: 7"
+    //   after all players have completed their turns.
+    // * 8 leads to victory at the end of "Month: 1, Week: 2, Day: 1"
+    //   after all players have completed their turns.
+    // * ...
+    // * Negative values are equivalent to 0.
+    // FYI: unfortunately, the game doesn't display this number anywhere:
+    // * In the main menu / when saving the game, it simply shows the Victory Condition as
+    //   "Survive beyond a time limit".
+    // * In Scenario Information (during the game), it doesn't display any text at all.
+    std::int32_t days {};
   };
 
   // Victory condition for the map.
