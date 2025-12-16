@@ -72,6 +72,12 @@ namespace h3m
     // (the rest will be ignored).
     std::vector<SecondarySkill> secondary_skills;
     std::vector<ArtifactType> artifacts;
+    // FYI: Duplicate spells are OK (the Map Editor won't let you add duplicates,
+    // but will display them correctly if they are already present in the .h3m file).
+    // The size of the vector (i.e. number of spells) is serialized as a 8-bit integer. It seems that the game
+    // uses a signed 8-bit integer: sizes [0; 127] are fine, but the game will crash if you try to use other values.
+    // If it's indeed treated as signed, then it's possible that "negative" lengths are equivalent to 0
+    // (no spells should be read/written), but I haven't checked it.
     std::vector<SpellType> spells;
     // FYI: if CreatureStack::count is negative, the number of creatures in the hero's stack will decrease.
     std::vector<CreatureStack> creatures;
