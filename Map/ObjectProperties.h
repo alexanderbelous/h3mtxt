@@ -207,6 +207,17 @@ namespace h3m
   {
   };
 
+  // Undocumented features:
+  // * You can effectively make a hero placeholder the visting hero of a town.
+  //   In order for a hero placeholder to start in the town, the coordinates of the Object
+  //   representing it must be exactly the same as the coordinates of the town (same as how it's
+  //   done for normal visiting heroes).
+  //   Both the Map Editor and the Unleashed Editor only allow setting specific and random heroes
+  //   as visiting heroes. In the Unleashed Editor you can manually move the hero placeholder to
+  //   the right tile, which will have the desired behavior, although the Unleashed Editor will
+  //   trigger a warning about object overlap.
+  //   Both the Map Editor and the Unleashed Editor incorrectly render such hero placeholders on
+  //   top of the town, instead of displaying them as the visiting hero in the town settings.
   template<>
   struct ObjectProperties<ObjectPropertiesType::PLACEHOLDER_HERO>
   {
