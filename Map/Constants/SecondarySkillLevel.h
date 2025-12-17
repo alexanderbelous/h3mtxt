@@ -4,11 +4,153 @@
 
 namespace h3m
 {
-  // Levels of secodary skills are normally within [1; 3]. However, the game has
-  // well-defined behavior for some values outside of this range for some skills,
+  // Levels of secodary skills are expected to be within [1; 3]. However, Heroes3.exe
+  // has well-defined behavior for some values outside of this range for some skills,
   // as shown by LC:
   //   https://www.youtube.com/watch?v=X_xVEXGGqbw
   //   https://docs.google.com/spreadsheets/d/1JwdFy51rODCJ_3WT8iVBRX7QeblD0BPK11qYH5jhkO0
+  //
+  // ===============================================================================
+  //  ____      ____  _       _______     ____  _____  _____  ____  _____   ______
+  // |_  _|    |_  _|/ \     |_   __ \   |_   \|_   _||_   _||_   \|_   _|.' ___  |
+  //   \ \  /\  / / / _ \      | |__) |    |   \ | |    | |    |   \ | | / .'   \_|
+  //    \ \/  \/ / / ___ \     |  __ /     | |\ \| |    | |    | |\ \| | | |   ____
+  //     \  /\  /_/ /   \ \_  _| |  \ \_  _| |_\   |_  _| |_  _| |_\   |_\ `.___]  |
+  //      \/  \/|____| |____||____| |___||_____|\____||_____||_____|\____|`._____.'
+  //
+  // This is outright hacking. These "hexed" skills rely on buffer over-read, which
+  // just happens to work because Heroes3.exe doesn't perform bounds checking when
+  // reading the "effect" of a secondary skill at the specified level.
+  //
+  // There is no guarantee whatsoever that such "hexed" secondary skills would work
+  // as described below (or work at all) in any program other than the official
+  // Heroes3.exe.
+  //
+  // Since the game was written in C++ and in C++ accessing elements outside of array
+  // bounds is undefined behavior, the compiled binary (Heroes3.exe) was not required
+  // to have any particular behavior for such "hexed" secondary skills - it's merely
+  // a coincidence that they behave as described below.
+  //
+  // Hypothetically, if you were to recompile the source code of Heroes3.exe and try
+  // playing a map that uses such "hexed" secondary skills, there would be no
+  // guarantee whatsoever that they would work as described below. For example, the
+  // compiler would be allowed to insert code that deletes all files on your computer.
+  // ===============================================================================
+  // --------------------------- Why and how this works ----------------------------
+  // -------------------------------------------------------------------------------
+  //
+  // In Heroes3.exe the "effects" of secondary skills are stored at specific
+  // memory addresses in the executable itself.
+  // * Credits to BTB for reverse-engineering: see http://heroescommunity.com/viewthread.php3?TID=46202
+  //                                           and http://btb2.free.fr/mods/h3/hacking.txt
+  //
+  // For each secondary skill Heroes3.exe stores 4 successive 32-bit values. These
+  // values define, respectively, the effects of:
+  //   x[0]: No skill
+  //   x[1]: Basic
+  //   x[2]: Advanced,
+  //   x[3]: Expert
+  //
+  // For some secondary skills the effect is described by an integer; for others,
+  // it is desribed by a floating-point number. Floating-point numbers are encoded
+  // as described by the IEEE-754 standard.
+  //
+  // The addresses in Heroes3.exe for different secondary skills:
+  //   Luck        23E998      Offense     23E9F8      Learning        23EA58
+  //   Leadership  23E9A8      Armorer     23EA08      Logistics       23EA68
+  //   Necromancy  23E9B8      Estates     23EA18      Sorcery         23EA78
+  //   Mysticism   23E9C8      Eagle Eye   23EA28      Intelligence    23EA88
+  //   Scouting    23E9D8      Diplomacy   23EA38      First Aid       23EA98
+  //   Archery     23E9E8      Resistance  23EA48      Artillery       23B810
+  //
+  // These addresses point to the .rdata section of Heroes3.exe, which represents
+  // statically-allocated constant variables. This section is loaded into the
+  // process memory when Heroes3.exe starts.
+  //
+  // This is equivalent to the following data structure in C++ (ignoring Artillery):
+  //
+  // struct SecondarySkillEffects
+  // {
+  //   std::uint32_t luck[4]         = {0,    1,    2,    3};  // 23E998
+  //   std::uint32_t leadership[4]   = {0,    1,    2,    3};  // 23E9A8
+  //   float         necromancy[4]   = {0,  0.1,  0.2,  0.3};  // 23E9B8
+  //   std::uint32_t mysticism[4]    = {0,    1,    2,    3};  // 23E9C8
+  //   std::uint32_t scouting[4]     = {5,    6,    7,    8};
+  //   float         archery[4]      = {0,  0.1, 0.25,  0.5};
+  //   float         offense[4]      = {0,  0.1,  0.2,  0.3};
+  //   float         armorer[4]      = {0, 0.05,  0.1, 0.15};
+  //   std::uint32_t estates[4]      = {0,  125,  250,  500};
+  //   float         eagle_eye[4]    = {0,  0.4,  0.5,  0.6};
+  //   float         diplomacy[4]    = {0,  0.2,  0.4,  0.6};
+  //   float         resistance[4]   = {0, 0.05,  0.1,  0.2};
+  //   float         learning[4]     = {0, 0.05,  0.1, 0.15};
+  //   float         logistics[4]    = {0,  0.1,  0.2,  0.3};
+  //   float         sorcery[4]      = {0, 0.05,  0.1, 0.15};
+  //   float         intelligence[4] = {0, 0.25,  0.5,  1.0};
+  //   float         first_aid[4]    = {0,  1.0,  2.0,  3.0};
+  // };
+  //
+  // Note that
+  //   offsetof(SecondarySkillEffects, luck)       == 0,
+  //   offsetof(SecondarySkillEffects, leadership) == 16,
+  //   offsetof(SecondarySkillEffects, necromancy) == 32,
+  //   offsetof(SecondarySkillEffects, mysticism)  == 48,
+  //   ...
+  //
+  // Heroes3.exe is a Win32 program, and in Win32 it's guaranteed that
+  //   sizeof(std::uint32_t) = 4
+  //   sizeof(float) = 4
+  //   alignof(std::uint32_t) == 4
+  //   alignof(float) == 4
+  // so leadership[0] is guaranteed to be allocated immediately after luck[3].
+  //
+  // Heroes3.exe treats the secondary skill level in .h3m as a singed integer:
+  // for example, 0xFF is interpreted as -1, not as 255.
+  //
+  // Now comes the undefined behavior (UB) part:
+  // 1) In C++ writing the following is undefined behavior:
+  //   SecondarySkillEffects table;
+  //   std::uint32_t leadership_ff = leadership[-1];
+  // 2) In Heroes3.exe, however, the program doesn't check if the element index
+  //    is within [0; 3], it simply reads the value at the computed address. Since
+  //    we have already established that there are no bytes between luck[3] and leadership[0],
+  //    * leadership[-1] happens to return the value stored at luck[3], which is equal to 3
+  //    * leadership[-2] happens to return the value stored at luck[2], which is equal to 2
+  //    * leadership[-3] happens to return the value stored at luck[1], which is equal to 1
+  //    * leadership[-4] happens to return the value stored at luck[0], which is equal to 0
+  //
+  // Levels [-4; -1] aren't very useful for Leadership, because the resulting Morale bonuses
+  // are the same that you can get from normal levels [0; 3].
+  //
+  // However, for other secondary skills we can get effects that cannot be achieved
+  // from levels [0; 3]:
+  // * resistance[-1] happens to return the value stored at diplomacy[3], which is equal to 0.6.
+  //   This increases Magic resistance of all creatures in the army by 60%.
+  //   No hero except Torgrim can achieve this level of Magic resistance, even if they
+  //   have Expert Resistance and equip all resistance-increasing artifacts (i.e.
+  //   Garniture of Interference, Surcoat of Counterpoise and Boots of Polarity).
+  // * mysticism[-1] happens to return the value stored at necromancy[3], which is reprsented by
+  //   the bytes {0x9A, 0x99, 0x99, 0x3E}. When interpreted as a little-endian 32-bit unsigned
+  //   integer, its value is 1'050'253'722, i.e. the hero will regenerate more than 1 million
+  //   spell points per day. In practice, it means that the hero will replenish all their spell
+  //   points every day.
+  //
+  // There is a limitation, though: while the "effect" can be read safely for any level
+  // within [-128; -1] (as long as the resulting address refers to bytes within .rdata),
+  // we need to remember that the level is also used in a few other places:
+  // * It defines the appropriate icon for this secondary skill on the Hero screen.
+  // * It defines the text label for this secondary skill on the Hero screen.
+  // * It defines the description for this secondary skill on the Hero screen.
+  // Because of this, "hexed" secondary skills are usually displayed as nonsense on the Hero screen:
+  // * e.g., Leadership{-1} is displayed as "Cancel Leadership"
+  //                        with the icon of Advanced Navigation
+  //                        and the description of Expert Navigation.
+  // Even worse, Heroes3.exe may crash for some "hexed" secondary skills if it fails to read those values
+  // (icon, name and description).
+  //
+  // Specializations of the template SecondarySkillLevel below only provide levels
+  // that don't cause errors when used in Heroes3.exe.
+  // ===============================================================================
   //
   // Note that 0 is a valid value for all secondary skills. It is equivalent to not having
   // that secondary skill at all, but it nevertheless occupies a slot.
