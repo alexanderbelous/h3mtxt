@@ -74,7 +74,7 @@ namespace h3m
   //   std::uint32_t luck[4]         = {0,    1,    2,    3};  // 23E998
   //   std::uint32_t leadership[4]   = {0,    1,    2,    3};  // 23E9A8
   //   float         necromancy[4]   = {0,  0.1,  0.2,  0.3};  // 23E9B8
-  //   std::uint32_t mysticism[4]    = {0,    1,    2,    3};  // 23E9C8
+  //   std::uint32_t mysticism[4]    = {1,    2,    3,    4};  // 23E9C8
   //   std::uint32_t scouting[4]     = {5,    6,    7,    8};
   //   float         archery[4]      = {0,  0.1, 0.25,  0.5};
   //   float         offense[4]      = {0,  0.1,  0.2,  0.3};
@@ -109,8 +109,8 @@ namespace h3m
   //
   // Now comes the undefined behavior (UB) part:
   // 1) In C++ writing the following is undefined behavior:
-  //   SecondarySkillEffects table;
-  //   std::uint32_t leadership_ff = leadership[-1];
+  //   const SecondarySkillEffects table;
+  //   std::uint32_t leadership_ff = table.leadership[-1];
   // 2) In Heroes3.exe, however, the program doesn't check if the element index
   //    is within [0; 3], it simply reads the value at the computed address. Since
   //    we have already established that there are no bytes between luck[3] and leadership[0],
