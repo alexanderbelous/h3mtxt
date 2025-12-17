@@ -98,13 +98,13 @@ namespace h3m
   //   ...
   //
   // Heroes3.exe is a Win32 program, and in Win32 it's guaranteed that
-  //   sizeof(std::uint32_t) = 4
-  //   sizeof(float) = 4
+  //   sizeof(std::uint32_t) == 4
+  //   sizeof(float) == 4
   //   alignof(std::uint32_t) == 4
   //   alignof(float) == 4
   // so leadership[0] is guaranteed to be allocated immediately after luck[3].
   //
-  // Heroes3.exe treats the secondary skill level in .h3m as a singed integer:
+  // Heroes3.exe treats the secondary skill level in .h3m as a signed integer:
   // for example, 0xFF is interpreted as -1, not as 255.
   //
   // Now comes the undefined behavior (UB) part:
