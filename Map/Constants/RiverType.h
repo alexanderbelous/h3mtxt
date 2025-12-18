@@ -45,7 +45,7 @@ namespace h3m
   // ===============================================================================
   //
   // RiverType should be within [0; 4], but the game *sometimes* can handle some
-  // other values, rendering non-road sprites for them.
+  // other values, rendering non-river sprites for them.
   //
   // This is not guaranteed to work: the behavior depends on how memory is allocated
   // for sprites. Memory for Terrain sprites is allocated first, followed by rivers,
