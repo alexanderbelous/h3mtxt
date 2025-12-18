@@ -36,7 +36,7 @@ namespace h3m::H3Writer_NS
     }
     writeData(stream, scenario.region_color);
     writeData(stream, scenario.default_difficulty);
-    writeData(stream, scenario.region_righ_click_text);
+    writeData(stream, scenario.region_right_click_text);
     writeData(stream, scenario.prologue);
     writeData(stream, scenario.epilogue);
     writeData(stream, scenario.crossover_options);

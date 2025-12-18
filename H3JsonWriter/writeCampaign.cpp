@@ -46,7 +46,7 @@ namespace Medea_NS
     {
       out.writeComment(enum_str, false);
     }
-    out.writeField(Fields::kRegionRightClickText, scenario.region_righ_click_text);
+    out.writeField(Fields::kRegionRightClickText, scenario.region_right_click_text);
     if (scenario.prologue)
     {
       out.writeField(Fields::kPrologue, *scenario.prologue);

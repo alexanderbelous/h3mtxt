@@ -36,7 +36,7 @@ namespace h3m::H3JsonReader_NS
     readField(scenario.prerequisites, value, Fields::kPrerequisites);
     readField(scenario.region_color, value, Fields::kRegionColor);
     readField(scenario.default_difficulty, value, Fields::kDefaultDifficulty);
-    readField(scenario.region_righ_click_text, value, Fields::kRegionRightClickText);
+    readField(scenario.region_right_click_text, value, Fields::kRegionRightClickText);
     readField(scenario.prologue, value, Fields::kPrologue);
     readField(scenario.epilogue, value, Fields::kEpilogue);
     readField(scenario.crossover_options, value, Fields::kCrossoverOptions);

@@ -51,7 +51,9 @@ namespace h3m
     BitSet<2> prerequisites {};
     RegionColor region_color {};
     MapDifficulty default_difficulty {};
-    std::string region_righ_click_text;
+    // Displayed in the main menu when you right-click on the region
+    // representing this scenario.
+    std::string region_right_click_text;
     std::optional<CutScene> prologue;
     std::optional<CutScene> epilogue;
     CrossoverOptions crossover_options;

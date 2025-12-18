@@ -41,7 +41,7 @@ namespace h3m::H3Reader_NS
     }
     scenario.region_color = readEnum<RegionColor>(stream);
     scenario.default_difficulty = readEnum<MapDifficulty>(stream);
-    scenario.region_righ_click_text = readString(stream);
+    scenario.region_right_click_text = readString(stream);
     if (const bool has_prologue = readBool(stream))
     {
       scenario.prologue = readCutScene(stream);

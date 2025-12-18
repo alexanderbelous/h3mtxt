@@ -1136,7 +1136,7 @@ namespace h3m
     static inline constexpr std::string_view kPrerequisites = "prerequisites";
     static inline constexpr std::string_view kRegionColor = "region_color";
     static inline constexpr std::string_view kDefaultDifficulty = "default_difficulty";
-    static inline constexpr std::string_view kRegionRightClickText = "region_righ_click_text";
+    static inline constexpr std::string_view kRegionRightClickText = "region_right_click_text";
     static inline constexpr std::string_view kPrologue = "prologue";
     static inline constexpr std::string_view kEpilogue = "epilogue";
     static inline constexpr std::string_view kCrossoverOptions = "crossover_options";
