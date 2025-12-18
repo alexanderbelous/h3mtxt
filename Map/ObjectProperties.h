@@ -173,8 +173,14 @@ namespace h3m
     Formation formation {};
     std::optional<HeroArtifacts> artifacts;
     // The Map Editor only allows values from [0; 10] or 0xFF (no patrol).
-    // TODO: check what other values do, especially the ones > 127.
-    std::uint8_t patrol_radius {};
+    // 0 means that the enemy hero will stand still.
+    // The Map Editor will freeze if you try viewing the properties of a hero
+    // whose patrol radius is outside [0; 10] and not equal to 0xFF.
+    //
+    // Undocumented features:
+    // * Any value within [11; 127] is accepted by the game and interpreted as the radius of the patrol circle.
+    // * All values outside [0; 127] are also accepted by the game, but they're equivalent to 0xFF (no patrol).
+    std::int8_t patrol_radius {};
     std::optional<std::string> biography;
     Gender gender {};
     std::optional<SpellsBitmask> spells;

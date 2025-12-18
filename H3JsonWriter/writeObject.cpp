@@ -212,6 +212,10 @@ namespace Medea_NS
       out.writeField(Fields::kArtifacts, *hero.artifacts);
     }
     out.writeField(Fields::kPatrolRadius, hero.patrol_radius);
+    if (hero.patrol_radius < 0)
+    {
+      out.writeComment("(None)", false);
+    }
     if (hero.biography)
     {
       out.writeField(Fields::kBiography, *hero.biography);

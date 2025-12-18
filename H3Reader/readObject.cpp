@@ -191,7 +191,7 @@ namespace h3m::H3Reader_NS
       {
         data.artifacts = readHeroArtifacts(stream);
       }
-      data.patrol_radius = readInt<std::uint8_t>(stream);
+      data.patrol_radius = readInt<std::int8_t>(stream);
       const Bool has_biography = readBool(stream);
       if (has_biography)
       {
