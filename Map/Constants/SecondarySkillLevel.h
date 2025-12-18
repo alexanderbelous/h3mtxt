@@ -341,6 +341,10 @@ namespace h3m
     static constexpr std::uint8_t k60Percent2 = 0xEF;
   };
 
-  // TODO: apparently, there is a way to learn level 5 spells via hexed Eagle Eye:
+  // FYI: according to LC, there is a way to enable learning level 5 spells via Eagle Eye:
   // https://www.reddit.com/r/heroes3/comments/1iv6kkh/eagle_eye_level_5_spells_catching_in_sod_not_hota/
+  //
+  // However, this seems to rely on a different hack: nonstandard levels for Eagle Eye
+  // only affect the probability of learning the spells that you've witnessed. The maximum
+  // level of spells that can be learned is determined elsewhere (see BTB's notes).
 }
