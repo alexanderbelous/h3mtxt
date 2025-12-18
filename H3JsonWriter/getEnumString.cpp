@@ -1196,7 +1196,9 @@ namespace h3m
       "DefeatMonster",
       "FlagDwellings",
       "FlagMines",
-      "TransportArtifact"
+      "TransportArtifact",
+      "DefeatAllMonsters",
+      "SurviveBeyondATimeLimit"
     };
     const std::size_t idx = static_cast<std::size_t>(value);
     if (idx < std::size(kNames))
