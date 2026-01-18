@@ -321,6 +321,9 @@ namespace h3m
     static constexpr std::uint8_t k40Percent2 = 0xF9;
   };
 
+  // FYI: if the hero's speciality is Sorcery, the bonus from a "hexed" level is still constant:
+  // e.g., Gird at level 40 with Sorcery{0xF3} will inflict 60% extra damage from spells, not
+  // 60% * (1 + 0.05 * 40) = 180%.
   template<>
   struct SecondarySkillLevel<SecondarySkillType::Sorcery>
   {

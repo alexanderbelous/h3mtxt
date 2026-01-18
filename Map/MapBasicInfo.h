@@ -17,8 +17,16 @@ namespace h3m
     // False if there is only 1 level on the map, true if there are 2 levels.
     Bool has_two_levels {};
     // The name of the map.
+    // The Map Editor has a limit of 30 characters; you can use a longer name,
+    // but it's somewhat useless:
+    // * The game only shows the first 22 characters in "Available Scenarios".
+    // * The game only shows the first 29 characters in "Scenario Information".
+    // * The Map Editor only shows the first 30 characters.
     std::string name;
     // Description of the map.
+    // The Map Editor has a limit of 300 characters, but you can use longer strings:
+    // * Only the first 300 characters will be displayed in the main menu and in the Map Editor.
+    // * "Scenario Information" will display the full text.
     std::string description;
     // Difficulty level.
     MapDifficulty difficulty {};
