@@ -1,4 +1,5 @@
 #include <h3mtxt/H3JsonWriter/getEnumString.h>
+#include <h3mtxt/Campaign/Constants/StartingBonusResourceType.h>
 #include <h3mtxt/Map/Constants/ArtifactType.h>
 #include <h3mtxt/Map/Constants/Constants.h>
 #include <h3mtxt/Map/Constants/Formation.h>
@@ -1407,19 +1408,17 @@ namespace h3m
 
   std::string_view getEnumString(StartingBonusResourceType value) noexcept
   {
-    static constexpr std::string_view kNames[] = {
-      "Wood",
-      "Mercury",
-      "Ore",
-      "Sulfur",
-      "Crystal",
-      "Gems",
-      "Gold",
-      "Wood and Ore",
-      "Mercury, Sulfur, Crystal and Gems" // Parsley, Sage, Rosemary and Thyme
-    };
-    const std::size_t idx = static_cast<std::size_t>(value);
-    return (idx < std::size(kNames)) ? kNames[idx] : std::string_view{};
+    switch (value)
+    {
+    case StartingBonusResourceType::WoodOre:
+      return "Wood and Ore";
+    case StartingBonusResourceType::MercurySulfurCrystalGems:
+      return "Mercury, Sulfur, Crystal and Gems"; // Parsley, Sage, Rosemary and Thyme
+    default:
+      // StartingBonusResourceType is a superset of ResourceType,
+      // so we can fall back to getEnumString(ResourceType).
+      return getEnumString(static_cast<ResourceType>(value));
+    }
   }
 
   std::string_view getEnumString(StartingBonusType value) noexcept
