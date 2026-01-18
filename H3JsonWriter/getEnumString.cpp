@@ -383,12 +383,6 @@ namespace h3m
 
   std::string_view getEnumString(HeroPortrait value) noexcept
   {
-    using UnderlyingType = std::underlying_type_t<HeroPortrait>;
-    const UnderlyingType idx = static_cast<UnderlyingType>(value);
-    if (idx < kNumHeroes)
-    {
-      return getEnumString(static_cast<HeroType>(idx));
-    }
     switch (value)
     {
     case HeroPortrait::GENERAL_KENDAL:
@@ -405,8 +399,12 @@ namespace h3m
       return "Sandro2";
     case HeroPortrait::YOG2:
       return "Yog2";
+    case HeroPortrait::DEFAULT:
+      return "(Default)";
     default:
-      return std::string_view{};
+      // HeroPortrait is a superset of HeroType,
+      // so we can fall back to getEnumString(HeroType).
+      return getEnumString(static_cast<HeroType>(value));
     }
   }
 
