@@ -289,7 +289,7 @@ namespace h3m
   template<>
   struct ObjectProperties<ObjectPropertiesType::SCHOLAR>
   {
-    // TODO: consider replacing with std::variant<PrimarySkillType, SecondarySkillType, Spell, RandomScholarRewardType>.
+    // TODO: consider replacing with std::variant<PrimarySkillType, SecondarySkillType, SpellType, RandomScholarRewardType>.
     ScholarRewardType reward_type {};
     // The meaning of reward_value depends on reward_type:
     //   PrimarySkill:
