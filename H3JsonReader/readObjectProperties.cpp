@@ -1,4 +1,5 @@
 #include <h3mtxt/H3JsonReader/Utils.h>
+#include <h3mtxt/H3JsonReader/VariantJsonReader.h>
 #include <h3mtxt/JsonCommon/FieldName.h>
 #include <h3mtxt/Map/Utils/EnumSequence.h>
 #include <h3mtxt/Map/ObjectPropertiesVariant.h>
@@ -345,16 +346,17 @@ namespace h3m::H3JsonReader_NS
   template<>
   struct JsonReader<ObjectProperties<ObjectPropertiesType::SCHOLAR>>
   {
-    using Details = ObjectProperties<ObjectPropertiesType::SCHOLAR>;
+    using Properties = ObjectProperties<ObjectPropertiesType::SCHOLAR>;
 
-    Details operator()(const Json::Value& value) const
+    Properties operator()(const Json::Value& value) const
     {
-      using Fields = FieldNames<Details>;
-      Details details;
-      readField(details.reward_type, value, Fields::kRewardType);
-      readField(details.reward_value, value, Fields::kRewardValue);
-      readField(details.unknown, value, Fields::kUnknown);
-      return details;
+      using Fields = FieldNames<Properties>;
+      Properties properties;
+      const ScholarRewardType reward_type = readField<ScholarRewardType>(value, Fields::kRewardType);
+      properties.reward = VariantJsonReader<Properties::Reward>{}(getJsonField(value, Fields::kRewardValue),
+                                                                  Properties::getAlternativeIdx(reward_type));
+      readField(properties.unknown, value, Fields::kUnknown);
+      return properties;
     }
   };
 

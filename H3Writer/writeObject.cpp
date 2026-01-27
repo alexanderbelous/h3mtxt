@@ -249,8 +249,22 @@ namespace h3m::H3Writer_NS
   {
     void operator()(std::ostream& stream, const ObjectProperties<ObjectPropertiesType::SCHOLAR>& scholar) const
     {
-      writeData(stream, scholar.reward_type);
-      writeData(stream, scholar.reward_value);
+      writeData(stream, scholar.rewardType());
+      switch (scholar.rewardType())
+      {
+      case ScholarRewardType::PrimarySkill:
+        writeData(stream, std::get<PrimarySkillType>(scholar.reward));
+        break;
+      case ScholarRewardType::SecondarySkill:
+        writeData(stream, std::get<SecondarySkillType>(scholar.reward));
+        break;
+      case ScholarRewardType::Spell:
+        writeData(stream, std::get<SpellType>(scholar.reward));
+        break;
+      default:
+        writeData(stream, std::get<ScholarRandomRewardType>(scholar.reward));
+        break;
+      }
       writeData(stream, scholar.unknown);
     }
   };

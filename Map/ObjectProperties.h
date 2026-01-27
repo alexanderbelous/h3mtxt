@@ -26,6 +26,7 @@
 #include <cstdint>
 #include <optional>
 #include <string>
+#include <variant>
 #include <vector>
 
 namespace h3m
@@ -289,18 +290,54 @@ namespace h3m
   template<>
   struct ObjectProperties<ObjectPropertiesType::SCHOLAR>
   {
-    // TODO: consider replacing with std::variant<PrimarySkillType, SecondarySkillType, SpellType, RandomScholarRewardType>.
-    ScholarRewardType reward_type {};
-    // The meaning of reward_value depends on reward_type:
-    //   PrimarySkill:
-    //     static_cast<PrimarySkillType>(reward_value)
-    //   SecondarySkill:
-    //     static_cast<SecondarySkillType>(reward_value)
-    //   Spell:
-    //     static_cast<SpellType>(reward_value)
-    //   Random:
-    //     should be 0.
-    std::uint8_t reward_value {};
+    // Type-safe union of types that can be used as the value of the reward given by the Scholar.
+    using Reward = std::variant<PrimarySkillType, SecondarySkillType, SpellType, ScholarRandomRewardType>;
+
+    // \return the type of the reward.
+    constexpr ScholarRewardType rewardType() const noexcept
+    {
+      const std::size_t alternative_index = reward.index();
+      return alternative_index == 3 ? ScholarRewardType::Random
+                                    : static_cast<ScholarRewardType>(alternative_index);
+    }
+
+    // Returns the index of the variant alternative corresponding to the given ScholarRewardType.
+    // \param reward_type - type of the reward.
+    // \return 0-based index of the alternative from Reward corresponding to @reward_type,
+    //         or std::variant_npos if there is no such alternative.
+    static constexpr std::size_t getAlternativeIdx(ScholarRewardType reward_type) noexcept
+    {
+      switch (reward_type)
+      {
+      case ScholarRewardType::PrimarySkill:
+      case ScholarRewardType::SecondarySkill:
+      case ScholarRewardType::Spell:
+        return static_cast<std::size_t>(reward_type);
+      case ScholarRewardType::Random:
+        return 3;
+      default:
+        return std::variant_npos;
+      }
+    }
+
+    // In .h3m the reward is always serialized as 2 bytes: the first byte defines the type of the reward
+    // (i.e. ScholarRewardType), the second byte defines the details:
+    //   ScholarRewardType::PrimarySkill   -> PrimarySkillType
+    //   ScholarRewardType::SecondarySkill -> SecondarySkillType
+    //   ScholarRewardType::Spell          -> SpellType
+    //   ScholarRewardType::Random         -> ScholarRandomRewardType (always set to 0 by the Map Editor).
+    //
+    // FYI: Heroes3.exe seems to be able to handle other values of ScholarRewardType without crashing
+    // (it expects the properties to be serialized as a single byte for all of them).
+    // However, there are no "hidden" reward types:
+    // * Values [3; 7], [11; 15], [19; 23], ..., [8*N+3; 8*N+7] are no-op regardless of
+    //   the byte serialzed for properties - no reward is given and no message is displayed.
+    // * Values [8; 10], [16; 18], [24; 26], ..., [8*N; 8*N+2] are equivalent to values [0; 2]
+    //   (i.e. ScholarRewardType{8} is equivalent to PrimarySkill, ScholarRewardType{9} is equivalent
+    //   to SecondarySkill, etc).
+    // In other words, there's no good reason to use values of ScholarRewardType other than 0, 1, 2 or 0xFF,
+    // so this class doesn't support them at all.
+    Reward reward = ScholarRandomRewardType{};
     ReservedData<6> unknown {};
   };
 

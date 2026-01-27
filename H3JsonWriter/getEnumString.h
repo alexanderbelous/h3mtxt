@@ -51,6 +51,8 @@ namespace h3m
 
   std::string_view getEnumString(RoadType value) noexcept;
 
+  std::string_view getEnumString(ScholarRandomRewardType value) noexcept;
+
   std::string_view getEnumString(ScholarRewardType value) noexcept;
 
   std::string_view getEnumString(SecondarySkillType value) noexcept;

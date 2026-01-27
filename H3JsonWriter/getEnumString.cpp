@@ -969,6 +969,11 @@ namespace h3m
     return (idx < std::size(kNames)) ? kNames[idx] : std::string_view{};
   }
 
+  std::string_view getEnumString(ScholarRandomRewardType) noexcept
+  {
+    return {};
+  }
+
   std::string_view getEnumString(ScholarRewardType value) noexcept
   {
     switch (value)

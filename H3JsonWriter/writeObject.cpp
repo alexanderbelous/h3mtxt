@@ -347,12 +347,22 @@ namespace Medea_NS
   {
     using Details = h3m::ObjectProperties<h3m::ObjectPropertiesType::SCHOLAR>;
     using Fields = h3m::FieldNames<Details>;
-    out.writeField(Fields::kRewardType, scholar.reward_type);
-    if (std::string_view enum_str = h3m::getEnumString(scholar.reward_type); !enum_str.empty())
+    const h3m::ScholarRewardType reward_type = scholar.rewardType();
+    out.writeField(Fields::kRewardType, reward_type);
+    if (std::string_view enum_str = h3m::getEnumString(reward_type); !enum_str.empty())
     {
       out.writeComment(enum_str, false);
     }
-    out.writeField(Fields::kRewardValue, scholar.reward_value);
+    // reward_value is always a 1-byte enum type.
+    std::visit([&out](auto reward_value)
+               {
+                 out.writeField(Fields::kRewardValue, reward_value);
+                 if (std::string_view enum_str = h3m::getEnumString(reward_value); !enum_str.empty())
+                 {
+                   out.writeComment(enum_str, false);
+                 }
+               },
+               scholar.reward);
     out.writeField(Fields::kUnknown, scholar.unknown);
   }
 

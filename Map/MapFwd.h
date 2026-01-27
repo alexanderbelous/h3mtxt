@@ -56,6 +56,8 @@ namespace h3m
 
   enum class RoadType : std::uint8_t;
 
+  enum class ScholarRandomRewardType : std::uint8_t;
+
   enum class ScholarRewardType : std::uint8_t;
 
   enum class SecondarySkillType : std::uint8_t;

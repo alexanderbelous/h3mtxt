@@ -335,8 +335,24 @@ namespace h3m::H3Reader_NS
     readObjectProperties<ObjectPropertiesType::SCHOLAR>(std::istream& stream)
     {
        ObjectProperties<ObjectPropertiesType::SCHOLAR> data;
-       data.reward_type = readEnum<ScholarRewardType>(stream);
-       data.reward_value = readInt<std::uint8_t>(stream);
+       const ScholarRewardType reward_type = readEnum<ScholarRewardType>(stream);
+       switch (reward_type)
+       {
+       case ScholarRewardType::PrimarySkill:
+         data.reward = readEnum<PrimarySkillType>(stream);
+         break;
+       case ScholarRewardType::SecondarySkill:
+         data.reward = readEnum<SecondarySkillType>(stream);
+         break;
+       case ScholarRewardType::Spell:
+         data.reward = readEnum<SpellType>(stream);
+         break;
+       case ScholarRewardType::Random:
+         data.reward = readEnum<ScholarRandomRewardType>(stream);
+         break;
+       default:
+         throw std::runtime_error("Invalid ScholarRewardType.");
+       }
        data.unknown = readReservedData<6>(stream);
        return data;
     }
