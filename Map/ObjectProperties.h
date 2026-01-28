@@ -305,7 +305,7 @@ namespace h3m
 
     // Returns the index of the variant alternative corresponding to the given ScholarRewardType.
     // \param reward_type - type of the reward.
-    // \return 0-based index of the alternative from Reward corresponding to @reward_type,
+    // \return 0-based index of the alternative from ScholarReward corresponding to @reward_type,
     //         or std::variant_npos if there is no such alternative.
     static constexpr std::size_t getAlternativeIdx(ScholarRewardType reward_type) noexcept
     {
