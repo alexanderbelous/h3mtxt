@@ -353,8 +353,8 @@ namespace h3m::H3JsonReader_NS
       using Fields = FieldNames<Properties>;
       Properties properties;
       const ScholarRewardType reward_type = readField<ScholarRewardType>(value, Fields::kRewardType);
-      properties.reward = VariantJsonReader<Properties::Reward>{}(getJsonField(value, Fields::kRewardValue),
-                                                                  Properties::getAlternativeIdx(reward_type));
+      properties.reward = VariantJsonReader<Properties::ScholarReward>{}(getJsonField(value, Fields::kRewardValue),
+                                                                         Properties::getAlternativeIdx(reward_type));
       readField(properties.unknown, value, Fields::kUnknown);
       return properties;
     }

@@ -9,7 +9,9 @@
 #include <h3mtxt/Map/Constants/HeroType.h>
 #include <h3mtxt/Map/Constants/ObjectPropertiesType.h>
 #include <h3mtxt/Map/Constants/PlayerColor.h>
+#include <h3mtxt/Map/Constants/PrimarySkillType.h>
 #include <h3mtxt/Map/Constants/ScholarRewardType.h>
+#include <h3mtxt/Map/Constants/SecondarySkillType.h>
 #include <h3mtxt/Map/Constants/SpellType.h>
 #include <h3mtxt/Map/Utils/EnumBitmask.h>
 #include <h3mtxt/Map/Utils/ReservedData.h>
@@ -291,7 +293,7 @@ namespace h3m
   struct ObjectProperties<ObjectPropertiesType::SCHOLAR>
   {
     // Type-safe union of types that can be used as the value of the reward given by the Scholar.
-    using Reward = std::variant<PrimarySkillType, SecondarySkillType, SpellType, ScholarRandomRewardType>;
+    using ScholarReward = std::variant<PrimarySkillType, SecondarySkillType, SpellType, ScholarRandomRewardType>;
 
     // \return the type of the reward.
     constexpr ScholarRewardType rewardType() const noexcept
@@ -328,16 +330,16 @@ namespace h3m
     //   ScholarRewardType::Random         -> ScholarRandomRewardType (always set to 0 by the Map Editor).
     //
     // FYI: Heroes3.exe seems to be able to handle other values of ScholarRewardType without crashing
-    // (it expects the properties to be serialized as a single byte for all of them).
+    // (it expects the details to be serialized as a single byte for all of them).
     // However, there are no "hidden" reward types:
     // * Values [3; 7], [11; 15], [19; 23], ..., [8*N+3; 8*N+7] are no-op regardless of
-    //   the byte serialzed for properties - no reward is given and no message is displayed.
+    //   the byte serialzed for details - no reward is given and no message is displayed.
     // * Values [8; 10], [16; 18], [24; 26], ..., [8*N; 8*N+2] are equivalent to values [0; 2]
     //   (i.e. ScholarRewardType{8} is equivalent to PrimarySkill, ScholarRewardType{9} is equivalent
     //   to SecondarySkill, etc).
     // In other words, there's no good reason to use values of ScholarRewardType other than 0, 1, 2 or 0xFF,
     // so this class doesn't support them at all.
-    Reward reward = ScholarRandomRewardType{};
+    ScholarReward reward = ScholarRandomRewardType{};
     ReservedData<6> unknown {};
   };
 
