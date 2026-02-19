@@ -88,6 +88,7 @@ add_subdirectory(H3JsonReader)
 add_subdirectory(H3JsonWriter)
 add_subdirectory(H3Reader)
 add_subdirectory(H3Writer)
+add_subdirectory(SavedGame)
 
 # Target for the h3mtxt program.
 add_executable(h3mtxt h3mtxt.cpp)
@@ -104,6 +105,7 @@ target_link_libraries(h3mtxt PRIVATE h3mtxt::H3Reader)
 target_link_libraries(h3mtxt PRIVATE h3mtxt::H3Writer)
 target_link_libraries(h3mtxt PRIVATE h3mtxt::H3JsonReader)
 target_link_libraries(h3mtxt PRIVATE h3mtxt::H3JsonWriter)
+target_link_libraries(h3mtxt PRIVATE h3mtxt::SavedGame)
 
 # Set compiler options for h3mtxt.
 h3mtxt_add_common_compiler_options(h3mtxt)

@@ -5,6 +5,7 @@
 #include <h3mtxt/H3Writer/writeh3c.h>
 #include <h3mtxt/H3Writer/writeh3m.h>
 #include <h3mtxt/Map/Constants/MapFormat.h>
+#include <h3mtxt/SavedGame/SavedGame.h>
 
 #include <filesystem>
 #include <fstream>
