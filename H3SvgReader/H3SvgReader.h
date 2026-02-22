@@ -10,5 +10,9 @@ namespace h3m::H3SvgReader_NS
 {
   MapBasicInfo readMapBasicInfo(std::istream& stream);
 
+  PlayerSpecsSvg readPlayerSpecsSvg(std::istream& stream);
+
   SavedGame readSavedGame(std::istream& stream);
+
+  StartingHero readStartingHero(std::istream& stream);
 }

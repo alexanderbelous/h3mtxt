@@ -17,7 +17,7 @@ namespace h3m::H3SvgReader_NS
       throw std::runtime_error("parseh3svg(): Bad istream.");
     }
     using Traits = std::istream::traits_type;
-    // Check the first byte. If it's 0x1F, then it cannot be an uncompressed .h3m file,
+    // Check the first byte. If it's 0x1F, then it cannot be an uncompressed .GM* file,
     // so assume that it's a compressed one.
     const int first_byte = stream.peek();
     if (first_byte == Traits::eof())
@@ -30,6 +30,11 @@ namespace h3m::H3SvgReader_NS
     }
     else
     {
+      // TODO: actually, this doesn't work: HoMM3 uses its own implementation of Deflate,
+      // which often causes errors/warnings in other compression libraries/tools. zlib handles
+      // .h3m and .h3c files fine, but not .GM* files.
+      // For now, the workaround is to manually decompress the saved game via 7-Zip, and pass the
+      // decompresed file to h3mtxt.
       zstr::istream zstr_stream(stream);
       return readSavedGame(zstr_stream);
     }

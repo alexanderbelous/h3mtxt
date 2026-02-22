@@ -1,6 +1,7 @@
 #pragma once
 
 #include <h3mtxt/SavedGame/SavedGameFwd.h>
+#include <h3mtxt/Map/Constants/Constants.h>
 #include <h3mtxt/Map/Constants/MapFormat.h>
 #include <h3mtxt/Map/MapAdditionalInfo.h>
 #include <h3mtxt/Map/MapBasicInfo.h>
@@ -18,17 +19,13 @@ namespace h3m
   {
     Bool can_be_human{};
     Bool can_be_computer{};
-    // If !can_be_human && !can_be_computer, only 4 bytes should be read before starting_hero
-    // (otherwise, it's 5 bytes).
     PlayerBehavior behavior{};
     TownsBitmask allowed_alignments;
     // TODO: I don't thinks these are actually padding bytes, but I don't know yet what they mean.
     ReservedData<2> unknown;
-    HeroType starting_hero_type { 0xFF };
-    HeroPortrait starting_hero_portrait = HeroPortrait::DEFAULT;
-    // Empty string implies the default name. This field is only read/written if can_be_human || can_be_computer.
-    // The length is serialized as a 16-bit integer.
-    std::string starting_hero_name;
+    // Note that in saved games the length of the string StartingHero::name is
+    // serialized as a 16-bit integer (in .h3m it's serialized as a 32-bit integer).
+    StartingHero starting_hero;
   };
 
   // Represents a saved game for Heroes of Might and Magic 3 (.GM1, .GM2, ... files).
@@ -39,8 +36,8 @@ namespace h3m
     static constexpr std::string_view kFileSignature = "H3SVG";
 
     ReservedData<3> reserved1;
-    std::uint32_t version_major;
-    std::uint32_t version_minor;
+    std::uint32_t version_major{};
+    std::uint32_t version_minor{};
     // HD mod keeps this zero-initialized; the vanilla game (HoMM3 complete) doesn't, but the values
     // don't seem to mean anything.
     ReservedData<32> reserved2;
@@ -54,7 +51,7 @@ namespace h3m
     MapBasicInfo basic_info;
 
     // TODO: reverse-engineer the rest.
-    std::array<PlayerSpecsSvg, 8> players {};
+    std::array<PlayerSpecsSvg, kMaxPlayers> players {};
     VictoryCondition victory_condition;
     LossCondition loss_condition;
   };

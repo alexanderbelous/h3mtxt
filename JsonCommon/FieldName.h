@@ -1,5 +1,6 @@
 #pragma once
 
+#include <h3mtxt/JsonCommon/JsonCommonFwd.h>
 #include <h3mtxt/Campaign/CampaignFwd.h>
 #include <h3mtxt/Map/MapFwd.h>
 #include <h3mtxt/Map/Constants/ObjectPropertiesType.h>
@@ -33,15 +34,6 @@ namespace h3m
     template<class T>
     inline constexpr std::size_t EnumBitmaskSize_v = EnumBitmaskSize<T>::value;
   }
-
-  // Stores the names of JSON fields for the specified class.
-  // This is to ensure that H3JsonWriter and H3JsonReader use the same names:
-  // * A typo in a string will only be discovered at runtime, but a typo in a static
-  //   data member will cause a compilation error.
-  // * This also guarantees that these strings are only stored once in the binary,
-  //   even if string pooling is disabled.
-  template<class T>
-  struct FieldNames;
 
   template<>
   struct FieldNames<ArtifactsBitmask>
