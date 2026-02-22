@@ -7,6 +7,10 @@
 
 namespace h3m::H3SvgReader_NS
 {
+  using H3Reader_NS::readEnum;
+  using H3Reader_NS::readInt;
+  using H3Reader_NS::readReservedData;
+
   SavedGame readSavedGame(std::istream& stream)
   {
     SavedGame saved_game;
@@ -17,7 +21,11 @@ namespace h3m::H3SvgReader_NS
     {
       throw std::runtime_error("readSavedGame(): invalid file signature.");
     }
-    saved_game.format = H3Reader_NS::readEnum<h3m::MapFormat>(stream);
+    saved_game.reserved1 = readReservedData<3>(stream);
+    saved_game.version_major = readInt<std::uint32_t>(stream);
+    saved_game.version_minor = readInt<std::uint32_t>(stream);
+    saved_game.reserved2 = readReservedData<32>(stream);
+    saved_game.format = readEnum<h3m::MapFormat>(stream);
     saved_game.basic_info = readMapBasicInfo(stream);
     // TODO: read the rest.
   }
