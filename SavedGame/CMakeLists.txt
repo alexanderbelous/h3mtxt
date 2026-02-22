@@ -1,6 +1,7 @@
 # All source files for "SavedGame" library.
 set(SOURCE_LIST
     "SavedGame.h"
+    "SavedGameFwd.h"
 )
 
 # "SavedGame" is a header-only library.
