@@ -5,19 +5,13 @@
 
 namespace h3m::H3Writer_NS
 {
-  // TODO: it's kinda bad that the specialization itself is declared here.
-  // Consider unnesting CustomHero, so that it can be forward-declared.
-  template<>
-  struct H3Writer<MapAdditionalInfo::CustomHero>
+  void H3Writer<CustomHero>::operator()(std::ostream& stream, const CustomHero& value) const
   {
-    void operator()(std::ostream& stream, const MapAdditionalInfo::CustomHero& value) const
-    {
-      writeData(stream, value.type);
-      writeData(stream, value.portrait);
-      writeData(stream, value.name);
-      writeData(stream, value.can_hire);
-    }
-  };
+    writeData(stream, value.type);
+    writeData(stream, value.portrait);
+    writeData(stream, value.name);
+    writeData(stream, value.can_hire);
+  }
 
   void H3Writer<TeamsInfo>::operator()(std::ostream& stream, const TeamsInfo& teams) const
   {

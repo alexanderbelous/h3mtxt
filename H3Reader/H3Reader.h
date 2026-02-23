@@ -13,6 +13,8 @@ namespace h3m::H3Reader_NS
 
   CrossoverOptions readCrossoverOptions(std::istream& stream);
 
+  CustomHero readCustomHero(std::istream& stream);
+
   CutScene readCutScene(std::istream& stream);
 
   CampaignScenario readCampaignScenario(std::istream& stream, CampaignId campaign_id);

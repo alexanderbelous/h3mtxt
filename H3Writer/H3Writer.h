@@ -31,6 +31,9 @@ namespace h3m::H3Writer_NS
   void H3Writer<CreatureStack>::operator()(std::ostream& stream, const CreatureStack& value) const;
 
   template<>
+  void H3Writer<CustomHero>::operator()(std::ostream& stream, const CustomHero& value) const;
+
+  template<>
   void H3Writer<Guardians>::operator()(std::ostream& stream, const Guardians& guardians) const;
 
   template<>

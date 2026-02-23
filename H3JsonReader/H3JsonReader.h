@@ -24,6 +24,9 @@ namespace h3m::H3JsonReader_NS
   CreatureStack JsonReader<CreatureStack>::operator()(const Json::Value& value) const;
 
   template<>
+  CustomHero JsonReader<CustomHero>::operator()(const Json::Value& value) const;
+
+  template<>
   Guardians JsonReader<Guardians>::operator()(const Json::Value & value) const;
 
   template<>

@@ -14,16 +14,6 @@ namespace h3m::H3Reader_NS
       hero.name = readString(stream);
       return hero;
     }
-
-    MapAdditionalInfo::CustomHero readCustomHero(std::istream& stream)
-    {
-      MapAdditionalInfo::CustomHero custom_hero;
-      custom_hero.type = readEnum<HeroType>(stream);
-      custom_hero.portrait = readEnum<HeroPortrait>(stream);
-      custom_hero.name = readString(stream);
-      custom_hero.can_hire = readEnumBitmask<PlayerColor, 1>(stream);
-      return custom_hero;
-    }
   }
 
   MapBasicInfo readMapBasicInfo(std::istream& stream)
@@ -134,6 +124,16 @@ namespace h3m::H3Reader_NS
       }
     }
     return teams_info;
+  }
+
+  CustomHero readCustomHero(std::istream& stream)
+  {
+    CustomHero custom_hero;
+    custom_hero.type = readEnum<HeroType>(stream);
+    custom_hero.portrait = readEnum<HeroPortrait>(stream);
+    custom_hero.name = readString(stream);
+    custom_hero.can_hire = readEnumBitmask<PlayerColor, 1>(stream);
+    return custom_hero;
   }
 
   Rumor readRumor(std::istream& stream)
