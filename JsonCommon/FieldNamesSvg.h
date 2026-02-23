@@ -32,5 +32,6 @@ namespace h3m
     static inline constexpr std::string_view kVictoryCondition = "victory_condition";
     static inline constexpr std::string_view kLossCondition = "loss_condition";
     static inline constexpr std::string_view kTeams = "teams";
+    static inline constexpr std::string_view kCustomHeroes = "custom_heroes";
   };
 }

@@ -47,14 +47,22 @@ namespace h3m
     MapBasicInfo basic_info;
     // Basic information about the players.
     std::array<PlayerSpecsSvg, kMaxPlayers> players {};
+    // TODO: check that this works correctly for all victory condition types.
     VictoryCondition victory_condition;
+    // TODO: check that this works correctly for all loss condition types.
     LossCondition loss_condition;
     TeamsInfo teams;
+    std::vector<CustomHero> custom_heroes;
+    // Seems to always be {0, 1, 2, 3, 4, 5, 6, 7, 0, 1, 2, 3, 4, 5, 6, 7}.
+    // The values suggest that it has something to do with players, but it's
+    // hard to figure out what it is without other examples.
+    //ReservedData<16> unknown1;
 
     // TODO: reverse-engineer the rest.
     // The next fields are approximately:
-    // * Bitmask for available artifacts (like in MapAdditionalInfo).
-    // * Original map filename
+    // * 41 bytes - currently unknown, but looks like some bitmask(s) (artifacts?).
+    // * Original filename of the map (null-terminated) - probably for Restart Scenario.
+    // * "h3m" (null-terminated or fixed-width)
     // * Original name of the saved game file
     // * The currently displayed rumor in the Tavern
     // * Custom rumors that can appear in the Tavern

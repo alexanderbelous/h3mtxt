@@ -61,6 +61,13 @@ namespace h3m::H3SvgReader_NS
     saved_game.victory_condition = H3Reader_NS::readVictoryCondition(stream);
     saved_game.loss_condition = H3Reader_NS::readLossCondition(stream);
     saved_game.teams = H3Reader_NS::readTeamsInfo(stream);
+    // Read custom heroes.
+    const std::uint8_t num_custom_heroes = readInt<std::uint8_t>(stream);
+    saved_game.custom_heroes.reserve(num_custom_heroes);
+    for (std::uint32_t i = 0; i < num_custom_heroes; ++i)
+    {
+      saved_game.custom_heroes.push_back(H3Reader_NS::readCustomHero(stream));
+    }
     // TODO: read the rest.
     return saved_game;
   }
