@@ -55,5 +55,6 @@ namespace Medea_NS
     out.writeField(Fields::kPlayers, saved_game.players);
     out.writeField(Fields::kVictoryCondition, saved_game.victory_condition);
     out.writeField(Fields::kLossCondition, saved_game.loss_condition);
+    out.writeField(Fields::kTeams, saved_game.teams);
   }
 }

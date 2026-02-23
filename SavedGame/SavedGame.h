@@ -49,6 +49,7 @@ namespace h3m
     std::array<PlayerSpecsSvg, kMaxPlayers> players {};
     VictoryCondition victory_condition;
     LossCondition loss_condition;
+    TeamsInfo teams;
 
     // TODO: reverse-engineer the rest.
     // The next fields are approximately:

@@ -60,6 +60,7 @@ namespace h3m::H3SvgReader_NS
     }
     saved_game.victory_condition = H3Reader_NS::readVictoryCondition(stream);
     saved_game.loss_condition = H3Reader_NS::readLossCondition(stream);
+    saved_game.teams = H3Reader_NS::readTeamsInfo(stream);
     // TODO: read the rest.
     return saved_game;
   }
