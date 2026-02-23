@@ -57,5 +57,8 @@ namespace Medea_NS
     out.writeField(Fields::kLossCondition, saved_game.loss_condition);
     out.writeField(Fields::kTeams, saved_game.teams);
     out.writeField(Fields::kCustomHeroes, saved_game.custom_heroes);
+    out.writeField(Fields::kUnknown1, saved_game.unknown1);
+    out.writeField(Fields::kUnknown2, saved_game.unknown2);
+    out.writeField(Fields::kMapFilename, saved_game.map_filename);
   }
 }

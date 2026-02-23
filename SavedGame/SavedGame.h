@@ -56,13 +56,20 @@ namespace h3m
     // Seems to always be {0, 1, 2, 3, 4, 5, 6, 7, 0, 1, 2, 3, 4, 5, 6, 7}.
     // The values suggest that it has something to do with players, but it's
     // hard to figure out what it is without other examples.
-    //ReservedData<16> unknown1;
+    ReservedData<16> unknown1;
+    // Currently unknown, but looks like some bitmask(s) (artifacts ?).
+    // This data seem to be a property of the map rather than the saved game:
+    // the values don't seem to change throught the game.
+    // * Actually, the first 32 bytes seem to represent 8 32-bit integers, which
+    //   have something to do with the players (and 0xFFFFFFFF being used for absent players).
+    ReservedData<41> unknown2;
+    // The original filename of the map (I assume that's the filename used by Restart Scenario command).
+    // Note: .GM* files store this as a null-terminated string, which is unusual (virtually all other
+    // strings are stored as Pascal strings).
+    std::string map_filename;
 
     // TODO: reverse-engineer the rest.
     // The next fields are approximately:
-    // * 41 bytes - currently unknown, but looks like some bitmask(s) (artifacts?).
-    // * Original filename of the map (null-terminated) - probably for Restart Scenario.
-    // * "h3m" (null-terminated or fixed-width)
     // * Original name of the saved game file
     // * The currently displayed rumor in the Tavern
     // * Custom rumors that can appear in the Tavern
@@ -73,6 +80,7 @@ namespace h3m
     //
     // Obviuously, there are other fields as well, but I don't know yet where they are located:
     // * current resources for each player
+    // * artifacts in Artifacts Merchant
     // * Current heroes in the Tavern
     // * which player has visited the Keymaster's tent (for each Keymaster's tent subtype)
     // * Order of heroes (although this might be determined by their order in the objects array).

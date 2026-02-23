@@ -68,6 +68,9 @@ namespace h3m::H3SvgReader_NS
     {
       saved_game.custom_heroes.push_back(H3Reader_NS::readCustomHero(stream));
     }
+    saved_game.unknown1 = readReservedData<16>(stream);
+    saved_game.unknown2 = readReservedData<41>(stream);
+    saved_game.map_filename = readStringNullTerminated(stream);
     // TODO: read the rest.
     return saved_game;
   }
