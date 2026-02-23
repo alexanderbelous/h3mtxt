@@ -5,7 +5,7 @@
 
 namespace h3m::H3SvgReader_NS
 {
-  std::string readString(std::istream& stream)
+  std::string readString16(std::istream& stream)
   {
     const std::uint16_t length = H3Reader_NS::readInt<std::uint16_t>(stream);
     std::string result;

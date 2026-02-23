@@ -14,14 +14,14 @@ namespace h3m::H3SvgReader_NS
   using H3Reader_NS::readInt;
   using H3Reader_NS::readReservedData;
 
-  StartingHero readStartingHero(std::istream& stream)
+  StartingHero readStartingHeroSvg(std::istream& stream)
   {
     StartingHero starting_hero;
     starting_hero.type = readEnum<HeroType>(stream);
     if (starting_hero.type != HeroType{ 0xFF })
     {
       starting_hero.portrait = readEnum<HeroPortrait>(stream);
-      starting_hero.name = readString(stream);
+      starting_hero.name = readString16(stream);
     }
     return starting_hero;
   }
@@ -34,7 +34,7 @@ namespace h3m::H3SvgReader_NS
     player.behavior = readEnum<PlayerBehavior>(stream);
     player.allowed_alignments = readEnumBitmask<TownType, 2>(stream);
     player.unknown = readReservedData<2>(stream);
-    player.starting_hero = readStartingHero(stream);
+    player.starting_hero = readStartingHeroSvg(stream);
     return player;
   }
 

@@ -44,15 +44,30 @@ namespace h3m
     // Format of the map (same as Map::format).
     MapFormat format = MapFormat::ShadowOfDeath;
     // Basic information about the map (same as Map::basic_info).
-    //
-    // Note, however, that the strings MapBasicInfo::name and MapBasicInfo::description are serialized
-    // differently from how it's done in .h3m: the length of a string is serialized as a 16-bit integer,
-    // whereas in .h3m it is serialized as a 32-bit integer.
     MapBasicInfo basic_info;
-
-    // TODO: reverse-engineer the rest.
+    // Basic information about the players.
     std::array<PlayerSpecsSvg, kMaxPlayers> players {};
     VictoryCondition victory_condition;
     LossCondition loss_condition;
+
+    // TODO: reverse-engineer the rest.
+    // The next fields are approximately:
+    // * Bitmask for available artifacts (like in MapAdditionalInfo).
+    // * Original map filename
+    // * Original name of the saved game file
+    // * The currently displayed rumor in the Tavern
+    // * Custom rumors that can appear in the Tavern
+    // * Tiles data (similar to h3m::Tile, but seem to contain more info; visibility per player?)
+    // * Object templates
+    // * Objects on the Adventure map
+    // * Settings for each hero
+    //
+    // Obviuously, there are other fields as well, but I don't know yet where they are located:
+    // * current resources for each player
+    // * Current heroes in the Tavern
+    // * which player has visited the Keymaster's tent (for each Keymaster's tent subtype)
+    // * Order of heroes (although this might be determined by their order in the objects array).
+    // * Which heroes have been defeated by the player (needed in quests)
+    // * etc.
   };
 }

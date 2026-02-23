@@ -15,8 +15,8 @@ namespace h3m::H3SvgReader_NS
     basic_info.is_playable = readBool(stream);
     basic_info.map_size = readInt<std::uint32_t>(stream);
     basic_info.has_two_levels = readBool(stream);
-    basic_info.name = readString(stream);
-    basic_info.description = readString(stream);
+    basic_info.name = readString16(stream);
+    basic_info.description = readString16(stream);
     basic_info.difficulty = readEnum<MapDifficulty>(stream);
     basic_info.max_hero_level = readInt<std::uint8_t>(stream);
     return basic_info;

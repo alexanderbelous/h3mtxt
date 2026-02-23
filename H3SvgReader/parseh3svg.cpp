@@ -35,6 +35,9 @@ namespace h3m::H3SvgReader_NS
       // .h3m and .h3c files fine, but not .GM* files.
       // For now, the workaround is to manually decompress the saved game via 7-Zip, and pass the
       // decompresed file to h3mtxt.
+      // Alternatively, you can comment out line 227 in zstr.hpp:
+      //     if (ret != Z_OK && ret != Z_STREAM_END) throw Exception(zstrm_p.get(), ret);
+      // or at least not throw an exception if ret == Z_DATA_ERROR
       zstr::istream zstr_stream(stream);
       return readSavedGame(zstr_stream);
     }
