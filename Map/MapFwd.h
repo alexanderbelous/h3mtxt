@@ -79,6 +79,8 @@ namespace h3m
 
   struct CreatureStack;
 
+  struct CustomHero;
+
   // Wrapper around BitSet<NumBytes>.
   // * More convenient access to the stored bits - no need to explicitly cast enum values to integers.
   // * It improves type safety: EnumBitmask<PlayerColor, 1> cannot be used where EnumBitmask<ResourceType, 1>

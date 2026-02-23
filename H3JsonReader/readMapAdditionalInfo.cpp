@@ -4,19 +4,16 @@
 
 namespace h3m::H3JsonReader_NS
 {
-  template<>
-  struct JsonReader<MapAdditionalInfo::CustomHero>
+  CustomHero JsonReader<CustomHero>::operator()(const Json::Value& value) const
   {
-    MapAdditionalInfo::CustomHero operator()(const Json::Value& value) const
-    {
-      MapAdditionalInfo::CustomHero hero;
-      hero.type = readField<HeroType>(value, "type");
-      hero.portrait = readField<HeroPortrait>(value, "portrait");
-      hero.name = readField<std::string>(value, "name");
-      hero.can_hire = readField<PlayersBitmask>(value, "can_hire");
-      return hero;
-    }
-  };
+    using Fields = FieldNames<CustomHero>;
+    CustomHero hero;
+    hero.type = readField<HeroType>(value, Fields::kType);
+    hero.portrait = readField<HeroPortrait>(value, Fields::kPortrait);
+    hero.name = readField<std::string>(value, Fields::kName);
+    hero.can_hire = readField<PlayersBitmask>(value, Fields::kCanHire);
+    return hero;
+  }
 
   TeamsInfo JsonReader<TeamsInfo>::operator()(const Json::Value& value) const
   {

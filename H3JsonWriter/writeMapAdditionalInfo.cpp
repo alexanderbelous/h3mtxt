@@ -8,28 +8,25 @@
 
 namespace Medea_NS
 {
-  template<>
-  struct JsonObjectWriter<h3m::MapAdditionalInfo::CustomHero>
+  void JsonObjectWriter<h3m::CustomHero>::operator()(FieldsWriter& out, const h3m::CustomHero& value) const
   {
-    void operator()(FieldsWriter& out, const h3m::MapAdditionalInfo::CustomHero& value) const
+    using Fields = h3m::FieldNames<h3m::CustomHero>;
+    constexpr h3m::HeroPortrait kDefaultPortrait {0xFF};
+    out.writeField(Fields::kType, value.type);
+    if (auto enum_str = h3m::getEnumString(value.type); !enum_str.empty())
     {
-      constexpr h3m::HeroPortrait kDefaultPortrait {0xFF};
-      out.writeField("type", value.type);
-      if (auto enum_str = h3m::getEnumString(value.type); !enum_str.empty())
-      {
-        out.writeComment(enum_str, false);
-      }
-      out.writeField("portrait", value.portrait);
-      const std::string_view hero_portrait_str =
-        (value.portrait == kDefaultPortrait) ? "(Default)" : h3m::getEnumString(value.portrait);
-      if (!hero_portrait_str.empty())
-      {
-        out.writeComment(hero_portrait_str, false);
-      }
-      out.writeField("name", value.name);
-      out.writeField("can_hire", value.can_hire);
+      out.writeComment(enum_str, false);
     }
-  };
+    out.writeField(Fields::kPortrait, value.portrait);
+    const std::string_view hero_portrait_str =
+      (value.portrait == kDefaultPortrait) ? "(Default)" : h3m::getEnumString(value.portrait);
+    if (!hero_portrait_str.empty())
+    {
+      out.writeComment(hero_portrait_str, false);
+    }
+    out.writeField(Fields::kName, value.name);
+    out.writeField(Fields::kCanHire, value.can_hire);
+  }
 
   void JsonObjectWriter<h3m::TeamsInfo>::operator()(FieldsWriter& out, const h3m::TeamsInfo& value) const
   {

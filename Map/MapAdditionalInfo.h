@@ -29,6 +29,17 @@ struct TeamsInfo
   std::array<std::uint8_t, 8> team_for_player {};
 };
 
+struct CustomHero
+{
+  HeroType type{};
+  // 0xFF for default.
+  HeroPortrait portrait = HeroPortrait::DEFAULT;
+  // Hero's name, or an empty string if the default name should be used instead.
+  std::string name;
+  // Bitmask indicating which players can hire this hero.
+  PlayersBitmask can_hire;
+};
+
 struct Rumor
 {
   std::string name;
@@ -94,17 +105,6 @@ const std::map<HeroType, HeroSettings>& HeroesSettings::settings() const noexcep
 
 struct MapAdditionalInfo
 {
-  struct CustomHero
-  {
-    HeroType type {};
-    // 0xFF for default.
-    HeroPortrait portrait = HeroPortrait::DEFAULT;
-    // Hero's name, or an empty string if the default name should be used instead.
-    std::string name;
-    // Bitmask indicating which players can hire this hero.
-    PlayersBitmask can_hire;
-  };
-
   VictoryCondition victory_condition {};
   LossCondition loss_condition {};
   TeamsInfo teams;
