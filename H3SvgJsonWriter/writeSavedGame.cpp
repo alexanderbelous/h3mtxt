@@ -66,5 +66,6 @@ namespace Medea_NS
     // TODO: consider serializing as a string rather than a JSON array,
     //       escaping unprintable characters.
     out.writeField(Fields::kMapDirectory, saved_game.map_directory);
+    out.writeField(Fields::kUnknown3, saved_game.unknown3);
   }
 }

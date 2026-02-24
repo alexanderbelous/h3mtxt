@@ -9,6 +9,7 @@
 #include <h3mtxt/Map/Utils/ReservedData.h>
 
 #include <array>
+#include <cstddef>
 #include <cstdint>
 #include <string>
 #include <string_view>
@@ -57,13 +58,13 @@ namespace h3m
     // Seems to always be {0, 1, 2, 3, 4, 5, 6, 7, 0, 1, 2, 3, 4, 5, 6, 7}.
     // The values suggest that it has something to do with players, but it's
     // hard to figure out what it is without other examples.
-    ReservedData<16> unknown1;
+    std::array<std::byte, 16> unknown1;
     // Currently unknown, but looks like some bitmask(s) (artifacts ?).
     // This data seem to be a property of the map rather than the saved game:
     // the values don't seem to change throught the game.
     // * Actually, the first 32 bytes seem to represent 8 32-bit integers, which
     //   have something to do with the players (and 0xFFFFFFFF being used for absent players).
-    ReservedData<41> unknown2;
+    std::array<std::byte, 41> unknown2;
     // The original filename of the map (this is used by Restart Scenario command).
     //
     // Note: H3SVG uses an idiotic convention for storing this field - the string is always serialized
@@ -100,10 +101,18 @@ namespace h3m
     //
     // Absolute paths (e.g., "F:\Maps") are NOT supported.
     std::array<char, 100> map_directory {};
+    // TODO: figure out what this is.
+    std::array<std::byte, 30> unknown3 {};
+    // Original filename used for this saved game.
+    // This doesn't seem to be used anywhere in the game.
+    // Also stored as a fixed-width string. The game limits the length to 47 characters
+    // (e.g., "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefg.GM1"), but it's probably not the limit.
+    //std::string original_filename;
 
     // TODO: reverse-engineer the rest.
     // The next fields are approximately:
-    // * Original name of the saved game file
+    // * 1 byte for each ArtifactType indicating if it's disabled (0 - enabled, 1 - disabled).
+    // * 28 bytes: 1 byte for each valid SecondarySkillType, indicating if it's disabled (0 - enabled, 1 - disabled).
     // * The currently displayed rumor in the Tavern
     // * Custom rumors that can appear in the Tavern
     // * Tiles data (similar to h3m::Tile, but seem to contain more info; visibility per player?)

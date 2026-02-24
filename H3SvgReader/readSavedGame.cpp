@@ -68,13 +68,22 @@ namespace h3m::H3SvgReader_NS
     {
       saved_game.custom_heroes.push_back(H3Reader_NS::readCustomHero(stream));
     }
-    saved_game.unknown1 = readReservedData<16>(stream);
-    saved_game.unknown2 = readReservedData<41>(stream);
+    // Read 16 bytes.
+    // These seem to to always be {0, 1, 2, 3, 4, 5, 6, 7, 0, 1, 2, 3, 4, 5, 6, 7}.
+    H3Reader_NS::Detail_NS::readByteArrayImpl(stream, std::span<std::byte, 16>{ saved_game.unknown1 });
+    // Read 41 bytes.
+    // TODO: figure out what it is.
+    H3Reader_NS::Detail_NS::readByteArrayImpl(stream, std::span<std::byte, 41>{ saved_game.unknown2 });
     // Read 48 bytes representing the filename of the original map.
     H3Reader_NS::Detail_NS::readByteArrayImpl(stream, std::as_writable_bytes(std::span{ saved_game.map_filename }));
+    // Read 203 bytes.
+    // These seem to always be zero-filled.
     saved_game.reserved3 = readReservedData<203>(stream);
     // Read 100 bytes representing the relative path to the directory in which the original map is located.
     H3Reader_NS::Detail_NS::readByteArrayImpl(stream, std::as_writable_bytes(std::span{ saved_game.map_directory }));
+    // Read 30 bytes.
+    // TODO: figure out what this is.
+    H3Reader_NS::Detail_NS::readByteArrayImpl(stream, std::span<std::byte, 30>{ saved_game.unknown3 });
     // TODO: read the rest.
     return saved_game;
   }
