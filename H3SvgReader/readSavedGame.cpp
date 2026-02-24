@@ -70,8 +70,11 @@ namespace h3m::H3SvgReader_NS
     }
     saved_game.unknown1 = readReservedData<16>(stream);
     saved_game.unknown2 = readReservedData<41>(stream);
+    // Read 48 bytes representing the filename of the original map.
     H3Reader_NS::Detail_NS::readByteArrayImpl(stream, std::as_writable_bytes(std::span{ saved_game.map_filename }));
     saved_game.reserved3 = readReservedData<203>(stream);
+    // Read 100 bytes representing the relative path to the directory in which the original map is located.
+    H3Reader_NS::Detail_NS::readByteArrayImpl(stream, std::as_writable_bytes(std::span{ saved_game.map_directory }));
     // TODO: read the rest.
     return saved_game;
   }

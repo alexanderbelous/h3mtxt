@@ -86,11 +86,20 @@ namespace h3m
     // Seems to always be zero-filled.
     ReservedData<203> reserved3;
     // Relative (to Heroes3.exe) path to the directory in which the original map is located.
-    // Normally, this is always "maps", but the game correctly handles other directories as well.
-    // TODO: check if absolute paths are allowed.
-    // TODO: check if special filenames "." and ".." are treated as the current directory / the parent
-    // directory respectively.
-    // std::string map_directory;
+    // Normally, this is always equal to "maps", but the game correctly handles other paths as well.
+    //
+    // Like with map_filename, H3SVG explicitly stores 100 bytes for this string, even if the path
+    // is shorter than that:
+    // * If any byte is the null terminator, then only the prefix before the first null
+    //   terminator is used as the path.
+    // * Otherwise, all 100 bytes are used as the path (the string doesn't have to be null-terminated).
+    //
+    // Subdirectories are supported (both forward '/' and backward '\' slash characters).
+    //
+    // Special filename ".." (the parent directory) is supported.
+    //
+    // Absolute paths (e.g., "F:\Maps") are NOT supported.
+    std::array<char, 100> map_directory {};
 
     // TODO: reverse-engineer the rest.
     // The next fields are approximately:

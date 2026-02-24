@@ -37,5 +37,6 @@ namespace h3m
     static inline constexpr std::string_view kUnknown2 = "unknown2";
     static inline constexpr std::string_view kMapFilename = "map_filename";
     static inline constexpr std::string_view kReserved3 = "reserved3";
+    static inline constexpr std::string_view kMapDirectory = "map_directory";
   };
 }
