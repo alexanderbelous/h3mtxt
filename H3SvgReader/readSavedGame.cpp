@@ -70,7 +70,8 @@ namespace h3m::H3SvgReader_NS
     }
     saved_game.unknown1 = readReservedData<16>(stream);
     saved_game.unknown2 = readReservedData<41>(stream);
-    saved_game.map_filename = readStringNullTerminated(stream);
+    H3Reader_NS::Detail_NS::readByteArrayImpl(stream, std::as_writable_bytes(std::span{ saved_game.map_filename }));
+    saved_game.reserved3 = readReservedData<203>(stream);
     // TODO: read the rest.
     return saved_game;
   }

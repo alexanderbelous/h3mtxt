@@ -8,6 +8,7 @@
 #include <h3mtxt/Map/PlayerSpecs.h>
 #include <h3mtxt/Map/Utils/ReservedData.h>
 
+#include <array>
 #include <cstdint>
 #include <string>
 #include <string_view>
@@ -63,10 +64,33 @@ namespace h3m
     // * Actually, the first 32 bytes seem to represent 8 32-bit integers, which
     //   have something to do with the players (and 0xFFFFFFFF being used for absent players).
     ReservedData<41> unknown2;
-    // The original filename of the map (I assume that's the filename used by Restart Scenario command).
-    // Note: .GM* files store this as a null-terminated string, which is unusual (virtually all other
-    // strings are stored as Pascal strings).
-    std::string map_filename;
+    // The original filename of the map (this is used by Restart Scenario command).
+    //
+    // Note: H3SVG uses an idiotic convention for storing this field - the string is always serialized
+    // as 48 bytes, where the last byte is the null terminator (the maximum allowed length of the filename
+    // without the null terminator is 47 characters). However, a null terminator may appear earlier
+    // (if the filename is shorter than 47 characters), in which case the bytes after the first null
+    // terminator may contain junk.
+    //
+    // I'm not sure what's the best API for this: we can either store it as an array of 48 bytes,
+    // or as std::string. Neither is perfect: on the one hand, the junk bytes should be ignored, but on
+    // the other hand, h3mtxt aims to allow inspecting and modifying any byte, as long as it doesn't lead
+    // to corrupt data.
+    //
+    // For now, I will define this as an array of 48 bytes, but this might change in the future.
+    //
+    // TODO: it's possible that longer filenames are allowed, and that SavedGame::reserved3 should
+    // be defined as a shorter block. Requires investigating.
+    // TODO: check if it actually has to be null-terminated.
+    std::array<char, 48> map_filename {};
+    // Seems to always be zero-filled.
+    ReservedData<203> reserved3;
+    // Relative (to Heroes3.exe) path to the directory in which the original map is located.
+    // Normally, this is always "maps", but the game correctly handles other directories as well.
+    // TODO: check if absolute paths are allowed.
+    // TODO: check if special filenames "." and ".." are treated as the current directory / the parent
+    // directory respectively.
+    // std::string map_directory;
 
     // TODO: reverse-engineer the rest.
     // The next fields are approximately:

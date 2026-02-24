@@ -59,6 +59,9 @@ namespace Medea_NS
     out.writeField(Fields::kCustomHeroes, saved_game.custom_heroes);
     out.writeField(Fields::kUnknown1, saved_game.unknown1);
     out.writeField(Fields::kUnknown2, saved_game.unknown2);
+    // TODO: it sucks that we serialize this as a JSON array rather than a string.
+    // Consider serializing as a string, escaping unprintable characters.
     out.writeField(Fields::kMapFilename, saved_game.map_filename);
+    out.writeField(Fields::kReserved3, saved_game.reserved3);
   }
 }
