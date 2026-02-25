@@ -58,13 +58,13 @@ namespace h3m
     // Seems to always be {0, 1, 2, 3, 4, 5, 6, 7, 0, 1, 2, 3, 4, 5, 6, 7}.
     // The values suggest that it has something to do with players, but it's
     // hard to figure out what it is without other examples.
-    std::array<std::byte, 16> unknown1;
+    std::array<std::byte, 16> unknown1 {};
     // Currently unknown, but looks like some bitmask(s).
     // This data seem to be a property of the map rather than the saved game:
     // the values don't seem to change throught the game.
     // * Actually, the first 32 bytes seem to represent 8 32-bit integers, which
     //   have something to do with the players (and 0xFFFFFFFF being used for absent players).
-    std::array<std::byte, 41> unknown2;
+    std::array<std::byte, 41> unknown2 {};
     // The original filename of the map (this is used by Restart Scenario command).
     //
     // In H3SVG this is stored as a fixed-width string (instead of a length-prefixed or null-terminated string).
