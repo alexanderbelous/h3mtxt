@@ -29,6 +29,13 @@ namespace h3m
   };
 
   template<>
+  struct FieldNames<RumorSvg>
+  {
+    static inline constexpr std::string_view kText = "text";
+    static inline constexpr std::string_view kUnknown = "unknown";
+  };
+
+  template<>
   struct FieldNames<SavedGame>
   {
     static inline constexpr std::string_view kReserved1 = "reserved1";
@@ -53,5 +60,7 @@ namespace h3m
     static inline constexpr std::string_view kArtifactsBitmaskUnknown = "artifacts_bitmask_unknown";
     static inline constexpr std::string_view kDisabledSkills = "disabled_skills";
     static inline constexpr std::string_view kCurrentRumor = "current_rumor";
+    static inline constexpr std::string_view kUnknown5 = "unknown5";
+    static inline constexpr std::string_view kRumors = "rumors";
   };
 }

@@ -54,6 +54,13 @@ namespace Medea_NS
     }
   }
 
+  void JsonObjectWriter<h3m::RumorSvg>::operator()(FieldsWriter& out, const h3m::RumorSvg& rumor) const
+  {
+    using Fields = h3m::FieldNames<h3m::RumorSvg>;
+    out.writeField(Fields::kText, rumor.text);
+    out.writeField(Fields::kUnknown, rumor.unknown);
+  }
+
   void JsonObjectWriter<h3m::SavedGame>::operator()(FieldsWriter& out, const h3m::SavedGame& saved_game) const
   {
     using Fields = h3m::FieldNames<h3m::SavedGame>;
@@ -85,5 +92,7 @@ namespace Medea_NS
     out.writeField(Fields::kArtifactsBitmaskUnknown, saved_game.artifacts_bitmask_unknown);
     out.writeField(Fields::kDisabledSkills, saved_game.disabled_skills);
     out.writeField(Fields::kCurrentRumor, saved_game.current_rumor);
+    out.writeField(Fields::kUnknown5, saved_game.unknown5);
+    out.writeField(Fields::kRumors, saved_game.rumors);
   }
 }

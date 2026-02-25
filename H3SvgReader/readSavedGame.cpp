@@ -52,6 +52,14 @@ namespace h3m::H3SvgReader_NS
     return player;
   }
 
+  RumorSvg readRumorSvg(std::istream& stream)
+  {
+    RumorSvg rumor;
+    rumor.text = readString16(stream);
+    rumor.unknown = h3m::H3Reader_NS::Detail_NS::readByte(stream);
+    return rumor;
+  }
+
   SavedGame readSavedGame(std::istream& stream)
   {
     SavedGame saved_game;
@@ -120,6 +128,16 @@ namespace h3m::H3SvgReader_NS
     // In H3SVG this is serialized as a length-prefixed string; the length is serialized as a
     // 16-bit little-endian integer.
     saved_game.current_rumor = readString16(stream);
+    // Read 256 bytes.
+    // TODO: figure out what this is.
+    H3Reader_NS::Detail_NS::readByteArrayImpl(stream, std::span<std::byte, 256>{ saved_game.unknown5 });
+    // Read custom rumors that can appear in the Tavern.
+    const std::uint32_t num_custom_rumors = readInt<std::uint32_t>(stream);
+    saved_game.rumors.reserve(num_custom_rumors);
+    for (std::uint32_t i = 0; i < num_custom_rumors; ++i)
+    {
+      saved_game.rumors.push_back(readRumorSvg(stream));
+    }
     // TODO: read the rest.
     return saved_game;
   }

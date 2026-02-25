@@ -25,5 +25,8 @@ namespace Medea_NS
     const std::array<h3m::PlayerSpecsSvg, h3m::kMaxPlayers>& players) const;
 
   template<>
+  void JsonObjectWriter<h3m::RumorSvg>::operator()(FieldsWriter& out, const h3m::RumorSvg& rumor) const;
+
+  template<>
   void JsonObjectWriter<h3m::SavedGame>::operator()(FieldsWriter& out, const h3m::SavedGame& saved_game) const;
 }

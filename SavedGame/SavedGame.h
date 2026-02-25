@@ -23,7 +23,7 @@ namespace h3m
     std::uint8_t z {};
   };
 
-  // The equivalent of PlayersSpecs stored in the saved game.
+  // The equivalent of h3m::PlayersSpecs stored in the saved game.
   struct PlayerSpecsSvg
   {
     Bool can_be_human{};
@@ -40,6 +40,16 @@ namespace h3m
     // Note that in saved games the length of the string StartingHero::name is
     // serialized as a 16-bit integer (in .h3m it's serialized as a 32-bit integer).
     StartingHero starting_hero;
+  };
+
+  // The equivalent of h3m::Rumor stored in the saved game.
+  struct RumorSvg
+  {
+    std::string text;
+    // Seems to always be 0 - possibly used a a null terminator for @text.
+    // TODO: check if values other than 0 can be used in the game. If not, then this
+    // field can be removed altogether.
+    std::byte unknown {};
   };
 
   // Represents a saved game for Heroes of Might and Magic 3 (.GM1, .GM2, ... files).
@@ -133,10 +143,14 @@ namespace h3m
     SecondarySkillsBitmask disabled_skills;
     // The currently displayed rumor in the Tavern.
     std::string current_rumor;
+    // TODO: figure out what this is.
+    // The values seem to always be either 0x00 or 0x01; mostly 0x00.
+    std::array<std::byte, 256> unknown5 {};
+    // Custom rumors that can appear in the Tavern.
+    std::vector<RumorSvg> rumors;
 
     // TODO: reverse-engineer the rest.
     // The next fields are approximately:
-    // * Custom rumors that can appear in the Tavern
     // * Tiles data (similar to h3m::Tile, but seem to contain more info; visibility per player?)
     // * Object templates
     // * Objects on the Adventure map

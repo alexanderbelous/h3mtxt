@@ -14,6 +14,8 @@ namespace h3m::H3SvgReader_NS
 
   PlayerSpecsSvg readPlayerSpecsSvg(std::istream& stream);
 
+  RumorSvg readRumorSvg(std::istream& stream);
+
   SavedGame readSavedGame(std::istream& stream);
 
   StartingHero readStartingHero(std::istream& stream);
