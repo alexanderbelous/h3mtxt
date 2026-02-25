@@ -9,6 +9,14 @@
 
 namespace Medea_NS
 {
+  void JsonObjectWriter<h3m::Coordinates>::operator()(FieldsWriter& out, const h3m::Coordinates& coordinates) const
+  {
+    using Fields = h3m::FieldNames<h3m::Coordinates>;
+    out.writeField(Fields::kX, coordinates.x);
+    out.writeField(Fields::kY, coordinates.y);
+    out.writeField(Fields::kZ, coordinates.z);
+  }
+
   void JsonObjectWriter<h3m::PlayerSpecsSvg>::operator()(FieldsWriter& out, const h3m::PlayerSpecsSvg& player) const
   {
     using Fields = h3m::FieldNames<h3m::PlayerSpecsSvg>;
@@ -25,6 +33,10 @@ namespace Medea_NS
     }
     out.writeField(Fields::kAllowedAlignments, player.allowed_alignments);
     out.writeField(Fields::kUnknown, player.unknown);
+    if (player.generated_hero_coordinates.has_value())
+    {
+      out.writeField(Fields::kGeneratedHeroCoordinates, player.generated_hero_coordinates.value());
+    }
     out.writeField(Fields::kStartingHero, player.starting_hero);
   }
 
@@ -66,5 +78,12 @@ namespace Medea_NS
     //       escaping unprintable characters.
     out.writeField(Fields::kMapDirectory, saved_game.map_directory);
     out.writeField(Fields::kUnknown3, saved_game.unknown3);
+    // TODO: consider serializing as a string.
+    out.writeField(Fields::kOriginalFilename, saved_game.original_filename);
+    out.writeField(Fields::kUnknown4, saved_game.unknown4);
+    out.writeField(Fields::kDisabledArtifacts, saved_game.disabled_artifacts);
+    out.writeField(Fields::kArtifactsBitmaskUnknown, saved_game.artifacts_bitmask_unknown);
+    out.writeField(Fields::kDisabledSkills, saved_game.disabled_skills);
+    out.writeField(Fields::kCurrentRumor, saved_game.current_rumor);
   }
 }

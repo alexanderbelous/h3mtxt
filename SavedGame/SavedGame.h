@@ -16,6 +16,13 @@
 
 namespace h3m
 {
+  struct Coordinates
+  {
+    std::uint8_t x {};
+    std::uint8_t y {};
+    std::uint8_t z {};
+  };
+
   // The equivalent of PlayersSpecs stored in the saved game.
   struct PlayerSpecsSvg
   {
@@ -23,8 +30,13 @@ namespace h3m
     Bool can_be_computer{};
     PlayerBehavior behavior{};
     TownsBitmask allowed_alignments;
-    // TODO: I don't thinks these are actually padding bytes, but I don't know yet what they mean.
-    ReservedData<2> unknown;
+    // TODO: figure out what this is (has_random_heroes?).
+    std::byte unknown;
+    // Initial coordinates of the hero that was generated for this player at the start of the game,
+    // or std::nullopt if no hero was generated.
+    // Note that a hero can only be generated inside the main town, so this can also be interpreted
+    // as the coordinates of the main town.
+    std::optional<Coordinates> generated_hero_coordinates;
     // Note that in saved games the length of the string StartingHero::name is
     // serialized as a 16-bit integer (in .h3m it's serialized as a 32-bit integer).
     StartingHero starting_hero;
@@ -55,15 +67,16 @@ namespace h3m
     LossCondition loss_condition;
     TeamsInfo teams;
     std::vector<CustomHero> custom_heroes;
+    // TODO: figure out what this is.
     // Seems to always be {0, 1, 2, 3, 4, 5, 6, 7, 0, 1, 2, 3, 4, 5, 6, 7}.
     // The values suggest that it has something to do with players, but it's
     // hard to figure out what it is without other examples.
     std::array<std::byte, 16> unknown1 {};
-    // Currently unknown, but looks like some bitmask(s).
+    // TODO: figure out what this is.
+    // The first 32 bytes seem to represent 8 32-bit integers, which
+    // have something to do with the players (and 0xFFFFFFFF being used for absent players).
     // This data seem to be a property of the map rather than the saved game:
     // the values don't seem to change throught the game.
-    // * Actually, the first 32 bytes seem to represent 8 32-bit integers, which
-    //   have something to do with the players (and 0xFFFFFFFF being used for absent players).
     std::array<std::byte, 41> unknown2 {};
     // The original filename of the map (this is used by Restart Scenario command).
     //
@@ -102,19 +115,27 @@ namespace h3m
     std::array<std::byte, 30> unknown3 {};
     // Original filename used for this saved game.
     // This doesn't seem to be used anywhere in the game.
-    // Also stored as a fixed-width string. The game limits the length to 47 characters
-    // (e.g., "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefg.GM1"), but it's probably not the limit.
-    //std::string original_filename;
-
-    // There seem to be 399 bytes for original_filename and the unknown bytes preceding disabled_artifacts.
-    // The last 50 bytes don't seem to be junk/padding - they also look like some bitmask, but I don't know the
-    // meaning yet.
+    // This is also stored as a fixed-width string. Note that HoMM3 limits the length to 47 characters
+    // (e.g., "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefg.GM1"), but it's probably not the limit of this field.
+    // It's hard to figure out what the actual limit is, since the value is not used anywhere.
+    // I don't know if this needs to be null-terminated (again, because it's not used anywhere).
+    std::array<char, 47> original_filename {};
+    // TODO: figure out what this is.
+    // The last 50 bytes look like some bitmask, but I don't know the meaning yet.
+    std::array<std::byte, 352> unknown4 {};
+    // Bitmask indicating which artifacts are disabled on this map (1 - disabled, 0 - enabled).
+    ArtifactsBitmask disabled_artifacts;
+    // Another bitmask for artifacts; the meaning is not clear yet.
+    // TODO: figure out what this is. It seems that the value is always 1 if the artifact is disabled,
+    // but it can also be 1 even if the artifact is enabled.
+    ArtifactsBitmask artifacts_bitmask_unknown;
+    // Bitmask indicating which secondary skills are disabled on this map (1 - disabled, 0 - enabled).
+    SecondarySkillsBitmask disabled_skills;
+    // The currently displayed rumor in the Tavern.
+    std::string current_rumor;
 
     // TODO: reverse-engineer the rest.
     // The next fields are approximately:
-    // * 1 byte for each ArtifactType indicating if it's disabled (0 - enabled, 1 - disabled).
-    // * 28 bytes: 1 byte for each valid SecondarySkillType, indicating if it's disabled (0 - enabled, 1 - disabled).
-    // * The currently displayed rumor in the Tavern
     // * Custom rumors that can appear in the Tavern
     // * Tiles data (similar to h3m::Tile, but seem to contain more info; visibility per player?)
     // * Object templates

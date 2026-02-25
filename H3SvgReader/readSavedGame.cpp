@@ -14,6 +14,15 @@ namespace h3m::H3SvgReader_NS
   using H3Reader_NS::readInt;
   using H3Reader_NS::readReservedData;
 
+  Coordinates readCoordinates(std::istream& stream)
+  {
+    Coordinates result;
+    result.x = readInt<std::uint8_t>(stream);
+    result.y = readInt<std::uint8_t>(stream);
+    result.z = readInt<std::uint8_t>(stream);
+    return result;
+  }
+
   StartingHero readStartingHeroSvg(std::istream& stream)
   {
     StartingHero starting_hero;
@@ -33,7 +42,12 @@ namespace h3m::H3SvgReader_NS
     player.can_be_computer = readBool(stream);
     player.behavior = readEnum<PlayerBehavior>(stream);
     player.allowed_alignments = readEnumBitmask<TownType, 2>(stream);
-    player.unknown = readReservedData<2>(stream);
+    player.unknown = h3m::H3Reader_NS::Detail_NS::readByte(stream);
+    const Bool has_generated_hero = readBool(stream);
+    if (has_generated_hero)
+    {
+      player.generated_hero_coordinates = readCoordinates(stream);
+    }
     player.starting_hero = readStartingHeroSvg(stream);
     return player;
   }
@@ -81,6 +95,31 @@ namespace h3m::H3SvgReader_NS
     // Read 30 bytes.
     // TODO: figure out what this is.
     H3Reader_NS::Detail_NS::readByteArrayImpl(stream, std::span<std::byte, 30>{ saved_game.unknown3 });
+    // Read 47 bytes representing the original filename for this saved game.
+    H3Reader_NS::Detail_NS::readByteArrayImpl(stream, std::as_writable_bytes(std::span{ saved_game.original_filename }));
+    // Read 352 bytes.
+    // TODO: figure out what this is.
+    H3Reader_NS::Detail_NS::readByteArrayImpl(stream, std::span<std::byte, 352>{ saved_game.unknown4 });
+    // Read 144 bytes indicating which artifacts are disabled on this map (1 byte per artifact).
+    for (int i = 0; i < 144; ++i)
+    {
+      saved_game.disabled_artifacts.set(static_cast<ArtifactType>(i), readBool(stream));
+    }
+    // Read 144 bytes for another bitmask for artifacts.
+    // TODO: figure out what this is.
+    for (int i = 0; i < 144; ++i)
+    {
+      saved_game.artifacts_bitmask_unknown.set(static_cast<ArtifactType>(i), readBool(stream));
+    }
+    // Read 28 bytes indicating which secondary skills are disabled on this map (1 byte per skill).
+    for (int i = 0; i < 28; ++i)
+    {
+      saved_game.disabled_skills.set(static_cast<SecondarySkillType>(i), readBool(stream));
+    }
+    // Read the rumor currently displayed in the Tavern.
+    // In H3SVG this is serialized as a length-prefixed string; the length is serialized as a
+    // 16-bit little-endian integer.
+    saved_game.current_rumor = readString16(stream);
     // TODO: read the rest.
     return saved_game;
   }

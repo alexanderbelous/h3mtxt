@@ -10,6 +10,13 @@
 namespace Medea_NS
 {
   template<>
+  void JsonObjectWriter<h3m::Coordinates>::operator()(FieldsWriter& out, const h3m::Coordinates& coordinates) const;
+
+  // Serialize h3m::Cordinates on a single line by default (e.g.., "{"x": 42, "y": 109, "z": 0}".
+  template<>
+  inline constexpr bool kIsSingleLineByDefault<h3m::Coordinates> = true;
+
+  template<>
   void JsonObjectWriter<h3m::PlayerSpecsSvg>::operator()(FieldsWriter& out, const h3m::PlayerSpecsSvg& player_specs) const;
 
   template<>

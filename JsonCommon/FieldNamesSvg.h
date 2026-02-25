@@ -9,6 +9,14 @@
 namespace h3m
 {
   template<>
+  struct FieldNames<Coordinates>
+  {
+    static inline constexpr std::string_view kX = "x";
+    static inline constexpr std::string_view kY = "y";
+    static inline constexpr std::string_view kZ = "z";
+  };
+
+  template<>
   struct FieldNames<PlayerSpecsSvg>
   {
     static inline constexpr std::string_view kCanBeHuman = "can_be_human";
@@ -16,6 +24,7 @@ namespace h3m
     static inline constexpr std::string_view kBehavior = "behavior";
     static inline constexpr std::string_view kAllowedAlignments = "allowed_alignments";
     static inline constexpr std::string_view kUnknown = "unknown";
+    static inline constexpr std::string_view kGeneratedHeroCoordinates = "generated_hero_coordinates";
     static inline constexpr std::string_view kStartingHero = "starting_hero";
   };
 
@@ -38,5 +47,11 @@ namespace h3m
     static inline constexpr std::string_view kMapFilename = "map_filename";
     static inline constexpr std::string_view kMapDirectory = "map_directory";
     static inline constexpr std::string_view kUnknown3 = "unknown3";
+    static inline constexpr std::string_view kOriginalFilename = "original_filename";
+    static inline constexpr std::string_view kUnknown4 = "unknown4";
+    static inline constexpr std::string_view kDisabledArtifacts = "disabled_artifacts";
+    static inline constexpr std::string_view kArtifactsBitmaskUnknown = "artifacts_bitmask_unknown";
+    static inline constexpr std::string_view kDisabledSkills = "disabled_skills";
+    static inline constexpr std::string_view kCurrentRumor = "current_rumor";
   };
 }
