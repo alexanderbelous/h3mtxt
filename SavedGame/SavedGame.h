@@ -59,7 +59,7 @@ namespace h3m
     // The values suggest that it has something to do with players, but it's
     // hard to figure out what it is without other examples.
     std::array<std::byte, 16> unknown1;
-    // Currently unknown, but looks like some bitmask(s) (artifacts ?).
+    // Currently unknown, but looks like some bitmask(s).
     // This data seem to be a property of the map rather than the saved game:
     // the values don't seem to change throught the game.
     // * Actually, the first 32 bytes seem to represent 8 32-bit integers, which
@@ -67,25 +67,22 @@ namespace h3m
     std::array<std::byte, 41> unknown2;
     // The original filename of the map (this is used by Restart Scenario command).
     //
-    // Note: H3SVG uses an idiotic convention for storing this field - the string is always serialized
-    // as 48 bytes, where the last byte is the null terminator (the maximum allowed length of the filename
-    // without the null terminator is 47 characters). However, a null terminator may appear earlier
-    // (if the filename is shorter than 47 characters), in which case the bytes after the first null
-    // terminator may contain junk.
+    // In H3SVG this is stored as a fixed-width string (instead of a length-prefixed or null-terminated string).
+    // Only the bytes up to the first null terminator are significant - the rest often contain junk.
     //
-    // I'm not sure what's the best API for this: we can either store it as an array of 48 bytes,
+    // Note that in practice it's hard to use long filenames because in Windows a path cannot be
+    // longer than MAX_PATH, which is 260 characters by default.
+    //
+    // I've tested that filenames with 244 characters work; testing even longer filenames requires
+    // more tricks, and I have better things to do.
+    //
+    // I'm not sure what's the best API for this: we can either store it as an array of 251 bytes,
     // or as std::string. Neither is perfect: on the one hand, the junk bytes should be ignored, but on
     // the other hand, h3mtxt aims to allow inspecting and modifying any byte, as long as it doesn't lead
     // to corrupt data.
     //
-    // For now, I will define this as an array of 48 bytes, but this might change in the future.
-    //
-    // TODO: it's possible that longer filenames are allowed, and that SavedGame::reserved3 should
-    // be defined as a shorter block. Requires investigating.
-    // TODO: check if it actually has to be null-terminated.
-    std::array<char, 48> map_filename {};
-    // Seems to always be zero-filled.
-    ReservedData<203> reserved3;
+    // For now, I will define this as an array of 251 bytes, but this might change in the future.
+    std::array<char, 251> map_filename {};
     // Relative (to Heroes3.exe) path to the directory in which the original map is located.
     // Normally, this is always equal to "maps", but the game correctly handles other paths as well.
     //
@@ -108,6 +105,10 @@ namespace h3m
     // Also stored as a fixed-width string. The game limits the length to 47 characters
     // (e.g., "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefg.GM1"), but it's probably not the limit.
     //std::string original_filename;
+
+    // There seem to be 399 bytes for original_filename and the unknown bytes preceding disabled_artifacts.
+    // The last 50 bytes don't seem to be junk/padding - they also look like some bitmask, but I don't know the
+    // meaning yet.
 
     // TODO: reverse-engineer the rest.
     // The next fields are approximately:
