@@ -18,5 +18,7 @@ namespace h3m::H3SvgReader_NS
 
   SavedGame readSavedGame(std::istream& stream);
 
-  StartingHero readStartingHero(std::istream& stream);
+  StartingHero readStartingHeroSvg(std::istream& stream);
+
+  TileSvg readTileSvg(std::istream& stream);
 }

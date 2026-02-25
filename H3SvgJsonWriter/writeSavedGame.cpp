@@ -94,5 +94,50 @@ namespace Medea_NS
     out.writeField(Fields::kCurrentRumor, saved_game.current_rumor);
     out.writeField(Fields::kUnknown5, saved_game.unknown5);
     out.writeField(Fields::kRumors, saved_game.rumors);
+    //out.writeField(Fields::kUnknown6, saved_game.unknown6);
+    // TODO: print the coordinates in a comment for each tile.
+    //out.writeField(Fields::kTiles, saved_game.tiles);
+  }
+
+  template<>
+  void JsonObjectWriter<h3m::TileSvg::ObjectToRender>::operator()(FieldsWriter& out,
+                                                                  const h3m::TileSvg::ObjectToRender& object_to_render) const
+  {
+    out.writeField("object_idx", object_to_render.object_idx);
+    out.writeField("unknown", object_to_render.unknown);
+  }
+
+  void JsonObjectWriter<h3m::TileSvg>::operator()(FieldsWriter& out, const h3m::TileSvg& tile) const
+  {
+    using Fields = h3m::FieldNames<h3m::TileSvg>;
+    out.writeField(Fields::kTerrainType, tile.terrain_type);
+    if (std::string_view enum_str = h3m::getEnumString(tile.terrain_type); !enum_str.empty())
+    {
+      out.writeComment(enum_str, false);
+    }
+    out.writeField(Fields::kTerrainSprite, tile.terrain_sprite);
+    out.writeField(Fields::kRiverType, tile.river_type);
+    if (std::string_view enum_str = h3m::getEnumString(tile.river_type); !enum_str.empty())
+    {
+      out.writeComment(enum_str, false);
+    }
+    out.writeField(Fields::kRiverSprite, tile.river_sprite);
+    out.writeField(Fields::kRoadType, tile.road_type);
+    if (std::string_view enum_str = h3m::getEnumString(tile.road_type); !enum_str.empty())
+    {
+      out.writeComment(enum_str, false);
+    }
+    out.writeField(Fields::kRoadSprite, tile.road_sprite);
+    out.writeField(Fields::kFlags1, tile.flags1);
+    out.writeField(Fields::kFlags2, tile.flags2);
+    out.writeField(Fields::kObjectClass, tile.object_class);
+    if (std::string_view enum_str = h3m::getEnumString(static_cast<h3m::ObjectClass>(tile.object_class)); !enum_str.empty())
+    {
+      out.writeComment(enum_str, false);
+    }
+    out.writeField(Fields::kObjectSubclass, tile.object_subclass);
+    out.writeField(Fields::kObjectIdx, tile.object_idx);
+    out.writeField(Fields::kUnknown, tile.unknown);
+    out.writeField(Fields::kObjectsToRender, tile.objects_to_render);
   }
 }

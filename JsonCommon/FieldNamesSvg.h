@@ -62,5 +62,25 @@ namespace h3m
     static inline constexpr std::string_view kCurrentRumor = "current_rumor";
     static inline constexpr std::string_view kUnknown5 = "unknown5";
     static inline constexpr std::string_view kRumors = "rumors";
+    static inline constexpr std::string_view kUnknown6 = "unknown6";
+    static inline constexpr std::string_view kTiles = "tiles";
+  };
+
+  template<>
+  struct FieldNames<TileSvg>
+  {
+    static inline constexpr std::string_view kTerrainType = "terrain_type";
+    static inline constexpr std::string_view kTerrainSprite = "terrain_sprite";
+    static inline constexpr std::string_view kRiverType = "river_type";
+    static inline constexpr std::string_view kRiverSprite = "river_sprite";
+    static inline constexpr std::string_view kRoadType = "road_type";
+    static inline constexpr std::string_view kRoadSprite = "road_sprite";
+    static inline constexpr std::string_view kFlags1 = "flags1";
+    static inline constexpr std::string_view kFlags2 = "flags2";
+    static inline constexpr std::string_view kObjectClass = "object_class";
+    static inline constexpr std::string_view kObjectSubclass = "object_subclass";
+    static inline constexpr std::string_view kObjectIdx = "object_idx";
+    static inline constexpr std::string_view kUnknown = "unknown";
+    static inline constexpr std::string_view kObjectsToRender = "objects_to_render";
   };
 }

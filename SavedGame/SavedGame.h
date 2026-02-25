@@ -52,6 +52,49 @@ namespace h3m
     std::byte unknown {};
   };
 
+  // The equivalent of h3m::Tile stored in the saved game.
+  struct TileSvg
+  {
+    struct ObjectToRender
+    {
+      // 0-based index of the object from SavedGame::objects.
+      std::uint16_t object_idx {};
+      // Somehow determines the sprite tile of @object_idx to render.
+      std::uint16_t unknown {};
+    };
+
+    TerrainType terrain_type {};
+    std::uint8_t terrain_sprite {};
+    RiverType river_type {};
+    std::uint8_t river_sprite {};
+    RoadType road_type {};
+    std::uint8_t road_sprite {};
+    // TODO: replace with EnumBitmask.
+    // flags1 defines terrain_x, terrain_y, river_x, river_y flags:
+    //   bool terrain_x = flags1 & 1;
+    //   bool terrain_y = flags1 & 2;
+    //   bool river_x   = flags1 & 4;
+    //   bool river_y   = flags1 & 8;
+    //   bool road_x    = flags1 & 16;
+    //   bool road_y    = flags1 & 32;
+    // hypothesis:
+    //   bool no_obstacles = flags1 & 64;  // or "passable"
+    std::uint8_t flags1 {};
+    std::uint8_t flags2 {};
+    // Note: in H3SVG it is serialized as a 16-bit integer, even though in h3m it is serialized as a 32-bit integer.
+    std::uint16_t object_class {};
+    // object_subclass or  0xFFFF if there's no object on this tile (i.e. if object_class == 0 || object_class == 3).
+    std::uint16_t object_subclass {};
+    // 0-based index of the object in SavedGame::objects that is displayed on this tile,
+    // or 0xFFFF if there is no object on this tile
+    std::uint16_t object_idx {};
+    std::array<std::byte, 4> unknown {};
+    // Objects whose sprites overlap with the current tile.
+    // The sprites will be rendered in order the respective objects appear in the vector
+    // (0th object is rendered first, then 1st object is rendered on top of it, etc).
+    std::vector<ObjectToRender> objects_to_render;
+  };
+
   // Represents a saved game for Heroes of Might and Magic 3 (.GM1, .GM2, ... files).
   struct SavedGame
   {
@@ -148,10 +191,16 @@ namespace h3m
     std::array<std::byte, 256> unknown5 {};
     // Custom rumors that can appear in the Tavern.
     std::vector<RumorSvg> rumors;
+    // TODO: there are some bytes between rumors and tiles, but their number is not constant.
+    // Figure out how to determine this number.
+    // std::byte unknown6 {};
+    // Terrain data for each tile on the map.
+    // The number of elements should be (has_two_levels ? 2 : 1) * map_size * map_size.
+    // Tile (x, y, z) has the index ((z * map_size + y) * map_size + x).
+    std::vector<TileSvg> tiles;
 
     // TODO: reverse-engineer the rest.
     // The next fields are approximately:
-    // * Tiles data (similar to h3m::Tile, but seem to contain more info; visibility per player?)
     // * Object templates
     // * Objects on the Adventure map
     // * Settings for each hero

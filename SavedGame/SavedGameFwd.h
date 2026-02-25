@@ -13,4 +13,6 @@ namespace h3m
   struct RumorSvg;
 
   struct SavedGame;
+
+  struct TileSvg;
 }
