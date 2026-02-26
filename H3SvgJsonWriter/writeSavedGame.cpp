@@ -61,6 +61,28 @@ namespace Medea_NS
     out.writeField(Fields::kUnknown, rumor.unknown);
   }
 
+  void JsonObjectWriter<h3m::ObjectTemplateSvg>::operator()(FieldsWriter& out,
+                                                              const h3m::ObjectTemplateSvg& object_template) const
+  {
+    using Fields = h3m::FieldNames<h3m::ObjectTemplateSvg>;
+    out.writeField(Fields::kDef, object_template.def);
+    out.writeField(Fields::kWidth, object_template.width);
+    out.writeField(Fields::kHeight, object_template.height);
+    out.writeField(Fields::kUnknown1, object_template.unknown1);
+    out.writeField(Fields::kPassability, object_template.passability);
+    out.writeField(Fields::kUnknown2, object_template.unknown2);
+    out.writeField(Fields::kActionability, object_template.actionability);
+    out.writeField(Fields::kObjectClass, object_template.object_class);
+    if (std::string_view enum_str = h3m::getEnumString(static_cast<h3m::ObjectClass>(object_template.object_class));
+        !enum_str.empty())
+    {
+      out.writeComment(enum_str, false);
+    }
+    out.writeField(Fields::kObjectSubclass, object_template.object_subclass);
+    out.writeField(Fields::kUnknown3, object_template.unknown3);
+    out.writeField(Fields::kIsGround, object_template.is_ground);
+  }
+
   void JsonObjectWriter<h3m::SavedGame>::operator()(FieldsWriter& out, const h3m::SavedGame& saved_game) const
   {
     using Fields = h3m::FieldNames<h3m::SavedGame>;
@@ -97,6 +119,8 @@ namespace Medea_NS
     out.writeField(Fields::kUnknown6, saved_game.unknown6);
     // TODO: print the coordinates in a comment for each tile.
     out.writeField(Fields::kTiles, saved_game.tiles);
+    // TODO: print the 0-based index for each element
+    out.writeField(Fields::kObjectsTemplates, saved_game.objects_templates);
   }
 
   template<>

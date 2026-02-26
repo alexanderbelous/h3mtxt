@@ -8,6 +8,8 @@ namespace h3m
 {
   struct Coordinates;
 
+  struct ObjectTemplateSvg;
+
   struct PlayerSpecsSvg;
 
   struct RumorSvg;

@@ -1,5 +1,6 @@
 # All source files for "SavedGame" library.
 set(SOURCE_LIST
+    "ObjectTemplateSvg.h"
     "PlayerSpecsSvg.h"
     "SavedGame.h"
     "SavedGameFwd.h"

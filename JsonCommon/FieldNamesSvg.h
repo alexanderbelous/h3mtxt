@@ -17,6 +17,22 @@ namespace h3m
   };
 
   template<>
+  struct FieldNames<ObjectTemplateSvg>
+  {
+    static inline constexpr std::string_view kDef = "def";
+    static inline constexpr std::string_view kWidth = "width";
+    static inline constexpr std::string_view kHeight = "height";
+    static inline constexpr std::string_view kUnknown1 = "unknown1";
+    static inline constexpr std::string_view kPassability = "passability";
+    static inline constexpr std::string_view kUnknown2 = "unknown2";
+    static inline constexpr std::string_view kActionability = "actionability";
+    static inline constexpr std::string_view kObjectClass = "object_class";
+    static inline constexpr std::string_view kObjectSubclass = "object_subclass";
+    static inline constexpr std::string_view kUnknown3 = "unknown3";
+    static inline constexpr std::string_view kIsGround = "is_ground";
+  };
+
+  template<>
   struct FieldNames<PlayerSpecsSvg>
   {
     static inline constexpr std::string_view kCanBeHuman = "can_be_human";
@@ -64,6 +80,7 @@ namespace h3m
     static inline constexpr std::string_view kRumors = "rumors";
     static inline constexpr std::string_view kUnknown6 = "unknown6";
     static inline constexpr std::string_view kTiles = "tiles";
+    static inline constexpr std::string_view kObjectsTemplates = "objects_templates";
   };
 
   template<>

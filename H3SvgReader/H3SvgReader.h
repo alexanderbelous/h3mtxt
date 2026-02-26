@@ -12,6 +12,8 @@ namespace h3m::H3SvgReader_NS
 
   MapBasicInfo readMapBasicInfoSvg(std::istream& stream);
 
+  ObjectTemplateSvg readObjectTemplateSvg(std::istream& stream);
+
   PlayerSpecsSvg readPlayerSpecsSvg(std::istream& stream);
 
   RumorSvg readRumorSvg(std::istream& stream);

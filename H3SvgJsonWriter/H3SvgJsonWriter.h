@@ -17,6 +17,10 @@ namespace Medea_NS
   inline constexpr bool kIsSingleLineByDefault<h3m::Coordinates> = true;
 
   template<>
+  void JsonObjectWriter<h3m::ObjectTemplateSvg>::operator()(FieldsWriter& out,
+                                                            const h3m::ObjectTemplateSvg& object_template) const;
+
+  template<>
   void JsonObjectWriter<h3m::PlayerSpecsSvg>::operator()(FieldsWriter& out, const h3m::PlayerSpecsSvg& player_specs) const;
 
   template<>

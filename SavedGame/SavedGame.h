@@ -28,6 +28,32 @@ namespace h3m
     std::byte unknown {};
   };
 
+  // The equivalent of h3m::ObjectTemplate stored in the saved game.
+  struct ObjectTemplateSvg
+  {
+    // Length-prefixed string; length is serialized as a 16-bit little-endian integer.
+    std::string def;
+    // Width of the sprite (in tiles).
+    std::uint8_t width {};
+    // Height of the sprite (in tiles).
+    std::uint8_t height {};
+    // TODO: identify.
+    // possibly - a 6x8 boolean matrix, where A[i][j] indicates whether the sprite tile (i, j)
+    // exists, i.e. A[i][j] = (5 - i < height) && (7 - j < width).
+    std::array<std::byte, 6> unknown1 {};
+    std::array<std::uint8_t, 6> passability {};
+    // TODO: identify.
+    // possibly - similar to @unknown1, but for shadows.
+    std::array<std::byte, 6> unknown2 {};
+    std::array<std::uint8_t, 6> actionability {};
+    std::uint16_t object_class {};
+    std::uint16_t object_subclass {};
+    // TODO: identify.
+    // Seems to be always zero, so it makes sense to replace it with ReservedData<2>
+    std::array<std::byte, 2> unknown3 {};
+    Bool is_ground {};
+  };
+
   // Represents a saved game for Heroes of Might and Magic 3 (.GM1, .GM2, ... files).
   struct SavedGame
   {
@@ -138,6 +164,8 @@ namespace h3m
     // i.e. countTiles(this->basic_info).
     // Tile (x, y, z) has the index ((z * map_size + y) * map_size + x).
     std::vector<TileSvg> tiles;
+    // "Templates" for objects on the Adventure Map.
+    std::vector<ObjectTemplateSvg> objects_templates;
 
     // TODO: reverse-engineer the rest.
     // The next fields are approximately:

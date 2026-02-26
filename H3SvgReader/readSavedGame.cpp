@@ -60,6 +60,23 @@ namespace h3m::H3SvgReader_NS
     return rumor;
   }
 
+  ObjectTemplateSvg readObjectTemplateSvg(std::istream& stream)
+  {
+    ObjectTemplateSvg object_template;
+    object_template.def = readString16(stream);
+    object_template.width = readInt<std::uint8_t>(stream);
+    object_template.height = readInt<std::uint8_t>(stream);
+    H3Reader_NS::Detail_NS::readByteArrayImpl(stream, std::span<std::byte, 6>{ object_template.unknown1 });
+    object_template.passability = H3Reader_NS::readByteArray<6>(stream);
+    H3Reader_NS::Detail_NS::readByteArrayImpl(stream, std::span<std::byte, 6>{ object_template.unknown2 });
+    object_template.actionability = H3Reader_NS::readByteArray<6>(stream);
+    object_template.object_class = readInt<std::uint16_t>(stream);
+    object_template.object_subclass = readInt<std::uint16_t>(stream);
+    H3Reader_NS::Detail_NS::readByteArrayImpl(stream, std::span<std::byte, 2>{ object_template.unknown3 });
+    object_template.is_ground = readBool(stream);
+    return object_template;
+  }
+
   SavedGame readSavedGame(std::istream& stream)
   {
     SavedGame saved_game;
@@ -159,6 +176,13 @@ namespace h3m::H3SvgReader_NS
     for (std::size_t i = 0; i < num_tiles; ++i)
     {
       saved_game.tiles.push_back(readTileSvg(stream));
+    }
+    // Read objects' templates.
+    const std::uint32_t num_objects_templates = readInt<std::uint32_t>(stream);
+    saved_game.objects_templates.reserve(num_objects_templates);
+    for (std::uint32_t i = 0; i < num_objects_templates; ++i)
+    {
+      saved_game.objects_templates.push_back(readObjectTemplateSvg(stream));
     }
     // TODO: read the rest.
     return saved_game;
