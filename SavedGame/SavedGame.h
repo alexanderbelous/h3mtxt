@@ -23,10 +23,11 @@ namespace h3m
   struct RumorSvg
   {
     std::string text;
-    // Seems to always be 0 - possibly used a a null terminator for @text.
-    // TODO: check if values other than 0 can be used in the game. If not, then this
-    // field can be removed altogether.
-    std::byte unknown {};
+    // Indicates whether this rumor has been displayed in the Tavern.
+    // This doesn't necessarily mean that the player has read this rumor - the value is set to 1
+    // when this rumor becomes the "rumor of the week", not when the player sees it in the Tavern.
+    // Note, however, that the value can be reset from 1 to 0 sometimes - I'm not sure why.
+    Bool has_been_shown {};
   };
 
   // Represents a saved game for Heroes of Might and Magic 3 (.GM1, .GM2, ... files).

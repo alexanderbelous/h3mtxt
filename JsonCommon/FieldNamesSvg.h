@@ -48,7 +48,7 @@ namespace h3m
   struct FieldNames<RumorSvg>
   {
     static inline constexpr std::string_view kText = "text";
-    static inline constexpr std::string_view kUnknown = "unknown";
+    static inline constexpr std::string_view kHasBeenShown = "has_been_shown";
   };
 
   template<>

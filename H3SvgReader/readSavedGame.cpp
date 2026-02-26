@@ -18,7 +18,7 @@ namespace h3m::H3SvgReader_NS
   {
     RumorSvg rumor;
     rumor.text = readString16(stream);
-    rumor.unknown = h3m::H3Reader_NS::Detail_NS::readByte(stream);
+    rumor.has_been_shown = readBool(stream);
     return rumor;
   }
 

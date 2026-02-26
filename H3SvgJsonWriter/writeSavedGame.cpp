@@ -58,7 +58,7 @@ namespace Medea_NS
   {
     using Fields = h3m::FieldNames<h3m::RumorSvg>;
     out.writeField(Fields::kText, rumor.text);
-    out.writeField(Fields::kUnknown, rumor.unknown);
+    out.writeField(Fields::kHasBeenShown, rumor.has_been_shown);
   }
 
   void JsonObjectWriter<h3m::ObjectTemplateSvg>::operator()(FieldsWriter& out,
