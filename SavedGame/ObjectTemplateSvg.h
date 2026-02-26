@@ -20,19 +20,20 @@ namespace h3m
     // Height of the sprite (in tiles).
     std::uint8_t height {};
     // TODO: identify.
-    // possibly - a 6x8 boolean matrix, where A[i][j] indicates whether the sprite tile (i, j)
-    // exists, i.e. A[i][j] = (5 - i < height) && (7 - j < width).
-    // Actually, it's not necessarily redundant - it's possible that sprite tiles with no visible
-    // pixels are filtered out.
+    // Possibly - a 6x8 boolean matrix, where A[i][j] indicates whether the sprite tile (i, j)
+    // has any visible pixels..
     std::array<std::byte, 6> unknown1 {};
     std::array<std::uint8_t, 6> passability {};
     // TODO: identify.
     // possibly - similar to @unknown1, but for shadows.
-    std::array<std::byte, 6> unknown2{};
+    std::array<std::byte, 6> unknown2 {};
     std::array<std::uint8_t, 6> actionability {};
     std::uint16_t object_class {};
     std::uint16_t object_subclass {};
     // TODO: identify.
+    // Seems to always be {0, 0}, so it makes sense to replace it with ReservedData<2>, or
+    // to define object_sublcass as uint32_t. The latter would be inconsistent, because
+    // TileSvg::object_subclass is clearly a 16-bit integer.
     std::array<std::byte, 2> unknown3 {};
     Bool is_ground {};
   };

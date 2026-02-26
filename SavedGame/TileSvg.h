@@ -17,6 +17,7 @@ namespace h3m
     {
       // 0-based index of the object from SavedGame::objects.
       std::uint16_t object_idx {};
+      // TODO: figure out what this is.
       // Somehow determines the sprite tile of @object_idx to render.
       std::uint16_t unknown {};
     };
