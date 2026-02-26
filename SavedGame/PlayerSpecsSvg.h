@@ -10,20 +10,20 @@ namespace h3m
 {
   struct Coordinates
   {
-    std::uint8_t x{};
-    std::uint8_t y{};
-    std::uint8_t z{};
+    std::uint8_t x {};
+    std::uint8_t y {};
+    std::uint8_t z {};
   };
 
   // The equivalent of h3m::PlayersSpecs stored in the saved game.
   struct PlayerSpecsSvg
   {
-    Bool can_be_human{};
-    Bool can_be_computer{};
-    PlayerBehavior behavior{};
+    Bool can_be_human {};
+    Bool can_be_computer {};
+    PlayerBehavior behavior {};
     TownsBitmask allowed_alignments;
-    // TODO: figure out what this is (has_random_heroes?).
-    std::byte unknown;
+    // True if Random alignment is enabled, false otherwise.
+    Bool allow_random_alignment {};
     // Initial coordinates of the hero that was generated for this player at the start of the game,
     // or std::nullopt if no hero was generated.
     // Note that a hero can only be generated inside the main town, so this can also be interpreted

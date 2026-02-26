@@ -42,7 +42,7 @@ namespace h3m::H3SvgReader_NS
     player.can_be_computer = readBool(stream);
     player.behavior = readEnum<PlayerBehavior>(stream);
     player.allowed_alignments = readEnumBitmask<TownType, 2>(stream);
-    player.unknown = h3m::H3Reader_NS::Detail_NS::readByte(stream);
+    player.allow_random_alignment = readBool(stream);
     const Bool has_generated_hero = readBool(stream);
     if (has_generated_hero)
     {

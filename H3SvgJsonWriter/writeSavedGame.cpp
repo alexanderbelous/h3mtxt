@@ -32,7 +32,7 @@ namespace Medea_NS
       }
     }
     out.writeField(Fields::kAllowedAlignments, player.allowed_alignments);
-    out.writeField(Fields::kUnknown, player.unknown);
+    out.writeField(Fields::kAllowRandomAlignment, player.allow_random_alignment);
     if (player.generated_hero_coordinates.has_value())
     {
       out.writeField(Fields::kGeneratedHeroCoordinates, player.generated_hero_coordinates.value());
