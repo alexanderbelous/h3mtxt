@@ -138,15 +138,28 @@ namespace h3m::H3SvgReader_NS
     {
       saved_game.rumors.push_back(readRumorSvg(stream));
     }
-    // Read ??? bytes.
-    // TODO: figure out how many bytes should be read between rumors and tiles.
+    // Read an 8-bit integer N, followed by N*28 bytes.
+    // TODO: figure out what this is. It looks like each array of 28 bytes is actually
+    // an array of 7 32-bit integers, but the meaning is not clear. Resources are a natural
+    // candidate, but this doesn't seem to be the case.
+    const std::uint8_t num_unknown_blocks_of_7_numbers = readInt<std::uint8_t>(stream);
+    saved_game.unknown6.reserve(num_unknown_blocks_of_7_numbers);
+    for (std::uint32_t i = 0; i < num_unknown_blocks_of_7_numbers; ++i)
+    {
+      std::array<std::int32_t, 7> data {};
+      for (std::int32_t& element : data)
+      {
+        element = readInt<std::int32_t>(stream);
+      }
+      saved_game.unknown6.push_back(data);
+    }
     // Read tiles.
-    //const std::size_t num_tiles = countTiles(saved_game.basic_info);
-    //saved_game.tiles.reserve(num_tiles);
-    //for (std::size_t i = 0; i < num_tiles; ++i)
-    //{
-    //  saved_game.tiles.push_back(readTileSvg(stream));
-    //}
+    const std::size_t num_tiles = countTiles(saved_game.basic_info);
+    saved_game.tiles.reserve(num_tiles);
+    for (std::size_t i = 0; i < num_tiles; ++i)
+    {
+      saved_game.tiles.push_back(readTileSvg(stream));
+    }
     // TODO: read the rest.
     return saved_game;
   }

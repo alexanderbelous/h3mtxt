@@ -94,9 +94,9 @@ namespace Medea_NS
     out.writeField(Fields::kCurrentRumor, saved_game.current_rumor);
     out.writeField(Fields::kUnknown5, saved_game.unknown5);
     out.writeField(Fields::kRumors, saved_game.rumors);
-    //out.writeField(Fields::kUnknown6, saved_game.unknown6);
+    out.writeField(Fields::kUnknown6, saved_game.unknown6);
     // TODO: print the coordinates in a comment for each tile.
-    //out.writeField(Fields::kTiles, saved_game.tiles);
+    out.writeField(Fields::kTiles, saved_game.tiles);
   }
 
   template<>
