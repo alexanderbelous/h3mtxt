@@ -10,7 +10,7 @@ namespace h3m::H3SvgReader_NS
 {
   Coordinates readCoordinates(std::istream& stream);
 
-  MapBasicInfo readMapBasicInfo(std::istream& stream);
+  MapBasicInfo readMapBasicInfoSvg(std::istream& stream);
 
   PlayerSpecsSvg readPlayerSpecsSvg(std::istream& stream);
 

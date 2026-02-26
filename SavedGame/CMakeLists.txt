@@ -2,6 +2,7 @@
 set(SOURCE_LIST
     "SavedGame.h"
     "SavedGameFwd.h"
+    "TileSvg.h"
 )
 
 # "SavedGame" is a header-only library.

@@ -9,7 +9,7 @@ namespace h3m::H3SvgReader_NS
   using H3Reader_NS::readEnum;
   using H3Reader_NS::readInt;
 
-  MapBasicInfo readMapBasicInfo(std::istream& stream)
+  MapBasicInfo readMapBasicInfoSvg(std::istream& stream)
   {
     MapBasicInfo basic_info;
     basic_info.is_playable = readBool(stream);
