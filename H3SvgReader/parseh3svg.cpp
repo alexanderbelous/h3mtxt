@@ -30,7 +30,7 @@ namespace h3m::H3SvgReader_NS
     }
     else
     {
-      // TODO: actually, this doesn't work: HoMM3 uses its own implementation of Deflate,
+      // FIXME: actually, this doesn't work: HoMM3 uses its own implementation of Deflate,
       // which often causes errors/warnings in other compression libraries/tools. zlib handles
       // .h3m and .h3c files fine, but not .GM* files.
       // For now, the workaround is to manually decompress the saved game via 7-Zip, and pass the
@@ -38,6 +38,7 @@ namespace h3m::H3SvgReader_NS
       // Alternatively, you can comment out line 227 in zstr.hpp:
       //     if (ret != Z_OK && ret != Z_STREAM_END) throw Exception(zstrm_p.get(), ret);
       // or at least not throw an exception if ret == Z_DATA_ERROR
+      // TODO: add a custom class that derives from zstd::istreambuf and ignores CRC errors.
       zstr::istream zstr_stream(stream);
       return readSavedGame(zstr_stream);
     }
