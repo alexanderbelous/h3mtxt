@@ -3,6 +3,8 @@ add_library(H3SvgReader STATIC
     "parseh3svg.h"
     "parseh3svg.cpp"
     "readMapBasicInfo.cpp"
+    "readObjectTemplateSvg.cpp"
+    "readPlayerSpecsSvg.cpp"
     "readSavedGame.cpp"
     "readTileSvg.cpp"
     "Utils.h"

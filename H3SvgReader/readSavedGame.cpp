@@ -14,67 +14,12 @@ namespace h3m::H3SvgReader_NS
   using H3Reader_NS::readInt;
   using H3Reader_NS::readReservedData;
 
-  Coordinates readCoordinates(std::istream& stream)
-  {
-    Coordinates result;
-    result.x = readInt<std::uint8_t>(stream);
-    result.y = readInt<std::uint8_t>(stream);
-    result.z = readInt<std::uint8_t>(stream);
-    return result;
-  }
-
-  StartingHero readStartingHeroSvg(std::istream& stream)
-  {
-    StartingHero starting_hero;
-    starting_hero.type = readEnum<HeroType>(stream);
-    if (starting_hero.type != HeroType{ 0xFF })
-    {
-      starting_hero.portrait = readEnum<HeroPortrait>(stream);
-      starting_hero.name = readString16(stream);
-    }
-    return starting_hero;
-  }
-
-  PlayerSpecsSvg readPlayerSpecsSvg(std::istream& stream)
-  {
-    PlayerSpecsSvg player;
-    player.can_be_human = readBool(stream);
-    player.can_be_computer = readBool(stream);
-    player.behavior = readEnum<PlayerBehavior>(stream);
-    player.allowed_alignments = readEnumBitmask<TownType, 2>(stream);
-    player.allow_random_alignment = readBool(stream);
-    const Bool has_generated_hero = readBool(stream);
-    if (has_generated_hero)
-    {
-      player.generated_hero_coordinates = readCoordinates(stream);
-    }
-    player.starting_hero = readStartingHeroSvg(stream);
-    return player;
-  }
-
   RumorSvg readRumorSvg(std::istream& stream)
   {
     RumorSvg rumor;
     rumor.text = readString16(stream);
     rumor.unknown = h3m::H3Reader_NS::Detail_NS::readByte(stream);
     return rumor;
-  }
-
-  ObjectTemplateSvg readObjectTemplateSvg(std::istream& stream)
-  {
-    ObjectTemplateSvg object_template;
-    object_template.def = readString16(stream);
-    object_template.width = readInt<std::uint8_t>(stream);
-    object_template.height = readInt<std::uint8_t>(stream);
-    H3Reader_NS::Detail_NS::readByteArrayImpl(stream, std::span<std::byte, 6>{ object_template.unknown1 });
-    object_template.passability = H3Reader_NS::readByteArray<6>(stream);
-    H3Reader_NS::Detail_NS::readByteArrayImpl(stream, std::span<std::byte, 6>{ object_template.unknown2 });
-    object_template.actionability = H3Reader_NS::readByteArray<6>(stream);
-    object_template.object_class = readInt<std::uint16_t>(stream);
-    object_template.object_subclass = readInt<std::uint16_t>(stream);
-    H3Reader_NS::Detail_NS::readByteArrayImpl(stream, std::span<std::byte, 2>{ object_template.unknown3 });
-    object_template.is_ground = readBool(stream);
-    return object_template;
   }
 
   SavedGame readSavedGame(std::istream& stream)

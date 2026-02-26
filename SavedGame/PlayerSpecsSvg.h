@@ -29,8 +29,6 @@ namespace h3m
     // Note that a hero can only be generated inside the main town, so this can also be interpreted
     // as the coordinates of the main town.
     std::optional<Coordinates> generated_hero_coordinates;
-    // Note that in saved games the length of the string StartingHero::name is
-    // serialized as a 16-bit integer (in .h3m it's serialized as a 32-bit integer).
     StartingHero starting_hero;
   };
 }

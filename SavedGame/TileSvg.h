@@ -46,6 +46,7 @@ namespace h3m
     // 0-based index of the object in SavedGame::objects that is displayed on this tile,
     // or 0xFFFF if there is no object on this tile
     std::uint16_t object_idx {};
+    // TODO: figure out what this is.
     std::array<std::byte, 4> unknown {};
     // Objects whose sprites overlap with the current tile.
     // The sprites will be rendered in order the respective objects appear in the vector
