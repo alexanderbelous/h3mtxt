@@ -85,6 +85,9 @@ namespace h3m::H3Writer_NS
   void H3Writer<SecondarySkill>::operator()(std::ostream& stream, const SecondarySkill& secondary_skill) const;
 
   template<>
+  void H3Writer<SpriteTilesBitmask>::operator()(std::ostream& stream, const SpriteTilesBitmask& value) const;
+
+  template<>
   void H3Writer<StartingHero>::operator()(std::ostream& stream, const StartingHero& value) const;
 
   template<>

@@ -43,6 +43,9 @@ cmake --build build --config Release
 cmake --install build --config Release --prefix .
 ```
 
+# Future plans
+I'm currently working on the equivalent feature for saved games for HoMM3 (.CGM, .GM1, .GM2, ... files), i.e. converting them to and from JSON. However, as far I know, the full specification of the file format is not publicly known, so this requires a lot of reverse engineering. The development takes place in a separate branch [h3svg](https://github.com/alexanderbelous/h3mtxt/tree/h3svg).
+
 # Acknowledgment
 I would like to thank the authors of [HeroWO-js/h3m2json](https://github.com/HeroWO-js/h3m2json/) and [potmdehex/homm3tools](https://github.com/potmdehex/homm3tools)
 for the detailed description of the .h3m file format. These projects share some similarities with *h3mtxt*, but their goals and programming languages (PHP and C respectively) are different.

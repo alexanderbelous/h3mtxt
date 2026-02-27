@@ -4,6 +4,11 @@
 
 namespace h3m::H3Writer_NS
 {
+  void H3Writer<SpriteTilesBitmask>::operator()(std::ostream& stream, const SpriteTilesBitmask& value) const
+  {
+    writeData(stream, value.data);
+  }
+
   void H3Writer<ObjectTemplate>::operator()(std::ostream& stream, const ObjectTemplate& value) const
   {
     writeData(stream, value.def);

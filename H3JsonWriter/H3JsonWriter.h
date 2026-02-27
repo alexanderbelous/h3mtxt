@@ -126,6 +126,17 @@ namespace Medea_NS
   template<>
   void JsonObjectWriter<h3m::Rumor>::operator()(FieldsWriter& out, const h3m::Rumor& value) const;
 
+  // Serialize h3m::SpriteTilesBitmask as a JSON array.
+  // Ideally, it should be serialized as a 2D array of boolean values; however, that would significantly
+  // increase the size of the output JSON.
+  template<>
+  void JsonArrayWriter<h3m::SpriteTilesBitmask>::operator()(const ArrayElementsWriter& elements_writer,
+                                                            const h3m::SpriteTilesBitmask& sprite_tiles_bitmask) const;
+
+  // Serialize h3m::SpriteTilesBitmask on a single line by default.
+  template<>
+  inline constexpr bool kIsSingleLineByDefault<h3m::SpriteTilesBitmask> = true;
+
   template<>
   void JsonObjectWriter<h3m::SecondarySkill>::operator()(FieldsWriter& out, const h3m::SecondarySkill& skill) const;
 

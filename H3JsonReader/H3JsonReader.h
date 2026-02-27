@@ -81,6 +81,9 @@ namespace h3m::H3JsonReader_NS
   SecondarySkill JsonReader<SecondarySkill>::operator()(const Json::Value& value) const;
 
   template<>
+  SpriteTilesBitmask JsonReader<SpriteTilesBitmask>::operator()(const Json::Value& value) const;
+
+  template<>
   StartingHero JsonReader<StartingHero>::operator()(const Json::Value& value) const;
 
   template<>
