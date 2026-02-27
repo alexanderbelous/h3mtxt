@@ -78,7 +78,7 @@ namespace h3m
     static inline constexpr std::string_view kCurrentRumor = "current_rumor";
     static inline constexpr std::string_view kUnknown5 = "unknown5";
     static inline constexpr std::string_view kRumors = "rumors";
-    static inline constexpr std::string_view kUnknown6 = "unknown6";
+    static inline constexpr std::string_view kBlackMarkets = "black_markets";
     static inline constexpr std::string_view kTiles = "tiles";
     static inline constexpr std::string_view kObjectsTemplates = "objects_templates";
   };

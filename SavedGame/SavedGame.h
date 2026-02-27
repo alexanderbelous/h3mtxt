@@ -30,6 +30,13 @@ namespace h3m
     Bool has_been_shown {};
   };
 
+  struct BlackMarket
+  {
+    // Each element should be either a valid ArtifactType constant or -1 if the slot is empty.
+    // Unlike .h3m, artifacts are stored here as 32-bit integers. Fuck type safety, amirite.
+    std::array<std::int32_t, 7> artifacts {};
+  };
+
   // Represents a saved game for Heroes of Might and Magic 3 (.GM1, .GM2, ... files).
   struct SavedGame
   {
@@ -126,11 +133,10 @@ namespace h3m
     std::array<std::byte, 256> unknown5 {};
     // Custom rumors that can appear in the Tavern.
     std::vector<RumorSvg> rumors;
-    // TODO: figure out what this is.
-    // There are some bytes between rumors and tiles in H3SVG, but their number is not constant.
-    // It seems that the first byte is some number N, followed by N*28 bytes, which
-    // look like N*7 32-bit integers.
-    std::vector<std::array<std::int32_t, 7>> unknown6;
+    // Artifacts currently available in Black Markets on the Adventure Map.
+    // Idk why it's defined it here rather than in the properties of the respective objects.
+    // TODO: check what is the order here. I guess these are either sorted by (x,y,z) or by object_idx.
+    std::vector<BlackMarket> black_markets;
     // Terrain data for each tile on the map.
     // The number of elements should be (has_two_levels ? 2 : 1) * map_size * map_size,
     // i.e. countTiles(this->basic_info).
@@ -146,7 +152,7 @@ namespace h3m
     //
     // Obviuously, there are other fields as well, but I don't know yet where they are located:
     // * current resources for each player
-    // * artifacts in Artifacts Merchant
+    // * artifacts in Artifact Merchants
     // * Current heroes in the Tavern
     // * which player has visited the Keymaster's tent (for each Keymaster's tent subtype)
     // * Order of heroes (although this might be determined by their order in the objects array).

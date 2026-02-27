@@ -9,6 +9,10 @@
 // API for JSON serialization of structures used in HoMM3 saved game format.
 namespace Medea_NS
 {
+  // Serialize h3m::BlackMarket as a JSON array.
+  template<>
+  void JsonArrayWriter<h3m::BlackMarket>::operator()(const ArrayElementsWriter& out, const h3m::BlackMarket& black_market) const;
+
   template<>
   void JsonObjectWriter<h3m::Coordinates>::operator()(FieldsWriter& out, const h3m::Coordinates& coordinates) const;
 

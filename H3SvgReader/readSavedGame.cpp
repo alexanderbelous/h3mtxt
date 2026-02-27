@@ -22,6 +22,16 @@ namespace h3m::H3SvgReader_NS
     return rumor;
   }
 
+  BlackMarket readBlackMarket(std::istream& stream)
+  {
+    BlackMarket black_market;
+    for (std::int32_t& artifact : black_market.artifacts)
+    {
+      artifact = readInt<std::int32_t>(stream);
+    }
+    return black_market;
+  }
+
   SavedGame readSavedGame(std::istream& stream)
   {
     SavedGame saved_game;
@@ -100,20 +110,14 @@ namespace h3m::H3SvgReader_NS
     {
       saved_game.rumors.push_back(readRumorSvg(stream));
     }
-    // Read an 8-bit integer N, followed by N*28 bytes.
-    // TODO: figure out what this is. It looks like each array of 28 bytes is actually
-    // an array of 7 32-bit integers, but the meaning is not clear. Resources are a natural
-    // candidate, but this doesn't seem to be the case.
-    const std::uint8_t num_unknown_blocks_of_7_numbers = readInt<std::uint8_t>(stream);
-    saved_game.unknown6.reserve(num_unknown_blocks_of_7_numbers);
-    for (std::uint32_t i = 0; i < num_unknown_blocks_of_7_numbers; ++i)
+    // Read the current state (slots) for each Black Market on the Adventure map.
+    // Read 1 byte representing the number of Black Markets.
+    const std::uint8_t num_black_markets = readInt<std::uint8_t>(stream);
+    saved_game.black_markets.reserve(num_black_markets);
+    for (std::uint32_t i = 0; i < num_black_markets; ++i)
     {
-      std::array<std::int32_t, 7> data {};
-      for (std::int32_t& element : data)
-      {
-        element = readInt<std::int32_t>(stream);
-      }
-      saved_game.unknown6.push_back(data);
+      // Read 28 bytes for each Black Market (7 32-bit integers).
+      saved_game.black_markets.push_back(readBlackMarket(stream));
     }
     // Read tiles.
     const std::size_t num_tiles = countTiles(saved_game.basic_info);

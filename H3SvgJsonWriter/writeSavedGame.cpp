@@ -7,8 +7,28 @@
 #include <h3mtxt/Medea/Medea.h>
 #include <h3mtxt/SavedGame/SavedGame.h>
 
+#include <limits>
+#include <optional>
+#include <type_traits>
+
 namespace Medea_NS
 {
+  namespace
+  {
+    std::optional<h3m::ArtifactType> safeCastToArtifactType(std::int32_t artifact) noexcept
+    {
+      static_assert(std::is_same_v<std::underlying_type_t<h3m::ArtifactType>, std::uint16_t>,
+                    "This function assumes that h3m::ArtifactType has uint16_t as the underlying type.");
+      // Return std::nullopt if @artifact cannot be represented by a 16-bit integer.
+      if (artifact < std::numeric_limits<std::int16_t>::min() ||
+          artifact > std::numeric_limits<std::int16_t>::max())
+      {
+        return std::nullopt;
+      }
+      return static_cast<h3m::ArtifactType>(static_cast<std::int16_t>(artifact));
+    }
+  }
+
   void JsonObjectWriter<h3m::Coordinates>::operator()(FieldsWriter& out, const h3m::Coordinates& coordinates) const
   {
     using Fields = h3m::FieldNames<h3m::Coordinates>;
@@ -59,6 +79,21 @@ namespace Medea_NS
     using Fields = h3m::FieldNames<h3m::RumorSvg>;
     out.writeField(Fields::kText, rumor.text);
     out.writeField(Fields::kHasBeenShown, rumor.has_been_shown);
+  }
+
+  void JsonArrayWriter<h3m::BlackMarket>::operator()(const ArrayElementsWriter& out, const h3m::BlackMarket& black_market) const
+  {
+    for (std::int32_t artifact : black_market.artifacts)
+    {
+      out.writeElement(artifact);
+      if (std::optional<h3m::ArtifactType> artifact_enum = safeCastToArtifactType(artifact))
+      {
+        if (std::string_view enum_str = h3m::getEnumString(*artifact_enum); !enum_str.empty())
+        {
+          out.writeComment(enum_str, false);
+        }
+      }
+    }
   }
 
   void JsonObjectWriter<h3m::ObjectTemplateSvg>::operator()(FieldsWriter& out,
@@ -116,7 +151,7 @@ namespace Medea_NS
     out.writeField(Fields::kCurrentRumor, saved_game.current_rumor);
     out.writeField(Fields::kUnknown5, saved_game.unknown5);
     out.writeField(Fields::kRumors, saved_game.rumors);
-    out.writeField(Fields::kUnknown6, saved_game.unknown6);
+    out.writeField(Fields::kBlackMarkets, saved_game.black_markets);
     // TODO: print the coordinates in a comment for each tile.
     out.writeField(Fields::kTiles, saved_game.tiles);
     // TODO: print the 0-based index for each element
