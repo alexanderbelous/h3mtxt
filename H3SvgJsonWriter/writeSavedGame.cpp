@@ -29,6 +29,32 @@ namespace Medea_NS
     }
   }
 
+  void JsonObjectWriter<h3m::EnumBoolmask<h3m::ArtifactType, 144>>::operator()(
+    FieldsWriter& out, const h3m::EnumBoolmask<h3m::ArtifactType, 144>& boolmask) const
+  {
+    // Reuse the names of fields for ArtifactsBitmask.
+    static constexpr std::span<const std::string_view, 144> kFieldsNames =
+      h3m::FieldNames<h3m::ArtifactsBitmask>::kNames;
+
+    for (std::size_t i = 0; i < boolmask.data.size(); ++i)
+    {
+      out.writeField(kFieldsNames[i], boolmask.data[i]);
+    }
+  }
+
+  void JsonObjectWriter<h3m::EnumBoolmask<h3m::SecondarySkillType, 28>>::operator()(
+    FieldsWriter& out, const h3m::EnumBoolmask<h3m::SecondarySkillType, 28>& boolmask) const
+  {
+    // Reuse the names of fields for SecondarySkillsBitmask.
+    static constexpr std::span<const std::string_view, 32> kFieldsNames =
+      h3m::FieldNames<h3m::SecondarySkillsBitmask>::kNames;
+
+    for (std::size_t i = 0; i < boolmask.data.size(); ++i)
+    {
+      out.writeField(kFieldsNames[i], boolmask.data[i]);
+    }
+  }
+
   void JsonObjectWriter<h3m::Coordinates>::operator()(FieldsWriter& out, const h3m::Coordinates& coordinates) const
   {
     using Fields = h3m::FieldNames<h3m::Coordinates>;

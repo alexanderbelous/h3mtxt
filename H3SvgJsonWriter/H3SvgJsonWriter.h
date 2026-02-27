@@ -1,5 +1,6 @@
 #pragma once
 
+#include <h3mtxt/Map/MapFwd.h>
 #include <h3mtxt/Map/Constants/Constants.h>
 #include <h3mtxt/SavedGame/SavedGameFwd.h>
 #include <h3mtxt/Medea/MedeaFwd.h>
@@ -9,6 +10,14 @@
 // API for JSON serialization of structures used in HoMM3 saved game format.
 namespace Medea_NS
 {
+  template<>
+  void JsonObjectWriter<h3m::EnumBoolmask<h3m::ArtifactType, 144>>::operator()(
+    FieldsWriter& out, const h3m::EnumBoolmask<h3m::ArtifactType, 144>& boolmask) const;
+
+  template<>
+  void JsonObjectWriter<h3m::EnumBoolmask<h3m::SecondarySkillType, 28>>::operator()(
+    FieldsWriter& out, const h3m::EnumBoolmask<h3m::SecondarySkillType, 28>& boolmask) const;
+
   // Serialize h3m::BlackMarket as a JSON array.
   template<>
   void JsonArrayWriter<h3m::BlackMarket>::operator()(const ArrayElementsWriter& out, const h3m::BlackMarket& black_market) const;

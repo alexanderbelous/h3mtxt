@@ -1,8 +1,13 @@
 #pragma once
 
+#include <cstddef>
+
 // Forward declarations of some types used in h3m::SavedGame.
 namespace h3m
 {
+  template<class Enum, std::size_t NumElements>
+  struct EnumBoolmask;
+
   struct BlackMarket;
 
   struct Coordinates;

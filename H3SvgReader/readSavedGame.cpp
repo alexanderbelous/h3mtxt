@@ -9,6 +9,7 @@
 namespace h3m::H3SvgReader_NS
 {
   using H3Reader_NS::readBool;
+  using H3Reader_NS::readByteArray;
   using H3Reader_NS::readEnum;
   using H3Reader_NS::readEnumBitmask;
   using H3Reader_NS::readInt;
@@ -81,21 +82,12 @@ namespace h3m::H3SvgReader_NS
     // TODO: figure out what this is.
     H3Reader_NS::Detail_NS::readByteArrayImpl(stream, std::span<std::byte, 352>{ saved_game.unknown4 });
     // Read 144 bytes indicating which artifacts are disabled on this map (1 byte per artifact).
-    for (int i = 0; i < 144; ++i)
-    {
-      saved_game.disabled_artifacts.set(static_cast<ArtifactType>(i), readBool(stream));
-    }
+    saved_game.disabled_artifacts.data = readByteArray<144>(stream);
     // Read 144 bytes for another bitmask for artifacts.
     // TODO: figure out what this is.
-    for (int i = 0; i < 144; ++i)
-    {
-      saved_game.artifacts_bitmask_unknown.set(static_cast<ArtifactType>(i), readBool(stream));
-    }
+    saved_game.artifacts_bitmask_unknown.data = readByteArray<144>(stream);
     // Read 28 bytes indicating which secondary skills are disabled on this map (1 byte per skill).
-    for (int i = 0; i < 28; ++i)
-    {
-      saved_game.disabled_skills.set(static_cast<SecondarySkillType>(i), readBool(stream));
-    }
+    saved_game.disabled_skills.data = readByteArray<28>(stream);
     // Read the rumor currently displayed in the Tavern.
     // In H3SVG this is serialized as a length-prefixed string; the length is serialized as a
     // 16-bit little-endian integer.

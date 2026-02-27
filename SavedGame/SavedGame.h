@@ -6,6 +6,7 @@
 #include <h3mtxt/Map/MapAdditionalInfo.h>
 #include <h3mtxt/Map/MapBasicInfo.h>
 #include <h3mtxt/Map/Utils/ReservedData.h>
+#include <h3mtxt/SavedGame/EnumBoolmask.h>
 #include <h3mtxt/SavedGame/ObjectTemplateSvg.h>
 #include <h3mtxt/SavedGame/PlayerSpecsSvg.h>
 #include <h3mtxt/SavedGame/TileSvg.h>
@@ -118,14 +119,14 @@ namespace h3m
     // TODO: figure out what this is.
     // The last 50 bytes look like some bitmask, but I don't know the meaning yet.
     std::array<std::byte, 352> unknown4 {};
-    // Bitmask indicating which artifacts are disabled on this map (1 - disabled, 0 - enabled).
-    ArtifactsBitmask disabled_artifacts;
-    // Another bitmask for artifacts; the meaning is not clear yet.
+    // Array of boolean values indicating which artifacts are disabled on this map (1 - disabled, 0 - enabled).
+    EnumBoolmask<ArtifactType, 144> disabled_artifacts;
+    // Another array of boolean values for artifacts; the meaning is not clear yet.
     // TODO: figure out what this is. It seems that the value is always 1 if the artifact is disabled,
     // but it can also be 1 even if the artifact is enabled.
-    ArtifactsBitmask artifacts_bitmask_unknown;
-    // Bitmask indicating which secondary skills are disabled on this map (1 - disabled, 0 - enabled).
-    SecondarySkillsBitmask disabled_skills;
+    EnumBoolmask<ArtifactType, 144> artifacts_bitmask_unknown;
+    // Array of boolean values indicating which secondary skills are disabled on this map (1 - disabled, 0 - enabled).
+    EnumBoolmask<SecondarySkillType, 28> disabled_skills;
     // The currently displayed rumor in the Tavern.
     std::string current_rumor;
     // TODO: figure out what this is.
