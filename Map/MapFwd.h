@@ -195,6 +195,8 @@ namespace h3m
 
   struct SecondarySkill;
 
+  struct SpriteTilesBitmask;
+
   struct StartingHero;
 
   struct TeamsInfo;

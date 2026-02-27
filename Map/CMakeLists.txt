@@ -38,6 +38,7 @@ set(SOURCE_LIST
     "Utils/EnumBitmask.h"
     "Utils/EnumSequence.h"
     "Utils/ReservedData.h"
+    "Utils/SpriteTilesBitmask.h"
     # etc
     "CreatureStack.h"
     "HeroArtifacts.h"

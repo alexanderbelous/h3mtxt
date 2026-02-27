@@ -232,12 +232,17 @@ namespace h3m::H3Reader_NS
     return tile;
   }
 
+  SpriteTilesBitmask readSpriteTilesBitmask(std::istream& stream)
+  {
+    return SpriteTilesBitmask{ .data = readByteArray<6>(stream) };
+  }
+
   ObjectTemplate readObjectTemplate(std::istream& stream)
   {
     ObjectTemplate result;
     result.def = readString(stream);
-    result.passability = readByteArray<6>(stream);
-    result.actionability = readByteArray<6>(stream);
+    result.passability = readSpriteTilesBitmask(stream);
+    result.actionability = readSpriteTilesBitmask(stream);
     result.allowed_landscapes = readEnumBitmask<TerrainType, 2>(stream);
     result.landscape_group = readEnumBitmask<TerrainType, 2>(stream);
     result.object_class = readEnum<ObjectClass>(stream);

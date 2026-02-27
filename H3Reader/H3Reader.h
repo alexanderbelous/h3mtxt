@@ -60,6 +60,8 @@ namespace h3m::H3Reader_NS
 
   Rumor readRumor(std::istream& stream);
 
+  SpriteTilesBitmask readSpriteTilesBitmask(std::istream& stream);
+
   StartingBonus readStartingBonus(std::istream& stream);
 
   StartingHero readStartingHero(std::istream& stream);
