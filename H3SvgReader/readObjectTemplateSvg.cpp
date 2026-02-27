@@ -4,12 +4,12 @@
 #include <h3mtxt/H3Reader/Utils.h>
 #include <h3mtxt/SavedGame/ObjectTemplateSvg.h>
 
-#include <stdexcept>
-
 namespace h3m::H3SvgReader_NS
 {
   using H3Reader_NS::readBool;
   using H3Reader_NS::readInt;
+  using H3Reader_NS::readSpriteTilesBitmask;
+  using H3Reader_NS::readReservedData;
 
   ObjectTemplateSvg readObjectTemplateSvg(std::istream& stream)
   {
@@ -17,13 +17,13 @@ namespace h3m::H3SvgReader_NS
     object_template.def = readString16(stream);
     object_template.width = readInt<std::uint8_t>(stream);
     object_template.height = readInt<std::uint8_t>(stream);
-    H3Reader_NS::Detail_NS::readByteArrayImpl(stream, std::span<std::byte, 6>{ object_template.unknown1 });
-    object_template.passability = H3Reader_NS::readByteArray<6>(stream);
-    H3Reader_NS::Detail_NS::readByteArrayImpl(stream, std::span<std::byte, 6>{ object_template.unknown2 });
-    object_template.actionability = H3Reader_NS::readByteArray<6>(stream);
+    object_template.unknown1 = readSpriteTilesBitmask(stream);
+    object_template.passability = readSpriteTilesBitmask(stream);
+    object_template.unknown2 = readSpriteTilesBitmask(stream);
+    object_template.actionability = readSpriteTilesBitmask(stream);
     object_template.object_class = readInt<std::uint16_t>(stream);
     object_template.object_subclass = readInt<std::uint16_t>(stream);
-    H3Reader_NS::Detail_NS::readByteArrayImpl(stream, std::span<std::byte, 2>{ object_template.unknown3 });
+    object_template.reserved = readReservedData<2>(stream);
     object_template.is_ground = readBool(stream);
     return object_template;
   }

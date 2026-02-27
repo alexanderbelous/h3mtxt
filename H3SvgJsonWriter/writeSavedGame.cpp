@@ -79,7 +79,7 @@ namespace Medea_NS
       out.writeComment(enum_str, false);
     }
     out.writeField(Fields::kObjectSubclass, object_template.object_subclass);
-    out.writeField(Fields::kUnknown3, object_template.unknown3);
+    out.writeField(Fields::kReserved, object_template.reserved);
     out.writeField(Fields::kIsGround, object_template.is_ground);
   }
 

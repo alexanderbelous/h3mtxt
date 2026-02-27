@@ -28,7 +28,7 @@ namespace h3m
     static inline constexpr std::string_view kActionability = "actionability";
     static inline constexpr std::string_view kObjectClass = "object_class";
     static inline constexpr std::string_view kObjectSubclass = "object_subclass";
-    static inline constexpr std::string_view kUnknown3 = "unknown3";
+    static inline constexpr std::string_view kReserved = "reserved";
     static inline constexpr std::string_view kIsGround = "is_ground";
   };
 

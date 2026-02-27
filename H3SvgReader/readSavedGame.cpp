@@ -130,6 +130,7 @@ namespace h3m::H3SvgReader_NS
       saved_game.objects_templates.push_back(readObjectTemplateSvg(stream));
     }
     // TODO: read the rest.
+    // const std::uint32_t num_objects = readInt<std::uint32_t>(stream);
     return saved_game;
   }
 }
