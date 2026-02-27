@@ -40,12 +40,12 @@ namespace h3m
     ReservedData<3> reserved1;
     std::uint32_t version_major{};
     std::uint32_t version_minor{};
-    // HD mod keeps this zero-initialized; the vanilla game (HoMM3 complete) doesn't, but the values
+    // HD mod keeps this zero-initialized; the vanilla game (HoMM3 Complete) doesn't, but the values
     // don't seem to mean anything.
     ReservedData<32> reserved2;
-    // Format of the map (same as Map::format).
+    // Format of the map.
     MapFormat format = MapFormat::ShadowOfDeath;
-    // Basic information about the map (same as Map::basic_info).
+    // Basic information about the map.
     MapBasicInfo basic_info;
     // Basic information about the players.
     std::array<PlayerSpecsSvg, kMaxPlayers> players {};
@@ -127,13 +127,9 @@ namespace h3m
     // Custom rumors that can appear in the Tavern.
     std::vector<RumorSvg> rumors;
     // TODO: figure out what this is.
-    // There are some bytes between rumors and tiles, but their number is not constant.
-    // Examples I've seen:
-    // * 0x00 not followed by anything.
-    // * 0x02 followed by 56 bytes that look like int32_t[14].
-    // * 0x05 followed by 140 bytes that look like int32_t[35].
-    // So, I guess the first byte is some number N, followed by N*28 bytes,
-    // which are likely int32_t[N][7].
+    // There are some bytes between rumors and tiles in H3SVG, but their number is not constant.
+    // It seems that the first byte is some number N, followed by N*28 bytes, which
+    // look like N*7 32-bit integers.
     std::vector<std::array<std::int32_t, 7>> unknown6;
     // Terrain data for each tile on the map.
     // The number of elements should be (has_two_levels ? 2 : 1) * map_size * map_size,
