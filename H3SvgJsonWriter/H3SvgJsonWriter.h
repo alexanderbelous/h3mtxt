@@ -18,6 +18,9 @@ namespace Medea_NS
   void JsonObjectWriter<h3m::EnumBoolmask<h3m::SecondarySkillType, 28>>::operator()(
     FieldsWriter& out, const h3m::EnumBoolmask<h3m::SecondarySkillType, 28>& boolmask) const;
 
+  template<>
+  void JsonObjectWriter<h3m::Alignments>::operator()(FieldsWriter& out, const h3m::Alignments& alignments) const;
+
   // Serialize h3m::BlackMarket as a JSON array.
   template<>
   void JsonArrayWriter<h3m::BlackMarket>::operator()(const ArrayElementsWriter& out, const h3m::BlackMarket& black_market) const;

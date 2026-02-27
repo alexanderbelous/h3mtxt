@@ -15,6 +15,20 @@ namespace Medea_NS
 {
   namespace
   {
+    // TODO: merge these safeCast...() functions into a single template.
+    // It might require refactoring the enum types, though, so that negative values are handled correctly:
+    // for example, if there is some
+    //   enum class MyEnum : std::uint8_t
+    //   {
+    //     Foo = 0,
+    //     Bar = 1,
+    //     None = 0xFF
+    //   };
+    // then it's unclear which cast should succeed, and which one should fail:
+    //   static_cast<MyEnum>(int32_t(-1));
+    //   static_cast<MyEnum>(int32_t(255));
+    //
+    // In practice, almost fucking everything is signed in HoMM3 (which was a poor design choice).
     std::optional<h3m::ArtifactType> safeCastToArtifactType(std::int32_t artifact) noexcept
     {
       static_assert(std::is_same_v<std::underlying_type_t<h3m::ArtifactType>, std::uint16_t>,
@@ -26,6 +40,17 @@ namespace Medea_NS
         return std::nullopt;
       }
       return static_cast<h3m::ArtifactType>(static_cast<std::int16_t>(artifact));
+    }
+
+    std::optional<h3m::TownType> safeCastToTownType(std::int32_t value) noexcept
+    {
+      using UnderlyingType = std::underlying_type_t<h3m::TownType>;
+      if (value >= std::numeric_limits<UnderlyingType>::min() &&
+          value <= std::numeric_limits<UnderlyingType>::max())
+      {
+        return static_cast<h3m::TownType>(value);
+      }
+      return std::nullopt;
     }
   }
 
@@ -52,6 +77,23 @@ namespace Medea_NS
     for (std::size_t i = 0; i < boolmask.data.size(); ++i)
     {
       out.writeField(kFieldsNames[i], boolmask.data[i]);
+    }
+  }
+
+  void JsonObjectWriter<h3m::Alignments>::operator()(FieldsWriter& out, const h3m::Alignments& alignments) const
+  {
+    using Fields = h3m::FieldNames<h3m::Alignments>;
+    for (std::size_t player_idx = 0; player_idx < alignments.data.size(); ++player_idx)
+    {
+      const std::int32_t alignment = alignments.data[player_idx];
+      out.writeField(Fields::kNames.at(player_idx), alignment);
+      if (std::optional<h3m::TownType> town_type = safeCastToTownType(alignment))
+      {
+        if (std::string_view enum_str = h3m::getEnumString(*town_type); !enum_str.empty())
+        {
+          out.writeComment(enum_str, false);
+        }
+      }
     }
   }
 
@@ -160,6 +202,7 @@ namespace Medea_NS
     out.writeField(Fields::kTeams, saved_game.teams);
     out.writeField(Fields::kCustomHeroes, saved_game.custom_heroes);
     out.writeField(Fields::kUnknown1, saved_game.unknown1);
+    out.writeField(Fields::kAlignments, saved_game.alignments);
     out.writeField(Fields::kUnknown2, saved_game.unknown2);
     // TODO: it sucks that we serialize this as a JSON array rather than a string.
     // Consider serializing as a string, escaping unprintable characters.

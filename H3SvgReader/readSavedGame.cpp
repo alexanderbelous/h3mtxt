@@ -23,6 +23,16 @@ namespace h3m::H3SvgReader_NS
     return rumor;
   }
 
+  Alignments readAlignments(std::istream& stream)
+  {
+    Alignments alignments;
+    for (int32_t& alignment : alignments.data)
+    {
+      alignment = readInt<std::int32_t>(stream);
+    }
+    return alignments;
+  }
+
   BlackMarket readBlackMarket(std::istream& stream)
   {
     BlackMarket black_market;
@@ -66,9 +76,11 @@ namespace h3m::H3SvgReader_NS
     // Read 16 bytes.
     // These seem to to always be {0, 1, 2, 3, 4, 5, 6, 7, 0, 1, 2, 3, 4, 5, 6, 7}.
     H3Reader_NS::Detail_NS::readByteArrayImpl(stream, std::span<std::byte, 16>{ saved_game.unknown1 });
-    // Read 41 bytes.
+    // Read 32 bytes - alignment (TownType, serialized as int32_t) for each PlayerColor.
+    saved_game.alignments = readAlignments(stream);
+    // Read 9 bytes.
     // TODO: figure out what it is.
-    H3Reader_NS::Detail_NS::readByteArrayImpl(stream, std::span<std::byte, 41>{ saved_game.unknown2 });
+    H3Reader_NS::Detail_NS::readByteArrayImpl(stream, std::span<std::byte, 9>{ saved_game.unknown2 });
     // Read 251 bytes representing the filename of the original map.
     H3Reader_NS::Detail_NS::readByteArrayImpl(stream, std::as_writable_bytes(std::span{ saved_game.map_filename }));
     // Read 100 bytes representing the relative path to the directory in which the original map is located.

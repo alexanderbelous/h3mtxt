@@ -9,6 +9,17 @@
 namespace h3m
 {
   template<>
+  struct FieldNames<Alignments>
+  {
+    // Name for each PlayerColor.
+    // TODO: this duplicates the names in FieldNames<PlayersBitmask>.
+    static inline constexpr std::array<std::string_view, 8> kNames =
+    {
+      "red", "blue", "tan", "green", "orange", "purple", "teal", "pink"
+    };
+  };
+
+  template<>
   struct FieldNames<Coordinates>
   {
     static inline constexpr std::string_view kX = "x";
@@ -66,6 +77,7 @@ namespace h3m
     static inline constexpr std::string_view kTeams = "teams";
     static inline constexpr std::string_view kCustomHeroes = "custom_heroes";
     static inline constexpr std::string_view kUnknown1 = "unknown1";
+    static inline constexpr std::string_view kAlignments = "alignments";
     static inline constexpr std::string_view kUnknown2 = "unknown2";
     static inline constexpr std::string_view kMapFilename = "map_filename";
     static inline constexpr std::string_view kMapDirectory = "map_directory";

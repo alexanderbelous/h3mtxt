@@ -8,6 +8,8 @@
 // API for reading various structures from an *UNCOMPRESSED* saved game file (i.e. .GM1, .GM2, ...).
 namespace h3m::H3SvgReader_NS
 {
+  Alignments readAlignments(std::istream& stream);
+
   BlackMarket readBlackMarket(std::istream& stream);
 
   Coordinates readCoordinates(std::istream& stream);

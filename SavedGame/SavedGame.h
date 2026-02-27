@@ -20,6 +20,27 @@
 
 namespace h3m
 {
+  // Actual alignment for each player (as opposed to potential alignments from PlayerSpecsSvg).
+  struct Alignments
+  {
+    constexpr std::int32_t& operator[](PlayerColor player);
+
+    constexpr const std::int32_t& operator[](PlayerColor player) const;
+
+    // Alignment (TownType) for each player, or 0xFFFFFFFF if the player is absent.
+    std::array<std::int32_t, kMaxPlayers> data {};
+  };
+
+  constexpr std::int32_t& Alignments::operator[](PlayerColor player)
+  {
+    return data.at(static_cast<std::size_t>(player));
+  }
+
+  constexpr const std::int32_t& Alignments::operator[](PlayerColor player) const
+  {
+    return data.at(static_cast<std::size_t>(player));
+  }
+
   // The equivalent of h3m::Rumor stored in the saved game.
   struct RumorSvg
   {
@@ -68,12 +89,13 @@ namespace h3m
     // The values suggest that it has something to do with players, but it's
     // hard to figure out what it is without other examples.
     std::array<std::byte, 16> unknown1 {};
+    // Actual alignment for each player.
+    Alignments alignments;
     // TODO: figure out what this is.
-    // The first 32 bytes seem to represent 8 32-bit integers, which
-    // have something to do with the players (and 0xFFFFFFFF being used for absent players).
-    // This data seem to be a property of the map rather than the saved game:
-    // the values don't seem to change throught the game.
-    std::array<std::byte, 41> unknown2 {};
+    // The first 8 bytes look like 1 byte per PlayerColor data, where 0xFF is used for absent players.
+    // It also seems that 0x00 is always used for the human player.
+    // unknown2[8] seems to always be equal to 4.
+    std::array<std::byte, 9> unknown2 {};
     // The original filename of the map (this is used by Restart Scenario command).
     //
     // In H3SVG this is stored as a fixed-width string (instead of a length-prefixed or null-terminated string).
