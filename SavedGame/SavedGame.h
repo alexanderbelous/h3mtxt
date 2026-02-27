@@ -134,7 +134,6 @@ namespace h3m
     // Custom rumors that can appear in the Tavern.
     std::vector<RumorSvg> rumors;
     // Artifacts currently available in Black Markets on the Adventure Map.
-    // Idk why it's defined it here rather than in the properties of the respective objects.
     // TODO: check what is the order here. I guess these are either sorted by (x,y,z) or by object_idx.
     std::vector<BlackMarket> black_markets;
     // Terrain data for each tile on the map.
