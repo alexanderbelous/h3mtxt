@@ -12,5 +12,7 @@ namespace h3m
 {
   std::string_view getEnumString(ArtifactType32 value) noexcept;
 
+  std::string_view getEnumString(PlayerControlType value) noexcept;
+
   std::string_view getEnumString(TownType32 value) noexcept;
 }

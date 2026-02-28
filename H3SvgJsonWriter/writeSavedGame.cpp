@@ -42,6 +42,25 @@ namespace Medea_NS
     }
   }
 
+  void JsonObjectWriter<h3m::EnumIndexedArray<h3m::PlayerColor, h3m::PlayerControlType, h3m::kMaxPlayers>>::operator()(
+    FieldsWriter& out,
+    const h3m::EnumIndexedArray<h3m::PlayerColor, h3m::PlayerControlType, h3m::kMaxPlayers>& players_control) const
+  {
+    // Reuse the names of fields for PlayersBitmask.
+    static constexpr const std::array<std::string_view, h3m::kMaxPlayers>& kFieldsNames =
+      h3m::FieldNames<h3m::PlayersBitmask>::kNames;
+
+    for (std::size_t player_idx = 0; player_idx < players_control.data.size(); ++player_idx)
+    {
+      const h3m::PlayerControlType player_control = players_control.data[player_idx];
+      out.writeField(kFieldsNames[player_idx], player_control);
+      if (std::string_view enum_str = h3m::getEnumString(player_control); !enum_str.empty())
+      {
+        out.writeComment(enum_str, false);
+      }
+    }
+  }
+
   void JsonObjectWriter<h3m::EnumIndexedArray<h3m::PlayerColor, h3m::TownType32, h3m::kMaxPlayers>>::operator()(
     FieldsWriter& out,
     const h3m::EnumIndexedArray<h3m::PlayerColor, h3m::TownType32, h3m::kMaxPlayers>& alignments) const
@@ -171,6 +190,7 @@ namespace Medea_NS
     // TODO: consider serializing as a string rather than a JSON array,
     //       escaping unprintable characters.
     out.writeField(Fields::kMapDirectory, saved_game.map_directory);
+    out.writeField(Fields::kPlayersControl, saved_game.players_control);
     out.writeField(Fields::kUnknown3, saved_game.unknown3);
     // TODO: consider serializing as a string.
     out.writeField(Fields::kOriginalFilename, saved_game.original_filename);

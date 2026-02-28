@@ -70,6 +70,7 @@ namespace h3m
     static inline constexpr std::string_view kUnknown2 = "unknown2";
     static inline constexpr std::string_view kMapFilename = "map_filename";
     static inline constexpr std::string_view kMapDirectory = "map_directory";
+    static inline constexpr std::string_view kPlayersControl = "players_control";
     static inline constexpr std::string_view kUnknown3 = "unknown3";
     static inline constexpr std::string_view kOriginalFilename = "original_filename";
     static inline constexpr std::string_view kUnknown4 = "unknown4";

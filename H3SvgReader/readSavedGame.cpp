@@ -69,9 +69,14 @@ namespace h3m
     readBytes(std::as_writable_bytes(std::span{ saved_game.map_filename }));
     // Read 100 bytes representing the relative path to the directory in which the original map is located.
     readBytes(std::as_writable_bytes(std::span{ saved_game.map_directory }));
-    // Read 30 bytes.
+    // Read 8 bytes - 1 byte per PlayerColor, indicating who can control this color.
+    for (PlayerControlType& player_control : saved_game.players_control.data)
+    {
+      player_control = readEnum<PlayerControlType>();
+    }
+    // Read 22 bytes.
     // TODO: figure out what this is.
-    readBytes(std::span<std::byte, 30>{ saved_game.unknown3 });
+    readBytes(std::span<std::byte, 22>{ saved_game.unknown3 });
     // Read 47 bytes representing the original filename for this saved game.
     readBytes(std::as_writable_bytes(std::span{ saved_game.original_filename }));
     // Read 352 bytes.

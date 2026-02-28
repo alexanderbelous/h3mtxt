@@ -38,13 +38,6 @@ namespace h3m
     std::array<ArtifactType32, 7> artifacts {};
   };
 
-  enum class PlayerControlType : std::int8_t
-  {
-    Cpu = 0,        // Only the computer can control this color.
-    HumanOrCpu = 1, // This color can be played by the human or the computer.
-    None = -1       // No one can control this color (because it's missing from the map).
-  };
-
   // Represents a saved game for Heroes of Might and Magic 3 (.GM1, .GM2, ... files).
   struct SavedGame
   {
@@ -63,6 +56,7 @@ namespace h3m
     // Basic information about the map.
     MapBasicInfo basic_info;
     // Basic information about the players.
+    // TODO: it would make sense to define it as EnumIndexedArray<PlayerColor, PlayerSpecsSvg, kMaxPlayers>.
     std::array<PlayerSpecsSvg, kMaxPlayers> players {};
     // TODO: check that this works correctly for all victory condition types.
     VictoryCondition victory_condition;
@@ -115,10 +109,12 @@ namespace h3m
     //
     // Absolute paths (e.g., "F:\Maps") are NOT supported.
     std::array<char, 100> map_directory {};
+    // 8 bytes: 1 byte per PlayerColor, indicating who can control this color
+    // (0 - only CPU, 1 - Human or CPU, 0xFF - nobody).
+    // This duplicates data from SavedGame::players, but H3SVG explicitly stores it, so we should too.
+    EnumIndexedArray<PlayerColor, PlayerControlType, kMaxPlayers> players_control;
     // TODO: figure out what this is.
-    // UPD: The first 8 bytes:
-    // EnumIndexedArray<PlayerColor, PlayerControlType, kMaxPlayers> players_control;
-    std::array<std::byte, 30> unknown3 {};
+    std::array<std::byte, 22> unknown3 {};
     // Original filename used for this saved game.
     // This doesn't seem to be used anywhere in the game.
     // This is also stored as a fixed-width string. Note that HoMM3 limits the length to 47 characters

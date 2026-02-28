@@ -1,5 +1,6 @@
 #include <h3mtxt/H3SvgJsonWriter/getEnumString.h>
 #include <h3mtxt/H3JsonWriter/getEnumString.h>
+#include <h3mtxt/SavedGame/Constants/PlayerControlType.h>
 
 #include <limits>
 #include <type_traits>
@@ -23,6 +24,21 @@ namespace h3m
       return getEnumString(static_cast<h3m::ArtifactType>(static_cast<std::int16_t>(integer_value)));
     }
     return std::string_view{};
+  }
+
+  std::string_view getEnumString(PlayerControlType value) noexcept
+  {
+    switch (value)
+    {
+    case PlayerControlType::Cpu:
+      return "CPU";
+    case PlayerControlType::HumanOrCpu:
+      return "Human Or CPU";
+    case PlayerControlType::None:
+      return "None";
+    default:
+      return std::string_view{};
+    }
   }
 
   std::string_view getEnumString(TownType32 value) noexcept

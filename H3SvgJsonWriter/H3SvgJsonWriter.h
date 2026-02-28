@@ -22,6 +22,11 @@ namespace Medea_NS
     const h3m::EnumIndexedArray<h3m::SecondarySkillType, h3m::Bool, 28>& boolmask) const;
 
   template<>
+  void JsonObjectWriter<h3m::EnumIndexedArray<h3m::PlayerColor, h3m::PlayerControlType, h3m::kMaxPlayers>>::operator()(
+    FieldsWriter& out,
+    const h3m::EnumIndexedArray<h3m::PlayerColor, h3m::PlayerControlType, h3m::kMaxPlayers>& players_control) const;
+
+  template<>
   void JsonObjectWriter<h3m::EnumIndexedArray<h3m::PlayerColor, h3m::TownType32, h3m::kMaxPlayers>>::operator()(
     FieldsWriter& out,
     const h3m::EnumIndexedArray<h3m::PlayerColor, h3m::TownType32, h3m::kMaxPlayers>& alignments) const;
