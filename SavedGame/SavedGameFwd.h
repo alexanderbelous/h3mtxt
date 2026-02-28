@@ -10,10 +10,8 @@ namespace h3m
 
   enum class TownType32 : std::int32_t;
 
-  struct Alignments;
-
-  template<class Enum, std::size_t NumElements>
-  struct EnumBoolmask;
+  template<class Enum, class T, std::size_t NumElements>
+  struct EnumIndexedArray;
 
   struct BlackMarket;
 

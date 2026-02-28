@@ -7,8 +7,7 @@
 #include <h3mtxt/Map/MapBasicInfo.h>
 #include <h3mtxt/Map/Utils/ReservedData.h>
 #include <h3mtxt/SavedGame/Constants/TownType32.h>
-#include <h3mtxt/SavedGame/Alignments.h>
-#include <h3mtxt/SavedGame/EnumBoolmask.h>
+#include <h3mtxt/SavedGame/EnumIndexedArray.h>
 #include <h3mtxt/SavedGame/ObjectTemplateSvg.h>
 #include <h3mtxt/SavedGame/PlayerSpecsSvg.h>
 #include <h3mtxt/SavedGame/TileSvg.h>
@@ -37,6 +36,13 @@ namespace h3m
   {
     // Each element should be either a valid ArtifactType constant or -1 if the slot is empty.
     std::array<ArtifactType32, 7> artifacts {};
+  };
+
+  enum class PlayerControlType : std::int8_t
+  {
+    Cpu = 0,        // Only the computer can control this color.
+    HumanOrCpu = 1, // This color can be played by the human or the computer.
+    None = -1       // No one can control this color (because it's missing from the map).
   };
 
   // Represents a saved game for Heroes of Might and Magic 3 (.GM1, .GM2, ... files).
@@ -69,8 +75,8 @@ namespace h3m
     // The values suggest that it has something to do with players, but it's
     // hard to figure out what it is without other examples.
     std::array<std::byte, 16> unknown1 {};
-    // Actual alignment for each player.
-    Alignments alignments;
+    // Actual alignment for each player, or 0xFFFFFFFF if the player is absent.
+    EnumIndexedArray<PlayerColor, TownType32, kMaxPlayers> alignments;
     // TODO: figure out what this is.
     // The first 8 bytes look like 1 byte per PlayerColor data, where 0xFF is used for absent players.
     // It also seems that 0x00 is always used for the human player.
@@ -110,7 +116,8 @@ namespace h3m
     // Absolute paths (e.g., "F:\Maps") are NOT supported.
     std::array<char, 100> map_directory {};
     // TODO: figure out what this is.
-    // The first 8 bytes look like std::array<Bool, 8>.
+    // UPD: The first 8 bytes:
+    // EnumIndexedArray<PlayerColor, PlayerControlType, kMaxPlayers> players_control;
     std::array<std::byte, 30> unknown3 {};
     // Original filename used for this saved game.
     // This doesn't seem to be used anywhere in the game.
@@ -123,13 +130,13 @@ namespace h3m
     // The last 50 bytes look like some bitmask, but I don't know the meaning yet.
     std::array<std::byte, 352> unknown4 {};
     // Array of boolean values indicating which artifacts are disabled on this map (1 - disabled, 0 - enabled).
-    EnumBoolmask<ArtifactType, 144> disabled_artifacts;
+    EnumIndexedArray<ArtifactType, Bool, 144> disabled_artifacts;
     // Another array of boolean values for artifacts; the meaning is not clear yet.
     // TODO: figure out what this is. It seems that the value is always 1 if the artifact is disabled,
     // but it can also be 1 even if the artifact is enabled.
-    EnumBoolmask<ArtifactType, 144> artifacts_bitmask_unknown;
+    EnumIndexedArray<ArtifactType, Bool, 144> artifacts_bitmask_unknown;
     // Array of boolean values indicating which secondary skills are disabled on this map (1 - disabled, 0 - enabled).
-    EnumBoolmask<SecondarySkillType, 28> disabled_skills;
+    EnumIndexedArray<SecondarySkillType, Bool, 28> disabled_skills;
     // The currently displayed rumor in the Tavern.
     std::string current_rumor;
     // TODO: figure out what this is.

@@ -14,16 +14,6 @@ namespace h3m
     return rumor;
   }
 
-  Alignments H3SvgReader::readAlignments() const
-  {
-    Alignments alignments;
-    for (TownType32& alignment : alignments.data)
-    {
-      alignment = readEnum<TownType32>();
-    }
-    return alignments;
-  }
-
   BlackMarket H3SvgReader::readBlackMarket() const
   {
     BlackMarket black_market;
@@ -68,7 +58,10 @@ namespace h3m
     // These seem to to always be {0, 1, 2, 3, 4, 5, 6, 7, 0, 1, 2, 3, 4, 5, 6, 7}.
     readBytes(std::span<std::byte, 16>{ saved_game.unknown1 });
     // Read 32 bytes - alignment (TownType, serialized as int32_t) for each PlayerColor.
-    saved_game.alignments = readAlignments();
+    for (TownType32& alignment : saved_game.alignments.data)
+    {
+      alignment = readEnum<TownType32>();
+    }
     // Read 9 bytes.
     // TODO: figure out what it is.
     readBytes(std::span<std::byte, 9>{ saved_game.unknown2 });

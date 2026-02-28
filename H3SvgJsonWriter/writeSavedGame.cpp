@@ -5,6 +5,7 @@
 #include <h3mtxt/H3JsonWriter/Utils.h>
 #include <h3mtxt/H3JsonWriter/CommentBuilder.h>
 #include <h3mtxt/H3SvgJsonWriter/getEnumString.h>
+#include <h3mtxt/JsonCommon/FieldName.h>
 #include <h3mtxt/JsonCommon/FieldNamesSvg.h>
 #include <h3mtxt/Medea/Medea.h>
 #include <h3mtxt/SavedGame/SavedGame.h>
@@ -15,8 +16,8 @@
 
 namespace Medea_NS
 {
-  void JsonObjectWriter<h3m::EnumBoolmask<h3m::ArtifactType, 144>>::operator()(
-    FieldsWriter& out, const h3m::EnumBoolmask<h3m::ArtifactType, 144>& boolmask) const
+  void JsonObjectWriter<h3m::EnumIndexedArray<h3m::ArtifactType, h3m::Bool, 144>>::operator()(
+    FieldsWriter& out, const h3m::EnumIndexedArray<h3m::ArtifactType, h3m::Bool, 144>& boolmask) const
   {
     // Reuse the names of fields for ArtifactsBitmask.
     static constexpr std::span<const std::string_view, 144> kFieldsNames =
@@ -28,8 +29,8 @@ namespace Medea_NS
     }
   }
 
-  void JsonObjectWriter<h3m::EnumBoolmask<h3m::SecondarySkillType, 28>>::operator()(
-    FieldsWriter& out, const h3m::EnumBoolmask<h3m::SecondarySkillType, 28>& boolmask) const
+  void JsonObjectWriter<h3m::EnumIndexedArray<h3m::SecondarySkillType, h3m::Bool, 28>>::operator()(
+    FieldsWriter& out, const h3m::EnumIndexedArray<h3m::SecondarySkillType, h3m::Bool, 28>& boolmask) const
   {
     // Reuse the names of fields for SecondarySkillsBitmask.
     static constexpr std::span<const std::string_view, 32> kFieldsNames =
@@ -41,13 +42,18 @@ namespace Medea_NS
     }
   }
 
-  void JsonObjectWriter<h3m::Alignments>::operator()(FieldsWriter& out, const h3m::Alignments& alignments) const
+  void JsonObjectWriter<h3m::EnumIndexedArray<h3m::PlayerColor, h3m::TownType32, h3m::kMaxPlayers>>::operator()(
+    FieldsWriter& out,
+    const h3m::EnumIndexedArray<h3m::PlayerColor, h3m::TownType32, h3m::kMaxPlayers>& alignments) const
   {
-    using Fields = h3m::FieldNames<h3m::Alignments>;
+    // Reuse the names of fields for PlayersBitmask.
+    static constexpr const std::array<std::string_view, h3m::kMaxPlayers>& kFieldsNames =
+      h3m::FieldNames<h3m::PlayersBitmask>::kNames;
+
     for (std::size_t player_idx = 0; player_idx < alignments.data.size(); ++player_idx)
     {
       const h3m::TownType32 alignment = alignments.data[player_idx];
-      out.writeField(Fields::kNames.at(player_idx), alignment);
+      out.writeField(kFieldsNames[player_idx], alignment);
       if (std::string_view enum_str = h3m::getEnumString(alignment); !enum_str.empty())
       {
         out.writeComment(enum_str, false);

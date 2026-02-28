@@ -10,16 +10,21 @@
 // API for JSON serialization of structures used in HoMM3 saved game format.
 namespace Medea_NS
 {
+  // TODO: merge these full specializations into a single partial specialization for EnumIndexedArray.
   template<>
-  void JsonObjectWriter<h3m::EnumBoolmask<h3m::ArtifactType, 144>>::operator()(
-    FieldsWriter& out, const h3m::EnumBoolmask<h3m::ArtifactType, 144>& boolmask) const;
+  void JsonObjectWriter<h3m::EnumIndexedArray<h3m::ArtifactType, h3m::Bool, 144>>::operator()(
+    FieldsWriter& out,
+    const h3m::EnumIndexedArray<h3m::ArtifactType, h3m::Bool, 144>& boolmask) const;
 
   template<>
-  void JsonObjectWriter<h3m::EnumBoolmask<h3m::SecondarySkillType, 28>>::operator()(
-    FieldsWriter& out, const h3m::EnumBoolmask<h3m::SecondarySkillType, 28>& boolmask) const;
+  void JsonObjectWriter<h3m::EnumIndexedArray<h3m::SecondarySkillType, h3m::Bool, 28>>::operator()(
+    FieldsWriter& out,
+    const h3m::EnumIndexedArray<h3m::SecondarySkillType, h3m::Bool, 28>& boolmask) const;
 
   template<>
-  void JsonObjectWriter<h3m::Alignments>::operator()(FieldsWriter& out, const h3m::Alignments& alignments) const;
+  void JsonObjectWriter<h3m::EnumIndexedArray<h3m::PlayerColor, h3m::TownType32, h3m::kMaxPlayers>>::operator()(
+    FieldsWriter& out,
+    const h3m::EnumIndexedArray<h3m::PlayerColor, h3m::TownType32, h3m::kMaxPlayers>& alignments) const;
 
   // Serialize h3m::BlackMarket as a JSON array.
   template<>

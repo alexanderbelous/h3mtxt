@@ -19,8 +19,6 @@ namespace h3m
     // Inherit the constructor from H3ReaderBase.
     using H3ReaderBase::H3ReaderBase;
 
-    Alignments readAlignments() const;
-
     BlackMarket readBlackMarket() const;
 
     Coordinates readCoordinates() const;
