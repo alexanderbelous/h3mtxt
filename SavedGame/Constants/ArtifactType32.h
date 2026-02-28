@@ -33,7 +33,7 @@ namespace h3m
     //       SpellScroll,
     //       ...
     //     };
-    //   }
+    //   };
     //
     //   template<class UnderlyingType>
     //   using ArtifactType = typename ArtifactTypeTraits<UnderlyingType>::type;
@@ -41,6 +41,16 @@ namespace h3m
     //   using ArtifactType16 = ArtifactType<int16_t>;
     //   using ArtifactType32 = ArtifactType<int32_t>;
     //
-    // The only disadvantage is that such enums cannot be forward-declared.
+    // Amazingly, such enums can even be forward-declared: the definition of ArtifactTypeTraits will have
+    // to be included, but ArtifactTypeTraits::type can be defined in another (optional) header:
+    //   template<class UnderlyingType>
+    //   enum class ArtifactTypeTraits<UnderlyingType>::type : UnderlyingType
+    //   {
+    //     Spellbook,
+    //     SpellScroll,
+    //     ...
+    //   };
+    //
+    // Yeah, that's probably the way to go.
   };
 }
