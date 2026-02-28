@@ -2,6 +2,7 @@
 set(SOURCE_LIST
     "Constants/ArtifactType32.h"
     "Constants/TownType32.h"
+    "Alignments.h"
     "EnumBoolmask.h"
     "ObjectTemplateSvg.h"
     "PlayerSpecsSvg.h"

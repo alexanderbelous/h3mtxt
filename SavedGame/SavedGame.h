@@ -7,6 +7,7 @@
 #include <h3mtxt/Map/MapBasicInfo.h>
 #include <h3mtxt/Map/Utils/ReservedData.h>
 #include <h3mtxt/SavedGame/Constants/TownType32.h>
+#include <h3mtxt/SavedGame/Alignments.h>
 #include <h3mtxt/SavedGame/EnumBoolmask.h>
 #include <h3mtxt/SavedGame/ObjectTemplateSvg.h>
 #include <h3mtxt/SavedGame/PlayerSpecsSvg.h>
@@ -21,27 +22,6 @@
 
 namespace h3m
 {
-  // Actual alignment for each player (as opposed to potential alignments from PlayerSpecsSvg).
-  struct Alignments
-  {
-    constexpr TownType32& operator[](PlayerColor player);
-
-    constexpr const TownType32& operator[](PlayerColor player) const;
-
-    // Alignment for each player, or 0xFFFFFFFF if the player is absent.
-    std::array<TownType32, kMaxPlayers> data {};
-  };
-
-  constexpr TownType32& Alignments::operator[](PlayerColor player)
-  {
-    return data.at(static_cast<std::size_t>(player));
-  }
-
-  constexpr const TownType32& Alignments::operator[](PlayerColor player) const
-  {
-    return data.at(static_cast<std::size_t>(player));
-  }
-
   // The equivalent of h3m::Rumor stored in the saved game.
   struct RumorSvg
   {
