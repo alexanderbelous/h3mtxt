@@ -26,7 +26,7 @@ namespace h3m::H3SvgReader_NS
     }
     if (first_byte != kGzipFirstByte)
     {
-      return readSavedGame(stream);
+      return H3SvgReader{ stream }.readSavedGame();
     }
     else
     {
@@ -40,7 +40,7 @@ namespace h3m::H3SvgReader_NS
       // or at least not throw an exception if ret == Z_DATA_ERROR
       // TODO: add a custom class that derives from zstd::istreambuf and ignores CRC errors.
       zstr::istream zstr_stream(stream);
-      return readSavedGame(zstr_stream);
+      return H3SvgReader{ zstr_stream }.readSavedGame();
     }
   }
 }

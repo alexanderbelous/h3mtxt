@@ -1,30 +1,42 @@
 #pragma once
 
+#include <h3mtxt/H3SvgReader/H3ReaderBase.h>
 #include <h3mtxt/Map/MapFwd.h>
 #include <h3mtxt/SavedGame/SavedGameFwd.h>
 
-#include <iosfwd>
-
-// API for reading various structures from an *UNCOMPRESSED* saved game file (i.e. .GM1, .GM2, ...).
-namespace h3m::H3SvgReader_NS
+namespace h3m
 {
-  Alignments readAlignments(std::istream& stream);
+  // API for reading various structures from an *UNCOMPRESSED* saved game file (i.e. .GM1, .GM2, ...).
+  //
+  // FYI: originally, the functions in this class were declared as global functions. However, making
+  // them member functions of a class has a few advantages:
+  // 1) It reduces the risk of calling a "wrong" function, i.e. one intended for .h3m files.
+  // 2) It doesn't pollute the namespace.
+  // 3) It allows omitting the stream parameter.
+  class H3SvgReader : public H3ReaderBase
+  {
+  public:
+    // Inherit the constructor from H3ReaderBase.
+    using H3ReaderBase::H3ReaderBase;
 
-  BlackMarket readBlackMarket(std::istream& stream);
+    Alignments readAlignments() const;
 
-  Coordinates readCoordinates(std::istream& stream);
+    BlackMarket readBlackMarket() const;
 
-  MapBasicInfo readMapBasicInfoSvg(std::istream& stream);
+    Coordinates readCoordinates() const;
 
-  ObjectTemplateSvg readObjectTemplateSvg(std::istream& stream);
+    MapBasicInfo readMapBasicInfo() const;
 
-  PlayerSpecsSvg readPlayerSpecsSvg(std::istream& stream);
+    ObjectTemplateSvg readObjectTemplate() const;
 
-  RumorSvg readRumorSvg(std::istream& stream);
+    PlayerSpecsSvg readPlayerSpecs() const;
 
-  SavedGame readSavedGame(std::istream& stream);
+    RumorSvg readRumor() const;
 
-  StartingHero readStartingHeroSvg(std::istream& stream);
+    SavedGame readSavedGame() const;
 
-  TileSvg readTileSvg(std::istream& stream);
+    StartingHero readStartingHero() const;
+
+    TileSvg readTile() const;
+  };
 }

@@ -1,4 +1,6 @@
 add_library(H3SvgReader STATIC
+    "H3ReaderBase.cpp"
+    "H3ReaderBase.h"
     "H3SvgReader.h"
     "parseh3svg.h"
     "parseh3svg.cpp"
@@ -7,8 +9,6 @@ add_library(H3SvgReader STATIC
     "readPlayerSpecsSvg.cpp"
     "readSavedGame.cpp"
     "readTileSvg.cpp"
-    "Utils.h"
-    "Utils.cpp"
 )
 add_library(h3mtxt::H3SvgReader ALIAS H3SvgReader)
 
