@@ -1,0 +1,41 @@
+#include <h3mtxt/H3SvgJsonWriter/getEnumString.h>
+#include <h3mtxt/H3JsonWriter/getEnumString.h>
+
+#include <limits>
+#include <type_traits>
+
+namespace h3m
+{
+  std::string_view getEnumString(ArtifactType32 value) noexcept
+  {
+    // TODO: replace the underlying type of h3m::ArtifactType with std::int16_t.
+    // The issue is basically this:
+    //   static_cast<ArtifactType>(std::int32_t(65535)) == static_cast<ArtifactType>(std::int32_t(-1))
+    // In reality, ArtifactType::None is encoded as 0xFFFFFFFF when using a 32-bit integer, not as
+    // 0x0000FFFF.
+    static_assert(std::is_same_v<std::underlying_type_t<h3m::ArtifactType>, std::uint16_t>,
+                  "This function assumes that h3m::ArtifactType has uint16_t as the underlying type.");
+    using UnderlyingType32 = std::underlying_type_t<h3m::ArtifactType32>;
+    const UnderlyingType32 integer_value = static_cast<UnderlyingType32>(value);
+    if (integer_value >= std::numeric_limits<std::int16_t>::min() ||
+        integer_value <= std::numeric_limits<std::int16_t>::max())
+    {
+      return getEnumString(static_cast<h3m::ArtifactType>(static_cast<std::int16_t>(integer_value)));
+    }
+    return std::string_view{};
+  }
+
+  std::string_view getEnumString(TownType32 value) noexcept
+  {
+    // Reuse the names for h3m::TownType.
+    using UnderlyingType = std::underlying_type_t<h3m::TownType>;
+    using UnderlyingType32 = std::underlying_type_t<h3m::TownType32>;
+    const UnderlyingType32 integer_value = static_cast<UnderlyingType32>(value);
+    if (integer_value >= std::numeric_limits<UnderlyingType>::min() &&
+        integer_value <= std::numeric_limits<UnderlyingType>::max())
+    {
+      return getEnumString(static_cast<TownType>(integer_value));
+    }
+    return std::string_view{};
+  }
+}

@@ -26,9 +26,9 @@ namespace h3m::H3SvgReader_NS
   Alignments readAlignments(std::istream& stream)
   {
     Alignments alignments;
-    for (int32_t& alignment : alignments.data)
+    for (TownType32& alignment : alignments.data)
     {
-      alignment = readInt<std::int32_t>(stream);
+      alignment = readEnum<TownType32>(stream);
     }
     return alignments;
   }
@@ -36,9 +36,9 @@ namespace h3m::H3SvgReader_NS
   BlackMarket readBlackMarket(std::istream& stream)
   {
     BlackMarket black_market;
-    for (std::int32_t& artifact : black_market.artifacts)
+    for (ArtifactType32& artifact : black_market.artifacts)
     {
-      artifact = readInt<std::int32_t>(stream);
+      artifact = readEnum<ArtifactType32>(stream);
     }
     return black_market;
   }

@@ -1,8 +1,10 @@
+#include <h3mtxt/H3SvgJsonWriter/H3SvgJsonWriter.h>
+
 #include <h3mtxt/H3JsonWriter/H3JsonWriter.h>
 #include <h3mtxt/H3JsonWriter/getEnumString.h>
 #include <h3mtxt/H3JsonWriter/Utils.h>
 #include <h3mtxt/H3JsonWriter/CommentBuilder.h>
-#include <h3mtxt/H3SvgJsonWriter/H3SvgJsonWriter.h>
+#include <h3mtxt/H3SvgJsonWriter/getEnumString.h>
 #include <h3mtxt/JsonCommon/FieldNamesSvg.h>
 #include <h3mtxt/Medea/Medea.h>
 #include <h3mtxt/SavedGame/SavedGame.h>
@@ -13,47 +15,6 @@
 
 namespace Medea_NS
 {
-  namespace
-  {
-    // TODO: merge these safeCast...() functions into a single template.
-    // It might require refactoring the enum types, though, so that negative values are handled correctly:
-    // for example, if there is some
-    //   enum class MyEnum : std::uint8_t
-    //   {
-    //     Foo = 0,
-    //     Bar = 1,
-    //     None = 0xFF
-    //   };
-    // then it's unclear which cast should succeed, and which one should fail:
-    //   static_cast<MyEnum>(int32_t(-1));
-    //   static_cast<MyEnum>(int32_t(255));
-    //
-    // In practice, almost fucking everything is signed in HoMM3 (which was a poor design choice).
-    std::optional<h3m::ArtifactType> safeCastToArtifactType(std::int32_t artifact) noexcept
-    {
-      static_assert(std::is_same_v<std::underlying_type_t<h3m::ArtifactType>, std::uint16_t>,
-                    "This function assumes that h3m::ArtifactType has uint16_t as the underlying type.");
-      // Return std::nullopt if @artifact cannot be represented by a 16-bit integer.
-      if (artifact < std::numeric_limits<std::int16_t>::min() ||
-          artifact > std::numeric_limits<std::int16_t>::max())
-      {
-        return std::nullopt;
-      }
-      return static_cast<h3m::ArtifactType>(static_cast<std::int16_t>(artifact));
-    }
-
-    std::optional<h3m::TownType> safeCastToTownType(std::int32_t value) noexcept
-    {
-      using UnderlyingType = std::underlying_type_t<h3m::TownType>;
-      if (value >= std::numeric_limits<UnderlyingType>::min() &&
-          value <= std::numeric_limits<UnderlyingType>::max())
-      {
-        return static_cast<h3m::TownType>(value);
-      }
-      return std::nullopt;
-    }
-  }
-
   void JsonObjectWriter<h3m::EnumBoolmask<h3m::ArtifactType, 144>>::operator()(
     FieldsWriter& out, const h3m::EnumBoolmask<h3m::ArtifactType, 144>& boolmask) const
   {
@@ -85,14 +46,11 @@ namespace Medea_NS
     using Fields = h3m::FieldNames<h3m::Alignments>;
     for (std::size_t player_idx = 0; player_idx < alignments.data.size(); ++player_idx)
     {
-      const std::int32_t alignment = alignments.data[player_idx];
+      const h3m::TownType32 alignment = alignments.data[player_idx];
       out.writeField(Fields::kNames.at(player_idx), alignment);
-      if (std::optional<h3m::TownType> town_type = safeCastToTownType(alignment))
+      if (std::string_view enum_str = h3m::getEnumString(alignment); !enum_str.empty())
       {
-        if (std::string_view enum_str = h3m::getEnumString(*town_type); !enum_str.empty())
-        {
-          out.writeComment(enum_str, false);
-        }
+        out.writeComment(enum_str, false);
       }
     }
   }
@@ -151,15 +109,12 @@ namespace Medea_NS
 
   void JsonArrayWriter<h3m::BlackMarket>::operator()(const ArrayElementsWriter& out, const h3m::BlackMarket& black_market) const
   {
-    for (std::int32_t artifact : black_market.artifacts)
+    for (h3m::ArtifactType32 artifact : black_market.artifacts)
     {
       out.writeElement(artifact);
-      if (std::optional<h3m::ArtifactType> artifact_enum = safeCastToArtifactType(artifact))
+      if (std::string_view enum_str = h3m::getEnumString(artifact); !enum_str.empty())
       {
-        if (std::string_view enum_str = h3m::getEnumString(*artifact_enum); !enum_str.empty())
-        {
-          out.writeComment(enum_str, false);
-        }
+        out.writeComment(enum_str, false);
       }
     }
   }

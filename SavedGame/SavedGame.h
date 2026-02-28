@@ -6,6 +6,7 @@
 #include <h3mtxt/Map/MapAdditionalInfo.h>
 #include <h3mtxt/Map/MapBasicInfo.h>
 #include <h3mtxt/Map/Utils/ReservedData.h>
+#include <h3mtxt/SavedGame/Constants/TownType32.h>
 #include <h3mtxt/SavedGame/EnumBoolmask.h>
 #include <h3mtxt/SavedGame/ObjectTemplateSvg.h>
 #include <h3mtxt/SavedGame/PlayerSpecsSvg.h>
@@ -23,20 +24,20 @@ namespace h3m
   // Actual alignment for each player (as opposed to potential alignments from PlayerSpecsSvg).
   struct Alignments
   {
-    constexpr std::int32_t& operator[](PlayerColor player);
+    constexpr TownType32& operator[](PlayerColor player);
 
-    constexpr const std::int32_t& operator[](PlayerColor player) const;
+    constexpr const TownType32& operator[](PlayerColor player) const;
 
-    // Alignment (TownType) for each player, or 0xFFFFFFFF if the player is absent.
-    std::array<std::int32_t, kMaxPlayers> data {};
+    // Alignment for each player, or 0xFFFFFFFF if the player is absent.
+    std::array<TownType32, kMaxPlayers> data {};
   };
 
-  constexpr std::int32_t& Alignments::operator[](PlayerColor player)
+  constexpr TownType32& Alignments::operator[](PlayerColor player)
   {
     return data.at(static_cast<std::size_t>(player));
   }
 
-  constexpr const std::int32_t& Alignments::operator[](PlayerColor player) const
+  constexpr const TownType32& Alignments::operator[](PlayerColor player) const
   {
     return data.at(static_cast<std::size_t>(player));
   }
@@ -55,8 +56,7 @@ namespace h3m
   struct BlackMarket
   {
     // Each element should be either a valid ArtifactType constant or -1 if the slot is empty.
-    // Unlike .h3m, artifacts are stored here as 32-bit integers. Fuck type safety, amirite.
-    std::array<std::int32_t, 7> artifacts {};
+    std::array<ArtifactType32, 7> artifacts {};
   };
 
   // Represents a saved game for Heroes of Might and Magic 3 (.GM1, .GM2, ... files).
@@ -130,6 +130,7 @@ namespace h3m
     // Absolute paths (e.g., "F:\Maps") are NOT supported.
     std::array<char, 100> map_directory {};
     // TODO: figure out what this is.
+    // The first 8 bytes look like std::array<Bool, 8>.
     std::array<std::byte, 30> unknown3 {};
     // Original filename used for this saved game.
     // This doesn't seem to be used anywhere in the game.
