@@ -21,9 +21,12 @@ namespace h3m
 
     BlackMarket readBlackMarket() const;
 
+    // TODO: move to H3ReaderBase.
     Coordinates readCoordinates() const;
 
     MapBasicInfo readMapBasicInfo() const;
+
+    ObjectSvg readObject() const;
 
     ObjectTemplateSvg readObjectTemplate() const;
 

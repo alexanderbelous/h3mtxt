@@ -17,6 +17,13 @@ namespace h3m
   };
 
   template<>
+  struct FieldNames<ObjectSvg>
+  {
+    static inline constexpr std::string_view kCoordinates = "coordinates";
+    static inline constexpr std::string_view kTemplateIdx = "template_idx";
+  };
+
+  template<>
   struct FieldNames<ObjectTemplateSvg>
   {
     static inline constexpr std::string_view kDef = "def";
@@ -83,6 +90,7 @@ namespace h3m
     static inline constexpr std::string_view kBlackMarkets = "black_markets";
     static inline constexpr std::string_view kTiles = "tiles";
     static inline constexpr std::string_view kObjectsTemplates = "objects_templates";
+    static inline constexpr std::string_view kObjects = "objects";
   };
 
   template<>

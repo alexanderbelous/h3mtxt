@@ -126,8 +126,14 @@ namespace h3m
     {
       saved_game.objects_templates.push_back(readObjectTemplate());
     }
+    // Read objects.
+    const std::uint32_t num_objects = readInt<std::uint32_t>();
+    saved_game.objects.reserve(num_objects);
+    for (std::uint32_t i = 0; i < num_objects; ++i)
+    {
+      saved_game.objects.push_back(readObject(saved_game.objects_templates.data(), saved_game.objects_templates.size()));
+    }
     // TODO: read the rest.
-    // const std::uint32_t num_objects = readInt<std::uint32_t>();
     return saved_game;
   }
 }

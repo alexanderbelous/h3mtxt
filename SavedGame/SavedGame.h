@@ -8,6 +8,7 @@
 #include <h3mtxt/Map/Utils/ReservedData.h>
 #include <h3mtxt/SavedGame/Constants/TownType32.h>
 #include <h3mtxt/SavedGame/EnumIndexedArray.h>
+#include <h3mtxt/SavedGame/ObjectSvg.h>
 #include <h3mtxt/SavedGame/ObjectTemplateSvg.h>
 #include <h3mtxt/SavedGame/PlayerSpecsSvg.h>
 #include <h3mtxt/SavedGame/TileSvg.h>
@@ -150,10 +151,11 @@ namespace h3m
     std::vector<TileSvg> tiles;
     // "Templates" for objects on the Adventure Map.
     std::vector<ObjectTemplateSvg> objects_templates;
+    // Objects on the Adventure Map.
+    std::vector<ObjectSvg> objects;
 
     // TODO: reverse-engineer the rest.
     // The next fields are approximately:
-    // * Objects on the Adventure map
     // * Settings for each hero
     //
     // Obviuously, there are other fields as well, but I don't know yet where they are located:

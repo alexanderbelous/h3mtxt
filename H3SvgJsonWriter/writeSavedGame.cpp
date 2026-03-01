@@ -141,6 +141,13 @@ namespace Medea_NS
     }
   }
 
+  void JsonObjectWriter<h3m::ObjectSvg>::operator()(FieldsWriter& out, const h3m::ObjectSvg& object) const
+  {
+    using Fields = h3m::FieldNames<h3m::ObjectSvg>;
+    out.writeField(Fields::kCoordinates, object.coordinates);
+    out.writeField(Fields::kTemplateIdx, object.template_idx);
+  }
+
   void JsonObjectWriter<h3m::ObjectTemplateSvg>::operator()(FieldsWriter& out,
                                                               const h3m::ObjectTemplateSvg& object_template) const
   {
@@ -203,6 +210,7 @@ namespace Medea_NS
     out.writeField(Fields::kTiles, saved_game.tiles);
     // TODO: print the 0-based index for each element
     out.writeField(Fields::kObjectsTemplates, saved_game.objects_templates);
+    out.writeField(Fields::kObjects, saved_game.objects);
   }
 
   template<>

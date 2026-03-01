@@ -19,6 +19,8 @@ namespace h3m
 
   struct Coordinates;
 
+  struct ObjectSvg;
+
   struct ObjectTemplateSvg;
 
   struct PlayerSpecsSvg;

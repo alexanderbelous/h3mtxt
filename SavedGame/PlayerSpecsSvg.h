@@ -1,20 +1,14 @@
 #pragma once
 
 #include <h3mtxt/SavedGame/SavedGameFwd.h>
-#include <h3mtxt/Map/PlayerSpecs.h>
 
-#include <cstdint>
+#include <h3mtxt/Map/PlayerSpecs.h>
+#include <h3mtxt/SavedGame/Coordinates.h>
+
 #include <optional>
 
 namespace h3m
 {
-  struct Coordinates
-  {
-    std::uint8_t x {};
-    std::uint8_t y {};
-    std::uint8_t z {};
-  };
-
   // The equivalent of h3m::PlayersSpecs stored in the saved game.
   struct PlayerSpecsSvg
   {
@@ -28,6 +22,8 @@ namespace h3m
     // or std::nullopt if no hero was generated.
     // Note that a hero can only be generated inside the main town, so this can also be interpreted
     // as the coordinates of the main town.
+    // TODO: check whether it's the coordinates of the town or of the hero. The x coodrinate of the
+    // town is equal to the x coordinate of the hero plus 1.
     std::optional<Coordinates> generated_hero_coordinates;
     StartingHero starting_hero;
   };
