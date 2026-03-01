@@ -77,6 +77,8 @@ namespace h3m
   template<std::size_t NumBytes>
   struct BitSet;
 
+  struct Coordinates;
+
   struct CreatureStack;
 
   struct CustomHero;

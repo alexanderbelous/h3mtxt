@@ -8,6 +8,7 @@ add_library(H3JsonWriter STATIC
     "Utils.cpp"
     "Utils.h"
     "writeCampaign.cpp"
+    "writeCoordinates.cpp"
     "writeCreatureStack.cpp"
     "writeH3cJson.cpp"
     "writeH3cJson.h"

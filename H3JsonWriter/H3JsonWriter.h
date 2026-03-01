@@ -43,6 +43,13 @@ namespace Medea_NS
   inline constexpr bool kIsSingleLineByDefault<h3m::ReservedData<NumBytes>> = true;
 
   template<>
+  void JsonObjectWriter<h3m::Coordinates>::operator()(FieldsWriter& out, const h3m::Coordinates& coordinates) const;
+
+  // Serialize h3m::Coordinates on a single line by default.
+  template<>
+  inline constexpr bool kIsSingleLineByDefault<h3m::Coordinates> = true;
+
+  template<>
   void JsonObjectWriter<h3m::CreatureStack>::operator()(FieldsWriter& out, const h3m::CreatureStack& creature_stack) const;
 
   template<>

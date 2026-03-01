@@ -60,9 +60,7 @@ namespace h3m::H3JsonReader_NS
     {
       VictoryConditionDetails<VictoryConditionType::UpgradeTown> details;
       readSpecialVictoryConditionBaseFromJson(value, details);
-      details.x = readField<std::uint8_t>(value, "x");
-      details.y = readField<std::uint8_t>(value, "y");
-      details.z = readField<std::uint8_t>(value, "z");
+      details.coordinates = readField<Coordinates>(value, "coordinates");
       details.hall_level = readField<std::uint8_t>(value, "hall_level");
       details.castle_level = readField<std::uint8_t>(value, "castle_level");
       return details;
@@ -80,9 +78,7 @@ namespace h3m::H3JsonReader_NS
     {
       T details {};
       readSpecialVictoryConditionBaseFromJson(value, details);
-      details.x = readField<std::uint8_t>(value, "x");
-      details.y = readField<std::uint8_t>(value, "y");
-      details.z = readField<std::uint8_t>(value, "z");
+      details.coordinates = readField<Coordinates>(value, "coordinates");
       return details;
     }
   };
@@ -109,9 +105,7 @@ namespace h3m::H3JsonReader_NS
       VictoryConditionDetails<VictoryConditionType::TransportArtifact> details;
       readSpecialVictoryConditionBaseFromJson(value, details);
       details.artifact_type = readField<std::uint8_t>(value, "artifact_type");
-      details.x = readField<std::uint8_t>(value, "x");
-      details.y = readField<std::uint8_t>(value, "y");
-      details.z = readField<std::uint8_t>(value, "z");
+      details.destination = readField<Coordinates>(value, "destination");
       return details;
     }
   };

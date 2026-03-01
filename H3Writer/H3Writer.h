@@ -28,6 +28,9 @@ namespace h3m::H3Writer_NS
   }
 
   template<>
+  void H3Writer<Coordinates>::operator()(std::ostream& stream, const Coordinates& value) const;
+
+  template<>
   void H3Writer<CreatureStack>::operator()(std::ostream& stream, const CreatureStack& value) const;
 
   template<>

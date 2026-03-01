@@ -355,9 +355,7 @@ namespace h3m::H3Writer_NS
 
   void H3Writer<Object>::operator()(std::ostream& stream, const Object& object) const
   {
-    writeData(stream, object.x);
-    writeData(stream, object.y);
-    writeData(stream, object.z);
+    writeData(stream, object.coordinates);
     writeData(stream, object.template_idx);
     writeData(stream, object.unknown);
     object.properties.visit([&stream] <ObjectPropertiesType T> (const ObjectProperties<T>& value)

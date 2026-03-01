@@ -480,9 +480,7 @@ namespace Medea_NS
   void JsonObjectWriter<h3m::Object>::operator()(FieldsWriter& out, const h3m::Object& object) const
   {
     using Fields = h3m::FieldNames<h3m::Object>;
-    out.writeField(Fields::kX, object.x);
-    out.writeField(Fields::kY, object.y);
-    out.writeField(Fields::kZ, object.z);
+    out.writeField(Fields::kCoordinates, object.coordinates);
     if (objects_templates_)
     {
       if (object.template_idx >= num_objects_templates_)

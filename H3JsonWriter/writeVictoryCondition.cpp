@@ -70,9 +70,7 @@ namespace Medea_NS
                     const h3m::VictoryConditionDetails<h3m::VictoryConditionType::UpgradeTown>& value) const
     {
       writeSpecialVictoryConditionBase(out, value);
-      out.writeField("x", value.x);
-      out.writeField("y", value.y);
-      out.writeField("z", value.z);
+      out.writeField("coordinates", value.coordinates);
       out.writeField("hall_level", value.hall_level);
       out.writeField("castle_level", value.castle_level);
     }
@@ -87,9 +85,7 @@ namespace Medea_NS
     void operator()(FieldsWriter& out, const T& value) const
     {
       writeSpecialVictoryConditionBase(out, value);
-      out.writeField("x", value.x);
-      out.writeField("y", value.y);
-      out.writeField("z", value.z);
+      out.writeField("coordinates", value.coordinates);
     }
   };
 
@@ -117,9 +113,7 @@ namespace Medea_NS
       {
         out.writeComment(enum_str, false);
       }
-      out.writeField("x", value.x);
-      out.writeField("y", value.y);
-      out.writeField("z", value.z);
+      out.writeField("destination", value.destination);
     }
   };
 

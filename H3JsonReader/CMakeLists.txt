@@ -1,6 +1,7 @@
 add_library(H3JsonReader STATIC
     "H3JsonReader.h"
     "readCampaign.cpp"
+    "readCoordinates.cpp"
     "readCreatureStack.cpp"
     "readH3cJson.cpp"
     "readH3cJson.h"

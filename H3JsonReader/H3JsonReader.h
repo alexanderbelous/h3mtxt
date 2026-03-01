@@ -21,6 +21,9 @@ namespace h3m::H3JsonReader_NS
   bool JsonReader<bool>::operator()(const Json::Value& value) const;
 
   template<>
+  Coordinates JsonReader<Coordinates>::operator()(const Json::Value& value) const;
+
+  template<>
   CreatureStack JsonReader<CreatureStack>::operator()(const Json::Value& value) const;
 
   template<>

@@ -10,9 +10,7 @@ namespace h3m::H3JsonReader_NS
     LossConditionDetails<LossConditionType::LoseTown> operator()(const Json::Value& value) const
     {
       LossConditionDetails<LossConditionType::LoseTown> details;
-      details.x = readField<std::uint8_t>(value, "x");
-      details.y = readField<std::uint8_t>(value, "y");
-      details.z = readField<std::uint8_t>(value, "z");
+      readField(details.coordinates, value, "coordinates");
       return details;
     }
   };
@@ -23,9 +21,7 @@ namespace h3m::H3JsonReader_NS
     LossConditionDetails<LossConditionType::LoseHero> operator()(const Json::Value& value) const
     {
       LossConditionDetails<LossConditionType::LoseHero> details;
-      details.x = readField<std::uint8_t>(value, "x");
-      details.y = readField<std::uint8_t>(value, "y");
-      details.z = readField<std::uint8_t>(value, "z");
+      readField(details.coordinates, value, "coordinates");
       return details;
     }
   };

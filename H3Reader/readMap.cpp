@@ -34,9 +34,7 @@ namespace h3m::H3Reader_NS
     MainTown main_town;
     main_town.generate_hero = readBool(stream);
     main_town.town_type = readEnum<TownType>(stream);
-    main_town.x = readInt<std::uint8_t>(stream);
-    main_town.y = readInt<std::uint8_t>(stream);
-    main_town.z = readInt<std::uint8_t>(stream);
+    main_town.coordinates = readCoordinates(stream);
     return main_town;
   }
 
@@ -86,17 +84,13 @@ namespace h3m::H3Reader_NS
     case LossConditionType::LoseTown:
     {
       LossConditionDetails<LossConditionType::LoseTown> details;
-      details.x = readInt<std::uint8_t>(stream);
-      details.y = readInt<std::uint8_t>(stream);
-      details.z = readInt<std::uint8_t>(stream);
+      details.coordinates = readCoordinates(stream);
       return LossCondition{details};
     }
     case LossConditionType::LoseHero:
     {
       LossConditionDetails<LossConditionType::LoseHero> details;
-      details.x = readInt<std::uint8_t>(stream);
-      details.y = readInt<std::uint8_t>(stream);
-      details.z = readInt<std::uint8_t>(stream);
+      details.coordinates = readCoordinates(stream);
       return LossCondition{details};
     }
     case LossConditionType::TimeExpires:

@@ -13,18 +13,14 @@ namespace h3m::H3Writer_NS
     void writeLossConditionDetails<LossConditionType::LoseTown>(
       std::ostream& stream, const LossConditionDetails<LossConditionType::LoseTown>& value)
     {
-      writeData(stream, value.x);
-      writeData(stream, value.y);
-      writeData(stream, value.z);
+      writeData(stream, value.coordinates);
     }
 
     template<>
-    void writeLossConditionDetails< LossConditionType::LoseHero>(
+    void writeLossConditionDetails<LossConditionType::LoseHero>(
       std::ostream& stream, const LossConditionDetails<LossConditionType::LoseHero>& value)
     {
-      writeData(stream, value.x);
-      writeData(stream, value.y);
-      writeData(stream, value.z);
+      writeData(stream, value.coordinates);
     }
 
     template<>
