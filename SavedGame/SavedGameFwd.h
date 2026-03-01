@@ -17,8 +17,6 @@ namespace h3m
 
   struct BlackMarket;
 
-  struct Coordinates;
-
   struct ObjectSvg;
 
   struct ObjectTemplateSvg;
