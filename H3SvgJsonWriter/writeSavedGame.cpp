@@ -94,13 +94,10 @@ namespace Medea_NS
 
     out.writeField(Fields::kCanBeHuman, player.can_be_human);
     out.writeField(Fields::kCanBeComputer, player.can_be_computer);
-    if (player.can_be_human || player.can_be_computer)
+    out.writeField(Fields::kBehavior, player.behavior);
+    if (auto enum_str = h3m::getEnumString(player.behavior); !enum_str.empty())
     {
-      out.writeField(Fields::kBehavior, player.behavior);
-      if (auto enum_str = h3m::getEnumString(player.behavior); !enum_str.empty())
-      {
-        out.writeComment(enum_str, false);
-      }
+      out.writeComment(enum_str, false);
     }
     out.writeField(Fields::kAllowedAlignments, player.allowed_alignments);
     out.writeField(Fields::kAllowRandomAlignment, player.allow_random_alignment);
