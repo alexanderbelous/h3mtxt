@@ -1,7 +1,6 @@
 #pragma once
 
 #include <h3mtxt/SavedGame/SavedGameFwd.h>
-
 #include <h3mtxt/SavedGame/Coordinates.h>
 
 #include <cstdint>
