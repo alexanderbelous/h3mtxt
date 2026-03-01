@@ -13,9 +13,7 @@ namespace h3m::H3JsonReader_NS
     {
       using Fields = FieldNames<Object>;
       Object object;
-      readField(object.x, value, Fields::kX);
-      readField(object.y, value, Fields::kY);
-      readField(object.z, value, Fields::kZ);
+      readField(object.coordinates, value, Fields::kCoordinates);
       readField(object.template_idx, value, Fields::kTemplateIdx);
       readField(object.unknown, value, Fields::kUnknown);
 

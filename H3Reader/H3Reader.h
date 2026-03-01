@@ -11,6 +11,8 @@ namespace h3m::H3Reader_NS
 {
   CampaignHeader readCampaignHeader(std::istream& stream);
 
+  Coordinates readCoordinates(std::istream& stream);
+
   CrossoverOptions readCrossoverOptions(std::istream& stream);
 
   CustomHero readCustomHero(std::istream& stream);

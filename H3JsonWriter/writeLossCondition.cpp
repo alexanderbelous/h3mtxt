@@ -15,9 +15,7 @@ namespace Medea_NS
   {
     void operator()(FieldsWriter& out, const T& value) const
     {
-      out.writeField("x", value.x);
-      out.writeField("y", value.y);
-      out.writeField("z", value.z);
+      out.writeField("coordinates", value.coordinates);
     }
   };
 

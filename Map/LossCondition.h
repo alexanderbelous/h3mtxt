@@ -1,6 +1,7 @@
 #pragma once
 
 #include <h3mtxt/Map/Constants/LossConditionType.h>
+#include <h3mtxt/Map/Coordinates.h>
 
 #include <cstdint>
 #include <variant>
@@ -21,9 +22,7 @@ namespace h3m
     // the game will ignore them and assume that LossConditionType::Normal is set.
     // If it's LoseTown and the coordinates don't refer to any town, the game will crash
     // at start.
-    std::uint8_t x {};
-    std::uint8_t y {};
-    std::uint8_t z {};
+    Coordinates coordinates;
   };
 
   // Specialization for TimeExpires.

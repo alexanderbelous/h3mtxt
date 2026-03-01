@@ -9,6 +9,7 @@ add_library(H3Reader STATIC
     "parseh3m.h"
     "readCampaignHeader.cpp"
     "readCampaignScenario.cpp"
+    "readCoordinates.cpp"
     "readCreatureStack.cpp"
     "readHeroArtifacts.cpp"
     "readMap.cpp"

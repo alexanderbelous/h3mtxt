@@ -22,9 +22,7 @@ namespace h3m::H3JsonReader_NS
     MainTown main_town {};
     readField(main_town.generate_hero, value, Fields::kGenerateHero);
     readField(main_town.town_type, value, Fields::kTownType);
-    readField(main_town.x, value, Fields::kX);
-    readField(main_town.y, value, Fields::kY);
-    readField(main_town.z, value, Fields::kZ);
+    readField(main_town.coordinates, value, Fields::kCoordinates);
     return main_town;
   }
 

@@ -3,7 +3,6 @@ set(SOURCE_LIST
     "Constants/ArtifactType32.h"
     "Constants/PlayerControlType.h"
     "Constants/TownType32.h"
-    "Coordinates.h"
     "EnumIndexedArray.h"
     "ObjectSvg.h"
     "ObjectTemplateSvg.h"

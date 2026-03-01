@@ -3,6 +3,7 @@ add_library(H3Writer STATIC
     "Utils.cpp"
     "Utils.h"
     "writeCampaignScenario.cpp"
+    "writeCoordinates.cpp"
     "writeCreatureStack.cpp"
     "writeh3c.cpp"
     "writeh3c.h"

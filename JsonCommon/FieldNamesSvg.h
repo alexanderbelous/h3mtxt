@@ -9,14 +9,6 @@
 namespace h3m
 {
   template<>
-  struct FieldNames<Coordinates>
-  {
-    static inline constexpr std::string_view kX = "x";
-    static inline constexpr std::string_view kY = "y";
-    static inline constexpr std::string_view kZ = "z";
-  };
-
-  template<>
   struct FieldNames<ObjectSvg>
   {
     static inline constexpr std::string_view kCoordinates = "coordinates";

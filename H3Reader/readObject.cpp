@@ -510,9 +510,7 @@ namespace h3m::H3Reader_NS
   Object readObject(std::istream& stream, const ObjectTemplate* objects_templates, std::size_t num_objects_templates)
   {
     Object result;
-    result.x = readInt<std::uint8_t>(stream);
-    result.y = readInt<std::uint8_t>(stream);
-    result.z = readInt<std::uint8_t>(stream);
+    result.coordinates = readCoordinates(stream);
     result.template_idx = readInt<std::uint32_t>(stream);
     result.unknown = readReservedData<5>(stream);
 

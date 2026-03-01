@@ -18,9 +18,7 @@ namespace h3m::H3Writer_NS
   {
     writeData(stream, value.generate_hero);
     writeData(stream, value.town_type);
-    writeData(stream, value.x);
-    writeData(stream, value.y);
-    writeData(stream, value.z);
+    writeData(stream, value.coordinates);
   }
 
   void H3Writer<StartingHero>::operator()(std::ostream& stream, const StartingHero& value) const

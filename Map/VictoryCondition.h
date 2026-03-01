@@ -5,6 +5,7 @@
 #include <h3mtxt/Map/Constants/CreatureType.h>
 #include <h3mtxt/Map/Constants/ResourceType.h>
 #include <h3mtxt/Map/Constants/VictoryConditionType.h>
+#include <h3mtxt/Map/Coordinates.h>
 
 #include <cstdint>
 #include <variant>
@@ -66,9 +67,7 @@ namespace h3m
   struct VictoryConditionDetails<VictoryConditionType::UpgradeTown> : SpecialVictoryConditionBase
   {
     // If all x/y/z are equal to 0xFF, implies any town.
-    std::uint8_t x {};
-    std::uint8_t y {};
-    std::uint8_t z {};
+    Coordinates coordinates;
     // 0 - Town, 1 - City, 2 - Capitol.
     std::uint8_t hall_level {};
     // 0 - Fort, 1 - Citadel, 2 - Castle.
@@ -83,9 +82,7 @@ namespace h3m
                                                      T == VictoryConditionType::DefeatMonster>> : SpecialVictoryConditionBase
   {
     // Coordinates of the actionable spot. If T == BuildGrail and all x/y/z are equal to 0xFF, implies any town.
-    std::uint8_t x {};
-    std::uint8_t y {};
-    std::uint8_t z {};
+    Coordinates coordinates;
   };
 
   // Partial specialization for FlagDwellings, FlagMines, DefeatAllMonsters.
@@ -104,9 +101,8 @@ namespace h3m
     // The game supports "unusual" artifacts here (e.g., Spellbook), even though the Map Editor might freeze
     // for some of them when viewing the Victory Condition.
     std::uint8_t artifact_type {};
-    std::uint8_t x {};
-    std::uint8_t y {};
-    std::uint8_t z {};
+    // Coordinates of the town.
+    Coordinates destination;
   };
 
   // Specialization for SurviveBeyondATimeLimit.

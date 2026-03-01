@@ -1,6 +1,6 @@
 #pragma once
 
-#include <h3mtxt/SavedGame/SavedGameFwd.h>
+#include <h3mtxt/Map/MapFwd.h>
 
 #include <cstdint>
 

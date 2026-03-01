@@ -191,6 +191,14 @@ namespace h3m
   };
 
   template<>
+  struct FieldNames<Coordinates>
+  {
+    static inline constexpr std::string_view kX = "x";
+    static inline constexpr std::string_view kY = "y";
+    static inline constexpr std::string_view kZ = "z";
+  };
+
+  template<>
   struct FieldNames<CreatureStack>
   {
     static inline constexpr std::string_view kType = "type";
@@ -454,9 +462,7 @@ namespace h3m
   {
     static inline constexpr std::string_view kGenerateHero = "generate_hero";
     static inline constexpr std::string_view kTownType = "town_type";
-    static inline constexpr std::string_view kX = "x";
-    static inline constexpr std::string_view kY = "y";
-    static inline constexpr std::string_view kZ = "z";
+    static inline constexpr std::string_view kCoordinates = "coordinates";
   };
 
   template<>
@@ -528,9 +534,7 @@ namespace h3m
   template<>
   struct FieldNames<Object>
   {
-    static inline constexpr std::string_view kX = "x";
-    static inline constexpr std::string_view kY = "y";
-    static inline constexpr std::string_view kZ = "z";
+    static inline constexpr std::string_view kCoordinates = "coordinates";
     static inline constexpr std::string_view kTemplateIdx = "template_idx";
     static inline constexpr std::string_view kUnknown = "unknown";
     static inline constexpr std::string_view kProperties = "properties";

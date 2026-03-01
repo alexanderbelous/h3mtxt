@@ -70,9 +70,7 @@ namespace h3m::H3Reader_NS
       {
         VictoryConditionDetails<VictoryConditionType::UpgradeTown> details;
         readSpecialVictoryConditionBase(stream, details);
-        details.x = readInt<std::uint8_t>(stream);
-        details.y = readInt<std::uint8_t>(stream);
-        details.z = readInt<std::uint8_t>(stream);
+        details.coordinates = readCoordinates(stream);
         details.hall_level = readInt<std::uint8_t>(stream);
         details.castle_level = readInt<std::uint8_t>(stream);
         return details;
@@ -89,9 +87,7 @@ namespace h3m::H3Reader_NS
       {
         VictoryConditionDetails<T> details;
         readSpecialVictoryConditionBase(stream, details);
-        details.x = readInt<std::uint8_t>(stream);
-        details.y = readInt<std::uint8_t>(stream);
-        details.z = readInt<std::uint8_t>(stream);
+        details.coordinates = readCoordinates(stream);
         return details;
       }
     };
@@ -117,9 +113,7 @@ namespace h3m::H3Reader_NS
         VictoryConditionDetails<VictoryConditionType::TransportArtifact> details;
         readSpecialVictoryConditionBase(stream, details);
         details.artifact_type = readInt<std::uint8_t>(stream);
-        details.x = readInt<std::uint8_t>(stream);
-        details.y = readInt<std::uint8_t>(stream);
-        details.z = readInt<std::uint8_t>(stream);
+        details.destination = readCoordinates(stream);
         return details;
       }
     };

@@ -6,6 +6,7 @@
 #include <h3mtxt/Map/Constants/PlayerBehavior.h>
 #include <h3mtxt/Map/Constants/TownType.h>
 #include <h3mtxt/Map/Utils/EnumBitmask.h>
+#include <h3mtxt/Map/Coordinates.h>
 
 #include <cstdint>
 #include <optional>
@@ -22,12 +23,8 @@ namespace h3m
     // Type of the player's main town.
     // 0xFF is a special value that means Random.
     TownType town_type {};
-    // X-coordinate of the main town.
-    std::uint8_t x {};
-    // Y-coordinate of the main town.
-    std::uint8_t y {};
-    // Z-coordinate of the main town.
-    std::uint8_t z {};
+    // Coordinates of the actionable spot (i.e. the entrance).
+    Coordinates coordinates;
   };
 
   // Information about the player's starting hero (displayed when starting a new game).

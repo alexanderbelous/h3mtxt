@@ -33,9 +33,7 @@ namespace Medea_NS
     {
       out.writeComment(town_type_str, false);
     }
-    out.writeField(Fields::kX, value.x);
-    out.writeField(Fields::kY, value.y);
-    out.writeField(Fields::kZ, value.z);
+    out.writeField(Fields::kCoordinates, value.coordinates);
   }
 
   void JsonObjectWriter<h3m::StartingHero>::operator()(FieldsWriter& out, const h3m::StartingHero& value) const

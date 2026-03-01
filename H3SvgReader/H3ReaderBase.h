@@ -68,6 +68,8 @@ namespace h3m
     template<class Enum, std::size_t NumBytes>
     EnumBitmask<Enum, NumBytes> readEnumBitmask() const;
 
+    Coordinates readCoordinates() const;
+
     CustomHero readCustomHero() const;
 
     SpriteTilesBitmask readSpriteTilesBitmask() const;

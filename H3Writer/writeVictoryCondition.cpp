@@ -56,9 +56,7 @@ namespace h3m::H3Writer_NS
     void operator()(std::ostream& stream, const VictoryConditionDetails<VictoryConditionType::UpgradeTown>& value) const
     {
       writeSpecialVictoryConditionBase(stream, value);
-      writeData(stream, value.x);
-      writeData(stream, value.y);
-      writeData(stream, value.z);
+      writeData(stream, value.coordinates);
       writeData(stream, value.hall_level);
       writeData(stream, value.castle_level);
     }
@@ -73,9 +71,7 @@ namespace h3m::H3Writer_NS
     void operator()(std::ostream& stream, const T& value) const
     {
       writeSpecialVictoryConditionBase(stream, value);
-      writeData(stream, value.x);
-      writeData(stream, value.y);
-      writeData(stream, value.z);
+      writeData(stream, value.coordinates);
     }
   };
 
@@ -97,9 +93,7 @@ namespace h3m::H3Writer_NS
     {
       writeSpecialVictoryConditionBase(stream, value);
       writeData(stream, value.artifact_type);
-      writeData(stream, value.x);
-      writeData(stream, value.y);
-      writeData(stream, value.z);
+      writeData(stream, value.destination);
     }
   };
 

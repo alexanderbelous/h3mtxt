@@ -21,6 +21,11 @@ namespace h3m
     return result;
   }
 
+  Coordinates H3ReaderBase::readCoordinates() const
+  {
+    return H3Reader_NS::readCoordinates(stream_);
+  }
+
   CustomHero H3ReaderBase::readCustomHero() const
   {
     return H3Reader_NS::readCustomHero(stream_);
