@@ -47,6 +47,18 @@ namespace Medea_NS
     }
   }
 
+  void JsonObjectWriter<h3m::MonsterSvg>::operator()(FieldsWriter& out, const h3m::MonsterSvg& monster) const
+  {
+    using Fields = h3m::FieldNames<h3m::MonsterSvg>;
+    out.writeField(Fields::kMessage, monster.message);
+    out.writeField(Fields::kResources, monster.resources);
+    out.writeField(Fields::kArtifact, monster.artifact);
+    if (std::string_view enum_str = h3m::getEnumString(monster.artifact); !enum_str.empty())
+    {
+      out.writeComment(enum_str, false);
+    }
+  }
+
   void JsonObjectWriter<h3m::PlayerSpecsSvg>::operator()(FieldsWriter& out, const h3m::PlayerSpecsSvg& player) const
   {
     using Fields = h3m::FieldNames<h3m::PlayerSpecsSvg>;
@@ -166,6 +178,7 @@ namespace Medea_NS
     out.writeField(Fields::kObjects, saved_game.objects);
     out.writeField(Fields::kEventsAndPandorasBoxes, saved_game.events_and_pandoras_boxes);
     out.writeField(Fields::kArtifactsAndSpellScrolls, saved_game.artifacts_and_spell_scrolls);
+    out.writeField(Fields::kMonsters, saved_game.monsters);
   }
 
   template<>

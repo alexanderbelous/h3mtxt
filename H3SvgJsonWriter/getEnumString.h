@@ -10,6 +10,8 @@
 //         or an empty string_view if @value is not a known enum constant.
 namespace h3m
 {
+  std::string_view getEnumString(ArtifactType8 value) noexcept;
+
   std::string_view getEnumString(ArtifactType32 value) noexcept;
 
   std::string_view getEnumString(PlayerControlType value) noexcept;

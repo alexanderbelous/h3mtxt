@@ -48,6 +48,15 @@ namespace h3m
     GuardiansSvg guardians;
   };
 
+  struct MonsterSvg
+  {
+    // Serialized in H3SVG as a length-prefixed string, with length being serialized as a 16-bit little-endian integer.
+    std::string message;
+    Resources resources;
+    // ArtifactType or 0xFF if there is none.
+    ArtifactType8 artifact {};
+  };
+
   // Represents a saved game for Heroes of Might and Magic 3 (.GM1, .GM2, ... files).
   struct SavedGame
   {
@@ -165,14 +174,15 @@ namespace h3m
     // Events and Pandora's Boxes on the Adventure Map.
     std::vector<EventBaseSvg> events_and_pandoras_boxes;
     // Artifacts and Spell scrolls on the Adventure Map.
-    // FYI: it seems that these are persistent: they are not removed from the array even after
-    // a hero picks them up. Guardians are mutable though.
+    // FYI: it seems that the elements are persistent: they are not deleted even after a hero picks them up.
+    // Guardians are mutable though.
     std::vector<ArtifactSvg> artifacts_and_spell_scrolls;
+    // Wandering creatures on the Adventure Map.
+    // TODO: consider renaming; this seems more like "monsters with custom message or treasure".
+    std::vector<MonsterSvg> monsters;
 
     // TODO: reverse-engineer the rest.
     // The next fields are approximately:
-    // * Spell scrolls and artifacts on the Adventure Map.
-    // * Wandering creatures.
     // * Seer's Huts.
     // * Quest guards.
     // * Global events

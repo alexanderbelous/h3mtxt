@@ -29,6 +29,15 @@ namespace h3m
     return black_market;
   }
 
+  MonsterSvg H3SvgReader::readMonster() const
+  {
+    MonsterSvg monster;
+    monster.message = readString16();
+    monster.resources = readResources();
+    monster.artifact = readEnum<ArtifactType8>();
+    return monster;
+  }
+
   SavedGame H3SvgReader::readSavedGame() const
   {
     SavedGame saved_game;
@@ -168,6 +177,13 @@ namespace h3m
     for (std::uint16_t i = 0; i < num_artifact_objects; ++i)
     {
       saved_game.artifacts_and_spell_scrolls.push_back(readArtifact());
+    }
+    // Read wandering creatures.
+    const std::uint16_t num_monster_objects = readInt<std::uint16_t>();
+    saved_game.monsters.reserve(num_monster_objects);
+    for (std::uint16_t i = 0; i < num_monster_objects; ++i)
+    {
+      saved_game.monsters.push_back(readMonster());
     }
     // TODO: read the rest.
     return saved_game;

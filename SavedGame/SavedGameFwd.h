@@ -31,6 +31,8 @@ namespace h3m
 
   struct GuardiansSvg;
 
+  struct MonsterSvg;
+
   struct ObjectSvg;
 
   struct ObjectTemplateSvg;

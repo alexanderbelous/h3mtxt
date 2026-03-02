@@ -7,6 +7,15 @@
 
 namespace h3m
 {
+  std::string_view getEnumString(ArtifactType8 value) noexcept
+  {
+    constexpr ArtifactType8 kNone {0xFF};
+    // ArtifactType8 is unsigned, but 0xFF should be treated as -1.
+    const std::int16_t integer_value = (value == kNone) ? std::int16_t{ -1 }
+                                                        : static_cast<std::int16_t>(value);
+    return getEnumString(static_cast<ArtifactType>(static_cast<std::uint16_t>(integer_value)));
+  }
+
   std::string_view getEnumString(ArtifactType32 value) noexcept
   {
     // TODO: replace the underlying type of h3m::ArtifactType with std::int16_t.
