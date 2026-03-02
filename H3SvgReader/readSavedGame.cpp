@@ -57,7 +57,7 @@ namespace h3m
     // Read 16 bytes.
     // These seem to to always be {0, 1, 2, 3, 4, 5, 6, 7, 0, 1, 2, 3, 4, 5, 6, 7}.
     readBytes(std::span<std::byte, 16>{ saved_game.unknown1 });
-    // Read 32 bytes - alignment (TownType, serialized as int32_t) for each PlayerColor.
+    // Read 32 bytes - 4 bytes per player, specifying their alignment.
     for (TownType32& alignment : saved_game.alignments.data)
     {
       alignment = readEnum<TownType32>();

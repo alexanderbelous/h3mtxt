@@ -8,7 +8,8 @@ namespace Medea_NS
 {
   // Serialize h3m::BlackMarket as a JSON array.
   template<>
-  void JsonArrayWriter<h3m::BlackMarket>::operator()(const ArrayElementsWriter& out, const h3m::BlackMarket& black_market) const;
+  void JsonArrayWriter<h3m::BlackMarket>::operator()(const ArrayElementsWriter& out,
+                                                     const h3m::BlackMarket& black_market) const;
 
   template<>
   void JsonObjectWriter<h3m::ObjectSvg>::operator()(FieldsWriter& out, const h3m::ObjectSvg& object) const;
@@ -18,7 +19,8 @@ namespace Medea_NS
                                                             const h3m::ObjectTemplateSvg& object_template) const;
 
   template<>
-  void JsonObjectWriter<h3m::PlayerSpecsSvg>::operator()(FieldsWriter& out, const h3m::PlayerSpecsSvg& player_specs) const;
+  void JsonObjectWriter<h3m::PlayerSpecsSvg>::operator()(FieldsWriter& out,
+                                                         const h3m::PlayerSpecsSvg& player_specs) const;
 
   template<>
   void JsonObjectWriter<h3m::RumorSvg>::operator()(FieldsWriter& out, const h3m::RumorSvg& rumor) const;
