@@ -58,8 +58,7 @@ namespace h3m
     // Basic information about the map.
     MapBasicInfo basic_info;
     // Basic information about the players.
-    // TODO: it would make sense to define it as EnumIndexedArray<PlayerColor, PlayerSpecsSvg, kMaxPlayers>.
-    std::array<PlayerSpecsSvg, kMaxPlayers> players {};
+    EnumIndexedArray<PlayerColor, PlayerSpecsSvg, kMaxPlayers> players;
     // TODO: check that this works correctly for all victory condition types.
     VictoryCondition victory_condition;
     // TODO: check that this works correctly for all loss condition types.

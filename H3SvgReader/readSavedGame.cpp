@@ -40,7 +40,7 @@ namespace h3m
     saved_game.reserved2 = readReservedData<32>();
     saved_game.format = readEnum<h3m::MapFormat>();
     saved_game.basic_info = readMapBasicInfo();
-    for (PlayerSpecsSvg& player : saved_game.players)
+    for (PlayerSpecsSvg& player : saved_game.players.data)
     {
       player = readPlayerSpecs();
     }

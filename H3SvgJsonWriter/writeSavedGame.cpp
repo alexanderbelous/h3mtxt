@@ -3,7 +3,6 @@
 #include <h3mtxt/H3JsonWriter/H3JsonWriter.h>
 #include <h3mtxt/H3JsonWriter/getEnumString.h>
 #include <h3mtxt/H3JsonWriter/Utils.h>
-#include <h3mtxt/H3JsonWriter/CommentBuilder.h>
 #include <h3mtxt/H3SvgJsonWriter/getEnumString.h>
 #include <h3mtxt/H3SvgJsonWriter/writeEnumIndexedArray.h>
 #include <h3mtxt/JsonCommon/FieldName.h>
@@ -31,20 +30,6 @@ namespace Medea_NS
       out.writeField(Fields::kGeneratedHeroCoordinates, player.generated_hero_coordinates.value());
     }
     out.writeField(Fields::kStartingHero, player.starting_hero);
-  }
-
-  void JsonArrayWriter<std::array<h3m::PlayerSpecsSvg, h3m::kMaxPlayers>>::operator()(
-    const ArrayElementsWriter& out,
-    const std::array<h3m::PlayerSpecsSvg, h3m::kMaxPlayers>& players) const
-  {
-    h3m::H3JsonWriter_NS::CommentBuilder comment_builder;
-    for (std::size_t i = 0; i < h3m::kMaxPlayers; ++i)
-    {
-      const h3m::PlayerColor player = static_cast<h3m::PlayerColor>(i);
-      const std::string_view player_str = h3m::getEnumString(player);
-      out.writeComment(comment_builder.build({ "Player ", i, " (", player_str, ")" }));
-      out.writeElement(players[i]);
-    }
   }
 
   void JsonObjectWriter<h3m::RumorSvg>::operator()(FieldsWriter& out, const h3m::RumorSvg& rumor) const
