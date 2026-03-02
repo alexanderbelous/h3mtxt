@@ -79,36 +79,30 @@ namespace h3m
     std::array<std::byte, 9> unknown2 {};
     // The original filename of the map (this is used by Restart Scenario command).
     //
-    // In H3SVG this is stored as a fixed-width string (instead of a length-prefixed or null-terminated string).
-    // Only the bytes up to the first null terminator are significant - the rest often contain junk.
+    // In H3SVG this is stored as a fixed-width string (251 bytes). Only the bytes up to the first null terminator are
+    // significant - the rest often contain junk.
     //
-    // Note that in practice it's hard to use long filenames because in Windows a path cannot be
-    // longer than MAX_PATH, which is 260 characters by default.
+    // Note that in practice it's hard to use long filenames because in Windows a path cannot be longer than MAX_PATH,
+    // which is 260 characters by default. I've tested that filenames with 244 characters work; testing even longer
+    // filenames requires more tricks, and I have better things to do.
     //
-    // I've tested that filenames with 244 characters work; testing even longer filenames requires
-    // more tricks, and I have better things to do.
-    //
-    // I'm not sure what's the best API for this: we can either store it as an array of 251 bytes,
-    // or as std::string. Neither is perfect: on the one hand, the junk bytes should be ignored, but on
-    // the other hand, h3mtxt aims to allow inspecting and modifying any byte, as long as it doesn't lead
-    // to corrupt data.
+    // I'm not sure what's the best API for this: we can either store it as an array of 251 bytes, or as std::string.
+    // Neither is perfect: on the one hand, the junk bytes should be ignored, but on the other hand, h3mtxt aims to
+    // allow inspecting and modifying any byte, as long as it doesn't lead to corrupt data.
     //
     // For now, I will define this as an array of 251 bytes, but this might change in the future.
     std::array<char, 251> map_filename {};
     // Relative (to Heroes3.exe) path to the directory in which the original map is located.
-    // Normally, this is always equal to "maps", but the game correctly handles other paths as well.
     //
-    // Like with map_filename, H3SVG explicitly stores 100 bytes for this string, even if the path
-    // is shorter than that:
+    // In H3SVG this is stored as a fixed-width string (100 bytes):
     // * If any byte is the null terminator, then only the prefix before the first null
     //   terminator is used as the path.
     // * Otherwise, all 100 bytes are used as the path (the string doesn't have to be null-terminated).
     //
-    // Subdirectories are supported (both forward '/' and backward '\' slash characters).
-    //
-    // Special filename ".." (the parent directory) is supported.
-    //
-    // Absolute paths (e.g., "F:\Maps") are NOT supported.
+    // Normally, this is always equal to "maps", but the game correctly handles other paths as well.
+    // * Subdirectories are supported (both '/' and '\').
+    // * Special filename ".." (the parent directory) is supported.
+    // * Absolute paths (e.g., "F:\Maps") are NOT supported.
     std::array<char, 100> map_directory {};
     // 8 bytes: 1 byte per PlayerColor, indicating who can control this color
     // (0 - only CPU, 1 - Human or CPU, 0xFF - nobody).

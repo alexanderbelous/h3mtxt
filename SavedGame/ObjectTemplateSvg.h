@@ -13,13 +13,12 @@ namespace h3m
   // The equivalent of h3m::ObjectTemplate stored in the saved game.
   struct ObjectTemplateSvg
   {
-    // Length-prefixed string; length is serialized as a 16-bit little-endian integer.
+    // Filename of the sprite to use for objects that use this template.
     std::string def;
     // Width of the sprite (in tiles).
     std::uint8_t width {};
     // Height of the sprite (in tiles).
     std::uint8_t height {};
-    // TODO: check that these bitmasks are in the right order.
     // TODO: identify.
     // Possibly - a 6x8 boolean matrix, where A[i][j] indicates whether the sprite tile (i, j)
     // has any visible pixels..
