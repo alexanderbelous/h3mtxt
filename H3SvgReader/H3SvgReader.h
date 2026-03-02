@@ -21,6 +21,10 @@ namespace h3m
 
     BlackMarket readBlackMarket() const;
 
+    EventBaseSvg readEventBase() const;
+
+    GuardiansSvg readGuardians() const;
+
     MapBasicInfo readMapBasicInfo() const;
 
     ObjectSvg readObject() const;
@@ -36,5 +40,7 @@ namespace h3m
     StartingHero readStartingHero() const;
 
     TileSvg readTile() const;
+
+    TroopsSvg readTroops() const;
   };
 }

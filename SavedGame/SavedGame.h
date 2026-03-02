@@ -3,12 +3,13 @@
 #include <h3mtxt/SavedGame/SavedGameFwd.h>
 #include <h3mtxt/Map/Constants/Constants.h>
 #include <h3mtxt/Map/Constants/MapFormat.h>
+#include <h3mtxt/Map/Utils/ReservedData.h>
 #include <h3mtxt/Map/MapAdditionalInfo.h>
 #include <h3mtxt/Map/MapBasicInfo.h>
-#include <h3mtxt/Map/Utils/ReservedData.h>
 #include <h3mtxt/SavedGame/Constants/TownType32.h>
 #include <h3mtxt/SavedGame/Constants/PlayerTurnDurationType.h>
 #include <h3mtxt/SavedGame/EnumIndexedArray.h>
+#include <h3mtxt/SavedGame/EventBaseSvg.h>
 #include <h3mtxt/SavedGame/ObjectSvg.h>
 #include <h3mtxt/SavedGame/ObjectTemplateSvg.h>
 #include <h3mtxt/SavedGame/PlayerSpecsSvg.h>
@@ -154,16 +155,23 @@ namespace h3m
     std::vector<ObjectTemplateSvg> objects_templates;
     // Objects on the Adventure Map.
     std::vector<ObjectSvg> objects;
+    // Events and Pandora's Boxes on the Adventure Map.
+    std::vector<EventBaseSvg> events_and_pandoras_boxes;
 
     // TODO: reverse-engineer the rest.
     // The next fields are approximately:
+    // * Global events
+    // * Signs on the Adventure Map (likely Ocean Bottles as well)
+    // * Settings for each town on the Adventure Map
     // * Settings for each hero
     //
     // Obviuously, there are other fields as well, but I don't know yet where they are located:
-    // * current resources for each player
-    // * artifacts in Artifact Merchants
+    // * Timestamp for the saved game (Heroes3.exe stores it somewhere in the file instead of using
+    //   filesystem metadata)
+    // * Current resources for each player
+    // * Artifacts in Artifact Merchants
     // * Current heroes in the Tavern
-    // * which player has visited the Keymaster's tent (for each Keymaster's tent subtype)
+    // * Which player has visited the Keymaster's tent (for each Keymaster's tent subtype)
     // * Order of heroes (although this might be determined by their order in the objects array).
     // * Which heroes have been defeated by the player (needed in quests)
     // * etc.

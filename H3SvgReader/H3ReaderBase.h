@@ -70,7 +70,15 @@ namespace h3m
 
     Coordinates readCoordinates() const;
 
+    CreatureStack readCreatureStack() const;
+
     CustomHero readCustomHero() const;
+
+    PrimarySkills readPrimarySkills() const;
+
+    Resources readResources() const;
+
+    SecondarySkill readSecondarySkill() const;
 
     SpriteTilesBitmask readSpriteTilesBitmask() const;
 

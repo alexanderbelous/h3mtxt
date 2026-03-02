@@ -1,6 +1,7 @@
 #pragma once
 
 #include <h3mtxt/JsonCommon/JsonCommonFwd.h>
+#include <h3mtxt/JsonCommon/FieldName.h>
 
 #include <h3mtxt/SavedGame/SavedGameFwd.h>
 
@@ -8,6 +9,29 @@
 
 namespace h3m
 {
+  template<>
+  struct FieldNames<GuardiansSvg>
+  {
+    static inline constexpr std::string_view kMessage = FieldNames<Guardians>::kMessage;
+    static inline constexpr std::string_view kCreatures = FieldNames<Guardians>::kCreatures;
+  };
+
+  template<>
+  struct FieldNames<EventBaseSvg>
+  {
+    static inline constexpr std::string_view kGuardians = FieldNames<EventBase>::kGuardians;
+    static inline constexpr std::string_view kExperience = FieldNames<EventBase>::kExperience;
+    static inline constexpr std::string_view kSpellPoints = FieldNames<EventBase>::kSpellPoints;
+    static inline constexpr std::string_view kMorale = FieldNames<EventBase>::kMorale;
+    static inline constexpr std::string_view kLuck = FieldNames<EventBase>::kLuck;
+    static inline constexpr std::string_view kResources = FieldNames<EventBase>::kResources;
+    static inline constexpr std::string_view kPrimarySkills = FieldNames<EventBase>::kPrimarySkills;
+    static inline constexpr std::string_view kSecondarySkills = FieldNames<EventBase>::kSecondarySkills;
+    static inline constexpr std::string_view kArtifacts = FieldNames<EventBase>::kArtifacts;
+    static inline constexpr std::string_view kSpells = FieldNames<EventBase>::kSpells;
+    static inline constexpr std::string_view kCreatures = FieldNames<EventBase>::kCreatures;
+  };
+
   template<>
   struct FieldNames<ObjectSvg>
   {
@@ -87,6 +111,7 @@ namespace h3m
     static inline constexpr std::string_view kTiles = "tiles";
     static inline constexpr std::string_view kObjectsTemplates = "objects_templates";
     static inline constexpr std::string_view kObjects = "objects";
+    static inline constexpr std::string_view kEventsAndPandorasBoxes = "events_and_pandoras_boxes";
   };
 
   template<>
@@ -105,5 +130,12 @@ namespace h3m
     static inline constexpr std::string_view kObjectIdx = "object_idx";
     static inline constexpr std::string_view kUnknown = "unknown";
     static inline constexpr std::string_view kObjectsToRender = "objects_to_render";
+  };
+
+  template<>
+  struct FieldNames<TroopsSvg>
+  {
+    static inline constexpr std::string_view kCreatureTypes = "creature_types";
+    static inline constexpr std::string_view kCreatureCounts = "creature_counts";
   };
 }

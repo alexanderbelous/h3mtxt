@@ -6,6 +6,7 @@ set(SOURCE_LIST
     "Constants/PlayerTurnDurationType.h"
     "Constants/TownType32.h"
     "EnumIndexedArray.h"
+    "EventBaseSvg.h"
     "ObjectSvg.h"
     "ObjectTemplateSvg.h"
     "PlayerSpecsSvg.h"

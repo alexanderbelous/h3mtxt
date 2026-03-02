@@ -12,6 +12,35 @@
 
 namespace Medea_NS
 {
+  void JsonObjectWriter<h3m::EventBaseSvg>::operator()(FieldsWriter& out, const h3m::EventBaseSvg& event) const
+  {
+    using Fields = h3m::FieldNames<h3m::EventBaseSvg>;
+    if (event.guardians)
+    {
+      out.writeField(Fields::kGuardians, *event.guardians);
+    }
+    out.writeField(Fields::kExperience, event.experience);
+    out.writeField(Fields::kSpellPoints, event.spell_points);
+    out.writeField(Fields::kMorale, event.morale);
+    out.writeField(Fields::kLuck, event.luck);
+    out.writeField(Fields::kResources, event.resources);
+    out.writeField(Fields::kPrimarySkills, event.primary_skills);
+    out.writeField(Fields::kSecondarySkills, event.secondary_skills);
+    out.writeField(Fields::kArtifacts, event.artifacts);
+    out.writeField(Fields::kSpells, event.spells);
+    out.writeField(Fields::kCreatures, event.creatures);
+  }
+
+  void JsonObjectWriter<h3m::GuardiansSvg>::operator()(FieldsWriter& out, const h3m::GuardiansSvg& guardians) const
+  {
+    using Fields = h3m::FieldNames<h3m::GuardiansSvg>;
+    out.writeField(Fields::kMessage, guardians.message);
+    if (guardians.creatures)
+    {
+      out.writeField(Fields::kCreatures, *guardians.creatures);
+    }
+  }
+
   void JsonObjectWriter<h3m::PlayerSpecsSvg>::operator()(FieldsWriter& out, const h3m::PlayerSpecsSvg& player) const
   {
     using Fields = h3m::FieldNames<h3m::PlayerSpecsSvg>;
@@ -129,6 +158,7 @@ namespace Medea_NS
     // TODO: print the 0-based index for each element
     out.writeField(Fields::kObjectsTemplates, saved_game.objects_templates);
     out.writeField(Fields::kObjects, saved_game.objects);
+    out.writeField(Fields::kEventsAndPandorasBoxes, saved_game.events_and_pandoras_boxes);
   }
 
   template<>
@@ -171,5 +201,12 @@ namespace Medea_NS
     out.writeField(Fields::kObjectIdx, tile.object_idx);
     out.writeField(Fields::kUnknown, tile.unknown);
     out.writeField(Fields::kObjectsToRender, tile.objects_to_render);
+  }
+
+  void JsonObjectWriter<h3m::TroopsSvg>::operator()(FieldsWriter& out, const h3m::TroopsSvg& troops) const
+  {
+    using Fields = h3m::FieldNames<h3m::TroopsSvg>;
+    out.writeField(Fields::kCreatureTypes, troops.creature_types);
+    out.writeField(Fields::kCreatureCounts, troops.creature_counts);
   }
 }

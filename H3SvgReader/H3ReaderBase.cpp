@@ -1,7 +1,11 @@
 #include <h3mtxt/H3SvgReader/H3ReaderBase.h>
 #include <h3mtxt/H3Reader/H3Reader.h>
 #include <h3mtxt/Map/Utils/SpriteTilesBitmask.h>
+#include <h3mtxt/Map/CreatureStack.h>
 #include <h3mtxt/Map/MapAdditionalInfo.h>
+#include <h3mtxt/Map/PrimarySkills.h>
+#include <h3mtxt/Map/Resources.h>
+#include <h3mtxt/Map/SecondarySkill.h>
 
 #include <cstdint>
 
@@ -26,9 +30,29 @@ namespace h3m
     return H3Reader_NS::readCoordinates(stream_);
   }
 
+  CreatureStack H3ReaderBase::readCreatureStack() const
+  {
+    return H3Reader_NS::readCreatureStack(stream_);
+  }
+
   CustomHero H3ReaderBase::readCustomHero() const
   {
     return H3Reader_NS::readCustomHero(stream_);
+  }
+
+  PrimarySkills H3ReaderBase::readPrimarySkills() const
+  {
+    return H3Reader_NS::readPrimarySkills(stream_);
+  }
+
+  Resources H3ReaderBase::readResources() const
+  {
+    return H3Reader_NS::readResources(stream_);
+  }
+
+  SecondarySkill H3ReaderBase::readSecondarySkill() const
+  {
+    return H3Reader_NS::readSecondarySkill(stream_);
   }
 
   SpriteTilesBitmask H3ReaderBase::readSpriteTilesBitmask() const

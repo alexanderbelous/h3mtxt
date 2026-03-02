@@ -148,6 +148,15 @@ namespace h3m
     {
       saved_game.objects.push_back(readObject());
     }
+    // Read Event objects.
+    // FYI: it's funny that the number of events is serialized as a 16-bit integer - the Map Editor
+    // seems to have a limit of 200 Events on the Adventure Map.
+    const std::uint16_t num_event_objects = readInt<std::uint16_t>();
+    saved_game.events_and_pandoras_boxes.reserve(num_event_objects);
+    for (std::uint16_t i = 0; i < num_event_objects; ++i)
+    {
+      saved_game.events_and_pandoras_boxes.push_back(readEventBase());
+    }
     // TODO: read the rest.
     return saved_game;
   }

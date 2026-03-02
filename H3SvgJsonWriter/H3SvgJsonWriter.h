@@ -12,6 +12,12 @@ namespace Medea_NS
                                                      const h3m::BlackMarket& black_market) const;
 
   template<>
+  void JsonObjectWriter<h3m::EventBaseSvg>::operator()(FieldsWriter& out, const h3m::EventBaseSvg& event) const;
+
+  template<>
+  void JsonObjectWriter<h3m::GuardiansSvg>::operator()(FieldsWriter& out, const h3m::GuardiansSvg& guardians) const;
+
+  template<>
   void JsonObjectWriter<h3m::ObjectSvg>::operator()(FieldsWriter& out, const h3m::ObjectSvg& object) const;
 
   template<>
@@ -30,4 +36,7 @@ namespace Medea_NS
 
   template<>
   void JsonObjectWriter<h3m::TileSvg>::operator()(FieldsWriter& out, const h3m::TileSvg& tile) const;
+
+  template<>
+  void JsonObjectWriter<h3m::TroopsSvg>::operator()(FieldsWriter& out, const h3m::TroopsSvg& troops) const;
 }
