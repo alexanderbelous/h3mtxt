@@ -41,6 +41,13 @@ namespace h3m
     std::array<ArtifactType32, 7> artifacts {};
   };
 
+  // The equivalent of ObjectProperties<ObjectPropertiesType::ARTIFACT> in H3SVG.
+  // Unlike H3M, guardians are not optional here.
+  struct ArtifactSvg
+  {
+    GuardiansSvg guardians;
+  };
+
   // Represents a saved game for Heroes of Might and Magic 3 (.GM1, .GM2, ... files).
   struct SavedGame
   {
@@ -157,6 +164,10 @@ namespace h3m
     std::vector<ObjectSvg> objects;
     // Events and Pandora's Boxes on the Adventure Map.
     std::vector<EventBaseSvg> events_and_pandoras_boxes;
+    // Artifacts and Spell scrolls on the Adventure Map.
+    // FYI: it seems that these are persistent: they are not removed from the array even after
+    // a hero picks them up. Guardians are mutable though.
+    std::vector<ArtifactSvg> artifacts_and_spell_scrolls;
 
     // TODO: reverse-engineer the rest.
     // The next fields are approximately:

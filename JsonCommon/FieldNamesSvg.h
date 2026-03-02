@@ -10,6 +10,12 @@
 namespace h3m
 {
   template<>
+  struct FieldNames<ArtifactSvg>
+  {
+    static constexpr std::string_view kGuardians = "guardians";
+  };
+
+  template<>
   struct FieldNames<GuardiansSvg>
   {
     static inline constexpr std::string_view kMessage = FieldNames<Guardians>::kMessage;
@@ -112,6 +118,7 @@ namespace h3m
     static inline constexpr std::string_view kObjectsTemplates = "objects_templates";
     static inline constexpr std::string_view kObjects = "objects";
     static inline constexpr std::string_view kEventsAndPandorasBoxes = "events_and_pandoras_boxes";
+    static inline constexpr std::string_view kArtifactsAndSpellScrolls = "artifacts_and_spell_scrolls";
   };
 
   template<>

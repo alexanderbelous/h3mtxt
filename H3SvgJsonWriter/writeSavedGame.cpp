@@ -12,6 +12,12 @@
 
 namespace Medea_NS
 {
+  void JsonObjectWriter<h3m::ArtifactSvg>::operator()(FieldsWriter& out, const h3m::ArtifactSvg& artifact) const
+  {
+    using Fields = h3m::FieldNames<h3m::ArtifactSvg>;
+    out.writeField(Fields::kGuardians, artifact.guardians);
+  }
+
   void JsonObjectWriter<h3m::EventBaseSvg>::operator()(FieldsWriter& out, const h3m::EventBaseSvg& event) const
   {
     using Fields = h3m::FieldNames<h3m::EventBaseSvg>;
@@ -159,6 +165,7 @@ namespace Medea_NS
     out.writeField(Fields::kObjectsTemplates, saved_game.objects_templates);
     out.writeField(Fields::kObjects, saved_game.objects);
     out.writeField(Fields::kEventsAndPandorasBoxes, saved_game.events_and_pandoras_boxes);
+    out.writeField(Fields::kArtifactsAndSpellScrolls, saved_game.artifacts_and_spell_scrolls);
   }
 
   template<>

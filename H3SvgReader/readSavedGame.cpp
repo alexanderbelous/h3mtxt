@@ -14,6 +14,11 @@ namespace h3m
     return rumor;
   }
 
+  ArtifactSvg H3SvgReader::readArtifact() const
+  {
+    return ArtifactSvg{ .guardians = readGuardians() };
+  }
+
   BlackMarket H3SvgReader::readBlackMarket() const
   {
     BlackMarket black_market;
@@ -148,7 +153,7 @@ namespace h3m
     {
       saved_game.objects.push_back(readObject());
     }
-    // Read Event objects.
+    // Read Event and Pandora's Box objects.
     // FYI: it's funny that the number of events is serialized as a 16-bit integer - the Map Editor
     // seems to have a limit of 200 Events on the Adventure Map.
     const std::uint16_t num_event_objects = readInt<std::uint16_t>();
@@ -156,6 +161,13 @@ namespace h3m
     for (std::uint16_t i = 0; i < num_event_objects; ++i)
     {
       saved_game.events_and_pandoras_boxes.push_back(readEventBase());
+    }
+    // Read Artifact and SpellScroll objects.
+    const std::uint16_t num_artifact_objects = readInt<std::uint16_t>();
+    saved_game.artifacts_and_spell_scrolls.reserve(num_artifact_objects);
+    for (std::uint16_t i = 0; i < num_artifact_objects; ++i)
+    {
+      saved_game.artifacts_and_spell_scrolls.push_back(readArtifact());
     }
     // TODO: read the rest.
     return saved_game;

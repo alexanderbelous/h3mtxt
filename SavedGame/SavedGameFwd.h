@@ -23,6 +23,8 @@ namespace h3m
   template<class Enum, class T, std::size_t NumElements>
   struct EnumIndexedArray;
 
+  struct ArtifactSvg;
+
   struct BlackMarket;
 
   struct EventBaseSvg;

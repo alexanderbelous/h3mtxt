@@ -19,6 +19,8 @@ namespace h3m
     // Inherit the constructor from H3ReaderBase.
     using H3ReaderBase::H3ReaderBase;
 
+    ArtifactSvg readArtifact() const;
+
     BlackMarket readBlackMarket() const;
 
     EventBaseSvg readEventBase() const;
