@@ -41,6 +41,36 @@ namespace h3m
     }
   }
 
+  std::string_view getEnumString(PlayerStartingBonusType value) noexcept
+  {
+    static constexpr std::string_view kNames[] = {
+      "Artifact",
+      "Gold",
+      "Resource"
+    };
+    const std::size_t idx = static_cast<std::size_t>(value);
+    return (idx < std::size(kNames)) ? kNames[idx] : std::string_view{};
+  }
+
+  std::string_view getEnumString(PlayerTurnDurationType value) noexcept
+  {
+    static constexpr std::string_view kNames[] = {
+      "1 Minute",
+      "2 Minutes",
+      "4 Minutes",
+      "6 Minutes",
+      "8 Minutes",
+      "10 Minutes",
+      "15 Minutes",
+      "20 Minutes",
+      "25 Minutes",
+      "30 Minutes",
+      "Unlimited"
+    };
+    const std::size_t idx = static_cast<std::size_t>(value);
+    return (idx < std::size(kNames)) ? kNames[idx] : std::string_view{};
+  }
+
   std::string_view getEnumString(TownType32 value) noexcept
   {
     // Reuse the names for h3m::TownType.

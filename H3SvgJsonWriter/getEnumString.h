@@ -14,5 +14,9 @@ namespace h3m
 
   std::string_view getEnumString(PlayerControlType value) noexcept;
 
+  std::string_view getEnumString(PlayerStartingBonusType value) noexcept;
+
+  std::string_view getEnumString(PlayerTurnDurationType value) noexcept;
+
   std::string_view getEnumString(TownType32 value) noexcept;
 }

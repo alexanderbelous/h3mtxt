@@ -5,81 +5,14 @@
 #include <h3mtxt/H3JsonWriter/Utils.h>
 #include <h3mtxt/H3JsonWriter/CommentBuilder.h>
 #include <h3mtxt/H3SvgJsonWriter/getEnumString.h>
+#include <h3mtxt/H3SvgJsonWriter/writeEnumIndexedArray.h>
 #include <h3mtxt/JsonCommon/FieldName.h>
 #include <h3mtxt/JsonCommon/FieldNamesSvg.h>
 #include <h3mtxt/Medea/Medea.h>
 #include <h3mtxt/SavedGame/SavedGame.h>
 
-#include <limits>
-#include <optional>
-#include <type_traits>
-
 namespace Medea_NS
 {
-  void JsonObjectWriter<h3m::EnumIndexedArray<h3m::ArtifactType, h3m::Bool, 144>>::operator()(
-    FieldsWriter& out, const h3m::EnumIndexedArray<h3m::ArtifactType, h3m::Bool, 144>& boolmask) const
-  {
-    // Reuse the names of fields for ArtifactsBitmask.
-    static constexpr std::span<const std::string_view, 144> kFieldsNames =
-      h3m::FieldNames<h3m::ArtifactsBitmask>::kNames;
-
-    for (std::size_t i = 0; i < boolmask.data.size(); ++i)
-    {
-      out.writeField(kFieldsNames[i], boolmask.data[i]);
-    }
-  }
-
-  void JsonObjectWriter<h3m::EnumIndexedArray<h3m::SecondarySkillType, h3m::Bool, 28>>::operator()(
-    FieldsWriter& out, const h3m::EnumIndexedArray<h3m::SecondarySkillType, h3m::Bool, 28>& boolmask) const
-  {
-    // Reuse the names of fields for SecondarySkillsBitmask.
-    static constexpr std::span<const std::string_view, 32> kFieldsNames =
-      h3m::FieldNames<h3m::SecondarySkillsBitmask>::kNames;
-
-    for (std::size_t i = 0; i < boolmask.data.size(); ++i)
-    {
-      out.writeField(kFieldsNames[i], boolmask.data[i]);
-    }
-  }
-
-  void JsonObjectWriter<h3m::EnumIndexedArray<h3m::PlayerColor, h3m::PlayerControlType, h3m::kMaxPlayers>>::operator()(
-    FieldsWriter& out,
-    const h3m::EnumIndexedArray<h3m::PlayerColor, h3m::PlayerControlType, h3m::kMaxPlayers>& players_control) const
-  {
-    // Reuse the names of fields for PlayersBitmask.
-    static constexpr const std::array<std::string_view, h3m::kMaxPlayers>& kFieldsNames =
-      h3m::FieldNames<h3m::PlayersBitmask>::kNames;
-
-    for (std::size_t player_idx = 0; player_idx < players_control.data.size(); ++player_idx)
-    {
-      const h3m::PlayerControlType player_control = players_control.data[player_idx];
-      out.writeField(kFieldsNames[player_idx], player_control);
-      if (std::string_view enum_str = h3m::getEnumString(player_control); !enum_str.empty())
-      {
-        out.writeComment(enum_str, false);
-      }
-    }
-  }
-
-  void JsonObjectWriter<h3m::EnumIndexedArray<h3m::PlayerColor, h3m::TownType32, h3m::kMaxPlayers>>::operator()(
-    FieldsWriter& out,
-    const h3m::EnumIndexedArray<h3m::PlayerColor, h3m::TownType32, h3m::kMaxPlayers>& alignments) const
-  {
-    // Reuse the names of fields for PlayersBitmask.
-    static constexpr const std::array<std::string_view, h3m::kMaxPlayers>& kFieldsNames =
-      h3m::FieldNames<h3m::PlayersBitmask>::kNames;
-
-    for (std::size_t player_idx = 0; player_idx < alignments.data.size(); ++player_idx)
-    {
-      const h3m::TownType32 alignment = alignments.data[player_idx];
-      out.writeField(kFieldsNames[player_idx], alignment);
-      if (std::string_view enum_str = h3m::getEnumString(alignment); !enum_str.empty())
-      {
-        out.writeComment(enum_str, false);
-      }
-    }
-  }
-
   void JsonObjectWriter<h3m::PlayerSpecsSvg>::operator()(FieldsWriter& out, const h3m::PlayerSpecsSvg& player) const
   {
     using Fields = h3m::FieldNames<h3m::PlayerSpecsSvg>;
@@ -188,14 +121,22 @@ namespace Medea_NS
     out.writeField(Fields::kMapDirectory, saved_game.map_directory);
     out.writeField(Fields::kPlayersControl, saved_game.players_control);
     out.writeField(Fields::kUnknown3, saved_game.unknown3);
+    out.writeField(Fields::kPlayerTurnDuration, saved_game.player_turn_duration);
+    if (std::string_view enum_str = h3m::getEnumString(saved_game.player_turn_duration); !enum_str.empty())
+    {
+      out.writeComment(enum_str, false);
+    }
+    out.writeField(Fields::kStartingHeroes, saved_game.starting_heroes);
+    out.writeField(Fields::kStartingBonuses, saved_game.starting_bonuses);
+    out.writeField(Fields::kUnknown4, saved_game.unknown4);
     // TODO: consider serializing as a string.
     out.writeField(Fields::kOriginalFilename, saved_game.original_filename);
-    out.writeField(Fields::kUnknown4, saved_game.unknown4);
+    out.writeField(Fields::kUnknown5, saved_game.unknown5);
     out.writeField(Fields::kDisabledArtifacts, saved_game.disabled_artifacts);
     out.writeField(Fields::kArtifactsBitmaskUnknown, saved_game.artifacts_bitmask_unknown);
     out.writeField(Fields::kDisabledSkills, saved_game.disabled_skills);
     out.writeField(Fields::kCurrentRumor, saved_game.current_rumor);
-    out.writeField(Fields::kUnknown5, saved_game.unknown5);
+    out.writeField(Fields::kUnknown6, saved_game.unknown6);
     out.writeField(Fields::kRumors, saved_game.rumors);
     out.writeField(Fields::kBlackMarkets, saved_game.black_markets);
     // TODO: print the coordinates in a comment for each tile.

@@ -7,6 +7,7 @@
 #include <h3mtxt/Map/MapBasicInfo.h>
 #include <h3mtxt/Map/Utils/ReservedData.h>
 #include <h3mtxt/SavedGame/Constants/TownType32.h>
+#include <h3mtxt/SavedGame/Constants/PlayerTurnDurationType.h>
 #include <h3mtxt/SavedGame/EnumIndexedArray.h>
 #include <h3mtxt/SavedGame/ObjectSvg.h>
 #include <h3mtxt/SavedGame/ObjectTemplateSvg.h>
@@ -115,7 +116,14 @@ namespace h3m
     // This duplicates data from SavedGame::players, but H3SVG explicitly stores it, so we should too.
     EnumIndexedArray<PlayerColor, PlayerControlType, kMaxPlayers> players_control;
     // TODO: figure out what this is.
-    std::array<std::byte, 22> unknown3 {};
+    // Seems to always be {255, 1, 1}
+    std::array<std::byte, 3> unknown3 {};
+    PlayerTurnDurationType player_turn_duration = PlayerTurnDurationType::Unlimited;
+    EnumIndexedArray<PlayerColor, HeroType, kMaxPlayers> starting_heroes;
+    EnumIndexedArray<PlayerColor, PlayerStartingBonusType, kMaxPlayers> starting_bonuses;
+    // TODO: figure out what this is.
+    // Seems to always be {0, 0}
+    std::array<std::byte, 2> unknown4 {};
     // Original filename used for this saved game.
     // This doesn't seem to be used anywhere in the game.
     // This is also stored as a fixed-width string. Note that HoMM3 limits the length to 47 characters
@@ -125,7 +133,7 @@ namespace h3m
     std::array<char, 47> original_filename {};
     // TODO: figure out what this is.
     // The last 50 bytes look like some bitmask, but I don't know the meaning yet.
-    std::array<std::byte, 352> unknown4 {};
+    std::array<std::byte, 352> unknown5 {};
     // Array of boolean values indicating which artifacts are disabled on this map (1 - disabled, 0 - enabled).
     EnumIndexedArray<ArtifactType, Bool, 144> disabled_artifacts;
     // Another array of boolean values for artifacts; the meaning is not clear yet.
@@ -138,7 +146,7 @@ namespace h3m
     std::string current_rumor;
     // TODO: figure out what this is.
     // The values seem to always be either 0x00 or 0x01; mostly 0x00.
-    std::array<std::byte, 256> unknown5 {};
+    std::array<std::byte, 256> unknown6 {};
     // Custom rumors that can appear in the Tavern.
     std::vector<RumorSvg> rumors;
     // Artifacts currently available in Black Markets on the Adventure Map.

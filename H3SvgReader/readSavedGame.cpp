@@ -74,14 +74,29 @@ namespace h3m
     {
       player_control = readEnum<PlayerControlType>();
     }
-    // Read 22 bytes.
-    // TODO: figure out what this is.
-    readBytes(std::span<std::byte, 22>{ saved_game.unknown3 });
+    // Read 3 bytes.
+    // TODO: figure out what this is. Seems to always be {255, 1, 1}.
+    readBytes(std::span<std::byte, 3>{ saved_game.unknown3 });
+    // Read 1 byte specifying the player turn duration.
+    saved_game.player_turn_duration = readEnum<PlayerTurnDurationType>();
+    // Read 8 bytes - 1 byte per player, specifying the starting hero.
+    for (HeroType& starting_hero : saved_game.starting_heroes.data)
+    {
+      starting_hero = readEnum<HeroType>();
+    }
+    // Read 8 bytes - 1 byte per player, specifying the starting bonus.
+    for (PlayerStartingBonusType& starting_bonus : saved_game.starting_bonuses.data)
+    {
+      starting_bonus = readEnum<PlayerStartingBonusType>();
+    }
+    // Read 2 bytes.
+    // TODO: figure out what this is. Seems to always be {0, 0}.
+    readBytes(std::span<std::byte, 2>{ saved_game.unknown4 });
     // Read 47 bytes representing the original filename for this saved game.
     readBytes(std::as_writable_bytes(std::span{ saved_game.original_filename }));
     // Read 352 bytes.
     // TODO: figure out what this is.
-    readBytes(std::span<std::byte, 352>{ saved_game.unknown4 });
+    readBytes(std::span<std::byte, 352>{ saved_game.unknown5 });
     // Read 144 bytes indicating which artifacts are disabled on this map (1 byte per artifact).
     saved_game.disabled_artifacts.data = readByteArray<144>();
     // Read 144 bytes for another bitmask for artifacts.
@@ -95,7 +110,7 @@ namespace h3m
     saved_game.current_rumor = readString16();
     // Read 256 bytes.
     // TODO: figure out what this is.
-    readBytes(std::span<std::byte, 256>{ saved_game.unknown5 });
+    readBytes(std::span<std::byte, 256>{ saved_game.unknown6 });
     // Read custom rumors that can appear in the Tavern.
     const std::uint32_t num_custom_rumors = readInt<std::uint32_t>();
     saved_game.rumors.reserve(num_custom_rumors);

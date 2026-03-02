@@ -10,6 +10,10 @@ namespace h3m
 
   enum class PlayerControlType : std::int8_t;
 
+  enum class PlayerStartingBonusType : std::uint8_t;
+
+  enum class PlayerTurnDurationType : std::uint8_t;
+
   enum class TownType32 : std::int32_t;
 
   template<class Enum, class T, std::size_t NumElements>

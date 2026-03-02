@@ -2,6 +2,8 @@
 set(SOURCE_LIST
     "Constants/ArtifactType32.h"
     "Constants/PlayerControlType.h"
+    "Constants/PlayerStartingBonusType.h"
+    "Constants/PlayerTurnDurationType.h"
     "Constants/TownType32.h"
     "EnumIndexedArray.h"
     "ObjectSvg.h"
