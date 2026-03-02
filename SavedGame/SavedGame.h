@@ -160,6 +160,10 @@ namespace h3m
 
     // TODO: reverse-engineer the rest.
     // The next fields are approximately:
+    // * Spell scrolls and artifacts on the Adventure Map.
+    // * Wandering creatures.
+    // * Seer's Huts.
+    // * Quest guards.
     // * Global events
     // * Signs on the Adventure Map (likely Ocean Bottles as well)
     // * Settings for each town on the Adventure Map
