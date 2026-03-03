@@ -65,6 +65,7 @@ namespace h3m
     QuestSvg quest;
     // Reward, on the other hand, remains unchanged for completed quests.
     RewardSvg reward;
+    // TODO: figure out what this is.
     std::array<std::byte, 3> unknown {};
   };
 
@@ -72,6 +73,8 @@ namespace h3m
   {
     // Note: H3SVG stores QuestType::None for completed quests.
     QuestSvg quest;
+    // TODO: figure out what this is. I suspect that it's PlayersBitmask,
+    // indicating which players have visited this Quest Guard.
     std::byte unknown {};
   };
 
