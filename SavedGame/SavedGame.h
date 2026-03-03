@@ -61,9 +61,10 @@ namespace h3m
 
   struct SeersHutSvg
   {
+    // Note: H3SVG stores QuestType::None for completed quests.
     QuestSvg quest;
+    // Reward, on the other hand, remains unchanged for completed quests.
     RewardSvg reward;
-    // The first 2 bytes seem to always be 0s. The last byte usually isn't, but might be junk anyway.
     std::array<std::byte, 3> unknown {};
   };
 
@@ -190,10 +191,11 @@ namespace h3m
     // Wandering creatures on the Adventure Map.
     // TODO: consider renaming; this seems more like "monsters with custom message or treasure".
     std::vector<MonsterSvg> monsters;
+    // Seer's Huts.
+    std::vector<SeersHutSvg> seers_huts;
 
     // TODO: reverse-engineer the rest.
     // The next fields are approximately:
-    // * Seer's Huts.
     // * Quest guards.
     // * Global events
     // * Signs on the Adventure Map (likely Ocean Bottles as well)

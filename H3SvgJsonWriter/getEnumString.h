@@ -14,11 +14,21 @@ namespace h3m
 
   std::string_view getEnumString(ArtifactType32 value) noexcept;
 
+  std::string_view getEnumString(CreatureType32 value) noexcept;
+
   std::string_view getEnumString(PlayerControlType value) noexcept;
 
   std::string_view getEnumString(PlayerStartingBonusType value) noexcept;
 
   std::string_view getEnumString(PlayerTurnDurationType value) noexcept;
+
+  std::string_view getEnumString(PrimarySkillType32 value) noexcept;
+
+  std::string_view getEnumString(ResourceType32 value) noexcept;
+
+  std::string_view getEnumString(SecondarySkillType32 value) noexcept;
+
+  std::string_view getEnumString(SpellType32 value) noexcept;
 
   std::string_view getEnumString(TownType32 value) noexcept;
 }

@@ -1,5 +1,7 @@
 #pragma once
 
+#include <h3mtxt/Map/Constants/QuestType.h>
+#include <h3mtxt/Map/Constants/RewardType.h>
 #include <h3mtxt/SavedGame/SavedGameFwd.h>
 #include <h3mtxt/Medea/MedeaFwd.h>
 
@@ -35,10 +37,103 @@ namespace Medea_NS
                                                          const h3m::PlayerSpecsSvg& player_specs) const;
 
   template<>
+  void JsonObjectWriter<h3m::QuestSvg>::operator()(FieldsWriter& out, const h3m::QuestSvg& quest) const;
+
+  template<>
+  void JsonObjectWriter<h3m::QuestDetailsSvg<h3m::QuestType::None>>::operator()(
+    FieldsWriter& out, const h3m::QuestDetailsSvg<h3m::QuestType::None>& details) const;
+
+  template<>
+  void JsonObjectWriter<h3m::QuestDetailsSvg<h3m::QuestType::Level>>::operator()(
+    FieldsWriter& out, const h3m::QuestDetailsSvg<h3m::QuestType::Level>& details) const;
+
+  template<>
+  void JsonObjectWriter<h3m::QuestDetailsSvg<h3m::QuestType::PrimarySkills>>::operator()(
+    FieldsWriter& out, const h3m::QuestDetailsSvg<h3m::QuestType::PrimarySkills>& details) const;
+
+  template<>
+  void JsonObjectWriter<h3m::QuestDetailsSvg<h3m::QuestType::DefeatHero>>::operator()(
+    FieldsWriter& out, const h3m::QuestDetailsSvg<h3m::QuestType::DefeatHero>& details) const;
+
+  template<>
+  void JsonObjectWriter<h3m::QuestDetailsSvg<h3m::QuestType::DefeatMonster>>::operator()(
+    FieldsWriter& out, const h3m::QuestDetailsSvg<h3m::QuestType::DefeatMonster>& details) const;
+
+  template<>
+  void JsonObjectWriter<h3m::QuestDetailsSvg<h3m::QuestType::Artifacts>>::operator()(
+    FieldsWriter& out, const h3m::QuestDetailsSvg<h3m::QuestType::Artifacts>& details) const;
+
+  template<>
+  void JsonObjectWriter<h3m::QuestDetailsSvg<h3m::QuestType::Creatures>>::operator()(
+    FieldsWriter& out, const h3m::QuestDetailsSvg<h3m::QuestType::Creatures>& details) const;
+
+  template<>
+  void JsonObjectWriter<h3m::QuestDetailsSvg<h3m::QuestType::Resources>>::operator()(
+    FieldsWriter& out, const h3m::QuestDetailsSvg<h3m::QuestType::Resources>& details) const;
+
+  template<>
+  void JsonObjectWriter<h3m::QuestDetailsSvg<h3m::QuestType::BeHero>>::operator()(
+    FieldsWriter& out, const h3m::QuestDetailsSvg<h3m::QuestType::BeHero>& details) const;
+
+  template<>
+  void JsonObjectWriter<h3m::QuestDetailsSvg<h3m::QuestType::BePlayer>>::operator()(
+    FieldsWriter& out, const h3m::QuestDetailsSvg<h3m::QuestType::BePlayer>& details) const;
+
+  template<>
+  void JsonObjectWriter<h3m::RewardSvg>::operator()(FieldsWriter& out, const h3m::RewardSvg& reward) const;
+
+  template<>
+  void JsonObjectWriter<h3m::RewardDetailsSvg<h3m::RewardType::None>>::operator()(
+    FieldsWriter& out, const h3m::RewardDetailsSvg<h3m::RewardType::None>& details) const;
+
+  template<>
+  void JsonObjectWriter<h3m::RewardDetailsSvg<h3m::RewardType::Experience>>::operator()(
+    FieldsWriter& out, const h3m::RewardDetailsSvg<h3m::RewardType::Experience>& details) const;
+
+  template<>
+  void JsonObjectWriter<h3m::RewardDetailsSvg<h3m::RewardType::SpellPoints>>::operator()(
+    FieldsWriter& out, const h3m::RewardDetailsSvg<h3m::RewardType::SpellPoints>& details) const;
+
+  template<>
+  void JsonObjectWriter<h3m::RewardDetailsSvg<h3m::RewardType::Morale>>::operator()(
+    FieldsWriter& out, const h3m::RewardDetailsSvg<h3m::RewardType::Morale>& details) const;
+
+  template<>
+  void JsonObjectWriter<h3m::RewardDetailsSvg<h3m::RewardType::Luck>>::operator()(
+    FieldsWriter& out, const h3m::RewardDetailsSvg<h3m::RewardType::Luck>& details) const;
+
+  template<>
+  void JsonObjectWriter<h3m::RewardDetailsSvg<h3m::RewardType::Resource>>::operator()(
+    FieldsWriter& out, const h3m::RewardDetailsSvg<h3m::RewardType::Resource>& details) const;
+
+  template<>
+  void JsonObjectWriter<h3m::RewardDetailsSvg<h3m::RewardType::PrimarySkill>>::operator()(
+    FieldsWriter& out, const h3m::RewardDetailsSvg<h3m::RewardType::PrimarySkill>& details) const;
+
+  template<>
+  void JsonObjectWriter<h3m::RewardDetailsSvg<h3m::RewardType::SecondarySkill>>::operator()(
+    FieldsWriter& out, const h3m::RewardDetailsSvg<h3m::RewardType::SecondarySkill>& details) const;
+
+  template<>
+  void JsonObjectWriter<h3m::RewardDetailsSvg<h3m::RewardType::Artifact>>::operator()(
+    FieldsWriter& out, const h3m::RewardDetailsSvg<h3m::RewardType::Artifact>& details) const;
+
+  template<>
+  void JsonObjectWriter<h3m::RewardDetailsSvg<h3m::RewardType::Spell>>::operator()(
+    FieldsWriter& out, const h3m::RewardDetailsSvg<h3m::RewardType::Spell>& details) const;
+
+  template<>
+  void JsonObjectWriter<h3m::RewardDetailsSvg<h3m::RewardType::Creature>>::operator()(
+    FieldsWriter& out, const h3m::RewardDetailsSvg<h3m::RewardType::Creature>& details) const;
+
+  template<>
   void JsonObjectWriter<h3m::RumorSvg>::operator()(FieldsWriter& out, const h3m::RumorSvg& rumor) const;
 
   template<>
   void JsonObjectWriter<h3m::SavedGame>::operator()(FieldsWriter& out, const h3m::SavedGame& saved_game) const;
+
+  template<>
+  void JsonObjectWriter<h3m::SeersHutSvg>::operator()(FieldsWriter& out, const h3m::SeersHutSvg& seers_hut) const;
 
   template<>
   void JsonObjectWriter<h3m::TileSvg>::operator()(FieldsWriter& out, const h3m::TileSvg& tile) const;

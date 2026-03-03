@@ -38,6 +38,15 @@ namespace h3m
     return monster;
   }
 
+  SeersHutSvg H3SvgReader::readSeersHut() const
+  {
+    SeersHutSvg seers_hut;
+    seers_hut.quest = readQuest();
+    seers_hut.reward = readReward();
+    readBytes(std::span<std::byte, 3>{ seers_hut.unknown });
+    return seers_hut;
+  }
+
   SavedGame H3SvgReader::readSavedGame() const
   {
     SavedGame saved_game;
@@ -187,6 +196,11 @@ namespace h3m
     }
     // Read Seer's Huts.
     const std::uint16_t num_seers_huts = readInt<std::uint16_t>();
+    saved_game.seers_huts.reserve(num_seers_huts);
+    for (std::uint16_t i = 0; i < num_seers_huts; ++i)
+    {
+      saved_game.seers_huts.push_back(readSeersHut());
+    }
     // TODO: read the rest.
     return saved_game;
   }

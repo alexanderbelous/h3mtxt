@@ -79,6 +79,14 @@ namespace Medea_NS
     out.writeField(Fields::kStartingHero, player.starting_hero);
   }
 
+  void JsonObjectWriter<h3m::SeersHutSvg>::operator()(FieldsWriter& out, const h3m::SeersHutSvg& seers_hut) const
+  {
+    using Fields = h3m::FieldNames<h3m::SeersHutSvg>;
+    out.writeField(Fields::kQuest, seers_hut.quest);
+    out.writeField(Fields::kReward, seers_hut.reward);
+    out.writeField(Fields::kUnknown, seers_hut.unknown);
+  }
+
   void JsonObjectWriter<h3m::RumorSvg>::operator()(FieldsWriter& out, const h3m::RumorSvg& rumor) const
   {
     using Fields = h3m::FieldNames<h3m::RumorSvg>;
@@ -179,6 +187,7 @@ namespace Medea_NS
     out.writeField(Fields::kEventsAndPandorasBoxes, saved_game.events_and_pandoras_boxes);
     out.writeField(Fields::kArtifactsAndSpellScrolls, saved_game.artifacts_and_spell_scrolls);
     out.writeField(Fields::kMonsters, saved_game.monsters);
+    out.writeField(Fields::kSeersHuts, saved_game.seers_huts);
   }
 
   template<>

@@ -1,5 +1,6 @@
 #include <h3mtxt/H3SvgJsonWriter/getEnumString.h>
 #include <h3mtxt/H3JsonWriter/getEnumString.h>
+#include <h3mtxt/Map/Constants/Constants.h>
 #include <h3mtxt/SavedGame/Constants/PlayerControlType.h>
 
 #include <limits>
@@ -31,6 +32,17 @@ namespace h3m
         integer_value <= std::numeric_limits<std::int16_t>::max())
     {
       return getEnumString(static_cast<h3m::ArtifactType>(static_cast<std::int16_t>(integer_value)));
+    }
+    return std::string_view{};
+  }
+
+  std::string_view getEnumString(CreatureType32 value) noexcept
+  {
+    constexpr std::uint8_t kNumCreatures = 150;
+    const auto integer_value = static_cast<std::underlying_type_t<CreatureType32>>(value);
+    if (integer_value >= 0 && integer_value < kNumCreatures)
+    {
+      return getEnumString(static_cast<CreatureType>(integer_value));
     }
     return std::string_view{};
   }
@@ -78,6 +90,49 @@ namespace h3m
     };
     const std::size_t idx = static_cast<std::size_t>(value);
     return (idx < std::size(kNames)) ? kNames[idx] : std::string_view{};
+  }
+
+  std::string_view getEnumString(PrimarySkillType32 value) noexcept
+  {
+    constexpr std::uint8_t kNumPrimarySkills = 4;
+    const auto integer_value = static_cast<std::underlying_type_t<PrimarySkillType32>>(value);
+    if (integer_value >= 0 && integer_value < kNumPrimarySkills)
+    {
+      return getEnumString(static_cast<PrimarySkillType>(integer_value));
+    }
+    return std::string_view{};
+  }
+
+  std::string_view getEnumString(ResourceType32 value) noexcept
+  {
+    const auto integer_value = static_cast<std::underlying_type_t<ResourceType32>>(value);
+    if (integer_value >= 0 && integer_value < kNumResources)
+    {
+      return getEnumString(static_cast<ResourceType>(integer_value));
+    }
+    return std::string_view{};
+  }
+
+  std::string_view getEnumString(SecondarySkillType32 value) noexcept
+  {
+    constexpr std::uint8_t kNumSecondarySkills = 28;
+    const auto integer_value = static_cast<std::underlying_type_t<SecondarySkillType32>>(value);
+    if (integer_value >= 0 && integer_value < kNumSecondarySkills)
+    {
+      return getEnumString(static_cast<SecondarySkillType>(integer_value));
+    }
+    return std::string_view{};
+  }
+
+  std::string_view getEnumString(SpellType32 value) noexcept
+  {
+    constexpr std::uint8_t kNumSpells = 70;
+    const auto integer_value = static_cast<std::underlying_type_t<SpellType32>>(value);
+    if (integer_value >= 0 && integer_value < kNumSpells)
+    {
+      return getEnumString(static_cast<SpellType>(integer_value));
+    }
+    return std::string_view{};
   }
 
   std::string_view getEnumString(TownType32 value) noexcept

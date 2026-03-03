@@ -1,8 +1,10 @@
 #pragma once
 
 #include <h3mtxt/JsonCommon/JsonCommonFwd.h>
-#include <h3mtxt/JsonCommon/FieldName.h>
 
+#include <h3mtxt/JsonCommon/FieldName.h>
+#include <h3mtxt/Map/Constants/QuestType.h>
+#include <h3mtxt/Map/Constants/RewardType.h>
 #include <h3mtxt/SavedGame/SavedGameFwd.h>
 
 #include <string_view>
@@ -89,6 +91,12 @@ namespace h3m
   };
 
   template<>
+  struct FieldNames<RewardSvg> : FieldNames<Reward>
+  {
+    // Same fields as for h3m::Reward.
+  };
+
+  template<>
   struct FieldNames<RumorSvg>
   {
     static inline constexpr std::string_view kText = "text";
@@ -135,6 +143,15 @@ namespace h3m
     static inline constexpr std::string_view kEventsAndPandorasBoxes = "events_and_pandoras_boxes";
     static inline constexpr std::string_view kArtifactsAndSpellScrolls = "artifacts_and_spell_scrolls";
     static inline constexpr std::string_view kMonsters = "monsters";
+    static inline constexpr std::string_view kSeersHuts = "seers_huts";
+  };
+
+  template<>
+  struct FieldNames<SeersHutSvg>
+  {
+    static constexpr std::string_view kQuest = "quest";
+    static constexpr std::string_view kReward = "reward";
+    static constexpr std::string_view kUnknown = "unknown";
   };
 
   template<>

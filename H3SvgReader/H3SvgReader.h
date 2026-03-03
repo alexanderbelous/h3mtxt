@@ -53,6 +53,8 @@ namespace h3m
 
     SavedGame readSavedGame() const;
 
+    SeersHutSvg readSeersHut() const;
+
     StartingHero readStartingHero() const;
 
     TileSvg readTile() const;

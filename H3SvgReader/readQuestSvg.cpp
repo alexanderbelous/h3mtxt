@@ -131,12 +131,14 @@ namespace h3m
     QuestSvg quest;
     const QuestType quest_type = readEnum<QuestType>();
     quest.details = readQuestDetailsVariant(*this, quest_type);
-    //if (quest_type != QuestType::None)
-    readBytes(std::span<std::byte, 2>{ quest.unknown });
-    quest.deadline = readInt<std::uint32_t>();
-    quest.proposal = readString32();
-    quest.progress = readString32();
-    quest.completion = readString32();
+    if (quest_type != QuestType::None)
+    {
+      readBytes(std::span<std::byte, 2>{ quest.unknown });
+      quest.deadline = readInt<std::uint32_t>();
+      quest.proposal = readString32();
+      quest.progress = readString32();
+      quest.completion = readString32();
+    }
     return quest;
   }
 }

@@ -105,7 +105,11 @@ namespace h3m
       QuestDetailsSvg<QuestType::BePlayer>
     >;
 
+    // \return the type of the quest.
+    constexpr QuestType type() const noexcept;
+
     Details details {};
+    // The fiels below are only read/written if type() != QuestType::None.
     std::array<std::byte, 2> unknown {};
     // 0 - impossible to fulfill; 0xFFFFFFFF - none.
     std::uint32_t deadline = 0xFFFFFFFF;
@@ -113,4 +117,9 @@ namespace h3m
     std::string progress {};
     std::string completion {};
   };
+
+  constexpr QuestType QuestSvg::type() const noexcept
+  {
+    return static_cast<QuestType>(details.index());
+  }
 }
