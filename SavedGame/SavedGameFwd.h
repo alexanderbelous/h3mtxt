@@ -20,6 +20,14 @@ namespace h3m
 
   enum class PlayerTurnDurationType : std::uint8_t;
 
+  enum class PrimarySkillType32 : std::uint32_t;
+
+  enum class ResourceType32 : std::uint32_t;
+
+  enum class SecondarySkillType32 : std::uint32_t;
+
+  enum class SpellType32 : std::uint32_t;
+
   enum class TownType32 : std::int32_t;
 
   template<class Enum, class T, std::size_t NumElements>
@@ -46,9 +54,16 @@ namespace h3m
   template<QuestType T>
   struct QuestDetailsSvg;
 
+  struct RewardSvg;
+
+  template<RewardType T>
+  struct RewardDetailsSvg;
+
   struct RumorSvg;
 
   struct SavedGame;
+
+  struct SeersHutSvg;
 
   struct TileSvg;
 

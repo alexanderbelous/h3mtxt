@@ -3,6 +3,7 @@
 #include <h3mtxt/H3SvgReader/H3ReaderBase.h>
 #include <h3mtxt/Map/MapFwd.h>
 #include <h3mtxt/Map/Constants/QuestType.h>
+#include <h3mtxt/Map/Constants/RewardType.h>
 #include <h3mtxt/SavedGame/SavedGameFwd.h>
 
 namespace h3m
@@ -43,6 +44,11 @@ namespace h3m
     template<QuestType T>
     QuestDetailsSvg<T> readQuestDetails() const;
 
+    RewardSvg readReward() const;
+
+    template<RewardType T>
+    RewardDetailsSvg<T> readRewardDetails() const;
+
     RumorSvg readRumor() const;
 
     SavedGame readSavedGame() const;
@@ -79,4 +85,32 @@ namespace h3m
   template<> QuestDetailsSvg<QuestType::BeHero> H3SvgReader::readQuestDetails() const;
 
   template<> QuestDetailsSvg<QuestType::BePlayer> H3SvgReader::readQuestDetails() const;
+
+  template<RewardType T>
+  RewardDetailsSvg<T> H3SvgReader::readRewardDetails() const
+  {
+    static_assert(false, "Invalid RewardType.");
+  }
+
+  template<> RewardDetailsSvg<RewardType::None> H3SvgReader::readRewardDetails() const;
+
+  template<> RewardDetailsSvg<RewardType::Experience> H3SvgReader::readRewardDetails() const;
+
+  template<> RewardDetailsSvg<RewardType::SpellPoints> H3SvgReader::readRewardDetails() const;
+
+  template<> RewardDetailsSvg<RewardType::Morale> H3SvgReader::readRewardDetails() const;
+
+  template<> RewardDetailsSvg<RewardType::Luck> H3SvgReader::readRewardDetails() const;
+
+  template<> RewardDetailsSvg<RewardType::Resource> H3SvgReader::readRewardDetails() const;
+
+  template<> RewardDetailsSvg<RewardType::PrimarySkill> H3SvgReader::readRewardDetails() const;
+
+  template<> RewardDetailsSvg<RewardType::SecondarySkill> H3SvgReader::readRewardDetails() const;
+
+  template<> RewardDetailsSvg<RewardType::Artifact> H3SvgReader::readRewardDetails() const;
+
+  template<> RewardDetailsSvg<RewardType::Spell> H3SvgReader::readRewardDetails() const;
+
+  template<> RewardDetailsSvg<RewardType::Creature> H3SvgReader::readRewardDetails() const;
 }

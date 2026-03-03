@@ -14,6 +14,7 @@
 #include <h3mtxt/SavedGame/ObjectTemplateSvg.h>
 #include <h3mtxt/SavedGame/PlayerSpecsSvg.h>
 #include <h3mtxt/SavedGame/QuestSvg.h>
+#include <h3mtxt/SavedGame/RewardSvg.h>
 #include <h3mtxt/SavedGame/TileSvg.h>
 
 #include <array>
@@ -61,6 +62,9 @@ namespace h3m
   struct SeersHutSvg
   {
     QuestSvg quest;
+    RewardSvg reward;
+    // The first 2 bytes seem to always be 0s. The last byte usually isn't, but might be junk anyway.
+    std::array<std::byte, 3> unknown {};
   };
 
   // Represents a saved game for Heroes of Might and Magic 3 (.GM1, .GM2, ... files).
