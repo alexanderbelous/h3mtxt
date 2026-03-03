@@ -47,6 +47,14 @@ namespace h3m
     return seers_hut;
   }
 
+  QuestGuardSvg H3SvgReader::readQuestGuard() const
+  {
+    QuestGuardSvg quest_guard;
+    quest_guard.quest = readQuest();
+    quest_guard.unknown = static_cast<std::byte>(readInt<std::uint8_t>());
+    return quest_guard;
+  }
+
   SavedGame H3SvgReader::readSavedGame() const
   {
     SavedGame saved_game;
@@ -200,6 +208,15 @@ namespace h3m
     for (std::uint16_t i = 0; i < num_seers_huts; ++i)
     {
       saved_game.seers_huts.push_back(readSeersHut());
+    }
+    // Read Quest Guards.
+    {
+      const std::uint16_t num_quest_guards = readInt<std::uint16_t>();
+      saved_game.quest_guards.reserve(num_quest_guards);
+      for (std::uint16_t i = 0; i < num_quest_guards; ++i)
+      {
+        saved_game.quest_guards.push_back(readQuestGuard());
+      }
     }
     // TODO: read the rest.
     return saved_game;

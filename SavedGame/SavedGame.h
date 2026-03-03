@@ -68,6 +68,13 @@ namespace h3m
     std::array<std::byte, 3> unknown {};
   };
 
+  struct QuestGuardSvg
+  {
+    // Note: H3SVG stores QuestType::None for completed quests.
+    QuestSvg quest;
+    std::byte unknown {};
+  };
+
   // Represents a saved game for Heroes of Might and Magic 3 (.GM1, .GM2, ... files).
   struct SavedGame
   {
@@ -193,10 +200,11 @@ namespace h3m
     std::vector<MonsterSvg> monsters;
     // Seer's Huts.
     std::vector<SeersHutSvg> seers_huts;
+    // Quest guards.
+    std::vector<QuestGuardSvg> quest_guards;
 
     // TODO: reverse-engineer the rest.
     // The next fields are approximately:
-    // * Quest guards.
     // * Global events
     // * Signs on the Adventure Map (likely Ocean Bottles as well)
     // * Settings for each town on the Adventure Map

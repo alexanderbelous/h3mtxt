@@ -80,6 +80,10 @@ namespace Medea_NS
     FieldsWriter& out, const h3m::QuestDetailsSvg<h3m::QuestType::BePlayer>& details) const;
 
   template<>
+  void JsonObjectWriter<h3m::QuestGuardSvg>::operator()(FieldsWriter& out,
+                                                        const h3m::QuestGuardSvg& quest_guard) const;
+
+  template<>
   void JsonObjectWriter<h3m::RewardSvg>::operator()(FieldsWriter& out, const h3m::RewardSvg& reward) const;
 
   template<>

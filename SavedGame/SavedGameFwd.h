@@ -54,6 +54,8 @@ namespace h3m
   template<QuestType T>
   struct QuestDetailsSvg;
 
+  struct QuestGuardSvg;
+
   struct RewardSvg;
 
   template<RewardType T>

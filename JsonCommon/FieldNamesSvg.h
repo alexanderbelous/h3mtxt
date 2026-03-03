@@ -91,6 +91,13 @@ namespace h3m
   };
 
   template<>
+  struct FieldNames<QuestGuardSvg>
+  {
+    static constexpr std::string_view kQuest = "quest";
+    static constexpr std::string_view kUnknown = "unknown";
+  };
+
+  template<>
   struct FieldNames<RewardSvg> : FieldNames<Reward>
   {
     // Same fields as for h3m::Reward.
@@ -144,6 +151,7 @@ namespace h3m
     static inline constexpr std::string_view kArtifactsAndSpellScrolls = "artifacts_and_spell_scrolls";
     static inline constexpr std::string_view kMonsters = "monsters";
     static inline constexpr std::string_view kSeersHuts = "seers_huts";
+    static inline constexpr std::string_view kQuestGuards = "quest_guards";
   };
 
   template<>

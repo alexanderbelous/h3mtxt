@@ -44,6 +44,8 @@ namespace h3m
     template<QuestType T>
     QuestDetailsSvg<T> readQuestDetails() const;
 
+    QuestGuardSvg readQuestGuard() const;
+
     RewardSvg readReward() const;
 
     template<RewardType T>
