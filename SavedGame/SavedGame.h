@@ -222,6 +222,8 @@ namespace h3m
     // * Which player has visited the Keymaster's tent (for each Keymaster's tent subtype)
     // * Order of heroes (although this might be determined by their order in the objects array).
     // * Which heroes have been defeated by the player (needed in quests)
+    // * Previous turns for all opponents (probably for all players, because that would be
+    //   necessary in multiplayer games).
     // * etc.
   };
 }
