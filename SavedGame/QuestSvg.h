@@ -43,15 +43,13 @@ namespace h3m
   template<>
   struct QuestDetailsSvg<QuestType::DefeatMonster>
   {
-    // Absolutely idiotic format.
-    std::uint8_t x {};
-    std::byte unknown1 {};
+    // Absolutely idiotic format - X is 16-bit, Y is 8-bit and Z is Bool.
+    std::uint16_t x {};
     std::uint8_t y {};
-    // Not necessarily 0 or 1 - e.g., I've seen 0x04 being used for subterranean.
+    // Not necessarily 0 or 1 - apparently, 0x04 is usually used for subterranean.
     Bool z {};
-    // TODO: double-check the width.
     CreatureType creature_type {};
-    std::array<std::byte, 2> unknown2 {};
+    std::byte unknown {};
   };
 
   // Identical to QuestDetails<QuestType::Artifacts>.

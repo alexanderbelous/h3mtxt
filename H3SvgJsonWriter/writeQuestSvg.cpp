@@ -57,7 +57,6 @@ namespace Medea_NS
     FieldsWriter& out, const h3m::QuestDetailsSvg<h3m::QuestType::DefeatMonster>& details) const
   {
     out.writeField("x", details.x);
-    out.writeField("unknown1", details.unknown1);
     out.writeField("y", details.y);
     out.writeField("z", details.z);
     out.writeField("creature_type", details.creature_type);
@@ -65,7 +64,7 @@ namespace Medea_NS
     {
       out.writeComment(enum_str, false);
     }
-    out.writeField("unknown2", details.unknown2);
+    out.writeField("unknown", details.unknown);
   }
 
   void JsonObjectWriter<h3m::QuestDetailsSvg<h3m::QuestType::Artifacts>>::operator()(

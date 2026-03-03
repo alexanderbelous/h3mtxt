@@ -67,12 +67,11 @@ namespace h3m
   QuestDetailsSvg<QuestType::DefeatMonster> H3SvgReader::readQuestDetails() const
   {
     QuestDetailsSvg<QuestType::DefeatMonster> details;
-    details.x = readInt<std::uint8_t>();
-    details.unknown1 = static_cast<std::byte>(readInt<std::uint8_t>());
+    details.x = readInt<std::uint16_t>();
     details.y = readInt<std::uint8_t>();
     details.z = readBool();
     details.creature_type = readEnum<CreatureType>();
-    readBytes(std::span<std::byte, 2>{ details.unknown2 });
+    details.unknown = static_cast<std::byte>(readInt<std::uint8_t>());
     return details;
   }
 
