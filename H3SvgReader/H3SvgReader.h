@@ -43,26 +43,6 @@ namespace h3m
     template<QuestType T>
     QuestDetailsSvg<T> readQuestDetails() const;
 
-    template<> QuestDetailsSvg<QuestType::None> readQuestDetails() const;
-
-    template<> QuestDetailsSvg<QuestType::Level> readQuestDetails() const;
-
-    template<> QuestDetailsSvg<QuestType::PrimarySkills> readQuestDetails() const;
-
-    template<> QuestDetailsSvg<QuestType::DefeatHero> readQuestDetails() const;
-
-    template<> QuestDetailsSvg<QuestType::DefeatMonster> readQuestDetails() const;
-
-    template<> QuestDetailsSvg<QuestType::Artifacts> readQuestDetails() const;
-
-    template<> QuestDetailsSvg<QuestType::Creatures> readQuestDetails() const;
-
-    template<> QuestDetailsSvg<QuestType::Resources> readQuestDetails() const;
-
-    template<> QuestDetailsSvg<QuestType::BeHero> readQuestDetails() const;
-
-    template<> QuestDetailsSvg<QuestType::BePlayer> readQuestDetails() const;
-
     RumorSvg readRumor() const;
 
     SavedGame readSavedGame() const;
@@ -79,4 +59,24 @@ namespace h3m
   {
     static_assert(false, "Missing specialization for readQuestDetails<T>().");
   }
+
+  template<> QuestDetailsSvg<QuestType::None> H3SvgReader::readQuestDetails() const;
+
+  template<> QuestDetailsSvg<QuestType::Level> H3SvgReader::readQuestDetails() const;
+
+  template<> QuestDetailsSvg<QuestType::PrimarySkills> H3SvgReader::readQuestDetails() const;
+
+  template<> QuestDetailsSvg<QuestType::DefeatHero> H3SvgReader::readQuestDetails() const;
+
+  template<> QuestDetailsSvg<QuestType::DefeatMonster> H3SvgReader::readQuestDetails() const;
+
+  template<> QuestDetailsSvg<QuestType::Artifacts> H3SvgReader::readQuestDetails() const;
+
+  template<> QuestDetailsSvg<QuestType::Creatures> H3SvgReader::readQuestDetails() const;
+
+  template<> QuestDetailsSvg<QuestType::Resources> H3SvgReader::readQuestDetails() const;
+
+  template<> QuestDetailsSvg<QuestType::BeHero> H3SvgReader::readQuestDetails() const;
+
+  template<> QuestDetailsSvg<QuestType::BePlayer> H3SvgReader::readQuestDetails() const;
 }
