@@ -185,6 +185,8 @@ namespace h3m
     {
       saved_game.monsters.push_back(readMonster());
     }
+    // Read Seer's Huts.
+    const std::uint16_t num_seers_huts = readInt<std::uint16_t>();
     // TODO: read the rest.
     return saved_game;
   }

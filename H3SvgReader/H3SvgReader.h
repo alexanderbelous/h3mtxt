@@ -2,6 +2,7 @@
 
 #include <h3mtxt/H3SvgReader/H3ReaderBase.h>
 #include <h3mtxt/Map/MapFwd.h>
+#include <h3mtxt/Map/Constants/QuestType.h>
 #include <h3mtxt/SavedGame/SavedGameFwd.h>
 
 namespace h3m
@@ -37,6 +38,31 @@ namespace h3m
 
     PlayerSpecsSvg readPlayerSpecs() const;
 
+    QuestSvg readQuest() const;
+
+    template<QuestType T>
+    QuestDetailsSvg<T> readQuestDetails() const;
+
+    template<> QuestDetailsSvg<QuestType::None> readQuestDetails() const;
+
+    template<> QuestDetailsSvg<QuestType::Level> readQuestDetails() const;
+
+    template<> QuestDetailsSvg<QuestType::PrimarySkills> readQuestDetails() const;
+
+    template<> QuestDetailsSvg<QuestType::DefeatHero> readQuestDetails() const;
+
+    template<> QuestDetailsSvg<QuestType::DefeatMonster> readQuestDetails() const;
+
+    template<> QuestDetailsSvg<QuestType::Artifacts> readQuestDetails() const;
+
+    template<> QuestDetailsSvg<QuestType::Creatures> readQuestDetails() const;
+
+    template<> QuestDetailsSvg<QuestType::Resources> readQuestDetails() const;
+
+    template<> QuestDetailsSvg<QuestType::BeHero> readQuestDetails() const;
+
+    template<> QuestDetailsSvg<QuestType::BePlayer> readQuestDetails() const;
+
     RumorSvg readRumor() const;
 
     SavedGame readSavedGame() const;
@@ -47,4 +73,10 @@ namespace h3m
 
     TroopsSvg readTroops() const;
   };
+
+  template<QuestType T>
+  QuestDetailsSvg<T> H3SvgReader::readQuestDetails() const
+  {
+    static_assert(false, "Missing specialization for readQuestDetails<T>().");
+  }
 }

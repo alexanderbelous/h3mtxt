@@ -10,6 +10,7 @@ set(SOURCE_LIST
     "ObjectSvg.h"
     "ObjectTemplateSvg.h"
     "PlayerSpecsSvg.h"
+    "QuestSvg.h"
     "SavedGame.h"
     "SavedGameFwd.h"
     "TileSvg.h"

@@ -1,5 +1,7 @@
 #pragma once
 
+#include <h3mtxt/Map/MapFwd.h>
+
 #include <cstddef>
 #include <cstdint>
 
@@ -38,6 +40,11 @@ namespace h3m
   struct ObjectTemplateSvg;
 
   struct PlayerSpecsSvg;
+
+  struct QuestSvg;
+
+  template<QuestType T>
+  struct QuestDetailsSvg;
 
   struct RumorSvg;
 

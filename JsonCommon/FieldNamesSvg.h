@@ -82,6 +82,13 @@ namespace h3m
   };
 
   template<>
+  struct FieldNames<QuestSvg> : FieldNames<Quest>
+  {
+    // Same fields as for h3m::Quest, plus 1 currently unknown 2-byte field.
+    static constexpr std::string_view kUnknown = "unknown";
+  };
+
+  template<>
   struct FieldNames<RumorSvg>
   {
     static inline constexpr std::string_view kText = "text";

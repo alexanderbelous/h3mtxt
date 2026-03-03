@@ -52,6 +52,9 @@ namespace h3m
     // Reads a length-prefixed string, whose length is serialized as a 16-bit little-endian integer.
     std::string readString16() const;
 
+    // Reads a length-prefixed string, whose length is serialized as a 32-bit little-endian integer.
+    std::string readString32() const;
+
     // Reads ReservedData from the stream.
     // ReservedData<N> is serialized simply as an array of N bytes.
     template<std::size_t N>

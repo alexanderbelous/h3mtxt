@@ -9,6 +9,7 @@ add_library(H3SvgReader STATIC
     "readObjectSvg.cpp"
     "readObjectTemplateSvg.cpp"
     "readPlayerSpecsSvg.cpp"
+    "readQuestSvg.cpp"
     "readSavedGame.cpp"
     "readTileSvg.cpp"
 )

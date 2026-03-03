@@ -25,6 +25,11 @@ namespace h3m
     return result;
   }
 
+  std::string H3ReaderBase::readString32() const
+  {
+    return H3Reader_NS::readString(stream_);
+  }
+
   Coordinates H3ReaderBase::readCoordinates() const
   {
     return H3Reader_NS::readCoordinates(stream_);

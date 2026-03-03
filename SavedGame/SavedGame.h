@@ -13,6 +13,7 @@
 #include <h3mtxt/SavedGame/ObjectSvg.h>
 #include <h3mtxt/SavedGame/ObjectTemplateSvg.h>
 #include <h3mtxt/SavedGame/PlayerSpecsSvg.h>
+#include <h3mtxt/SavedGame/QuestSvg.h>
 #include <h3mtxt/SavedGame/TileSvg.h>
 
 #include <array>
@@ -55,6 +56,11 @@ namespace h3m
     Resources resources;
     // ArtifactType or 0xFF if there is none.
     ArtifactType8 artifact {};
+  };
+
+  struct SeersHutSvg
+  {
+    QuestSvg quest;
   };
 
   // Represents a saved game for Heroes of Might and Magic 3 (.GM1, .GM2, ... files).
