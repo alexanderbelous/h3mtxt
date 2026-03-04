@@ -1,5 +1,6 @@
 #include <h3mtxt/H3SvgJsonWriter/H3SvgJsonWriter.h>
 
+#include <h3mtxt/H3JsonWriter/CommentBuilder.h>
 #include <h3mtxt/H3JsonWriter/H3JsonWriter.h>
 #include <h3mtxt/H3JsonWriter/getEnumString.h>
 #include <h3mtxt/H3JsonWriter/Utils.h>
@@ -12,6 +13,52 @@
 
 namespace Medea_NS
 {
+  namespace
+  {
+    // Helper class to pass map_size to JsonValueWriter when writing SavedGame::tiles.
+    struct TilesSvgWithMapSize
+    {
+      std::span<const h3m::TileSvg> tiles;
+      std::uint32_t map_size {};
+      bool has_two_levels {};
+    };
+  }
+
+  // Serialize TilesSvgWithMapSize as a JSON array.
+  template<>
+  void JsonArrayWriter<TilesSvgWithMapSize>::operator()(const ArrayElementsWriter& out,
+                                                        const TilesSvgWithMapSize& value) const
+  {
+    const std::size_t num_levels = value.has_two_levels ? 2 : 1;
+    const std::size_t expected_num_tiles = num_levels * value.map_size * value.map_size;
+    if (value.tiles.size() != expected_num_tiles)
+    {
+      // Strictly speaking, this is an error - the number of tiles should match expected_num_tiles.
+      // However, this is only an error for H3SVG - we can still serialize such arrays of tiles as
+      // JSON. We cannot reliably print coordinates though.
+      for (const h3m::TileSvg& tile : value.tiles)
+      {
+        out.writeElement(tile);
+      }
+      return;
+    }
+
+    h3m::H3JsonWriter_NS::CommentBuilder comment_builder;
+    auto iter = value.tiles.begin();
+    for (std::uint32_t z = 0; z < num_levels; ++z)
+    {
+      for (std::uint32_t y = 0; y < value.map_size; ++y)
+      {
+        for (std::uint32_t x = 0; x < value.map_size; ++x)
+        {
+          out.writeComment(comment_builder.build({ "Tile (", x, ", ", y, ", ", z, ")" }));
+          out.writeElement(*iter);
+          ++iter;
+        }
+      }
+    }
+  }
+
   void JsonObjectWriter<h3m::ArtifactSvg>::operator()(FieldsWriter& out, const h3m::ArtifactSvg& artifact) const
   {
     using Fields = h3m::FieldNames<h3m::ArtifactSvg>;
@@ -222,8 +269,12 @@ namespace Medea_NS
     out.writeField(Fields::kUnknown6, saved_game.unknown6);
     out.writeField(Fields::kRumors, saved_game.rumors);
     out.writeField(Fields::kBlackMarkets, saved_game.black_markets);
-    // TODO: print the coordinates in a comment for each tile.
-    out.writeField(Fields::kTiles, saved_game.tiles);
+    out.writeField(Fields::kTiles,
+                   TilesSvgWithMapSize{
+                     .tiles = saved_game.tiles,
+                     .map_size = saved_game.basic_info.map_size,
+                     .has_two_levels = static_cast<bool>(saved_game.basic_info.has_two_levels)
+                   });
     // TODO: print the 0-based index for each element
     out.writeField(Fields::kObjectsTemplates, saved_game.objects_templates);
     out.writeField(Fields::kObjects, saved_game.objects);
@@ -269,7 +320,7 @@ namespace Medea_NS
     out.writeField(Fields::kFlags1, tile.flags1);
     out.writeField(Fields::kFlags2, tile.flags2);
     out.writeField(Fields::kObjectClass, tile.object_class);
-    if (std::string_view enum_str = h3m::getEnumString(static_cast<h3m::ObjectClass>(tile.object_class)); !enum_str.empty())
+    if (std::string_view enum_str = h3m::getEnumString(tile.object_class); !enum_str.empty())
     {
       out.writeComment(enum_str, false);
     }

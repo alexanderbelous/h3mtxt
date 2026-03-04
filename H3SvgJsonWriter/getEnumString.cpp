@@ -1,6 +1,7 @@
 #include <h3mtxt/H3SvgJsonWriter/getEnumString.h>
 #include <h3mtxt/H3JsonWriter/getEnumString.h>
 #include <h3mtxt/Map/Constants/Constants.h>
+#include <h3mtxt/Map/Constants/ObjectClass.h>
 #include <h3mtxt/SavedGame/Constants/PlayerControlType.h>
 
 #include <limits>
@@ -43,6 +44,15 @@ namespace h3m
     if (integer_value >= 0 && integer_value < kNumCreatures)
     {
       return getEnumString(static_cast<CreatureType>(integer_value));
+    }
+    return std::string_view{};
+  }
+
+  std::string_view getEnumString(ObjectClass16 value) noexcept
+  {
+    if (static_cast<std::underlying_type_t<ObjectClass16>>(value) < kNumObjectClasses)
+    {
+      return getEnumString(static_cast<ObjectClass>(value));
     }
     return std::string_view{};
   }

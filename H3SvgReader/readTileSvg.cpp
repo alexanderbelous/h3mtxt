@@ -14,7 +14,7 @@ namespace h3m
     tile.road_sprite = readInt<std::uint8_t>();
     tile.flags1 = readInt<std::uint8_t>();
     tile.flags2 = readInt<std::uint8_t>();
-    tile.object_class = readInt<std::uint16_t>();
+    tile.object_class = readEnum<ObjectClass16>();
     tile.object_subclass = readInt<std::uint16_t>();
     tile.object_idx = readInt<std::uint16_t>();
     readBytes(std::span<std::byte, 4>{ tile.unknown });

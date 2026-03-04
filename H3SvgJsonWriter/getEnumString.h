@@ -16,6 +16,8 @@ namespace h3m
 
   std::string_view getEnumString(CreatureType32 value) noexcept;
 
+  std::string_view getEnumString(ObjectClass16 value) noexcept;
+
   std::string_view getEnumString(PlayerControlType value) noexcept;
 
   std::string_view getEnumString(PlayerStartingBonusType value) noexcept;

@@ -14,6 +14,11 @@ namespace h3m
 
   enum class CreatureType32 : std::int32_t;
 
+  enum class ObjectClass16 : std::uint16_t;
+
+  // No explicit underlying type because this enum is not serialized anywhere in H3SVG.
+  enum class ObjectPropertiesSvgType;
+
   enum class PlayerControlType : std::int8_t;
 
   enum class PlayerStartingBonusType : std::uint8_t;
@@ -42,6 +47,9 @@ namespace h3m
   struct GuardiansSvg;
 
   struct MonsterSvg;
+
+  template<ObjectPropertiesSvgType T>
+  struct ObjectPropertiesSvg;
 
   struct ObjectSvg;
 
