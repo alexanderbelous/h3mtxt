@@ -57,6 +57,8 @@ namespace h3m
 
     SeersHutSvg readSeersHut() const;
 
+    SignSvg readSign() const;
+
     StartingHero readStartingHero() const;
 
     TileSvg readTile() const;

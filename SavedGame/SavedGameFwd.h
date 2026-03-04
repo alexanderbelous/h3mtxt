@@ -67,6 +67,8 @@ namespace h3m
 
   struct SeersHutSvg;
 
+  struct SignSvg;
+
   struct TileSvg;
 
   struct TimedEventSvg;

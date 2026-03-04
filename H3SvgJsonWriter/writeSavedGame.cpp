@@ -95,6 +95,13 @@ namespace Medea_NS
     out.writeField(Fields::kUnknown, seers_hut.unknown);
   }
 
+  void JsonObjectWriter<h3m::SignSvg>::operator()(FieldsWriter& out, const h3m::SignSvg& sign) const
+  {
+    using Fields = h3m::FieldNames<h3m::SignSvg>;
+    out.writeField(Fields::kMessage, sign.message);
+    out.writeField(Fields::kUnknown, sign.unknown);
+  }
+
   void JsonObjectWriter<h3m::TimedEventSvg>::operator()(FieldsWriter& out,
                                                         const h3m::TimedEventSvg& event) const
   {
@@ -227,6 +234,7 @@ namespace Medea_NS
     out.writeField(Fields::kQuestGuards, saved_game.quest_guards);
     out.writeField(Fields::kGlobalEvents, saved_game.global_events);
     out.writeField(Fields::kTownEvents, saved_game.town_events);
+    out.writeField(Fields::kSignsAndOceanBottles, saved_game.signs_and_ocean_bottles);
   }
 
   template<>

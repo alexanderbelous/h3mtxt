@@ -55,6 +55,14 @@ namespace h3m
     return quest_guard;
   }
 
+  SignSvg H3SvgReader::readSign() const
+  {
+    SignSvg sign;
+    sign.message = readString16();
+    sign.unknown = static_cast<std::byte>(readInt<std::uint8_t>());
+    return sign;
+  }
+
   TimedEventSvg H3SvgReader::readTimedEvent() const
   {
     TimedEventSvg event;
@@ -262,6 +270,15 @@ namespace h3m
       for (std::uint32_t i = 0; i < num_town_events; ++i)
       {
         saved_game.town_events.push_back(readTownEvent());
+      }
+    }
+    // Read Signs and Ocean Bottles.
+    {
+      const std::uint8_t num_signs_and_ocean_bottles = readInt<std::uint8_t>();
+      saved_game.signs_and_ocean_bottles.reserve(num_signs_and_ocean_bottles);
+      for (std::uint32_t i = 0; i < num_signs_and_ocean_bottles; ++i)
+      {
+        saved_game.signs_and_ocean_bottles.push_back(readSign());
       }
     }
     // TODO: read the rest.

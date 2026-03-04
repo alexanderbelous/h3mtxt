@@ -155,6 +155,7 @@ namespace h3m
     static inline constexpr std::string_view kQuestGuards = "quest_guards";
     static inline constexpr std::string_view kGlobalEvents = "global_events";
     static inline constexpr std::string_view kTownEvents = "town_events";
+    static inline constexpr std::string_view kSignsAndOceanBottles = "signs_and_ocean_bottles";
   };
 
   template<>
@@ -162,6 +163,13 @@ namespace h3m
   {
     static constexpr std::string_view kQuest = "quest";
     static constexpr std::string_view kReward = "reward";
+    static constexpr std::string_view kUnknown = "unknown";
+  };
+
+  template<>
+  struct FieldNames<SignSvg>
+  {
+    static constexpr std::string_view kMessage = "message";
     static constexpr std::string_view kUnknown = "unknown";
   };
 

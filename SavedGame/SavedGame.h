@@ -106,6 +106,13 @@ namespace h3m
     std::array<std::uint16_t, 7> creatures {};
   };
 
+  struct SignSvg
+  {
+    std::string message;
+    // TODO: figure out what this is.
+    std::byte unknown {};
+  };
+
   // Represents a saved game for Heroes of Might and Magic 3 (.GM1, .GM2, ... files).
   struct SavedGame
   {
@@ -242,10 +249,11 @@ namespace h3m
     std::vector<TimedEventSvg> global_events;
     // Timed Events affecting a specific town.
     std::vector<TownEventSvg> town_events;
+    // Signs and Ocean Bottles on the Adventure Map.
+    std::vector<SignSvg> signs_and_ocean_bottles;
 
     // TODO: reverse-engineer the rest.
     // The next fields are approximately:
-    // * Signs and Ocean Bottles on the Adventure Map
     // * Settings for each town on the Adventure Map
     // * Settings for each hero
     //
