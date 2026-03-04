@@ -71,5 +71,7 @@ namespace h3m
 
   struct TimedEventSvg;
 
+  struct TownEventSvg;
+
   struct TroopsSvg;
 }

@@ -143,8 +143,10 @@ namespace Medea_NS
   void JsonObjectWriter<h3m::TileSvg>::operator()(FieldsWriter& out, const h3m::TileSvg& tile) const;
 
   template<>
-  void JsonObjectWriter<h3m::TimedEventSvg>::operator()(FieldsWriter& out,
-                                                        const h3m::TimedEventSvg& event) const;
+  void JsonObjectWriter<h3m::TimedEventSvg>::operator()(FieldsWriter& out, const h3m::TimedEventSvg& event) const;
+
+  template<>
+  void JsonObjectWriter<h3m::TownEventSvg>::operator()(FieldsWriter& out, const h3m::TownEventSvg& event) const;
 
   template<>
   void JsonObjectWriter<h3m::TroopsSvg>::operator()(FieldsWriter& out, const h3m::TroopsSvg& troops) const;

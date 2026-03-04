@@ -108,6 +108,16 @@ namespace Medea_NS
     out.writeField(Fields::kRepeatAfterDays, event.repeat_after_days);
   }
 
+  void JsonObjectWriter<h3m::TownEventSvg>::operator()(FieldsWriter& out, const h3m::TownEventSvg& event) const
+  {
+    using Fields = h3m::FieldNames<h3m::TownEventSvg>;
+    JsonObjectWriter<h3m::TimedEventSvg>{}(out, event);
+    out.writeField(Fields::kUnknown1, event.unknown1);
+    out.writeField(Fields::kBuildings, event.buildings);
+    out.writeField(Fields::kUnknown2, event.unknown2);
+    out.writeField(Fields::kCreatures, event.creatures);
+  }
+
   void JsonObjectWriter<h3m::RumorSvg>::operator()(FieldsWriter& out, const h3m::RumorSvg& rumor) const
   {
     using Fields = h3m::FieldNames<h3m::RumorSvg>;
@@ -216,6 +226,7 @@ namespace Medea_NS
     out.writeField(Fields::kSeersHuts, saved_game.seers_huts);
     out.writeField(Fields::kQuestGuards, saved_game.quest_guards);
     out.writeField(Fields::kGlobalEvents, saved_game.global_events);
+    out.writeField(Fields::kTownEvents, saved_game.town_events);
   }
 
   template<>

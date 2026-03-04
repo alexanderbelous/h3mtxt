@@ -68,6 +68,19 @@ namespace h3m
     return event;
   }
 
+  TownEventSvg H3SvgReader::readTownEvent() const
+  {
+    TownEventSvg town_event{ readTimedEvent() };
+    town_event.unknown1 = static_cast<std::byte>(readInt<std::uint8_t>());
+    town_event.buildings = readEnumBitmask<TownBuildingType, 6>();
+    readBytes(std::span<std::byte, 2>{ town_event.unknown2 });
+    for (std::uint16_t& growth : town_event.creatures)
+    {
+      growth = readInt<std::uint16_t>();
+    }
+    return town_event;
+  }
+
   SavedGame H3SvgReader::readSavedGame() const
   {
     SavedGame saved_game;
@@ -240,6 +253,15 @@ namespace h3m
       for (std::uint32_t i = 0; i < num_global_events; ++i)
       {
         saved_game.global_events.push_back(readTimedEvent());
+      }
+    }
+    // Read town events.
+    {
+      const std::uint32_t num_town_events = readInt<std::uint32_t>();
+      saved_game.town_events.reserve(num_town_events);
+      for (std::uint32_t i = 0; i < num_town_events; ++i)
+      {
+        saved_game.town_events.push_back(readTownEvent());
       }
     }
     // TODO: read the rest.

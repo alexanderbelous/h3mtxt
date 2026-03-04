@@ -95,6 +95,17 @@ namespace h3m
     std::uint16_t repeat_after_days {};
   };
 
+  // The equivalent of h3m::TownEvent stored in the saved game.
+  struct TownEventSvg : TimedEventSvg
+  {
+    std::byte unknown1 {};
+    // 1 bit per TownBuildingType indicating whether the building gets built.
+    TownBuildingsBitmask buildings;
+    std::array<std::byte, 2> unknown2 {};
+    // Extra creatures for each creature level.
+    std::array<std::uint16_t, 7> creatures {};
+  };
+
   // Represents a saved game for Heroes of Might and Magic 3 (.GM1, .GM2, ... files).
   struct SavedGame
   {
@@ -229,6 +240,8 @@ namespace h3m
     // The message looks like Base64-encoded data, but the meaning is unclear.
     // Perhaps, BIG BARATORCH IS WATCHING YOU.
     std::vector<TimedEventSvg> global_events;
+    // Timed Events affecting a specific town.
+    std::vector<TownEventSvg> town_events;
 
     // TODO: reverse-engineer the rest.
     // The next fields are approximately:

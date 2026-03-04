@@ -154,6 +154,7 @@ namespace h3m
     static inline constexpr std::string_view kSeersHuts = "seers_huts";
     static inline constexpr std::string_view kQuestGuards = "quest_guards";
     static inline constexpr std::string_view kGlobalEvents = "global_events";
+    static inline constexpr std::string_view kTownEvents = "town_events";
   };
 
   template<>
@@ -192,6 +193,15 @@ namespace h3m
     static constexpr std::string_view kAppliesToComputer = FieldNames<TimedEvent>::kAppliesToComputer;
     static constexpr std::string_view kDayOfFirstOccurence = FieldNames<TimedEvent>::kDayOfFirstOccurence;
     static constexpr std::string_view kRepeatAfterDays = FieldNames<TimedEvent>::kRepeatAfterDays;
+  };
+
+  template<>
+  struct FieldNames<TownEventSvg> : FieldNames<TimedEventSvg>
+  {
+    static constexpr std::string_view kUnknown1 = "unknown1";
+    static constexpr std::string_view kBuildings = "buildings";
+    static constexpr std::string_view kUnknown2 = "unknown2";
+    static constexpr std::string_view kCreatures = "creatures";
   };
 
   template<>
