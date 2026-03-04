@@ -39,6 +39,14 @@ namespace h3m
   //    valid HeroType).
   //
   // Who fucking writes code like that?!
+  //
+  // Possible solution: add ObjectPropertiesSvgType::JunkBytes, which is always serialized as
+  // 0xFFFFFFFF. This is still lame - it means that for most ObjectClasses there are 2 valid
+  // alternatives in std::variant. Alternatively - rename it to RawBytes and allow setting
+  // arbitrary values to the stored bytes.
+  // * This is a bit problematic for JSON deserialization, but workarounds exist: for example,
+  //   I can say that object_properties is either a JSON object whose schema is determined by
+  //   object_class, or a JSON array of 4 integers whose values are within [0; 255].
 
   template<>
   struct ObjectPropertiesSvg<ObjectPropertiesSvgType::None>
