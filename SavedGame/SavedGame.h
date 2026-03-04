@@ -78,6 +78,23 @@ namespace h3m
     std::byte unknown {};
   };
 
+  // The equivalent of h3m::TimedEvent stored in the saved game.
+  //
+  // This is nearly identical to h3m::TimedEvent, except that `name` and `unknown` are missing.
+  struct TimedEventSvg
+  {
+    std::string message;
+    // Given/taken resources.
+    Resources resources;
+    PlayersBitmask affected_players;
+    Bool applies_to_human {};
+    Bool applies_to_computer {};
+    // 0-based day of first occurence (e.g., 0 stands for Day 1).
+    std::uint16_t day_of_first_occurence {};
+    // Frequency of this event; 0 means that the event doesn't repeat.
+    std::uint16_t repeat_after_days {};
+  };
+
   // Represents a saved game for Heroes of Might and Magic 3 (.GM1, .GM2, ... files).
   struct SavedGame
   {
@@ -205,10 +222,14 @@ namespace h3m
     std::vector<SeersHutSvg> seers_huts;
     // Quest guards.
     std::vector<QuestGuardSvg> quest_guards;
+    // Global events (called "Timed Events" in the Map Editor).
+    // FYI: it seems that HD mod appends one event to the end of this array.
+    // The message looks like Base64-encoded data, but the meaning is unclear.
+    // Perhaps, BIG BARATORCH IS WATCHING YOU.
+    std::vector<TimedEventSvg> global_events;
 
     // TODO: reverse-engineer the rest.
     // The next fields are approximately:
-    // * Global events
     // * Signs on the Adventure Map (likely Ocean Bottles as well)
     // * Settings for each town on the Adventure Map
     // * Settings for each hero

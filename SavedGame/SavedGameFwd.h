@@ -69,5 +69,7 @@ namespace h3m
 
   struct TileSvg;
 
+  struct TimedEventSvg;
+
   struct TroopsSvg;
 }

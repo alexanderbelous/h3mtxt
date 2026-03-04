@@ -55,6 +55,19 @@ namespace h3m
     return quest_guard;
   }
 
+  TimedEventSvg H3SvgReader::readTimedEvent() const
+  {
+    TimedEventSvg event;
+    event.message = readString16();
+    event.resources = readResources();
+    event.affected_players = readEnumBitmask<PlayerColor, 1>();
+    event.applies_to_human = readBool();
+    event.applies_to_computer = readBool();
+    event.day_of_first_occurence = readInt<std::uint16_t>();
+    event.repeat_after_days = readInt<std::uint16_t>();
+    return event;
+  }
+
   SavedGame H3SvgReader::readSavedGame() const
   {
     SavedGame saved_game;
@@ -216,6 +229,15 @@ namespace h3m
       for (std::uint16_t i = 0; i < num_quest_guards; ++i)
       {
         saved_game.quest_guards.push_back(readQuestGuard());
+      }
+    }
+    // Read global events.
+    {
+      const std::uint32_t num_global_events = readInt<std::uint32_t>();
+      saved_game.global_events.reserve(num_global_events);
+      for (std::uint32_t i = 0; i < num_global_events; ++i)
+      {
+        saved_game.global_events.push_back(readTimedEvent());
       }
     }
     // TODO: read the rest.

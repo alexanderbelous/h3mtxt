@@ -95,6 +95,19 @@ namespace Medea_NS
     out.writeField(Fields::kUnknown, seers_hut.unknown);
   }
 
+  void JsonObjectWriter<h3m::TimedEventSvg>::operator()(FieldsWriter& out,
+                                                        const h3m::TimedEventSvg& event) const
+  {
+    using Fields = h3m::FieldNames<h3m::TimedEventSvg>;
+    out.writeField(Fields::kMessage, event.message);
+    out.writeField(Fields::kResources, event.resources);
+    out.writeField(Fields::kAffectedPlayers, event.affected_players);
+    out.writeField(Fields::kAppliesToHuman, event.applies_to_human);
+    out.writeField(Fields::kAppliesToComputer, event.applies_to_computer);
+    out.writeField(Fields::kDayOfFirstOccurence, event.day_of_first_occurence);
+    out.writeField(Fields::kRepeatAfterDays, event.repeat_after_days);
+  }
+
   void JsonObjectWriter<h3m::RumorSvg>::operator()(FieldsWriter& out, const h3m::RumorSvg& rumor) const
   {
     using Fields = h3m::FieldNames<h3m::RumorSvg>;
@@ -197,6 +210,7 @@ namespace Medea_NS
     out.writeField(Fields::kMonsters, saved_game.monsters);
     out.writeField(Fields::kSeersHuts, saved_game.seers_huts);
     out.writeField(Fields::kQuestGuards, saved_game.quest_guards);
+    out.writeField(Fields::kGlobalEvents, saved_game.global_events);
   }
 
   template<>

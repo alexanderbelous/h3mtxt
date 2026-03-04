@@ -61,6 +61,8 @@ namespace h3m
 
     TileSvg readTile() const;
 
+    TimedEventSvg readTimedEvent() const;
+
     TroopsSvg readTroops() const;
   };
 
