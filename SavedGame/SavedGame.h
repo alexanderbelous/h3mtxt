@@ -73,8 +73,9 @@ namespace h3m
     QuestSvg quest;
     // Reward, on the other hand, remains unchanged for completed quests.
     RewardSvg reward;
-    // TODO: figure out what this is.
-    std::array<std::byte, 3> unknown {};
+    std::uint8_t unknown1 {};
+    PlayersBitmask visited_by;
+    std::uint8_t unknown2 {};
   };
 
   struct SignSvg

@@ -139,7 +139,9 @@ namespace Medea_NS
     using Fields = h3m::FieldNames<h3m::SeersHutSvg>;
     out.writeField(Fields::kQuest, seers_hut.quest);
     out.writeField(Fields::kReward, seers_hut.reward);
-    out.writeField(Fields::kUnknown, seers_hut.unknown);
+    out.writeField(Fields::kUnknown1, seers_hut.unknown1);
+    out.writeField(Fields::kVisitedBy, seers_hut.visited_by);
+    out.writeField(Fields::kUnknown2, seers_hut.unknown2);
   }
 
   void JsonObjectWriter<h3m::SignSvg>::operator()(FieldsWriter& out, const h3m::SignSvg& sign) const

@@ -163,7 +163,9 @@ namespace h3m
   {
     static constexpr std::string_view kQuest = "quest";
     static constexpr std::string_view kReward = "reward";
-    static constexpr std::string_view kUnknown = "unknown";
+    static constexpr std::string_view kUnknown1 = "unknown1";
+    static constexpr std::string_view kVisitedBy = "visited_by";
+    static constexpr std::string_view kUnknown2 = "unknown2";
   };
 
   template<>

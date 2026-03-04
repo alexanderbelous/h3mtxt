@@ -51,7 +51,9 @@ namespace h3m
     SeersHutSvg seers_hut;
     seers_hut.quest = readQuest();
     seers_hut.reward = readReward();
-    readBytes(std::span<std::byte, 3>{ seers_hut.unknown });
+    seers_hut.unknown1 = readInt<std::uint8_t>();
+    seers_hut.visited_by = readEnumBitmask<PlayerColor, 1>();
+    seers_hut.unknown2 = readInt<std::uint8_t>();
     return seers_hut;
   }
 
