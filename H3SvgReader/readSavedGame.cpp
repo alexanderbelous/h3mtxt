@@ -106,9 +106,11 @@ namespace h3m
     {
       alignment = readEnum<TownType32>();
     }
-    // Read 9 bytes.
+    // Read 8 bytes.
     // TODO: figure out what it is.
-    readBytes(std::span<std::byte, 9>{ saved_game.unknown2 });
+    readBytes(std::span<std::byte, 8>{ saved_game.unknown2 });
+    // Read 1 byte - the selected difficulty level.
+    saved_game.difficulty = readEnum<MapDifficulty>();
     // Read 251 bytes representing the filename of the original map.
     readBytes(std::as_writable_bytes(std::span{ saved_game.map_filename }));
     // Read 100 bytes representing the relative path to the directory in which the original map is located.

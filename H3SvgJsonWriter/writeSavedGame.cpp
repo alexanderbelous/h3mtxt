@@ -174,6 +174,11 @@ namespace Medea_NS
     out.writeField(Fields::kUnknown1, saved_game.unknown1);
     out.writeField(Fields::kAlignments, saved_game.alignments);
     out.writeField(Fields::kUnknown2, saved_game.unknown2);
+    out.writeField(Fields::kDifficulty, saved_game.difficulty);
+    if (std::string_view enum_str = h3m::getEnumString(saved_game.difficulty); !enum_str.empty())
+    {
+      out.writeComment(enum_str, false);
+    }
     // TODO: it sucks that we serialize this as a JSON array rather than a string.
     // Consider serializing as a string, escaping unprintable characters.
     out.writeField(Fields::kMapFilename, saved_game.map_filename);

@@ -128,10 +128,12 @@ namespace h3m
     // Actual alignment for each player, or 0xFFFFFFFF if the player is absent.
     EnumIndexedArray<PlayerColor, TownType32, kMaxPlayers> alignments;
     // TODO: figure out what this is.
-    // The first 8 bytes look like 1 byte per PlayerColor data, where 0xFF is used for absent players.
+    // This looks like 1 byte per PlayerColor data, where 0xFF is used for absent players.
     // It also seems that 0x00 is always used for the human player.
-    // unknown2[8] seems to always be equal to 4.
-    std::array<std::byte, 9> unknown2 {};
+    std::array<std::byte, 8> unknown2 {};
+    // Selected difficulty level.
+    // This is different from basic_info.difficulty, which is set by the mapmaker and doesn't affect the game.
+    MapDifficulty difficulty {};
     // The original filename of the map (this is used by Restart Scenario command).
     //
     // In H3SVG this is stored as a fixed-width string (251 bytes). Only the bytes up to the first null terminator are
