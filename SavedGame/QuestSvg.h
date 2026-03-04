@@ -15,9 +15,7 @@ namespace h3m
 {
   template<>
   struct QuestDetailsSvg<QuestType::None>
-  {
-    // TODO: check that there are no padding bytes here.
-  };
+  {};
 
   template<>
   struct QuestDetailsSvg<QuestType::Level>

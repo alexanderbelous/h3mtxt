@@ -26,28 +26,17 @@
 
 namespace h3m
 {
-  // The equivalent of h3m::Rumor stored in the saved game.
-  struct RumorSvg
-  {
-    std::string text;
-    // Indicates whether this rumor has been displayed in the Tavern.
-    // This doesn't necessarily mean that the player has read this rumor - the value is set to 1
-    // when this rumor becomes the "rumor of the week", not when the player sees it in the Tavern.
-    // Note, however, that the value can be reset from 1 to 0 sometimes - I'm not sure why.
-    Bool has_been_shown {};
-  };
-
-  struct BlackMarket
-  {
-    // Each element should be either a valid ArtifactType constant or -1 if the slot is empty.
-    std::array<ArtifactType32, 7> artifacts {};
-  };
-
   // The equivalent of ObjectProperties<ObjectPropertiesType::ARTIFACT> in H3SVG.
   // Unlike H3M, guardians are not optional here.
   struct ArtifactSvg
   {
     GuardiansSvg guardians;
+  };
+
+  struct BlackMarket
+  {
+    // Each element should be either a valid ArtifactType constant or -1 if the slot is empty.
+    std::array<ArtifactType32, 7> artifacts{};
   };
 
   struct MonsterSvg
@@ -57,6 +46,26 @@ namespace h3m
     Resources resources;
     // ArtifactType or 0xFF if there is none.
     ArtifactType8 artifact {};
+  };
+
+  struct QuestGuardSvg
+  {
+    // Note: H3SVG stores QuestType::None for completed quests.
+    QuestSvg quest;
+    // TODO: figure out what this is. I suspect that it's PlayersBitmask,
+    // indicating which players have visited this Quest Guard.
+    std::byte unknown {};
+  };
+
+  // The equivalent of h3m::Rumor stored in the saved game.
+  struct RumorSvg
+  {
+    std::string text;
+    // Indicates whether this rumor has been displayed in the Tavern.
+    // This doesn't necessarily mean that the player has read this rumor - the value is set to 1
+    // when this rumor becomes the "rumor of the week", not when the player sees it in the Tavern.
+    // Note, however, that the value can be reset from 1 to 0 sometimes - I'm not sure why.
+    Bool has_been_shown {};
   };
 
   struct SeersHutSvg
@@ -69,12 +78,10 @@ namespace h3m
     std::array<std::byte, 3> unknown {};
   };
 
-  struct QuestGuardSvg
+  struct SignSvg
   {
-    // Note: H3SVG stores QuestType::None for completed quests.
-    QuestSvg quest;
-    // TODO: figure out what this is. I suspect that it's PlayersBitmask,
-    // indicating which players have visited this Quest Guard.
+    std::string message;
+    // TODO: figure out what this is.
     std::byte unknown {};
   };
 
@@ -104,13 +111,6 @@ namespace h3m
     std::array<std::byte, 2> unknown2 {};
     // Extra creatures for each creature level.
     std::array<std::uint16_t, 7> creatures {};
-  };
-
-  struct SignSvg
-  {
-    std::string message;
-    // TODO: figure out what this is.
-    std::byte unknown {};
   };
 
   // Represents a saved game for Heroes of Might and Magic 3 (.GM1, .GM2, ... files).
