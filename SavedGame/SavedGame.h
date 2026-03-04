@@ -232,7 +232,7 @@ namespace h3m
 
     // TODO: reverse-engineer the rest.
     // The next fields are approximately:
-    // * Signs on the Adventure Map (likely Ocean Bottles as well)
+    // * Signs and Ocean Bottles on the Adventure Map
     // * Settings for each town on the Adventure Map
     // * Settings for each hero
     //
