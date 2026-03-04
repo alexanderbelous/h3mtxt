@@ -51,6 +51,8 @@ namespace h3m
   template<ObjectPropertiesSvgType T>
   struct ObjectPropertiesSvg;
 
+  struct ObjectPropertiesSvgVariant;
+
   struct ObjectSvg;
 
   struct ObjectTemplateSvg;

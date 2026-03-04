@@ -326,7 +326,7 @@ namespace Medea_NS
     }
     out.writeField(Fields::kObjectSubclass, tile.object_subclass);
     out.writeField(Fields::kObjectIdx, tile.object_idx);
-    out.writeField(Fields::kUnknown, tile.unknown);
+    out.writeField(Fields::kObjectProperties, tile.object_properties);
     out.writeField(Fields::kObjectsToRender, tile.objects_to_render);
   }
 
