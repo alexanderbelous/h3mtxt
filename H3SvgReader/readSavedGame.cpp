@@ -61,7 +61,7 @@ namespace h3m
   {
     SignSvg sign;
     sign.message = readString16();
-    sign.unknown = static_cast<std::byte>(readInt<std::uint8_t>());
+    sign.is_custom = readBool();
     return sign;
   }
 

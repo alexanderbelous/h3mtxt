@@ -172,7 +172,7 @@ namespace h3m
   struct FieldNames<SignSvg>
   {
     static constexpr std::string_view kMessage = "message";
-    static constexpr std::string_view kUnknown = "unknown";
+    static constexpr std::string_view kIsCustom = "is_custom";
   };
 
   template<>

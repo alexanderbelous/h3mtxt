@@ -148,7 +148,7 @@ namespace Medea_NS
   {
     using Fields = h3m::FieldNames<h3m::SignSvg>;
     out.writeField(Fields::kMessage, sign.message);
-    out.writeField(Fields::kUnknown, sign.unknown);
+    out.writeField(Fields::kIsCustom, sign.is_custom);
   }
 
   void JsonObjectWriter<h3m::TimedEventSvg>::operator()(FieldsWriter& out,

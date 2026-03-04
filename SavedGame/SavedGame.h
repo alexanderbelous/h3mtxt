@@ -81,8 +81,11 @@ namespace h3m
   struct SignSvg
   {
     std::string message;
-    // TODO: figure out what this is.
-    std::byte unknown {};
+    // 0 if a random default message should be displayed, 1 otherwise.
+    // Note that in H3M an empty string implies that a random default message will be
+    // displayed. However, in H3SVG this field has a higher priority - if you manually modify this
+    // byte so that is_custom == 1, then some default message will be displayed even if !message.empty().
+    Bool is_custom {};
   };
 
   // The equivalent of h3m::TimedEvent stored in the saved game.
