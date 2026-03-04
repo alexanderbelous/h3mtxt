@@ -94,7 +94,7 @@ namespace h3m
   struct FieldNames<QuestGuardSvg>
   {
     static constexpr std::string_view kQuest = "quest";
-    static constexpr std::string_view kUnknown = "unknown";
+    static constexpr std::string_view kVisitedBy = "visited_by";
   };
 
   template<>

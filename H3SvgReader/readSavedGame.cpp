@@ -34,7 +34,7 @@ namespace h3m
   {
     QuestGuardSvg quest_guard;
     quest_guard.quest = readQuest();
-    quest_guard.unknown = static_cast<std::byte>(readInt<std::uint8_t>());
+    quest_guard.visited_by = readEnumBitmask<PlayerColor, 1>();
     return quest_guard;
   }
 

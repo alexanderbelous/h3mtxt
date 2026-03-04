@@ -52,9 +52,8 @@ namespace h3m
   {
     // Note: H3SVG stores QuestType::None for completed quests.
     QuestSvg quest;
-    // TODO: figure out what this is. I suspect that it's PlayersBitmask,
-    // indicating which players have visited this Quest Guard.
-    std::byte unknown {};
+    // 1 bit per player, indicating whether the player has visited this Quest Guard.
+    PlayersBitmask visited_by;
   };
 
   // The equivalent of h3m::Rumor stored in the saved game.
