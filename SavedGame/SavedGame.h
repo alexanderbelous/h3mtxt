@@ -33,6 +33,21 @@ namespace h3m
     GuardiansSvg guardians;
   };
 
+  struct DwellingSvg
+  {
+    PlayerColor owner {};
+    //// CREATURE_GENERATOR1 or CREATURE_GENERATOR4
+    std::uint8_t object_class {};
+    std::uint8_t object_subclass {};
+    // Creatures available for hire.
+    std::array<std::uint8_t, 4> creature_types {};
+    std::array<std::uint16_t, 4> creature_counts {};
+    Coordinates coordinates;
+    // Creatures guarding this dwelling.
+    TroopsSvg guardians {};
+    std::uint8_t unknown {};
+  };
+
   struct BlackMarket
   {
     // Each element should be either a valid ArtifactType constant or -1 if the slot is empty.
@@ -270,10 +285,11 @@ namespace h3m
     std::vector<SignSvg> signs_and_ocean_bottles;
     // Mines, Abandoned Mines and Lighthouses
     std::vector<MineSvg> mines_and_lighthouses;
+    // Creature Dwellings.
+    std::vector<DwellingSvg> dwellings;
 
     // TODO: reverse-engineer the rest.
     // The next fields are approximately:
-    // * std::vector<DwellingSvg>
     // * Settings for each town on the Adventure Map
     // * Settings for each hero
     //

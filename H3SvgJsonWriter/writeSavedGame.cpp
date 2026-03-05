@@ -65,6 +65,23 @@ namespace Medea_NS
     out.writeField(Fields::kGuardians, artifact.guardians);
   }
 
+  void JsonObjectWriter<h3m::DwellingSvg>::operator()(FieldsWriter& out, const h3m::DwellingSvg& dwelling) const
+  {
+    using Fields = h3m::FieldNames<h3m::DwellingSvg>;
+    out.writeField(Fields::kOwner, dwelling.owner);
+    if (std::string_view enum_str = h3m::getEnumString(dwelling.owner); !enum_str.empty())
+    {
+      out.writeComment(enum_str, false);
+    }
+    out.writeField(Fields::kObjectClass, dwelling.object_class);
+    out.writeField(Fields::kObjectSubclass, dwelling.object_subclass);
+    out.writeField(Fields::kCreatureTypes, dwelling.creature_types);
+    out.writeField(Fields::kCreatureCounts, dwelling.creature_counts);
+    out.writeField(Fields::kCoordinates, dwelling.coordinates);
+    out.writeField(Fields::kGuardians, dwelling.guardians);
+    out.writeField(Fields::kUnknown, dwelling.unknown);
+  }
+
   void JsonObjectWriter<h3m::EventBaseSvg>::operator()(FieldsWriter& out, const h3m::EventBaseSvg& event) const
   {
     using Fields = h3m::FieldNames<h3m::EventBaseSvg>;
@@ -302,6 +319,7 @@ namespace Medea_NS
     out.writeField(Fields::kTownEvents, saved_game.town_events);
     out.writeField(Fields::kSignsAndOceanBottles, saved_game.signs_and_ocean_bottles);
     out.writeField(Fields::kMinesAndLighthouses, saved_game.mines_and_lighthouses);
+    out.writeField(Fields::kDwellings, saved_game.dwellings);
   }
 
   template<>

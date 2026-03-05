@@ -21,6 +21,26 @@ namespace h3m
     return black_market;
   }
 
+  DwellingSvg H3SvgReader::readDwelling() const
+  {
+    DwellingSvg dwelling;
+    dwelling.owner = readEnum<PlayerColor>();
+    dwelling.object_class = readInt<std::uint8_t>();
+    dwelling.object_subclass = readInt<std::uint8_t>();
+    for (std::uint8_t& creature_type : dwelling.creature_types)
+    {
+      creature_type = readInt<std::uint8_t>();
+    }
+    for (std::uint16_t& creature_count : dwelling.creature_counts)
+    {
+      creature_count = readInt<std::uint16_t>();
+    }
+    dwelling.coordinates = readCoordinates();
+    dwelling.guardians = readTroops();
+    dwelling.unknown = readInt<std::uint8_t>();
+    return dwelling;
+  }
+
   MineSvg H3SvgReader::readMine() const
   {
     MineSvg mine;
@@ -315,6 +335,15 @@ namespace h3m
       for (std::uint32_t i = 0; i < num_mines_and_lighthouses; ++i)
       {
         saved_game.mines_and_lighthouses.push_back(readMine());
+      }
+    }
+    // Read Creature Dwellings.
+    {
+      const std::uint16_t num_dwellings = readInt<std::uint16_t>();
+      saved_game.dwellings.reserve(num_dwellings);
+      for (std::uint32_t i = 0; i < num_dwellings; ++i)
+      {
+        saved_game.dwellings.push_back(readDwelling());
       }
     }
     // TODO: read the rest.

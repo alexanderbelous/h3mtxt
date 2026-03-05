@@ -25,6 +25,8 @@ namespace h3m
 
     BlackMarket readBlackMarket() const;
 
+    DwellingSvg readDwelling() const;
+
     EventBaseSvg readEventBase() const;
 
     GuardiansSvg readGuardians() const;
