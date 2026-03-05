@@ -237,6 +237,8 @@ namespace h3m
     // Artifacts and Spell scrolls on the Adventure Map.
     // FYI: it seems that the elements are persistent: they are not deleted even after a hero picks them up.
     // Guardians are mutable though.
+    // TODO: rename to point out that this also includes resources on the adventure map.
+    //       Tile::object_properties stores the quantity, but message&guardians are stored here.
     std::vector<ArtifactSvg> artifacts_and_spell_scrolls;
     // Wandering creatures on the Adventure Map.
     // TODO: consider renaming; this seems more like "monsters with custom message or treasure".
@@ -257,6 +259,13 @@ namespace h3m
 
     // TODO: reverse-engineer the rest.
     // The next fields are approximately:
+    // * std::vector<MineSvg>. Size is uint8_t. Includes regular Mines, Abandoned mines !and! Lighthouses.
+    //   Data is approximately:
+    //     PlayerColor owner;
+    //     std::array<std::uint8_t, 2> unknown1;
+    //     TroopsSvg
+    //     std::array<std::uint8_t, 3> unknown2;
+    // * std::vector<DwellingSvg>
     // * Settings for each town on the Adventure Map
     // * Settings for each hero
     //
