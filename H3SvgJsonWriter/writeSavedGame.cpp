@@ -65,6 +65,26 @@ namespace Medea_NS
     out.writeField(Fields::kGuardians, artifact.guardians);
   }
 
+  void JsonObjectWriter<h3m::BoatSvg>::operator()(FieldsWriter& out, const h3m::BoatSvg& boat) const
+  {
+    using Fields = h3m::FieldNames<h3m::BoatSvg>;
+
+    out.writeField(Fields::kUnknown1, boat.unknown1);
+    out.writeField(Fields::kObjectSubclass, boat.object_sublcass);
+    out.writeField(Fields::kDirection, boat.direction);
+    out.writeField(Fields::kOwner, boat.owner);
+    if (std::string_view enum_str = h3m::getEnumString(boat.owner); !enum_str.empty())
+    {
+      out.writeComment(enum_str, false);
+    }
+    out.writeField(Fields::kOwnerHero, boat.owner_hero);
+    out.writeField(Fields::kIsOccupied, boat.is_occupied);
+    out.writeField(Fields::kX, boat.x);
+    out.writeField(Fields::kY, boat.y);
+    out.writeField(Fields::kZ, boat.z);
+    out.writeField(Fields::kUnknown2, boat.unknown2);
+  }
+
   void JsonObjectWriter<h3m::DwellingSvg>::operator()(FieldsWriter& out, const h3m::DwellingSvg& dwelling) const
   {
     using Fields = h3m::FieldNames<h3m::DwellingSvg>;
@@ -313,6 +333,7 @@ namespace Medea_NS
     out.writeField(Fields::kMinesAndLighthouses, saved_game.mines_and_lighthouses);
     out.writeField(Fields::kDwellings, saved_game.dwellings);
     out.writeField(Fields::kGarrisons, saved_game.garrisons);
+    out.writeField(Fields::kBoats, saved_game.boats);
   }
 
   void JsonObjectWriter<h3m::ScenarioStartingInfo>::operator()(FieldsWriter& out,

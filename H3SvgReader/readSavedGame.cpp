@@ -21,6 +21,23 @@ namespace h3m
     return black_market;
   }
 
+  BoatSvg H3SvgReader::readBoat() const
+  {
+    // Always 28 bytes, apparently.
+    BoatSvg boat;
+    boat.unknown1 = readByteArray<2>();
+    boat.object_sublcass = readInt<std::uint8_t>();
+    boat.direction = readInt<std::uint8_t>();
+    boat.owner = readEnum<PlayerColor>();
+    boat.owner_hero = readInt<std::uint16_t>();
+    boat.is_occupied = readBool();
+    boat.x = readInt<std::uint16_t>();
+    boat.y = readInt<std::uint16_t>();
+    boat.z = readInt<std::uint16_t>();
+    boat.unknown2 = readByteArray<14>();
+    return boat;
+  }
+
   DwellingSvg H3SvgReader::readDwelling() const
   {
     DwellingSvg dwelling;
@@ -331,6 +348,15 @@ namespace h3m
       for (std::uint32_t i = 0; i < num_garrisons; ++i)
       {
         saved_game.garrisons.push_back(readGarrison());
+      }
+    }
+    // Read Boats.
+    {
+      const std::uint8_t num_boats = readInt<std::uint8_t>();
+      saved_game.boats.reserve(num_boats);
+      for (std::uint32_t i = 0; i < num_boats; ++i)
+      {
+        saved_game.boats.push_back(readBoat());
       }
     }
     // TODO: read the rest.

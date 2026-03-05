@@ -42,6 +42,8 @@ namespace h3m
 
   struct BlackMarket;
 
+  struct BoatSvg;
+
   struct DwellingSvg;
 
   struct EventBaseSvg;

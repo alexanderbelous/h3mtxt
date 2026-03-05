@@ -18,6 +18,21 @@ namespace h3m
   };
 
   template<>
+  struct FieldNames<BoatSvg>
+  {
+    static constexpr std::string_view kUnknown1 = "unknown1";
+    static constexpr std::string_view kObjectSubclass = "object_sublcass";
+    static constexpr std::string_view kDirection = "direction";
+    static constexpr std::string_view kOwner = "owner";
+    static constexpr std::string_view kOwnerHero = "owner_hero";
+    static constexpr std::string_view kIsOccupied = "is_occupied";
+    static constexpr std::string_view kX = "x";
+    static constexpr std::string_view kY = "y";
+    static constexpr std::string_view kZ = "z";
+    static constexpr std::string_view kUnknown2 = "unknown2";
+  };
+
+  template<>
   struct FieldNames<DwellingSvg>
   {
     static constexpr std::string_view kOwner = "owner";
@@ -181,6 +196,7 @@ namespace h3m
     static inline constexpr std::string_view kMinesAndLighthouses = "mines_and_lighthouses";
     static inline constexpr std::string_view kDwellings = "dwellings";
     static inline constexpr std::string_view kGarrisons = "garrisons";
+    static inline constexpr std::string_view kBoats = "boats";
   };
 
   template<>

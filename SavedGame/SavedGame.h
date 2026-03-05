@@ -41,6 +41,37 @@ namespace h3m
     std::array<ArtifactType32, 7> artifacts{};
   };
 
+  // Yet another idiotic format.
+  // 1) The coordinates are stored twice: first as 16-bit integers, then as a singled 32-bit integer (packed).
+  // 2) The coordinates (and direction) are apparently "stale" if the boat is currently occupied by
+  //    a hero - they indicate the position where the hero boarded the boat, not the current one.
+  // 3) AFAIU, if the hero dies on a boat, the boat is not removed from the table.
+  //
+  // This is almost as bad as Tile::object_properties. Seriously, who fucking designed H3SVG?
+  struct BoatSvg
+  {
+    // unknown[1] seems to be the boat ID, i.e. the index of the boat in SavedGame::boats.
+    // Why the fuck is it serialized at all?
+    std::array<std::uint8_t, 2> unknown1 {};
+    // (0 - Necropolis, 1 - Castle, 2 - Fortress)
+    std::uint8_t object_sublcass {};
+    // (0 - North, 2 - East, 3 - SouthEast, 7 - NorthWest, ...)
+    std::uint8_t direction {};
+    // 0-7 or 0xFF if no owner.
+    PlayerColor owner {};
+    // ~ The last hero who used this boat, or 0xFFFF if none
+    std::uint16_t owner_hero {};
+    // 0 if the boat exists (hasn't been scuttled) and is not boarded by a hero, 1 otherwise.
+    // Not entirely sure about this one though - maybe scuttled boats are removed from the table.
+    Bool is_occupied {};
+    std::uint16_t x {};
+    std::uint16_t y {};
+    std::uint16_t z {};
+    // TODO: figure out what this is.
+    // Seems to duplicate the coordinates, but in the packed format.
+    std::array<std::uint8_t, 14> unknown2 {};
+  };
+
   struct DwellingSvg
   {
     PlayerColor owner {};
@@ -254,9 +285,14 @@ namespace h3m
     // Garrisons on the Adventure Map.
     // The number of elements should not exceed 255 because in H3SVG it's serialized as an 8-bit integer.
     std::vector<GarrisonSvg> garrisons;
+    // Boats on the Adventure Map.
+    // The number of elements should not exceed 255 because in H3SVG it's serialized as an 8-bit integer.
+    std::vector<BoatSvg> boats;
 
     // TODO: reverse-engineer the rest.
     // The next fields are approximately:
+    // * Obelisks
+    // * ...???
     // * Settings for each town on the Adventure Map
     // * Settings for each hero
     //
