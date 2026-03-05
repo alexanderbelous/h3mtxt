@@ -178,10 +178,8 @@ namespace h3m
     LossCondition loss_condition;
     TeamsInfo teams;
     std::vector<CustomHero> custom_heroes;
-    // TODO: figure out what this is.
-    // Seems to always be {0, 1, 2, 3, 4, 5, 6, 7, 0, 1, 2, 3, 4, 5, 6, 7}.
-    // The values suggest that it has something to do with players, but it's
-    // hard to figure out what it is without other examples.
+    // 16 bytes with unknown meaning: the values are always {0, 1, 2, 3, 4, 5, 6, 7, 0, 1, 2, 3, 4, 5, 6, 7}.
+    // Modifying these bytes doesn't seem to affect anything.
     std::array<std::byte, 16> unknown1 {};
     // Starting settings for the map.
     ScenarioStartingInfo starting_info;
