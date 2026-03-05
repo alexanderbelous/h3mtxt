@@ -41,6 +41,15 @@ namespace h3m
   };
 
   template<>
+  struct FieldNames<MineSvg>
+  {
+    static constexpr std::string_view kOwner = "owner";
+    static constexpr std::string_view kUnknown = "unknown";
+    static constexpr std::string_view kCreatures = "creatures";
+    static constexpr std::string_view kCoordinates = "coordinates";
+  };
+
+  template<>
   struct FieldNames<MonsterSvg>
   {
     static inline constexpr std::string_view kMessage = "message";
@@ -156,6 +165,7 @@ namespace h3m
     static inline constexpr std::string_view kGlobalEvents = "global_events";
     static inline constexpr std::string_view kTownEvents = "town_events";
     static inline constexpr std::string_view kSignsAndOceanBottles = "signs_and_ocean_bottles";
+    static inline constexpr std::string_view kMinesAndLighthouses = "mines_and_lighthouses";
   };
 
   template<>

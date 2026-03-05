@@ -21,6 +21,16 @@ namespace h3m
     return black_market;
   }
 
+  MineSvg H3SvgReader::readMine() const
+  {
+    MineSvg mine;
+    mine.owner = readEnum<PlayerColor>();
+    mine.unknown = readByteArray<2>();
+    mine.creatures = readTroops();
+    mine.coordinates = readCoordinates();
+    return mine;
+  }
+
   MonsterSvg H3SvgReader::readMonster() const
   {
     MonsterSvg monster;
@@ -296,6 +306,15 @@ namespace h3m
       for (std::uint32_t i = 0; i < num_signs_and_ocean_bottles; ++i)
       {
         saved_game.signs_and_ocean_bottles.push_back(readSign());
+      }
+    }
+    // Read Mines and Lighthouses.
+    {
+      const std::uint8_t num_mines_and_lighthouses = readInt<std::uint8_t>();
+      saved_game.mines_and_lighthouses.reserve(num_mines_and_lighthouses);
+      for (std::uint32_t i = 0; i < num_mines_and_lighthouses; ++i)
+      {
+        saved_game.mines_and_lighthouses.push_back(readMine());
       }
     }
     // TODO: read the rest.

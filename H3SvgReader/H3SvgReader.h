@@ -31,6 +31,8 @@ namespace h3m
 
     MapBasicInfo readMapBasicInfo() const;
 
+    MineSvg readMine() const;
+
     MonsterSvg readMonster() const;
 
     ObjectSvg readObject() const;

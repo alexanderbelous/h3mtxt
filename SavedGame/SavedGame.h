@@ -39,6 +39,18 @@ namespace h3m
     std::array<ArtifactType32, 7> artifacts{};
   };
 
+  struct MineSvg
+  {
+    PlayerColor owner {};
+    // TODO: replace with something type-safe.
+    // * For regular mines - stores {ResourceType, 0} (aka object_subclass of the mine).
+    // * For lighthouses - stores {100, 0}.
+    // * For abandoned mines - stores {ResourceType, 1}
+    std::array<std::uint8_t, 2> unknown {};
+    TroopsSvg creatures;
+    Coordinates coordinates;
+  };
+
   struct MonsterSvg
   {
     // Serialized in H3SVG as a length-prefixed string, with length being serialized as a 16-bit little-endian integer.
@@ -256,15 +268,11 @@ namespace h3m
     std::vector<TownEventSvg> town_events;
     // Signs and Ocean Bottles on the Adventure Map.
     std::vector<SignSvg> signs_and_ocean_bottles;
+    // Mines, Abandoned Mines and Lighthouses
+    std::vector<MineSvg> mines_and_lighthouses;
 
     // TODO: reverse-engineer the rest.
     // The next fields are approximately:
-    // * std::vector<MineSvg>. Size is uint8_t. Includes regular Mines, Abandoned mines !and! Lighthouses.
-    //   Data is approximately:
-    //     PlayerColor owner;
-    //     std::array<std::uint8_t, 2> unknown1;
-    //     TroopsSvg
-    //     std::array<std::uint8_t, 3> unknown2;
     // * std::vector<DwellingSvg>
     // * Settings for each town on the Adventure Map
     // * Settings for each hero

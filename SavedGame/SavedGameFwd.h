@@ -46,6 +46,8 @@ namespace h3m
 
   struct GuardiansSvg;
 
+  struct MineSvg;
+
   struct MonsterSvg;
 
   template<ObjectPropertiesSvgType T>

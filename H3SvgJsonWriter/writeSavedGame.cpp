@@ -94,6 +94,19 @@ namespace Medea_NS
     }
   }
 
+  void JsonObjectWriter<h3m::MineSvg>::operator()(FieldsWriter& out, const h3m::MineSvg& mine) const
+  {
+    using Fields = h3m::FieldNames<h3m::MineSvg>;
+    out.writeField(Fields::kOwner, mine.owner);
+    if (std::string_view enum_str = h3m::getEnumString(mine.owner); !enum_str.empty())
+    {
+      out.writeComment(enum_str, false);
+    }
+    out.writeField(Fields::kUnknown, mine.unknown);
+    out.writeField(Fields::kCreatures, mine.creatures);
+    out.writeField(Fields::kCoordinates, mine.coordinates);
+  }
+
   void JsonObjectWriter<h3m::MonsterSvg>::operator()(FieldsWriter& out, const h3m::MonsterSvg& monster) const
   {
     using Fields = h3m::FieldNames<h3m::MonsterSvg>;
@@ -288,6 +301,7 @@ namespace Medea_NS
     out.writeField(Fields::kGlobalEvents, saved_game.global_events);
     out.writeField(Fields::kTownEvents, saved_game.town_events);
     out.writeField(Fields::kSignsAndOceanBottles, saved_game.signs_and_ocean_bottles);
+    out.writeField(Fields::kMinesAndLighthouses, saved_game.mines_and_lighthouses);
   }
 
   template<>
