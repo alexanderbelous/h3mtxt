@@ -31,6 +31,15 @@ namespace h3m
   };
 
   template<>
+  struct FieldNames<GarrisonSvg>
+  {
+    static constexpr std::string_view kOwner = "owner";
+    static constexpr std::string_view kCreatures = "creatures";
+    static constexpr std::string_view kCoordinates = "coordinates";
+    static constexpr std::string_view kCanRemoveUnits = "can_remove_units";
+  };
+
+  template<>
   struct FieldNames<GuardiansSvg>
   {
     static inline constexpr std::string_view kMessage = FieldNames<Guardians>::kMessage;
@@ -180,6 +189,7 @@ namespace h3m
     static inline constexpr std::string_view kSignsAndOceanBottles = "signs_and_ocean_bottles";
     static inline constexpr std::string_view kMinesAndLighthouses = "mines_and_lighthouses";
     static inline constexpr std::string_view kDwellings = "dwellings";
+    static inline constexpr std::string_view kGarrisons = "garrisons";
   };
 
   template<>

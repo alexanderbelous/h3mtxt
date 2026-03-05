@@ -33,6 +33,12 @@ namespace h3m
     GuardiansSvg guardians;
   };
 
+  struct BlackMarket
+  {
+    // Each element should be either a valid ArtifactType constant or -1 if the slot is empty.
+    std::array<ArtifactType32, 7> artifacts{};
+  };
+
   struct DwellingSvg
   {
     PlayerColor owner {};
@@ -48,10 +54,12 @@ namespace h3m
     std::uint8_t unknown {};
   };
 
-  struct BlackMarket
+  struct GarrisonSvg
   {
-    // Each element should be either a valid ArtifactType constant or -1 if the slot is empty.
-    std::array<ArtifactType32, 7> artifacts{};
+    PlayerColor owner {};
+    TroopsSvg creatures;
+    Coordinates coordinates;
+    Bool can_remove_units {};
   };
 
   struct MineSvg
@@ -287,6 +295,9 @@ namespace h3m
     std::vector<MineSvg> mines_and_lighthouses;
     // Creature Dwellings.
     std::vector<DwellingSvg> dwellings;
+    // Garrisons on the Adventure Map.
+    // The number of elements should not exceed 255 because in H3SVG it's serialized as an 8-bit integer.
+    std::vector<GarrisonSvg> garrisons;
 
     // TODO: reverse-engineer the rest.
     // The next fields are approximately:

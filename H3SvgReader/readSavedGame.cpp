@@ -41,6 +41,16 @@ namespace h3m
     return dwelling;
   }
 
+  GarrisonSvg H3SvgReader::readGarrison() const
+  {
+    GarrisonSvg garrison;
+    garrison.owner = readEnum<PlayerColor>();
+    garrison.creatures = readTroops();
+    garrison.coordinates = readCoordinates();
+    garrison.can_remove_units = readBool();
+    return garrison;
+  }
+
   MineSvg H3SvgReader::readMine() const
   {
     MineSvg mine;
@@ -344,6 +354,15 @@ namespace h3m
       for (std::uint32_t i = 0; i < num_dwellings; ++i)
       {
         saved_game.dwellings.push_back(readDwelling());
+      }
+    }
+    // Read Garrisons.
+    {
+      const std::uint8_t num_garrisons = readInt<std::uint8_t>();
+      saved_game.dwellings.reserve(num_garrisons);
+      for (std::uint32_t i = 0; i < num_garrisons; ++i)
+      {
+        saved_game.garrisons.push_back(readGarrison());
       }
     }
     // TODO: read the rest.

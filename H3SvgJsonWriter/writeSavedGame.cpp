@@ -101,6 +101,19 @@ namespace Medea_NS
     out.writeField(Fields::kCreatures, event.creatures);
   }
 
+  void JsonObjectWriter<h3m::GarrisonSvg>::operator()(FieldsWriter& out, const h3m::GarrisonSvg& garrison) const
+  {
+    using Fields = h3m::FieldNames<h3m::GarrisonSvg>;
+    out.writeField(Fields::kOwner, garrison.owner);
+    if (std::string_view enum_str = h3m::getEnumString(garrison.owner); !enum_str.empty())
+    {
+      out.writeComment(enum_str, false);
+    }
+    out.writeField(Fields::kCreatures, garrison.creatures);
+    out.writeField(Fields::kCoordinates, garrison.coordinates);
+    out.writeField(Fields::kCanRemoveUnits, garrison.can_remove_units);
+  }
+
   void JsonObjectWriter<h3m::GuardiansSvg>::operator()(FieldsWriter& out, const h3m::GuardiansSvg& guardians) const
   {
     using Fields = h3m::FieldNames<h3m::GuardiansSvg>;
@@ -320,6 +333,7 @@ namespace Medea_NS
     out.writeField(Fields::kSignsAndOceanBottles, saved_game.signs_and_ocean_bottles);
     out.writeField(Fields::kMinesAndLighthouses, saved_game.mines_and_lighthouses);
     out.writeField(Fields::kDwellings, saved_game.dwellings);
+    out.writeField(Fields::kGarrisons, saved_game.garrisons);
   }
 
   template<>

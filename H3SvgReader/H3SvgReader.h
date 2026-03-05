@@ -29,6 +29,8 @@ namespace h3m
 
     EventBaseSvg readEventBase() const;
 
+    GarrisonSvg readGarrison() const;
+
     GuardiansSvg readGuardians() const;
 
     MapBasicInfo readMapBasicInfo() const;

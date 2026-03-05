@@ -46,6 +46,8 @@ namespace h3m
 
   struct EventBaseSvg;
 
+  struct GarrisonSvg;
+
   struct GuardiansSvg;
 
   struct MineSvg;
