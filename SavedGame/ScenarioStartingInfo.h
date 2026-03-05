@@ -26,8 +26,15 @@ namespace h3m
     // Starting town (i.e. alignment) for each player, or 0xFFFFFFFF if the player is absent.
     EnumIndexedArray<PlayerColor, TownType32, kMaxPlayers> starting_towns;
     // TODO: figure out what this is.
-    // This looks like 1 byte per PlayerColor data, where 0xFF is used for absent players.
-    // It also seems that 0x00 is always used for the human player.
+    // This looks like 1 byte per PlayerColor data:
+    // * 0x00 is used for the human player.
+    // * 0x0A is used for computer players.
+    // * 0xFF is used for missing players.
+    //
+    // AFAIK, this only affects whether the player will be displayed in "Scenario Information" -
+    // players, for which 0xFF is stored, will not be displayed. If you manually modify the saved
+    // game and set 0xFF for an existing player, this player will not be shown in "Scenario
+    // Information" anymore.
     std::array<std::byte, 8> unknown1 {};
     // Selected difficulty level.
     // This is different from MapBasicInfo::difficulty, which is set by the mapmaker and doesn't affect the game.
