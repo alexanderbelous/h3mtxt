@@ -164,48 +164,16 @@ namespace h3m
     // Read 16 bytes.
     // These seem to to always be {0, 1, 2, 3, 4, 5, 6, 7, 0, 1, 2, 3, 4, 5, 6, 7}.
     readBytes(std::span<std::byte, 16>{ saved_game.unknown1 });
-    // Read 32 bytes - 4 bytes per player, specifying their alignment.
-    for (TownType32& alignment : saved_game.alignments.data)
-    {
-      alignment = readEnum<TownType32>();
-    }
-    // Read 8 bytes.
-    // TODO: figure out what it is.
-    readBytes(std::span<std::byte, 8>{ saved_game.unknown2 });
-    // Read 1 byte - the selected difficulty level.
-    saved_game.difficulty = readEnum<MapDifficulty>();
-    // Read 251 bytes representing the filename of the original map.
-    readBytes(std::as_writable_bytes(std::span{ saved_game.map_filename }));
-    // Read 100 bytes representing the relative path to the directory in which the original map is located.
-    readBytes(std::as_writable_bytes(std::span{ saved_game.map_directory }));
-    // Read 8 bytes - 1 byte per PlayerColor, indicating who can control this color.
-    for (PlayerControlType& player_control : saved_game.players_control.data)
-    {
-      player_control = readEnum<PlayerControlType>();
-    }
-    // Read 3 bytes.
-    // TODO: figure out what this is. Seems to always be {255, 1, 1}.
-    readBytes(std::span<std::byte, 3>{ saved_game.unknown3 });
-    // Read 1 byte specifying the player turn duration.
-    saved_game.player_turn_duration = readEnum<PlayerTurnDurationType>();
-    // Read 8 bytes - 1 byte per player, specifying the starting hero.
-    for (HeroType& starting_hero : saved_game.starting_heroes.data)
-    {
-      starting_hero = readEnum<HeroType>();
-    }
-    // Read 8 bytes - 1 byte per player, specifying the starting bonus.
-    for (PlayerStartingBonusType& starting_bonus : saved_game.starting_bonuses.data)
-    {
-      starting_bonus = readEnum<PlayerStartingBonusType>();
-    }
+    // Read 420 bytes - the starting settings for the map.
+    saved_game.starting_info = readScenarioStartingInfo();
     // Read 2 bytes.
     // TODO: figure out what this is. Seems to always be {0, 0}.
-    readBytes(std::span<std::byte, 2>{ saved_game.unknown4 });
+    readBytes(std::span<std::byte, 2>{ saved_game.unknown2 });
     // Read 47 bytes representing the original filename for this saved game.
     readBytes(std::as_writable_bytes(std::span{ saved_game.original_filename }));
     // Read 352 bytes.
     // TODO: figure out what this is.
-    readBytes(std::span<std::byte, 352>{ saved_game.unknown5 });
+    readBytes(std::span<std::byte, 352>{ saved_game.unknown3 });
     // Read 144 bytes indicating which artifacts are disabled on this map (1 byte per artifact).
     saved_game.disabled_artifacts.data = readByteArray<144>();
     // Read 144 bytes for another bitmask for artifacts.
@@ -217,7 +185,7 @@ namespace h3m
     saved_game.current_rumor = readString16();
     // Read 256 bytes.
     // TODO: figure out what this is.
-    readBytes(std::span<std::byte, 256>{ saved_game.unknown6 });
+    readBytes(std::span<std::byte, 256>{ saved_game.unknown4 });
     // Read custom rumors that can appear in the Tavern.
     {
       const std::uint32_t num_custom_rumors = readInt<std::uint32_t>();
@@ -367,5 +335,45 @@ namespace h3m
     }
     // TODO: read the rest.
     return saved_game;
+  }
+
+  ScenarioStartingInfo H3SvgReader::readScenarioStartingInfo() const
+  {
+    ScenarioStartingInfo starting_info;
+    // Read 32 bytes - 4 bytes per player, specifying their alignment.
+    for (TownType32& alignment : starting_info.starting_towns.data)
+    {
+      alignment = readEnum<TownType32>();
+    }
+    // Read 8 bytes.
+    // TODO: figure out what it is.
+    readBytes(std::span<std::byte, 8>{ starting_info.unknown1 });
+    // Read 1 byte - the selected difficulty level.
+    starting_info.difficulty = readEnum<MapDifficulty>();
+    // Read 251 bytes representing the filename of the original map.
+    readBytes(std::as_writable_bytes(std::span{ starting_info.map_filename }));
+    // Read 100 bytes representing the relative path to the directory in which the original map is located.
+    readBytes(std::as_writable_bytes(std::span{ starting_info.map_directory }));
+    // Read 8 bytes - 1 byte per PlayerColor, indicating who can control this color.
+    for (PlayerControlType& player_control : starting_info.players_control.data)
+    {
+      player_control = readEnum<PlayerControlType>();
+    }
+    // Read 3 bytes.
+    // TODO: figure out what this is. Seems to always be {255, 1, 1}.
+    readBytes(std::span<std::byte, 3>{ starting_info.unknown2 });
+    // Read 1 byte specifying the player turn duration.
+    starting_info.player_turn_duration = readEnum<PlayerTurnDurationType>();
+    // Read 8 bytes - 1 byte per player, specifying the starting hero.
+    for (HeroType& starting_hero : starting_info.starting_heroes.data)
+    {
+      starting_hero = readEnum<HeroType>();
+    }
+    // Read 8 bytes - 1 byte per player, specifying the starting bonus.
+    for (PlayerStartingBonusType& starting_bonus : starting_info.starting_bonuses.data)
+    {
+      starting_bonus = readEnum<PlayerStartingBonusType>();
+    }
+    return starting_info;
   }
 }

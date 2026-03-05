@@ -81,6 +81,8 @@ namespace h3m
 
   struct SavedGame;
 
+  struct ScenarioStartingInfo;
+
   struct SeersHutSvg;
 
   struct SignSvg;

@@ -6,8 +6,6 @@
 #include <h3mtxt/Map/Utils/ReservedData.h>
 #include <h3mtxt/Map/MapAdditionalInfo.h>
 #include <h3mtxt/Map/MapBasicInfo.h>
-#include <h3mtxt/SavedGame/Constants/TownType32.h>
-#include <h3mtxt/SavedGame/Constants/PlayerTurnDurationType.h>
 #include <h3mtxt/SavedGame/EnumIndexedArray.h>
 #include <h3mtxt/SavedGame/EventBaseSvg.h>
 #include <h3mtxt/SavedGame/ObjectSvg.h>
@@ -15,6 +13,7 @@
 #include <h3mtxt/SavedGame/PlayerSpecsSvg.h>
 #include <h3mtxt/SavedGame/QuestSvg.h>
 #include <h3mtxt/SavedGame/RewardSvg.h>
+#include <h3mtxt/SavedGame/ScenarioStartingInfo.h>
 #include <h3mtxt/SavedGame/TileSvg.h>
 
 #include <array>
@@ -26,6 +25,9 @@
 
 namespace h3m
 {
+  // TODO: move all std::vector<ObjectProperties> fields out of SavedGame
+  // into some new ObjectPropertiesTables structure.
+
   // The equivalent of ObjectProperties<ObjectPropertiesType::ARTIFACT> in H3SVG.
   // Unlike H3M, guardians are not optional here.
   struct ArtifactSvg
@@ -181,55 +183,11 @@ namespace h3m
     // The values suggest that it has something to do with players, but it's
     // hard to figure out what it is without other examples.
     std::array<std::byte, 16> unknown1 {};
-    // Actual alignment for each player, or 0xFFFFFFFF if the player is absent.
-    EnumIndexedArray<PlayerColor, TownType32, kMaxPlayers> alignments;
-    // TODO: figure out what this is.
-    // This looks like 1 byte per PlayerColor data, where 0xFF is used for absent players.
-    // It also seems that 0x00 is always used for the human player.
-    std::array<std::byte, 8> unknown2 {};
-    // Selected difficulty level.
-    // This is different from basic_info.difficulty, which is set by the mapmaker and doesn't affect the game.
-    MapDifficulty difficulty {};
-    // The original filename of the map (this is used by Restart Scenario command).
-    //
-    // In H3SVG this is stored as a fixed-width string (251 bytes). Only the bytes up to the first null terminator are
-    // significant - the rest often contain junk.
-    //
-    // Note that in practice it's hard to use long filenames because in Windows a path cannot be longer than MAX_PATH,
-    // which is 260 characters by default. I've tested that filenames with 244 characters work; testing even longer
-    // filenames requires more tricks, and I have better things to do.
-    //
-    // I'm not sure what's the best API for this: we can either store it as an array of 251 bytes, or as std::string.
-    // Neither is perfect: on the one hand, the junk bytes should be ignored, but on the other hand, h3mtxt aims to
-    // allow inspecting and modifying any byte, as long as it doesn't lead to corrupt data.
-    //
-    // For now, I will define this as an array of 251 bytes, but this might change in the future.
-    std::array<char, 251> map_filename {};
-    // Relative (to Heroes3.exe) path to the directory in which the original map is located.
-    //
-    // In H3SVG this is stored as a fixed-width string (100 bytes):
-    // * If any byte is the null terminator, then only the prefix before the first null
-    //   terminator is used as the path.
-    // * Otherwise, all 100 bytes are used as the path (the string doesn't have to be null-terminated).
-    //
-    // Normally, this is always equal to "maps", but the game correctly handles other paths as well.
-    // * Subdirectories are supported (both '/' and '\').
-    // * Special filename ".." (the parent directory) is supported.
-    // * Absolute paths (e.g., "F:\Maps") are NOT supported.
-    std::array<char, 100> map_directory {};
-    // 8 bytes: 1 byte per PlayerColor, indicating who can control this color
-    // (0 - only CPU, 1 - Human or CPU, 0xFF - nobody).
-    // This duplicates data from SavedGame::players, but H3SVG explicitly stores it, so we should too.
-    EnumIndexedArray<PlayerColor, PlayerControlType, kMaxPlayers> players_control;
-    // TODO: figure out what this is.
-    // Seems to always be {255, 1, 1}
-    std::array<std::byte, 3> unknown3 {};
-    PlayerTurnDurationType player_turn_duration = PlayerTurnDurationType::Unlimited;
-    EnumIndexedArray<PlayerColor, HeroType, kMaxPlayers> starting_heroes;
-    EnumIndexedArray<PlayerColor, PlayerStartingBonusType, kMaxPlayers> starting_bonuses;
+    // Starting settings for the map.
+    ScenarioStartingInfo starting_info;
     // TODO: figure out what this is.
     // Seems to always be {0, 0}
-    std::array<std::byte, 2> unknown4 {};
+    std::array<std::byte, 2> unknown2 {};
     // Original filename used for this saved game.
     // This doesn't seem to be used anywhere in the game.
     // This is also stored as a fixed-width string. Note that HoMM3 limits the length to 47 characters
@@ -239,7 +197,7 @@ namespace h3m
     std::array<char, 47> original_filename {};
     // TODO: figure out what this is.
     // The last 50 bytes look like some bitmask, but I don't know the meaning yet.
-    std::array<std::byte, 352> unknown5 {};
+    std::array<std::byte, 352> unknown3 {};
     // Array of boolean values indicating which artifacts are disabled on this map (1 - disabled, 0 - enabled).
     EnumIndexedArray<ArtifactType, Bool, 144> disabled_artifacts;
     // Another array of boolean values for artifacts; the meaning is not clear yet.
@@ -252,7 +210,7 @@ namespace h3m
     std::string current_rumor;
     // TODO: figure out what this is.
     // The values seem to always be either 0x00 or 0x01; mostly 0x00.
-    std::array<std::byte, 256> unknown6 {};
+    std::array<std::byte, 256> unknown4 {};
     // Custom rumors that can appear in the Tavern.
     std::vector<RumorSvg> rumors;
     // Artifacts currently available in Black Markets on the Adventure Map.

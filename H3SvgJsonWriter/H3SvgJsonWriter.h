@@ -146,6 +146,10 @@ namespace Medea_NS
   void JsonObjectWriter<h3m::SavedGame>::operator()(FieldsWriter& out, const h3m::SavedGame& saved_game) const;
 
   template<>
+  void JsonObjectWriter<h3m::ScenarioStartingInfo>::operator()(FieldsWriter& out,
+                                                               const h3m::ScenarioStartingInfo& starting_info) const;
+
+  template<>
   void JsonObjectWriter<h3m::SeersHutSvg>::operator()(FieldsWriter& out, const h3m::SeersHutSvg& seers_hut) const;
 
   template<>

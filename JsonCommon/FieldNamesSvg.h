@@ -156,24 +156,15 @@ namespace h3m
     static inline constexpr std::string_view kTeams = "teams";
     static inline constexpr std::string_view kCustomHeroes = "custom_heroes";
     static inline constexpr std::string_view kUnknown1 = "unknown1";
-    static inline constexpr std::string_view kAlignments = "alignments";
+    static inline constexpr std::string_view kStartingInfo = "starting_info";
     static inline constexpr std::string_view kUnknown2 = "unknown2";
-    static inline constexpr std::string_view kDifficulty = "difficulty";
-    static inline constexpr std::string_view kMapFilename = "map_filename";
-    static inline constexpr std::string_view kMapDirectory = "map_directory";
-    static inline constexpr std::string_view kPlayersControl = "players_control";
-    static inline constexpr std::string_view kUnknown3 = "unknown3";
-    static inline constexpr std::string_view kPlayerTurnDuration = "player_turn_duration";
-    static inline constexpr std::string_view kStartingHeroes = "starting_heroes";
-    static inline constexpr std::string_view kStartingBonuses = "starting_bonuses";
-    static inline constexpr std::string_view kUnknown4 = "unknown4";
     static inline constexpr std::string_view kOriginalFilename = "original_filename";
-    static inline constexpr std::string_view kUnknown5 = "unknown5";
+    static inline constexpr std::string_view kUnknown3 = "unknown3";
     static inline constexpr std::string_view kDisabledArtifacts = "disabled_artifacts";
     static inline constexpr std::string_view kArtifactsBitmaskUnknown = "artifacts_bitmask_unknown";
     static inline constexpr std::string_view kDisabledSkills = "disabled_skills";
     static inline constexpr std::string_view kCurrentRumor = "current_rumor";
-    static inline constexpr std::string_view kUnknown6 = "unknown6";
+    static inline constexpr std::string_view kUnknown4 = "unknown4";
     static inline constexpr std::string_view kRumors = "rumors";
     static inline constexpr std::string_view kBlackMarkets = "black_markets";
     static inline constexpr std::string_view kTiles = "tiles";
@@ -190,6 +181,21 @@ namespace h3m
     static inline constexpr std::string_view kMinesAndLighthouses = "mines_and_lighthouses";
     static inline constexpr std::string_view kDwellings = "dwellings";
     static inline constexpr std::string_view kGarrisons = "garrisons";
+  };
+
+  template<>
+  struct FieldNames<ScenarioStartingInfo>
+  {
+    static constexpr std::string_view kStartingTowns = "starting_towns";
+    static constexpr std::string_view kUnknown1 = "unknown1";
+    static constexpr std::string_view kDifficulty = "difficulty";
+    static constexpr std::string_view kMapFilename = "map_filename";
+    static constexpr std::string_view kMapDirectory = "map_directory";
+    static constexpr std::string_view kPlayersControl = "players_control";
+    static constexpr std::string_view kUnknown2 = "unknown2";
+    static constexpr std::string_view kPlayerTurnDuration = "player_turn_duration";
+    static constexpr std::string_view kStartingHeroes = "starting_heroes";
+    static constexpr std::string_view kStartingBonuses = "starting_bonuses";
   };
 
   template<>

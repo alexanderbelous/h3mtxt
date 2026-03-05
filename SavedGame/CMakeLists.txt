@@ -16,6 +16,7 @@ set(SOURCE_LIST
     "RewardSvg.h"
     "SavedGame.h"
     "SavedGameFwd.h"
+    "ScenarioStartingInfo.h"
     "TileSvg.h"
 )
 

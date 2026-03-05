@@ -61,6 +61,8 @@ namespace h3m
 
     SavedGame readSavedGame() const;
 
+    ScenarioStartingInfo readScenarioStartingInfo() const;
+
     SeersHutSvg readSeersHut() const;
 
     SignSvg readSign() const;

@@ -281,37 +281,16 @@ namespace Medea_NS
     out.writeField(Fields::kTeams, saved_game.teams);
     out.writeField(Fields::kCustomHeroes, saved_game.custom_heroes);
     out.writeField(Fields::kUnknown1, saved_game.unknown1);
-    out.writeField(Fields::kAlignments, saved_game.alignments);
+    out.writeField(Fields::kStartingInfo, saved_game.starting_info);
     out.writeField(Fields::kUnknown2, saved_game.unknown2);
-    out.writeField(Fields::kDifficulty, saved_game.difficulty);
-    if (std::string_view enum_str = h3m::getEnumString(saved_game.difficulty); !enum_str.empty())
-    {
-      out.writeComment(enum_str, false);
-    }
-    // TODO: it sucks that we serialize this as a JSON array rather than a string.
-    // Consider serializing as a string, escaping unprintable characters.
-    out.writeField(Fields::kMapFilename, saved_game.map_filename);
-    // TODO: consider serializing as a string rather than a JSON array,
-    //       escaping unprintable characters.
-    out.writeField(Fields::kMapDirectory, saved_game.map_directory);
-    out.writeField(Fields::kPlayersControl, saved_game.players_control);
-    out.writeField(Fields::kUnknown3, saved_game.unknown3);
-    out.writeField(Fields::kPlayerTurnDuration, saved_game.player_turn_duration);
-    if (std::string_view enum_str = h3m::getEnumString(saved_game.player_turn_duration); !enum_str.empty())
-    {
-      out.writeComment(enum_str, false);
-    }
-    out.writeField(Fields::kStartingHeroes, saved_game.starting_heroes);
-    out.writeField(Fields::kStartingBonuses, saved_game.starting_bonuses);
-    out.writeField(Fields::kUnknown4, saved_game.unknown4);
     // TODO: consider serializing as a string.
     out.writeField(Fields::kOriginalFilename, saved_game.original_filename);
-    out.writeField(Fields::kUnknown5, saved_game.unknown5);
+    out.writeField(Fields::kUnknown3, saved_game.unknown3);
     out.writeField(Fields::kDisabledArtifacts, saved_game.disabled_artifacts);
     out.writeField(Fields::kArtifactsBitmaskUnknown, saved_game.artifacts_bitmask_unknown);
     out.writeField(Fields::kDisabledSkills, saved_game.disabled_skills);
     out.writeField(Fields::kCurrentRumor, saved_game.current_rumor);
-    out.writeField(Fields::kUnknown6, saved_game.unknown6);
+    out.writeField(Fields::kUnknown4, saved_game.unknown4);
     out.writeField(Fields::kRumors, saved_game.rumors);
     out.writeField(Fields::kBlackMarkets, saved_game.black_markets);
     out.writeField(Fields::kTiles,
@@ -334,6 +313,35 @@ namespace Medea_NS
     out.writeField(Fields::kMinesAndLighthouses, saved_game.mines_and_lighthouses);
     out.writeField(Fields::kDwellings, saved_game.dwellings);
     out.writeField(Fields::kGarrisons, saved_game.garrisons);
+  }
+
+  void JsonObjectWriter<h3m::ScenarioStartingInfo>::operator()(FieldsWriter& out,
+                                                                 const h3m::ScenarioStartingInfo& starting_info) const
+  {
+    using Fields = h3m::FieldNames<h3m::ScenarioStartingInfo>;
+
+    out.writeField(Fields::kStartingTowns, starting_info.starting_towns);
+    out.writeField(Fields::kUnknown1, starting_info.unknown1);
+    out.writeField(Fields::kDifficulty, starting_info.difficulty);
+    if (std::string_view enum_str = h3m::getEnumString(starting_info.difficulty); !enum_str.empty())
+    {
+      out.writeComment(enum_str, false);
+    }
+    // TODO: it sucks that we serialize this as a JSON array rather than a string.
+    // Consider serializing as a string, escaping unprintable characters.
+    out.writeField(Fields::kMapFilename, starting_info.map_filename);
+    // TODO: consider serializing as a string rather than a JSON array,
+    //       escaping unprintable characters.
+    out.writeField(Fields::kMapDirectory, starting_info.map_directory);
+    out.writeField(Fields::kPlayersControl, starting_info.players_control);
+    out.writeField(Fields::kUnknown2, starting_info.unknown2);
+    out.writeField(Fields::kPlayerTurnDuration, starting_info.player_turn_duration);
+    if (std::string_view enum_str = h3m::getEnumString(starting_info.player_turn_duration); !enum_str.empty())
+    {
+      out.writeComment(enum_str, false);
+    }
+    out.writeField(Fields::kStartingHeroes, starting_info.starting_heroes);
+    out.writeField(Fields::kStartingBonuses, starting_info.starting_bonuses);
   }
 
   template<>
