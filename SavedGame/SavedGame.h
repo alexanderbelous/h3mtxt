@@ -15,7 +15,6 @@
 #include <h3mtxt/SavedGame/TileSvg.h>
 
 #include <array>
-#include <cstddef>
 #include <cstdint>
 #include <string>
 #include <string_view>
@@ -78,8 +77,8 @@ namespace h3m
     static constexpr std::string_view kFileSignature = "H3SVG";
 
     ReservedData<3> reserved1;
-    std::uint32_t version_major{};
-    std::uint32_t version_minor{};
+    std::uint32_t version_major {};
+    std::uint32_t version_minor {};
     // HD mod keeps this zero-initialized; the vanilla game (HoMM3 Complete) doesn't, but the values
     // don't seem to mean anything.
     ReservedData<32> reserved2;
@@ -97,12 +96,12 @@ namespace h3m
     std::vector<CustomHero> custom_heroes;
     // 16 bytes with unknown meaning: the values are always {0, 1, 2, 3, 4, 5, 6, 7, 0, 1, 2, 3, 4, 5, 6, 7}.
     // Modifying these bytes doesn't seem to affect anything.
-    std::array<std::byte, 16> unknown1 {};
+    std::array<std::uint8_t, 16> unknown1 {};
     // Starting settings for the map.
     ScenarioStartingInfo starting_info;
     // TODO: figure out what this is.
     // Seems to always be {0, 0}
-    std::array<std::byte, 2> unknown2 {};
+    std::array<std::uint8_t, 2> unknown2 {};
     // Original filename used for this saved game.
     // This doesn't seem to be used anywhere in the game.
     // This is also stored as a fixed-width string. Note that HoMM3 limits the length to 47 characters
@@ -112,7 +111,7 @@ namespace h3m
     std::array<char, 47> original_filename {};
     // TODO: figure out what this is.
     // The last 50 bytes look like some bitmask, but I don't know the meaning yet.
-    std::array<std::byte, 352> unknown3 {};
+    std::array<std::uint8_t, 352> unknown3 {};
     // Array of boolean values indicating which artifacts are disabled on this map (1 - disabled, 0 - enabled).
     EnumIndexedArray<ArtifactType, Bool, 144> disabled_artifacts;
     // Another array of boolean values for artifacts; the meaning is not clear yet.
@@ -125,11 +124,12 @@ namespace h3m
     std::string current_rumor;
     // TODO: figure out what this is.
     // The values seem to always be either 0x00 or 0x01; mostly 0x00.
-    std::array<std::byte, 256> unknown4 {};
+    std::array<std::uint8_t, 256> unknown4 {};
     // Custom rumors that can appear in the Tavern.
     std::vector<RumorSvg> rumors;
     // Artifacts currently available in Black Markets on the Adventure Map.
-    // TODO: check what is the order here. I guess these are either sorted by (x,y,z) or by object_idx.
+    // Ideally, this should be a member of object_properties_tables, but in H3SVG it is serialized
+    // immediately after rumors.
     std::vector<BlackMarket> black_markets;
     // Terrain data for each tile on the map.
     // The number of elements should be (has_two_levels ? 2 : 1) * map_size * map_size,
@@ -143,7 +143,7 @@ namespace h3m
     // Tables storing additional data for objects whose properties aren't fully described by TileSvg.
     ObjectPropertiesTables object_properties_tables;
     // Current state for each player.
-    EnumIndexedArray<PlayerColor, PlayerSvg, 8> players_svg {};
+    EnumIndexedArray<PlayerColor, PlayerSvg, 8> players_svg;
 
     // TODO: reverse-engineer the rest.
     // The next fields are approximately:
