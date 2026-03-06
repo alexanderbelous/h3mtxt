@@ -69,6 +69,26 @@ namespace h3m
     Bool has_been_shown {};
   };
 
+  // Information about a town stored in H3SVG.
+  // Credits to RoseKavalier: instead of figuring out the meaning of every byte, I followed the already
+  // reverse-engineering representation of the town in the process memory
+  //   https://github.com/RoseKavalier/H3API/blob/master/include/h3api/H3Towns/H3Town.hpp
+  // and it seems that they are very similar.
+  struct TownSvg
+  {
+    // 0-based index of this town in SavedGame::towns.
+    std::uint8_t id {};
+    PlayerColor owner {};
+    std::array<std::uint8_t, 2> unknown1 {}; // unknown1[0] is probably Bool built_this_turn
+    TownType type {};
+    Coordinates coordinates;
+    // TODO: reverse-engineer
+    std::array<std::uint8_t, 62> unknown2 {};
+    std::string name;
+    // TODO: reverse-engineer
+    std::array<std::uint8_t, 310> unknown3 {};
+  };
+
   // Represents a saved game for Heroes of Might and Magic 3 (.GM1, .GM2, ... files).
   struct SavedGame
   {
@@ -144,6 +164,8 @@ namespace h3m
     ObjectPropertiesTables object_properties_tables;
     // Current state for each player.
     EnumIndexedArray<PlayerColor, PlayerSvg, 8> players_svg;
+    // Towns on the Adventure Map.
+    std::vector<TownSvg> towns;
 
     // TODO: reverse-engineer the rest.
     // The next fields are approximately:

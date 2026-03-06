@@ -83,6 +83,8 @@ namespace h3m
 
     TownEventSvg readTownEvent() const;
 
+    TownSvg readTown() const;
+
     TroopsSvg readTroops() const;
   };
 

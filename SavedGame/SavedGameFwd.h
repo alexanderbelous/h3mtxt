@@ -101,5 +101,7 @@ namespace h3m
 
   struct TownEventSvg;
 
+  struct TownSvg;
+
   struct TroopsSvg;
 }

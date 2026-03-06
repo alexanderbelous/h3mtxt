@@ -153,6 +153,15 @@ namespace h3m
     {
       player = readPlayer();
     }
+    // Read towns.
+    {
+      const std::uint8_t num_towns = readInt<std::uint8_t>();
+      saved_game.towns.reserve(num_towns);
+      for (std::uint32_t i = 0; i < num_towns; ++i)
+      {
+        saved_game.towns.push_back(readTown());
+      }
+    }
     // TODO: read the rest.
     return saved_game;
   }
@@ -195,5 +204,19 @@ namespace h3m
       starting_bonus = readEnum<PlayerStartingBonusType>();
     }
     return starting_info;
+  }
+
+  TownSvg H3SvgReader::readTown() const
+  {
+    TownSvg town;
+    town.id = readInt<std::uint8_t>();
+    town.owner = readEnum<PlayerColor>();
+    town.unknown1 = readByteArray<2>();
+    town.type = readEnum<TownType>();
+    town.coordinates = readCoordinates();
+    town.unknown2 = readByteArray<62>();
+    town.name = readString16();
+    town.unknown3 = readByteArray<310>();
+    return town;
   }
 }

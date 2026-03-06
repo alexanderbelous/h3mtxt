@@ -188,6 +188,7 @@ namespace Medea_NS
     out.writeField(Fields::kObjects, saved_game.objects);
     out.writeField(Fields::kObjectPropertiesTables, saved_game.object_properties_tables);
     out.writeField(Fields::kPlayersSvg, saved_game.players_svg);
+    out.writeField(Fields::kTowns, saved_game.towns);
   }
 
   void JsonObjectWriter<h3m::ScenarioStartingInfo>::operator()(FieldsWriter& out,
@@ -217,6 +218,27 @@ namespace Medea_NS
     }
     out.writeField(Fields::kStartingHeroes, starting_info.starting_heroes);
     out.writeField(Fields::kStartingBonuses, starting_info.starting_bonuses);
+  }
+
+  void JsonObjectWriter<h3m::TownSvg>::operator()(FieldsWriter& out, const h3m::TownSvg& town) const
+  {
+    using Fields = h3m::FieldNames<h3m::TownSvg>;
+    out.writeField(Fields::kId, town.id);
+    out.writeField(Fields::kOwner, town.owner);
+    if (std::string_view enum_str = h3m::getEnumString(town.owner); !enum_str.empty())
+    {
+      out.writeComment(enum_str, false);
+    }
+    out.writeField(Fields::kUnknown1, town.unknown1);
+    out.writeField(Fields::kType, town.type);
+    if (std::string_view enum_str = h3m::getEnumString(town.type); !enum_str.empty())
+    {
+      out.writeComment(enum_str, false);
+    }
+    out.writeField(Fields::kCoordinates, town.coordinates);
+    out.writeField(Fields::kUnknown2, town.unknown2);
+    out.writeField(Fields::kName, town.name);
+    out.writeField(Fields::kUnknown3, town.unknown3);
   }
 
   template<>

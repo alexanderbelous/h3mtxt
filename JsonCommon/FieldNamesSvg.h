@@ -225,6 +225,7 @@ namespace h3m
     static inline constexpr std::string_view kObjects = "objects";
     static inline constexpr std::string_view kObjectPropertiesTables = "object_properties_tables";
     static inline constexpr std::string_view kPlayersSvg = "players_svg";
+    static inline constexpr std::string_view kTowns = "towns";
   };
 
   template<>
@@ -296,6 +297,19 @@ namespace h3m
     static constexpr std::string_view kBuildings = "buildings";
     static constexpr std::string_view kUnknown2 = "unknown2";
     static constexpr std::string_view kCreatures = "creatures";
+  };
+
+  template<>
+  struct FieldNames<TownSvg>
+  {
+    static constexpr std::string_view kId = "id";
+    static constexpr std::string_view kOwner = "owner";
+    static constexpr std::string_view kUnknown1 = "unknown1";
+    static constexpr std::string_view kType = "type";
+    static constexpr std::string_view kCoordinates = "coordinates";
+    static constexpr std::string_view kUnknown2 = "unknown2";
+    static constexpr std::string_view kName = "name";
+    static constexpr std::string_view kUnknown3 = "unknown3";
   };
 
   template<>

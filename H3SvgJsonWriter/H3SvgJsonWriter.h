@@ -179,5 +179,8 @@ namespace Medea_NS
   void JsonObjectWriter<h3m::TownEventSvg>::operator()(FieldsWriter& out, const h3m::TownEventSvg& event) const;
 
   template<>
+  void JsonObjectWriter<h3m::TownSvg>::operator()(FieldsWriter& out, const h3m::TownSvg& town) const;
+
+  template<>
   void JsonObjectWriter<h3m::TroopsSvg>::operator()(FieldsWriter& out, const h3m::TroopsSvg& troops) const;
 }
