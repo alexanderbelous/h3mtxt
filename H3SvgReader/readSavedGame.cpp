@@ -214,7 +214,9 @@ namespace h3m
     town.unknown1 = readByteArray<2>();
     town.type = readEnum<TownType>();
     town.coordinates = readCoordinates();
-    town.unknown2 = readByteArray<62>();
+    town.generated_boat_x = readInt<std::uint8_t>();
+    town.generated_boat_y = readInt<std::uint8_t>();
+    town.unknown2 = readByteArray<60>();
     town.name = readString16();
     town.unknown3 = readByteArray<310>();
     return town;

@@ -307,6 +307,8 @@ namespace h3m
     static constexpr std::string_view kUnknown1 = "unknown1";
     static constexpr std::string_view kType = "type";
     static constexpr std::string_view kCoordinates = "coordinates";
+    static constexpr std::string_view kGeneratedBoatX = "generated_boat_x";
+    static constexpr std::string_view kGeneratedBoatY = "generated_boat_y";
     static constexpr std::string_view kUnknown2 = "unknown2";
     static constexpr std::string_view kName = "name";
     static constexpr std::string_view kUnknown3 = "unknown3";

@@ -236,6 +236,8 @@ namespace Medea_NS
       out.writeComment(enum_str, false);
     }
     out.writeField(Fields::kCoordinates, town.coordinates);
+    out.writeField(Fields::kGeneratedBoatX, town.generated_boat_x);
+    out.writeField(Fields::kGeneratedBoatY, town.generated_boat_y);
     out.writeField(Fields::kUnknown2, town.unknown2);
     out.writeField(Fields::kName, town.name);
     out.writeField(Fields::kUnknown3, town.unknown3);

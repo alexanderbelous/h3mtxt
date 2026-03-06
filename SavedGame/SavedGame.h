@@ -82,8 +82,13 @@ namespace h3m
     std::array<std::uint8_t, 2> unknown1 {}; // unknown1[0] is probably Bool built_this_turn
     TownType type {};
     Coordinates coordinates;
+    // X and Y coordinates of the tile where the boat will be generated when built via the town's
+    // Shipyard, or {0xFF, 0xFF} if this town cannot build ships.
+    std::uint8_t generated_boat_x {};
+    std::uint8_t generated_boat_y {};
     // TODO: reverse-engineer
-    std::array<std::uint8_t, 62> unknown2 {};
+    // unknown2[57] -> HeroType visiting_hero.
+    std::array<std::uint8_t, 60> unknown2 {};
     std::string name;
     // TODO: reverse-engineer
     std::array<std::uint8_t, 310> unknown3 {};
@@ -169,7 +174,6 @@ namespace h3m
 
     // TODO: reverse-engineer the rest.
     // The next fields are approximately:
-    // * Settings for each town on the Adventure Map
     // * Settings for each hero
     //
     // Obviuously, there are other fields as well, but I don't know yet where they are located:
