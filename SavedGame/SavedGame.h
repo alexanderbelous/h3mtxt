@@ -26,7 +26,7 @@ namespace h3m
   struct BlackMarket
   {
     // Each element should be either a valid ArtifactType constant or -1 if the slot is empty.
-    std::array<ArtifactType32, 7> artifacts{};
+    std::array<ArtifactType32, 7> artifacts {};
   };
 
   // Always 145 bytes?
@@ -139,11 +139,8 @@ namespace h3m
     // Obviuously, there are other fields as well, but I don't know yet where they are located:
     // * Timestamp for the saved game (Heroes3.exe stores it somewhere in the file instead of using
     //   filesystem metadata)
-    // * Current resources for each player
     // * Artifacts in Artifact Merchants
-    // * Current heroes in the Tavern
     // * Which player has visited the Keymaster's tent (for each Keymaster's tent subtype)
-    // * Order of heroes (although this might be determined by their order in the objects array).
     // * Which heroes have been defeated by the player (needed in quests)
     // * Previous turns for all opponents (probably for all players, because that would be
     //   necessary in multiplayer games).
