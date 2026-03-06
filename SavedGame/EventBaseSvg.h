@@ -1,12 +1,13 @@
 #pragma once
 
 #include <h3mtxt/SavedGame/SavedGameFwd.h>
+
 #include <h3mtxt/Map/CreatureStack.h>
 #include <h3mtxt/Map/PrimarySkills.h>
 #include <h3mtxt/Map/Resources.h>
 #include <h3mtxt/Map/SecondarySkill.h>
+#include <h3mtxt/SavedGame/TroopsSvg.h>
 
-#include <array>
 #include <cstdint>
 #include <optional>
 #include <string>
@@ -14,13 +15,6 @@
 
 namespace h3m
 {
-  struct TroopsSvg
-  {
-    // CreatureType or 0xFFFFFFFF if the stack is empty.
-    std::array<CreatureType32, 7> creature_types {};
-    std::array<std::int32_t, 7> creature_counts {};
-  };
-
   // Equivalent of h3m::Guardians used in H3SVG.
   struct GuardiansSvg
   {

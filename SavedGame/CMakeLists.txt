@@ -19,6 +19,8 @@ set(SOURCE_LIST
     "SavedGameFwd.h"
     "ScenarioStartingInfo.h"
     "TileSvg.h"
+    "TownSvg.h"
+    "TroopsSvg.h"
 )
 
 # "SavedGame" is a header-only library.
