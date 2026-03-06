@@ -32,6 +32,9 @@ namespace Medea_NS
   void JsonObjectWriter<h3m::GuardiansSvg>::operator()(FieldsWriter& out, const h3m::GuardiansSvg& guardians) const;
 
   template<>
+  void JsonObjectWriter<h3m::HeroSvg>::operator()(FieldsWriter& out, const h3m::HeroSvg& hero) const;
+
+  template<>
   void JsonObjectWriter<h3m::MineSvg>::operator()(FieldsWriter& out, const h3m::MineSvg& mine) const;
 
   template<>

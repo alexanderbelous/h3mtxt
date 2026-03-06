@@ -52,6 +52,8 @@ namespace h3m
 
   struct GuardiansSvg;
 
+  struct HeroSvg;
+
   struct MineSvg;
 
   struct MonsterSvg;

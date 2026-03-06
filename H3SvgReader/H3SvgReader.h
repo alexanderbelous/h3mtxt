@@ -35,6 +35,8 @@ namespace h3m
 
     GuardiansSvg readGuardians() const;
 
+    HeroSvg readHero() const;
+
     MapBasicInfo readMapBasicInfo() const;
 
     MineSvg readMine() const;
