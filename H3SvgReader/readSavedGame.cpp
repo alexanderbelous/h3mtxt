@@ -6,11 +6,6 @@
 
 namespace h3m
 {
-  ArtifactSvg H3SvgReader::readArtifact() const
-  {
-    return ArtifactSvg{ .guardians = readGuardians() };
-  }
-
   BlackMarket H3SvgReader::readBlackMarket() const
   {
     BlackMarket black_market;
@@ -19,85 +14,6 @@ namespace h3m
       artifact = readEnum<ArtifactType32>();
     }
     return black_market;
-  }
-
-  BoatSvg H3SvgReader::readBoat() const
-  {
-    // Always 28 bytes, apparently.
-    BoatSvg boat;
-    boat.unknown1 = readByteArray<2>();
-    boat.object_sublcass = readInt<std::uint8_t>();
-    boat.direction = readInt<std::uint8_t>();
-    boat.owner = readEnum<PlayerColor>();
-    boat.owner_hero = readInt<std::uint16_t>();
-    boat.is_occupied = readBool();
-    boat.x = readInt<std::uint16_t>();
-    boat.y = readInt<std::uint16_t>();
-    boat.z = readInt<std::uint16_t>();
-    boat.unknown2 = readByteArray<14>();
-    return boat;
-  }
-
-  DwellingSvg H3SvgReader::readDwelling() const
-  {
-    DwellingSvg dwelling;
-    dwelling.owner = readEnum<PlayerColor>();
-    dwelling.object_class = readInt<std::uint8_t>();
-    dwelling.object_subclass = readInt<std::uint8_t>();
-    for (std::uint8_t& creature_type : dwelling.creature_types)
-    {
-      creature_type = readInt<std::uint8_t>();
-    }
-    for (std::uint16_t& creature_count : dwelling.creature_counts)
-    {
-      creature_count = readInt<std::uint16_t>();
-    }
-    dwelling.coordinates = readCoordinates();
-    dwelling.guardians = readTroops();
-    dwelling.unknown = readInt<std::uint8_t>();
-    return dwelling;
-  }
-
-  GarrisonSvg H3SvgReader::readGarrison() const
-  {
-    GarrisonSvg garrison;
-    garrison.owner = readEnum<PlayerColor>();
-    garrison.creatures = readTroops();
-    garrison.coordinates = readCoordinates();
-    garrison.can_remove_units = readBool();
-    return garrison;
-  }
-
-  MineSvg H3SvgReader::readMine() const
-  {
-    MineSvg mine;
-    mine.owner = readEnum<PlayerColor>();
-    mine.unknown = readByteArray<2>();
-    mine.creatures = readTroops();
-    mine.coordinates = readCoordinates();
-    return mine;
-  }
-
-  MonsterSvg H3SvgReader::readMonster() const
-  {
-    MonsterSvg monster;
-    monster.message = readString16();
-    monster.resources = readResources();
-    monster.artifact = readEnum<ArtifactType8>();
-    return monster;
-  }
-
-  ObeliskSvg H3SvgReader::readObelisk() const
-  {
-    return ObeliskSvg{ .visited_by = readEnumBitmask<PlayerColor, 1>() };
-  }
-
-  QuestGuardSvg H3SvgReader::readQuestGuard() const
-  {
-    QuestGuardSvg quest_guard;
-    quest_guard.quest = readQuest();
-    quest_guard.visited_by = readEnumBitmask<PlayerColor, 1>();
-    return quest_guard;
   }
 
   // Seems to always be 145 bytes.
@@ -127,51 +43,6 @@ namespace h3m
     rumor.text = readString16();
     rumor.has_been_shown = readBool();
     return rumor;
-  }
-
-  SeersHutSvg H3SvgReader::readSeersHut() const
-  {
-    SeersHutSvg seers_hut;
-    seers_hut.quest = readQuest();
-    seers_hut.reward = readReward();
-    seers_hut.unknown1 = readInt<std::uint8_t>();
-    seers_hut.visited_by = readEnumBitmask<PlayerColor, 1>();
-    seers_hut.unknown2 = readInt<std::uint8_t>();
-    return seers_hut;
-  }
-
-  SignSvg H3SvgReader::readSign() const
-  {
-    SignSvg sign;
-    sign.message = readString16();
-    sign.is_custom = readBool();
-    return sign;
-  }
-
-  TimedEventSvg H3SvgReader::readTimedEvent() const
-  {
-    TimedEventSvg event;
-    event.message = readString16();
-    event.resources = readResources();
-    event.affected_players = readEnumBitmask<PlayerColor, 1>();
-    event.applies_to_human = readBool();
-    event.applies_to_computer = readBool();
-    event.day_of_first_occurence = readInt<std::uint16_t>();
-    event.repeat_after_days = readInt<std::uint16_t>();
-    return event;
-  }
-
-  TownEventSvg H3SvgReader::readTownEvent() const
-  {
-    TownEventSvg town_event{ readTimedEvent() };
-    town_event.unknown1 = static_cast<std::byte>(readInt<std::uint8_t>());
-    town_event.buildings = readEnumBitmask<TownBuildingType, 6>();
-    readBytes(std::span<std::byte, 2>{ town_event.unknown2 });
-    for (std::uint16_t& growth : town_event.creatures)
-    {
-      growth = readInt<std::uint16_t>();
-    }
-    return town_event;
   }
 
   SavedGame H3SvgReader::readSavedGame() const
@@ -275,124 +146,8 @@ namespace h3m
         saved_game.objects.push_back(readObject());
       }
     }
-    // Read Event and Pandora's Box objects.
-    // FYI: it's funny that the number of events is serialized as a 16-bit integer - the Map Editor
-    // seems to have a limit of 200 Events on the Adventure Map.
-    {
-      const std::uint16_t num_event_objects = readInt<std::uint16_t>();
-      saved_game.events_and_pandoras_boxes.reserve(num_event_objects);
-      for (std::uint16_t i = 0; i < num_event_objects; ++i)
-      {
-        saved_game.events_and_pandoras_boxes.push_back(readEventBase());
-      }
-    }
-    // Read Artifact and SpellScroll objects.
-    {
-      const std::uint16_t num_artifact_objects = readInt<std::uint16_t>();
-      saved_game.artifacts_and_spell_scrolls.reserve(num_artifact_objects);
-      for (std::uint16_t i = 0; i < num_artifact_objects; ++i)
-      {
-        saved_game.artifacts_and_spell_scrolls.push_back(readArtifact());
-      }
-    }
-    // Read wandering creatures.
-    {
-      const std::uint16_t num_monster_objects = readInt<std::uint16_t>();
-      saved_game.monsters.reserve(num_monster_objects);
-      for (std::uint16_t i = 0; i < num_monster_objects; ++i)
-      {
-        saved_game.monsters.push_back(readMonster());
-      }
-    }
-    // Read Seer's Huts.
-    {
-      const std::uint16_t num_seers_huts = readInt<std::uint16_t>();
-      saved_game.seers_huts.reserve(num_seers_huts);
-      for (std::uint16_t i = 0; i < num_seers_huts; ++i)
-      {
-        saved_game.seers_huts.push_back(readSeersHut());
-      }
-    }
-    // Read Quest Guards.
-    {
-      const std::uint16_t num_quest_guards = readInt<std::uint16_t>();
-      saved_game.quest_guards.reserve(num_quest_guards);
-      for (std::uint16_t i = 0; i < num_quest_guards; ++i)
-      {
-        saved_game.quest_guards.push_back(readQuestGuard());
-      }
-    }
-    // Read global events.
-    {
-      const std::uint32_t num_global_events = readInt<std::uint32_t>();
-      saved_game.global_events.reserve(num_global_events);
-      for (std::uint32_t i = 0; i < num_global_events; ++i)
-      {
-        saved_game.global_events.push_back(readTimedEvent());
-      }
-    }
-    // Read town events.
-    {
-      const std::uint32_t num_town_events = readInt<std::uint32_t>();
-      saved_game.town_events.reserve(num_town_events);
-      for (std::uint32_t i = 0; i < num_town_events; ++i)
-      {
-        saved_game.town_events.push_back(readTownEvent());
-      }
-    }
-    // Read Signs and Ocean Bottles.
-    {
-      const std::uint8_t num_signs_and_ocean_bottles = readInt<std::uint8_t>();
-      saved_game.signs_and_ocean_bottles.reserve(num_signs_and_ocean_bottles);
-      for (std::uint32_t i = 0; i < num_signs_and_ocean_bottles; ++i)
-      {
-        saved_game.signs_and_ocean_bottles.push_back(readSign());
-      }
-    }
-    // Read Mines and Lighthouses.
-    {
-      const std::uint8_t num_mines_and_lighthouses = readInt<std::uint8_t>();
-      saved_game.mines_and_lighthouses.reserve(num_mines_and_lighthouses);
-      for (std::uint32_t i = 0; i < num_mines_and_lighthouses; ++i)
-      {
-        saved_game.mines_and_lighthouses.push_back(readMine());
-      }
-    }
-    // Read Creature Dwellings.
-    {
-      const std::uint16_t num_dwellings = readInt<std::uint16_t>();
-      saved_game.dwellings.reserve(num_dwellings);
-      for (std::uint32_t i = 0; i < num_dwellings; ++i)
-      {
-        saved_game.dwellings.push_back(readDwelling());
-      }
-    }
-    // Read Garrisons.
-    {
-      const std::uint8_t num_garrisons = readInt<std::uint8_t>();
-      saved_game.dwellings.reserve(num_garrisons);
-      for (std::uint32_t i = 0; i < num_garrisons; ++i)
-      {
-        saved_game.garrisons.push_back(readGarrison());
-      }
-    }
-    // Read Boats.
-    {
-      const std::uint8_t num_boats = readInt<std::uint8_t>();
-      saved_game.boats.reserve(num_boats);
-      for (std::uint32_t i = 0; i < num_boats; ++i)
-      {
-        saved_game.boats.push_back(readBoat());
-      }
-    }
-    // Read Obelisks (always 49 bytes).
-    {
-      saved_game.num_obelisks = readInt<std::uint8_t>();
-      for (ObeliskSvg& obelisk : saved_game.obelisks)
-      {
-        obelisk = readObelisk();
-      }
-    }
+    // Read the tables storing additional data for objects whose properties aren't fully described by TileSvg.
+    saved_game.object_properties_tables = readObjectPropertiesTables();
     // Read Players' Info.
     for (PlayerSvg& player : saved_game.players_svg.data)
     {

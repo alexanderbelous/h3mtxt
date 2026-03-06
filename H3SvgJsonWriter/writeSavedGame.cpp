@@ -59,122 +59,6 @@ namespace Medea_NS
     }
   }
 
-  void JsonObjectWriter<h3m::ArtifactSvg>::operator()(FieldsWriter& out, const h3m::ArtifactSvg& artifact) const
-  {
-    using Fields = h3m::FieldNames<h3m::ArtifactSvg>;
-    out.writeField(Fields::kGuardians, artifact.guardians);
-  }
-
-  void JsonObjectWriter<h3m::BoatSvg>::operator()(FieldsWriter& out, const h3m::BoatSvg& boat) const
-  {
-    using Fields = h3m::FieldNames<h3m::BoatSvg>;
-
-    out.writeField(Fields::kUnknown1, boat.unknown1);
-    out.writeField(Fields::kObjectSubclass, boat.object_sublcass);
-    out.writeField(Fields::kDirection, boat.direction);
-    out.writeField(Fields::kOwner, boat.owner);
-    if (std::string_view enum_str = h3m::getEnumString(boat.owner); !enum_str.empty())
-    {
-      out.writeComment(enum_str, false);
-    }
-    out.writeField(Fields::kOwnerHero, boat.owner_hero);
-    out.writeField(Fields::kIsOccupied, boat.is_occupied);
-    out.writeField(Fields::kX, boat.x);
-    out.writeField(Fields::kY, boat.y);
-    out.writeField(Fields::kZ, boat.z);
-    out.writeField(Fields::kUnknown2, boat.unknown2);
-  }
-
-  void JsonObjectWriter<h3m::DwellingSvg>::operator()(FieldsWriter& out, const h3m::DwellingSvg& dwelling) const
-  {
-    using Fields = h3m::FieldNames<h3m::DwellingSvg>;
-    out.writeField(Fields::kOwner, dwelling.owner);
-    if (std::string_view enum_str = h3m::getEnumString(dwelling.owner); !enum_str.empty())
-    {
-      out.writeComment(enum_str, false);
-    }
-    out.writeField(Fields::kObjectClass, dwelling.object_class);
-    out.writeField(Fields::kObjectSubclass, dwelling.object_subclass);
-    out.writeField(Fields::kCreatureTypes, dwelling.creature_types);
-    out.writeField(Fields::kCreatureCounts, dwelling.creature_counts);
-    out.writeField(Fields::kCoordinates, dwelling.coordinates);
-    out.writeField(Fields::kGuardians, dwelling.guardians);
-    out.writeField(Fields::kUnknown, dwelling.unknown);
-  }
-
-  void JsonObjectWriter<h3m::EventBaseSvg>::operator()(FieldsWriter& out, const h3m::EventBaseSvg& event) const
-  {
-    using Fields = h3m::FieldNames<h3m::EventBaseSvg>;
-    if (event.guardians)
-    {
-      out.writeField(Fields::kGuardians, *event.guardians);
-    }
-    out.writeField(Fields::kExperience, event.experience);
-    out.writeField(Fields::kSpellPoints, event.spell_points);
-    out.writeField(Fields::kMorale, event.morale);
-    out.writeField(Fields::kLuck, event.luck);
-    out.writeField(Fields::kResources, event.resources);
-    out.writeField(Fields::kPrimarySkills, event.primary_skills);
-    out.writeField(Fields::kSecondarySkills, event.secondary_skills);
-    out.writeField(Fields::kArtifacts, event.artifacts);
-    out.writeField(Fields::kSpells, event.spells);
-    out.writeField(Fields::kCreatures, event.creatures);
-  }
-
-  void JsonObjectWriter<h3m::GarrisonSvg>::operator()(FieldsWriter& out, const h3m::GarrisonSvg& garrison) const
-  {
-    using Fields = h3m::FieldNames<h3m::GarrisonSvg>;
-    out.writeField(Fields::kOwner, garrison.owner);
-    if (std::string_view enum_str = h3m::getEnumString(garrison.owner); !enum_str.empty())
-    {
-      out.writeComment(enum_str, false);
-    }
-    out.writeField(Fields::kCreatures, garrison.creatures);
-    out.writeField(Fields::kCoordinates, garrison.coordinates);
-    out.writeField(Fields::kCanRemoveUnits, garrison.can_remove_units);
-  }
-
-  void JsonObjectWriter<h3m::GuardiansSvg>::operator()(FieldsWriter& out, const h3m::GuardiansSvg& guardians) const
-  {
-    using Fields = h3m::FieldNames<h3m::GuardiansSvg>;
-    out.writeField(Fields::kMessage, guardians.message);
-    if (guardians.creatures)
-    {
-      out.writeField(Fields::kCreatures, *guardians.creatures);
-    }
-  }
-
-  void JsonObjectWriter<h3m::MineSvg>::operator()(FieldsWriter& out, const h3m::MineSvg& mine) const
-  {
-    using Fields = h3m::FieldNames<h3m::MineSvg>;
-    out.writeField(Fields::kOwner, mine.owner);
-    if (std::string_view enum_str = h3m::getEnumString(mine.owner); !enum_str.empty())
-    {
-      out.writeComment(enum_str, false);
-    }
-    out.writeField(Fields::kUnknown, mine.unknown);
-    out.writeField(Fields::kCreatures, mine.creatures);
-    out.writeField(Fields::kCoordinates, mine.coordinates);
-  }
-
-  void JsonObjectWriter<h3m::MonsterSvg>::operator()(FieldsWriter& out, const h3m::MonsterSvg& monster) const
-  {
-    using Fields = h3m::FieldNames<h3m::MonsterSvg>;
-    out.writeField(Fields::kMessage, monster.message);
-    out.writeField(Fields::kResources, monster.resources);
-    out.writeField(Fields::kArtifact, monster.artifact);
-    if (std::string_view enum_str = h3m::getEnumString(monster.artifact); !enum_str.empty())
-    {
-      out.writeComment(enum_str, false);
-    }
-  }
-
-  void JsonObjectWriter<h3m::ObeliskSvg>::operator()(FieldsWriter& out, const h3m::ObeliskSvg& obelisk) const
-  {
-    using Fields = h3m::FieldNames<h3m::ObeliskSvg>;
-    out.writeField(Fields::kVisitedBy, obelisk.visited_by);
-  }
-
   void JsonObjectWriter<h3m::PlayerSvg>::operator()(FieldsWriter& out,
                                                     const h3m::PlayerSvg& player) const
   {
@@ -215,54 +99,6 @@ namespace Medea_NS
       out.writeField(Fields::kGeneratedHeroCoordinates, player.generated_hero_coordinates.value());
     }
     out.writeField(Fields::kStartingHero, player.starting_hero);
-  }
-
-  void JsonObjectWriter<h3m::QuestGuardSvg>::operator()(FieldsWriter& out,
-                                                          const h3m::QuestGuardSvg& quest_guard) const
-  {
-    using Fields = h3m::FieldNames<h3m::QuestGuardSvg>;
-    out.writeField(Fields::kQuest, quest_guard.quest);
-    out.writeField(Fields::kVisitedBy, quest_guard.visited_by);
-  }
-
-  void JsonObjectWriter<h3m::SeersHutSvg>::operator()(FieldsWriter& out, const h3m::SeersHutSvg& seers_hut) const
-  {
-    using Fields = h3m::FieldNames<h3m::SeersHutSvg>;
-    out.writeField(Fields::kQuest, seers_hut.quest);
-    out.writeField(Fields::kReward, seers_hut.reward);
-    out.writeField(Fields::kUnknown1, seers_hut.unknown1);
-    out.writeField(Fields::kVisitedBy, seers_hut.visited_by);
-    out.writeField(Fields::kUnknown2, seers_hut.unknown2);
-  }
-
-  void JsonObjectWriter<h3m::SignSvg>::operator()(FieldsWriter& out, const h3m::SignSvg& sign) const
-  {
-    using Fields = h3m::FieldNames<h3m::SignSvg>;
-    out.writeField(Fields::kMessage, sign.message);
-    out.writeField(Fields::kIsCustom, sign.is_custom);
-  }
-
-  void JsonObjectWriter<h3m::TimedEventSvg>::operator()(FieldsWriter& out,
-                                                        const h3m::TimedEventSvg& event) const
-  {
-    using Fields = h3m::FieldNames<h3m::TimedEventSvg>;
-    out.writeField(Fields::kMessage, event.message);
-    out.writeField(Fields::kResources, event.resources);
-    out.writeField(Fields::kAffectedPlayers, event.affected_players);
-    out.writeField(Fields::kAppliesToHuman, event.applies_to_human);
-    out.writeField(Fields::kAppliesToComputer, event.applies_to_computer);
-    out.writeField(Fields::kDayOfFirstOccurence, event.day_of_first_occurence);
-    out.writeField(Fields::kRepeatAfterDays, event.repeat_after_days);
-  }
-
-  void JsonObjectWriter<h3m::TownEventSvg>::operator()(FieldsWriter& out, const h3m::TownEventSvg& event) const
-  {
-    using Fields = h3m::FieldNames<h3m::TownEventSvg>;
-    JsonObjectWriter<h3m::TimedEventSvg>{}(out, event);
-    out.writeField(Fields::kUnknown1, event.unknown1);
-    out.writeField(Fields::kBuildings, event.buildings);
-    out.writeField(Fields::kUnknown2, event.unknown2);
-    out.writeField(Fields::kCreatures, event.creatures);
   }
 
   void JsonObjectWriter<h3m::RumorSvg>::operator()(FieldsWriter& out, const h3m::RumorSvg& rumor) const
@@ -350,20 +186,7 @@ namespace Medea_NS
     // TODO: print the 0-based index for each element
     out.writeField(Fields::kObjectsTemplates, saved_game.objects_templates);
     out.writeField(Fields::kObjects, saved_game.objects);
-    out.writeField(Fields::kEventsAndPandorasBoxes, saved_game.events_and_pandoras_boxes);
-    out.writeField(Fields::kArtifactsAndSpellScrolls, saved_game.artifacts_and_spell_scrolls);
-    out.writeField(Fields::kMonsters, saved_game.monsters);
-    out.writeField(Fields::kSeersHuts, saved_game.seers_huts);
-    out.writeField(Fields::kQuestGuards, saved_game.quest_guards);
-    out.writeField(Fields::kGlobalEvents, saved_game.global_events);
-    out.writeField(Fields::kTownEvents, saved_game.town_events);
-    out.writeField(Fields::kSignsAndOceanBottles, saved_game.signs_and_ocean_bottles);
-    out.writeField(Fields::kMinesAndLighthouses, saved_game.mines_and_lighthouses);
-    out.writeField(Fields::kDwellings, saved_game.dwellings);
-    out.writeField(Fields::kGarrisons, saved_game.garrisons);
-    out.writeField(Fields::kBoats, saved_game.boats);
-    out.writeField(Fields::kNumObelisks, saved_game.num_obelisks);
-    out.writeField(Fields::kObelisks, saved_game.obelisks);
+    out.writeField(Fields::kObjectPropertiesTables, saved_game.object_properties_tables);
     out.writeField(Fields::kPlayersSvg, saved_game.players_svg);
   }
 
@@ -436,12 +259,5 @@ namespace Medea_NS
     out.writeField(Fields::kObjectIdx, tile.object_idx);
     out.writeField(Fields::kObjectProperties, tile.object_properties);
     out.writeField(Fields::kObjectsToRender, tile.objects_to_render);
-  }
-
-  void JsonObjectWriter<h3m::TroopsSvg>::operator()(FieldsWriter& out, const h3m::TroopsSvg& troops) const
-  {
-    using Fields = h3m::FieldNames<h3m::TroopsSvg>;
-    out.writeField(Fields::kCreatureTypes, troops.creature_types);
-    out.writeField(Fields::kCreatureCounts, troops.creature_counts);
   }
 }

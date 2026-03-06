@@ -45,6 +45,8 @@ namespace h3m
 
     ObjectSvg readObject() const;
 
+    ObjectPropertiesTables readObjectPropertiesTables() const;
+
     ObjectTemplateSvg readObjectTemplate() const;
 
     PlayerSvg readPlayer() const;

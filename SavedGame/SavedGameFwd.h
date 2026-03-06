@@ -58,6 +58,8 @@ namespace h3m
 
   struct ObeliskSvg;
 
+  struct ObjectPropertiesTables;
+
   template<ObjectPropertiesSvgType T>
   struct ObjectPropertiesSvg;
 

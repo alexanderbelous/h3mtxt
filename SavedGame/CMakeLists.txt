@@ -8,6 +8,7 @@ set(SOURCE_LIST
     "Constants/TownType32.h"
     "EnumIndexedArray.h"
     "EventBaseSvg.h"
+    "ObjectPropertiesTables.h"
     "ObjectPropertiesSvg.h"
     "ObjectSvg.h"
     "ObjectTemplateSvg.h"

@@ -101,6 +101,25 @@ namespace h3m
   };
 
   template<>
+  struct FieldNames<ObjectPropertiesTables>
+  {
+    static constexpr std::string_view kEventsAndPandorasBoxes = "events_and_pandoras_boxes";
+    static constexpr std::string_view kArtifactsAndSpellScrolls = "artifacts_and_spell_scrolls";
+    static constexpr std::string_view kMonsters = "monsters";
+    static constexpr std::string_view kSeersHuts = "seers_huts";
+    static constexpr std::string_view kQuestGuards = "quest_guards";
+    static constexpr std::string_view kGlobalEvents = "global_events";
+    static constexpr std::string_view kTownEvents = "town_events";
+    static constexpr std::string_view kSignsAndOceanBottles = "signs_and_ocean_bottles";
+    static constexpr std::string_view kMinesAndLighthouses = "mines_and_lighthouses";
+    static constexpr std::string_view kDwellings = "dwellings";
+    static constexpr std::string_view kGarrisons = "garrisons";
+    static constexpr std::string_view kBoats = "boats";
+    static constexpr std::string_view kNumObelisks = "num_obelisks";
+    static constexpr std::string_view kObelisks = "obelisks";
+  };
+
+  template<>
   struct FieldNames<ObjectSvg>
   {
     static inline constexpr std::string_view kCoordinates = "coordinates";
@@ -204,20 +223,7 @@ namespace h3m
     static inline constexpr std::string_view kTiles = "tiles";
     static inline constexpr std::string_view kObjectsTemplates = "objects_templates";
     static inline constexpr std::string_view kObjects = "objects";
-    static inline constexpr std::string_view kEventsAndPandorasBoxes = "events_and_pandoras_boxes";
-    static inline constexpr std::string_view kArtifactsAndSpellScrolls = "artifacts_and_spell_scrolls";
-    static inline constexpr std::string_view kMonsters = "monsters";
-    static inline constexpr std::string_view kSeersHuts = "seers_huts";
-    static inline constexpr std::string_view kQuestGuards = "quest_guards";
-    static inline constexpr std::string_view kGlobalEvents = "global_events";
-    static inline constexpr std::string_view kTownEvents = "town_events";
-    static inline constexpr std::string_view kSignsAndOceanBottles = "signs_and_ocean_bottles";
-    static inline constexpr std::string_view kMinesAndLighthouses = "mines_and_lighthouses";
-    static inline constexpr std::string_view kDwellings = "dwellings";
-    static inline constexpr std::string_view kGarrisons = "garrisons";
-    static inline constexpr std::string_view kBoats = "boats";
-    static inline constexpr std::string_view kNumObelisks = "num_obelisks";
-    static inline constexpr std::string_view kObelisks = "obelisks";
+    static inline constexpr std::string_view kObjectPropertiesTables = "object_properties_tables";
     static inline constexpr std::string_view kPlayersSvg = "players_svg";
   };
 

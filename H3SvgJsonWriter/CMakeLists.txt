@@ -5,6 +5,7 @@ add_library(H3SvgJsonWriter STATIC
     "writeEnumIndexedArray.h"
     "writeH3SvgJson.cpp"
     "writeH3SvgJson.h"
+    "writeObjectPropertiesTables.cpp"
     "writeQuestSvg.cpp"
     "writeRewardSvg.cpp"
     "writeSavedGame.cpp"

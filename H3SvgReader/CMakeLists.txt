@@ -6,6 +6,7 @@ add_library(H3SvgReader STATIC
     "parseh3svg.cpp"
     "readEventBaseSvg.cpp"
     "readMapBasicInfo.cpp"
+    "readObjectPropertiesTables.cpp"
     "readObjectSvg.cpp"
     "readObjectTemplateSvg.cpp"
     "readPlayerSpecsSvg.cpp"
