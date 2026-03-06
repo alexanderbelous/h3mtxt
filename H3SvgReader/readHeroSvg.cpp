@@ -12,7 +12,8 @@ namespace h3m
     hero.is_visible = readBool();
     // TODO: use a custom class.
     hero.coordinates_packed = readInt<std::uint32_t>();
-    hero.unknown1 = readByteArray<11>();
+    hero.object_class_under = readEnum<ObjectClass>();
+    hero.unknown1 = readByteArray<7>();
     hero.biography = readString32();
     readBytes(std::as_writable_bytes(std::span{hero.unknown2}));
     readBytes(std::as_writable_bytes(std::span{hero.name}));

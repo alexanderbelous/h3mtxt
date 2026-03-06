@@ -17,7 +17,10 @@ namespace h3m
     std::int16_t z {};
     Bool is_visible {};
     std::uint32_t coordinates_packed {};
-    std::array<std::uint8_t, 11> unknown1 {};
+    // ObjectClass of the object under the hero, or ObjectClass::NONE if there is none.
+    ObjectClass object_class_under {};
+    // TODO: figure out what this is.
+    std::array<std::uint8_t, 7> unknown1 {};
     // Size is 32-bit.
     std::string biography;
     std::array<std::uint8_t, 169> unknown2 {};
