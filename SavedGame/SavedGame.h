@@ -116,6 +116,12 @@ namespace h3m
     ArtifactType8 artifact {};
   };
 
+  struct ObeliskSvg
+  {
+    // 1 bit per player, indicating whether the player has visited this Obelisk.
+    PlayersBitmask visited_by;
+  };
+
   struct QuestGuardSvg
   {
     // Note: H3SVG stores QuestType::None for completed quests.
@@ -288,10 +294,16 @@ namespace h3m
     // Boats on the Adventure Map.
     // The number of elements should not exceed 255 because in H3SVG it's serialized as an 8-bit integer.
     std::vector<BoatSvg> boats;
+    // Obelisks on the Adventure Map.
+    // As usual, H3SVG is doing stupid shit: first, the number of obelisks N is serialized as an 8-bit integer,
+    // followed by 48 bytes - 1 byte per obelisk. Only the bytes [0; N) are meaningful - the rest will likely
+    // be 0s.
+    std::uint8_t num_obelisks {};
+    std::array<ObeliskSvg, 48> obelisks;
 
     // TODO: reverse-engineer the rest.
     // The next fields are approximately:
-    // * Obelisks
+    // * PlayerInfo[8] // usually 91 bytes per player
     // * ...???
     // * Settings for each town on the Adventure Map
     // * Settings for each hero

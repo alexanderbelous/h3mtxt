@@ -95,6 +95,12 @@ namespace h3m
   };
 
   template<>
+  struct FieldNames<ObeliskSvg>
+  {
+    static constexpr std::string_view kVisitedBy = "visited_by";
+  };
+
+  template<>
   struct FieldNames<ObjectSvg>
   {
     static inline constexpr std::string_view kCoordinates = "coordinates";
@@ -197,6 +203,8 @@ namespace h3m
     static inline constexpr std::string_view kDwellings = "dwellings";
     static inline constexpr std::string_view kGarrisons = "garrisons";
     static inline constexpr std::string_view kBoats = "boats";
+    static inline constexpr std::string_view kNumObelisks = "num_obelisks";
+    static inline constexpr std::string_view kObelisks = "obelisks";
   };
 
   template<>

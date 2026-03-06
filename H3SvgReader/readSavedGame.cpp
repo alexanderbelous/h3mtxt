@@ -87,6 +87,11 @@ namespace h3m
     return monster;
   }
 
+  ObeliskSvg H3SvgReader::readObelisk() const
+  {
+    return ObeliskSvg{ .visited_by = readEnumBitmask<PlayerColor, 1>() };
+  }
+
   QuestGuardSvg H3SvgReader::readQuestGuard() const
   {
     QuestGuardSvg quest_guard;
@@ -357,6 +362,14 @@ namespace h3m
       for (std::uint32_t i = 0; i < num_boats; ++i)
       {
         saved_game.boats.push_back(readBoat());
+      }
+    }
+    // Read Obelisks (always 49 bytes).
+    {
+      saved_game.num_obelisks = readInt<std::uint8_t>();
+      for (ObeliskSvg& obelisk : saved_game.obelisks)
+      {
+        obelisk = readObelisk();
       }
     }
     // TODO: read the rest.

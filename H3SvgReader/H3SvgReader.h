@@ -41,6 +41,8 @@ namespace h3m
 
     MonsterSvg readMonster() const;
 
+    ObeliskSvg readObelisk() const;
+
     ObjectSvg readObject() const;
 
     ObjectTemplateSvg readObjectTemplate() const;

@@ -56,6 +56,8 @@ namespace h3m
 
   struct MonsterSvg;
 
+  struct ObeliskSvg;
+
   template<ObjectPropertiesSvgType T>
   struct ObjectPropertiesSvg;
 

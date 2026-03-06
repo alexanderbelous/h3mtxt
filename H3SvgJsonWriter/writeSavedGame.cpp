@@ -169,6 +169,12 @@ namespace Medea_NS
     }
   }
 
+  void JsonObjectWriter<h3m::ObeliskSvg>::operator()(FieldsWriter& out, const h3m::ObeliskSvg& obelisk) const
+  {
+    using Fields = h3m::FieldNames<h3m::ObeliskSvg>;
+    out.writeField(Fields::kVisitedBy, obelisk.visited_by);
+  }
+
   void JsonObjectWriter<h3m::PlayerSpecsSvg>::operator()(FieldsWriter& out, const h3m::PlayerSpecsSvg& player) const
   {
     using Fields = h3m::FieldNames<h3m::PlayerSpecsSvg>;
@@ -334,6 +340,8 @@ namespace Medea_NS
     out.writeField(Fields::kDwellings, saved_game.dwellings);
     out.writeField(Fields::kGarrisons, saved_game.garrisons);
     out.writeField(Fields::kBoats, saved_game.boats);
+    out.writeField(Fields::kNumObelisks, saved_game.num_obelisks);
+    out.writeField(Fields::kObelisks, saved_game.obelisks);
   }
 
   void JsonObjectWriter<h3m::ScenarioStartingInfo>::operator()(FieldsWriter& out,
