@@ -122,6 +122,9 @@ namespace h3m
     RewardSvg reward;
     std::uint8_t unknown1 {};
     PlayersBitmask visited_by;
+    // TODO: figure out what this is.
+    // Most likely: Seer's name (e.g., "Norwood", "Carsten", "Xavier", ...).
+    // This is displayed when you hover over the Seer's Hut, e.g., "Jhem the Seer (seeks 100 Vampire Lords)".
     std::uint8_t unknown2 {};
   };
 
