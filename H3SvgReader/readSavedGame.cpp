@@ -216,7 +216,8 @@ namespace h3m
     town.coordinates = readCoordinates();
     town.generated_boat_x = readInt<std::uint8_t>();
     town.generated_boat_y = readInt<std::uint8_t>();
-    town.unknown2 = readByteArray<60>();
+    town.garrison = readTroops();
+    town.unknown2 = readByteArray<4>();
     town.name = readString16();
     town.unknown3 = readByteArray<310>();
     return town;

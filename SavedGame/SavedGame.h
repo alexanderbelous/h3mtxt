@@ -86,9 +86,10 @@ namespace h3m
     // Shipyard, or {0xFF, 0xFF} if this town cannot build ships.
     std::uint8_t generated_boat_x {};
     std::uint8_t generated_boat_y {};
+    TroopsSvg garrison;
     // TODO: reverse-engineer
-    // unknown2[57] -> HeroType visiting_hero.
-    std::array<std::uint8_t, 60> unknown2 {};
+    // unknown2[1] -> HeroType visiting_hero.
+    std::array<std::uint8_t, 4> unknown2 {};
     std::string name;
     // TODO: reverse-engineer
     std::array<std::uint8_t, 310> unknown3 {};
