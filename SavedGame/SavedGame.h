@@ -7,6 +7,7 @@
 #include <h3mtxt/Map/MapAdditionalInfo.h>
 #include <h3mtxt/Map/MapBasicInfo.h>
 #include <h3mtxt/SavedGame/EnumIndexedArray.h>
+#include <h3mtxt/SavedGame/HeroSvg.h>
 #include <h3mtxt/SavedGame/ObjectPropertiesTables.h>
 #include <h3mtxt/SavedGame/ObjectSvg.h>
 #include <h3mtxt/SavedGame/ObjectTemplateSvg.h>
@@ -57,22 +58,6 @@ namespace h3m
     std::array<std::uint8_t, 85> unknown1 {};
     Resources resources;
     std::array<std::uint8_t, 19> unknown2 {};
-  };
-
-  struct HeroSvg
-  {
-    std::int16_t x {};
-    std::int16_t y {};
-    std::int16_t z {};
-    Bool is_visible {};
-    std::uint32_t coordinates_packed {};
-    std::array<std::uint8_t, 11> unknown1 {};
-    // Size is 32-bit.
-    std::string biography;
-    std::array<std::uint8_t, 169> unknown2 {};
-    // Fixed-size; only the characters before the first null terminator are significant.
-    std::array<char, 13> name {};
-    std::array<std::uint8_t, 886> unknown3 {};
   };
 
   // The equivalent of h3m::Rumor stored in the saved game.
