@@ -71,7 +71,7 @@ namespace h3m
 
   // Information about a town stored in H3SVG.
   // Credits to RoseKavalier: instead of figuring out the meaning of every byte, I followed the already
-  // reverse-engineering representation of the town in the process memory
+  // reverse-engineered representation of the town in the process memory
   //   https://github.com/RoseKavalier/H3API/blob/master/include/h3api/H3Towns/H3Town.hpp
   // and it seems that they are very similar.
   struct TownSvg
