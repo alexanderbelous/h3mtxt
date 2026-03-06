@@ -211,13 +211,17 @@ namespace h3m
     TownSvg town;
     town.id = readInt<std::uint8_t>();
     town.owner = readEnum<PlayerColor>();
-    town.unknown1 = readByteArray<2>();
+    town.built_this_turn = readBool();
+    town.unknown1 = readInt<std::uint8_t>();
     town.type = readEnum<TownType>();
     town.coordinates = readCoordinates();
     town.generated_boat_x = readInt<std::uint8_t>();
     town.generated_boat_y = readInt<std::uint8_t>();
     town.garrison = readTroops();
-    town.unknown2 = readByteArray<4>();
+    town.garrisoned_hero = readEnum<HeroType>();
+    town.visiting_hero = readEnum<HeroType>();
+    town.mage_guild_level = readInt<std::uint8_t>();
+    town.unknown2 = readInt<std::uint8_t>();
     town.name = readString16();
     for (std::uint16_t& count : town.recruits_nonupgraded)
     {

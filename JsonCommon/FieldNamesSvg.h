@@ -304,12 +304,16 @@ namespace h3m
   {
     static constexpr std::string_view kId = "id";
     static constexpr std::string_view kOwner = "owner";
+    static constexpr std::string_view kBuiltThisTurn = "built_this_turn";
     static constexpr std::string_view kUnknown1 = "unknown1";
     static constexpr std::string_view kType = "type";
     static constexpr std::string_view kCoordinates = "coordinates";
     static constexpr std::string_view kGeneratedBoatX = "generated_boat_x";
     static constexpr std::string_view kGeneratedBoatY = "generated_boat_y";
     static constexpr std::string_view kGarrison = "garrison";
+    static constexpr std::string_view kGarrisonedHero = "garrisoned_hero";
+    static constexpr std::string_view kVisitingHero = "visiting_hero";
+    static constexpr std::string_view kMageGuildLevel = "mage_guild_level";
     static constexpr std::string_view kUnknown2 = "unknown2";
     static constexpr std::string_view kName = "name";
     static constexpr std::string_view kRecruitsNonUpgraded = "recruits_nonupgraded";

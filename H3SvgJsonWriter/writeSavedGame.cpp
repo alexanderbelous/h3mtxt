@@ -229,6 +229,7 @@ namespace Medea_NS
     {
       out.writeComment(enum_str, false);
     }
+    out.writeField(Fields::kBuiltThisTurn, town.built_this_turn);
     out.writeField(Fields::kUnknown1, town.unknown1);
     out.writeField(Fields::kType, town.type);
     if (std::string_view enum_str = h3m::getEnumString(town.type); !enum_str.empty())
@@ -239,6 +240,17 @@ namespace Medea_NS
     out.writeField(Fields::kGeneratedBoatX, town.generated_boat_x);
     out.writeField(Fields::kGeneratedBoatY, town.generated_boat_y);
     out.writeField(Fields::kGarrison, town.garrison);
+    out.writeField(Fields::kGarrisonedHero, town.garrisoned_hero);
+    if (std::string_view enum_str = h3m::getEnumString(town.garrisoned_hero); !enum_str.empty())
+    {
+      out.writeComment(enum_str, false);
+    }
+    out.writeField(Fields::kVisitingHero, town.visiting_hero);
+    if (std::string_view enum_str = h3m::getEnumString(town.visiting_hero); !enum_str.empty())
+    {
+      out.writeComment(enum_str, false);
+    }
+    out.writeField(Fields::kMageGuildLevel, town.mage_guild_level);
     out.writeField(Fields::kUnknown2, town.unknown2);
     out.writeField(Fields::kName, town.name);
     out.writeField(Fields::kRecruitsNonUpgraded, town.recruits_nonupgraded);
