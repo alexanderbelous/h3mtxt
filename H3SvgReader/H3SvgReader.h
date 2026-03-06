@@ -47,6 +47,8 @@ namespace h3m
 
     ObjectTemplateSvg readObjectTemplate() const;
 
+    PlayerSvg readPlayer() const;
+
     PlayerSpecsSvg readPlayerSpecs() const;
 
     QuestSvg readQuest() const;

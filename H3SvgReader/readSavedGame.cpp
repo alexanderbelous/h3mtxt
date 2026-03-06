@@ -100,6 +100,27 @@ namespace h3m
     return quest_guard;
   }
 
+  // Seems to always be 145 bytes.
+  PlayerSvg H3SvgReader::readPlayer() const
+  {
+    PlayerSvg player;
+    player.player_color = readEnum<PlayerColor>();
+    player.num_heroes = readInt<std::uint8_t>();
+    player.active_hero = readEnum<HeroType>();
+    for (HeroType& hero : player.heroes)
+    {
+      hero = readEnum<HeroType>();
+    }
+    for (HeroType& hero : player.heroes_in_tavern)
+    {
+      hero = readEnum<HeroType>();
+    }
+    player.unknown1 = readByteArray<85>();
+    player.resources = readResources();
+    player.unknown2 = readByteArray<19>();
+    return player;
+  }
+
   RumorSvg H3SvgReader::readRumor() const
   {
     RumorSvg rumor;
@@ -371,6 +392,11 @@ namespace h3m
       {
         obelisk = readObelisk();
       }
+    }
+    // Read Players' Info.
+    for (PlayerSvg& player : saved_game.players_svg.data)
+    {
+      player = readPlayer();
     }
     // TODO: read the rest.
     return saved_game;

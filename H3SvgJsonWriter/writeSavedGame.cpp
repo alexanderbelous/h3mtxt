@@ -175,6 +175,28 @@ namespace Medea_NS
     out.writeField(Fields::kVisitedBy, obelisk.visited_by);
   }
 
+  void JsonObjectWriter<h3m::PlayerSvg>::operator()(FieldsWriter& out,
+                                                    const h3m::PlayerSvg& player) const
+  {
+    using Fields = h3m::FieldNames<h3m::PlayerSvg>;
+    out.writeField(Fields::kPlayerColor, player.player_color);
+    if (auto enum_str = h3m::getEnumString(player.player_color); !enum_str.empty())
+    {
+      out.writeComment(enum_str, false);
+    }
+    out.writeField(Fields::kNumHeroes, player.num_heroes);
+    out.writeField(Fields::kActiveHero, player.active_hero);
+    if (auto enum_str = h3m::getEnumString(player.active_hero); !enum_str.empty())
+    {
+      out.writeComment(enum_str, false);
+    }
+    out.writeField(Fields::kHeroes, player.heroes);
+    out.writeField(Fields::kHeroesInTavern, player.heroes_in_tavern);
+    out.writeField(Fields::kUnknown1, player.unknown1);
+    out.writeField(Fields::kResources, player.resources);
+    out.writeField(Fields::kUnknown2, player.unknown2);
+  }
+
   void JsonObjectWriter<h3m::PlayerSpecsSvg>::operator()(FieldsWriter& out, const h3m::PlayerSpecsSvg& player) const
   {
     using Fields = h3m::FieldNames<h3m::PlayerSpecsSvg>;
@@ -342,6 +364,7 @@ namespace Medea_NS
     out.writeField(Fields::kBoats, saved_game.boats);
     out.writeField(Fields::kNumObelisks, saved_game.num_obelisks);
     out.writeField(Fields::kObelisks, saved_game.obelisks);
+    out.writeField(Fields::kPlayersSvg, saved_game.players_svg);
   }
 
   void JsonObjectWriter<h3m::ScenarioStartingInfo>::operator()(FieldsWriter& out,

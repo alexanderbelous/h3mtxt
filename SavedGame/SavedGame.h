@@ -122,6 +122,22 @@ namespace h3m
     PlayersBitmask visited_by;
   };
 
+  // Always 145 bytes?
+  struct PlayerSvg
+  {
+    PlayerColor player_color {};
+    std::uint8_t num_heroes {};
+    // HeroType of the currently active hero, 0xFF if there is none.
+    HeroType active_hero {};
+    // All heroes on the Adventure Map (i.e. not garrisoned inside towns).
+    // If the player has fewer than 8 heroes, 0xFF is used in empty slots.
+    std::array<HeroType, 8> heroes {};
+    std::array<HeroType, 2> heroes_in_tavern {};
+    std::array<std::uint8_t, 85> unknown1 {};
+    Resources resources;
+    std::array<std::uint8_t, 19> unknown2 {};
+  };
+
   struct QuestGuardSvg
   {
     // Note: H3SVG stores QuestType::None for completed quests.
@@ -300,6 +316,7 @@ namespace h3m
     // be 0s.
     std::uint8_t num_obelisks {};
     std::array<ObeliskSvg, 48> obelisks;
+    EnumIndexedArray<PlayerColor, PlayerSvg, 8> players_svg {};
 
     // TODO: reverse-engineer the rest.
     // The next fields are approximately:

@@ -48,6 +48,10 @@ namespace Medea_NS
                                                             const h3m::ObjectTemplateSvg& object_template) const;
 
   template<>
+  void JsonObjectWriter<h3m::PlayerSvg>::operator()(FieldsWriter& out,
+                                                    const h3m::PlayerSvg& player) const;
+
+  template<>
   void JsonObjectWriter<h3m::PlayerSpecsSvg>::operator()(FieldsWriter& out,
                                                          const h3m::PlayerSpecsSvg& player_specs) const;
 

@@ -69,6 +69,8 @@ namespace h3m
 
   struct PlayerSpecsSvg;
 
+  struct PlayerSvg;
+
   struct QuestSvg;
 
   template<QuestType T>
