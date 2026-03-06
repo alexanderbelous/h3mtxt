@@ -312,6 +312,8 @@ namespace h3m
     static constexpr std::string_view kGarrison = "garrison";
     static constexpr std::string_view kUnknown2 = "unknown2";
     static constexpr std::string_view kName = "name";
+    static constexpr std::string_view kRecruitsNonUpgraded = "recruits_nonupgraded";
+    static constexpr std::string_view kRecruitsUpgraded = "recruits_upgraded";
     static constexpr std::string_view kUnknown3 = "unknown3";
   };
 

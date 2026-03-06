@@ -241,6 +241,8 @@ namespace Medea_NS
     out.writeField(Fields::kGarrison, town.garrison);
     out.writeField(Fields::kUnknown2, town.unknown2);
     out.writeField(Fields::kName, town.name);
+    out.writeField(Fields::kRecruitsNonUpgraded, town.recruits_nonupgraded);
+    out.writeField(Fields::kRecruitsUpgraded, town.recruits_upgraded);
     out.writeField(Fields::kUnknown3, town.unknown3);
   }
 

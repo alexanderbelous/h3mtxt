@@ -219,7 +219,15 @@ namespace h3m
     town.garrison = readTroops();
     town.unknown2 = readByteArray<4>();
     town.name = readString16();
-    town.unknown3 = readByteArray<310>();
+    for (std::uint16_t& count : town.recruits_nonupgraded)
+    {
+      count = readInt<std::uint16_t>();
+    }
+    for (std::uint16_t& count : town.recruits_upgraded)
+    {
+      count = readInt<std::uint16_t>();
+    }
+    town.unknown3 = readByteArray<282>();
     return town;
   }
 }
