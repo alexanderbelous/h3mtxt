@@ -27,6 +27,7 @@ namespace Medea_NS
     out.writeField(Fields::kUnknown1, hero.unknown1);
     out.writeField(Fields::kBiography, hero.biography);
     out.writeField(Fields::kUnknown2, hero.unknown2);
+    out.writeField(Fields::kArmy, hero.army);
     out.writeField(Fields::kName, hero.name);
     out.writeField(Fields::kUnknown3, hero.unknown3);
   }

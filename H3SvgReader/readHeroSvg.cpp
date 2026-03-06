@@ -16,6 +16,7 @@ namespace h3m
     hero.unknown1 = readByteArray<7>();
     hero.biography = readString32();
     readBytes(std::as_writable_bytes(std::span{hero.unknown2}));
+    hero.army = readTroops();
     readBytes(std::as_writable_bytes(std::span{hero.name}));
     readBytes(std::as_writable_bytes(std::span{hero.unknown3}));
     return hero;
