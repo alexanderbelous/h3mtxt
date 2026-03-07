@@ -91,6 +91,9 @@ namespace h3json
     static constexpr std::string_view kUnknown2 = "unknown2";
     static constexpr std::string_view kArmy = "army";
     static constexpr std::string_view kName = "name";
+    static constexpr std::string_view kSecondarySkillsLevels = "secondary_skills_levels";
+    static constexpr std::string_view kSecondarySkillsSlots = "secondary_skills_slots";
+    static constexpr std::string_view kPrimarySkills = "primary_skills";
     static constexpr std::string_view kUnknown3 = "unknown3";
     static constexpr std::string_view kArtifacts = "artifacts";
     static constexpr std::string_view kUnknown4 = "unknown4";

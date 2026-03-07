@@ -29,19 +29,20 @@ namespace Medea_NS
     }
   };
 
-  template<>
-  struct JsonObjectWriter<h3svg::EnumIndexedArray<h3m::SecondarySkillType, h3m::Bool, 28>>
+  // Partial specialization for h3m::EnumIndexedArray<h3m::SecondarySkillType, T, NumElements>
+  template<class T, std::size_t NumElements>
+  struct JsonObjectWriter<h3svg::EnumIndexedArray<h3m::SecondarySkillType, T, NumElements>>
   {
     void operator()(FieldsWriter& out,
-                    const h3svg::EnumIndexedArray<h3m::SecondarySkillType, h3m::Bool, 28>& boolmask) const
+                    const h3svg::EnumIndexedArray<h3m::SecondarySkillType, T, NumElements>& enum_indexed_array) const
     {
       // Reuse the names of fields for SecondarySkillsBitmask.
-      constexpr std::span<const std::string_view, 32> kFieldsNames =
-        h3m::FieldNames<h3m::SecondarySkillsBitmask>::kNames;
+      constexpr const auto& kFieldsNames = h3m::FieldNames<h3m::SecondarySkillsBitmask>::kNames;
+      static_assert(NumElements <= kFieldsNames.size(), "Too many elements in the array");
 
-      for (std::size_t i = 0; i < boolmask.data.size(); ++i)
+      for (std::size_t skill_idx = 0; skill_idx < enum_indexed_array.data.size(); ++skill_idx)
       {
-        out.writeField(kFieldsNames[i], boolmask.data[i]);
+        out.writeField(kFieldsNames[skill_idx], enum_indexed_array.data[skill_idx]);
       }
     }
   };

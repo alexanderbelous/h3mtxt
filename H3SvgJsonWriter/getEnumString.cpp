@@ -127,7 +127,6 @@ namespace h3svg
 
   std::string_view getEnumString(SecondarySkillType32 value) noexcept
   {
-    constexpr std::uint8_t kNumSecondarySkills = 28;
     const auto integer_value = static_cast<std::underlying_type_t<SecondarySkillType32>>(value);
     if (integer_value >= 0 && integer_value < kNumSecondarySkills)
     {

@@ -40,6 +40,15 @@ namespace h3svg
     readBytes(std::as_writable_bytes(std::span{hero.unknown2}));
     hero.army = readTroops();
     readBytes(std::as_writable_bytes(std::span{hero.name}));
+    for (std::uint8_t& level : hero.secondary_skills_levels.data)
+    {
+      level = readInt<std::uint8_t>();
+    }
+    for (std::uint8_t& slot : hero.secondary_skills_slots.data)
+    {
+      slot = readInt<std::uint8_t>();
+    }
+    hero.primary_skills = readPrimarySkills();
     readBytes(std::as_writable_bytes(std::span{hero.unknown3}));
     hero.artifacts = readHeroArtifacts();
     readBytes(std::as_writable_bytes(std::span{hero.unknown4}));

@@ -3,6 +3,12 @@
 #include <h3mtxt/SavedGame/SavedGameFwd.h>
 
 #include <h3mtxt/Map/MapFwd.h>
+#include <h3mtxt/Map/Constants/ArtifactType.h>
+#include <h3mtxt/Map/Constants/ObjectClass.h>
+#include <h3mtxt/Map/Constants/SecondarySkillType.h>
+#include <h3mtxt/Map/PrimarySkills.h>
+#include <h3mtxt/SavedGame/Constants/Constants.h>
+#include <h3mtxt/SavedGame/EnumIndexedArray.h>
 #include <h3mtxt/SavedGame/Troops.h>
 
 #include <array>
@@ -54,9 +60,14 @@ namespace h3svg
     Troops army;
     // Fixed-size; only the characters before the first null terminator are significant.
     std::array<char, 13> name {};
+    // Level for each SeconadrySkillType.
+    EnumIndexedArray<SecondarySkillType, std::uint8_t, kNumSecondarySkills> secondary_skills_levels {};
+    // Slot on the Hero Screen for each SecondarySkillType.
+    EnumIndexedArray<SecondarySkillType, std::uint8_t, kNumSecondarySkills> secondary_skills_slots {};
+    // Primary skills of the hero (equipped artifacts are taken into account).
+    PrimarySkills primary_skills;
     // TODO: figure out what this is.
-    // * bytes [56; 59] are PrimarySkills (equipped artifacts are taken into account).
-    std::array<std::uint8_t, 200> unknown3 {};
+    std::array<std::uint8_t, 140> unknown3 {};
     HeroArtifacts artifacts;
     // TODO: figure out what this is.
     std::array<std::uint8_t, 22> unknown4 {};
