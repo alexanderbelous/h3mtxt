@@ -7,14 +7,14 @@
 #include <h3mtxt/Map/MapBasicInfo.h>
 #include <h3mtxt/SavedGame/Constants/Constants.h>
 #include <h3mtxt/SavedGame/EnumIndexedArray.h>
-#include <h3mtxt/SavedGame/HeroSvg.h>
+#include <h3mtxt/SavedGame/Hero.h>
 #include <h3mtxt/SavedGame/ObjectPropertiesTables.h>
-#include <h3mtxt/SavedGame/ObjectSvg.h>
-#include <h3mtxt/SavedGame/ObjectTemplateSvg.h>
-#include <h3mtxt/SavedGame/PlayerSpecsSvg.h>
+#include <h3mtxt/SavedGame/Object.h>
+#include <h3mtxt/SavedGame/ObjectTemplate.h>
+#include <h3mtxt/SavedGame/PlayerSpecs.h>
 #include <h3mtxt/SavedGame/ScenarioStartingInfo.h>
-#include <h3mtxt/SavedGame/TileSvg.h>
-#include <h3mtxt/SavedGame/TownSvg.h>
+#include <h3mtxt/SavedGame/Tile.h>
+#include <h3mtxt/SavedGame/Town.h>
 
 #include <array>
 #include <cstdint>
@@ -31,7 +31,7 @@ namespace h3svg
   };
 
   // Always 145 bytes?
-  struct PlayerSvg
+  struct Player
   {
     PlayerColor player_color {};
     std::uint8_t num_heroes {};
@@ -47,7 +47,7 @@ namespace h3svg
   };
 
   // The equivalent of h3m::Rumor stored in the saved game.
-  struct RumorSvg
+  struct Rumor
   {
     std::string text;
     // Indicates whether this rumor has been displayed in the Tavern.
@@ -75,7 +75,7 @@ namespace h3svg
     // Basic information about the map.
     MapBasicInfo basic_info;
     // Basic information about the players.
-    EnumIndexedArray<PlayerColor, PlayerSpecsSvg, kMaxPlayers> players;
+    EnumIndexedArray<PlayerColor, PlayerSpecs, kMaxPlayers> players;
     // TODO: check that this works correctly for all victory condition types.
     VictoryCondition victory_condition;
     // TODO: check that this works correctly for all loss condition types.
@@ -114,7 +114,7 @@ namespace h3svg
     // The values seem to always be either 0x00 or 0x01; mostly 0x00.
     std::array<std::uint8_t, 256> unknown4 {};
     // Custom rumors that can appear in the Tavern.
-    std::vector<RumorSvg> rumors;
+    std::vector<Rumor> rumors;
     // Artifacts currently available in Black Markets on the Adventure Map.
     // Ideally, this should be a member of object_properties_tables, but in H3SVG it is serialized
     // immediately after rumors.
@@ -123,20 +123,20 @@ namespace h3svg
     // The number of elements should be (has_two_levels ? 2 : 1) * map_size * map_size,
     // i.e. countTiles(this->basic_info).
     // Tile (x, y, z) has the index ((z * map_size + y) * map_size + x).
-    std::vector<TileSvg> tiles;
+    std::vector<Tile> tiles;
     // "Templates" for objects on the Adventure Map.
-    std::vector<ObjectTemplateSvg> objects_templates;
+    std::vector<ObjectTemplate> objects_templates;
     // Objects on the Adventure Map.
-    std::vector<ObjectSvg> objects;
-    // Tables storing additional data for objects whose properties aren't fully described by TileSvg.
+    std::vector<Object> objects;
+    // Tables storing additional data for objects whose properties aren't fully described by Tile.
     ObjectPropertiesTables object_properties_tables;
     // Current state for each player.
-    EnumIndexedArray<PlayerColor, PlayerSvg, 8> players_svg;
+    EnumIndexedArray<PlayerColor, Player, 8> players_svg;
     // Towns on the Adventure Map.
-    std::vector<TownSvg> towns;
+    std::vector<Town> towns;
     // The number of elements must always be equal to h3m::kNumHeroes (156).
     // However, I'm not using std::array here because that would make sizeof(SavedGame) Hueg Like XBox (~160KB).
-    std::vector<HeroSvg> heroes;
+    std::vector<Hero> heroes;
 
     // TODO: reverse-engineer the rest.
     // The next fields are approximately:

@@ -8,7 +8,7 @@
 #include <h3mtxt/Map/Constants/TownType.h>
 #include <h3mtxt/Map/Coordinates.h>
 
-#include <h3mtxt/SavedGame/TroopsSvg.h>
+#include <h3mtxt/SavedGame/Troops.h>
 
 #include <array>
 #include <cstdint>
@@ -21,7 +21,7 @@ namespace h3svg
   // reverse-engineered representation of the town in the process memory
   //   https://github.com/RoseKavalier/H3API/blob/master/include/h3api/H3Towns/H3Town.hpp
   // and it seems that they are very similar.
-  struct TownSvg
+  struct Town
   {
     // 0-based index of this town in SavedGame::towns.
     std::uint8_t id {};
@@ -35,7 +35,7 @@ namespace h3svg
     // Shipyard, or {0xFF, 0xFF} if this town cannot build ships.
     std::uint8_t generated_boat_x {};
     std::uint8_t generated_boat_y {};
-    TroopsSvg garrison;
+    Troops garrison;
     // HeroType of the garrisoned hero or 0xFF if there is none.
     HeroType garrisoned_hero {};
     // HeroType of the visiting hero or 0xFF if there is none.

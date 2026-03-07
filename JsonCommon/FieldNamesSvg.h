@@ -12,13 +12,13 @@
 namespace h3json
 {
   template<>
-  struct FieldNames<h3svg::ArtifactSvg>
+  struct FieldNames<h3svg::Artifact>
   {
     static constexpr std::string_view kGuardians = "guardians";
   };
 
   template<>
-  struct FieldNames<h3svg::BoatSvg>
+  struct FieldNames<h3svg::Boat>
   {
     static constexpr std::string_view kUnknown1 = "unknown1";
     static constexpr std::string_view kObjectSubclass = "object_sublcass";
@@ -33,7 +33,7 @@ namespace h3json
   };
 
   template<>
-  struct FieldNames<h3svg::DwellingSvg>
+  struct FieldNames<h3svg::Dwelling>
   {
     static constexpr std::string_view kOwner = "owner";
     static constexpr std::string_view kObjectClass = "object_class";
@@ -46,7 +46,7 @@ namespace h3json
   };
 
   template<>
-  struct FieldNames<h3svg::GarrisonSvg>
+  struct FieldNames<h3svg::Garrison>
   {
     static constexpr std::string_view kOwner = "owner";
     static constexpr std::string_view kCreatures = "creatures";
@@ -55,14 +55,14 @@ namespace h3json
   };
 
   template<>
-  struct FieldNames<h3svg::GuardiansSvg>
+  struct FieldNames<h3svg::Guardians>
   {
     static inline constexpr std::string_view kMessage = h3m::FieldNames<h3m::Guardians>::kMessage;
     static inline constexpr std::string_view kCreatures = h3m::FieldNames<h3m::Guardians>::kCreatures;
   };
 
   template<>
-  struct FieldNames<h3svg::EventBaseSvg>
+  struct FieldNames<h3svg::EventBase>
   {
     static inline constexpr std::string_view kGuardians = h3m::FieldNames<h3m::EventBase>::kGuardians;
     static inline constexpr std::string_view kExperience = h3m::FieldNames<h3m::EventBase>::kExperience;
@@ -78,7 +78,7 @@ namespace h3json
   };
 
   template<>
-  struct FieldNames<h3svg::HeroSvg>
+  struct FieldNames<h3svg::Hero>
   {
     static constexpr std::string_view kX = "x";
     static constexpr std::string_view kY = "y";
@@ -95,7 +95,7 @@ namespace h3json
   };
 
   template<>
-  struct FieldNames<h3svg::MineSvg>
+  struct FieldNames<h3svg::Mine>
   {
     static constexpr std::string_view kOwner = "owner";
     static constexpr std::string_view kUnknown = "unknown";
@@ -104,7 +104,7 @@ namespace h3json
   };
 
   template<>
-  struct FieldNames<h3svg::MonsterSvg>
+  struct FieldNames<h3svg::Monster>
   {
     static inline constexpr std::string_view kMessage = "message";
     static inline constexpr std::string_view kResources = "resources";
@@ -112,7 +112,7 @@ namespace h3json
   };
 
   template<>
-  struct FieldNames<h3svg::ObeliskSvg>
+  struct FieldNames<h3svg::Obelisk>
   {
     static constexpr std::string_view kVisitedBy = "visited_by";
   };
@@ -137,14 +137,14 @@ namespace h3json
   };
 
   template<>
-  struct FieldNames<h3svg::ObjectSvg>
+  struct FieldNames<h3svg::Object>
   {
     static inline constexpr std::string_view kCoordinates = "coordinates";
     static inline constexpr std::string_view kTemplateIdx = "template_idx";
   };
 
   template<>
-  struct FieldNames<h3svg::ObjectTemplateSvg>
+  struct FieldNames<h3svg::ObjectTemplate>
   {
     static inline constexpr std::string_view kDef = "def";
     static inline constexpr std::string_view kWidth = "width";
@@ -160,7 +160,7 @@ namespace h3json
   };
 
   template<>
-  struct FieldNames<h3svg::PlayerSvg>
+  struct FieldNames<h3svg::Player>
   {
     static constexpr std::string_view kPlayerColor = "player_color";
     static constexpr std::string_view kNumHeroes = "num_heroes";
@@ -173,7 +173,7 @@ namespace h3json
   };
 
   template<>
-  struct FieldNames<h3svg::PlayerSpecsSvg>
+  struct FieldNames<h3svg::PlayerSpecs>
   {
     static inline constexpr std::string_view kCanBeHuman = "can_be_human";
     static inline constexpr std::string_view kCanBeComputer = "can_be_computer";
@@ -185,27 +185,27 @@ namespace h3json
   };
 
   template<>
-  struct FieldNames<h3svg::QuestSvg> : h3m::FieldNames<h3m::Quest>
+  struct FieldNames<h3svg::Quest> : h3m::FieldNames<h3m::Quest>
   {
     // Same fields as for h3m::Quest, plus 1 currently unknown 2-byte field.
     static constexpr std::string_view kUnknown = "unknown";
   };
 
   template<>
-  struct FieldNames<h3svg::QuestGuardSvg>
+  struct FieldNames<h3svg::QuestGuard>
   {
     static constexpr std::string_view kQuest = "quest";
     static constexpr std::string_view kVisitedBy = "visited_by";
   };
 
   template<>
-  struct FieldNames<h3svg::RewardSvg> : h3m::FieldNames<h3m::Reward>
+  struct FieldNames<h3svg::Reward> : h3m::FieldNames<h3m::Reward>
   {
     // Same fields as for h3m::Reward.
   };
 
   template<>
-  struct FieldNames<h3svg::RumorSvg>
+  struct FieldNames<h3svg::Rumor>
   {
     static inline constexpr std::string_view kText = "text";
     static inline constexpr std::string_view kHasBeenShown = "has_been_shown";
@@ -262,7 +262,7 @@ namespace h3json
   };
 
   template<>
-  struct FieldNames<h3svg::SeersHutSvg>
+  struct FieldNames<h3svg::SeersHut>
   {
     static constexpr std::string_view kQuest = "quest";
     static constexpr std::string_view kReward = "reward";
@@ -272,14 +272,14 @@ namespace h3json
   };
 
   template<>
-  struct FieldNames<h3svg::SignSvg>
+  struct FieldNames<h3svg::Sign>
   {
     static constexpr std::string_view kMessage = "message";
     static constexpr std::string_view kIsCustom = "is_custom";
   };
 
   template<>
-  struct FieldNames<h3svg::TileSvg>
+  struct FieldNames<h3svg::Tile>
   {
     static inline constexpr std::string_view kTerrainType = "terrain_type";
     static inline constexpr std::string_view kTerrainSprite = "terrain_sprite";
@@ -297,7 +297,7 @@ namespace h3json
   };
 
   template<>
-  struct FieldNames<h3svg::TimedEventSvg>
+  struct FieldNames<h3svg::TimedEvent>
   {
     static constexpr std::string_view kMessage = h3m::FieldNames<h3m::TimedEvent>::kMessage;
     static constexpr std::string_view kResources = h3m::FieldNames<h3m::TimedEvent>::kResources;
@@ -309,7 +309,7 @@ namespace h3json
   };
 
   template<>
-  struct FieldNames<h3svg::TownEventSvg> : FieldNames<h3svg::TimedEventSvg>
+  struct FieldNames<h3svg::TownEvent> : FieldNames<h3svg::TimedEvent>
   {
     static constexpr std::string_view kUnknown1 = "unknown1";
     static constexpr std::string_view kBuildings = "buildings";
@@ -318,7 +318,7 @@ namespace h3json
   };
 
   template<>
-  struct FieldNames<h3svg::TownSvg>
+  struct FieldNames<h3svg::Town>
   {
     static constexpr std::string_view kId = "id";
     static constexpr std::string_view kOwner = "owner";
@@ -340,7 +340,7 @@ namespace h3json
   };
 
   template<>
-  struct FieldNames<h3svg::TroopsSvg>
+  struct FieldNames<h3svg::Troops>
   {
     static inline constexpr std::string_view kCreatureTypes = "creature_types";
     static inline constexpr std::string_view kCreatureCounts = "creature_counts";

@@ -8,9 +8,9 @@
 // Forward declarations of some types used in h3svg::SavedGame.
 //
 // Note that SavedGame uses a different namespace than Map. This is due to the fact that some
-// structures are represented differently in H3SVG than they are in H3M.
-//
-// TODO: get rid of "Svg" suffixes.
+// structures are represented differently in H3SVG than they are in H3M - for example,
+// h3svg::Tile is different from h3m::Tile because in H3SVG tiles store much more data than
+// in H3M.
 namespace h3svg
 {
   // Reuse some types from H3M.
@@ -64,7 +64,7 @@ namespace h3svg
   enum class ObjectClass16 : std::uint16_t;
 
   // No explicit underlying type because this enum is not serialized anywhere in H3SVG.
-  enum class ObjectPropertiesSvgType;
+  enum class ObjectPropertiesType;
 
   enum class PlayerControlType : std::int8_t;
 
@@ -85,72 +85,72 @@ namespace h3svg
   template<class Enum, class T, std::size_t NumElements>
   struct EnumIndexedArray;
 
-  struct ArtifactSvg;
+  struct Artifact;
 
   struct BlackMarket;
 
-  struct BoatSvg;
+  struct Boat;
 
-  struct DwellingSvg;
+  struct Dwelling;
 
-  struct EventBaseSvg;
+  struct EventBase;
 
-  struct GarrisonSvg;
+  struct Garrison;
 
-  struct GuardiansSvg;
+  struct Guardians;
 
-  struct HeroSvg;
+  struct Hero;
 
-  struct MineSvg;
+  struct Mine;
 
-  struct MonsterSvg;
+  struct Monster;
 
-  struct ObeliskSvg;
+  struct Obelisk;
 
   struct ObjectPropertiesTables;
 
-  template<ObjectPropertiesSvgType T>
-  struct ObjectPropertiesSvg;
+  template<ObjectPropertiesType T>
+  struct ObjectProperties;
 
-  struct ObjectPropertiesSvgVariant;
+  struct ObjectPropertiesVariant;
 
-  struct ObjectSvg;
+  struct Object;
 
-  struct ObjectTemplateSvg;
+  struct ObjectTemplate;
 
-  struct PlayerSpecsSvg;
+  struct PlayerSpecs;
 
-  struct PlayerSvg;
+  struct Player;
 
-  struct QuestSvg;
+  struct Quest;
 
   template<QuestType T>
-  struct QuestDetailsSvg;
+  struct QuestDetails;
 
-  struct QuestGuardSvg;
+  struct QuestGuard;
 
-  struct RewardSvg;
+  struct Reward;
 
   template<RewardType T>
-  struct RewardDetailsSvg;
+  struct RewardDetails;
 
-  struct RumorSvg;
+  struct Rumor;
 
   struct SavedGame;
 
   struct ScenarioStartingInfo;
 
-  struct SeersHutSvg;
+  struct SeersHut;
 
-  struct SignSvg;
+  struct Sign;
 
-  struct TileSvg;
+  struct Tile;
 
-  struct TimedEventSvg;
+  struct TimedEvent;
 
-  struct TownEventSvg;
+  struct TownEvent;
 
-  struct TownSvg;
+  struct Town;
 
-  struct TroopsSvg;
+  struct Troops;
 }

@@ -7,9 +7,9 @@
 #include <h3mtxt/Map/Utils/EnumBitmask.h>
 #include <h3mtxt/Map/Coordinates.h>
 #include <h3mtxt/Map/Resources.h>
-#include <h3mtxt/SavedGame/EventBaseSvg.h>
-#include <h3mtxt/SavedGame/QuestSvg.h>
-#include <h3mtxt/SavedGame/RewardSvg.h>
+#include <h3mtxt/SavedGame/EventBase.h>
+#include <h3mtxt/SavedGame/Quest.h>
+#include <h3mtxt/SavedGame/Reward.h>
 
 #include <array>
 #include <cstdint>
@@ -20,9 +20,9 @@ namespace h3svg
 {
   // The equivalent of ObjectProperties<ObjectPropertiesType::ARTIFACT> in H3SVG.
   // Unlike H3M, guardians are not optional here.
-  struct ArtifactSvg
+  struct Artifact
   {
-    GuardiansSvg guardians;
+    Guardians guardians;
   };
 
   // Yet another idiotic format.
@@ -32,7 +32,7 @@ namespace h3svg
   // 3) AFAIU, if the hero dies on a boat, the boat is not removed from the table.
   //
   // This is almost as bad as Tile::object_properties. Seriously, who fucking designed H3SVG?
-  struct BoatSvg
+  struct Boat
   {
     // unknown[1] seems to be the boat ID, i.e. the index of the boat in SavedGame::boats.
     // Why the fuck is it serialized at all?
@@ -56,7 +56,7 @@ namespace h3svg
     std::array<std::uint8_t, 14> unknown2 {};
   };
 
-  struct DwellingSvg
+  struct Dwelling
   {
     PlayerColor owner {};
     //// CREATURE_GENERATOR1 or CREATURE_GENERATOR4
@@ -67,19 +67,19 @@ namespace h3svg
     std::array<std::uint16_t, 4> creature_counts {};
     Coordinates coordinates;
     // Creatures guarding this dwelling.
-    TroopsSvg guardians {};
+    Troops guardians {};
     std::uint8_t unknown {};
   };
 
-  struct GarrisonSvg
+  struct Garrison
   {
     PlayerColor owner {};
-    TroopsSvg creatures;
+    Troops creatures;
     Coordinates coordinates;
     Bool can_remove_units {};
   };
 
-  struct MineSvg
+  struct Mine
   {
     PlayerColor owner {};
     // TODO: replace with something type-safe.
@@ -87,11 +87,11 @@ namespace h3svg
     // * For lighthouses - stores {100, 0}.
     // * For abandoned mines - stores {ResourceType, 1}
     std::array<std::uint8_t, 2> unknown {};
-    TroopsSvg creatures;
+    Troops creatures;
     Coordinates coordinates;
   };
 
-  struct MonsterSvg
+  struct Monster
   {
     // Serialized in H3SVG as a length-prefixed string, with length being serialized as a 16-bit little-endian integer.
     std::string message;
@@ -100,26 +100,26 @@ namespace h3svg
     ArtifactType8 artifact {};
   };
 
-  struct ObeliskSvg
+  struct Obelisk
   {
     // 1 bit per player, indicating whether the player has visited this Obelisk.
     PlayersBitmask visited_by;
   };
 
-  struct QuestGuardSvg
+  struct QuestGuard
   {
     // Note: H3SVG stores QuestType::None for completed quests.
-    QuestSvg quest;
+    Quest quest;
     // 1 bit per player, indicating whether the player has visited this Quest Guard.
     PlayersBitmask visited_by;
   };
 
-  struct SeersHutSvg
+  struct SeersHut
   {
     // Note: H3SVG stores QuestType::None for completed quests.
-    QuestSvg quest;
+    Quest quest;
     // Reward, on the other hand, remains unchanged for completed quests.
-    RewardSvg reward;
+    Reward reward;
     std::uint8_t unknown1 {};
     PlayersBitmask visited_by;
     // TODO: figure out what this is.
@@ -128,7 +128,7 @@ namespace h3svg
     std::uint8_t unknown2 {};
   };
 
-  struct SignSvg
+  struct Sign
   {
     std::string message;
     // 0 if a random default message should be displayed, 1 otherwise.
@@ -141,7 +141,7 @@ namespace h3svg
   // The equivalent of h3m::TimedEvent stored in the saved game.
   //
   // This is nearly identical to h3m::TimedEvent, except that `name` and `unknown` are missing.
-  struct TimedEventSvg
+  struct TimedEvent
   {
     std::string message;
     // Given/taken resources.
@@ -156,7 +156,7 @@ namespace h3svg
   };
 
   // The equivalent of h3m::TownEvent stored in the saved game.
-  struct TownEventSvg : TimedEventSvg
+  struct TownEvent : TimedEvent
   {
     std::uint8_t unknown1 {};
     // 1 bit per TownBuildingType indicating whether the building gets built.
@@ -169,10 +169,10 @@ namespace h3svg
   // Tables that store additional properties for objects of certain types.
   //
   // In H3SVG the properties of an object are stored in 3 places:
-  // * ObjectTemplateSvg, which describes the shared immutable properties of the object -
+  // * ObjectTemplate, which describes the shared immutable properties of the object -
   //   objects that use the same template share those properties.
-  // * TileSvg, which stored 2+4 bytes that describe the properties of the object.
-  //   For some objects that's not enough though, in which case TileSvg stores the index
+  // * Tile, which stored 2+4 bytes that describe the properties of the object.
+  //   For some objects that's not enough though, in which case Tile stores the index
   //   of the relevant element in a specific array of additional structures.
   // * ObjectPropertiesTables, which stores the above-mentioned arrays of additional structures.
   //
@@ -182,44 +182,44 @@ namespace h3svg
   struct ObjectPropertiesTables
   {
     // Events and Pandora's Boxes on the Adventure Map.
-    std::vector<EventBaseSvg> events_and_pandoras_boxes;
+    std::vector<EventBase> events_and_pandoras_boxes;
     // Artifacts and Spell scrolls on the Adventure Map.
     // FYI: it seems that the elements are persistent: they are not deleted even after a hero picks them up.
     // Guardians are mutable though.
     // TODO: rename to point out that this also includes resources on the adventure map.
     //       Tile::object_properties stores the quantity, but message&guardians are stored here.
-    std::vector<ArtifactSvg> artifacts_and_spell_scrolls;
+    std::vector<Artifact> artifacts_and_spell_scrolls;
     // Wandering creatures on the Adventure Map.
     // TODO: consider renaming; this seems more like "monsters with custom message or treasure".
-    std::vector<MonsterSvg> monsters;
+    std::vector<Monster> monsters;
     // Seer's Huts.
-    std::vector<SeersHutSvg> seers_huts;
+    std::vector<SeersHut> seers_huts;
     // Quest guards.
-    std::vector<QuestGuardSvg> quest_guards;
+    std::vector<QuestGuard> quest_guards;
     // Global events (called "Timed Events" in the Map Editor).
     // FYI: it seems that HD mod appends one event to the end of this array.
     // The message looks like Base64-encoded data, but the meaning is unclear.
     // Perhaps, BIG BARATORCH IS WATCHING YOU.
-    std::vector<TimedEventSvg> global_events;
+    std::vector<TimedEvent> global_events;
     // Timed Events affecting a specific town.
-    std::vector<TownEventSvg> town_events;
+    std::vector<TownEvent> town_events;
     // Signs and Ocean Bottles on the Adventure Map.
-    std::vector<SignSvg> signs_and_ocean_bottles;
+    std::vector<Sign> signs_and_ocean_bottles;
     // Mines, Abandoned Mines and Lighthouses
-    std::vector<MineSvg> mines_and_lighthouses;
+    std::vector<Mine> mines_and_lighthouses;
     // Creature Dwellings.
-    std::vector<DwellingSvg> dwellings;
+    std::vector<Dwelling> dwellings;
     // Garrisons on the Adventure Map.
     // The number of elements should not exceed 255 because in H3SVG it's serialized as an 8-bit integer.
-    std::vector<GarrisonSvg> garrisons;
+    std::vector<Garrison> garrisons;
     // Boats on the Adventure Map.
     // The number of elements should not exceed 255 because in H3SVG it's serialized as an 8-bit integer.
-    std::vector<BoatSvg> boats;
+    std::vector<Boat> boats;
     // Obelisks on the Adventure Map.
     // As usual, H3SVG is doing stupid shit: first, the number of obelisks N is serialized as an 8-bit integer,
     // followed by 48 bytes - 1 byte per obelisk. Only the bytes [0; N) are meaningful - the rest will likely
     // be 0s.
     std::uint8_t num_obelisks {};
-    std::array<ObeliskSvg, 48> obelisks;
+    std::array<Obelisk, 48> obelisks;
   };
 }

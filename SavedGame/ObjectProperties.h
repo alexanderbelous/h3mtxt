@@ -3,7 +3,7 @@
 #include <h3mtxt/SavedGame/SavedGameFwd.h>
 
 #include <h3mtxt/Map/Utils/ReservedData.h>
-#include <h3mtxt/SavedGame/Constants/ObjectPropertiesSvgType.h>
+#include <h3mtxt/SavedGame/Constants/ObjectPropertiesType.h>
 
 #include <cstdint>
 #include <variant>
@@ -17,7 +17,7 @@ namespace h3svg
   // artifact that you will be rewarded with.
   //
   // In H3SVG this is always serialized as 4 bytes and fields are often packed. Every tile on the
-  // Adventure Map stores such an array of 4 bytes (see h3m::TileSvg::object_properties):
+  // Adventure Map stores such an array of 4 bytes (see h3svg::Tile::object_properties):
   // * If there is no object on the tile, the values are usually 0x00000000.
   // * If there is an object and this is an actionable tile, these bytes store the properties.
   // * Otherwise (if there is an object but the tile is not actionable), the behavior varies:
@@ -40,7 +40,7 @@ namespace h3svg
   //
   // Who fucking writes code like that?!
   //
-  // Possible solution: add ObjectPropertiesSvgType::JunkBytes, which is always serialized as
+  // Possible solution: add ObjectPropertiesType::JunkBytes, which is always serialized as
   // 0xFFFFFFFF. This is still lame - it means that for most ObjectClasses there are 2 valid
   // alternatives in std::variant. Alternatively - rename it to RawBytes and allow setting
   // arbitrary values to the stored bytes.
@@ -49,26 +49,26 @@ namespace h3svg
   //   object_class, or a JSON array of 4 integers whose values are within [0; 255].
 
   template<>
-  struct ObjectPropertiesSvg<ObjectPropertiesSvgType::None>
+  struct ObjectProperties<ObjectPropertiesType::None>
   {
     ReservedData<4> reserved;
   };
 
   template<>
-  struct ObjectPropertiesSvg<ObjectPropertiesSvgType::BlackMarket>
+  struct ObjectProperties<ObjectPropertiesType::BlackMarket>
   {
     // 0-based index of the element in SavedGame::black_markets.
     std::uint32_t black_market_idx {};
   };
 
-  struct ObjectPropertiesSvgVariant
+  struct ObjectPropertiesVariant
   {
     using Details = std::variant<
-      ObjectPropertiesSvg<ObjectPropertiesSvgType::None>,
-      ObjectPropertiesSvg<ObjectPropertiesSvgType::BlackMarket>
-      //ObjectPropertiesSvg<ObjectPropertiesSvgType::WitchHut>
+      ObjectProperties<ObjectPropertiesType::None>,
+      ObjectProperties<ObjectPropertiesType::BlackMarket>
+      //ObjectProperties<ObjectPropertiesType::WitchHut>
     >;
 
-    Details details = ObjectPropertiesSvg<ObjectPropertiesSvgType::None>{};
+    Details details = ObjectProperties<ObjectPropertiesType::None>{};
   };
 }

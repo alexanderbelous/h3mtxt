@@ -1,11 +1,11 @@
 #include <h3mtxt/H3SvgReader/H3SvgReader.h>
-#include <h3mtxt/SavedGame/ObjectSvg.h>
+#include <h3mtxt/SavedGame/Object.h>
 
 namespace h3svg
 {
-  ObjectSvg H3SvgReader::readObject() const
+  Object H3SvgReader::readObject() const
   {
-    ObjectSvg object;
+    Object object;
     object.coordinates = readCoordinates();
     object.template_idx = readInt<std::uint16_t>();
     return object;

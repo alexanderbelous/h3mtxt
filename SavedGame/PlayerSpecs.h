@@ -10,7 +10,7 @@
 namespace h3svg
 {
   // The equivalent of h3m::PlayersSpecs stored in the saved game.
-  struct PlayerSpecsSvg
+  struct PlayerSpecs
   {
     Bool can_be_human {};
     Bool can_be_computer {};

@@ -4,15 +4,15 @@
 
 namespace h3svg
 {
-  ArtifactSvg H3SvgReader::readArtifact() const
+  Artifact H3SvgReader::readArtifact() const
   {
-    return ArtifactSvg{ .guardians = readGuardians() };
+    return Artifact{ .guardians = readGuardians() };
   }
 
-  BoatSvg H3SvgReader::readBoat() const
+  Boat H3SvgReader::readBoat() const
   {
     // Always 28 bytes, apparently.
-    BoatSvg boat;
+    Boat boat;
     boat.unknown1 = readByteArray<2>();
     boat.object_sublcass = readInt<std::uint8_t>();
     boat.direction = readInt<std::uint8_t>();
@@ -26,9 +26,9 @@ namespace h3svg
     return boat;
   }
 
-  DwellingSvg H3SvgReader::readDwelling() const
+  Dwelling H3SvgReader::readDwelling() const
   {
-    DwellingSvg dwelling;
+    Dwelling dwelling;
     dwelling.owner = readEnum<PlayerColor>();
     dwelling.object_class = readInt<std::uint8_t>();
     dwelling.object_subclass = readInt<std::uint8_t>();
@@ -46,9 +46,9 @@ namespace h3svg
     return dwelling;
   }
 
-  GarrisonSvg H3SvgReader::readGarrison() const
+  Garrison H3SvgReader::readGarrison() const
   {
-    GarrisonSvg garrison;
+    Garrison garrison;
     garrison.owner = readEnum<PlayerColor>();
     garrison.creatures = readTroops();
     garrison.coordinates = readCoordinates();
@@ -56,9 +56,9 @@ namespace h3svg
     return garrison;
   }
 
-  MineSvg H3SvgReader::readMine() const
+  Mine H3SvgReader::readMine() const
   {
-    MineSvg mine;
+    Mine mine;
     mine.owner = readEnum<PlayerColor>();
     mine.unknown = readByteArray<2>();
     mine.creatures = readTroops();
@@ -66,32 +66,32 @@ namespace h3svg
     return mine;
   }
 
-  MonsterSvg H3SvgReader::readMonster() const
+  Monster H3SvgReader::readMonster() const
   {
-    MonsterSvg monster;
+    Monster monster;
     monster.message = readString16();
     monster.resources = readResources();
     monster.artifact = readEnum<ArtifactType8>();
     return monster;
   }
 
-  ObeliskSvg H3SvgReader::readObelisk() const
+  Obelisk H3SvgReader::readObelisk() const
   {
-    return ObeliskSvg{ .visited_by = readEnumBitmask<PlayerColor, 1>() };
+    return Obelisk{ .visited_by = readEnumBitmask<PlayerColor, 1>() };
   }
 
-  QuestGuardSvg H3SvgReader::readQuestGuard() const
+  QuestGuard H3SvgReader::readQuestGuard() const
   {
-    QuestGuardSvg quest_guard;
+    QuestGuard quest_guard;
     quest_guard.quest = readQuest();
     quest_guard.visited_by = readEnumBitmask<PlayerColor, 1>();
     return quest_guard;
   }
 
 
-  SeersHutSvg H3SvgReader::readSeersHut() const
+  SeersHut H3SvgReader::readSeersHut() const
   {
-    SeersHutSvg seers_hut;
+    SeersHut seers_hut;
     seers_hut.quest = readQuest();
     seers_hut.reward = readReward();
     seers_hut.unknown1 = readInt<std::uint8_t>();
@@ -100,17 +100,17 @@ namespace h3svg
     return seers_hut;
   }
 
-  SignSvg H3SvgReader::readSign() const
+  Sign H3SvgReader::readSign() const
   {
-    SignSvg sign;
+    Sign sign;
     sign.message = readString16();
     sign.is_custom = readBool();
     return sign;
   }
 
-  TimedEventSvg H3SvgReader::readTimedEvent() const
+  TimedEvent H3SvgReader::readTimedEvent() const
   {
-    TimedEventSvg event;
+    TimedEvent event;
     event.message = readString16();
     event.resources = readResources();
     event.affected_players = readEnumBitmask<PlayerColor, 1>();
@@ -121,9 +121,9 @@ namespace h3svg
     return event;
   }
 
-  TownEventSvg H3SvgReader::readTownEvent() const
+  TownEvent H3SvgReader::readTownEvent() const
   {
-    TownEventSvg town_event{ readTimedEvent() };
+    TownEvent town_event{ readTimedEvent() };
     town_event.unknown1 = readInt<std::uint8_t>();
     town_event.buildings = readEnumBitmask<TownBuildingType, 6>();
     town_event.unknown2 = readByteArray<2>();
@@ -250,7 +250,7 @@ namespace h3svg
     // Read Obelisks (always 49 bytes).
     {
       tables.num_obelisks = readInt<std::uint8_t>();
-      for (ObeliskSvg& obelisk : tables.obelisks)
+      for (Obelisk& obelisk : tables.obelisks)
       {
         obelisk = readObelisk();
       }

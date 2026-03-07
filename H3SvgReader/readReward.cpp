@@ -1,6 +1,6 @@
 #include <h3mtxt/H3SvgReader/H3SvgReader.h>
 #include <h3mtxt/Map/Utils/EnumSequence.h>
-#include <h3mtxt/SavedGame/RewardSvg.h>
+#include <h3mtxt/SavedGame/Reward.h>
 
 #include <array>
 #include <stdexcept>
@@ -14,15 +14,15 @@ namespace h3svg
     using ::h3m::MakeEnumSequence;
 
     template<RewardType T>
-    RewardSvg::Details readRewardDetailsAsVariant(const H3SvgReader& reader)
+    Reward::Details readRewardDetailsAsVariant(const H3SvgReader& reader)
     {
-      return RewardSvg::Details{ reader.readRewardDetails<T>() };
+      return Reward::Details{ reader.readRewardDetails<T>() };
     }
 
-    RewardSvg::Details readRewardDetailsVariant(const H3SvgReader& reader, RewardType reward_type)
+    Reward::Details readRewardDetailsVariant(const H3SvgReader& reader, RewardType reward_type)
     {
-      // Type of a pointer to a function that takes const H3SvgReader& and returns RewardSvg::Details.
-      using ReadRewardDetailsPtr = RewardSvg::Details(*)(const H3SvgReader& reader);
+      // Type of a pointer to a function that takes const H3SvgReader& and returns Reward::Details.
+      using ReadRewardDetailsPtr = Reward::Details(*)(const H3SvgReader& reader);
       // Generate (at compile time) an array of function pointers for each instantiation of
       // readRewardDetailsAsVariant() ordered by RewardType.
       static constexpr std::array<ReadRewardDetailsPtr, kNumRewardTypes> kRewardDetailsReaders =
@@ -41,13 +41,13 @@ namespace h3svg
   }
 
   template<>
-  RewardDetailsSvg<RewardType::None> H3SvgReader::readRewardDetails() const
+  RewardDetails<RewardType::None> H3SvgReader::readRewardDetails() const
   {
     return { .reserved = readReservedData<8>() };
   }
 
   template<>
-  RewardDetailsSvg<RewardType::Experience> H3SvgReader::readRewardDetails() const
+  RewardDetails<RewardType::Experience> H3SvgReader::readRewardDetails() const
   {
     return {
       .experience = readInt<int32_t>(),
@@ -56,7 +56,7 @@ namespace h3svg
   }
 
   template<>
-  RewardDetailsSvg<RewardType::SpellPoints> H3SvgReader::readRewardDetails() const
+  RewardDetails<RewardType::SpellPoints> H3SvgReader::readRewardDetails() const
   {
     return {
       .spell_points = readInt<int32_t>(),
@@ -65,7 +65,7 @@ namespace h3svg
   }
 
   template<>
-  RewardDetailsSvg<RewardType::Morale> H3SvgReader::readRewardDetails() const
+  RewardDetails<RewardType::Morale> H3SvgReader::readRewardDetails() const
   {
     return {
       .morale = readInt<int32_t>(),
@@ -74,7 +74,7 @@ namespace h3svg
   }
 
   template<>
-  RewardDetailsSvg<RewardType::Luck> H3SvgReader::readRewardDetails() const
+  RewardDetails<RewardType::Luck> H3SvgReader::readRewardDetails() const
   {
     return {
       .luck = readInt<int32_t>(),
@@ -83,7 +83,7 @@ namespace h3svg
   }
 
   template<>
-  RewardDetailsSvg<RewardType::Resource> H3SvgReader::readRewardDetails() const
+  RewardDetails<RewardType::Resource> H3SvgReader::readRewardDetails() const
   {
     return {
       .type = readEnum<ResourceType32>(),
@@ -92,7 +92,7 @@ namespace h3svg
   }
 
   template<>
-  RewardDetailsSvg<RewardType::PrimarySkill> H3SvgReader::readRewardDetails() const
+  RewardDetails<RewardType::PrimarySkill> H3SvgReader::readRewardDetails() const
   {
     return {
       .type = readEnum<PrimarySkillType32>(),
@@ -101,7 +101,7 @@ namespace h3svg
   }
 
   template<>
-  RewardDetailsSvg<RewardType::SecondarySkill> H3SvgReader::readRewardDetails() const
+  RewardDetails<RewardType::SecondarySkill> H3SvgReader::readRewardDetails() const
   {
     return {
       .type = readEnum<SecondarySkillType32>(),
@@ -110,7 +110,7 @@ namespace h3svg
   }
 
   template<>
-  RewardDetailsSvg<RewardType::Artifact> H3SvgReader::readRewardDetails() const
+  RewardDetails<RewardType::Artifact> H3SvgReader::readRewardDetails() const
   {
     return {
       .artifact = readEnum<ArtifactType32>(),
@@ -119,7 +119,7 @@ namespace h3svg
   }
 
   template<>
-  RewardDetailsSvg<RewardType::Spell> H3SvgReader::readRewardDetails() const
+  RewardDetails<RewardType::Spell> H3SvgReader::readRewardDetails() const
   {
     return {
       .spell = readEnum<SpellType32>(),
@@ -128,7 +128,7 @@ namespace h3svg
   }
 
   template<>
-  RewardDetailsSvg<RewardType::Creature> H3SvgReader::readRewardDetails() const
+  RewardDetails<RewardType::Creature> H3SvgReader::readRewardDetails() const
   {
     return {
       .type = readEnum<CreatureType32>(),
@@ -136,13 +136,13 @@ namespace h3svg
     };
   }
 
-  RewardSvg H3SvgReader::readReward() const
+  Reward H3SvgReader::readReward() const
   {
     const std::uint32_t reward_type_idx = readInt<std::uint32_t>();
     if (reward_type_idx >= kNumRewardTypes)
     {
       throw std::runtime_error("H3SvgReader::readReward(): invalid RewardType.");
     }
-    return RewardSvg{ .details = readRewardDetailsVariant(*this, static_cast<RewardType>(reward_type_idx)) };
+    return Reward{ .details = readRewardDetailsVariant(*this, static_cast<RewardType>(reward_type_idx)) };
   }
 }

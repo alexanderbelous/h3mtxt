@@ -1,5 +1,5 @@
 #include <h3mtxt/H3SvgReader/H3SvgReader.h>
-#include <h3mtxt/SavedGame/PlayerSpecsSvg.h>
+#include <h3mtxt/SavedGame/PlayerSpecs.h>
 
 namespace h3svg
 {
@@ -15,9 +15,9 @@ namespace h3svg
     return starting_hero;
   }
 
-  PlayerSpecsSvg H3SvgReader::readPlayerSpecs() const
+  PlayerSpecs H3SvgReader::readPlayerSpecs() const
   {
-    PlayerSpecsSvg player;
+    PlayerSpecs player;
     player.can_be_human = readBool();
     player.can_be_computer = readBool();
     player.behavior = readEnum<PlayerBehavior>();

@@ -1,6 +1,6 @@
 #include <h3mtxt/H3SvgReader/H3SvgReader.h>
 #include <h3mtxt/Map/Utils/EnumSequence.h>
-#include <h3mtxt/SavedGame/QuestSvg.h>
+#include <h3mtxt/SavedGame/Quest.h>
 
 #include <array>
 
@@ -13,15 +13,15 @@ namespace h3svg
     using ::h3m::MakeEnumSequence;
 
     template<QuestType T>
-    QuestSvg::Details readQuestDetailsAsVariant(const H3SvgReader& reader)
+    Quest::Details readQuestDetailsAsVariant(const H3SvgReader& reader)
     {
-      return QuestSvg::Details{ reader.readQuestDetails<T>() };
+      return Quest::Details{ reader.readQuestDetails<T>() };
     }
 
-    QuestSvg::Details readQuestDetailsVariant(const H3SvgReader& reader, QuestType quest_type)
+    Quest::Details readQuestDetailsVariant(const H3SvgReader& reader, QuestType quest_type)
     {
-      // Type of a pointer to a function that takes const H3SvgReader& and returns QuestSvg::Details.
-      using ReadQuestDetailsPtr = QuestSvg::Details(*)(const H3SvgReader& reader);
+      // Type of a pointer to a function that takes const H3SvgReader& and returns Quest::Details.
+      using ReadQuestDetailsPtr = Quest::Details(*)(const H3SvgReader& reader);
       // Generate (at compile time) an array of function pointers for each instantiation of
       // readQuestDetailsAsVariant() ordered by QuestType.
       constexpr std::array<ReadQuestDetailsPtr, kNumQuestTypes> kQuestDetailsReaders =
@@ -40,37 +40,37 @@ namespace h3svg
   }
 
   template<>
-  QuestDetailsSvg<QuestType::None> H3SvgReader::readQuestDetails() const
+  QuestDetails<QuestType::None> H3SvgReader::readQuestDetails() const
   {
     return {};
   }
 
   template<>
-  QuestDetailsSvg<QuestType::Level> H3SvgReader::readQuestDetails() const
+  QuestDetails<QuestType::Level> H3SvgReader::readQuestDetails() const
   {
-    return QuestDetailsSvg<QuestType::Level> { .level = readInt<std::int16_t>() };
+    return QuestDetails<QuestType::Level> { .level = readInt<std::int16_t>() };
   }
 
   // TODO: reuse the implementations for h3m::QuestDetails where applicable.
   template<>
-  QuestDetailsSvg<QuestType::PrimarySkills> H3SvgReader::readQuestDetails() const
+  QuestDetails<QuestType::PrimarySkills> H3SvgReader::readQuestDetails() const
   {
-    return QuestDetailsSvg<QuestType::PrimarySkills> { readPrimarySkills() };
+    return QuestDetails<QuestType::PrimarySkills> { readPrimarySkills() };
   }
 
   template<>
-  QuestDetailsSvg<QuestType::DefeatHero> H3SvgReader::readQuestDetails() const
+  QuestDetails<QuestType::DefeatHero> H3SvgReader::readQuestDetails() const
   {
-    QuestDetailsSvg<QuestType::DefeatHero> details;
+    QuestDetails<QuestType::DefeatHero> details;
     details.hero = readEnum<HeroType>();
     readBytes(std::span<std::byte, 2>{ details.unknown });
     return details;
   }
 
   template<>
-  QuestDetailsSvg<QuestType::DefeatMonster> H3SvgReader::readQuestDetails() const
+  QuestDetails<QuestType::DefeatMonster> H3SvgReader::readQuestDetails() const
   {
-    QuestDetailsSvg<QuestType::DefeatMonster> details;
+    QuestDetails<QuestType::DefeatMonster> details;
     details.x = readInt<std::uint16_t>();
     details.y = readInt<std::uint8_t>();
     details.z = readBool();
@@ -80,9 +80,9 @@ namespace h3svg
   }
 
   template<>
-  QuestDetailsSvg<QuestType::Artifacts> H3SvgReader::readQuestDetails() const
+  QuestDetails<QuestType::Artifacts> H3SvgReader::readQuestDetails() const
   {
-    QuestDetailsSvg<QuestType::Artifacts> details;
+    QuestDetails<QuestType::Artifacts> details;
     const std::uint8_t num_artifacts = readInt<std::uint8_t>();
     details.artifacts.reserve(num_artifacts);
     for (std::uint8_t i = 0; i < num_artifacts; ++i)
@@ -93,14 +93,14 @@ namespace h3svg
   }
 
   template<>
-  QuestDetailsSvg<QuestType::Creatures> H3SvgReader::readQuestDetails() const
+  QuestDetails<QuestType::Creatures> H3SvgReader::readQuestDetails() const
   {
-    QuestDetailsSvg<QuestType::Creatures> details;
+    QuestDetails<QuestType::Creatures> details;
     const std::uint8_t num_creature_stacks = readInt<std::uint8_t>();
     details.creatures.reserve(num_creature_stacks);
     for (std::uint8_t i = 0; i < num_creature_stacks; ++i)
     {
-      QuestDetailsSvg<QuestType::Creatures>::Creature creature_stack;
+      QuestDetails<QuestType::Creatures>::Creature creature_stack;
       creature_stack.type = readEnum<CreatureType>();
       creature_stack.count = readInt<std::int32_t>();
       details.creatures.push_back(creature_stack);
@@ -109,29 +109,29 @@ namespace h3svg
   }
 
   template<>
-  QuestDetailsSvg<QuestType::Resources> H3SvgReader::readQuestDetails() const
+  QuestDetails<QuestType::Resources> H3SvgReader::readQuestDetails() const
   {
-    return QuestDetailsSvg<QuestType::Resources> { readResources() };
+    return QuestDetails<QuestType::Resources> { readResources() };
   }
 
   template<>
-  QuestDetailsSvg<QuestType::BeHero> H3SvgReader::readQuestDetails() const
+  QuestDetails<QuestType::BeHero> H3SvgReader::readQuestDetails() const
   {
-    QuestDetailsSvg<QuestType::BeHero> details;
+    QuestDetails<QuestType::BeHero> details;
     details.hero = readEnum<HeroType>();
     details.unknown = static_cast<std::byte>(readInt<std::uint8_t>());
     return details;
   }
 
   template<>
-  QuestDetailsSvg<QuestType::BePlayer> H3SvgReader::readQuestDetails() const
+  QuestDetails<QuestType::BePlayer> H3SvgReader::readQuestDetails() const
   {
-    return QuestDetailsSvg<QuestType::BePlayer> { readEnum<PlayerColor>() };
+    return QuestDetails<QuestType::BePlayer> { readEnum<PlayerColor>() };
   }
 
-  QuestSvg H3SvgReader::readQuest() const
+  Quest H3SvgReader::readQuest() const
   {
-    QuestSvg quest;
+    Quest quest;
     const QuestType quest_type = readEnum<QuestType>();
     quest.details = readQuestDetailsVariant(*this, quest_type);
     if (quest_type != QuestType::None)

@@ -16,18 +16,18 @@ namespace Medea_NS
   namespace
   {
     // Helper class to pass map_size to JsonValueWriter when writing SavedGame::tiles.
-    struct TilesSvgWithMapSize
+    struct TilesWithMapSize
     {
-      std::span<const h3svg::TileSvg> tiles;
+      std::span<const h3svg::Tile> tiles;
       std::uint32_t map_size {};
       bool has_two_levels {};
     };
   }
 
-  // Serialize TilesSvgWithMapSize as a JSON array.
+  // Serialize TilesWithMapSize as a JSON array.
   template<>
-  void JsonArrayWriter<TilesSvgWithMapSize>::operator()(const ArrayElementsWriter& out,
-                                                        const TilesSvgWithMapSize& value) const
+  void JsonArrayWriter<TilesWithMapSize>::operator()(const ArrayElementsWriter& out,
+                                                     const TilesWithMapSize& value) const
   {
     const std::size_t num_levels = value.has_two_levels ? 2 : 1;
     const std::size_t expected_num_tiles = num_levels * value.map_size * value.map_size;
@@ -36,7 +36,7 @@ namespace Medea_NS
       // Strictly speaking, this is an error - the number of tiles should match expected_num_tiles.
       // However, this is only an error for H3SVG - we can still serialize such arrays of tiles as
       // JSON. We cannot reliably print coordinates though.
-      for (const h3svg::TileSvg& tile : value.tiles)
+      for (const h3svg::Tile& tile : value.tiles)
       {
         out.writeElement(tile);
       }
@@ -59,10 +59,10 @@ namespace Medea_NS
     }
   }
 
-  void JsonObjectWriter<h3svg::PlayerSvg>::operator()(FieldsWriter& out,
-                                                      const h3svg::PlayerSvg& player) const
+  void JsonObjectWriter<h3svg::Player>::operator()(FieldsWriter& out,
+                                                      const h3svg::Player& player) const
   {
-    using Fields = h3json::FieldNames<h3svg::PlayerSvg>;
+    using Fields = h3json::FieldNames<h3svg::Player>;
     out.writeField(Fields::kPlayerColor, player.player_color);
     if (auto enum_str = getEnumString(player.player_color); !enum_str.empty())
     {
@@ -81,9 +81,9 @@ namespace Medea_NS
     out.writeField(Fields::kUnknown2, player.unknown2);
   }
 
-  void JsonObjectWriter<h3svg::PlayerSpecsSvg>::operator()(FieldsWriter& out, const h3svg::PlayerSpecsSvg& player) const
+  void JsonObjectWriter<h3svg::PlayerSpecs>::operator()(FieldsWriter& out, const h3svg::PlayerSpecs& player) const
   {
-    using Fields = h3json::FieldNames<h3svg::PlayerSpecsSvg>;
+    using Fields = h3json::FieldNames<h3svg::PlayerSpecs>;
 
     out.writeField(Fields::kCanBeHuman, player.can_be_human);
     out.writeField(Fields::kCanBeComputer, player.can_be_computer);
@@ -101,9 +101,9 @@ namespace Medea_NS
     out.writeField(Fields::kStartingHero, player.starting_hero);
   }
 
-  void JsonObjectWriter<h3svg::RumorSvg>::operator()(FieldsWriter& out, const h3svg::RumorSvg& rumor) const
+  void JsonObjectWriter<h3svg::Rumor>::operator()(FieldsWriter& out, const h3svg::Rumor& rumor) const
   {
-    using Fields = h3json::FieldNames<h3svg::RumorSvg>;
+    using Fields = h3json::FieldNames<h3svg::Rumor>;
     out.writeField(Fields::kText, rumor.text);
     out.writeField(Fields::kHasBeenShown, rumor.has_been_shown);
   }
@@ -121,17 +121,17 @@ namespace Medea_NS
     }
   }
 
-  void JsonObjectWriter<h3svg::ObjectSvg>::operator()(FieldsWriter& out, const h3svg::ObjectSvg& object) const
+  void JsonObjectWriter<h3svg::Object>::operator()(FieldsWriter& out, const h3svg::Object& object) const
   {
-    using Fields = h3json::FieldNames<h3svg::ObjectSvg>;
+    using Fields = h3json::FieldNames<h3svg::Object>;
     out.writeField(Fields::kCoordinates, object.coordinates);
     out.writeField(Fields::kTemplateIdx, object.template_idx);
   }
 
-  void JsonObjectWriter<h3svg::ObjectTemplateSvg>::operator()(FieldsWriter& out,
-                                                              const h3svg::ObjectTemplateSvg& object_template) const
+  void JsonObjectWriter<h3svg::ObjectTemplate>::operator()(FieldsWriter& out,
+                                                              const h3svg::ObjectTemplate& object_template) const
   {
-    using Fields = h3json::FieldNames<h3svg::ObjectTemplateSvg>;
+    using Fields = h3json::FieldNames<h3svg::ObjectTemplate>;
     out.writeField(Fields::kDef, object_template.def);
     out.writeField(Fields::kWidth, object_template.width);
     out.writeField(Fields::kHeight, object_template.height);
@@ -179,7 +179,7 @@ namespace Medea_NS
     out.writeField(Fields::kRumors, saved_game.rumors);
     out.writeField(Fields::kBlackMarkets, saved_game.black_markets);
     out.writeField(Fields::kTiles,
-                   TilesSvgWithMapSize{
+                   TilesWithMapSize{
                      .tiles = saved_game.tiles,
                      .map_size = saved_game.basic_info.map_size,
                      .has_two_levels = static_cast<bool>(saved_game.basic_info.has_two_levels)
@@ -222,9 +222,9 @@ namespace Medea_NS
     out.writeField(Fields::kStartingBonuses, starting_info.starting_bonuses);
   }
 
-  void JsonObjectWriter<h3svg::TownSvg>::operator()(FieldsWriter& out, const h3svg::TownSvg& town) const
+  void JsonObjectWriter<h3svg::Town>::operator()(FieldsWriter& out, const h3svg::Town& town) const
   {
-    using Fields = h3json::FieldNames<h3svg::TownSvg>;
+    using Fields = h3json::FieldNames<h3svg::Town>;
     out.writeField(Fields::kId, town.id);
     out.writeField(Fields::kOwner, town.owner);
     if (std::string_view enum_str = getEnumString(town.owner); !enum_str.empty())
@@ -261,16 +261,16 @@ namespace Medea_NS
   }
 
   template<>
-  void JsonObjectWriter<h3svg::TileSvg::ObjectToRender>::operator()(
-    FieldsWriter& out, const h3svg::TileSvg::ObjectToRender& object_to_render) const
+  void JsonObjectWriter<h3svg::Tile::ObjectToRender>::operator()(
+    FieldsWriter& out, const h3svg::Tile::ObjectToRender& object_to_render) const
   {
     out.writeField("object_idx", object_to_render.object_idx);
     out.writeField("unknown", object_to_render.unknown);
   }
 
-  void JsonObjectWriter<h3svg::TileSvg>::operator()(FieldsWriter& out, const h3svg::TileSvg& tile) const
+  void JsonObjectWriter<h3svg::Tile>::operator()(FieldsWriter& out, const h3svg::Tile& tile) const
   {
-    using Fields = h3json::FieldNames<h3svg::TileSvg>;
+    using Fields = h3json::FieldNames<h3svg::Tile>;
     out.writeField(Fields::kTerrainType, tile.terrain_type);
     if (std::string_view enum_str = getEnumString(tile.terrain_type); !enum_str.empty())
     {

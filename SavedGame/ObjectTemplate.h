@@ -11,7 +11,7 @@
 namespace h3svg
 {
   // The equivalent of h3m::ObjectTemplate stored in the saved game.
-  struct ObjectTemplateSvg
+  struct ObjectTemplate
   {
     // Filename of the sprite to use for objects that use this template.
     std::string def;

@@ -1,11 +1,11 @@
 #include <h3mtxt/H3SvgReader/H3SvgReader.h>
-#include <h3mtxt/SavedGame/EventBaseSvg.h>
+#include <h3mtxt/SavedGame/EventBase.h>
 
 namespace h3svg
 {
-  TroopsSvg H3SvgReader::readTroops() const
+  Troops H3SvgReader::readTroops() const
   {
-    TroopsSvg troops;
+    Troops troops;
     for (CreatureType32& creature_type : troops.creature_types)
     {
       creature_type = readEnum<CreatureType32>();
@@ -17,9 +17,9 @@ namespace h3svg
     return troops;
   }
 
-  GuardiansSvg H3SvgReader::readGuardians() const
+  Guardians H3SvgReader::readGuardians() const
   {
-    GuardiansSvg guardians;
+    Guardians guardians;
     guardians.message = readString16();
     if (const Bool has_creatures = readBool())
     {
@@ -28,9 +28,9 @@ namespace h3svg
     return guardians;
   }
 
-  EventBaseSvg H3SvgReader::readEventBase() const
+  EventBase H3SvgReader::readEventBase() const
   {
-    EventBaseSvg event;
+    EventBase event;
     if (const Bool has_guardians = readBool())
     {
       event.guardians = readGuardians();

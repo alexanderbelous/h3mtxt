@@ -6,13 +6,13 @@
 #include <h3mtxt/H3SvgJsonWriter/getEnumString.h>
 #include <h3mtxt/JsonCommon/FieldNamesSvg.h>
 #include <h3mtxt/Medea/Medea.h>
-#include <h3mtxt/SavedGame/HeroSvg.h>
+#include <h3mtxt/SavedGame/Hero.h>
 
 namespace Medea_NS
 {
-  void JsonObjectWriter<h3svg::HeroSvg>::operator()(FieldsWriter& out, const h3svg::HeroSvg& hero) const
+  void JsonObjectWriter<h3svg::Hero>::operator()(FieldsWriter& out, const h3svg::Hero& hero) const
   {
-    using Fields = h3json::FieldNames<h3svg::HeroSvg>;
+    using Fields = h3json::FieldNames<h3svg::Hero>;
 
     out.writeField(Fields::kX, hero.x);
     out.writeField(Fields::kY, hero.y);

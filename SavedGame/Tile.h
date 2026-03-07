@@ -14,7 +14,7 @@
 namespace h3svg
 {
   // The equivalent of h3m::Tile stored in the saved game.
-  struct TileSvg
+  struct Tile
   {
     struct ObjectToRender
     {

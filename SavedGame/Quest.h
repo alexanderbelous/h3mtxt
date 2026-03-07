@@ -14,23 +14,23 @@
 namespace h3svg
 {
   template<>
-  struct QuestDetailsSvg<QuestType::None>
+  struct QuestDetails<QuestType::None>
   {};
 
   template<>
-  struct QuestDetailsSvg<QuestType::Level>
+  struct QuestDetails<QuestType::Level>
   {
     // Note that the level is stored as a 16-bit integer here - in H3M it's stored as a 32-bit integer.
     std::int16_t level {};
   };
 
-  // Identical to QuestDetails<QuestType::PrimarySkills>.
+  // Identical to h3m::QuestDetails<QuestType::PrimarySkills>.
   template<>
-  struct QuestDetailsSvg<QuestType::PrimarySkills> : h3m::QuestDetails<QuestType::PrimarySkills>
+  struct QuestDetails<QuestType::PrimarySkills> : h3m::QuestDetails<QuestType::PrimarySkills>
   {};
 
   template<>
-  struct QuestDetailsSvg<QuestType::DefeatHero>
+  struct QuestDetails<QuestType::DefeatHero>
   {
     // Note that the hero is represented here by their HeroType - H3M uses absod_id instead.
     HeroType hero {};
@@ -39,7 +39,7 @@ namespace h3svg
   };
 
   template<>
-  struct QuestDetailsSvg<QuestType::DefeatMonster>
+  struct QuestDetails<QuestType::DefeatMonster>
   {
     // Absolutely idiotic format - X is 16-bit, Y is 8-bit and Z is Bool.
     std::uint16_t x {};
@@ -50,13 +50,13 @@ namespace h3svg
     std::byte unknown {};
   };
 
-  // Identical to QuestDetails<QuestType::Artifacts>.
+  // Identical to h3m::QuestDetails<QuestType::Artifacts>.
   template<>
-  struct QuestDetailsSvg<QuestType::Artifacts> : h3m::QuestDetails<QuestType::Artifacts>
+  struct QuestDetails<QuestType::Artifacts> : h3m::QuestDetails<QuestType::Artifacts>
   {};
 
   template<>
-  struct QuestDetailsSvg<QuestType::Creatures>
+  struct QuestDetails<QuestType::Creatures>
   {
     struct Creature
     {
@@ -67,38 +67,38 @@ namespace h3svg
     std::vector<Creature> creatures;
   };
 
-  // Identical to QuestDetails<QuestType::Resources>.
+  // Identical to h3m::QuestDetails<QuestType::Resources>.
   template<>
-  struct QuestDetailsSvg<QuestType::Resources> : h3m::QuestDetails<QuestType::Resources>
+  struct QuestDetails<QuestType::Resources> : h3m::QuestDetails<QuestType::Resources>
   {};
 
   template<>
-  struct QuestDetailsSvg<QuestType::BeHero>
+  struct QuestDetails<QuestType::BeHero>
   {
     HeroType hero {};
     // TODO: maybe hero should be treated as a 16-bit enum instead. 
     std::byte unknown {};
   };
 
-  // Identical to QuestDetails<QuestType::BePlayer>.
+  // Identical to h3m::QuestDetails<QuestType::BePlayer>.
   template<>
-  struct QuestDetailsSvg<QuestType::BePlayer> : h3m::QuestDetails<QuestType::BePlayer>
+  struct QuestDetails<QuestType::BePlayer> : h3m::QuestDetails<QuestType::BePlayer>
   {};
 
   // The equivalent of h3m::Quest stored in saved games.
-  struct QuestSvg
+  struct Quest
   {
     using Details = std::variant<
-      QuestDetailsSvg<QuestType::None>,
-      QuestDetailsSvg<QuestType::Level>,
-      QuestDetailsSvg<QuestType::PrimarySkills>,
-      QuestDetailsSvg<QuestType::DefeatHero>,
-      QuestDetailsSvg<QuestType::DefeatMonster>,
-      QuestDetailsSvg<QuestType::Artifacts>,
-      QuestDetailsSvg<QuestType::Creatures>,
-      QuestDetailsSvg<QuestType::Resources>,
-      QuestDetailsSvg<QuestType::BeHero>,
-      QuestDetailsSvg<QuestType::BePlayer>
+      QuestDetails<QuestType::None>,
+      QuestDetails<QuestType::Level>,
+      QuestDetails<QuestType::PrimarySkills>,
+      QuestDetails<QuestType::DefeatHero>,
+      QuestDetails<QuestType::DefeatMonster>,
+      QuestDetails<QuestType::Artifacts>,
+      QuestDetails<QuestType::Creatures>,
+      QuestDetails<QuestType::Resources>,
+      QuestDetails<QuestType::BeHero>,
+      QuestDetails<QuestType::BePlayer>
     >;
 
     // \return the type of the quest.
@@ -114,7 +114,7 @@ namespace h3svg
     std::string completion {};
   };
 
-  constexpr QuestType QuestSvg::type() const noexcept
+  constexpr QuestType Quest::type() const noexcept
   {
     return static_cast<QuestType>(details.index());
   }

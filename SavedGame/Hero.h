@@ -3,7 +3,7 @@
 #include <h3mtxt/SavedGame/SavedGameFwd.h>
 
 #include <h3mtxt/Map/MapFwd.h>
-#include <h3mtxt/SavedGame/TroopsSvg.h>
+#include <h3mtxt/SavedGame/Troops.h>
 
 #include <array>
 #include <cstdint>
@@ -11,7 +11,7 @@
 
 namespace h3svg
 {
-  struct HeroSvg
+  struct Hero
   {
     std::int16_t x {};
     std::int16_t y {};
@@ -26,7 +26,7 @@ namespace h3svg
     // Size is 32-bit.
     std::string biography;
     std::array<std::uint8_t, 113> unknown2 {};
-    TroopsSvg army;
+    Troops army;
     // Fixed-size; only the characters before the first null terminator are significant.
     std::array<char, 13> name {};
     std::array<std::uint8_t, 886> unknown3 {};

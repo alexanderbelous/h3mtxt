@@ -1,11 +1,11 @@
 #include <h3mtxt/H3SvgReader/H3SvgReader.h>
-#include <h3mtxt/SavedGame/TileSvg.h>
+#include <h3mtxt/SavedGame/Tile.h>
 
 namespace h3svg
 {
-  TileSvg H3SvgReader::readTile() const
+  Tile H3SvgReader::readTile() const
   {
-    TileSvg tile;
+    Tile tile;
     tile.terrain_type = readEnum<TerrainType>();
     tile.terrain_sprite = readInt<std::uint8_t>();
     tile.river_type = readEnum<RiverType>();
@@ -22,7 +22,7 @@ namespace h3svg
     tile.objects_to_render.reserve(num_objects_to_render);
     for (std::uint32_t i = 0; i < num_objects_to_render; ++i)
     {
-      TileSvg::ObjectToRender object_to_render;
+      Tile::ObjectToRender object_to_render;
       object_to_render.object_idx = readInt<std::uint16_t>();
       object_to_render.unknown = readInt<std::uint16_t>();
       tile.objects_to_render.push_back(object_to_render);

@@ -21,126 +21,126 @@ namespace h3svg
     // Inherit the constructor from H3ReaderBase.
     using H3ReaderBase::H3ReaderBase;
 
-    ArtifactSvg readArtifact() const;
+    Artifact readArtifact() const;
 
     BlackMarket readBlackMarket() const;
 
-    BoatSvg readBoat() const;
+    Boat readBoat() const;
 
-    DwellingSvg readDwelling() const;
+    Dwelling readDwelling() const;
 
-    EventBaseSvg readEventBase() const;
+    EventBase readEventBase() const;
 
-    GarrisonSvg readGarrison() const;
+    Garrison readGarrison() const;
 
-    GuardiansSvg readGuardians() const;
+    Guardians readGuardians() const;
 
-    HeroSvg readHero() const;
+    Hero readHero() const;
 
     MapBasicInfo readMapBasicInfo() const;
 
-    MineSvg readMine() const;
+    Mine readMine() const;
 
-    MonsterSvg readMonster() const;
+    Monster readMonster() const;
 
-    ObeliskSvg readObelisk() const;
+    Obelisk readObelisk() const;
 
-    ObjectSvg readObject() const;
+    Object readObject() const;
 
     ObjectPropertiesTables readObjectPropertiesTables() const;
 
-    ObjectTemplateSvg readObjectTemplate() const;
+    ObjectTemplate readObjectTemplate() const;
 
-    PlayerSvg readPlayer() const;
+    Player readPlayer() const;
 
-    PlayerSpecsSvg readPlayerSpecs() const;
+    PlayerSpecs readPlayerSpecs() const;
 
-    QuestSvg readQuest() const;
+    Quest readQuest() const;
 
     template<QuestType T>
-    QuestDetailsSvg<T> readQuestDetails() const;
+    QuestDetails<T> readQuestDetails() const;
 
-    QuestGuardSvg readQuestGuard() const;
+    QuestGuard readQuestGuard() const;
 
-    RewardSvg readReward() const;
+    Reward readReward() const;
 
     template<RewardType T>
-    RewardDetailsSvg<T> readRewardDetails() const;
+    RewardDetails<T> readRewardDetails() const;
 
-    RumorSvg readRumor() const;
+    Rumor readRumor() const;
 
     SavedGame readSavedGame() const;
 
     ScenarioStartingInfo readScenarioStartingInfo() const;
 
-    SeersHutSvg readSeersHut() const;
+    SeersHut readSeersHut() const;
 
-    SignSvg readSign() const;
+    Sign readSign() const;
 
     StartingHero readStartingHero() const;
 
-    TileSvg readTile() const;
+    Tile readTile() const;
 
-    TimedEventSvg readTimedEvent() const;
+    TimedEvent readTimedEvent() const;
 
-    TownEventSvg readTownEvent() const;
+    TownEvent readTownEvent() const;
 
-    TownSvg readTown() const;
+    Town readTown() const;
 
-    TroopsSvg readTroops() const;
+    Troops readTroops() const;
   };
 
   template<QuestType T>
-  QuestDetailsSvg<T> H3SvgReader::readQuestDetails() const
+  QuestDetails<T> H3SvgReader::readQuestDetails() const
   {
     static_assert(false, "Missing specialization for readQuestDetails<T>().");
   }
 
-  template<> QuestDetailsSvg<QuestType::None> H3SvgReader::readQuestDetails() const;
+  template<> QuestDetails<QuestType::None> H3SvgReader::readQuestDetails() const;
 
-  template<> QuestDetailsSvg<QuestType::Level> H3SvgReader::readQuestDetails() const;
+  template<> QuestDetails<QuestType::Level> H3SvgReader::readQuestDetails() const;
 
-  template<> QuestDetailsSvg<QuestType::PrimarySkills> H3SvgReader::readQuestDetails() const;
+  template<> QuestDetails<QuestType::PrimarySkills> H3SvgReader::readQuestDetails() const;
 
-  template<> QuestDetailsSvg<QuestType::DefeatHero> H3SvgReader::readQuestDetails() const;
+  template<> QuestDetails<QuestType::DefeatHero> H3SvgReader::readQuestDetails() const;
 
-  template<> QuestDetailsSvg<QuestType::DefeatMonster> H3SvgReader::readQuestDetails() const;
+  template<> QuestDetails<QuestType::DefeatMonster> H3SvgReader::readQuestDetails() const;
 
-  template<> QuestDetailsSvg<QuestType::Artifacts> H3SvgReader::readQuestDetails() const;
+  template<> QuestDetails<QuestType::Artifacts> H3SvgReader::readQuestDetails() const;
 
-  template<> QuestDetailsSvg<QuestType::Creatures> H3SvgReader::readQuestDetails() const;
+  template<> QuestDetails<QuestType::Creatures> H3SvgReader::readQuestDetails() const;
 
-  template<> QuestDetailsSvg<QuestType::Resources> H3SvgReader::readQuestDetails() const;
+  template<> QuestDetails<QuestType::Resources> H3SvgReader::readQuestDetails() const;
 
-  template<> QuestDetailsSvg<QuestType::BeHero> H3SvgReader::readQuestDetails() const;
+  template<> QuestDetails<QuestType::BeHero> H3SvgReader::readQuestDetails() const;
 
-  template<> QuestDetailsSvg<QuestType::BePlayer> H3SvgReader::readQuestDetails() const;
+  template<> QuestDetails<QuestType::BePlayer> H3SvgReader::readQuestDetails() const;
 
   template<RewardType T>
-  RewardDetailsSvg<T> H3SvgReader::readRewardDetails() const
+  RewardDetails<T> H3SvgReader::readRewardDetails() const
   {
     static_assert(false, "Invalid RewardType.");
   }
 
-  template<> RewardDetailsSvg<RewardType::None> H3SvgReader::readRewardDetails() const;
+  template<> RewardDetails<RewardType::None> H3SvgReader::readRewardDetails() const;
 
-  template<> RewardDetailsSvg<RewardType::Experience> H3SvgReader::readRewardDetails() const;
+  template<> RewardDetails<RewardType::Experience> H3SvgReader::readRewardDetails() const;
 
-  template<> RewardDetailsSvg<RewardType::SpellPoints> H3SvgReader::readRewardDetails() const;
+  template<> RewardDetails<RewardType::SpellPoints> H3SvgReader::readRewardDetails() const;
 
-  template<> RewardDetailsSvg<RewardType::Morale> H3SvgReader::readRewardDetails() const;
+  template<> RewardDetails<RewardType::Morale> H3SvgReader::readRewardDetails() const;
 
-  template<> RewardDetailsSvg<RewardType::Luck> H3SvgReader::readRewardDetails() const;
+  template<> RewardDetails<RewardType::Luck> H3SvgReader::readRewardDetails() const;
 
-  template<> RewardDetailsSvg<RewardType::Resource> H3SvgReader::readRewardDetails() const;
+  template<> RewardDetails<RewardType::Resource> H3SvgReader::readRewardDetails() const;
 
-  template<> RewardDetailsSvg<RewardType::PrimarySkill> H3SvgReader::readRewardDetails() const;
+  template<> RewardDetails<RewardType::PrimarySkill> H3SvgReader::readRewardDetails() const;
 
-  template<> RewardDetailsSvg<RewardType::SecondarySkill> H3SvgReader::readRewardDetails() const;
+  template<> RewardDetails<RewardType::SecondarySkill> H3SvgReader::readRewardDetails() const;
 
-  template<> RewardDetailsSvg<RewardType::Artifact> H3SvgReader::readRewardDetails() const;
+  template<> RewardDetails<RewardType::Artifact> H3SvgReader::readRewardDetails() const;
 
-  template<> RewardDetailsSvg<RewardType::Spell> H3SvgReader::readRewardDetails() const;
+  template<> RewardDetails<RewardType::Spell> H3SvgReader::readRewardDetails() const;
 
-  template<> RewardDetailsSvg<RewardType::Creature> H3SvgReader::readRewardDetails() const;
+  template<> RewardDetails<RewardType::Creature> H3SvgReader::readRewardDetails() const;
 }

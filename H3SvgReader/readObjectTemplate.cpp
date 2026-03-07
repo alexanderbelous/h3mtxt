@@ -1,11 +1,11 @@
 #include <h3mtxt/H3SvgReader/H3SvgReader.h>
-#include <h3mtxt/SavedGame/ObjectTemplateSvg.h>
+#include <h3mtxt/SavedGame/ObjectTemplate.h>
 
 namespace h3svg
 {
-  ObjectTemplateSvg H3SvgReader::readObjectTemplate() const
+  ObjectTemplate H3SvgReader::readObjectTemplate() const
   {
-    ObjectTemplateSvg object_template;
+    ObjectTemplate object_template;
     object_template.def = readString16();
     object_template.width = readInt<std::uint8_t>();
     object_template.height = readInt<std::uint8_t>();

@@ -1,11 +1,11 @@
 #include <h3mtxt/H3SvgReader/H3SvgReader.h>
-#include <h3mtxt/SavedGame/HeroSvg.h>
+#include <h3mtxt/SavedGame/Hero.h>
 
 namespace h3svg
 {
-  HeroSvg H3SvgReader::readHero() const
+  Hero H3SvgReader::readHero() const
   {
-    HeroSvg hero;
+    Hero hero;
     hero.x = readInt<std::int16_t>();
     hero.y = readInt<std::int16_t>();
     hero.z = readInt<std::int16_t>();

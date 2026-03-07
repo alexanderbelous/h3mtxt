@@ -17,9 +17,9 @@ namespace h3svg
   }
 
   // Seems to always be 145 bytes.
-  PlayerSvg H3SvgReader::readPlayer() const
+  Player H3SvgReader::readPlayer() const
   {
-    PlayerSvg player;
+    Player player;
     player.player_color = readEnum<PlayerColor>();
     player.num_heroes = readInt<std::uint8_t>();
     player.active_hero = readEnum<HeroType>();
@@ -37,9 +37,9 @@ namespace h3svg
     return player;
   }
 
-  RumorSvg H3SvgReader::readRumor() const
+  Rumor H3SvgReader::readRumor() const
   {
-    RumorSvg rumor;
+    Rumor rumor;
     rumor.text = readString16();
     rumor.has_been_shown = readBool();
     return rumor;
@@ -61,7 +61,7 @@ namespace h3svg
     saved_game.reserved2 = readReservedData<32>();
     saved_game.format = readEnum<h3m::MapFormat>();
     saved_game.basic_info = readMapBasicInfo();
-    for (PlayerSpecsSvg& player : saved_game.players.data)
+    for (PlayerSpecs& player : saved_game.players.data)
     {
       player = readPlayerSpecs();
     }
@@ -146,10 +146,10 @@ namespace h3svg
         saved_game.objects.push_back(readObject());
       }
     }
-    // Read the tables storing additional data for objects whose properties aren't fully described by TileSvg.
+    // Read the tables storing additional data for objects whose properties aren't fully described by Tile.
     saved_game.object_properties_tables = readObjectPropertiesTables();
     // Read Players' Info.
-    for (PlayerSvg& player : saved_game.players_svg.data)
+    for (Player& player : saved_game.players_svg.data)
     {
       player = readPlayer();
     }
@@ -214,9 +214,9 @@ namespace h3svg
     return starting_info;
   }
 
-  TownSvg H3SvgReader::readTown() const
+  Town H3SvgReader::readTown() const
   {
-    TownSvg town;
+    Town town;
     town.id = readInt<std::uint8_t>();
     town.owner = readEnum<PlayerColor>();
     town.built_this_turn = readBool();
