@@ -220,7 +220,7 @@ namespace h3json
     static constexpr std::string_view kReserved2 = "reserved2";
     static constexpr std::string_view kFormat = "format";
     static constexpr std::string_view kBasicInfo = "basic_info";
-    static constexpr std::string_view kPlayers = "players";
+    static constexpr std::string_view kPlayersSpecs = "players_specs";
     static constexpr std::string_view kVictoryCondition = "victory_condition";
     static constexpr std::string_view kLossCondition = "loss_condition";
     static constexpr std::string_view kTeams = "teams";
@@ -241,7 +241,7 @@ namespace h3json
     static constexpr std::string_view kObjectsTemplates = "objects_templates";
     static constexpr std::string_view kObjects = "objects";
     static constexpr std::string_view kObjectPropertiesTables = "object_properties_tables";
-    static constexpr std::string_view kPlayersSvg = "players_svg";
+    static constexpr std::string_view kPlayers = "players";
     static constexpr std::string_view kTowns = "towns";
     static constexpr std::string_view kHeroes = "heroes";
   };

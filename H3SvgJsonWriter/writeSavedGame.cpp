@@ -160,7 +160,7 @@ namespace Medea_NS
     out.writeField(Fields::kReserved2, saved_game.reserved2);
     out.writeField(Fields::kFormat, saved_game.format);
     out.writeField(Fields::kBasicInfo, saved_game.basic_info);
-    out.writeField(Fields::kPlayers, saved_game.players);
+    out.writeField(Fields::kPlayersSpecs, saved_game.players_specs);
     out.writeField(Fields::kVictoryCondition, saved_game.victory_condition);
     out.writeField(Fields::kLossCondition, saved_game.loss_condition);
     out.writeField(Fields::kTeams, saved_game.teams);
@@ -188,7 +188,7 @@ namespace Medea_NS
     out.writeField(Fields::kObjectsTemplates, saved_game.objects_templates);
     out.writeField(Fields::kObjects, saved_game.objects);
     out.writeField(Fields::kObjectPropertiesTables, saved_game.object_properties_tables);
-    out.writeField(Fields::kPlayersSvg, saved_game.players_svg);
+    out.writeField(Fields::kPlayers, saved_game.players);
     out.writeField(Fields::kTowns, saved_game.towns);
     out.writeField(Fields::kHeroes, saved_game.heroes);
   }

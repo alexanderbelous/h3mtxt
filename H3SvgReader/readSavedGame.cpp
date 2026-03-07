@@ -61,9 +61,9 @@ namespace h3svg
     saved_game.reserved2 = readReservedData<32>();
     saved_game.format = readEnum<h3m::MapFormat>();
     saved_game.basic_info = readMapBasicInfo();
-    for (PlayerSpecs& player : saved_game.players.data)
+    for (PlayerSpecs& player_specs : saved_game.players_specs.data)
     {
-      player = readPlayerSpecs();
+      player_specs = readPlayerSpecs();
     }
     saved_game.victory_condition = h3m::H3Reader_NS::readVictoryCondition(stream_);
     saved_game.loss_condition = h3m::H3Reader_NS::readLossCondition(stream_);
@@ -149,7 +149,7 @@ namespace h3svg
     // Read the tables storing additional data for objects whose properties aren't fully described by Tile.
     saved_game.object_properties_tables = readObjectPropertiesTables();
     // Read Players' Info.
-    for (Player& player : saved_game.players_svg.data)
+    for (Player& player : saved_game.players.data)
     {
       player = readPlayer();
     }
