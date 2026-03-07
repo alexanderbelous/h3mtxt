@@ -11,6 +11,25 @@
 
 namespace h3svg
 {
+  // Artifact equipped on the hero or stored in the backpack.
+  struct HeroArtifact
+  {
+    // Type of the artifact, or 0xFFFFFFFF if there is none.
+    ArtifactType32 type = static_cast<ArtifactType32>(-1);
+    // Type of the spell for spell scrolls; meaningless if this isn't a spell scroll.
+    // The value is usually 0xFFFFFFFF if this is not a spell scroll, but don't rely on that:
+    //   * Empty slots in the backpack sometimes use 0.
+    //   * War machines and SpellBook slots may use junk values like 1500, 3500, 8000, etc.
+    SpellType32 spell_type = static_cast<SpellType32>(0xFFFFFFFF);
+  };
+
+  struct HeroArtifacts
+  {
+    // TODO: replace with EnumIndexedArray<ArtifactSlot, HeroArtifact, 19>.
+    std::array<HeroArtifact, 19> equipped;
+    std::array<HeroArtifact, 64> backpack;
+  };
+
   struct Hero
   {
     std::int16_t x {};
@@ -37,6 +56,9 @@ namespace h3svg
     std::array<char, 13> name {};
     // TODO: figure out what this is.
     // * bytes [56; 59] are PrimarySkills (equipped artifacts are taken into account).
-    std::array<std::uint8_t, 886> unknown3 {};
+    std::array<std::uint8_t, 200> unknown3 {};
+    HeroArtifacts artifacts;
+    // TODO: figure out what this is.
+    std::array<std::uint8_t, 22> unknown4 {};
   };
 }

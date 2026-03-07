@@ -5,11 +5,36 @@
 #include <h3mtxt/H3JsonWriter/Utils.h>
 #include <h3mtxt/H3SvgJsonWriter/getEnumString.h>
 #include <h3mtxt/JsonCommon/FieldNamesSvg.h>
+#include <h3mtxt/Map/Constants/ArtifactType.h>
 #include <h3mtxt/Medea/Medea.h>
 #include <h3mtxt/SavedGame/Hero.h>
 
 namespace Medea_NS
 {
+  void JsonObjectWriter<h3svg::HeroArtifact>::operator()(FieldsWriter& out, const h3svg::HeroArtifact& artifact) const
+  {
+    out.writeField("type", artifact.type);
+    if (auto enum_str = getEnumString(artifact.type); !enum_str.empty())
+    {
+      out.writeComment(enum_str, false);
+    }
+    out.writeField("spell_type", artifact.spell_type);
+    if (artifact.type == static_cast<h3svg::ArtifactType32>(h3m::ArtifactType::SpellScroll))
+    {
+      if (auto enum_str = getEnumString(artifact.spell_type); !enum_str.empty())
+      {
+        out.writeComment(enum_str, false);
+      }
+    }
+  }
+
+  void JsonObjectWriter<h3svg::HeroArtifacts>::operator()(FieldsWriter& out,
+                                                          const h3svg::HeroArtifacts& artifacts) const
+  {
+    out.writeField("equipped", artifacts.equipped);
+    out.writeField("backpack", artifacts.backpack);
+  }
+
   void JsonObjectWriter<h3svg::Hero>::operator()(FieldsWriter& out, const h3svg::Hero& hero) const
   {
     using Fields = h3json::FieldNames<h3svg::Hero>;
@@ -30,5 +55,7 @@ namespace Medea_NS
     out.writeField(Fields::kArmy, hero.army);
     out.writeField(Fields::kName, hero.name);
     out.writeField(Fields::kUnknown3, hero.unknown3);
+    out.writeField(Fields::kArtifacts, hero.artifacts);
+    out.writeField(Fields::kUnknown4, hero.unknown4);
   }
 }

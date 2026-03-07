@@ -3,6 +3,28 @@
 
 namespace h3svg
 {
+  HeroArtifact H3SvgReader::readHeroArtifact() const
+  {
+    HeroArtifact artifact;
+    artifact.type = readEnum<ArtifactType32>();
+    artifact.spell_type = readEnum<SpellType32>();
+    return artifact;
+  }
+
+  HeroArtifacts H3SvgReader::readHeroArtifacts() const
+  {
+    HeroArtifacts artifacts;
+    for (HeroArtifact& artifact : artifacts.equipped)
+    {
+      artifact = readHeroArtifact();
+    }
+    for (HeroArtifact& artifact : artifacts.backpack)
+    {
+      artifact = readHeroArtifact();
+    }
+    return artifacts;
+  }
+
   Hero H3SvgReader::readHero() const
   {
     Hero hero;
@@ -19,6 +41,8 @@ namespace h3svg
     hero.army = readTroops();
     readBytes(std::as_writable_bytes(std::span{hero.name}));
     readBytes(std::as_writable_bytes(std::span{hero.unknown3}));
+    hero.artifacts = readHeroArtifacts();
+    readBytes(std::as_writable_bytes(std::span{hero.unknown4}));
     return hero;
   }
 }

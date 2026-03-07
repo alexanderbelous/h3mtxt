@@ -37,6 +37,10 @@ namespace h3svg
 
     Hero readHero() const;
 
+    HeroArtifact readHeroArtifact() const;
+
+    HeroArtifacts readHeroArtifacts() const;
+
     MapBasicInfo readMapBasicInfo() const;
 
     Mine readMine() const;

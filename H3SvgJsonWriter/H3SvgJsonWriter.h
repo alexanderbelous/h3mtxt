@@ -35,6 +35,13 @@ namespace Medea_NS
   void JsonObjectWriter<h3svg::Hero>::operator()(FieldsWriter& out, const h3svg::Hero& hero) const;
 
   template<>
+  void JsonObjectWriter<h3svg::HeroArtifact>::operator()(FieldsWriter& out, const h3svg::HeroArtifact& artifact) const;
+
+  template<>
+  void JsonObjectWriter<h3svg::HeroArtifacts>::operator()(FieldsWriter& out,
+                                                          const h3svg::HeroArtifacts& artifacts) const;
+
+  template<>
   void JsonObjectWriter<h3svg::Mine>::operator()(FieldsWriter& out, const h3svg::Mine& mine) const;
 
   template<>

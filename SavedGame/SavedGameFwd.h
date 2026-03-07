@@ -101,6 +101,10 @@ namespace h3svg
 
   struct Hero;
 
+  struct HeroArtifact;
+
+  struct HeroArtifacts;
+
   struct Mine;
 
   struct Monster;
