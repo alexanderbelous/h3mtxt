@@ -25,10 +25,18 @@ namespace h3svg
     std::array<std::uint8_t, 7> unknown1 {};
     // Size is 32-bit.
     std::string biography;
+    // TODO: figure out what this is.
+    // * bytes [31; 38] seem to be int32 move_points, int32 move_points2.
+    //   Idk why they are duplicated.
+    // * bytes [39; 42] are int32 experience.
+    // * bytes [47; 48] are int16 spell_points
+    // * bytes [49; 52] seem to be int32 experience_level.
     std::array<std::uint8_t, 113> unknown2 {};
     Troops army;
     // Fixed-size; only the characters before the first null terminator are significant.
     std::array<char, 13> name {};
+    // TODO: figure out what this is.
+    // * bytes [56; 59] are PrimarySkills (equipped artifacts are taken into account).
     std::array<std::uint8_t, 886> unknown3 {};
   };
 }
