@@ -33,6 +33,8 @@ namespace h3m
 
   enum class MapDifficulty : std::uint8_t;
 
+  enum class MapFormat : std::uint32_t;
+
   // No explicit underlying type because this enum is not serialized anywhere in H3M.
   enum class ObjectPropertiesType;
 
