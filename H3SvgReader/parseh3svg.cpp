@@ -7,7 +7,7 @@
 #include <istream>
 #include <stdexcept>
 
-namespace h3m::H3SvgReader_NS
+namespace h3svg
 {
   SavedGame parseh3svg(std::istream& stream)
   {

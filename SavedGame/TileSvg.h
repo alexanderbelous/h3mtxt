@@ -11,7 +11,7 @@
 #include <cstdint>
 #include <vector>
 
-namespace h3m
+namespace h3svg
 {
   // The equivalent of h3m::Tile stored in the saved game.
   struct TileSvg

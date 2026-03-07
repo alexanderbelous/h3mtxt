@@ -4,7 +4,7 @@
 
 #include <iosfwd>
 
-namespace h3m::H3SvgReader_NS
+namespace h3svg
 {
   // Reads a saved game for HoMM3 from the given stream.
   // \param stream - input stream. The stream is expected to store an either gzip-compressed

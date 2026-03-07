@@ -1,5 +1,12 @@
 #pragma once
 
+namespace h3json
+{
+  template<class T>
+  struct FieldNames;
+}
+
+// TODO: merge with the template above.
 namespace h3m
 {
   // Stores the names of JSON fields for the specified class.

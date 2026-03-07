@@ -2,7 +2,7 @@
 
 #include <h3mtxt/SavedGame/SavedGameFwd.h>
 
-namespace h3m
+namespace h3svg
 {
   enum class PlayerControlType : std::int8_t
   {

@@ -1,14 +1,16 @@
 #include <h3mtxt/H3SvgJsonWriter/getEnumString.h>
 #include <h3mtxt/H3JsonWriter/getEnumString.h>
-#include <h3mtxt/Map/Constants/Constants.h>
 #include <h3mtxt/Map/Constants/ObjectClass.h>
+#include <h3mtxt/SavedGame/Constants/Constants.h>
 #include <h3mtxt/SavedGame/Constants/PlayerControlType.h>
 
 #include <limits>
 #include <type_traits>
 
-namespace h3m
+namespace h3svg
 {
+  using ::h3m::kNumObjectClasses;
+
   std::string_view getEnumString(ArtifactType8 value) noexcept
   {
     constexpr ArtifactType8 kNone {0xFF};
@@ -27,7 +29,7 @@ namespace h3m
     // 0x0000FFFF.
     static_assert(std::is_same_v<std::underlying_type_t<h3m::ArtifactType>, std::uint16_t>,
                   "This function assumes that h3m::ArtifactType has uint16_t as the underlying type.");
-    using UnderlyingType32 = std::underlying_type_t<h3m::ArtifactType32>;
+    using UnderlyingType32 = std::underlying_type_t<ArtifactType32>;
     const UnderlyingType32 integer_value = static_cast<UnderlyingType32>(value);
     if (integer_value >= std::numeric_limits<std::int16_t>::min() ||
         integer_value <= std::numeric_limits<std::int16_t>::max())
@@ -149,7 +151,7 @@ namespace h3m
   {
     // Reuse the names for h3m::TownType.
     using UnderlyingType = std::underlying_type_t<h3m::TownType>;
-    using UnderlyingType32 = std::underlying_type_t<h3m::TownType32>;
+    using UnderlyingType32 = std::underlying_type_t<TownType32>;
     const UnderlyingType32 integer_value = static_cast<UnderlyingType32>(value);
     if (integer_value >= std::numeric_limits<UnderlyingType>::min() &&
         integer_value <= std::numeric_limits<UnderlyingType>::max())

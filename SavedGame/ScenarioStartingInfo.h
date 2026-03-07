@@ -15,7 +15,7 @@
 #include <array>
 #include <cstddef>
 
-namespace h3m
+namespace h3svg
 {
   // Starting settings for the map.
   //

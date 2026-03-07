@@ -1,7 +1,7 @@
 #include <h3mtxt/H3SvgReader/H3SvgReader.h>
 #include <h3mtxt/SavedGame/EventBaseSvg.h>
 
-namespace h3m
+namespace h3svg
 {
   TroopsSvg H3SvgReader::readTroops() const
   {

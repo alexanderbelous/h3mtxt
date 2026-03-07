@@ -5,7 +5,7 @@
 #include <array>
 #include <cstdint>
 
-namespace h3m
+namespace h3svg
 {
   // TODO: consider reworking this class so that the creatures are stored similar to
   // std::array<CreatureStack, 7>.

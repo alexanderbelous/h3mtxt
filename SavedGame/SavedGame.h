@@ -1,11 +1,11 @@
 #pragma once
 
 #include <h3mtxt/SavedGame/SavedGameFwd.h>
-#include <h3mtxt/Map/Constants/Constants.h>
 #include <h3mtxt/Map/Constants/MapFormat.h>
 #include <h3mtxt/Map/Utils/ReservedData.h>
 #include <h3mtxt/Map/MapAdditionalInfo.h>
 #include <h3mtxt/Map/MapBasicInfo.h>
+#include <h3mtxt/SavedGame/Constants/Constants.h>
 #include <h3mtxt/SavedGame/EnumIndexedArray.h>
 #include <h3mtxt/SavedGame/HeroSvg.h>
 #include <h3mtxt/SavedGame/ObjectPropertiesTables.h>
@@ -22,21 +22,7 @@
 #include <string_view>
 #include <vector>
 
-// TODO: rename to h3svg.
-// Basically, the issue is that some structures are represented differently in H3SVG than they are in H3M.
-// We have 3 options:
-// 1) Use the same namespace but different names for such classes.
-// 2) Use different namespaces but the same names for such classes.
-// 3) Use the same namespace, the same names, but make them specializations of a template,
-//    e.g., PlayerSpecs<FileFormat::H3M>, PlayerSpecs<FileFormat::H3SVG>.
-//
-// Option (3) is is ugly and essentially equivalent to (1), so fuck it.
-// Option (1) is OKish, but I don't like appending "Svg" suffix to every class - what is this,
-// Hungarian notation?
-// The main reason I didn't pick option (2) from the beginning is that I was concerned about the
-// potential ambiguity. However, it would only really an issue if the namespaces were nested
-// (e.g., h3m::h3svg::PlayerSpecs), which is not the plan.
-namespace h3m
+namespace h3svg
 {
   struct BlackMarket
   {

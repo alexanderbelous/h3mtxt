@@ -4,7 +4,7 @@
 
 #include <cstdint>
 
-namespace h3m
+namespace h3svg
 {
   // Enum type used in H3SVG to specify the type of the starting bonus for players.
   //

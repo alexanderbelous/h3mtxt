@@ -10,9 +10,9 @@
 
 namespace Medea_NS
 {
-  void JsonObjectWriter<h3m::HeroSvg>::operator()(FieldsWriter& out, const h3m::HeroSvg& hero) const
+  void JsonObjectWriter<h3svg::HeroSvg>::operator()(FieldsWriter& out, const h3svg::HeroSvg& hero) const
   {
-    using Fields = h3m::FieldNames<h3m::HeroSvg>;
+    using Fields = h3json::FieldNames<h3svg::HeroSvg>;
 
     out.writeField(Fields::kX, hero.x);
     out.writeField(Fields::kY, hero.y);
@@ -20,7 +20,7 @@ namespace Medea_NS
     out.writeField(Fields::kIsVisible, hero.is_visible);
     out.writeField(Fields::kCoordinatesPacked, hero.coordinates_packed);
     out.writeField(Fields::kObjectClassUnder, hero.object_class_under);
-    if (auto enum_str = h3m::getEnumString(hero.object_class_under); !enum_str.empty())
+    if (auto enum_str = getEnumString(hero.object_class_under); !enum_str.empty())
     {
       out.writeComment(enum_str, false);
     }

@@ -11,7 +11,7 @@
 #include <variant>
 #include <vector>
 
-namespace h3m
+namespace h3svg
 {
   template<>
   struct QuestDetailsSvg<QuestType::None>
@@ -26,7 +26,7 @@ namespace h3m
 
   // Identical to QuestDetails<QuestType::PrimarySkills>.
   template<>
-  struct QuestDetailsSvg<QuestType::PrimarySkills> : QuestDetails<QuestType::PrimarySkills>
+  struct QuestDetailsSvg<QuestType::PrimarySkills> : h3m::QuestDetails<QuestType::PrimarySkills>
   {};
 
   template<>
@@ -52,7 +52,7 @@ namespace h3m
 
   // Identical to QuestDetails<QuestType::Artifacts>.
   template<>
-  struct QuestDetailsSvg<QuestType::Artifacts> : QuestDetails<QuestType::Artifacts>
+  struct QuestDetailsSvg<QuestType::Artifacts> : h3m::QuestDetails<QuestType::Artifacts>
   {};
 
   template<>
@@ -69,7 +69,7 @@ namespace h3m
 
   // Identical to QuestDetails<QuestType::Resources>.
   template<>
-  struct QuestDetailsSvg<QuestType::Resources> : QuestDetails<QuestType::Resources>
+  struct QuestDetailsSvg<QuestType::Resources> : h3m::QuestDetails<QuestType::Resources>
   {};
 
   template<>
@@ -82,7 +82,7 @@ namespace h3m
 
   // Identical to QuestDetails<QuestType::BePlayer>.
   template<>
-  struct QuestDetailsSvg<QuestType::BePlayer> : QuestDetails<QuestType::BePlayer>
+  struct QuestDetailsSvg<QuestType::BePlayer> : h3m::QuestDetails<QuestType::BePlayer>
   {};
 
   // The equivalent of h3m::Quest stored in saved games.

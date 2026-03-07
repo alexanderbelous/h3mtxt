@@ -9,21 +9,21 @@
 
 namespace Medea_NS
 {
-  void JsonObjectWriter<h3m::ArtifactSvg>::operator()(FieldsWriter& out, const h3m::ArtifactSvg& artifact) const
+  void JsonObjectWriter<h3svg::ArtifactSvg>::operator()(FieldsWriter& out, const h3svg::ArtifactSvg& artifact) const
   {
-    using Fields = h3m::FieldNames<h3m::ArtifactSvg>;
+    using Fields = h3json::FieldNames<h3svg::ArtifactSvg>;
     out.writeField(Fields::kGuardians, artifact.guardians);
   }
 
-  void JsonObjectWriter<h3m::BoatSvg>::operator()(FieldsWriter& out, const h3m::BoatSvg& boat) const
+  void JsonObjectWriter<h3svg::BoatSvg>::operator()(FieldsWriter& out, const h3svg::BoatSvg& boat) const
   {
-    using Fields = h3m::FieldNames<h3m::BoatSvg>;
+    using Fields = h3json::FieldNames<h3svg::BoatSvg>;
 
     out.writeField(Fields::kUnknown1, boat.unknown1);
     out.writeField(Fields::kObjectSubclass, boat.object_sublcass);
     out.writeField(Fields::kDirection, boat.direction);
     out.writeField(Fields::kOwner, boat.owner);
-    if (std::string_view enum_str = h3m::getEnumString(boat.owner); !enum_str.empty())
+    if (std::string_view enum_str = getEnumString(boat.owner); !enum_str.empty())
     {
       out.writeComment(enum_str, false);
     }
@@ -35,11 +35,11 @@ namespace Medea_NS
     out.writeField(Fields::kUnknown2, boat.unknown2);
   }
 
-  void JsonObjectWriter<h3m::DwellingSvg>::operator()(FieldsWriter& out, const h3m::DwellingSvg& dwelling) const
+  void JsonObjectWriter<h3svg::DwellingSvg>::operator()(FieldsWriter& out, const h3svg::DwellingSvg& dwelling) const
   {
-    using Fields = h3m::FieldNames<h3m::DwellingSvg>;
+    using Fields = h3json::FieldNames<h3svg::DwellingSvg>;
     out.writeField(Fields::kOwner, dwelling.owner);
-    if (std::string_view enum_str = h3m::getEnumString(dwelling.owner); !enum_str.empty())
+    if (std::string_view enum_str = getEnumString(dwelling.owner); !enum_str.empty())
     {
       out.writeComment(enum_str, false);
     }
@@ -52,9 +52,9 @@ namespace Medea_NS
     out.writeField(Fields::kUnknown, dwelling.unknown);
   }
 
-  void JsonObjectWriter<h3m::EventBaseSvg>::operator()(FieldsWriter& out, const h3m::EventBaseSvg& event) const
+  void JsonObjectWriter<h3svg::EventBaseSvg>::operator()(FieldsWriter& out, const h3svg::EventBaseSvg& event) const
   {
-    using Fields = h3m::FieldNames<h3m::EventBaseSvg>;
+    using Fields = h3json::FieldNames<h3svg::EventBaseSvg>;
     if (event.guardians)
     {
       out.writeField(Fields::kGuardians, *event.guardians);
@@ -71,11 +71,11 @@ namespace Medea_NS
     out.writeField(Fields::kCreatures, event.creatures);
   }
 
-  void JsonObjectWriter<h3m::GarrisonSvg>::operator()(FieldsWriter& out, const h3m::GarrisonSvg& garrison) const
+  void JsonObjectWriter<h3svg::GarrisonSvg>::operator()(FieldsWriter& out, const h3svg::GarrisonSvg& garrison) const
   {
-    using Fields = h3m::FieldNames<h3m::GarrisonSvg>;
+    using Fields = h3json::FieldNames<h3svg::GarrisonSvg>;
     out.writeField(Fields::kOwner, garrison.owner);
-    if (std::string_view enum_str = h3m::getEnumString(garrison.owner); !enum_str.empty())
+    if (std::string_view enum_str = getEnumString(garrison.owner); !enum_str.empty())
     {
       out.writeComment(enum_str, false);
     }
@@ -84,9 +84,9 @@ namespace Medea_NS
     out.writeField(Fields::kCanRemoveUnits, garrison.can_remove_units);
   }
 
-  void JsonObjectWriter<h3m::GuardiansSvg>::operator()(FieldsWriter& out, const h3m::GuardiansSvg& guardians) const
+  void JsonObjectWriter<h3svg::GuardiansSvg>::operator()(FieldsWriter& out, const h3svg::GuardiansSvg& guardians) const
   {
-    using Fields = h3m::FieldNames<h3m::GuardiansSvg>;
+    using Fields = h3json::FieldNames<h3svg::GuardiansSvg>;
     out.writeField(Fields::kMessage, guardians.message);
     if (guardians.creatures)
     {
@@ -94,11 +94,11 @@ namespace Medea_NS
     }
   }
 
-  void JsonObjectWriter<h3m::MineSvg>::operator()(FieldsWriter& out, const h3m::MineSvg& mine) const
+  void JsonObjectWriter<h3svg::MineSvg>::operator()(FieldsWriter& out, const h3svg::MineSvg& mine) const
   {
-    using Fields = h3m::FieldNames<h3m::MineSvg>;
+    using Fields = h3json::FieldNames<h3svg::MineSvg>;
     out.writeField(Fields::kOwner, mine.owner);
-    if (std::string_view enum_str = h3m::getEnumString(mine.owner); !enum_str.empty())
+    if (std::string_view enum_str = getEnumString(mine.owner); !enum_str.empty())
     {
       out.writeComment(enum_str, false);
     }
@@ -107,35 +107,35 @@ namespace Medea_NS
     out.writeField(Fields::kCoordinates, mine.coordinates);
   }
 
-  void JsonObjectWriter<h3m::MonsterSvg>::operator()(FieldsWriter& out, const h3m::MonsterSvg& monster) const
+  void JsonObjectWriter<h3svg::MonsterSvg>::operator()(FieldsWriter& out, const h3svg::MonsterSvg& monster) const
   {
-    using Fields = h3m::FieldNames<h3m::MonsterSvg>;
+    using Fields = h3json::FieldNames<h3svg::MonsterSvg>;
     out.writeField(Fields::kMessage, monster.message);
     out.writeField(Fields::kResources, monster.resources);
     out.writeField(Fields::kArtifact, monster.artifact);
-    if (std::string_view enum_str = h3m::getEnumString(monster.artifact); !enum_str.empty())
+    if (std::string_view enum_str = getEnumString(monster.artifact); !enum_str.empty())
     {
       out.writeComment(enum_str, false);
     }
   }
 
-  void JsonObjectWriter<h3m::ObeliskSvg>::operator()(FieldsWriter& out, const h3m::ObeliskSvg& obelisk) const
+  void JsonObjectWriter<h3svg::ObeliskSvg>::operator()(FieldsWriter& out, const h3svg::ObeliskSvg& obelisk) const
   {
-    using Fields = h3m::FieldNames<h3m::ObeliskSvg>;
+    using Fields = h3json::FieldNames<h3svg::ObeliskSvg>;
     out.writeField(Fields::kVisitedBy, obelisk.visited_by);
   }
 
-  void JsonObjectWriter<h3m::QuestGuardSvg>::operator()(FieldsWriter& out,
-                                                          const h3m::QuestGuardSvg& quest_guard) const
+  void JsonObjectWriter<h3svg::QuestGuardSvg>::operator()(FieldsWriter& out,
+                                                          const h3svg::QuestGuardSvg& quest_guard) const
   {
-    using Fields = h3m::FieldNames<h3m::QuestGuardSvg>;
+    using Fields = h3json::FieldNames<h3svg::QuestGuardSvg>;
     out.writeField(Fields::kQuest, quest_guard.quest);
     out.writeField(Fields::kVisitedBy, quest_guard.visited_by);
   }
 
-  void JsonObjectWriter<h3m::SeersHutSvg>::operator()(FieldsWriter& out, const h3m::SeersHutSvg& seers_hut) const
+  void JsonObjectWriter<h3svg::SeersHutSvg>::operator()(FieldsWriter& out, const h3svg::SeersHutSvg& seers_hut) const
   {
-    using Fields = h3m::FieldNames<h3m::SeersHutSvg>;
+    using Fields = h3json::FieldNames<h3svg::SeersHutSvg>;
     out.writeField(Fields::kQuest, seers_hut.quest);
     out.writeField(Fields::kReward, seers_hut.reward);
     out.writeField(Fields::kUnknown1, seers_hut.unknown1);
@@ -143,17 +143,17 @@ namespace Medea_NS
     out.writeField(Fields::kUnknown2, seers_hut.unknown2);
   }
 
-  void JsonObjectWriter<h3m::SignSvg>::operator()(FieldsWriter& out, const h3m::SignSvg& sign) const
+  void JsonObjectWriter<h3svg::SignSvg>::operator()(FieldsWriter& out, const h3svg::SignSvg& sign) const
   {
-    using Fields = h3m::FieldNames<h3m::SignSvg>;
+    using Fields = h3json::FieldNames<h3svg::SignSvg>;
     out.writeField(Fields::kMessage, sign.message);
     out.writeField(Fields::kIsCustom, sign.is_custom);
   }
 
-  void JsonObjectWriter<h3m::TimedEventSvg>::operator()(FieldsWriter& out,
-                                                        const h3m::TimedEventSvg& event) const
+  void JsonObjectWriter<h3svg::TimedEventSvg>::operator()(FieldsWriter& out,
+                                                          const h3svg::TimedEventSvg& event) const
   {
-    using Fields = h3m::FieldNames<h3m::TimedEventSvg>;
+    using Fields = h3json::FieldNames<h3svg::TimedEventSvg>;
     out.writeField(Fields::kMessage, event.message);
     out.writeField(Fields::kResources, event.resources);
     out.writeField(Fields::kAffectedPlayers, event.affected_players);
@@ -163,27 +163,27 @@ namespace Medea_NS
     out.writeField(Fields::kRepeatAfterDays, event.repeat_after_days);
   }
 
-  void JsonObjectWriter<h3m::TownEventSvg>::operator()(FieldsWriter& out, const h3m::TownEventSvg& event) const
+  void JsonObjectWriter<h3svg::TownEventSvg>::operator()(FieldsWriter& out, const h3svg::TownEventSvg& event) const
   {
-    using Fields = h3m::FieldNames<h3m::TownEventSvg>;
-    JsonObjectWriter<h3m::TimedEventSvg>{}(out, event);
+    using Fields = h3json::FieldNames<h3svg::TownEventSvg>;
+    JsonObjectWriter<h3svg::TimedEventSvg>{}(out, event);
     out.writeField(Fields::kUnknown1, event.unknown1);
     out.writeField(Fields::kBuildings, event.buildings);
     out.writeField(Fields::kUnknown2, event.unknown2);
     out.writeField(Fields::kCreatures, event.creatures);
   }
 
-  void JsonObjectWriter<h3m::TroopsSvg>::operator()(FieldsWriter& out, const h3m::TroopsSvg& troops) const
+  void JsonObjectWriter<h3svg::TroopsSvg>::operator()(FieldsWriter& out, const h3svg::TroopsSvg& troops) const
   {
-    using Fields = h3m::FieldNames<h3m::TroopsSvg>;
+    using Fields = h3json::FieldNames<h3svg::TroopsSvg>;
     out.writeField(Fields::kCreatureTypes, troops.creature_types);
     out.writeField(Fields::kCreatureCounts, troops.creature_counts);
   }
 
-  void JsonObjectWriter<h3m::ObjectPropertiesTables>::operator()(FieldsWriter& out,
-                                                                 const h3m::ObjectPropertiesTables& tables) const
+  void JsonObjectWriter<h3svg::ObjectPropertiesTables>::operator()(FieldsWriter& out,
+                                                                   const h3svg::ObjectPropertiesTables& tables) const
   {
-    using Fields = h3m::FieldNames<h3m::ObjectPropertiesTables>;
+    using Fields = h3json::FieldNames<h3svg::ObjectPropertiesTables>;
     out.writeField(Fields::kEventsAndPandorasBoxes, tables.events_and_pandoras_boxes);
     out.writeField(Fields::kArtifactsAndSpellScrolls, tables.artifacts_and_spell_scrolls);
     out.writeField(Fields::kMonsters, tables.monsters);

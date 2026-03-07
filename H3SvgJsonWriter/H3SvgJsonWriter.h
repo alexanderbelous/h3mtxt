@@ -9,181 +9,181 @@
 namespace Medea_NS
 {
   template<>
-  void JsonObjectWriter<h3m::ArtifactSvg>::operator()(FieldsWriter& out, const h3m::ArtifactSvg& artifact) const;
+  void JsonObjectWriter<h3svg::ArtifactSvg>::operator()(FieldsWriter& out, const h3svg::ArtifactSvg& artifact) const;
 
-  // Serialize h3m::BlackMarket as a JSON array.
+  // Serialize h3svg::BlackMarket as a JSON array.
   template<>
-  void JsonArrayWriter<h3m::BlackMarket>::operator()(const ArrayElementsWriter& out,
-                                                     const h3m::BlackMarket& black_market) const;
-
-  template<>
-  void JsonObjectWriter<h3m::BoatSvg>::operator()(FieldsWriter& out, const h3m::BoatSvg& boat) const;
+  void JsonArrayWriter<h3svg::BlackMarket>::operator()(const ArrayElementsWriter& out,
+                                                       const h3svg::BlackMarket& black_market) const;
 
   template<>
-  void JsonObjectWriter<h3m::DwellingSvg>::operator()(FieldsWriter& out, const h3m::DwellingSvg& dwelling) const;
+  void JsonObjectWriter<h3svg::BoatSvg>::operator()(FieldsWriter& out, const h3svg::BoatSvg& boat) const;
 
   template<>
-  void JsonObjectWriter<h3m::EventBaseSvg>::operator()(FieldsWriter& out, const h3m::EventBaseSvg& event) const;
+  void JsonObjectWriter<h3svg::DwellingSvg>::operator()(FieldsWriter& out, const h3svg::DwellingSvg& dwelling) const;
 
   template<>
-  void JsonObjectWriter<h3m::GarrisonSvg>::operator()(FieldsWriter& out, const h3m::GarrisonSvg& garrison) const;
+  void JsonObjectWriter<h3svg::EventBaseSvg>::operator()(FieldsWriter& out, const h3svg::EventBaseSvg& event) const;
 
   template<>
-  void JsonObjectWriter<h3m::GuardiansSvg>::operator()(FieldsWriter& out, const h3m::GuardiansSvg& guardians) const;
+  void JsonObjectWriter<h3svg::GarrisonSvg>::operator()(FieldsWriter& out, const h3svg::GarrisonSvg& garrison) const;
 
   template<>
-  void JsonObjectWriter<h3m::HeroSvg>::operator()(FieldsWriter& out, const h3m::HeroSvg& hero) const;
+  void JsonObjectWriter<h3svg::GuardiansSvg>::operator()(FieldsWriter& out, const h3svg::GuardiansSvg& guardians) const;
 
   template<>
-  void JsonObjectWriter<h3m::MineSvg>::operator()(FieldsWriter& out, const h3m::MineSvg& mine) const;
+  void JsonObjectWriter<h3svg::HeroSvg>::operator()(FieldsWriter& out, const h3svg::HeroSvg& hero) const;
 
   template<>
-  void JsonObjectWriter<h3m::MonsterSvg>::operator()(FieldsWriter& out, const h3m::MonsterSvg& monster) const;
+  void JsonObjectWriter<h3svg::MineSvg>::operator()(FieldsWriter& out, const h3svg::MineSvg& mine) const;
 
   template<>
-  void JsonObjectWriter<h3m::ObeliskSvg>::operator()(FieldsWriter& out, const h3m::ObeliskSvg& obelisk) const;
+  void JsonObjectWriter<h3svg::MonsterSvg>::operator()(FieldsWriter& out, const h3svg::MonsterSvg& monster) const;
 
   template<>
-  void JsonObjectWriter<h3m::ObjectPropertiesTables>::operator()(FieldsWriter& out,
-                                                                 const h3m::ObjectPropertiesTables& tables) const;
+  void JsonObjectWriter<h3svg::ObeliskSvg>::operator()(FieldsWriter& out, const h3svg::ObeliskSvg& obelisk) const;
 
   template<>
-  void JsonObjectWriter<h3m::ObjectSvg>::operator()(FieldsWriter& out, const h3m::ObjectSvg& object) const;
+  void JsonObjectWriter<h3svg::ObjectPropertiesTables>::operator()(FieldsWriter& out,
+                                                                   const h3svg::ObjectPropertiesTables& tables) const;
 
   template<>
-  void JsonObjectWriter<h3m::ObjectTemplateSvg>::operator()(FieldsWriter& out,
-                                                            const h3m::ObjectTemplateSvg& object_template) const;
+  void JsonObjectWriter<h3svg::ObjectSvg>::operator()(FieldsWriter& out, const h3svg::ObjectSvg& object) const;
 
   template<>
-  void JsonObjectWriter<h3m::PlayerSvg>::operator()(FieldsWriter& out,
-                                                    const h3m::PlayerSvg& player) const;
+  void JsonObjectWriter<h3svg::ObjectTemplateSvg>::operator()(FieldsWriter& out,
+                                                              const h3svg::ObjectTemplateSvg& object_template) const;
 
   template<>
-  void JsonObjectWriter<h3m::PlayerSpecsSvg>::operator()(FieldsWriter& out,
-                                                         const h3m::PlayerSpecsSvg& player_specs) const;
+  void JsonObjectWriter<h3svg::PlayerSvg>::operator()(FieldsWriter& out,
+                                                      const h3svg::PlayerSvg& player) const;
 
   template<>
-  void JsonObjectWriter<h3m::QuestSvg>::operator()(FieldsWriter& out, const h3m::QuestSvg& quest) const;
+  void JsonObjectWriter<h3svg::PlayerSpecsSvg>::operator()(FieldsWriter& out,
+                                                           const h3svg::PlayerSpecsSvg& player_specs) const;
 
   template<>
-  void JsonObjectWriter<h3m::QuestDetailsSvg<h3m::QuestType::None>>::operator()(
-    FieldsWriter& out, const h3m::QuestDetailsSvg<h3m::QuestType::None>& details) const;
+  void JsonObjectWriter<h3svg::QuestSvg>::operator()(FieldsWriter& out, const h3svg::QuestSvg& quest) const;
 
   template<>
-  void JsonObjectWriter<h3m::QuestDetailsSvg<h3m::QuestType::Level>>::operator()(
-    FieldsWriter& out, const h3m::QuestDetailsSvg<h3m::QuestType::Level>& details) const;
+  void JsonObjectWriter<h3svg::QuestDetailsSvg<h3svg::QuestType::None>>::operator()(
+    FieldsWriter& out, const h3svg::QuestDetailsSvg<h3svg::QuestType::None>& details) const;
 
   template<>
-  void JsonObjectWriter<h3m::QuestDetailsSvg<h3m::QuestType::PrimarySkills>>::operator()(
-    FieldsWriter& out, const h3m::QuestDetailsSvg<h3m::QuestType::PrimarySkills>& details) const;
+  void JsonObjectWriter<h3svg::QuestDetailsSvg<h3svg::QuestType::Level>>::operator()(
+    FieldsWriter& out, const h3svg::QuestDetailsSvg<h3svg::QuestType::Level>& details) const;
 
   template<>
-  void JsonObjectWriter<h3m::QuestDetailsSvg<h3m::QuestType::DefeatHero>>::operator()(
-    FieldsWriter& out, const h3m::QuestDetailsSvg<h3m::QuestType::DefeatHero>& details) const;
+  void JsonObjectWriter<h3svg::QuestDetailsSvg<h3svg::QuestType::PrimarySkills>>::operator()(
+    FieldsWriter& out, const h3svg::QuestDetailsSvg<h3svg::QuestType::PrimarySkills>& details) const;
 
   template<>
-  void JsonObjectWriter<h3m::QuestDetailsSvg<h3m::QuestType::DefeatMonster>>::operator()(
-    FieldsWriter& out, const h3m::QuestDetailsSvg<h3m::QuestType::DefeatMonster>& details) const;
+  void JsonObjectWriter<h3svg::QuestDetailsSvg<h3svg::QuestType::DefeatHero>>::operator()(
+    FieldsWriter& out, const h3svg::QuestDetailsSvg<h3svg::QuestType::DefeatHero>& details) const;
 
   template<>
-  void JsonObjectWriter<h3m::QuestDetailsSvg<h3m::QuestType::Artifacts>>::operator()(
-    FieldsWriter& out, const h3m::QuestDetailsSvg<h3m::QuestType::Artifacts>& details) const;
+  void JsonObjectWriter<h3svg::QuestDetailsSvg<h3svg::QuestType::DefeatMonster>>::operator()(
+    FieldsWriter& out, const h3svg::QuestDetailsSvg<h3svg::QuestType::DefeatMonster>& details) const;
 
   template<>
-  void JsonObjectWriter<h3m::QuestDetailsSvg<h3m::QuestType::Creatures>>::operator()(
-    FieldsWriter& out, const h3m::QuestDetailsSvg<h3m::QuestType::Creatures>& details) const;
+  void JsonObjectWriter<h3svg::QuestDetailsSvg<h3svg::QuestType::Artifacts>>::operator()(
+    FieldsWriter& out, const h3svg::QuestDetailsSvg<h3svg::QuestType::Artifacts>& details) const;
 
   template<>
-  void JsonObjectWriter<h3m::QuestDetailsSvg<h3m::QuestType::Resources>>::operator()(
-    FieldsWriter& out, const h3m::QuestDetailsSvg<h3m::QuestType::Resources>& details) const;
+  void JsonObjectWriter<h3svg::QuestDetailsSvg<h3svg::QuestType::Creatures>>::operator()(
+    FieldsWriter& out, const h3svg::QuestDetailsSvg<h3svg::QuestType::Creatures>& details) const;
 
   template<>
-  void JsonObjectWriter<h3m::QuestDetailsSvg<h3m::QuestType::BeHero>>::operator()(
-    FieldsWriter& out, const h3m::QuestDetailsSvg<h3m::QuestType::BeHero>& details) const;
+  void JsonObjectWriter<h3svg::QuestDetailsSvg<h3svg::QuestType::Resources>>::operator()(
+    FieldsWriter& out, const h3svg::QuestDetailsSvg<h3svg::QuestType::Resources>& details) const;
 
   template<>
-  void JsonObjectWriter<h3m::QuestDetailsSvg<h3m::QuestType::BePlayer>>::operator()(
-    FieldsWriter& out, const h3m::QuestDetailsSvg<h3m::QuestType::BePlayer>& details) const;
+  void JsonObjectWriter<h3svg::QuestDetailsSvg<h3svg::QuestType::BeHero>>::operator()(
+    FieldsWriter& out, const h3svg::QuestDetailsSvg<h3svg::QuestType::BeHero>& details) const;
 
   template<>
-  void JsonObjectWriter<h3m::QuestGuardSvg>::operator()(FieldsWriter& out,
-                                                        const h3m::QuestGuardSvg& quest_guard) const;
+  void JsonObjectWriter<h3svg::QuestDetailsSvg<h3svg::QuestType::BePlayer>>::operator()(
+    FieldsWriter& out, const h3svg::QuestDetailsSvg<h3svg::QuestType::BePlayer>& details) const;
 
   template<>
-  void JsonObjectWriter<h3m::RewardSvg>::operator()(FieldsWriter& out, const h3m::RewardSvg& reward) const;
+  void JsonObjectWriter<h3svg::QuestGuardSvg>::operator()(FieldsWriter& out,
+                                                          const h3svg::QuestGuardSvg& quest_guard) const;
 
   template<>
-  void JsonObjectWriter<h3m::RewardDetailsSvg<h3m::RewardType::None>>::operator()(
-    FieldsWriter& out, const h3m::RewardDetailsSvg<h3m::RewardType::None>& details) const;
+  void JsonObjectWriter<h3svg::RewardSvg>::operator()(FieldsWriter& out, const h3svg::RewardSvg& reward) const;
 
   template<>
-  void JsonObjectWriter<h3m::RewardDetailsSvg<h3m::RewardType::Experience>>::operator()(
-    FieldsWriter& out, const h3m::RewardDetailsSvg<h3m::RewardType::Experience>& details) const;
+  void JsonObjectWriter<h3svg::RewardDetailsSvg<h3svg::RewardType::None>>::operator()(
+    FieldsWriter& out, const h3svg::RewardDetailsSvg<h3svg::RewardType::None>& details) const;
 
   template<>
-  void JsonObjectWriter<h3m::RewardDetailsSvg<h3m::RewardType::SpellPoints>>::operator()(
-    FieldsWriter& out, const h3m::RewardDetailsSvg<h3m::RewardType::SpellPoints>& details) const;
+  void JsonObjectWriter<h3svg::RewardDetailsSvg<h3svg::RewardType::Experience>>::operator()(
+    FieldsWriter& out, const h3svg::RewardDetailsSvg<h3svg::RewardType::Experience>& details) const;
 
   template<>
-  void JsonObjectWriter<h3m::RewardDetailsSvg<h3m::RewardType::Morale>>::operator()(
-    FieldsWriter& out, const h3m::RewardDetailsSvg<h3m::RewardType::Morale>& details) const;
+  void JsonObjectWriter<h3svg::RewardDetailsSvg<h3svg::RewardType::SpellPoints>>::operator()(
+    FieldsWriter& out, const h3svg::RewardDetailsSvg<h3svg::RewardType::SpellPoints>& details) const;
 
   template<>
-  void JsonObjectWriter<h3m::RewardDetailsSvg<h3m::RewardType::Luck>>::operator()(
-    FieldsWriter& out, const h3m::RewardDetailsSvg<h3m::RewardType::Luck>& details) const;
+  void JsonObjectWriter<h3svg::RewardDetailsSvg<h3svg::RewardType::Morale>>::operator()(
+    FieldsWriter& out, const h3svg::RewardDetailsSvg<h3svg::RewardType::Morale>& details) const;
 
   template<>
-  void JsonObjectWriter<h3m::RewardDetailsSvg<h3m::RewardType::Resource>>::operator()(
-    FieldsWriter& out, const h3m::RewardDetailsSvg<h3m::RewardType::Resource>& details) const;
+  void JsonObjectWriter<h3svg::RewardDetailsSvg<h3svg::RewardType::Luck>>::operator()(
+    FieldsWriter& out, const h3svg::RewardDetailsSvg<h3svg::RewardType::Luck>& details) const;
 
   template<>
-  void JsonObjectWriter<h3m::RewardDetailsSvg<h3m::RewardType::PrimarySkill>>::operator()(
-    FieldsWriter& out, const h3m::RewardDetailsSvg<h3m::RewardType::PrimarySkill>& details) const;
+  void JsonObjectWriter<h3svg::RewardDetailsSvg<h3svg::RewardType::Resource>>::operator()(
+    FieldsWriter& out, const h3svg::RewardDetailsSvg<h3svg::RewardType::Resource>& details) const;
 
   template<>
-  void JsonObjectWriter<h3m::RewardDetailsSvg<h3m::RewardType::SecondarySkill>>::operator()(
-    FieldsWriter& out, const h3m::RewardDetailsSvg<h3m::RewardType::SecondarySkill>& details) const;
+  void JsonObjectWriter<h3svg::RewardDetailsSvg<h3svg::RewardType::PrimarySkill>>::operator()(
+    FieldsWriter& out, const h3svg::RewardDetailsSvg<h3svg::RewardType::PrimarySkill>& details) const;
 
   template<>
-  void JsonObjectWriter<h3m::RewardDetailsSvg<h3m::RewardType::Artifact>>::operator()(
-    FieldsWriter& out, const h3m::RewardDetailsSvg<h3m::RewardType::Artifact>& details) const;
+  void JsonObjectWriter<h3svg::RewardDetailsSvg<h3svg::RewardType::SecondarySkill>>::operator()(
+    FieldsWriter& out, const h3svg::RewardDetailsSvg<h3svg::RewardType::SecondarySkill>& details) const;
 
   template<>
-  void JsonObjectWriter<h3m::RewardDetailsSvg<h3m::RewardType::Spell>>::operator()(
-    FieldsWriter& out, const h3m::RewardDetailsSvg<h3m::RewardType::Spell>& details) const;
+  void JsonObjectWriter<h3svg::RewardDetailsSvg<h3svg::RewardType::Artifact>>::operator()(
+    FieldsWriter& out, const h3svg::RewardDetailsSvg<h3svg::RewardType::Artifact>& details) const;
 
   template<>
-  void JsonObjectWriter<h3m::RewardDetailsSvg<h3m::RewardType::Creature>>::operator()(
-    FieldsWriter& out, const h3m::RewardDetailsSvg<h3m::RewardType::Creature>& details) const;
+  void JsonObjectWriter<h3svg::RewardDetailsSvg<h3svg::RewardType::Spell>>::operator()(
+    FieldsWriter& out, const h3svg::RewardDetailsSvg<h3svg::RewardType::Spell>& details) const;
 
   template<>
-  void JsonObjectWriter<h3m::RumorSvg>::operator()(FieldsWriter& out, const h3m::RumorSvg& rumor) const;
+  void JsonObjectWriter<h3svg::RewardDetailsSvg<h3svg::RewardType::Creature>>::operator()(
+    FieldsWriter& out, const h3svg::RewardDetailsSvg<h3svg::RewardType::Creature>& details) const;
 
   template<>
-  void JsonObjectWriter<h3m::SavedGame>::operator()(FieldsWriter& out, const h3m::SavedGame& saved_game) const;
+  void JsonObjectWriter<h3svg::RumorSvg>::operator()(FieldsWriter& out, const h3svg::RumorSvg& rumor) const;
 
   template<>
-  void JsonObjectWriter<h3m::ScenarioStartingInfo>::operator()(FieldsWriter& out,
-                                                               const h3m::ScenarioStartingInfo& starting_info) const;
+  void JsonObjectWriter<h3svg::SavedGame>::operator()(FieldsWriter& out, const h3svg::SavedGame& saved_game) const;
 
   template<>
-  void JsonObjectWriter<h3m::SeersHutSvg>::operator()(FieldsWriter& out, const h3m::SeersHutSvg& seers_hut) const;
+  void JsonObjectWriter<h3svg::ScenarioStartingInfo>::operator()(FieldsWriter& out,
+                                                                 const h3svg::ScenarioStartingInfo& starting_info) const;
 
   template<>
-  void JsonObjectWriter<h3m::SignSvg>::operator()(FieldsWriter& out, const h3m::SignSvg& sign) const;
+  void JsonObjectWriter<h3svg::SeersHutSvg>::operator()(FieldsWriter& out, const h3svg::SeersHutSvg& seers_hut) const;
 
   template<>
-  void JsonObjectWriter<h3m::TileSvg>::operator()(FieldsWriter& out, const h3m::TileSvg& tile) const;
+  void JsonObjectWriter<h3svg::SignSvg>::operator()(FieldsWriter& out, const h3svg::SignSvg& sign) const;
 
   template<>
-  void JsonObjectWriter<h3m::TimedEventSvg>::operator()(FieldsWriter& out, const h3m::TimedEventSvg& event) const;
+  void JsonObjectWriter<h3svg::TileSvg>::operator()(FieldsWriter& out, const h3svg::TileSvg& tile) const;
 
   template<>
-  void JsonObjectWriter<h3m::TownEventSvg>::operator()(FieldsWriter& out, const h3m::TownEventSvg& event) const;
+  void JsonObjectWriter<h3svg::TimedEventSvg>::operator()(FieldsWriter& out, const h3svg::TimedEventSvg& event) const;
 
   template<>
-  void JsonObjectWriter<h3m::TownSvg>::operator()(FieldsWriter& out, const h3m::TownSvg& town) const;
+  void JsonObjectWriter<h3svg::TownEventSvg>::operator()(FieldsWriter& out, const h3svg::TownEventSvg& event) const;
 
   template<>
-  void JsonObjectWriter<h3m::TroopsSvg>::operator()(FieldsWriter& out, const h3m::TroopsSvg& troops) const;
+  void JsonObjectWriter<h3svg::TownSvg>::operator()(FieldsWriter& out, const h3svg::TownSvg& town) const;
+
+  template<>
+  void JsonObjectWriter<h3svg::TroopsSvg>::operator()(FieldsWriter& out, const h3svg::TroopsSvg& troops) const;
 }

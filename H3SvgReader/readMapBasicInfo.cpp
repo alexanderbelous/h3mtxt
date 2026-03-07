@@ -1,7 +1,7 @@
 #include <h3mtxt/H3SvgReader/H3SvgReader.h>
 #include <h3mtxt/Map/MapBasicInfo.h>
 
-namespace h3m
+namespace h3svg
 {
   MapBasicInfo H3SvgReader::readMapBasicInfo() const
   {

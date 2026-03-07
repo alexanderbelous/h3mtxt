@@ -5,9 +5,56 @@
 #include <cstddef>
 #include <cstdint>
 
-// Forward declarations of some types used in h3m::SavedGame.
-namespace h3m
+// Forward declarations of some types used in h3svg::SavedGame.
+//
+// Note that SavedGame uses a different namespace than Map. This is due to the fact that some
+// structures are represented differently in H3SVG than they are in H3M.
+//
+// TODO: get rid of "Svg" suffixes.
+namespace h3svg
 {
+  // Reuse some types from H3M.
+  using ::h3m::ArtifactType;
+  using ::h3m::Bool;
+  using ::h3m::Coordinates;
+  using ::h3m::CreatureStack;
+  using ::h3m::CreatureType;
+  using ::h3m::CustomHero;
+  using ::h3m::HeroPortrait;
+  using ::h3m::HeroType;
+  using ::h3m::MapBasicInfo;
+  using ::h3m::MapDifficulty;
+  using ::h3m::MapFormat;
+  using ::h3m::ObjectClass;
+  using ::h3m::PlayerColor;
+  using ::h3m::PlayerBehavior;
+  using ::h3m::PlayersBitmask;
+  using ::h3m::PrimarySkills;
+  using ::h3m::PrimarySkillType;
+  using ::h3m::QuestType;
+  using ::h3m::ReservedData;
+  using ::h3m::Resources;
+  using ::h3m::ResourceType;
+  using ::h3m::RewardType;
+  using ::h3m::RiverType;
+  using ::h3m::RoadType;
+  using ::h3m::SecondarySkill;
+  using ::h3m::SecondarySkillType;
+  using ::h3m::SpellType;
+  using ::h3m::SpriteTilesBitmask;
+  using ::h3m::StartingHero;
+  using ::h3m::TeamsInfo;
+  using ::h3m::TerrainType;
+  using ::h3m::TownBuildingsBitmask;
+  using ::h3m::TownBuildingType;
+  using ::h3m::TownType;
+  using ::h3m::TownsBitmask;
+  // TODO: reimplement these for H3SVG. While they work for most victory/loss condition types,
+  // there are a few cases when they don't.
+  using ::h3m::LossCondition;
+  using ::h3m::VictoryCondition;
+
+
   enum class ArtifactType8 : std::uint8_t;
 
   enum class ArtifactType32 : std::int32_t;

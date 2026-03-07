@@ -5,7 +5,7 @@
 
 #include <cstdint>
 
-namespace h3m
+namespace h3svg
 {
   // Same as h3m::ArtifactType, but uses int32 as the underlying type.
   //

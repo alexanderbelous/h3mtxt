@@ -16,7 +16,7 @@
 #include <string>
 #include <vector>
 
-namespace h3m
+namespace h3svg
 {
   // The equivalent of ObjectProperties<ObjectPropertiesType::ARTIFACT> in H3SVG.
   // Unlike H3M, guardians are not optional here.

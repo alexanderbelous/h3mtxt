@@ -4,7 +4,7 @@
 
 #include <stdexcept>
 
-namespace h3m
+namespace h3svg
 {
   BlackMarket H3SvgReader::readBlackMarket() const
   {
@@ -65,8 +65,8 @@ namespace h3m
     {
       player = readPlayerSpecs();
     }
-    saved_game.victory_condition = H3Reader_NS::readVictoryCondition(stream_);
-    saved_game.loss_condition = H3Reader_NS::readLossCondition(stream_);
+    saved_game.victory_condition = h3m::H3Reader_NS::readVictoryCondition(stream_);
+    saved_game.loss_condition = h3m::H3Reader_NS::readLossCondition(stream_);
     saved_game.teams = readTeamsInfo();
     // Read custom heroes.
     const std::uint8_t num_custom_heroes = readInt<std::uint8_t>();

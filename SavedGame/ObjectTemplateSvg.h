@@ -8,7 +8,7 @@
 #include <cstdint>
 #include <string>
 
-namespace h3m
+namespace h3svg
 {
   // The equivalent of h3m::ObjectTemplate stored in the saved game.
   struct ObjectTemplateSvg

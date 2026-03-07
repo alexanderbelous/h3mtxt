@@ -14,7 +14,7 @@
 #include <cstdint>
 #include <string>
 
-namespace h3m
+namespace h3svg
 {
   // Information about a town stored in H3SVG.
   // Credits to RoseKavalier: instead of figuring out the meaning of every byte, I followed the already

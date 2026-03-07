@@ -4,7 +4,7 @@
 
 #include <iosfwd>
 
-namespace h3m
+namespace h3svg
 {
   // Writes a JSON representation of the given HoMM3 saved game into the given stream.
   // \param stream - output stream.

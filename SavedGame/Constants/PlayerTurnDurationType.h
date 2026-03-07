@@ -4,7 +4,7 @@
 
 #include <cstdint>
 
-namespace h3m
+namespace h3svg
 {
   // Enum type used in H3SVG to specify player turn duration.
   enum class PlayerTurnDurationType : std::uint8_t

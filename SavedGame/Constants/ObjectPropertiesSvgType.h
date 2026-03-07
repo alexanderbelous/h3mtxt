@@ -6,7 +6,7 @@
 
 #include <cstdint>
 
-namespace h3m
+namespace h3svg
 {
   enum class ObjectPropertiesSvgType
   {

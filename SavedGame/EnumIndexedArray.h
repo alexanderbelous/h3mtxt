@@ -4,7 +4,7 @@
 #include <cstddef>
 #include <type_traits>
 
-namespace h3m
+namespace h3svg
 {
   // Wrapper for std::array<T, N> which allows indexing elements of the array via
   // values of the specified enum type without explicitly casting them to integers.

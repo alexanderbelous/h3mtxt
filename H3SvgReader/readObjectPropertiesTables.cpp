@@ -2,7 +2,7 @@
 
 #include <h3mtxt/SavedGame/ObjectPropertiesTables.h>
 
-namespace h3m
+namespace h3svg
 {
   ArtifactSvg H3SvgReader::readArtifact() const
   {

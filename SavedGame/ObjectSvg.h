@@ -5,7 +5,7 @@
 
 #include <cstdint>
 
-namespace h3m
+namespace h3svg
 {
   // The equivalent of h3m::Object stored in the saved game.
   // Unlike H3M, H3SVG stores the properties of the object separately from the object itself.

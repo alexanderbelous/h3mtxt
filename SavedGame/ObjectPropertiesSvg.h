@@ -8,7 +8,7 @@
 #include <cstdint>
 #include <variant>
 
-namespace h3m
+namespace h3svg
 {
   // The equivalent of h3m::ObjectProperties stored in saved games.
   //

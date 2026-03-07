@@ -14,10 +14,10 @@ namespace Medea_NS
 {
   // TODO: merge these full specializations into a single partial specialization for EnumIndexedArray.
   template<>
-  struct JsonObjectWriter<h3m::EnumIndexedArray<h3m::ArtifactType, h3m::Bool, 144>>
+  struct JsonObjectWriter<h3svg::EnumIndexedArray<h3m::ArtifactType, h3m::Bool, 144>>
   {
     void operator()(FieldsWriter& out,
-                    const h3m::EnumIndexedArray<h3m::ArtifactType, h3m::Bool, 144>& boolmask) const
+                    const h3svg::EnumIndexedArray<h3m::ArtifactType, h3m::Bool, 144>& boolmask) const
     {
       // Reuse the names of fields for ArtifactsBitmask.
       constexpr const std::array<std::string_view, 144>& kFieldsNames = h3m::FieldNames<h3m::ArtifactsBitmask>::kNames;
@@ -30,10 +30,10 @@ namespace Medea_NS
   };
 
   template<>
-  struct JsonObjectWriter<h3m::EnumIndexedArray<h3m::SecondarySkillType, h3m::Bool, 28>>
+  struct JsonObjectWriter<h3svg::EnumIndexedArray<h3m::SecondarySkillType, h3m::Bool, 28>>
   {
     void operator()(FieldsWriter& out,
-                    const h3m::EnumIndexedArray<h3m::SecondarySkillType, h3m::Bool, 28>& boolmask) const
+                    const h3svg::EnumIndexedArray<h3m::SecondarySkillType, h3m::Bool, 28>& boolmask) const
     {
       // Reuse the names of fields for SecondarySkillsBitmask.
       constexpr std::span<const std::string_view, 32> kFieldsNames =
@@ -48,10 +48,10 @@ namespace Medea_NS
 
   // Partial specialization for h3m::EnumIndexedArray<h3m::PlayerColor, T, NumElements>
   template<class T, std::size_t NumElements>
-  struct JsonObjectWriter<h3m::EnumIndexedArray<h3m::PlayerColor, T, NumElements>>
+  struct JsonObjectWriter<h3svg::EnumIndexedArray<h3m::PlayerColor, T, NumElements>>
   {
     void operator()(FieldsWriter& out,
-                    const h3m::EnumIndexedArray<h3m::PlayerColor, T, NumElements>& enum_indexed_array) const
+                    const h3svg::EnumIndexedArray<h3m::PlayerColor, T, NumElements>& enum_indexed_array) const
     {
       // Reuse the names of fields for PlayersBitmask.
       constexpr const std::array<std::string_view, h3m::kMaxPlayers>& kFieldsNames =
@@ -63,7 +63,7 @@ namespace Medea_NS
         out.writeField(kFieldsNames[player_idx], element);
         if constexpr (std::is_enum_v<T>)
         {
-          if (std::string_view enum_str = h3m::getEnumString(element); !enum_str.empty())
+          if (std::string_view enum_str = getEnumString(element); !enum_str.empty())
           {
             out.writeComment(enum_str, false);
           }

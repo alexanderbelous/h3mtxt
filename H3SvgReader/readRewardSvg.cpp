@@ -5,10 +5,14 @@
 #include <array>
 #include <stdexcept>
 
-namespace h3m
+namespace h3svg
 {
   namespace
   {
+    using ::h3m::EnumSequence;
+    using ::h3m::kNumRewardTypes;
+    using ::h3m::MakeEnumSequence;
+
     template<RewardType T>
     RewardSvg::Details readRewardDetailsAsVariant(const H3SvgReader& reader)
     {

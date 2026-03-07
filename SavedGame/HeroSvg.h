@@ -9,7 +9,7 @@
 #include <cstdint>
 #include <string>
 
-namespace h3m
+namespace h3svg
 {
   struct HeroSvg
   {

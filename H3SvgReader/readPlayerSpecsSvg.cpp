@@ -1,7 +1,7 @@
 #include <h3mtxt/H3SvgReader/H3SvgReader.h>
 #include <h3mtxt/SavedGame/PlayerSpecsSvg.h>
 
-namespace h3m
+namespace h3svg
 {
   StartingHero H3SvgReader::readStartingHero() const
   {

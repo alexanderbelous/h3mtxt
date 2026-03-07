@@ -7,7 +7,7 @@
 #include <cstdint>
 #include <variant>
 
-namespace h3m
+namespace h3svg
 {
   template<>
   struct RewardDetailsSvg<RewardType::None>

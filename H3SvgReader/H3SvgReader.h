@@ -6,7 +6,7 @@
 #include <h3mtxt/Map/Constants/RewardType.h>
 #include <h3mtxt/SavedGame/SavedGameFwd.h>
 
-namespace h3m
+namespace h3svg
 {
   // API for reading various structures from an *UNCOMPRESSED* saved game file (i.e. .GM1, .GM2, ...).
   //
@@ -15,7 +15,7 @@ namespace h3m
   // 1) It reduces the risk of calling a "wrong" function, i.e. one intended for .h3m files.
   // 2) It doesn't pollute the namespace.
   // 3) It allows omitting the stream parameter.
-  class H3SvgReader : public H3ReaderBase
+  class H3SvgReader : public h3m::H3ReaderBase
   {
   public:
     // Inherit the constructor from H3ReaderBase.

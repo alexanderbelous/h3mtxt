@@ -13,7 +13,7 @@
 #include <string>
 #include <vector>
 
-namespace h3m
+namespace h3svg
 {
   // Equivalent of h3m::Guardians used in H3SVG.
   struct GuardiansSvg

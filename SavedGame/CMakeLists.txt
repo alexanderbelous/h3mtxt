@@ -1,6 +1,7 @@
 # All source files for "SavedGame" library.
 set(SOURCE_LIST
     "Constants/ArtifactType32.h"
+    "Constants/Constants.h"
     "Constants/ObjectPropertiesSvgType.h"
     "Constants/PlayerControlType.h"
     "Constants/PlayerStartingBonusType.h"

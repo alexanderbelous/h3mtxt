@@ -8,7 +8,7 @@
 // \param value - input enum value.
 // \return a human-readable name for @value,
 //         or an empty string_view if @value is not a known enum constant.
-namespace h3m
+namespace h3svg
 {
   std::string_view getEnumString(ArtifactType8 value) noexcept;
 

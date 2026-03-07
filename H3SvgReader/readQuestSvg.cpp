@@ -4,10 +4,14 @@
 
 #include <array>
 
-namespace h3m
+namespace h3svg
 {
   namespace
   {
+    using ::h3m::EnumSequence;
+    using ::h3m::kNumQuestTypes;
+    using ::h3m::MakeEnumSequence;
+
     template<QuestType T>
     QuestSvg::Details readQuestDetailsAsVariant(const H3SvgReader& reader)
     {

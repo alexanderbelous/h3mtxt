@@ -18,7 +18,7 @@ namespace Medea_NS
     // Helper class to pass map_size to JsonValueWriter when writing SavedGame::tiles.
     struct TilesSvgWithMapSize
     {
-      std::span<const h3m::TileSvg> tiles;
+      std::span<const h3svg::TileSvg> tiles;
       std::uint32_t map_size {};
       bool has_two_levels {};
     };
@@ -36,7 +36,7 @@ namespace Medea_NS
       // Strictly speaking, this is an error - the number of tiles should match expected_num_tiles.
       // However, this is only an error for H3SVG - we can still serialize such arrays of tiles as
       // JSON. We cannot reliably print coordinates though.
-      for (const h3m::TileSvg& tile : value.tiles)
+      for (const h3svg::TileSvg& tile : value.tiles)
       {
         out.writeElement(tile);
       }
@@ -59,18 +59,18 @@ namespace Medea_NS
     }
   }
 
-  void JsonObjectWriter<h3m::PlayerSvg>::operator()(FieldsWriter& out,
-                                                    const h3m::PlayerSvg& player) const
+  void JsonObjectWriter<h3svg::PlayerSvg>::operator()(FieldsWriter& out,
+                                                      const h3svg::PlayerSvg& player) const
   {
-    using Fields = h3m::FieldNames<h3m::PlayerSvg>;
+    using Fields = h3json::FieldNames<h3svg::PlayerSvg>;
     out.writeField(Fields::kPlayerColor, player.player_color);
-    if (auto enum_str = h3m::getEnumString(player.player_color); !enum_str.empty())
+    if (auto enum_str = getEnumString(player.player_color); !enum_str.empty())
     {
       out.writeComment(enum_str, false);
     }
     out.writeField(Fields::kNumHeroes, player.num_heroes);
     out.writeField(Fields::kActiveHero, player.active_hero);
-    if (auto enum_str = h3m::getEnumString(player.active_hero); !enum_str.empty())
+    if (auto enum_str = getEnumString(player.active_hero); !enum_str.empty())
     {
       out.writeComment(enum_str, false);
     }
@@ -81,14 +81,14 @@ namespace Medea_NS
     out.writeField(Fields::kUnknown2, player.unknown2);
   }
 
-  void JsonObjectWriter<h3m::PlayerSpecsSvg>::operator()(FieldsWriter& out, const h3m::PlayerSpecsSvg& player) const
+  void JsonObjectWriter<h3svg::PlayerSpecsSvg>::operator()(FieldsWriter& out, const h3svg::PlayerSpecsSvg& player) const
   {
-    using Fields = h3m::FieldNames<h3m::PlayerSpecsSvg>;
+    using Fields = h3json::FieldNames<h3svg::PlayerSpecsSvg>;
 
     out.writeField(Fields::kCanBeHuman, player.can_be_human);
     out.writeField(Fields::kCanBeComputer, player.can_be_computer);
     out.writeField(Fields::kBehavior, player.behavior);
-    if (auto enum_str = h3m::getEnumString(player.behavior); !enum_str.empty())
+    if (auto enum_str = getEnumString(player.behavior); !enum_str.empty())
     {
       out.writeComment(enum_str, false);
     }
@@ -101,36 +101,37 @@ namespace Medea_NS
     out.writeField(Fields::kStartingHero, player.starting_hero);
   }
 
-  void JsonObjectWriter<h3m::RumorSvg>::operator()(FieldsWriter& out, const h3m::RumorSvg& rumor) const
+  void JsonObjectWriter<h3svg::RumorSvg>::operator()(FieldsWriter& out, const h3svg::RumorSvg& rumor) const
   {
-    using Fields = h3m::FieldNames<h3m::RumorSvg>;
+    using Fields = h3json::FieldNames<h3svg::RumorSvg>;
     out.writeField(Fields::kText, rumor.text);
     out.writeField(Fields::kHasBeenShown, rumor.has_been_shown);
   }
 
-  void JsonArrayWriter<h3m::BlackMarket>::operator()(const ArrayElementsWriter& out, const h3m::BlackMarket& black_market) const
+  void JsonArrayWriter<h3svg::BlackMarket>::operator()(const ArrayElementsWriter& out,
+                                                       const h3svg::BlackMarket& black_market) const
   {
-    for (h3m::ArtifactType32 artifact : black_market.artifacts)
+    for (h3svg::ArtifactType32 artifact : black_market.artifacts)
     {
       out.writeElement(artifact);
-      if (std::string_view enum_str = h3m::getEnumString(artifact); !enum_str.empty())
+      if (std::string_view enum_str = getEnumString(artifact); !enum_str.empty())
       {
         out.writeComment(enum_str, false);
       }
     }
   }
 
-  void JsonObjectWriter<h3m::ObjectSvg>::operator()(FieldsWriter& out, const h3m::ObjectSvg& object) const
+  void JsonObjectWriter<h3svg::ObjectSvg>::operator()(FieldsWriter& out, const h3svg::ObjectSvg& object) const
   {
-    using Fields = h3m::FieldNames<h3m::ObjectSvg>;
+    using Fields = h3json::FieldNames<h3svg::ObjectSvg>;
     out.writeField(Fields::kCoordinates, object.coordinates);
     out.writeField(Fields::kTemplateIdx, object.template_idx);
   }
 
-  void JsonObjectWriter<h3m::ObjectTemplateSvg>::operator()(FieldsWriter& out,
-                                                              const h3m::ObjectTemplateSvg& object_template) const
+  void JsonObjectWriter<h3svg::ObjectTemplateSvg>::operator()(FieldsWriter& out,
+                                                              const h3svg::ObjectTemplateSvg& object_template) const
   {
-    using Fields = h3m::FieldNames<h3m::ObjectTemplateSvg>;
+    using Fields = h3json::FieldNames<h3svg::ObjectTemplateSvg>;
     out.writeField(Fields::kDef, object_template.def);
     out.writeField(Fields::kWidth, object_template.width);
     out.writeField(Fields::kHeight, object_template.height);
@@ -139,7 +140,7 @@ namespace Medea_NS
     out.writeField(Fields::kUnknown2, object_template.unknown2);
     out.writeField(Fields::kActionability, object_template.actionability);
     out.writeField(Fields::kObjectClass, object_template.object_class);
-    if (std::string_view enum_str = h3m::getEnumString(static_cast<h3m::ObjectClass>(object_template.object_class));
+    if (std::string_view enum_str = getEnumString(static_cast<h3svg::ObjectClass>(object_template.object_class));
         !enum_str.empty())
     {
       out.writeComment(enum_str, false);
@@ -149,9 +150,9 @@ namespace Medea_NS
     out.writeField(Fields::kIsGround, object_template.is_ground);
   }
 
-  void JsonObjectWriter<h3m::SavedGame>::operator()(FieldsWriter& out, const h3m::SavedGame& saved_game) const
+  void JsonObjectWriter<h3svg::SavedGame>::operator()(FieldsWriter& out, const h3svg::SavedGame& saved_game) const
   {
-    using Fields = h3m::FieldNames<h3m::SavedGame>;
+    using Fields = h3json::FieldNames<h3svg::SavedGame>;
 
     out.writeField(Fields::kReserved1, saved_game.reserved1);
     out.writeField(Fields::kVersionMajor, saved_game.version_major);
@@ -192,15 +193,15 @@ namespace Medea_NS
     out.writeField(Fields::kHeroes, saved_game.heroes);
   }
 
-  void JsonObjectWriter<h3m::ScenarioStartingInfo>::operator()(FieldsWriter& out,
-                                                                 const h3m::ScenarioStartingInfo& starting_info) const
+  void JsonObjectWriter<h3svg::ScenarioStartingInfo>::operator()(FieldsWriter& out,
+                                                                 const h3svg::ScenarioStartingInfo& starting_info) const
   {
-    using Fields = h3m::FieldNames<h3m::ScenarioStartingInfo>;
+    using Fields = h3json::FieldNames<h3svg::ScenarioStartingInfo>;
 
     out.writeField(Fields::kStartingTowns, starting_info.starting_towns);
     out.writeField(Fields::kUnknown1, starting_info.unknown1);
     out.writeField(Fields::kDifficulty, starting_info.difficulty);
-    if (std::string_view enum_str = h3m::getEnumString(starting_info.difficulty); !enum_str.empty())
+    if (std::string_view enum_str = getEnumString(starting_info.difficulty); !enum_str.empty())
     {
       out.writeComment(enum_str, false);
     }
@@ -213,7 +214,7 @@ namespace Medea_NS
     out.writeField(Fields::kPlayersControl, starting_info.players_control);
     out.writeField(Fields::kUnknown2, starting_info.unknown2);
     out.writeField(Fields::kPlayerTurnDuration, starting_info.player_turn_duration);
-    if (std::string_view enum_str = h3m::getEnumString(starting_info.player_turn_duration); !enum_str.empty())
+    if (std::string_view enum_str = getEnumString(starting_info.player_turn_duration); !enum_str.empty())
     {
       out.writeComment(enum_str, false);
     }
@@ -221,19 +222,19 @@ namespace Medea_NS
     out.writeField(Fields::kStartingBonuses, starting_info.starting_bonuses);
   }
 
-  void JsonObjectWriter<h3m::TownSvg>::operator()(FieldsWriter& out, const h3m::TownSvg& town) const
+  void JsonObjectWriter<h3svg::TownSvg>::operator()(FieldsWriter& out, const h3svg::TownSvg& town) const
   {
-    using Fields = h3m::FieldNames<h3m::TownSvg>;
+    using Fields = h3json::FieldNames<h3svg::TownSvg>;
     out.writeField(Fields::kId, town.id);
     out.writeField(Fields::kOwner, town.owner);
-    if (std::string_view enum_str = h3m::getEnumString(town.owner); !enum_str.empty())
+    if (std::string_view enum_str = getEnumString(town.owner); !enum_str.empty())
     {
       out.writeComment(enum_str, false);
     }
     out.writeField(Fields::kBuiltThisTurn, town.built_this_turn);
     out.writeField(Fields::kUnknown1, town.unknown1);
     out.writeField(Fields::kType, town.type);
-    if (std::string_view enum_str = h3m::getEnumString(town.type); !enum_str.empty())
+    if (std::string_view enum_str = getEnumString(town.type); !enum_str.empty())
     {
       out.writeComment(enum_str, false);
     }
@@ -242,12 +243,12 @@ namespace Medea_NS
     out.writeField(Fields::kGeneratedBoatY, town.generated_boat_y);
     out.writeField(Fields::kGarrison, town.garrison);
     out.writeField(Fields::kGarrisonedHero, town.garrisoned_hero);
-    if (std::string_view enum_str = h3m::getEnumString(town.garrisoned_hero); !enum_str.empty())
+    if (std::string_view enum_str = getEnumString(town.garrisoned_hero); !enum_str.empty())
     {
       out.writeComment(enum_str, false);
     }
     out.writeField(Fields::kVisitingHero, town.visiting_hero);
-    if (std::string_view enum_str = h3m::getEnumString(town.visiting_hero); !enum_str.empty())
+    if (std::string_view enum_str = getEnumString(town.visiting_hero); !enum_str.empty())
     {
       out.writeComment(enum_str, false);
     }
@@ -260,30 +261,30 @@ namespace Medea_NS
   }
 
   template<>
-  void JsonObjectWriter<h3m::TileSvg::ObjectToRender>::operator()(FieldsWriter& out,
-                                                                  const h3m::TileSvg::ObjectToRender& object_to_render) const
+  void JsonObjectWriter<h3svg::TileSvg::ObjectToRender>::operator()(
+    FieldsWriter& out, const h3svg::TileSvg::ObjectToRender& object_to_render) const
   {
     out.writeField("object_idx", object_to_render.object_idx);
     out.writeField("unknown", object_to_render.unknown);
   }
 
-  void JsonObjectWriter<h3m::TileSvg>::operator()(FieldsWriter& out, const h3m::TileSvg& tile) const
+  void JsonObjectWriter<h3svg::TileSvg>::operator()(FieldsWriter& out, const h3svg::TileSvg& tile) const
   {
-    using Fields = h3m::FieldNames<h3m::TileSvg>;
+    using Fields = h3json::FieldNames<h3svg::TileSvg>;
     out.writeField(Fields::kTerrainType, tile.terrain_type);
-    if (std::string_view enum_str = h3m::getEnumString(tile.terrain_type); !enum_str.empty())
+    if (std::string_view enum_str = getEnumString(tile.terrain_type); !enum_str.empty())
     {
       out.writeComment(enum_str, false);
     }
     out.writeField(Fields::kTerrainSprite, tile.terrain_sprite);
     out.writeField(Fields::kRiverType, tile.river_type);
-    if (std::string_view enum_str = h3m::getEnumString(tile.river_type); !enum_str.empty())
+    if (std::string_view enum_str = getEnumString(tile.river_type); !enum_str.empty())
     {
       out.writeComment(enum_str, false);
     }
     out.writeField(Fields::kRiverSprite, tile.river_sprite);
     out.writeField(Fields::kRoadType, tile.road_type);
-    if (std::string_view enum_str = h3m::getEnumString(tile.road_type); !enum_str.empty())
+    if (std::string_view enum_str = getEnumString(tile.road_type); !enum_str.empty())
     {
       out.writeComment(enum_str, false);
     }
@@ -291,7 +292,7 @@ namespace Medea_NS
     out.writeField(Fields::kFlags1, tile.flags1);
     out.writeField(Fields::kFlags2, tile.flags2);
     out.writeField(Fields::kObjectClass, tile.object_class);
-    if (std::string_view enum_str = h3m::getEnumString(tile.object_class); !enum_str.empty())
+    if (std::string_view enum_str = getEnumString(tile.object_class); !enum_str.empty())
     {
       out.writeComment(enum_str, false);
     }
