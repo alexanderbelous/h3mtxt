@@ -57,24 +57,24 @@ namespace h3json
   template<>
   struct FieldNames<h3svg::Guardians>
   {
-    static inline constexpr std::string_view kMessage = h3m::FieldNames<h3m::Guardians>::kMessage;
-    static inline constexpr std::string_view kCreatures = h3m::FieldNames<h3m::Guardians>::kCreatures;
+    static constexpr std::string_view kMessage = h3m::FieldNames<h3m::Guardians>::kMessage;
+    static constexpr std::string_view kCreatures = h3m::FieldNames<h3m::Guardians>::kCreatures;
   };
 
   template<>
   struct FieldNames<h3svg::EventBase>
   {
-    static inline constexpr std::string_view kGuardians = h3m::FieldNames<h3m::EventBase>::kGuardians;
-    static inline constexpr std::string_view kExperience = h3m::FieldNames<h3m::EventBase>::kExperience;
-    static inline constexpr std::string_view kSpellPoints = h3m::FieldNames<h3m::EventBase>::kSpellPoints;
-    static inline constexpr std::string_view kMorale = h3m::FieldNames<h3m::EventBase>::kMorale;
-    static inline constexpr std::string_view kLuck = h3m::FieldNames<h3m::EventBase>::kLuck;
-    static inline constexpr std::string_view kResources = h3m::FieldNames<h3m::EventBase>::kResources;
-    static inline constexpr std::string_view kPrimarySkills = h3m::FieldNames<h3m::EventBase>::kPrimarySkills;
-    static inline constexpr std::string_view kSecondarySkills = h3m::FieldNames<h3m::EventBase>::kSecondarySkills;
-    static inline constexpr std::string_view kArtifacts = h3m::FieldNames<h3m::EventBase>::kArtifacts;
-    static inline constexpr std::string_view kSpells = h3m::FieldNames<h3m::EventBase>::kSpells;
-    static inline constexpr std::string_view kCreatures = h3m::FieldNames<h3m::EventBase>::kCreatures;
+    static constexpr std::string_view kGuardians = h3m::FieldNames<h3m::EventBase>::kGuardians;
+    static constexpr std::string_view kExperience = h3m::FieldNames<h3m::EventBase>::kExperience;
+    static constexpr std::string_view kSpellPoints = h3m::FieldNames<h3m::EventBase>::kSpellPoints;
+    static constexpr std::string_view kMorale = h3m::FieldNames<h3m::EventBase>::kMorale;
+    static constexpr std::string_view kLuck = h3m::FieldNames<h3m::EventBase>::kLuck;
+    static constexpr std::string_view kResources = h3m::FieldNames<h3m::EventBase>::kResources;
+    static constexpr std::string_view kPrimarySkills = h3m::FieldNames<h3m::EventBase>::kPrimarySkills;
+    static constexpr std::string_view kSecondarySkills = h3m::FieldNames<h3m::EventBase>::kSecondarySkills;
+    static constexpr std::string_view kArtifacts = h3m::FieldNames<h3m::EventBase>::kArtifacts;
+    static constexpr std::string_view kSpells = h3m::FieldNames<h3m::EventBase>::kSpells;
+    static constexpr std::string_view kCreatures = h3m::FieldNames<h3m::EventBase>::kCreatures;
   };
 
   template<>
@@ -106,9 +106,9 @@ namespace h3json
   template<>
   struct FieldNames<h3svg::Monster>
   {
-    static inline constexpr std::string_view kMessage = "message";
-    static inline constexpr std::string_view kResources = "resources";
-    static inline constexpr std::string_view kArtifact = "artifact";
+    static constexpr std::string_view kMessage = "message";
+    static constexpr std::string_view kResources = "resources";
+    static constexpr std::string_view kArtifact = "artifact";
   };
 
   template<>
@@ -139,24 +139,24 @@ namespace h3json
   template<>
   struct FieldNames<h3svg::Object>
   {
-    static inline constexpr std::string_view kCoordinates = "coordinates";
-    static inline constexpr std::string_view kTemplateIdx = "template_idx";
+    static constexpr std::string_view kCoordinates = "coordinates";
+    static constexpr std::string_view kTemplateIdx = "template_idx";
   };
 
   template<>
   struct FieldNames<h3svg::ObjectTemplate>
   {
-    static inline constexpr std::string_view kDef = "def";
-    static inline constexpr std::string_view kWidth = "width";
-    static inline constexpr std::string_view kHeight = "height";
-    static inline constexpr std::string_view kUnknown1 = "unknown1";
-    static inline constexpr std::string_view kPassability = "passability";
-    static inline constexpr std::string_view kUnknown2 = "unknown2";
-    static inline constexpr std::string_view kActionability = "actionability";
-    static inline constexpr std::string_view kObjectClass = "object_class";
-    static inline constexpr std::string_view kObjectSubclass = "object_subclass";
-    static inline constexpr std::string_view kReserved = "reserved";
-    static inline constexpr std::string_view kIsGround = "is_ground";
+    static constexpr std::string_view kDef = "def";
+    static constexpr std::string_view kWidth = "width";
+    static constexpr std::string_view kHeight = "height";
+    static constexpr std::string_view kUnknown1 = "unknown1";
+    static constexpr std::string_view kPassability = "passability";
+    static constexpr std::string_view kUnknown2 = "unknown2";
+    static constexpr std::string_view kActionability = "actionability";
+    static constexpr std::string_view kObjectClass = "object_class";
+    static constexpr std::string_view kObjectSubclass = "object_subclass";
+    static constexpr std::string_view kReserved = "reserved";
+    static constexpr std::string_view kIsGround = "is_ground";
   };
 
   template<>
@@ -175,13 +175,13 @@ namespace h3json
   template<>
   struct FieldNames<h3svg::PlayerSpecs>
   {
-    static inline constexpr std::string_view kCanBeHuman = "can_be_human";
-    static inline constexpr std::string_view kCanBeComputer = "can_be_computer";
-    static inline constexpr std::string_view kBehavior = "behavior";
-    static inline constexpr std::string_view kAllowedAlignments = "allowed_alignments";
-    static inline constexpr std::string_view kAllowRandomAlignment = "allow_random_alignment";
-    static inline constexpr std::string_view kGeneratedHeroCoordinates = "generated_hero_coordinates";
-    static inline constexpr std::string_view kStartingHero = "starting_hero";
+    static constexpr std::string_view kCanBeHuman = "can_be_human";
+    static constexpr std::string_view kCanBeComputer = "can_be_computer";
+    static constexpr std::string_view kBehavior = "behavior";
+    static constexpr std::string_view kAllowedAlignments = "allowed_alignments";
+    static constexpr std::string_view kAllowRandomAlignment = "allow_random_alignment";
+    static constexpr std::string_view kGeneratedHeroCoordinates = "generated_hero_coordinates";
+    static constexpr std::string_view kStartingHero = "starting_hero";
   };
 
   template<>
@@ -207,43 +207,43 @@ namespace h3json
   template<>
   struct FieldNames<h3svg::Rumor>
   {
-    static inline constexpr std::string_view kText = "text";
-    static inline constexpr std::string_view kHasBeenShown = "has_been_shown";
+    static constexpr std::string_view kText = "text";
+    static constexpr std::string_view kHasBeenShown = "has_been_shown";
   };
 
   template<>
   struct FieldNames<h3svg::SavedGame>
   {
-    static inline constexpr std::string_view kReserved1 = "reserved1";
-    static inline constexpr std::string_view kVersionMajor = "version_major";
-    static inline constexpr std::string_view kVersionMinor = "version_minor";
-    static inline constexpr std::string_view kReserved2 = "reserved2";
-    static inline constexpr std::string_view kFormat = "format";
-    static inline constexpr std::string_view kBasicInfo = "basic_info";
-    static inline constexpr std::string_view kPlayers = "players";
-    static inline constexpr std::string_view kVictoryCondition = "victory_condition";
-    static inline constexpr std::string_view kLossCondition = "loss_condition";
-    static inline constexpr std::string_view kTeams = "teams";
-    static inline constexpr std::string_view kCustomHeroes = "custom_heroes";
-    static inline constexpr std::string_view kUnknown1 = "unknown1";
-    static inline constexpr std::string_view kStartingInfo = "starting_info";
-    static inline constexpr std::string_view kUnknown2 = "unknown2";
-    static inline constexpr std::string_view kOriginalFilename = "original_filename";
-    static inline constexpr std::string_view kUnknown3 = "unknown3";
-    static inline constexpr std::string_view kDisabledArtifacts = "disabled_artifacts";
-    static inline constexpr std::string_view kArtifactsBitmaskUnknown = "artifacts_bitmask_unknown";
-    static inline constexpr std::string_view kDisabledSkills = "disabled_skills";
-    static inline constexpr std::string_view kCurrentRumor = "current_rumor";
-    static inline constexpr std::string_view kUnknown4 = "unknown4";
-    static inline constexpr std::string_view kRumors = "rumors";
-    static inline constexpr std::string_view kBlackMarkets = "black_markets";
-    static inline constexpr std::string_view kTiles = "tiles";
-    static inline constexpr std::string_view kObjectsTemplates = "objects_templates";
-    static inline constexpr std::string_view kObjects = "objects";
-    static inline constexpr std::string_view kObjectPropertiesTables = "object_properties_tables";
-    static inline constexpr std::string_view kPlayersSvg = "players_svg";
-    static inline constexpr std::string_view kTowns = "towns";
-    static inline constexpr std::string_view kHeroes = "heroes";
+    static constexpr std::string_view kReserved1 = "reserved1";
+    static constexpr std::string_view kVersionMajor = "version_major";
+    static constexpr std::string_view kVersionMinor = "version_minor";
+    static constexpr std::string_view kReserved2 = "reserved2";
+    static constexpr std::string_view kFormat = "format";
+    static constexpr std::string_view kBasicInfo = "basic_info";
+    static constexpr std::string_view kPlayers = "players";
+    static constexpr std::string_view kVictoryCondition = "victory_condition";
+    static constexpr std::string_view kLossCondition = "loss_condition";
+    static constexpr std::string_view kTeams = "teams";
+    static constexpr std::string_view kCustomHeroes = "custom_heroes";
+    static constexpr std::string_view kUnknown1 = "unknown1";
+    static constexpr std::string_view kStartingInfo = "starting_info";
+    static constexpr std::string_view kUnknown2 = "unknown2";
+    static constexpr std::string_view kOriginalFilename = "original_filename";
+    static constexpr std::string_view kUnknown3 = "unknown3";
+    static constexpr std::string_view kDisabledArtifacts = "disabled_artifacts";
+    static constexpr std::string_view kArtifactsBitmaskUnknown = "artifacts_bitmask_unknown";
+    static constexpr std::string_view kDisabledSkills = "disabled_skills";
+    static constexpr std::string_view kCurrentRumor = "current_rumor";
+    static constexpr std::string_view kUnknown4 = "unknown4";
+    static constexpr std::string_view kRumors = "rumors";
+    static constexpr std::string_view kBlackMarkets = "black_markets";
+    static constexpr std::string_view kTiles = "tiles";
+    static constexpr std::string_view kObjectsTemplates = "objects_templates";
+    static constexpr std::string_view kObjects = "objects";
+    static constexpr std::string_view kObjectPropertiesTables = "object_properties_tables";
+    static constexpr std::string_view kPlayersSvg = "players_svg";
+    static constexpr std::string_view kTowns = "towns";
+    static constexpr std::string_view kHeroes = "heroes";
   };
 
   template<>
@@ -281,19 +281,19 @@ namespace h3json
   template<>
   struct FieldNames<h3svg::Tile>
   {
-    static inline constexpr std::string_view kTerrainType = "terrain_type";
-    static inline constexpr std::string_view kTerrainSprite = "terrain_sprite";
-    static inline constexpr std::string_view kRiverType = "river_type";
-    static inline constexpr std::string_view kRiverSprite = "river_sprite";
-    static inline constexpr std::string_view kRoadType = "road_type";
-    static inline constexpr std::string_view kRoadSprite = "road_sprite";
-    static inline constexpr std::string_view kFlags1 = "flags1";
-    static inline constexpr std::string_view kFlags2 = "flags2";
-    static inline constexpr std::string_view kObjectClass = "object_class";
-    static inline constexpr std::string_view kObjectSubclass = "object_subclass";
-    static inline constexpr std::string_view kObjectIdx = "object_idx";
-    static inline constexpr std::string_view kObjectProperties = "properties";
-    static inline constexpr std::string_view kObjectsToRender = "objects_to_render";
+    static constexpr std::string_view kTerrainType = "terrain_type";
+    static constexpr std::string_view kTerrainSprite = "terrain_sprite";
+    static constexpr std::string_view kRiverType = "river_type";
+    static constexpr std::string_view kRiverSprite = "river_sprite";
+    static constexpr std::string_view kRoadType = "road_type";
+    static constexpr std::string_view kRoadSprite = "road_sprite";
+    static constexpr std::string_view kFlags1 = "flags1";
+    static constexpr std::string_view kFlags2 = "flags2";
+    static constexpr std::string_view kObjectClass = "object_class";
+    static constexpr std::string_view kObjectSubclass = "object_subclass";
+    static constexpr std::string_view kObjectIdx = "object_idx";
+    static constexpr std::string_view kObjectProperties = "properties";
+    static constexpr std::string_view kObjectsToRender = "objects_to_render";
   };
 
   template<>
@@ -342,7 +342,7 @@ namespace h3json
   template<>
   struct FieldNames<h3svg::Troops>
   {
-    static inline constexpr std::string_view kCreatureTypes = "creature_types";
-    static inline constexpr std::string_view kCreatureCounts = "creature_counts";
+    static constexpr std::string_view kCreatureTypes = "creature_types";
+    static constexpr std::string_view kCreatureCounts = "creature_counts";
   };
 }

@@ -126,7 +126,7 @@ namespace Medea_NS
   }
 
   void JsonObjectWriter<h3svg::QuestGuard>::operator()(FieldsWriter& out,
-                                                          const h3svg::QuestGuard& quest_guard) const
+                                                       const h3svg::QuestGuard& quest_guard) const
   {
     using Fields = h3json::FieldNames<h3svg::QuestGuard>;
     out.writeField(Fields::kQuest, quest_guard.quest);
@@ -151,7 +151,7 @@ namespace Medea_NS
   }
 
   void JsonObjectWriter<h3svg::TimedEvent>::operator()(FieldsWriter& out,
-                                                          const h3svg::TimedEvent& event) const
+                                                       const h3svg::TimedEvent& event) const
   {
     using Fields = h3json::FieldNames<h3svg::TimedEvent>;
     out.writeField(Fields::kMessage, event.message);

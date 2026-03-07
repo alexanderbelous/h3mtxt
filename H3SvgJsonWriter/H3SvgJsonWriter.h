@@ -52,15 +52,15 @@ namespace Medea_NS
 
   template<>
   void JsonObjectWriter<h3svg::ObjectTemplate>::operator()(FieldsWriter& out,
-                                                              const h3svg::ObjectTemplate& object_template) const;
+                                                           const h3svg::ObjectTemplate& object_template) const;
 
   template<>
   void JsonObjectWriter<h3svg::Player>::operator()(FieldsWriter& out,
-                                                      const h3svg::Player& player) const;
+                                                   const h3svg::Player& player) const;
 
   template<>
   void JsonObjectWriter<h3svg::PlayerSpecs>::operator()(FieldsWriter& out,
-                                                           const h3svg::PlayerSpecs& player_specs) const;
+                                                        const h3svg::PlayerSpecs& player_specs) const;
 
   template<>
   void JsonObjectWriter<h3svg::Quest>::operator()(FieldsWriter& out, const h3svg::Quest& quest) const;
@@ -107,7 +107,7 @@ namespace Medea_NS
 
   template<>
   void JsonObjectWriter<h3svg::QuestGuard>::operator()(FieldsWriter& out,
-                                                          const h3svg::QuestGuard& quest_guard) const;
+                                                       const h3svg::QuestGuard& quest_guard) const;
 
   template<>
   void JsonObjectWriter<h3svg::Reward>::operator()(FieldsWriter& out, const h3svg::Reward& reward) const;

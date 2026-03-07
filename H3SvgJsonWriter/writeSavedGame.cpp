@@ -60,7 +60,7 @@ namespace Medea_NS
   }
 
   void JsonObjectWriter<h3svg::Player>::operator()(FieldsWriter& out,
-                                                      const h3svg::Player& player) const
+                                                   const h3svg::Player& player) const
   {
     using Fields = h3json::FieldNames<h3svg::Player>;
     out.writeField(Fields::kPlayerColor, player.player_color);
@@ -129,7 +129,7 @@ namespace Medea_NS
   }
 
   void JsonObjectWriter<h3svg::ObjectTemplate>::operator()(FieldsWriter& out,
-                                                              const h3svg::ObjectTemplate& object_template) const
+                                                           const h3svg::ObjectTemplate& object_template) const
   {
     using Fields = h3json::FieldNames<h3svg::ObjectTemplate>;
     out.writeField(Fields::kDef, object_template.def);
