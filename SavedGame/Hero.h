@@ -67,6 +67,8 @@ namespace h3svg
     // Primary skills of the hero (equipped artifacts are taken into account).
     PrimarySkills primary_skills;
     // TODO: figure out what this is.
+    // Likely: 2 EnumIndexedArray<SpellType, Bool, 70>; one for learned spells, the other for all
+    // available spels (including the ones from artifacts, e.g., Armageddon and Titan's Lightning Bolt).
     std::array<std::uint8_t, 140> unknown3 {};
     HeroArtifacts artifacts;
     // TODO: figure out what this is.
