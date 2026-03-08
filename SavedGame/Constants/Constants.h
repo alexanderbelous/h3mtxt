@@ -15,4 +15,5 @@ namespace h3svg
 
   // TODO: move to Map.
   inline constexpr std::uint8_t kNumSecondarySkills = 28;
+  inline constexpr std::uint8_t kNumSpells = 70;
 }

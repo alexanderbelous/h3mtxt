@@ -49,9 +49,16 @@ namespace h3svg
       slot = readInt<std::uint8_t>();
     }
     hero.primary_skills = readPrimarySkills();
-    readBytes(std::as_writable_bytes(std::span{hero.unknown3}));
+    for (Bool& is_spell_learned : hero.spells_learned.data)
+    {
+      is_spell_learned = readBool();
+    }
+    for (Bool& is_spell_available : hero.spells_available.data)
+    {
+      is_spell_available = readBool();
+    }
     hero.artifacts = readHeroArtifacts();
-    readBytes(std::as_writable_bytes(std::span{hero.unknown4}));
+    readBytes(std::as_writable_bytes(std::span{hero.unknown3}));
     return hero;
   }
 }

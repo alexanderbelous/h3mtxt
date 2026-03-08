@@ -58,8 +58,9 @@ namespace Medea_NS
     out.writeField(Fields::kSecondarySkillsLevels, hero.secondary_skills_levels);
     out.writeField(Fields::kSecondarySkillsSlots, hero.secondary_skills_slots);
     out.writeField(Fields::kPrimarySkills, hero.primary_skills);
-    out.writeField(Fields::kUnknown3, hero.unknown3);
+    out.writeField(Fields::kSpellsLearned, hero.spells_learned);
+    out.writeField(Fields::kSpellsAvailable, hero.spells_available);
     out.writeField(Fields::kArtifacts, hero.artifacts);
-    out.writeField(Fields::kUnknown4, hero.unknown4);
+    out.writeField(Fields::kUnknown3, hero.unknown3);
   }
 }

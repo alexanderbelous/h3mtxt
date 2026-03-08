@@ -94,9 +94,10 @@ namespace h3json
     static constexpr std::string_view kSecondarySkillsLevels = "secondary_skills_levels";
     static constexpr std::string_view kSecondarySkillsSlots = "secondary_skills_slots";
     static constexpr std::string_view kPrimarySkills = "primary_skills";
-    static constexpr std::string_view kUnknown3 = "unknown3";
+    static constexpr std::string_view kSpellsLearned = "spells_learned";
+    static constexpr std::string_view kSpellsAvailable = "spells_available";
     static constexpr std::string_view kArtifacts = "artifacts";
-    static constexpr std::string_view kUnknown4 = "unknown4";
+    static constexpr std::string_view kUnknown3 = "unknown3";
   };
 
   template<>

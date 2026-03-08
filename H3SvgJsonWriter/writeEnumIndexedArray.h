@@ -47,6 +47,24 @@ namespace Medea_NS
     }
   };
 
+  // Partial specialization for h3svg::EnumIndexedArray<h3m::SpellType, T, NumElements>
+  template<class T, std::size_t NumElements>
+  struct JsonObjectWriter<h3svg::EnumIndexedArray<h3m::SpellType, T, NumElements>>
+  {
+    void operator()(FieldsWriter& out,
+      const h3svg::EnumIndexedArray<h3m::SpellType, T, NumElements>& enum_indexed_array) const
+    {
+      // Reuse the names of fields for SpellsBitmask.
+      constexpr const auto& kFieldsNames = h3m::FieldNames<h3m::SpellsBitmask>::kNames;
+      static_assert(NumElements <= kFieldsNames.size(), "Too many elements in the array");
+
+      for (std::size_t spell_idx = 0; spell_idx < enum_indexed_array.data.size(); ++spell_idx)
+      {
+        out.writeField(kFieldsNames[spell_idx], enum_indexed_array.data[spell_idx]);
+      }
+    }
+  };
+
   // Partial specialization for h3m::EnumIndexedArray<h3m::PlayerColor, T, NumElements>
   template<class T, std::size_t NumElements>
   struct JsonObjectWriter<h3svg::EnumIndexedArray<h3m::PlayerColor, T, NumElements>>

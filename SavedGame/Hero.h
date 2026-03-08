@@ -4,6 +4,7 @@
 
 #include <h3mtxt/Map/MapFwd.h>
 #include <h3mtxt/Map/Constants/ArtifactType.h>
+#include <h3mtxt/Map/Constants/SpellType.h>
 #include <h3mtxt/Map/Constants/ObjectClass.h>
 #include <h3mtxt/Map/Constants/SecondarySkillType.h>
 #include <h3mtxt/Map/PrimarySkills.h>
@@ -66,12 +67,14 @@ namespace h3svg
     EnumIndexedArray<SecondarySkillType, std::uint8_t, kNumSecondarySkills> secondary_skills_slots {};
     // Primary skills of the hero (equipped artifacts are taken into account).
     PrimarySkills primary_skills;
-    // TODO: figure out what this is.
-    // Likely: 2 EnumIndexedArray<SpellType, Bool, 70>; one for learned spells, the other for all
-    // available spels (including the ones from artifacts, e.g., Armageddon and Titan's Lightning Bolt).
-    std::array<std::uint8_t, 140> unknown3 {};
+    // 70 bytes: 1 per SpellType, indicating whether the hero has learned this spell.
+    EnumIndexedArray<SpellType, Bool, kNumSpells> spells_learned;
+    // 70 bytes: 1 per SpellType, indicating whether the hero can cast this spell. Note that some
+    // artifacts (e.g., Spell Scrolls, Armageddon's Blade, etc) allow casting spells that the hero
+    // hasn't learned yet.
+    EnumIndexedArray<SpellType, Bool, kNumSpells> spells_available;
     HeroArtifacts artifacts;
     // TODO: figure out what this is.
-    std::array<std::uint8_t, 22> unknown4 {};
+    std::array<std::uint8_t, 22> unknown3 {};
   };
 }
