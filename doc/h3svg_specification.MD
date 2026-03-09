@@ -208,7 +208,7 @@ An H3SVG file is a single structure that we will naturally call [`SavedGame`](#S
 | unknown1             | `uint8[8]`           | 8             | TODO                                                                   |
 | difficulty           | `uint8`              | 1             | Enum `MapDifficulty`; Difficulty level set by the human player         |
 | map_filename         | `char[251]`          | 251           | The original filename of the map. Only the characters before the first null terminator are significant. Used by "Restart Scenario" command |
-| map_directoty        | `char[100]`          | 100           | Relative (to Heroes3.exe) path to the directory in which the original map file is located. Only the characters before the first null terminator are significant. Used by "Restart Scenario" command. The game always writes "maps" here |
+| map_directory        | `char[100]`          | 100           | Relative (to Heroes3.exe) path to the directory in which the original map file is located. Only the characters before the first null terminator are significant. Used by "Restart Scenario" command. The game always writes "maps" here |
 | players_control      | `uint8[8]`           | 8             | Enum `PlayerControlType` for each player                               |
 | unknown2             | `uint8[3]`           | 3             | Unknown. Seems to always be [255, 1, 1]                                |
 | player_turn_duration | `uint8`              | 1             | Enum `PlayerTurnDuration`                                              |
@@ -241,10 +241,10 @@ An H3SVG file is a single structure that we will naturally call [`SavedGame`](#S
 | flags                 | `uint8[2]` | 2             | Bitmask; TODO                                                                      |
 | object_class          | `uint16`   | 2             | Enum `ObjectClass` - type of the object on this tile.                              |
 | object_subclass       | `uint16`   | 2             | TODO                                                                               |
-| object_idx            | `uint16`   | 2             | 0-based index of the object in SavedGame::objects, or 0xFFFF if there is no object |
+| object_idx            | `uint16`   | 2             | 0-based index of the object in SavedGame.objects, or 0xFFFF if there is no object  |
 | object_properties     | `uint8[4]` | 4             | TODO: pain                                                                         |
 | num_objects_to_render | `uint32`   | 4             | The number of objects whose sprites overlap with this tile                         |
-| objects_to_render     | `ObjectToRender[num_objects_to_render]` | varies | Objects whose sprites overlap with this tile                 |
+| objects_to_render     | [`ObjectToRender[num_objects_to_render]`](#ObjectToRender) | varies | Objects whose sprites overlap with this tile |
 
 
 ### `ObjectToRender`
