@@ -146,7 +146,7 @@ An H3SVG file is a single structure, which we will naturally call `SavedGame`.
 | allowed_alignments          | `uint8[2]`     | 2             | Bitmask; 1 bit for each town type, indicating if it can be the player's alignment |
 | allow_random_alignment      | `Bool`         | 1             | 1 if Random alignment is enabled, 0 otherwise.                                 |
 | has_generated_hero          | `Bool`         | 1             | 1 if a hero is generated in the main town for this player, 0 otherwise         |
-| ?generated_hero_coordinates | [`Coordinates`](#Coordinates) | 3 | Coordinates of the main town. Only present if has_generated_hero is nonzero |
+| ?generated_hero_coordinates | [`Coordinates`](#Coordinates) | 3 | Coordinates of the main town. Only present if has_generated_hero != 0       |
 | starting_hero               | [`StartingHero`](#StartingHero) | varies | Information about the starting hero                                  |
 
 
@@ -262,11 +262,11 @@ An H3SVG file is a single structure, which we will naturally call `SavedGame`.
 | Field name                  | Type                                | Size in bytes | Description                                              |
 | --------------------------- | ----------------------------------- | ------------- | -------------------------------------------------------- |
 | num_event_objects           | `uint16`                            | 2             | The number of Event and Pandora's Box objects on the map |
-| events_and_pandoras_boxes   | `EventBase[num_event_objects]`      | varies        | Event and Pandora's Box objects on the Adventure Map     |
+| events_and_pandoras_boxes   | [`EventBase[num_event_objects]`](#EventBase) | varies | Event and Pandora's Box objects on the Adventure Map   |
 | num_artifact_objects        | `uint16`                            | 2             | |
-| artifacts_and_spell_scrolls | `Artifact[num_artifact_objects]`    | varies        | Artifact and SpellScroll objects on the Adventure Map    |
+| artifacts_and_spell_scrolls | [`Guardians[num_artifact_objects]`](#Guardians) | varies | Artifact and SpellScroll objects on the Adventure Map |
 | num_monster_objects         | `uint16`                            | 2             | |
-| monsters                    | `Monster[num_monster_objects]`      | varies        | |
+| monsters                    | [`Monster[num_monster_objects]`](#Monster) | varies | |
 | num_seers_huts              | `uint16`                            | 2             | |
 | seers_huts                  | `SeersHut[num_seers_huts]`          | varies        | |
 | num_quest_guards            | `uint16`                            | 2             | |
@@ -289,16 +289,74 @@ An H3SVG file is a single structure, which we will naturally call `SavedGame`.
 | obelisks                    | `Obelisk[49]`                       | 49            | Obelisks on the Adventure Map               |
 
 
+### `Guardians`
+| Field name    | Type                | Size in bytes | Description                        |
+| ------------- | ------------------- | ------------- | ---------------------------------- |
+| message       | `String16`          | varies        | Text to display                    |
+| has_creatures | `Bool`              | 1             |                                    |
+| ?creatures    | [`Troops`](#Troops) | 56            | Only present if has_creatures != 0 |
+
+
+### `Troops`
+| Field name      | Type       | Size in bytes | Description                                                           |
+| --------------- | ---------- | ------------- | --------------------------------------------------------------------- |
+| creature_types  | `int32[7]` | 28            | Enum `CreatureType` for each slot; 0xFFFFFFFF is used for empty slots |
+| creature_counts | `int32[7]` | 28            | The number of creatures for each slot                                 |
+
+
+### `EventBase`
+| Field name           | Type                                   | Size in bytes | Description                                             |
+| -------------------- | -------------------------------------- | ------------- | ------------------------------------------------------- |
+| has_guardians        | `Bool`                                 | 1             |                                                         |
+| ?guardians           | [`Guardians`](#Guardians)              | varies        | Only present if has_guardians != 0                      |
+| experience           | `int32`                                | 4             | Experience points to give/take                          |
+| spell_points         | `int32`                                | 4             | Spell points to give/take                               |
+| morale               | `int8`                                 | 1             | Morale bonus                                            |
+| luck                 | `int8`                                 | 1             | Luck bonus                                              |
+| resources            | `int32[7]`                             | 28            | The amount to give/take for each Resource type          |
+| primary_skills       | `int8[4]`                              | 4             | Increments/decrements for each Primary Skill type       |
+| num_secondary_skills | `uint8`                                | 1             | The number of Secondary Skills to grant                 |
+| secondary_skills     | [`SecondarySkill[num_secondary_skills]`](#SecondarySkill) | varies | Secondary Skills to grant                   |
+| num_artifacts        | `uint8`                                | 1             | The number of artifacts to give                         |
+| artifacts            | `uint8[num_artifacts]`                 | varies        | Artifacts to give (each element is enum `ArtifactType`) |
+| num_spells           | `uint8`                                | 1             | The number of spells to give                            |
+| spells               | `uint8[num_spells`                     | varies        | Spells to give (each element is enum `SpellType`)       |
+| num_creatures        | `uint8`                                | 1             | The number of creature stacks to give                   |
+| creatures            | [`CreatureStack[num_creatures]`](#CreatureStack) | varies | Creature stacks to give                              |
+
+
+### `SecondarySkill`
+| Field name | Type    | Size in bytes | Description               |
+| ---------- | ------- | ------------- | ------------------------- |
+| type       | `uint8` | 1             | Enum `SecondarySkillType` |
+| level      | `uint8` | 1             | Level of expertise        |
+
+
+### `CreatureStack`
+| Field name | Type     | Size in bytes | Description                                     |
+| ---------- | -------- | ------------- | ----------------------------------------------- |
+| type       | `uint16` | 2             | Enum `CreatureType`; 0xFFFF means "no creature" |
+| count      | `int16`  | 2             | The number of creatures                         |
+
+
+### `Monster`
+| Field name | Type       | Size in bytes | Description                                        |
+| ---------- | ---------- | ------------- | -------------------------------------------------- |
+| message    | `String16` | varies        | Message to display                                 |
+| resources  | `int32[7]` | 28            | Increments for each Resource type                  |
+| artifact   | `uint8`    | 1             | Enum `ArtifactType` or 0xFF if there's no artifact |
+
+
 ### `Player`
-| Field name       | Type        | Size in bytes | Description                                                    |
-| ---------------- | ----------- | ------------- | -------------------------------------------------------------- |
-| player_color     | `uint8`     | 1             | Enum `PlayerColor` |
+| Field name       | Type        | Size in bytes | Description                                                      |
+| ---------------- | ----------- | ------------- | ---------------------------------------------------------------- |
+| player_color     | `uint8`     | 1             | Enum `PlayerColor`                                               |
 | num_heroes       | `uint8`     | 1             | |
 | active_hero      | `uint8`     | 1             | Enum `HeroType` |
 | heroes           | `uint8[8]`  | 8             | Enum `HeroType` for each hero slot; 0xFF is used for empty slots |
-| heroes_in_tavern | `uint8[2]`  | 2             | Enum `HeroType` for each slot in the Tavern |
+| heroes_in_tavern | `uint8[2]`  | 2             | Enum `HeroType` for each slot in the Tavern                      |
 | unknown1         | `uint8[85]` | 85            | TODO |
-| resources        | `Resources` | 28            | Currenly available resources |
+| resources        | `int32[7]`  | 28            | The current amount for each Resource type                        |
 | unknown2         | `uint8[19]` | 19            | TODO |
 
 
@@ -313,7 +371,7 @@ An H3SVG file is a single structure, which we will naturally call `SavedGame`.
 | coordinates          | [`Coordinates`](#Coordinates) | 3             | Coordinates of this town on the Adventure Map                      |
 | generated_boat_x     | `uint8`                       | 1             | X-coordinate for boats built in this town                          |
 | generated_boat_y     | `uint8`                       | 1             | Y-coordinate for boats built in this town                          |
-| garrison             | `Troops`                      | 56            | Creatures in the garrison                                          |
+| garrison             | [`Troops`](#Troops)           | 56            | Creatures in the garrison                                          |
 | garrisoned_hero      | `uint8`                       | 1             | Enum `HeroType` or 0xFF if there is no garrisoned hero             |
 | visiting_hero        | `uint8`                       | 1             | Enum `HeroType` or 0xFF if there is no visiting hero               |
 | mage_guild_level     | `uint8`                       | 1             | The current level of the Mage Guild                                |
@@ -325,26 +383,26 @@ An H3SVG file is a single structure, which we will naturally call `SavedGame`.
 
 
 ### `Hero`
-| Field name              | Type               | Size in bytes | Description                                                      |
-| ----------------------- | ------------------ | ------------- | ---------------------------------------------------------------- |
-| x                       | `int16`            | 2             | X coordinate of the hero on the Adventure Map                    |
-| y                       | `int16`            | 2             | Y coordinate of the hero on the Adventure Map                    |
-| z                       | `int16`            | 2             | Z coordinate of the hero on the Adventure Map                    |
-| is_visible              | `Bool`             | 1             | Indicates whether the hero is currently visible on the map       |
-| coordinates_packed      | `uint32`           | 4             | Duplicates the coordinates using the packed format               |
-| object_class_under      | `uint32`           | 4             | Enum `ObjectClass` of the object on the same tile under the hero |
-| unknown1                | `uint8[7]`         | 7             |                                                                  |
-| biography               | `String32`         | varies        | The hero's biography                                             |
-| unknown2                | `uint8[113]`       | 113           |                                                                  |
-| army                    | `Troops`           | 56            | Current army                                                     |
-| name                    | `char[13]`         | 13            | Only the bytes before the first null terminator are significant  |
-| secondary_skills_levels | `uint8[28]`        | 28            | Level for each Secondary Skill type                              |
-| secondary_skills_slots  | `uint8[28]`        | 28            | Slot for each Seconadry Skill type                               |
-| spells_learned          | `Bool[70]`         | 70            | 1 byte per Spell type indicating if the hero has learned it      |
-| spells_available        | `Bool[70]`         | 70            | 1 byte per Spell type indicating if the hero can cast this spell |
-| artifacts_equipped      | [`HeroArtifact[19]`](#HeroArtifact) | 152 | Artifact in each slot                                     |
-| artifacts_backpack      | [`HeroArtifact[64]`](#HeroArtifact) | 512 | Artifacts in the backpack                                 |
-| unknown3                | `uint8[22]`        | 22            |                                                                  |
+| Field name              | Type                      | Size in bytes | Description                                                      |
+| ----------------------- | ------------------------- | ------------- | ---------------------------------------------------------------- |
+| x                       | `int16`                   | 2             | X coordinate of the hero on the Adventure Map                    |
+| y                       | `int16`                   | 2             | Y coordinate of the hero on the Adventure Map                    |
+| z                       | `int16`                   | 2             | Z coordinate of the hero on the Adventure Map                    |
+| is_visible              | `Bool`                    | 1             | Indicates whether the hero is currently visible on the map       |
+| coordinates_packed      | `uint32`                  | 4             | Duplicates the coordinates using the packed format               |
+| object_class_under      | `uint32`                  | 4             | Enum `ObjectClass` of the object on the same tile under the hero |
+| unknown1                | `uint8[7]`                | 7             |                                                                  |
+| biography               | `String32`                | varies        | The hero's biography                                             |
+| unknown2                | `uint8[113]`              | 113           |                                                                  |
+| army                    | [`Troops`](#Troops)       | 56            | Current army                                                     |
+| name                    | `char[13]`                | 13            | Only the bytes before the first null terminator are significant  |
+| secondary_skills_levels | `uint8[28]`               | 28            | Level for each Secondary Skill type                              |
+| secondary_skills_slots  | `uint8[28]`               | 28            | Slot for each Seconadry Skill type                               |
+| spells_learned          | `Bool[70]`                | 70            | 1 byte per Spell type indicating if the hero has learned it      |
+| spells_available        | `Bool[70]`                | 70            | 1 byte per Spell type indicating if the hero can cast this spell |
+| artifacts_equipped      | [`HeroArtifact[19]`](#HeroArtifact) | 152 | Artifact in each slot                                            |
+| artifacts_backpack      | [`HeroArtifact[64]`](#HeroArtifact) | 512 | Artifacts in the backpack                                        |
+| unknown3                | `uint8[22]`               | 22            |                                                                  |
 
 
 ### `HeroArtifact`
