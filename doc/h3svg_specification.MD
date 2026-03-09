@@ -1,6 +1,6 @@
 # What's in the .GM1 file?
 
-![Screenshot of Gaius Helen Mohiam saying "Pain"](gaius_helen_mohiam_saying_pain.jpg)
+![Screenshot of Gaius Helen Mohiam saying "Pain"](tldr.jpg)
 
 ## Introduction
 
