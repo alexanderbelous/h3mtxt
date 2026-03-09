@@ -38,6 +38,25 @@ In this repository I call the file format for saved games **H3SVG** since that's
 * Erki Suurjaak made another editor [h3sed](https://github.com/suurjaak/h3sed), which also only allows editing heroes.
 * RoseKavalier reverse-engineered how the game stores data in the process memory and released the library [H3API](https://github.com/RoseKavalier/H3API). While this is different from the file format for saved games, some parts are very similar.
 
+## Versions
+
+This document describes the file format used by the version **42.2** of the game. It's possible that some older versions of the game used a different format for the saved games.
+
+According to Erki Suurjaak, the versions are:
+* [16.0; 41.0] - Heroes of Might and Magic 3: The Restoration of Erathia
+* 42.1 - Heroes of Might and Magic 3: Armageddon's Blade
+* 42.2 - Heroes of Might and Magic 3: The Shadow of Death (maybe up to 43.4)
+
+### Mods
+
+This document describes the file format used by the official game - Heroes of Might and Magic 3: Complete.
+
+It is possible that some mods use a different file format. As customary in HoMM3 modding community, development is predominantly close-sourced, and I have better things to do that reverse-engineering fan-made content.
+
+Notable exceptions:
+* [HD mod](https://sites.google.com/site/heroes3hd): the saved games written while playing with HD mod are compatible with the specification here.
+* [SoD_SP](https://docs.google.com/document/d/1JlQ6TC97d_Bb1g_sDRpxTvkKHtyXgZ3qORG5LJS8tp8) plugin for the HD mod: versions up to 1.19.4 remain compatible with this specification. However, RoseKavalier has explicitly [stated](http://heroescommunity.com/viewthread.php3?TID=44581&PID=1590134#focus) that the version 1.20 will break compatibility for saved games.
+
 ## Compression
 
 Saved games written by the game are GZIP-compressed. GZIP format is specified in [RFC 1952](https://www.rfc-editor.org/rfc/rfc1952), so I'm not going to focus on it - this document addresses the decompressed data.
@@ -48,7 +67,7 @@ TODO: mention broken CRC.
 
 ## File format
 
-The description below groups parts of the saved game file into typed structures. These structures are written as a sequence of fields; each field itself can be a primitive type, a structure or an array.
+The description below groups parts of the H3SVG file into typed structures. These structures are written as a sequence of fields; each field itself can be a primitive type, a structure or an array.
 
 **Primitive types:**
 | Type        | Size in bytes | Description                                                                      |
@@ -61,8 +80,8 @@ The description below groups parts of the saved game file into typed structures.
 | `uint16`    | 2             | unsigned 16-bit integer (values within [0; 65535])                               |
 | `int32`     | 4             | signed 32-bit integer (values within [-2147483648; 2147483647])                  |
 | `uint32`    | 4             | unsigned 32-bit integer (values within [0; 4294967295])                          |
-| `String16`  | varies        | length-prefixed string: a 16-bit integer N (`uint16`), followed by `char[N]`     |
-| `String32`  | varies        | length-prefixed string: a 32-bit integer N (`uint32`), followed by `char[N]`     |
+| `String16`  | varies        | length-prefixed string: a 16-bit integer N (`uint16`), followed by N bytes       |
+| `String32`  | varies        | length-prefixed string: a 32-bit integer N (`uint32`), followed by N bytes       |
 
 Integers are always little-endian in H3SVG. For example, a 32-bit integer 1025 is encoded as 4 bytes `[0x01, 0x04, 0x00, 0x00]`.
 
@@ -80,7 +99,7 @@ which means that the structure `Person` is written as 2 fields: first, the name 
 
 `?field` indicates a conditionally present field. The description for this field explains when this field is present and when it's not.
 
-An H3SVG file is a single structure, which we will naturally call `SavedGame`.
+An H3SVG file is a single structure that we will naturally call [`SavedGame`](#SavedGame).
 
 ### `SavedGame`
 
@@ -138,16 +157,16 @@ An H3SVG file is a single structure, which we will naturally call `SavedGame`.
 
 
 ### `PlayerSpecs`
-| Field name                  | Type           | Size in bytes | Description                                                                    |
-| --------------------------- | -------------- | ------------- | ------------------------------------------------------------------------------ |
-| can_be_human                | `Bool`         | 1             | 1 if this player can be controlled by a human, 0 otherwise                     |
-| can_be_computer             | `Bool`         | 1             | 1 if this player can be controlled by the computer, 0 otherwise                |
-| behavior                    | `uint8`        | 1             | Enum `PlayerBehavior` as set by the mapmaker                                   |
+| Field name                  | Type           | Size in bytes | Description                                                                       |
+| --------------------------- | -------------- | ------------- | --------------------------------------------------------------------------------- |
+| can_be_human                | `Bool`         | 1             | 1 if this player can be controlled by a human, 0 otherwise                        |
+| can_be_computer             | `Bool`         | 1             | 1 if this player can be controlled by the computer, 0 otherwise                   |
+| behavior                    | `uint8`        | 1             | Enum `PlayerBehavior` as set by the mapmaker                                      |
 | allowed_alignments          | `uint8[2]`     | 2             | Bitmask; 1 bit for each town type, indicating if it can be the player's alignment |
-| allow_random_alignment      | `Bool`         | 1             | 1 if Random alignment is enabled, 0 otherwise.                                 |
-| has_generated_hero          | `Bool`         | 1             | 1 if a hero is generated in the main town for this player, 0 otherwise         |
-| ?generated_hero_coordinates | [`Coordinates`](#Coordinates) | 3 | Coordinates of the main town. Only present if has_generated_hero != 0       |
-| starting_hero               | [`StartingHero`](#StartingHero) | varies | Information about the starting hero                                  |
+| allow_random_alignment      | `Bool`         | 1             | 1 if Random alignment is enabled, 0 otherwise.                                    |
+| has_generated_hero          | `Bool`         | 1             | 1 if a hero is generated in the main town for this player, 0 otherwise            |
+| ?generated_hero_coordinates | [`Coordinates`](#Coordinates) | 3 | Coordinates of the main town. Only present if has_generated_hero != 0          |
+| starting_hero               | [`StartingHero`](#StartingHero) | varies | Information about the starting hero                                     |
 
 
 ### `Coordinates`
@@ -167,19 +186,19 @@ An H3SVG file is a single structure, which we will naturally call `SavedGame`.
 
 
 ### `TeamsInfo`
-| Field name        | Type                 | Size in bytes | Description                                       |
-| ----------------- | -------------------- | ------------- | ------------------------------------------------- |
-| num_teams         | `uint8`              | 1             | The number of teams                               |
-| ?team_for_player  | `uint8[8]`           | 8             | 1 byte per player indicating the 0-based index of the team. Only present if num_teams > 0 |
+| Field name       | Type       | Size in bytes | Description                                                                                |
+| ---------------- | ---------- | ------------- | ------------------------------------------------------------------------------------------ |
+| num_teams        | `uint8`    | 1             | The number of teams                                                                        |
+| ?team_for_player | `uint8[8]` | 8             | 1 byte per player, indicating the 0-based index of the team. Only present if num_teams > 0 |
 
 
 ### `CustomHero`
-| Field name        | Type                 | Size in bytes | Description                                                            |
-| ----------------- | -------------------- | ------------- | ---------------------------------------------------------------------- |
-| type              | `uint8`              | 1             | Enum `HeroType`                                                        |
-| portrait          | `uint8`              | 1             | Enum `HeroPortrait`                                                    |
-| name              | `String32`           | varies        | The name of the hero                                                   |
-| can_hire          | `uint8`              | 1             | Bitmask; 1 bit per player, indicating if the player can hire this hero |
+| Field name | Type       | Size in bytes | Description                                                            |
+| ---------- | ---------- | ------------- | ---------------------------------------------------------------------- |
+| type       | `uint8`    | 1             | Enum `HeroType`                                                        |
+| portrait   | `uint8`    | 1             | Enum `HeroPortrait`                                                    |
+| name       | `String32` | varies        | The name of the hero                                                   |
+| can_hire   | `uint8`    | 1             | Bitmask; 1 bit per player, indicating if the player can hire this hero |
 
 
 ### `ScenarioStartingInfo`
@@ -229,10 +248,10 @@ An H3SVG file is a single structure, which we will naturally call `SavedGame`.
 
 
 ### `ObjectToRender`
-| Field name            | Type       | Size in bytes | Description                                                            |
-| --------------------- | ---------- | ------------- | ---------------------------------------------------------------------- |
-| object_idx            | `uint16`   | 2             | 0-based index of the object in SavedGame.objects                       |
-| unknown               | `uint16`   | 2             | Somehow specified which part of the sprite to render                   |
+| Field name | Type     | Size in bytes | Description                                                            |
+| ---------- | -------- | ------------- | ---------------------------------------------------------------------- |
+| object_idx | `uint16` | 2             | 0-based index of the object in SavedGame.objects                       |
+| unknown    | `uint16` | 2             | Somehow specified which part of the sprite to render                   |
 
 
 ### `ObjectTemplate`
@@ -259,34 +278,34 @@ An H3SVG file is a single structure, which we will naturally call `SavedGame`.
 
 
 ### `ObjectPropertiesTables`
-| Field name                  | Type                                | Size in bytes | Description                                              |
-| --------------------------- | ----------------------------------- | ------------- | -------------------------------------------------------- |
-| num_event_objects           | `uint16`                            | 2             | The number of Event and Pandora's Box objects on the map |
-| events_and_pandoras_boxes   | [`EventBase[num_event_objects]`](#EventBase) | varies | Event and Pandora's Box objects on the Adventure Map   |
-| num_artifact_objects        | `uint16`                            | 2             | |
-| artifacts_and_spell_scrolls | [`Guardians[num_artifact_objects]`](#Guardians) | varies | Artifact and SpellScroll objects on the Adventure Map |
-| num_monster_objects         | `uint16`                            | 2             | |
-| monsters                    | [`Monster[num_monster_objects]`](#Monster) | varies | |
-| num_seers_huts              | `uint16`                            | 2             | |
-| seers_huts                  | `SeersHut[num_seers_huts]`          | varies        | |
-| num_quest_guards            | `uint16`                            | 2             | |
-| quest_guards                | `QuestGuard[num_quest_guards]`      | varies        | |
-| num_global_events           | `uint32`                            | 4             | |
-| global_events               | `TimedEvent[num_global_events]`     | varies        | |
-| num_town_events             | `uint32`                            | 4             | |
-| town_events                 | `TownEvent[num_town_events]`        | varies        | |
-| num_signs_and_ocean_bottles | `uint8`                             | 1             | |
-| signs_and_ocean_bottles     | `Sign[num_signs_and_ocean_bottles]` | varies        | |
-| num_mines_and_lighthouses   | `uint8`                             | 1             | |
-| mines_and_lighthouses       | `Mine[num_mines_and_lighthouses]`   | varies        | |
-| num_dwellings               | `uint16`                            | 2             | |
-| dwellings                   | `Dwelling[num_dwellings]`           | varies        | |
-| num_garrisons               | `uint8`                             | 1             | |
-| garrisons                   | `Garrison[num_garrisons]`           | varies        | |
-| num_boats                   | `uint8`                             | 1             | The number of boats on the Adventure Map    |
-| boats                       | `Boat[num_boats]`                   | varies        | Boats on the Adventure map                  |
-| num_obelisks                | `uint8`                             | 1             | The number of Obelisks on the Adventure Map |
-| obelisks                    | `Obelisk[49]`                       | 49            | Obelisks on the Adventure Map               |
+| Field name                  | Type                                | Size in bytes    | Description                                              |
+| --------------------------- | ----------------------------------- | ---------------- | -------------------------------------------------------- |
+| num_event_objects           | `uint16`                            | 2                | The number of Event and Pandora's Box objects on the map |
+| events_and_pandoras_boxes   | [`EventBase[num_event_objects]`](#EventBase) | varies  | Event and Pandora's Box objects on the Adventure Map     |
+| num_artifact_objects        | `uint16`                            | 2                | |
+| artifacts_and_spell_scrolls | [`Guardians[num_artifact_objects]`](#Guardians) | varies | Artifact and SpellScroll objects on the Adventure Map  |
+| num_monster_objects         | `uint16`                            | 2                | |
+| monsters                    | [`Monster[num_monster_objects]`](#Monster) | varies    | |
+| num_seers_huts              | `uint16`                            | 2                | |
+| seers_huts                  | [`SeersHut[num_seers_huts]`](#SeersHut) | varies       | |
+| num_quest_guards            | `uint16`                            | 2                | |
+| quest_guards                | [`QuestGuard[num_quest_guards]`](#QuestGuard) | varies | |
+| num_global_events           | `uint32`                            | 4                | |
+| global_events               | [`TimedEvent[num_global_events]`](#TimedEvent)| varies | |
+| num_town_events             | `uint32`                            | 4                | |
+| town_events                 | [`TownEvent[num_town_events]`](#TownEvent)| varies     | |
+| num_signs_and_ocean_bottles | `uint8`                             | 1                | |
+| signs_and_ocean_bottles     | [`Sign[num_signs_and_ocean_bottles]`](#Sign) | varies  | |
+| num_mines_and_lighthouses   | `uint8`                             | 1                | |
+| mines_and_lighthouses       | [`Mine[num_mines_and_lighthouses]`](#Mine) | varies    | |
+| num_dwellings               | `uint16`                            | 2                | |
+| dwellings                   | [`Dwelling[num_dwellings]`](#Dwelling) | varies        | |
+| num_garrisons               | `uint8`                             | 1                | |
+| garrisons                   | [`Garrison[num_garrisons]`](#Garrison) | varies        | |
+| num_boats                   | `uint8`                             | 1                | The number of boats on the Adventure Map            |
+| boats                       | [`Boat[num_boats]`](#Boat)          | varies           | Boats on the Adventure map                          |
+| num_obelisks                | `uint8`                             | 1                | The number of Obelisks on the Adventure Map         |
+| obelisks                    | [`Obelisk[49]`](#Obelisk)           | 49               | Only the first num_obelisks elements are meaningful |
 
 
 ### `Guardians`
@@ -305,24 +324,24 @@ An H3SVG file is a single structure, which we will naturally call `SavedGame`.
 
 
 ### `EventBase`
-| Field name           | Type                                   | Size in bytes | Description                                             |
-| -------------------- | -------------------------------------- | ------------- | ------------------------------------------------------- |
-| has_guardians        | `Bool`                                 | 1             |                                                         |
-| ?guardians           | [`Guardians`](#Guardians)              | varies        | Only present if has_guardians != 0                      |
-| experience           | `int32`                                | 4             | Experience points to give/take                          |
-| spell_points         | `int32`                                | 4             | Spell points to give/take                               |
-| morale               | `int8`                                 | 1             | Morale bonus                                            |
-| luck                 | `int8`                                 | 1             | Luck bonus                                              |
-| resources            | `int32[7]`                             | 28            | The amount to give/take for each Resource type          |
-| primary_skills       | `int8[4]`                              | 4             | Increments/decrements for each Primary Skill type       |
-| num_secondary_skills | `uint8`                                | 1             | The number of Secondary Skills to grant                 |
-| secondary_skills     | [`SecondarySkill[num_secondary_skills]`](#SecondarySkill) | varies | Secondary Skills to grant                   |
-| num_artifacts        | `uint8`                                | 1             | The number of artifacts to give                         |
-| artifacts            | `uint8[num_artifacts]`                 | varies        | Artifacts to give (each element is enum `ArtifactType`) |
-| num_spells           | `uint8`                                | 1             | The number of spells to give                            |
-| spells               | `uint8[num_spells`                     | varies        | Spells to give (each element is enum `SpellType`)       |
-| num_creatures        | `uint8`                                | 1             | The number of creature stacks to give                   |
-| creatures            | [`CreatureStack[num_creatures]`](#CreatureStack) | varies | Creature stacks to give                              |
+| Field name           | Type                                      | Size in bytes | Description                                             |
+| -------------------- | ----------------------------------------- | ------------- | ------------------------------------------------------- |
+| has_guardians        | `Bool`                                    | 1             |                                                         |
+| ?guardians           | [`Guardians`](#Guardians)                 | varies        | Only present if has_guardians != 0                      |
+| experience           | `int32`                                   | 4             | Experience points to give/take                          |
+| spell_points         | `int32`                                   | 4             | Spell points to give/take                               |
+| morale               | `int8`                                    | 1             | Morale bonus                                            |
+| luck                 | `int8`                                    | 1             | Luck bonus                                              |
+| resources            | `int32[7]`                                | 28            | The amount to give/take for each Resource type          |
+| primary_skills       | `int8[4]`                                 | 4             | Increments/decrements for each Primary Skill type       |
+| num_secondary_skills | `uint8`                                   | 1             | The number of Secondary Skills to grant                 |
+| secondary_skills     | [`SecondarySkill[num_secondary_skills]`](#SecondarySkill) | varies | Secondary Skills to grant                      |
+| num_artifacts        | `uint8`                                   | 1             | The number of artifacts to give                         |
+| artifacts            | `uint8[num_artifacts]`                    | varies        | Artifacts to give (each element is enum `ArtifactType`) |
+| num_spells           | `uint8`                                   | 1             | The number of spells to give                            |
+| spells               | `uint8[num_spells]`                       | varies        | Spells to give (each element is enum `SpellType`)       |
+| num_creatures        | `uint8`                                   | 1             | The number of creature stacks to give                   |
+| creatures            | [`CreatureStack[num_creatures]`](#CreatureStack) | varies | Creature stacks to give                                 |
 
 
 ### `SecondarySkill`
@@ -345,6 +364,110 @@ An H3SVG file is a single structure, which we will naturally call `SavedGame`.
 | message    | `String16` | varies        | Message to display                                 |
 | resources  | `int32[7]` | 28            | Increments for each Resource type                  |
 | artifact   | `uint8`    | 1             | Enum `ArtifactType` or 0xFF if there's no artifact |
+
+
+### `SeersHut`
+| Field name | Type     | Size in bytes | Description                                                                |
+| ---------- | -------- | ------------- | -------------------------------------------------------------------------- |
+| quest      | `Quest`  | varies        |                                                                            |
+| reward     | `Reward` | 12            |                                                                            |
+| unknown1   | `uint8`  | 1             |                                                                            |
+| visited_by | `uint8`  | 1             | Bitmask; 1 bit per player, indicating if they have visited this Seer's Hut |
+| unknown2   | `uint8`  | 1             |                                                                            |
+
+
+### `QuestGuard`
+| Field name | Type     | Size in bytes | Description                                                                 |
+| ---------- | -------- | ------------- | --------------------------------------------------------------------------- |
+| quest      | `Quest`  | varies        |                                                                             |
+| visited_by | `uint8`  | 1             | Bitmask; 1 bit per player, indicating if they have visited this Quest Guard |
+
+
+### `TimedEvent`
+| Field name             | Type       | Size in bytes | Description                                                                   |
+| ---------------------- | ---------- | ------------- | ----------------------------------------------------------------------------- |
+| message                | `String16` | varies        | Text to display                                                               |
+| resources              | `int32[7]` | 28            | The amount to give/take for each Resource type                                |
+| affected_players       | `uint8`    | 1             | Bitmask; 1 bit per player, indicating if the player is affected by this event |
+| applies_to_human       | `Bool`     | 1             |                                                                               |
+| applies_to_computer    | `Bool`     | 1             |                                                                               |
+| day_of_first_occurence | `uint16`   | 2             | 0 means Month: 1, Week: 1, Day: 1                                             |
+| repeat_after_days      | `uint16`   | 2             | Frequency of the event; 0 means that the even does not repeat                 |
+
+
+### `TownEvent`
+| Field name             | Type        | Size in bytes | Description                                                                   |
+| ---------------------- | ----------- | ------------- | ----------------------------------------------------------------------------- |
+| message                | `String16`  | varies        | Text to display                                                               |
+| resources              | `int32[7]`  | 28            | The amount to give/take for each Resource type                                |
+| affected_players       | `uint8`     | 1             | Bitmask; 1 bit per player, indicating if the player is affected by this event |
+| applies_to_human       | `Bool`      | 1             |                                                                               |
+| applies_to_computer    | `Bool`      | 1             |                                                                               |
+| day_of_first_occurence | `uint16`    | 2             | 0 means Month: 1, Week: 1, Day: 1                                             |
+| repeat_after_days      | `uint16`    | 2             | Frequency of the event; 0 means that the even does not repeat                 |
+| unknown1               | `uint8`     | 1             |                                                                               |
+| buildings              | `uint8[6]`  | 6             | Bitmask; 1 bit per Town Building type, indicating if it should be built       |
+| unknown2               | `uint8[2]`  | 2             |                                                                               |
+| creatures              | `uint16[7]` | 14            | The number of new recruits for each creature level                            |
+
+
+### `Sign`
+| Field name | Type        | Size in bytes | Description                                                    |
+| ---------- | ----------- | ------------- | -------------------------------------------------------------- |
+| message    | `String16`  | varies        | Text to display                                                |
+| is_custom  | `Bool`      | 1             | 1 - display `message`, 0 - show random default message instead |
+
+
+### `Mine`
+| Field name  | Type                          | Size in bytes | Description                  |
+| ----------- | ----------------------------- | ------------- | ---------------------------- |
+| owner       | `uint8`                       | 1             | Enum `PlayerColor`           |
+| unknown     | `uint8[2]`                    | 2             |                              |
+| creatures   | [`Troops`](#Troops)           | 56            | Creatures guarding this mine |
+| coordinates | [`Coordinates`](#Coordinates) | 3             |                              |
+
+
+### `Garrison`
+| Field name       | Type                          | Size in bytes | Description                            |
+| ---------------- | ----------------------------- | ------------- | -------------------------------------- |
+| owner            | `uint8`                       | 1             | Enum `PlayerColor`                     |
+| creatures        | [`Troops`](#Troops)           | 56            |                                        |
+| coordinates      | [`Coordinates`](#Coordinates) | 3             |                                        |
+| can_remove_units | `Bool`                        | 1             | Indicates whether troops are removable |
+
+
+### `Dwelling`
+| Field name      | Type                          | Size in bytes | Description                                         |
+| --------------- | ----------------------------- | ------------- | --------------------------------------------------- |
+| owner           | `uint8`                       | 1             | Enum `PlayerColor`                                  |
+| object_class    | `uint8`                       | 1             | Enum `ObjectClass`. Should be either 17 or 20       |
+| object_subclass | `uint8`                       | 1             | Defines the type of the creatures in this dwelling  |
+| creature_types  | `uint8[4]`                    | 4             | Enum `CreatureType` for each slot                   |
+| creature_counts | `uint16[4]`                   | 8             | The number of available creatures for each slot     |
+| coordinates     | [`Coordinates`](#Coordinates) | 3             | Coordinates on the Adventure Map                    |
+| guardians       | [`Troops`](#Troops)           | 56            | Creatures guarding this dwelling                    |
+| unknown         | `uint8`                       | 1             |                                                     |
+
+
+### `Boat`
+| Field name      | Type       | Size in bytes | Description                                          |
+| --------------- | ---------- | ------------- | ---------------------------------------------------- |
+| unknown1        | `uint8[2]` | 2             |                                                      |
+| object_subclass | `uint8`    | 1             | Boat style: 0 - Necropolis, 1 - Castle, 2 - Fortress |
+| direction       | `uint8`    | 1             | Enum; describes the current direction of the boat    |
+| owner           | `uint8`    | 1             | Enum `PlayerColor`                                   |
+| owner_hero      | `uint8`    | 1             | Enum `HeroType`                                      |
+| is_occupied     | `Bool`     | 1             |                                                      |
+| x               | `uint16`   | 2             |                                                      |
+| y               | `uint16`   | 2             |                                                      |
+| z               | `uint16`   | 2             |                                                      |
+| unknown2        | `uint32`   | 4             | TODO. Seems to be coordinates_packed                 |
+
+
+### `Obelisk`
+| Field name | Type    | Size in bytes | Description                                                             |
+| ---------- | ------- | ------------- | ----------------------------------------------------------------------- |
+| visited_by | `uint8` | 1             | Bitmask; 1 bit per player, indicating if they have visited this Obelisk |
 
 
 ### `Player`
