@@ -371,9 +371,9 @@ An H3SVG file is a single structure that we will naturally call [`SavedGame`](#S
 | ---------- | -------- | ------------- | -------------------------------------------------------------------------- |
 | quest      | `Quest`  | varies        |                                                                            |
 | reward     | `Reward` | 12            |                                                                            |
-| unknown1   | `uint8`  | 1             |                                                                            |
+| reserved   | `uint8`  | 1             | 0 by default; modifying the value seems to have no effect                  |
 | visited_by | `uint8`  | 1             | Bitmask; 1 bit per player, indicating if they have visited this Seer's Hut |
-| unknown2   | `uint8`  | 1             |                                                                            |
+| name       | `uint8`  | 1             | Enum `SeerName`                                                            |
 
 
 ### `QuestGuard`

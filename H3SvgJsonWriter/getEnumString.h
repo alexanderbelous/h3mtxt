@@ -30,6 +30,8 @@ namespace h3svg
 
   std::string_view getEnumString(SecondarySkillType32 value) noexcept;
 
+  std::string_view getEnumString(SeerName value) noexcept;
+
   std::string_view getEnumString(SpellType32 value) noexcept;
 
   std::string_view getEnumString(TownType32 value) noexcept;

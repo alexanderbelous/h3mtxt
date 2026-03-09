@@ -138,9 +138,13 @@ namespace Medea_NS
     using Fields = h3json::FieldNames<h3svg::SeersHut>;
     out.writeField(Fields::kQuest, seers_hut.quest);
     out.writeField(Fields::kReward, seers_hut.reward);
-    out.writeField(Fields::kUnknown1, seers_hut.unknown1);
+    out.writeField(Fields::kReserved, seers_hut.reserved);
     out.writeField(Fields::kVisitedBy, seers_hut.visited_by);
-    out.writeField(Fields::kUnknown2, seers_hut.unknown2);
+    out.writeField(Fields::kName, seers_hut.name);
+    if (std::string_view enum_str = getEnumString(seers_hut.name); !enum_str.empty())
+    {
+      out.writeComment(enum_str, false);
+    }
   }
 
   void JsonObjectWriter<h3svg::Sign>::operator()(FieldsWriter& out, const h3svg::Sign& sign) const

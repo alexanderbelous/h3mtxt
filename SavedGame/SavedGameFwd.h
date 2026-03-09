@@ -78,6 +78,8 @@ namespace h3svg
 
   enum class SecondarySkillType32 : std::uint32_t;
 
+  enum class SeerName : std::uint8_t;
+
   enum class SpellType32 : std::uint32_t;
 
   enum class TownType32 : std::int32_t;

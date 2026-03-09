@@ -7,6 +7,7 @@
 #include <h3mtxt/Map/Utils/EnumBitmask.h>
 #include <h3mtxt/Map/Coordinates.h>
 #include <h3mtxt/Map/Resources.h>
+#include <h3mtxt/SavedGame/Constants/SeerName.h>
 #include <h3mtxt/SavedGame/EventBase.h>
 #include <h3mtxt/SavedGame/Quest.h>
 #include <h3mtxt/SavedGame/Reward.h>
@@ -120,12 +121,10 @@ namespace h3svg
     Quest quest;
     // Reward, on the other hand, remains unchanged for completed quests.
     Reward reward;
-    std::uint8_t unknown1 {};
+    // 0 by default; modifying has no effect.
+    std::uint8_t reserved {};
     PlayersBitmask visited_by;
-    // TODO: figure out what this is.
-    // Most likely: Seer's name (e.g., "Norwood", "Carsten", "Xavier", ...).
-    // This is displayed when you hover over the Seer's Hut, e.g., "Jhem the Seer (seeks 100 Vampire Lords)".
-    std::uint8_t unknown2 {};
+    SeerName name {};
   };
 
   struct Sign

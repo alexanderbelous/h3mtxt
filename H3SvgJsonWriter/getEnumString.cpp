@@ -135,6 +135,62 @@ namespace h3svg
     return std::string_view{};
   }
 
+  std::string_view getEnumString(SeerName value) noexcept
+  {
+    static constexpr std::string_view kNames[] = {
+      "Abraham",
+      "Goldwyn",
+      "Bryce",
+      "Blain",
+      "Engle",
+      "Carsten",
+      "Dulcie",
+      "Donard",
+      "Esslock",
+      "Evander",
+      "Frederick",
+      "Fay",
+      "Genevieve",
+      "Horace",
+      "Heather",
+      "Ike",
+      "Jhem",
+      "Julius",
+      "Joseph",
+      "Kae",
+      "Kendrick",
+      "Lynwood",
+      "Kyriell",
+      "Marigold",
+      "Norwood",
+      "Clova",
+      "Tim",
+      "Gier",
+      "Paige",
+      "Pierce",
+      "Rae",
+      "Raphael",
+      "Rex",
+      "Hester",
+      "Spiridion",
+      "Skye",
+      "Rival",
+      "Timeus",
+      "Sulmand",
+      "Rizlav",
+      "Violet",
+      "Wendell",
+      "Winston",
+      "Xanthe",
+      "Xavier",
+      "Yvette",
+      "Zaray",
+      "Zoe"
+    };
+    const std::size_t idx = static_cast<std::size_t>(value);
+    return (idx < std::size(kNames)) ? kNames[idx] : std::string_view{};
+  }
+
   std::string_view getEnumString(SpellType32 value) noexcept
   {
     constexpr std::uint8_t kNumSpells = 70;

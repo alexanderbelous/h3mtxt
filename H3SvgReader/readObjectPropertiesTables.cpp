@@ -94,9 +94,9 @@ namespace h3svg
     SeersHut seers_hut;
     seers_hut.quest = readQuest();
     seers_hut.reward = readReward();
-    seers_hut.unknown1 = readInt<std::uint8_t>();
+    seers_hut.reserved = readInt<std::uint8_t>();
     seers_hut.visited_by = readEnumBitmask<PlayerColor, 1>();
-    seers_hut.unknown2 = readInt<std::uint8_t>();
+    seers_hut.name = readEnum<SeerName>();
     return seers_hut;
   }
 
