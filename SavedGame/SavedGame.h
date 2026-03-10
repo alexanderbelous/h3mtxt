@@ -41,9 +41,22 @@ namespace h3svg
     // If the player has fewer than 8 heroes, 0xFF is used in empty slots.
     std::array<HeroType, 8> heroes {};
     std::array<HeroType, 2> heroes_in_tavern {};
-    std::array<std::uint8_t, 85> unknown1 {};
+    // TODO: figure out what this is.
+    std::array<std::uint8_t, 10> unknown1 {};
+    // The number of days left to live without a town, or -1 if the player has at least 1 town.
+    std::int8_t days_left {};
+    // The number of towns owned by the player.
+    std::uint8_t num_towns {};
+    // ID of the currently selected town, or -1 if there is none.
+    std::int8_t current_town {};
+    // IDs of towns owned by the player (see Town::id). Only the first @num_towns elements are meaningful - the
+    // rest are usually set to 0xFF.
+    std::array<std::int8_t, 48> towns {};
+    // TODO: figure out what this is.
+    std::array<std::uint8_t, 24> unknown2 {};
     Resources resources;
-    std::array<std::uint8_t, 19> unknown2 {};
+    // TODO: figure out what this is.
+    std::array<std::uint8_t, 19> unknown3 {};
   };
 
   // The equivalent of h3m::Rumor stored in the saved game.

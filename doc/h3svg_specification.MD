@@ -29,7 +29,7 @@ Since I reverse-engineered the file format, I thought it would be a nice idea to
 
 Unlike maps (.h3m) and campaigns (.h3c), the file format for saved games doesn't have a well-established name. Depending on the number of players, the game uses various filename extensions (.GM1, .GM2, ..., .GM8), but "GM" is a very ambiguous abbreviation.
 
-In this repository I call the file format for saved games **H3SVG** since that's what the game uses as the file signature (the bytes at the beginning of the file).
+In this repository I call the file format for saved games **H3SVG** since this is what the game uses as the file signature (the bytes at the beginning of the file).
 
 ## Previous work
 
@@ -371,7 +371,7 @@ An H3SVG file is a single structure that we will naturally call [`SavedGame`](#S
 | ---------- | -------- | ------------- | -------------------------------------------------------------------------- |
 | quest      | `Quest`  | varies        |                                                                            |
 | reward     | `Reward` | 12            |                                                                            |
-| reserved   | `uint8`  | 1             | 0 by default; modifying the value seems to have no effect                  |
+| reserved   |          | 1             | 0 by default; modifying the value seems to have no effect                  |
 | visited_by | `uint8`  | 1             | Bitmask; 1 bit per player, indicating if they have visited this Seer's Hut |
 | name       | `uint8`  | 1             | Enum `SeerName`                                                            |
 
@@ -471,16 +471,21 @@ An H3SVG file is a single structure that we will naturally call [`SavedGame`](#S
 
 
 ### `Player`
-| Field name       | Type        | Size in bytes | Description                                                      |
-| ---------------- | ----------- | ------------- | ---------------------------------------------------------------- |
-| player_color     | `uint8`     | 1             | Enum `PlayerColor`                                               |
-| num_heroes       | `uint8`     | 1             | |
-| active_hero      | `uint8`     | 1             | Enum `HeroType` |
-| heroes           | `uint8[8]`  | 8             | Enum `HeroType` for each hero slot; 0xFF is used for empty slots |
-| heroes_in_tavern | `uint8[2]`  | 2             | Enum `HeroType` for each slot in the Tavern                      |
-| unknown1         | `uint8[85]` | 85            | TODO |
-| resources        | `int32[7]`  | 28            | The current amount for each Resource type                        |
-| unknown2         | `uint8[19]` | 19            | TODO |
+| Field name       | Type        | Size in bytes | Description                                                                             |
+| ---------------- | ----------- | ------------- | --------------------------------------------------------------------------------------- |
+| player_color     | `uint8`     | 1             | Enum `PlayerColor`                                                                      |
+| num_heroes       | `uint8`     | 1             |                                                                                         |
+| active_hero      | `uint8`     | 1             | Enum `HeroType`                                                                         |
+| heroes           | `uint8[8]`  | 8             | Enum `HeroType` for each hero slot; 0xFF is used for empty slots                        |
+| heroes_in_tavern | `uint8[2]`  | 2             | Enum `HeroType` for each slot in the Tavern                                             |
+| unknown1         | `uint8[10]` | 10            | TODO                                                                                    |
+| days_left        | `int8`      | 1             | The number of days left to live without a town, or -1 if the player has at least 1 town |
+| num_towns        | `uint8`     | 1             | The number of towns owned by the player                                                 |
+| current_town     | `int8`      | 1             | ID of the currently selected town, or -1 if there is none                               |
+| towns            | `int8[48]`  | 48            | IDs of towns owned by the player (see Town.id)                                          |
+| unknown2         | `uint8[24]` | 24            | TODO                                                                                    |
+| resources        | `int32[7]`  | 28            | The current amount for each Resource type                                               |
+| unknown3         | `uint8[19]` | 19            | TODO                                                                                    |
 
 
 ### `Town`

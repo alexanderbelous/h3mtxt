@@ -77,8 +77,13 @@ namespace Medea_NS
     out.writeField(Fields::kHeroes, player.heroes);
     out.writeField(Fields::kHeroesInTavern, player.heroes_in_tavern);
     out.writeField(Fields::kUnknown1, player.unknown1);
-    out.writeField(Fields::kResources, player.resources);
+    out.writeField(Fields::kDaysLeft, player.days_left);
+    out.writeField(Fields::kNumTowns, player.num_towns);
+    out.writeField(Fields::kCurrentTown, player.current_town);
+    out.writeField(Fields::kTowns, player.towns);
     out.writeField(Fields::kUnknown2, player.unknown2);
+    out.writeField(Fields::kResources, player.resources);
+    out.writeField(Fields::kUnknown3, player.unknown3);
   }
 
   void JsonObjectWriter<h3svg::PlayerSpecs>::operator()(FieldsWriter& out, const h3svg::PlayerSpecs& player) const

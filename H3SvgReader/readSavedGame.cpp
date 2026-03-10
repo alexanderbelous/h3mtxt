@@ -31,9 +31,17 @@ namespace h3svg
     {
       hero = readEnum<HeroType>();
     }
-    player.unknown1 = readByteArray<85>();
+    player.unknown1 = readByteArray<10>();
+    player.days_left = readInt<std::int8_t>();
+    player.num_towns = readInt<std::uint8_t>();
+    player.current_town = readInt<std::int8_t>();
+    for (std::int8_t& town_id : player.towns)
+    {
+      town_id = readInt<std::uint8_t>();
+    }
+    player.unknown2 = readByteArray<24>();
     player.resources = readResources();
-    player.unknown2 = readByteArray<19>();
+    player.unknown3 = readByteArray<19>();
     return player;
   }
 
