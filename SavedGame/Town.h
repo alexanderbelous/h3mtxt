@@ -50,7 +50,15 @@ namespace h3svg
     std::array<std::uint16_t, 7> recruits_nonupgraded {};
     // The number of upgraded creatures available for hire for each creature level.
     std::array<std::uint16_t, 7> recruits_upgraded {};
+    // TODO: figure out what this is.
+    // Seems to contain bitmasks about built/banned buildings
+    std::array<std::uint8_t, 85> unknown3 {};
+    // 6 spells for each level of the Mage Guild.
+    // Note that the values for nonexistent slots likely contain junk bytes (e.g., spells[1][5] is not even
+    // guarantred to be a valid SpellType).
+    std::array<std::array<SpellType32, 6>, 5> spells {};
     // TODO: reverse-engineer
-    std::array<std::uint8_t, 282> unknown3 {};
+    // unknwown3[70] & 1 seems to indicate if the Mana Vortex has NOT been used this week
+    std::array<std::uint8_t, 77> unknown4 {};
   };
 }

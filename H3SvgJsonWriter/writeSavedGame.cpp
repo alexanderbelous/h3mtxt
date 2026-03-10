@@ -267,6 +267,8 @@ namespace Medea_NS
     out.writeField(Fields::kRecruitsNonUpgraded, town.recruits_nonupgraded);
     out.writeField(Fields::kRecruitsUpgraded, town.recruits_upgraded);
     out.writeField(Fields::kUnknown3, town.unknown3);
+    out.writeField(Fields::kSpells, town.spells);
+    out.writeField(Fields::kUnknown4, town.unknown4);
   }
 
   template<>
