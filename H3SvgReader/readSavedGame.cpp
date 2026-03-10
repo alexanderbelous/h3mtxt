@@ -16,7 +16,7 @@ namespace h3svg
     return black_market;
   }
 
-  // Seems to always be 145 bytes.
+  // Always 145 bytes.
   Player H3SvgReader::readPlayer() const
   {
     Player player;
@@ -160,7 +160,7 @@ namespace h3svg
     }
     // Read the tables storing additional data for objects whose properties aren't fully described by Tile.
     saved_game.object_properties_tables = readObjectPropertiesTables();
-    // Read Players' Info.
+    // Read 1160 bytes - 145 bytes per player, representing the current state of the player.
     for (Player& player : saved_game.players.data)
     {
       player = readPlayer();

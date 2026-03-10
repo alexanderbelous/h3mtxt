@@ -15,6 +15,7 @@ set(SOURCE_LIST
     "ObjectProperties.h"
     "Object.h"
     "ObjectTemplate.h"
+    "Player.h"
     "PlayerSpecs.h"
     "Quest.h"
     "Reward.h"

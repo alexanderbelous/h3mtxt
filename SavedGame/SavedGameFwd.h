@@ -125,9 +125,9 @@ namespace h3svg
 
   struct ObjectTemplate;
 
-  struct PlayerSpecs;
-
   struct Player;
+
+  struct PlayerSpecs;
 
   struct Quest;
 
