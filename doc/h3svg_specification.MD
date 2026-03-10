@@ -475,7 +475,7 @@ An H3SVG file is a single structure that we will naturally call [`SavedGame`](#S
 | ---------------- | ----------- | ------------- | --------------------------------------------------------------------------------------- |
 | player_color     | `uint8`     | 1             | Enum `PlayerColor`                                                                      |
 | num_heroes       | `uint8`     | 1             |                                                                                         |
-| active_hero      | `uint8`     | 1             | Enum `HeroType`                                                                         |
+| active_hero      | `uint8`     | 1             | Enum `HeroType` or 0xFF if there's no active hero                                       |
 | heroes           | `uint8[8]`  | 8             | Enum `HeroType` for each hero slot; 0xFF is used for empty slots                        |
 | heroes_in_tavern | `uint8[2]`  | 2             | Enum `HeroType` for each slot in the Tavern                                             |
 | unknown1         | `uint8[10]` | 10            | TODO                                                                                    |
@@ -485,7 +485,11 @@ An H3SVG file is a single structure that we will naturally call [`SavedGame`](#S
 | towns            | `int8[48]`  | 48            | IDs of towns owned by the player (see Town.id)                                          |
 | unknown2         | `uint8[24]` | 24            | TODO                                                                                    |
 | resources        | `int32[7]`  | 28            | The current amount for each Resource type                                               |
-| unknown3         | `uint8[19]` | 19            | TODO                                                                                    |
+| mystical_gardens | `uint32`    | 4             | Bitmask; 1 bit per Mystical Garden, indicating if the player has visited it this week   |
+| unknown3         | `uint8[4]`  | 4             | TODO                                                                                    |
+| corpses          | `uint32`    | 4             | Bitmask; 1 bit per Corpse, indicating if the player has visited it                      |
+| lean_tos         | `uint32`    | 4             | Bitmask; 1 bit per Lean To, indicating if the player has visited it                     |
+| unknown4         | `uint8[3]`  | 4             | TODO                                                                                    |
 
 
 ### `Town`

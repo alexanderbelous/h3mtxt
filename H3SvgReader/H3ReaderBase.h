@@ -63,7 +63,7 @@ namespace h3m
     // Reads a BitSet from the stream.
     // BitSet<N> is serialized as an array N bytes that should be interpreted as an array of 8*N bits.
     template<std::size_t NumBytes>
-    BitSet<NumBytes> readBitSet();
+    BitSet<NumBytes> readBitSet() const;
 
     // Reads a EnumBitmask from the stream.
     // EnumBitmask<T, N> is serialized as an array N bytes that should be interpreted as an array of 8*N bits,
@@ -121,7 +121,7 @@ namespace h3m
   }
 
   template<std::size_t NumBytes>
-  BitSet<NumBytes> H3ReaderBase::readBitSet()
+  BitSet<NumBytes> H3ReaderBase::readBitSet() const
   {
     return H3Reader_NS::readBitSet<NumBytes>(stream_);
   }

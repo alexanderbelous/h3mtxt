@@ -2,6 +2,7 @@
 
 #include <h3mtxt/SavedGame/SavedGameFwd.h>
 #include <h3mtxt/Map/Constants/MapFormat.h>
+#include <h3mtxt/Map/Utils/BitSet.h>
 #include <h3mtxt/Map/Utils/ReservedData.h>
 #include <h3mtxt/Map/MapAdditionalInfo.h>
 #include <h3mtxt/Map/MapBasicInfo.h>
@@ -53,10 +54,19 @@ namespace h3svg
     // rest are usually set to 0xFF.
     std::array<std::int8_t, 48> towns {};
     // TODO: figure out what this is.
+    // Each element seems to always be 0xFF. Maybe reserved for more towns?
     std::array<std::uint8_t, 24> unknown2 {};
     Resources resources;
+    // 1 bit per Mystical Garden, indicating if the player has visited it this week.
+    BitSet<4> mystical_gardens;
     // TODO: figure out what this is.
-    std::array<std::uint8_t, 19> unknown3 {};
+    std::array<std::uint8_t, 4> unknown3 {};
+    // 1 bit per Corpse, indicating if the player has visited it.
+    BitSet<4> corpses;
+    // 1 bit per Lean To, indicating if the player has visited it.
+    BitSet<4> lean_tos;
+    // TODO: figure out what this is.
+    std::array<std::uint8_t, 3> unknown4 {};
   };
 
   // The equivalent of h3m::Rumor stored in the saved game.

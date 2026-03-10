@@ -193,7 +193,6 @@ namespace h3svg
 
   std::string_view getEnumString(SpellType32 value) noexcept
   {
-    constexpr std::uint8_t kNumSpells = 70;
     const auto integer_value = static_cast<std::underlying_type_t<SpellType32>>(value);
     if (integer_value >= 0 && integer_value < kNumSpells)
     {
