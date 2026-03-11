@@ -88,7 +88,25 @@ namespace h3json
     static constexpr std::string_view kObjectClassUnder = "object_class_under";
     static constexpr std::string_view kUnknown1 = "unknown1";
     static constexpr std::string_view kBiography = "biography";
+    static constexpr std::string_view kOwner = "owner";
+    static constexpr std::string_view kPatrolRadius = "patrol_radius";
     static constexpr std::string_view kUnknown2 = "unknown2";
+    static constexpr std::string_view kType = "type";
+    static constexpr std::string_view kHeroClass = "hero_class";
+    static constexpr std::string_view kPortrait = "portrait";
+    static constexpr std::string_view kPatrolX = "patrol_x";
+    static constexpr std::string_view kPatrolY = "patrol_y";
+    static constexpr std::string_view kUnknown3 = "unknown3";
+    static constexpr std::string_view kDestinationX = "destination_x";
+    static constexpr std::string_view kDestinationY = "destination_y";
+    static constexpr std::string_view kUnknown4 = "unknown4";
+    static constexpr std::string_view kMovePointsMax = "move_points_max";
+    static constexpr std::string_view kMovePoints = "move_points";
+    static constexpr std::string_view kExperience = "experience";
+    static constexpr std::string_view kUnknown5 = "unknown5";
+    static constexpr std::string_view kSpellPoints = "spell_points";
+    static constexpr std::string_view kLevel = "level";
+    static constexpr std::string_view kUnknown6 = "unknown6";
     static constexpr std::string_view kArmy = "army";
     static constexpr std::string_view kName = "name";
     static constexpr std::string_view kSecondarySkillsLevels = "secondary_skills_levels";
@@ -97,7 +115,7 @@ namespace h3json
     static constexpr std::string_view kSpellsLearned = "spells_learned";
     static constexpr std::string_view kSpellsAvailable = "spells_available";
     static constexpr std::string_view kArtifacts = "artifacts";
-    static constexpr std::string_view kUnknown3 = "unknown3";
+    static constexpr std::string_view kUnknown7 = "unknown7";
   };
 
   template<>

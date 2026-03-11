@@ -46,13 +46,47 @@ namespace Medea_NS
     out.writeField(Fields::kIsVisible, hero.is_visible);
     out.writeField(Fields::kCoordinatesPacked, hero.coordinates_packed);
     out.writeField(Fields::kObjectClassUnder, hero.object_class_under);
-    if (auto enum_str = getEnumString(hero.object_class_under); !enum_str.empty())
+    if (std::string_view enum_str = getEnumString(hero.object_class_under); !enum_str.empty())
     {
       out.writeComment(enum_str, false);
     }
     out.writeField(Fields::kUnknown1, hero.unknown1);
     out.writeField(Fields::kBiography, hero.biography);
+    out.writeField(Fields::kOwner, hero.owner);
+    if (std::string_view enum_str = getEnumString(hero.owner); !enum_str.empty())
+    {
+      out.writeComment(enum_str, false);
+    }
+    out.writeField(Fields::kPatrolRadius, hero.patrol_radius);
     out.writeField(Fields::kUnknown2, hero.unknown2);
+    out.writeField(Fields::kType, hero.type);
+    if (std::string_view enum_str = getEnumString(hero.type); !enum_str.empty())
+    {
+      out.writeComment(enum_str, false);
+    }
+    out.writeField(Fields::kHeroClass, hero.hero_class);
+    if (std::string_view enum_str = getEnumString(hero.hero_class); !enum_str.empty())
+    {
+      out.writeComment(enum_str, false);
+    }
+    out.writeField(Fields::kPortrait, hero.portrait);
+    if (std::string_view enum_str = getEnumString(hero.portrait); !enum_str.empty())
+    {
+      out.writeComment(enum_str, false);
+    }
+    out.writeField(Fields::kPatrolX, hero.patrol_x);
+    out.writeField(Fields::kPatrolY, hero.patrol_y);
+    out.writeField(Fields::kUnknown3, hero.unknown3);
+    out.writeField(Fields::kDestinationX, hero.destination_x);
+    out.writeField(Fields::kDestinationY, hero.destination_y);
+    out.writeField(Fields::kUnknown4, hero.unknown4);
+    out.writeField(Fields::kMovePointsMax, hero.move_points_max);
+    out.writeField(Fields::kMovePoints, hero.move_points);
+    out.writeField(Fields::kExperience, hero.experience);
+    out.writeField(Fields::kUnknown5, hero.unknown5);
+    out.writeField(Fields::kSpellPoints, hero.spell_points);
+    out.writeField(Fields::kLevel, hero.level);
+    out.writeField(Fields::kUnknown6, hero.unknown6);
     out.writeField(Fields::kArmy, hero.army);
     out.writeField(Fields::kName, hero.name);
     out.writeField(Fields::kSecondarySkillsLevels, hero.secondary_skills_levels);
@@ -61,6 +95,6 @@ namespace Medea_NS
     out.writeField(Fields::kSpellsLearned, hero.spells_learned);
     out.writeField(Fields::kSpellsAvailable, hero.spells_available);
     out.writeField(Fields::kArtifacts, hero.artifacts);
-    out.writeField(Fields::kUnknown3, hero.unknown3);
+    out.writeField(Fields::kUnknown7, hero.unknown7);
   }
 }

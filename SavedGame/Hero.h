@@ -4,11 +4,14 @@
 
 #include <h3mtxt/Map/MapFwd.h>
 #include <h3mtxt/Map/Constants/ArtifactType.h>
+#include <h3mtxt/Map/Constants/HeroPortrait.h>
+#include <h3mtxt/Map/Constants/HeroType.h>
 #include <h3mtxt/Map/Constants/SpellType.h>
 #include <h3mtxt/Map/Constants/ObjectClass.h>
 #include <h3mtxt/Map/Constants/SecondarySkillType.h>
 #include <h3mtxt/Map/PrimarySkills.h>
 #include <h3mtxt/SavedGame/Constants/Constants.h>
+#include <h3mtxt/SavedGame/Constants/HeroClass.h>
 #include <h3mtxt/SavedGame/EnumIndexedArray.h>
 #include <h3mtxt/SavedGame/Troops.h>
 
@@ -51,13 +54,39 @@ namespace h3svg
     std::array<std::uint8_t, 7> unknown1 {};
     // Size is 32-bit.
     std::string biography;
+    PlayerColor owner {};
+    // Patrol radius or -1 if there is none.
+    std::int8_t patrol_radius {};
     // TODO: figure out what this is.
-    // * bytes [31; 38] seem to be int32 move_points, int32 move_points2.
-    //   Idk why they are duplicated.
-    // * bytes [39; 42] are int32 experience.
-    // * bytes [47; 48] are int16 spell_points
-    // * bytes [49; 52] seem to be int32 experience_level.
-    std::array<std::uint8_t, 113> unknown2 {};
+    std::array<std::uint8_t, 8> unknown2 {};
+    HeroType type {};
+    HeroClass hero_class {};
+    HeroPortrait portrait {};
+    // X-coordinate of the starting position if the hero has patrol; 0xFF otherwise.
+    std::uint8_t patrol_x {};
+    // Y-coordinate of the starting position if the hero has patrol; 0xFF otherwise.
+    std::uint8_t patrol_y {};
+    // TODO: figure out what this is.
+    std::array<std::uint8_t, 4> unknown3 {};
+    // X-coordinate of the destination, or -1 if there is none.
+    std::int32_t destination_x {};
+    // Y-coordinate of the destination, or -1 if there is none.
+    std::int32_t destination_y {};
+      // TODO: figure out what this is.
+    std::array<std::uint8_t, 4> unknown4 {};
+    // Maximum number of movement points at the moment.
+    // This the "potential" value, which basically reflects what would've been the number of move points if the hero
+    // hadn't moved this turn. It's not constant though - e.g., visiting Stables, or equipping Boots of Speed increases
+    // this number.
+    std::int32_t move_points_max {};
+    // The actual number of movement points at the moment.
+    std::int32_t move_points {};
+    std::int32_t experience {};
+    std::array<std::uint8_t, 4> unknown5 {};
+    std::uint16_t spell_points {};
+    // TODO: maybe int32.
+    std::uint16_t level {};
+    std::array<std::uint8_t, 62> unknown6 {};
     Troops army;
     // Fixed-size; only the characters before the first null terminator are significant.
     std::array<char, 13> name {};
@@ -75,6 +104,6 @@ namespace h3svg
     EnumIndexedArray<SpellType, Bool, kNumSpells> spells_available;
     HeroArtifacts artifacts;
     // TODO: figure out what this is.
-    std::array<std::uint8_t, 22> unknown3 {};
+    std::array<std::uint8_t, 22> unknown7 {};
   };
 }

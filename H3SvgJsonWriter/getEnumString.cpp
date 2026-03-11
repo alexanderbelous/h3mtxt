@@ -50,6 +50,32 @@ namespace h3svg
     return std::string_view{};
   }
 
+  std::string_view getEnumString(HeroClass value) noexcept
+  {
+    static constexpr std::string_view kNames[] = {
+      "Knight",
+      "Cleric",
+      "Ranger",
+      "Druid",
+      "Alchemist",
+      "Wizard",
+      "Demoniac",
+      "Heretic",
+      "DeathKnight",
+      "Necromancer",
+      "Overlord",
+      "Warlock",
+      "Barbarian",
+      "BattleMage",
+      "Beastmaster",
+      "Witch",
+      "Planeswalker",
+      "Elementalist"
+    };
+    const std::size_t idx = static_cast<std::size_t>(value);
+    return (idx < std::size(kNames)) ? kNames[idx] : std::string_view{};
+  }
+
   std::string_view getEnumString(ObjectClass16 value) noexcept
   {
     if (static_cast<std::underlying_type_t<ObjectClass16>>(value) < kNumObjectClasses)

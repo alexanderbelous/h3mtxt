@@ -62,6 +62,8 @@ namespace h3svg
 
   enum class CreatureType32 : std::int32_t;
 
+  enum class HeroClass : std::uint8_t;
+
   enum class ObjectClass16 : std::uint16_t;
 
   // No explicit underlying type because this enum is not serialized anywhere in H3SVG.
