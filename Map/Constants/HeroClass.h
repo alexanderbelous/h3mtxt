@@ -1,6 +1,6 @@
 #pragma once
 
-#include <h3mtxt/Mao/MapFwd.h>
+#include <h3mtxt/Map/MapFwd.h>
 
 #include <cstdint>
 
