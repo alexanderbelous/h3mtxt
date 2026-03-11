@@ -90,6 +90,17 @@ namespace Medea_NS
     out.writeField(Fields::kSpellPoints, hero.spell_points);
     out.writeField(Fields::kLevel, hero.level);
     out.writeField(Fields::kUnknown6, hero.unknown6);
+    out.writeField(Fields::kLearningStones, hero.learning_stones);
+    out.writeField(Fields::kMarlettoTowers, hero.marletto_towers);
+    out.writeField(Fields::kGardensOfRevelation, hero.gardens_of_revelation);
+    out.writeField(Fields::kMercenaryCamps, hero.mercenary_camps);
+    out.writeField(Fields::kStarAxes, hero.star_axes);
+    out.writeField(Fields::kTreesOfKnowledge, hero.trees_of_knowledge);
+    out.writeField(Fields::kLibrariesOfEnlightenment, hero.libraries_of_enlightenment);
+    out.writeField(Fields::kArenas, hero.arenas);
+    out.writeField(Fields::kSchoolsOfMagic, hero.schools_of_magic);
+    out.writeField(Fields::kSchoolsOfWar, hero.schools_of_war);
+    out.writeField(Fields::kUnknown7, hero.unknown7);
     out.writeField(Fields::kArmy, hero.army);
     out.writeField(Fields::kName, hero.name);
     out.writeField(Fields::kSecondarySkillsLevels, hero.secondary_skills_levels);
@@ -98,6 +109,6 @@ namespace Medea_NS
     out.writeField(Fields::kSpellsLearned, hero.spells_learned);
     out.writeField(Fields::kSpellsAvailable, hero.spells_available);
     out.writeField(Fields::kArtifacts, hero.artifacts);
-    out.writeField(Fields::kUnknown7, hero.unknown7);
+    out.writeField(Fields::kUnknown8, hero.unknown8);
   }
 }

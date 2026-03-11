@@ -2,7 +2,6 @@
 
 #include <h3mtxt/SavedGame/SavedGameFwd.h>
 
-#include <h3mtxt/Map/MapFwd.h>
 #include <h3mtxt/Map/Constants/ArtifactType.h>
 #include <h3mtxt/Map/Constants/HeroClass.h>
 #include <h3mtxt/Map/Constants/HeroPortrait.h>
@@ -10,6 +9,7 @@
 #include <h3mtxt/Map/Constants/SpellType.h>
 #include <h3mtxt/Map/Constants/ObjectClass.h>
 #include <h3mtxt/Map/Constants/SecondarySkillType.h>
+#include <h3mtxt/Map/Utils/BitSet.h>
 #include <h3mtxt/Map/PrimarySkills.h>
 #include <h3mtxt/SavedGame/Constants/Constants.h>
 #include <h3mtxt/SavedGame/EnumIndexedArray.h>
@@ -51,6 +51,7 @@ namespace h3svg
     ObjectClass object_class_under {};
     // TODO: figure out what this is.
     //   unknown1[0] seems to be Bool is_actionable_under; Events and Anchor points are not considered actionable.
+    //   The rest seems to either be uint32_t object_idx or something like Tile::object_properties.
     std::array<std::uint8_t, 5> unknown1 {};
     Bool is_female {};
     // If 0, the default biography will be displayed for this hero, otherwise the custom one (i.e. Hero::biography).
@@ -92,7 +93,28 @@ namespace h3svg
     std::uint16_t spell_points {};
     // TODO: maybe int32.
     std::uint16_t level {};
-    std::array<std::uint8_t, 62> unknown6 {};
+    std::array<std::uint8_t, 2> unknown6 {};
+    // 1 bit per Learning Stone, indicating if the hero has visited it.
+    BitSet<4> learning_stones;
+    // 1 bit per Marletto Tower, indicating if the hero has visited it.
+    BitSet<4> marletto_towers;
+    // 1 bit per Garden of Revelation, indicating if the hero has visited it.
+    BitSet<4> gardens_of_revelation;
+    // 1 bit per Mercenary Camp, indicating if the hero has visited it.
+    BitSet<4> mercenary_camps;
+    // 1 bit per Star Axis, indicating if the hero has visited it.
+    BitSet<4> star_axes;
+    // 1 bit per Tree of Knowledge, indicating if the hero has visited it.
+    BitSet<4> trees_of_knowledge;
+    // 1 bit per Library of Enlighenment, indicating if the hero has visited it.
+    BitSet<4> libraries_of_enlightenment;
+    // 1 bit per Arena, indicating if the hero has visited it.
+    BitSet<4> arenas;
+    // 1 bit per School of Magic, indicating if the hero has visited it.
+    BitSet<4> schools_of_magic;
+    // 1 bit per School of War, indicating if the hero has visited it.
+    BitSet<4> schools_of_war;
+    std::array<std::uint8_t, 20> unknown7 {};
     Troops army;
     // Fixed-size; only the characters before the first null terminator are significant.
     std::array<char, 13> name {};
@@ -110,6 +132,6 @@ namespace h3svg
     EnumIndexedArray<SpellType, Bool, kNumSpells> spells_available;
     HeroArtifacts artifacts;
     // TODO: figure out what this is.
-    std::array<std::uint8_t, 22> unknown7 {};
+    std::array<std::uint8_t, 22> unknown8 {};
   };
 }

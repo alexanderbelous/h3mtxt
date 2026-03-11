@@ -59,6 +59,17 @@ namespace h3svg
     hero.spell_points = readInt<std::int16_t>();
     hero.level = readInt<std::uint16_t>();
     readBytes(std::as_writable_bytes(std::span{hero.unknown6}));
+    hero.learning_stones = readBitSet<4>();
+    hero.marletto_towers = readBitSet<4>();
+    hero.gardens_of_revelation = readBitSet<4>();
+    hero.mercenary_camps = readBitSet<4>();
+    hero.star_axes = readBitSet<4>();
+    hero.trees_of_knowledge = readBitSet<4>();
+    hero.libraries_of_enlightenment = readBitSet<4>();
+    hero.arenas = readBitSet<4>();
+    hero.schools_of_magic = readBitSet<4>();
+    hero.schools_of_war = readBitSet<4>();
+    readBytes(std::as_writable_bytes(std::span{hero.unknown7}));
     hero.army = readTroops();
     readBytes(std::as_writable_bytes(std::span{hero.name}));
     for (std::uint8_t& level : hero.secondary_skills_levels.data)
@@ -79,7 +90,7 @@ namespace h3svg
       is_spell_available = readBool();
     }
     hero.artifacts = readHeroArtifacts();
-    readBytes(std::as_writable_bytes(std::span{hero.unknown7}));
+    readBytes(std::as_writable_bytes(std::span{hero.unknown8}));
     return hero;
   }
 }

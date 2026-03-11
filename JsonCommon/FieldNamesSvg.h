@@ -110,6 +110,17 @@ namespace h3json
     static constexpr std::string_view kSpellPoints = "spell_points";
     static constexpr std::string_view kLevel = "level";
     static constexpr std::string_view kUnknown6 = "unknown6";
+    static constexpr std::string_view kLearningStones = "learning_stones";
+    static constexpr std::string_view kMarlettoTowers = "marletto_towers";
+    static constexpr std::string_view kGardensOfRevelation = "gardens_of_revelation";
+    static constexpr std::string_view kMercenaryCamps = "mercenary_camps";
+    static constexpr std::string_view kStarAxes = "star_axes";
+    static constexpr std::string_view kTreesOfKnowledge = "trees_of_knowledge";
+    static constexpr std::string_view kLibrariesOfEnlightenment = "libraries_of_enlightenment";
+    static constexpr std::string_view kArenas = "arenas";
+    static constexpr std::string_view kSchoolsOfMagic = "schools_of_magic";
+    static constexpr std::string_view kSchoolsOfWar = "schools_of_war";
+    static constexpr std::string_view kUnknown7 = "unknown7";
     static constexpr std::string_view kArmy = "army";
     static constexpr std::string_view kName = "name";
     static constexpr std::string_view kSecondarySkillsLevels = "secondary_skills_levels";
@@ -118,7 +129,7 @@ namespace h3json
     static constexpr std::string_view kSpellsLearned = "spells_learned";
     static constexpr std::string_view kSpellsAvailable = "spells_available";
     static constexpr std::string_view kArtifacts = "artifacts";
-    static constexpr std::string_view kUnknown7 = "unknown7";
+    static constexpr std::string_view kUnknown8 = "unknown8";
   };
 
   template<>
