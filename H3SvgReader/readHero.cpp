@@ -57,7 +57,7 @@ namespace h3svg
     hero.experience = readInt<std::int32_t>();
     readBytes(std::as_writable_bytes(std::span{hero.unknown5}));
     hero.spell_points = readInt<std::int16_t>();
-    hero.level = readInt<std::uint16_t>();
+    hero.level = readInt<std::int16_t>();
     readBytes(std::as_writable_bytes(std::span{hero.unknown6}));
     hero.learning_stones = readBitSet<4>();
     hero.marletto_towers = readBitSet<4>();

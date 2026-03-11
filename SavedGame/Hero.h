@@ -91,8 +91,9 @@ namespace h3svg
     std::int32_t experience {};
     std::array<std::uint8_t, 4> unknown5 {};
     std::uint16_t spell_points {};
-    // TODO: maybe int32.
-    std::uint16_t level {};
+    // Yes, you can make a hero with level 32767; however, this will be ignored on level-up: the new level
+    // will be computed from the experience points.
+    std::int16_t level {};
     std::array<std::uint8_t, 2> unknown6 {};
     // 1 bit per Learning Stone, indicating if the hero has visited it.
     BitSet<4> learning_stones;
