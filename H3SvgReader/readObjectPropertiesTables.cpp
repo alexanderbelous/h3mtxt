@@ -124,9 +124,9 @@ namespace h3svg
   TownEvent H3SvgReader::readTownEvent() const
   {
     TownEvent town_event{ readTimedEvent() };
-    town_event.unknown1 = readInt<std::uint8_t>();
+    town_event.town_id = readInt<std::uint8_t>();
     town_event.buildings = readEnumBitmask<TownBuildingType, 6>();
-    town_event.unknown2 = readByteArray<2>();
+    town_event.reserved = readReservedData<2>();
     for (std::uint16_t& growth : town_event.creatures)
     {
       growth = readInt<std::uint16_t>();

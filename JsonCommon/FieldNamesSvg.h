@@ -356,15 +356,6 @@ namespace h3json
   };
 
   template<>
-  struct FieldNames<h3svg::TownEvent> : FieldNames<h3svg::TimedEvent>
-  {
-    static constexpr std::string_view kUnknown1 = "unknown1";
-    static constexpr std::string_view kBuildings = "buildings";
-    static constexpr std::string_view kUnknown2 = "unknown2";
-    static constexpr std::string_view kCreatures = "creatures";
-  };
-
-  template<>
   struct FieldNames<h3svg::Town>
   {
     static constexpr std::string_view kId = "id";
@@ -386,6 +377,15 @@ namespace h3json
     static constexpr std::string_view kUnknown3 = "unknown3";
     static constexpr std::string_view kSpells = "spells";
     static constexpr std::string_view kUnknown4 = "unknown4";
+  };
+
+  template<>
+  struct FieldNames<h3svg::TownEvent> : FieldNames<h3svg::TimedEvent>
+  {
+    static constexpr std::string_view kTownId = "town_id";
+    static constexpr std::string_view kBuildings = "buildings";
+    static constexpr std::string_view kReserved = "reserved";
+    static constexpr std::string_view kCreatures = "creatures";
   };
 
   template<>

@@ -133,6 +133,7 @@ namespace h3svg
     EnumIndexedArray<SpellType, Bool, kNumSpells> spells_available;
     HeroArtifacts artifacts;
     // TODO: figure out what this is.
+    //   unknown8[15] is Bool is_sleeping;
     std::array<std::uint8_t, 22> unknown8 {};
   };
 }

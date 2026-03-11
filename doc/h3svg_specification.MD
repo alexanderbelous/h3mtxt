@@ -65,11 +65,12 @@ Note that the game can load decompressed files as well.
 
 TODO: mention broken CRC.
 
-## File format
+## Notation
 
 The description below groups parts of the H3SVG file into typed structures. These structures are written as a sequence of fields; each field itself can be a primitive type, a structure or an array.
 
-**Primitive types:**
+### Primitive types
+
 | Type        | Size in bytes | Description                                                                      |
 | ----------- | ------------- | -------------------------------------------------------------------------------- |
 | `char`      | 1             | 1 byte that should be treated as a character                                     |
@@ -85,6 +86,8 @@ The description below groups parts of the H3SVG file into typed structures. Thes
 
 Integers are always little-endian in H3SVG. For example, a 32-bit integer 1025 is encoded as 4 bytes `[0x01, 0x04, 0x00, 0x00]`.
 
+### Structures
+
 Composite data types are described like this:
 
 `Person`:
@@ -95,11 +98,17 @@ Composite data types are described like this:
 
 which means that the structure `Person` is written as 2 fields: first, the name is written as `String32`, then the age is written as `uint16`.
 
+Some fields are conditionally present, i.e. they should only be read/written when a specific condition is true. Such fields are indicated here like `?field`, i.e. their name starts with a question mark. The description for this field explains when this field is present and when it's not.
+
+Some fields are intentionally left typeless - they always represent meaningless bytes in H3SVG. The size of such such fields is always known in advance (i.e. never varies). You can interpret them as arrays of 8-bit integers, or as whatever you want.
+
+### Arrays
+
 `T[N]` indicates an array of N elements of type T: for example, `int32[10]` means an array of 10 signed 32-bit integers.
 
-`?field` indicates a conditionally present field. The description for this field explains when this field is present and when it's not.
+## File format
 
-An H3SVG file is a single structure that we will naturally call [`SavedGame`](#SavedGame).
+An H3SVG file is a single structure which we will naturally call [`SavedGame`](#SavedGame).
 
 ### `SavedGame`
 
@@ -137,7 +146,7 @@ An H3SVG file is a single structure that we will naturally call [`SavedGame`](#S
 | objects_templates         | [`ObjectTemplate[num_objects_templates]`](#ObjectTemplate) | varies | Templates for objects on the Adventure Map    |
 | num_objects               | `uint32`                         | 4             | The number of objects on the Adventure Map                       |
 | objects                   | [`Object[num_objects]`](#Object) | varies        | Objects on the Adventure Map                                     |
-| object_properties_tables  | `ObjectPropertiesTables`         | varies        | Tables storing properties for objects on the Adventure Map       |
+| object_properties_tables  | [`ObjectPropertiesTables`](#ObjectPropertiesTables) | varies | Tables storing properties for objects on the Adventure Map |
 | players                   | [`Player[8]`](#Player)           | 1160          | Current state for each player                                    |
 | num_towns                 | `uint8`                          | 1             | The number of towns on the Adventure Map                         |
 | towns                     | [`Town[num_towns]`](#Town)       | varies        | Towns on the Adventure Map                                       |
@@ -405,9 +414,9 @@ An H3SVG file is a single structure that we will naturally call [`SavedGame`](#S
 | applies_to_computer    | `Bool`      | 1             |                                                                               |
 | day_of_first_occurence | `uint16`    | 2             | 0 means Month: 1, Week: 1, Day: 1                                             |
 | repeat_after_days      | `uint16`    | 2             | Frequency of the event; 0 means that the even does not repeat                 |
-| unknown1               | `uint8`     | 1             |                                                                               |
+| town_id                | `uint8`     | 1             | ID of the affected town; see Town.id                                          |
 | buildings              | `uint8[6]`  | 6             | Bitmask; 1 bit per Town Building type, indicating if it should be built       |
-| unknown2               | `uint8[2]`  | 2             |                                                                               |
+| reserved               |             | 2             | Not used; always [0, 0]                                                       |
 | creatures              | `uint16[7]` | 14            | The number of new recruits for each creature level                            |
 
 

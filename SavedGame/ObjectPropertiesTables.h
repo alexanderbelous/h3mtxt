@@ -5,6 +5,7 @@
 #include <h3mtxt/Map/Constants/Constants.h>
 #include <h3mtxt/Map/Constants/PlayerColor.h>
 #include <h3mtxt/Map/Utils/EnumBitmask.h>
+#include <h3mtxt/Map/Utils/ReservedData.h>
 #include <h3mtxt/Map/Coordinates.h>
 #include <h3mtxt/Map/Resources.h>
 #include <h3mtxt/SavedGame/Constants/SeerName.h>
@@ -157,10 +158,12 @@ namespace h3svg
   // The equivalent of h3m::TownEvent stored in the saved game.
   struct TownEvent : TimedEvent
   {
-    std::uint8_t unknown1 {};
+    // ID of the affected town (see h3svg::Town::id).
+    std::uint8_t town_id {};
     // 1 bit per TownBuildingType indicating whether the building gets built.
     TownBuildingsBitmask buildings;
-    std::array<std::uint8_t, 2> unknown2 {};
+    // Always [0, 0]; probably padding bytes for @buildings.
+    ReservedData<2> reserved;
     // Extra creatures for each creature level.
     std::array<std::uint16_t, 7> creatures {};
   };

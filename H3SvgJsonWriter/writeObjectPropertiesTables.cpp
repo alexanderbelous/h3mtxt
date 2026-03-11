@@ -171,9 +171,9 @@ namespace Medea_NS
   {
     using Fields = h3json::FieldNames<h3svg::TownEvent>;
     JsonObjectWriter<h3svg::TimedEvent>{}(out, event);
-    out.writeField(Fields::kUnknown1, event.unknown1);
+    out.writeField(Fields::kTownId, event.town_id);
     out.writeField(Fields::kBuildings, event.buildings);
-    out.writeField(Fields::kUnknown2, event.unknown2);
+    out.writeField(Fields::kReserved, event.reserved);
     out.writeField(Fields::kCreatures, event.creatures);
   }
 
