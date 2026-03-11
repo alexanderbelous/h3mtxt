@@ -4,6 +4,7 @@ set(SOURCE_LIST
     "Constants/Constants.h"
     "Constants/ObjectPropertiesType.h"
     "Constants/PlayerControlType.h"
+    "Constants/PlayerPersonality.h"
     "Constants/PlayerStartingBonusType.h"
     "Constants/PlayerTurnDurationType.h"
     "Constants/SeerName.h"

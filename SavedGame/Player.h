@@ -6,6 +6,7 @@
 #include <h3mtxt/Map/Constants/PlayerColor.h>
 #include <h3mtxt/Map/Utils/BitSet.h>
 #include <h3mtxt/Map/Resources.h>
+#include <h3mtxt/SavedGame/Constants/PlayerPersonality.h>
 
 #include <array>
 #include <cstdint>
@@ -24,7 +25,10 @@ namespace h3svg
     std::array<HeroType, 8> heroes {};
     std::array<HeroType, 2> heroes_in_tavern {};
     // TODO: figure out what this is.
-    std::array<std::uint8_t, 10> unknown1 {};
+    std::uint8_t unknown1 {};
+    PlayerPersonality personality {};
+    // TODO: figure out what this is.
+    std::array<std::uint8_t, 5> unknown2 {};
     // The number of days left to live without a town, or -1 if the player has at least 1 town.
     std::int8_t days_left {};
     // The number of towns owned by the player.
@@ -36,17 +40,17 @@ namespace h3svg
     std::array<std::int8_t, 48> towns {};
     // TODO: figure out what this is.
     // Each element seems to always be 0xFF. Maybe reserved for more towns?
-    std::array<std::uint8_t, 24> unknown2 {};
+    std::array<std::uint8_t, 24> unknown3 {};
     Resources resources;
     // 1 bit per Mystical Garden, indicating if the player has visited it this week.
     BitSet<4> mystical_gardens;
     // TODO: figure out what this is.
-    std::array<std::uint8_t, 4> unknown3 {};
+    std::array<std::uint8_t, 4> unknown4 {};
     // 1 bit per Corpse, indicating if the player has visited it.
     BitSet<4> corpses;
     // 1 bit per Lean To, indicating if the player has visited it.
     BitSet<4> lean_tos;
     // TODO: figure out what this is.
-    std::array<std::uint8_t, 3> unknown4 {};
+    std::array<std::uint8_t, 3> unknown5 {};
   };
 }

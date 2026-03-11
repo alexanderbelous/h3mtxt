@@ -206,17 +206,19 @@ namespace h3json
     static constexpr std::string_view kHeroes = "heroes";
     static constexpr std::string_view kHeroesInTavern = "heroes_in_tavern";
     static constexpr std::string_view kUnknown1 = "unknown1";
+    static constexpr std::string_view kPersonality = "personality";
+    static constexpr std::string_view kUnknown2 = "unknown2";
     static constexpr std::string_view kDaysLeft = "days_left";
     static constexpr std::string_view kNumTowns = "num_towns";
     static constexpr std::string_view kCurrentTown = "current_town";
     static constexpr std::string_view kTowns = "towns";
-    static constexpr std::string_view kUnknown2 = "unknown2";
+    static constexpr std::string_view kUnknown3 = "unknown3";
     static constexpr std::string_view kResources = "resources";
     static constexpr std::string_view kMysticalGardens = "mystical_gardens";
-    static constexpr std::string_view kUnknown3 = "unknown3";
+    static constexpr std::string_view kUnknown4 = "unknown4";
     static constexpr std::string_view kCorpses = "corpses";
     static constexpr std::string_view kLeanTos = "lean_tos";
-    static constexpr std::string_view kUnknown4 = "unknown4";
+    static constexpr std::string_view kUnknown5 = "unknown5";
   };
 
   template<>

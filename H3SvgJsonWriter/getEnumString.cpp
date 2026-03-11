@@ -1,8 +1,10 @@
 #include <h3mtxt/H3SvgJsonWriter/getEnumString.h>
 #include <h3mtxt/H3JsonWriter/getEnumString.h>
 #include <h3mtxt/Map/Constants/ObjectClass.h>
+#include <h3mtxt/Map/Constants/PlayerBehavior.h>
 #include <h3mtxt/SavedGame/Constants/Constants.h>
 #include <h3mtxt/SavedGame/Constants/PlayerControlType.h>
+#include <h3mtxt/SavedGame/Constants/PlayerPersonality.h>
 
 #include <limits>
 #include <type_traits>
@@ -69,6 +71,23 @@ namespace h3svg
       return "Human Or CPU";
     case PlayerControlType::None:
       return "None";
+    default:
+      return std::string_view{};
+    }
+  }
+
+  std::string_view getEnumString(PlayerPersonality value) noexcept
+  {
+    switch (value)
+    {
+    case PlayerPersonality::Warrior:
+      return getEnumString(PlayerBehavior::Warrior);
+    case PlayerPersonality::Builder:
+      return getEnumString(PlayerBehavior::Builder);
+    case PlayerPersonality::Exporer:
+      return getEnumString(PlayerBehavior::Explorer);
+    case PlayerPersonality::Human:
+      return "Human";
     default:
       return std::string_view{};
     }

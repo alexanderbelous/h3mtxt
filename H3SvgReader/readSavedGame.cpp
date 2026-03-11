@@ -31,7 +31,9 @@ namespace h3svg
     {
       hero = readEnum<HeroType>();
     }
-    player.unknown1 = readByteArray<10>();
+    player.unknown1 = readInt<std::uint8_t>();
+    player.personality = readEnum<PlayerPersonality>();
+    player.unknown2 = readByteArray<5>();
     player.days_left = readInt<std::int8_t>();
     player.num_towns = readInt<std::uint8_t>();
     player.current_town = readInt<std::int8_t>();
@@ -39,13 +41,13 @@ namespace h3svg
     {
       town_id = readInt<std::uint8_t>();
     }
-    player.unknown2 = readByteArray<24>();
+    player.unknown3 = readByteArray<24>();
     player.resources = readResources();
     player.mystical_gardens = readBitSet<4>();
-    player.unknown3 = readByteArray<4>();
+    player.unknown4 = readByteArray<4>();
     player.corpses = readBitSet<4>();
     player.lean_tos = readBitSet<4>();
-    player.unknown4 = readByteArray<3>();
+    player.unknown5 = readByteArray<3>();
     return player;
   }
 

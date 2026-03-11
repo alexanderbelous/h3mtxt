@@ -20,6 +20,8 @@ namespace h3svg
 
   std::string_view getEnumString(PlayerControlType value) noexcept;
 
+  std::string_view getEnumString(PlayerPersonality value) noexcept;
+
   std::string_view getEnumString(PlayerStartingBonusType value) noexcept;
 
   std::string_view getEnumString(PlayerTurnDurationType value) noexcept;
