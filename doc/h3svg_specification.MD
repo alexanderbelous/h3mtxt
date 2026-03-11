@@ -524,7 +524,8 @@ An H3SVG file is a single structure which we will naturally call [`SavedGame`](#
 | recruits_upgraded    | `uint16[7]`                   | 14            | The number of upgraded creatures for each level                    |
 | unknown3             | `uint8[85]`                   | 85            | |
 | spells               | `int32[30]`                   | 120           | 6 spells (enum `SpellType`) for each level of the Mage Guild       |
-| unknown4             | `uint8[77]`                   | 77            | |
+| banned_spells        | `uint8[9]`                    | 9             | Bitmask; 1 bit per spell type, indicating if it is banned          |
+| unknown4             | `uint8[68]`                   | 68            | |
 
 
 ### `Hero`

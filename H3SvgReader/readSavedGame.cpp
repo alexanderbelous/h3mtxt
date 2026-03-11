@@ -261,7 +261,8 @@ namespace h3svg
         spell = readEnum<SpellType32>();
       }
     }
-    town.unknown4 = readByteArray<77>();
+    town.banned_spells = readEnumBitmask<SpellType, 9>();
+    town.unknown4 = readByteArray<68>();
     return town;
   }
 }

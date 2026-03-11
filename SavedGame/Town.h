@@ -2,12 +2,11 @@
 
 #include <h3mtxt/SavedGame/SavedGameFwd.h>
 
-#include <h3mtxt/Map/MapFwd.h>
 #include <h3mtxt/Map/Constants/HeroType.h>
 #include <h3mtxt/Map/Constants/PlayerColor.h>
 #include <h3mtxt/Map/Constants/TownType.h>
 #include <h3mtxt/Map/Coordinates.h>
-
+#include <h3mtxt/Map/Utils/EnumBitmask.h>
 #include <h3mtxt/SavedGame/Troops.h>
 
 #include <array>
@@ -61,8 +60,10 @@ namespace h3svg
     // Note that the values for nonexistent slots likely contain junk bytes (e.g., spells[1][5] is not even
     // guarantred to be a valid SpellType).
     std::array<std::array<SpellType32, 6>, 5> spells {};
+    // 1 bit per SpellType, indicating whether it is banned (1 - banned, 0 - not banned).
+    SpellsBitmask banned_spells;
     // TODO: reverse-engineer
-    // unknwown3[70] & 1 seems to indicate if the Mana Vortex has NOT been used this week
-    std::array<std::uint8_t, 77> unknown4 {};
+    // unknown3[61] & 1 seems to indicate if the Mana Vortex has NOT been used this week
+    std::array<std::uint8_t, 68> unknown4 {};
   };
 }

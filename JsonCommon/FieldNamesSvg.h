@@ -378,6 +378,7 @@ namespace h3json
     static constexpr std::string_view kRecruitsUpgraded = "recruits_upgraded";
     static constexpr std::string_view kUnknown3 = "unknown3";
     static constexpr std::string_view kSpells = "spells";
+    static constexpr std::string_view kBannedSpells = "banned_spells";
     static constexpr std::string_view kUnknown4 = "unknown4";
   };
 
