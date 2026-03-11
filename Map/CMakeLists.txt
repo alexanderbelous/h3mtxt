@@ -8,6 +8,7 @@ set(SOURCE_LIST
     "Constants/ExperienceLevels.h"
     "Constants/Formation.h"
     "Constants/Gender.h"
+    "Constants/HeroClass.h"
     "Constants/HeroPortrait.h"
     "Constants/HeroType.h"
     "Constants/LossConditionType.h"
