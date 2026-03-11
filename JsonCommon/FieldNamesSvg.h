@@ -87,6 +87,8 @@ namespace h3json
     static constexpr std::string_view kCoordinatesPacked = "coordinates_packed";
     static constexpr std::string_view kObjectClassUnder = "object_class_under";
     static constexpr std::string_view kUnknown1 = "unknown1";
+    static constexpr std::string_view kIsFemale = "is_female";
+    static constexpr std::string_view kUseCustomBiography = "use_custom_biography";
     static constexpr std::string_view kBiography = "biography";
     static constexpr std::string_view kOwner = "owner";
     static constexpr std::string_view kPatrolRadius = "patrol_radius";
@@ -99,6 +101,7 @@ namespace h3json
     static constexpr std::string_view kUnknown3 = "unknown3";
     static constexpr std::string_view kDestinationX = "destination_x";
     static constexpr std::string_view kDestinationY = "destination_y";
+    static constexpr std::string_view kDestinationZ = "destination_z";
     static constexpr std::string_view kUnknown4 = "unknown4";
     static constexpr std::string_view kMovePointsMax = "move_points_max";
     static constexpr std::string_view kMovePoints = "move_points";

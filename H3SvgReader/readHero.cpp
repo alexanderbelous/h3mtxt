@@ -35,7 +35,9 @@ namespace h3svg
     // TODO: use a custom class.
     hero.coordinates_packed = readInt<std::uint32_t>();
     hero.object_class_under = readEnum<ObjectClass>();
-    hero.unknown1 = readByteArray<7>();
+    hero.unknown1 = readByteArray<5>();
+    hero.is_female = readBool();
+    hero.use_custom_biography = readBool();
     hero.biography = readString32();
     hero.owner = readEnum<PlayerColor>();
     hero.patrol_radius = readInt<std::int8_t>();
@@ -48,6 +50,7 @@ namespace h3svg
     readBytes(std::as_writable_bytes(std::span{hero.unknown3}));
     hero.destination_x = readInt<std::int32_t>();
     hero.destination_y = readInt<std::int32_t>();
+    hero.destination_z = readInt<std::int8_t>();
     readBytes(std::as_writable_bytes(std::span{hero.unknown4}));
     hero.move_points_max = readInt<std::int32_t>();
     hero.move_points = readInt<std::int32_t>();

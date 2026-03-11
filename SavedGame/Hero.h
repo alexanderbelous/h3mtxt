@@ -51,7 +51,10 @@ namespace h3svg
     ObjectClass object_class_under {};
     // TODO: figure out what this is.
     //   unknown1[0] seems to be Bool is_actionable_under; Events and Anchor points are not considered actionable.
-    std::array<std::uint8_t, 7> unknown1 {};
+    std::array<std::uint8_t, 5> unknown1 {};
+    Bool is_female {};
+    // If 0, the default biography will be displayed for this hero, otherwise the custom one (i.e. Hero::biography).
+    Bool use_custom_biography {};
     // Size is 32-bit.
     std::string biography;
     PlayerColor owner {};
@@ -72,8 +75,11 @@ namespace h3svg
     std::int32_t destination_x {};
     // Y-coordinate of the destination, or -1 if there is none.
     std::int32_t destination_y {};
+    // TODO: likely std::int16_t, but not std::int32_t.
+    // Note that, if meaningful, it duplicates Hero::z because you cannot plan a route to another layer.
+    std::int8_t destination_z {};
       // TODO: figure out what this is.
-    std::array<std::uint8_t, 4> unknown4 {};
+    std::array<std::uint8_t, 3> unknown4 {};
     // Maximum number of movement points at the moment.
     // This the "potential" value, which basically reflects what would've been the number of move points if the hero
     // hadn't moved this turn. It's not constant though - e.g., visiting Stables, or equipping Boots of Speed increases

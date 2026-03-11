@@ -525,7 +525,9 @@ An H3SVG file is a single structure that we will naturally call [`SavedGame`](#S
 | is_visible              | `Bool`                    | 1             | Indicates whether the hero is currently visible on the map       |
 | coordinates_packed      | `uint32`                  | 4             | Duplicates the coordinates using the packed format               |
 | object_class_under      | `uint32`                  | 4             | Enum `ObjectClass` of the object on the same tile under the hero |
-| unknown1                | `uint8[7]`                | 7             |                                                                  |
+| unknown1                | `uint8[5]`                | 5             |                                                                  |
+| is_female               | `Bool`                    | 1             | 1 if the hero is female, 0 otherwise                             |
+| use_custom_biography    | `Bool`                    | 1             | 1 if the custom biography should be displayed, 0 otherwise       |
 | biography               | `String32`                | varies        | The hero's biography                                             |
 | owner                   | `uint8`                   | 1             | Enum `PlayerColor`                                               |
 | patrol_radius           | `int8`                    | 1             | Patrol radius or -1 if the hero has no patrol                    |

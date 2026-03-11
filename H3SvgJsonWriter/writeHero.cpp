@@ -51,6 +51,8 @@ namespace Medea_NS
       out.writeComment(enum_str, false);
     }
     out.writeField(Fields::kUnknown1, hero.unknown1);
+    out.writeField(Fields::kIsFemale, hero.is_female);
+    out.writeField(Fields::kUseCustomBiography, hero.use_custom_biography);
     out.writeField(Fields::kBiography, hero.biography);
     out.writeField(Fields::kOwner, hero.owner);
     if (std::string_view enum_str = getEnumString(hero.owner); !enum_str.empty())
@@ -79,6 +81,7 @@ namespace Medea_NS
     out.writeField(Fields::kUnknown3, hero.unknown3);
     out.writeField(Fields::kDestinationX, hero.destination_x);
     out.writeField(Fields::kDestinationY, hero.destination_y);
+    out.writeField(Fields::kDestinationZ, hero.destination_z);
     out.writeField(Fields::kUnknown4, hero.unknown4);
     out.writeField(Fields::kMovePointsMax, hero.move_points_max);
     out.writeField(Fields::kMovePoints, hero.move_points);

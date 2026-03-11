@@ -126,7 +126,8 @@ namespace h3svg
 
     // TODO: reverse-engineer the rest.
     // The next fields are approximately:
-    // * Settings for each hero
+    // * ??? ~450 bytes
+    // * Fog of War (visibility of each tile for each player).
     //
     // Obviuously, there are other fields as well, but I don't know yet where they are located:
     // * Timestamp for the saved game (Heroes3.exe stores it somewhere in the file instead of using
