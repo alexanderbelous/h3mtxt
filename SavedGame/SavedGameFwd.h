@@ -21,6 +21,7 @@ namespace h3svg
   using ::h3m::CreatureStack;
   using ::h3m::CreatureType;
   using ::h3m::CustomHero;
+  using ::h3m::HeroClass;
   using ::h3m::HeroPortrait;
   using ::h3m::HeroType;
   using ::h3m::MapBasicInfo;
@@ -61,8 +62,6 @@ namespace h3svg
   enum class ArtifactType32 : std::int32_t;
 
   enum class CreatureType32 : std::int32_t;
-
-  enum class HeroClass : std::uint8_t;
 
   enum class ObjectClass16 : std::uint16_t;
 

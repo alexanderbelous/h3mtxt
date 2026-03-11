@@ -4,6 +4,7 @@
 
 #include <h3mtxt/Map/MapFwd.h>
 #include <h3mtxt/Map/Constants/ArtifactType.h>
+#include <h3mtxt/Map/Constants/HeroClass.h>
 #include <h3mtxt/Map/Constants/HeroPortrait.h>
 #include <h3mtxt/Map/Constants/HeroType.h>
 #include <h3mtxt/Map/Constants/SpellType.h>
@@ -11,7 +12,6 @@
 #include <h3mtxt/Map/Constants/SecondarySkillType.h>
 #include <h3mtxt/Map/PrimarySkills.h>
 #include <h3mtxt/SavedGame/Constants/Constants.h>
-#include <h3mtxt/SavedGame/Constants/HeroClass.h>
 #include <h3mtxt/SavedGame/EnumIndexedArray.h>
 #include <h3mtxt/SavedGame/Troops.h>
 
