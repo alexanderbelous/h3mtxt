@@ -15,6 +15,8 @@ namespace h3m
   // fields.
   using Bool = std::uint8_t;
 
+  enum class ArtifactSlot : std::uint8_t;
+
   enum class ArtifactType : std::uint16_t;
 
   enum class CreatureType : std::uint16_t;

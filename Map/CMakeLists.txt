@@ -1,6 +1,7 @@
 # All source files for "Map" library.
 set(SOURCE_LIST
     # Constants
+    "Constants/ArtifactSlot.h"
     "Constants/ArtifactType.h"
     "Constants/Constants.h"
     "Constants/CreatureType.h"

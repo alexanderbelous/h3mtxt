@@ -11,6 +11,30 @@
 namespace h3json
 {
   template<>
+  inline constexpr std::array<std::string_view, 19> kEnumFieldNames<h3m::ArtifactSlot> =
+  {
+    "head",
+    "shoulders",
+    "neck",
+    "right_hand",
+    "left_hand",
+    "torso",
+    "right_ring",
+    "left_ring",
+    "feet",
+    "misc1",
+    "misc2",
+    "misc3",
+    "misc4",
+    "misc5",
+    "war_machine1",
+    "war_machine2",
+    "war_machine3",
+    "war_machine4",
+    "spellbook"
+  };
+
+  template<>
   inline constexpr std::array<std::string_view, 144> kEnumFieldNames<h3m::ArtifactType> =
   {
     "spellbook",
@@ -585,26 +609,8 @@ namespace h3m
   template<>
   struct FieldNames<HeroArtifacts>
   {
-    static inline constexpr std::string_view kHead = "head";
-    static inline constexpr std::string_view kShoulders = "shoulders";
-    static inline constexpr std::string_view kNeck = "neck";
-    static inline constexpr std::string_view kRightHand = "right_hand";
-    static inline constexpr std::string_view kLeftHand = "left_hand";
-    static inline constexpr std::string_view kTorso = "torso";
-    static inline constexpr std::string_view kRightRing = "right_ring";
-    static inline constexpr std::string_view kLeftRing = "left_ring";
-    static inline constexpr std::string_view kFeet = "feet";
-    static inline constexpr std::string_view kMisc1 = "misc1";
-    static inline constexpr std::string_view kMisc2 = "misc2";
-    static inline constexpr std::string_view kMisc3 = "misc3";
-    static inline constexpr std::string_view kMisc4 = "misc4";
-    static inline constexpr std::string_view kMisc5 = "misc5";
-    static inline constexpr std::string_view kWarMachine1 = "war_machine1";
-    static inline constexpr std::string_view kWarMachine2 = "war_machine2";
-    static inline constexpr std::string_view kWarMachine3 = "war_machine3";
-    static inline constexpr std::string_view kWarMachine4 = "war_machine4";
-    static inline constexpr std::string_view kSpellbook = "spellbook";
-    static inline constexpr std::string_view kBackpack = "backpack";
+    static constexpr std::string_view kEquipped = "equipped";
+    static constexpr std::string_view kBackpack = "backpack";
   };
 
   template<>
