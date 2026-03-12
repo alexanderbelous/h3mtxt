@@ -1,5 +1,5 @@
 #include <h3mtxt/H3JsonReader/Utils.h>
-#include <h3mtxt/JsonCommon/FieldName.h>
+#include <h3mtxt/JsonCommon/FieldNamesH3C.h>
 #include <h3mtxt/Campaign/Campaign.h>
 
 namespace h3m::H3JsonReader_NS

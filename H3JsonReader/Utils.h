@@ -32,6 +32,12 @@ namespace h3m::H3JsonReader_NS
     inline constexpr bool IsOptional = IsOptionalImpl<T>::value;
 
     template<class T>
+    struct IsStdArray : std::false_type {};
+
+    template<class T, std::size_t N>
+    struct IsStdArray<std::array<T, N>> : std::true_type {};
+
+    template<class T>
     struct RemoveOptionalImpl
     {
       using type = T;
@@ -231,14 +237,21 @@ namespace h3m::H3JsonReader_NS
   {
     EnumBitmask<Enum, NumBytes> operator()(const Json::Value& value) const
     {
-      using Bitmask = EnumBitmask<Enum, NumBytes>;
-      using Fields = FieldNames<Bitmask>;
-      static_assert(std::is_same_v<std::remove_cvref_t<decltype(Fields::kNames)>,
-                                   std::array<std::string_view, NumBytes * 8>>,
-                    "h3m::FieldNames<h3m::EnumBitmask<Enum, NumBytes>> must have a "
-                    "static data member kNames of the type std::array<std::string_view, NumBytes * 8>.");
-      Bitmask bitmask;
-      Detail_NS::readEnumBitmaskImpl(value, bitmask.bitset.data, Fields::kNames.data());
+      // The type of h3json::kEnumFieldNames<Enum> without const, volatile and reference qualifiers.
+      using EnumFieldNamesType = std::remove_cvref_t<decltype(h3json::kEnumFieldNames<Enum>)>;
+      // Check that h3json::kEnumFieldNames<Enum> is an std::array.
+      static_assert(Detail_NS::IsStdArray<EnumFieldNamesType>::value,
+                    "h3json::kEnumFieldNames<Enum> must be an std::array.");
+      // Check that its elements have the type std::string_view.
+      static_assert(std::is_same_v<typename EnumFieldNamesType::value_type, std::string_view>,
+                    "The type of elements in h3json::kEnumFieldNames<Enum> must be std::string_view.");
+      // Check that the number of elements is greater than or equal to the number of bits in the bitmask.
+      static_assert(h3json::kEnumFieldNames<Enum>.size() >= NumBytes * 8,
+                    "The number of elements in h3json::kEnumFieldNames<Enum> must be greater than or equal to "
+                    "the number of bits in the bitmask");
+
+      EnumBitmask<Enum, NumBytes> bitmask;
+      Detail_NS::readEnumBitmaskImpl(value, bitmask.bitset.data, h3json::kEnumFieldNames<Enum>.data());
       return bitmask;
     }
   };

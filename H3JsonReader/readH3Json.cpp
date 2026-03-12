@@ -1,7 +1,7 @@
 #include <h3mtxt/H3JsonReader/readH3Json.h>
 
 #include <h3mtxt/H3JsonReader/H3JsonReader.h>
-#include <h3mtxt/JsonCommon/FieldName.h>
+#include <h3mtxt/JsonCommon/FieldNamesH3C.h>
 
 #include <json/json.h>
 

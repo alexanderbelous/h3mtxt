@@ -1,5 +1,9 @@
-# "JsonCommon" is a header-only library that consists of a single file.
-add_library(JsonCommon INTERFACE "FieldName.h")
+# "JsonCommon" is a header-only library.
+add_library(JsonCommon INTERFACE
+    "JsonCommonFwd.h"
+    "FieldName.h"
+    "FieldNamesH3C.h"
+)
 add_library(h3mtxt::JsonCommon ALIAS JsonCommon)
 
 target_include_directories(JsonCommon INTERFACE "${PROJECT_SOURCE_DIR}/..")
