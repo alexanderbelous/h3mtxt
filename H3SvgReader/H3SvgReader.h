@@ -1,7 +1,6 @@
 #pragma once
 
 #include <h3mtxt/H3SvgReader/H3ReaderBase.h>
-#include <h3mtxt/Map/MapFwd.h>
 #include <h3mtxt/Map/Constants/QuestType.h>
 #include <h3mtxt/Map/Constants/RewardType.h>
 #include <h3mtxt/SavedGame/SavedGameFwd.h>
