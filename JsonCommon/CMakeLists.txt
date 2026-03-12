@@ -4,7 +4,7 @@ add_library(JsonCommon INTERFACE
     "JsonCommonFwd.h"
     "FieldName.h"
     "FieldNamesH3C.h"
-    "FieldNamesSvg.h"
+    "FieldNamesH3SVG.h"
 )
 add_library(h3mtxt::JsonCommon ALIAS JsonCommon)
 

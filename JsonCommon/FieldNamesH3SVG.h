@@ -1,10 +1,10 @@
 #pragma once
 
+// Names of JSON fields for various types used in SavedGame library.
+
 #include <h3mtxt/JsonCommon/JsonCommonFwd.h>
 
 #include <h3mtxt/JsonCommon/FieldName.h>
-#include <h3mtxt/Map/Constants/QuestType.h>
-#include <h3mtxt/Map/Constants/RewardType.h>
 #include <h3mtxt/SavedGame/SavedGameFwd.h>
 
 #include <string_view>

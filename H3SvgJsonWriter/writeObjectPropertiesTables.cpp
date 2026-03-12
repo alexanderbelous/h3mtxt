@@ -3,7 +3,7 @@
 #include <h3mtxt/H3JsonWriter/getEnumString.h>
 #include <h3mtxt/H3JsonWriter/H3JsonWriter.h>
 #include <h3mtxt/H3SvgJsonWriter/getEnumString.h>
-#include <h3mtxt/JsonCommon/FieldNamesSvg.h>
+#include <h3mtxt/JsonCommon/FieldNamesH3SVG.h>
 #include <h3mtxt/Medea/Medea.h>
 #include <h3mtxt/SavedGame/ObjectPropertiesTables.h>
 
