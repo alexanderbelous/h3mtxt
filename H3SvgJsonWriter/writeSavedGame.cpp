@@ -273,6 +273,10 @@ namespace Medea_NS
     out.writeField(Fields::kRecruitsNonUpgraded, town.recruits_nonupgraded);
     out.writeField(Fields::kRecruitsUpgraded, town.recruits_upgraded);
     out.writeField(Fields::kUnknown3, town.unknown3);
+    out.writeField(Fields::kBuilt, town.built);
+    out.writeField(Fields::kReserved1, town.reserved1);
+    out.writeField(Fields::kCanBeBuilt, town.can_be_built);
+    out.writeField(Fields::kReserved2, town.reserved2);
     out.writeField(Fields::kSpells, town.spells);
     out.writeField(Fields::kBannedSpells, town.banned_spells);
     out.writeField(Fields::kUnknown4, town.unknown4);

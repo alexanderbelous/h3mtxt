@@ -504,27 +504,31 @@ An H3SVG file is a single structure which we will naturally call [`SavedGame`](#
 
 
 ### `Town`
-| Field name           | Type                          | Size in bytes | Description                                                        |
-| -------------------- | ----------------------------- | ------------- | ------------------------------------------------------------------ |
-| id                   | `uint8`                       | 1             | 0-based index of this town in SavedGame.towns                      |
-| owner                | `uint8`                       | 1             | Enum `PlayerColor`                                                 |
-| built_this_turn      | `Bool`                        | 1             | Indicates whether a building has been built in this town this turn |
+| Field name           | Type                          | Size in bytes | Description                                                               |
+| -------------------- | ----------------------------- | ------------- | ------------------------------------------------------------------------- |
+| id                   | `uint8`                       | 1             | 0-based index of this town in SavedGame.towns                             |
+| owner                | `uint8`                       | 1             | Enum `PlayerColor`                                                        |
+| built_this_turn      | `Bool`                        | 1             | Indicates whether a building has been built in this town this turn        |
 | unknown1             | `uint8`                       | 1             | |
-| type                 | `uint8`                       | 1             | Enum `TownType`                                                    |
-| coordinates          | [`Coordinates`](#Coordinates) | 3             | Coordinates of this town on the Adventure Map                      |
-| generated_boat_x     | `uint8`                       | 1             | X-coordinate for boats built in this town                          |
-| generated_boat_y     | `uint8`                       | 1             | Y-coordinate for boats built in this town                          |
-| garrison             | [`Troops`](#Troops)           | 56            | Creatures in the garrison                                          |
-| garrisoned_hero      | `uint8`                       | 1             | Enum `HeroType` or 0xFF if there is no garrisoned hero             |
-| visiting_hero        | `uint8`                       | 1             | Enum `HeroType` or 0xFF if there is no visiting hero               |
-| mage_guild_level     | `uint8`                       | 1             | The current level of the Mage Guild                                |
+| type                 | `uint8`                       | 1             | Enum `TownType`                                                           |
+| coordinates          | [`Coordinates`](#Coordinates) | 3             | Coordinates of this town on the Adventure Map                             |
+| generated_boat_x     | `uint8`                       | 1             | X-coordinate for boats built in this town                                 |
+| generated_boat_y     | `uint8`                       | 1             | Y-coordinate for boats built in this town                                 |
+| garrison             | [`Troops`](#Troops)           | 56            | Creatures in the garrison                                                 |
+| garrisoned_hero      | `uint8`                       | 1             | Enum `HeroType` or 0xFF if there is no garrisoned hero                    |
+| visiting_hero        | `uint8`                       | 1             | Enum `HeroType` or 0xFF if there is no visiting hero                      |
+| mage_guild_level     | `uint8`                       | 1             | The current level of the Mage Guild                                       |
 | unknown2             | `uint8`                       | 1             | |
-| name                 | `String16`                    | varies        | Name of this town                                                  |
-| recruits_nonupgraded | `uint16[7]`                   | 14            | The number of available non-upgraded creatures for each level      |
-| recruits_upgraded    | `uint16[7]`                   | 14            | The number of upgraded creatures for each level                    |
-| unknown3             | `uint8[85]`                   | 85            | |
-| spells               | `int32[30]`                   | 120           | 6 spells (enum `SpellType`) for each level of the Mage Guild       |
-| banned_spells        | `uint8[9]`                    | 9             | Bitmask; 1 bit per spell type, indicating if it is banned          |
+| name                 | `String16`                    | varies        | Name of this town                                                         |
+| recruits_nonupgraded | `uint16[7]`                   | 14            | The number of available non-upgraded creatures for each level             |
+| recruits_upgraded    | `uint16[7]`                   | 14            | The number of upgraded creatures for each level                           |
+| unknown3             | `uint8[69]`                   | 69            | |
+| built                | `uint8[6]`                    | 6             | Bitmask; 1 bit per `TownBuildingTypeH3SVG`, indicating if it's built      |
+| reserved1            |                               | 2             | Not used                                                                  |
+| can_be_built         | `uint8[6]`                    | 6             | Bitmask; 1 bit per `TownBuildingTypeH3SVG`, indicating if it can be built |
+| reserved2            |                               | 2             | Not used                                                                  |
+| spells               | `int32[30]`                   | 120           | 6 spells (enum `SpellType`) for each level of the Mage Guild              |
+| banned_spells        | `uint8[9]`                    | 9             | Bitmask; 1 bit per spell type, indicating if it is banned                 |
 | unknown4             | `uint8[68]`                   | 68            | |
 
 

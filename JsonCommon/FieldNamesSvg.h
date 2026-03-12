@@ -9,6 +9,69 @@
 
 #include <string_view>
 
+// TODO: move to h3json.
+// Currently, this has to be decalred in h3m because the partial specialization
+//   template<class Enum, std::size_t NumBytes>
+//   JsonObjectWriter<h3m::EnumBitmask<Enum, NumBytes>>
+// looks up the names for enum constants in the h3m namespace.
+namespace h3m
+{
+  template<>
+  struct FieldNames<EnumBitmask<h3svg::TownBuildingTypeH3SVG, 6>>
+  {
+    static constexpr std::array<std::string_view, 48> kNames = {
+      "MageGuild1",
+      "MageGuild2",
+      "MageGuild3",
+      "MageGuild4",
+      "MageGuild5",
+      "Tavern",
+      "Wharf",
+      "Fort",
+      "Citadel",
+      "Castle",
+      "VillageHall",
+      "TownHall",
+      "CityHall",
+      "Capitol",
+      "Market",
+      "ResourceSilo",
+      "Blacksmith",
+      "Special17",
+      "Horde1",
+      "Horde1U",
+      "Wharf2",
+      "Special21",
+      "Special22",
+      "Special23",
+      "Horde2",
+      "Horde2U",
+      "Grail",
+      "Decor27",
+      "Decor28",
+      "Decor29",
+      "Dwelling1",
+      "Dwelling2",
+      "Dwelling3",
+      "Dwelling4",
+      "Dwelling5",
+      "Dwelling6",
+      "Dwelling7",
+      "Dwelling1U",
+      "Dwelling2U",
+      "Dwelling3U",
+      "Dwelling4U",
+      "Dwelling5U",
+      "Dwelling6U",
+      "Dwelling7U",
+      "padding_44",
+      "padding_45",
+      "padding_46",
+      "padding_47"
+    };
+  };
+}
+
 namespace h3json
 {
   template<>
@@ -377,6 +440,10 @@ namespace h3json
     static constexpr std::string_view kRecruitsNonUpgraded = "recruits_nonupgraded";
     static constexpr std::string_view kRecruitsUpgraded = "recruits_upgraded";
     static constexpr std::string_view kUnknown3 = "unknown3";
+    static constexpr std::string_view kBuilt = "built";
+    static constexpr std::string_view kReserved1 = "reserved1";
+    static constexpr std::string_view kCanBeBuilt = "can_be_built";
+    static constexpr std::string_view kReserved2 = "reserved2";
     static constexpr std::string_view kSpells = "spells";
     static constexpr std::string_view kBannedSpells = "banned_spells";
     static constexpr std::string_view kUnknown4 = "unknown4";

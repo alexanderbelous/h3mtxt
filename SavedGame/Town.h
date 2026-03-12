@@ -7,6 +7,7 @@
 #include <h3mtxt/Map/Constants/TownType.h>
 #include <h3mtxt/Map/Coordinates.h>
 #include <h3mtxt/Map/Utils/EnumBitmask.h>
+#include <h3mtxt/SavedGame/Constants/TownBuildingTypeH3SVG.h>
 #include <h3mtxt/SavedGame/Troops.h>
 
 #include <array>
@@ -50,12 +51,11 @@ namespace h3svg
     // The number of upgraded creatures available for hire for each creature level.
     std::array<std::uint16_t, 7> recruits_upgraded {};
     // TODO: figure out what this is.
-    // The last 16 bytes are 2 bitmasks:
-    //   EnumBitmask<TownBuildingTypeH3SVG, 8> built;
-    //   EnumBitmask<TownBuildingTypeH3SVG, 8> can_be_built;
-    // Note, however, that H3SVG uses a different enum than H3M: e.g., bit 0 stands for MageGuildLevel1, not for TownHall.
-    // See H3BuildingsBitfield from https://github.com/RoseKavalier/H3API/blob/master/include/h3api/H3Base/H3Bitfield.hpp
-    std::array<std::uint8_t, 85> unknown3 {};
+    std::array<std::uint8_t, 69> unknown3 {};
+    EnumBitmask<TownBuildingTypeH3SVG, 6> built;
+    ReservedData<2> reserved1;
+    EnumBitmask<TownBuildingTypeH3SVG, 6> can_be_built;
+    ReservedData<2> reserved2;
     // 6 spells for each level of the Mage Guild.
     // Note that the values for nonexistent slots likely contain junk bytes (e.g., spells[1][5] is not even
     // guarantred to be a valid SpellType).

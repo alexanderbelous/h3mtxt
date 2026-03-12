@@ -21,6 +21,7 @@ namespace h3svg
   using ::h3m::CreatureStack;
   using ::h3m::CreatureType;
   using ::h3m::CustomHero;
+  using ::h3m::EnumBitmask;
   using ::h3m::HeroClass;
   using ::h3m::HeroPortrait;
   using ::h3m::HeroType;
@@ -86,6 +87,8 @@ namespace h3svg
   enum class SeerName : std::uint8_t;
 
   enum class SpellType32 : std::uint32_t;
+
+  enum class TownBuildingTypeH3SVG : std::uint8_t;
 
   enum class TownType32 : std::int32_t;
 

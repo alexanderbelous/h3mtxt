@@ -253,7 +253,11 @@ namespace h3svg
     {
       count = readInt<std::uint16_t>();
     }
-    town.unknown3 = readByteArray<85>();
+    town.unknown3 = readByteArray<69>();
+    town.built = readEnumBitmask<TownBuildingTypeH3SVG, 6>();
+    town.reserved1 = readReservedData<2>();
+    town.can_be_built = readEnumBitmask<TownBuildingTypeH3SVG, 6>();
+    town.reserved2 = readReservedData<2>();
     for (std::array<SpellType32, 6>&mage_guild_level_slots : town.spells)
     {
       for (SpellType32& spell : mage_guild_level_slots)

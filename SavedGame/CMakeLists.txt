@@ -8,6 +8,7 @@ set(SOURCE_LIST
     "Constants/PlayerStartingBonusType.h"
     "Constants/PlayerTurnDurationType.h"
     "Constants/SeerName.h"
+    "Constants/TownBuildingTypeH3SVG.h"
     "Constants/TownType32.h"
     "EnumIndexedArray.h"
     "EventBase.h"
