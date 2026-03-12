@@ -26,12 +26,12 @@ namespace h3json
     "misc2",
     "misc3",
     "misc4",
-    "misc5",
     "war_machine1",
     "war_machine2",
     "war_machine3",
     "war_machine4",
-    "spellbook"
+    "spellbook",
+    "misc5"
   };
 
   template<>
