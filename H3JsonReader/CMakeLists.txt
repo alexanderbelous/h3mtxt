@@ -20,7 +20,6 @@ add_library(H3JsonReader STATIC
     "readPlayerSpecs.cpp"
     "readPrimarySkills.cpp"
     "readQuest.cpp"
-    "readResources.cpp"
     "readReward.cpp"
     "readSecondarySkill.cpp"
     "readStartingBonus.cpp"

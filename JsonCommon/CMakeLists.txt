@@ -1,5 +1,6 @@
 # "JsonCommon" is a header-only library.
 add_library(JsonCommon INTERFACE
+    "getEnumFieldNames.h"
     "JsonCommonFwd.h"
     "FieldName.h"
     "FieldNamesH3C.h"

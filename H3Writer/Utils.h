@@ -1,9 +1,11 @@
 #pragma once
 
 #include <h3mtxt/H3Writer/H3Writer.h>
+
 #include <h3mtxt/Map/MapFwd.h>
 #include <h3mtxt/Map/Utils/BitSet.h>
 #include <h3mtxt/Map/Utils/EnumBitmask.h>
+#include <h3mtxt/Map/Utils/EnumIndexedArray.h>
 #include <h3mtxt/Map/Utils/ReservedData.h>
 
 #include <array>
@@ -125,33 +127,34 @@ namespace h3m::H3Writer_NS
 
   // Partial specialization for ReservedData.
   template<std::size_t NumBytes>
-  struct H3Writer<ReservedData<NumBytes>>
+  void H3Writer<ReservedData<NumBytes>>::operator()(std::ostream& stream,
+                                                    const ReservedData<NumBytes>& reserved_data) const
   {
-    void operator()(std::ostream& stream, const ReservedData<NumBytes>& reserved_data) const
-    {
-      Detail_NS::writeReservedDataImpl(stream, reserved_data.data(), NumBytes);
-    }
-  };
+    Detail_NS::writeReservedDataImpl(stream, reserved_data.data(), NumBytes);
+  }
 
   // Partial specialization for BitSet.
   template<std::size_t NumBytes>
-  struct H3Writer<BitSet<NumBytes>>
+  void H3Writer<BitSet<NumBytes>>::operator()(std::ostream& stream, const BitSet<NumBytes>& value) const
   {
-    void operator()(std::ostream& stream, const BitSet<NumBytes>& value) const
-    {
-      writeData(stream, value.data);
-    }
-  };
+    writeData(stream, value.data);
+  }
 
   // Partial specialization for EnumBitmask.
   template<class Enum, std::size_t NumBytes>
-  struct H3Writer<EnumBitmask<Enum, NumBytes>>
+  void H3Writer<EnumBitmask<Enum, NumBytes>>::operator()(std::ostream& stream,
+                                                         const EnumBitmask<Enum, NumBytes>& value) const
   {
-    void operator()(std::ostream& stream, const EnumBitmask<Enum, NumBytes>& value) const
-    {
-      writeData(stream, value.bitset);
-    }
-  };
+    writeData(stream, value.bitset);
+  }
+
+  // Partial specialization for EnumIndexedArray.
+  template<class Enum, class T, std::size_t N>
+  void H3Writer<EnumIndexedArray<Enum, T, N>>::operator()(std::ostream& stream,
+                                                          const EnumIndexedArray<Enum, T, N>& value) const
+  {
+    writeData(stream, value.data);
+  }
 
   // Writes a vector of elements into a binary stream storing a .h3m map.
   // Dynamic-size array are written in H3M similar to Pascal strings: first,

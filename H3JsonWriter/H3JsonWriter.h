@@ -17,6 +17,14 @@ namespace Medea_NS
     void operator()(FieldsWriter& out, const h3m::EnumBitmask<Enum, NumBytes>& bitmask) const;
   };
 
+  // Default implementation for h3m::EnumIndexedArray: serializes the value as a JSON object.
+  template<class Enum, class T, std::size_t NumElements>
+  struct JsonObjectWriter<h3m::EnumIndexedArray<Enum, T, NumElements>>
+  {
+    // Defined in Utils.h.
+    void operator()(FieldsWriter& out, const h3m::EnumIndexedArray<Enum, T, NumElements>& enum_indexed_array) const;
+  };
+
   // Serializes h3m::BitSet as a JSON array.
   template<std::size_t NumBytes>
   struct JsonArrayWriter<h3m::BitSet<NumBytes>>
@@ -123,9 +131,6 @@ namespace Medea_NS
 
   template<>
   void JsonObjectWriter<h3m::Quest>::operator()(FieldsWriter& out, const h3m::Quest& quest) const;
-
-  template<>
-  void JsonObjectWriter<h3m::Resources>::operator()(FieldsWriter& out, const h3m::Resources& resources) const;
 
   template<>
   void JsonObjectWriter<h3m::Reward>::operator()(FieldsWriter& out, const h3m::Reward& reward) const;

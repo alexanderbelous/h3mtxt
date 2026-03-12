@@ -941,18 +941,6 @@ namespace h3m
   };
 
   template<>
-  struct FieldNames<Resources>
-  {
-    static inline constexpr std::string_view kWood = "wood";
-    static inline constexpr std::string_view kMercury = "mercury";
-    static inline constexpr std::string_view kOre = "ore";
-    static inline constexpr std::string_view kSulfur = "sulfur";
-    static inline constexpr std::string_view kCrystal = "crystal";
-    static inline constexpr std::string_view kGems = "gems";
-    static inline constexpr std::string_view kGold = "gold";
-  };
-
-  template<>
   struct FieldNames<Reward>
   {
     static inline constexpr std::string_view kType = "type";

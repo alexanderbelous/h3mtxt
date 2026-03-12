@@ -72,9 +72,6 @@ namespace h3m::H3JsonReader_NS
   Quest JsonReader<Quest>::operator()(const Json::Value& value) const;
 
   template<>
-  Resources JsonReader<Resources>::operator()(const Json::Value& value) const;
-
-  template<>
   Reward JsonReader<Reward>::operator()(const Json::Value& value) const;
 
   template<>

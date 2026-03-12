@@ -1,9 +1,11 @@
 #pragma once
 
 #include <h3mtxt/H3JsonReader/H3JsonReader.h>
+#include <h3mtxt/JsonCommon/getEnumFieldNames.h>
 #include <h3mtxt/JsonCommon/FieldName.h>
 #include <h3mtxt/Map/Utils/BitSet.h>
 #include <h3mtxt/Map/Utils/EnumBitmask.h>
+#include <h3mtxt/Map/Utils/EnumIndexedArray.h>
 #include <h3mtxt/Map/Utils/ReservedData.h>
 
 #include <json/json.h>
@@ -30,12 +32,6 @@ namespace h3m::H3JsonReader_NS
 
     template<class T>
     inline constexpr bool IsOptional = IsOptionalImpl<T>::value;
-
-    template<class T>
-    struct IsStdArray : std::false_type {};
-
-    template<class T, std::size_t N>
-    struct IsStdArray<std::array<T, N>> : std::true_type {};
 
     template<class T>
     struct RemoveOptionalImpl
@@ -237,22 +233,30 @@ namespace h3m::H3JsonReader_NS
   {
     EnumBitmask<Enum, NumBytes> operator()(const Json::Value& value) const
     {
-      // The type of h3json::kEnumFieldNames<Enum> without const, volatile and reference qualifiers.
-      using EnumFieldNamesType = std::remove_cvref_t<decltype(h3json::kEnumFieldNames<Enum>)>;
-      // Check that h3json::kEnumFieldNames<Enum> is an std::array.
-      static_assert(Detail_NS::IsStdArray<EnumFieldNamesType>::value,
-                    "h3json::kEnumFieldNames<Enum> must be an std::array.");
-      // Check that its elements have the type std::string_view.
-      static_assert(std::is_same_v<typename EnumFieldNamesType::value_type, std::string_view>,
-                    "The type of elements in h3json::kEnumFieldNames<Enum> must be std::string_view.");
-      // Check that the number of elements is greater than or equal to the number of bits in the bitmask.
-      static_assert(h3json::kEnumFieldNames<Enum>.size() >= NumBytes * 8,
-                    "The number of elements in h3json::kEnumFieldNames<Enum> must be greater than or equal to "
-                    "the number of bits in the bitmask");
+      constexpr std::span<const std::string_view, NumBytes * 8> kNames =
+        h3json::getEnumFieldNames<Enum, NumBytes * 8>();
 
       EnumBitmask<Enum, NumBytes> bitmask;
-      Detail_NS::readEnumBitmaskImpl(value, bitmask.bitset.data, h3json::kEnumFieldNames<Enum>.data());
+      Detail_NS::readEnumBitmaskImpl(value, bitmask.bitset.data, kNames.data());
       return bitmask;
+    }
+  };
+
+  // Partial specialization for EnumIndexedArray.
+  template<class Enum, class T, std::size_t NumElements>
+  struct JsonReader<EnumIndexedArray<Enum, T, NumElements>>
+  {
+    EnumIndexedArray<Enum, T, NumElements> operator()(const Json::Value& value) const
+    {
+      constexpr std::span<const std::string_view, NumElements> kNames =
+        h3json::getEnumFieldNames<Enum, NumElements>();
+
+      EnumIndexedArray<Enum, T, NumElements> enum_indexed_array;
+      for (std::size_t i = 0; i < NumElements; ++i)
+      {
+        readField(enum_indexed_array.data[i], value, kNames[i]);
+      }
+      return enum_indexed_array;
     }
   };
 }

@@ -3,6 +3,7 @@
 #include <h3mtxt/Campaign/CampaignFwd.h>
 #include <h3mtxt/Map/MapFwd.h>
 
+#include <cstddef>
 #include <iosfwd>
 
 // API for writing uncompressed H3 data.
@@ -26,6 +27,38 @@ namespace h3m::H3Writer_NS
     const H3Writer<T> writer {};
     writer(stream, value);
   }
+
+  // Partial specialization for BitSet.
+  template<std::size_t NumBytes>
+  struct H3Writer<BitSet<NumBytes>>
+  {
+    // Defined in Utils.h
+    void operator()(std::ostream& stream, const BitSet<NumBytes>& value) const;
+  };
+
+  // Partial specialization for EnumBitmask.
+  template<class Enum, std::size_t NumBytes>
+  struct H3Writer<EnumBitmask<Enum, NumBytes>>
+  {
+    // Defined in Utils.h
+    void operator()(std::ostream& stream, const EnumBitmask<Enum, NumBytes>& value) const;
+  };
+
+  // Partial specialization for EnumIndexedArray.
+  template<class Enum, class T, std::size_t N>
+  struct H3Writer<EnumIndexedArray<Enum, T, N>>
+  {
+    // Defined in Utils.h
+    void operator()(std::ostream& stream, const EnumIndexedArray<Enum, T, N>& value) const;
+  };
+
+  // Partial specialization for ReservedData.
+  template<std::size_t NumBytes>
+  struct H3Writer<ReservedData<NumBytes>>
+  {
+    // Defined in Utils.h
+    void operator()(std::ostream& stream, const ReservedData<NumBytes>& reserved_data) const;
+  };
 
   template<>
   void H3Writer<Coordinates>::operator()(std::ostream& stream, const Coordinates& value) const;
@@ -74,9 +107,6 @@ namespace h3m::H3Writer_NS
 
   template<>
   void H3Writer<Quest>::operator()(std::ostream& stream, const Quest& quest) const;
-
-  template<>
-  void H3Writer<Resources>::operator()(std::ostream& stream, const Resources& resources) const;
 
   template<>
   void H3Writer<Reward>::operator()(std::ostream& stream, const Reward& reward) const;
