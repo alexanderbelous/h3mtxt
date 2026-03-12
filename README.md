@@ -47,5 +47,8 @@ cmake --install build --config Release --prefix .
 I'm currently working on the equivalent feature for saved games for HoMM3 (.CGM, .GM1, .GM2, ... files), i.e. converting them to and from JSON. However, as far I know, the full specification of the file format is not publicly known, so this requires a lot of reverse engineering. The development takes place in a separate branch [h3svg](https://github.com/alexanderbelous/h3mtxt/tree/h3svg).
 
 # Acknowledgment
-I would like to thank the authors of [HeroWO-js/h3m2json](https://github.com/HeroWO-js/h3m2json/) and [potmdehex/homm3tools](https://github.com/potmdehex/homm3tools)
-for the detailed description of the .h3m file format. These projects share some similarities with *h3mtxt*, but their goals and programming languages (PHP and C respectively) are different.
+I would like to thank the following people:
+* John Aakerblom, whose library [homm3tools](https://github.com/potmdehex/homm3tools) helped me understand the structure of the .h3m file format.
+* Maurice from Heroes Community for [reverse-engineering](http://heroescommunity.com/viewthread.php3?TID=46018) how the properties of objects are stored within tiles data in saved games.
+* RoseKavalier, whose library [H3API](https://github.com/RoseKavalier/H3API) helped me reverse engineer the file format for the saved games.
+* The author(s) of [HeroWO](https://github.com/HeroWO-js/h3m2json/) for the detailed description of the .h3m file format.
