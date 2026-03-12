@@ -14,7 +14,7 @@ namespace h3svg
   HeroArtifacts H3SvgReader::readHeroArtifacts() const
   {
     HeroArtifacts artifacts;
-    for (HeroArtifact& artifact : artifacts.equipped)
+    for (HeroArtifact& artifact : artifacts.equipped.data)
     {
       artifact = readHeroArtifact();
     }

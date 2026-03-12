@@ -14,6 +14,7 @@
 namespace h3svg
 {
   // Reuse some types from H3M.
+  using ::h3m::ArtifactSlot;
   using ::h3m::ArtifactType;
   using ::h3m::BitSet;
   using ::h3m::Bool;

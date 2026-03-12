@@ -2,6 +2,7 @@
 
 #include <h3mtxt/SavedGame/SavedGameFwd.h>
 
+#include <h3mtxt/Map/Constants/ArtifactSlot.h>
 #include <h3mtxt/Map/Constants/ArtifactType.h>
 #include <h3mtxt/Map/Constants/HeroClass.h>
 #include <h3mtxt/Map/Constants/HeroPortrait.h>
@@ -35,8 +36,7 @@ namespace h3svg
 
   struct HeroArtifacts
   {
-    // TODO: replace with EnumIndexedArray<ArtifactSlot, HeroArtifact, 19>.
-    std::array<HeroArtifact, 19> equipped;
+    EnumIndexedArray<ArtifactSlot, HeroArtifact, 19> equipped;
     std::array<HeroArtifact, 64> backpack;
   };
 
