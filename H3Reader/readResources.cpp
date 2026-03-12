@@ -1,6 +1,6 @@
 #include <h3mtxt/H3Reader/H3Reader.h>
 #include <h3mtxt/H3Reader/Utils.h>
-#include <h3mtxt/Map/Resources.h>
+#include <h3mtxt/Map/Utils/EnumIndexedArray.h>
 
 namespace h3m::H3Reader_NS
 {

@@ -20,7 +20,6 @@ add_library(H3Writer STATIC
     "writePlayerSpecs.cpp"
     "writePrimarySkills.cpp"
     "writeQuest.cpp"
-    "writeResources.cpp"
     "writeReward.cpp"
     "writeSecondarySkill.cpp"
     "writeStartingBonus.cpp"

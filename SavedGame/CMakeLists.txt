@@ -10,7 +10,6 @@ set(SOURCE_LIST
     "Constants/SeerName.h"
     "Constants/TownBuildingTypeH3SVG.h"
     "Constants/TownType32.h"
-    "EnumIndexedArray.h"
     "EventBase.h"
     "Hero.h"
     "ObjectPropertiesTables.h"

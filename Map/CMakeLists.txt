@@ -1,6 +1,7 @@
 # All source files for "Map" library.
 set(SOURCE_LIST
     # Constants
+    "Constants/ArtifactSlot.h"
     "Constants/ArtifactType.h"
     "Constants/Constants.h"
     "Constants/CreatureType.h"
@@ -37,6 +38,7 @@ set(SOURCE_LIST
     # Utils
     "Utils/BitSet.h"
     "Utils/EnumBitmask.h"
+    "Utils/EnumIndexedArray.h"
     "Utils/EnumSequence.h"
     "Utils/ReservedData.h"
     "Utils/SpriteTilesBitmask.h"
@@ -57,7 +59,6 @@ set(SOURCE_LIST
     "PlayerSpecs.h"
     "PrimarySkills.h"
     "Quest.h"
-    "Resources.h"
     "Reward.h"
     "SecondarySkill.h"
     "Tile.h"

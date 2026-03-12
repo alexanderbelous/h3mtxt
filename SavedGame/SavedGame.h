@@ -3,11 +3,11 @@
 #include <h3mtxt/SavedGame/SavedGameFwd.h>
 #include <h3mtxt/Map/Constants/MapFormat.h>
 #include <h3mtxt/Map/Utils/BitSet.h>
+#include <h3mtxt/Map/Utils/EnumIndexedArray.h>
 #include <h3mtxt/Map/Utils/ReservedData.h>
 #include <h3mtxt/Map/MapAdditionalInfo.h>
 #include <h3mtxt/Map/MapBasicInfo.h>
 #include <h3mtxt/SavedGame/Constants/Constants.h>
-#include <h3mtxt/SavedGame/EnumIndexedArray.h>
 #include <h3mtxt/SavedGame/Hero.h>
 #include <h3mtxt/SavedGame/ObjectPropertiesTables.h>
 #include <h3mtxt/SavedGame/Object.h>

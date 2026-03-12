@@ -4,8 +4,9 @@
 
 #include <h3mtxt/Map/Constants/HeroType.h>
 #include <h3mtxt/Map/Constants/PlayerColor.h>
+#include <h3mtxt/Map/Constants/ResourceType.h>
 #include <h3mtxt/Map/Utils/BitSet.h>
-#include <h3mtxt/Map/Resources.h>
+#include <h3mtxt/Map/Utils/EnumIndexedArray.h>
 #include <h3mtxt/SavedGame/Constants/PlayerPersonality.h>
 
 #include <array>

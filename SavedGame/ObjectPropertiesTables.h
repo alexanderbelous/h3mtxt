@@ -4,10 +4,11 @@
 
 #include <h3mtxt/Map/Constants/Constants.h>
 #include <h3mtxt/Map/Constants/PlayerColor.h>
+#include <h3mtxt/Map/Constants/ResourceType.h>
 #include <h3mtxt/Map/Utils/EnumBitmask.h>
+#include <h3mtxt/Map/Utils/EnumIndexedArray.h>
 #include <h3mtxt/Map/Utils/ReservedData.h>
 #include <h3mtxt/Map/Coordinates.h>
-#include <h3mtxt/Map/Resources.h>
 #include <h3mtxt/SavedGame/Constants/SeerName.h>
 #include <h3mtxt/SavedGame/EventBase.h>
 #include <h3mtxt/SavedGame/Quest.h>

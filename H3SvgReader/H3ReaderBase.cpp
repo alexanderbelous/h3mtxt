@@ -1,10 +1,10 @@
 #include <h3mtxt/H3SvgReader/H3ReaderBase.h>
 #include <h3mtxt/H3Reader/H3Reader.h>
+#include <h3mtxt/Map/Utils/EnumIndexedArray.h>
 #include <h3mtxt/Map/Utils/SpriteTilesBitmask.h>
 #include <h3mtxt/Map/CreatureStack.h>
 #include <h3mtxt/Map/MapAdditionalInfo.h>
 #include <h3mtxt/Map/PrimarySkills.h>
-#include <h3mtxt/Map/Resources.h>
 #include <h3mtxt/Map/SecondarySkill.h>
 
 #include <cstdint>

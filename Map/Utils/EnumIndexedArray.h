@@ -1,10 +1,12 @@
 #pragma once
 
+#include <h3mtxt/Map/MapFwd.h>
+
 #include <array>
 #include <cstddef>
 #include <type_traits>
 
-namespace h3svg
+namespace h3m
 {
   // Wrapper for std::array<T, N> which allows indexing elements of the array via
   // values of the specified enum type without explicitly casting them to integers.
@@ -12,7 +14,21 @@ namespace h3svg
   // This is semantically equivalent to std::map<Enum, T> whose keys are
   // { Enum{0}, Enum{1}, Enum{2}, ..., Enum{N-1} }.
   //
-  // Such structures appear in multiple places in H3SVG.
+  // Note that the class treats the underlying enum values as unsigned integers even if the declaration of
+  // Enum uses a signed integer for the underlying type. This is to address the following issue:
+  //   enum class HeroTypeSigned : std::int8_t
+  //   {
+  //     Orrin = 0x00,
+  //     Valeska = 0x01,
+  //     ...
+  //     Pasis = 0x80,
+  //     ...
+  //     Xeron = 0x9B,
+  //     None = 0xFF
+  //   };
+  //
+  //   static_assert(static_cast<std::size_t>(HeroTypeSigned::Pasis) == 18446744073709551488;
+  //   static_assert(static_cast<std::uint8_t>(HeroTypeSigned::Pasis) = 128;
   template<class Enum, class T, std::size_t NumElements>
   struct EnumIndexedArray
   {
@@ -37,12 +53,14 @@ namespace h3svg
   template<class Enum, class T, std::size_t NumElements>
   constexpr T& EnumIndexedArray<Enum, T, NumElements>::operator[](Enum key)
   {
-    return data.at(static_cast<std::size_t>(key));
+    using UnderlyingTypeUnsigned = std::make_unsigned_t<std::underlying_type_t<Enum>>;
+    return data.at(static_cast<UnderlyingTypeUnsigned>(key));
   }
 
   template<class Enum, class T, std::size_t NumElements>
   constexpr const T& EnumIndexedArray<Enum, T, NumElements>::operator[](Enum key) const
   {
-    return data.at(static_cast<std::size_t>(key));
+    using UnderlyingTypeUnsigned = std::make_unsigned_t<std::underlying_type_t<Enum>>;
+    return data.at(static_cast<UnderlyingTypeUnsigned>(key));
   }
 }

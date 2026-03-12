@@ -4,7 +4,6 @@
 #include <h3mtxt/H3JsonWriter/getEnumString.h>
 #include <h3mtxt/H3JsonWriter/Utils.h>
 #include <h3mtxt/H3SvgJsonWriter/getEnumString.h>
-#include <h3mtxt/H3SvgJsonWriter/writeEnumIndexedArray.h>
 #include <h3mtxt/JsonCommon/FieldNamesSvg.h>
 #include <h3mtxt/Map/Constants/ArtifactType.h>
 #include <h3mtxt/Medea/Medea.h>

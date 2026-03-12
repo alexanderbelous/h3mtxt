@@ -15,6 +15,8 @@ namespace h3m
   // fields.
   using Bool = std::uint8_t;
 
+  enum class ArtifactSlot : std::uint8_t;
+
   enum class ArtifactType : std::uint16_t;
 
   enum class CreatureType : std::uint16_t;
@@ -145,6 +147,18 @@ namespace h3m
   // The last 7 bits are normally set to 0 in .h3m regardless of the meaning of the bitmask.
   using TownsBitmask = EnumBitmask<TownType, 2>;
 
+  // Wrapper for std::array<T, NumElements> which allows indexing elements of the array via
+  // values of the specified Enum type without explicitly casting them to integers.
+  template<class Enum, class T, std::size_t NumElements>
+  struct EnumIndexedArray;
+
+  // Represents an amount of resources.
+  //
+  // In H3M the amount is always interpreted as int32, even though the Map Editor
+  // doesn't allow entering negative values in some contexts (Quest Guard and
+  // as a reward for defeating a monster).
+  using Resources = EnumIndexedArray<ResourceType, std::int32_t, 7>;
+
   struct EventBase;
 
   struct Guardians;
@@ -189,8 +203,6 @@ namespace h3m
 
   template<std::size_t NumBytes>
   class ReservedData;
-
-  struct Resources;
 
   struct Reward;
 

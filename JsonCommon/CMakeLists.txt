@@ -1,8 +1,10 @@
 # "JsonCommon" is a header-only library.
 add_library(JsonCommon INTERFACE
-    "FieldName.h"
-    "FieldNamesSvg.h"
+    "getEnumFieldNames.h"
     "JsonCommonFwd.h"
+    "FieldName.h"
+    "FieldNamesH3C.h"
+    "FieldNamesSvg.h"
 )
 add_library(h3mtxt::JsonCommon ALIAS JsonCommon)
 

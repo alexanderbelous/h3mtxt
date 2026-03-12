@@ -26,7 +26,6 @@ add_library(H3JsonWriter STATIC
     "writePrimarySkills.cpp"
     "writeQuest.cpp"
     "writeQuestDetails.h"
-    "writeResources.cpp"
     "writeReward.cpp"
     "writeRewardDetails.h"
     "writeSecondarySkill.cpp"

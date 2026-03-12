@@ -10,7 +10,7 @@ namespace Medea_NS
   void JsonArrayWriter<h3m::SpriteTilesBitmask>::operator()(const ArrayElementsWriter& elements_writer,
                                                             const h3m::SpriteTilesBitmask& sprite_tiles_bitmask) const
   {
-    Detail_NS::printBitSetImpl(elements_writer, sprite_tiles_bitmask.data);
+    h3m::H3JsonWriter_NS::Detail_NS::printBitSetImpl(elements_writer, sprite_tiles_bitmask.data);
   }
 
   void JsonArrayWriter<h3m::TerrainsBitmask>::operator()(const ArrayElementsWriter& elements_writer,

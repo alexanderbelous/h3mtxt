@@ -2,9 +2,10 @@
 
 #include <h3mtxt/SavedGame/SavedGameFwd.h>
 
+#include <h3mtxt/Map/Constants/ResourceType.h>
+#include <h3mtxt/Map/Utils/EnumIndexedArray.h>
 #include <h3mtxt/Map/CreatureStack.h>
 #include <h3mtxt/Map/PrimarySkills.h>
-#include <h3mtxt/Map/Resources.h>
 #include <h3mtxt/Map/SecondarySkill.h>
 #include <h3mtxt/SavedGame/Troops.h>
 

@@ -22,6 +22,7 @@ namespace h3svg
   using ::h3m::CreatureType;
   using ::h3m::CustomHero;
   using ::h3m::EnumBitmask;
+  using ::h3m::EnumIndexedArray;
   using ::h3m::HeroClass;
   using ::h3m::HeroPortrait;
   using ::h3m::HeroType;
@@ -91,9 +92,6 @@ namespace h3svg
   enum class TownBuildingTypeH3SVG : std::uint8_t;
 
   enum class TownType32 : std::int32_t;
-
-  template<class Enum, class T, std::size_t NumElements>
-  struct EnumIndexedArray;
 
   struct Artifact;
 
