@@ -439,6 +439,8 @@ namespace h3json
     static constexpr std::string_view kName = "name";
     static constexpr std::string_view kRecruitsNonUpgraded = "recruits_nonupgraded";
     static constexpr std::string_view kRecruitsUpgraded = "recruits_upgraded";
+    static constexpr std::string_view kNumExternalDwellings = "num_external_dwellings";
+    static constexpr std::string_view kNumExternalDwellings2 = "num_external_dwellings2";
     static constexpr std::string_view kUnknown3 = "unknown3";
     static constexpr std::string_view kBuilt = "built";
     static constexpr std::string_view kReserved1 = "reserved1";

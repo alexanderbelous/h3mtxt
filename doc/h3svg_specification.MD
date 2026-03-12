@@ -522,7 +522,9 @@ An H3SVG file is a single structure which we will naturally call [`SavedGame`](#
 | name                 | `String16`                    | varies        | Name of this town                                                         |
 | recruits_nonupgraded | `uint16[7]`                   | 14            | The number of available non-upgraded creatures for each level             |
 | recruits_upgraded    | `uint16[7]`                   | 14            | The number of upgraded creatures for each level                           |
-| unknown3             | `uint8[69]`                   | 69            | |
+| num_external_dwellings | `uint32[7]`                 | 28            | The number of external dwellings for each creature level                  |
+| num_external_dwellings2 | `uint32[7]`                | 28            | Duplicates num_external_dwellings                                         |
+| unknown3             | `uint8[13]`                   | 13            | |
 | built                | `uint8[6]`                    | 6             | Bitmask; 1 bit per `TownBuildingTypeH3SVG`, indicating if it's built      |
 | reserved1            |                               | 2             | Not used                                                                  |
 | can_be_built         | `uint8[6]`                    | 6             | Bitmask; 1 bit per `TownBuildingTypeH3SVG`, indicating if it can be built |

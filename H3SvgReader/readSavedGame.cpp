@@ -253,7 +253,15 @@ namespace h3svg
     {
       count = readInt<std::uint16_t>();
     }
-    town.unknown3 = readByteArray<69>();
+    for (std::uint32_t& count : town.num_external_dwellings)
+    {
+      count = readInt<std::uint32_t>();
+    }
+    for (std::uint32_t& count : town.num_external_dwellings2)
+    {
+      count = readInt<std::uint32_t>();
+    }
+    town.unknown3 = readByteArray<13>();
     town.built = readEnumBitmask<TownBuildingTypeH3SVG, 6>();
     town.reserved1 = readReservedData<2>();
     town.can_be_built = readEnumBitmask<TownBuildingTypeH3SVG, 6>();

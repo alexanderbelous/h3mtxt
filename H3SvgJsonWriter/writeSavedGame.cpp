@@ -272,6 +272,8 @@ namespace Medea_NS
     out.writeField(Fields::kName, town.name);
     out.writeField(Fields::kRecruitsNonUpgraded, town.recruits_nonupgraded);
     out.writeField(Fields::kRecruitsUpgraded, town.recruits_upgraded);
+    out.writeField(Fields::kNumExternalDwellings, town.num_external_dwellings);
+    out.writeField(Fields::kNumExternalDwellings2, town.num_external_dwellings2);
     out.writeField(Fields::kUnknown3, town.unknown3);
     out.writeField(Fields::kBuilt, town.built);
     out.writeField(Fields::kReserved1, town.reserved1);
