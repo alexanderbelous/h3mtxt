@@ -13,6 +13,9 @@ project(
 # Use static (MT/MTd) Windows runtime.
 set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
 
+# Organize targets into folders (if supported by IDE).
+set_property(GLOBAL PROPERTY USE_FOLDERS ON)
+
 # Check if IPO (aka Whole Program Optimization) is supported.
 include(CheckIPOSupported)
 check_ipo_supported(RESULT H3MTXT_IPO_SUPPORTED OUTPUT H3MTXT_IPO_SUPPORTED_OUTPUT)
@@ -67,6 +70,7 @@ function(h3mtxt_add_common_compiler_options target)
 endfunction()
 
 # Thirdparty libraries:
+set(CMAKE_FOLDER thirdparty)
 # JsonCpp:
 # option(JSONCPP_WITH_TESTS "Compile and (for jsoncpp_check) run JsonCpp test executables" OFF)
 option(BUILD_SHARED_LIBS "Build jsoncpp_lib as a shared library." OFF)
@@ -78,6 +82,7 @@ add_library(jsoncpp::jsoncpp_static ALIAS jsoncpp_static)
 set(RENAME_ZCONF OFF) # don't rename zconf.h
 add_subdirectory(thirdparty/zlib EXCLUDE_FROM_ALL)
 add_library(zlib::zlibstatic ALIAS zlibstatic)
+unset(CMAKE_FOLDER)
 
 # All subdirectories with source code.
 add_subdirectory(Map)
@@ -86,7 +91,9 @@ add_subdirectory(JsonCommon)
 add_subdirectory(Medea)
 add_subdirectory(H3JsonReader)
 add_subdirectory(H3JsonWriter)
+set(CMAKE_FOLDER H3Reader)
 add_subdirectory(H3Reader)
+unset(CMAKE_FOLDER)
 add_subdirectory(H3Writer)
 
 # Target for the h3mtxt program.

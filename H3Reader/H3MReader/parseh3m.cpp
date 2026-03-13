@@ -1,13 +1,13 @@
-#include <h3mtxt/H3Reader/parseh3m.h>
+#include <h3mtxt/H3Reader/H3MReader/parseh3m.h>
 
-#include <h3mtxt/H3Reader/H3Reader.h>
+#include <h3mtxt/H3Reader/H3MReader/H3MReader.h>
 
 #include <h3mtxt/thirdparty/zstr/src/zstr.hpp>
 
 #include <istream>
 #include <stdexcept>
 
-namespace h3m::H3Reader_NS
+namespace h3m
 {
   Map parseh3m(std::istream& stream)
   {
@@ -26,12 +26,12 @@ namespace h3m::H3Reader_NS
     }
     if (first_byte != kGzipFirstByte)
     {
-      return readMap(stream);
+      return H3MReader{ stream }.readMap();
     }
     else
     {
       zstr::istream zstr_stream(stream);
-      return readMap(zstr_stream);
+      return H3MReader{ zstr_stream }.readMap();
     }
   }
 }

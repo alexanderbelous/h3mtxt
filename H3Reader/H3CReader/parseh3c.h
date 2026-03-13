@@ -4,7 +4,7 @@
 
 #include <iosfwd>
 
-namespace h3m::H3Reader_NS
+namespace h3m
 {
   // Reads a *.h3c campaign from the given stream.
   //

@@ -1,7 +1,7 @@
-#include <h3mtxt/H3Reader/parseh3c.h>
+#include <h3mtxt/H3Reader/H3CReader/parseh3c.h>
 
-#include <h3mtxt/H3Reader/H3Reader.h>
-#include <h3mtxt/H3Reader/Utils.h>
+#include <h3mtxt/H3Reader/H3CReader/H3CReader.h>
+#include <h3mtxt/H3Reader/H3MReader/H3MReader.h>
 #include <h3mtxt/Campaign/Campaign.h>
 
 #include <h3mtxt/thirdparty/zstr/src/zstr.hpp>
@@ -9,7 +9,7 @@
 #include <istream>
 #include <stdexcept>
 
-namespace h3m::H3Reader_NS
+namespace h3m
 {
   Campaign parseh3c(std::istream& stream)
   {
@@ -31,13 +31,13 @@ namespace h3m::H3Reader_NS
     }
     Campaign campaign;
     zstr::istream zstr_stream(stream);
-    campaign.header = readCampaignHeader(zstr_stream);
+    campaign.header = H3CReader{ zstr_stream }.readCampaignHeader();
     // TODO: add support for the case when one or more maps are not gzip-compressed.
     const std::size_t num_scenarios = countScenarios(campaign.header);
     campaign.maps.reserve(num_scenarios);
     for (std::size_t i = 0; i < num_scenarios; ++i)
     {
-      campaign.maps.push_back(readMap(zstr_stream));
+      campaign.maps.push_back(H3MReader{ zstr_stream }.readMap());
     }
     return campaign;
   }

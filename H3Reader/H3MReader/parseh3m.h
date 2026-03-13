@@ -4,7 +4,7 @@
 
 #include <iosfwd>
 
-namespace h3m::H3Reader_NS
+namespace h3m
 {
   // Reads a *.h3m map from the given stream.
   // \param stream - input stream. The stream is expected to store either gzip-compressed

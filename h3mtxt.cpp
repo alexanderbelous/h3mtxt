@@ -45,7 +45,7 @@ namespace
   {
     if (isH3File(stream))
     {
-      return Input{ .data = h3m::H3Reader_NS::parseh3(stream), .is_json = false };
+      return Input{ .data = h3m::parseh3(stream), .is_json = false };
     }
     return Input{ .data = h3m::H3JsonReader_NS::readH3Json(stream), .is_json = true };
   }
