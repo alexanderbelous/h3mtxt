@@ -6,7 +6,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 project(
   h3mtxt
-  VERSION 0.9.1
+  VERSION 0.9.3
   LANGUAGES CXX
 )
 
@@ -87,16 +87,17 @@ unset(CMAKE_FOLDER)
 # All subdirectories with source code.
 add_subdirectory(Map)
 add_subdirectory(Campaign)
+add_subdirectory(SavedGame)
 add_subdirectory(JsonCommon)
 add_subdirectory(Medea)
 add_subdirectory(H3JsonReader)
+set(CMAKE_FOLDER H3JsonWriter)
 add_subdirectory(H3JsonWriter)
+unset(CMAKE_FOLDER)
 set(CMAKE_FOLDER H3Reader)
 add_subdirectory(H3Reader)
 unset(CMAKE_FOLDER)
 add_subdirectory(H3Writer)
-add_subdirectory(SavedGame)
-add_subdirectory(H3SvgJsonWriter)
 
 # Target for the h3mtxt program.
 add_executable(h3mtxt h3mtxt.cpp)
@@ -109,12 +110,13 @@ target_include_directories(h3mtxt PRIVATE "${PROJECT_SOURCE_DIR}/..")
 # Libraries that h3mtxt depends on.
 target_link_libraries(h3mtxt PRIVATE h3mtxt::Map)
 target_link_libraries(h3mtxt PRIVATE h3mtxt::Campaign)
+target_link_libraries(h3mtxt PRIVATE h3mtxt::SavedGame)
 target_link_libraries(h3mtxt PRIVATE h3mtxt::H3Reader)
 target_link_libraries(h3mtxt PRIVATE h3mtxt::H3Writer)
 target_link_libraries(h3mtxt PRIVATE h3mtxt::H3JsonReader)
-target_link_libraries(h3mtxt PRIVATE h3mtxt::H3JsonWriter)
-target_link_libraries(h3mtxt PRIVATE h3mtxt::SavedGame)
-target_link_libraries(h3mtxt PRIVATE h3mtxt::H3SvgJsonWriter)
+target_link_libraries(h3mtxt PRIVATE h3mtxt::H3MJsonWriter)
+target_link_libraries(h3mtxt PRIVATE h3mtxt::H3CJsonWriter)
+target_link_libraries(h3mtxt PRIVATE h3mtxt::H3SVGJsonWriter)
 
 # Set compiler options for h3mtxt.
 h3mtxt_add_common_compiler_options(h3mtxt)
