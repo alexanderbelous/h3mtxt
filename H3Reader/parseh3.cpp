@@ -1,10 +1,11 @@
 #include <h3mtxt/H3Reader/parseh3.h>
 
-#include <h3mtxt/H3Reader/H3Reader.h>
+#include <h3mtxt/H3Reader/H3CReader/H3CReader.h>
+#include <h3mtxt/H3Reader/H3MReader/H3MReader.h>
 
 #include <h3mtxt/thirdparty/zstr/src/zstr.hpp>
 
-namespace h3m::H3Reader_NS
+namespace h3m
 {
   std::variant<Map, Campaign> parseh3(std::istream& stream)
   {
@@ -25,7 +26,7 @@ namespace h3m::H3Reader_NS
     case static_cast<std::uint8_t>(MapFormat::RestorationOfErathia):
     case static_cast<std::uint8_t>(MapFormat::ArmageddonsBlade):
     case static_cast<std::uint8_t>(MapFormat::ShadowOfDeath):
-      return readMap(stream);
+      return H3MReader{ stream }.readMap();
     case kGzipFirstByte:
       break;
     default:
@@ -39,18 +40,18 @@ namespace h3m::H3Reader_NS
     case static_cast<std::uint8_t>(MapFormat::RestorationOfErathia):
     case static_cast<std::uint8_t>(MapFormat::ArmageddonsBlade):
     case static_cast<std::uint8_t>(MapFormat::ShadowOfDeath):
-      return readMap(zstr_stream);
+      return H3MReader{ zstr_stream }.readMap();
     case static_cast<std::uint8_t>(CampaignFormat::RestorationOfErathia):
     case static_cast<std::uint8_t>(CampaignFormat::ArmageddonsBlade):
     case static_cast<std::uint8_t>(CampaignFormat::ShadowOfDeath):
     {
-      Campaign campaign { .header = readCampaignHeader(zstr_stream) };
+      Campaign campaign{ .header = H3CReader{zstr_stream}.readCampaignHeader() };
       const std::size_t num_scenarios = countScenarios(campaign.header);
       campaign.maps.reserve(num_scenarios);
       for (std::size_t i = 0; i < num_scenarios; ++i)
       {
         // TODO: add support for the case when one or more maps are not gzip-compressed.
-        campaign.maps.push_back(readMap(zstr_stream));
+        campaign.maps.push_back(H3MReader{ zstr_stream }.readMap());
       }
       return campaign;
     }
