@@ -1,36 +1,10 @@
+add_subdirectory(H3JsonReaderBase)
+add_subdirectory(H3MJsonReader)
+add_subdirectory(H3CJsonReader)
+
 add_library(H3JsonReader STATIC
-    "H3JsonReader.h"
-    "readCampaign.cpp"
-    "readCoordinates.cpp"
-    "readCreatureStack.cpp"
-    "readH3cJson.cpp"
-    "readH3cJson.h"
     "readH3Json.cpp"
     "readH3Json.h"
-    "readH3mJson.cpp"
-    "readH3mJson.h"
-    "readHeroArtifacts.cpp"
-    "readHeroSettings.cpp"
-    "readLossCondition.cpp"
-    "readMap.cpp"
-    "readMapAdditionalInfo.cpp"
-    "readMapBasicInfo.cpp"
-    "readObjectProperties.cpp"
-    "readObjectTemplate.cpp"
-    "readPlayerSpecs.cpp"
-    "readPrimarySkills.cpp"
-    "readQuest.cpp"
-    "readReward.cpp"
-    "readSecondarySkill.cpp"
-    "readStartingBonus.cpp"
-    "readStartingOptions.cpp"
-    "readTerrainsBitmask.cpp"
-    "readTile.cpp"
-    "readTimedEvent.cpp"
-    "readVictoryCondition.cpp"
-    "Utils.cpp"
-    "Utils.h"
-    "VariantJsonReader.h"
 )
 add_library(h3mtxt::H3JsonReader ALIAS H3JsonReader)
 
@@ -41,6 +15,8 @@ target_include_directories(H3JsonReader PUBLIC "${PROJECT_SOURCE_DIR}/..")
 
 # Dependencies:
 target_link_libraries(H3JsonReader PUBLIC h3mtxt::Campaign)
+target_link_libraries(H3JsonReader PUBLIC h3mtxt::H3MJsonReader)
+target_link_libraries(H3JsonReader PUBLIC h3mtxt::H3CJsonReader)
 target_link_libraries(H3JsonReader PRIVATE h3mtxt::JsonCommon)
 target_link_libraries(H3JsonReader PUBLIC h3mtxt::Map)
 # Thirdparty libraries:
