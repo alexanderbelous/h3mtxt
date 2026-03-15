@@ -61,9 +61,10 @@ Notable exceptions:
 
 Saved games written by the game are GZIP-compressed. GZIP format is specified in [RFC 1952](https://www.rfc-editor.org/rfc/rfc1952), so I'm not going to focus on it - this document addresses the decompressed data.
 
-Note that the game can load decompressed files as well.
+Note, however, that the saved games written by HoMM3 have invalid CRC32 checksums at the end of the file, i.e. the bytes [N-8; N-4), where N is
+the length of the compressed file in bytes. Because of this, a lot of libraries and file archivers fail to decompress such files. 7-Zip is a notable exception: while it will report an error, it will at least write the decompressed data.
 
-TODO: mention broken CRC.
+Note that the game can load decompressed files as well.
 
 ## Notation
 
