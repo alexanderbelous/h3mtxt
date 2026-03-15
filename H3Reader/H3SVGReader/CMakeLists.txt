@@ -14,6 +14,8 @@ add_library(H3SVGReader STATIC
     "readReward.cpp"
     "readSavedGame.cpp"
     "readTile.cpp"
+    "zstr_patch.cpp"
+    "zstr_patch.h"
 )
 add_library(h3mtxt::H3SVGReader ALIAS H3SVGReader)
 

@@ -1,8 +1,7 @@
 #include <h3mtxt/H3Reader/H3SVGReader/parseh3svg.h>
 
 #include <h3mtxt/H3Reader/H3SVGReader/H3SVGReader.h>
-
-#include <h3mtxt/thirdparty/zstr/src/zstr.hpp>
+#include <h3mtxt/H3Reader/H3SVGReader/zstr_patch.h>
 
 #include <istream>
 #include <stdexcept>
@@ -30,16 +29,16 @@ namespace h3svg
     }
     else
     {
-      // FIXME: actually, this doesn't work: HoMM3 uses its own implementation of Deflate,
-      // which often causes errors/warnings in other compression libraries/tools. zlib handles
-      // .h3m and .h3c files fine, but not .GM* files.
-      // For now, the workaround is to manually decompress the saved game via 7-Zip, and pass the
-      // decompresed file to h3mtxt.
-      // Alternatively, you can comment out line 227 in zstr.hpp:
-      //     if (ret != Z_OK && ret != Z_STREAM_END) throw Exception(zstrm_p.get(), ret);
-      // or at least not throw an exception if ret == Z_DATA_ERROR
-      // TODO: add a custom class that derives from zstd::istreambuf and ignores CRC errors.
-      zstr::istream zstr_stream(stream);
+      // FYI: saved games written by HoMM3 have invalid CRC32 checksums at the end of the file
+      // (bytes [-8:-4]). Because of this, we cannot use zstr::istream directly - it raises an
+      // exception when invalid CRC is detected, and doesn't provide access to the "corrupted"
+      // bytes even if you suppress the exception.
+      //
+      // The class ZstrIstreamPatched was introduced as a workaround for this issue. The class
+      // basically copies zstd::istream, but ignores all Z_DATA_ERROR errors returned by inflate().
+      // This is a shitty solution - maybe there are other cases when Z_DATA_ERROR is returned, so
+      // it would be a terrible idea to reuse ZstrIstreamPatched for anything else.
+      ZstrIstreamPatched zstr_stream{ stream };
       return H3SVGReader{ zstr_stream }.readSavedGame();
     }
   }
