@@ -24,6 +24,7 @@ set(SOURCE_LIST
     "SavedGameFwd.h"
     "ScenarioStartingInfo.h"
     "Tile.h"
+    "TileVisibility.h"
     "Town.h"
     "Troops.h"
 )

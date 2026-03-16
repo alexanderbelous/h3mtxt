@@ -16,6 +16,7 @@
 #include <h3mtxt/SavedGame/PlayerSpecs.h>
 #include <h3mtxt/SavedGame/ScenarioStartingInfo.h>
 #include <h3mtxt/SavedGame/Tile.h>
+#include <h3mtxt/SavedGame/TileVisibility.h>
 #include <h3mtxt/SavedGame/Town.h>
 
 #include <array>
@@ -41,16 +42,6 @@ namespace h3svg
     // when this rumor becomes the "rumor of the week", not when the player sees it in the Tavern.
     // Note, however, that the value can be reset from 1 to 0 sometimes - I'm not sure why.
     Bool has_been_shown {};
-  };
-
-  struct TileVisibility
-  {
-    PlayersBitmask visibility;
-    // 1 if there is a wandering creature on this tile or an adjacent tile, 0 otherwise.
-    // In this case a sword will be rendered when you hover the mouse over this tile, even
-    // if the wandering creature is not visible. Note, however, that no sword will be rendered
-    // for players for which this tile is still hidden by the Fog of War.
-    Bool has_adjacent_monster {};
   };
 
   // Represents a saved game for Heroes of Might and Magic 3 (.GM1, .GM2, ... files).
