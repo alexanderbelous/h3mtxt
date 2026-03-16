@@ -152,6 +152,8 @@ An H3SVG file is a single structure which we will naturally call [`SavedGame`](#
 | num_towns                 | `uint8`                          | 1             | The number of towns on the Adventure Map                         |
 | towns                     | [`Town[num_towns]`](#Town)       | varies        | Towns on the Adventure Map                                       |
 | heroes                    | [`Hero[156]`](#Hero)             | varies        | Properties for each hero                                         |
+| unknown5                  | `uint8[442]`                     | 442           | TODO                                                             |
+| fog_of_war                | [`TileVisibility[NUM_TILES]`](#TileVisibility) | varies | Describes visibility of each tile for each player         |
 
 
 ### `MapBasicInfo`
@@ -567,3 +569,10 @@ An H3SVG file is a single structure which we will naturally call [`SavedGame`](#
 | ---------- | ------- | ------------- | ------------------------------------------------------------ |
 | type       | `int32` | 4             | Enum `ArtifactType` or 0xFFFFFFFF if there is no artifact    |
 | spell_type | `int32` | 4             | Enum `SpellType`. Only meaningful if type == 1 (SpellScroll) |
+
+
+### `TileVisibility`
+| Field name           | Type    | Size in bytes | Description                                                                    |
+| -------------------- | ------- | ------------- | ------------------------------------------------------------------------------ |
+| visibility           | `uint8` | 1             | Bitmask; 1 bit per `PlayerColor`, indicating if this tile is currently visible |
+| has_adjacent_monster | `Bool`  | 1             | 1 if there's a monster on this or adjacent tile, 0 otherwise                   |
