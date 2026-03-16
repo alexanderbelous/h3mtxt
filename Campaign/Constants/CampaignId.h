@@ -59,6 +59,7 @@ namespace h3m
     case CampaignId::SeedsOfDiscontent:
       return 3;
     case CampaignId::Bracada:
+    case CampaignId::Islands:
     case CampaignId::Krewlod:
     case CampaignId::Nighon:
       return 4;
