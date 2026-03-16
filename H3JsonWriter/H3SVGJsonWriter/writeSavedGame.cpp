@@ -340,6 +340,6 @@ namespace Medea_NS
   {
     using Fields = h3json::FieldNames<h3svg::TileVisibility>;
     out.writeField(Fields::kVisibility, tile_visibility.visibility, true);
-    out.writeField(Fields::kUnknown, tile_visibility.unknown);
+    out.writeField(Fields::kHasAdjacentMonster, tile_visibility.has_adjacent_monster);
   }
 }

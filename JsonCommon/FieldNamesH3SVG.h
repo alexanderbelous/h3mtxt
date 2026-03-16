@@ -404,7 +404,7 @@ namespace h3json
   struct FieldNames<h3svg::TileVisibility>
   {
     static constexpr std::string_view kVisibility = "visibility";
-    static constexpr std::string_view kUnknown = "unknown";
+    static constexpr std::string_view kHasAdjacentMonster = "has_adjacent_monster";
   };
 
   template<>

@@ -46,9 +46,11 @@ namespace h3svg
   struct TileVisibility
   {
     PlayersBitmask visibility;
-    // TODO: seems to always be 0 by default. Check if there are exceptions or
-    // if modifying it has any effect; if not, replace with ReservedData<1>.
-    std::uint8_t unknown {};
+    // 1 if there is a wandering creature on this tile or an adjacent tile, 0 otherwise.
+    // In this case a sword will be rendered when you hover the mouse over this tile, even
+    // if the wandering creature is not visible. Note, however, that no sword will be rendered
+    // for players for which this tile is still hidden by the Fog of War.
+    Bool has_adjacent_monster {};
   };
 
   // Represents a saved game for Heroes of Might and Magic 3 (.GM1, .GM2, ... files).

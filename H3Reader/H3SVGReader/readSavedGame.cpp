@@ -244,7 +244,7 @@ namespace h3svg
   {
     TileVisibility tile_visibility;
     tile_visibility.visibility = readEnumBitmask<PlayerColor, 1>();
-    tile_visibility.unknown = readInt<std::uint8_t>();
+    tile_visibility.has_adjacent_monster = readBool();
     return tile_visibility;
   }
 
