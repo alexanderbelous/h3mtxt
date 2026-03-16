@@ -159,6 +159,8 @@ namespace h3svg
 
   struct Tile;
 
+  struct TileVisibility;
+
   struct TimedEvent;
 
   struct TownEvent;

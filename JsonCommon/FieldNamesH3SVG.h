@@ -346,6 +346,8 @@ namespace h3json
     static constexpr std::string_view kPlayers = "players";
     static constexpr std::string_view kTowns = "towns";
     static constexpr std::string_view kHeroes = "heroes";
+    static constexpr std::string_view kUnknown5 = "unknown5";
+    static constexpr std::string_view kFogOfWar = "fog_of_war";
   };
 
   template<>
@@ -396,6 +398,13 @@ namespace h3json
     static constexpr std::string_view kObjectIdx = "object_idx";
     static constexpr std::string_view kObjectProperties = "properties";
     static constexpr std::string_view kObjectsToRender = "objects_to_render";
+  };
+
+  template<>
+  struct FieldNames<h3svg::TileVisibility>
+  {
+    static constexpr std::string_view kVisibility = "visibility";
+    static constexpr std::string_view kUnknown = "unknown";
   };
 
   template<>

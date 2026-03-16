@@ -43,6 +43,14 @@ namespace h3svg
     Bool has_been_shown {};
   };
 
+  struct TileVisibility
+  {
+    PlayersBitmask visibility;
+    // TODO: seems to always be 0 by default. Check if there are exceptions or
+    // if modifying it has any effect; if not, replace with ReservedData<1>.
+    std::uint8_t unknown {};
+  };
+
   // Represents a saved game for Heroes of Might and Magic 3 (.GM1, .GM2, ... files).
   struct SavedGame
   {
@@ -123,11 +131,15 @@ namespace h3svg
     // The number of elements must always be equal to h3m::kNumHeroes (156).
     // However, I'm not using std::array here because that would make sizeof(SavedGame) Hueg Like XBox (~160KB).
     std::vector<Hero> heroes;
+    // TODO: figure out what this is.
+    std::array<std::uint8_t, 442> unknown5 {};
+    // Visibility of each tile for each player.
+    // The number of elements should be (has_two_levels ? 2 : 1) * map_size * map_size,
+    // i.e. countTiles(this->basic_info).
+    // Tile (x, y, z) has the index ((z * map_size + y) * map_size + x).
+    std::vector<TileVisibility> fog_of_war;
 
     // TODO: reverse-engineer the rest.
-    // The next fields are approximately:
-    // * ??? ~450 bytes
-    // * Fog of War (visibility of each tile for each player).
     //
     // Obviuously, there are other fields as well, but I don't know yet where they are located:
     // * Timestamp for the saved game (Heroes3.exe stores it somewhere in the file instead of using

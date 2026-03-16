@@ -14,49 +14,53 @@ namespace Medea_NS
 {
   namespace
   {
-    // Helper class to pass map_size to JsonValueWriter when writing SavedGame::tiles.
+    // Helper class to pass map_size to JsonValueWriter when writing vectors of elements whose indices are
+    // the cooridnates of tiles on the Adventure Map (e.g., SavedGame::tiles and SavedGame::fog_of_war).
+    template<class T>
     struct TilesWithMapSize
     {
-      std::span<const h3svg::Tile> tiles;
+      std::span<const T> tiles;
       std::uint32_t map_size {};
       bool has_two_levels {};
     };
   }
 
-  // Serialize TilesWithMapSize as a JSON array.
-  template<>
-  void JsonArrayWriter<TilesWithMapSize>::operator()(const ArrayElementsWriter& out,
-                                                     const TilesWithMapSize& value) const
+  // Partial specialization for TilesWithMapSize: serialize it as a JSON array.
+  template<class T>
+  struct JsonArrayWriter<TilesWithMapSize<T>>
   {
-    const std::size_t num_levels = value.has_two_levels ? 2 : 1;
-    const std::size_t expected_num_tiles = num_levels * value.map_size * value.map_size;
-    if (value.tiles.size() != expected_num_tiles)
+    void operator()(const ArrayElementsWriter& out, const TilesWithMapSize<T>& value) const
     {
-      // Strictly speaking, this is an error - the number of tiles should match expected_num_tiles.
-      // However, this is only an error for H3SVG - we can still serialize such arrays of tiles as
-      // JSON. We cannot reliably print coordinates though.
-      for (const h3svg::Tile& tile : value.tiles)
+      const std::size_t num_levels = value.has_two_levels ? 2 : 1;
+      const std::size_t expected_num_tiles = num_levels * value.map_size * value.map_size;
+      if (value.tiles.size() != expected_num_tiles)
       {
-        out.writeElement(tile);
-      }
-      return;
-    }
-
-    h3m::H3JsonWriter_NS::CommentBuilder comment_builder;
-    auto iter = value.tiles.begin();
-    for (std::uint32_t z = 0; z < num_levels; ++z)
-    {
-      for (std::uint32_t y = 0; y < value.map_size; ++y)
-      {
-        for (std::uint32_t x = 0; x < value.map_size; ++x)
+        // Strictly speaking, this is an error - the number of tiles should match expected_num_tiles.
+        // However, this is only an error for H3SVG - we can still serialize such arrays of tiles as
+        // JSON. We cannot reliably print coordinates though.
+        for (const T& tile : value.tiles)
         {
-          out.writeComment(comment_builder.build({ "Tile (", x, ", ", y, ", ", z, ")" }));
-          out.writeElement(*iter);
-          ++iter;
+          out.writeElement(tile);
+        }
+        return;
+      }
+
+      h3m::H3JsonWriter_NS::CommentBuilder comment_builder;
+      auto iter = value.tiles.begin();
+      for (std::uint32_t z = 0; z < num_levels; ++z)
+      {
+        for (std::uint32_t y = 0; y < value.map_size; ++y)
+        {
+          for (std::uint32_t x = 0; x < value.map_size; ++x)
+          {
+            out.writeComment(comment_builder.build({ "Tile (", x, ", ", y, ", ", z, ")" }));
+            out.writeElement(*iter);
+            ++iter;
+          }
         }
       }
     }
-  }
+  };
 
   void JsonObjectWriter<h3svg::Player>::operator()(FieldsWriter& out,
                                                    const h3svg::Player& player) const
@@ -193,7 +197,7 @@ namespace Medea_NS
     out.writeField(Fields::kRumors, saved_game.rumors);
     out.writeField(Fields::kBlackMarkets, saved_game.black_markets);
     out.writeField(Fields::kTiles,
-                   TilesWithMapSize{
+                   TilesWithMapSize<h3svg::Tile>{
                      .tiles = saved_game.tiles,
                      .map_size = saved_game.basic_info.map_size,
                      .has_two_levels = static_cast<bool>(saved_game.basic_info.has_two_levels)
@@ -205,6 +209,12 @@ namespace Medea_NS
     out.writeField(Fields::kPlayers, saved_game.players);
     out.writeField(Fields::kTowns, saved_game.towns);
     out.writeField(Fields::kHeroes, saved_game.heroes);
+    out.writeField(Fields::kUnknown5, saved_game.unknown5);
+    out.writeField(Fields::kFogOfWar, TilesWithMapSize<h3svg::TileVisibility>{
+                                        .tiles = saved_game.fog_of_war,
+                                        .map_size = saved_game.basic_info.map_size,
+                                        .has_two_levels = static_cast<bool>(saved_game.basic_info.has_two_levels)
+                                      });
   }
 
   void JsonObjectWriter<h3svg::ScenarioStartingInfo>::operator()(FieldsWriter& out,
@@ -323,5 +333,13 @@ namespace Medea_NS
     out.writeField(Fields::kObjectIdx, tile.object_idx);
     out.writeField(Fields::kObjectProperties, tile.object_properties);
     out.writeField(Fields::kObjectsToRender, tile.objects_to_render);
+  }
+
+  void JsonObjectWriter<h3svg::TileVisibility>::operator()(FieldsWriter& out,
+                                                           const h3svg::TileVisibility& tile_visibility) const
+  {
+    using Fields = h3json::FieldNames<h3svg::TileVisibility>;
+    out.writeField(Fields::kVisibility, tile_visibility.visibility, true);
+    out.writeField(Fields::kUnknown, tile_visibility.unknown);
   }
 }

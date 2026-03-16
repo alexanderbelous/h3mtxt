@@ -94,6 +94,8 @@ namespace h3svg
 
     Tile readTile() const;
 
+    TileVisibility readTileVisibility() const;
+
     TimedEvent readTimedEvent() const;
 
     TownEvent readTownEvent() const;

@@ -184,6 +184,18 @@ namespace h3svg
         saved_game.heroes.push_back(readHero());
       }
     }
+    // Read 442 bytes.
+    // TODO: figure out what this is.
+    saved_game.unknown5 = readByteArray<442>();
+    // Read Fog of War.
+    {
+      const std::size_t num_tiles = countTiles(saved_game.basic_info);
+      saved_game.fog_of_war.reserve(num_tiles);
+      for (std::size_t i = 0; i < num_tiles; ++i)
+      {
+        saved_game.fog_of_war.push_back(readTileVisibility());
+      }
+    }
     // TODO: read the rest.
     return saved_game;
   }
@@ -226,6 +238,14 @@ namespace h3svg
       starting_bonus = readEnum<PlayerStartingBonusType>();
     }
     return starting_info;
+  }
+
+  TileVisibility H3SVGReader::readTileVisibility() const
+  {
+    TileVisibility tile_visibility;
+    tile_visibility.visibility = readEnumBitmask<PlayerColor, 1>();
+    tile_visibility.unknown = readInt<std::uint8_t>();
+    return tile_visibility;
   }
 
   Town H3SVGReader::readTown() const
