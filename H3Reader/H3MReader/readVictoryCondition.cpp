@@ -18,7 +18,7 @@ namespace h3m
     template<VictoryConditionType T, class Enable = void>
     struct ReadVictoryConditionDetails
     {
-      VictoryConditionDetails<T> operator()(const H3MReader& reader) const
+      VictoryConditionDetails<T> operator()(const H3MReader&) const
       {
         static_assert(false, "Missing specialization for ReadVictoryConditionDetails<T>.");
         return {};
@@ -133,7 +133,7 @@ namespace h3m
     template<>
     struct ReadVictoryConditionDetails<VictoryConditionType::Normal>
     {
-      VictoryConditionDetails<VictoryConditionType::Normal> operator()(const H3MReader& reader) const
+      VictoryConditionDetails<VictoryConditionType::Normal> operator()(const H3MReader&) const
       {
         return {};
       }
