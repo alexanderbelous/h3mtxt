@@ -154,7 +154,9 @@ An H3SVG file is a single structure which we will naturally call [`SavedGame`](#
 | heroes                    | [`Hero[156]`](#Hero)             | varies        | Properties for each hero                                         |
 | unknown5                  | `uint8[361]`                     | 361           | TODO                                                             |
 | artifact_merchants        | [`ArtifactMerchants`](#ArtifactMerchants) | 28   | Artifacts currently available in Artifact Merchants              |
-| unknown6                  | `uint8[53]`                      | 53            | TODO                                                             |
+| unknown6                  | `uint8[32]`                      | 32            | TODO                                                             |
+| keymasters_tents          | `uint8[8]`                       | 8             | 8 bitmasks - 1 per Keymaster's Tent type - indicating which players have visited it |
+| unknown7                  | `uint8[13]`                      | 13            | TODO                                                             |
 | fog_of_war                | [`TileVisibility[NUM_TILES]`](#TileVisibility) | varies | Describes visibility of each tile for each player         |
 
 

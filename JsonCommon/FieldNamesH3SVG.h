@@ -12,6 +12,19 @@
 namespace h3json
 {
   template<>
+  inline constexpr std::array<std::string_view, 8> kEnumFieldNames<h3svg::KeymastersTentType> =
+  {
+    "light_blue",
+    "green",
+    "red",
+    "dark_blue",
+    "brown",
+    "purple",
+    "white",
+    "black"
+  };
+
+  template<>
   inline constexpr std::array<std::string_view, 48> kEnumFieldNames<h3svg::TownBuildingTypeH3SVG> =
   {
     "mage_guild1",
@@ -349,6 +362,8 @@ namespace h3json
     static constexpr std::string_view kUnknown5 = "unknown5";
     static constexpr std::string_view kArtifactMerchants = "artifact_merchants";
     static constexpr std::string_view kUnknown6 = "unknown6";
+    static constexpr std::string_view kKeymastersTents = "keymasters_tents";
+    static constexpr std::string_view kUnknown7 = "unknown7";
     static constexpr std::string_view kFogOfWar = "fog_of_war";
   };
 

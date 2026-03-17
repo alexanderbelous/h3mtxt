@@ -8,6 +8,7 @@
 #include <h3mtxt/Map/MapAdditionalInfo.h>
 #include <h3mtxt/Map/MapBasicInfo.h>
 #include <h3mtxt/SavedGame/Constants/Constants.h>
+#include <h3mtxt/SavedGame/Constants/KeymastersTentType.h>
 #include <h3mtxt/SavedGame/ArtifactMerchants.h>
 #include <h3mtxt/SavedGame/Hero.h>
 #include <h3mtxt/SavedGame/ObjectPropertiesTables.h>
@@ -123,7 +124,11 @@ namespace h3svg
     std::array<std::uint8_t, 361> unknown5 {};
     ArtifactMerchants artifact_merchants;
     // TODO: figure out what this is.
-    std::array<std::uint8_t, 53> unknown6 {};
+    std::array<std::uint8_t, 32> unknown6 {};
+    // 8 bitmasks - 1 for each Keymaster's Tent type - indicating which players have visited that Keymaster's Tent.
+    EnumIndexedArray<KeymastersTentType, PlayersBitmask, kNumKeymastersTentTypes> keymasters_tents;
+    // TODO: figure out what this is.
+    std::array<std::uint8_t, 13> unknown7 {};
     // Visibility of each tile for each player.
     // The number of elements should be (has_two_levels ? 2 : 1) * map_size * map_size,
     // i.e. countTiles(this->basic_info).

@@ -2,6 +2,7 @@
 set(SOURCE_LIST
     "Constants/ArtifactType32.h"
     "Constants/Constants.h"
+    "Constants/KeymastersTentType.h"
     "Constants/ObjectPropertiesType.h"
     "Constants/PlayerControlType.h"
     "Constants/PlayerPersonality.h"
