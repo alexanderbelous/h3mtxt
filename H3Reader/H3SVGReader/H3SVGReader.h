@@ -16,13 +16,13 @@ namespace h3svg
 
     Artifact readArtifact() const;
 
+    ArtifactMerchants readArtifactMerchants() const;
+
     Coordinates readCoordinates() const;
 
     CreatureStack readCreatureStack() const;
 
     CustomHero readCustomHero() const;
-
-    BlackMarket readBlackMarket() const;
 
     Boat readBoat() const;
 

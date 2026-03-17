@@ -8,6 +8,7 @@
 #include <h3mtxt/Map/MapAdditionalInfo.h>
 #include <h3mtxt/Map/MapBasicInfo.h>
 #include <h3mtxt/SavedGame/Constants/Constants.h>
+#include <h3mtxt/SavedGame/ArtifactMerchants.h>
 #include <h3mtxt/SavedGame/Hero.h>
 #include <h3mtxt/SavedGame/ObjectPropertiesTables.h>
 #include <h3mtxt/SavedGame/Object.h>
@@ -27,12 +28,6 @@
 
 namespace h3svg
 {
-  struct BlackMarket
-  {
-    // Each element should be either a valid ArtifactType constant or -1 if the slot is empty.
-    std::array<ArtifactType32, 7> artifacts {};
-  };
-
   // The equivalent of h3m::Rumor stored in the saved game.
   struct Rumor
   {
@@ -105,7 +100,7 @@ namespace h3svg
     // Artifacts currently available in Black Markets on the Adventure Map.
     // Ideally, this should be a member of object_properties_tables, but in H3SVG it is serialized
     // immediately after rumors.
-    std::vector<BlackMarket> black_markets;
+    std::vector<ArtifactMerchants> black_markets;
     // Terrain data for each tile on the map.
     // The number of elements should be (has_two_levels ? 2 : 1) * map_size * map_size,
     // i.e. countTiles(this->basic_info).
@@ -125,7 +120,10 @@ namespace h3svg
     // However, I'm not using std::array here because that would make sizeof(SavedGame) Hueg Like XBox (~160KB).
     std::vector<Hero> heroes;
     // TODO: figure out what this is.
-    std::array<std::uint8_t, 442> unknown5 {};
+    std::array<std::uint8_t, 361> unknown5 {};
+    ArtifactMerchants artifact_merchants;
+    // TODO: figure out what this is.
+    std::array<std::uint8_t, 53> unknown6 {};
     // Visibility of each tile for each player.
     // The number of elements should be (has_two_levels ? 2 : 1) * map_size * map_size,
     // i.e. countTiles(this->basic_info).

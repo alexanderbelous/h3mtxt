@@ -11,10 +11,10 @@ namespace Medea_NS
   template<>
   void JsonObjectWriter<h3svg::Artifact>::operator()(FieldsWriter& out, const h3svg::Artifact& artifact) const;
 
-  // Serialize h3svg::BlackMarket as a JSON array.
+  // Serialize h3svg::ArtifactMerchants as a JSON array.
   template<>
-  void JsonArrayWriter<h3svg::BlackMarket>::operator()(const ArrayElementsWriter& out,
-                                                       const h3svg::BlackMarket& black_market) const;
+  void JsonArrayWriter<h3svg::ArtifactMerchants>::operator()(const ArrayElementsWriter& out,
+                                                             const h3svg::ArtifactMerchants& artifact_merchants) const;
 
   template<>
   void JsonObjectWriter<h3svg::Boat>::operator()(FieldsWriter& out, const h3svg::Boat& boat) const;

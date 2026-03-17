@@ -126,10 +126,10 @@ namespace Medea_NS
     out.writeField(Fields::kHasBeenShown, rumor.has_been_shown);
   }
 
-  void JsonArrayWriter<h3svg::BlackMarket>::operator()(const ArrayElementsWriter& out,
-                                                       const h3svg::BlackMarket& black_market) const
+  void JsonArrayWriter<h3svg::ArtifactMerchants>::operator()(const ArrayElementsWriter& out,
+                                                             const h3svg::ArtifactMerchants& artifact_merchants) const
   {
-    for (h3svg::ArtifactType32 artifact : black_market.artifacts)
+    for (h3svg::ArtifactType32 artifact : artifact_merchants.artifacts)
     {
       out.writeElement(artifact);
       if (std::string_view enum_str = getEnumString(artifact); !enum_str.empty())
@@ -210,6 +210,8 @@ namespace Medea_NS
     out.writeField(Fields::kTowns, saved_game.towns);
     out.writeField(Fields::kHeroes, saved_game.heroes);
     out.writeField(Fields::kUnknown5, saved_game.unknown5);
+    out.writeField(Fields::kArtifactMerchants, saved_game.artifact_merchants);
+    out.writeField(Fields::kUnknown6, saved_game.unknown6);
     out.writeField(Fields::kFogOfWar, TilesWithMapSize<h3svg::TileVisibility>{
                                         .tiles = saved_game.fog_of_war,
                                         .map_size = saved_game.basic_info.map_size,

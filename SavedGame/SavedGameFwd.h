@@ -96,7 +96,7 @@ namespace h3svg
 
   struct Artifact;
 
-  struct BlackMarket;
+  struct ArtifactMerchants;
 
   struct Boat;
 

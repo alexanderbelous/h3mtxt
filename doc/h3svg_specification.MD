@@ -141,7 +141,7 @@ An H3SVG file is a single structure which we will naturally call [`SavedGame`](#
 | num_rumors                | `uint32`                         | 4             | The number of custom rumors added by the mapmaker                |
 | rumors                    | [`Rumor[num_rumors]`](#Rumor)    | varies        | "Map Specifications / Rumors" in the Editor                      |
 | num_black_markets         | `uint8`                          | 1             | The number of Black Markets on the Adventure Map                 |
-| black_markets             | [`BlackMarket[num_black_markets]`](#BlackMarket) | varies | Current state for each Black Market on the map          |
+| black_markets             | [`ArtifactMerchants[num_black_markets]`](#ArtifactMerchants) | varies | Current state for each Black Market on the map |
 | tiles                     | [`Tile[NUM_TILES]`](#Tile)       | varies        | NUM_TILES = num_levels * map_size * map_size                     |
 | num_objects_templates     | `uint32`                         | 4             | The number of templates for objects on the Adventure Map         |
 | objects_templates         | [`ObjectTemplate[num_objects_templates]`](#ObjectTemplate) | varies | Templates for objects on the Adventure Map    |
@@ -152,7 +152,9 @@ An H3SVG file is a single structure which we will naturally call [`SavedGame`](#
 | num_towns                 | `uint8`                          | 1             | The number of towns on the Adventure Map                         |
 | towns                     | [`Town[num_towns]`](#Town)       | varies        | Towns on the Adventure Map                                       |
 | heroes                    | [`Hero[156]`](#Hero)             | varies        | Properties for each hero                                         |
-| unknown5                  | `uint8[442]`                     | 442           | TODO                                                             |
+| unknown5                  | `uint8[361]`                     | 361           | TODO                                                             |
+| artifact_merchants        | [`ArtifactMerchants`](#ArtifactMerchants) | 28   | Artifacts currently available in Artifact Merchants              |
+| unknown6                  | `uint8[53]`                      | 53            | TODO                                                             |
 | fog_of_war                | [`TileVisibility[NUM_TILES]`](#TileVisibility) | varies | Describes visibility of each tile for each player         |
 
 
@@ -235,7 +237,7 @@ An H3SVG file is a single structure which we will naturally call [`SavedGame`](#
 | has_been_shown | `Bool`     | 1             | Indicates whether this rumor has been displayed in the Tavern          |
 
 
-### `BlackMarket`
+### `ArtifactMerchants`
 | Field name | Type       | Size in bytes | Description                                                            |
 | ---------- | ---------- | ------------- | ---------------------------------------------------------------------- |
 | artifacts  | `int32[7]` | 28            | Enum `ArtifactType` for each slot. 0xFFFFFFFF is used for empty slots  |

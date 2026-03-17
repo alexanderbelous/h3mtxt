@@ -6,14 +6,14 @@
 
 namespace h3svg
 {
-  BlackMarket H3SVGReader::readBlackMarket() const
+  ArtifactMerchants H3SVGReader::readArtifactMerchants() const
   {
-    BlackMarket black_market;
-    for (ArtifactType32& artifact : black_market.artifacts)
+    ArtifactMerchants artifact_merchants;
+    for (ArtifactType32& artifact : artifact_merchants.artifacts)
     {
       artifact = readEnum<ArtifactType32>();
     }
-    return black_market;
+    return artifact_merchants;
   }
 
   // Always 145 bytes.
@@ -130,7 +130,7 @@ namespace h3svg
       for (std::uint32_t i = 0; i < num_black_markets; ++i)
       {
         // Read 28 bytes for each Black Market (7 32-bit integers).
-        saved_game.black_markets.push_back(readBlackMarket());
+        saved_game.black_markets.push_back(readArtifactMerchants());
       }
     }
     // Read tiles.
@@ -184,9 +184,14 @@ namespace h3svg
         saved_game.heroes.push_back(readHero());
       }
     }
-    // Read 442 bytes.
+    // Read 361 bytes.
     // TODO: figure out what this is.
-    saved_game.unknown5 = readByteArray<442>();
+    saved_game.unknown5 = readByteArray<361>();
+    // Read Artifact Merchants.
+    saved_game.artifact_merchants = readArtifactMerchants();
+    // Read 53 bytes.
+    // TODO: figure out what this is.
+    saved_game.unknown6 = readByteArray<53>();
     // Read Fog of War.
     {
       const std::size_t num_tiles = countTiles(saved_game.basic_info);
