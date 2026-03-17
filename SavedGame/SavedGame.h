@@ -140,7 +140,6 @@ namespace h3svg
     // Obviuously, there are other fields as well, but I don't know yet where they are located:
     // * Timestamp for the saved game (Heroes3.exe stores it somewhere in the file instead of using
     //   filesystem metadata)
-    // * Which player has visited the Keymaster's tent (for each Keymaster's tent subtype)
     // * Which heroes have been defeated by the player (needed in quests)
     // * Previous turns for all opponents (probably for all players, because that would be
     //   necessary in multiplayer games).
