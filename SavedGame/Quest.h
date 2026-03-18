@@ -2,6 +2,7 @@
 
 #include <h3mtxt/SavedGame/SavedGameFwd.h>
 
+#include <h3mtxt/Map/Utils/EnumBitmask.h>
 #include <h3mtxt/Map/Quest.h>
 
 #include <array>
@@ -35,13 +36,15 @@ namespace h3svg
     // Note that the hero is represented here by their HeroType - H3M uses absod_id instead.
     HeroType hero {};
     // TODO: maybe hero should be treated as a 16-bit enum instead.
-    std::array<std::byte, 2> unknown {};
+    std::uint8_t unknown {};
+    PlayersBitmask completed_by {};
   };
 
   template<>
   struct QuestDetails<QuestType::DefeatMonster>
   {
     // Absolutely idiotic format - X is 16-bit, Y is 8-bit and Z is Bool.
+    // TODO: it's likely the packed uint32 format - X is 16 bit, Y is 10 bit, Z is 6 bit.
     std::uint16_t x {};
     std::uint8_t y {};
     // Not necessarily 0 or 1 - apparently, 0x04 is usually used for subterranean.

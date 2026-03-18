@@ -59,6 +59,7 @@ namespace Medea_NS
       out.writeComment(enum_str, false);
     }
     out.writeField("unknown", details.unknown);
+    out.writeField("completed_by", details.completed_by);
   }
 
   void JsonObjectWriter<h3svg::QuestDetails<h3svg::QuestType::DefeatMonster>>::operator()(

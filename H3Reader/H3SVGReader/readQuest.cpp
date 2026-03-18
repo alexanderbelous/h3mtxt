@@ -63,7 +63,8 @@ namespace h3svg
   {
     QuestDetails<QuestType::DefeatHero> details;
     details.hero = readEnum<HeroType>();
-    readBytes(std::span<std::byte, 2>{ details.unknown });
+    details.unknown = readInt<std::uint8_t>();
+    details.completed_by = readEnumBitmask<PlayerColor, 1>();
     return details;
   }
 
