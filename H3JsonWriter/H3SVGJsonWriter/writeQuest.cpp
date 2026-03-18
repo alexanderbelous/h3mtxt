@@ -10,6 +10,14 @@
 
 namespace Medea_NS
 {
+  namespace
+  {
+    std::string_view getPlayerColorStrOrNone(h3svg::PlayerColor value) noexcept
+    {
+      return (value == h3svg::PlayerColor{0xFF}) ? "None" : getEnumString(value);
+    }
+  }
+
   // TODO: it kinda sucks that it's declared here.
   template<>
   void JsonObjectWriter<h3svg::QuestDetails<h3svg::QuestType::Creatures>::Creature>::operator()(
@@ -64,7 +72,11 @@ namespace Medea_NS
     {
       out.writeComment(enum_str, false);
     }
-    out.writeField("unknown", details.unknown);
+    out.writeField("completed_by", details.completed_by);
+    if (std::string_view enum_str = getPlayerColorStrOrNone(details.completed_by); !enum_str.empty())
+    {
+      out.writeComment(enum_str, false);
+    }
   }
 
   void JsonObjectWriter<h3svg::QuestDetails<h3svg::QuestType::Artifacts>>::operator()(

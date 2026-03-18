@@ -47,7 +47,8 @@ namespace h3svg
     // Not necessarily 0 or 1 - apparently, 0x04 is usually used for subterranean.
     Bool z {};
     CreatureType creature_type {};
-    std::byte unknown {};
+    // Player who defeated this monster, or 0xFF if no one has yet.
+    PlayerColor completed_by {};
   };
 
   // Identical to h3m::QuestDetails<QuestType::Artifacts>.

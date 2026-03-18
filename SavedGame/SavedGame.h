@@ -121,6 +121,7 @@ namespace h3svg
     // However, I'm not using std::array here because that would make sizeof(SavedGame) Hueg Like XBox (~160KB).
     std::vector<Hero> heroes;
     // TODO: figure out what this is.
+    // * Seems to contain the coordinates of the Grail (even if has already been dug out) near the end.
     std::array<std::uint8_t, 361> unknown5 {};
     ArtifactMerchants artifact_merchants;
     // TODO: figure out what this is.

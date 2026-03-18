@@ -75,7 +75,7 @@ namespace h3svg
     details.y = readInt<std::uint8_t>();
     details.z = readBool();
     details.creature_type = readEnum<CreatureType>();
-    details.unknown = static_cast<std::byte>(readInt<std::uint8_t>());
+    details.completed_by = readEnum<PlayerColor>();
     return details;
   }
 
