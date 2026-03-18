@@ -1,17 +1,13 @@
 #include <h3mtxt/H3JsonWriter/H3MJsonWriter/H3MJsonWriter.h>
 
 #include <h3mtxt/H3JsonWriter/H3MJsonWriter/CommentBuilder.h>
-#include <h3mtxt/H3JsonWriter/H3MJsonWriter/getEnumString.h>
 #include <h3mtxt/H3JsonWriter/H3MJsonWriter/Utils.h>
-#include <h3mtxt/JsonCommon/FieldName.h>
+#include <h3mtxt/JsonCommon/FieldNamesH3M.h>
 #include <h3mtxt/Map/Map.h>
 #include <h3mtxt/Medea/Medea.h>
 
 #include <span>
 #include <stdexcept>
-#include <string>
-#include <string_view>
-#include <type_traits>
 
 namespace Medea_NS
 {
@@ -84,24 +80,6 @@ namespace Medea_NS
       const h3m::Object& object;
     };
   }
-
-  // Explicit specialization for std::array<h3m::PlayerSpecs, h3m::kMaxPlayers> to print comments.
-  template<>
-  struct JsonArrayWriter<std::array<h3m::PlayerSpecs, h3m::kMaxPlayers>>
-  {
-    void operator()(const ArrayElementsWriter& out,
-                    const std::array<h3m::PlayerSpecs, h3m::kMaxPlayers>& players) const
-    {
-      h3m::H3JsonWriter_NS::CommentBuilder comment_builder;
-      for (std::size_t i = 0; i < h3m::kMaxPlayers; ++i)
-      {
-        const h3m::PlayerColor player = static_cast<h3m::PlayerColor>(i);
-        const std::string_view player_str = h3m::getEnumString(player);
-        out.writeComment(comment_builder.build({ "Player ", i, " (", player_str, ")" }));
-        out.writeElement(players[i]);
-      }
-    }
-  };
 
   // Serialize TilesWithMapSize as a JSON array.
   template<>

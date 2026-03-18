@@ -3,7 +3,7 @@
 #include <h3mtxt/H3JsonWriter/H3MJsonWriter/CommentBuilder.h>
 #include <h3mtxt/H3JsonWriter/H3MJsonWriter/getEnumString.h>
 #include <h3mtxt/H3JsonWriter/H3MJsonWriter/Utils.h>
-#include <h3mtxt/JsonCommon/FieldName.h>
+#include <h3mtxt/JsonCommon/FieldNamesH3M.h>
 #include <h3mtxt/Map/Constants/ExperienceLevels.h>
 #include <h3mtxt/Map/Object.h>
 #include <h3mtxt/Map/ObjectTemplate.h>

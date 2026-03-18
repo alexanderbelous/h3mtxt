@@ -110,9 +110,9 @@ namespace h3m
     teams_info.num_teams = readInt<std::uint8_t>();
     if (teams_info.num_teams != 0)
     {
-      for (int i = 0; i < 8; ++i)
+      for (std::uint8_t& team : teams_info.team_for_player.data)
       {
-        teams_info.team_for_player[i] = readInt<std::uint8_t>();
+        team = readInt<std::uint8_t>();
       }
     }
     return teams_info;
@@ -262,7 +262,7 @@ namespace h3m
     map.basic_info = readMapBasicInfo();
     for (int i = 0; i < kMaxPlayers; ++i)
     {
-      map.players[i] = readPlayerSpecs();
+      map.players.data[i] = readPlayerSpecs();
     }
     map.additional_info = readMapAdditionalInfo();
     // Read tiles.

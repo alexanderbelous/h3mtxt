@@ -2,7 +2,7 @@
 add_library(JsonCommon INTERFACE
     "getEnumFieldNames.h"
     "JsonCommonFwd.h"
-    "FieldName.h"
+    "FieldNamesH3M.h"
     "FieldNamesH3C.h"
     "FieldNamesH3SVG.h"
 )

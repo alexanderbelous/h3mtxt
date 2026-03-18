@@ -39,9 +39,14 @@ namespace h3m::H3JsonReader_NS
     }
   }
 
+  const Json::Value* findJsonField(const Json::Value& value, std::string_view field_name)
+  {
+    return value.find(field_name.data(), field_name.data() + field_name.size());
+  }
+
   const Json::Value& getJsonField(const Json::Value& value, std::string_view field_name)
   {
-    if (const Json::Value* field = value.find(field_name.data(), field_name.data() + field_name.size()))
+    if (const Json::Value* field = findJsonField(value, field_name))
     {
       return *field;
     }

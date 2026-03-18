@@ -2,7 +2,7 @@
 
 #include <h3mtxt/H3JsonWriter/H3MJsonWriter/getEnumString.h>
 #include <h3mtxt/H3JsonWriter/H3MJsonWriter/getSecondarySkillLevelString.h>
-#include <h3mtxt/JsonCommon/FieldName.h>
+#include <h3mtxt/JsonCommon/FieldNamesH3M.h>
 #include <h3mtxt/Map/SecondarySkill.h>
 #include <h3mtxt/Medea/Medea.h>
 

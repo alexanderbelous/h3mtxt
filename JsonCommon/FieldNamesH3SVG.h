@@ -4,7 +4,7 @@
 
 #include <h3mtxt/JsonCommon/JsonCommonFwd.h>
 
-#include <h3mtxt/JsonCommon/FieldName.h>
+#include <h3mtxt/JsonCommon/FieldNamesH3M.h>
 #include <h3mtxt/SavedGame/SavedGameFwd.h>
 
 #include <string_view>

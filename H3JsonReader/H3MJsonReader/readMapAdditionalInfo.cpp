@@ -1,7 +1,8 @@
 #include <h3mtxt/H3JsonReader/H3MJsonReader/H3MJsonReader.h>
 
 #include <h3mtxt/H3JsonReader/H3JsonReaderBase/H3JsonReaderBase.h>
-#include <h3mtxt/JsonCommon/FieldName.h>
+#include <h3mtxt/JsonCommon/FieldNamesH3M.h>
+#include <h3mtxt/Map/Constants/Constants.h>
 #include <h3mtxt/Map/MapAdditionalInfo.h>
 
 namespace h3m::H3JsonReader_NS
@@ -40,16 +41,17 @@ namespace h3m::H3JsonReader_NS
 
   HeroesSettings JsonReader<HeroesSettings>::operator()(const Json::Value& value) const
   {
-    if (!value.isArray())
-    {
-      throw std::runtime_error("JsonReader<HeroesSettings>(): expected array, got " + value.toStyledString());
-    }
+    constexpr std::span<const std::string_view, h3m::kNumHeroes> kFieldNames =
+      h3json::getEnumFieldNames<h3m::HeroType, h3m::kNumHeroes>();
+
     HeroesSettings heroes_settings;
-    for (const Json::Value& keyval : value)
+    for (std::size_t hero_idx = 0; hero_idx < h3m::kNumHeroes; ++hero_idx)
     {
-      const HeroType hero = readField<HeroType>(keyval, "hero");
-      HeroSettings settings = readField<HeroSettings>(keyval, "settings");
-      heroes_settings[hero] = std::move(settings);
+      if (const Json::Value* field = findJsonField(value, kFieldNames[hero_idx]))
+      {
+        const HeroType hero = static_cast<HeroType>(hero_idx);
+        heroes_settings[hero] = fromJson<HeroSettings>(*field);
+      }
     }
     return heroes_settings;
   }

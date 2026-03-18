@@ -2,7 +2,8 @@
 
 #include <h3mtxt/H3JsonWriter/H3MJsonWriter/getEnumString.h>
 #include <h3mtxt/H3JsonWriter/H3MJsonWriter/Utils.h>
-#include <h3mtxt/JsonCommon/FieldName.h>
+#include <h3mtxt/JsonCommon/FieldNamesH3M.h>
+#include <h3mtxt/Map/Constants/Constants.h>
 #include <h3mtxt/Map/Constants/ExperienceLevels.h>
 #include <h3mtxt/Map/MapAdditionalInfo.h>
 #include <h3mtxt/Medea/Medea.h>
@@ -26,7 +27,7 @@ namespace Medea_NS
       out.writeComment(hero_portrait_str, false);
     }
     out.writeField(Fields::kName, value.name);
-    out.writeField(Fields::kCanHire, value.can_hire);
+    out.writeField(Fields::kCanHire, value.can_hire, true);
   }
 
   void JsonObjectWriter<h3m::TeamsInfo>::operator()(FieldsWriter& out, const h3m::TeamsInfo& value) const
@@ -85,28 +86,18 @@ namespace Medea_NS
     }
   }
 
-  using HeroesSettingsEntry = std::pair<const h3m::HeroType, h3m::HeroSettings>;
-
-  template<>
-  struct JsonObjectWriter<HeroesSettingsEntry>
+  void JsonObjectWriter<h3m::HeroesSettings>::operator()(FieldsWriter& out, const h3m::HeroesSettings& value) const
   {
-    void operator()(FieldsWriter& out, const HeroesSettingsEntry& entry) const
-    {
-      out.writeField("hero", entry.first);
-      if (std::string_view enum_str = h3m::getEnumString(entry.first); !enum_str.empty())
-      {
-        out.writeComment(enum_str, false);
-      }
-      out.writeField("settings", entry.second);
-    }
-  };
+    // HeroesSettings is essentially std::array<std::optional<h3m::HeroSettings>, h3m::kNumHeroes>.
+    // Instead of serializing it as an array, we serialize it as a JSON object with 156 optional fields -
+    // 1 field per HeroType.
+    constexpr std::span<const std::string_view, h3m::kNumHeroes> kFieldNames =
+      h3json::getEnumFieldNames<h3m::HeroType, h3m::kNumHeroes>();
 
-  void JsonArrayWriter<h3m::HeroesSettings>::operator()(const ArrayElementsWriter& out,
-                                                        const h3m::HeroesSettings& value) const
-  {
-    for (const HeroesSettingsEntry& entry : value.settings())
+    for (const auto& [hero, settings] : value.settings())
     {
-      out.writeElement(entry);
+      const std::string_view field_name = kFieldNames[static_cast<std::size_t>(hero)];
+      out.writeField(field_name, settings);
     }
   }
 
