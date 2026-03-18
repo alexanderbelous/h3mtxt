@@ -5,11 +5,30 @@
 #include <h3mtxt/Map/MapFwd.h>
 #include <h3mtxt/Map/Constants/ObjectPropertiesType.h>
 
+#include <algorithm>
 #include <array>
+#include <span>
 #include <string_view>
+#include <vector>
 
 namespace h3json
 {
+  namespace Detail_NS
+  {
+    // Checks if the input array of strings contains duplicates.
+    // \param fields - input array of strings.
+    // \return true if there are duplicates in @fields, false otherwise.
+    consteval bool hasDuplicates(std::span<const std::string_view> fields)
+    {
+      // This is not optimal: it has O(N*logN) time complexity, even though
+      // this check can be done in O(N). However, std::unordered_set is not
+      // constexpr, so we cannot use it for compile-time checks.
+      std::vector<std::string_view> data{ fields.begin(), fields.end() };
+      std::sort(data.begin(), data.end());
+      return std::adjacent_find(data.begin(), data.end()) != data.end();
+    }
+  }
+
   template<>
   inline constexpr std::array<std::string_view, 19> kEnumFieldNames<h3m::ArtifactSlot> =
   {
@@ -33,6 +52,8 @@ namespace h3json
     "spellbook",
     "misc5"
   };
+  static_assert(!Detail_NS::hasDuplicates(kEnumFieldNames<h3m::ArtifactSlot>),
+                "kEnumFieldNames<h3m::ArtifactSlot> has duplicates.");
 
   template<>
   inline constexpr std::array<std::string_view, 144> kEnumFieldNames<h3m::ArtifactType> =
@@ -182,6 +203,8 @@ namespace h3json
     "mired_in_neutrality",
     "ironfist_of_the_ogre"
   };
+  static_assert(!Detail_NS::hasDuplicates(kEnumFieldNames<h3m::ArtifactType>),
+                "kEnumFieldNames<h3m::ArtifactType> has duplicates.");
 
   template<>
   inline constexpr std::array<std::string_view, 160> kEnumFieldNames<h3m::HeroType> =
@@ -347,18 +370,24 @@ namespace h3json
     "padding_158",
     "padding_159"
   };
+  static_assert(!Detail_NS::hasDuplicates(kEnumFieldNames<h3m::HeroType>),
+                "kEnumFieldNames<h3m::HeroType> has duplicates.");
 
   template<>
   inline constexpr std::array<std::string_view, 8> kEnumFieldNames<h3m::PlayerColor> =
   {
     "red", "blue", "tan", "green", "orange", "purple", "teal", "pink"
   };
+  static_assert(!Detail_NS::hasDuplicates(kEnumFieldNames<h3m::PlayerColor>),
+                "kEnumFieldNames<h3m::PlayerColor> has duplicates.");
 
   template<>
   inline constexpr std::array<std::string_view, 8> kEnumFieldNames<h3m::ResourceType> =
   {
     "wood", "mercury", "ore", "sulfur", "crystal", "gems", "gold", "unknown"
   };
+  static_assert(!Detail_NS::hasDuplicates(kEnumFieldNames<h3m::ResourceType>),
+                "kEnumFieldNames<h3m::ResourceType> has duplicates.");
 
   template<>
   inline constexpr std::array<std::string_view, 32> kEnumFieldNames<h3m::SecondarySkillType> =
@@ -396,6 +425,8 @@ namespace h3json
     "padding_30",
     "padding_31"
   };
+  static_assert(!Detail_NS::hasDuplicates(kEnumFieldNames<h3m::SecondarySkillType>),
+                "kEnumFieldNames<h3m::SecondarySkillType> has duplicates.");
 
   template<>
   inline constexpr std::array<std::string_view, 72> kEnumFieldNames<h3m::SpellType> =
@@ -473,12 +504,16 @@ namespace h3json
     "padding_70",
     "padding_71"
   };
+  static_assert(!Detail_NS::hasDuplicates(kEnumFieldNames<h3m::SpellType>),
+                "kEnumFieldNames<h3m::SpellType> has duplicates.");
 
   template<>
   inline constexpr std::array<std::string_view, 8> kEnumFieldNames<h3m::TileFlag> =
   {
     "terrain_x", "terrain_y", "river_x", "river_y", "road_x", "road_y", "coast", "unknown"
   };
+  static_assert(!Detail_NS::hasDuplicates(kEnumFieldNames<h3m::TileFlag>),
+                "kEnumFieldNames<h3m::TileFlag> has duplicates.");
 
   template<>
   inline constexpr std::array<std::string_view, 48> kEnumFieldNames<h3m::TownBuildingType> =
@@ -532,6 +567,8 @@ namespace h3json
     "padding_46",
     "padding_47"
   };
+  static_assert(!Detail_NS::hasDuplicates(kEnumFieldNames<h3m::TownBuildingType>),
+                "kEnumFieldNames<h3m::TownBuildingType> has duplicates.");
 
   template<>
   inline constexpr std::array<std::string_view, 16> kEnumFieldNames<h3m::TownType> =
@@ -553,6 +590,8 @@ namespace h3json
     "padding_14",
     "padding_15"
   };
+  static_assert(!Detail_NS::hasDuplicates(kEnumFieldNames<h3m::TownType>),
+                "kEnumFieldNames<h3m::TownType> has duplicates.");
 }
 
 namespace h3m

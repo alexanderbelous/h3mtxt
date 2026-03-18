@@ -12,7 +12,7 @@ namespace h3json
   // where N specifies the range of enum values for which the names are provided,
   // i.e. Enum{0}, Enum{1}, ... Enum{N-1}.
   //
-  // This is used to serialize h3m::EnumBitmask.
+  // This is used to serialize h3m::EnumBitmask and h3m::EnumIndexedArray.
   template<class Enum>
   inline constexpr std::array<std::string_view, 0> kEnumFieldNames {};
 }
