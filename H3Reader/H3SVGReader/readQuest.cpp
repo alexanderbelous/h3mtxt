@@ -120,7 +120,7 @@ namespace h3svg
   {
     QuestDetails<QuestType::BeHero> details;
     details.hero = readEnum<HeroType>();
-    details.unknown = static_cast<std::byte>(readInt<std::uint8_t>());
+    details.unknown = readInt<std::uint8_t>();
     return details;
   }
 
@@ -137,7 +137,7 @@ namespace h3svg
     quest.details = readQuestDetailsVariant(*this, quest_type);
     if (quest_type != QuestType::None)
     {
-      readBytes(std::span<std::byte, 2>{ quest.unknown });
+      quest.unknown = readByteArray<2>();
       quest.deadline = readInt<std::uint32_t>();
       quest.proposal = readString32();
       quest.progress = readString32();

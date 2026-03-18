@@ -6,7 +6,6 @@
 #include <h3mtxt/Map/Quest.h>
 
 #include <array>
-#include <cstddef>
 #include <cstdint>
 #include <string>
 #include <variant>
@@ -81,7 +80,7 @@ namespace h3svg
   {
     HeroType hero {};
     // TODO: maybe hero should be treated as a 16-bit enum instead. 
-    std::byte unknown {};
+    std::uint8_t unknown {};
   };
 
   // Identical to h3m::QuestDetails<QuestType::BePlayer>.
@@ -108,14 +107,14 @@ namespace h3svg
     // \return the type of the quest.
     constexpr QuestType type() const noexcept;
 
-    Details details {};
+    Details details;
     // The fiels below are only read/written if type() != QuestType::None.
-    std::array<std::byte, 2> unknown {};
+    std::array<std::uint8_t, 2> unknown {};
     // 0 - impossible to fulfill; 0xFFFFFFFF - none.
     std::uint32_t deadline = 0xFFFFFFFF;
-    std::string proposal {};
-    std::string progress {};
-    std::string completion {};
+    std::string proposal;
+    std::string progress;
+    std::string completion;
   };
 
   constexpr QuestType Quest::type() const noexcept

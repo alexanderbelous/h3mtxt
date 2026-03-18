@@ -90,7 +90,7 @@ namespace h3svg
     // but it can also be 1 even if the artifact is enabled.
     EnumIndexedArray<ArtifactType, Bool, 144> artifacts_bitmask_unknown;
     // Array of boolean values indicating which secondary skills are disabled on this map (1 - disabled, 0 - enabled).
-    EnumIndexedArray<SecondarySkillType, Bool, 28> disabled_skills;
+    EnumIndexedArray<SecondarySkillType, Bool, kNumSecondarySkills> disabled_skills;
     // The currently displayed rumor in the Tavern.
     std::string current_rumor;
     // TODO: figure out what this is.
@@ -114,7 +114,7 @@ namespace h3svg
     // Tables storing additional data for objects whose properties aren't fully described by Tile.
     ObjectPropertiesTables object_properties_tables;
     // Current state for each player.
-    EnumIndexedArray<PlayerColor, Player, 8> players;
+    EnumIndexedArray<PlayerColor, Player, kMaxPlayers> players;
     // Towns on the Adventure Map.
     std::vector<Town> towns;
     // The number of elements must always be equal to h3m::kNumHeroes (156).
