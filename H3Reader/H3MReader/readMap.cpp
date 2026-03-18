@@ -262,7 +262,7 @@ namespace h3m
     map.basic_info = readMapBasicInfo();
     for (int i = 0; i < kMaxPlayers; ++i)
     {
-      map.players[i] = readPlayerSpecs();
+      map.players.data[i] = readPlayerSpecs();
     }
     map.additional_info = readMapAdditionalInfo();
     // Read tiles.

@@ -2,16 +2,17 @@
 
 #include <h3mtxt/Map/Constants/Constants.h>
 #include <h3mtxt/Map/Constants/MapFormat.h>
+#include <h3mtxt/Map/Constants/PlayerColor.h>
+#include <h3mtxt/Map/Utils/EnumIndexedArray.h>
+#include <h3mtxt/Map/Utils/ReservedData.h>
 #include <h3mtxt/Map/MapAdditionalInfo.h>
 #include <h3mtxt/Map/MapBasicInfo.h>
 #include <h3mtxt/Map/ObjectTemplate.h>
 #include <h3mtxt/Map/Object.h>
 #include <h3mtxt/Map/PlayerSpecs.h>
-#include <h3mtxt/Map/Utils/ReservedData.h>
 #include <h3mtxt/Map/Tile.h>
 #include <h3mtxt/Map/TimedEvent.h>
 
-#include <array>
 #include <vector>
 
 namespace h3m
@@ -24,7 +25,7 @@ namespace h3m
     // Basic information about the map ("Map Specifications"/"General" tab in the Editor).
     MapBasicInfo basic_info;
     // Settings for each player ("Map Specifications"/"Player specs" tab in the Editor).
-    std::array<PlayerSpecs, kMaxPlayers> players {};
+    EnumIndexedArray<PlayerColor, PlayerSpecs, kMaxPlayers> players {};
     // Additional information about the map ("Special Victory Condition", "Special Loss Condition",
     // "Teams", "Heroes", "Artifacts", "Spells", "Secondary Skills" and "Rumors" tabs in the Editor).
     MapAdditionalInfo additional_info;
