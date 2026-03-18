@@ -26,7 +26,7 @@ namespace Medea_NS
       out.writeComment(hero_portrait_str, false);
     }
     out.writeField(Fields::kName, value.name);
-    out.writeField(Fields::kCanHire, value.can_hire);
+    out.writeField(Fields::kCanHire, value.can_hire, true);
   }
 
   void JsonObjectWriter<h3m::TeamsInfo>::operator()(FieldsWriter& out, const h3m::TeamsInfo& value) const
