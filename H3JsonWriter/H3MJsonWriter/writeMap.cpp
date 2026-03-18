@@ -2,7 +2,7 @@
 
 #include <h3mtxt/H3JsonWriter/H3MJsonWriter/CommentBuilder.h>
 #include <h3mtxt/H3JsonWriter/H3MJsonWriter/Utils.h>
-#include <h3mtxt/JsonCommon/FieldName.h>
+#include <h3mtxt/JsonCommon/FieldNamesH3M.h>
 #include <h3mtxt/Map/Map.h>
 #include <h3mtxt/Medea/Medea.h>
 

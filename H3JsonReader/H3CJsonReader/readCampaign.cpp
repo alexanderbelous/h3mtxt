@@ -1,7 +1,7 @@
 #include <h3mtxt/H3JsonReader/H3CJsonReader/H3CJsonReader.h>
 
 #include <h3mtxt/H3JsonReader/H3JsonReaderBase/H3JsonReaderBase.h>
-#include <h3mtxt/JsonCommon/FieldName.h>
+#include <h3mtxt/JsonCommon/FieldNamesH3M.h>
 #include <h3mtxt/JsonCommon/FieldNamesH3C.h>
 #include <h3mtxt/Campaign/Campaign.h>
 
