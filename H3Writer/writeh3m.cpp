@@ -8,10 +8,14 @@ namespace h3m::H3Writer_NS
 {
   void writeh3m(std::ostream& stream, const Map& map, bool compress)
   {
-    // Ugly hack.
-    // C++ guarantees that temporary objects remain valid until the end of the expression,
-    // but static_cast cannot be used to convert an rvalue reference to an lvalue reference.
-    const auto remove_rvalue_ref = [](zstr::ostream&& stream) -> std::ostream& {return stream; };
-    writeData(compress ? remove_rvalue_ref(zstr::ostream(stream)) : stream, map);
+    if (compress)
+    {
+      zstr::ostream zstr_stream{stream};
+      writeData(zstr_stream, map);
+    }
+    else
+    {
+      writeData(stream, map);
+    }
   }
 }
