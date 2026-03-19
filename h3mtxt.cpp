@@ -2,8 +2,8 @@
 #include <h3mtxt/H3JsonWriter/H3CJsonWriter/writeH3cJson.h>
 #include <h3mtxt/H3JsonWriter/H3MJsonWriter/writeH3mJson.h>
 #include <h3mtxt/H3Reader/parseh3.h>
-#include <h3mtxt/H3Writer/writeh3c.h>
-#include <h3mtxt/H3Writer/writeh3m.h>
+#include <h3mtxt/H3Writer/H3CWriter/writeh3c.h>
+#include <h3mtxt/H3Writer/H3MWriter/writeh3m.h>
 #include <h3mtxt/Map/Constants/MapFormat.h>
 
 #include <filesystem>
@@ -56,11 +56,11 @@ namespace
     {
       if (const h3m::Map* map = std::get_if<h3m::Map>(&input.data))
       {
-        h3m::H3Writer_NS::writeh3m(stream, *map);
+        h3m::writeh3m(stream, *map);
       }
       else
       {
-        h3m::H3Writer_NS::writeh3c(stream, std::get<h3m::Campaign>(input.data));
+        h3m::writeh3c(stream, std::get<h3m::Campaign>(input.data));
       }
     }
     else

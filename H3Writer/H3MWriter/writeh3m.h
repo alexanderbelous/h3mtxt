@@ -4,7 +4,7 @@
 
 #include <iosfwd>
 
-namespace h3m::H3Writer_NS
+namespace h3m
 {
   // Writes H3M data into the given stream.
   // \param stream - output stream.

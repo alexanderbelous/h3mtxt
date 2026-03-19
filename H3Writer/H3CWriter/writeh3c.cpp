@@ -1,7 +1,7 @@
-#include <h3mtxt/H3Writer/writeh3c.h>
-#include <h3mtxt/H3Writer/H3Writer.h>
-#include <h3mtxt/H3Writer/Utils.h>
-#include <h3mtxt/H3Writer/writeh3m.h>
+#include <h3mtxt/H3Writer/H3CWriter/writeh3c.h>
+
+#include <h3mtxt/H3Writer/H3CWriter/H3CWriter.h>
+#include <h3mtxt/H3Writer/H3MWriter/writeh3m.h>
 #include <h3mtxt/Campaign/Campaign.h>
 
 #include <h3mtxt/thirdparty/zstr/src/zstr.hpp>
@@ -10,7 +10,7 @@
 #include <stdexcept>
 #include <vector>
 
-namespace h3m::H3Writer_NS
+namespace h3m
 {
   namespace
   {
@@ -55,12 +55,13 @@ namespace h3m::H3Writer_NS
     // Write the header as a gzip stream.
     {
       zstr::ostream zstr_stream(stream);
-      writeData(zstr_stream, campaign.header.format);
-      writeData(zstr_stream, campaign.header.id);
-      writeData(zstr_stream, campaign.header.name);
-      writeData(zstr_stream, campaign.header.description);
-      writeData(zstr_stream, campaign.header.allow_selecting_difficulty);
-      writeData(zstr_stream, campaign.header.theme_music);
+      H3CWriter writer{ zstr_stream };
+      writer.writeData(campaign.header.format);
+      writer.writeData(campaign.header.id);
+      writer.writeData(campaign.header.name);
+      writer.writeData(campaign.header.description);
+      writer.writeData(campaign.header.allow_selecting_difficulty);
+      writer.writeData(campaign.header.theme_music);
       for (const CampaignScenario& scenario : campaign.header.scenarios)
       {
         std::uint32_t map_file_size = 0;
@@ -70,7 +71,7 @@ namespace h3m::H3Writer_NS
           map_file_size = static_cast<std::uint32_t>(compressed_maps.at(map_idx).size());
           ++map_idx;
         }
-        writeCampaignScenario(zstr_stream, scenario, campaign.header.id, map_file_size);
+        writer.writeCampaignScenario(scenario, campaign.header.id, map_file_size);
       }
     }
     // Append the compressed maps.
