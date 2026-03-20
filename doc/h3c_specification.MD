@@ -146,12 +146,12 @@ See [`CampaignHeader`](#CampaignHeader) for more information about `NUM_REGIONS`
 
 
 ### `StartingOptions`
-| Field name         | Type                                  | Size in bytes | Description                |
-| ------------------ | ------------------------------------- | ------------- | -------------------------- |
-| type               | `uint8`                               | 1             | Enum `StartingOptionsType` |
-| ?starting_bonuses  | [`StartingBonuses`](#StartingBonuses) | varies        | Only present if `type` = 1 |
-| ?crossover_heroes  | [`CrossoverHeroes`](#CrossoverHeroes) | varies        | Only present if `type` = 2 |
-| ?starting_heroes   | [`StartingHeroes`](#StartingHeroes)   | varies        | Only present if `type` = 3 |
+| Field name         | Type                                            | Size in bytes | Description                |
+| ------------------ | ----------------------------------------------- | ------------- | -------------------------- |
+| type               | `uint8`                                         | 1             | Enum `StartingOptionsType` |
+| ?starting_bonuses  | [`StartingBonuses`](#StartingBonuses)           | varies        | Only present if `type` = 1 |
+| ?hero_crossover    | [`HeroCrossoverOptions`](#HeroCrossoverOptions) | varies        | Only present if `type` = 2 |
+| ?starting_heroes   | [`StartingHeroes`](#StartingHeroes)             | varies        | Only present if `type` = 3 |
 
 
 ### `StartingBonuses`
@@ -220,14 +220,14 @@ See [`CampaignHeader`](#CampaignHeader) for more information about `NUM_REGIONS`
 | amount     | `uint32` | 4             |                                  |
 
 
-### `CrossoverHeroes`
+### `HeroCrossoverOptions`
 | Field name  | Type                                           | Size in bytes | Description |
 | ----------- | ---------------------------------------------- | ------------- | ----------- |
 | num_options | `uint8`                                        | 1             |             |
-| options     | [`CrossoverHero[num_options]`](#CrossoverHero) | varies        |             |
+| options     | [`HeroCrossover[num_options]`](#HeroCrossover) | varies        |             |
 
 
-### `CrossoverHero`
+### `HeroCrossover`
 | Field name      | Type     | Size in bytes | Description                                                                             |
 | --------------- | -------- | ------------- | --------------------------------------------------------------------------------------- |
 | player          | `uint8`  | 1             | Enum `PlayerColor`                                                                      |
