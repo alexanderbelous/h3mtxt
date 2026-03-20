@@ -86,7 +86,7 @@ namespace Medea_NS
   void JsonArrayWriter<TilesWithMapSize>::operator()(const ArrayElementsWriter& out,
                                                      const TilesWithMapSize& value) const
   {
-    h3m::H3JsonWriter_NS::CommentBuilder comment_builder;
+    h3json::CommentBuilder comment_builder;
     const std::uint32_t num_levels = value.hasTwoLevels() ? 2 : 1;
     const std::uint32_t map_size = value.mapSize();
     const std::span<const h3m::Tile> tiles = value.tiles();
@@ -118,7 +118,7 @@ namespace Medea_NS
   void JsonArrayWriter<WrappedObjects>::operator()(const ArrayElementsWriter& out,
                                                    const WrappedObjects& wrapped_objects) const
   {
-    h3m::H3JsonWriter_NS::CommentBuilder comment_builder;
+    h3json::CommentBuilder comment_builder;
     for (std::size_t i = 0; i < wrapped_objects.objects.size(); ++i)
     {
       out.writeComment(comment_builder.build({ "Object ", i }));
@@ -131,7 +131,7 @@ namespace Medea_NS
   void JsonArrayWriter<std::vector<h3m::ObjectTemplate>>::operator()(const ArrayElementsWriter& out,
     const std::vector<h3m::ObjectTemplate>& objects_templates) const
   {
-    h3m::H3JsonWriter_NS::CommentBuilder comment_builder;
+    h3json::CommentBuilder comment_builder;
     for (std::size_t i = 0; i < objects_templates.size(); ++i)
     {
       out.writeComment(comment_builder.build({ "ObjectTemplate ", i }));

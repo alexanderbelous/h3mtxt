@@ -20,7 +20,7 @@ namespace h3m
       const ObjectClass object_class = object_template.object_class;
       const ObjectPropertiesType object_properties_type = getObjectPropertiesType(object_class, object_template.object_subclass);
 
-      H3JsonWriter_NS::CommentBuilder comment_builder;
+      h3json::CommentBuilder comment_builder;
       comment_builder << "ObjectClass: " << static_cast<std::size_t>(object_class);
       if (std::string_view enum_str = getEnumString(object_class); !enum_str.empty())
       {
