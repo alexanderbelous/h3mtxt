@@ -11,16 +11,17 @@
 
 #include <stdexcept>
 
-namespace h3m
+namespace h3json
 {
   namespace
   {
-    std::string makeObjectTemplateComment(const ObjectTemplate& object_template)
+    std::string makeObjectTemplateComment(const h3m::ObjectTemplate& object_template)
     {
-      const ObjectClass object_class = object_template.object_class;
-      const ObjectPropertiesType object_properties_type = getObjectPropertiesType(object_class, object_template.object_subclass);
+      const h3m::ObjectClass object_class = object_template.object_class;
+      const h3m::ObjectPropertiesType object_properties_type =
+        h3m::getObjectPropertiesType(object_class, object_template.object_subclass);
 
-      h3json::CommentBuilder comment_builder;
+      CommentBuilder comment_builder;
       comment_builder << "ObjectClass: " << static_cast<std::size_t>(object_class);
       if (std::string_view enum_str = getEnumString(object_class); !enum_str.empty())
       {
@@ -494,7 +495,7 @@ namespace Medea_NS
         throw std::runtime_error("JsonObjectWriter<h3m::Object>: Object::properties has ObjectPropertiesType "
                                  "different from the ObjectTemplate it refers to.");
       }
-      out.writeComment(h3m::makeObjectTemplateComment(object_template));
+      out.writeComment(h3json::makeObjectTemplateComment(object_template));
     }
     out.writeField(Fields::kTemplateIdx, object.template_idx);
     out.writeField(Fields::kUnknown, object.unknown);
