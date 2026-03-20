@@ -1,9 +1,9 @@
 [submodule "thirdparty/zstr"]
-	path = thirdparty/zstr
+	path = src/h3mtxt/thirdparty/zstr
 	url = https://github.com/mateidavid/zstr.git
 [submodule "thirdparty/zlib"]
-	path = thirdparty/zlib
+	path = src/h3mtxt/thirdparty/zlib
 	url = https://github.com/madler/zlib.git
 [submodule "thirdparty/jsoncpp"]
-	path = thirdparty/jsoncpp
+	path = src/h3mtxt/thirdparty/jsoncpp
 	url = https://github.com/open-source-parsers/jsoncpp.git

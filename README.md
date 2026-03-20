@@ -32,7 +32,7 @@ See [examples](examples) for more details.
 
 # Undocumented features
 
-See the comments in the source code in [Map](Map) or the brief overview in https://gist.github.com/alexanderbelous/e5f0766845476d93eda10469c5667d9b
+See the comments in the source code in [Map](src/h3mtxt/Map) or the brief overview in https://gist.github.com/alexanderbelous/e5f0766845476d93eda10469c5667d9b
 
 # Building h3mtxt
 ```sh
