@@ -12,7 +12,7 @@ namespace Medea_NS
 {
   void JsonObjectWriter<h3m::CustomHero>::operator()(FieldsWriter& out, const h3m::CustomHero& value) const
   {
-    using Fields = h3m::FieldNames<h3m::CustomHero>;
+    using Fields = h3json::FieldNames<h3m::CustomHero>;
     constexpr h3m::HeroPortrait kDefaultPortrait {0xFF};
     out.writeField(Fields::kType, value.type);
     if (auto enum_str = h3m::getEnumString(value.type); !enum_str.empty())
@@ -32,7 +32,7 @@ namespace Medea_NS
 
   void JsonObjectWriter<h3m::TeamsInfo>::operator()(FieldsWriter& out, const h3m::TeamsInfo& value) const
   {
-    using Fields = h3m::FieldNames<h3m::TeamsInfo>;
+    using Fields = h3json::FieldNames<h3m::TeamsInfo>;
     out.writeField(Fields::kNumTeams, value.num_teams);
     if (value.num_teams != 0)
     {
@@ -46,14 +46,14 @@ namespace Medea_NS
 
   void JsonObjectWriter<h3m::Rumor>::operator()(FieldsWriter& out, const h3m::Rumor& value) const
   {
-    using Fields = h3m::FieldNames<h3m::Rumor>;
+    using Fields = h3json::FieldNames<h3m::Rumor>;
     out.writeField(Fields::kName, value.name);
     out.writeField(Fields::kDescription, value.description);
   }
 
   void JsonObjectWriter<h3m::HeroSettings>::operator()(FieldsWriter& out, const h3m::HeroSettings& value) const
   {
-    using Fields = h3m::FieldNames<h3m::HeroSettings>;
+    using Fields = h3json::FieldNames<h3m::HeroSettings>;
     if (value.experience)
     {
       out.writeField(Fields::kExperience, *value.experience);
@@ -103,7 +103,7 @@ namespace Medea_NS
 
   void JsonObjectWriter<h3m::MapAdditionalInfo>::operator()(FieldsWriter& out, const h3m::MapAdditionalInfo& value) const
   {
-    using Fields = h3m::FieldNames<h3m::MapAdditionalInfo>;
+    using Fields = h3json::FieldNames<h3m::MapAdditionalInfo>;
 
     out.writeField(Fields::kVictoryCondition, value.victory_condition);
     out.writeField(Fields::kLossCondition, value.loss_condition);

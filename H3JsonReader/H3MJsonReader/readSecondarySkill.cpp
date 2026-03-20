@@ -4,12 +4,12 @@
 #include <h3mtxt/JsonCommon/FieldNamesH3M.h>
 #include <h3mtxt/Map/SecondarySkill.h>
 
-namespace h3m::H3JsonReader_NS
+namespace h3json
 {
-  SecondarySkill JsonReader<SecondarySkill>::operator()(const Json::Value& value) const
+  h3m::SecondarySkill JsonReader<h3m::SecondarySkill>::operator()(const Json::Value& value) const
   {
-    using Fields = FieldNames<SecondarySkill>;
-    SecondarySkill skill;
+    using Fields = FieldNames<h3m::SecondarySkill>;
+    h3m::SecondarySkill skill;
     readField(skill.type, value, Fields::kType);
     readField(skill.level, value, Fields::kLevel);
     return skill;

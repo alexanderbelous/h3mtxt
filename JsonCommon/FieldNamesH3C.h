@@ -23,19 +23,16 @@ namespace h3json
     "padding_6",
     "padding_7"
   };
-}
 
-namespace h3m
-{
   template<>
-  struct FieldNames<Campaign>
+  struct FieldNames<h3m::Campaign>
   {
     static constexpr std::string_view kHeader = "header";
     static constexpr std::string_view kMaps = "maps";
   };
 
   template<>
-  struct FieldNames<CampaignHeader>
+  struct FieldNames<h3m::CampaignHeader>
   {
     static constexpr std::string_view kFormat = "format";
     static constexpr std::string_view kId = "id";
@@ -47,7 +44,7 @@ namespace h3m
   };
 
   template<>
-  struct FieldNames<CampaignScenario>
+  struct FieldNames<h3m::CampaignScenario>
   {
     static constexpr std::string_view kMapFilename = "map_filename";
     static constexpr std::string_view kMapFileSize = "map_file_size";
@@ -62,7 +59,7 @@ namespace h3m
   };
 
   template<>
-  struct FieldNames<CrossoverOptions>
+  struct FieldNames<h3m::CrossoverOptions>
   {
     static constexpr std::string_view kRetainedFeatures = "retained_features";
     static constexpr std::string_view kCreatures = "creatures";
@@ -70,7 +67,7 @@ namespace h3m
   };
 
   template<>
-  struct FieldNames<CutScene>
+  struct FieldNames<h3m::CutScene>
   {
     static constexpr std::string_view kMovie = "movie";
     static constexpr std::string_view kMusic = "music";
@@ -78,14 +75,14 @@ namespace h3m
   };
 
   template<>
-  struct FieldNames<StartingBonus>
+  struct FieldNames<h3m::StartingBonus>
   {
     static constexpr std::string_view kType = "type";
     static constexpr std::string_view kDetails = "details";
   };
 
   template<>
-  struct FieldNames<StartingOptions>
+  struct FieldNames<h3m::StartingOptions>
   {
     static constexpr std::string_view kType = "type";
     static constexpr std::string_view kDetails = "details";

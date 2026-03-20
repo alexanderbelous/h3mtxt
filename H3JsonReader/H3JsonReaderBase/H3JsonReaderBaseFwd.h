@@ -3,7 +3,7 @@
 #include <json/forwards.h>
 
 // API for deserializing H3 data from JSON.
-namespace h3m::H3JsonReader_NS
+namespace h3json
 {
   // Template class for deserializing Json::Value as the specified type.
   template<class T, class Enable = void>

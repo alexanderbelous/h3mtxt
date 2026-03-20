@@ -3,12 +3,12 @@
 #include <h3mtxt/H3JsonReader/H3JsonReaderBase/H3JsonReaderBase.h>
 #include <h3mtxt/Map/Utils/EnumBitmask.h>
 
-namespace h3m::H3JsonReader_NS
+namespace h3json
 {
-  TerrainsBitmask JsonReader<TerrainsBitmask>::operator()(const Json::Value& value) const
+  h3m::TerrainsBitmask JsonReader<h3m::TerrainsBitmask>::operator()(const Json::Value& value) const
   {
-    TerrainsBitmask bitmask;
-    bitmask.bitset = fromJson<BitSet<2>>(value);
+    h3m::TerrainsBitmask bitmask;
+    bitmask.bitset = fromJson<h3m::BitSet<2>>(value);
     return bitmask;
   }
 }

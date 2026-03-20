@@ -5,9 +5,6 @@
 
 namespace h3json
 {
-  template<class T>
-  struct FieldNames;
-
   // Provides the names for the values of the specified Enum type, so that they can be used as
   // the names of fields for a JSON object.
   //
@@ -18,11 +15,7 @@ namespace h3json
   // This is used to serialize h3m::EnumBitmask and h3m::EnumIndexedArray.
   template<class Enum>
   inline constexpr std::array<std::string_view, 0> kEnumFieldNames {};
-}
 
-// TODO: move to h3json.
-namespace h3m
-{
   // Stores the names of JSON fields for the specified class.
   // This is to ensure that H3JsonWriter and H3JsonReader use the same names:
   // * A typo in a string will only be discovered at runtime, but a typo in a static

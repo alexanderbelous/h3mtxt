@@ -10,7 +10,7 @@ namespace Medea_NS
 {
   void JsonObjectWriter<h3m::HeroArtifacts>::operator()(FieldsWriter& out, const h3m::HeroArtifacts& value) const
   {
-    using Fields = h3m::FieldNames<h3m::HeroArtifacts>;
+    using Fields = h3json::FieldNames<h3m::HeroArtifacts>;
     out.writeField(Fields::kEquipped, value.equipped);
     out.writeField(Fields::kBackpack, value.backpack);
   }

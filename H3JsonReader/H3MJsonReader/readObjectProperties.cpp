@@ -8,13 +8,17 @@
 
 #include <array>
 
-namespace h3m::H3JsonReader_NS
+namespace h3json
 {
+  using ::h3m::ObjectProperties;
+  using ::h3m::ObjectPropertiesType;
+  using ::h3m::ObjectPropertiesVariant;
+
   namespace
   {
-    void readEventBase(const Json::Value& value, EventBase& event)
+    void readEventBase(const Json::Value& value, h3m::EventBase& event)
     {
-      using Fields = FieldNames<EventBase>;
+      using Fields = FieldNames<h3m::EventBase>;
 
       readField(event.guardians, value, Fields::kGuardians);
       readField(event.experience, value, Fields::kExperience);
@@ -31,39 +35,39 @@ namespace h3m::H3JsonReader_NS
     }
   }
 
-  Guardians JsonReader<Guardians>::operator()(const Json::Value& value) const
+  h3m::Guardians JsonReader<h3m::Guardians>::operator()(const Json::Value& value) const
   {
-    using Fields = FieldNames<Guardians>;
-    Guardians guardians;
+    using Fields = FieldNames<h3m::Guardians>;
+    h3m::Guardians guardians;
     readField(guardians.message, value, Fields::kMessage);
     readField(guardians.creatures, value, Fields::kCreatures);
     readField(guardians.unknown, value, Fields::kUnknown);
     return guardians;
   }
 
-  MessageAndTreasure JsonReader<MessageAndTreasure>::operator()(const Json::Value& value) const
+  h3m::MessageAndTreasure JsonReader<h3m::MessageAndTreasure>::operator()(const Json::Value& value) const
   {
-    using Fields = FieldNames<MessageAndTreasure>;
-    MessageAndTreasure message_and_treasure;
+    using Fields = FieldNames<h3m::MessageAndTreasure>;
+    h3m::MessageAndTreasure message_and_treasure;
     readField(message_and_treasure.message, value, Fields::kMessage);
     readField(message_and_treasure.resources, value, Fields::kResources);
     readField(message_and_treasure.artifact, value, Fields::kArtifact);
     return message_and_treasure;
   }
 
-  TownBuildings JsonReader<TownBuildings>::operator()(const Json::Value& value) const
+  h3m::TownBuildings JsonReader<h3m::TownBuildings>::operator()(const Json::Value& value) const
   {
-    using Fields = FieldNames<TownBuildings>;
-    TownBuildings town_buildings;
+    using Fields = FieldNames<h3m::TownBuildings>;
+    h3m::TownBuildings town_buildings;
     readField(town_buildings.is_built, value, Fields::kIsBuilt);
     readField(town_buildings.is_disabled, value, Fields::kIsDisabled);
     return town_buildings;
   }
 
-  TownEvent JsonReader<TownEvent>::operator()(const Json::Value& value) const
+  h3m::TownEvent JsonReader<h3m::TownEvent>::operator()(const Json::Value& value) const
   {
-    using Fields = FieldNames<TownEvent>;
-    TownEvent event{ JsonReader<TimedEvent>{}(value) };
+    using Fields = FieldNames<h3m::TownEvent>;
+    h3m::TownEvent event{ JsonReader<h3m::TimedEvent>{}(value) };
     readField(event.buildings, value, Fields::kBuildings);
     readField(event.creatures, value, Fields::kCreatures);
     readField(event.unknown2, value, Fields::kUnknown2);
@@ -354,7 +358,7 @@ namespace h3m::H3JsonReader_NS
     {
       using Fields = FieldNames<Properties>;
       Properties properties;
-      const ScholarRewardType reward_type = readField<ScholarRewardType>(value, Fields::kRewardType);
+      const h3m::ScholarRewardType reward_type = readField<h3m::ScholarRewardType>(value, Fields::kRewardType);
       properties.reward = VariantJsonReader<Properties::ScholarReward>{}(getJsonField(value, Fields::kRewardValue),
                                                                          Properties::getAlternativeIdx(reward_type));
       readField(properties.unknown, value, Fields::kUnknown);
@@ -486,14 +490,14 @@ namespace h3m::H3JsonReader_NS
     using ReadObjectPropertiesPtr = ObjectPropertiesVariant(*)(const Json::Value&);
     // Generate (at compile time) an array of function pointers for each instantiation of
     // readObjectPropertiesAsVariant() ordered by ObjectPropertiesType.
-    constexpr std::array<ReadObjectPropertiesPtr, kNumObjectPropertiesTypes> kObjectPropertiesReaders =
+    constexpr std::array<ReadObjectPropertiesPtr, h3m::kNumObjectPropertiesTypes> kObjectPropertiesReaders =
       [] <ObjectPropertiesType... object_properties_types>
-      (EnumSequence<ObjectPropertiesType, object_properties_types...> seq)
+      (h3m::EnumSequence<ObjectPropertiesType, object_properties_types...> seq)
       consteval
       {
         return std::array<ReadObjectPropertiesPtr, sizeof...(object_properties_types)>
         { &readObjectPropertiesAsVariant<object_properties_types>... };
-      }(MakeEnumSequence<ObjectPropertiesType, kNumObjectPropertiesTypes>{});
+      }(h3m::MakeEnumSequence<ObjectPropertiesType, h3m::kNumObjectPropertiesTypes>{});
     // Invoke a function from the generated array.
     return kObjectPropertiesReaders.at(static_cast<std::size_t>(object_properties_type))(value);
   }

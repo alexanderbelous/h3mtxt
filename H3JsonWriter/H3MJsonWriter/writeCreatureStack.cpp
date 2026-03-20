@@ -9,7 +9,7 @@ namespace Medea_NS
 {
   void JsonObjectWriter<h3m::CreatureStack>::operator()(FieldsWriter& out, const h3m::CreatureStack& creature_stack) const
   {
-    using Fields = h3m::FieldNames<h3m::CreatureStack>;
+    using Fields = h3json::FieldNames<h3m::CreatureStack>;
     out.writeField(Fields::kType, creature_stack.type);
     if (std::string_view enum_str = h3m::getEnumString(creature_stack.type); !enum_str.empty())
     {

@@ -5,23 +5,23 @@
 #include <h3mtxt/Map/Constants/Constants.h>
 #include <h3mtxt/Map/MapAdditionalInfo.h>
 
-namespace h3m::H3JsonReader_NS
+namespace h3json
 {
-  CustomHero JsonReader<CustomHero>::operator()(const Json::Value& value) const
+  h3m::CustomHero JsonReader<h3m::CustomHero>::operator()(const Json::Value& value) const
   {
-    using Fields = FieldNames<CustomHero>;
-    CustomHero hero;
-    hero.type = readField<HeroType>(value, Fields::kType);
-    hero.portrait = readField<HeroPortrait>(value, Fields::kPortrait);
-    hero.name = readField<std::string>(value, Fields::kName);
-    hero.can_hire = readField<PlayersBitmask>(value, Fields::kCanHire);
+    using Fields = FieldNames<h3m::CustomHero>;
+    h3m::CustomHero hero;
+    readField(hero.type, value, Fields::kType);
+    readField(hero.portrait, value, Fields::kPortrait);
+    readField(hero.name, value, Fields::kName);
+    readField(hero.can_hire, value, Fields::kCanHire);
     return hero;
   }
 
-  TeamsInfo JsonReader<TeamsInfo>::operator()(const Json::Value& value) const
+  h3m::TeamsInfo JsonReader<h3m::TeamsInfo>::operator()(const Json::Value& value) const
   {
-    using Fields = FieldNames<TeamsInfo>;
-    TeamsInfo info;
+    using Fields = FieldNames<h3m::TeamsInfo>;
+    h3m::TeamsInfo info;
     readField(info.num_teams, value, Fields::kNumTeams);
     if (info.num_teams != 0)
     {
@@ -30,37 +30,37 @@ namespace h3m::H3JsonReader_NS
     return info;
   }
 
-  Rumor JsonReader<Rumor>::operator()(const Json::Value& value) const
+  h3m::Rumor JsonReader<h3m::Rumor>::operator()(const Json::Value& value) const
   {
-    using Fields = FieldNames<Rumor>;
-    Rumor rumor;
+    using Fields = FieldNames<h3m::Rumor>;
+    h3m::Rumor rumor;
     readField(rumor.name, value, Fields::kName);
     readField(rumor.description, value, Fields::kDescription);
     return rumor;
   }
 
-  HeroesSettings JsonReader<HeroesSettings>::operator()(const Json::Value& value) const
+  h3m::HeroesSettings JsonReader<h3m::HeroesSettings>::operator()(const Json::Value& value) const
   {
     constexpr std::span<const std::string_view, h3m::kNumHeroes> kFieldNames =
-      h3json::getEnumFieldNames<h3m::HeroType, h3m::kNumHeroes>();
+      getEnumFieldNames<h3m::HeroType, h3m::kNumHeroes>();
 
-    HeroesSettings heroes_settings;
+    h3m::HeroesSettings heroes_settings;
     for (std::size_t hero_idx = 0; hero_idx < h3m::kNumHeroes; ++hero_idx)
     {
       if (const Json::Value* field = findJsonField(value, kFieldNames[hero_idx]))
       {
-        const HeroType hero = static_cast<HeroType>(hero_idx);
-        heroes_settings[hero] = fromJson<HeroSettings>(*field);
+        const h3m::HeroType hero = static_cast<h3m::HeroType>(hero_idx);
+        heroes_settings[hero] = fromJson<h3m::HeroSettings>(*field);
       }
     }
     return heroes_settings;
   }
 
-  MapAdditionalInfo JsonReader<MapAdditionalInfo>::operator()(const Json::Value& value) const
+  h3m::MapAdditionalInfo JsonReader<h3m::MapAdditionalInfo>::operator()(const Json::Value& value) const
   {
-    using Fields = FieldNames<MapAdditionalInfo>;
+    using Fields = FieldNames<h3m::MapAdditionalInfo>;
 
-    MapAdditionalInfo info;
+    h3m::MapAdditionalInfo info;
     readField(info.victory_condition, value, Fields::kVictoryCondition);
     readField(info.loss_condition, value, Fields::kLossCondition);
     readField(info.teams, value, Fields::kTeams);

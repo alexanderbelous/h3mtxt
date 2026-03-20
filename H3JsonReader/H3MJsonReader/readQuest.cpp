@@ -5,71 +5,63 @@
 #include <h3mtxt/JsonCommon/FieldNamesH3M.h>
 #include <h3mtxt/Map/Quest.h>
 
-namespace h3m::H3JsonReader_NS
+namespace h3json
 {
-  template<>
-  struct JsonReader<QuestDetails<QuestType::None>>
-  {
-    QuestDetails<QuestType::None> operator()(const Json::Value&) const
-    {
-      return {};
-    }
-  };
+  using ::h3m::Quest;
+  using ::h3m::QuestDetails;
+  using ::h3m::QuestType;
 
   template<>
-  struct JsonReader<QuestDetails<QuestType::Level>>
+  QuestDetails<QuestType::None>
+  JsonReader<QuestDetails<QuestType::None>>::operator()(const Json::Value&) const
   {
-    QuestDetails<QuestType::Level> operator()(const Json::Value& value) const
-    {
-      QuestDetails<QuestType::Level> details;
-      readField(details.level, value, "level");
-      return details;
-    }
-  };
+    return {};
+  }
 
   template<>
-  struct JsonReader<QuestDetails<QuestType::PrimarySkills>>
+  QuestDetails<QuestType::Level>
+  JsonReader<QuestDetails<QuestType::Level>>::operator()(const Json::Value& value) const
   {
-    QuestDetails<QuestType::PrimarySkills> operator()(const Json::Value& value) const
-    {
-      QuestDetails<QuestType::PrimarySkills> details;
-      readField(details.skills, value, "skills");
-      return details;
-    }
-  };
+    QuestDetails<QuestType::Level> details;
+    readField(details.level, value, "level");
+    return details;
+  }
 
   template<>
-  struct JsonReader<QuestDetails<QuestType::DefeatHero>>
+  QuestDetails<QuestType::PrimarySkills>
+  JsonReader<QuestDetails<QuestType::PrimarySkills>>::operator()(const Json::Value& value) const
   {
-    QuestDetails<QuestType::DefeatHero> operator()(const Json::Value& value) const
-    {
-      QuestDetails<QuestType::DefeatHero> details;
-      readField(details.absod_id, value, "absod_id");
-      return details;
-    }
-  };
+    QuestDetails<QuestType::PrimarySkills> details;
+    readField(details.skills, value, "skills");
+    return details;
+  }
 
   template<>
-  struct JsonReader<QuestDetails<QuestType::DefeatMonster>>
+  QuestDetails<QuestType::DefeatHero>
+  JsonReader<QuestDetails<QuestType::DefeatHero>>::operator()(const Json::Value& value) const
   {
-    QuestDetails<QuestType::DefeatMonster> operator()(const Json::Value& value) const
-    {
-      QuestDetails<QuestType::DefeatMonster> details;
-      readField(details.absod_id, value, "absod_id");
-      return details;
-    }
-  };
+    QuestDetails<QuestType::DefeatHero> details;
+    readField(details.absod_id, value, "absod_id");
+    return details;
+  }
 
   template<>
-  struct JsonReader<QuestDetails<QuestType::Artifacts>>
+  QuestDetails<QuestType::DefeatMonster>
+  JsonReader<QuestDetails<QuestType::DefeatMonster>>::operator()(const Json::Value& value) const
   {
-    QuestDetails<QuestType::Artifacts> operator()(const Json::Value& value) const
-    {
-      QuestDetails<QuestType::Artifacts> details;
-      readField(details.artifacts, value, "artifacts");
-      return details;
-    }
-  };
+    QuestDetails<QuestType::DefeatMonster> details;
+    readField(details.absod_id, value, "absod_id");
+    return details;
+  }
+
+  template<>
+  QuestDetails<QuestType::Artifacts>
+  JsonReader<QuestDetails<QuestType::Artifacts>>::operator()(const Json::Value& value) const
+  {
+    QuestDetails<QuestType::Artifacts> details;
+    readField(details.artifacts, value, "artifacts");
+    return details;
+  }
 
   template<>
   struct JsonReader<QuestDetails<QuestType::Creatures>::Creature>
@@ -84,48 +76,40 @@ namespace h3m::H3JsonReader_NS
   };
 
   template<>
-  struct JsonReader<QuestDetails<QuestType::Creatures>>
+  QuestDetails<QuestType::Creatures>
+  JsonReader<QuestDetails<QuestType::Creatures>>::operator()(const Json::Value& value) const
   {
-    QuestDetails<QuestType::Creatures> operator()(const Json::Value& value) const
-    {
-      QuestDetails<QuestType::Creatures> details;
-      readField(details.creatures, value, "creatures");
-      return details;
-    }
-  };
+    QuestDetails<QuestType::Creatures> details;
+    readField(details.creatures, value, "creatures");
+    return details;
+  }
 
   template<>
-  struct JsonReader<QuestDetails<QuestType::Resources>>
+  QuestDetails<QuestType::Resources>
+  JsonReader<QuestDetails<QuestType::Resources>>::operator()(const Json::Value& value) const
   {
-    QuestDetails<QuestType::Resources> operator()(const Json::Value& value) const
-    {
-      QuestDetails<QuestType::Resources> details;
-      readField(details.resources, value, "resources");
-      return details;
-    }
-  };
+    QuestDetails<QuestType::Resources> details;
+    readField(details.resources, value, "resources");
+    return details;
+  }
 
   template<>
-  struct JsonReader<QuestDetails<QuestType::BeHero>>
+  QuestDetails<QuestType::BeHero>
+  JsonReader<QuestDetails<QuestType::BeHero>>::operator()(const Json::Value& value) const
   {
-    QuestDetails<QuestType::BeHero> operator()(const Json::Value& value) const
-    {
-      QuestDetails<QuestType::BeHero> details;
-      readField(details.hero, value, "hero");
-      return details;
-    }
-  };
+    QuestDetails<QuestType::BeHero> details;
+    readField(details.hero, value, "hero");
+    return details;
+  }
 
   template<>
-  struct JsonReader<QuestDetails<QuestType::BePlayer>>
+  QuestDetails<QuestType::BePlayer>
+  JsonReader<QuestDetails<QuestType::BePlayer>>::operator()(const Json::Value& value) const
   {
-    QuestDetails<QuestType::BePlayer> operator()(const Json::Value& value) const
-    {
-      QuestDetails<QuestType::BePlayer> details;
-      readField(details.player, value, "player");
-      return details;
-    }
-  };
+    QuestDetails<QuestType::BePlayer> details;
+    readField(details.player, value, "player");
+    return details;
+  }
 
   Quest JsonReader<Quest>::operator()(const Json::Value& value) const
   {

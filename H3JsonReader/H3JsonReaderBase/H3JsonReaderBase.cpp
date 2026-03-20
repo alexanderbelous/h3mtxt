@@ -4,7 +4,7 @@
 
 #include <stdexcept>
 
-namespace h3m::H3JsonReader_NS
+namespace h3json
 {
   namespace Detail_NS
   {

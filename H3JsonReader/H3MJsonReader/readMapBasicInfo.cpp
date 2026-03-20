@@ -4,12 +4,12 @@
 #include <h3mtxt/JsonCommon/FieldNamesH3M.h>
 #include <h3mtxt/Map/MapBasicInfo.h>
 
-namespace h3m::H3JsonReader_NS
+namespace h3json
 {
-  MapBasicInfo JsonReader<MapBasicInfo>::operator()(const Json::Value& value) const
+  h3m::MapBasicInfo JsonReader<h3m::MapBasicInfo>::operator()(const Json::Value& value) const
   {
-    using Fields = FieldNames<MapBasicInfo>;
-    MapBasicInfo basic_info;
+    using Fields = FieldNames<h3m::MapBasicInfo>;
+    h3m::MapBasicInfo basic_info;
     readField(basic_info.is_playable, value, Fields::kIsPlayable);
     readField(basic_info.map_size, value, Fields::kMapSize);
     readField(basic_info.has_two_levels, value, Fields::kHasTwoLevels);

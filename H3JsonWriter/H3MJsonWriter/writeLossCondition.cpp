@@ -42,7 +42,7 @@ namespace Medea_NS
   void JsonObjectWriter<h3m::LossCondition>::operator()(FieldsWriter& out,
                                                         const h3m::LossCondition& loss_condition) const
   {
-    using Fields = h3m::FieldNames<h3m::LossCondition>;
+    using Fields = h3json::FieldNames<h3m::LossCondition>;
     out.writeField(Fields::kType, loss_condition.type());
     out.writeComment(h3m::getEnumString(loss_condition.type()), false);
     if (loss_condition.type() != h3m::LossConditionType::Normal)

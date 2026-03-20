@@ -4,12 +4,12 @@
 #include <h3mtxt/JsonCommon/FieldNamesH3M.h>
 #include <h3mtxt/Map/CreatureStack.h>
 
-namespace h3m::H3JsonReader_NS
+namespace h3json
 {
-  CreatureStack JsonReader<CreatureStack>::operator()(const Json::Value& value) const
+  h3m::CreatureStack JsonReader<h3m::CreatureStack>::operator()(const Json::Value& value) const
   {
-    using Fields = FieldNames<CreatureStack>;
-    CreatureStack creature_stack;
+    using Fields = FieldNames<h3m::CreatureStack>;
+    h3m::CreatureStack creature_stack;
     readField(creature_stack.type, value, Fields::kType);
     readField(creature_stack.count, value, Fields::kCount);
     return creature_stack;

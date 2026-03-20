@@ -6,8 +6,12 @@
 
 #include <stdexcept>
 
-namespace h3m::H3JsonReader_NS
+namespace h3json
 {
+  using ::h3m::StartingOptions;
+  using ::h3m::StartingOptionsDetails;
+  using ::h3m::StartingOptionsType;
+
   StartingOptionsDetails<StartingOptionsType::None>
   JsonReader<StartingOptionsDetails<StartingOptionsType::None>>::operator()(const Json::Value&) const
   {

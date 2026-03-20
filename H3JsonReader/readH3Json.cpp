@@ -8,7 +8,7 @@
 
 #include <stdexcept>
 
-namespace h3m::H3JsonReader_NS
+namespace h3json
 {
   namespace
   {
@@ -19,12 +19,12 @@ namespace h3m::H3JsonReader_NS
 
     bool isCampaignJson(const Json::Value& value)
     {
-      using Fields = FieldNames<Campaign>;
+      using Fields = FieldNames<h3m::Campaign>;
       return hasField(value, Fields::kHeader) && hasField(value, Fields::kMaps);
     }
   }
 
-  std::variant<Map, Campaign> readH3Json(std::istream& stream)
+  std::variant<h3m::Map, h3m::Campaign> readH3Json(std::istream& stream)
   {
     Json::Value root;
     {
@@ -41,8 +41,8 @@ namespace h3m::H3JsonReader_NS
     // I'm just gonna treat as Campaign in this case.
     if (isCampaignJson(root))
     {
-      return JsonReader<Campaign>{}(root);
+      return JsonReader<h3m::Campaign>{}(root);
     }
-    return JsonReader<Map>{}(root);
+    return JsonReader<h3m::Map>{}(root);
   }
 }

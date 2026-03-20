@@ -4,10 +4,10 @@
 
 #include <iosfwd>
 
-namespace h3m::H3JsonReader_NS
+namespace h3json
 {
   // Reads a H3C campaign from the given JSON file.
   // \param stream - input stream containing the JSON data.
   // \return the parsed campaign.
-  Campaign readH3cJson(std::istream& stream);
+  h3m::Campaign readH3cJson(std::istream& stream);
 }

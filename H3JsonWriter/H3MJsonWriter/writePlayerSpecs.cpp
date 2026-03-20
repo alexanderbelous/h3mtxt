@@ -25,7 +25,7 @@ namespace Medea_NS
   void JsonObjectWriter<h3m::MainTown>::operator()(FieldsWriter& out, const h3m::MainTown& value) const
   {
     constexpr h3m::TownType kRandomTownType {0xFF};
-    using Fields = h3m::FieldNames<h3m::MainTown>;
+    using Fields = h3json::FieldNames<h3m::MainTown>;
     out.writeField(Fields::kGenerateHero, value.generate_hero);
     out.writeField(Fields::kTownType, value.town_type);
     const std::string_view town_type_str =
@@ -39,7 +39,7 @@ namespace Medea_NS
 
   void JsonObjectWriter<h3m::StartingHero>::operator()(FieldsWriter& out, const h3m::StartingHero& value) const
   {
-    using Fields = h3m::FieldNames<h3m::StartingHero>;
+    using Fields = h3json::FieldNames<h3m::StartingHero>;
     out.writeField(Fields::kType, value.type);
     const bool has_starting_hero = (value.type != h3m::HeroType{ 0xFF });
     const std::string_view hero_type_str = has_starting_hero ? h3m::getEnumString(value.type) : "(None)";
@@ -60,7 +60,7 @@ namespace Medea_NS
 
   void JsonObjectWriter<h3m::PlayerSpecs>::operator()(FieldsWriter& out, const h3m::PlayerSpecs& value) const
   {
-    using Fields = h3m::FieldNames<h3m::PlayerSpecs>;
+    using Fields = h3json::FieldNames<h3m::PlayerSpecs>;
     out.writeField(Fields::kCanBeHuman, value.can_be_human);
     out.writeField(Fields::kCanBeComputer, value.can_be_computer);
     out.writeField(Fields::kBehavior, value.behavior);

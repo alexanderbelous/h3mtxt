@@ -4,12 +4,12 @@
 #include <h3mtxt/JsonCommon/FieldNamesH3M.h>
 #include <h3mtxt/Map/Tile.h>
 
-namespace h3m::H3JsonReader_NS
+namespace h3json
 {
-  Tile JsonReader<Tile>::operator()(const Json::Value& value) const
+  h3m::Tile JsonReader<h3m::Tile>::operator()(const Json::Value& value) const
   {
-    using Fields = FieldNames<Tile>;
-    Tile tile{};
+    using Fields = FieldNames<h3m::Tile>;
+    h3m::Tile tile{};
     readField(tile.terrain_type, value, Fields::kTerrainType);
     readField(tile.terrain_sprite, value, Fields::kTerrainSprite);
     readField(tile.river_type, value, Fields::kRiverType);

@@ -4,12 +4,12 @@
 #include <h3mtxt/JsonCommon/FieldNamesH3M.h>
 #include <h3mtxt/Map/HeroSettings.h>
 
-namespace h3m::H3JsonReader_NS
+namespace h3json
 {
-  HeroSettings JsonReader<HeroSettings>::operator()(const Json::Value& value) const
+  h3m::HeroSettings JsonReader<h3m::HeroSettings>::operator()(const Json::Value& value) const
   {
-    using Fields = FieldNames<HeroSettings>;
-    HeroSettings settings;
+    using Fields = FieldNames<h3m::HeroSettings>;
+    h3m::HeroSettings settings;
     readField(settings.experience, value, Fields::kExperience);
     readField(settings.secondary_skills, value, Fields::kSecondarySkills);
     readField(settings.artifacts, value, Fields::kArtifacts);

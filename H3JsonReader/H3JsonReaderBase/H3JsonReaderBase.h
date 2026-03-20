@@ -19,7 +19,7 @@
 #include <type_traits>
 #include <vector>
 
-namespace h3m::H3JsonReader_NS
+namespace h3json
 {
   namespace Detail_NS
   {
@@ -209,39 +209,39 @@ namespace h3m::H3JsonReader_NS
 
   // Partial specialization for BitSet.
   template<std::size_t NumBytes>
-  struct JsonReader<BitSet<NumBytes>>
+  struct JsonReader<h3m::BitSet<NumBytes>>
   {
-    BitSet<NumBytes> operator()(const Json::Value& value) const
+    h3m::BitSet<NumBytes> operator()(const Json::Value& value) const
     {
-      return BitSet<NumBytes>{fromJson<std::array<std::uint8_t, NumBytes>>(value)};
+      return h3m::BitSet<NumBytes>{fromJson<std::array<std::uint8_t, NumBytes>>(value)};
     }
   };
 
   // Partial specialization for ReservedData.
   template<std::size_t NumBytes>
-  struct JsonReader<ReservedData<NumBytes>>
+  struct JsonReader<h3m::ReservedData<NumBytes>>
   {
-    ReservedData<NumBytes> operator()(const Json::Value& value) const
+    h3m::ReservedData<NumBytes> operator()(const Json::Value& value) const
     {
       std::array<std::byte, NumBytes> data = fromJson<std::array<std::byte, NumBytes>>(value);
       if (h3m::Detail_NS::isAllZeros(data))
       {
-        return ReservedData<NumBytes>();
+        return h3m::ReservedData<NumBytes>();
       }
-      return ReservedData<NumBytes>(data);
+      return h3m::ReservedData<NumBytes>(data);
     }
   };
 
   // Partial specialization for EnumBitmask.
   template<class Enum, std::size_t NumBytes>
-  struct JsonReader<EnumBitmask<Enum, NumBytes>>
+  struct JsonReader<h3m::EnumBitmask<Enum, NumBytes>>
   {
-    EnumBitmask<Enum, NumBytes> operator()(const Json::Value& value) const
+    h3m::EnumBitmask<Enum, NumBytes> operator()(const Json::Value& value) const
     {
       constexpr std::span<const std::string_view, NumBytes * 8> kNames =
-        h3json::getEnumFieldNames<Enum, NumBytes * 8>();
+        getEnumFieldNames<Enum, NumBytes * 8>();
 
-      EnumBitmask<Enum, NumBytes> bitmask;
+      h3m::EnumBitmask<Enum, NumBytes> bitmask;
       Detail_NS::readEnumBitmaskImpl(value, bitmask.bitset.data, kNames.data());
       return bitmask;
     }
@@ -249,14 +249,14 @@ namespace h3m::H3JsonReader_NS
 
   // Partial specialization for EnumIndexedArray.
   template<class Enum, class T, std::size_t NumElements>
-  struct JsonReader<EnumIndexedArray<Enum, T, NumElements>>
+  struct JsonReader<h3m::EnumIndexedArray<Enum, T, NumElements>>
   {
-    EnumIndexedArray<Enum, T, NumElements> operator()(const Json::Value& value) const
+    h3m::EnumIndexedArray<Enum, T, NumElements> operator()(const Json::Value& value) const
     {
       constexpr std::span<const std::string_view, NumElements> kNames =
-        h3json::getEnumFieldNames<Enum, NumElements>();
+        getEnumFieldNames<Enum, NumElements>();
 
-      EnumIndexedArray<Enum, T, NumElements> enum_indexed_array;
+      h3m::EnumIndexedArray<Enum, T, NumElements> enum_indexed_array;
       for (std::size_t i = 0; i < NumElements; ++i)
       {
         readField(enum_indexed_array.data[i], value, kNames[i]);

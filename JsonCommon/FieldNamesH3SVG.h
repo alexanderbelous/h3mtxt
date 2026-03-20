@@ -123,24 +123,24 @@ namespace h3json
   template<>
   struct FieldNames<h3svg::Guardians>
   {
-    static constexpr std::string_view kMessage = h3m::FieldNames<h3m::Guardians>::kMessage;
-    static constexpr std::string_view kCreatures = h3m::FieldNames<h3m::Guardians>::kCreatures;
+    static constexpr std::string_view kMessage = FieldNames<h3m::Guardians>::kMessage;
+    static constexpr std::string_view kCreatures = FieldNames<h3m::Guardians>::kCreatures;
   };
 
   template<>
   struct FieldNames<h3svg::EventBase>
   {
-    static constexpr std::string_view kGuardians = h3m::FieldNames<h3m::EventBase>::kGuardians;
-    static constexpr std::string_view kExperience = h3m::FieldNames<h3m::EventBase>::kExperience;
-    static constexpr std::string_view kSpellPoints = h3m::FieldNames<h3m::EventBase>::kSpellPoints;
-    static constexpr std::string_view kMorale = h3m::FieldNames<h3m::EventBase>::kMorale;
-    static constexpr std::string_view kLuck = h3m::FieldNames<h3m::EventBase>::kLuck;
-    static constexpr std::string_view kResources = h3m::FieldNames<h3m::EventBase>::kResources;
-    static constexpr std::string_view kPrimarySkills = h3m::FieldNames<h3m::EventBase>::kPrimarySkills;
-    static constexpr std::string_view kSecondarySkills = h3m::FieldNames<h3m::EventBase>::kSecondarySkills;
-    static constexpr std::string_view kArtifacts = h3m::FieldNames<h3m::EventBase>::kArtifacts;
-    static constexpr std::string_view kSpells = h3m::FieldNames<h3m::EventBase>::kSpells;
-    static constexpr std::string_view kCreatures = h3m::FieldNames<h3m::EventBase>::kCreatures;
+    static constexpr std::string_view kGuardians = FieldNames<h3m::EventBase>::kGuardians;
+    static constexpr std::string_view kExperience = FieldNames<h3m::EventBase>::kExperience;
+    static constexpr std::string_view kSpellPoints = FieldNames<h3m::EventBase>::kSpellPoints;
+    static constexpr std::string_view kMorale = FieldNames<h3m::EventBase>::kMorale;
+    static constexpr std::string_view kLuck = FieldNames<h3m::EventBase>::kLuck;
+    static constexpr std::string_view kResources = FieldNames<h3m::EventBase>::kResources;
+    static constexpr std::string_view kPrimarySkills = FieldNames<h3m::EventBase>::kPrimarySkills;
+    static constexpr std::string_view kSecondarySkills = FieldNames<h3m::EventBase>::kSecondarySkills;
+    static constexpr std::string_view kArtifacts = FieldNames<h3m::EventBase>::kArtifacts;
+    static constexpr std::string_view kSpells = FieldNames<h3m::EventBase>::kSpells;
+    static constexpr std::string_view kCreatures = FieldNames<h3m::EventBase>::kCreatures;
   };
 
   template<>
@@ -300,7 +300,7 @@ namespace h3json
   };
 
   template<>
-  struct FieldNames<h3svg::Quest> : h3m::FieldNames<h3m::Quest>
+  struct FieldNames<h3svg::Quest> : FieldNames<h3m::Quest>
   {
     // Same fields as for h3m::Quest, plus 1 currently unknown 2-byte field.
     static constexpr std::string_view kUnknown = "unknown";
@@ -314,7 +314,7 @@ namespace h3json
   };
 
   template<>
-  struct FieldNames<h3svg::Reward> : h3m::FieldNames<h3m::Reward>
+  struct FieldNames<h3svg::Reward> : FieldNames<h3m::Reward>
   {
     // Same fields as for h3m::Reward.
   };
@@ -427,13 +427,13 @@ namespace h3json
   template<>
   struct FieldNames<h3svg::TimedEvent>
   {
-    static constexpr std::string_view kMessage = h3m::FieldNames<h3m::TimedEvent>::kMessage;
-    static constexpr std::string_view kResources = h3m::FieldNames<h3m::TimedEvent>::kResources;
-    static constexpr std::string_view kAffectedPlayers = h3m::FieldNames<h3m::TimedEvent>::kAffectedPlayers;
-    static constexpr std::string_view kAppliesToHuman = h3m::FieldNames<h3m::TimedEvent>::kAppliesToHuman;
-    static constexpr std::string_view kAppliesToComputer = h3m::FieldNames<h3m::TimedEvent>::kAppliesToComputer;
-    static constexpr std::string_view kDayOfFirstOccurence = h3m::FieldNames<h3m::TimedEvent>::kDayOfFirstOccurence;
-    static constexpr std::string_view kRepeatAfterDays = h3m::FieldNames<h3m::TimedEvent>::kRepeatAfterDays;
+    static constexpr std::string_view kMessage = FieldNames<h3m::TimedEvent>::kMessage;
+    static constexpr std::string_view kResources = FieldNames<h3m::TimedEvent>::kResources;
+    static constexpr std::string_view kAffectedPlayers = FieldNames<h3m::TimedEvent>::kAffectedPlayers;
+    static constexpr std::string_view kAppliesToHuman = FieldNames<h3m::TimedEvent>::kAppliesToHuman;
+    static constexpr std::string_view kAppliesToComputer = FieldNames<h3m::TimedEvent>::kAppliesToComputer;
+    static constexpr std::string_view kDayOfFirstOccurence = FieldNames<h3m::TimedEvent>::kDayOfFirstOccurence;
+    static constexpr std::string_view kRepeatAfterDays = FieldNames<h3m::TimedEvent>::kRepeatAfterDays;
   };
 
   template<>

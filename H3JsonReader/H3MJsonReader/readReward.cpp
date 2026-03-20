@@ -5,124 +5,106 @@
 #include <h3mtxt/JsonCommon/FieldNamesH3M.h>
 #include <h3mtxt/Map/Reward.h>
 
-namespace h3m::H3JsonReader_NS
+namespace h3json
 {
-  template<>
-  struct JsonReader<RewardDetails<RewardType::None>>
-  {
-    RewardDetails<RewardType::None> operator()(const Json::Value&) const
-    {
-      return {};
-    }
-  };
+  using ::h3m::Reward;
+  using ::h3m::RewardDetails;
+  using ::h3m::RewardType;
 
   template<>
-  struct JsonReader<RewardDetails<RewardType::Experience>>
+  RewardDetails<RewardType::None>
+  JsonReader<RewardDetails<RewardType::None>>::operator()(const Json::Value&) const
   {
-    RewardDetails<RewardType::Experience> operator()(const Json::Value& value) const
-    {
-      RewardDetails<RewardType::Experience> details;
-      readField(details.experience, value, "experience");
-      return details;
-    }
-  };
+    return {};
+  }
 
   template<>
-  struct JsonReader<RewardDetails<RewardType::SpellPoints>>
+  RewardDetails<RewardType::Experience>
+  JsonReader<RewardDetails<RewardType::Experience>>::operator()(const Json::Value& value) const
   {
-    RewardDetails<RewardType::SpellPoints> operator()(const Json::Value& value) const
-    {
-      RewardDetails<RewardType::SpellPoints> details;
-      readField(details.spell_points, value, "spell_points");
-      return details;
-    }
-  };
+    RewardDetails<RewardType::Experience> details;
+    readField(details.experience, value, "experience");
+    return details;
+  }
 
   template<>
-  struct JsonReader<RewardDetails<RewardType::Morale>>
+  RewardDetails<RewardType::SpellPoints>
+  JsonReader<RewardDetails<RewardType::SpellPoints>>::operator()(const Json::Value& value) const
   {
-    RewardDetails<RewardType::Morale> operator()(const Json::Value& value) const
-    {
-      RewardDetails<RewardType::Morale> details;
-      readField(details.morale, value, "morale");
-      return details;
-    }
-  };
+    RewardDetails<RewardType::SpellPoints> details;
+    readField(details.spell_points, value, "spell_points");
+    return details;
+  }
 
   template<>
-  struct JsonReader<RewardDetails<RewardType::Luck>>
+  RewardDetails<RewardType::Morale>
+  JsonReader<RewardDetails<RewardType::Morale>>::operator()(const Json::Value& value) const
   {
-    RewardDetails<RewardType::Luck> operator()(const Json::Value& value) const
-    {
-      RewardDetails<RewardType::Luck> details;
-      readField(details.luck, value, "luck");
-      return details;
-    }
-  };
+    RewardDetails<RewardType::Morale> details;
+    readField(details.morale, value, "morale");
+    return details;
+  }
 
   template<>
-  struct JsonReader<RewardDetails<RewardType::Resource>>
+  RewardDetails<RewardType::Luck>
+  JsonReader<RewardDetails<RewardType::Luck>>::operator()(const Json::Value& value) const
   {
-    RewardDetails<RewardType::Resource> operator()(const Json::Value& value) const
-    {
-      RewardDetails<RewardType::Resource> details;
-      readField(details.type, value, "type");
-      readField(details.amount, value, "amount");
-      return details;
-    }
-  };
+    RewardDetails<RewardType::Luck> details;
+    readField(details.luck, value, "luck");
+    return details;
+  }
 
   template<>
-  struct JsonReader<RewardDetails<RewardType::PrimarySkill>>
+  RewardDetails<RewardType::Resource>
+  JsonReader<RewardDetails<RewardType::Resource>>::operator()(const Json::Value& value) const
   {
-    RewardDetails<RewardType::PrimarySkill> operator()(const Json::Value& value) const
-    {
-      RewardDetails<RewardType::PrimarySkill> details;
-      readField(details.type, value, "type");
-      readField(details.value, value, "value");
-      return details;
-    }
-  };
+    RewardDetails<RewardType::Resource> details;
+    readField(details.type, value, "type");
+    readField(details.amount, value, "amount");
+    return details;
+  }
 
   template<>
-  struct JsonReader<RewardDetails<RewardType::SecondarySkill>>
+  RewardDetails<RewardType::PrimarySkill>
+  JsonReader<RewardDetails<RewardType::PrimarySkill>>::operator()(const Json::Value& value) const
   {
-    RewardDetails<RewardType::SecondarySkill> operator()(const Json::Value& value) const
-    {
-      return RewardDetails<RewardType::SecondarySkill> { fromJson<h3m::SecondarySkill>(value) };
-    }
-  };
+    RewardDetails<RewardType::PrimarySkill> details;
+    readField(details.type, value, "type");
+    readField(details.value, value, "value");
+    return details;
+  }
 
   template<>
-  struct JsonReader<RewardDetails<RewardType::Artifact>>
+  RewardDetails<RewardType::SecondarySkill>
+  JsonReader<RewardDetails<RewardType::SecondarySkill>>::operator()(const Json::Value& value) const
   {
-    RewardDetails<RewardType::Artifact> operator()(const Json::Value& value) const
-    {
-      RewardDetails<RewardType::Artifact> details;
-      readField(details.artifact, value, "artifact");
-      return details;
-    }
-  };
+    return RewardDetails<RewardType::SecondarySkill> { fromJson<h3m::SecondarySkill>(value) };
+  }
 
   template<>
-  struct JsonReader<RewardDetails<RewardType::Spell>>
+  RewardDetails<RewardType::Artifact>
+  JsonReader<RewardDetails<RewardType::Artifact>>::operator()(const Json::Value& value) const
   {
-    RewardDetails<RewardType::Spell> operator()(const Json::Value& value) const
-    {
-      RewardDetails<RewardType::Spell> details;
-      readField(details.spell, value, "spell");
-      return details;
-    }
-  };
+    RewardDetails<RewardType::Artifact> details;
+    readField(details.artifact, value, "artifact");
+    return details;
+  }
 
   template<>
-  struct JsonReader<RewardDetails<RewardType::Creature>>
+  RewardDetails<RewardType::Spell>
+  JsonReader<RewardDetails<RewardType::Spell>>::operator()(const Json::Value& value) const
   {
-    RewardDetails<RewardType::Creature> operator()(const Json::Value& value) const
-    {
-      return RewardDetails<RewardType::Creature> { fromJson<h3m::CreatureStack>(value) };
-    }
-  };
+    RewardDetails<RewardType::Spell> details;
+    readField(details.spell, value, "spell");
+    return details;
+  }
+
+  template<>
+  RewardDetails<RewardType::Creature>
+  JsonReader<RewardDetails<RewardType::Creature>>::operator()(const Json::Value& value) const
+  {
+    return RewardDetails<RewardType::Creature> { fromJson<h3m::CreatureStack>(value) };
+  }
 
   Reward JsonReader<Reward>::operator()(const Json::Value& value) const
   {

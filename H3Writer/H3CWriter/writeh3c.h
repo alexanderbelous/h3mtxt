@@ -4,7 +4,7 @@
 
 #include <iosfwd>
 
-namespace h3m::H3Writer_NS
+namespace h3m
 {
   // Writes the given h3m::Campaign as a .h3c file into the specified stream.
   //

@@ -91,7 +91,7 @@ namespace Medea_NS
 
   void JsonObjectWriter<h3m::Quest>::operator()(FieldsWriter& out, const h3m::Quest& quest) const
   {
-    using Fields = h3m::FieldNames<h3m::Quest>;
+    using Fields = h3json::FieldNames<h3m::Quest>;
     out.writeField(Fields::kType, quest.type());
     out.writeComment(h3m::getEnumString(quest.type()), false);
     if (quest.type() != h3m::QuestType::None)

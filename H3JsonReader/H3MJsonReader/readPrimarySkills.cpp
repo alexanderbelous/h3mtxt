@@ -4,12 +4,12 @@
 #include <h3mtxt/JsonCommon/FieldNamesH3M.h>
 #include <h3mtxt/Map/PrimarySkills.h>
 
-namespace h3m::H3JsonReader_NS
+namespace h3json
 {
-  PrimarySkills JsonReader<PrimarySkills>::operator()(const Json::Value& value) const
+  h3m::PrimarySkills JsonReader<h3m::PrimarySkills>::operator()(const Json::Value& value) const
   {
-    using Fields = FieldNames<PrimarySkills>;
-    PrimarySkills skills;
+    using Fields = FieldNames<h3m::PrimarySkills>;
+    h3m::PrimarySkills skills;
     readField(skills.attack, value, Fields::kAttack);
     readField(skills.defense, value, Fields::kDefense);
     readField(skills.spell_power, value, Fields::kSpellPower);

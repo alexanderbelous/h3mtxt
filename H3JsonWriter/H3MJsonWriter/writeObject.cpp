@@ -41,14 +41,14 @@ namespace Medea_NS
   void JsonObjectWriter<h3m::TownBuildings>::operator()(FieldsWriter& out,
                                                         const h3m::TownBuildings& town_buildings) const
   {
-    using Fields = h3m::FieldNames<h3m::TownBuildings>;
+    using Fields = h3json::FieldNames<h3m::TownBuildings>;
     out.writeField(Fields::kIsBuilt, town_buildings.is_built);
     out.writeField(Fields::kIsDisabled, town_buildings.is_disabled);
   }
 
   void JsonObjectWriter<h3m::TownEvent>::operator()(FieldsWriter& out, const h3m::TownEvent& town_event) const
   {
-    using Fields = h3m::FieldNames<h3m::TownEvent>;
+    using Fields = h3json::FieldNames<h3m::TownEvent>;
     JsonObjectWriter<h3m::TimedEvent>{}(out, town_event);
     out.writeField(Fields::kBuildings, town_event.buildings);
     out.writeField(Fields::kCreatures, town_event.creatures);
@@ -57,7 +57,7 @@ namespace Medea_NS
 
   void JsonObjectWriter<h3m::Guardians>::operator()(FieldsWriter& out, const h3m::Guardians& guardians) const
   {
-    using Fields = h3m::FieldNames<h3m::Guardians>;
+    using Fields = h3json::FieldNames<h3m::Guardians>;
     out.writeField(Fields::kMessage, guardians.message);
     if (guardians.creatures)
     {
@@ -69,7 +69,7 @@ namespace Medea_NS
   void JsonObjectWriter<h3m::MessageAndTreasure>::operator()(FieldsWriter& out,
                                                              const h3m::MessageAndTreasure& data) const
   {
-    using Fields = h3m::FieldNames<h3m::MessageAndTreasure>;
+    using Fields = h3json::FieldNames<h3m::MessageAndTreasure>;
     out.writeField(Fields::kMessage, data.message);
     out.writeField(Fields::kResources, data.resources);
     out.writeField(Fields::kArtifact, data.artifact);
@@ -81,7 +81,7 @@ namespace Medea_NS
 
   void JsonObjectWriter<h3m::EventBase>::operator()(FieldsWriter& out, const h3m::EventBase& event) const
   {
-    using Fields = h3m::FieldNames<h3m::EventBase>;
+    using Fields = h3json::FieldNames<h3m::EventBase>;
     if (event.guardians)
     {
       out.writeField(Fields::kGuardians, *event.guardians);
@@ -103,7 +103,7 @@ namespace Medea_NS
     FieldsWriter& out, const h3m::ObjectProperties<h3m::ObjectPropertiesType::ABANDONED_MINE>& details) const
   {
     using Details = h3m::ObjectProperties<h3m::ObjectPropertiesType::ABANDONED_MINE>;
-    using Fields = h3m::FieldNames<Details>;
+    using Fields = h3json::FieldNames<Details>;
     out.writeField(Fields::kPotentialResources, details.potential_resources);
     out.writeField(Fields::kUnknown, details.unknown);
   }
@@ -112,7 +112,7 @@ namespace Medea_NS
     FieldsWriter& out, const h3m::ObjectProperties<h3m::ObjectPropertiesType::ARTIFACT>& artifact) const
   {
     using Details = h3m::ObjectProperties<h3m::ObjectPropertiesType::ARTIFACT>;
-    using Fields = h3m::FieldNames<Details>;
+    using Fields = h3json::FieldNames<Details>;
     if (artifact.guardians)
     {
       out.writeField(Fields::kGuardians, *artifact.guardians);
@@ -123,7 +123,7 @@ namespace Medea_NS
     FieldsWriter& out, const h3m::ObjectProperties<h3m::ObjectPropertiesType::EVENT>& event) const
   {
     using Details = h3m::ObjectProperties<h3m::ObjectPropertiesType::EVENT>;
-    using Fields = h3m::FieldNames<Details>;
+    using Fields = h3json::FieldNames<Details>;
     JsonObjectWriter<h3m::EventBase>{}(out, event);
     out.writeField(Fields::kAffectedPlayers, event.affected_players);
     out.writeField(Fields::kAppliesToComputer, event.applies_to_computer);
@@ -135,7 +135,7 @@ namespace Medea_NS
     FieldsWriter& out, const h3m::ObjectProperties<h3m::ObjectPropertiesType::GARRISON>& garrison) const
   {
     using Details = h3m::ObjectProperties<h3m::ObjectPropertiesType::GARRISON>;
-    using Fields = h3m::FieldNames<Details>;
+    using Fields = h3json::FieldNames<Details>;
     out.writeField(Fields::kOwner, garrison.owner);
     if (std::string_view enum_str = h3m::getEnumString(garrison.owner); !enum_str.empty())
     {
@@ -156,7 +156,7 @@ namespace Medea_NS
     FieldsWriter& out, const h3m::ObjectProperties<h3m::ObjectPropertiesType::GRAIL>& grail) const
   {
     using Details = h3m::ObjectProperties<h3m::ObjectPropertiesType::GRAIL>;
-    using Fields = h3m::FieldNames<Details>;
+    using Fields = h3json::FieldNames<Details>;
     out.writeField(Fields::kAllowableRadius, grail.allowable_radius);
     out.writeField(Fields::kUnknown, grail.unknown);
   }
@@ -165,7 +165,7 @@ namespace Medea_NS
     FieldsWriter& out, const h3m::ObjectProperties<h3m::ObjectPropertiesType::HERO>& hero) const
   {
     using Details = h3m::ObjectProperties<h3m::ObjectPropertiesType::HERO>;
-    using Fields = h3m::FieldNames<Details>;
+    using Fields = h3json::FieldNames<Details>;
     out.writeField(Fields::kAbsodId, hero.absod_id);
     out.writeField(Fields::kOwner, hero.owner);
     if (auto enum_str = h3m::getEnumString(hero.owner); !enum_str.empty())
@@ -240,7 +240,7 @@ namespace Medea_NS
     FieldsWriter& out, const h3m::ObjectProperties<h3m::ObjectPropertiesType::MONSTER>& monster) const
   {
     using Details = h3m::ObjectProperties<h3m::ObjectPropertiesType::MONSTER>;
-    using Fields = h3m::FieldNames<Details>;
+    using Fields = h3json::FieldNames<Details>;
 
     out.writeField(Fields::kAbsodId, monster.absod_id);
     out.writeField(Fields::kCount, monster.count);
@@ -268,7 +268,7 @@ namespace Medea_NS
     FieldsWriter& out, const h3m::ObjectProperties<h3m::ObjectPropertiesType::PLACEHOLDER_HERO>& hero) const
   {
     using Details = h3m::ObjectProperties<h3m::ObjectPropertiesType::PLACEHOLDER_HERO>;
-    using Fields = h3m::FieldNames<Details>;
+    using Fields = h3json::FieldNames<Details>;
     constexpr h3m::HeroType kRandomHeroType {0xFF};
 
     out.writeField(Fields::kOwner, hero.owner);
@@ -287,7 +287,7 @@ namespace Medea_NS
     FieldsWriter& out, const h3m::ObjectProperties<h3m::ObjectPropertiesType::QUEST_GUARD>& quest_guard) const
   {
     using Details = h3m::ObjectProperties<h3m::ObjectPropertiesType::QUEST_GUARD>;
-    using Fields = h3m::FieldNames<Details>;
+    using Fields = h3json::FieldNames<Details>;
     out.writeField(Fields::kQuest, quest_guard.quest);
   }
 
@@ -295,7 +295,7 @@ namespace Medea_NS
     FieldsWriter& out, const h3m::ObjectProperties<h3m::ObjectPropertiesType::RANDOM_DWELLING>& dwelling) const
   {
     using Details = h3m::ObjectProperties<h3m::ObjectPropertiesType::RANDOM_DWELLING>;
-    using Fields = h3m::FieldNames<Details>;
+    using Fields = h3json::FieldNames<Details>;
     out.writeField(Fields::kOwner, dwelling.owner);
     out.writeField(Fields::kTownAbsodId, dwelling.town_absod_id);
     if (dwelling.town_absod_id == 0)
@@ -310,7 +310,7 @@ namespace Medea_NS
     FieldsWriter& out, const h3m::ObjectProperties<h3m::ObjectPropertiesType::RANDOM_DWELLING_PRESET_ALIGNMENT>& dwelling) const
   {
     using Details = h3m::ObjectProperties<h3m::ObjectPropertiesType::RANDOM_DWELLING_PRESET_ALIGNMENT>;
-    using Fields = h3m::FieldNames<Details>;
+    using Fields = h3json::FieldNames<Details>;
     out.writeField(Fields::kOwner, dwelling.owner);
     out.writeField(Fields::kMinLevel, dwelling.min_level);
     out.writeField(Fields::kMaxLevel, dwelling.max_level);
@@ -320,7 +320,7 @@ namespace Medea_NS
     FieldsWriter& out, const h3m::ObjectProperties<h3m::ObjectPropertiesType::RANDOM_DWELLING_PRESET_LEVEL>& dwelling) const
   {
     using Details = h3m::ObjectProperties<h3m::ObjectPropertiesType::RANDOM_DWELLING_PRESET_LEVEL>;
-    using Fields = h3m::FieldNames<Details>;
+    using Fields = h3json::FieldNames<Details>;
     out.writeField(Fields::kOwner, dwelling.owner);
     out.writeField(Fields::kTownAbsodId, dwelling.town_absod_id);
     if (dwelling.town_absod_id == 0)
@@ -333,7 +333,7 @@ namespace Medea_NS
     FieldsWriter& out, const h3m::ObjectProperties<h3m::ObjectPropertiesType::RESOURCE>& details) const
   {
     using Details = h3m::ObjectProperties<h3m::ObjectPropertiesType::RESOURCE>;
-    using Fields = h3m::FieldNames<Details>;
+    using Fields = h3json::FieldNames<Details>;
     if (details.guardians)
     {
       out.writeField(Fields::kGuardians, *details.guardians);
@@ -346,7 +346,7 @@ namespace Medea_NS
     FieldsWriter& out, const h3m::ObjectProperties<h3m::ObjectPropertiesType::SCHOLAR>& scholar) const
   {
     using Details = h3m::ObjectProperties<h3m::ObjectPropertiesType::SCHOLAR>;
-    using Fields = h3m::FieldNames<Details>;
+    using Fields = h3json::FieldNames<Details>;
     const h3m::ScholarRewardType reward_type = scholar.rewardType();
     out.writeField(Fields::kRewardType, reward_type);
     if (std::string_view enum_str = h3m::getEnumString(reward_type); !enum_str.empty())
@@ -370,7 +370,7 @@ namespace Medea_NS
     FieldsWriter& out, const h3m::ObjectProperties<h3m::ObjectPropertiesType::SEERS_HUT>& seers_hut) const
   {
     using Details = h3m::ObjectProperties<h3m::ObjectPropertiesType::SEERS_HUT>;
-    using Fields = h3m::FieldNames<Details>;
+    using Fields = h3json::FieldNames<Details>;
     out.writeField(Fields::kQuest, seers_hut.quest);
     out.writeField(Fields::kReward, seers_hut.reward);
     out.writeField(Fields::kUnknown, seers_hut.unknown);
@@ -380,7 +380,7 @@ namespace Medea_NS
     FieldsWriter& out, const h3m::ObjectProperties<h3m::ObjectPropertiesType::SHRINE>& shrine) const
   {
     using Details = h3m::ObjectProperties<h3m::ObjectPropertiesType::SHRINE>;
-    using Fields = h3m::FieldNames<Details>;
+    using Fields = h3json::FieldNames<Details>;
     out.writeField(Fields::kSpell, shrine.spell);
     const std::string_view spell_str = (shrine.spell == h3m::SpellType{ 0xFF }) ?
       "(Random)" : h3m::getEnumString(shrine.spell);
@@ -395,7 +395,7 @@ namespace Medea_NS
     FieldsWriter& out, const h3m::ObjectProperties<h3m::ObjectPropertiesType::SIGN>& sign) const
   {
     using Details = h3m::ObjectProperties<h3m::ObjectPropertiesType::SIGN>;
-    using Fields = h3m::FieldNames<Details>;
+    using Fields = h3json::FieldNames<Details>;
     out.writeField(Fields::kMessage, sign.message);
     out.writeField(Fields::kUnknown, sign.unknown);
   }
@@ -404,7 +404,7 @@ namespace Medea_NS
     FieldsWriter& out, const h3m::ObjectProperties<h3m::ObjectPropertiesType::SPELL_SCROLL>& spell_scroll) const
   {
     using Details = h3m::ObjectProperties<h3m::ObjectPropertiesType::SPELL_SCROLL>;
-    using Fields = h3m::FieldNames<Details>;
+    using Fields = h3json::FieldNames<Details>;
     if (spell_scroll.guardians)
     {
       out.writeField(Fields::kGuardians, *spell_scroll.guardians);
@@ -421,7 +421,7 @@ namespace Medea_NS
     FieldsWriter& out, const h3m::ObjectProperties<h3m::ObjectPropertiesType::TOWN>& town) const
   {
     using Details = h3m::ObjectProperties<h3m::ObjectPropertiesType::TOWN>;
-    using Fields = h3m::FieldNames<Details>;
+    using Fields = h3json::FieldNames<Details>;
     out.writeField(Fields::kAbsodId, town.absod_id);
     out.writeField(Fields::kOwner, town.owner);
     if (std::string_view enum_str = h3m::getEnumString(town.owner); !enum_str.empty())
@@ -460,7 +460,7 @@ namespace Medea_NS
     FieldsWriter& out, const h3m::ObjectProperties<h3m::ObjectPropertiesType::TRIVIAL_OWNED_OBJECT>& details) const
   {
     using Details = h3m::ObjectProperties<h3m::ObjectPropertiesType::TRIVIAL_OWNED_OBJECT>;
-    using Fields = h3m::FieldNames<Details>;
+    using Fields = h3json::FieldNames<Details>;
     out.writeField(Fields::kOwner, details.owner);
     if (std::string_view enum_str = h3m::getEnumString(details.owner); !enum_str.empty())
     {
@@ -473,13 +473,13 @@ namespace Medea_NS
     FieldsWriter& out, const h3m::ObjectProperties<h3m::ObjectPropertiesType::WITCH_HUT>& witch_hut) const
   {
     using Details = h3m::ObjectProperties<h3m::ObjectPropertiesType::WITCH_HUT>;
-    using Fields = h3m::FieldNames<Details>;
+    using Fields = h3json::FieldNames<Details>;
     out.writeField(Fields::kPotentialSkills, witch_hut.potential_skills);
   }
 
   void JsonObjectWriter<h3m::Object>::operator()(FieldsWriter& out, const h3m::Object& object) const
   {
-    using Fields = h3m::FieldNames<h3m::Object>;
+    using Fields = h3json::FieldNames<h3m::Object>;
     out.writeField(Fields::kCoordinates, object.coordinates);
     if (objects_templates_)
     {

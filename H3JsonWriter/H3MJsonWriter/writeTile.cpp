@@ -10,7 +10,7 @@ namespace Medea_NS
 {
   void JsonObjectWriter<h3m::Tile>::operator()(FieldsWriter& out, const h3m::Tile& value) const
   {
-    using Fields = h3m::FieldNames<h3m::Tile>;
+    using Fields = h3json::FieldNames<h3m::Tile>;
     out.writeField(Fields::kTerrainType, value.terrain_type);
     if (std::string_view enum_str = h3m::getEnumString(value.terrain_type); !enum_str.empty())
     {

@@ -4,17 +4,17 @@
 #include <h3mtxt/JsonCommon/FieldNamesH3M.h>
 #include <h3mtxt/Map/ObjectTemplate.h>
 
-namespace h3m::H3JsonReader_NS
+namespace h3json
 {
-  SpriteTilesBitmask JsonReader<SpriteTilesBitmask>::operator()(const Json::Value& value) const
+  h3m::SpriteTilesBitmask JsonReader<h3m::SpriteTilesBitmask>::operator()(const Json::Value& value) const
   {
-    return SpriteTilesBitmask{ .data = fromJson<std::array<std::uint8_t, 6>>(value) };
+    return h3m::SpriteTilesBitmask{ .data = fromJson<std::array<std::uint8_t, 6>>(value) };
   }
 
-  ObjectTemplate JsonReader<ObjectTemplate>::operator()(const Json::Value& value) const
+  h3m::ObjectTemplate JsonReader<h3m::ObjectTemplate>::operator()(const Json::Value& value) const
   {
-    using Fields = FieldNames<ObjectTemplate>;
-    ObjectTemplate object_template{};
+    using Fields = FieldNames<h3m::ObjectTemplate>;
+    h3m::ObjectTemplate object_template{};
     readField(object_template.def, value, Fields::kDef);
     readField(object_template.passability, value, Fields::kPassability);
     readField(object_template.actionability, value, Fields::kActionability);
