@@ -10,7 +10,7 @@ namespace Medea_NS
 {
   void JsonObjectWriter<h3m::MapBasicInfo>::operator()(FieldsWriter& out, const h3m::MapBasicInfo& value) const
   {
-    using Fields = h3m::FieldNames<h3m::MapBasicInfo>;
+    using Fields = h3json::FieldNames<h3m::MapBasicInfo>;
     out.writeField(Fields::kIsPlayable, value.is_playable);
     out.writeField(Fields::kMapSize, value.map_size);
     out.writeField(Fields::kHasTwoLevels, value.has_two_levels);

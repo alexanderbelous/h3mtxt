@@ -6,9 +6,9 @@
 
 #include <stdexcept>
 
-namespace h3m::H3JsonReader_NS
+namespace h3json
 {
-  Map readH3mJson(std::istream& stream)
+  h3m::Map readH3mJson(std::istream& stream)
   {
     Json::Value root;
     {
@@ -20,6 +20,6 @@ namespace h3m::H3JsonReader_NS
         throw std::runtime_error("readH3mJson(): " + errs);
       }
     }
-    return JsonReader<Map>{}(root);
+    return JsonReader<h3m::Map>{}(root);
   }
 }

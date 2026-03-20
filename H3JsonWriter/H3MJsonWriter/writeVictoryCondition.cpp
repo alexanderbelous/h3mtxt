@@ -139,7 +139,7 @@ namespace Medea_NS
 
   void JsonObjectWriter<h3m::VictoryCondition>::operator()(FieldsWriter& out, const h3m::VictoryCondition& value) const
   {
-    using Fields = h3m::FieldNames<h3m::VictoryCondition>;
+    using Fields = h3json::FieldNames<h3m::VictoryCondition>;
     out.writeField(Fields::kType, value.type());
     out.writeComment(h3m::getEnumString(value.type()), false);
     if (value.type() != h3m::VictoryConditionType::Normal)

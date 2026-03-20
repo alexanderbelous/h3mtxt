@@ -592,12 +592,9 @@ namespace h3json
   };
   static_assert(!Detail_NS::hasDuplicates(kEnumFieldNames<h3m::TownType>),
                 "kEnumFieldNames<h3m::TownType> has duplicates.");
-}
 
-namespace h3m
-{
   template<>
-  struct FieldNames<Coordinates>
+  struct FieldNames<h3m::Coordinates>
   {
     static constexpr std::string_view kX = "x";
     static constexpr std::string_view kY = "y";
@@ -605,14 +602,14 @@ namespace h3m
   };
 
   template<>
-  struct FieldNames<CreatureStack>
+  struct FieldNames<h3m::CreatureStack>
   {
     static constexpr std::string_view kType = "type";
     static constexpr std::string_view kCount = "count";
   };
 
   template<>
-  struct FieldNames<CustomHero>
+  struct FieldNames<h3m::CustomHero>
   {
     static constexpr std::string_view kType = "type";
     static constexpr std::string_view kPortrait = "portrait";
@@ -621,7 +618,7 @@ namespace h3m
   };
 
   template<>
-  struct FieldNames<EventBase>
+  struct FieldNames<h3m::EventBase>
   {
     static constexpr std::string_view kGuardians = "guardians";
     static constexpr std::string_view kExperience = "experience";
@@ -638,7 +635,7 @@ namespace h3m
   };
 
   template<>
-  struct FieldNames<Guardians>
+  struct FieldNames<h3m::Guardians>
   {
     static constexpr std::string_view kMessage = "message";
     static constexpr std::string_view kCreatures = "creatures";
@@ -646,14 +643,14 @@ namespace h3m
   };
 
   template<>
-  struct FieldNames<HeroArtifacts>
+  struct FieldNames<h3m::HeroArtifacts>
   {
     static constexpr std::string_view kEquipped = "equipped";
     static constexpr std::string_view kBackpack = "backpack";
   };
 
   template<>
-  struct FieldNames<HeroSettings>
+  struct FieldNames<h3m::HeroSettings>
   {
     static constexpr std::string_view kExperience = "experience";
     static constexpr std::string_view kSecondarySkills = "secondary_skills";
@@ -665,7 +662,7 @@ namespace h3m
   };
 
   template<>
-  struct FieldNames<LossCondition>
+  struct FieldNames<h3m::LossCondition>
   {
     // Note: LossCondition has only 1 data member `details`, which is a std::variant.
     // However, it is serialized as 2 fields: `type` (LossConditionType) and
@@ -675,7 +672,7 @@ namespace h3m
   };
 
   template<>
-  struct FieldNames<MainTown>
+  struct FieldNames<h3m::MainTown>
   {
     static constexpr std::string_view kGenerateHero = "generate_hero";
     static constexpr std::string_view kTownType = "town_type";
@@ -683,7 +680,7 @@ namespace h3m
   };
 
   template<>
-  struct FieldNames<Map>
+  struct FieldNames<h3m::Map>
   {
     static constexpr std::string_view kFormat = "format";
     static constexpr std::string_view kBasicInfo = "basic_info";
@@ -697,7 +694,7 @@ namespace h3m
   };
 
   template<>
-  struct FieldNames<MapBasicInfo>
+  struct FieldNames<h3m::MapBasicInfo>
   {
     static constexpr std::string_view kIsPlayable = "is_playable";
     static constexpr std::string_view kMapSize = "map_size";
@@ -709,7 +706,7 @@ namespace h3m
   };
 
   template<>
-  struct FieldNames<MapAdditionalInfo>
+  struct FieldNames<h3m::MapAdditionalInfo>
   {
     static constexpr std::string_view kVictoryCondition = "victory_condition";
     static constexpr std::string_view kLossCondition = "loss_condition";
@@ -726,7 +723,7 @@ namespace h3m
   };
 
   template<>
-  struct FieldNames<MessageAndTreasure>
+  struct FieldNames<h3m::MessageAndTreasure>
   {
     static constexpr std::string_view kMessage = "message";
     static constexpr std::string_view kResources = "resources";
@@ -734,7 +731,7 @@ namespace h3m
   };
 
   template<>
-  struct FieldNames<ObjectTemplate>
+  struct FieldNames<h3m::ObjectTemplate>
   {
     static constexpr std::string_view kDef = "def";
     static constexpr std::string_view kPassability = "passability";
@@ -749,7 +746,7 @@ namespace h3m
   };
 
   template<>
-  struct FieldNames<Object>
+  struct FieldNames<h3m::Object>
   {
     static constexpr std::string_view kCoordinates = "coordinates";
     static constexpr std::string_view kTemplateIdx = "template_idx";
@@ -758,20 +755,20 @@ namespace h3m
   };
 
   template<>
-  struct FieldNames<ObjectProperties<ObjectPropertiesType::ABANDONED_MINE>>
+  struct FieldNames<h3m::ObjectProperties<h3m::ObjectPropertiesType::ABANDONED_MINE>>
   {
     static constexpr std::string_view kPotentialResources = "potential_resources";
     static constexpr std::string_view kUnknown = "unknown";
   };
 
   template<>
-  struct FieldNames<ObjectProperties<ObjectPropertiesType::ARTIFACT>>
+  struct FieldNames<h3m::ObjectProperties<h3m::ObjectPropertiesType::ARTIFACT>>
   {
     static constexpr std::string_view kGuardians = "guardians";
   };
 
   template<>
-  struct FieldNames<ObjectProperties<ObjectPropertiesType::EVENT>> : FieldNames<EventBase>
+  struct FieldNames<h3m::ObjectProperties<h3m::ObjectPropertiesType::EVENT>> : FieldNames<h3m::EventBase>
   {
     static constexpr std::string_view kAffectedPlayers = "affected_players";
     static constexpr std::string_view kAppliesToComputer = "applies_to_computer";
@@ -780,7 +777,7 @@ namespace h3m
   };
 
   template<>
-  struct FieldNames<ObjectProperties<ObjectPropertiesType::GARRISON>>
+  struct FieldNames<h3m::ObjectProperties<h3m::ObjectPropertiesType::GARRISON>>
   {
     static constexpr std::string_view kOwner = "owner";
     static constexpr std::string_view kUnknown = "unknown";
@@ -790,14 +787,14 @@ namespace h3m
   };
 
   template<>
-  struct FieldNames<ObjectProperties<ObjectPropertiesType::GRAIL>>
+  struct FieldNames<h3m::ObjectProperties<h3m::ObjectPropertiesType::GRAIL>>
   {
     static constexpr std::string_view kAllowableRadius = "allowable_radius";
     static constexpr std::string_view kUnknown = "unknown";
   };
 
   template<>
-  struct FieldNames<ObjectProperties<ObjectPropertiesType::HERO>>
+  struct FieldNames<h3m::ObjectProperties<h3m::ObjectPropertiesType::HERO>>
   {
     static constexpr std::string_view kAbsodId = "absod_id";
     static constexpr std::string_view kOwner = "owner";
@@ -818,7 +815,7 @@ namespace h3m
   };
 
   template<>
-  struct FieldNames<ObjectProperties<ObjectPropertiesType::MONSTER>>
+  struct FieldNames<h3m::ObjectProperties<h3m::ObjectPropertiesType::MONSTER>>
   {
     static constexpr std::string_view kAbsodId = "absod_id";
     static constexpr std::string_view kCount = "count";
@@ -830,11 +827,11 @@ namespace h3m
   };
 
   template<>
-  struct FieldNames<ObjectProperties<ObjectPropertiesType::PANDORAS_BOX>> : FieldNames<EventBase>
+  struct FieldNames<h3m::ObjectProperties<h3m::ObjectPropertiesType::PANDORAS_BOX>> : FieldNames<h3m::EventBase>
   {};
 
   template<>
-  struct FieldNames<ObjectProperties<ObjectPropertiesType::PLACEHOLDER_HERO>>
+  struct FieldNames<h3m::ObjectProperties<h3m::ObjectPropertiesType::PLACEHOLDER_HERO>>
   {
     static constexpr std::string_view kOwner = "owner";
     static constexpr std::string_view kType = "type";
@@ -842,13 +839,13 @@ namespace h3m
   };
 
   template<>
-  struct FieldNames<ObjectProperties<ObjectPropertiesType::QUEST_GUARD>>
+  struct FieldNames<h3m::ObjectProperties<h3m::ObjectPropertiesType::QUEST_GUARD>>
   {
     static constexpr std::string_view kQuest = "quest";
   };
 
   template<>
-  struct FieldNames<ObjectProperties<ObjectPropertiesType::RANDOM_DWELLING>>
+  struct FieldNames<h3m::ObjectProperties<h3m::ObjectPropertiesType::RANDOM_DWELLING>>
   {
     static constexpr std::string_view kOwner = "owner";
     static constexpr std::string_view kTownAbsodId = "town_absod_id";
@@ -858,7 +855,7 @@ namespace h3m
   };
 
   template<>
-  struct FieldNames<ObjectProperties<ObjectPropertiesType::RANDOM_DWELLING_PRESET_ALIGNMENT>>
+  struct FieldNames<h3m::ObjectProperties<h3m::ObjectPropertiesType::RANDOM_DWELLING_PRESET_ALIGNMENT>>
   {
     static constexpr std::string_view kOwner = "owner";
     static constexpr std::string_view kMinLevel = "min_level";
@@ -866,7 +863,7 @@ namespace h3m
   };
 
   template<>
-  struct FieldNames<ObjectProperties<ObjectPropertiesType::RANDOM_DWELLING_PRESET_LEVEL>>
+  struct FieldNames<h3m::ObjectProperties<h3m::ObjectPropertiesType::RANDOM_DWELLING_PRESET_LEVEL>>
   {
     static constexpr std::string_view kOwner = "owner";
     static constexpr std::string_view kTownAbsodId = "town_absod_id";
@@ -874,7 +871,7 @@ namespace h3m
   };
 
   template<>
-  struct FieldNames<ObjectProperties<ObjectPropertiesType::RESOURCE>>
+  struct FieldNames<h3m::ObjectProperties<h3m::ObjectPropertiesType::RESOURCE>>
   {
     static constexpr std::string_view kGuardians = "guardians";
     static constexpr std::string_view kQuantity = "quantity";
@@ -882,7 +879,7 @@ namespace h3m
   };
 
   template<>
-  struct FieldNames<ObjectProperties<ObjectPropertiesType::SCHOLAR>>
+  struct FieldNames<h3m::ObjectProperties<h3m::ObjectPropertiesType::SCHOLAR>>
   {
     static constexpr std::string_view kRewardType = "reward_type";
     static constexpr std::string_view kRewardValue = "reward_value";
@@ -890,7 +887,7 @@ namespace h3m
   };
 
   template<>
-  struct FieldNames<ObjectProperties<ObjectPropertiesType::SEERS_HUT>>
+  struct FieldNames<h3m::ObjectProperties<h3m::ObjectPropertiesType::SEERS_HUT>>
   {
     static constexpr std::string_view kQuest = "quest";
     static constexpr std::string_view kReward = "reward";
@@ -898,21 +895,21 @@ namespace h3m
   };
 
   template<>
-  struct FieldNames<ObjectProperties<ObjectPropertiesType::SHRINE>>
+  struct FieldNames<h3m::ObjectProperties<h3m::ObjectPropertiesType::SHRINE>>
   {
     static constexpr std::string_view kSpell = "spell";
     static constexpr std::string_view kUnknown = "unknown";
   };
 
   template<>
-  struct FieldNames<ObjectProperties<ObjectPropertiesType::SIGN>>
+  struct FieldNames<h3m::ObjectProperties<h3m::ObjectPropertiesType::SIGN>>
   {
     static constexpr std::string_view kMessage = "message";
     static constexpr std::string_view kUnknown = "unknown";
   };
 
   template<>
-  struct FieldNames<ObjectProperties<ObjectPropertiesType::SPELL_SCROLL>>
+  struct FieldNames<h3m::ObjectProperties<h3m::ObjectPropertiesType::SPELL_SCROLL>>
   {
     static constexpr std::string_view kGuardians = "guardians";
     static constexpr std::string_view kSpell = "spell";
@@ -920,7 +917,7 @@ namespace h3m
   };
 
   template<>
-  struct FieldNames<ObjectProperties<ObjectPropertiesType::TOWN>>
+  struct FieldNames<h3m::ObjectProperties<h3m::ObjectPropertiesType::TOWN>>
   {
     static constexpr std::string_view kAbsodId = "absod_id";
     static constexpr std::string_view kOwner = "owner";
@@ -937,20 +934,20 @@ namespace h3m
   };
 
   template<>
-  struct FieldNames<ObjectProperties<ObjectPropertiesType::TRIVIAL_OWNED_OBJECT>>
+  struct FieldNames<h3m::ObjectProperties<h3m::ObjectPropertiesType::TRIVIAL_OWNED_OBJECT>>
   {
     static constexpr std::string_view kOwner = "owner";
     static constexpr std::string_view kUnknown = "unknown";
   };
 
   template<>
-  struct FieldNames<ObjectProperties<ObjectPropertiesType::WITCH_HUT>>
+  struct FieldNames<h3m::ObjectProperties<h3m::ObjectPropertiesType::WITCH_HUT>>
   {
     static constexpr std::string_view kPotentialSkills = "potential_skills";
   };
 
   template<>
-  struct FieldNames<PlayerSpecs>
+  struct FieldNames<h3m::PlayerSpecs>
   {
     static constexpr std::string_view kCanBeHuman = "can_be_human";
     static constexpr std::string_view kCanBeComputer = "can_be_computer";
@@ -966,7 +963,7 @@ namespace h3m
   };
 
   template<>
-  struct FieldNames<PrimarySkills>
+  struct FieldNames<h3m::PrimarySkills>
   {
     static constexpr std::string_view kAttack = "attack";
     static constexpr std::string_view kDefense = "defense";
@@ -975,7 +972,7 @@ namespace h3m
   };
 
   template<>
-  struct FieldNames<Quest>
+  struct FieldNames<h3m::Quest>
   {
     static constexpr std::string_view kType = "type";
     static constexpr std::string_view kDetails = "details";
@@ -986,28 +983,28 @@ namespace h3m
   };
 
   template<>
-  struct FieldNames<Reward>
+  struct FieldNames<h3m::Reward>
   {
     static constexpr std::string_view kType = "type";
     static constexpr std::string_view kDetails = "details";
   };
 
   template<>
-  struct FieldNames<Rumor>
+  struct FieldNames<h3m::Rumor>
   {
     static constexpr std::string_view kName = "name";
     static constexpr std::string_view kDescription = "description";
   };
 
   template<>
-  struct FieldNames<SecondarySkill>
+  struct FieldNames<h3m::SecondarySkill>
   {
     static constexpr std::string_view kType = "type";
     static constexpr std::string_view kLevel = "level";
   };
 
   template<>
-  struct FieldNames<StartingHero>
+  struct FieldNames<h3m::StartingHero>
   {
     static constexpr std::string_view kType = "type";
     static constexpr std::string_view kPortrait = "portrait";
@@ -1015,14 +1012,14 @@ namespace h3m
   };
 
   template<>
-  struct FieldNames<TeamsInfo>
+  struct FieldNames<h3m::TeamsInfo>
   {
     static constexpr std::string_view kNumTeams = "num_teams";
     static constexpr std::string_view kTeamForPlayer = "team_for_player";
   };
 
   template<>
-  struct FieldNames<Tile>
+  struct FieldNames<h3m::Tile>
   {
     static constexpr std::string_view kTerrainType = "terrain_type";
     static constexpr std::string_view kTerrainSprite = "terrain_sprite";
@@ -1034,7 +1031,7 @@ namespace h3m
   };
 
   template<>
-  struct FieldNames<TimedEvent>
+  struct FieldNames<h3m::TimedEvent>
   {
     static constexpr std::string_view kName = "name";
     static constexpr std::string_view kMessage = "message";
@@ -1048,14 +1045,14 @@ namespace h3m
   };
 
   template<>
-  struct FieldNames<TownBuildings>
+  struct FieldNames<h3m::TownBuildings>
   {
     static constexpr std::string_view kIsBuilt = "is_built";
     static constexpr std::string_view kIsDisabled = "is_disabled";
   };
 
   template<>
-  struct FieldNames<TownEvent> : FieldNames<TimedEvent>
+  struct FieldNames<h3m::TownEvent> : FieldNames<h3m::TimedEvent>
   {
     static constexpr std::string_view kBuildings = "buildings";
     static constexpr std::string_view kCreatures = "creatures";
@@ -1063,7 +1060,7 @@ namespace h3m
   };
 
   template<>
-  struct FieldNames<VictoryCondition>
+  struct FieldNames<h3m::VictoryCondition>
   {
     // Note: VictoryCondition has only 1 data member `details`, which is a std::variant.
     // However, it is serialized as 2 fields: `type` (VictoryConditionType) and

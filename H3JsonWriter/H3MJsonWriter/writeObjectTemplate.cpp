@@ -22,7 +22,7 @@ namespace Medea_NS
 
   void JsonObjectWriter<h3m::ObjectTemplate>::operator()(FieldsWriter& out, const h3m::ObjectTemplate& value) const
   {
-    using Fields = h3m::FieldNames<h3m::ObjectTemplate>;
+    using Fields = h3json::FieldNames<h3m::ObjectTemplate>;
     out.writeField(Fields::kDef, value.def);
     out.writeField(Fields::kPassability, value.passability);
     out.writeField(Fields::kActionability, value.actionability);

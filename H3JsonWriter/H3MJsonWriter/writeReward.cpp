@@ -95,7 +95,7 @@ namespace Medea_NS
 
   void JsonObjectWriter<h3m::Reward>::operator()(FieldsWriter& out, const h3m::Reward& reward) const
   {
-    using Fields = h3m::FieldNames<h3m::Reward>;
+    using Fields = h3json::FieldNames<h3m::Reward>;
     out.writeField(Fields::kType, reward.type());
     out.writeComment(h3m::getEnumString(reward.type()), false);
     if (reward.type() != h3m::RewardType::None)

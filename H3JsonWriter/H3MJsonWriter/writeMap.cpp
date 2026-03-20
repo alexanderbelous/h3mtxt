@@ -141,18 +141,18 @@ namespace Medea_NS
 
   void JsonObjectWriter<h3m::Map>::operator()(FieldsWriter& out, const h3m::Map& map) const
   {
-    using FieldNames = h3m::FieldNames<h3m::Map>;
+    using Fields = h3json::FieldNames<h3m::Map>;
 
-    out.writeField(FieldNames::kFormat, map.format);
-    out.writeField(FieldNames::kBasicInfo, map.basic_info);
-    out.writeField(FieldNames::kPlayers, map.players);
-    out.writeField(FieldNames::kAdditionalInfo, map.additional_info);
+    out.writeField(Fields::kFormat, map.format);
+    out.writeField(Fields::kBasicInfo, map.basic_info);
+    out.writeField(Fields::kPlayers, map.players);
+    out.writeField(Fields::kAdditionalInfo, map.additional_info);
     // Not writing tiles directly because I want to write each tile's coordinates in a comment.
-    out.writeField(FieldNames::kTiles, TilesWithMapSize(map.tiles, map.basic_info.map_size, map.basic_info.has_two_levels));
-    out.writeField(FieldNames::kObjectsTemplates, map.objects_templates);
+    out.writeField(Fields::kTiles, TilesWithMapSize(map.tiles, map.basic_info.map_size, map.basic_info.has_two_levels));
+    out.writeField(Fields::kObjectsTemplates, map.objects_templates);
     // Not writing objects directly because I want to write ObjectClass for each object in a comment.
-    out.writeField(FieldNames::kObjects, WrappedObjects(map.objects_templates, map.objects));
-    out.writeField(FieldNames::kGlobalEvents, map.global_events);
-    out.writeField(FieldNames::kPadding, map.padding);
+    out.writeField(Fields::kObjects, WrappedObjects(map.objects_templates, map.objects));
+    out.writeField(Fields::kGlobalEvents, map.global_events);
+    out.writeField(Fields::kPadding, map.padding);
   }
 }

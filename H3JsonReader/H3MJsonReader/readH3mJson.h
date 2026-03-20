@@ -4,10 +4,10 @@
 
 #include <iosfwd>
 
-namespace h3m::H3JsonReader_NS
+namespace h3json
 {
   // Reads a H3M map from the given JSON file.
   // \param stream - input stream containing the JSON data.
   // \return the parsed map.
-  Map readH3mJson(std::istream& stream);
+  h3m::Map readH3mJson(std::istream& stream);
 }

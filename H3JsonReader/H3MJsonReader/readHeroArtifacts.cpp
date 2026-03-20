@@ -4,12 +4,12 @@
 #include <h3mtxt/JsonCommon/FieldNamesH3M.h>
 #include <h3mtxt/Map/HeroArtifacts.h>
 
-namespace h3m::H3JsonReader_NS
+namespace h3json
 {
-  HeroArtifacts JsonReader<HeroArtifacts>::operator()(const Json::Value& value) const
+  h3m::HeroArtifacts JsonReader<h3m::HeroArtifacts>::operator()(const Json::Value& value) const
   {
-    using Fields = FieldNames<HeroArtifacts>;
-    HeroArtifacts artifacts;
+    using Fields = FieldNames<h3m::HeroArtifacts>;
+    h3m::HeroArtifacts artifacts;
     readField(artifacts.equipped, value, Fields::kEquipped);
     readField(artifacts.backpack, value, Fields::kBackpack);
     return artifacts;

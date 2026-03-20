@@ -4,55 +4,58 @@
 #include <h3mtxt/JsonCommon/FieldNamesH3M.h>
 #include <h3mtxt/Map/LossCondition.h>
 
-namespace h3m::H3JsonReader_NS
+namespace h3json
 {
   template<>
-  struct JsonReader<LossConditionDetails<LossConditionType::LoseTown>>
+  struct JsonReader<h3m::LossConditionDetails<h3m::LossConditionType::LoseTown>>
   {
-    LossConditionDetails<LossConditionType::LoseTown> operator()(const Json::Value& value) const
+    h3m::LossConditionDetails<h3m::LossConditionType::LoseTown> operator()(const Json::Value& value) const
     {
-      LossConditionDetails<LossConditionType::LoseTown> details;
+      h3m::LossConditionDetails<h3m::LossConditionType::LoseTown> details;
       readField(details.coordinates, value, "coordinates");
       return details;
     }
   };
 
   template<>
-  struct JsonReader<LossConditionDetails<LossConditionType::LoseHero>>
+  struct JsonReader<h3m::LossConditionDetails<h3m::LossConditionType::LoseHero>>
   {
-    LossConditionDetails<LossConditionType::LoseHero> operator()(const Json::Value& value) const
+    h3m::LossConditionDetails<h3m::LossConditionType::LoseHero> operator()(const Json::Value& value) const
     {
-      LossConditionDetails<LossConditionType::LoseHero> details;
+      h3m::LossConditionDetails<h3m::LossConditionType::LoseHero> details;
       readField(details.coordinates, value, "coordinates");
       return details;
     }
   };
 
   template<>
-  struct JsonReader<LossConditionDetails<LossConditionType::TimeExpires>>
+  struct JsonReader<h3m::LossConditionDetails<h3m::LossConditionType::TimeExpires>>
   {
-    LossConditionDetails<LossConditionType::TimeExpires> operator()(const Json::Value& value) const
+    h3m::LossConditionDetails<h3m::LossConditionType::TimeExpires> operator()(const Json::Value& value) const
     {
-      LossConditionDetails<LossConditionType::TimeExpires> details;
+      h3m::LossConditionDetails<h3m::LossConditionType::TimeExpires> details;
       readField(details.days, value, "days");
       return details;
     }
   };
 
-  LossCondition JsonReader<LossCondition>::operator()(const Json::Value& value) const
+  h3m::LossCondition JsonReader<h3m::LossCondition>::operator()(const Json::Value& value) const
   {
-    using Fields = FieldNames<LossCondition>;
-    const LossConditionType loss_condition_type = readField<LossConditionType>(value, Fields::kType);
+    using Fields = FieldNames<h3m::LossCondition>;
+    const h3m::LossConditionType loss_condition_type = readField<h3m::LossConditionType>(value, Fields::kType);
+    if (loss_condition_type == h3m::LossConditionType::Normal)
+    {
+      return h3m::LossCondition{};
+    }
+    const Json::Value& details_json = getJsonField(value, Fields::kDetails);
     switch (loss_condition_type)
     {
-    case LossConditionType::LoseTown:
-      return LossCondition{readField<LossConditionDetails<LossConditionType::LoseTown>>(value, Fields::kDetails)};
-    case LossConditionType::LoseHero:
-      return LossCondition{readField<LossConditionDetails<LossConditionType::LoseHero>>(value, Fields::kDetails)};
-    case LossConditionType::TimeExpires:
-      return LossCondition{readField<LossConditionDetails<LossConditionType::TimeExpires>>(value, Fields::kDetails)};
-    case LossConditionType::Normal:
-      return LossCondition{};
+    case h3m::LossConditionType::LoseTown:
+      return { fromJson<h3m::LossConditionDetails<h3m::LossConditionType::LoseTown>>(details_json) };
+    case h3m::LossConditionType::LoseHero:
+      return { fromJson<h3m::LossConditionDetails<h3m::LossConditionType::LoseHero>>(details_json) };
+    case h3m::LossConditionType::TimeExpires:
+      return { fromJson<h3m::LossConditionDetails<h3m::LossConditionType::TimeExpires>>(details_json) };
     default:
       throw std::runtime_error("JsonReader<LossCondition>: invalid loss_condition_type");
     }

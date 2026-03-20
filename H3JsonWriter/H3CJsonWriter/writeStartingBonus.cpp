@@ -110,7 +110,7 @@ namespace Medea_NS
 
   void JsonObjectWriter<h3m::StartingBonus>::operator()(FieldsWriter& out, const h3m::StartingBonus& bonus) const
   {
-    using Fields = h3m::FieldNames<h3m::StartingBonus>;
+    using Fields = h3json::FieldNames<h3m::StartingBonus>;
     out.writeField(Fields::kType, bonus.type());
     if (std::string_view enum_str = h3m::getEnumString(bonus.type()); !enum_str.empty())
     {

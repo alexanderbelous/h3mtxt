@@ -6,9 +6,9 @@
 
 #include <stdexcept>
 
-namespace h3m::H3JsonReader_NS
+namespace h3json
 {
-  Campaign readH3cJson(std::istream& stream)
+  h3m::Campaign readH3cJson(std::istream& stream)
   {
     Json::Value root;
     {
@@ -20,6 +20,6 @@ namespace h3m::H3JsonReader_NS
         throw std::runtime_error("readH3cJson(): " + errs);
       }
     }
-    return JsonReader<Campaign>{}(root);
+    return JsonReader<h3m::Campaign>{}(root);
   }
 }

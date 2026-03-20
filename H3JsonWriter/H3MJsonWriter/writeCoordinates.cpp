@@ -8,7 +8,7 @@ namespace Medea_NS
 {
   void JsonObjectWriter<h3m::Coordinates>::operator()(FieldsWriter& out, const h3m::Coordinates& coordinates) const
   {
-    using Fields = h3m::FieldNames<h3m::Coordinates>;
+    using Fields = h3json::FieldNames<h3m::Coordinates>;
     out.writeField(Fields::kX, coordinates.x);
     out.writeField(Fields::kY, coordinates.y);
     out.writeField(Fields::kZ, coordinates.z);

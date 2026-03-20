@@ -4,36 +4,36 @@
 #include <h3mtxt/JsonCommon/FieldNamesH3M.h>
 #include <h3mtxt/Map/PlayerSpecs.h>
 
-namespace h3m::H3JsonReader_NS
+namespace h3json
 {
   template<>
-  struct JsonReader<PlayerSpecs::HeroInfo>
+  struct JsonReader<h3m::PlayerSpecs::HeroInfo>
   {
-    PlayerSpecs::HeroInfo operator()(const Json::Value& value) const
+    h3m::PlayerSpecs::HeroInfo operator()(const Json::Value& value) const
     {
-      PlayerSpecs::HeroInfo info{};
-      info.type = readField<HeroType>(value, "type");
-      info.name = readField<std::string>(value, "name");
+      h3m::PlayerSpecs::HeroInfo info{};
+      readField(info.type, value, "type");
+      readField(info.name, value, "name");
       return info;
     }
   };
 
-  MainTown JsonReader<MainTown>::operator()(const Json::Value& value) const
+  h3m::MainTown JsonReader<h3m::MainTown>::operator()(const Json::Value& value) const
   {
-    using Fields = FieldNames<MainTown>;
-    MainTown main_town {};
+    using Fields = FieldNames<h3m::MainTown>;
+    h3m::MainTown main_town {};
     readField(main_town.generate_hero, value, Fields::kGenerateHero);
     readField(main_town.town_type, value, Fields::kTownType);
     readField(main_town.coordinates, value, Fields::kCoordinates);
     return main_town;
   }
 
-  StartingHero JsonReader<StartingHero>::operator()(const Json::Value& value) const
+  h3m::StartingHero JsonReader<h3m::StartingHero>::operator()(const Json::Value& value) const
   {
-    using Fields = FieldNames<StartingHero>;
-    StartingHero hero {};
+    using Fields = FieldNames<h3m::StartingHero>;
+    h3m::StartingHero hero {};
     readField(hero.type, value, Fields::kType);
-    if (hero.type != HeroType{0xFF})
+    if (hero.type != h3m::HeroType{0xFF})
     {
       readField(hero.portrait, value, Fields::kPortrait);
       readField(hero.name, value, Fields::kName);
@@ -41,10 +41,10 @@ namespace h3m::H3JsonReader_NS
     return hero;
   }
 
-  PlayerSpecs JsonReader<PlayerSpecs>::operator()(const Json::Value& value) const
+  h3m::PlayerSpecs JsonReader<h3m::PlayerSpecs>::operator()(const Json::Value& value) const
   {
-    using Fields = FieldNames<PlayerSpecs>;
-    PlayerSpecs player {};
+    using Fields = FieldNames<h3m::PlayerSpecs>;
+    h3m::PlayerSpecs player {};
     readField(player.can_be_human, value, Fields::kCanBeHuman);
     readField(player.can_be_computer, value, Fields::kCanBeComputer);
     readField(player.behavior, value, Fields::kBehavior);

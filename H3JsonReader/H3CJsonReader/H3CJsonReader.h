@@ -6,74 +6,74 @@
 #include <h3mtxt/H3JsonReader/H3JsonReaderBase/H3JsonReaderBaseFwd.h>
 
 // API for deserializing H3C data from JSON.
-namespace h3m::H3JsonReader_NS
+namespace h3json
 {
   template<>
-  Campaign JsonReader<Campaign>::operator()(const Json::Value& value) const;
+  h3m::Campaign JsonReader<h3m::Campaign>::operator()(const Json::Value& value) const;
 
   template<>
-  CampaignHeader JsonReader<CampaignHeader>::operator()(const Json::Value& value) const;
+  h3m::CampaignHeader JsonReader<h3m::CampaignHeader>::operator()(const Json::Value& value) const;
 
   template<>
-  CampaignScenario JsonReader<CampaignScenario>::operator()(const Json::Value& value) const;
+  h3m::CampaignScenario JsonReader<h3m::CampaignScenario>::operator()(const Json::Value& value) const;
 
   template<>
-  CrossoverOptions JsonReader<CrossoverOptions>::operator()(const Json::Value& value) const;
+  h3m::CrossoverOptions JsonReader<h3m::CrossoverOptions>::operator()(const Json::Value& value) const;
 
   template<>
-  CutScene JsonReader<CutScene>::operator()(const Json::Value& value) const;
+  h3m::CutScene JsonReader<h3m::CutScene>::operator()(const Json::Value& value) const;
 
   template<>
-  StartingBonus JsonReader<StartingBonus>::operator()(const Json::Value& value) const;
+  h3m::StartingBonus JsonReader<h3m::StartingBonus>::operator()(const Json::Value& value) const;
 
   template<>
-  StartingBonusDetails<StartingBonusType::Spell>
-  JsonReader<StartingBonusDetails<StartingBonusType::Spell>>::operator()(const Json::Value& value) const;
+  h3m::StartingBonusDetails<h3m::StartingBonusType::Spell>
+  JsonReader<h3m::StartingBonusDetails<h3m::StartingBonusType::Spell>>::operator()(const Json::Value& value) const;
 
   template<>
-  StartingBonusDetails<StartingBonusType::Creature>
-  JsonReader<StartingBonusDetails<StartingBonusType::Creature>>::operator()(const Json::Value& value) const;
+  h3m::StartingBonusDetails<h3m::StartingBonusType::Creature>
+  JsonReader<h3m::StartingBonusDetails<h3m::StartingBonusType::Creature>>::operator()(const Json::Value& value) const;
 
   template<>
-  StartingBonusDetails<StartingBonusType::Building>
-  JsonReader<StartingBonusDetails<StartingBonusType::Building>>::operator()(const Json::Value& value) const;
+  h3m::StartingBonusDetails<h3m::StartingBonusType::Building>
+  JsonReader<h3m::StartingBonusDetails<h3m::StartingBonusType::Building>>::operator()(const Json::Value& value) const;
 
   template<>
-  StartingBonusDetails<StartingBonusType::Artifact>
-  JsonReader<StartingBonusDetails<StartingBonusType::Artifact>>::operator()(const Json::Value& value) const;
+  h3m::StartingBonusDetails<h3m::StartingBonusType::Artifact>
+  JsonReader<h3m::StartingBonusDetails<h3m::StartingBonusType::Artifact>>::operator()(const Json::Value& value) const;
 
   template<>
-  StartingBonusDetails<StartingBonusType::SpellScroll>
-  JsonReader<StartingBonusDetails<StartingBonusType::SpellScroll>>::operator()(const Json::Value& value) const;
+  h3m::StartingBonusDetails<h3m::StartingBonusType::SpellScroll>
+  JsonReader<h3m::StartingBonusDetails<h3m::StartingBonusType::SpellScroll>>::operator()(const Json::Value& value) const;
 
   template<>
-  StartingBonusDetails<StartingBonusType::PrimarySkills>
-  JsonReader<StartingBonusDetails<StartingBonusType::PrimarySkills>>::operator()(const Json::Value& value) const;
+  h3m::StartingBonusDetails<h3m::StartingBonusType::PrimarySkills>
+  JsonReader<h3m::StartingBonusDetails<h3m::StartingBonusType::PrimarySkills>>::operator()(const Json::Value& value) const;
 
   template<>
-  StartingBonusDetails<StartingBonusType::SecondarySkill>
-  JsonReader<StartingBonusDetails<StartingBonusType::SecondarySkill>>::operator()(const Json::Value& value) const;
+  h3m::StartingBonusDetails<h3m::StartingBonusType::SecondarySkill>
+  JsonReader<h3m::StartingBonusDetails<h3m::StartingBonusType::SecondarySkill>>::operator()(const Json::Value& value) const;
 
   template<>
-  StartingBonusDetails<StartingBonusType::Resource>
-  JsonReader<StartingBonusDetails<StartingBonusType::Resource>>::operator()(const Json::Value& value) const;
+  h3m::StartingBonusDetails<h3m::StartingBonusType::Resource>
+  JsonReader<h3m::StartingBonusDetails<h3m::StartingBonusType::Resource>>::operator()(const Json::Value& value) const;
 
   template<>
-  StartingOptions JsonReader<StartingOptions>::operator()(const Json::Value& value) const;
+  h3m::StartingOptions JsonReader<h3m::StartingOptions>::operator()(const Json::Value& value) const;
 
   template<>
-  StartingOptionsDetails<StartingOptionsType::None>
-  JsonReader<StartingOptionsDetails<StartingOptionsType::None>>::operator()(const Json::Value&) const;
+  h3m::StartingOptionsDetails<h3m::StartingOptionsType::None>
+  JsonReader<h3m::StartingOptionsDetails<h3m::StartingOptionsType::None>>::operator()(const Json::Value&) const;
 
   template<>
-  StartingOptionsDetails<StartingOptionsType::StartingBonus>
-  JsonReader<StartingOptionsDetails<StartingOptionsType::StartingBonus>>::operator()(const Json::Value&) const;
+  h3m::StartingOptionsDetails<h3m::StartingOptionsType::StartingBonus>
+  JsonReader<h3m::StartingOptionsDetails<h3m::StartingOptionsType::StartingBonus>>::operator()(const Json::Value&) const;
 
   template<>
-  StartingOptionsDetails<StartingOptionsType::HeroCrossover>
-  JsonReader<StartingOptionsDetails<StartingOptionsType::HeroCrossover>>::operator()(const Json::Value&) const;
+  h3m::StartingOptionsDetails<h3m::StartingOptionsType::HeroCrossover>
+  JsonReader<h3m::StartingOptionsDetails<h3m::StartingOptionsType::HeroCrossover>>::operator()(const Json::Value&) const;
 
   template<>
-  StartingOptionsDetails<StartingOptionsType::StartingHero>
-  JsonReader<StartingOptionsDetails<StartingOptionsType::StartingHero>>::operator()(const Json::Value&) const;
+  h3m::StartingOptionsDetails<h3m::StartingOptionsType::StartingHero>
+  JsonReader<h3m::StartingOptionsDetails<h3m::StartingOptionsType::StartingHero>>::operator()(const Json::Value&) const;
 }

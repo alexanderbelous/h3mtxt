@@ -90,7 +90,7 @@ namespace Medea_NS
   void JsonObjectWriter<h3m::StartingOptions>::operator()(FieldsWriter& out,
                                                           const h3m::StartingOptions& starting_options) const
   {
-    using Fields = h3m::FieldNames<h3m::StartingOptions>;
+    using Fields = h3json::FieldNames<h3m::StartingOptions>;
     out.writeField(Fields::kType, starting_options.type());
     if (std::string_view enum_str = h3m::getEnumString(starting_options.type()); !enum_str.empty())
     {

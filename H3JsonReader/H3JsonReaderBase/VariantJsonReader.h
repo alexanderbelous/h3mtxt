@@ -6,7 +6,7 @@
 #include <type_traits>
 #include <variant>
 
-namespace h3m::H3JsonReader_NS
+namespace h3json
 {
   // Utility class for deserializing std::variant.
   // This is to reduce boilerplate that would otherwise occur when writing a switch statement

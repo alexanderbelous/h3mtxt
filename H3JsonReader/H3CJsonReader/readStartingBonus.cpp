@@ -5,8 +5,12 @@
 #include <h3mtxt/JsonCommon/FieldNamesH3C.h>
 #include <h3mtxt/Campaign/StartingBonus.h>
 
-namespace h3m::H3JsonReader_NS
+namespace h3json
 {
+  using ::h3m::StartingBonus;
+  using ::h3m::StartingBonusDetails;
+  using ::h3m::StartingBonusType;
+
   StartingBonusDetails<StartingBonusType::Spell>
   JsonReader<StartingBonusDetails<StartingBonusType::Spell>>::operator()(const Json::Value& value) const
   {

@@ -6,21 +6,21 @@
 
 #include <stdexcept>
 
-namespace h3m::H3JsonReader_NS
+namespace h3json
 {
   namespace
   {
-    Object readObject(const Json::Value& value, const std::vector<ObjectTemplate>& objects_templates)
+    h3m::Object readObject(const Json::Value& value, const std::vector<h3m::ObjectTemplate>& objects_templates)
     {
-      using Fields = FieldNames<Object>;
-      Object object;
+      using Fields = FieldNames<h3m::Object>;
+      h3m::Object object;
       readField(object.coordinates, value, Fields::kCoordinates);
       readField(object.template_idx, value, Fields::kTemplateIdx);
       readField(object.unknown, value, Fields::kUnknown);
 
-      const ObjectTemplate& object_template = objects_templates.at(object.template_idx);
+      const h3m::ObjectTemplate& object_template = objects_templates.at(object.template_idx);
       const h3m::ObjectPropertiesType object_properties_type =
-        getObjectPropertiesType(object_template.object_class, object_template.object_subclass);
+        h3m::getObjectPropertiesType(object_template.object_class, object_template.object_subclass);
       if (object_properties_type != h3m::ObjectPropertiesType::GENERIC_NO_PROPERTIES)
       {
         const Json::Value& properties_json = getJsonField(value, Fields::kProperties);
@@ -29,14 +29,15 @@ namespace h3m::H3JsonReader_NS
       return object;
     }
 
-    std::vector<Object> readObjects(const Json::Value& value, const std::vector<ObjectTemplate>& objects_templates)
+    std::vector<h3m::Object> readObjects(const Json::Value& value,
+                                         const std::vector<h3m::ObjectTemplate>& objects_templates)
     {
       if (!value.isArray())
       {
         throw std::runtime_error("readH3mJson(): expected array, got " + value.toStyledString());
       }
       const std::size_t num_elements = value.size();
-      std::vector<Object> objects;
+      std::vector<h3m::Object> objects;
       objects.reserve(num_elements);
       for (std::size_t i = 0; i < num_elements; ++i)
       {
@@ -47,11 +48,11 @@ namespace h3m::H3JsonReader_NS
     }
   }
 
-  Map JsonReader<Map>::operator()(const Json::Value& value) const
+  h3m::Map JsonReader<h3m::Map>::operator()(const Json::Value& value) const
   {
-    using Fields = FieldNames<Map>;
+    using Fields = FieldNames<h3m::Map>;
 
-    Map map;
+    h3m::Map map;
     readField(map.format, value, Fields::kFormat);
     readField(map.basic_info, value, Fields::kBasicInfo);
     readField(map.players, value, Fields::kPlayers);

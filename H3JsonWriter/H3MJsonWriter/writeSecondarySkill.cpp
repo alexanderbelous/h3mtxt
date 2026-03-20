@@ -10,7 +10,7 @@ namespace Medea_NS
 {
   void JsonObjectWriter<h3m::SecondarySkill>::operator()(FieldsWriter& out, const h3m::SecondarySkill& skill) const
   {
-    using Fields = h3m::FieldNames<h3m::SecondarySkill>;
+    using Fields = h3json::FieldNames<h3m::SecondarySkill>;
     out.writeField(Fields::kType, skill.type);
     if (std::string_view enum_str = h3m::getEnumString(skill.type); !enum_str.empty())
     {

@@ -4,11 +4,11 @@
 #include <h3mtxt/JsonCommon/FieldNamesH3M.h>
 #include <h3mtxt/Map/TimedEvent.h>
 
-namespace h3m::H3JsonReader_NS
+namespace h3json
 {
-  TimedEvent JsonReader<TimedEvent>::operator()(const Json::Value& value) const
+  h3m::TimedEvent JsonReader<h3m::TimedEvent>::operator()(const Json::Value& value) const
   {
-    using Fields = h3m::FieldNames<h3m::TimedEvent>;
+    using Fields = FieldNames<h3m::TimedEvent>;
     h3m::TimedEvent event;
     readField(event.name, value, Fields::kName);
     readField(event.message, value, Fields::kMessage);

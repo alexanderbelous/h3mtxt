@@ -5,21 +5,21 @@
 #include <h3mtxt/JsonCommon/FieldNamesH3C.h>
 #include <h3mtxt/Campaign/Campaign.h>
 
-namespace h3m::H3JsonReader_NS
+namespace h3json
 {
-  Campaign JsonReader<Campaign>::operator()(const Json::Value& value) const
+  h3m::Campaign JsonReader<h3m::Campaign>::operator()(const Json::Value& value) const
   {
-    using Fields = FieldNames<Campaign>;
-    Campaign campaign;
+    using Fields = FieldNames<h3m::Campaign>;
+    h3m::Campaign campaign;
     readField(campaign.header, value, Fields::kHeader);
     readField(campaign.maps, value, Fields::kMaps);
     return campaign;
   }
 
-  CampaignHeader JsonReader<CampaignHeader>::operator()(const Json::Value& value) const
+  h3m::CampaignHeader JsonReader<h3m::CampaignHeader>::operator()(const Json::Value& value) const
   {
-    using Fields = FieldNames<CampaignHeader>;
-    CampaignHeader header;
+    using Fields = FieldNames<h3m::CampaignHeader>;
+    h3m::CampaignHeader header;
     readField(header.format, value, Fields::kFormat);
     readField(header.id, value, Fields::kId);
     readField(header.name, value, Fields::kName);
@@ -30,10 +30,10 @@ namespace h3m::H3JsonReader_NS
     return header;
   }
 
-  CampaignScenario JsonReader<CampaignScenario>::operator()(const Json::Value& value) const
+  h3m::CampaignScenario JsonReader<h3m::CampaignScenario>::operator()(const Json::Value& value) const
   {
-    using Fields = FieldNames<CampaignScenario>;
-    CampaignScenario scenario;
+    using Fields = FieldNames<h3m::CampaignScenario>;
+    h3m::CampaignScenario scenario;
     readField(scenario.map_filename, value, Fields::kMapFilename);
     readField(scenario.map_file_size, value, Fields::kMapFileSize);
     readField(scenario.prerequisites, value, Fields::kPrerequisites);
@@ -47,20 +47,20 @@ namespace h3m::H3JsonReader_NS
     return scenario;
   }
 
-  CrossoverOptions JsonReader<CrossoverOptions>::operator()(const Json::Value& value) const
+  h3m::CrossoverOptions JsonReader<h3m::CrossoverOptions>::operator()(const Json::Value& value) const
   {
-    using Fields = FieldNames<CrossoverOptions>;
-    CrossoverOptions options;
+    using Fields = FieldNames<h3m::CrossoverOptions>;
+    h3m::CrossoverOptions options;
     readField(options.retained_features, value, Fields::kRetainedFeatures);
     readField(options.creatures.bitset, value, Fields::kCreatures);
     readField(options.artifacts, value, Fields::kArtifacts);
     return options;
   }
 
-  CutScene JsonReader<CutScene>::operator()(const Json::Value& value) const
+  h3m::CutScene JsonReader<h3m::CutScene>::operator()(const Json::Value& value) const
   {
-    using Fields = FieldNames<CutScene>;
-    CutScene cutscene;
+    using Fields = FieldNames<h3m::CutScene>;
+    h3m::CutScene cutscene;
     readField(cutscene.movie, value, Fields::kMovie);
     readField(cutscene.music, value, Fields::kMusic);
     readField(cutscene.message, value, Fields::kMessage);

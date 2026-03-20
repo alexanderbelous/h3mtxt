@@ -47,7 +47,7 @@ namespace
     {
       return Input{ .data = h3m::parseh3(stream), .is_json = false };
     }
-    return Input{ .data = h3m::H3JsonReader_NS::readH3Json(stream), .is_json = true };
+    return Input{ .data = h3json::readH3Json(stream), .is_json = true };
   }
 
   void writeOutput(std::ostream& stream, const Input& input)
