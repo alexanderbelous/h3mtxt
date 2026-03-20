@@ -21,6 +21,7 @@ unset(CMAKE_FOLDER)
 # All subdirectories with source code.
 add_subdirectory(Map)
 add_subdirectory(Campaign)
+add_subdirectory(SavedGame)
 add_subdirectory(JsonCommon)
 add_subdirectory(Medea)
 set(CMAKE_FOLDER H3JsonReader)
