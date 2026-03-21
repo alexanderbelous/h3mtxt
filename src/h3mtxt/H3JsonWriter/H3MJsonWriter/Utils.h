@@ -13,7 +13,7 @@
 #include <string_view>
 #include <type_traits>
 
-namespace h3m::H3JsonWriter_NS::Detail_NS
+namespace h3json::Detail_NS
 {
   void printBitSetImpl(const Medea_NS::ArrayElementsWriter& elements_writer,
                        std::span<const std::uint8_t> bitset_bytes);
@@ -34,7 +34,7 @@ namespace Medea_NS
   void JsonArrayWriter<h3m::ReservedData<NumBytes>>::operator()(const ArrayElementsWriter& elements_writer,
                                                                 const h3m::ReservedData<NumBytes>& reserved_data) const
   {
-    h3m::H3JsonWriter_NS::Detail_NS::printReservedDataImpl(elements_writer, reserved_data.data(), NumBytes);
+    h3json::Detail_NS::printReservedDataImpl(elements_writer, reserved_data.data(), NumBytes);
   }
 
   // Serializes h3m::BitSet as a JSON array.
@@ -42,7 +42,7 @@ namespace Medea_NS
   void JsonArrayWriter<h3m::BitSet<NumBytes>>::operator()(const ArrayElementsWriter& elements_writer,
                                                           const h3m::BitSet<NumBytes>& bitset) const
   {
-    h3m::H3JsonWriter_NS::Detail_NS::printBitSetImpl(elements_writer, bitset.data);
+    h3json::Detail_NS::printBitSetImpl(elements_writer, bitset.data);
   }
 
   // Serializes h3m::EnumBitmask as a JSON object.
@@ -54,7 +54,7 @@ namespace Medea_NS
   {
     constexpr std::span<const std::string_view, NumBytes * 8> kNames =
       h3json::getEnumFieldNames<Enum, NumBytes * 8>();
-    h3m::H3JsonWriter_NS::Detail_NS::printEnumBitmaskImpl(out, bitmask.bitset.data, kNames.data());
+    h3json::Detail_NS::printEnumBitmaskImpl(out, bitmask.bitset.data, kNames.data());
   }
 
   // Default implementation for h3m::EnumIndexedArray: serializes the value as a JSON object.

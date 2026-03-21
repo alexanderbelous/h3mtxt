@@ -45,7 +45,7 @@ namespace Medea_NS
         return;
       }
 
-      h3m::H3JsonWriter_NS::CommentBuilder comment_builder;
+      h3json::CommentBuilder comment_builder;
       auto iter = value.tiles.begin();
       for (std::uint32_t z = 0; z < num_levels; ++z)
       {

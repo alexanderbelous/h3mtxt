@@ -2,7 +2,7 @@
 
 #include <h3mtxt/Medea/Medea.h>
 
-namespace h3m::H3JsonWriter_NS::Detail_NS
+namespace h3json::Detail_NS
 {
   void printReservedDataImpl(const Medea_NS::ArrayElementsWriter& elements_writer,
                              const std::byte* data,

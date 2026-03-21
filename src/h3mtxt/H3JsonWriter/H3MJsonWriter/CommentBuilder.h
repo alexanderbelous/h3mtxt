@@ -6,7 +6,7 @@
 #include <type_traits>
 #include <utility>
 
-namespace h3m::H3JsonWriter_NS
+namespace h3json
 {
   // Lame alternative for std::format. Not using std::format here because it still causes bloat.
   class CommentBuilder
