@@ -542,32 +542,44 @@ An H3SVG file is a single structure which we will naturally call [`SavedGame`](#
 
 
 ### `Hero`
-| Field name              | Type                      | Size in bytes | Description                                                      |
-| ----------------------- | ------------------------- | ------------- | ---------------------------------------------------------------- |
-| x                       | `int16`                   | 2             | X coordinate of the hero on the Adventure Map                    |
-| y                       | `int16`                   | 2             | Y coordinate of the hero on the Adventure Map                    |
-| z                       | `int16`                   | 2             | Z coordinate of the hero on the Adventure Map                    |
-| is_visible              | `Bool`                    | 1             | Indicates whether the hero is currently visible on the map       |
-| coordinates_packed      | `uint32`                  | 4             | Duplicates the coordinates using the packed format               |
-| object_class_under      | `uint32`                  | 4             | Enum `ObjectClass` of the object on the same tile under the hero |
-| unknown1                | `uint8[5]`                | 5             |                                                                  |
-| is_female               | `Bool`                    | 1             | 1 if the hero is female, 0 otherwise                             |
-| use_custom_biography    | `Bool`                    | 1             | 1 if the custom biography should be displayed, 0 otherwise       |
-| biography               | `String32`                | varies        | The hero's biography                                             |
-| owner                   | `uint8`                   | 1             | Enum `PlayerColor`                                               |
-| patrol_radius           | `int8`                    | 1             | Patrol radius or -1 if the hero has no patrol                    |
-| temp_morale             | `int8`                    | 1             | Temporary Morale bonus until the next battle                     |
-| temp_luck               | `int8`                    | 1             | Temporary Luck bonus until the next battle                       |
-| unknown2                | `uint8[109]`              | 109           |                                                                  |
-| army                    | [`Troops`](#Troops)       | 56            | Current army                                                     |
-| name                    | `char[13]`                | 13            | Only the bytes before the first null terminator are significant  |
-| secondary_skills_levels | `uint8[28]`               | 28            | Level for each Secondary Skill type                              |
-| secondary_skills_slots  | `uint8[28]`               | 28            | Slot for each Seconadry Skill type                               |
-| spells_learned          | `Bool[70]`                | 70            | 1 byte per Spell type indicating if the hero has learned it      |
-| spells_available        | `Bool[70]`                | 70            | 1 byte per Spell type indicating if the hero can cast this spell |
-| artifacts_equipped      | [`HeroArtifact[19]`](#HeroArtifact) | 152 | Artifact in each slot                                            |
-| artifacts_backpack      | [`HeroArtifact[64]`](#HeroArtifact) | 512 | Artifacts in the backpack                                        |
-| unknown3                | `uint8[22]`               | 22            |                                                                  |
+| Field name                 | Type        | Size in bytes | Description                                                                       |
+| -------------------------- | ----------- | ------------- | --------------------------------------------------------------------------------- |
+| x                          | `int16`     | 2             | X coordinate of the hero on the Adventure Map                                     |
+| y                          | `int16`     | 2             | Y coordinate of the hero on the Adventure Map                                     |
+| z                          | `int16`     | 2             | Z coordinate of the hero on the Adventure Map                                     |
+| is_visible                 | `Bool`      | 1             | Indicates whether the hero is currently visible on the map                        |
+| coordinates_packed         | `uint32`    | 4             | Duplicates the coordinates using the packed format                                |
+| object_class_under         | `uint32`    | 4             | Enum `ObjectClass` of the object on the same tile under the hero                  |
+| unknown1                   | `uint8[5]`  | 5             |                                                                                   |
+| is_female                  | `Bool`      | 1             | 1 if the hero is female, 0 otherwise                                              |
+| use_custom_biography       | `Bool`      | 1             | 1 if the custom biography should be displayed, 0 otherwise                        |
+| biography                  | `String32`  | varies        | The hero's biography                                                              |
+| owner                      | `uint8`     | 1             | Enum `PlayerColor`                                                                |
+| patrol_radius              | `int8`      | 1             | Patrol radius or -1 if the hero has no patrol                                     |
+| temp_morale                | `int8`      | 1             | Temporary Morale bonus until the next battle                                      |
+| temp_luck                  | `int8`      | 1             | Temporary Luck bonus until the next battle                                        |
+| unknown2                   | `uint8[49]` | 49            | TODO                                                                              |
+| learning_stones            | `uint8[4]`  | 4             | Bitmask; 1 bit per Learning Stone, indicating if the hero has visited it          |
+| marletto_towers            | `uint8[4]`  | 4             | Bitmask; 1 bit per Marletto Tower, indicating if the hero has visited it          |
+| gardens_of_revelation      | `uint8[4]`  | 4             | Bitmask; 1 bit per Garden of Revelation, indicating if the hero has visited it    |
+| mercenary_camps            | `uint8[4]`  | 4             | Bitmask; 1 bit per Mercenary Camp, indicating if the hero has visited it          |
+| star_axes                  | `uint8[4]`  | 4             | Bitmask; 1 bit per Star Axis, indicating if the hero has visited it               |
+| trees_of_knowledge         | `uint8[4]`  | 4             | Bitmask; 1 bit per Tree of Knowledge, indicating if the hero has visited it       |
+| libraries_of_enlightenment | `uint8[4]`  | 4             | Bitmask; 1 bit per Library of Enlighenment, indicating if the hero has visited it |
+| arenas                     | `uint8[4]`  | 4             | Bitmask; 1 bit per Arena, indicating if the hero has visited it                   |
+| schools_of_magic           | `uint8[4]`  | 4             | Bitmask; 1 bit per School of Magic, indicating if the hero has visited it         |
+| schools_of_war             | `uint8[4]`  | 4             | Bitmask; 1 bit per School of War, indicating if the hero has visited it           |
+| reserved                   |             | 16            | Always 0s by default                                                              |
+| flags                      | `uint32`    | 4             | TODO: various flags for visited stuff                                             |
+| army                       | [`Troops`](#Troops) | 56    | Current army                                                                      |
+| name                       | `char[13]`  | 13            | Only the bytes before the first null terminator are significant                   |
+| secondary_skills_levels    | `uint8[28]` | 28            | Level for each Secondary Skill type                                               |
+| secondary_skills_slots     | `uint8[28]` | 28            | Slot for each Seconadry Skill type                                                |
+| spells_learned             | `Bool[70]`  | 70            | 1 byte per Spell type indicating if the hero has learned it                       |
+| spells_available           | `Bool[70]`  | 70            | 1 byte per Spell type indicating if the hero can cast this spell                  |
+| artifacts_equipped         | [`HeroArtifact[19]`](#HeroArtifact) | 152 | Artifact in each slot                                               |
+| artifacts_backpack         | [`HeroArtifact[64]`](#HeroArtifact) | 512 | Artifacts in the backpack                                           |
+| unknown3                   | `uint8[22]` | 22            |                                                                                   |
 
 
 ### `HeroArtifact`

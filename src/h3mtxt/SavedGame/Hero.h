@@ -12,6 +12,7 @@
 #include <h3mtxt/Map/Constants/SecondarySkillType.h>
 #include <h3mtxt/Map/Utils/BitSet.h>
 #include <h3mtxt/Map/Utils/EnumIndexedArray.h>
+#include <h3mtxt/Map/Utils/ReservedData.h>
 #include <h3mtxt/Map/PrimarySkills.h>
 #include <h3mtxt/SavedGame/Constants/Constants.h>
 #include <h3mtxt/SavedGame/Troops.h>
@@ -119,7 +120,9 @@ namespace h3svg
     BitSet<4> schools_of_magic;
     // 1 bit per School of War, indicating if the hero has visited it.
     BitSet<4> schools_of_war;
-    std::array<std::uint8_t, 20> unknown7 {};
+    ReservedData<16> reserved;
+    // TODO: replace with EnumBitmask<HeroFlag, 4>. Flags are described in H3API.
+    BitSet<4> flags;
     Troops army;
     // Fixed-size; only the characters before the first null terminator are significant.
     std::array<char, 13> name {};
@@ -138,6 +141,6 @@ namespace h3svg
     HeroArtifacts artifacts;
     // TODO: figure out what this is.
     //   unknown8[15] is Bool is_sleeping;
-    std::array<std::uint8_t, 22> unknown8 {};
+    std::array<std::uint8_t, 22> unknown7 {};
   };
 }

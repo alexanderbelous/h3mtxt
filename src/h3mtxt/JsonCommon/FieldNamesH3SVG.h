@@ -188,7 +188,8 @@ namespace h3json
     static constexpr std::string_view kArenas = "arenas";
     static constexpr std::string_view kSchoolsOfMagic = "schools_of_magic";
     static constexpr std::string_view kSchoolsOfWar = "schools_of_war";
-    static constexpr std::string_view kUnknown7 = "unknown7";
+    static constexpr std::string_view kReserved = "reserved";
+    static constexpr std::string_view kFlags = "flags";
     static constexpr std::string_view kArmy = "army";
     static constexpr std::string_view kName = "name";
     static constexpr std::string_view kSecondarySkillsLevels = "secondary_skills_levels";
@@ -197,7 +198,7 @@ namespace h3json
     static constexpr std::string_view kSpellsLearned = "spells_learned";
     static constexpr std::string_view kSpellsAvailable = "spells_available";
     static constexpr std::string_view kArtifacts = "artifacts";
-    static constexpr std::string_view kUnknown8 = "unknown8";
+    static constexpr std::string_view kUnknown7 = "unknown7";
   };
 
   template<>

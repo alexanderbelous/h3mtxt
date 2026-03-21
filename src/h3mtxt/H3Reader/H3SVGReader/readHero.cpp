@@ -71,7 +71,8 @@ namespace h3svg
     hero.arenas = readBitSet<4>();
     hero.schools_of_magic = readBitSet<4>();
     hero.schools_of_war = readBitSet<4>();
-    hero.unknown7 = readByteArray<20>();
+    hero.reserved = readReservedData<16>();
+    hero.flags = readBitSet<4>();
     hero.army = readTroops();
     readBytes(std::as_writable_bytes(std::span{hero.name}));
     for (std::uint8_t& level : hero.secondary_skills_levels.data)
@@ -92,7 +93,7 @@ namespace h3svg
       is_spell_available = readBool();
     }
     hero.artifacts = readHeroArtifacts();
-    hero.unknown8 = readByteArray<22>();
+    hero.unknown7 = readByteArray<22>();
     return hero;
   }
 }
