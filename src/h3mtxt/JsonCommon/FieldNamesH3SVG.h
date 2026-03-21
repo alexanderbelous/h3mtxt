@@ -158,6 +158,8 @@ namespace h3json
     static constexpr std::string_view kBiography = "biography";
     static constexpr std::string_view kOwner = "owner";
     static constexpr std::string_view kPatrolRadius = "patrol_radius";
+    static constexpr std::string_view kTempMorale = "temp_morale";
+    static constexpr std::string_view kTempLuck = "temp_luck";
     static constexpr std::string_view kUnknown2 = "unknown2";
     static constexpr std::string_view kType = "type";
     static constexpr std::string_view kHeroClass = "hero_class";

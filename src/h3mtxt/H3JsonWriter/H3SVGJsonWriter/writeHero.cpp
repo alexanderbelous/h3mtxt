@@ -59,6 +59,8 @@ namespace Medea_NS
       out.writeComment(enum_str, false);
     }
     out.writeField(Fields::kPatrolRadius, hero.patrol_radius);
+    out.writeField(Fields::kTempMorale, hero.temp_morale);
+    out.writeField(Fields::kTempLuck, hero.temp_luck);
     out.writeField(Fields::kUnknown2, hero.unknown2);
     out.writeField(Fields::kType, hero.type);
     if (std::string_view enum_str = getEnumString(hero.type); !enum_str.empty())

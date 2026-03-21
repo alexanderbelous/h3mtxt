@@ -61,8 +61,12 @@ namespace h3svg
     PlayerColor owner {};
     // Patrol radius or -1 if there is none.
     std::int8_t patrol_radius {};
+    // Temporary Morale bonus until the next battle (e.g., from Events, Temples, etc).
+    std::int8_t temp_morale {};
+    // Temporary Luck bonus until the next battle (e.g., from Events, Temples, etc).
+    std::int8_t temp_luck {};
     // TODO: figure out what this is.
-    std::array<std::uint8_t, 8> unknown2 {};
+    std::array<std::uint8_t, 6> unknown2 {};
     HeroType type {};
     HeroClass hero_class {};
     HeroPortrait portrait {};

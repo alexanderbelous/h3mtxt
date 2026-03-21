@@ -41,24 +41,26 @@ namespace h3svg
     hero.biography = readString32();
     hero.owner = readEnum<PlayerColor>();
     hero.patrol_radius = readInt<std::int8_t>();
-    readBytes(std::as_writable_bytes(std::span{hero.unknown2}));
+    hero.temp_morale = readInt<std::int8_t>();
+    hero.temp_luck = readInt<std::int8_t>();
+    hero.unknown2 = readByteArray<6>();
     hero.type = readEnum<HeroType>();
     hero.hero_class = readEnum<HeroClass>();
     hero.portrait = readEnum<HeroPortrait>();
     hero.patrol_x = readInt<std::uint8_t>();
     hero.patrol_y = readInt<std::uint8_t>();
-    readBytes(std::as_writable_bytes(std::span{hero.unknown3}));
+    hero.unknown3 = readByteArray<4>();
     hero.destination_x = readInt<std::int32_t>();
     hero.destination_y = readInt<std::int32_t>();
     hero.destination_z = readInt<std::int8_t>();
-    readBytes(std::as_writable_bytes(std::span{hero.unknown4}));
+    hero.unknown4 = readByteArray<3>();
     hero.move_points_max = readInt<std::int32_t>();
     hero.move_points = readInt<std::int32_t>();
     hero.experience = readInt<std::int32_t>();
-    readBytes(std::as_writable_bytes(std::span{hero.unknown5}));
+    hero.unknown5 = readByteArray<4>();
     hero.spell_points = readInt<std::int16_t>();
     hero.level = readInt<std::int16_t>();
-    readBytes(std::as_writable_bytes(std::span{hero.unknown6}));
+    hero.unknown6 = readByteArray<2>();
     hero.learning_stones = readBitSet<4>();
     hero.marletto_towers = readBitSet<4>();
     hero.gardens_of_revelation = readBitSet<4>();
@@ -69,7 +71,7 @@ namespace h3svg
     hero.arenas = readBitSet<4>();
     hero.schools_of_magic = readBitSet<4>();
     hero.schools_of_war = readBitSet<4>();
-    readBytes(std::as_writable_bytes(std::span{hero.unknown7}));
+    hero.unknown7 = readByteArray<20>();
     hero.army = readTroops();
     readBytes(std::as_writable_bytes(std::span{hero.name}));
     for (std::uint8_t& level : hero.secondary_skills_levels.data)
@@ -90,7 +92,7 @@ namespace h3svg
       is_spell_available = readBool();
     }
     hero.artifacts = readHeroArtifacts();
-    readBytes(std::as_writable_bytes(std::span{hero.unknown8}));
+    hero.unknown8 = readByteArray<22>();
     return hero;
   }
 }

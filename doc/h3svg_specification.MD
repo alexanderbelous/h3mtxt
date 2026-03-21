@@ -556,7 +556,9 @@ An H3SVG file is a single structure which we will naturally call [`SavedGame`](#
 | biography               | `String32`                | varies        | The hero's biography                                             |
 | owner                   | `uint8`                   | 1             | Enum `PlayerColor`                                               |
 | patrol_radius           | `int8`                    | 1             | Patrol radius or -1 if the hero has no patrol                    |
-| unknown2                | `uint8[111]`              | 111           |                                                                  |
+| temp_morale             | `int8`                    | 1             | Temporary Morale bonus until the next battle                     |
+| temp_luck               | `int8`                    | 1             | Temporary Luck bonus until the next battle                       |
+| unknown2                | `uint8[109]`              | 109           |                                                                  |
 | army                    | [`Troops`](#Troops)       | 56            | Current army                                                     |
 | name                    | `char[13]`                | 13            | Only the bytes before the first null terminator are significant  |
 | secondary_skills_levels | `uint8[28]`               | 28            | Level for each Secondary Skill type                              |
