@@ -6,34 +6,34 @@ namespace h3m
 {
   enum class SecondarySkillType : std::uint8_t
   {
-    Pathfinding,    // 00
-    Archery,        // 01
-    Logistics,      // 02
-    Scouting,       // 03
-    Diplomacy,      // 04
-    Navigation,     // 05
-    Leadership,     // 06
-    Wisdom,         // 07
-    Mysticism,      // 08
-    Luck,           // 09
-    Ballistics,     // 0A
-    EagleEye,       // 0B
-    Necromancy,     // 0C
-    Estates,        // 0D
-    FireMagic,      // 0E
-    AirMagic,       // 0F
-    WaterMagic,     // 10
-    EarthMagic,     // 11
-    Scholar,        // 12
-    Tactics,        // 13
-    Artillery,      // 14
-    Learning,       // 15
-    Offense,        // 16
-    Armorer,        // 17
-    Intelligence,   // 18
-    Sorcery,        // 19
-    Resistance,     // 1A
-    FirstAid,       // 1B
+    Pathfinding  = 0,  // 0x00
+    Archery      = 1,  // 0x01
+    Logistics    = 2,  // 0x02
+    Scouting     = 3,  // 0x03
+    Diplomacy    = 4,  // 0x04
+    Navigation   = 5,  // 0x05
+    Leadership   = 6,  // 0x06
+    Wisdom       = 7,  // 0x07
+    Mysticism    = 8,  // 0x08
+    Luck         = 9,  // 0x09
+    Ballistics   = 10, // 0x0A
+    EagleEye     = 11, // 0x0B
+    Necromancy   = 12, // 0x0C
+    Estates      = 13, // 0x0D
+    FireMagic    = 14, // 0x0E
+    AirMagic     = 15, // 0x0F
+    WaterMagic   = 16, // 0x10
+    EarthMagic   = 17, // 0x11
+    Scholar      = 18, // 0x12
+    Tactics      = 19, // 0x13
+    Artillery    = 20, // 0x14
+    Learning     = 21, // 0x15
+    Offense      = 22, // 0x16
+    Armorer      = 23, // 0x17
+    Intelligence = 24, // 0x18
+    Sorcery      = 25, // 0x19
+    Resistance   = 26, // 0x1A
+    FirstAid     = 27  // 0x1B
 
     // SecondarySkillType{35} at Basic level is equivalent to nwcnebuchadnezzar cheat
     // (1,000,000 move points). It's somewhat "buggy", though: if a hero with such skill

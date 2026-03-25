@@ -34,7 +34,7 @@ namespace h3m
   {
     HeroType type{};
     // 0xFF for default.
-    HeroPortrait portrait = HeroPortrait::DEFAULT;
+    HeroPortrait portrait = HeroPortrait::Default;
     // Hero's name, or an empty string if the default name should be used instead.
     std::string name;
     // Bitmask indicating which players can hire this hero.
