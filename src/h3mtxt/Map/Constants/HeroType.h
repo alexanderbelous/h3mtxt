@@ -4,203 +4,201 @@
 
 namespace h3m
 {
+  enum class HeroType : std::uint8_t
+  {
+    // Knight (Castle)
+    Orrin       = 0,   // 0x00
+    Valeska     = 1,   // 0x01
+    Edric       = 2,   // 0x02
+    Sylvia      = 3,   // 0x03
+    LordHaart   = 4,   // 0x04
+    Sorsha      = 5,   // 0x05
+    Christian   = 6,   // 0x06
+    Tyris       = 7,   // 0x07
 
-enum class HeroType : std::uint8_t
-{
-    /* Knight (Castle) */
-    ORRIN,          /* 0x00 */
-    VALESKA,        /* 0x01 */
-    EDRIC,          /* 0x02 */
-    SYLVIA,         /* 0x03 */
-    LORD_HAART,     /* 0x04 */
-    SORSHA,         /* 0x05 */
-    CHRISTIAN,      /* 0x06 */
-    TYRIS,          /* 0x07 */
+    // Cleric (Castle)
+    Rion        = 8,   // 0x08
+    Adela       = 9,   // 0x09
+    Cuthbert    = 10,  // 0x0A
+    Adelaide    = 11,  // 0x0B
+    Ingham      = 12,  // 0x0C
+    Sanya       = 13,  // 0x0D
+    Loynis      = 14,  // 0x0E
+    Caitlin     = 15,  // 0x0F
 
-    /* Cleric (Castle) */
-    RION,           /* 0x08 */
-    ADELA,          /* 0x09 */
-    CUTHBERT,       /* 0x0A */
-    ADELAIDE,       /* 0x0B */
-    INGHAM,         /* 0x0C */
-    SANYA,          /* 0x0D */
-    LOYNIS,         /* 0x0E */
-    CAITLIN,        /* 0x0F */
+    // Ranger (Rampart)
+    Mephala     = 16,  // 0x10
+    Ufretin     = 17,  // 0x11
+    Jenova      = 18,  // 0x12
+    Ryland      = 19,  // 0x13
+    Thorgrim    = 20,  // 0x14
+    Ivor        = 21,  // 0x15
+    Clancy      = 22,  // 0x16
+    Kyrre       = 23,  // 0x17
 
-    /* Ranger (Rampart) */
-    MEPHALA,        /* 0x10 */
-    UFRETIN,        /* 0x11 */
-    JENOVA,         /* 0x12 */
-    RYLAND,         /* 0x13 */
-    THORGRIM,       /* 0x14 */
-    IVOR,           /* 0x15 */
-    CLANCY,         /* 0x16 */
-    KYRRE,          /* 0x17 */
+    // Druid (Rampart)
+    Coronius    = 24,  // 0x18
+    Uland       = 25,  // 0x19
+    Elleshar    = 26,  // 0x1A
+    Gem         = 27,  // 0x1B
+    Malcom      = 28,  // 0x1C
+    Melodia     = 29,  // 0x1D
+    Alagar      = 30,  // 0x1E
+    Aeris       = 31,  // 0x1F
 
-    /* Druid (Rampart) */
-    CORONIUS,       /* 0x18 */
-    ULAND,          /* 0x19 */
-    ELLESHAR,       /* 0x1A */
-    GEM,            /* 0x1B */
-    MALCOM,         /* 0x1C */
-    MELODIA,        /* 0x1D */
-    ALAGAR,         /* 0x1E */
-    AERIS,          /* 0x1F */
-    
-    /* Alchemist (Tower) */
-    PIQUEDRAM,      /* 0x20 */
-    THANE,          /* 0x21 */
-    JOSEPHINE,      /* 0x22 */
-    NEELA,          /* 0x23 */
-    TOROSAR ,       /* 0x24 */
-    FAFNER,         /* 0x25 */
-    RISSA,          /* 0x26 */
-    IONA,           /* 0x27 */
-    
-    /* Wizard (Tower) */
-    ASTRAL,         /* 0x28 */
-    HALON,          /* 0x29 */
-    SERENA,         /* 0x2A */
-    DAREMYTH,       /* 0x2B */
-    THEODORUS,      /* 0x2C */
-    SOLMYR,         /* 0x2D */
-    CYRA,           /* 0x2E */
-    AINE,           /* 0x2F */
-    
-    /* Demoniac (Inferno) */
-    FIONA,          /* 0x30 */
-    RASHKA,         /* 0x31 */
-    MARIUS,         /* 0x32 */
-    IGNATIUS,       /* 0x33 */
-    OCTAVIA,        /* 0x34 */
-    CALH,           /* 0x35 */
-    PYRE,           /* 0x36 */
-    NYMUS,          /* 0x37 */
-    
-    /* Heretic (Inferno) */
-    AYDEN,          /* 0x38 */
-    XYRON,          /* 0x39 */
-    AXSIS,          /* 0x3A */
-    OLEMA,          /* 0x3B */
-    CALID,          /* 0x3C */
-    ASH,            /* 0x3D */
-    ZYDAR,          /* 0x3E */
-    XARFAX,         /* 0x3F */
-    
-    /* Death Knight (Necropolis) */
-    STRAKER,        /* 0x40 */
-    VOKIAL,         /* 0x41 */
-    MOANDOR,        /* 0x42 */
-    CHARNA,         /* 0x43 */
-    TAMIKA,         /* 0x44 */
-    ISRA,           /* 0x45 */
-    CLAVIUS,        /* 0x46 */
-    GALTHRAN,       /* 0x47 */
-    
-    /* Necromancer (Necropolis) */
-    SEPTIENNA,      /* 0x48 */
-    AISLINN,        /* 0x49 */
-    SANDRO,         /* 0x4A */
-    NIMBUS,         /* 0x4B */
-    THANT,          /* 0x4C */
-    XSI,            /* 0x4D */
-    VIDOMINA,       /* 0x4E */
-    NAGASH,         /* 0x4F */
-    
-    /* Overlord (Dungeon) */
-    LORELEI,        /* 0x50 */
-    ARLACH,         /* 0x51 */
-    DACE,           /* 0x52 */
-    AJIT,           /* 0x53 */
-    DAMACON,        /* 0x54 */
-    GUNNAR,         /* 0x55 */
-    SYNCA,          /* 0x56 */
-    SHAKTI,         /* 0x57 */
+    // Alchemist (Tower)
+    Piquedram   = 32,  // 0x20
+    Thane       = 33,  // 0x21
+    Josephine   = 34,  // 0x22
+    Neela       = 35,  // 0x23
+    Torosar     = 36,  // 0x24
+    Fafner      = 37,  // 0x25
+    Rissa       = 38,  // 0x26
+    Iona        = 39,  // 0x27
 
-    /* Warlock (Dungeon) */
-    ALAMAR,         /* 0x58 */
-    JAEGAR,         /* 0x59 */
-    MALEKITH,       /* 0x5A */
-    JEDDITE,        /* 0x5B */
-    GEON,           /* 0x5C */
-    DEEMER,         /* 0x5D */
-    SEPHINROTH,     /* 0x5E */
-    DARKSTORM,      /* 0x5F */
-    
+    // Wizard (Tower)
+    Astral      = 40,  // 0x28
+    Halon       = 41,  // 0x29
+    Serena      = 42,  // 0x2A
+    Daremyth    = 43,  // 0x2B
+    Theodorus   = 44,  // 0x2C
+    Solmyr      = 45,  // 0x2D
+    Cyra        = 46,  // 0x2E
+    Aine        = 47,  // 0x2F
 
-    /* Barbarian (Stronghold) */
-    YOG,            /* 0x60 */
-    GURNISSON,      /* 0x61 */
-    JABARKAS,       /* 0x62 */
-    SHIVA,          /* 0x63 */
-    GRETCHIN,       /* 0x64 */
-    KRELLION,       /* 0x65 */
-    CRAG_HACK,      /* 0x66 */
-    TYRAXOR,        /* 0x67 */
-    
-    /* Battle Mage (Stronghold) */
-    GIRD,           /* 0x68 */
-    VEY,            /* 0x69 */
-    DESSA,          /* 0x6A */
-    TEREK,          /* 0x6B */
-    ZUBIN,          /* 0x6C */
-    GUNDULA,        /* 0x6D */
-    ORIS,           /* 0x6E */
-    SAURUG,         /* 0x6F */
-    
-    /* Beastmaster (Fortress) */
-    BRON,           /* 0x70 */
-    DRAKON,         /* 0x71 */
-    WYSTAN,         /* 0x72 */
-    TAZAR,          /* 0x73 */
-    ALKIN,          /* 0x74 */
-    KORBAC,         /* 0x75 */
-    GERWULF,        /* 0x76 */
-    BROGHILD,       /* 0x77 */
-    
-    /* Witch (Fortress) */
-    MIRLANDA,       /* 0x78 */
-    ROSIC,          /* 0x79 */
-    VOY,            /* 0x7A */
-    VERDISH,        /* 0x7B */
-    MERIST,         /* 0x7C */
-    STYG,           /* 0x7D */
-    ANDRA,          /* 0x7E */
-    TIVA,           /* 0x7F */
-    
-    /* Planeswalker (Conflux) */
-    PASIS,          /* 0x80 */
-    THUNAR,         /* 0x81 */
-    IGNISSA,        /* 0x82 */
-    LACUS,          /* 0x83 */
-    MONERE,         /* 0x84 */
-    ERDAMON,        /* 0x85 */
-    FIUR,           /* 0x86 */
-    KALT,           /* 0x87 */
-    
-    /* Elementalist (Conflux) */
-    LUNA,           /* 0x88 */
-    BRISSA,         /* 0x89 */
-    CIELE,          /* 0x8A */
-    LABETHA,        /* 0x8B */
-    INTEUS,         /* 0x8C */
-    AENAIN,         /* 0x8D */
-    GELARE,         /* 0x8E */
-    GRINDAN,        /* 0x8F */
+    // Demoniac (Inferno)
+    Fiona       = 48,  // 0x30
+    Rashka      = 49,  // 0x31
+    Marius      = 50,  // 0x32
+    Ignatius    = 51,  // 0x33
+    Octavia     = 52,  // 0x34
+    Calh        = 53,  // 0x35
+    Pyre        = 54,  // 0x36
+    Nymus       = 55,  // 0x37
 
-    /* Special  (Campaign) */
-    SIR_MULLICH,    /* 0x90 */ // IN CHARGE OF BEING BROKEN
-    ADRIENNE,       /* 0x91 */
-    CATHERINE,      /* 0x92 */
-    DRACON,         /* 0x93 */
-    GELU,           /* 0x94 */
-    KILGOR,         /* 0x95 */
-    LORD_HAART2,    /* 0x96 */ // UNDEAD LORD HAART
-    MUTARE,         /* 0x97 */
-    ROLAND,         /* 0x98 */
-    MUTARE_DRAKE,   /* 0x99 */
-    BORAGUS,        /* 0x9A */
-    XERON,          /* 0x9B */
-};
+    // Heretic (Inferno)
+    Ayden       = 56,  // 0x38
+    Xyron       = 57,  // 0x39
+    Axsis       = 58,  // 0x3A
+    Olema       = 59,  // 0x3B
+    Calid       = 60,  // 0x3C
+    Ash         = 61,  // 0x3D
+    Zydar       = 62,  // 0x3E
+    Xarfax      = 63,  // 0x3F
 
+    // Death Knight (Necropolis)
+    Straker     = 64,  // 0x40
+    Vokial      = 65,  // 0x41
+    Moandor     = 66,  // 0x42
+    Charna      = 67,  // 0x43
+    Tamika      = 68,  // 0x44
+    Isra        = 69,  // 0x45
+    Clavius     = 70,  // 0x46
+    Galthran    = 71,  // 0x47
+
+    // Necromancer (Necropolis)
+    Septienna   = 72,  // 0x48
+    Aislinn     = 73,  // 0x49
+    Sandro      = 74,  // 0x4A
+    Nimbus      = 75,  // 0x4B
+    Thant       = 76,  // 0x4C
+    Xsi         = 77,  // 0x4D
+    Vidomina    = 78,  // 0x4E
+    Nagash      = 79,  // 0x4F
+
+    // Overlord (Dungeon)
+    Lorelei     = 80,  // 0x50
+    Arlach      = 81,  // 0x51
+    Dace        = 82,  // 0x52
+    Ajit        = 83,  // 0x53
+    Damacon     = 84,  // 0x54
+    Gunnar      = 85,  // 0x55
+    Synca       = 86,  // 0x56
+    Shakti      = 87,  // 0x57
+
+    // Warlock (Dungeon)
+    Alamar      = 88,  // 0x58
+    Jaegar      = 89,  // 0x59
+    Malekith    = 90,  // 0x5A
+    Jeddite     = 91,  // 0x5B
+    Geon        = 92,  // 0x5C
+    Deemer      = 93,  // 0x5D
+    Sephinroth  = 94,  // 0x5E
+    Darkstorm   = 95,  // 0x5F
+
+
+    // Barbarian (Stronghold)
+    Yog         = 96,  // 0x60
+    Gurnisson   = 97,  // 0x61
+    Jabarkas    = 98,  // 0x62
+    Shiva       = 99,  // 0x63
+    Gretchin    = 100, // 0x64
+    Krellion    = 101, // 0x65
+    CragHack    = 102, // 0x66
+    Tyraxor     = 103, // 0x67
+
+    // Battle Mage (Stronghold)
+    Gird        = 104, // 0x68
+    Vey         = 105, // 0x69
+    Dessa       = 106, // 0x6A
+    Terek       = 107, // 0x6B
+    Zubin       = 108, // 0x6C
+    Gundula     = 109, // 0x6D
+    Oris        = 110, // 0x6E
+    Saurug      = 111, // 0x6F
+
+    // Beastmaster (Fortress)
+    Bron        = 112, // 0x70
+    Drakon      = 113, // 0x71
+    Wystan      = 114, // 0x72
+    Tazar       = 115, // 0x73
+    Alkin       = 116, // 0x74
+    Korbac      = 117, // 0x75
+    Gerwulf     = 118, // 0x76
+    Broghild    = 119, // 0x77
+
+    // Witch (Fortress)
+    Mirlanda    = 120, // 0x78
+    Rosic       = 121, // 0x79
+    Voy         = 122, // 0x7A
+    Verdish     = 123, // 0x7B
+    Merist      = 124, // 0x7C
+    Styg        = 125, // 0x7D
+    Andra       = 126, // 0x7E
+    Tiva        = 127, // 0x7F
+
+    // Planeswalker (Conflux)
+    Pasis       = 128, // 0x80
+    Thunar      = 129, // 0x81
+    Ignissa     = 130, // 0x82
+    Lacus       = 131, // 0x83
+    Monere      = 132, // 0x84
+    Erdamon     = 133, // 0x85
+    Fiur        = 134, // 0x86
+    Kalt        = 135, // 0x87
+
+    // Elementalist (Conflux)
+    Luna        = 136, // 0x88
+    Brissa      = 137, // 0x89
+    Ciele       = 138, // 0x8A
+    Labetha     = 139, // 0x8B
+    Inteus      = 140, // 0x8C
+    Aenain      = 141, // 0x8D
+    Gelare      = 142, // 0x8E
+    Grindan     = 143, // 0x8F
+
+    // Special  (Campaign)
+    SirMullich  = 144, // 0x90
+    Adrienne    = 145, // 0x91
+    Catherine   = 146, // 0x92
+    Dracon      = 147, // 0x93
+    Gelu        = 148, // 0x94
+    Kilgor      = 149, // 0x95
+    LordHaart2  = 150, // 0x96  Undead Lord Haart
+    Mutare      = 151, // 0x97
+    Roland      = 152, // 0x98
+    MutareDrake = 153, // 0x99
+    Boragus     = 154, // 0x9A
+    Xeron       = 155  // 0x9B
+  };
 }

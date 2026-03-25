@@ -52,7 +52,7 @@ namespace h3m
     // with a question mark ('?') will be displayed.
     // If portrait is within [164; 254], the game will crash when you go to advanced options
     // in the main menu.
-    HeroPortrait portrait = HeroPortrait::DEFAULT;
+    HeroPortrait portrait = HeroPortrait::Default;
     // Hero's name. Empty string means that the default name is used.
     std::string name;
   };
