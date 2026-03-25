@@ -197,9 +197,16 @@ namespace h3svg
     {
       bitmask = readEnumBitmask<PlayerColor, 1>();
     }
-    // Read 13 bytes.
+    // Read 6 bytes.
     // TODO: figure out what this is.
-    saved_game.unknown7 = readByteArray<13>();
+    saved_game.unknown7 = readByteArray<6>();
+    // Read 3 bytes - 1 byte per Cartographer type.
+    saved_game.cartographer_water = readEnumBitmask<PlayerColor, 1>();
+    saved_game.cartographer_land = readEnumBitmask<PlayerColor, 1>();
+    saved_game.cartographer_subterranean = readEnumBitmask<PlayerColor, 1>();
+    // Read 4 bytes.
+    // TODO: figure out what this is.
+    saved_game.unknown8 = readByteArray<4>();
     // Read Fog of War.
     {
       const std::size_t num_tiles = countTiles(saved_game.basic_info);

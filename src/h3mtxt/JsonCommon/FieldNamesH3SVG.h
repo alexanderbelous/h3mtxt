@@ -367,6 +367,10 @@ namespace h3json
     static constexpr std::string_view kUnknown6 = "unknown6";
     static constexpr std::string_view kKeymastersTents = "keymasters_tents";
     static constexpr std::string_view kUnknown7 = "unknown7";
+    static constexpr std::string_view kCartographerWater = "cartographer_water";
+    static constexpr std::string_view kCartographerLand = "cartographer_land";
+    static constexpr std::string_view kCartographerSubterranean = "cartographer_subterranean";
+    static constexpr std::string_view kUnknown8 = "unknown8";
     static constexpr std::string_view kFogOfWar = "fog_of_war";
   };
 
