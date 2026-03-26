@@ -6,9 +6,6 @@
 
 #include <h3mtxt/Campaign/CampaignFwd.h>
 
-#include <array>
-#include <string_view>
-
 namespace h3json
 {
   template<>
