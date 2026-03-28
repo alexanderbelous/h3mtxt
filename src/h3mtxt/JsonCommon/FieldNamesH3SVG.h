@@ -12,6 +12,43 @@
 namespace h3json
 {
   template<>
+  inline constexpr std::array<std::string_view, 32> kEnumFieldNames<h3svg::HeroFlag> =
+  {
+    "magic_well",
+    "stables",
+    "buoy",
+    "swan_pond",
+    "idol_of_fortune_morale",
+    "fountain_of_fortune_bad_luck",
+    "watering_hole",
+    "oasis",
+    "temple",
+    "shipwreck",
+    "crypt",
+    "derelict_ship",
+    "pyramid",
+    "faeire_ring",
+    "fountain_of_youth",
+    "mermaids",
+    "rally_flag",
+    "tavern",
+    "boat",
+    "unknown_19",
+    "sirens",
+    "warriors_tomb",
+    "luck_cheat",
+    "morale_cheat",
+    "movement_cheat",
+    "idol_of_fortune_luck",
+    "temple2",
+    "fountain_of_fortune1",
+    "fountain_of_fortune2",
+    "fountain_of_fortune3",
+    "unknown_30",
+    "unknown_31"
+  };
+
+  template<>
   inline constexpr std::array<std::string_view, 8> kEnumFieldNames<h3svg::KeymastersTentType> =
   {
     "light_blue",

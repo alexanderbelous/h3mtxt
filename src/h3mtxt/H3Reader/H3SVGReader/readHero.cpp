@@ -72,7 +72,7 @@ namespace h3svg
     hero.schools_of_magic = readBitSet<4>();
     hero.schools_of_war = readBitSet<4>();
     hero.reserved = readReservedData<16>();
-    hero.flags = readBitSet<4>();
+    hero.flags = readEnumBitmask<HeroFlag, 4>();
     hero.army = readTroops();
     readBytes(std::as_writable_bytes(std::span{hero.name}));
     for (std::uint8_t& level : hero.secondary_skills_levels.data)

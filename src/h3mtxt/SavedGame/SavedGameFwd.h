@@ -67,6 +67,8 @@ namespace h3svg
 
   enum class CreatureType32 : std::int32_t;
 
+  enum class HeroFlag;
+
   enum class KeymastersTentType : std::uint8_t;
 
   enum class ObjectClass16 : std::uint16_t;
@@ -95,6 +97,8 @@ namespace h3svg
   enum class TownBuildingTypeH3SVG : std::uint8_t;
 
   enum class TownType32 : std::int32_t;
+
+  using HeroFlags = EnumBitmask<HeroFlag, 4>;
 
   struct Artifact;
 

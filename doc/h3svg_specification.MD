@@ -574,7 +574,7 @@ An H3SVG file is a single structure which we will naturally call [`SavedGame`](#
 | schools_of_magic           | `uint8[4]`  | 4             | Bitmask; 1 bit per School of Magic, indicating if the hero has visited it         |
 | schools_of_war             | `uint8[4]`  | 4             | Bitmask; 1 bit per School of War, indicating if the hero has visited it           |
 | reserved                   |             | 16            | Always 0s by default                                                              |
-| flags                      | `uint32`    | 4             | TODO: various flags for visited stuff                                             |
+| flags                      | `uint8[4]`  | 4             | Bitmask; 1 bit per enum `HeroFlag`                                                |
 | army                       | [`Troops`](#Troops) | 56    | Current army                                                                      |
 | name                       | `char[13]`  | 13            | Only the bytes before the first null terminator are significant                   |
 | secondary_skills_levels    | `uint8[28]` | 28            | Level for each Secondary Skill type                                               |
