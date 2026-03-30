@@ -22,6 +22,11 @@ namespace h3svg
     {
       artifact = readHeroArtifact();
     }
+    artifacts.unknown = readInt<std::uint8_t>();
+    for (std::uint8_t& num_locks : artifacts.locks.data)
+    {
+      num_locks = readInt<std::uint8_t>();
+    }
     return artifacts;
   }
 
@@ -98,7 +103,8 @@ namespace h3svg
       is_spell_available = readBool();
     }
     hero.artifacts = readHeroArtifacts();
-    hero.unknown7 = readByteArray<22>();
+    hero.is_sleeping = readBool();
+    hero.unknown7 = readByteArray<6>();
     return hero;
   }
 }

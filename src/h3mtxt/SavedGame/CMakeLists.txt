@@ -1,5 +1,6 @@
 # All source files for "SavedGame" library.
 set(SOURCE_LIST
+    "Constants/ArtifactSlotGroup.h"
     "Constants/ArtifactType32.h"
     "Constants/Constants.h"
     "Constants/HeroFlag.h"

@@ -12,6 +12,25 @@
 namespace h3json
 {
   template<>
+  inline constexpr std::array<std::string_view, 14> kEnumFieldNames<h3svg::ArtifactSlotGroup> =
+  {
+    "head",
+    "shoulders",
+    "neck",
+    "right_hand",
+    "left_hand",
+    "torso",
+    "ring",
+    "feet",
+    "misc",
+    "war_machine1",
+    "war_machine2",
+    "war_machine3",
+    "war_machine4",
+    "spellbook"
+  };
+
+  template<>
   inline constexpr std::array<std::string_view, 32> kEnumFieldNames<h3svg::HeroFlag> =
   {
     "magic_well",
@@ -240,7 +259,17 @@ namespace h3json
     static constexpr std::string_view kSpellsLearned = "spells_learned";
     static constexpr std::string_view kSpellsAvailable = "spells_available";
     static constexpr std::string_view kArtifacts = "artifacts";
+    static constexpr std::string_view kIsSleeping = "is_sleeping";
     static constexpr std::string_view kUnknown7 = "unknown7";
+  };
+
+  template<>
+  struct FieldNames<h3svg::HeroArtifacts>
+  {
+    static constexpr std::string_view kEquipped = "equipped";
+    static constexpr std::string_view kBackpack = "backpack";
+    static constexpr std::string_view kUnknown = "unknown";
+    static constexpr std::string_view kLocks = "locks";
   };
 
   template<>

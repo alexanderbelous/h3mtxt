@@ -60,6 +60,7 @@ namespace h3svg
   using ::h3m::LossCondition;
   using ::h3m::VictoryCondition;
 
+  enum class ArtifactSlotGroup : std::uint8_t;
 
   enum class ArtifactType8 : std::uint8_t;
 

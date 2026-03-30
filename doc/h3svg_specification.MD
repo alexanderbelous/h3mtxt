@@ -573,7 +573,18 @@ An H3SVG file is a single structure which we will naturally call [`SavedGame`](#
 | hero_portrait              | `uint8`     | 1             | Enum `HeroPortrait`                                                               |
 | patrol_x                   | `uint8`     | 1             | X-coordinate of the starting position if the hero has patrol; 0xFF otherwise      |
 | patrol_y                   | `uint8`     | 1             | Y-coordinate of the starting position if the hero has patrol; 0xFF otherwise      |
-| unknown3                   | `uint8[38]` | 38            | TODO                                                                              |
+| unknown3                   | `uint8[4]`  | 4             | TODO                                                                              |
+| destination_x              | `int32`     | 4             | X-coordinate of the destination, or -1 if there is none                           |
+| destination_y              | `int32`     | 4             | Y-coordinate of the destination, or -1 if there is none                           |
+| destination_z              | `int8`      | 1             | Z-coordinate of the destination                                                   |
+| unknown4                   | `uint8[3]`  | 3             | TODO                                                                              |
+| move_points_max            | `int32`     | 4             | Maximum number of movement points at the moment                                   |
+| move_points                | `int32`     | 4             | The actual number of movement points at the moment                                |
+| experience                 | `int32`     | 4             | Experience points                                                                 |
+| unknown5                   | `uint8[4]`  | 4             | TODO                                                                              |
+| spell_points               | `uint16`    | 2             | Spell points                                                                      |
+| level                      | `int16`     | 2             | Experience level                                                                  |
+| unknown6                   | `uint8[2]`  | 2             | TODO                                                                              |
 | learning_stones            | `uint8[4]`  | 4             | Bitmask; 1 bit per Learning Stone, indicating if the hero has visited it          |
 | marletto_towers            | `uint8[4]`  | 4             | Bitmask; 1 bit per Marletto Tower, indicating if the hero has visited it          |
 | gardens_of_revelation      | `uint8[4]`  | 4             | Bitmask; 1 bit per Garden of Revelation, indicating if the hero has visited it    |
@@ -592,9 +603,18 @@ An H3SVG file is a single structure which we will naturally call [`SavedGame`](#
 | secondary_skills_slots     | `uint8[28]` | 28            | Slot for each Seconadry Skill type                                                |
 | spells_learned             | `Bool[70]`  | 70            | 1 byte per Spell type indicating if the hero has learned it                       |
 | spells_available           | `Bool[70]`  | 70            | 1 byte per Spell type indicating if the hero can cast this spell                  |
-| artifacts_equipped         | [`HeroArtifact[19]`](#HeroArtifact) | 152 | Artifact in each slot                                               |
-| artifacts_backpack         | [`HeroArtifact[64]`](#HeroArtifact) | 512 | Artifacts in the backpack                                           |
-| unknown4                   | `uint8[22]` | 22            |                                                                                   |
+| artifacts                  | [`HeroArtifacts`](#HeroArtifacts) | 679 |                                                                       |
+| is_sleeping                | `Bool`      | 1             | 0 if the hero is awake, nonzero if the hero is sleeping                           |
+| unknown7                   | `uint8[6]`  | 6             | TODO                                                                              |
+
+
+### `HeroArtifacts`
+| Field name | Type                      | Size in bytes | Description                                                                 |
+| ---------- | ------------------------- | ------------- | --------------------------------------------------------------------------- |
+| equipped   | [`HeroArtifact[19]`](#HeroArtifact) | 152 | Artifact in each slot                                                       |
+| backpack   | [`HeroArtifact[64]`](#HeroArtifact) | 512 | Artifacts in the backpack                                                   |
+| unknown    | `uint8`                   | 1             | TODO                                                                        |
+| locks      | `uint8[14]`               | 14            | The number of locks from combination artifacts per enum `ArtifactSlotGroup` |
 
 
 ### `HeroArtifact`

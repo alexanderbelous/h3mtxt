@@ -15,6 +15,7 @@
 #include <h3mtxt/Map/Utils/EnumIndexedArray.h>
 #include <h3mtxt/Map/Utils/ReservedData.h>
 #include <h3mtxt/Map/PrimarySkills.h>
+#include <h3mtxt/SavedGame/Constants/ArtifactSlotGroup.h>
 #include <h3mtxt/SavedGame/Constants/Constants.h>
 #include <h3mtxt/SavedGame/Constants/HeroFlag.h>
 #include <h3mtxt/SavedGame/Troops.h>
@@ -41,6 +42,10 @@ namespace h3svg
   {
     EnumIndexedArray<ArtifactSlot, HeroArtifact, 19> equipped;
     std::array<HeroArtifact, 64> backpack;
+    // TODO: figure out what this is.
+    std::uint8_t unknown {};
+    // 14 bytes: The number of locks from combination artifacts for each ArtifactSlotGroup.
+    EnumIndexedArray<ArtifactSlotGroup, std::uint8_t, kNumArtifactSlotGroups> locks {};
   };
 
   struct Hero
@@ -151,8 +156,8 @@ namespace h3svg
     // hasn't learned yet.
     EnumIndexedArray<SpellType, Bool, kNumSpells> spells_available;
     HeroArtifacts artifacts;
+    Bool is_sleeping {};
     // TODO: figure out what this is.
-    //   unknown8[15] is Bool is_sleeping;
-    std::array<std::uint8_t, 22> unknown7 {};
+    std::array<std::uint8_t, 6> unknown7 {};
   };
 }

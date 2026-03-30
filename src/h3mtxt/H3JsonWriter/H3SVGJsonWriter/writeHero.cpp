@@ -31,8 +31,12 @@ namespace Medea_NS
   void JsonObjectWriter<h3svg::HeroArtifacts>::operator()(FieldsWriter& out,
                                                           const h3svg::HeroArtifacts& artifacts) const
   {
-    out.writeField("equipped", artifacts.equipped);
-    out.writeField("backpack", artifacts.backpack);
+    using Fields = h3json::FieldNames<h3svg::HeroArtifacts>;
+
+    out.writeField(Fields::kEquipped, artifacts.equipped);
+    out.writeField(Fields::kBackpack, artifacts.backpack);
+    out.writeField(Fields::kUnknown, artifacts.unknown);
+    out.writeField(Fields::kLocks, artifacts.locks);
   }
 
   void JsonObjectWriter<h3svg::Hero>::operator()(FieldsWriter& out, const h3svg::Hero& hero) const
@@ -116,6 +120,7 @@ namespace Medea_NS
     out.writeField(Fields::kSpellsLearned, hero.spells_learned);
     out.writeField(Fields::kSpellsAvailable, hero.spells_available);
     out.writeField(Fields::kArtifacts, hero.artifacts);
+    out.writeField(Fields::kIsSleeping, hero.is_sleeping);
     out.writeField(Fields::kUnknown7, hero.unknown7);
   }
 }
