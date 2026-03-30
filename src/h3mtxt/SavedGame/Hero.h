@@ -59,14 +59,14 @@ namespace h3svg
     Bool is_female {};
     // If 0, the default biography will be displayed for this hero, otherwise the custom one (i.e. Hero::biography).
     Bool use_custom_biography {};
-    // Size is 32-bit.
+    // String length is 32-bit.
     std::string biography;
     PlayerColor owner {};
     // Patrol radius or -1 if there is none.
     std::int8_t patrol_radius {};
     // Temporary Morale bonus until the next battle (e.g., from Events, Temples, etc).
     std::int8_t temp_morale {};
-    // Temporary Luck bonus until the next battle (e.g., from Events, Temples, etc).
+    // Temporary Luck bonus until the next battle (e.g., from Events, Faerie Rings, etc).
     std::int8_t temp_luck {};
     // TODO: figure out what this is.
     std::uint8_t unknown2 {};
@@ -78,7 +78,7 @@ namespace h3svg
     std::int8_t water_walk_level {};
     // The number of times Dimension Door was cast.
     std::uint8_t num_dimension_door_casts {};
-    // (Air Magic skill) Level at which Visions was cast, or -1 if it hasn't been cast.
+    // Level at which Visions was cast, or -1 if it hasn't been cast.
     std::int8_t visions_level {};
     HeroType type {};
     HeroClass hero_class {};
