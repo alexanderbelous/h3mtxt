@@ -43,7 +43,12 @@ namespace h3svg
     hero.patrol_radius = readInt<std::int8_t>();
     hero.temp_morale = readInt<std::int8_t>();
     hero.temp_luck = readInt<std::int8_t>();
-    hero.unknown2 = readByteArray<6>();
+    hero.unknown2 = readInt<std::uint8_t>();
+    hero.disguise_level = readInt<std::int8_t>();
+    hero.fly_level = readInt<std::int8_t>();
+    hero.water_walk_level = readInt<std::int8_t>();
+    hero.num_dimension_door_casts = readInt<std::uint8_t>();
+    hero.visions_level = readInt<std::int8_t>();
     hero.type = readEnum<HeroType>();
     hero.hero_class = readEnum<HeroClass>();
     hero.portrait = readEnum<HeroPortrait>();

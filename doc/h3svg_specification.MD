@@ -554,7 +554,7 @@ An H3SVG file is a single structure which we will naturally call [`SavedGame`](#
 | is_visible                 | `Bool`      | 1             | Indicates whether the hero is currently visible on the map                        |
 | coordinates_packed         | `uint32`    | 4             | Duplicates the coordinates using the packed format                                |
 | object_class_under         | `uint32`    | 4             | Enum `ObjectClass` of the object on the same tile under the hero                  |
-| unknown1                   | `uint8[5]`  | 5             |                                                                                   |
+| unknown1                   | `uint8[5]`  | 5             | TODO                                                                              |
 | is_female                  | `Bool`      | 1             | 1 if the hero is female, 0 otherwise                                              |
 | use_custom_biography       | `Bool`      | 1             | 1 if the custom biography should be displayed, 0 otherwise                        |
 | biography                  | `String32`  | varies        | The hero's biography                                                              |
@@ -562,7 +562,18 @@ An H3SVG file is a single structure which we will naturally call [`SavedGame`](#
 | patrol_radius              | `int8`      | 1             | Patrol radius or -1 if the hero has no patrol                                     |
 | temp_morale                | `int8`      | 1             | Temporary Morale bonus until the next battle                                      |
 | temp_luck                  | `int8`      | 1             | Temporary Luck bonus until the next battle                                        |
-| unknown2                   | `uint8[49]` | 49            | TODO                                                                              |
+| unknown2                   | `uint8`     | 1             | TODO                                                                              |
+| disguise_level             | `int8`      | 1             | (Air Magic) Level at which Disguise was cast, or -1 if it hasn't been cast        |
+| fly_level                  | `int8`      | 1             | (Air Magic) Level at which Fly was cast, or -1 if it hasn't been cast             |
+| num_dimension_door_casts   | `uint8`     | 1             | The number of times Dimension Door was cast                                       |
+| water_walk_level           | `int8`      | 1             | (Water Magic) Level at which Water Walk was cast, or -1 if it hasn't been cast    |
+| visions_level              | `int8`      | 1             | Level at which Visions was cast, or -1 if it hasn't been cast                     |
+| hero_type                  | `uint8`     | 1             | Enum `HeroType`                                                                   |
+| hero_class                 | `uint8`     | 1             | Enum `HeroClass`                                                                  |
+| hero_portrait              | `uint8`     | 1             | Enum `HeroPortrait`                                                               |
+| patrol_x                   | `uint8`     | 1             | X-coordinate of the starting position if the hero has patrol; 0xFF otherwise      |
+| patrol_y                   | `uint8`     | 1             | Y-coordinate of the starting position if the hero has patrol; 0xFF otherwise      |
+| unknown3                   | `uint8[38]` | 38            | TODO                                                                              |
 | learning_stones            | `uint8[4]`  | 4             | Bitmask; 1 bit per Learning Stone, indicating if the hero has visited it          |
 | marletto_towers            | `uint8[4]`  | 4             | Bitmask; 1 bit per Marletto Tower, indicating if the hero has visited it          |
 | gardens_of_revelation      | `uint8[4]`  | 4             | Bitmask; 1 bit per Garden of Revelation, indicating if the hero has visited it    |
@@ -583,7 +594,7 @@ An H3SVG file is a single structure which we will naturally call [`SavedGame`](#
 | spells_available           | `Bool[70]`  | 70            | 1 byte per Spell type indicating if the hero can cast this spell                  |
 | artifacts_equipped         | [`HeroArtifact[19]`](#HeroArtifact) | 152 | Artifact in each slot                                               |
 | artifacts_backpack         | [`HeroArtifact[64]`](#HeroArtifact) | 512 | Artifacts in the backpack                                           |
-| unknown3                   | `uint8[22]` | 22            |                                                                                   |
+| unknown4                   | `uint8[22]` | 22            |                                                                                   |
 
 
 ### `HeroArtifact`

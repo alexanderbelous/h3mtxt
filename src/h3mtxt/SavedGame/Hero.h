@@ -69,7 +69,17 @@ namespace h3svg
     // Temporary Luck bonus until the next battle (e.g., from Events, Temples, etc).
     std::int8_t temp_luck {};
     // TODO: figure out what this is.
-    std::array<std::uint8_t, 6> unknown2 {};
+    std::uint8_t unknown2 {};
+    // (Air Magic skill) Level at which Disguise was cast, or -1 if it hasn't been cast.
+    std::int8_t disguise_level {};
+    // (Air Magic skill) Level at which Fly was cast, or -1 if it hasn't been cast.
+    std::int8_t fly_level {};
+    // (Water Magic skill) Level at which Water Walk was cast, or -1 if it hasn't been cast.
+    std::int8_t water_walk_level {};
+    // The number of times Dimension Door was cast.
+    std::uint8_t num_dimension_door_casts {};
+    // (Air Magic skill) Level at which Visions was cast, or -1 if it hasn't been cast.
+    std::int8_t visions_level {};
     HeroType type {};
     HeroClass hero_class {};
     HeroPortrait portrait {};

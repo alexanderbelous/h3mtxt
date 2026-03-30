@@ -62,6 +62,11 @@ namespace Medea_NS
     out.writeField(Fields::kTempMorale, hero.temp_morale);
     out.writeField(Fields::kTempLuck, hero.temp_luck);
     out.writeField(Fields::kUnknown2, hero.unknown2);
+    out.writeField(Fields::kDisguiseLevel, hero.disguise_level);
+    out.writeField(Fields::kFlyLevel, hero.fly_level);
+    out.writeField(Fields::kWaterWalkLevel, hero.water_walk_level);
+    out.writeField(Fields::kNumDimensionDoorCasts, hero.num_dimension_door_casts);
+    out.writeField(Fields::kVisionsLevel, hero.visions_level);
     out.writeField(Fields::kType, hero.type);
     if (std::string_view enum_str = getEnumString(hero.type); !enum_str.empty())
     {
