@@ -260,7 +260,7 @@ namespace h3json
     static constexpr std::string_view kSpellsAvailable = "spells_available";
     static constexpr std::string_view kArtifacts = "artifacts";
     static constexpr std::string_view kIsSleeping = "is_sleeping";
-    static constexpr std::string_view kUnknown7 = "unknown7";
+    static constexpr std::string_view kVisitedTowns = "visited_towns";
   };
 
   template<>

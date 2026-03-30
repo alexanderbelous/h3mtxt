@@ -605,7 +605,7 @@ An H3SVG file is a single structure which we will naturally call [`SavedGame`](#
 | spells_available           | `Bool[70]`  | 70            | 1 byte per Spell type indicating if the hero can cast this spell                  |
 | artifacts                  | [`HeroArtifacts`](#HeroArtifacts) | 679 |                                                                       |
 | is_sleeping                | `Bool`      | 1             | 0 if the hero is awake, nonzero if the hero is sleeping                           |
-| unknown7                   | `uint8[6]`  | 6             | TODO                                                                              |
+| visited_towns              | `uint8[6]`  | 6             | Bitmask; 1 bit per town ID, indicating if the hero has visited it                 |
 
 
 ### `HeroArtifacts`

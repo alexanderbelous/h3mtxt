@@ -121,6 +121,6 @@ namespace Medea_NS
     out.writeField(Fields::kSpellsAvailable, hero.spells_available);
     out.writeField(Fields::kArtifacts, hero.artifacts);
     out.writeField(Fields::kIsSleeping, hero.is_sleeping);
-    out.writeField(Fields::kUnknown7, hero.unknown7);
+    out.writeField(Fields::kVisitedTowns, hero.visited_towns);
   }
 }

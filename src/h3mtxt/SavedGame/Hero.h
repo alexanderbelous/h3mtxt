@@ -157,7 +157,9 @@ namespace h3svg
     EnumIndexedArray<SpellType, Bool, kNumSpells> spells_available;
     HeroArtifacts artifacts;
     Bool is_sleeping {};
-    // TODO: figure out what this is.
-    std::array<std::uint8_t, 6> unknown7 {};
+    // 1 bit per town, indicating if the hero has visited it.
+    // This is used, for example, to determine if the hero's Knowledge should increase when visiting
+    // a Tower with Wall of Knowledge built.
+    BitSet<6> visited_towns;
   };
 }

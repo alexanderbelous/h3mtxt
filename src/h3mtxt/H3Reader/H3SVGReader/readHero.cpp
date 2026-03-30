@@ -104,7 +104,7 @@ namespace h3svg
     }
     hero.artifacts = readHeroArtifacts();
     hero.is_sleeping = readBool();
-    hero.unknown7 = readByteArray<6>();
+    hero.visited_towns = readBitSet<6>();
     return hero;
   }
 }
