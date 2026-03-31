@@ -62,15 +62,16 @@ namespace h3svg
   struct Dwelling
   {
     PlayerColor owner {};
-    //// CREATURE_GENERATOR1 or CREATURE_GENERATOR4
-    std::uint8_t object_class {};
+    // CREATURE_GENERATOR1 or CREATURE_GENERATOR4
+    ObjectClass8 object_class {};
     std::uint8_t object_subclass {};
     // Creatures available for hire.
-    std::array<std::uint8_t, 4> creature_types {};
+    std::array<CreatureType8, 4> creature_types {};
     std::array<std::uint16_t, 4> creature_counts {};
     Coordinates coordinates;
     // Creatures guarding this dwelling.
     Troops guardians {};
+    // Seems to always be 0xFF.
     std::uint8_t unknown {};
   };
 

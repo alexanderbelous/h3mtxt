@@ -252,7 +252,7 @@ An H3SVG file is a single structure which we will naturally call [`SavedGame`](#
 ### `Tile`
 | Field name            | Type       | Size in bytes | Description                                                                        |
 | --------------------- | ---------- | ------------- | ---------------------------------------------------------------------------------- |
-| terrain_type          | `uitn8`    | 1             | Enum `TerrainType`                                                                 |
+| terrain_type          | `uint8`    | 1             | Enum `TerrainType`                                                                 |
 | terrain_sprite        | `uint8`    | 1             | 0-based index of the sprite for `terrain_type` to render on this tile              |
 | river_type            | `uint8`    | 1             | Enum `RiverType`                                                                   |
 | river_sprite          | `uint8`    | 1             | 0-based index of the sprite for `river_type` to render on this tile                |
@@ -470,18 +470,18 @@ An H3SVG file is a single structure which we will naturally call [`SavedGame`](#
 
 
 ### `Boat`
-| Field name      | Type       | Size in bytes | Description                                          |
-| --------------- | ---------- | ------------- | ---------------------------------------------------- |
-| unknown1        | `uint8[2]` | 2             |                                                      |
-| object_subclass | `uint8`    | 1             | Boat style: 0 - Necropolis, 1 - Castle, 2 - Fortress |
-| direction       | `uint8`    | 1             | Enum; describes the current direction of the boat    |
-| owner           | `uint8`    | 1             | Enum `PlayerColor`                                   |
-| owner_hero      | `uint8`    | 1             | Enum `HeroType`                                      |
-| is_occupied     | `Bool`     | 1             |                                                      |
-| x               | `uint16`   | 2             |                                                      |
-| y               | `uint16`   | 2             |                                                      |
-| z               | `uint16`   | 2             |                                                      |
-| unknown2        | `uint32`   | 4             | TODO. Seems to be coordinates_packed                 |
+| Field name      | Type        | Size in bytes | Description                                          |
+| --------------- | ----------- | ------------- | ---------------------------------------------------- |
+| unknown1        | `uint8[2]`  | 2             |                                                      |
+| object_subclass | `uint8`     | 1             | Boat style: 0 - Necropolis, 1 - Castle, 2 - Fortress |
+| direction       | `uint8`     | 1             | Enum; describes the current direction of the boat    |
+| owner           | `uint8`     | 1             | Enum `PlayerColor`                                   |
+| owner_hero      | `uint8`     | 1             | Enum `HeroType`                                      |
+| is_occupied     | `Bool`      | 1             |                                                      |
+| x               | `uint16`    | 2             |                                                      |
+| y               | `uint16`    | 2             |                                                      |
+| z               | `uint16`    | 2             |                                                      |
+| unknown2        | `uint8[14]` | 14            | TODO. Seems to be coordinates_packed                 |
 
 
 ### `Obelisk`

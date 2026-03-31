@@ -2,6 +2,7 @@
 
 #include <h3mtxt/H3JsonWriter/H3MJsonWriter/getEnumString.h>
 #include <h3mtxt/H3JsonWriter/H3MJsonWriter/H3MJsonWriter.h>
+#include <h3mtxt/H3JsonWriter/H3MJsonWriter/CommentBuilder.h>
 #include <h3mtxt/H3JsonWriter/H3SVGJsonWriter/getEnumString.h>
 #include <h3mtxt/JsonCommon/FieldNamesH3SVG.h>
 #include <h3mtxt/Medea/Medea.h>
@@ -44,8 +45,20 @@ namespace Medea_NS
       out.writeComment(enum_str, false);
     }
     out.writeField(Fields::kObjectClass, dwelling.object_class);
+    if (std::string_view enum_str = getEnumString(dwelling.object_class); !enum_str.empty())
+    {
+      out.writeComment(enum_str, false);
+    }
     out.writeField(Fields::kObjectSubclass, dwelling.object_subclass);
     out.writeField(Fields::kCreatureTypes, dwelling.creature_types);
+    {
+      h3json::CommentBuilder comment_builder;
+      comment_builder.build({ getEnumString(dwelling.creature_types[0]), ", ",
+                              getEnumString(dwelling.creature_types[1]), ", ",
+                              getEnumString(dwelling.creature_types[2]), ", ",
+                              getEnumString(dwelling.creature_types[3]) });
+      out.writeComment(comment_builder.view(), false);
+    }
     out.writeField(Fields::kCreatureCounts, dwelling.creature_counts);
     out.writeField(Fields::kCoordinates, dwelling.coordinates);
     out.writeField(Fields::kGuardians, dwelling.guardians);

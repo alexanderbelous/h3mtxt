@@ -42,6 +42,14 @@ namespace h3svg
     return std::string_view{};
   }
 
+  std::string_view getEnumString(CreatureType8 value) noexcept
+  {
+    // 0xFF is an edge case, which should be converted to 0xFFFF.
+    const CreatureType creature_type = (value == CreatureType8{ 0xFFu }) ? CreatureType{ 0xFFFFu }
+                                                                         : static_cast<CreatureType>(value);
+    return getEnumString(creature_type);
+  }
+
   std::string_view getEnumString(CreatureType32 value) noexcept
   {
     constexpr std::uint8_t kNumCreatures = 150;
@@ -49,6 +57,16 @@ namespace h3svg
     if (integer_value >= 0 && integer_value < kNumCreatures)
     {
       return getEnumString(static_cast<CreatureType>(integer_value));
+    }
+    return std::string_view{};
+  }
+
+  std::string_view getEnumString(ObjectClass8 value) noexcept
+  {
+    const std::uint8_t integer_value = static_cast<std::uint8_t>(value);
+    if (integer_value < kNumObjectClasses)
+    {
+      return getEnumString(static_cast<ObjectClass>(integer_value));
     }
     return std::string_view{};
   }

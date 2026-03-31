@@ -30,11 +30,11 @@ namespace h3svg
   {
     Dwelling dwelling;
     dwelling.owner = readEnum<PlayerColor>();
-    dwelling.object_class = readInt<std::uint8_t>();
+    dwelling.object_class = readEnum<ObjectClass8>();
     dwelling.object_subclass = readInt<std::uint8_t>();
-    for (std::uint8_t& creature_type : dwelling.creature_types)
+    for (CreatureType8& creature_type : dwelling.creature_types)
     {
-      creature_type = readInt<std::uint8_t>();
+      creature_type = readEnum<CreatureType8>();
     }
     for (std::uint16_t& creature_count : dwelling.creature_counts)
     {

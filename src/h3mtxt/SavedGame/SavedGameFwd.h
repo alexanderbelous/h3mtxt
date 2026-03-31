@@ -66,11 +66,15 @@ namespace h3svg
 
   enum class ArtifactType32 : std::int32_t;
 
+  enum class CreatureType8 : std::uint8_t;
+
   enum class CreatureType32 : std::int32_t;
 
   enum class HeroFlag;
 
   enum class KeymastersTentType : std::uint8_t;
+
+  enum class ObjectClass8 : std::uint8_t;
 
   enum class ObjectClass16 : std::uint16_t;
 
