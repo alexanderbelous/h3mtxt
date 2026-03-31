@@ -1,5 +1,6 @@
-#include <h3mtxt/H3JsonWriter/H3MJsonWriter/H3MJsonWriter.h>
+#include <h3mtxt/H3JsonWriter/H3SVGJsonWriter/H3SVGJsonWriter.h>
 
+#include <h3mtxt/H3JsonWriter/H3MJsonWriter/H3MJsonWriter.h>
 #include <h3mtxt/H3JsonWriter/H3MJsonWriter/getEnumString.h>
 #include <h3mtxt/H3JsonWriter/H3SVGJsonWriter/getEnumString.h>
 #include <h3mtxt/JsonCommon/FieldNamesH3SVG.h>
