@@ -64,7 +64,6 @@ namespace h3svg
     EnumIndexedArray<PlayerColor, PlayerSpecs, kMaxPlayers> players_specs;
     // TODO: check that this works correctly for all victory condition types.
     VictoryCondition victory_condition;
-    // TODO: check that this works correctly for all loss condition types.
     LossCondition loss_condition;
     TeamsInfo teams;
     std::vector<CustomHero> custom_heroes;
