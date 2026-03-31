@@ -273,6 +273,12 @@ namespace h3json
   };
 
   template<>
+  struct FieldNames<h3svg::LossCondition> : FieldNames<h3m::LossCondition>
+  {
+    // Same fields as for h3m::LossCondition.
+  };
+
+  template<>
   struct FieldNames<h3svg::Mine>
   {
     static constexpr std::string_view kOwner = "owner";

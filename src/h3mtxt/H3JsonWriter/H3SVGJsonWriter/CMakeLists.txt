@@ -5,6 +5,7 @@ add_library(H3SVGJsonWriter STATIC
     "writeH3SvgJson.cpp"
     "writeH3SvgJson.h"
     "writeHero.cpp"
+    "writeLossCondition.cpp"
     "writeObjectPropertiesTables.cpp"
     "writeQuest.cpp"
     "writeReward.cpp"

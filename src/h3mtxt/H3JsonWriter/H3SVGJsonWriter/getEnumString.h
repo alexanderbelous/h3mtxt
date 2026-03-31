@@ -18,6 +18,8 @@ namespace h3svg
 
   std::string_view getEnumString(CreatureType32 value) noexcept;
 
+  std::string_view getEnumString(HeroType16 value) noexcept;
+
   std::string_view getEnumString(ObjectClass8 value) noexcept;
 
   std::string_view getEnumString(ObjectClass16 value) noexcept;

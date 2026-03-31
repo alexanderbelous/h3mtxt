@@ -124,7 +124,7 @@ An H3SVG file is a single structure which we will naturally call [`SavedGame`](#
 | map_basic_info            | [`MapBasicInfo`](#MapBasicInfo)  | varies        | "Map Specifications / General" in the Map Editor                 |
 | players_specs             | [`PlayerSpecs[8]`](#PlayerSpecs) | varies        | "Map Specifications / Player Specs" in the Editor                |
 | victory_condition         | `VictoryCondition`               | varies        | "Map Specifications / Special Victory Condition" in the Editor   |
-| loss_condition            | `LossCondition`                  | varies        | "Map Specifications / Special Loss Condition" in the Editor      |
+| loss_condition            | [`LossCondition`](#LossCondition) | varies       | "Map Specifications / Special Loss Condition" in the Editor      |
 | teams                     | [`TeamsInfo`](#TeamsInfo)        | varies        | "Map Specifications / Teams" in the Editor                       |
 | num_custom_heroes         | `uint8`                          | 1             | The number of heroes with custom name, portrait or hireability   |
 | custom_heroes             | [`CustomHero[num_custom_heroes]`](#CustomHero) | varies | Heroes with custom name, portrait or hireability          |
@@ -203,6 +203,15 @@ An H3SVG file is a single structure which we will naturally call [`SavedGame`](#
 | type       | `uint8`    | 1             | Enum `HeroType`                                       |
 | ?portrait  | `uint8`    | 1             | Enum `HeroPortrait`. Only present if type is not 0xFF |
 | ?name      | `String16` | varies        | Only present if type is not 0xFF                      |
+
+
+### `LossCondition`
+| Field name | Type                          | Size in bytes | Description                                            |
+| ---------- | ----------------------------- | ------------- | ------------------------------------------------------ |
+| type       | `uint8`                       | 1             | Enum `LossConditionType`                               |
+| ?town      | [`Coordinates`](#Coordinates) | 3             | Only present if type = 0 (`LoseTown`)                  |
+| ?hero      | `uint16`                      | 2             | Only present if type = 1 (`LoseHero`); Enum `HeroType` |
+| ?days      | `uint16`                      | 2             | Only present if type = 2 (`TimeExpires`)               |
 
 
 ### `TeamsInfo`

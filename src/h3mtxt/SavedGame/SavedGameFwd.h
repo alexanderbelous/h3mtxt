@@ -27,6 +27,7 @@ namespace h3svg
   using ::h3m::HeroClass;
   using ::h3m::HeroPortrait;
   using ::h3m::HeroType;
+  using ::h3m::LossConditionType;
   using ::h3m::MapBasicInfo;
   using ::h3m::MapDifficulty;
   using ::h3m::MapFormat;
@@ -55,9 +56,8 @@ namespace h3svg
   using ::h3m::TownBuildingType;
   using ::h3m::TownType;
   using ::h3m::TownsBitmask;
-  // TODO: reimplement these for H3SVG. While they work for most victory/loss condition types,
-  // there are a few cases when they don't.
-  using ::h3m::LossCondition;
+  // TODO: reimplement this for H3SVG. While it works for most victory condition types,
+  // there are a few cases when it does't.
   using ::h3m::VictoryCondition;
 
   enum class ArtifactSlotGroup : std::uint8_t;
@@ -71,6 +71,8 @@ namespace h3svg
   enum class CreatureType32 : std::int32_t;
 
   enum class HeroFlag;
+
+  enum class HeroType16 : std::uint16_t;
 
   enum class KeymastersTentType : std::uint8_t;
 
@@ -124,6 +126,11 @@ namespace h3svg
   struct HeroArtifact;
 
   struct HeroArtifacts;
+
+  struct LossCondition;
+
+  template<LossConditionType T>
+  struct LossConditionDetails;
 
   struct Mine;
 

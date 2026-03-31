@@ -1,6 +1,7 @@
 #pragma once
 
 #include <h3mtxt/H3Reader/H3ReaderBase/H3ReaderBase.h>
+#include <h3mtxt/Map/Constants/LossConditionType.h>
 #include <h3mtxt/Map/Constants/QuestType.h>
 #include <h3mtxt/Map/Constants/RewardType.h>
 #include <h3mtxt/SavedGame/SavedGameFwd.h>
@@ -39,6 +40,11 @@ namespace h3svg
     HeroArtifact readHeroArtifact() const;
 
     HeroArtifacts readHeroArtifacts() const;
+
+    LossCondition readLossCondition() const;
+
+    template<LossConditionType T>
+    LossConditionDetails<T> readLossConditionDetails() const;
 
     MapBasicInfo readMapBasicInfo() const;
 
@@ -104,6 +110,14 @@ namespace h3svg
 
     Troops readTroops() const;
   };
+
+  template<> LossConditionDetails<LossConditionType::LoseTown> H3SVGReader::readLossConditionDetails() const;
+
+  template<> LossConditionDetails<LossConditionType::LoseHero> H3SVGReader::readLossConditionDetails() const;
+
+  template<> LossConditionDetails<LossConditionType::TimeExpires> H3SVGReader::readLossConditionDetails() const;
+
+  template<> LossConditionDetails<LossConditionType::Normal> H3SVGReader::readLossConditionDetails() const;
 
   template<QuestType T>
   QuestDetails<T> H3SVGReader::readQuestDetails() const

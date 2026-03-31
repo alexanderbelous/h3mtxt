@@ -16,6 +16,7 @@ set(SOURCE_LIST
     "ArtifactMerchants.h"
     "EventBase.h"
     "Hero.h"
+    "LossCondition.h"
     "ObjectPropertiesTables.h"
     "ObjectProperties.h"
     "Object.h"

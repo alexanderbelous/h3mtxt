@@ -1,5 +1,6 @@
 #pragma once
 
+#include <h3mtxt/Map/Constants/LossConditionType.h>
 #include <h3mtxt/Map/Constants/QuestType.h>
 #include <h3mtxt/Map/Constants/RewardType.h>
 #include <h3mtxt/SavedGame/SavedGameFwd.h>
@@ -40,6 +41,26 @@ namespace Medea_NS
   template<>
   void JsonObjectWriter<h3svg::HeroArtifacts>::operator()(FieldsWriter& out,
                                                           const h3svg::HeroArtifacts& artifacts) const;
+
+  template<>
+  void JsonObjectWriter<h3svg::LossCondition>::operator()(FieldsWriter& out,
+                                                          const h3svg::LossCondition& loss_condition) const;
+
+  template<>
+  void JsonObjectWriter<h3svg::LossConditionDetails<h3svg::LossConditionType::LoseTown>>::operator()(
+    FieldsWriter& out, const h3svg::LossConditionDetails<h3svg::LossConditionType::LoseTown>& details) const;
+
+  template<>
+  void JsonObjectWriter<h3svg::LossConditionDetails<h3svg::LossConditionType::LoseHero>>::operator()(
+    FieldsWriter& out, const h3svg::LossConditionDetails<h3svg::LossConditionType::LoseHero>& details) const;
+
+  template<>
+  void JsonObjectWriter<h3svg::LossConditionDetails<h3svg::LossConditionType::TimeExpires>>::operator()(
+    FieldsWriter& out, const h3svg::LossConditionDetails<h3svg::LossConditionType::TimeExpires>& details) const;
+
+  template<>
+  void JsonObjectWriter<h3svg::LossConditionDetails<h3svg::LossConditionType::Normal>>::operator()(
+    FieldsWriter& out, const h3svg::LossConditionDetails<h3svg::LossConditionType::Normal>& details) const;
 
   template<>
   void JsonObjectWriter<h3svg::Mine>::operator()(FieldsWriter& out, const h3svg::Mine& mine) const;

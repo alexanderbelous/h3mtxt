@@ -61,6 +61,16 @@ namespace h3svg
     return std::string_view{};
   }
 
+  std::string_view getEnumString(HeroType16 value) noexcept
+  {
+    const std::uint16_t integer_value = static_cast<std::uint16_t>(value);
+    if (integer_value < kNumHeroes)
+    {
+      return getEnumString(static_cast<HeroType>(static_cast<std::uint8_t>(integer_value)));
+    }
+    return std::string_view{};
+  }
+
   std::string_view getEnumString(ObjectClass8 value) noexcept
   {
     const std::uint8_t integer_value = static_cast<std::uint8_t>(value);

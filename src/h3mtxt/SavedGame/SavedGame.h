@@ -13,6 +13,7 @@
 #include <h3mtxt/SavedGame/Constants/KeymastersTentType.h>
 #include <h3mtxt/SavedGame/ArtifactMerchants.h>
 #include <h3mtxt/SavedGame/Hero.h>
+#include <h3mtxt/SavedGame/LossCondition.h>
 #include <h3mtxt/SavedGame/ObjectPropertiesTables.h>
 #include <h3mtxt/SavedGame/Object.h>
 #include <h3mtxt/SavedGame/ObjectTemplate.h>

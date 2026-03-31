@@ -80,7 +80,7 @@ namespace h3svg
       player_specs = readPlayerSpecs();
     }
     saved_game.victory_condition = h3m::H3MReader{stream_}.readVictoryCondition();
-    saved_game.loss_condition = h3m::H3MReader{stream_}.readLossCondition();
+    saved_game.loss_condition = readLossCondition();
     saved_game.teams = readTeamsInfo();
     // Read custom heroes.
     const std::uint8_t num_custom_heroes = readInt<std::uint8_t>();
