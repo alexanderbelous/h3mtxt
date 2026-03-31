@@ -211,7 +211,7 @@ An H3SVG file is a single structure which we will naturally call [`SavedGame`](#
 | type       | `uint8`                       | 1             | Enum `LossConditionType`                               |
 | ?town      | [`Coordinates`](#Coordinates) | 3             | Only present if type = 0 (`LoseTown`)                  |
 | ?hero      | `uint16`                      | 2             | Only present if type = 1 (`LoseHero`); Enum `HeroType` |
-| ?days      | `uint16`                      | 2             | Only present if type = 2 (`TimeExpires`)               |
+| ?days      | `int16`                       | 2             | Only present if type = 2 (`TimeExpires`)               |
 
 
 ### `TeamsInfo`
