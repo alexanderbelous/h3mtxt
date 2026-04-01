@@ -218,7 +218,7 @@ An H3SVG file is a single structure which we will naturally call [`SavedGame`](#
 | ?town_coordinates     | [`Coordinates`](#Coordinates)        | 3             | Only present if type = 4 (`BuildGrail`) or 6 (`CaptureTown`)      |
 | ?hero                 | `uint8`                              | 1             | Only present if type = 5 (`DefeatHero`); Enum `HeroType`          |
 | ?monster_coordinates  | [`Coordinates`](#Coordinates)        | 3             | Only present if type = 7 (`DefeatMonster`)                        |
-| ?transport_artifact   | [`TransportArtifact`](#TransportArtifact) | 4        | Only present if type = 10 (`DefeatMonster`)                       |
+| ?transport_artifact   | [`TransportArtifact`](#TransportArtifact) | 4        | Only present if type = 10 (`TransportArtifact`)                   |
 | ?days                 | `int32`                              | 4             | Only present if type = 12 (`SurviveBeyondATimeLimit`)             |
 
 Note that victory condition types 8 (`FlagDwellings`), 9 (`FlagMines`) and 11 (`DefeatAllMonsters`) don't have any extra fields
