@@ -211,6 +211,8 @@ namespace h3m
 
   struct SecondarySkill;
 
+  struct SpecialVictoryConditionBase;
+
   struct SpriteTilesBitmask;
 
   struct StartingHero;
@@ -226,4 +228,8 @@ namespace h3m
   struct TownEvent;
 
   struct VictoryCondition;
+
+  // Template class for storing the details of a victory condition.
+  template<VictoryConditionType T, class Enable = void>
+  struct VictoryConditionDetails;
 }
