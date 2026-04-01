@@ -8,14 +8,12 @@
 #include <h3mtxt/Map/Coordinates.h>
 
 #include <cstdint>
+#include <type_traits>
+#include <utility>
 #include <variant>
 
 namespace h3m
 {
-  // Template class for storing details of a victory condition.
-  template<VictoryConditionType T, class Enable = void>
-  struct VictoryConditionDetails;
-
   // Specialization for Normal.
   template<>
   struct VictoryConditionDetails<VictoryConditionType::Normal>
@@ -154,23 +152,51 @@ namespace h3m
     // \return the type of the victory condition.
     constexpr VictoryConditionType type() const noexcept;
 
+    // \return a pointer to the SpecialVictoryConditionBase subobject of the stored alternative,
+    //         or nullptr if type() == VictoryConditionType::Normal.
+    constexpr SpecialVictoryConditionBase* base() noexcept;
+
+    // \return a pointer to the SpecialVictoryConditionBase subobject of the stored alternative,
+    //         or nullptr if type() == VictoryConditionType::Normal.
+    constexpr const SpecialVictoryConditionBase* base() const noexcept;
+
     // Details of the victory condition.
     Details details = VictoryConditionDetails<VictoryConditionType::Normal>{};
   };
 
   constexpr VictoryConditionType VictoryCondition::type() const noexcept
   {
-    constexpr std::size_t kNormalDetailsIndex = 13;
-    static_assert(std::is_same_v<std::variant_alternative_t<kNormalDetailsIndex, Details>,
+    static_assert(std::is_same_v<std::variant_alternative_t<kNumSpecialVictoryConditions, Details>,
                                  VictoryConditionDetails<VictoryConditionType::Normal>>,
-                  "kNormalDetailsIndex must be the index of the alternative for Normal victory condition.");
+                  "kNumSpecialVictoryConditions must be the index of the alternative for Normal victory condition.");
 
     const std::size_t index = details.index();
-    // Hack to avoid writing a switch statement over all victory condition types.
-    if (index == kNormalDetailsIndex)
+    if (index == kNumSpecialVictoryConditions)
     {
       return VictoryConditionType::Normal;
     }
     return static_cast<VictoryConditionType>(index);
+  }
+
+  constexpr SpecialVictoryConditionBase* VictoryCondition::base() noexcept
+  {
+    return const_cast<SpecialVictoryConditionBase*>(std::as_const(*this).base());
+  }
+
+  constexpr const SpecialVictoryConditionBase* VictoryCondition::base() const noexcept
+  {
+    return std::visit(
+      [] <VictoryConditionType T> (const VictoryConditionDetails<T>&value) -> const SpecialVictoryConditionBase*
+      {
+        if constexpr (T == VictoryConditionType::Normal)
+        {
+          return nullptr;
+        }
+        else
+        {
+          return &value;
+        }
+      },
+      details);
   }
 }

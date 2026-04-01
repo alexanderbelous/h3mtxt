@@ -962,6 +962,13 @@ namespace h3json
   };
 
   template<>
+  struct FieldNames<h3m::SpecialVictoryConditionBase>
+  {
+    static constexpr std::string_view kAllowNormalWin = "allow_normal_win";
+    static constexpr std::string_view kAppliesToComputer = "applies_to_computer";
+  };
+
+  template<>
   struct FieldNames<h3m::StartingHero>
   {
     static constexpr std::string_view kType = "type";

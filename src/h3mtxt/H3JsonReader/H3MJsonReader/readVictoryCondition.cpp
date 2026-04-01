@@ -16,8 +16,9 @@ namespace h3json
   {
     void readSpecialVictoryConditionBaseFromJson(const Json::Value& value, h3m::SpecialVictoryConditionBase& base)
     {
-      readField(base.allow_normal_win, value, "allow_normal_win");
-      readField(base.applies_to_computer, value, "applies_to_computer");
+      using Fields = FieldNames<h3m::SpecialVictoryConditionBase>;
+      readField(base.allow_normal_win, value, Fields::kAllowNormalWin);
+      readField(base.applies_to_computer, value, Fields::kAppliesToComputer);
     }
   }
 

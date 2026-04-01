@@ -9,140 +9,10 @@ namespace h3m
 {
   namespace
   {
-    void readSpecialVictoryConditionBase(const H3MReader& reader, SpecialVictoryConditionBase& base)
-    {
-      base.allow_normal_win = reader.readBool();
-      base.applies_to_computer = reader.readBool();
-    }
-
-    template<VictoryConditionType T, class Enable = void>
-    struct ReadVictoryConditionDetails
-    {
-      VictoryConditionDetails<T> operator()(const H3MReader&) const
-      {
-        static_assert(false, "Missing specialization for ReadVictoryConditionDetails<T>.");
-        return {};
-      }
-    };
-
-    template<>
-    struct ReadVictoryConditionDetails<VictoryConditionType::AcquireArtifact>
-    {
-      VictoryConditionDetails<VictoryConditionType::AcquireArtifact> operator()(const H3MReader& reader) const
-      {
-        VictoryConditionDetails<VictoryConditionType::AcquireArtifact> details;
-        readSpecialVictoryConditionBase(reader, details);
-        details.artifact_type = reader.readEnum<ArtifactType>();
-        return details;
-      }
-    };
-
-    template<>
-    struct ReadVictoryConditionDetails<VictoryConditionType::AccumulateCreatures>
-    {
-      VictoryConditionDetails<VictoryConditionType::AccumulateCreatures> operator()(const H3MReader& reader) const
-      {
-        VictoryConditionDetails<VictoryConditionType::AccumulateCreatures> details;
-        readSpecialVictoryConditionBase(reader, details);
-        details.creature_type = reader.readEnum<CreatureType>();
-        details.count = reader.readInt<std::int32_t>();
-        return details;
-      }
-    };
-
-    template<>
-    struct ReadVictoryConditionDetails<VictoryConditionType::AccumulateResources>
-    {
-      VictoryConditionDetails<VictoryConditionType::AccumulateResources> operator()(const H3MReader& reader) const
-      {
-        VictoryConditionDetails<VictoryConditionType::AccumulateResources> details;
-        readSpecialVictoryConditionBase(reader, details);
-        details.resource_type = reader.readEnum<ResourceType>();
-        details.amount = reader.readInt<std::int32_t>();
-        return details;
-      }
-    };
-
-    template<>
-    struct ReadVictoryConditionDetails<VictoryConditionType::UpgradeTown>
-    {
-      VictoryConditionDetails<VictoryConditionType::UpgradeTown> operator()(const H3MReader& reader) const
-      {
-        VictoryConditionDetails<VictoryConditionType::UpgradeTown> details;
-        readSpecialVictoryConditionBase(reader, details);
-        details.coordinates = reader.readCoordinates();
-        details.hall_level = reader.readInt<std::uint8_t>();
-        details.castle_level = reader.readInt<std::uint8_t>();
-        return details;
-      }
-    };
-
-    template<VictoryConditionType T>
-    struct ReadVictoryConditionDetails<T, std::enable_if_t<T == VictoryConditionType::BuildGrail ||
-                                                           T == VictoryConditionType::DefeatHero ||
-                                                           T == VictoryConditionType::CaptureTown ||
-                                                           T == VictoryConditionType::DefeatMonster>>
-    {
-      VictoryConditionDetails<T> operator()(const H3MReader& reader) const
-      {
-        VictoryConditionDetails<T> details;
-        readSpecialVictoryConditionBase(reader, details);
-        details.coordinates = reader.readCoordinates();
-        return details;
-      }
-    };
-
-    template<VictoryConditionType T>
-    struct ReadVictoryConditionDetails<T, std::enable_if_t<T == VictoryConditionType::FlagDwellings ||
-                                                           T == VictoryConditionType::FlagMines ||
-                                                           T == VictoryConditionType::DefeatAllMonsters>>
-    {
-      VictoryConditionDetails<T> operator()(const H3MReader& reader) const
-      {
-        VictoryConditionDetails<T> details;
-        readSpecialVictoryConditionBase(reader, details);
-        return details;
-      }
-    };
-
-    template<>
-    struct ReadVictoryConditionDetails<VictoryConditionType::TransportArtifact>
-    {
-      VictoryConditionDetails<VictoryConditionType::TransportArtifact> operator()(const H3MReader& reader) const
-      {
-        VictoryConditionDetails<VictoryConditionType::TransportArtifact> details;
-        readSpecialVictoryConditionBase(reader, details);
-        details.artifact_type = reader.readInt<std::uint8_t>();
-        details.destination = reader.readCoordinates();
-        return details;
-      }
-    };
-
-    template<>
-    struct ReadVictoryConditionDetails<VictoryConditionType::SurviveBeyondATimeLimit>
-    {
-      VictoryConditionDetails<VictoryConditionType::SurviveBeyondATimeLimit> operator()(const H3MReader& reader) const
-      {
-        VictoryConditionDetails<VictoryConditionType::SurviveBeyondATimeLimit> details;
-        readSpecialVictoryConditionBase(reader, details);
-        details.days = reader.readInt<std::int32_t>();
-        return {};
-      }
-    };
-
-    template<>
-    struct ReadVictoryConditionDetails<VictoryConditionType::Normal>
-    {
-      VictoryConditionDetails<VictoryConditionType::Normal> operator()(const H3MReader&) const
-      {
-        return {};
-      }
-    };
-
     template<VictoryConditionType T>
     VictoryCondition::Details readVictoryConditionDetails(const H3MReader& reader)
     {
-      return ReadVictoryConditionDetails<T>{}(reader);
+      return reader.readVictoryConditionDetails<T>();
     }
 
     VictoryCondition::Details readVictoryConditionDetailsVariant(const H3MReader& reader,
@@ -172,6 +42,123 @@ namespace h3m
       // Otherwise, invoke a function from the generated array.
       return kVictoryConditionDetailsReaders.at(static_cast<std::size_t>(victory_condition_type))(reader);
     }
+  }
+
+  SpecialVictoryConditionBase H3MReader::readSpecialVictoryConditionBase() const
+  {
+    SpecialVictoryConditionBase base;
+    base.allow_normal_win = readBool();
+    base.applies_to_computer = readBool();
+    return base;
+  }
+
+  template<>
+  VictoryConditionDetails<VictoryConditionType::AcquireArtifact> H3MReader::readVictoryConditionDetails() const
+  {
+    VictoryConditionDetails<VictoryConditionType::AcquireArtifact> details{ readSpecialVictoryConditionBase() };
+    details.artifact_type = readEnum<ArtifactType>();
+    return details;
+  }
+
+  template<>
+  VictoryConditionDetails<VictoryConditionType::AccumulateCreatures> H3MReader::readVictoryConditionDetails() const
+  {
+    VictoryConditionDetails<VictoryConditionType::AccumulateCreatures> details{ readSpecialVictoryConditionBase() };
+    details.creature_type = readEnum<CreatureType>();
+    details.count = readInt<std::int32_t>();
+    return details;
+  }
+
+  template<>
+  VictoryConditionDetails<VictoryConditionType::AccumulateResources> H3MReader::readVictoryConditionDetails() const
+  {
+    VictoryConditionDetails<VictoryConditionType::AccumulateResources> details{ readSpecialVictoryConditionBase() };
+    details.resource_type = readEnum<ResourceType>();
+    details.amount = readInt<std::int32_t>();
+    return details;
+  }
+
+  template<>
+  VictoryConditionDetails<VictoryConditionType::UpgradeTown> H3MReader::readVictoryConditionDetails() const
+  {
+    VictoryConditionDetails<VictoryConditionType::UpgradeTown> details{ readSpecialVictoryConditionBase() };
+    details.coordinates = readCoordinates();
+    details.hall_level = readInt<std::uint8_t>();
+    details.castle_level = readInt<std::uint8_t>();
+    return details;
+  }
+
+  template<>
+  VictoryConditionDetails<VictoryConditionType::BuildGrail> H3MReader::readVictoryConditionDetails() const
+  {
+    VictoryConditionDetails<VictoryConditionType::BuildGrail> details{ readSpecialVictoryConditionBase() };
+    details.coordinates = readCoordinates();
+    return details;
+  }
+
+  template<>
+  VictoryConditionDetails<VictoryConditionType::DefeatHero> H3MReader::readVictoryConditionDetails() const
+  {
+    VictoryConditionDetails<VictoryConditionType::DefeatHero> details{ readSpecialVictoryConditionBase() };
+    details.coordinates = readCoordinates();
+    return details;
+  }
+
+  template<>
+  VictoryConditionDetails<VictoryConditionType::CaptureTown> H3MReader::readVictoryConditionDetails() const
+  {
+    VictoryConditionDetails<VictoryConditionType::CaptureTown> details{ readSpecialVictoryConditionBase() };
+    details.coordinates = readCoordinates();
+    return details;
+  }
+
+  template<>
+  VictoryConditionDetails<VictoryConditionType::DefeatMonster> H3MReader::readVictoryConditionDetails() const
+  {
+    VictoryConditionDetails<VictoryConditionType::DefeatMonster> details{ readSpecialVictoryConditionBase() };
+    details.coordinates = readCoordinates();
+    return details;
+  }
+
+  template<>
+  VictoryConditionDetails<VictoryConditionType::FlagDwellings> H3MReader::readVictoryConditionDetails() const
+  {
+    return { readSpecialVictoryConditionBase() };
+  }
+
+  template<>
+  VictoryConditionDetails<VictoryConditionType::FlagMines> H3MReader::readVictoryConditionDetails() const
+  {
+    return { readSpecialVictoryConditionBase() };
+  }
+
+  template<>
+  VictoryConditionDetails<VictoryConditionType::TransportArtifact> H3MReader::readVictoryConditionDetails() const
+  {
+    VictoryConditionDetails<VictoryConditionType::TransportArtifact> details{ readSpecialVictoryConditionBase() };
+    details.artifact_type = readInt<std::uint8_t>();
+    details.destination = readCoordinates();
+    return details;
+  }
+
+  template<>
+  VictoryConditionDetails<VictoryConditionType::DefeatAllMonsters> H3MReader::readVictoryConditionDetails() const
+  {
+    return { readSpecialVictoryConditionBase() };
+  }
+
+  template<>
+  VictoryConditionDetails<VictoryConditionType::SurviveBeyondATimeLimit> H3MReader::readVictoryConditionDetails() const
+  {
+    VictoryConditionDetails<VictoryConditionType::SurviveBeyondATimeLimit> details{ readSpecialVictoryConditionBase() };
+    details.days = readInt<std::int32_t>();
+    return {};
+  }
+
+  template<>
+  VictoryConditionDetails<VictoryConditionType::Normal> H3MReader::readVictoryConditionDetails() const
+  {
+    return {};
   }
 
   VictoryCondition H3MReader::readVictoryCondition() const

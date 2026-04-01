@@ -8,134 +8,143 @@
 
 namespace Medea_NS
 {
-  namespace
+  template<>
+  void JsonObjectWriter<h3m::SpecialVictoryConditionBase>::operator()(
+    FieldsWriter& out, const h3m::SpecialVictoryConditionBase& value) const
   {
-    void writeSpecialVictoryConditionBase(FieldsWriter& out, const h3m::SpecialVictoryConditionBase& base)
+    using Fields = h3json::FieldNames<h3m::SpecialVictoryConditionBase>;
+    out.writeField(Fields::kAllowNormalWin, value.allow_normal_win);
+    out.writeField(Fields::kAppliesToComputer, value.applies_to_computer);
+  }
+
+  template<>
+  void JsonObjectWriter<h3m::VictoryConditionDetails<h3m::VictoryConditionType::AcquireArtifact>>::operator()(
+    FieldsWriter& out, const h3m::VictoryConditionDetails<h3m::VictoryConditionType::AcquireArtifact>& value) const
+  {
+    JsonObjectWriter<h3m::SpecialVictoryConditionBase>{}(out, value);
+    out.writeField("artifact_type", value.artifact_type);
+    if (std::string_view enum_str = h3m::getEnumString(value.artifact_type); !enum_str.empty())
     {
-      out.writeField("allow_normal_win", base.allow_normal_win);
-      out.writeField("applies_to_computer", base.applies_to_computer);
+      out.writeComment(enum_str, false);
     }
   }
 
   template<>
-  struct JsonObjectWriter<h3m::VictoryConditionDetails<h3m::VictoryConditionType::AcquireArtifact>>
+  void JsonObjectWriter<h3m::VictoryConditionDetails<h3m::VictoryConditionType::AccumulateCreatures>>::operator()(
+    FieldsWriter& out, const h3m::VictoryConditionDetails<h3m::VictoryConditionType::AccumulateCreatures>& value) const
   {
-    void operator()(FieldsWriter& out,
-                    const h3m::VictoryConditionDetails<h3m::VictoryConditionType::AcquireArtifact>& value) const
+    JsonObjectWriter<h3m::SpecialVictoryConditionBase>{}(out, value);
+    out.writeField("creature_type", value.creature_type);
+    if (std::string_view enum_str = h3m::getEnumString(value.creature_type); !enum_str.empty())
     {
-      writeSpecialVictoryConditionBase(out, value);
-      out.writeField("artifact_type", value.artifact_type);
-      if (std::string_view enum_str = h3m::getEnumString(value.artifact_type); !enum_str.empty())
-      {
-        out.writeComment(enum_str, false);
-      }
+      out.writeComment(enum_str, false);
     }
-  };
+    out.writeField("count", value.count);
+  }
 
   template<>
-  struct JsonObjectWriter<h3m::VictoryConditionDetails<h3m::VictoryConditionType::AccumulateCreatures>>
+  void JsonObjectWriter<h3m::VictoryConditionDetails<h3m::VictoryConditionType::AccumulateResources>>::operator()(
+    FieldsWriter& out, const h3m::VictoryConditionDetails<h3m::VictoryConditionType::AccumulateResources>& value) const
   {
-    void operator()(FieldsWriter& out,
-                    const h3m::VictoryConditionDetails<h3m::VictoryConditionType::AccumulateCreatures>& value) const
+    JsonObjectWriter<h3m::SpecialVictoryConditionBase>{}(out, value);
+    out.writeField("resource_type", value.resource_type);
+    if (std::string_view enum_str = h3m::getEnumString(value.resource_type); !enum_str.empty())
     {
-      writeSpecialVictoryConditionBase(out, value);
-      out.writeField("creature_type", value.creature_type);
-      if (std::string_view enum_str = h3m::getEnumString(value.creature_type); !enum_str.empty())
-      {
-        out.writeComment(enum_str, false);
-      }
-      out.writeField("count", value.count);
+      out.writeComment(enum_str, false);
     }
-  };
+    out.writeField("amount", value.amount);
+  }
 
   template<>
-  struct JsonObjectWriter<h3m::VictoryConditionDetails<h3m::VictoryConditionType::AccumulateResources>>
+  void JsonObjectWriter<h3m::VictoryConditionDetails<h3m::VictoryConditionType::UpgradeTown>>::operator()(
+    FieldsWriter& out, const h3m::VictoryConditionDetails<h3m::VictoryConditionType::UpgradeTown>& value) const
   {
-    void operator()(FieldsWriter& out,
-                    const h3m::VictoryConditionDetails<h3m::VictoryConditionType::AccumulateResources>& value) const
-    {
-      writeSpecialVictoryConditionBase(out, value);
-      out.writeField("resource_type", value.resource_type);
-      if (std::string_view enum_str = h3m::getEnumString(value.resource_type); !enum_str.empty())
-      {
-        out.writeComment(enum_str, false);
-      }
-      out.writeField("amount", value.amount);
-    }
-  };
+    JsonObjectWriter<h3m::SpecialVictoryConditionBase>{}(out, value);
+    out.writeField("coordinates", value.coordinates);
+    out.writeField("hall_level", value.hall_level);
+    out.writeField("castle_level", value.castle_level);
+  }
 
   template<>
-  struct JsonObjectWriter<h3m::VictoryConditionDetails<h3m::VictoryConditionType::UpgradeTown>>
+  void JsonObjectWriter<h3m::VictoryConditionDetails<h3m::VictoryConditionType::BuildGrail>>::operator()(
+    FieldsWriter& out, const h3m::VictoryConditionDetails<h3m::VictoryConditionType::BuildGrail>& value) const
   {
-    void operator()(FieldsWriter& out,
-                    const h3m::VictoryConditionDetails<h3m::VictoryConditionType::UpgradeTown>& value) const
-    {
-      writeSpecialVictoryConditionBase(out, value);
-      out.writeField("coordinates", value.coordinates);
-      out.writeField("hall_level", value.hall_level);
-      out.writeField("castle_level", value.castle_level);
-    }
-  };
-
-  template<class T>
-  struct JsonObjectWriter<T, std::enable_if_t<std::is_same_v<T, h3m::VictoryConditionDetails<h3m::VictoryConditionType::BuildGrail>> ||
-                                              std::is_same_v<T, h3m::VictoryConditionDetails<h3m::VictoryConditionType::DefeatHero>> ||
-                                              std::is_same_v<T, h3m::VictoryConditionDetails<h3m::VictoryConditionType::CaptureTown>> ||
-                                              std::is_same_v<T, h3m::VictoryConditionDetails<h3m::VictoryConditionType::DefeatMonster>>>>
-  {
-    void operator()(FieldsWriter& out, const T& value) const
-    {
-      writeSpecialVictoryConditionBase(out, value);
-      out.writeField("coordinates", value.coordinates);
-    }
-  };
-
-  template<class T>
-  struct JsonObjectWriter<T, std::enable_if_t<std::is_same_v<T, h3m::VictoryConditionDetails<h3m::VictoryConditionType::FlagDwellings>> ||
-                                              std::is_same_v<T, h3m::VictoryConditionDetails<h3m::VictoryConditionType::FlagMines>> ||
-                                              std::is_same_v<T, h3m::VictoryConditionDetails<h3m::VictoryConditionType::DefeatAllMonsters>>>>
-  {
-    void operator()(FieldsWriter& out, const T& value) const
-    {
-      writeSpecialVictoryConditionBase(out, value);
-    }
-  };
+    JsonObjectWriter<h3m::SpecialVictoryConditionBase>{}(out, value);
+    out.writeField("coordinates", value.coordinates);
+  }
 
   template<>
-  struct JsonObjectWriter<h3m::VictoryConditionDetails<h3m::VictoryConditionType::TransportArtifact>>
+  void JsonObjectWriter<h3m::VictoryConditionDetails<h3m::VictoryConditionType::DefeatHero>>::operator()(
+    FieldsWriter& out, const h3m::VictoryConditionDetails<h3m::VictoryConditionType::DefeatHero>& value) const
   {
-    void operator()(FieldsWriter& out,
-                    const h3m::VictoryConditionDetails<h3m::VictoryConditionType::TransportArtifact>& value) const
-    {
-      writeSpecialVictoryConditionBase(out, value);
-      out.writeField("artifact_type", value.artifact_type);
-      if (std::string_view enum_str = h3m::getEnumString(static_cast<h3m::ArtifactType>(value.artifact_type));
-          !enum_str.empty())
-      {
-        out.writeComment(enum_str, false);
-      }
-      out.writeField("destination", value.destination);
-    }
-  };
+    JsonObjectWriter<h3m::SpecialVictoryConditionBase>{}(out, value);
+    out.writeField("coordinates", value.coordinates);
+  }
 
   template<>
-  struct JsonObjectWriter<h3m::VictoryConditionDetails<h3m::VictoryConditionType::SurviveBeyondATimeLimit>>
+  void JsonObjectWriter<h3m::VictoryConditionDetails<h3m::VictoryConditionType::CaptureTown>>::operator()(
+    FieldsWriter& out, const h3m::VictoryConditionDetails<h3m::VictoryConditionType::CaptureTown>& value) const
   {
-    void operator()(FieldsWriter& out,
-                    const h3m::VictoryConditionDetails<h3m::VictoryConditionType::SurviveBeyondATimeLimit>& value) const
-    {
-      writeSpecialVictoryConditionBase(out, value);
-      out.writeField("days", value.days);
-    }
-  };
+    JsonObjectWriter<h3m::SpecialVictoryConditionBase>{}(out, value);
+    out.writeField("coordinates", value.coordinates);
+  }
 
   template<>
-  struct JsonObjectWriter<h3m::VictoryConditionDetails<h3m::VictoryConditionType::Normal>>
+  void JsonObjectWriter<h3m::VictoryConditionDetails<h3m::VictoryConditionType::DefeatMonster>>::operator()(
+    FieldsWriter& out, const h3m::VictoryConditionDetails<h3m::VictoryConditionType::DefeatMonster>& value) const
   {
-    void operator()(FieldsWriter&,
-                    const h3m::VictoryConditionDetails<h3m::VictoryConditionType::Normal>&) const
-    {}
-  };
+    JsonObjectWriter<h3m::SpecialVictoryConditionBase>{}(out, value);
+    out.writeField("coordinates", value.coordinates);
+  }
+
+  template<>
+  void JsonObjectWriter<h3m::VictoryConditionDetails<h3m::VictoryConditionType::FlagDwellings>>::operator()(
+    FieldsWriter& out, const h3m::VictoryConditionDetails<h3m::VictoryConditionType::FlagDwellings>& value) const
+  {
+    JsonObjectWriter<h3m::SpecialVictoryConditionBase>{}(out, value);
+  }
+
+  template<>
+  void JsonObjectWriter<h3m::VictoryConditionDetails<h3m::VictoryConditionType::FlagMines>>::operator()(
+    FieldsWriter& out, const h3m::VictoryConditionDetails<h3m::VictoryConditionType::FlagMines>& value) const
+  {
+    JsonObjectWriter<h3m::SpecialVictoryConditionBase>{}(out, value);
+  }
+
+  template<>
+  void JsonObjectWriter<h3m::VictoryConditionDetails<h3m::VictoryConditionType::TransportArtifact>>::operator()(
+    FieldsWriter& out, const h3m::VictoryConditionDetails<h3m::VictoryConditionType::TransportArtifact>& value) const
+  {
+    JsonObjectWriter<h3m::SpecialVictoryConditionBase>{}(out, value);
+    out.writeField("artifact_type", value.artifact_type);
+    if (std::string_view enum_str = h3m::getEnumString(static_cast<h3m::ArtifactType>(value.artifact_type));
+        !enum_str.empty())
+    {
+      out.writeComment(enum_str, false);
+    }
+    out.writeField("destination", value.destination);
+  }
+
+  template<>
+  void JsonObjectWriter<h3m::VictoryConditionDetails<h3m::VictoryConditionType::DefeatAllMonsters>>::operator()(
+    FieldsWriter& out, const h3m::VictoryConditionDetails<h3m::VictoryConditionType::DefeatAllMonsters>& value) const
+  {
+    JsonObjectWriter<h3m::SpecialVictoryConditionBase>{}(out, value);
+  }
+
+  template<>
+  void JsonObjectWriter<h3m::VictoryConditionDetails<h3m::VictoryConditionType::SurviveBeyondATimeLimit>>::operator()(
+    FieldsWriter& out, const h3m::VictoryConditionDetails<h3m::VictoryConditionType::SurviveBeyondATimeLimit>& value) const
+  {
+    JsonObjectWriter<h3m::SpecialVictoryConditionBase>{}(out, value);
+    out.writeField("days", value.days);
+  }
+
+  template<>
+  void JsonObjectWriter<h3m::VictoryConditionDetails<h3m::VictoryConditionType::Normal>>::operator()(
+    FieldsWriter&, const h3m::VictoryConditionDetails<h3m::VictoryConditionType::Normal>&) const
+  {
+  }
 
   void JsonObjectWriter<h3m::VictoryCondition>::operator()(FieldsWriter& out, const h3m::VictoryCondition& value) const
   {
