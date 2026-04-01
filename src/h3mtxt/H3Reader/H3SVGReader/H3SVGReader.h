@@ -95,6 +95,8 @@ namespace h3svg
 
     Sign readSign() const;
 
+    SpecialVictoryConditionBase readSpecialVictoryConditionBase() const;
+
     StartingHero readStartingHero() const;
 
     TeamsInfo readTeamsInfo() const;
@@ -113,6 +115,9 @@ namespace h3svg
 
     VictoryCondition readVictoryCondition() const;
 
+    // Defined in readVictoryCondition.cpp.
+    // Explicit instantiations are provided for VictoryConditionTypes that use the default template implementation.
+    // A few specializations are declared below.
     template<VictoryConditionType T>
     VictoryConditionDetails<T> readVictoryConditionDetails() const;
   };
@@ -186,35 +191,5 @@ namespace h3svg
   VictoryConditionDetails<VictoryConditionType::AccumulateCreatures> H3SVGReader::readVictoryConditionDetails() const;
 
   template<>
-  VictoryConditionDetails<VictoryConditionType::AccumulateResources> H3SVGReader::readVictoryConditionDetails() const;
-
-  template<>
-  VictoryConditionDetails<VictoryConditionType::UpgradeTown> H3SVGReader::readVictoryConditionDetails() const;
-
-  template<>
-  VictoryConditionDetails<VictoryConditionType::BuildGrail> H3SVGReader::readVictoryConditionDetails() const;
-
-  template<>
   VictoryConditionDetails<VictoryConditionType::DefeatHero> H3SVGReader::readVictoryConditionDetails() const;
-
-  template<>
-  VictoryConditionDetails<VictoryConditionType::CaptureTown> H3SVGReader::readVictoryConditionDetails() const;
-
-  template<>
-  VictoryConditionDetails<VictoryConditionType::DefeatMonster> H3SVGReader::readVictoryConditionDetails() const;
-
-  template<>
-  VictoryConditionDetails<VictoryConditionType::FlagDwellings> H3SVGReader::readVictoryConditionDetails() const;
-
-  template<>
-  VictoryConditionDetails<VictoryConditionType::FlagMines> H3SVGReader::readVictoryConditionDetails() const;
-
-  template<>
-  VictoryConditionDetails<VictoryConditionType::TransportArtifact> H3SVGReader::readVictoryConditionDetails() const;
-
-  template<>
-  VictoryConditionDetails<VictoryConditionType::DefeatAllMonsters> H3SVGReader::readVictoryConditionDetails() const;
-
-  template<>
-  VictoryConditionDetails<VictoryConditionType::SurviveBeyondATimeLimit> H3SVGReader::readVictoryConditionDetails() const;
 }

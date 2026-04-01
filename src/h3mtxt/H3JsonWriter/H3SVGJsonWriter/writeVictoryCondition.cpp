@@ -7,24 +7,93 @@
 #include <h3mtxt/SavedGame/VictoryCondition.h>
 #include <h3mtxt/Medea/Medea.h>
 
+#include <type_traits>
+
 namespace Medea_NS
 {
-  namespace
+  template<h3svg::VictoryConditionType T>
+  void JsonObjectWriter<h3svg::VictoryConditionDetails<T>>::operator()(
+    FieldsWriter& out, const h3svg::VictoryConditionDetails<T>& details) const
   {
-    // TODO: reuse the code from H3MJsonWriter.
-    void writeSpecialVictoryConditionBase(FieldsWriter& out, const h3svg::SpecialVictoryConditionBase& base)
-    {
-      out.writeField("allow_normal_win", base.allow_normal_win);
-      out.writeField("applies_to_computer", base.applies_to_computer);
-    }
+    // Sanity checks.
+    static_assert(std::is_base_of_v<h3m::VictoryConditionDetails<T>, h3svg::VictoryConditionDetails<T>>,
+                  "h3svg::VictoryConditionDetails<T> must be derived from h3m::VictoryConditionDetails<T>.");
+    static_assert(sizeof(h3svg::VictoryConditionDetails<T>) == sizeof(h3m::VictoryConditionDetails<T>),
+                  "h3svg::VictoryConditionDetails<T> must have the same size as h3m::VictoryConditionDetails<T>.");
+    // Reuse the code from H3MJsonWriter.
+    JsonObjectWriter<h3m::VictoryConditionDetails<T>>{}(out, details);
   }
+
+  // Explicit instantiations for VictoryConditionTypes that use the default template implementation.
+  //
+  // Technically, these are redundant because JsonObjectWriter<h3svg::VictoryCondition> will instantiate them anyway.
+  // However, I'm not sure how reliable that is: e.g., if the compiler inlines everything in
+  // JsonObjectWriter<h3svg::VictoryCondition>, is it guaranteed that these instantiations will still be found
+  // by the linker?
+  //
+  // Safer to explicitly instantiate them.
+  template
+  void JsonObjectWriter<h3svg::VictoryConditionDetails<h3svg::VictoryConditionType::AccumulateResources>>::operator()(
+    FieldsWriter& out, const h3svg::VictoryConditionDetails<h3svg::VictoryConditionType::AccumulateResources>& details) const;
+
+  template
+  void JsonObjectWriter<h3svg::VictoryConditionDetails<h3svg::VictoryConditionType::UpgradeTown>>::operator()(
+    FieldsWriter& out,
+    const h3svg::VictoryConditionDetails<h3svg::VictoryConditionType::UpgradeTown>& details) const;
+
+  template
+  void JsonObjectWriter<h3svg::VictoryConditionDetails<h3svg::VictoryConditionType::BuildGrail>>::operator()(
+    FieldsWriter& out,
+    const h3svg::VictoryConditionDetails<h3svg::VictoryConditionType::BuildGrail>& details) const;
+
+  template
+  void JsonObjectWriter<h3svg::VictoryConditionDetails<h3svg::VictoryConditionType::CaptureTown>>::operator()(
+    FieldsWriter& out,
+    const h3svg::VictoryConditionDetails<h3svg::VictoryConditionType::CaptureTown>& details) const;
+
+  template
+  void JsonObjectWriter<h3svg::VictoryConditionDetails<h3svg::VictoryConditionType::DefeatMonster>>::operator()(
+    FieldsWriter& out,
+    const h3svg::VictoryConditionDetails<h3svg::VictoryConditionType::DefeatMonster>& details) const;
+
+  template
+  void JsonObjectWriter<h3svg::VictoryConditionDetails<h3svg::VictoryConditionType::FlagDwellings>>::operator()(
+    FieldsWriter& out,
+    const h3svg::VictoryConditionDetails<h3svg::VictoryConditionType::FlagDwellings>& details) const;
+
+  template
+  void JsonObjectWriter<h3svg::VictoryConditionDetails<h3svg::VictoryConditionType::FlagMines>>::operator()(
+    FieldsWriter& out,
+    const h3svg::VictoryConditionDetails<h3svg::VictoryConditionType::FlagMines>& details) const;
+
+  template
+  void JsonObjectWriter<h3svg::VictoryConditionDetails<h3svg::VictoryConditionType::TransportArtifact>>::operator()(
+    FieldsWriter& out,
+    const h3svg::VictoryConditionDetails<h3svg::VictoryConditionType::TransportArtifact>& details) const;
+
+  template
+  void JsonObjectWriter<h3svg::VictoryConditionDetails<h3svg::VictoryConditionType::DefeatAllMonsters>>::operator()(
+    FieldsWriter& out,
+    const h3svg::VictoryConditionDetails<h3svg::VictoryConditionType::DefeatAllMonsters>& details) const;
+
+  template
+  void JsonObjectWriter<h3svg::VictoryConditionDetails<h3svg::VictoryConditionType::SurviveBeyondATimeLimit>>::operator()(
+    FieldsWriter& out,
+    const h3svg::VictoryConditionDetails<h3svg::VictoryConditionType::SurviveBeyondATimeLimit>& details) const;
+
+  template
+  void JsonObjectWriter<h3svg::VictoryConditionDetails<h3svg::VictoryConditionType::Normal>>::operator()(
+    FieldsWriter& out,
+    const h3svg::VictoryConditionDetails<h3svg::VictoryConditionType::Normal>& details) const;
+
+  // Specializations.
 
   template<>
   void JsonObjectWriter<h3svg::VictoryConditionDetails<h3svg::VictoryConditionType::AcquireArtifact>>::operator()(
     FieldsWriter& out,
     const h3svg::VictoryConditionDetails<h3svg::VictoryConditionType::AcquireArtifact>& details) const
   {
-    writeSpecialVictoryConditionBase(out, details);
+    JsonObjectWriter<h3svg::SpecialVictoryConditionBase>{}(out, details);
     out.writeField("artifact_type", details.artifact_type);
     if (std::string_view enum_str = getEnumString(details.artifact_type); !enum_str.empty())
     {
@@ -37,7 +106,7 @@ namespace Medea_NS
     FieldsWriter& out,
     const h3svg::VictoryConditionDetails<h3svg::VictoryConditionType::AccumulateCreatures>& details) const
   {
-    writeSpecialVictoryConditionBase(out, details);
+    JsonObjectWriter<h3svg::SpecialVictoryConditionBase>{}(out, details);
     out.writeField("creature_type", details.creature_type);
     if (std::string_view enum_str = getEnumString(details.creature_type); !enum_str.empty())
     {
@@ -47,131 +116,16 @@ namespace Medea_NS
   }
 
   template<>
-  void JsonObjectWriter<h3svg::VictoryConditionDetails<h3svg::VictoryConditionType::AccumulateResources>>::operator()(
-    FieldsWriter& out,
-    const h3svg::VictoryConditionDetails<h3svg::VictoryConditionType::AccumulateResources>& details) const
-  {
-    // TODO: reuse the code from H3MJsonWriter.
-    writeSpecialVictoryConditionBase(out, details);
-    out.writeField("resource_type", details.resource_type);
-    if (std::string_view enum_str = getEnumString(details.resource_type); !enum_str.empty())
-    {
-      out.writeComment(enum_str, false);
-    }
-    out.writeField("amount", details.amount);
-  }
-
-  template<>
-  void JsonObjectWriter<h3svg::VictoryConditionDetails<h3svg::VictoryConditionType::UpgradeTown>>::operator()(
-    FieldsWriter& out,
-    const h3svg::VictoryConditionDetails<h3svg::VictoryConditionType::UpgradeTown>& details) const
-  {
-    // TODO: reuse the code from H3MJsonWriter.
-    writeSpecialVictoryConditionBase(out, details);
-    out.writeField("coordinates", details.coordinates);
-    out.writeField("hall_level", details.hall_level);
-    out.writeField("castle_level", details.castle_level);
-  }
-
-  template<>
-  void JsonObjectWriter<h3svg::VictoryConditionDetails<h3svg::VictoryConditionType::BuildGrail>>::operator()(
-    FieldsWriter& out,
-    const h3svg::VictoryConditionDetails<h3svg::VictoryConditionType::BuildGrail>& details) const
-  {
-    // TODO: reuse the code from H3MJsonWriter.
-    writeSpecialVictoryConditionBase(out, details);
-    out.writeField("coordinates", details.coordinates);
-  }
-
-  template<>
   void JsonObjectWriter<h3svg::VictoryConditionDetails<h3svg::VictoryConditionType::DefeatHero>>::operator()(
     FieldsWriter& out,
     const h3svg::VictoryConditionDetails<h3svg::VictoryConditionType::DefeatHero>& details) const
   {
-    writeSpecialVictoryConditionBase(out, details);
+    JsonObjectWriter<h3svg::SpecialVictoryConditionBase>{}(out, details);
     out.writeField("hero", details.hero);
     if (std::string_view enum_str = getEnumString(details.hero); !enum_str.empty())
     {
       out.writeComment(enum_str, false);
     }
-  }
-
-  template<>
-  void JsonObjectWriter<h3svg::VictoryConditionDetails<h3svg::VictoryConditionType::CaptureTown>>::operator()(
-    FieldsWriter& out,
-    const h3svg::VictoryConditionDetails<h3svg::VictoryConditionType::CaptureTown>& details) const
-  {
-    // TODO: reuse the code from H3MJsonWriter.
-    writeSpecialVictoryConditionBase(out, details);
-    out.writeField("coordinates", details.coordinates);
-  }
-
-  template<>
-  void JsonObjectWriter<h3svg::VictoryConditionDetails<h3svg::VictoryConditionType::DefeatMonster>>::operator()(
-    FieldsWriter& out,
-    const h3svg::VictoryConditionDetails<h3svg::VictoryConditionType::DefeatMonster>& details) const
-  {
-    // TODO: reuse the code from H3MJsonWriter.
-    writeSpecialVictoryConditionBase(out, details);
-    out.writeField("coordinates", details.coordinates);
-  }
-
-  template<>
-  void JsonObjectWriter<h3svg::VictoryConditionDetails<h3svg::VictoryConditionType::FlagDwellings>>::operator()(
-    FieldsWriter& out,
-    const h3svg::VictoryConditionDetails<h3svg::VictoryConditionType::FlagDwellings>& details) const
-  {
-    // TODO: reuse the code from H3MJsonWriter.
-    writeSpecialVictoryConditionBase(out, details);
-  }
-
-  template<>
-  void JsonObjectWriter<h3svg::VictoryConditionDetails<h3svg::VictoryConditionType::FlagMines>>::operator()(
-    FieldsWriter& out,
-    const h3svg::VictoryConditionDetails<h3svg::VictoryConditionType::FlagMines>& details) const
-  {
-    // TODO: reuse the code from H3MJsonWriter.
-    writeSpecialVictoryConditionBase(out, details);
-  }
-
-  template<>
-  void JsonObjectWriter<h3svg::VictoryConditionDetails<h3svg::VictoryConditionType::TransportArtifact>>::operator()(
-    FieldsWriter& out,
-    const h3svg::VictoryConditionDetails<h3svg::VictoryConditionType::TransportArtifact>& details) const
-  {
-    // TODO: reuse the code from H3MJsonWriter.
-    writeSpecialVictoryConditionBase(out, details);
-    out.writeField("artifact_type", details.artifact_type);
-    if (std::string_view enum_str = getEnumString(static_cast<h3m::ArtifactType>(details.artifact_type));
-      !enum_str.empty())
-    {
-      out.writeComment(enum_str, false);
-    }
-    out.writeField("destination", details.destination);
-  }
-
-  template<>
-  void JsonObjectWriter<h3svg::VictoryConditionDetails<h3svg::VictoryConditionType::DefeatAllMonsters>>::operator()(
-    FieldsWriter& out,
-    const h3svg::VictoryConditionDetails<h3svg::VictoryConditionType::DefeatAllMonsters>& details) const
-  {
-    // TODO: reuse the code from H3MJsonWriter.
-    writeSpecialVictoryConditionBase(out, details);
-  }
-
-  template<>
-  void JsonObjectWriter<h3svg::VictoryConditionDetails<h3svg::VictoryConditionType::SurviveBeyondATimeLimit>>::operator()(
-    FieldsWriter& out, const h3svg::VictoryConditionDetails<h3svg::VictoryConditionType::SurviveBeyondATimeLimit>& details) const
-  {
-    // TODO: reuse the code from H3MJsonWriter.
-    writeSpecialVictoryConditionBase(out, details);
-    out.writeField("days", details.days);
-  }
-
-  template<>
-  void JsonObjectWriter<h3svg::VictoryConditionDetails<h3svg::VictoryConditionType::Normal>>::operator()(
-    FieldsWriter&, const h3svg::VictoryConditionDetails<h3svg::VictoryConditionType::Normal>&) const
-  {
   }
 
   void JsonObjectWriter<h3svg::VictoryCondition>::operator()(FieldsWriter& out,

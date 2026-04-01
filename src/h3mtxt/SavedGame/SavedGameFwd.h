@@ -46,6 +46,7 @@ namespace h3svg
   using ::h3m::RoadType;
   using ::h3m::SecondarySkill;
   using ::h3m::SecondarySkillType;
+  using ::h3m::SpecialVictoryConditionBase;
   using ::h3m::SpellsBitmask;
   using ::h3m::SpellType;
   using ::h3m::SpriteTilesBitmask;

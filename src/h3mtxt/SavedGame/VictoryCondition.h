@@ -14,7 +14,6 @@ namespace h3svg
 {
   // Reuse a few things from H3M.
   using ::h3m::kNumSpecialVictoryConditions;
-  using ::h3m::SpecialVictoryConditionBase;
 
   // The default implementation reuses h3m::VictoryConditionDetails
   template<VictoryConditionType T>

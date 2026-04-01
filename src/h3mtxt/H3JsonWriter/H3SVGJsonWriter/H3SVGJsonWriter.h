@@ -224,6 +224,16 @@ namespace Medea_NS
   void JsonObjectWriter<h3svg::VictoryCondition>::operator()(FieldsWriter& out,
                                                              const h3svg::VictoryCondition& victory_condition) const;
 
+  // Partial specialization for h3svg::VictoryConditionDetails.
+  template<h3svg::VictoryConditionType T>
+  struct JsonObjectWriter<h3svg::VictoryConditionDetails<T>>
+  {
+    // Defined in writeVictoryCondition.cpp.
+    // Explicit instantiations are provided for VictoryConditionTypes that use the default template implementation.
+    // A few specializations are declared below.
+    void operator()(FieldsWriter& out, const h3svg::VictoryConditionDetails<T>& details) const;
+  };
+
   template<>
   void JsonObjectWriter<h3svg::VictoryConditionDetails<h3svg::VictoryConditionType::AcquireArtifact>>::operator()(
     FieldsWriter& out,
@@ -235,62 +245,7 @@ namespace Medea_NS
     const h3svg::VictoryConditionDetails<h3svg::VictoryConditionType::AccumulateCreatures>& details) const;
 
   template<>
-  void JsonObjectWriter<h3svg::VictoryConditionDetails<h3svg::VictoryConditionType::AccumulateResources>>::operator()(
-    FieldsWriter& out,
-    const h3svg::VictoryConditionDetails<h3svg::VictoryConditionType::AccumulateResources>& details) const;
-
-  template<>
-  void JsonObjectWriter<h3svg::VictoryConditionDetails<h3svg::VictoryConditionType::UpgradeTown>>::operator()(
-    FieldsWriter& out,
-    const h3svg::VictoryConditionDetails<h3svg::VictoryConditionType::UpgradeTown>& details) const;
-
-  template<>
-  void JsonObjectWriter<h3svg::VictoryConditionDetails<h3svg::VictoryConditionType::BuildGrail>>::operator()(
-    FieldsWriter& out,
-    const h3svg::VictoryConditionDetails<h3svg::VictoryConditionType::BuildGrail>& details) const;
-
-  template<>
   void JsonObjectWriter<h3svg::VictoryConditionDetails<h3svg::VictoryConditionType::DefeatHero>>::operator()(
     FieldsWriter& out,
     const h3svg::VictoryConditionDetails<h3svg::VictoryConditionType::DefeatHero>& details) const;
-
-  template<>
-  void JsonObjectWriter<h3svg::VictoryConditionDetails<h3svg::VictoryConditionType::CaptureTown>>::operator()(
-    FieldsWriter& out,
-    const h3svg::VictoryConditionDetails<h3svg::VictoryConditionType::CaptureTown>& details) const;
-
-  template<>
-  void JsonObjectWriter<h3svg::VictoryConditionDetails<h3svg::VictoryConditionType::DefeatMonster>>::operator()(
-    FieldsWriter& out,
-    const h3svg::VictoryConditionDetails<h3svg::VictoryConditionType::DefeatMonster>& details) const;
-
-  template<>
-  void JsonObjectWriter<h3svg::VictoryConditionDetails<h3svg::VictoryConditionType::FlagDwellings>>::operator()(
-    FieldsWriter& out,
-    const h3svg::VictoryConditionDetails<h3svg::VictoryConditionType::FlagDwellings>& details) const;
-
-  template<>
-  void JsonObjectWriter<h3svg::VictoryConditionDetails<h3svg::VictoryConditionType::FlagMines>>::operator()(
-    FieldsWriter& out,
-    const h3svg::VictoryConditionDetails<h3svg::VictoryConditionType::FlagMines>& details) const;
-
-  template<>
-  void JsonObjectWriter<h3svg::VictoryConditionDetails<h3svg::VictoryConditionType::TransportArtifact>>::operator()(
-    FieldsWriter& out,
-    const h3svg::VictoryConditionDetails<h3svg::VictoryConditionType::TransportArtifact>& details) const;
-
-  template<>
-  void JsonObjectWriter<h3svg::VictoryConditionDetails<h3svg::VictoryConditionType::DefeatAllMonsters>>::operator()(
-    FieldsWriter& out,
-    const h3svg::VictoryConditionDetails<h3svg::VictoryConditionType::DefeatAllMonsters>& details) const;
-
-  template<>
-  void JsonObjectWriter<h3svg::VictoryConditionDetails<h3svg::VictoryConditionType::SurviveBeyondATimeLimit>>::operator()(
-    FieldsWriter& out,
-    const h3svg::VictoryConditionDetails<h3svg::VictoryConditionType::SurviveBeyondATimeLimit>& details) const;
-
-  template<>
-  void JsonObjectWriter<h3svg::VictoryConditionDetails<h3svg::VictoryConditionType::Normal>>::operator()(
-    FieldsWriter& out,
-    const h3svg::VictoryConditionDetails<h3svg::VictoryConditionType::Normal>& details) const;
 }

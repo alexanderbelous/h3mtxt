@@ -1,9 +1,11 @@
 #include <h3mtxt/H3Reader/H3SVGReader/H3SVGReader.h>
 
+#include <h3mtxt/H3Reader/H3MReader/H3MReader.h>
 #include <h3mtxt/Map/Utils/EnumSequence.h>
 #include <h3mtxt/SavedGame/VictoryCondition.h>
 
 #include <array>
+#include <type_traits>
 
 namespace h3svg
 {
@@ -11,13 +13,6 @@ namespace h3svg
   {
     using ::h3m::EnumSequence;
     using ::h3m::MakeEnumSequence;
-
-    // TODO: reuse the code from H3MReader.
-    void readSpecialVictoryConditionBase(const H3SVGReader& reader, SpecialVictoryConditionBase& base)
-    {
-      base.allow_normal_win = reader.readBool();
-      base.applies_to_computer = reader.readBool();
-    }
 
     template<VictoryConditionType T>
     VictoryCondition::Details readVictoryConditionDetailsAsVariant(const H3SVGReader& reader)
@@ -54,11 +49,69 @@ namespace h3svg
     }
   }
 
+  SpecialVictoryConditionBase H3SVGReader::readSpecialVictoryConditionBase() const
+  {
+    return h3m::H3MReader{ stream_ }.readSpecialVictoryConditionBase();
+  }
+
+  // The default implementation reuses H3MReader.
+  template<VictoryConditionType T>
+  VictoryConditionDetails<T> H3SVGReader::readVictoryConditionDetails() const
+  {
+    // Sanity checks.
+    static_assert(std::is_base_of_v<h3m::VictoryConditionDetails<T>, VictoryConditionDetails<T>>,
+                  "h3svg::VictoryConditionDetails<T> must be derived from h3m::VictoryConditionDetails<T>.");
+    static_assert(sizeof(VictoryConditionDetails<T>) == sizeof(h3m::VictoryConditionDetails<T>),
+                  "h3svg::VictoryConditionDetails<T> must have the same size as h3m::VictoryConditionDetails<T>.");
+    return { h3m::H3MReader{stream_}.readVictoryConditionDetails<T>() };
+  }
+
+  // Explicit instantiations of H3SVGReader::readVictoryConditionDetails()
+  // for VictoryConditionTypes that use the default template implementation.
+  //
+  // Technically, these are redundant because H3SVGReader::readVictoryCondition() will instantiate them anyway.
+  // However, I'm not sure how reliable that is: e.g., if the compiler inlines everything in
+  // H3SVGReader::readVictoryCondition(), is it guaranteed that these instantiations will still be found
+  // by the linker?
+  //
+  // Safer to explicitly instantiate them.
+  template
+  VictoryConditionDetails<VictoryConditionType::AccumulateResources> H3SVGReader::readVictoryConditionDetails() const;
+
+  template
+  VictoryConditionDetails<VictoryConditionType::UpgradeTown> H3SVGReader::readVictoryConditionDetails() const;
+
+  template
+  VictoryConditionDetails<VictoryConditionType::BuildGrail> H3SVGReader::readVictoryConditionDetails() const;
+
+  template
+  VictoryConditionDetails<VictoryConditionType::CaptureTown> H3SVGReader::readVictoryConditionDetails() const;
+
+  template
+  VictoryConditionDetails<VictoryConditionType::DefeatMonster> H3SVGReader::readVictoryConditionDetails() const;
+
+  template
+  VictoryConditionDetails<VictoryConditionType::FlagDwellings> H3SVGReader::readVictoryConditionDetails() const;
+
+  template
+  VictoryConditionDetails<VictoryConditionType::FlagMines> H3SVGReader::readVictoryConditionDetails() const;
+
+  template
+  VictoryConditionDetails<VictoryConditionType::TransportArtifact> H3SVGReader::readVictoryConditionDetails() const;
+
+  template
+  VictoryConditionDetails<VictoryConditionType::DefeatAllMonsters> H3SVGReader::readVictoryConditionDetails() const;
+
+  template
+  VictoryConditionDetails<VictoryConditionType::SurviveBeyondATimeLimit> H3SVGReader::readVictoryConditionDetails() const;
+
+  template
+  VictoryConditionDetails<VictoryConditionType::Normal> H3SVGReader::readVictoryConditionDetails() const;
+
   template<>
   VictoryConditionDetails<VictoryConditionType::AcquireArtifact> H3SVGReader::readVictoryConditionDetails() const
   {
-    VictoryConditionDetails<VictoryConditionType::AcquireArtifact> details;
-    readSpecialVictoryConditionBase(*this, details);
+    VictoryConditionDetails<VictoryConditionType::AcquireArtifact> details{ readSpecialVictoryConditionBase() };
     details.artifact_type = readEnum<ArtifactType8>();
     return details;
   }
@@ -66,128 +119,18 @@ namespace h3svg
   template<>
   VictoryConditionDetails<VictoryConditionType::AccumulateCreatures> H3SVGReader::readVictoryConditionDetails() const
   {
-    VictoryConditionDetails<VictoryConditionType::AccumulateCreatures> details;
-    readSpecialVictoryConditionBase(*this, details);
+    VictoryConditionDetails<VictoryConditionType::AccumulateCreatures> details{ readSpecialVictoryConditionBase() };
     details.creature_type = readEnum<CreatureType8>();
     details.count = readInt<std::int32_t>();
     return details;
   }
 
   template<>
-  VictoryConditionDetails<VictoryConditionType::AccumulateResources> H3SVGReader::readVictoryConditionDetails() const
-  {
-    // TODO: reuse the code from H3MReader
-    VictoryConditionDetails<VictoryConditionType::AccumulateResources> details;
-    readSpecialVictoryConditionBase(*this, details);
-    details.resource_type = readEnum<ResourceType>();
-    details.amount = readInt<std::int32_t>();
-    return details;
-  }
-
-  template<>
-  VictoryConditionDetails<VictoryConditionType::UpgradeTown> H3SVGReader::readVictoryConditionDetails() const
-  {
-    // TODO: reuse the code from H3MReader
-    VictoryConditionDetails<VictoryConditionType::UpgradeTown> details;
-    readSpecialVictoryConditionBase(*this, details);
-    details.coordinates = readCoordinates();
-    details.hall_level = readInt<std::uint8_t>();
-    details.castle_level = readInt<std::uint8_t>();
-    return details;
-  }
-
-  template<>
-  VictoryConditionDetails<VictoryConditionType::BuildGrail> H3SVGReader::readVictoryConditionDetails() const
-  {
-    // TODO: reuse the code from H3MReader
-    VictoryConditionDetails<VictoryConditionType::BuildGrail> details;
-    readSpecialVictoryConditionBase(*this, details);
-    details.coordinates = readCoordinates();
-    return details;
-  }
-
-  template<>
   VictoryConditionDetails<VictoryConditionType::DefeatHero> H3SVGReader::readVictoryConditionDetails() const
   {
-    VictoryConditionDetails<VictoryConditionType::DefeatHero> details;
-    readSpecialVictoryConditionBase(*this, details);
+    VictoryConditionDetails<VictoryConditionType::DefeatHero> details{ readSpecialVictoryConditionBase() };
     details.hero = readEnum<HeroType>();
     return details;
-  }
-
-  template<>
-  VictoryConditionDetails<VictoryConditionType::CaptureTown> H3SVGReader::readVictoryConditionDetails() const
-  {
-    // TODO: reuse the code from H3MReader
-    VictoryConditionDetails<VictoryConditionType::CaptureTown> details;
-    readSpecialVictoryConditionBase(*this, details);
-    details.coordinates = readCoordinates();
-    return details;
-  }
-
-  template<>
-  VictoryConditionDetails<VictoryConditionType::DefeatMonster> H3SVGReader::readVictoryConditionDetails() const
-  {
-    // TODO: reuse the code from H3MReader
-    VictoryConditionDetails<VictoryConditionType::DefeatMonster> details;
-    readSpecialVictoryConditionBase(*this, details);
-    details.coordinates = readCoordinates();
-    return details;
-  }
-
-  template<>
-  VictoryConditionDetails<VictoryConditionType::FlagDwellings> H3SVGReader::readVictoryConditionDetails() const
-  {
-    // TODO: reuse the code from H3MReader
-    VictoryConditionDetails<VictoryConditionType::FlagDwellings> details;
-    readSpecialVictoryConditionBase(*this, details);
-    return details;
-  }
-
-  template<>
-  VictoryConditionDetails<VictoryConditionType::FlagMines> H3SVGReader::readVictoryConditionDetails() const
-  {
-    // TODO: reuse the code from H3MReader
-    VictoryConditionDetails<VictoryConditionType::FlagMines> details;
-    readSpecialVictoryConditionBase(*this, details);
-    return details;
-  }
-
-  template<>
-  VictoryConditionDetails<VictoryConditionType::TransportArtifact> H3SVGReader::readVictoryConditionDetails() const
-  {
-    // TODO: reuse the code from H3MReader
-    VictoryConditionDetails<VictoryConditionType::TransportArtifact> details;
-    readSpecialVictoryConditionBase(*this, details);
-    details.artifact_type = readInt<std::uint8_t>();
-    details.destination = readCoordinates();
-    return details;
-  }
-
-  template<>
-  VictoryConditionDetails<VictoryConditionType::DefeatAllMonsters> H3SVGReader::readVictoryConditionDetails() const
-  {
-    // TODO: reuse the code from H3MReader
-    VictoryConditionDetails<VictoryConditionType::DefeatAllMonsters> details;
-    readSpecialVictoryConditionBase(*this, details);
-    return details;
-  }
-
-  template<>
-  VictoryConditionDetails<VictoryConditionType::SurviveBeyondATimeLimit> H3SVGReader::readVictoryConditionDetails() const
-  {
-    // TODO: reuse the code from H3MReader
-    VictoryConditionDetails<VictoryConditionType::SurviveBeyondATimeLimit> details;
-    readSpecialVictoryConditionBase(*this, details);
-    details.days = readInt<std::int32_t>();
-    return details;
-  }
-
-  template<>
-  VictoryConditionDetails<VictoryConditionType::Normal> H3SVGReader::readVictoryConditionDetails() const
-  {
-    // TODO: reuse the code from H3MReader
-    return {};
   }
 
   VictoryCondition H3SVGReader::readVictoryCondition() const
