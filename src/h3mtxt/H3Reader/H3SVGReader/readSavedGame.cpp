@@ -1,5 +1,4 @@
 #include <h3mtxt/H3Reader/H3SVGReader/H3SVGReader.h>
-#include <h3mtxt/H3Reader/H3MReader/H3MReader.h>
 #include <h3mtxt/SavedGame/SavedGame.h>
 
 #include <stdexcept>
@@ -79,7 +78,7 @@ namespace h3svg
     {
       player_specs = readPlayerSpecs();
     }
-    saved_game.victory_condition = h3m::H3MReader{stream_}.readVictoryCondition();
+    saved_game.victory_condition = readVictoryCondition();
     saved_game.loss_condition = readLossCondition();
     saved_game.teams = readTeamsInfo();
     // Read custom heroes.

@@ -56,9 +56,7 @@ namespace h3svg
   using ::h3m::TownBuildingType;
   using ::h3m::TownType;
   using ::h3m::TownsBitmask;
-  // TODO: reimplement this for H3SVG. While it works for most victory condition types,
-  // there are a few cases when it does't.
-  using ::h3m::VictoryCondition;
+  using ::h3m::VictoryConditionType;
 
   enum class ArtifactSlotGroup : std::uint8_t;
 
@@ -186,4 +184,9 @@ namespace h3svg
   struct Town;
 
   struct Troops;
+
+  struct VictoryCondition;
+
+  template<VictoryConditionType T>
+  struct VictoryConditionDetails;
 }

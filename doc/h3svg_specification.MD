@@ -123,7 +123,7 @@ An H3SVG file is a single structure which we will naturally call [`SavedGame`](#
 | map_format                | `int32`                          | 4             | Enum: 14 -> RoE, 21 -> AB, 28 -> SoD                             |
 | map_basic_info            | [`MapBasicInfo`](#MapBasicInfo)  | varies        | "Map Specifications / General" in the Map Editor                 |
 | players_specs             | [`PlayerSpecs[8]`](#PlayerSpecs) | varies        | "Map Specifications / Player Specs" in the Editor                |
-| victory_condition         | `VictoryCondition`               | varies        | "Map Specifications / Special Victory Condition" in the Editor   |
+| victory_condition         | [`VictoryCondition`](#VictoryCondition) | varies | "Map Specifications / Special Victory Condition" in the Editor   |
 | loss_condition            | [`LossCondition`](#LossCondition) | varies       | "Map Specifications / Special Loss Condition" in the Editor      |
 | teams                     | [`TeamsInfo`](#TeamsInfo)        | varies        | "Map Specifications / Teams" in the Editor                       |
 | num_custom_heroes         | `uint8`                          | 1             | The number of heroes with custom name, portrait or hireability   |
@@ -203,6 +203,55 @@ An H3SVG file is a single structure which we will naturally call [`SavedGame`](#
 | type       | `uint8`    | 1             | Enum `HeroType`                                       |
 | ?portrait  | `uint8`    | 1             | Enum `HeroPortrait`. Only present if type is not 0xFF |
 | ?name      | `String16` | varies        | Only present if type is not 0xFF                      |
+
+
+### `VictoryCondition`
+| Field name            | Type                                 | Size in bytes | Description                                                       |
+| --------------------- | ------------------------------------ | ------------- | ----------------------------------------------------------------- |
+| type                  | `uint8`                              | 1             | Enum `VictoryConditionType`                                       |
+| ?allow_normal_win     | `Bool`                               | 1             | Only present if type is NOT `0xFF` (`Normal`)                     |
+| ?applies_to_computer  | `Bool`                               | 1             | Only present if type is NOT `0xFF` (`Normal`)                     |
+| ?artifact             | `uint8`                              | 1             | Only present if type = 0 (`AcquireArtifact`); Enum `ArtifactType` |
+| ?accumulate_creatures | [`AccumulateCreatures`](#AccumulateCreatures) | 5    | Only present if type = 1 (`AccumulateCreatures`)                  |
+| ?accumulate_resources | [`AccumulateResources`](#AccumulateResources) | 5    | Only present if type = 2 (`AccumulateResources`)                  |
+| ?upgrade_town         | [`UpgradeTown`](#UpgradeTown)        | 5             | Only present if type = 3 (`UpgradeTown`)                          |
+| ?town_coordinates     | [`Coordinates`](#Coordinates)        | 3             | Only present if type = 4 (`BuildGrail`) or 6 (`CaptureTown`)      |
+| ?hero                 | `uint8`                              | 1             | Only present if type = 5 (`DefeatHero`); Enum `HeroType`          |
+| ?monster_coordinates  | [`Coordinates`](#Coordinates)        | 3             | Only present if type = 7 (`DefeatMonster`)                        |
+| ?transport_artifact   | [`TransportArtifact`](#TransportArtifact) | 4        | Only present if type = 10 (`DefeatMonster`)                       |
+| ?days                 | `int32`                              | 4             | Only present if type = 12 (`SurviveBeyondATimeLimit`)             |
+
+Note that victory condition types 8 (`FlagDwellings`), 9 (`FlagMines`) and 11 (`DefeatAllMonsters`) don't have any extra fields
+except `allow_normal_win` and `applies_to_computer`.
+
+
+### `AccumulateCreatures`
+| Field name    | Type    | Size in bytes | Description         |
+| ------------- | ------- | ------------- | ------------------- |
+| creature_type | `uint8` | 1             | Enum `CreatureType` |
+| count         | `int32` | 4             |                     |
+
+
+### `AccumulateResources`
+| Field name    | Type    | Size in bytes | Description         |
+| ------------- | ------- | ------------- | ------------------- |
+| resource_type | `uint8` | 1             | Enum `ResourceType` |
+| amount        | `int32` | 4             |                     |
+
+
+### `UpgradeTown`
+| Field name   | Type                          | Size in bytes | Description                       |
+| ------------ | ----------------------------- | ------------- | --------------------------------- |
+| coordinates  | [`Coordinates`](#Coordinates) | 3             | Coordinates of the town           |
+| hall_level   | `uint8`                       | 1             | 0 - Town, 1 - City, 2 - Capitol   |
+| castle_level | `uint8`                       | 1             | 0 - Fort, 1 - Citadel, 2 - Castle |
+
+
+### `TransportArtifact`
+| Field name   | Type                          | Size in bytes | Description             |
+| ------------ | ----------------------------- | ------------- | ----------------------- |
+| artifact     | `uint8`                       | 1             | Enum `ArtifactType`     |
+| destination  | [`Coordinates`](#Coordinates) | 3             | Coordinates of the town |
 
 
 ### `LossCondition`

@@ -32,6 +32,7 @@ set(SOURCE_LIST
     "TileVisibility.h"
     "Town.h"
     "Troops.h"
+    "VictoryCondition.h"
 )
 
 # "SavedGame" is a header-only library.

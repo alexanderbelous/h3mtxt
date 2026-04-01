@@ -4,6 +4,7 @@
 #include <h3mtxt/Map/Constants/LossConditionType.h>
 #include <h3mtxt/Map/Constants/QuestType.h>
 #include <h3mtxt/Map/Constants/RewardType.h>
+#include <h3mtxt/Map/Constants/VictoryConditionType.h>
 #include <h3mtxt/SavedGame/SavedGameFwd.h>
 
 namespace h3svg
@@ -109,6 +110,11 @@ namespace h3svg
     Town readTown() const;
 
     Troops readTroops() const;
+
+    VictoryCondition readVictoryCondition() const;
+
+    template<VictoryConditionType T>
+    VictoryConditionDetails<T> readVictoryConditionDetails() const;
   };
 
   template<> LossConditionDetails<LossConditionType::LoseTown> H3SVGReader::readLossConditionDetails() const;
@@ -172,4 +178,43 @@ namespace h3svg
   template<> RewardDetails<RewardType::Spell> H3SVGReader::readRewardDetails() const;
 
   template<> RewardDetails<RewardType::Creature> H3SVGReader::readRewardDetails() const;
+
+  template<>
+  VictoryConditionDetails<VictoryConditionType::AcquireArtifact> H3SVGReader::readVictoryConditionDetails() const;
+
+  template<>
+  VictoryConditionDetails<VictoryConditionType::AccumulateCreatures> H3SVGReader::readVictoryConditionDetails() const;
+
+  template<>
+  VictoryConditionDetails<VictoryConditionType::AccumulateResources> H3SVGReader::readVictoryConditionDetails() const;
+
+  template<>
+  VictoryConditionDetails<VictoryConditionType::UpgradeTown> H3SVGReader::readVictoryConditionDetails() const;
+
+  template<>
+  VictoryConditionDetails<VictoryConditionType::BuildGrail> H3SVGReader::readVictoryConditionDetails() const;
+
+  template<>
+  VictoryConditionDetails<VictoryConditionType::DefeatHero> H3SVGReader::readVictoryConditionDetails() const;
+
+  template<>
+  VictoryConditionDetails<VictoryConditionType::CaptureTown> H3SVGReader::readVictoryConditionDetails() const;
+
+  template<>
+  VictoryConditionDetails<VictoryConditionType::DefeatMonster> H3SVGReader::readVictoryConditionDetails() const;
+
+  template<>
+  VictoryConditionDetails<VictoryConditionType::FlagDwellings> H3SVGReader::readVictoryConditionDetails() const;
+
+  template<>
+  VictoryConditionDetails<VictoryConditionType::FlagMines> H3SVGReader::readVictoryConditionDetails() const;
+
+  template<>
+  VictoryConditionDetails<VictoryConditionType::TransportArtifact> H3SVGReader::readVictoryConditionDetails() const;
+
+  template<>
+  VictoryConditionDetails<VictoryConditionType::DefeatAllMonsters> H3SVGReader::readVictoryConditionDetails() const;
+
+  template<>
+  VictoryConditionDetails<VictoryConditionType::SurviveBeyondATimeLimit> H3SVGReader::readVictoryConditionDetails() const;
 }

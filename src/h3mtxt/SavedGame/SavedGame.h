@@ -23,6 +23,7 @@
 #include <h3mtxt/SavedGame/Tile.h>
 #include <h3mtxt/SavedGame/TileVisibility.h>
 #include <h3mtxt/SavedGame/Town.h>
+#include <h3mtxt/SavedGame/VictoryCondition.h>
 
 #include <array>
 #include <cstdint>

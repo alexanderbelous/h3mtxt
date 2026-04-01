@@ -566,4 +566,10 @@ namespace h3json
     static constexpr std::string_view kCreatureTypes = "creature_types";
     static constexpr std::string_view kCreatureCounts = "creature_counts";
   };
+
+  template<>
+  struct FieldNames<h3svg::VictoryCondition> : FieldNames<h3m::VictoryCondition>
+  {
+    // Same fields as for h3m::VictoryCondition.
+  };
 }
