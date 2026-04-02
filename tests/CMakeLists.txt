@@ -6,6 +6,7 @@ add_executable(h3mtxt_tests
     "LossCondition.cpp"
     "MapBasicInfo.cpp"
     "Quest.cpp"
+    "Reward.cpp"
     "Tile.cpp"
     "VictoryCondition.cpp"
 )
