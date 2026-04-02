@@ -15,7 +15,7 @@ namespace h3m
   namespace
   {
     // Encodes h3m::LossCondition via H3MWriter.
-    // \param victory_condition - input LossCondition.
+    // \param loss_condition - input LossCondition.
     // \return std::string storing the encoded data.
     std::string encodeLossCondition(const LossCondition& loss_condition)
     {
