@@ -33,6 +33,9 @@ namespace h3m
     // \throw std::out_of_range if index >= kNumBits.
     constexpr void set(std::size_t index, bool value);
 
+    constexpr bool operator==(const BitSet& other) const noexcept = default;
+    constexpr bool operator!=(const BitSet& other) const noexcept = default;
+
     // 0th bit is the LSB of the 0th byte.
     // 7th bit is the MSB of the 0th byte.
     // 8th bit is the LSB of the 1st byte.

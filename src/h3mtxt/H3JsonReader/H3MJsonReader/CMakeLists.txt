@@ -31,6 +31,7 @@ target_include_directories(H3MJsonReader PUBLIC "${H3MTXT_SRC_DIR}")
 
 # Dependencies:
 target_link_libraries(H3MJsonReader PRIVATE h3mtxt::JsonCommon)
+target_link_libraries(H3MJsonReader PUBLIC h3mtxt::H3JsonReaderBase)
 target_link_libraries(H3MJsonReader PUBLIC h3mtxt::Map)
 # Thirdparty libraries:
 target_link_libraries(H3MJsonReader PUBLIC jsoncpp::jsoncpp_static)

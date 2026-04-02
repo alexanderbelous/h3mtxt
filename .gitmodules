@@ -7,3 +7,6 @@
 [submodule "thirdparty/jsoncpp"]
 	path = src/h3mtxt/thirdparty/jsoncpp
 	url = https://github.com/open-source-parsers/jsoncpp.git
+[submodule "tests/thirdparty/Catch2"]
+	path = tests/thirdparty/Catch2
+	url = https://github.com/catchorg/Catch2.git

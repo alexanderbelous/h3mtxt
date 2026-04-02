@@ -6,7 +6,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 project(
   h3mtxt
-  VERSION 0.9.4
+  VERSION 0.9.5
   LANGUAGES CXX
 )
 
@@ -71,6 +71,16 @@ endfunction()
 
 # Add subdirectories with source code.
 add_subdirectory(src)
+
+# Tests are disabled by default.
+# This can be overridden from the command line, e.g., "cmake -S . -B build -DH3MTXT_BUILD_TESTS=ON"
+option(H3MTXT_BUILD_TESTS "Build tests for h3mtxt." OFF)
+# Add the subdirectory with tests, if needed.
+if(H3MTXT_BUILD_TESTS)
+  set(CMAKE_FOLDER tests)
+  add_subdirectory(tests)
+  unset(CMAKE_FOLDER)
+endif()
 
 # Installation rule for h3mtxt binary.
 install(TARGETS h3mtxt)

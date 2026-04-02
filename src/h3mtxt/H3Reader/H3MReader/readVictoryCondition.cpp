@@ -152,7 +152,7 @@ namespace h3m
   {
     VictoryConditionDetails<VictoryConditionType::SurviveBeyondATimeLimit> details{ readSpecialVictoryConditionBase() };
     details.days = readInt<std::int32_t>();
-    return {};
+    return details;
   }
 
   template<>

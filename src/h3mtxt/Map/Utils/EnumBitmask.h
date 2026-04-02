@@ -30,6 +30,9 @@ namespace h3m
     // \throw std::out_of_range if std::size_t(enum_value) >= NumBytes * 8.
     constexpr void set(Enum enum_value, bool value);
 
+    constexpr bool operator==(const EnumBitmask& other) const noexcept = default;
+    constexpr bool operator!=(const EnumBitmask& other) const noexcept = default;
+
     BitSet<NumBytes> bitset;
   };
 
