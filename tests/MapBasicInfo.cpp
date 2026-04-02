@@ -36,8 +36,8 @@ namespace h3m
       "\x01"                                   // | Bool     | is_playable    | 1                 | 1             |
       "\x24\x00\x00\x00"                       // | uint32   | map_size       | 36                | 4             |
       "\x00"                                   // | Bool     | has_two_levels | 0                 | 1             |
-      "\x08\x00\x00\x00Test map"               // | String32 | name           | "Test map"        | 12            |
-      "\x0f\x00\x00\x00Map description"        // | String32 | description    | "Map description" | 19            |
+      "\x08\x00\x00\x00" "Test map"            // | String32 | name           | "Test map"        | 12            |
+      "\x0f\x00\x00\x00" "Map description"     // | String32 | description    | "Map description" | 19            |
       "\x04"                                   // | uint8    | difficulty     | 4                 | 1             |
       "\x32";                                  // | uint8    | max_hero_level | 50                | 1             |
 

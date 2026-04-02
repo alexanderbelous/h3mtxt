@@ -46,6 +46,9 @@ namespace h3m
     // \throw std::out_of_range if std::size_t(key) >= NumElements.
     constexpr const T& operator[](Enum key) const;
 
+    constexpr bool operator==(const EnumIndexedArray&) const = default;
+    constexpr bool operator!=(const EnumIndexedArray&) const = default;
+
     // The underlying array.
     std::array<T, NumElements> data {};
   };
