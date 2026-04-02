@@ -5,6 +5,7 @@ add_executable(h3mtxt_tests
     "parseJsonFromString.cpp"
     "MapBasicInfo.cpp"
     "Tile.cpp"
+    "VictoryCondition.cpp"
 )
 
 # Dependencies:
