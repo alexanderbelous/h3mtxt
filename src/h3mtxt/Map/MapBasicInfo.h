@@ -10,6 +10,9 @@ namespace h3m
 {
   struct MapBasicInfo
   {
+    constexpr bool operator==(const MapBasicInfo& other) const noexcept = default;
+    constexpr bool operator!=(const MapBasicInfo& other) const noexcept = default;
+
     // False if there are no heroes and towns on the map, true otherwise.
     Bool is_playable {};
     // Width and height of the map.

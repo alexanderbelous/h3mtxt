@@ -13,6 +13,9 @@ namespace h3m
   // Represents a tile on the Adventure Map.
   struct Tile
   {
+    constexpr bool operator==(const Tile& other) const noexcept = default;
+    constexpr bool operator!=(const Tile& other) const noexcept = default;
+
     TerrainType terrain_type {};
     std::uint8_t terrain_sprite {};
     RiverType river_type {};

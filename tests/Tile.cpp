@@ -1,6 +1,11 @@
+#include "parseJsonFromString.h"
+
+#include <h3mtxt/H3JsonReader/H3MJsonReader/H3MJsonReader.h>
+#include <h3mtxt/H3JsonWriter/H3MJsonWriter/H3MJsonWriter.h>
 #include <h3mtxt/H3Reader/H3MReader/H3MReader.h>
 #include <h3mtxt/H3Writer/H3MWriter/H3MWriter.h>
 #include <h3mtxt/Map/Tile.h>
+#include <h3mtxt/Medea/Medea.h>
 
 #include <catch2/catch_test_macros.hpp>
 
@@ -11,51 +16,68 @@
 
 namespace h3m
 {
-  namespace
-  {
-    // MapBasicInfo used in tests in this file.
-    constexpr Tile kTile{
-      .terrain_type = TerrainType::Grass,
-      .terrain_sprite = 7,
-      .river_type = RiverType::Clear,
-      .river_sprite = 4,
-      .road_type = RoadType::Cobblestone,
-      .road_sprite = 9,
-      .flags = []() consteval {
-        TileFlags flags;
-        flags.set(TileFlag::RiverHorizontalFlip, true);
-        flags.set(TileFlag::Coast, true);
-        return flags;
-      }()
-    };
+  // Tile used in tests in this file.
+  static constexpr Tile kTile{
+    .terrain_type = TerrainType::Grass,
+    .terrain_sprite = 7,
+    .river_type = RiverType::Clear,
+    .river_sprite = 4,
+    .road_type = RoadType::Cobblestone,
+    .road_sprite = 9,
+    .flags = []() consteval {
+      TileFlags flags;
+      flags.set(TileFlag::RiverHorizontalFlip, true);
+      flags.set(TileFlag::Coast, true);
+      return flags;
+    }()
+  };
 
+  TEST_CASE("H3M.Tile", "[H3M]")
+  {
     // The binary representation of kTile.
-    constexpr char kBinaryData[] = "\x02\x07\x01\x04\x03\x09\x44";
+    static constexpr char kBinaryDataCStr[] = "\x02\x07\x01\x04\x03\x09\x44";
 
     // std::string_view into kBinaryData.
-    constexpr std::string_view kBinaryDataView{ kBinaryData, std::size(kBinaryData) - 1 };
+    static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
+
+    SECTION("Encode")
+    {
+      std::ostringstream stream;
+      H3MWriter{ stream }.writeData(kTile);
+      REQUIRE(stream.view() == kBinaryData);
+    }
+
+    SECTION("Decode")
+    {
+      std::istringstream stream{ std::string{kBinaryData} };
+      REQUIRE(H3MReader{ stream }.readTile() == kTile);
+    }
   }
 
-  TEST_CASE("readTile", "[H3MReader]")
+  TEST_CASE("H3Json.Tile", "[H3Json]")
   {
-    std::istringstream stream{ std::string{kBinaryDataView}};
-    const h3m::Tile tile = H3MReader{ stream }.readTile();
+    // JSON serialization of KMapBasicInfo.
+    static constexpr std::string_view kJsonData =
+R"({
+  "terrain_type": 2, // Grass
+  "terrain_sprite": 7,
+  "river_type": 1, // Clear
+  "river_sprite": 4,
+  "road_type": 3, // Cobblestone
+  "road_sprite": 9,
+  "flags": {"terrain_x": false, "terrain_y": false, "river_x": true, "river_y": false, "road_x": false, "road_y": false, "coast": true, "unknown": false}
+})";
 
-    REQUIRE(tile.terrain_type == kTile.terrain_type);
-    REQUIRE(tile.terrain_sprite == kTile.terrain_sprite);
-    REQUIRE(tile.river_type == kTile.river_type);
-    REQUIRE(tile.river_sprite == kTile.river_sprite);
-    REQUIRE(tile.road_type == kTile.road_type);
-    REQUIRE(tile.road_sprite == kTile.road_sprite);
-    REQUIRE(tile.flags.bitset.data == kTile.flags.bitset.data);
-  }
+    SECTION("Encode")
+    {
+      std::ostringstream stream;
+      Medea_NS::writeJson(stream, kTile);
+      REQUIRE(stream.view() == kJsonData);
+    }
 
-  TEST_CASE("writeTile", "[H3MWriter]")
-  {
-    std::ostringstream stream;
-    h3m::H3MWriter{ stream }.writeData(kTile);
-    stream.flush();
-
-    REQUIRE(stream.view() == kBinaryDataView);
+    SECTION("Decode")
+    {
+      REQUIRE(h3json::parseH3JsonFromString<Tile>(kJsonData) == kTile);
+    }
   }
 }
