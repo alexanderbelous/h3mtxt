@@ -10,6 +10,9 @@ namespace h3m
 {
   struct HeroArtifacts
   {
+    constexpr bool operator==(const HeroArtifacts&) const = default;
+    constexpr bool operator!=(const HeroArtifacts&) const = default;
+
     static constexpr EnumIndexedArray<ArtifactSlot, ArtifactType, kNumArtifactSlots> kNoEquippedArtifacts =
       []() consteval
       {
