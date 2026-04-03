@@ -2,6 +2,7 @@
 
 #include <h3mtxt/Map/MapFwd.h>
 
+#include <h3mtxt/Map/Constants/PlayerColor.h>
 #include <h3mtxt/Map/Constants/ResourceType.h>
 #include <h3mtxt/Map/Utils/EnumBitmask.h>
 #include <h3mtxt/Map/Utils/EnumIndexedArray.h>
@@ -19,6 +20,9 @@ namespace h3m
   // * As a base class for TownEvent.
   struct TimedEvent
   {
+    constexpr bool operator==(const TimedEvent&) const = default;
+    constexpr bool operator!=(const TimedEvent&) const = default;
+
     // The name of the event as shown in the Editor.
     std::string name;
     std::string message;

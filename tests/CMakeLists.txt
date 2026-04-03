@@ -10,6 +10,7 @@ add_executable(h3mtxt_tests
     "Quest.cpp"
     "Reward.cpp"
     "Tile.cpp"
+    "TimedEvent.cpp"
     "VictoryCondition.cpp"
 )
 
