@@ -11,6 +11,16 @@ namespace h3m
 {
   namespace Detail_NS
   {
+    // Checks if all bytes in the array are 0.
+    // \param data - input array.
+    // \return true if all bytes in @data are 0, false otherwise.
+    constexpr bool isAllZeros(std::span<const std::byte> data)
+    {
+      const std::byte* const first = data.data();
+      const std::byte* const last = first + data.size();
+      return std::all_of(first, last, [](std::byte value) noexcept { return value == std::byte{ 0 }; });
+    }
+
     // Storage for ReservedData.
     template<std::size_t NumBytes, class Enable = void>
     class ReservedDataStorage
@@ -73,6 +83,32 @@ namespace h3m
         }
       }
 
+      constexpr bool operator==(const ReservedDataStorage& other) const
+      {
+        // If both are implicit or if this == &other -> return true.
+        if (data_ == other.data_)
+        {
+          return true;
+        }
+        // If @this is implicit but @other is explicit -> check that all bytes are 0 in @other.
+        if (data_ == nullptr)
+        {
+          return isAllZeros(std::span<const std::byte>{other.data(), NumBytes});
+        }
+        // If @this is explicit but @other is implicit -> check that all bytes are 0 in @this.
+        if (other.data_ == nullptr)
+        {
+          return isAllZeros(std::span<const std::byte>{data(), NumBytes});
+        }
+        // Otherwise (if both are explicit), compare the bytes in @this and @other.
+        return std::equal(data(), data() + NumBytes, other.data());
+      }
+
+      constexpr bool operator!=(const ReservedDataStorage& other) const
+      {
+        return !(*this == other);
+      }
+
     private:
       std::unique_ptr<std::byte[]> cloneData() const
       {
@@ -111,19 +147,13 @@ namespace h3m
       {
       }
 
+      constexpr bool operator==(const ReservedDataStorage&) const noexcept = default;
+
+      constexpr bool operator!=(const ReservedDataStorage&) const noexcept = default;
+
     private:
       std::array<std::byte, NumBytes> data_ {};
     };
-
-    // Checks if all bytes in the array are 0.
-    // \param data - input array.
-    // \return true if all bytes in @data are 0, false otherwise.
-    constexpr bool isAllZeros(std::span<const std::byte> data)
-    {
-      const std::byte* const first = data.data();
-      const std::byte* const last = first + data.size();
-      return std::all_of(first, last, [](std::byte value) noexcept { return value == std::byte{ 0 }; });
-    }
   }
 
   // Byte array optimized for the special case when all elements are 0.
@@ -173,6 +203,17 @@ namespace h3m
     // Allocates memory for the elements, if needed.
     // isExplicit() will return true after this call.
     void makeExplicit();
+
+    // Equality comparison.
+    // \param other - ReservedData to compare with.
+    // \return true if (*this)[i] == other[i] for each i in range [0; NumBytes),
+    //         false otherwise.
+    constexpr bool operator==(const ReservedData& other) const = default;
+
+    // Inequality comparison.
+    // \param other - ReservedData to compare with.
+    // \return !(*this == other).
+    constexpr bool operator!=(const ReservedData& other) const = default;
 
   private:
     Detail_NS::ReservedDataStorage<NumBytes> storage_;

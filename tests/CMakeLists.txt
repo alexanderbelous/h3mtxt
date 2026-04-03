@@ -5,6 +5,7 @@ add_executable(h3mtxt_tests
     "parseJsonFromString.cpp"
     "LossCondition.cpp"
     "MapBasicInfo.cpp"
+    "ObjectTemplate.cpp"
     "PlayerSpecs.cpp"
     "Quest.cpp"
     "Reward.cpp"
