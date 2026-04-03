@@ -26,7 +26,7 @@ namespace h3m
       .is_ground = 0,
       .unknown = ReservedData<16>{}
     };
-    // The binary representation of kMapBasicInfo.
+    // The binary representation of kObjectTemplate.
     static constexpr char kBinaryDataCStr[] =
       "\x0c\x00\x00\x00" "AVWmrnd0.def"                                   // def
       "\xff\xff\xff\xff\xff\x7f"                                          // passability
