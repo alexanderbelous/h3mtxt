@@ -18,6 +18,9 @@ namespace h3m
   // Information about the player's main town.
   struct MainTown
   {
+    constexpr bool operator==(const MainTown&) const noexcept = default;
+    constexpr bool operator!=(const MainTown&) const noexcept = default;
+
     // True if "Generate hero at main town" is set, false otherwise.
     Bool generate_hero {};
     // Type of the player's main town.
@@ -37,6 +40,14 @@ namespace h3m
   //   e.g., claim that the player starts with Gelu even though Gelu is not one of the starting heroes.
   struct StartingHero
   {
+    // FYI: if this->type == HeroType{-1} && this->type == other.type, then
+    // the objects are considered equal regardless of what's stored in other fields.
+    //
+    // This reflects the "conditional" nature of StartingHero::portrait and StartingHero::name:
+    // ideally, these members shouldn't even exist if type == HeroType{0xFF}.
+    constexpr bool operator==(const StartingHero& other) const noexcept;
+    constexpr bool operator!=(const StartingHero& other) const noexcept;
+
     // HeroType of the starting hero, or 0xFF if None (i.e. if
     // the game shouldn't display the starting hero when starting a new game).
     HeroType type {0xFF};
@@ -74,10 +85,16 @@ namespace h3m
   {
     struct HeroInfo
     {
+      constexpr bool operator==(const HeroInfo&) const noexcept = default;
+      constexpr bool operator!=(const HeroInfo&) const noexcept = default;
+
       HeroType type{};
       // If empty, the default name is implied.
       std::string name;
     };
+
+    constexpr bool operator==(const PlayerSpecs& other) const = default;
+    constexpr bool operator!=(const PlayerSpecs& other) const = default;
 
     Bool can_be_human {};
     // The Editor doesn't allow unchecking "Can be Computer".
@@ -135,4 +152,16 @@ namespace h3m
     // * Includes placeholder heroes configured as "Specific hero" rather than "Power rating".
     std::vector<HeroInfo> heroes;
   };
+
+  constexpr bool StartingHero::operator==(const StartingHero& other) const noexcept
+  {
+    constexpr HeroType kNoHero = static_cast<HeroType>(-1);
+    return (type == other.type) && ((type == kNoHero) ||
+                                    ((portrait == other.portrait) && (name == other.name)));
+  }
+
+  constexpr bool StartingHero::operator!=(const StartingHero& other) const noexcept
+  {
+    return !(*this == other);
+  }
 }
