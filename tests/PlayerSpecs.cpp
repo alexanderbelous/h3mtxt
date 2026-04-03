@@ -26,7 +26,7 @@ namespace h3m
 
     // Decodes h3m::MainTown via H3MReader.
     // \param encoded_data - input binary data.
-    // \return h3m::PlayerSpecs decoded from @encoded_data.
+    // \return h3m::MainTown decoded from @encoded_data.
     MainTown decodeMainTown(std::string_view encoded_data)
     {
       std::istringstream stream{ std::string{encoded_data} };

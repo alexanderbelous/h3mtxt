@@ -9,6 +9,7 @@ add_executable(h3mtxt_tests
     "PlayerSpecs.cpp"
     "Quest.cpp"
     "Reward.cpp"
+    "TeamsInfo.cpp"
     "Tile.cpp"
     "TimedEvent.cpp"
     "VictoryCondition.cpp"

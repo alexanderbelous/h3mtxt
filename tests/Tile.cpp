@@ -56,7 +56,7 @@ namespace h3m
 
   TEST_CASE("H3Json.Tile", "[H3Json]")
   {
-    // JSON serialization of KMapBasicInfo.
+    // JSON serialization of kTile.
     static constexpr std::string_view kJsonData =
 R"({
   "terrain_type": 2, // Grass
