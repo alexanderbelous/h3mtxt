@@ -43,6 +43,11 @@ cmake --build build --config Release
 cmake --install build --config Release --prefix .
 ```
 
+Note that unit tests are disabled by default. If you want to build h3mtxt with unit tests, replace the third line with:
+```sh
+cmake -S . -B build -DH3MTXT_BUILD_TESTS=ON
+```
+
 # Future plans
 I'm currently working on the equivalent feature for saved games for HoMM3 (.CGM, .GM1, .GM2, ... files), i.e. converting them to and from JSON. However, as far I know, the full specification of the file format is not publicly known, so this requires a lot of reverse engineering. The development takes place in a separate branch [h3svg](https://github.com/alexanderbelous/h3mtxt/tree/h3svg).
 
