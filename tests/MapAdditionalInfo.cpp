@@ -6,6 +6,7 @@
 
 #include <cstddef>
 #include <iterator>
+#include <span>
 #include <sstream>
 #include <string>
 #include <string_view>
