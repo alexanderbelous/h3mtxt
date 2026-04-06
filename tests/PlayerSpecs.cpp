@@ -90,14 +90,14 @@ namespace h3m
   {
     SECTION("None")
     {
-      constexpr StartingHero kStartingHero = { .type = static_cast<HeroType>(-1) };
+      const StartingHero kStartingHero = { .type = static_cast<HeroType>(-1) };
       constexpr std::string_view kBinaryData = "\xff";
       REQUIRE(encodeStartingHero(kStartingHero) == kBinaryData);
       REQUIRE(decodeStartingHero(kBinaryData) == kStartingHero);
     }
     SECTION("Not None")
     {
-      constexpr StartingHero kStartingHero = {
+      const StartingHero kStartingHero = {
         .type = HeroType::Mutare,
         .portrait = HeroPortrait::Mephala,
         .name = "Jessica"

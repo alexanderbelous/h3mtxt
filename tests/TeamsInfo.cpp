@@ -1,6 +1,6 @@
 #include <h3mtxt/H3Reader/H3MReader/H3MReader.h>
 #include <h3mtxt/H3Writer/H3MWriter/H3MWriter.h>
-#include <h3mtxt/Map/MapAdditionalInfo.h>
+#include <h3mtxt/Map/TeamsInfo.h>
 
 #include <catch2/catch_test_macros.hpp>
 

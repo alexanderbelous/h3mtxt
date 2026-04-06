@@ -6,6 +6,7 @@ add_executable(h3mtxt_tests
     "HeroArtifacts.cpp"
     "HeroSettings.cpp"
     "LossCondition.cpp"
+    "MapAdditionalInfo.cpp"
     "MapBasicInfo.cpp"
     "ObjectTemplate.cpp"
     "PlayerSpecs.cpp"
