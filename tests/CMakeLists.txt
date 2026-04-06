@@ -29,3 +29,6 @@ target_link_libraries(h3mtxt_tests PRIVATE Catch2::Catch2WithMain)
 
 # Set compiler options.
 h3mtxt_add_common_compiler_options(h3mtxt_tests)
+
+# Support for CTest
+add_test(NAME h3mtxt_tests COMMAND h3mtxt_tests)

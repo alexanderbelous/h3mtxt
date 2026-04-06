@@ -77,6 +77,7 @@ add_subdirectory(src)
 option(H3MTXT_BUILD_TESTS "Build tests for h3mtxt." OFF)
 # Add the subdirectory with tests, if needed.
 if(H3MTXT_BUILD_TESTS)
+  include(CTest)
   set(CMAKE_FOLDER tests)
   add_subdirectory(tests)
   unset(CMAKE_FOLDER)
