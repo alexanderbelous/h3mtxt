@@ -2,6 +2,7 @@
 
 #include <h3mtxt/Map/MapFwd.h>
 #include <h3mtxt/Map/Constants/Gender.h>
+#include <h3mtxt/Map/Constants/SpellType.h>
 #include <h3mtxt/Map/Utils/EnumBitmask.h>
 #include <h3mtxt/Map/HeroArtifacts.h>
 #include <h3mtxt/Map/PrimarySkills.h>
@@ -20,6 +21,10 @@ namespace h3m
   // is changed, a CustomHero is created and stored in MapAdditionalInfo.
   struct HeroSettings
   {
+    constexpr bool operator==(const HeroSettings&) const = default;
+
+    constexpr bool operator!=(const HeroSettings&) const = default;
+
     // Note that experience points can be negative.
     std::optional<std::int32_t> experience;
     std::optional<std::vector<SecondarySkill>> secondary_skills;

@@ -4,6 +4,7 @@ add_executable(h3mtxt_tests
     "parseJsonFromString.h"
     "parseJsonFromString.cpp"
     "HeroArtifacts.cpp"
+    "HeroSettings.cpp"
     "LossCondition.cpp"
     "MapBasicInfo.cpp"
     "ObjectTemplate.cpp"
