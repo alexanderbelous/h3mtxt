@@ -122,6 +122,9 @@ namespace h3m
   template<>
   struct ObjectProperties<ObjectPropertiesType::GARRISON>
   {
+    constexpr bool operator==(const ObjectProperties&) const noexcept = default;
+    constexpr bool operator!=(const ObjectProperties&) const noexcept = default;
+
     // 0xFF means no owner.
     PlayerColor owner {};
     ReservedData<3> unknown;
@@ -254,6 +257,9 @@ namespace h3m
   template<>
   struct ObjectProperties<ObjectPropertiesType::QUEST_GUARD>
   {
+    constexpr bool operator==(const ObjectProperties&) const = default;
+    constexpr bool operator!=(const ObjectProperties&) const = default;
+
     Quest quest;
   };
 
@@ -296,6 +302,9 @@ namespace h3m
   template<>
   struct ObjectProperties<ObjectPropertiesType::RESOURCE>
   {
+    constexpr bool operator==(const ObjectProperties&) const noexcept = default;
+    constexpr bool operator!=(const ObjectProperties&) const noexcept = default;
+
     std::optional<Guardians> guardians;
     // Multiply by 100 for Gold (i.e. subclass 6); 0 means Random.
     // The Map Editor only allows setting a value within [1; 99999]. Values greater than 99999 are OK,
@@ -361,6 +370,9 @@ namespace h3m
   template<>
   struct ObjectProperties<ObjectPropertiesType::SEERS_HUT>
   {
+    constexpr bool operator==(const ObjectProperties&) const = default;
+    constexpr bool operator!=(const ObjectProperties&) const = default;
+
     Quest quest;
     Reward reward;
     ReservedData<2> unknown {};
@@ -369,6 +381,9 @@ namespace h3m
   template<>
   struct ObjectProperties<ObjectPropertiesType::SHRINE>
   {
+    constexpr bool operator==(const ObjectProperties&) const noexcept = default;
+    constexpr bool operator!=(const ObjectProperties&) const noexcept = default;
+
     // 0xFF means random.
     SpellType spell {};
     ReservedData<3> unknown;
@@ -377,6 +392,9 @@ namespace h3m
   template<>
   struct ObjectProperties<ObjectPropertiesType::SIGN>
   {
+    constexpr bool operator==(const ObjectProperties&) const noexcept = default;
+    constexpr bool operator!=(const ObjectProperties&) const noexcept = default;
+
     // Empty string means random message.
     std::string message;
     // Should be 0s.
@@ -386,6 +404,9 @@ namespace h3m
   template<>
   struct ObjectProperties<ObjectPropertiesType::SPELL_SCROLL>
   {
+    constexpr bool operator==(const ObjectProperties&) const noexcept = default;
+    constexpr bool operator!=(const ObjectProperties&) const noexcept = default;
+
     std::optional<Guardians> guardians;
     // FYI: unlike SHRINE, 0xFF is not allowed here (causes the game to crash).
     SpellType spell {};
@@ -448,6 +469,9 @@ namespace h3m
   template<>
   struct ObjectProperties<ObjectPropertiesType::TRIVIAL_OWNED_OBJECT>
   {
+    constexpr bool operator==(const ObjectProperties&) const noexcept = default;
+    constexpr bool operator!=(const ObjectProperties&) const noexcept = default;
+
     // 0xFF means that there is no owner.
     PlayerColor owner {};
     ReservedData<3> unknown;
@@ -456,6 +480,9 @@ namespace h3m
   template<>
   struct ObjectProperties<ObjectPropertiesType::WITCH_HUT>
   {
+    constexpr bool operator==(const ObjectProperties&) const noexcept = default;
+    constexpr bool operator!=(const ObjectProperties&) const noexcept = default;
+
     // Normally, the Witch Hut grants you one of the enabled skills from `potential_skills` except those
     // that are disabled globally (see MapAdditionalInfo::disabled_skills).
     //

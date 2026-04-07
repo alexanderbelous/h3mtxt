@@ -115,6 +115,41 @@ namespace h3m
     }
   }
 
+  TEST_CASE("H3M.ObjectProperties.Garrison", "[H3M]")
+  {
+    constexpr ObjectProperties<ObjectPropertiesType::GARRISON> kProperties = {
+      .owner = PlayerColor::Green,
+      .unknown = ReservedData<3>{},
+      .creatures = {
+        CreatureStack{.type = CreatureType::Sharpshooter, .count = 200},
+        CreatureStack{.type = CreatureType::Enchanter, .count = 100},
+        CreatureStack{},
+        CreatureStack{},
+        CreatureStack{},
+        CreatureStack{},
+        CreatureStack{}
+      },
+      .can_remove_units = 1,
+      .unknown2 = ReservedData<8>{}
+    };
+    static constexpr char kBinaryDataCStr[] =
+      "\x03"                              // owner
+      "\x00\x00\x00"                      // unknown
+        "\x89\x00" "\xc8\x00"             // creatures
+        "\x88\x00" "\x64\x00"
+        "\xff\xff" "\x00\x00"
+        "\xff\xff" "\x00\x00"
+        "\xff\xff" "\x00\x00"
+        "\xff\xff" "\x00\x00"
+        "\xff\xff" "\x00\x00"
+      "\x01"                              // can_remove_units
+      "\x00\x00\x00\x00\x00\x00\x00\x00"; // unknown2
+    static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
+
+    REQUIRE(asByteVector(encodeObjectProperties(kProperties)) == asByteVector(kBinaryData));
+    REQUIRE(decodeObjectProperties<ObjectPropertiesType::GARRISON>(kBinaryData) == kProperties);
+  }
+
   TEST_CASE("H3M.ObjectProperties.GenericNoProperties", "[H3M]")
   {
     constexpr ObjectProperties<ObjectPropertiesType::GENERIC_NO_PROPERTIES> kProperties{};
@@ -135,5 +170,236 @@ namespace h3m
 
     REQUIRE(asByteVector(encodeObjectProperties(kProperties)) == asByteVector(kBinaryData));
     REQUIRE(decodeObjectProperties<ObjectPropertiesType::GRAIL>(kBinaryData) == kProperties);
+  }
+
+  TEST_CASE("H3M.ObjectProperties.QuestGuard", "[H3M]")
+  {
+    const ObjectProperties<ObjectPropertiesType::QUEST_GUARD> kProperties = {
+      .quest = Quest{
+        .details = QuestDetails<QuestType::BeHero>{
+          .hero = HeroType::Mephala
+        },
+        .deadline = 28,
+        .proposal = "Only Mephala may pass.",
+        .progress = "You're not Mephala.",
+        .completion = "You may pass."
+      }
+    };
+    static constexpr char kBinaryDataCStr[] =
+      "\x08"                                      // quest_type
+      "\x10"                                      //   hero
+      "\x1c\x00\x00\x00"                          // deadline
+      "\x16\x00\x00\x00" "Only Mephala may pass." // proposal
+      "\x13\x00\x00\x00" "You're not Mephala."    // progress
+      "\x0d\x00\x00\x00" "You may pass.";         // completion
+    static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
+
+    REQUIRE(asByteVector(encodeObjectProperties(kProperties)) == asByteVector(kBinaryData));
+    REQUIRE(decodeObjectProperties<ObjectPropertiesType::QUEST_GUARD>(kBinaryData) == kProperties);
+  }
+
+  TEST_CASE("H3M.ObjectProperties.Resource", "[H3M]")
+  {
+    SECTION("No guardians")
+    {
+      const ObjectProperties<ObjectPropertiesType::RESOURCE> kProperties = {
+        .guardians = std::nullopt,
+        .quantity = 30,
+        .unknown = ReservedData<4>{}
+      };
+      static constexpr char kBinaryDataCStr[] = "\x00" "\x1e\x00\x00\x00" "\x00\x00\x00\x00";
+      static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
+
+      REQUIRE(asByteVector(encodeObjectProperties(kProperties)) == asByteVector(kBinaryData));
+      REQUIRE(decodeObjectProperties<ObjectPropertiesType::RESOURCE>(kBinaryData) == kProperties);
+    }
+    SECTION("With guardians")
+    {
+      const ObjectProperties<ObjectPropertiesType::RESOURCE> kProperties = {
+        .guardians = Guardians{
+          .message = "Ready to fight some dragons?",
+          .creatures = std::array<CreatureStack, 7>{
+            CreatureStack{.type = CreatureType::BlackDragon, .count = 5},
+            CreatureStack{.type = CreatureType::GreenDragon, .count = 11},
+            CreatureStack{.type = CreatureType::RedDragon, .count = 10},
+            CreatureStack{.type = CreatureType::GoldDragon, .count = 6},
+            CreatureStack{},
+            CreatureStack{},
+            CreatureStack{}
+          },
+          .unknown = ReservedData<4>{}
+        },
+        .quantity = 200,
+        .unknown = ReservedData<4>{}
+      };
+      static constexpr char kBinaryDataCStr[] =
+        "\x01"                                              // has_guardians
+          "\x1c\x00\x00\x00" "Ready to fight some dragons?" //   message
+          "\x01"                                            //   has_creatures
+            "\x53\x00" "\x05\x00"                           //   creatures
+            "\x1a\x00" "\x0b\x00"
+            "\x52\x00" "\x0a\x00"
+            "\x1b\x00" "\x06\x00"
+            "\xff\xff" "\x00\x00"
+            "\xff\xff" "\x00\x00"
+            "\xff\xff" "\x00\x00"
+          "\x00\x00\x00\x00"                                //   unknown
+        "\xc8\x00\x00\x00"                                  // quantity
+        "\x00\x00\x00\x00";                                 // unknown
+      static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
+
+      REQUIRE(asByteVector(encodeObjectProperties(kProperties)) == asByteVector(kBinaryData));
+      REQUIRE(decodeObjectProperties<ObjectPropertiesType::RESOURCE>(kBinaryData) == kProperties);
+    }
+  }
+
+  TEST_CASE("H3M.ObjectProperties.SeersHut", "[H3M]")
+  {
+    const ObjectProperties<ObjectPropertiesType::SEERS_HUT> kProperties = {
+      .quest = Quest{
+        .details = QuestDetails<QuestType::BeHero>{
+          .hero = HeroType::Mephala
+        },
+        .deadline = 28,
+        .proposal = "I'm seeking Mephala.",
+        .progress = "You're not Mephala.",
+        .completion = "Finally!"
+      },
+      .reward = Reward{
+        .details = RewardDetails<RewardType::Spell>{
+          .spell = SpellType::ForceField
+        }
+      },
+      .unknown = ReservedData<2>{}
+    };
+    static constexpr char kBinaryDataCStr[] =
+      "\x08"                                    // quest_type
+      "\x10"                                    //   hero
+      "\x1c\x00\x00\x00"                        // deadline
+      "\x14\x00\x00\x00" "I'm seeking Mephala." // proposal
+      "\x13\x00\x00\x00" "You're not Mephala."  // progress
+      "\x08\x00\x00\x00" "Finally!"             // completion
+      "\x09"                                    // reward_type
+      "\x0c"                                    //   spell
+      "\x00\x00";                               // unknown
+    static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
+
+    REQUIRE(asByteVector(encodeObjectProperties(kProperties)) == asByteVector(kBinaryData));
+    REQUIRE(decodeObjectProperties<ObjectPropertiesType::SEERS_HUT>(kBinaryData) == kProperties);
+  }
+
+  TEST_CASE("H3M.ObjectProperties.Shrine", "[H3M]")
+  {
+    constexpr ObjectProperties<ObjectPropertiesType::SHRINE> kProperties = {
+      .spell = SpellType::Slow,
+      .unknown = ReservedData<3>{}
+    };
+    static constexpr char kBinaryDataCStr[] = "\x36\x00\x00\x00";
+    static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
+
+    REQUIRE(asByteVector(encodeObjectProperties(kProperties)) == asByteVector(kBinaryData));
+    REQUIRE(decodeObjectProperties<ObjectPropertiesType::SHRINE>(kBinaryData) == kProperties);
+  }
+
+  TEST_CASE("H3M.ObjectProperties.Sign", "[H3M]")
+  {
+    const ObjectProperties<ObjectPropertiesType::SIGN> kProperties = {
+      .message = "KEEP OFF THE GRASS",
+      .unknown = ReservedData<4>{}
+    };
+    static constexpr char kBinaryDataCStr[] =
+      "\x12\x00\x00\x00" "KEEP OFF THE GRASS"
+      "\x00\x00\x00\x00";
+    static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
+
+    REQUIRE(asByteVector(encodeObjectProperties(kProperties)) == asByteVector(kBinaryData));
+    REQUIRE(decodeObjectProperties<ObjectPropertiesType::SIGN>(kBinaryData) == kProperties);
+  }
+
+  TEST_CASE("H3M.ObjectProperties.SpellScroll", "[H3M]")
+  {
+    SECTION("No guardians")
+    {
+      const ObjectProperties<ObjectPropertiesType::SPELL_SCROLL> kProperties = {
+        .guardians = std::nullopt,
+        .spell = SpellType::TownPortal,
+        .unknown = ReservedData<3>{}
+      };
+      static constexpr char kBinaryDataCStr[] = "\x00\x09\x00\x00\x00";
+      static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
+
+      REQUIRE(asByteVector(encodeObjectProperties(kProperties)) == asByteVector(kBinaryData));
+      REQUIRE(decodeObjectProperties<ObjectPropertiesType::SPELL_SCROLL>(kBinaryData) == kProperties);
+    }
+    SECTION("With guardians")
+    {
+      const ObjectProperties<ObjectPropertiesType::SPELL_SCROLL> kProperties = {
+        .guardians = Guardians{
+          .message = "Ready to fight some dragons?",
+          .creatures = std::array<CreatureStack, 7>{
+            CreatureStack{.type = CreatureType::BlackDragon, .count = 5},
+            CreatureStack{.type = CreatureType::GreenDragon, .count = 11},
+            CreatureStack{.type = CreatureType::RedDragon, .count = 10},
+            CreatureStack{.type = CreatureType::GoldDragon, .count = 6},
+            CreatureStack{},
+            CreatureStack{},
+            CreatureStack{}
+          },
+          .unknown = ReservedData<4>{}
+        },
+        .spell = SpellType::ForceField,
+        .unknown = ReservedData<3>{}
+      };
+      static constexpr char kBinaryDataCStr[] =
+        "\x01"                                              // has_guardians
+          "\x1c\x00\x00\x00" "Ready to fight some dragons?" //   message
+          "\x01"                                            //   has_creatures
+            "\x53\x00" "\x05\x00"                           //   creatures
+            "\x1a\x00" "\x0b\x00"
+            "\x52\x00" "\x0a\x00"
+            "\x1b\x00" "\x06\x00"
+            "\xff\xff" "\x00\x00"
+            "\xff\xff" "\x00\x00"
+            "\xff\xff" "\x00\x00"
+          "\x00\x00\x00\x00"                                //   unknown
+        "\x0c"                                              // spell
+        "\x00\x00\x00";                                     // unknown
+      static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
+
+      REQUIRE(asByteVector(encodeObjectProperties(kProperties)) == asByteVector(kBinaryData));
+      REQUIRE(decodeObjectProperties<ObjectPropertiesType::SPELL_SCROLL>(kBinaryData) == kProperties);
+    }
+  }
+
+  TEST_CASE("H3M.ObjectProperties.TrivialOwnedObject", "[H3M]")
+  {
+    constexpr ObjectProperties<ObjectPropertiesType::TRIVIAL_OWNED_OBJECT> kProperties = {
+      .owner = PlayerColor::Green,
+      .unknown = ReservedData<3>{}
+    };
+    static constexpr char kBinaryDataCStr[] = "\x03\x00\x00\x00";
+    static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
+
+    REQUIRE(asByteVector(encodeObjectProperties(kProperties)) == asByteVector(kBinaryData));
+    REQUIRE(decodeObjectProperties<ObjectPropertiesType::TRIVIAL_OWNED_OBJECT>(kBinaryData) == kProperties);
+  }
+
+  TEST_CASE("H3M.ObjectProperties.WitchHut", "[H3M]")
+  {
+    constexpr ObjectProperties<ObjectPropertiesType::WITCH_HUT> kProperties = {
+      .potential_skills = []() consteval {
+        SecondarySkillsBitmask bitmask;
+        bitmask.set(SecondarySkillType::AirMagic, true);
+        bitmask.set(SecondarySkillType::EarthMagic, true);
+        bitmask.set(SecondarySkillType::FireMagic, true);
+        bitmask.set(SecondarySkillType::WaterMagic, true);
+        return bitmask;
+      }()
+    };
+    static constexpr char kBinaryDataCStr[] = "\x00\xc0\x03\x00";
+    static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
+
+    REQUIRE(asByteVector(encodeObjectProperties(kProperties)) == asByteVector(kBinaryData));
+    REQUIRE(decodeObjectProperties<ObjectPropertiesType::WITCH_HUT>(kBinaryData) == kProperties);
   }
 }

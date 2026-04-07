@@ -14,11 +14,73 @@ namespace h3m
     // Checks if all bytes in the array are 0.
     // \param data - input array.
     // \return true if all bytes in @data are 0, false otherwise.
-    constexpr bool isAllZeros(std::span<const std::byte> data)
+    constexpr bool isAllZeros(std::span<const std::byte> data) noexcept
     {
       const std::byte* const first = data.data();
       const std::byte* const last = first + data.size();
-      return std::all_of(first, last, [](std::byte value) noexcept { return value == std::byte{ 0 }; });
+      // std::all_of() may throw an exception if it chooses to allocate memory and fails to do so.
+      // However, it doesn't make sense to throw exceptions from this function, so we just fall
+      // back to the naive implementation if that happens.
+      try
+      {
+        return std::all_of(first, last, [](std::byte value) noexcept { return value == std::byte{ 0 }; });
+      }
+      catch (...)
+      {
+        for (std::byte value : data)
+        {
+          if (value != std::byte{0})
+          {
+            return false;
+          }
+        }
+        return true;
+      }
+    }
+
+    // Checks if 2 (possibly implicit) byte arrays are equal.
+    // \param num_bytes - the length of the array.
+    // \param lhs - pointer to the first array, or nullptr if it's implicit.
+    // \param rhs - pointer to the second array, or nullptr if it's implicit.
+    // \return true if the elements [0; num_bytes) of @lhs and @rhs are equal,
+    //         false otherwise.
+    constexpr bool areEqualByteArrays(std::size_t num_bytes, const std::byte* lhs, const std::byte* rhs) noexcept
+    {
+      // If both are implicit or if lhs == rhs -> return true.
+      if (lhs == rhs)
+      {
+        return true;
+      }
+      // If @lhs is implicit but @rhs is explicit -> check that all bytes are 0 in @rhs.
+      if (lhs == nullptr)
+      {
+        return isAllZeros(std::span<const std::byte>{rhs, num_bytes});
+      }
+      // If @lhs is explicit but @rhs is implicit -> check that all bytes are 0 in @lhs.
+      if (rhs == nullptr)
+      {
+        return isAllZeros(std::span<const std::byte>{lhs, num_bytes});
+      }
+      // Otherwise (if both are explicit), compare the bytes in @this and @other.
+      //
+      // std::equal() may throw an exception if it chooses to allocate memory and fails to do so.
+      // However, it doesn't make sense to throw exceptions from this function, so we just fall
+      // back to the naive implementation if that happens.
+      try
+      {
+        return std::equal(lhs, lhs + num_bytes, rhs);
+      }
+      catch (...)
+      {
+        for (std::size_t i = 0; i < num_bytes; ++i)
+        {
+          if (lhs[i] != rhs[i])
+          {
+            return false;
+          }
+        }
+        return true;
+      }
     }
 
     // Storage for ReservedData.
@@ -83,28 +145,12 @@ namespace h3m
         }
       }
 
-      constexpr bool operator==(const ReservedDataStorage& other) const
+      constexpr bool operator==(const ReservedDataStorage& other) const noexcept
       {
-        // If both are implicit or if this == &other -> return true.
-        if (data_ == other.data_)
-        {
-          return true;
-        }
-        // If @this is implicit but @other is explicit -> check that all bytes are 0 in @other.
-        if (data_ == nullptr)
-        {
-          return isAllZeros(std::span<const std::byte>{other.data(), NumBytes});
-        }
-        // If @this is explicit but @other is implicit -> check that all bytes are 0 in @this.
-        if (other.data_ == nullptr)
-        {
-          return isAllZeros(std::span<const std::byte>{data(), NumBytes});
-        }
-        // Otherwise (if both are explicit), compare the bytes in @this and @other.
-        return std::equal(data(), data() + NumBytes, other.data());
+        return areEqualByteArrays(NumBytes, data(), other.data());
       }
 
-      constexpr bool operator!=(const ReservedDataStorage& other) const
+      constexpr bool operator!=(const ReservedDataStorage& other) const noexcept
       {
         return !(*this == other);
       }
@@ -208,12 +254,12 @@ namespace h3m
     // \param other - ReservedData to compare with.
     // \return true if (*this)[i] == other[i] for each i in range [0; NumBytes),
     //         false otherwise.
-    constexpr bool operator==(const ReservedData& other) const = default;
+    constexpr bool operator==(const ReservedData& other) const noexcept = default;
 
     // Inequality comparison.
     // \param other - ReservedData to compare with.
     // \return !(*this == other).
-    constexpr bool operator!=(const ReservedData& other) const = default;
+    constexpr bool operator!=(const ReservedData& other) const noexcept = default;
 
   private:
     Detail_NS::ReservedDataStorage<NumBytes> storage_;
