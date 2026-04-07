@@ -37,6 +37,9 @@ namespace h3m
   // Appears in ARTIFACT, EVENT, PANDORAS_BOX, RESOURCE, SPELL_SCROLL.
   struct Guardians
   {
+    constexpr bool operator==(const Guardians&) const noexcept = default;
+    constexpr bool operator!=(const Guardians&) const noexcept = default;
+
     std::string message;
     // FYI: CreatureStack::count can be negative. Stacks with negative numbers of creatures will be
     // present on the battlefield, but the behavior is weird (such a stack can only move 1 hex during the 1st turn,
@@ -91,6 +94,9 @@ namespace h3m
   template<>
   struct ObjectProperties<ObjectPropertiesType::ABANDONED_MINE>
   {
+    constexpr bool operator==(const ObjectProperties&) const noexcept = default;
+    constexpr bool operator!=(const ObjectProperties&) const noexcept = default;
+
     ResourcesBitmask potential_resources;
     ReservedData<3> unknown;
   };
@@ -98,6 +104,9 @@ namespace h3m
   template<>
   struct ObjectProperties<ObjectPropertiesType::ARTIFACT>
   {
+    constexpr bool operator==(const ObjectProperties&) const noexcept = default;
+    constexpr bool operator!=(const ObjectProperties&) const noexcept = default;
+
     std::optional<Guardians> guardians;
   };
 
@@ -126,11 +135,16 @@ namespace h3m
   template<>
   struct ObjectProperties<ObjectPropertiesType::GENERIC_NO_PROPERTIES>
   {
+    constexpr bool operator==(const ObjectProperties&) const noexcept = default;
+    constexpr bool operator!=(const ObjectProperties&) const noexcept = default;
   };
 
   template<>
   struct ObjectProperties<ObjectPropertiesType::GRAIL>
   {
+    constexpr bool operator==(const ObjectProperties&) const noexcept = default;
+    constexpr bool operator!=(const ObjectProperties&) const noexcept = default;
+
     // The Map Editor only allows values from [0; 127], but any 8-bit integer can be used here.
     // The Map Editor interprets it as int8_t, but the game interprets it as uint8_t: 0xFF means 255, not -1.
     std::uint8_t allowable_radius {};
