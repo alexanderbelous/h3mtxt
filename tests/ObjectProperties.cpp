@@ -877,6 +877,122 @@ namespace h3m
     }
   }
 
+  TEST_CASE("H3M.ObjectProperties.Town", "[H3M]")
+  {
+    const ObjectProperties<ObjectPropertiesType::TOWN> kProperties = {
+      .absod_id = 1931,
+      .owner = PlayerColor::Blue,
+      .name = "Innsmouth",
+      .garrison = std::array<CreatureStack, 7>{
+        CreatureStack{.type = CreatureType::Lizardman, .count = 70},
+        CreatureStack{.type = CreatureType::Peasant, .count = 200},
+        CreatureStack{},
+        CreatureStack{},
+        CreatureStack{},
+        CreatureStack{},
+        CreatureStack{}
+      },
+      .formation = Formation::Grouped,
+      .buildings = TownBuildings{
+        .is_built = []() consteval {
+          TownBuildingsBitmask bitmask;
+          bitmask.set(TownBuildingType::Tavern, true);
+          bitmask.set(TownBuildingType::Shipyard, true);
+          return bitmask;
+        }(),
+        .is_disabled = []() consteval {
+          TownBuildingsBitmask bitmask;
+          bitmask.set(TownBuildingType::Grail, true);
+          return bitmask;
+        }()
+      },
+      .must_have_spell = []() consteval {
+        SpellsBitmask bitmask;
+        bitmask.set(SpellType::Sacrifice, true);
+        return bitmask;
+      }(),
+      .may_not_have_spell = []() consteval {
+        SpellsBitmask bitmask;
+        bitmask.set(SpellType::Bless, true);
+        return bitmask;
+      }(),
+      .events = {
+        TownEvent{
+          TimedEvent{
+            .name = "The Deep Ones",
+            .message = "The Deep Ones arrive in Innsmouth.",
+            .resources = []() consteval {
+              Resources resources;
+              resources[ResourceType::Gold] = 500;
+              return resources;
+            }(),
+            .affected_players = []() consteval {
+              PlayersBitmask bitmask;
+              bitmask.set(PlayerColor::Blue, true);
+              return bitmask;
+            }(),
+            .applies_to_human = 0,
+            .applies_to_computer = 1,
+            .day_of_first_occurence = 28,
+            .repeat_after_days = 100,
+            .unknown = ReservedData<16>{}
+          },
+          /* .buildings = */ TownBuildingsBitmask{},
+          /* .creatures = */ std::array<std::uint16_t, 7>{ 0, 5, 0, 0, 0, 0, 0 },
+          /* .unknown2 = */ ReservedData<4>{}
+        }
+      },
+      .alignment = 0xFF,
+      .unknown = ReservedData<3>{}
+    };
+    static constexpr char kBinaryDataCStr[] =
+      "\x8b\x07\x00\x00"                     // absod_id
+      "\x01"                                 // owner
+      "\x01"                                 // ?name
+             "\x09\x00\x00\x00" "Innsmouth"
+      "\x01"                                 // ?garrison
+             "\x64\x00" "\x46\x00"
+             "\x8b\x00" "\xc8\x00"
+             "\xff\xff" "\x00\x00"
+             "\xff\xff" "\x00\x00"
+             "\xff\xff" "\x00\x00"
+             "\xff\xff" "\x00\x00"
+             "\xff\xff" "\x00\x00"
+      "\x01"                                 // formation
+      "\x01"                                 // ?buildings
+             "\x40\x00\x01\x00\x00\x00"      //   is_built
+             "\x00\x00\x02\x00\x00\x00"      //   is_disabled
+      "\x00\x00\x00\x00\x00\x01\x00\x00\x00" // must_have_spell
+      "\x00\x00\x00\x00\x00\x02\x00\x00\x00" // may_not_have_spell
+      "\x01\x00\x00\x00"                     // events
+          "\x0d\x00\x00\x00" "The Deep Ones"                      // name
+          "\x22\x00\x00\x00" "The Deep Ones arrive in Innsmouth." // message
+          "\x00\x00\x00\x00"                                      // resources
+          "\x00\x00\x00\x00"
+          "\x00\x00\x00\x00"
+          "\x00\x00\x00\x00"
+          "\x00\x00\x00\x00"
+          "\x00\x00\x00\x00"
+          "\xf4\x01\x00\x00"
+          "\x02"                                                  // affected_players
+          "\x00"                                                  // applies_to_human
+          "\x01"                                                  // applies_to_computer
+          "\x1c\x00"                                              // day_of_first_occurence
+          "\x64\x00"                                              // repeat_after_days
+          "\x00\x00\x00\x00\x00\x00\x00\x00"                      // unknown
+          "\x00\x00\x00\x00\x00\x00\x00\x00"
+          "\x00\x00\x00\x00\x00\x00"                              // buildings
+          "\x00\x00" "\x05\x00" "\x00\x00" "\x00\x00"             // creatures
+          "\x00\x00" "\x00\x00" "\x00\x00"
+          "\x00\x00\x00\x00"                                      // unknown2
+      "\xff"                                 // alignment
+      "\x00\x00\x00";                        // unknown
+    static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
+
+    REQUIRE(asByteVector(encodeObjectProperties(kProperties)) == asByteVector(kBinaryData));
+    REQUIRE(decodeObjectProperties<ObjectPropertiesType::TOWN>(kBinaryData) == kProperties);
+  }
+
   TEST_CASE("H3M.ObjectProperties.TrivialOwnedObject", "[H3M]")
   {
     constexpr ObjectProperties<ObjectPropertiesType::TRIVIAL_OWNED_OBJECT> kProperties = {

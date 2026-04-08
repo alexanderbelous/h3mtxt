@@ -14,6 +14,7 @@
 #include <h3mtxt/Map/Constants/ScholarRewardType.h>
 #include <h3mtxt/Map/Constants/SecondarySkillType.h>
 #include <h3mtxt/Map/Constants/SpellType.h>
+#include <h3mtxt/Map/Constants/TownBuildingType.h>
 #include <h3mtxt/Map/Constants/TownType.h>
 #include <h3mtxt/Map/Utils/EnumBitmask.h>
 #include <h3mtxt/Map/Utils/EnumIndexedArray.h>
@@ -442,6 +443,8 @@ namespace h3m
 
   struct TownBuildings
   {
+    constexpr bool operator==(const TownBuildings&) const noexcept = default;
+
     // Each bit indicates whether the building is built.
     TownBuildingsBitmask is_built {};
     // Each bit indicates whether the building is disabled.
@@ -450,6 +453,8 @@ namespace h3m
 
   struct TownEvent : TimedEvent
   {
+    constexpr bool operator==(const TownEvent&) const noexcept = default;
+
     // Each bit indicates whether the building gets built.
     TownBuildingsBitmask buildings;
     // Extra creatures for each creature level.
@@ -470,6 +475,8 @@ namespace h3m
   template<>
   struct ObjectProperties<ObjectPropertiesType::TOWN>
   {
+    constexpr bool operator==(const ObjectProperties&) const noexcept = default;
+
     std::uint32_t absod_id {};
     // 0xFF if none.
     PlayerColor owner {};
