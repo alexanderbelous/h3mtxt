@@ -6,7 +6,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 project(
   h3mtxt
-  VERSION 0.9.5
+  VERSION 0.9.6
   LANGUAGES CXX
 )
 

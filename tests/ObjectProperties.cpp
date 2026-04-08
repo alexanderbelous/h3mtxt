@@ -115,6 +115,106 @@ namespace h3m
     }
   }
 
+  TEST_CASE("H3M.ObjectProperties.Event", "[H3M]")
+  {
+    const ObjectProperties<ObjectPropertiesType::EVENT> kProperties = {
+      EventBase{
+        .guardians = Guardians{
+          .message = "Boo!",
+          .creatures = std::array<CreatureStack, 7>{
+            CreatureStack{.type = CreatureType::GhostDragon, .count = 5},
+            CreatureStack{.type = CreatureType::Wraith, .count = 100},
+            CreatureStack{},
+            CreatureStack{},
+            CreatureStack{},
+            CreatureStack{},
+            CreatureStack{}
+          },
+          .unknown = ReservedData<4>{}
+        },
+        .experience = 1000,
+        .spell_points = 100,
+        .morale = -3,
+        .luck = 1,
+        .resources = []() consteval {
+          Resources resources;
+          resources[ResourceType::Crystal] = 10;
+          resources[ResourceType::Gold] = 5000;
+          return resources;
+        }(),
+        .primary_skills = PrimarySkills{
+          .attack = 1,
+          .defense = 2,
+          .spell_power = 3,
+          .knowledge = 4
+        },
+        .secondary_skills = {
+          SecondarySkill{.type = SecondarySkillType::EarthMagic, .level = 3},
+          SecondarySkill{.type = SecondarySkillType::Wisdom, .level = 3},
+        },
+        .artifacts = {
+          ArtifactType::TomeOfEarthMagic,
+          ArtifactType::DragonWingTabard
+        },
+        .spells = {
+          SpellType::TownPortal,
+          SpellType::ForceField
+        },
+        .creatures = {
+          CreatureStack{.type = CreatureType::Sharpshooter, .count = 50},
+          CreatureStack{.type = CreatureType::HarpyHag, .count = 100}
+        },
+        .unknown = ReservedData<8>{}
+      },
+      /* .affected_players = */ []() consteval {
+        PlayersBitmask bitmask;
+        bitmask.set(PlayerColor::Green, true);
+        return bitmask;
+      }(),
+      /* .applies_to_computer = */ Bool{0},
+      /* .remove_after_first_visit = */ Bool{1},
+      /* .unknown2 = */ ReservedData<4>{}
+    };
+
+    static constexpr char kBinaryDataCStr[] =
+      "\x01"                                       // has_guardians
+      "\x04\x00\x00\x00" "Boo!"                    //   message
+      "\x01"                                       //   has_creatures
+      "\x45\x00" "\x05\x00"                        //   creatures
+      "\x3d\x00" "\x64\x00"
+      "\xff\xff" "\x00\x00"
+      "\xff\xff" "\x00\x00"
+      "\xff\xff" "\x00\x00"
+      "\xff\xff" "\x00\x00"
+      "\xff\xff" "\x00\x00"
+      "\x00\x00\x00\x00"                           //   unknown
+      "\xe8\x03\x00\x00"                           // experience
+      "\x64\x00\x00\x00"                           // spell_points
+      "\xfd"                                       // morale
+      "\x01"                                       // luck
+      "\x00\x00\x00\x00"                           // resources
+      "\x00\x00\x00\x00"
+      "\x00\x00\x00\x00"
+      "\x00\x00\x00\x00"
+      "\x0a\x00\x00\x00"
+      "\x00\x00\x00\x00"
+      "\x88\x13\x00\x00"
+      "\x01\x02\x03\x04"                           // primary_skills
+      "\x02" "\x11\x03" "\x07\x03"                 // secondary_skills
+      "\x02" "\x59\x00" "\x2a\x00"                 // artifacts
+      "\x02" "\x09" "\x0c"                         // spells
+      "\x02" "\x89\x00\x32\x00" "\x49\x00\x64\x00" // creatures
+      "\x00\x00\x00\x00\x00\x00\x00\x00"           // unknown
+      "\x08"                                       // affected_players
+      "\x00"                                       // applies_to_computer
+      "\x01"                                       // remove_after_first_visit
+      "\x00\x00\x00\x00";                          // unknown2
+    static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
+
+    REQUIRE(asByteVector(encodeObjectProperties(kProperties)) == asByteVector(kBinaryData));
+    REQUIRE(decodeObjectProperties<ObjectPropertiesType::EVENT>(kBinaryData) == kProperties);
+  }
+
   TEST_CASE("H3M.ObjectProperties.Garrison", "[H3M]")
   {
     constexpr ObjectProperties<ObjectPropertiesType::GARRISON> kProperties = {
@@ -170,6 +270,94 @@ namespace h3m
 
     REQUIRE(asByteVector(encodeObjectProperties(kProperties)) == asByteVector(kBinaryData));
     REQUIRE(decodeObjectProperties<ObjectPropertiesType::GRAIL>(kBinaryData) == kProperties);
+  }
+
+  TEST_CASE("H3M.ObjectProperties.PandorasBox", "[H3M]")
+  {
+    const ObjectProperties<ObjectPropertiesType::PANDORAS_BOX> kProperties = {
+      EventBase{
+        .guardians = Guardians{
+          .message = "Boo!",
+          .creatures = std::array<CreatureStack, 7>{
+            CreatureStack{.type = CreatureType::GhostDragon, .count = 5},
+            CreatureStack{.type = CreatureType::Wraith, .count = 100},
+            CreatureStack{},
+            CreatureStack{},
+            CreatureStack{},
+            CreatureStack{},
+            CreatureStack{}
+          },
+          .unknown = ReservedData<4>{}
+        },
+        .experience = 1000,
+        .spell_points = 100,
+        .morale = -3,
+        .luck = 1,
+        .resources = []() consteval {
+          Resources resources;
+          resources[ResourceType::Crystal] = 10;
+          resources[ResourceType::Gold] = 5000;
+          return resources;
+        }(),
+        .primary_skills = PrimarySkills{
+          .attack = 1,
+          .defense = 2,
+          .spell_power = 3,
+          .knowledge = 4
+        },
+        .secondary_skills = {
+          SecondarySkill{.type = SecondarySkillType::EarthMagic, .level = 3},
+          SecondarySkill{.type = SecondarySkillType::Wisdom, .level = 3},
+        },
+        .artifacts = {
+          ArtifactType::TomeOfEarthMagic,
+          ArtifactType::DragonWingTabard
+        },
+        .spells = {
+          SpellType::TownPortal,
+          SpellType::ForceField
+        },
+        .creatures = {
+          CreatureStack{.type = CreatureType::Sharpshooter, .count = 50},
+          CreatureStack{.type = CreatureType::HarpyHag, .count = 100}
+        },
+        .unknown = ReservedData<8>{}
+      }
+    };
+
+    static constexpr char kBinaryDataCStr[] =
+      "\x01"                                       // has_guardians
+      "\x04\x00\x00\x00" "Boo!"                    //   message
+      "\x01"                                       //   has_creatures
+      "\x45\x00" "\x05\x00"                        //   creatures
+      "\x3d\x00" "\x64\x00"
+      "\xff\xff" "\x00\x00"
+      "\xff\xff" "\x00\x00"
+      "\xff\xff" "\x00\x00"
+      "\xff\xff" "\x00\x00"
+      "\xff\xff" "\x00\x00"
+      "\x00\x00\x00\x00"                           //   unknown
+      "\xe8\x03\x00\x00"                           // experience
+      "\x64\x00\x00\x00"                           // spell_points
+      "\xfd"                                       // morale
+      "\x01"                                       // luck
+      "\x00\x00\x00\x00"                           // resources
+      "\x00\x00\x00\x00"
+      "\x00\x00\x00\x00"
+      "\x00\x00\x00\x00"
+      "\x0a\x00\x00\x00"
+      "\x00\x00\x00\x00"
+      "\x88\x13\x00\x00"
+      "\x01\x02\x03\x04"                           // primary_skills
+      "\x02" "\x11\x03" "\x07\x03"                 // secondary_skills
+      "\x02" "\x59\x00" "\x2a\x00"                 // artifacts
+      "\x02" "\x09" "\x0c"                         // spells
+      "\x02" "\x89\x00\x32\x00" "\x49\x00\x64\x00" // creatures
+      "\x00\x00\x00\x00\x00\x00\x00\x00";          // unknown
+    static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
+
+    REQUIRE(asByteVector(encodeObjectProperties(kProperties)) == asByteVector(kBinaryData));
+    REQUIRE(decodeObjectProperties<ObjectPropertiesType::PANDORAS_BOX>(kBinaryData) == kProperties);
   }
 
   TEST_CASE("H3M.ObjectProperties.QuestGuard", "[H3M]")

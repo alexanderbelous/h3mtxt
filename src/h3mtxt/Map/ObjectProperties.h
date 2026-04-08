@@ -65,6 +65,9 @@ namespace h3m
   // ObjectProperties<ObjectPropertiesType::EVENT>.
   struct EventBase
   {
+    constexpr bool operator==(const EventBase&) const noexcept = default;
+    constexpr bool operator!=(const EventBase&) const noexcept = default;
+
     std::optional<Guardians> guardians;
     // The Map Editor only allows using values from [0; 99999999].
     // Negative experience points are allowed, but the game ignores them (they have the same effect as 0).
@@ -113,10 +116,13 @@ namespace h3m
   template<>
   struct ObjectProperties<ObjectPropertiesType::EVENT> : EventBase
   {
+    constexpr bool operator==(const ObjectProperties&) const noexcept = default;
+    constexpr bool operator!=(const ObjectProperties&) const noexcept = default;
+
     PlayersBitmask affected_players;
     Bool applies_to_computer{};
     Bool remove_after_first_visit{};
-    ReservedData<4> unknown2{};
+    ReservedData<4> unknown2;
   };
 
   template<>
@@ -232,6 +238,8 @@ namespace h3m
   template<>
   struct ObjectProperties<ObjectPropertiesType::PANDORAS_BOX> : EventBase
   {
+    constexpr bool operator==(const ObjectProperties&) const noexcept = default;
+    constexpr bool operator!=(const ObjectProperties&) const noexcept = default;
   };
 
   // Undocumented features:
