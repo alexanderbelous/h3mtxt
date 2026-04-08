@@ -69,17 +69,14 @@ namespace h3m
       {
         if (this != &other)
         {
-          if (!other.data_)
+          // Optimization: reuse the previously allocated memory if both are explicit.
+          if ((data() != nullptr) && (other.data() != nullptr))
           {
-            data_ = nullptr;
+            std::copy_n(other.data(), NumBytes, data());
           }
           else
           {
-            if (!data_)
-            {
-              data_ = std::make_unique_for_overwrite<std::byte[]>(NumBytes);
-            }
-            std::copy_n(data_.get(), NumBytes, other.data_.get());
+            data_ = other.cloneData();
           }
         }
         return *this;

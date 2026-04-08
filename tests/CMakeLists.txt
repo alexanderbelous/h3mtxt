@@ -12,6 +12,7 @@ add_executable(h3mtxt_tests
     "ObjectTemplate.cpp"
     "PlayerSpecs.cpp"
     "Quest.cpp"
+    "ReservedData.cpp"
     "Reward.cpp"
     "TeamsInfo.cpp"
     "Tile.cpp"
