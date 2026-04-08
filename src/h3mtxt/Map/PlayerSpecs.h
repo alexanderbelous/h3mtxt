@@ -19,7 +19,6 @@ namespace h3m
   struct MainTown
   {
     constexpr bool operator==(const MainTown&) const noexcept = default;
-    constexpr bool operator!=(const MainTown&) const noexcept = default;
 
     // True if "Generate hero at main town" is set, false otherwise.
     Bool generate_hero {};
@@ -46,7 +45,6 @@ namespace h3m
     // This reflects the "conditional" nature of StartingHero::portrait and StartingHero::name:
     // ideally, these members shouldn't even exist if type == HeroType{0xFF}.
     constexpr bool operator==(const StartingHero& other) const noexcept;
-    constexpr bool operator!=(const StartingHero& other) const noexcept;
 
     // HeroType of the starting hero, or 0xFF if None (i.e. if
     // the game shouldn't display the starting hero when starting a new game).
@@ -86,15 +84,13 @@ namespace h3m
     struct HeroInfo
     {
       constexpr bool operator==(const HeroInfo&) const noexcept = default;
-      constexpr bool operator!=(const HeroInfo&) const noexcept = default;
 
       HeroType type{};
       // If empty, the default name is implied.
       std::string name;
     };
 
-    constexpr bool operator==(const PlayerSpecs& other) const = default;
-    constexpr bool operator!=(const PlayerSpecs& other) const = default;
+    constexpr bool operator==(const PlayerSpecs& other) const noexcept = default;
 
     Bool can_be_human {};
     // The Editor doesn't allow unchecking "Can be Computer".
@@ -158,10 +154,5 @@ namespace h3m
     constexpr HeroType kNoHero = static_cast<HeroType>(-1);
     return (type == other.type) && ((type == kNoHero) ||
                                     ((portrait == other.portrait) && (name == other.name)));
-  }
-
-  constexpr bool StartingHero::operator!=(const StartingHero& other) const noexcept
-  {
-    return !(*this == other);
   }
 }

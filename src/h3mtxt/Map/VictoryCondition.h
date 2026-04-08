@@ -19,14 +19,12 @@ namespace h3m
   struct VictoryConditionDetails<VictoryConditionType::Normal>
   {
     constexpr bool operator==(const VictoryConditionDetails&) const noexcept = default;
-    constexpr bool operator!=(const VictoryConditionDetails&) const noexcept = default;
   };
 
   // Base class for special victory conditions.
   struct SpecialVictoryConditionBase
   {
     constexpr bool operator==(const SpecialVictoryConditionBase&) const noexcept = default;
-    constexpr bool operator!=(const SpecialVictoryConditionBase&) const noexcept = default;
 
     // True if the normal victory condition (defeat all enemies) is also enabled, false otherwise.
     Bool allow_normal_win {};
@@ -39,7 +37,6 @@ namespace h3m
   struct VictoryConditionDetails<VictoryConditionType::AcquireArtifact> : SpecialVictoryConditionBase
   {
     constexpr bool operator==(const VictoryConditionDetails&) const noexcept = default;
-    constexpr bool operator!=(const VictoryConditionDetails&) const noexcept = default;
 
     // FYI: None (0xFFFF) can be used here, but it will trigger victory at the end of Day 1
     // ("Congratulations! You have found (null), and can claim victory!").
@@ -51,7 +48,6 @@ namespace h3m
   struct VictoryConditionDetails<VictoryConditionType::AccumulateCreatures> : SpecialVictoryConditionBase
   {
     constexpr bool operator==(const VictoryConditionDetails&) const noexcept = default;
-    constexpr bool operator!=(const VictoryConditionDetails&) const noexcept = default;
 
     CreatureType creature_type {};
     // The number of creatures to accumulate.
@@ -66,7 +62,6 @@ namespace h3m
   struct VictoryConditionDetails<VictoryConditionType::AccumulateResources> : SpecialVictoryConditionBase
   {
     constexpr bool operator==(const VictoryConditionDetails&) const noexcept = default;
-    constexpr bool operator!=(const VictoryConditionDetails&) const noexcept = default;
 
     ResourceType resource_type {};
     // The amount to accumulate.
@@ -79,7 +74,6 @@ namespace h3m
   struct VictoryConditionDetails<VictoryConditionType::UpgradeTown> : SpecialVictoryConditionBase
   {
     constexpr bool operator==(const VictoryConditionDetails&) const noexcept = default;
-    constexpr bool operator!=(const VictoryConditionDetails&) const noexcept = default;
 
     // If all x/y/z are equal to 0xFF, implies any town.
     Coordinates coordinates;
@@ -97,7 +91,6 @@ namespace h3m
                                                      T == VictoryConditionType::DefeatMonster>> : SpecialVictoryConditionBase
   {
     constexpr bool operator==(const VictoryConditionDetails&) const noexcept = default;
-    constexpr bool operator!=(const VictoryConditionDetails&) const noexcept = default;
 
     // Coordinates of the actionable spot. If T == BuildGrail and all x/y/z are equal to 0xFF, implies any town.
     Coordinates coordinates;
@@ -110,7 +103,6 @@ namespace h3m
                                                      T == VictoryConditionType::DefeatAllMonsters>> : SpecialVictoryConditionBase
   {
     constexpr bool operator==(const VictoryConditionDetails&) const noexcept = default;
-    constexpr bool operator!=(const VictoryConditionDetails&) const noexcept = default;
   };
 
   // Specialization for TransportArtifact.
@@ -118,7 +110,6 @@ namespace h3m
   struct VictoryConditionDetails<VictoryConditionType::TransportArtifact> : SpecialVictoryConditionBase
   {
     constexpr bool operator==(const VictoryConditionDetails&) const noexcept = default;
-    constexpr bool operator!=(const VictoryConditionDetails&) const noexcept = default;
 
     // Interestingly, the type is stored here in a single byte, even though in AcquireArtifact it's stored in 2 bytes.
     // The game supports "unusual" artifacts here (e.g., Spellbook), even though the Map Editor might freeze
@@ -133,7 +124,6 @@ namespace h3m
   struct VictoryConditionDetails<VictoryConditionType::SurviveBeyondATimeLimit> : SpecialVictoryConditionBase
   {
     constexpr bool operator==(const VictoryConditionDetails&) const noexcept = default;
-    constexpr bool operator!=(const VictoryConditionDetails&) const noexcept = default;
 
     // The number of in-game days that the player needs to survive.
     // * Both 0 and 1 lead to victory at the end of "Month: 1, Week: 1, Day: 1"
@@ -189,7 +179,6 @@ namespace h3m
     constexpr const SpecialVictoryConditionBase* base() const noexcept;
 
     constexpr bool operator==(const VictoryCondition&) const noexcept = default;
-    constexpr bool operator!=(const VictoryCondition&) const noexcept = default;
 
     // Details of the victory condition.
     Details details = VictoryConditionDetails<VictoryConditionType::Normal>{};

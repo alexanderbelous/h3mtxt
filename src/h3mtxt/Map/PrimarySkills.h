@@ -15,7 +15,6 @@ namespace h3m
   struct PrimarySkills
   {
     constexpr bool operator==(const PrimarySkills&) const noexcept = default;
-    constexpr bool operator!=(const PrimarySkills&) const noexcept = default;
 
     std::int8_t attack {};
     std::int8_t defense {};

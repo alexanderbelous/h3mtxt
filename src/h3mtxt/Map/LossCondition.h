@@ -18,7 +18,6 @@ namespace h3m
                                                   T == LossConditionType::LoseHero>>
   {
     constexpr bool operator==(const LossConditionDetails& other) const noexcept = default;
-    constexpr bool operator!=(const LossConditionDetails& other) const noexcept = default;
 
     // Coordinates of the actionable spot.
     // FYI: apparently, if it's LoseHero and the coordinates do not refer to any hero,
@@ -33,7 +32,6 @@ namespace h3m
   struct LossConditionDetails<LossConditionType::TimeExpires>
   {
     constexpr bool operator==(const LossConditionDetails& other) const noexcept = default;
-    constexpr bool operator!=(const LossConditionDetails& other) const noexcept = default;
 
     // The Map Editor only allows a number from a small set (2-6 days, 1-7 weeks, 2-12 months),
     // but any signed 16-bit integer can be used here. The Map Editor will freeze when viewing the
@@ -47,7 +45,6 @@ namespace h3m
   struct LossConditionDetails<LossConditionType::Normal>
   {
     constexpr bool operator==(const LossConditionDetails& other) const noexcept = default;
-    constexpr bool operator!=(const LossConditionDetails& other) const noexcept = default;
   };
 
   // Loss condition for the map.
@@ -73,7 +70,6 @@ namespace h3m
     static constexpr std::size_t getAlternativeIdx(LossConditionType loss_condition_type) noexcept;
 
     constexpr bool operator==(const LossCondition& other) const noexcept = default;
-    constexpr bool operator!=(const LossCondition& other) const noexcept = default;
 
     // Details of the loss condition.
     Details details = LossConditionDetails<LossConditionType::Normal>{};

@@ -10,8 +10,6 @@ namespace h3m
   {
     constexpr bool operator==(const Coordinates&) const noexcept = default;
 
-    constexpr bool operator!=(const Coordinates&) const noexcept = default;
-
     std::uint8_t x {};
     std::uint8_t y {};
     std::uint8_t z {};

@@ -14,7 +14,6 @@ namespace h3m
   struct Tile
   {
     constexpr bool operator==(const Tile& other) const noexcept = default;
-    constexpr bool operator!=(const Tile& other) const noexcept = default;
 
     TerrainType terrain_type {};
     std::uint8_t terrain_sprite {};

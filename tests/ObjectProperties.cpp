@@ -371,6 +371,48 @@ namespace h3m
     REQUIRE(decodeObjectProperties<ObjectPropertiesType::HERO>(kBinaryData) == kProperties);
   }
 
+  TEST_CASE("H3M.ObjectProperties.Monster", "[H3M]")
+  {
+    const ObjectProperties<ObjectPropertiesType::MONSTER> kProperties = {
+      .absod_id = 2026,
+      .count = 100,
+      .disposition = Disposition::Savage,
+      .message_and_treasure = MessageAndTreasure{
+        .message = "Boo!",
+        .resources = []() consteval {
+          Resources resources;
+          resources[ResourceType::Gems] = 5;
+          return resources;
+        }(),
+        .artifact = ArtifactType::BadgeOfCourage
+      },
+      .never_flees = 1,
+      .does_not_grow = 1,
+      .unknown = ReservedData<2>{}
+    };
+    static constexpr char kBinaryDataCStr[] =
+      "\xea\x07\x00\x00"        // absod_id
+      "\x64\x00"                // count
+      "\x04"                    // disposition
+      "\x01"                    // ?message_and_treasure
+      "\x04\x00\x00\x00" "Boo!" //   message
+      "\x00\x00\x00\x00"        //   resources
+      "\x00\x00\x00\x00"
+      "\x00\x00\x00\x00"
+      "\x00\x00\x00\x00"
+      "\x00\x00\x00\x00"
+      "\x05\x00\x00\x00"
+      "\x00\x00\x00\x00"
+      "\x31\x00"                //   artifact
+      "\x01"                    // never_flees
+      "\x01"                    // does_not_grow
+      "\x00\x00";               // unknown
+    static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
+
+    REQUIRE(asByteVector(encodeObjectProperties(kProperties)) == asByteVector(kBinaryData));
+    REQUIRE(decodeObjectProperties<ObjectPropertiesType::MONSTER>(kBinaryData) == kProperties);
+  }
+
   TEST_CASE("H3M.ObjectProperties.PandorasBox", "[H3M]")
   {
     const ObjectProperties<ObjectPropertiesType::PANDORAS_BOX> kProperties = {
@@ -457,6 +499,35 @@ namespace h3m
 
     REQUIRE(asByteVector(encodeObjectProperties(kProperties)) == asByteVector(kBinaryData));
     REQUIRE(decodeObjectProperties<ObjectPropertiesType::PANDORAS_BOX>(kBinaryData) == kProperties);
+  }
+
+  TEST_CASE("H3M.ObjectProperties.PlaceholderHero", "[H3M]")
+  {
+    SECTION("Specific")
+    {
+      constexpr ObjectProperties<ObjectPropertiesType::PLACEHOLDER_HERO> kProperties = {
+        .owner = PlayerColor::Green,
+        .type = HeroType::Gunnar
+      };
+      static constexpr char kBinaryDataCStr[] = "\x03" "\x55";
+      static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
+
+      REQUIRE(asByteVector(encodeObjectProperties(kProperties)) == asByteVector(kBinaryData));
+      REQUIRE(decodeObjectProperties<ObjectPropertiesType::PLACEHOLDER_HERO>(kBinaryData) == kProperties);
+    }
+    SECTION("Power-rated")
+    {
+      constexpr ObjectProperties<ObjectPropertiesType::PLACEHOLDER_HERO> kProperties = {
+        .owner = PlayerColor::Green,
+        .type = HeroType{0xFF},
+        .power_rating = 2
+      };
+      static constexpr char kBinaryDataCStr[] = "\x03" "\xff" "\x02";
+      static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
+
+      REQUIRE(asByteVector(encodeObjectProperties(kProperties)) == asByteVector(kBinaryData));
+      REQUIRE(decodeObjectProperties<ObjectPropertiesType::PLACEHOLDER_HERO>(kBinaryData) == kProperties);
+    }
   }
 
   TEST_CASE("H3M.ObjectProperties.QuestGuard", "[H3M]")

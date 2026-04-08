@@ -16,9 +16,7 @@ namespace h3m
   // but the game supports custom templates as well.
   struct ObjectTemplate
   {
-    constexpr bool operator==(const ObjectTemplate&) const = default;
-
-    constexpr bool operator!=(const ObjectTemplate&) const = default;
+    constexpr bool operator==(const ObjectTemplate&) const noexcept = default;
 
     // Name of the *.def sprite to use.
     // If this is an empty string:

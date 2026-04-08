@@ -34,7 +34,6 @@ namespace h3m
     constexpr void set(std::size_t index, bool value);
 
     constexpr bool operator==(const BitSet& other) const noexcept = default;
-    constexpr bool operator!=(const BitSet& other) const noexcept = default;
 
     // 0th bit is the LSB of the 0th byte.
     // 7th bit is the MSB of the 0th byte.

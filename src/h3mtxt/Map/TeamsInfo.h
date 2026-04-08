@@ -24,11 +24,6 @@ namespace h3m
     // \return true if @this and @other represent the same Teams setup, false otherwise.
     constexpr bool operator==(const TeamsInfo& other) const noexcept;
 
-    // Inequality comparison.
-    // \param other - TeamsInfo to compare with.
-    // \return !(*this == other)
-    constexpr bool operator!=(const TeamsInfo& other) const noexcept;
-
     std::uint8_t num_teams {};
     // This field is only read/written if num_teams != 0.
     // Each value should be < num_teams.
@@ -39,10 +34,5 @@ namespace h3m
   {
     return (num_teams == other.num_teams) &&
            ((num_teams == 0) || (team_for_player == other.team_for_player));
-  }
-
-  constexpr bool TeamsInfo::operator!=(const TeamsInfo& other) const noexcept
-  {
-    return !(*this == other);
   }
 }

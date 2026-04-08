@@ -44,8 +44,6 @@ namespace h3m
 
     constexpr bool operator==(const SpriteTilesBitmask&) const noexcept = default;
 
-    constexpr bool operator!=(const SpriteTilesBitmask&) const noexcept = default;
-
     std::array<std::uint8_t, 6> data {};
   };
 

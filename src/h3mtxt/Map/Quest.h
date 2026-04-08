@@ -21,14 +21,12 @@ namespace h3m
   struct QuestDetails<QuestType::None>
   {
     constexpr bool operator==(const QuestDetails&) const noexcept = default;
-    constexpr bool operator!=(const QuestDetails&) const noexcept = default;
   };
 
   template<>
   struct QuestDetails<QuestType::Level>
   {
     constexpr bool operator==(const QuestDetails&) const noexcept = default;
-    constexpr bool operator!=(const QuestDetails&) const noexcept = default;
 
     // The Map Editor only allows values from [1; 99], but any signed 32-bit integer can be used here.
     std::int32_t level {};
@@ -38,7 +36,6 @@ namespace h3m
   struct QuestDetails<QuestType::PrimarySkills>
   {
     constexpr bool operator==(const QuestDetails&) const noexcept = default;
-    constexpr bool operator!=(const QuestDetails&) const noexcept = default;
 
     // Nonpositive values are ignored: e.g., even if the hero's Attack is -128, and the
     // Quest requires achieving -10 Attack, the game will consider that the hero has
@@ -50,7 +47,6 @@ namespace h3m
   struct QuestDetails<QuestType::DefeatHero>
   {
     constexpr bool operator==(const QuestDetails&) const noexcept = default;
-    constexpr bool operator!=(const QuestDetails&) const noexcept = default;
 
     std::uint32_t absod_id {};
   };
@@ -59,7 +55,6 @@ namespace h3m
   struct QuestDetails<QuestType::DefeatMonster>
   {
     constexpr bool operator==(const QuestDetails&) const noexcept = default;
-    constexpr bool operator!=(const QuestDetails&) const noexcept = default;
 
     std::uint32_t absod_id{};
   };
@@ -67,8 +62,7 @@ namespace h3m
   template<>
   struct QuestDetails<QuestType::Artifacts>
   {
-    constexpr bool operator==(const QuestDetails&) const = default;
-    constexpr bool operator!=(const QuestDetails&) const = default;
+    constexpr bool operator==(const QuestDetails&) const noexcept = default;
 
     // The Editor doesn't allow an empty array here. If you set it manually:
     // * The Editor will freeze when you try to view the properties of this Quest Guard / Seer's Hut.
@@ -79,15 +73,13 @@ namespace h3m
   template<>
   struct QuestDetails<QuestType::Creatures>
   {
-    constexpr bool operator==(const QuestDetails&) const = default;
-    constexpr bool operator!=(const QuestDetails&) const = default;
+    constexpr bool operator==(const QuestDetails&) const noexcept = default;
 
     // Not using CreatureStack here, because CreatureStack::count is a signed 16-bit integer,
     // but counts in quests are interpreted as unisnged 16-bit integers.
     struct Creature
     {
       constexpr bool operator==(const Creature&) const noexcept = default;
-      constexpr bool operator!=(const Creature&) const noexcept = default;
 
       // Note that 0xFFFF is NOT a valid value here (in CreatureStack it means "no creature") -
       // it causes the game to crash.
@@ -107,7 +99,6 @@ namespace h3m
   struct QuestDetails<QuestType::Resources>
   {
     constexpr bool operator==(const QuestDetails&) const noexcept = default;
-    constexpr bool operator!=(const QuestDetails&) const noexcept = default;
 
     // * If the amount is negative for some resource, it won't be displayed as a part of the quest
     //   (equivalent to 0), but once you complete the quest your amount will increase.
@@ -119,7 +110,6 @@ namespace h3m
   struct QuestDetails<QuestType::BeHero>
   {
     constexpr bool operator==(const QuestDetails&) const noexcept = default;
-    constexpr bool operator!=(const QuestDetails&) const noexcept = default;
 
     // Must be a valid HeroType from [0; 156).
     HeroType hero {};
@@ -129,7 +119,6 @@ namespace h3m
   struct QuestDetails<QuestType::BePlayer>
   {
     constexpr bool operator==(const QuestDetails&) const noexcept = default;
-    constexpr bool operator!=(const QuestDetails&) const noexcept = default;
 
     PlayerColor player {};
   };
@@ -158,8 +147,7 @@ namespace h3m
     //         QuestDetails<quest_type>, or std::variant_npos if there is no such alternative.
     static constexpr std::size_t getAlternativeIdx(QuestType quest_type) noexcept;
 
-    constexpr bool operator==(const Quest&) const = default;
-    constexpr bool operator!=(const Quest&) const = default;
+    constexpr bool operator==(const Quest&) const noexcept = default;
 
     Details details {};
 

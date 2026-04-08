@@ -23,8 +23,6 @@ namespace h3m
   {
     constexpr bool operator==(const HeroSettings&) const = default;
 
-    constexpr bool operator!=(const HeroSettings&) const = default;
-
     // Note that experience points can be negative.
     std::optional<std::int32_t> experience;
     std::optional<std::vector<SecondarySkill>> secondary_skills;

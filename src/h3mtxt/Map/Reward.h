@@ -17,14 +17,12 @@ namespace h3m
   struct RewardDetails<RewardType::None>
   {
     constexpr bool operator==(const RewardDetails&) const noexcept = default;
-    constexpr bool operator!=(const RewardDetails&) const noexcept = default;
   };
 
   template<>
   struct RewardDetails<RewardType::Experience>
   {
     constexpr bool operator==(const RewardDetails&) const noexcept = default;
-    constexpr bool operator!=(const RewardDetails&) const noexcept = default;
 
     // The Map Editor only allows using values from [1; 99,999,999], but any signed 32-bit integer can be used here:
     // * 0 has no effect (the hero's experience remains the same).
@@ -37,7 +35,6 @@ namespace h3m
   struct RewardDetails<RewardType::SpellPoints>
   {
     constexpr bool operator==(const RewardDetails&) const noexcept = default;
-    constexpr bool operator!=(const RewardDetails&) const noexcept = default;
 
     // The Map Editor only allows setting a value from [1; 999].
     //
@@ -55,7 +52,6 @@ namespace h3m
   struct RewardDetails<RewardType::Morale>
   {
     constexpr bool operator==(const RewardDetails&) const noexcept = default;
-    constexpr bool operator!=(const RewardDetails&) const noexcept = default;
 
     // The Map Editor only allows setting a value from [1; 3].
     //
@@ -72,7 +68,6 @@ namespace h3m
   struct RewardDetails<RewardType::Luck>
   {
     constexpr bool operator==(const RewardDetails&) const noexcept = default;
-    constexpr bool operator!=(const RewardDetails&) const noexcept = default;
 
     // Same as with RewardType::Morale.
     std::int8_t luck {};
@@ -82,7 +77,6 @@ namespace h3m
   struct RewardDetails<RewardType::Resource>
   {
     constexpr bool operator==(const RewardDetails&) const noexcept = default;
-    constexpr bool operator!=(const RewardDetails&) const noexcept = default;
 
     ResourceType type {};
     // The Map Editor only allow setting a value within [1; 32767].
@@ -96,7 +90,6 @@ namespace h3m
   struct RewardDetails<RewardType::PrimarySkill>
   {
     constexpr bool operator==(const RewardDetails&) const noexcept = default;
-    constexpr bool operator!=(const RewardDetails&) const noexcept = default;
 
     PrimarySkillType type {};
     // The Map Editor only allows using a value within [1; 99].
@@ -115,14 +108,12 @@ namespace h3m
   struct RewardDetails<RewardType::SecondarySkill> : SecondarySkill
   {
     constexpr bool operator==(const RewardDetails&) const noexcept = default;
-    constexpr bool operator!=(const RewardDetails&) const noexcept = default;
   };
 
   template<>
   struct RewardDetails<RewardType::Artifact>
   {
     constexpr bool operator==(const RewardDetails&) const noexcept = default;
-    constexpr bool operator!=(const RewardDetails&) const noexcept = default;
 
     // FYI: None (0xFFFF) shouldn't be used here - it causes the game to crash when completing the quest.
     ArtifactType artifact {};
@@ -132,7 +123,6 @@ namespace h3m
   struct RewardDetails<RewardType::Spell>
   {
     constexpr bool operator==(const RewardDetails&) const noexcept = default;
-    constexpr bool operator!=(const RewardDetails&) const noexcept = default;
 
     SpellType spell {};
   };
@@ -141,7 +131,6 @@ namespace h3m
   struct RewardDetails<RewardType::Creature> : CreatureStack
   {
     constexpr bool operator==(const RewardDetails&) const noexcept = default;
-    constexpr bool operator!=(const RewardDetails&) const noexcept = default;
 
     // FYI: CreatureStack::count can be negative, in which case the number of creatures in your stack will
     // decrease.
@@ -173,7 +162,6 @@ namespace h3m
     static constexpr std::size_t getAlternativeIdx(RewardType reward_type) noexcept;
 
     constexpr bool operator==(const Reward&) const noexcept = default;
-    constexpr bool operator!=(const Reward&) const noexcept = default;
 
     Details details;
   };

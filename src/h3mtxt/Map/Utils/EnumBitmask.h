@@ -31,7 +31,6 @@ namespace h3m
     constexpr void set(Enum enum_value, bool value);
 
     constexpr bool operator==(const EnumBitmask& other) const noexcept = default;
-    constexpr bool operator!=(const EnumBitmask& other) const noexcept = default;
 
     BitSet<NumBytes> bitset;
   };

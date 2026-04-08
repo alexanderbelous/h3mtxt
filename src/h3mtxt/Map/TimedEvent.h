@@ -20,8 +20,7 @@ namespace h3m
   // * As a base class for TownEvent.
   struct TimedEvent
   {
-    constexpr bool operator==(const TimedEvent&) const = default;
-    constexpr bool operator!=(const TimedEvent&) const = default;
+    constexpr bool operator==(const TimedEvent&) const noexcept = default;
 
     // The name of the event as shown in the Editor.
     std::string name;

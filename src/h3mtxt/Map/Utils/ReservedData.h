@@ -115,11 +115,6 @@ namespace h3m
         return areEqualByteArrays(NumBytes, data(), other.data());
       }
 
-      constexpr bool operator!=(const ReservedDataStorage& other) const noexcept
-      {
-        return !(*this == other);
-      }
-
     private:
       std::unique_ptr<std::byte[]> cloneData() const
       {
@@ -159,8 +154,6 @@ namespace h3m
       }
 
       constexpr bool operator==(const ReservedDataStorage&) const noexcept = default;
-
-      constexpr bool operator!=(const ReservedDataStorage&) const noexcept = default;
 
     private:
       std::array<std::byte, NumBytes> data_ {};
@@ -220,11 +213,6 @@ namespace h3m
     // \return true if (*this)[i] == other[i] for each i in range [0; NumBytes),
     //         false otherwise.
     constexpr bool operator==(const ReservedData& other) const noexcept = default;
-
-    // Inequality comparison.
-    // \param other - ReservedData to compare with.
-    // \return !(*this == other).
-    constexpr bool operator!=(const ReservedData& other) const noexcept = default;
 
   private:
     Detail_NS::ReservedDataStorage<NumBytes> storage_;

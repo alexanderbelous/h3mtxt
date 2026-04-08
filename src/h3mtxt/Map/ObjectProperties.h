@@ -38,7 +38,6 @@ namespace h3m
   struct Guardians
   {
     constexpr bool operator==(const Guardians&) const noexcept = default;
-    constexpr bool operator!=(const Guardians&) const noexcept = default;
 
     std::string message;
     // FYI: CreatureStack::count can be negative. Stacks with negative numbers of creatures will be
@@ -51,6 +50,8 @@ namespace h3m
   // Only appears in ObjectProperties<ObjectPropertiesType::MONSTER>.
   struct MessageAndTreasure
   {
+    constexpr bool operator==(const MessageAndTreasure&) const noexcept = default;
+
     std::string message;
     // The amount for each resource can be negative, but the logic is interesting:
     // * The Map Editor will display 0 if the amount is negative.
@@ -66,7 +67,6 @@ namespace h3m
   struct EventBase
   {
     constexpr bool operator==(const EventBase&) const noexcept = default;
-    constexpr bool operator!=(const EventBase&) const noexcept = default;
 
     std::optional<Guardians> guardians;
     // The Map Editor only allows using values from [0; 99999999].
@@ -98,7 +98,6 @@ namespace h3m
   struct ObjectProperties<ObjectPropertiesType::ABANDONED_MINE>
   {
     constexpr bool operator==(const ObjectProperties&) const noexcept = default;
-    constexpr bool operator!=(const ObjectProperties&) const noexcept = default;
 
     ResourcesBitmask potential_resources;
     ReservedData<3> unknown;
@@ -108,7 +107,6 @@ namespace h3m
   struct ObjectProperties<ObjectPropertiesType::ARTIFACT>
   {
     constexpr bool operator==(const ObjectProperties&) const noexcept = default;
-    constexpr bool operator!=(const ObjectProperties&) const noexcept = default;
 
     std::optional<Guardians> guardians;
   };
@@ -117,7 +115,6 @@ namespace h3m
   struct ObjectProperties<ObjectPropertiesType::EVENT> : EventBase
   {
     constexpr bool operator==(const ObjectProperties&) const noexcept = default;
-    constexpr bool operator!=(const ObjectProperties&) const noexcept = default;
 
     PlayersBitmask affected_players;
     Bool applies_to_computer{};
@@ -129,7 +126,6 @@ namespace h3m
   struct ObjectProperties<ObjectPropertiesType::GARRISON>
   {
     constexpr bool operator==(const ObjectProperties&) const noexcept = default;
-    constexpr bool operator!=(const ObjectProperties&) const noexcept = default;
 
     // 0xFF means no owner.
     PlayerColor owner {};
@@ -145,14 +141,12 @@ namespace h3m
   struct ObjectProperties<ObjectPropertiesType::GENERIC_NO_PROPERTIES>
   {
     constexpr bool operator==(const ObjectProperties&) const noexcept = default;
-    constexpr bool operator!=(const ObjectProperties&) const noexcept = default;
   };
 
   template<>
   struct ObjectProperties<ObjectPropertiesType::GRAIL>
   {
     constexpr bool operator==(const ObjectProperties&) const noexcept = default;
-    constexpr bool operator!=(const ObjectProperties&) const noexcept = default;
 
     // The Map Editor only allows values from [0; 127], but any 8-bit integer can be used here.
     // The Map Editor interprets it as int8_t, but the game interprets it as uint8_t: 0xFF means 255, not -1.
@@ -181,7 +175,6 @@ namespace h3m
   struct ObjectProperties<ObjectPropertiesType::HERO>
   {
     constexpr bool operator==(const ObjectProperties&) const noexcept = default;
-    constexpr bool operator!=(const ObjectProperties&) const noexcept = default;
 
     std::uint32_t absod_id {};
     // Owner for HERO and RANDOM_HERO. For PRISON it is normally set to 0xFF (none); setting a different value doesn't
@@ -226,6 +219,8 @@ namespace h3m
   template<>
   struct ObjectProperties<ObjectPropertiesType::MONSTER>
   {
+    constexpr bool operator==(const ObjectProperties&) const noexcept = default;
+
     std::uint32_t absod_id {};
     // The Map Editor only allows values from [0; 4000] (0 means random), but any 16-bit integer can be used here.
     // However, in the game the number of creatures will be initialized with count % 4096 (4096 also means random),
@@ -242,7 +237,6 @@ namespace h3m
   struct ObjectProperties<ObjectPropertiesType::PANDORAS_BOX> : EventBase
   {
     constexpr bool operator==(const ObjectProperties&) const noexcept = default;
-    constexpr bool operator!=(const ObjectProperties&) const noexcept = default;
   };
 
   // Undocumented features:
@@ -259,6 +253,13 @@ namespace h3m
   template<>
   struct ObjectProperties<ObjectPropertiesType::PLACEHOLDER_HERO>
   {
+    constexpr bool operator==(const ObjectProperties& other) const noexcept
+    {
+      return (owner == other.owner) &&
+             (type == other.type) &&
+             ((type != HeroType{ 0xFF }) || (power_rating == other.power_rating));
+    }
+
     PlayerColor owner {};
     HeroType type {};
     // Only read/written if type == 0xFF.
@@ -269,7 +270,6 @@ namespace h3m
   struct ObjectProperties<ObjectPropertiesType::QUEST_GUARD>
   {
     constexpr bool operator==(const ObjectProperties&) const = default;
-    constexpr bool operator!=(const ObjectProperties&) const = default;
 
     Quest quest;
   };
@@ -314,7 +314,6 @@ namespace h3m
   struct ObjectProperties<ObjectPropertiesType::RESOURCE>
   {
     constexpr bool operator==(const ObjectProperties&) const noexcept = default;
-    constexpr bool operator!=(const ObjectProperties&) const noexcept = default;
 
     std::optional<Guardians> guardians;
     // Multiply by 100 for Gold (i.e. subclass 6); 0 means Random.
@@ -382,7 +381,6 @@ namespace h3m
   struct ObjectProperties<ObjectPropertiesType::SEERS_HUT>
   {
     constexpr bool operator==(const ObjectProperties&) const = default;
-    constexpr bool operator!=(const ObjectProperties&) const = default;
 
     Quest quest;
     Reward reward;
@@ -393,7 +391,6 @@ namespace h3m
   struct ObjectProperties<ObjectPropertiesType::SHRINE>
   {
     constexpr bool operator==(const ObjectProperties&) const noexcept = default;
-    constexpr bool operator!=(const ObjectProperties&) const noexcept = default;
 
     // 0xFF means random.
     SpellType spell {};
@@ -404,7 +401,6 @@ namespace h3m
   struct ObjectProperties<ObjectPropertiesType::SIGN>
   {
     constexpr bool operator==(const ObjectProperties&) const noexcept = default;
-    constexpr bool operator!=(const ObjectProperties&) const noexcept = default;
 
     // Empty string means random message.
     std::string message;
@@ -416,7 +412,6 @@ namespace h3m
   struct ObjectProperties<ObjectPropertiesType::SPELL_SCROLL>
   {
     constexpr bool operator==(const ObjectProperties&) const noexcept = default;
-    constexpr bool operator!=(const ObjectProperties&) const noexcept = default;
 
     std::optional<Guardians> guardians;
     // FYI: unlike SHRINE, 0xFF is not allowed here (causes the game to crash).
@@ -481,7 +476,6 @@ namespace h3m
   struct ObjectProperties<ObjectPropertiesType::TRIVIAL_OWNED_OBJECT>
   {
     constexpr bool operator==(const ObjectProperties&) const noexcept = default;
-    constexpr bool operator!=(const ObjectProperties&) const noexcept = default;
 
     // 0xFF means that there is no owner.
     PlayerColor owner {};
@@ -492,7 +486,6 @@ namespace h3m
   struct ObjectProperties<ObjectPropertiesType::WITCH_HUT>
   {
     constexpr bool operator==(const ObjectProperties&) const noexcept = default;
-    constexpr bool operator!=(const ObjectProperties&) const noexcept = default;
 
     // Normally, the Witch Hut grants you one of the enabled skills from `potential_skills` except those
     // that are disabled globally (see MapAdditionalInfo::disabled_skills).

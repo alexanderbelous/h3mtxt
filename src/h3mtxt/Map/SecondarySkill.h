@@ -9,7 +9,6 @@ namespace h3m
   struct SecondarySkill
   {
     constexpr bool operator==(const SecondarySkill&) const noexcept = default;
-    constexpr bool operator!=(const SecondarySkill&) const noexcept = default;
 
     SecondarySkillType type {};
     // Normally, the level should be within [1; 3] (basic, advanced, expert).

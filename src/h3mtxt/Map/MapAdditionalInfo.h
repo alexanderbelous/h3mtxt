@@ -26,8 +26,6 @@ namespace h3m
   {
     constexpr bool operator==(const CustomHero&) const noexcept = default;
 
-    constexpr bool operator!=(const CustomHero&) const noexcept = default;
-
     HeroType type{};
     // 0xFF for default.
     HeroPortrait portrait = HeroPortrait::Default;
@@ -40,8 +38,6 @@ namespace h3m
   struct Rumor
   {
     constexpr bool operator==(const Rumor&) const noexcept = default;
-
-    constexpr bool operator!=(const Rumor&) const noexcept = default;
 
     std::string name;
     std::string description;
@@ -73,8 +69,6 @@ namespace h3m
 
     bool operator==(const HeroesSettings&) const = default;
 
-    bool operator!=(const HeroesSettings&) const = default;
-
   private:
     std::map<HeroType, HeroSettings> settings_;
   };
@@ -82,8 +76,6 @@ namespace h3m
   struct MapAdditionalInfo
   {
     bool operator==(const MapAdditionalInfo&) const = default;
-
-    bool operator!=(const MapAdditionalInfo&) const = default;
 
     VictoryCondition victory_condition {};
     LossCondition loss_condition {};

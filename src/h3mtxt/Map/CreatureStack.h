@@ -14,7 +14,6 @@ namespace h3m
   struct CreatureStack
   {
     constexpr bool operator==(const CreatureStack&) const noexcept = default;
-    constexpr bool operator!=(const CreatureStack&) const noexcept = default;
 
     // 0xFFFF means "no creature".
     CreatureType type {0xFFFF};
