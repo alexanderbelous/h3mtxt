@@ -18,24 +18,7 @@ namespace h3m
     {
       const std::byte* const first = data.data();
       const std::byte* const last = first + data.size();
-      // std::all_of() may throw an exception if it chooses to allocate memory and fails to do so.
-      // However, it doesn't make sense to throw exceptions from this function, so we just fall
-      // back to the naive implementation if that happens.
-      try
-      {
-        return std::all_of(first, last, [](std::byte value) noexcept { return value == std::byte{ 0 }; });
-      }
-      catch (...)
-      {
-        for (std::byte value : data)
-        {
-          if (value != std::byte{0})
-          {
-            return false;
-          }
-        }
-        return true;
-      }
+      return std::all_of(first, last, [](std::byte value) noexcept { return value == std::byte{ 0 }; });
     }
 
     // Checks if 2 (possibly implicit) byte arrays are equal.
@@ -61,26 +44,8 @@ namespace h3m
       {
         return isAllZeros(std::span<const std::byte>{lhs, num_bytes});
       }
-      // Otherwise (if both are explicit), compare the bytes in @this and @other.
-      //
-      // std::equal() may throw an exception if it chooses to allocate memory and fails to do so.
-      // However, it doesn't make sense to throw exceptions from this function, so we just fall
-      // back to the naive implementation if that happens.
-      try
-      {
-        return std::equal(lhs, lhs + num_bytes, rhs);
-      }
-      catch (...)
-      {
-        for (std::size_t i = 0; i < num_bytes; ++i)
-        {
-          if (lhs[i] != rhs[i])
-          {
-            return false;
-          }
-        }
-        return true;
-      }
+      // Otherwise (if both are explicit), compare the bytes in @lhs and @rhs.
+      return std::equal(lhs, lhs + num_bytes, rhs);
     }
 
     // Storage for ReservedData.
@@ -102,17 +67,20 @@ namespace h3m
       // Copy assignment operator.
       ReservedDataStorage& operator=(const ReservedDataStorage& other)
       {
-        if (!other.data_)
+        if (this != &other)
         {
-          data_ = nullptr;
-        }
-        else
-        {
-          if (!data_)
+          if (!other.data_)
           {
-            data_ = std::make_unique_for_overwrite<std::byte[]>(NumBytes);
+            data_ = nullptr;
           }
-          std::copy_n(data_.get(), NumBytes, other.data_.get());
+          else
+          {
+            if (!data_)
+            {
+              data_ = std::make_unique_for_overwrite<std::byte[]>(NumBytes);
+            }
+            std::copy_n(data_.get(), NumBytes, other.data_.get());
+          }
         }
         return *this;
       }
