@@ -302,6 +302,8 @@ namespace h3m
   template<>
   struct ObjectProperties<ObjectPropertiesType::RANDOM_DWELLING_PRESET_ALIGNMENT>
   {
+    constexpr bool operator==(const ObjectProperties&) const noexcept = default;
+
     // 0xFF if none.
     std::uint32_t owner {};
     std::uint8_t min_level {};
@@ -311,6 +313,13 @@ namespace h3m
   template<>
   struct ObjectProperties<ObjectPropertiesType::RANDOM_DWELLING_PRESET_LEVEL>
   {
+    constexpr bool operator==(const ObjectProperties& other) const noexcept
+    {
+      return (owner == other.owner) &&
+             (town_absod_id == other.town_absod_id) &&
+             ((town_absod_id != 0) || (alignment == other.alignment));
+    }
+
     // 0xFF if none.
     std::uint32_t owner {};
     // absod_id of the town ("Random Dwelling Properties" -> "Alignment" -> "Same as").
@@ -338,6 +347,8 @@ namespace h3m
   {
     // Type-safe union of types that can be used as the value of the reward given by the Scholar.
     using ScholarReward = std::variant<PrimarySkillType, SecondarySkillType, SpellType, ScholarRandomRewardType>;
+
+    constexpr bool operator==(const ObjectProperties&) const noexcept = default;
 
     // \return the type of the reward.
     constexpr ScholarRewardType rewardType() const noexcept
