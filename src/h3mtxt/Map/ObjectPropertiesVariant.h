@@ -57,6 +57,22 @@ namespace h3m
 
       ~NonInlineAlternative() = default;
 
+      bool operator==(const NonInlineAlternative& other) const
+      {
+        // If comparing with self or if both are in a moved-from state -> return true.
+        if (impl_.get() == other.impl_.get())
+        {
+          return true;
+        }
+        // Otherwise, if neither is in a moved-from state -> compare the stored values.
+        if (impl_ != nullptr && other.impl_ != nullptr)
+        {
+          return *impl_ == *other.impl_;
+        }
+        // Otherwise (if either *this or @other is in a moved-from state) -> return false.
+        return false;
+      }
+
       T& value() &
       {
         return valueImpl();
@@ -153,6 +169,8 @@ namespace h3m
       noexcept(std::is_nothrow_move_assignable_v<Detail_NS::ObjectPropertiesVariantImpl>);
 
     ~ObjectPropertiesVariant() = default;
+
+    bool operator==(const ObjectPropertiesVariant&) const noexcept = default;
 
     // \return ObjectPropertiesType of the stored ObjectProperties.
     constexpr ObjectPropertiesType type() const noexcept;

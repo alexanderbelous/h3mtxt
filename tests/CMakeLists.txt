@@ -8,6 +8,7 @@ add_executable(h3mtxt_tests
     "LossCondition.cpp"
     "MapAdditionalInfo.cpp"
     "MapBasicInfo.cpp"
+    "Object.cpp"
     "ObjectProperties.cpp"
     "ObjectTemplate.cpp"
     "PlayerSpecs.cpp"

@@ -11,6 +11,8 @@ namespace h3m
   // Represents an object on the Adventure Map.
   struct Object
   {
+    bool operator==(const Object&) const noexcept = default;
+
     // Coordinates of the bottom right corner.
     Coordinates coordinates;
     // 0-based index of the corresponding ObjectTemplate in Map.objects_templates.
