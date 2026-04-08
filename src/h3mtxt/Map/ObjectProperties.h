@@ -14,6 +14,7 @@
 #include <h3mtxt/Map/Constants/ScholarRewardType.h>
 #include <h3mtxt/Map/Constants/SecondarySkillType.h>
 #include <h3mtxt/Map/Constants/SpellType.h>
+#include <h3mtxt/Map/Constants/TownType.h>
 #include <h3mtxt/Map/Utils/EnumBitmask.h>
 #include <h3mtxt/Map/Utils/EnumIndexedArray.h>
 #include <h3mtxt/Map/Utils/ReservedData.h>
@@ -269,7 +270,7 @@ namespace h3m
   template<>
   struct ObjectProperties<ObjectPropertiesType::QUEST_GUARD>
   {
-    constexpr bool operator==(const ObjectProperties&) const = default;
+    constexpr bool operator==(const ObjectProperties&) const noexcept = default;
 
     Quest quest;
   };
@@ -277,6 +278,15 @@ namespace h3m
   template<>
   struct ObjectProperties<ObjectPropertiesType::RANDOM_DWELLING>
   {
+    constexpr bool operator==(const ObjectProperties& other) const noexcept
+    {
+      return (owner == other.owner) &&
+             (town_absod_id == other.town_absod_id) &&
+             ((town_absod_id != 0) || (alignment == other.alignment)) &&
+             (min_level == other.min_level) &&
+             (max_level == other.max_level);
+    }
+
     // 0xFF if none.
     std::uint32_t owner {};
     // absod_id of the town ("Random Dwelling Properties" -> "Alignment" -> "Same as").
@@ -380,7 +390,7 @@ namespace h3m
   template<>
   struct ObjectProperties<ObjectPropertiesType::SEERS_HUT>
   {
-    constexpr bool operator==(const ObjectProperties&) const = default;
+    constexpr bool operator==(const ObjectProperties&) const noexcept = default;
 
     Quest quest;
     Reward reward;

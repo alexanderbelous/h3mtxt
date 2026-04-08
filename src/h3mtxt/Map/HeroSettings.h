@@ -21,7 +21,7 @@ namespace h3m
   // is changed, a CustomHero is created and stored in MapAdditionalInfo.
   struct HeroSettings
   {
-    constexpr bool operator==(const HeroSettings&) const = default;
+    constexpr bool operator==(const HeroSettings&) const noexcept = default;
 
     // Note that experience points can be negative.
     std::optional<std::int32_t> experience;

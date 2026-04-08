@@ -556,6 +556,52 @@ namespace h3m
     REQUIRE(decodeObjectProperties<ObjectPropertiesType::QUEST_GUARD>(kBinaryData) == kProperties);
   }
 
+  TEST_CASE("H3M.ObjectProperties.RandomDwelling", "[H3M]")
+  {
+    SECTION("Tied to town")
+    {
+      const ObjectProperties<ObjectPropertiesType::RANDOM_DWELLING> kProperties = {
+        .owner = static_cast<std::uint32_t>(PlayerColor::Green),
+        .town_absod_id = 2026,
+        .min_level = 4,
+        .max_level = 6
+      };
+      static constexpr char kBinaryDataCStr[] =
+        "\x03\x00\x00\x00" // owner
+        "\xea\x07\x00\x00" // town_absod_id
+        "\x04"             // min_level
+        "\x06";            // max_level
+      static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
+      REQUIRE(asByteVector(encodeObjectProperties(kProperties)) == asByteVector(kBinaryData));
+      REQUIRE(decodeObjectProperties<ObjectPropertiesType::RANDOM_DWELLING>(kBinaryData) == kProperties);
+    }
+    SECTION("Not tied to town")
+    {
+      const ObjectProperties<ObjectPropertiesType::RANDOM_DWELLING> kProperties = {
+        .owner = static_cast<std::uint32_t>(PlayerColor::Green),
+        .town_absod_id = 0,
+        .alignment = []() consteval {
+          TownsBitmask bitmask;
+          bitmask.set(TownType::Rampart, true);
+          bitmask.set(TownType::Dungeon, true);
+          bitmask.set(TownType::Conflux, true);
+          return bitmask;
+        }(),
+        .min_level = 4,
+        .max_level = 6
+      };
+      static constexpr char kBinaryDataCStr[] =
+        "\x03\x00\x00\x00" // owner
+        "\x00\x00\x00\x00" // town_absod_id
+        "\x22\x01"         // alignment
+        "\x04"             // min_level
+        "\x06";            // max_level
+      static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
+      REQUIRE(asByteVector(encodeObjectProperties(kProperties)) == asByteVector(kBinaryData));
+      REQUIRE(decodeObjectProperties<ObjectPropertiesType::RANDOM_DWELLING>(kBinaryData) == kProperties);
+    }
+  }
+
   TEST_CASE("H3M.ObjectProperties.Resource", "[H3M]")
   {
     SECTION("No guardians")
