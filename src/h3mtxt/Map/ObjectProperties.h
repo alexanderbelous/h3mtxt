@@ -180,6 +180,9 @@ namespace h3m
   template<>
   struct ObjectProperties<ObjectPropertiesType::HERO>
   {
+    constexpr bool operator==(const ObjectProperties&) const noexcept = default;
+    constexpr bool operator!=(const ObjectProperties&) const noexcept = default;
+
     std::uint32_t absod_id {};
     // Owner for HERO and RANDOM_HERO. For PRISON it is normally set to 0xFF (none); setting a different value doesn't
     // seem to have any effect - you will still become the owner when you release the hero from the prison.
@@ -187,7 +190,7 @@ namespace h3m
     // 0xFF if random.
     HeroType type {};
     std::optional<std::string> name;
-    // Note: in RoE/AB experience is not optional.
+    // Note: in RoE/AB experience was not optional.
     std::optional<std::int32_t> experience;
     std::optional<HeroPortrait> portrait;
     // The size of the vector is serialized as uint32.

@@ -272,6 +272,105 @@ namespace h3m
     REQUIRE(decodeObjectProperties<ObjectPropertiesType::GRAIL>(kBinaryData) == kProperties);
   }
 
+  TEST_CASE("H3M.ObjectProperties.Hero", "[H3M]")
+  {
+    // TODO: ideally, I should add tests for each optional field when it's missing.
+    const ObjectProperties<ObjectPropertiesType::HERO> kProperties = {
+      .absod_id = 24601,
+      .owner = PlayerColor::Green,
+      .type = HeroType::Vokial,
+      .name = "Edward",
+      .experience = 10000,
+      .portrait = HeroPortrait::LordHaart,
+      .secondary_skills = std::vector<SecondarySkill>{
+        SecondarySkill{.type = SecondarySkillType::Diplomacy, .level = 3},
+        SecondarySkill{.type = SecondarySkillType::EagleEye, .level = 3}
+      },
+      .creatures = std::array<CreatureStack, 7>{
+        CreatureStack{.type = CreatureType::Sprite, .count = 1},
+        CreatureStack{},
+        CreatureStack{},
+        CreatureStack{},
+        CreatureStack{},
+        CreatureStack{},
+        CreatureStack{},
+      },
+      .formation = Formation::Grouped,
+      .artifacts = HeroArtifacts{
+        .equipped = []() consteval {
+          auto artifacts = HeroArtifacts::kNoEquippedArtifacts;
+          artifacts[ArtifactSlot::Shoulders] = ArtifactType::EverflowingCrystalCloak;
+          return artifacts;
+        }(),
+        .backpack = {ArtifactType::RingOfInfiniteGems}
+      },
+      .patrol_radius = 10,
+      .biography = "Sparkling vampire",
+      .gender = Gender::Male,
+      .spells = []() consteval {
+        SpellsBitmask bitmask;
+        bitmask.set(SpellType::Bloodlust, true);
+        return bitmask;
+      }(),
+      .primary_skills = PrimarySkills{
+        .attack = 10,
+        .defense = 10,
+        .spell_power = 1,
+        .knowledge = 3
+      },
+      .unknown = ReservedData<16>{}
+    };
+    static constexpr char kBinaryDataCStr[] =
+      "\x19\x60\x00\x00"                              // absod_id
+      "\x03"                                          // owner
+      "\x41"                                          // type
+      "\x01" "\x06\x00\x00\x00" "Edward"              // name
+      "\x01" "\x10\x27\x00\x00"                       // experience
+      "\x01" "\x04"                                   // portrait
+      "\x01" "\x02\x00\x00\x00" "\x04\x03" "\x0b\x03" // secondary_skills
+      "\x01"                                          // creatures
+      "\x77\x00" "\x01\x00"
+      "\xff\xff" "\x00\x00"
+      "\xff\xff" "\x00\x00"
+      "\xff\xff" "\x00\x00"
+      "\xff\xff" "\x00\x00"
+      "\xff\xff" "\x00\x00"
+      "\xff\xff" "\x00\x00"
+      "\x01"                                          // formation
+      "\x01"                                          // artifacts
+      "\xff\xff"                                      //   Head
+      "\x6d\x00"                                      //   Shoulders
+      "\xff\xff"                                      //   Neck
+      "\xff\xff"                                      //   RightHand
+      "\xff\xff"                                      //   LeftHand
+      "\xff\xff"                                      //   Torso
+      "\xff\xff"                                      //   RightRing
+      "\xff\xff"                                      //   LeftRing
+      "\xff\xff"                                      //   Feet
+      "\xff\xff"                                      //   Misc1
+      "\xff\xff"                                      //   Misc2
+      "\xff\xff"                                      //   Misc3
+      "\xff\xff"                                      //   Misc4
+      "\xff\xff"                                      //   WarMachine1
+      "\xff\xff"                                      //   WarMachine2
+      "\xff\xff"                                      //   WarMachine3
+      "\xff\xff"                                      //   WarMachine4
+      "\xff\xff"                                      //   Spellbook
+      "\xff\xff"                                      //   Misc5
+      "\x01\x00" "\x6e\x00"                           //   backpack
+      "\x0a"                                          // patrol_radius
+      "\x01" "\x11\x00\x00\x00" "Sparkling vampire"   // biography
+      "\x00"                                          // gender
+      "\x01" "\x00\x00\x00\x00\x00\x08\x00\x00\x00"   // spells
+      "\x01" "\x0a\x0a\x01\x03"                       // primary_skills
+      "\x00\x00\x00\x00\x00\x00\x00\x00"              // unknown
+      "\x00\x00\x00\x00\x00\x00\x00\x00";
+    static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
+
+    REQUIRE(asByteVector(encodeObjectProperties(kProperties)) == asByteVector(kBinaryData));
+    REQUIRE(decodeObjectProperties<ObjectPropertiesType::HERO>(kBinaryData) == kProperties);
+  }
+
   TEST_CASE("H3M.ObjectProperties.PandorasBox", "[H3M]")
   {
     const ObjectProperties<ObjectPropertiesType::PANDORAS_BOX> kProperties = {
