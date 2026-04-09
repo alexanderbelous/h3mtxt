@@ -1,7 +1,6 @@
 #include <h3mtxt/H3Writer/H3WriterBase/H3WriterBase.h>
 
 #include <algorithm>
-#include <bit>
 #include <climits>
 #include <iterator>
 #include <ostream>
@@ -28,20 +27,12 @@ namespace h3mtxt
 
   void H3WriterBase::writeUintImpl(std::uintmax_t value, std::size_t num_bytes) const
   {
-    if constexpr (std::endian::native == std::endian::little)
+    constexpr std::uintmax_t kMask = 0xFF;
+    for (std::size_t i = 0; i < num_bytes; ++i)
     {
-      // Optimization for little-endian platforms.
-      writeByteArrayImpl(std::span<const std::byte>{reinterpret_cast<const std::byte*>(&value), num_bytes});
-    }
-    else
-    {
-      constexpr std::uintmax_t kMask = 0xFF;
-      for (std::size_t i = 0; i < num_bytes; ++i)
-      {
-        const std::uint8_t byte = static_cast<std::uint8_t>(value & kMask);
-        writeByte(static_cast<std::byte>(byte));
-        value >>= 8;
-      }
+      const std::uint8_t byte = static_cast<std::uint8_t>(value & kMask);
+      writeByte(static_cast<std::byte>(byte));
+      value >>= 8;
     }
   }
 
