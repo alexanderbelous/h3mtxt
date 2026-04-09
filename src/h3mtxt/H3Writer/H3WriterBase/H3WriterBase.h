@@ -125,7 +125,7 @@ namespace h3mtxt
     void writeByte(std::byte value) const;
 
     // Writes a little-endian unsigned integer.
-    void writeUintImpl(std::uintmax_t value, unsigned int num_bytes) const;
+    void writeUintImpl(std::uintmax_t value, std::size_t num_bytes) const;
 
     // Writes a fixed-width array of bytes.
     void writeByteArrayImpl(std::span<const std::byte> data) const;
@@ -141,6 +141,8 @@ namespace h3mtxt
                    !std::is_same_v<std::remove_cvref_t<T>, bool>>
   H3WriterBase::writeData(const T& number) const
   {
+    static_assert(sizeof(T) <= sizeof(std::uintmax_t), "Integer type T is too wide.");
+
     if constexpr (sizeof(T) == 1)
     {
       writeByte(static_cast<std::byte>(number));
