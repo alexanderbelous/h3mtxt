@@ -1,1 +1,2 @@
+add_subdirectory(river_sprites_cheatsheet)
 add_subdirectory(terrain_sprites_cheatsheet)
