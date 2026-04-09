@@ -25,10 +25,10 @@ namespace h3mtxt
     stream_.put(static_cast<char>(value));
   }
 
-  void H3WriterBase::writeUintImpl(std::uintmax_t value, unsigned int num_bytes) const
+  void H3WriterBase::writeUintImpl(std::uintmax_t value, std::size_t num_bytes) const
   {
     constexpr std::uintmax_t kMask = 0xFF;
-    for (unsigned int i = 0; i < num_bytes; ++i)
+    for (std::size_t i = 0; i < num_bytes; ++i)
     {
       const std::uint8_t byte = static_cast<std::uint8_t>(value & kMask);
       writeByte(static_cast<std::byte>(byte));

@@ -6,6 +6,7 @@
 #include <h3mtxt/Map/Utils/ReservedData.h>
 
 #include <array>
+#include <bit>
 #include <cstddef>
 #include <cstdint>
 #include <iosfwd>
@@ -125,7 +126,9 @@ namespace h3mtxt
     void writeByte(std::byte value) const;
 
     // Writes a little-endian unsigned integer.
-    void writeUintImpl(std::uintmax_t value, unsigned int num_bytes) const;
+    //
+    // FYI: This function is not used on little-endian platforms.
+    void writeUintImpl(std::uintmax_t value, std::size_t num_bytes) const;
 
     // Writes a fixed-width array of bytes.
     void writeByteArrayImpl(std::span<const std::byte> data) const;
@@ -143,10 +146,19 @@ namespace h3mtxt
   {
     if constexpr (sizeof(T) == 1)
     {
+      // Optimization for types T that occupy exactly 1 byte.
       writeByte(static_cast<std::byte>(number));
+    }
+    else if constexpr (std::endian::native == std::endian::little)
+    {
+      // Optimization for little-endian platforms.
+      writeByteArrayImpl(std::span<const std::byte>{reinterpret_cast<const std::byte*>(&number), sizeof(T)});
     }
     else
     {
+      static_assert(sizeof(T) <= sizeof(std::uintmax_t), "Integer type T is too wide.");
+
+      // Optimization not possible, we'll have to write the bytes one by one.
       // TODO: this is likely redundant, just cast to uintmax_t.
       // Widest integer type with the same signedness as T.
       using WidestInteger = std::conditional_t<std::is_signed_v<T>, std::intmax_t, std::uintmax_t>;
@@ -175,7 +187,7 @@ namespace h3mtxt
   template<std::size_t NumBytes>
   void H3WriterBase::writeData(const h3m::BitSet<NumBytes>& bitset) const
   {
-    writeByteArrayImpl(std::as_bytes(std::span<const std::uint8_t, NumBytes>{bitset.data}));
+    writeData(bitset.data);
   }
 
   template<class Enum, std::size_t NumBytes>
@@ -205,8 +217,9 @@ namespace h3mtxt
                     std::is_enum_v<std::remove_cvref_t<T>>>
   H3WriterBase::writeSpan(std::span<const T> values) const
   {
-    if constexpr (sizeof(T) == 1)
+    if constexpr ((sizeof(T) == 1) || (std::endian::native == std::endian::little))
     {
+      // Optimization for little-endian platforms and for types T that occupy exactly 1 byte.
       writeByteArrayImpl(std::as_bytes(values));
     }
     else

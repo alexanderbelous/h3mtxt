@@ -1,6 +1,5 @@
 #pragma once
 
-#include <h3mtxt/H3Reader/H3ReaderBase/IntegerWidth.h>
 #include <h3mtxt/Map/MapFwd.h>
 #include <h3mtxt/Map/Utils/BitSet.h>
 #include <h3mtxt/Map/Utils/EnumBitmask.h>
@@ -13,7 +12,6 @@
 #include <span>
 #include <string>
 #include <type_traits>
-#include <utility>
 
 namespace h3m
 {
@@ -80,6 +78,15 @@ namespace h3m
     EnumBitmask<Enum, NumBytes> readEnumBitmask() const;
 
   private:
+    // Type of the integer returned by readUintImpl().
+    // FYI: technically, this can be replaced with an extended integer type like std::uint128_t. However,
+    // such types are not required to be supported by the C++ Standard.
+    // HoMM3 never uses integers wider than 32 bits, so this shouldn't be an issue anyway.
+    using WidestUInt = std::uintmax_t;
+
+    static_assert(std::is_integral_v<WidestUInt>, "WidestUInt must be an integer type.");
+    static_assert(std::is_unsigned_v<WidestUInt>, "WidestUInt must be an unsigned integer type.");
+
     // Reads a single byte from the stream.
     std::byte readByte() const;
 
@@ -87,7 +94,7 @@ namespace h3m
     // \param stream - input binary stream.
     // \param width - the width of the integer type in bytes.
     // \return the parsed integer.
-    std::uintmax_t readUintImpl(Detail_NS::IntegerWidth width) const;
+    WidestUInt readUintImpl(std::size_t width) const;
 
   protected:
     // Stream to read the data from.
@@ -117,13 +124,15 @@ namespace h3m
   T H3ReaderBase::readInt() const
   {
     static_assert(std::is_integral_v<T>, "T must be an integral type.");
+    static_assert(sizeof(T) <= sizeof(WidestUInt), "The integer type T is too wide.");
+
     if constexpr (sizeof(T) == 1)
     {
       return static_cast<T>(readByte());
     }
     else
     {
-      return static_cast<T>(readUintImpl(Detail_NS::IntegerWidth(std::in_place_type<T>)));
+      return static_cast<T>(readUintImpl(sizeof(T)));
     }
   }
 
