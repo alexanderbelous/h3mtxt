@@ -18,6 +18,8 @@ namespace h3m
     Rock = 9,
   };
 
+  inline constexpr std::uint8_t kNumTerrainTypes = 10;
+
   // Returns the number of valid sprites for the specified terrain.
   //
   // Sprites for TerrainType::Water:

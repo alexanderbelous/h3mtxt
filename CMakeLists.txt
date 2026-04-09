@@ -83,5 +83,15 @@ if(H3MTXT_BUILD_TESTS)
   unset(CMAKE_FOLDER)
 endif()
 
+# Examples are disabled by default.
+# This can be overridden from the command line, e.g., "cmake -S . -B build -DH3MTXT_BUILD_EXAMPLES=ON"
+option(H3MTXT_BUILD_EXAMPLES "Build examples for h3mtxt." OFF)
+# Add the subdirectory with examples, if needed.
+if(H3MTXT_BUILD_EXAMPLES)
+  set(CMAKE_FOLDER examples)
+  add_subdirectory(examples)
+  unset(CMAKE_FOLDER)
+endif()
+
 # Installation rule for h3mtxt binary.
 install(TARGETS h3mtxt)
