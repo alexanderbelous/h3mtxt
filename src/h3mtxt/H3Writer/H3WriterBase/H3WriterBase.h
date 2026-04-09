@@ -6,6 +6,7 @@
 #include <h3mtxt/Map/Utils/ReservedData.h>
 
 #include <array>
+#include <bit>
 #include <cstddef>
 #include <cstdint>
 #include <iosfwd>
@@ -207,8 +208,9 @@ namespace h3mtxt
                     std::is_enum_v<std::remove_cvref_t<T>>>
   H3WriterBase::writeSpan(std::span<const T> values) const
   {
-    if constexpr (sizeof(T) == 1)
+    if constexpr ((sizeof(T) == 1) || (std::endian::native == std::endian::little))
     {
+      // Optimization for little-endian platforms and for types T that occupy exactly 1 byte.
       writeByteArrayImpl(std::as_bytes(values));
     }
     else
