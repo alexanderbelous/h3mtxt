@@ -98,7 +98,7 @@ namespace h3m
     // If both can_be_computer == 0 and can_be_human == 0, then this player will not be present
     // on the map at all.
     Bool can_be_computer {};
-    PlayerBehavior behavior {};
+    PlayerBehavior behavior = PlayerBehavior::Random;
     // True if the player's alignment is customized, false otherwise.
     // This reflects the state of the "Customize" checkbox in "Map Specifications/Player Specs/Allowed alignments".
     Bool has_customized_alignments {};
@@ -142,7 +142,7 @@ namespace h3m
     StartingHero starting_hero;
     // The number of non-specific placeholder heroes (i.e. configured as "Power Rating" rather than "Specific hero")
     // at the beginning of the game.
-    std::uint8_t num_nonspecific_placeholder_heroes {};
+    std::uint8_t num_nonspecific_placeholder_heroes = 0;
     // Specific heroes that the player has at the beginning of the game:
     // * Includes Visiting heroes and regular hero objects (not random).
     // * Includes placeholder heroes configured as "Specific hero" rather than "Power rating".

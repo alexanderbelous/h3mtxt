@@ -195,7 +195,7 @@ namespace h3m
     // 0xFFFF in CreatureStack::type means no creature.
     // If CreatureStack::count <= 0 for any slot, this slot will become empty when the game starts.
     std::optional<std::array<CreatureStack, 7>> creatures;
-    Formation formation {};
+    Formation formation = Formation::Spread;
     std::optional<HeroArtifacts> artifacts;
     // The Map Editor only allows values from [0; 10] or 0xFF (no patrol).
     // 0 means that the enemy hero will stand still.
@@ -205,9 +205,9 @@ namespace h3m
     // Undocumented features:
     // * Any value within [11; 127] is accepted by the game and interpreted as the radius of the patrol circle.
     // * All values outside [0; 127] are also accepted by the game, but they're equivalent to 0xFF (no patrol).
-    std::int8_t patrol_radius {};
+    std::int8_t patrol_radius = -1;
     std::optional<std::string> biography;
-    Gender gender {};
+    Gender gender = Gender::Default;
     std::optional<SpellsBitmask> spells;
     // Treated as uint8_t in the Map Editor; in the game they will be initialized as int8_t,
     // so 0xFF becomes -1.

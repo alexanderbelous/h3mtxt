@@ -24,7 +24,7 @@ namespace h3m
     // \return true if @this and @other represent the same Teams setup, false otherwise.
     constexpr bool operator==(const TeamsInfo& other) const noexcept;
 
-    std::uint8_t num_teams {};
+    std::uint8_t num_teams = 0;
     // This field is only read/written if num_teams != 0.
     // Each value should be < num_teams.
     EnumIndexedArray<PlayerColor, std::uint8_t, kMaxPlayers> team_for_player;

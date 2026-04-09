@@ -10,7 +10,7 @@ namespace h3m
 {
   struct MapBasicInfo
   {
-    constexpr bool operator==(const MapBasicInfo& other) const noexcept = default;
+    constexpr bool operator==(const MapBasicInfo&) const noexcept = default;
 
     // False if there are no heroes and towns on the map, true otherwise.
     Bool is_playable {};
@@ -31,7 +31,7 @@ namespace h3m
     // * "Scenario Information" will display the full text.
     std::string description;
     // Difficulty level.
-    MapDifficulty difficulty {};
+    MapDifficulty difficulty = MapDifficulty::Normal;
     // Maximum allowed level for all heroes. 0 means to limit.
     //
     // For "normal" levels (max_hero_level <= 74) this behaves as expected:
@@ -50,7 +50,7 @@ namespace h3m
     // | 187            | 108              |
     // | 247            | 108              |
     // +----------------+------------------+
-    std::uint8_t max_hero_level {};
+    std::uint8_t max_hero_level = 0;
   };
 
   // Computes the number of levels on the map.
