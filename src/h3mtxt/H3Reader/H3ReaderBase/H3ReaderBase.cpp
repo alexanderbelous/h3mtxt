@@ -28,17 +28,19 @@ namespace h3m
     }
   }
 
-  std::uintmax_t H3ReaderBase::readUintImpl(Detail_NS::IntegerWidth width) const
+  H3ReaderBase::WidestUInt H3ReaderBase::readUintImpl(std::size_t width) const
   {
-    std::array<std::byte, sizeof(std::uintmax_t)> buffer {};
-    const std::span<std::byte> data(buffer.data(), width.size());
+    std::array<std::byte, sizeof(WidestUInt)> buffer {};
+    // FYI: it is guaranteed that width <= sizeof(WidestUInt). This function is private,
+    // and the check has already been performed in readInt<T>().
+    const std::span<std::byte> data(buffer.data(), width);
     readBytes(data);
 
-    std::uintmax_t result = 0;
-    std::uintmax_t shift = 0;
+    WidestUInt result = 0;
+    WidestUInt shift = 0;
     for (std::byte byte : data)
     {
-      result |= (static_cast<std::uintmax_t>(byte) << shift);
+      result |= (static_cast<WidestUInt>(byte) << shift);
       shift += 8;
     }
     return result;

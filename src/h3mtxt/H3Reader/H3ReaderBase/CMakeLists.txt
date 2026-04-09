@@ -1,7 +1,6 @@
 add_library(H3ReaderBase STATIC
     "H3ReaderBase.h"
     "H3ReaderBase.cpp"
-    "IntegerWidth.h"
 )
 add_library(h3mtxt::H3ReaderBase ALIAS H3ReaderBase)
 
