@@ -3,8 +3,22 @@ add_subdirectory(thirdparty/Catch2 EXCLUDE_FROM_ALL)
 add_executable(h3mtxt_tests
     "parseJsonFromString.h"
     "parseJsonFromString.cpp"
+    "HeroArtifacts.cpp"
+    "HeroSettings.cpp"
+    "LossCondition.cpp"
+    "Map.cpp"
+    "MapAdditionalInfo.cpp"
     "MapBasicInfo.cpp"
+    "Object.cpp"
+    "ObjectProperties.cpp"
+    "ObjectTemplate.cpp"
+    "PlayerSpecs.cpp"
+    "Quest.cpp"
+    "ReservedData.cpp"
+    "Reward.cpp"
+    "TeamsInfo.cpp"
     "Tile.cpp"
+    "TimedEvent.cpp"
     "VictoryCondition.cpp"
 )
 
@@ -19,3 +33,6 @@ target_link_libraries(h3mtxt_tests PRIVATE Catch2::Catch2WithMain)
 
 # Set compiler options.
 h3mtxt_add_common_compiler_options(h3mtxt_tests)
+
+# Support for CTest
+add_test(NAME h3mtxt_tests COMMAND h3mtxt_tests)

@@ -6,7 +6,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 project(
   h3mtxt
-  VERSION 0.9.5
+  VERSION 0.9.6
   LANGUAGES CXX
 )
 
@@ -77,6 +77,7 @@ add_subdirectory(src)
 option(H3MTXT_BUILD_TESTS "Build tests for h3mtxt." OFF)
 # Add the subdirectory with tests, if needed.
 if(H3MTXT_BUILD_TESTS)
+  include(CTest)
   set(CMAKE_FOLDER tests)
   add_subdirectory(tests)
   unset(CMAKE_FOLDER)

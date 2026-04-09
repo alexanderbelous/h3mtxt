@@ -14,6 +14,8 @@ namespace h3m
   // HeroSettings and hero objects on the adventure map.
   struct PrimarySkills
   {
+    constexpr bool operator==(const PrimarySkills&) const noexcept = default;
+
     std::int8_t attack {};
     std::int8_t defense {};
     std::int8_t spell_power {};

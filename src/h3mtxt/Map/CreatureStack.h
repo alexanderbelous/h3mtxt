@@ -13,6 +13,8 @@ namespace h3m
   // The default-constructed CreatureStack represents an empty stack.
   struct CreatureStack
   {
+    constexpr bool operator==(const CreatureStack&) const noexcept = default;
+
     // 0xFFFF means "no creature".
     CreatureType type {0xFFFF};
     // The Map Editor only allows values from [1; 9999], but any signed 16-bit integer can be used here.

@@ -42,6 +42,8 @@ namespace h3m
     // \throw std::out_of_range if row >= kRows || column >= kColumns.
     constexpr void set(std::uint8_t row, std::uint8_t column, bool value);
 
+    constexpr bool operator==(const SpriteTilesBitmask&) const noexcept = default;
+
     std::array<std::uint8_t, 6> data {};
   };
 

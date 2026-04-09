@@ -6,10 +6,10 @@
 #include <h3mtxt/Map/Constants/HeroType.h>
 #include <h3mtxt/Map/Constants/PlayerColor.h>
 #include <h3mtxt/Map/Utils/EnumBitmask.h>
-#include <h3mtxt/Map/Utils/EnumIndexedArray.h>
 #include <h3mtxt/Map/Utils/ReservedData.h>
 #include <h3mtxt/Map/HeroSettings.h>
 #include <h3mtxt/Map/LossCondition.h>
+#include <h3mtxt/Map/TeamsInfo.h>
 #include <h3mtxt/Map/VictoryCondition.h>
 
 #include <array>
@@ -22,16 +22,10 @@
 
 namespace h3m
 {
-  struct TeamsInfo
-  {
-    std::uint8_t num_teams {};
-    // This field is only read/written if num_teams != 0.
-    // Each value should be < num_teams.
-    EnumIndexedArray<PlayerColor, std::uint8_t, kMaxPlayers> team_for_player;
-  };
-
   struct CustomHero
   {
+    constexpr bool operator==(const CustomHero&) const noexcept = default;
+
     HeroType type{};
     // 0xFF for default.
     HeroPortrait portrait = HeroPortrait::Default;
@@ -43,6 +37,8 @@ namespace h3m
 
   struct Rumor
   {
+    constexpr bool operator==(const Rumor&) const noexcept = default;
+
     std::string name;
     std::string description;
   };
@@ -71,8 +67,38 @@ namespace h3m
 
     inline const std::map<HeroType, HeroSettings>& settings() const noexcept;
 
+    bool operator==(const HeroesSettings&) const = default;
+
   private:
     std::map<HeroType, HeroSettings> settings_;
+  };
+
+  struct MapAdditionalInfo
+  {
+    bool operator==(const MapAdditionalInfo&) const = default;
+
+    VictoryCondition victory_condition {};
+    LossCondition loss_condition {};
+    TeamsInfo teams;
+    // 1 bit per hero:
+    // * 0 if the hero is disabled (Map Specifications -> Heroes in the Map Editor) or already placed on the map.
+    // * 1 otherwise.
+    HeroesBitmask heroes_availability;
+    std::vector<HeroType> placeholder_heroes;
+    std::vector<CustomHero> custom_heroes;
+    // Reserved data; 0s by default.
+    ReservedData<31> reserved {};
+    // 1 bit per artifact; 1 means disabled, 0 means enabled.
+    // Spell Book, War Machines and Grail are not affected by this bitmask: they are enabled by default
+    // by the Map Editor, but you will be able to purchase them (or dig them out in case of Grail) even
+    // if you disable them manually.
+    ArtifactsBitmask disabled_artifacts;
+    // 1 bit per spell; 1 means disabled, 0 means enabled.
+    SpellsBitmask disabled_spells;
+    // 1 bit per secondary skill; 1 means disabled, 0 means enabled.
+    SecondarySkillsBitmask disabled_skills;
+    std::vector<Rumor> rumors;
+    HeroesSettings heroes_settings {};
   };
 
   bool HeroesSettings::hasSettings(HeroType hero) const
@@ -103,30 +129,4 @@ namespace h3m
   {
     return settings_;
   }
-
-  struct MapAdditionalInfo
-  {
-    VictoryCondition victory_condition {};
-    LossCondition loss_condition {};
-    TeamsInfo teams;
-    // 1 bit per hero:
-    // * 0 if the hero is disabled (Map Specifications -> Heroes in the Map Editor) or already placed on the map.
-    // * 1 otherwise.
-    HeroesBitmask heroes_availability;
-    std::vector<HeroType> placeholder_heroes;
-    std::vector<CustomHero> custom_heroes;
-    // Reserved data; 0s by default.
-    ReservedData<31> reserved {};
-    // 1 bit per artifact; 1 means disabled, 0 means enabled.
-    // Spell Book, War Machines and Grail are not affected by this bitmask: they are enabled by default
-    // by the Map Editor, but you will be able to purchase them (or dig them out in case of Grail) even
-    // if you disable them manually.
-    ArtifactsBitmask disabled_artifacts;
-    // 1 bit per spell; 1 means disabled, 0 means enabled.
-    SpellsBitmask disabled_spells;
-    // 1 bit per secondary skill; 1 means disabled, 0 means enabled.
-    SecondarySkillsBitmask disabled_skills;
-    std::vector<Rumor> rumors;
-    HeroesSettings heroes_settings {};
-  };
 }

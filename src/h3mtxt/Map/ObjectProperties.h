@@ -14,6 +14,8 @@
 #include <h3mtxt/Map/Constants/ScholarRewardType.h>
 #include <h3mtxt/Map/Constants/SecondarySkillType.h>
 #include <h3mtxt/Map/Constants/SpellType.h>
+#include <h3mtxt/Map/Constants/TownBuildingType.h>
+#include <h3mtxt/Map/Constants/TownType.h>
 #include <h3mtxt/Map/Utils/EnumBitmask.h>
 #include <h3mtxt/Map/Utils/EnumIndexedArray.h>
 #include <h3mtxt/Map/Utils/ReservedData.h>
@@ -37,6 +39,8 @@ namespace h3m
   // Appears in ARTIFACT, EVENT, PANDORAS_BOX, RESOURCE, SPELL_SCROLL.
   struct Guardians
   {
+    constexpr bool operator==(const Guardians&) const noexcept = default;
+
     std::string message;
     // FYI: CreatureStack::count can be negative. Stacks with negative numbers of creatures will be
     // present on the battlefield, but the behavior is weird (such a stack can only move 1 hex during the 1st turn,
@@ -48,6 +52,8 @@ namespace h3m
   // Only appears in ObjectProperties<ObjectPropertiesType::MONSTER>.
   struct MessageAndTreasure
   {
+    constexpr bool operator==(const MessageAndTreasure&) const noexcept = default;
+
     std::string message;
     // The amount for each resource can be negative, but the logic is interesting:
     // * The Map Editor will display 0 if the amount is negative.
@@ -62,6 +68,8 @@ namespace h3m
   // ObjectProperties<ObjectPropertiesType::EVENT>.
   struct EventBase
   {
+    constexpr bool operator==(const EventBase&) const noexcept = default;
+
     std::optional<Guardians> guardians;
     // The Map Editor only allows using values from [0; 99999999].
     // Negative experience points are allowed, but the game ignores them (they have the same effect as 0).
@@ -91,6 +99,8 @@ namespace h3m
   template<>
   struct ObjectProperties<ObjectPropertiesType::ABANDONED_MINE>
   {
+    constexpr bool operator==(const ObjectProperties&) const noexcept = default;
+
     ResourcesBitmask potential_resources;
     ReservedData<3> unknown;
   };
@@ -98,21 +108,27 @@ namespace h3m
   template<>
   struct ObjectProperties<ObjectPropertiesType::ARTIFACT>
   {
+    constexpr bool operator==(const ObjectProperties&) const noexcept = default;
+
     std::optional<Guardians> guardians;
   };
 
   template<>
   struct ObjectProperties<ObjectPropertiesType::EVENT> : EventBase
   {
+    constexpr bool operator==(const ObjectProperties&) const noexcept = default;
+
     PlayersBitmask affected_players;
     Bool applies_to_computer{};
     Bool remove_after_first_visit{};
-    ReservedData<4> unknown2{};
+    ReservedData<4> unknown2;
   };
 
   template<>
   struct ObjectProperties<ObjectPropertiesType::GARRISON>
   {
+    constexpr bool operator==(const ObjectProperties&) const noexcept = default;
+
     // 0xFF means no owner.
     PlayerColor owner {};
     ReservedData<3> unknown;
@@ -126,11 +142,14 @@ namespace h3m
   template<>
   struct ObjectProperties<ObjectPropertiesType::GENERIC_NO_PROPERTIES>
   {
+    constexpr bool operator==(const ObjectProperties&) const noexcept = default;
   };
 
   template<>
   struct ObjectProperties<ObjectPropertiesType::GRAIL>
   {
+    constexpr bool operator==(const ObjectProperties&) const noexcept = default;
+
     // The Map Editor only allows values from [0; 127], but any 8-bit integer can be used here.
     // The Map Editor interprets it as int8_t, but the game interprets it as uint8_t: 0xFF means 255, not -1.
     std::uint8_t allowable_radius {};
@@ -157,6 +176,8 @@ namespace h3m
   template<>
   struct ObjectProperties<ObjectPropertiesType::HERO>
   {
+    constexpr bool operator==(const ObjectProperties&) const noexcept = default;
+
     std::uint32_t absod_id {};
     // Owner for HERO and RANDOM_HERO. For PRISON it is normally set to 0xFF (none); setting a different value doesn't
     // seem to have any effect - you will still become the owner when you release the hero from the prison.
@@ -164,7 +185,7 @@ namespace h3m
     // 0xFF if random.
     HeroType type {};
     std::optional<std::string> name;
-    // Note: in RoE/AB experience is not optional.
+    // Note: in RoE/AB experience was not optional.
     std::optional<std::int32_t> experience;
     std::optional<HeroPortrait> portrait;
     // The size of the vector is serialized as uint32.
@@ -174,7 +195,7 @@ namespace h3m
     // 0xFFFF in CreatureStack::type means no creature.
     // If CreatureStack::count <= 0 for any slot, this slot will become empty when the game starts.
     std::optional<std::array<CreatureStack, 7>> creatures;
-    Formation formation {};
+    Formation formation = Formation::Spread;
     std::optional<HeroArtifacts> artifacts;
     // The Map Editor only allows values from [0; 10] or 0xFF (no patrol).
     // 0 means that the enemy hero will stand still.
@@ -184,9 +205,9 @@ namespace h3m
     // Undocumented features:
     // * Any value within [11; 127] is accepted by the game and interpreted as the radius of the patrol circle.
     // * All values outside [0; 127] are also accepted by the game, but they're equivalent to 0xFF (no patrol).
-    std::int8_t patrol_radius {};
+    std::int8_t patrol_radius = -1;
     std::optional<std::string> biography;
-    Gender gender {};
+    Gender gender = Gender::Default;
     std::optional<SpellsBitmask> spells;
     // Treated as uint8_t in the Map Editor; in the game they will be initialized as int8_t,
     // so 0xFF becomes -1.
@@ -200,6 +221,8 @@ namespace h3m
   template<>
   struct ObjectProperties<ObjectPropertiesType::MONSTER>
   {
+    constexpr bool operator==(const ObjectProperties&) const noexcept = default;
+
     std::uint32_t absod_id {};
     // The Map Editor only allows values from [0; 4000] (0 means random), but any 16-bit integer can be used here.
     // However, in the game the number of creatures will be initialized with count % 4096 (4096 also means random),
@@ -215,6 +238,7 @@ namespace h3m
   template<>
   struct ObjectProperties<ObjectPropertiesType::PANDORAS_BOX> : EventBase
   {
+    constexpr bool operator==(const ObjectProperties&) const noexcept = default;
   };
 
   // Undocumented features:
@@ -231,6 +255,13 @@ namespace h3m
   template<>
   struct ObjectProperties<ObjectPropertiesType::PLACEHOLDER_HERO>
   {
+    constexpr bool operator==(const ObjectProperties& other) const noexcept
+    {
+      return (owner == other.owner) &&
+             (type == other.type) &&
+             ((type != HeroType{ 0xFF }) || (power_rating == other.power_rating));
+    }
+
     PlayerColor owner {};
     HeroType type {};
     // Only read/written if type == 0xFF.
@@ -240,12 +271,23 @@ namespace h3m
   template<>
   struct ObjectProperties<ObjectPropertiesType::QUEST_GUARD>
   {
+    constexpr bool operator==(const ObjectProperties&) const noexcept = default;
+
     Quest quest;
   };
 
   template<>
   struct ObjectProperties<ObjectPropertiesType::RANDOM_DWELLING>
   {
+    constexpr bool operator==(const ObjectProperties& other) const noexcept
+    {
+      return (owner == other.owner) &&
+             (town_absod_id == other.town_absod_id) &&
+             ((town_absod_id != 0) || (alignment == other.alignment)) &&
+             (min_level == other.min_level) &&
+             (max_level == other.max_level);
+    }
+
     // 0xFF if none.
     std::uint32_t owner {};
     // absod_id of the town ("Random Dwelling Properties" -> "Alignment" -> "Same as").
@@ -261,6 +303,8 @@ namespace h3m
   template<>
   struct ObjectProperties<ObjectPropertiesType::RANDOM_DWELLING_PRESET_ALIGNMENT>
   {
+    constexpr bool operator==(const ObjectProperties&) const noexcept = default;
+
     // 0xFF if none.
     std::uint32_t owner {};
     std::uint8_t min_level {};
@@ -270,6 +314,13 @@ namespace h3m
   template<>
   struct ObjectProperties<ObjectPropertiesType::RANDOM_DWELLING_PRESET_LEVEL>
   {
+    constexpr bool operator==(const ObjectProperties& other) const noexcept
+    {
+      return (owner == other.owner) &&
+             (town_absod_id == other.town_absod_id) &&
+             ((town_absod_id != 0) || (alignment == other.alignment));
+    }
+
     // 0xFF if none.
     std::uint32_t owner {};
     // absod_id of the town ("Random Dwelling Properties" -> "Alignment" -> "Same as").
@@ -282,6 +333,8 @@ namespace h3m
   template<>
   struct ObjectProperties<ObjectPropertiesType::RESOURCE>
   {
+    constexpr bool operator==(const ObjectProperties&) const noexcept = default;
+
     std::optional<Guardians> guardians;
     // Multiply by 100 for Gold (i.e. subclass 6); 0 means Random.
     // The Map Editor only allows setting a value within [1; 99999]. Values greater than 99999 are OK,
@@ -295,6 +348,8 @@ namespace h3m
   {
     // Type-safe union of types that can be used as the value of the reward given by the Scholar.
     using ScholarReward = std::variant<PrimarySkillType, SecondarySkillType, SpellType, ScholarRandomRewardType>;
+
+    constexpr bool operator==(const ObjectProperties&) const noexcept = default;
 
     // \return the type of the reward.
     constexpr ScholarRewardType rewardType() const noexcept
@@ -347,6 +402,8 @@ namespace h3m
   template<>
   struct ObjectProperties<ObjectPropertiesType::SEERS_HUT>
   {
+    constexpr bool operator==(const ObjectProperties&) const noexcept = default;
+
     Quest quest;
     Reward reward;
     ReservedData<2> unknown {};
@@ -355,6 +412,8 @@ namespace h3m
   template<>
   struct ObjectProperties<ObjectPropertiesType::SHRINE>
   {
+    constexpr bool operator==(const ObjectProperties&) const noexcept = default;
+
     // 0xFF means random.
     SpellType spell {};
     ReservedData<3> unknown;
@@ -363,6 +422,8 @@ namespace h3m
   template<>
   struct ObjectProperties<ObjectPropertiesType::SIGN>
   {
+    constexpr bool operator==(const ObjectProperties&) const noexcept = default;
+
     // Empty string means random message.
     std::string message;
     // Should be 0s.
@@ -372,6 +433,8 @@ namespace h3m
   template<>
   struct ObjectProperties<ObjectPropertiesType::SPELL_SCROLL>
   {
+    constexpr bool operator==(const ObjectProperties&) const noexcept = default;
+
     std::optional<Guardians> guardians;
     // FYI: unlike SHRINE, 0xFF is not allowed here (causes the game to crash).
     SpellType spell {};
@@ -380,6 +443,8 @@ namespace h3m
 
   struct TownBuildings
   {
+    constexpr bool operator==(const TownBuildings&) const noexcept = default;
+
     // Each bit indicates whether the building is built.
     TownBuildingsBitmask is_built {};
     // Each bit indicates whether the building is disabled.
@@ -388,6 +453,8 @@ namespace h3m
 
   struct TownEvent : TimedEvent
   {
+    constexpr bool operator==(const TownEvent&) const noexcept = default;
+
     // Each bit indicates whether the building gets built.
     TownBuildingsBitmask buildings;
     // Extra creatures for each creature level.
@@ -408,6 +475,8 @@ namespace h3m
   template<>
   struct ObjectProperties<ObjectPropertiesType::TOWN>
   {
+    constexpr bool operator==(const ObjectProperties&) const noexcept = default;
+
     std::uint32_t absod_id {};
     // 0xFF if none.
     PlayerColor owner {};
@@ -434,6 +503,8 @@ namespace h3m
   template<>
   struct ObjectProperties<ObjectPropertiesType::TRIVIAL_OWNED_OBJECT>
   {
+    constexpr bool operator==(const ObjectProperties&) const noexcept = default;
+
     // 0xFF means that there is no owner.
     PlayerColor owner {};
     ReservedData<3> unknown;
@@ -442,6 +513,8 @@ namespace h3m
   template<>
   struct ObjectProperties<ObjectPropertiesType::WITCH_HUT>
   {
+    constexpr bool operator==(const ObjectProperties&) const noexcept = default;
+
     // Normally, the Witch Hut grants you one of the enabled skills from `potential_skills` except those
     // that are disabled globally (see MapAdditionalInfo::disabled_skills).
     //

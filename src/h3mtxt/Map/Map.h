@@ -20,6 +20,16 @@ namespace h3m
   // Represents a *.h3m map.
   struct Map
   {
+    // Equality comparison.
+    //
+    // Two maps are considered equal if their representation in the H3M file format is identical.
+    // This function doesn't serialize the maps, though - instead, it compares the subobjects. This
+    // has lower space complexity (O(1)) and is guaranteed not to throw exceptions.
+    //
+    // \param other - map to compare with.
+    // \return true if *this is equal to @other, false otherwise.
+    bool operator==(const Map& other) const noexcept = default;
+
     // Format of the map ("Map Specifications"/"Map version" in the Editor).
     MapFormat format = MapFormat::ShadowOfDeath;
     // Basic information about the map ("Map Specifications"/"General" tab in the Editor).

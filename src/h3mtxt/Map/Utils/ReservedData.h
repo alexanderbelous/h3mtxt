@@ -12,6 +12,43 @@ namespace h3m
 {
   namespace Detail_NS
   {
+    // Checks if all bytes in the array are 0.
+    // \param data - input array.
+    // \return true if all bytes in @data are 0, false otherwise.
+    constexpr bool isAllZeros(std::span<const std::byte> data) noexcept
+    {
+      const std::byte* const first = data.data();
+      const std::byte* const last = first + data.size();
+      return std::all_of(first, last, [](std::byte value) noexcept { return value == std::byte{ 0 }; });
+    }
+
+    // Checks if 2 (possibly implicit) byte arrays are equal.
+    // \param num_bytes - the length of the array.
+    // \param lhs - pointer to the first array, or nullptr if it's implicit.
+    // \param rhs - pointer to the second array, or nullptr if it's implicit.
+    // \return true if the elements [0; num_bytes) of @lhs and @rhs are equal,
+    //         false otherwise.
+    constexpr bool areEqualByteArrays(std::size_t num_bytes, const std::byte* lhs, const std::byte* rhs) noexcept
+    {
+      // If both are implicit or if lhs == rhs -> return true.
+      if (lhs == rhs)
+      {
+        return true;
+      }
+      // If @lhs is implicit but @rhs is explicit -> check that all bytes are 0 in @rhs.
+      if (lhs == nullptr)
+      {
+        return isAllZeros(std::span<const std::byte>{rhs, num_bytes});
+      }
+      // If @lhs is explicit but @rhs is implicit -> check that all bytes are 0 in @lhs.
+      if (rhs == nullptr)
+      {
+        return isAllZeros(std::span<const std::byte>{lhs, num_bytes});
+      }
+      // Otherwise (if both are explicit), compare the bytes in @lhs and @rhs.
+      return std::equal(lhs, lhs + num_bytes, rhs);
+    }
+
     // Storage for ReservedData.
     template<std::size_t NumBytes, class Enable = void>
     class ReservedDataStorage
@@ -31,17 +68,17 @@ namespace h3m
       // Copy assignment operator.
       ReservedDataStorage& operator=(const ReservedDataStorage& other)
       {
-        if (!other.data_)
+        if (this != &other)
         {
-          data_ = nullptr;
-        }
-        else
-        {
-          if (!data_)
+          // Optimization: reuse the previously allocated memory if both are explicit.
+          if ((data() != nullptr) && (other.data() != nullptr))
           {
-            data_ = std::make_unique_for_overwrite<std::byte[]>(NumBytes);
+            std::copy_n(other.data(), NumBytes, data());
           }
-          std::copy_n(data_.get(), NumBytes, other.data_.get());
+          else
+          {
+            data_ = other.cloneData();
+          }
         }
         return *this;
       }
@@ -72,6 +109,11 @@ namespace h3m
         {
           data_ = std::make_unique<std::byte[]>(NumBytes);
         }
+      }
+
+      constexpr bool operator==(const ReservedDataStorage& other) const noexcept
+      {
+        return areEqualByteArrays(NumBytes, data(), other.data());
       }
 
     private:
@@ -112,19 +154,11 @@ namespace h3m
       {
       }
 
+      constexpr bool operator==(const ReservedDataStorage&) const noexcept = default;
+
     private:
       std::array<std::byte, NumBytes> data_ {};
     };
-
-    // Checks if all bytes in the array are 0.
-    // \param data - input array.
-    // \return true if all bytes in @data are 0, false otherwise.
-    constexpr bool isAllZeros(std::span<const std::byte> data)
-    {
-      const std::byte* const first = data.data();
-      const std::byte* const last = first + data.size();
-      return std::all_of(first, last, [](std::byte value) noexcept { return value == std::byte{ 0 }; });
-    }
   }
 
   // Byte array optimized for the special case when all elements are 0.
@@ -174,6 +208,12 @@ namespace h3m
     // Allocates memory for the elements, if needed.
     // isExplicit() will return true after this call.
     void makeExplicit();
+
+    // Equality comparison.
+    // \param other - ReservedData to compare with.
+    // \return true if (*this)[i] == other[i] for each i in range [0; NumBytes),
+    //         false otherwise.
+    constexpr bool operator==(const ReservedData& other) const noexcept = default;
 
   private:
     Detail_NS::ReservedDataStorage<NumBytes> storage_;

@@ -16,6 +16,8 @@ namespace h3m
   // but the game supports custom templates as well.
   struct ObjectTemplate
   {
+    constexpr bool operator==(const ObjectTemplate&) const noexcept = default;
+
     // Name of the *.def sprite to use.
     // If this is an empty string:
     // * The Editor will crash with the error "ResourceManager::GetSprite could not find the "sprite" resource ""."

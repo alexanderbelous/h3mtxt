@@ -126,9 +126,7 @@ namespace h3m
 
   Reward H3MReader::readReward() const
   {
-    Reward reward;
     const RewardType reward_type = readEnum<RewardType>();
-    reward.details = readRewardDetailsVariant(*this, reward_type);
-    return reward;
+    return Reward{ .details = readRewardDetailsVariant(*this, reward_type) };
   }
 }
