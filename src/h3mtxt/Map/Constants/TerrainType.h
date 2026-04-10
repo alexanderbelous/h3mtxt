@@ -22,16 +22,11 @@ namespace h3m
 
   // Returns the number of valid sprites for the specified terrain.
   //
-  // Sprites for TerrainType::Water:
-  //   [0; 3] - coast to the West and to the North of the tile.
-  //   [4; 7] - coast to the West of the tile.
-  //   [8; 11] - coast to the North of the tile.
-  //   [12; 15] v [18; 19] - coast in the SouthEastern corner of the tile.
-  //   [16; 17] - diagonal coast NorthWest of the tile.
-  //   [20; 32] - no coast.
+  // See h3mtxt/examples/terrain_sprites_cheatsheet/terrain_sprites_cheatsheet.h3m for more
+  // information; this map shows all valid sprites for each TerrainType.
   //
   // FYI: attempting to use values outside of [0; countSprites(terrain_type)) for Tile::terrain_sprite
-  // doesn't seem to have any reliable behavior; it will likely cause the game to crash.
+  // generally causes the game to crash. I haven't found any "hidden" sprites that work reliably.
   //
   // \param terrain - type of the terrain.
   // \return the number N of valid sprites for terrain, or 0 if @terrain is not a valid terrain type.

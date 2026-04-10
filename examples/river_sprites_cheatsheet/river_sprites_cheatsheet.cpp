@@ -10,7 +10,7 @@ namespace
   h3m::Map makeRiverSpritesCheatsheet()
   {
     // The smallest standard map size large enough to represent all sprites for any RiverType on a single row.
-    // The maximum number of tiles for a RiverType is 13.
+    // The maximum number of sprites for a RiverType is 13.
     constexpr std::uint8_t kMapSize = 36;
 
     h3m::Map map = {

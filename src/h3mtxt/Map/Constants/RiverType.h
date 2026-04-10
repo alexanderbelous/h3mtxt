@@ -15,6 +15,9 @@ namespace h3m
 
   // Returns the number of valid sprites for the specified RiverType.
   //
+  // See h3mtxt/examples/river_sprites_cheatsheet/river_sprites_cheatsheet.h3m for more
+  // information; this map shows all valid sprites for each RiverType.
+  //
   // \param river_type - type of the river.
   // \return the number N of valid sprites for @river_type, or 0 if @river_type is not a valid river type.
   //         The values [0; N) are safe to use in Tile::river_sprite for @river_type.
@@ -52,7 +55,7 @@ namespace h3m
   // and then roads (credits to RoseKavalier for this information). The memory
   // allocator may or may not allocate all of them contiguously; if it does, then
   // values [246; 255] for RiverType will be equivalent to values [0; 9] for TerrainType
-  // (i.e. the 0th sprite for RiverType{246} will be the 0th sprite for TerrainType::Dirt).
+  // (e.g., the 0th sprite for RiverType{246} will be the 0th sprite for TerrainType::Dirt).
   //
   // Even though this is not reliable behavior, I thought it's worth mentioning here.
   //
