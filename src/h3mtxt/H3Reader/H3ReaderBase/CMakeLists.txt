@@ -4,7 +4,7 @@ add_library(H3ReaderBase STATIC
 )
 add_library(h3mtxt::H3ReaderBase ALIAS H3ReaderBase)
 
-target_include_directories(H3ReaderBase PUBLIC "${PROJECT_SOURCE_DIR}/..")
+target_include_directories(H3ReaderBase PUBLIC "${H3MTXT_SRC_DIR}")
 
 # Dependencies:
 target_link_libraries(H3ReaderBase PUBLIC h3mtxt::Map)

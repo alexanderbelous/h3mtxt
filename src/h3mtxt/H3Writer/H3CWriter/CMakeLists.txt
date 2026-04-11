@@ -19,7 +19,7 @@ target_link_libraries(H3CWriter PUBLIC Campaign)
 target_link_libraries(H3CWriter PRIVATE H3MWriter)
 target_link_libraries(H3CWriter PUBLIC H3WriterBase)
 # Thirdparty libraries:
-target_link_libraries(H3CWriter PRIVATE zlib::zlibstatic)
+target_link_libraries(H3CWriter PRIVATE ZLIB::ZLIBSTATIC)
 
 # Set compiler options.
 h3mtxt_add_common_compiler_options(H3CWriter)

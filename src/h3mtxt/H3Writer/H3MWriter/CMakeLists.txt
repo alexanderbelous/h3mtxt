@@ -28,7 +28,7 @@ target_include_directories(H3MWriter PUBLIC "${H3MTXT_SRC_DIR}")
 target_link_libraries(H3MWriter PUBLIC H3WriterBase)
 target_link_libraries(H3MWriter PUBLIC Map)
 # Thirdparty libraries:
-target_link_libraries(H3MWriter PRIVATE zlib::zlibstatic)
+target_link_libraries(H3MWriter PRIVATE ZLIB::ZLIBSTATIC)
 
 # Set compiler options.
 h3mtxt_add_common_compiler_options(H3MWriter)

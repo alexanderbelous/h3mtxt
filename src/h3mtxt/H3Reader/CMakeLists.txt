@@ -18,7 +18,7 @@ target_link_libraries(H3Reader PUBLIC h3mtxt::H3MReader)
 target_link_libraries(H3Reader PUBLIC h3mtxt::H3CReader)
 target_link_libraries(H3Reader PUBLIC h3mtxt::H3SVGReader)
 # Thirdparty libraries:
-target_link_libraries(H3Reader PRIVATE zlib::zlibstatic)
+target_link_libraries(H3Reader PRIVATE ZLIB::ZLIBSTATIC)
 
 # Set compiler options.
 h3mtxt_add_common_compiler_options(H3Reader)

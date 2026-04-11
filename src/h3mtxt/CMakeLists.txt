@@ -13,9 +13,7 @@ option(BUILD_OBJECT_LIBS "Build jsoncpp_lib as a object library." OFF)
 add_subdirectory(thirdparty/jsoncpp EXCLUDE_FROM_ALL)
 add_library(jsoncpp::jsoncpp_static ALIAS jsoncpp_static)
 # zlib:
-set(RENAME_ZCONF OFF) # don't rename zconf.h
 add_subdirectory(thirdparty/zlib EXCLUDE_FROM_ALL)
-add_library(zlib::zlibstatic ALIAS zlibstatic)
 unset(CMAKE_FOLDER)
 
 # All subdirectories with source code.

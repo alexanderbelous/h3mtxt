@@ -19,13 +19,13 @@ add_library(H3MReader STATIC
 )
 add_library(h3mtxt::H3MReader ALIAS H3MReader)
 
-target_include_directories(H3MReader PUBLIC "${PROJECT_SOURCE_DIR}/..")
+target_include_directories(H3MReader PUBLIC "${H3MTXT_SRC_DIR}")
 
 # Dependencies:
 target_link_libraries(H3MReader PUBLIC h3mtxt::Map)
 target_link_libraries(H3MReader PUBLIC h3mtxt::H3ReaderBase)
 # Thirdparty libraries:
-target_link_libraries(H3MReader PRIVATE zlib::zlibstatic)
+target_link_libraries(H3MReader PRIVATE ZLIB::ZLIBSTATIC)
 
 # Set compiler options.
 h3mtxt_add_common_compiler_options(H3MReader)
