@@ -43,5 +43,20 @@ if(H3MTXT_BUILD_EXAMPLES)
   unset(CMAKE_FOLDER)
 endif()
 
-# Installation rule for h3mtxt binary.
+# Installation rules:
+# ----------------------------------------
+# h3mtxt binary.
 install(TARGETS h3mtxt)
+
+# Tests
+if(H3MTXT_BUILD_TESTS)
+  install(TARGETS h3mtxt_tests DESTINATION ${CMAKE_INSTALL_BINDIR}/tests)
+endif()
+
+# Examples
+if(H3MTXT_BUILD_EXAMPLES)
+  install(TARGETS river_sprites_cheatsheet DESTINATION ${CMAKE_INSTALL_BINDIR}/examples)
+  install(TARGETS set_defeat_all_monsters DESTINATION ${CMAKE_INSTALL_BINDIR}/examples)
+  install(TARGETS terrain_sprites_cheatsheet DESTINATION ${CMAKE_INSTALL_BINDIR}/examples)
+endif()
+# ----------------------------------------
