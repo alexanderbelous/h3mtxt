@@ -1,4 +1,4 @@
-# Examples
+# Tutorial
 
 This is a tutorial for using undocumented features of the .h3m file format via *h3mtxt*.
 
