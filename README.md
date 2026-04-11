@@ -28,7 +28,7 @@ h3mtxt my_campaign.h3c.json my_campaign_new.h3c
 ```
 The filename extensions are not important - the program will detect the file type by inspecting the data.
 
-See [examples](examples) for more details.
+See the [tutorial](doc/tutorial) for more details.
 
 # Undocumented features
 

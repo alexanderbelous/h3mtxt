@@ -45,7 +45,7 @@ The created JSON documents starts like this:
   },
 ```
 
-This describes the [`MapBasicInfo`](../src/h3mtxt/Map/MapBasicInfo.h) section of the .h3m file. Most of the data here can be modified from the official Map Editor: Tools -> Map Specifications...
+This describes the [`MapBasicInfo`](../../src/h3mtxt/Map/MapBasicInfo.h) section of the .h3m file. Most of the data here can be modified from the official Map Editor: Tools -> Map Specifications...
 
 We don't want to touch it right now, so scroll down to the `"objects"` member of the JSON document (use the Find command of your text editor, if possible).
 
@@ -71,20 +71,20 @@ The `"objects"` member starts like this:
           "scuttle_boat": false,
 ```
 
-Each element of `"objects"` is represented by [`Object`](../src/h3mtxt/Map/Object.h) structure.
+Each element of `"objects"` is represented by [`Object`](../../src/h3mtxt/Map/Object.h) structure.
 
 Different objects on the Adventure Map have different properties. In the .h3m file format, properties are split into 2 groups:
-* Properties of the *object template* (represented by [`ObjectTemplate`](../src/h3mtxt/Map/ObjectTemplate.h) structure): for example, all standard `Shipyard` objects use the same template, which defines:
+* Properties of the *object template* (represented by [`ObjectTemplate`](../../src/h3mtxt/Map/ObjectTemplate.h) structure): for example, all standard `Shipyard` objects use the same template, which defines:
   * the sprite, which determines the image used in the game for such objects.
   * The "type" of the object. In .h3m the type is defined by 2 values, sometimes called `object_class` and `object_subclass`. These determine what the object **does**:
     * `ObjectClass::ALTAR_OF_SACRIFICE` (2) allows sacrificing artifacts and/or creatures in exchange for experience.
     * `ObjectClass::SHIPYARD` (87) allows buying ships.
-    * ... and so on. See [`ObjectClass.h`](../src/h3mtxt/Map/Constants/ObjectClass.h) for the full list.
+    * ... and so on. See [`ObjectClass.h`](../../src/h3mtxt/Map/Constants/ObjectClass.h) for the full list.
   * which tiles of the object are passable and which ones are not (i.e. if the hero can move freely though these tiles)
   * which tiles of the object are actionable and which ones are not (i.e. the hero can interact with the object on these tiles)
   * ...
-* Properties of the *object* itself (represented by [`ObjectProperties`](../src/h3mtxt/Map/ObjectProperties.h)):
-  * These vary depending on `object_class` and `object_subclass` from the template used by this object. In practice, even though there are a lot of combinations of `object_class` and `object_subclass`, most of them have the same set of properties. In *h3mtxt* these sets are called [`ObjectPropertiesType`](../src/h3mtxt/Map/Constants/ObjectPropertiesType.h).
+* Properties of the *object* itself (represented by [`ObjectProperties`](../../src/h3mtxt/Map/ObjectProperties.h)):
+  * These vary depending on `object_class` and `object_subclass` from the template used by this object. In practice, even though there are a lot of combinations of `object_class` and `object_subclass`, most of them have the same set of properties. In *h3mtxt* these sets are called [`ObjectPropertiesType`](../../src/h3mtxt/Map/Constants/ObjectPropertiesType.h).
 
 
 ## Find the section for the `Pandora's Box` that gives `Morale` bonus
