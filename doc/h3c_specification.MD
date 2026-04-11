@@ -52,8 +52,6 @@ which means that the structure `Person` is written as 2 fields: first, the name 
 
 Some fields are conditionally present, i.e. they should only be read/written when a specific condition is true. Such fields are indicated here like `?field`, i.e. their name starts with a question mark. The description for this field explains when this field is present and when it's not.
 
-Some fields are intentionally left typeless - they always represent meaningless bytes in H3C. The size of such such fields is always known in advance (i.e. never varies). You can interpret them as arrays of 8-bit integers, or as whatever you want.
-
 ### Arrays
 
 `T[N]` indicates an array of N elements of type T: for example, `int32[10]` means an array of 10 signed 32-bit integers.
