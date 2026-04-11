@@ -27,7 +27,6 @@ The description below groups parts of the H3C file into typed structures. These 
 
 | Type        | Size in bytes | Description                                                                      |
 | ----------- | ------------- | -------------------------------------------------------------------------------- |
-| `char`      | 1             | 1 byte that should be treated as a character                                     |
 | `Bool`      | 1             | 1 byte that should be interpreted as Boolean: zero is `false`, nonzero is `true` |
 | `int8`      | 1             | signed 8-bit integer (values within [-128; 127])                                 |
 | `uint8`     | 1             | unsigned 8-bit integer (values within [0; 255])                                  |
