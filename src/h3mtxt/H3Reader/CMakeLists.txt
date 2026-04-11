@@ -16,7 +16,7 @@ target_include_directories(H3Reader PUBLIC "${H3MTXT_SRC_DIR}")
 target_link_libraries(H3Reader PUBLIC h3mtxt::H3MReader)
 target_link_libraries(H3Reader PUBLIC h3mtxt::H3CReader)
 # Thirdparty libraries:
-target_link_libraries(H3Reader PRIVATE zlib::zlibstatic)
+target_link_libraries(H3Reader PRIVATE ZLIB::ZLIBSTATIC)
 
 # Set compiler options.
 h3mtxt_add_common_compiler_options(H3Reader)
