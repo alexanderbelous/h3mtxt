@@ -3,8 +3,9 @@
 #include <h3mtxt/H3Writer/H3MWriter/writeh3m.h>
 
 #include <fstream>
-#include <iostream>
 #include <filesystem>
+#include <iostream>
+#include <stdexcept>
 
 int main(int argc, char** argv)
 {
