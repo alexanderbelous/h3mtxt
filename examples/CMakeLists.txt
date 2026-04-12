@@ -1,3 +1,4 @@
+add_subdirectory(make_all_monsters_savage)
 add_subdirectory(river_sprites_cheatsheet)
 add_subdirectory(set_defeat_all_monsters)
 add_subdirectory(terrain_sprites_cheatsheet)
