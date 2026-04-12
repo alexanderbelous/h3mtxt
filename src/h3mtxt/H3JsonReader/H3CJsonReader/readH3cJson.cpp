@@ -1,25 +1,12 @@
 #include <h3mtxt/H3JsonReader/H3CJsonReader/readH3cJson.h>
 
 #include <h3mtxt/H3JsonReader/H3CJsonReader/H3CJsonReader.h>
-
-#include <json/json.h>
-
-#include <stdexcept>
+#include <h3mtxt/H3JsonReader/H3JsonReaderBase/Utils.h>
 
 namespace h3json
 {
   h3m::Campaign readH3cJson(std::istream& stream)
   {
-    Json::Value root;
-    {
-      Json::CharReaderBuilder builder;
-      builder["collectComments"] = false;
-      Json::String errs;
-      if (!parseFromStream(builder, stream, &root, &errs))
-      {
-        throw std::runtime_error("readH3cJson(): " + errs);
-      }
-    }
-    return JsonReader<h3m::Campaign>{}(root);
+    return fromJsonStream<h3m::Campaign>(stream);
   }
 }

@@ -2,6 +2,8 @@ add_library(H3JsonReaderBase STATIC
     "H3JsonReaderBase.cpp"
     "H3JsonReaderBase.h"
     "H3JsonReaderBaseFwd.h"
+    "Utils.cpp"
+    "Utils.h"
     "VariantJsonReader.h"
 )
 add_library(h3mtxt::H3JsonReaderBase ALIAS H3JsonReaderBase)

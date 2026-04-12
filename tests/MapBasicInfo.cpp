@@ -1,11 +1,10 @@
-#include "parseJsonFromString.h"
+#include "JsonUtils.h"
 
 #include <h3mtxt/H3JsonReader/H3MJsonReader/H3MJsonReader.h>
 #include <h3mtxt/H3JsonWriter/H3MJsonWriter/H3MJsonWriter.h>
 #include <h3mtxt/H3Reader/H3MReader/H3MReader.h>
 #include <h3mtxt/H3Writer/H3MWriter/H3MWriter.h>
 #include <h3mtxt/Map/MapBasicInfo.h>
-#include <h3mtxt/Medea/Medea.h>
 
 #include <catch2/catch_test_macros.hpp>
 
@@ -61,28 +60,9 @@ namespace h3m
   // Test encoding/decoding MapBasicInfo for JSON.
   TEST_CASE("H3Json.MapBasicInfo", "[H3Json]")
   {
-    // JSON serialization of KMapBasicInfo.
-    static constexpr std::string_view kJsonData =
-R"({
-  "is_playable": 1,
-  "map_size": 36,
-  "has_two_levels": 0,
-  "name": "Test map",
-  "description": "Map description",
-  "difficulty": 4, // Impossible
-  "max_hero_level": 50
-})";
-
-    SECTION("Encode")
-    {
-      std::ostringstream stream;
-      Medea_NS::writeJson(stream, kMapBasicInfo);
-      REQUIRE(stream.view() == kJsonData);
-    }
-
-    SECTION("Decode")
-    {
-      REQUIRE(h3json::parseH3JsonFromString<MapBasicInfo>(kJsonData) == kMapBasicInfo);
-    }
+    // We don't check that the output JSON is equal to some string - that's stupid. We only check that
+    // serializing MapBasicInfo to JSON and then deserializing it results in an equal object.
+    // TODO: prepare JSON Schema for H3M and check that the the output JSON satisfies that schema.
+    REQUIRE(h3json::encodeAndDecodeJson(kMapBasicInfo) == kMapBasicInfo);
   }
 }

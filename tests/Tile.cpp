@@ -1,11 +1,10 @@
-#include "parseJsonFromString.h"
+#include "JsonUtils.h"
 
 #include <h3mtxt/H3JsonReader/H3MJsonReader/H3MJsonReader.h>
 #include <h3mtxt/H3JsonWriter/H3MJsonWriter/H3MJsonWriter.h>
 #include <h3mtxt/H3Reader/H3MReader/H3MReader.h>
 #include <h3mtxt/H3Writer/H3MWriter/H3MWriter.h>
 #include <h3mtxt/Map/Tile.h>
-#include <h3mtxt/Medea/Medea.h>
 
 #include <catch2/catch_test_macros.hpp>
 
@@ -56,28 +55,9 @@ namespace h3m
 
   TEST_CASE("H3Json.Tile", "[H3Json]")
   {
-    // JSON serialization of kTile.
-    static constexpr std::string_view kJsonData =
-R"({
-  "terrain_type": 2, // Grass
-  "terrain_sprite": 7,
-  "river_type": 1, // Clear
-  "river_sprite": 4,
-  "road_type": 3, // Cobblestone
-  "road_sprite": 9,
-  "flags": {"terrain_x": false, "terrain_y": false, "river_x": true, "river_y": false, "road_x": false, "road_y": false, "coast": true, "unknown": false}
-})";
-
-    SECTION("Encode")
-    {
-      std::ostringstream stream;
-      Medea_NS::writeJson(stream, kTile);
-      REQUIRE(stream.view() == kJsonData);
-    }
-
-    SECTION("Decode")
-    {
-      REQUIRE(h3json::parseH3JsonFromString<Tile>(kJsonData) == kTile);
-    }
+    // We don't check that the output JSON is equal to some string - that's stupid. We only check that
+    // serializing h3m::Tile to JSON and then deserializing it results in an equal object.
+    // TODO: prepare JSON Schema for H3M and check that the the output JSON satisfies that schema.
+    REQUIRE(h3json::encodeAndDecodeJson(kTile) == kTile);
   }
 }
