@@ -1,3 +1,4 @@
+add_subdirectory(disable_fly_in_mage_guilds)
 add_subdirectory(make_all_monsters_savage)
 add_subdirectory(river_sprites_cheatsheet)
 add_subdirectory(set_defeat_all_monsters)
