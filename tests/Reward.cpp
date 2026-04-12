@@ -1,3 +1,7 @@
+#include "Utils.h"
+
+#include <h3mtxt/H3JsonReader/H3MJsonReader/H3MJsonReader.h>
+#include <h3mtxt/H3JsonWriter/H3MJsonWriter/H3MJsonWriter.h>
 #include <h3mtxt/H3Reader/H3MReader/H3MReader.h>
 #include <h3mtxt/H3Writer/H3MWriter/H3MWriter.h>
 #include <h3mtxt/Map/Reward.h>
@@ -9,6 +13,9 @@
 #include <string>
 #include <string_view>
 #include <utility>
+
+using ::Testing_NS::asByteVector;
+using ::Testing_NS::encodeAndDecodeJson;
 
 namespace h3m
 {
@@ -43,8 +50,9 @@ namespace h3m
     static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
 
     static_assert(kReward.type() == RewardType::None);
-    REQUIRE(encodeReward(kReward) == kBinaryData);
+    REQUIRE(asByteVector(encodeReward(kReward)) == asByteVector(kBinaryData));
     REQUIRE(decodeReward(kBinaryData) == kReward);
+    REQUIRE(encodeAndDecodeJson(kReward) == kReward);
   }
 
   TEST_CASE("H3M.Reward.Experience", "[H3M]")
@@ -58,8 +66,9 @@ namespace h3m
     static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
 
     static_assert(kReward.type() == RewardType::Experience);
-    REQUIRE(encodeReward(kReward) == kBinaryData);
+    REQUIRE(asByteVector(encodeReward(kReward)) == asByteVector(kBinaryData));
     REQUIRE(decodeReward(kBinaryData) == kReward);
+    REQUIRE(encodeAndDecodeJson(kReward) == kReward);
   }
 
   TEST_CASE("H3M.Reward.SpellPoints", "[H3M]")
@@ -73,8 +82,9 @@ namespace h3m
     static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
 
     static_assert(kReward.type() == RewardType::SpellPoints);
-    REQUIRE(encodeReward(kReward) == kBinaryData);
+    REQUIRE(asByteVector(encodeReward(kReward)) == asByteVector(kBinaryData));
     REQUIRE(decodeReward(kBinaryData) == kReward);
+    REQUIRE(encodeAndDecodeJson(kReward) == kReward);
   }
 
   TEST_CASE("H3M.Reward.Morale", "[H3M]")
@@ -88,8 +98,9 @@ namespace h3m
     static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
 
     static_assert(kReward.type() == RewardType::Morale);
-    REQUIRE(encodeReward(kReward) == kBinaryData);
+    REQUIRE(asByteVector(encodeReward(kReward)) == asByteVector(kBinaryData));
     REQUIRE(decodeReward(kBinaryData) == kReward);
+    REQUIRE(encodeAndDecodeJson(kReward) == kReward);
   }
 
   TEST_CASE("H3M.Reward.Luck", "[H3M]")
@@ -103,8 +114,9 @@ namespace h3m
     static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
 
     static_assert(kReward.type() == RewardType::Luck);
-    REQUIRE(encodeReward(kReward) == kBinaryData);
+    REQUIRE(asByteVector(encodeReward(kReward)) == asByteVector(kBinaryData));
     REQUIRE(decodeReward(kBinaryData) == kReward);
+    REQUIRE(encodeAndDecodeJson(kReward) == kReward);
   }
 
   TEST_CASE("H3M.Reward.Resource", "[H3M]")
@@ -119,8 +131,9 @@ namespace h3m
     static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
 
     static_assert(kReward.type() == RewardType::Resource);
-    REQUIRE(encodeReward(kReward) == kBinaryData);
+    REQUIRE(asByteVector(encodeReward(kReward)) == asByteVector(kBinaryData));
     REQUIRE(decodeReward(kBinaryData) == kReward);
+    REQUIRE(encodeAndDecodeJson(kReward) == kReward);
   }
 
   TEST_CASE("H3M.Reward.PrimarySkill", "[H3M]")
@@ -135,8 +148,9 @@ namespace h3m
     static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
 
     static_assert(kReward.type() == RewardType::PrimarySkill);
-    REQUIRE(encodeReward(kReward) == kBinaryData);
+    REQUIRE(asByteVector(encodeReward(kReward)) == asByteVector(kBinaryData));
     REQUIRE(decodeReward(kBinaryData) == kReward);
+    REQUIRE(encodeAndDecodeJson(kReward) == kReward);
   }
 
   TEST_CASE("H3M.Reward.SecondarySkill", "[H3M]")
@@ -153,8 +167,9 @@ namespace h3m
     static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
 
     static_assert(kReward.type() == RewardType::SecondarySkill);
-    REQUIRE(encodeReward(kReward) == kBinaryData);
+    REQUIRE(asByteVector(encodeReward(kReward)) == asByteVector(kBinaryData));
     REQUIRE(decodeReward(kBinaryData) == kReward);
+    REQUIRE(encodeAndDecodeJson(kReward) == kReward);
   }
 
   TEST_CASE("H3M.Reward.Artifact", "[H3M]")
@@ -168,8 +183,9 @@ namespace h3m
     static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
 
     static_assert(kReward.type() == RewardType::Artifact);
-    REQUIRE(encodeReward(kReward) == kBinaryData);
+    REQUIRE(asByteVector(encodeReward(kReward)) == asByteVector(kBinaryData));
     REQUIRE(decodeReward(kBinaryData) == kReward);
+    REQUIRE(encodeAndDecodeJson(kReward) == kReward);
   }
 
   TEST_CASE("H3M.Reward.Spell", "[H3M]")
@@ -183,8 +199,9 @@ namespace h3m
     static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
 
     static_assert(kReward.type() == RewardType::Spell);
-    REQUIRE(encodeReward(kReward) == kBinaryData);
+    REQUIRE(asByteVector(encodeReward(kReward)) == asByteVector(kBinaryData));
     REQUIRE(decodeReward(kBinaryData) == kReward);
+    REQUIRE(encodeAndDecodeJson(kReward) == kReward);
   }
 
   TEST_CASE("H3M.Reward.Creature", "[H3M]")
@@ -201,7 +218,8 @@ namespace h3m
     static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
 
     static_assert(kReward.type() == RewardType::Creature);
-    REQUIRE(encodeReward(kReward) == kBinaryData);
+    REQUIRE(asByteVector(encodeReward(kReward)) == asByteVector(kBinaryData));
     REQUIRE(decodeReward(kBinaryData) == kReward);
+    REQUIRE(encodeAndDecodeJson(kReward) == kReward);
   }
 }

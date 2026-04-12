@@ -1,3 +1,7 @@
+#include "Utils.h"
+
+#include <h3mtxt/H3JsonReader/H3MJsonReader/H3MJsonReader.h>
+#include <h3mtxt/H3JsonWriter/H3MJsonWriter/H3MJsonWriter.h>
 #include <h3mtxt/H3Reader/H3MReader/H3MReader.h>
 #include <h3mtxt/H3Writer/H3MWriter/H3MWriter.h>
 #include <h3mtxt/Map/HeroSettings.h>
@@ -8,6 +12,9 @@
 #include <sstream>
 #include <string>
 #include <string_view>
+
+using ::Testing_NS::asByteVector;
+using ::Testing_NS::encodeAndDecodeJson;
 
 namespace h3m
 {
@@ -50,8 +57,9 @@ namespace h3m
       static constexpr char kBinaryDataCStr[] = "\x00\x00\x00\x00\xff\x00\x00";
       // std::string_view into kBinaryDataCStr.
       static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
-      REQUIRE(encodeHeroSettings(kHeroSettings) == kBinaryData);
+      REQUIRE(asByteVector(encodeHeroSettings(kHeroSettings)) == asByteVector(kBinaryData));
       REQUIRE(decodeHeroSettings(kBinaryData) == kHeroSettings);
+      REQUIRE(encodeAndDecodeJson(kHeroSettings) == kHeroSettings);
     }
     SECTION("Experience")
     {
@@ -71,8 +79,9 @@ namespace h3m
         "\x00\x00\x00\xff\x00\x00";
       // std::string_view into kBinaryDataCStr.
       static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
-      REQUIRE(encodeHeroSettings(kHeroSettings) == kBinaryData);
+      REQUIRE(asByteVector(encodeHeroSettings(kHeroSettings)) == asByteVector(kBinaryData));
       REQUIRE(decodeHeroSettings(kBinaryData) == kHeroSettings);
+      REQUIRE(encodeAndDecodeJson(kHeroSettings) == kHeroSettings);
     }
     SECTION("SecondarySkills")
     {
@@ -96,8 +105,9 @@ namespace h3m
         "\x00\x00\xff\x00\x00";
       // std::string_view into kBinaryDataCStr.
       static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
-      REQUIRE(encodeHeroSettings(kHeroSettings) == kBinaryData);
+      REQUIRE(asByteVector(encodeHeroSettings(kHeroSettings)) == asByteVector(kBinaryData));
       REQUIRE(decodeHeroSettings(kBinaryData) == kHeroSettings);
+      REQUIRE(encodeAndDecodeJson(kHeroSettings) == kHeroSettings);
     }
     SECTION("Artifacts")
     {
@@ -146,8 +156,9 @@ namespace h3m
         "\x00\xff\x00\x00";
       // std::string_view into kBinaryDataCStr.
       static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
-      REQUIRE(encodeHeroSettings(kHeroSettings) == kBinaryData);
+      REQUIRE(asByteVector(encodeHeroSettings(kHeroSettings)) == asByteVector(kBinaryData));
       REQUIRE(decodeHeroSettings(kBinaryData) == kHeroSettings);
+      REQUIRE(encodeAndDecodeJson(kHeroSettings) == kHeroSettings);
     }
     SECTION("Biography")
     {
@@ -168,8 +179,9 @@ namespace h3m
         "\xff\x00\x00";
       // std::string_view into kBinaryDataCStr.
       static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
-      REQUIRE(encodeHeroSettings(kHeroSettings) == kBinaryData);
+      REQUIRE(asByteVector(encodeHeroSettings(kHeroSettings)) == asByteVector(kBinaryData));
       REQUIRE(decodeHeroSettings(kBinaryData) == kHeroSettings);
+      REQUIRE(encodeAndDecodeJson(kHeroSettings) == kHeroSettings);
     }
     SECTION("Gender")
     {
@@ -186,8 +198,9 @@ namespace h3m
       static constexpr char kBinaryDataCStr[] = "\x00\x00\x00\x00\x00\x00\x00";
       // std::string_view into kBinaryDataCStr.
       static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
-      REQUIRE(encodeHeroSettings(kHeroSettings) == kBinaryData);
+      REQUIRE(asByteVector(encodeHeroSettings(kHeroSettings)) == asByteVector(kBinaryData));
       REQUIRE(decodeHeroSettings(kBinaryData) == kHeroSettings);
+      REQUIRE(encodeAndDecodeJson(kHeroSettings) == kHeroSettings);
     }
     SECTION("Spells")
     {
@@ -213,8 +226,9 @@ namespace h3m
         "\x00";
       // std::string_view into kBinaryDataCStr.
       static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
-      REQUIRE(encodeHeroSettings(kHeroSettings) == kBinaryData);
+      REQUIRE(asByteVector(encodeHeroSettings(kHeroSettings)) == asByteVector(kBinaryData));
       REQUIRE(decodeHeroSettings(kBinaryData) == kHeroSettings);
+      REQUIRE(encodeAndDecodeJson(kHeroSettings) == kHeroSettings);
     }
     SECTION("PrimarySkills")
     {
@@ -239,8 +253,9 @@ namespace h3m
           "\x01\x02\x03\x04";
       // std::string_view into kBinaryDataCStr.
       static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
-      REQUIRE(encodeHeroSettings(kHeroSettings) == kBinaryData);
+      REQUIRE(asByteVector(encodeHeroSettings(kHeroSettings)) == asByteVector(kBinaryData));
       REQUIRE(decodeHeroSettings(kBinaryData) == kHeroSettings);
+      REQUIRE(encodeAndDecodeJson(kHeroSettings) == kHeroSettings);
     }
     SECTION("ALL")
     {
@@ -311,8 +326,9 @@ namespace h3m
           "\x01\x02\x03\x04";
       // std::string_view into kBinaryDataCStr.
       static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
-      REQUIRE(encodeHeroSettings(kHeroSettings) == kBinaryData);
+      REQUIRE(asByteVector(encodeHeroSettings(kHeroSettings)) == asByteVector(kBinaryData));
       REQUIRE(decodeHeroSettings(kBinaryData) == kHeroSettings);
+      REQUIRE(encodeAndDecodeJson(kHeroSettings) == kHeroSettings);
     }
   }
 }

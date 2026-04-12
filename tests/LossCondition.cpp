@@ -1,3 +1,7 @@
+#include "Utils.h"
+
+#include <h3mtxt/H3JsonReader/H3MJsonReader/H3MJsonReader.h>
+#include <h3mtxt/H3JsonWriter/H3MJsonWriter/H3MJsonWriter.h>
 #include <h3mtxt/H3Reader/H3MReader/H3MReader.h>
 #include <h3mtxt/H3Writer/H3MWriter/H3MWriter.h>
 #include <h3mtxt/Map/LossCondition.h>
@@ -9,6 +13,9 @@
 #include <string>
 #include <string_view>
 #include <utility>
+
+using ::Testing_NS::asByteVector;
+using ::Testing_NS::encodeAndDecodeJson;
 
 namespace h3m
 {
@@ -45,8 +52,9 @@ namespace h3m
     static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
 
     static_assert(kLossCondition.type() == LossConditionType::LoseTown);
-    REQUIRE(encodeLossCondition(kLossCondition) == kBinaryData);
+    REQUIRE(asByteVector(encodeLossCondition(kLossCondition)) == asByteVector(kBinaryData));
     REQUIRE(decodeLossCondition(kBinaryData) == kLossCondition);
+    REQUIRE(encodeAndDecodeJson(kLossCondition) == kLossCondition);
   }
 
   TEST_CASE("H3M.LossCondition.LoseHero", "[H3M]")
@@ -60,8 +68,9 @@ namespace h3m
     static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
 
     static_assert(kLossCondition.type() == LossConditionType::LoseHero);
-    REQUIRE(encodeLossCondition(kLossCondition) == kBinaryData);
+    REQUIRE(asByteVector(encodeLossCondition(kLossCondition)) == asByteVector(kBinaryData));
     REQUIRE(decodeLossCondition(kBinaryData) == kLossCondition);
+    REQUIRE(encodeAndDecodeJson(kLossCondition) == kLossCondition);
   }
 
   TEST_CASE("H3M.LossCondition.TimeExpires", "[H3M]")
@@ -75,8 +84,9 @@ namespace h3m
     static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
 
     static_assert(kLossCondition.type() == LossConditionType::TimeExpires);
-    REQUIRE(encodeLossCondition(kLossCondition) == kBinaryData);
+    REQUIRE(asByteVector(encodeLossCondition(kLossCondition)) == asByteVector(kBinaryData));
     REQUIRE(decodeLossCondition(kBinaryData) == kLossCondition);
+    REQUIRE(encodeAndDecodeJson(kLossCondition) == kLossCondition);
   }
 
   TEST_CASE("H3M.LossCondition.Normal", "[H3M]")
@@ -88,7 +98,8 @@ namespace h3m
     static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
 
     static_assert(kLossCondition.type() == LossConditionType::Normal);
-    REQUIRE(encodeLossCondition(kLossCondition) == kBinaryData);
+    REQUIRE(asByteVector(encodeLossCondition(kLossCondition)) == asByteVector(kBinaryData));
     REQUIRE(decodeLossCondition(kBinaryData) == kLossCondition);
+    REQUIRE(encodeAndDecodeJson(kLossCondition) == kLossCondition);
   }
 }

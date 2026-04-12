@@ -1,3 +1,7 @@
+#include "Utils.h"
+
+#include <h3mtxt/H3JsonReader/H3MJsonReader/H3MJsonReader.h>
+#include <h3mtxt/H3JsonWriter/H3MJsonWriter/H3MJsonWriter.h>
 #include <h3mtxt/H3Reader/H3MReader/H3MReader.h>
 #include <h3mtxt/H3Writer/H3MWriter/H3MWriter.h>
 #include <h3mtxt/Map/TimedEvent.h>
@@ -8,9 +12,35 @@
 #include <sstream>
 #include <string>
 #include <string_view>
+#include <utility>
+
+using ::Testing_NS::asByteVector;
+using ::Testing_NS::encodeAndDecodeJson;
 
 namespace h3m
 {
+  namespace
+  {
+    // Encodes h3m::TimedEvent via H3MWriter.
+    // \param timed_event - input TimedEvent.
+    // \return std::string storing the encoded data.
+    std::string encodeTimedEvent(const TimedEvent& timed_event)
+    {
+      std::ostringstream stream;
+      H3MWriter{ stream }.writeData(timed_event);
+      return std::move(stream).str();
+    }
+
+    // Decodes h3m::TimedEvent via H3MReader.
+    // \param encoded_data - input binary data.
+    // \return h3m::TimedEvent decoded from @encoded_data.
+    TimedEvent decodeTimedEvent(std::string_view encoded_data)
+    {
+      std::istringstream stream{ std::string{encoded_data} };
+      return H3MReader{ stream }.readTimedEvent();
+    }
+  }
+
   TEST_CASE("H3M.TimedEvent", "[H3M]")
   {
     const TimedEvent kTimedEvent
@@ -45,17 +75,8 @@ namespace h3m
     // std::string_view into kBinaryDataCStr.
     static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
 
-    SECTION("Encode")
-    {
-      std::ostringstream stream;
-      H3MWriter{ stream }.writeData(kTimedEvent);
-      REQUIRE(stream.view() == kBinaryData);
-    }
-
-    SECTION("Decode")
-    {
-      std::istringstream stream{ std::string{kBinaryData}};
-      REQUIRE(H3MReader{ stream }.readTimedEvent() == kTimedEvent);
-    }
+    REQUIRE(asByteVector(encodeTimedEvent(kTimedEvent)) == asByteVector(kBinaryData));
+    REQUIRE(decodeTimedEvent(kBinaryData) == kTimedEvent);
+    REQUIRE(encodeAndDecodeJson(kTimedEvent) == kTimedEvent);
   }
 }

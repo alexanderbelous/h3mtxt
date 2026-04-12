@@ -1,4 +1,4 @@
-#include "JsonUtils.h"
+#include "Utils.h"
 
 #include <h3mtxt/H3JsonReader/H3MJsonReader/H3MJsonReader.h>
 #include <h3mtxt/H3JsonWriter/H3MJsonWriter/H3MJsonWriter.h>
@@ -12,23 +12,47 @@
 #include <sstream>
 #include <string>
 #include <string_view>
+#include <utility>
+
+using ::Testing_NS::asByteVector;
+using ::Testing_NS::encodeAndDecodeJson;
 
 namespace h3m
 {
-  // MapBasicInfo used in tests in this file.
-  static const MapBasicInfo kMapBasicInfo{
-    .is_playable = 1,
-    .map_size = 36,
-    .has_two_levels = 0,
-    .name = "Test map",
-    .description = "Map description",
-    .difficulty = MapDifficulty::Impossible,
-    .max_hero_level = 50
-  };
+  namespace
+  {
+    // Encodes h3m::MapBasicInfo via H3MWriter.
+    // \param map_basic_info - input MapBasicInfo.
+    // \return std::string storing the encoded data.
+    std::string encodeMapBasicInfo(const MapBasicInfo& map_basic_info)
+    {
+      std::ostringstream stream;
+      H3MWriter{ stream }.writeData(map_basic_info);
+      return std::move(stream).str();
+    }
+
+    // Decodes h3m::MapBasicInfo via H3MReader.
+    // \param encoded_data - input binary data.
+    // \return h3m::MapBasicInfo decoded from @encoded_data.
+    MapBasicInfo decodeMapBasicInfo(std::string_view encoded_data)
+    {
+      std::istringstream stream{ std::string{encoded_data} };
+      return H3MReader{ stream }.readMapBasicInfo();
+    }
+  }
 
   // Test encoding/decoding MapBasicInfo for H3M.
   TEST_CASE("H3M.MapBasicInfo", "[H3M]")
   {
+    const MapBasicInfo kMapBasicInfo{
+      .is_playable = 1,
+      .map_size = 36,
+      .has_two_levels = 0,
+      .name = "Test map",
+      .description = "Map description",
+      .difficulty = MapDifficulty::Impossible,
+      .max_hero_level = 50
+    };
     // The binary representation of kMapBasicInfo.
     static constexpr char kBinaryDataCStr[] =  // | Type     | Field name     | Value             | Size in bytes |
                                                // | -------- | -------------- | ----------------- | ------------- |
@@ -43,26 +67,8 @@ namespace h3m
     // std::string_view into kBinaryData.
     static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
 
-    SECTION("Encode")
-    {
-      std::ostringstream stream;
-      H3MWriter{ stream }.writeData(kMapBasicInfo);
-      REQUIRE(stream.view() == kBinaryData);
-    }
-
-    SECTION("Decode")
-    {
-      std::istringstream stream{ std::string{kBinaryData}};
-      REQUIRE(H3MReader{ stream }.readMapBasicInfo() == kMapBasicInfo);
-    }
-  }
-
-  // Test encoding/decoding MapBasicInfo for JSON.
-  TEST_CASE("H3Json.MapBasicInfo", "[H3Json]")
-  {
-    // We don't check that the output JSON is equal to some string - that's stupid. We only check that
-    // serializing MapBasicInfo to JSON and then deserializing it results in an equal object.
-    // TODO: prepare JSON Schema for H3M and check that the the output JSON satisfies that schema.
-    REQUIRE(h3json::encodeAndDecodeJson(kMapBasicInfo) == kMapBasicInfo);
+    REQUIRE(asByteVector(encodeMapBasicInfo(kMapBasicInfo)) == asByteVector(kBinaryData));
+    REQUIRE(decodeMapBasicInfo(kBinaryData) == kMapBasicInfo);
+    REQUIRE(encodeAndDecodeJson(kMapBasicInfo) == kMapBasicInfo);
   }
 }
