@@ -11,7 +11,7 @@ int main(int argc, char** argv)
 {
   if (argc != 2)
   {
-    std::cout << "Usage: make_all_monsters_savage <path_to_map>" << std::endl;
+    std::cout << "Usage: disable_fly_in_mage_guilds <path_to_map>" << std::endl;
     return (argc == 0) ? 0 : -1;
   }
 
