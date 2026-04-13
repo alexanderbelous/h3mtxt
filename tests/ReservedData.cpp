@@ -1,3 +1,7 @@
+#include "Utils.h"
+
+#include <h3mtxt/H3JsonReader/H3JsonReaderBase/H3JsonReaderBase.h>
+#include <h3mtxt/H3JsonWriter/H3MJsonWriter/Utils.h>
 #include <h3mtxt/H3Reader/H3MReader/H3MReader.h>
 #include <h3mtxt/H3Writer/H3MWriter/H3MWriter.h>
 #include <h3mtxt/Map/Utils/ReservedData.h>
@@ -8,9 +12,10 @@
 #include <cstddef>
 #include <sstream>
 #include <string>
-#include <string_view>
 #include <utility>
-#include <vector>
+
+using ::Testing_NS::asByteVector;
+using ::Testing_NS::encodeAndDecodeJson;
 
 namespace h3m
 {
@@ -35,15 +40,6 @@ namespace h3m
     {
       std::istringstream stream{ std::string{encoded_data} };
       return H3MReader{ stream }.readReservedData<NumBytes>();
-    }
-
-    // Catch2 sometimes has issues when printing binary strings
-    // (see https://github.com/catchorg/Catch2/issues/2960).
-    // Until the issue is resolved, this workaround can be used.
-    std::vector<std::byte> asByteVector(std::string_view data)
-    {
-      const std::span<const std::byte> bytes = std::as_bytes(std::span<const char>(data));
-      return std::vector<std::byte>{bytes.begin(), bytes.end()};
     }
 
     template<std::size_t N>
@@ -412,6 +408,7 @@ namespace h3m
       static constexpr std::string_view kBinaryData{ kBinaryDataArray.data(), kSize };
       REQUIRE(asByteVector(encodeReservedData(kReservedData)) == asByteVector(kBinaryData));
       REQUIRE(decodeReservedData<kSize>(kBinaryData) == kReservedData);
+      REQUIRE(encodeAndDecodeJson(kReservedData) == kReservedData);
     }
     SECTION("Non-zero")
     {
@@ -420,6 +417,7 @@ namespace h3m
       const std::string_view kBinaryData{ reinterpret_cast<const char*>(kValues.data()), kSize };
       REQUIRE(asByteVector(encodeReservedData(kReservedData)) == asByteVector(kBinaryData));
       REQUIRE(decodeReservedData<kSize>(kBinaryData) == kReservedData);
+      REQUIRE(encodeAndDecodeJson(kReservedData) == kReservedData);
     }
   }
 }

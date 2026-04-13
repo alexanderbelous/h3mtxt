@@ -1,3 +1,7 @@
+#include "Utils.h"
+
+#include <h3mtxt/H3JsonReader/H3MJsonReader/H3MJsonReader.h>
+#include <h3mtxt/H3JsonWriter/H3MJsonWriter/H3MJsonWriter.h>
 #include <h3mtxt/H3Reader/H3MReader/H3MReader.h>
 #include <h3mtxt/H3Writer/H3MWriter/H3MWriter.h>
 #include <h3mtxt/Map/Quest.h>
@@ -9,6 +13,9 @@
 #include <string>
 #include <string_view>
 #include <utility>
+
+using ::Testing_NS::asByteVector;
+using ::Testing_NS::encodeAndDecodeJson;
 
 namespace h3m
 {
@@ -43,8 +50,9 @@ namespace h3m
     static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
 
     REQUIRE(kQuest.type() == QuestType::None);
-    REQUIRE(encodeQuest(kQuest) == kBinaryData);
+    REQUIRE(asByteVector(encodeQuest(kQuest)) == asByteVector(kBinaryData));
     REQUIRE(decodeQuest(kBinaryData) == kQuest);
+    REQUIRE(encodeAndDecodeJson(kQuest) == kQuest);
   }
 
   TEST_CASE("H3M.Quest.Level", "[H3M]")
@@ -69,8 +77,9 @@ namespace h3m
     static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
 
     REQUIRE(kQuest.type() == QuestType::Level);
-    REQUIRE(encodeQuest(kQuest) == kBinaryData);
+    REQUIRE(asByteVector(encodeQuest(kQuest)) == asByteVector(kBinaryData));
     REQUIRE(decodeQuest(kBinaryData) == kQuest);
+    REQUIRE(encodeAndDecodeJson(kQuest) == kQuest);
   }
 
   TEST_CASE("H3M.Quest.PrimarySkills", "[H3M]")
@@ -100,8 +109,9 @@ namespace h3m
     static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
 
     REQUIRE(kQuest.type() == QuestType::PrimarySkills);
-    REQUIRE(encodeQuest(kQuest) == kBinaryData);
+    REQUIRE(asByteVector(encodeQuest(kQuest)) == asByteVector(kBinaryData));
     REQUIRE(decodeQuest(kBinaryData) == kQuest);
+    REQUIRE(encodeAndDecodeJson(kQuest) == kQuest);
   }
 
   TEST_CASE("H3M.Quest.DefeatHero", "[H3M]")
@@ -126,8 +136,9 @@ namespace h3m
     static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
 
     REQUIRE(kQuest.type() == QuestType::DefeatHero);
-    REQUIRE(encodeQuest(kQuest) == kBinaryData);
+    REQUIRE(asByteVector(encodeQuest(kQuest)) == asByteVector(kBinaryData));
     REQUIRE(decodeQuest(kBinaryData) == kQuest);
+    REQUIRE(encodeAndDecodeJson(kQuest) == kQuest);
   }
 
   TEST_CASE("H3M.Quest.DefeatMonster", "[H3M]")
@@ -152,8 +163,9 @@ namespace h3m
     static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
 
     REQUIRE(kQuest.type() == QuestType::DefeatMonster);
-    REQUIRE(encodeQuest(kQuest) == kBinaryData);
+    REQUIRE(asByteVector(encodeQuest(kQuest)) == asByteVector(kBinaryData));
     REQUIRE(decodeQuest(kBinaryData) == kQuest);
+    REQUIRE(encodeAndDecodeJson(kQuest) == kQuest);
   }
 
   TEST_CASE("H3M.Quest.Artifacts", "[H3M]")
@@ -178,8 +190,9 @@ namespace h3m
     static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
 
     REQUIRE(kQuest.type() == QuestType::Artifacts);
-    REQUIRE(encodeQuest(kQuest) == kBinaryData);
+    REQUIRE(asByteVector(encodeQuest(kQuest)) == asByteVector(kBinaryData));
     REQUIRE(decodeQuest(kBinaryData) == kQuest);
+    REQUIRE(encodeAndDecodeJson(kQuest) == kQuest);
   }
 
   TEST_CASE("H3M.Quest.Creatures", "[H3M]")
@@ -209,8 +222,9 @@ namespace h3m
     static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
 
     REQUIRE(kQuest.type() == QuestType::Creatures);
-    REQUIRE(encodeQuest(kQuest) == kBinaryData);
+    REQUIRE(asByteVector(encodeQuest(kQuest)) == asByteVector(kBinaryData));
     REQUIRE(decodeQuest(kBinaryData) == kQuest);
+    REQUIRE(encodeAndDecodeJson(kQuest) == kQuest);
   }
 
   TEST_CASE("H3M.Quest.Resources", "[H3M]")
@@ -236,8 +250,9 @@ namespace h3m
     static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
 
     REQUIRE(kQuest.type() == QuestType::Resources);
-    REQUIRE(encodeQuest(kQuest) == kBinaryData);
+    REQUIRE(asByteVector(encodeQuest(kQuest)) == asByteVector(kBinaryData));
     REQUIRE(decodeQuest(kBinaryData) == kQuest);
+    REQUIRE(encodeAndDecodeJson(kQuest) == kQuest);
   }
 
   TEST_CASE("H3M.Quest.BeHero", "[H3M]")
@@ -262,8 +277,9 @@ namespace h3m
     static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
 
     REQUIRE(kQuest.type() == QuestType::BeHero);
-    REQUIRE(encodeQuest(kQuest) == kBinaryData);
+    REQUIRE(asByteVector(encodeQuest(kQuest)) == asByteVector(kBinaryData));
     REQUIRE(decodeQuest(kBinaryData) == kQuest);
+    REQUIRE(encodeAndDecodeJson(kQuest) == kQuest);
   }
 
   TEST_CASE("H3M.Quest.BePlayer", "[H3M]")
@@ -288,7 +304,8 @@ namespace h3m
     static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
 
     REQUIRE(kQuest.type() == QuestType::BePlayer);
-    REQUIRE(encodeQuest(kQuest) == kBinaryData);
+    REQUIRE(asByteVector(encodeQuest(kQuest)) == asByteVector(kBinaryData));
     REQUIRE(decodeQuest(kBinaryData) == kQuest);
+    REQUIRE(encodeAndDecodeJson(kQuest) == kQuest);
   }
 }

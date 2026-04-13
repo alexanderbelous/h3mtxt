@@ -1,8 +1,7 @@
 add_subdirectory(thirdparty/Catch2 EXCLUDE_FROM_ALL)
 
 add_executable(h3mtxt_tests
-    "parseJsonFromString.h"
-    "parseJsonFromString.cpp"
+    "Utils.h"
     "HeroArtifacts.cpp"
     "HeroSettings.cpp"
     "LossCondition.cpp"

@@ -1,3 +1,7 @@
+#include "Utils.h"
+
+#include <h3mtxt/H3JsonReader/H3MJsonReader/H3MJsonReader.h>
+#include <h3mtxt/H3JsonWriter/H3MJsonWriter/H3MJsonWriter.h>
 #include <h3mtxt/H3Reader/H3MReader/H3MReader.h>
 #include <h3mtxt/H3Writer/H3MWriter/H3MWriter.h>
 #include <h3mtxt/Map/HeroArtifacts.h>
@@ -8,6 +12,9 @@
 #include <sstream>
 #include <string>
 #include <string_view>
+
+using ::Testing_NS::asByteVector;
+using ::Testing_NS::encodeAndDecodeJson;
 
 namespace h3m
 {
@@ -72,8 +79,9 @@ namespace h3m
         "\x00\x00"; // backpack
       // std::string_view into kBinaryDataCStr.
       static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
-      REQUIRE(encodeHeroArtifacts(kHeroArtifacts) == kBinaryData);
+      REQUIRE(asByteVector(encodeHeroArtifacts(kHeroArtifacts)) == asByteVector(kBinaryData));
       REQUIRE(decodeHeroArtifacts(kBinaryData) == kHeroArtifacts);
+      REQUIRE(encodeAndDecodeJson(kHeroArtifacts) == kHeroArtifacts);
     }
     SECTION("Non-empty backpack")
     {
@@ -112,8 +120,9 @@ namespace h3m
         "\x02\x00" "\x88\x00" "\x84\x00"; // backpack
       // std::string_view into kBinaryDataCStr.
       static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
-      REQUIRE(encodeHeroArtifacts(kHeroArtifacts) == kBinaryData);
+      REQUIRE(asByteVector(encodeHeroArtifacts(kHeroArtifacts)) == asByteVector(kBinaryData));
       REQUIRE(decodeHeroArtifacts(kBinaryData) == kHeroArtifacts);
+      REQUIRE(encodeAndDecodeJson(kHeroArtifacts) == kHeroArtifacts);
     }
   }
 }

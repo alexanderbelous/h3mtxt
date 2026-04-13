@@ -14,12 +14,12 @@ add_library(H3SVGJsonWriter STATIC
 )
 add_library(h3mtxt::H3SVGJsonWriter ALIAS H3SVGJsonWriter)
 
-target_include_directories(H3SVGJsonWriter PUBLIC "${PROJECT_SOURCE_DIR}/..")
+target_include_directories(H3SVGJsonWriter PUBLIC "${H3MTXT_SRC_DIR}")
 
 # Dependencies:
 target_link_libraries(H3SVGJsonWriter PRIVATE h3mtxt::JsonCommon)
 target_link_libraries(H3SVGJsonWriter PUBLIC h3mtxt::SavedGame)
-target_link_libraries(H3SVGJsonWriter PUBLIC h3mtxt::H3MJsonWriter)
+target_link_libraries(H3SVGJsonWriter PRIVATE h3mtxt::H3MJsonWriter)
 target_link_libraries(H3SVGJsonWriter PUBLIC h3mtxt::Medea)
 
 # Set compiler options.

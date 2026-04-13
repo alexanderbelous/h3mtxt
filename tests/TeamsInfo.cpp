@@ -1,3 +1,7 @@
+#include "Utils.h"
+
+#include <h3mtxt/H3JsonReader/H3MJsonReader/H3MJsonReader.h>
+#include <h3mtxt/H3JsonWriter/H3MJsonWriter/H3MJsonWriter.h>
 #include <h3mtxt/H3Reader/H3MReader/H3MReader.h>
 #include <h3mtxt/H3Writer/H3MWriter/H3MWriter.h>
 #include <h3mtxt/Map/TeamsInfo.h>
@@ -8,6 +12,10 @@
 #include <sstream>
 #include <string>
 #include <string_view>
+#include <utility>
+
+using ::Testing_NS::asByteVector;
+using ::Testing_NS::encodeAndDecodeJson;
 
 namespace h3m
 {
@@ -42,8 +50,9 @@ namespace h3m
       static constexpr char kBinaryDataCStr[] = "\x00";
       // std::string_view into kBinaryDataCStr.
       static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
-      REQUIRE(encodeTeamsInfo(kTeamsInfo) == kBinaryData);
+      REQUIRE(asByteVector(encodeTeamsInfo(kTeamsInfo)) == asByteVector(kBinaryData));
       REQUIRE(decodeTeamsInfo(kBinaryData) == kTeamsInfo);
+      REQUIRE(encodeAndDecodeJson(kTeamsInfo) == kTeamsInfo);
     }
     SECTION("With teams")
     {
@@ -57,8 +66,9 @@ namespace h3m
         "\x00\x00\x01\x00\x00\x00\x00\x02";
       // std::string_view into kBinaryDataCStr.
       static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
-      REQUIRE(encodeTeamsInfo(kTeamsInfo) == kBinaryData);
+      REQUIRE(asByteVector(encodeTeamsInfo(kTeamsInfo)) == asByteVector(kBinaryData));
       REQUIRE(decodeTeamsInfo(kBinaryData) == kTeamsInfo);
+      REQUIRE(encodeAndDecodeJson(kTeamsInfo) == kTeamsInfo);
     }
   }
 }

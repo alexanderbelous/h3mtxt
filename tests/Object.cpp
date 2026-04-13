@@ -1,3 +1,5 @@
+#include "Utils.h"
+
 #include <h3mtxt/H3Reader/H3MReader/H3MReader.h>
 #include <h3mtxt/H3Writer/H3MWriter/H3MWriter.h>
 #include <h3mtxt/Map/Object.h>
@@ -11,6 +13,8 @@
 #include <sstream>
 #include <string>
 #include <string_view>
+
+using ::Testing_NS::asByteVector;
 
 namespace h3m
 {
@@ -82,7 +86,7 @@ namespace h3m
       "\x00\x00\x00\x00";                     //   unknown
     // std::string_view into kBinaryDataCStr.
     static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
-    REQUIRE(encodeObject(kObject) == kBinaryData);
+    REQUIRE(asByteVector(encodeObject(kObject)) == asByteVector(kBinaryData));
     REQUIRE(decodeObject(kObjectsTemplates, kBinaryData) == kObject);
   }
 }

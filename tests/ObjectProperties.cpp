@@ -1,17 +1,21 @@
+#include "Utils.h"
+
+#include <h3mtxt/H3JsonReader/H3MJsonReader/H3MJsonReader.h>
+#include <h3mtxt/H3JsonWriter/H3MJsonWriter/H3MJsonWriter.h>
 #include <h3mtxt/H3Reader/H3MReader/H3MReader.h>
 #include <h3mtxt/H3Writer/H3MWriter/H3MWriter.h>
 #include <h3mtxt/Map/ObjectProperties.h>
 
 #include <catch2/catch_test_macros.hpp>
 
-#include <cstddef>
 #include <iterator>
-#include <span>
 #include <sstream>
 #include <string>
 #include <string_view>
 #include <utility>
-#include <vector>
+
+using ::Testing_NS::asByteVector;
+using ::Testing_NS::encodeAndDecodeJson;
 
 namespace h3m
 {
@@ -37,15 +41,6 @@ namespace h3m
       std::istringstream stream{ std::string{encoded_data} };
       return H3MReader{ stream }.readObjectProperties<T>();
     }
-
-    // Catch2 sometimes has issues when printing binary strings
-    // (see https://github.com/catchorg/Catch2/issues/2960).
-    // Until the issue is resolved, this workaround can be used.
-    std::vector<std::byte> asByteVector(std::string_view data)
-    {
-      const std::span<const std::byte> bytes = std::as_bytes(std::span<const char>(data));
-      return std::vector<std::byte>{bytes.begin(), bytes.end()};
-    }
   }
 
   TEST_CASE("H3M.ObjectProperties.AbandonedMine", "[H3M]")
@@ -64,6 +59,7 @@ namespace h3m
 
     REQUIRE(asByteVector(encodeObjectProperties(kProperties)) == asByteVector(kBinaryData));
     REQUIRE(decodeObjectProperties<ObjectPropertiesType::ABANDONED_MINE>(kBinaryData) == kProperties);
+    REQUIRE(encodeAndDecodeJson(kProperties) == kProperties);
   }
 
   TEST_CASE("H3M.ObjectProperties.Artifact", "[H3M]")
@@ -78,6 +74,7 @@ namespace h3m
 
       REQUIRE(asByteVector(encodeObjectProperties(kProperties)) == asByteVector(kBinaryData));
       REQUIRE(decodeObjectProperties<ObjectPropertiesType::ARTIFACT>(kBinaryData) == kProperties);
+      REQUIRE(encodeAndDecodeJson(kProperties) == kProperties);
     }
     SECTION("With guardians")
     {
@@ -112,6 +109,7 @@ namespace h3m
 
       REQUIRE(asByteVector(encodeObjectProperties(kProperties)) == asByteVector(kBinaryData));
       REQUIRE(decodeObjectProperties<ObjectPropertiesType::ARTIFACT>(kBinaryData) == kProperties);
+      REQUIRE(encodeAndDecodeJson(kProperties) == kProperties);
     }
   }
 
@@ -213,6 +211,7 @@ namespace h3m
 
     REQUIRE(asByteVector(encodeObjectProperties(kProperties)) == asByteVector(kBinaryData));
     REQUIRE(decodeObjectProperties<ObjectPropertiesType::EVENT>(kBinaryData) == kProperties);
+    REQUIRE(encodeAndDecodeJson(kProperties) == kProperties);
   }
 
   TEST_CASE("H3M.ObjectProperties.Garrison", "[H3M]")
@@ -248,6 +247,7 @@ namespace h3m
 
     REQUIRE(asByteVector(encodeObjectProperties(kProperties)) == asByteVector(kBinaryData));
     REQUIRE(decodeObjectProperties<ObjectPropertiesType::GARRISON>(kBinaryData) == kProperties);
+    REQUIRE(encodeAndDecodeJson(kProperties) == kProperties);
   }
 
   TEST_CASE("H3M.ObjectProperties.GenericNoProperties", "[H3M]")
@@ -257,6 +257,7 @@ namespace h3m
 
     REQUIRE(asByteVector(encodeObjectProperties(kProperties)) == asByteVector(kBinaryData));
     REQUIRE(decodeObjectProperties<ObjectPropertiesType::GENERIC_NO_PROPERTIES>(kBinaryData) == kProperties);
+    REQUIRE(encodeAndDecodeJson(kProperties) == kProperties);
   }
 
   TEST_CASE("H3M.ObjectProperties.Grail", "[H3M]")
@@ -270,6 +271,7 @@ namespace h3m
 
     REQUIRE(asByteVector(encodeObjectProperties(kProperties)) == asByteVector(kBinaryData));
     REQUIRE(decodeObjectProperties<ObjectPropertiesType::GRAIL>(kBinaryData) == kProperties);
+    REQUIRE(encodeAndDecodeJson(kProperties) == kProperties);
   }
 
   TEST_CASE("H3M.ObjectProperties.Hero", "[H3M]")
@@ -369,6 +371,7 @@ namespace h3m
 
     REQUIRE(asByteVector(encodeObjectProperties(kProperties)) == asByteVector(kBinaryData));
     REQUIRE(decodeObjectProperties<ObjectPropertiesType::HERO>(kBinaryData) == kProperties);
+    REQUIRE(encodeAndDecodeJson(kProperties) == kProperties);
   }
 
   TEST_CASE("H3M.ObjectProperties.Monster", "[H3M]")
@@ -411,6 +414,7 @@ namespace h3m
 
     REQUIRE(asByteVector(encodeObjectProperties(kProperties)) == asByteVector(kBinaryData));
     REQUIRE(decodeObjectProperties<ObjectPropertiesType::MONSTER>(kBinaryData) == kProperties);
+    REQUIRE(encodeAndDecodeJson(kProperties) == kProperties);
   }
 
   TEST_CASE("H3M.ObjectProperties.PandorasBox", "[H3M]")
@@ -499,6 +503,7 @@ namespace h3m
 
     REQUIRE(asByteVector(encodeObjectProperties(kProperties)) == asByteVector(kBinaryData));
     REQUIRE(decodeObjectProperties<ObjectPropertiesType::PANDORAS_BOX>(kBinaryData) == kProperties);
+    REQUIRE(encodeAndDecodeJson(kProperties) == kProperties);
   }
 
   TEST_CASE("H3M.ObjectProperties.PlaceholderHero", "[H3M]")
@@ -514,6 +519,7 @@ namespace h3m
 
       REQUIRE(asByteVector(encodeObjectProperties(kProperties)) == asByteVector(kBinaryData));
       REQUIRE(decodeObjectProperties<ObjectPropertiesType::PLACEHOLDER_HERO>(kBinaryData) == kProperties);
+      REQUIRE(encodeAndDecodeJson(kProperties) == kProperties);
     }
     SECTION("Power-rated")
     {
@@ -527,6 +533,7 @@ namespace h3m
 
       REQUIRE(asByteVector(encodeObjectProperties(kProperties)) == asByteVector(kBinaryData));
       REQUIRE(decodeObjectProperties<ObjectPropertiesType::PLACEHOLDER_HERO>(kBinaryData) == kProperties);
+      REQUIRE(encodeAndDecodeJson(kProperties) == kProperties);
     }
   }
 
@@ -554,6 +561,7 @@ namespace h3m
 
     REQUIRE(asByteVector(encodeObjectProperties(kProperties)) == asByteVector(kBinaryData));
     REQUIRE(decodeObjectProperties<ObjectPropertiesType::QUEST_GUARD>(kBinaryData) == kProperties);
+    REQUIRE(encodeAndDecodeJson(kProperties) == kProperties);
   }
 
   TEST_CASE("H3M.ObjectProperties.RandomDwelling", "[H3M]")
@@ -574,6 +582,7 @@ namespace h3m
       static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
       REQUIRE(asByteVector(encodeObjectProperties(kProperties)) == asByteVector(kBinaryData));
       REQUIRE(decodeObjectProperties<ObjectPropertiesType::RANDOM_DWELLING>(kBinaryData) == kProperties);
+      REQUIRE(encodeAndDecodeJson(kProperties) == kProperties);
     }
     SECTION("Not tied to town")
     {
@@ -599,6 +608,7 @@ namespace h3m
       static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
       REQUIRE(asByteVector(encodeObjectProperties(kProperties)) == asByteVector(kBinaryData));
       REQUIRE(decodeObjectProperties<ObjectPropertiesType::RANDOM_DWELLING>(kBinaryData) == kProperties);
+      REQUIRE(encodeAndDecodeJson(kProperties) == kProperties);
     }
   }
 
@@ -616,6 +626,7 @@ namespace h3m
     static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
     REQUIRE(asByteVector(encodeObjectProperties(kProperties)) == asByteVector(kBinaryData));
     REQUIRE(decodeObjectProperties<ObjectPropertiesType::RANDOM_DWELLING_PRESET_ALIGNMENT>(kBinaryData) == kProperties);
+    REQUIRE(encodeAndDecodeJson(kProperties) == kProperties);
   }
 
   TEST_CASE("H3M.ObjectProperties.RandomDwellingPresetLevel", "[H3M]")
@@ -632,6 +643,7 @@ namespace h3m
       static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
       REQUIRE(asByteVector(encodeObjectProperties(kProperties)) == asByteVector(kBinaryData));
       REQUIRE(decodeObjectProperties<ObjectPropertiesType::RANDOM_DWELLING_PRESET_LEVEL>(kBinaryData) == kProperties);
+      REQUIRE(encodeAndDecodeJson(kProperties) == kProperties);
     }
     SECTION("Not tied to town")
     {
@@ -653,6 +665,7 @@ namespace h3m
       static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
       REQUIRE(asByteVector(encodeObjectProperties(kProperties)) == asByteVector(kBinaryData));
       REQUIRE(decodeObjectProperties<ObjectPropertiesType::RANDOM_DWELLING_PRESET_LEVEL>(kBinaryData) == kProperties);
+      REQUIRE(encodeAndDecodeJson(kProperties) == kProperties);
     }
   }
 
@@ -670,6 +683,7 @@ namespace h3m
 
       REQUIRE(asByteVector(encodeObjectProperties(kProperties)) == asByteVector(kBinaryData));
       REQUIRE(decodeObjectProperties<ObjectPropertiesType::RESOURCE>(kBinaryData) == kProperties);
+      REQUIRE(encodeAndDecodeJson(kProperties) == kProperties);
     }
     SECTION("With guardians")
     {
@@ -708,6 +722,7 @@ namespace h3m
 
       REQUIRE(asByteVector(encodeObjectProperties(kProperties)) == asByteVector(kBinaryData));
       REQUIRE(decodeObjectProperties<ObjectPropertiesType::RESOURCE>(kBinaryData) == kProperties);
+      REQUIRE(encodeAndDecodeJson(kProperties) == kProperties);
     }
   }
 
@@ -723,6 +738,7 @@ namespace h3m
       static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
       REQUIRE(asByteVector(encodeObjectProperties(kProperties)) == asByteVector(kBinaryData));
       REQUIRE(decodeObjectProperties<ObjectPropertiesType::SCHOLAR>(kBinaryData) == kProperties);
+      REQUIRE(encodeAndDecodeJson(kProperties) == kProperties);
     }
     SECTION("Secondary skill")
     {
@@ -734,6 +750,7 @@ namespace h3m
       static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
       REQUIRE(asByteVector(encodeObjectProperties(kProperties)) == asByteVector(kBinaryData));
       REQUIRE(decodeObjectProperties<ObjectPropertiesType::SCHOLAR>(kBinaryData) == kProperties);
+      REQUIRE(encodeAndDecodeJson(kProperties) == kProperties);
     }
     SECTION("Spell")
     {
@@ -745,6 +762,7 @@ namespace h3m
       static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
       REQUIRE(asByteVector(encodeObjectProperties(kProperties)) == asByteVector(kBinaryData));
       REQUIRE(decodeObjectProperties<ObjectPropertiesType::SCHOLAR>(kBinaryData) == kProperties);
+      REQUIRE(encodeAndDecodeJson(kProperties) == kProperties);
     }
     SECTION("Random")
     {
@@ -756,6 +774,7 @@ namespace h3m
       static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
       REQUIRE(asByteVector(encodeObjectProperties(kProperties)) == asByteVector(kBinaryData));
       REQUIRE(decodeObjectProperties<ObjectPropertiesType::SCHOLAR>(kBinaryData) == kProperties);
+      REQUIRE(encodeAndDecodeJson(kProperties) == kProperties);
     }
   }
 
@@ -792,6 +811,7 @@ namespace h3m
 
     REQUIRE(asByteVector(encodeObjectProperties(kProperties)) == asByteVector(kBinaryData));
     REQUIRE(decodeObjectProperties<ObjectPropertiesType::SEERS_HUT>(kBinaryData) == kProperties);
+    REQUIRE(encodeAndDecodeJson(kProperties) == kProperties);
   }
 
   TEST_CASE("H3M.ObjectProperties.Shrine", "[H3M]")
@@ -805,6 +825,7 @@ namespace h3m
 
     REQUIRE(asByteVector(encodeObjectProperties(kProperties)) == asByteVector(kBinaryData));
     REQUIRE(decodeObjectProperties<ObjectPropertiesType::SHRINE>(kBinaryData) == kProperties);
+    REQUIRE(encodeAndDecodeJson(kProperties) == kProperties);
   }
 
   TEST_CASE("H3M.ObjectProperties.Sign", "[H3M]")
@@ -820,6 +841,7 @@ namespace h3m
 
     REQUIRE(asByteVector(encodeObjectProperties(kProperties)) == asByteVector(kBinaryData));
     REQUIRE(decodeObjectProperties<ObjectPropertiesType::SIGN>(kBinaryData) == kProperties);
+    REQUIRE(encodeAndDecodeJson(kProperties) == kProperties);
   }
 
   TEST_CASE("H3M.ObjectProperties.SpellScroll", "[H3M]")
@@ -836,6 +858,7 @@ namespace h3m
 
       REQUIRE(asByteVector(encodeObjectProperties(kProperties)) == asByteVector(kBinaryData));
       REQUIRE(decodeObjectProperties<ObjectPropertiesType::SPELL_SCROLL>(kBinaryData) == kProperties);
+      REQUIRE(encodeAndDecodeJson(kProperties) == kProperties);
     }
     SECTION("With guardians")
     {
@@ -874,6 +897,7 @@ namespace h3m
 
       REQUIRE(asByteVector(encodeObjectProperties(kProperties)) == asByteVector(kBinaryData));
       REQUIRE(decodeObjectProperties<ObjectPropertiesType::SPELL_SCROLL>(kBinaryData) == kProperties);
+      REQUIRE(encodeAndDecodeJson(kProperties) == kProperties);
     }
   }
 
@@ -991,6 +1015,7 @@ namespace h3m
 
     REQUIRE(asByteVector(encodeObjectProperties(kProperties)) == asByteVector(kBinaryData));
     REQUIRE(decodeObjectProperties<ObjectPropertiesType::TOWN>(kBinaryData) == kProperties);
+    REQUIRE(encodeAndDecodeJson(kProperties) == kProperties);
   }
 
   TEST_CASE("H3M.ObjectProperties.TrivialOwnedObject", "[H3M]")
@@ -1004,6 +1029,7 @@ namespace h3m
 
     REQUIRE(asByteVector(encodeObjectProperties(kProperties)) == asByteVector(kBinaryData));
     REQUIRE(decodeObjectProperties<ObjectPropertiesType::TRIVIAL_OWNED_OBJECT>(kBinaryData) == kProperties);
+    REQUIRE(encodeAndDecodeJson(kProperties) == kProperties);
   }
 
   TEST_CASE("H3M.ObjectProperties.WitchHut", "[H3M]")
@@ -1023,5 +1049,6 @@ namespace h3m
 
     REQUIRE(asByteVector(encodeObjectProperties(kProperties)) == asByteVector(kBinaryData));
     REQUIRE(decodeObjectProperties<ObjectPropertiesType::WITCH_HUT>(kBinaryData) == kProperties);
+    REQUIRE(encodeAndDecodeJson(kProperties) == kProperties);
   }
 }

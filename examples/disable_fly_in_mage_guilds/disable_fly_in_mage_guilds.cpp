@@ -1,0 +1,51 @@
+#include <h3mtxt/Map/Map.h>
+#include <h3mtxt/H3Reader/H3MReader/parseh3m.h>
+#include <h3mtxt/H3Writer/H3MWriter/writeh3m.h>
+
+#include <fstream>
+#include <filesystem>
+#include <iostream>
+#include <stdexcept>
+
+int main(int argc, char** argv)
+{
+  if (argc != 2)
+  {
+    std::cout << "Usage: disable_fly_in_mage_guilds <path_to_map>" << std::endl;
+    return (argc == 0) ? 0 : -1;
+  }
+
+  try
+  {
+    const std::filesystem::path path_to_map{ argv[1] };
+
+    // Read the map.
+    std::fstream stream{ path_to_map, std::ios_base::in | std::ios_base::binary };
+    h3m::Map map = h3m::parseh3m(stream);
+    stream.close();
+
+    // Iterate over all objects.
+    for (h3m::Object& object : map.objects)
+    {
+      // If the object is a town, disable "Fly" in its Mage Guild.
+      h3m::ObjectProperties<h3m::ObjectPropertiesType::TOWN>* town_properties =
+        object.properties.get_if<h3m::ObjectPropertiesType::TOWN>();
+      if (town_properties != nullptr)
+      {
+        town_properties->must_have_spell.set(h3m::SpellType::Fly, false);
+        town_properties->may_not_have_spell.set(h3m::SpellType::Fly, true);
+      }
+    }
+
+    // Write the modified map.
+    stream.open(path_to_map, std::ios_base::out | std::ios_base::binary);
+    h3m::writeh3m(stream, map);
+  }
+  catch (const std::exception& error)
+  {
+    std::cerr << error.what() << std::endl;
+    return -1;
+  }
+
+  return 0;
+}

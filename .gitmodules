@@ -10,3 +10,6 @@
 [submodule "tests/thirdparty/Catch2"]
 	path = tests/thirdparty/Catch2
 	url = https://github.com/catchorg/Catch2.git
+[submodule "thirdparty/lodepng"]
+	path = examples/Minimap/src/thirdparty/lodepng
+	url = https://github.com/lvandeve/lodepng.git

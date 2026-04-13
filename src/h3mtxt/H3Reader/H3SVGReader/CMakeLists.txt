@@ -21,14 +21,14 @@ add_library(H3SVGReader STATIC
 )
 add_library(h3mtxt::H3SVGReader ALIAS H3SVGReader)
 
-target_include_directories(H3SVGReader PUBLIC "${PROJECT_SOURCE_DIR}/..")
+target_include_directories(H3SVGReader PUBLIC "${H3MTXT_SRC_DIR}")
 
 # Dependencies:
 target_link_libraries(H3SVGReader PUBLIC h3mtxt::SavedGame)
-target_link_libraries(H3SVGReader PUBLIC h3mtxt::H3MReader)
+target_link_libraries(H3SVGReader PRIVATE h3mtxt::H3MReader)
 target_link_libraries(H3SVGReader PUBLIC h3mtxt::H3ReaderBase)
 # Thirdparty libraries:
-target_link_libraries(H3SVGReader PRIVATE zlib::zlibstatic)
+target_link_libraries(H3SVGReader PRIVATE ZLIB::ZLIBSTATIC)
 
 # Set compiler options.
 h3mtxt_add_common_compiler_options(H3SVGReader)

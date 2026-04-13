@@ -1,3 +1,7 @@
+#include "Utils.h"
+
+#include <h3mtxt/H3JsonReader/H3MJsonReader/H3MJsonReader.h>
+#include <h3mtxt/H3JsonWriter/H3MJsonWriter/H3MJsonWriter.h>
 #include <h3mtxt/H3Reader/H3MReader/H3MReader.h>
 #include <h3mtxt/H3Writer/H3MWriter/H3MWriter.h>
 #include <h3mtxt/Map/PlayerSpecs.h>
@@ -9,6 +13,9 @@
 #include <string>
 #include <string_view>
 #include <utility>
+
+using ::Testing_NS::asByteVector;
+using ::Testing_NS::encodeAndDecodeJson;
 
 namespace h3m
 {
@@ -82,8 +89,9 @@ namespace h3m
     static constexpr char kBinaryDataCStr[] = "\x01\x05\x46\x18\x01";
     static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
 
-    REQUIRE(encodeMainTown(kMainTown) == kBinaryData);
+    REQUIRE(asByteVector(encodeMainTown(kMainTown)) == asByteVector(kBinaryData));
     REQUIRE(decodeMainTown(kBinaryData) == kMainTown);
+    REQUIRE(encodeAndDecodeJson(kMainTown) == kMainTown);
   }
 
   TEST_CASE("H3M.StartingHero", "[H3M]")
@@ -92,8 +100,9 @@ namespace h3m
     {
       const StartingHero kStartingHero = { .type = static_cast<HeroType>(-1) };
       constexpr std::string_view kBinaryData = "\xff";
-      REQUIRE(encodeStartingHero(kStartingHero) == kBinaryData);
+      REQUIRE(asByteVector(encodeStartingHero(kStartingHero)) == asByteVector(kBinaryData));
       REQUIRE(decodeStartingHero(kBinaryData) == kStartingHero);
+      REQUIRE(encodeAndDecodeJson(kStartingHero) == kStartingHero);
     }
     SECTION("Not None")
     {
@@ -104,8 +113,9 @@ namespace h3m
       };
       static constexpr char kBinaryDataCStr[] = "\x97\x10\x07\x00\x00\x00Jessica";
       static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
-      REQUIRE(encodeStartingHero(kStartingHero) == kBinaryData);
+      REQUIRE(asByteVector(encodeStartingHero(kStartingHero)) == asByteVector(kBinaryData));
       REQUIRE(decodeStartingHero(kBinaryData) == kStartingHero);
+      REQUIRE(encodeAndDecodeJson(kStartingHero) == kStartingHero);
     }
   }
 
@@ -155,7 +165,8 @@ namespace h3m
       "\x02\x00\x00\x00" "\x97\x07\x00\x00\x00Jessica" "\x00\x00\x00\x00\x00"; // heroes
     static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
 
-    REQUIRE(encodePlayerSpecs(kPlayerSpecs) == kBinaryData);
+    REQUIRE(asByteVector(encodePlayerSpecs(kPlayerSpecs)) == asByteVector(kBinaryData));
     REQUIRE(decodePlayerSpecs(kBinaryData) == kPlayerSpecs);
+    REQUIRE(encodeAndDecodeJson(kPlayerSpecs) == kPlayerSpecs);
   }
 }

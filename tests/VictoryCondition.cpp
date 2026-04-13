@@ -1,3 +1,7 @@
+#include "Utils.h"
+
+#include <h3mtxt/H3JsonReader/H3MJsonReader/H3MJsonReader.h>
+#include <h3mtxt/H3JsonWriter/H3MJsonWriter/H3MJsonWriter.h>
 #include <h3mtxt/H3Reader/H3MReader/H3MReader.h>
 #include <h3mtxt/H3Writer/H3MWriter/H3MWriter.h>
 #include <h3mtxt/Map/VictoryCondition.h>
@@ -9,6 +13,9 @@
 #include <string>
 #include <string_view>
 #include <utility>
+
+using ::Testing_NS::asByteVector;
+using ::Testing_NS::encodeAndDecodeJson;
 
 namespace h3m
 {
@@ -46,8 +53,9 @@ namespace h3m
     static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
 
     static_assert(kVictoryCondition.type() == VictoryConditionType::AcquireArtifact);
-    REQUIRE(encodeVictoryCondition(kVictoryCondition) == kBinaryData);
+    REQUIRE(asByteVector(encodeVictoryCondition(kVictoryCondition)) == asByteVector(kBinaryData));
     REQUIRE(decodeVictoryCondition(kBinaryData) == kVictoryCondition);
+    REQUIRE(encodeAndDecodeJson(kVictoryCondition) == kVictoryCondition);
   }
 
   TEST_CASE("H3M.VictoryCondition.AccumulateCreatures", "[H3M]")
@@ -63,8 +71,9 @@ namespace h3m
     static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
 
     static_assert(kVictoryCondition.type() == VictoryConditionType::AccumulateCreatures);
-    REQUIRE(encodeVictoryCondition(kVictoryCondition) == kBinaryData);
+    REQUIRE(asByteVector(encodeVictoryCondition(kVictoryCondition)) == asByteVector(kBinaryData));
     REQUIRE(decodeVictoryCondition(kBinaryData) == kVictoryCondition);
+    REQUIRE(encodeAndDecodeJson(kVictoryCondition) == kVictoryCondition);
   }
 
   TEST_CASE("H3M.VictoryCondition.AccumulateResources", "[H3M]")
@@ -80,8 +89,9 @@ namespace h3m
     static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
 
     static_assert(kVictoryCondition.type() == VictoryConditionType::AccumulateResources);
-    REQUIRE(encodeVictoryCondition(kVictoryCondition) == kBinaryData);
+    REQUIRE(asByteVector(encodeVictoryCondition(kVictoryCondition)) == asByteVector(kBinaryData));
     REQUIRE(decodeVictoryCondition(kBinaryData) == kVictoryCondition);
+    REQUIRE(encodeAndDecodeJson(kVictoryCondition) == kVictoryCondition);
   }
 
   TEST_CASE("H3M.VictoryCondition.UpgradeTown", "[H3M]")
@@ -98,8 +108,9 @@ namespace h3m
     static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
 
     static_assert(kVictoryCondition.type() == VictoryConditionType::UpgradeTown);
-    REQUIRE(encodeVictoryCondition(kVictoryCondition) == kBinaryData);
+    REQUIRE(asByteVector(encodeVictoryCondition(kVictoryCondition)) == asByteVector(kBinaryData));
     REQUIRE(decodeVictoryCondition(kBinaryData) == kVictoryCondition);
+    REQUIRE(encodeAndDecodeJson(kVictoryCondition) == kVictoryCondition);
   }
 
   TEST_CASE("H3M.VictoryCondition.BuildGrail", "[H3M]")
@@ -114,8 +125,9 @@ namespace h3m
     static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
 
     static_assert(kVictoryCondition.type() == VictoryConditionType::BuildGrail);
-    REQUIRE(encodeVictoryCondition(kVictoryCondition) == kBinaryData);
+    REQUIRE(asByteVector(encodeVictoryCondition(kVictoryCondition)) == asByteVector(kBinaryData));
     REQUIRE(decodeVictoryCondition(kBinaryData) == kVictoryCondition);
+    REQUIRE(encodeAndDecodeJson(kVictoryCondition) == kVictoryCondition);
   }
 
   TEST_CASE("H3M.VictoryCondition.DefeatHero", "[H3M]")
@@ -130,8 +142,9 @@ namespace h3m
     static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
 
     static_assert(kVictoryCondition.type() == VictoryConditionType::DefeatHero);
-    REQUIRE(encodeVictoryCondition(kVictoryCondition) == kBinaryData);
+    REQUIRE(asByteVector(encodeVictoryCondition(kVictoryCondition)) == asByteVector(kBinaryData));
     REQUIRE(decodeVictoryCondition(kBinaryData) == kVictoryCondition);
+    REQUIRE(encodeAndDecodeJson(kVictoryCondition) == kVictoryCondition);
   }
 
   TEST_CASE("H3M.VictoryCondition.CaptureTown", "[H3M]")
@@ -146,8 +159,9 @@ namespace h3m
     static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
 
     static_assert(kVictoryCondition.type() == VictoryConditionType::CaptureTown);
-    REQUIRE(encodeVictoryCondition(kVictoryCondition) == kBinaryData);
+    REQUIRE(asByteVector(encodeVictoryCondition(kVictoryCondition)) == asByteVector(kBinaryData));
     REQUIRE(decodeVictoryCondition(kBinaryData) == kVictoryCondition);
+    REQUIRE(encodeAndDecodeJson(kVictoryCondition) == kVictoryCondition);
   }
 
   TEST_CASE("H3M.VictoryCondition.DefeatMonster", "[H3M]")
@@ -162,8 +176,9 @@ namespace h3m
     static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
 
     static_assert(kVictoryCondition.type() == VictoryConditionType::DefeatMonster);
-    REQUIRE(encodeVictoryCondition(kVictoryCondition) == kBinaryData);
+    REQUIRE(asByteVector(encodeVictoryCondition(kVictoryCondition)) == asByteVector(kBinaryData));
     REQUIRE(decodeVictoryCondition(kBinaryData) == kVictoryCondition);
+    REQUIRE(encodeAndDecodeJson(kVictoryCondition) == kVictoryCondition);
   }
 
   TEST_CASE("H3M.VictoryCondition.FlagDwellings", "[H3M]")
@@ -177,8 +192,9 @@ namespace h3m
     static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
 
     static_assert(kVictoryCondition.type() == VictoryConditionType::FlagDwellings);
-    REQUIRE(encodeVictoryCondition(kVictoryCondition) == kBinaryData);
+    REQUIRE(asByteVector(encodeVictoryCondition(kVictoryCondition)) == asByteVector(kBinaryData));
     REQUIRE(decodeVictoryCondition(kBinaryData) == kVictoryCondition);
+    REQUIRE(encodeAndDecodeJson(kVictoryCondition) == kVictoryCondition);
   }
 
   TEST_CASE("H3M.VictoryCondition.FlagMines", "[H3M]")
@@ -192,8 +208,9 @@ namespace h3m
     static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
 
     static_assert(kVictoryCondition.type() == VictoryConditionType::FlagMines);
-    REQUIRE(encodeVictoryCondition(kVictoryCondition) == kBinaryData);
+    REQUIRE(asByteVector(encodeVictoryCondition(kVictoryCondition)) == asByteVector(kBinaryData));
     REQUIRE(decodeVictoryCondition(kBinaryData) == kVictoryCondition);
+    REQUIRE(encodeAndDecodeJson(kVictoryCondition) == kVictoryCondition);
   }
 
   TEST_CASE("H3M.VictoryCondition.TransportArtifact", "[H3M]")
@@ -209,8 +226,9 @@ namespace h3m
     static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
 
     static_assert(kVictoryCondition.type() == VictoryConditionType::TransportArtifact);
-    REQUIRE(encodeVictoryCondition(kVictoryCondition) == kBinaryData);
+    REQUIRE(asByteVector(encodeVictoryCondition(kVictoryCondition)) == asByteVector(kBinaryData));
     REQUIRE(decodeVictoryCondition(kBinaryData) == kVictoryCondition);
+    REQUIRE(encodeAndDecodeJson(kVictoryCondition) == kVictoryCondition);
   }
 
   TEST_CASE("H3M.VictoryCondition.DefeatAllMonsters", "[H3M]")
@@ -224,8 +242,9 @@ namespace h3m
     static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
 
     static_assert(kVictoryCondition.type() == VictoryConditionType::DefeatAllMonsters);
-    REQUIRE(encodeVictoryCondition(kVictoryCondition) == kBinaryData);
+    REQUIRE(asByteVector(encodeVictoryCondition(kVictoryCondition)) == asByteVector(kBinaryData));
     REQUIRE(decodeVictoryCondition(kBinaryData) == kVictoryCondition);
+    REQUIRE(encodeAndDecodeJson(kVictoryCondition) == kVictoryCondition);
   }
 
   TEST_CASE("H3M.VictoryCondition.SurviveBeyondATimeLimit", "[H3M]")
@@ -240,8 +259,9 @@ namespace h3m
     static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
 
     static_assert(kVictoryCondition.type() == VictoryConditionType::SurviveBeyondATimeLimit);
-    REQUIRE(encodeVictoryCondition(kVictoryCondition) == kBinaryData);
+    REQUIRE(asByteVector(encodeVictoryCondition(kVictoryCondition)) == asByteVector(kBinaryData));
     REQUIRE(decodeVictoryCondition(kBinaryData) == kVictoryCondition);
+    REQUIRE(encodeAndDecodeJson(kVictoryCondition) == kVictoryCondition);
   }
 
   TEST_CASE("H3M.VictoryCondition.Normal", "[H3M]")
@@ -253,7 +273,8 @@ namespace h3m
     static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
 
     static_assert(kVictoryCondition.type() == VictoryConditionType::Normal);
-    REQUIRE(encodeVictoryCondition(kVictoryCondition) == kBinaryData);
+    REQUIRE(asByteVector(encodeVictoryCondition(kVictoryCondition)) == asByteVector(kBinaryData));
     REQUIRE(decodeVictoryCondition(kBinaryData) == kVictoryCondition);
+    REQUIRE(encodeAndDecodeJson(kVictoryCondition) == kVictoryCondition);
   }
 }
