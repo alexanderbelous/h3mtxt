@@ -43,9 +43,14 @@ cmake --build build --config Release
 cmake --install build --config Release --prefix .
 ```
 
-Note that unit tests are disabled by default. If you want to build h3mtxt with unit tests, replace the third line with:
+Note that [tests](tests) are disabled by default. If you want to build h3mtxt with tests, replace the third line with:
 ```sh
 cmake -S . -B build -DH3MTXT_BUILD_TESTS=ON
+```
+
+Similarly, [examples](examples) are disabled by default. If you want to build h3mtxt with examples, replace the third line with:
+```sh
+cmake -S . -B build -DH3MTXT_BUILD_EXAMPLES=ON
 ```
 
 # Future plans
