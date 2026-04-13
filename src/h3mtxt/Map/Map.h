@@ -30,6 +30,24 @@ namespace h3m
     // \return true if *this is equal to @other, false otherwise.
     bool operator==(const Map& other) const noexcept = default;
 
+    // Returns the tile with the specified coordinates.
+    // \param x - X-coordinate of the tile.
+    // \param y - Y-coordinate of the tile.
+    // \param z - Z-coordinate of the tile.
+    // \return the tile with coordinates (x, y, z).
+    // \throw std::out_of_range if the coordinates (x, y, z) do not refer to a valid tile
+    //        or if this->tiles is too short.
+    constexpr Tile& getTile(std::uint32_t x, std::uint32_t y, std::uint32_t z);
+
+    // Returns the tile with the specified coordinates.
+    // \param x - X-coordinate of the tile.
+    // \param y - Y-coordinate of the tile.
+    // \param z - Z-coordinate of the tile.
+    // \return the tile with coordinates (x, y, z).
+    // \throw std::out_of_range if the coordinates (x, y, z) do not refer to a valid tile
+    //        or if this->tiles is too short.
+    constexpr const Tile& getTile(std::uint32_t x, std::uint32_t y, std::uint32_t z) const;
+
     // Format of the map ("Map Specifications"/"Map version" in the Editor).
     MapFormat format = MapFormat::ShadowOfDeath;
     // Basic information about the map ("Map Specifications"/"General" tab in the Editor).
@@ -40,8 +58,7 @@ namespace h3m
     // "Teams", "Heroes", "Artifacts", "Spells", "Secondary Skills" and "Rumors" tabs in the Editor).
     MapAdditionalInfo additional_info;
     // Terrain data for each tile on the map.
-    // The number of elements should be (has_two_levels ? 2 : 1) * map_size * map_size.
-    // Tile (x, y, z) has the index ((z * map_size + y) * map_size + x).
+    // The number of elements must be equal to countTiles(basic_info).
     std::vector<Tile> tiles;
     // "Templates" for objects on the Adventure Map.
     // .h3m splits objects' properties into 2 structures: a template (called "Advanced Properties"
@@ -53,6 +70,21 @@ namespace h3m
     // Global events on this map ("Map Specifications"/"Timed Events" tab in the Editor).
     std::vector<TimedEvent> global_events;
     // Should be 0s. Kept here for compatibility.
-    ReservedData<124> padding {};
+    ReservedData<124> padding;
   };
+
+  constexpr Tile& Map::getTile(std::uint32_t x, std::uint32_t y, std::uint32_t z)
+  {
+    return const_cast<Tile&>(static_cast<const Map&>(*this).getTile(x, y, z));
+  }
+
+  constexpr const Tile& Map::getTile(std::uint32_t x, std::uint32_t y, std::uint32_t z) const
+  {
+    if (x >= basic_info.map_size || y >= basic_info.map_size || z >= countLevels(basic_info))
+    {
+      throw std::out_of_range("Map::getTile(): invalid coordinates.");
+    }
+    const std::size_t tile_idx = (static_cast<std::size_t>(z) * basic_info.map_size + y) * basic_info.map_size + x;
+    return tiles.at(tile_idx);
+  }
 }

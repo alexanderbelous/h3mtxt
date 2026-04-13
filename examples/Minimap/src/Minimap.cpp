@@ -238,9 +238,7 @@ namespace Minimap_NS
     {
       for (std::uint32_t x = 0; x < map_size; ++x)
       {
-        const std::size_t tile_idx = (static_cast<std::size_t>(layer) * map_size + static_cast<std::size_t>(y)) * map_size + x;
-        const h3m::TerrainType terrain_type = map.tiles.at(tile_idx).terrain_type;
-
+        const h3m::TerrainType terrain_type = map.getTile(x, y, layer).terrain_type;
         // Check if there is an obstacle on this tile and it should be rendered on the minimap.
         // This was computed during the previous step.
         const bool has_obstacle = (image(x, y) != Color{});
