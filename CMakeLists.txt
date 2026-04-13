@@ -55,6 +55,9 @@ endif()
 
 # Examples
 if(H3MTXT_BUILD_EXAMPLES)
+  install(TARGETS disable_fly_in_mage_guilds DESTINATION ${CMAKE_INSTALL_BINDIR}/examples)
+  install(TARGETS draw_minimap DESTINATION ${CMAKE_INSTALL_BINDIR}/examples)
+  install(TARGETS make_all_monsters_savage DESTINATION ${CMAKE_INSTALL_BINDIR}/examples)
   install(TARGETS river_sprites_cheatsheet DESTINATION ${CMAKE_INSTALL_BINDIR}/examples)
   install(TARGETS set_defeat_all_monsters DESTINATION ${CMAKE_INSTALL_BINDIR}/examples)
   install(TARGETS terrain_sprites_cheatsheet DESTINATION ${CMAKE_INSTALL_BINDIR}/examples)

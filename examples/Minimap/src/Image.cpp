@@ -51,7 +51,7 @@ namespace Minimap_NS
 
   Image& Image::operator=(Image&& other) noexcept
   {
-    pixels_ = std::move(pixels_);
+    pixels_ = std::move(other.pixels_);
     width_ = other.width_;
     height_ = other.height_;
     other.width_ = 0;
