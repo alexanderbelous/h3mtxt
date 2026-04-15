@@ -25,17 +25,17 @@ namespace h3svg
   struct TownUniqueBuildingsProperties
   {
     // In H3SVG these bit fields are serialized as a single byte. Note, however, that in C++
-    // it's implementation-definde whether bit fields are packed.
+    // it's implementation-defined whether bit fields are packed.
     Bool mana_vortex_available               : 1 = 0;
     std::uint8_t mystic_pond_resource_amount : 3 = 0;
     ResourceType mystic_pond_resource_type   : 3 = ResourceType{ 7 };
     Bool unknown                             : 1 = 0; // todo: reserved? part of resource_type?
     // Type of the creature in the Portal of Summoning or 0xFFFFFFFF if there is none.
-    // This field is "lazy-evaluated" - it only gets initialized when you view the available creatures
-    // from the Town Screen or Kingdom Overview.
+    // This field is "lazy-evaluated" in HoMM3 - it only gets initialized when you view the available
+    // creatures from the Town Screen or Kingdom Overview.
     CreatureType32 summoned_creature_type = CreatureType32{ -1 };
     // The number of creatures in the Portal of Summoning.
-    // May contain junk if there are no summoned creatures or if @summoned_creature_type hasn't been initialized yet.
+    // Only meaningful if summoned_creature_type != -1 (the game may write junk here if there are no summoned creatures).
     std::int16_t summoned_creature_count = 0;
   };
 
