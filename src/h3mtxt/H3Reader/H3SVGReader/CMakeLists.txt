@@ -15,6 +15,7 @@ add_library(H3SVGReader STATIC
     "readReward.cpp"
     "readSavedGame.cpp"
     "readTile.cpp"
+    "readTown.cpp"
     "readVictoryCondition.cpp"
     "zstr_patch.cpp"
     "zstr_patch.h"

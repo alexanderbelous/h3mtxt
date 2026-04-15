@@ -549,8 +549,7 @@ namespace h3json
     static constexpr std::string_view kSpells = "spells";
     static constexpr std::string_view kBannedSpells = "banned_spells";
     static constexpr std::string_view kUnknown4 = "unknown4";
-    static constexpr std::string_view kSummonedCreatureType = "summoned_creature_type";
-    static constexpr std::string_view kSummonedCreatureCount = "summoned_creature_count";
+    static constexpr std::string_view kUniqueBuildingsProperties = "unique_buildings_properties";
   };
 
   template<>
@@ -560,6 +559,17 @@ namespace h3json
     static constexpr std::string_view kBuildings = "buildings";
     static constexpr std::string_view kReserved = "reserved";
     static constexpr std::string_view kCreatures = "creatures";
+  };
+
+  template<>
+  struct FieldNames<h3svg::TownUniqueBuildingsProperties>
+  {
+    static constexpr std::string_view kManaVortexAvailable = "mana_vortex_available";
+    static constexpr std::string_view kMysticPondResourceAmount = "mystic_pond_resource_amount";
+    static constexpr std::string_view kMysticPondResourceType = "mystic_pond_resource_type";
+    static constexpr std::string_view kUnknown = "unknown";
+    static constexpr std::string_view kSummonedCreatureType = "summoned_creature_type";
+    static constexpr std::string_view kSummonedCreatureCount = "summoned_creature_count";
   };
 
   template<>

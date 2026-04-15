@@ -600,9 +600,16 @@ except `allow_normal_win` and `applies_to_computer`.
 | reserved2            |                               | 2             | Not used                                                                  |
 | spells               | `int32[30]`                   | 120           | 6 spells (enum `SpellType`) for each level of the Mage Guild              |
 | banned_spells        | `uint8[9]`                    | 9             | Bitmask; 1 bit per spell type, indicating if it is banned                 |
-| unknown4             | `uint8[62]`                   | 62            | |
-| summoned_creature_type | `int32`                     | 4             | Enum `CreatureType` or -1 if there is no summoned creature                |
-| summoned_creature_count | `int16`                    | 2             | The number of creatures in the Portal of Summoning                        |
+| unknown4             | `uint8[61]`                   | 61            | |
+| unique_buildings_properties | [`UniqueBuildingsProperties`](#UniqueBuildingsProperties) | 7 | Properties of town-specific buildings              |
+
+
+### `UniqueBuildingsProperties`
+| Field name              | Type  | Size in bytes | Description                                                            |
+| ----------------------- | ----- | ------------- | ---------------------------------------------------------------------- |
+| packed_data             | uint8 | 1             | Bit 0 (LSB) - `mana_vortext_available` (`Bool`); Bits [1; 3] - `mystic_pond_resource_amount` (`uint8`); Bits [4; 6] - `mystic_pond_resource_type` (enum `ResourceType`); Bit 7 (MSB) - unknown |
+| summoned_creature_type  | int32 | 4             | Enum `CreatureType` or -1 if there is no summoned creature             |
+| summoned_creature_count | int16 | 2             | The number of creatures in the Portal of Summoning                     |
 
 
 ### `Hero`

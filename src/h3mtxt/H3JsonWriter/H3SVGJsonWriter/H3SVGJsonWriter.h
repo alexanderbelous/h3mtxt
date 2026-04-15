@@ -218,6 +218,10 @@ namespace Medea_NS
   void JsonObjectWriter<h3svg::Town>::operator()(FieldsWriter& out, const h3svg::Town& town) const;
 
   template<>
+  void JsonObjectWriter<h3svg::TownUniqueBuildingsProperties>::operator()(
+    FieldsWriter& out, const h3svg::TownUniqueBuildingsProperties& unique_buildings_properties) const;
+
+  template<>
   void JsonObjectWriter<h3svg::Troops>::operator()(FieldsWriter& out, const h3svg::Troops& troops) const;
 
   template<>

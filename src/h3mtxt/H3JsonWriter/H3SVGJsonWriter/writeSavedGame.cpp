@@ -299,12 +299,28 @@ namespace Medea_NS
     out.writeField(Fields::kSpells, town.spells);
     out.writeField(Fields::kBannedSpells, town.banned_spells);
     out.writeField(Fields::kUnknown4, town.unknown4);
-    out.writeField(Fields::kSummonedCreatureType, town.summoned_creature_type);
-    if (std::string_view enum_str = getEnumString(town.summoned_creature_type); !enum_str.empty())
+    out.writeField(Fields::kUniqueBuildingsProperties, town.unique_buildings_properties);
+  }
+
+  template<>
+  void JsonObjectWriter<h3svg::TownUniqueBuildingsProperties>::operator()(
+    FieldsWriter& out, const h3svg::TownUniqueBuildingsProperties& properties) const
+  {
+    using Fields = h3json::FieldNames<h3svg::TownUniqueBuildingsProperties>;
+    out.writeField(Fields::kManaVortexAvailable, properties.mana_vortex_available);
+    out.writeField(Fields::kMysticPondResourceAmount, properties.mystic_pond_resource_amount);
+    out.writeField(Fields::kMysticPondResourceType, properties.mystic_pond_resource_type);
+    if (std::string_view enum_str = getEnumString(properties.mystic_pond_resource_type); !enum_str.empty())
     {
       out.writeComment(enum_str, false);
     }
-    out.writeField(Fields::kSummonedCreatureCount, town.summoned_creature_count);
+    out.writeField(Fields::kUnknown, properties.unknown);
+    out.writeField(Fields::kSummonedCreatureType, properties.summoned_creature_type);
+    if (std::string_view enum_str = getEnumString(properties.summoned_creature_type); !enum_str.empty())
+    {
+      out.writeComment(enum_str, false);
+    }
+    out.writeField(Fields::kSummonedCreatureCount, properties.summoned_creature_count);
   }
 
   template<>

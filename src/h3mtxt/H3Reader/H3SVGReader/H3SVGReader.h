@@ -111,6 +111,8 @@ namespace h3svg
 
     Town readTown() const;
 
+    TownUniqueBuildingsProperties readTownUniqueBuildingsProperties() const;
+
     Troops readTroops() const;
 
     VictoryCondition readVictoryCondition() const;

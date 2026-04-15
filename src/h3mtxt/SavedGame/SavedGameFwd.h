@@ -180,9 +180,11 @@ namespace h3svg
 
   struct TimedEvent;
 
+  struct Town;
+
   struct TownEvent;
 
-  struct Town;
+  struct TownUniqueBuildingsProperties;
 
   struct Troops;
 
