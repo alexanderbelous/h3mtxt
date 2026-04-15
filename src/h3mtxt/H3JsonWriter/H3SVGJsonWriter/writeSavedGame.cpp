@@ -299,6 +299,12 @@ namespace Medea_NS
     out.writeField(Fields::kSpells, town.spells);
     out.writeField(Fields::kBannedSpells, town.banned_spells);
     out.writeField(Fields::kUnknown4, town.unknown4);
+    out.writeField(Fields::kSummonedCreatureType, town.summoned_creature_type);
+    if (std::string_view enum_str = getEnumString(town.summoned_creature_type); !enum_str.empty())
+    {
+      out.writeComment(enum_str, false);
+    }
+    out.writeField(Fields::kSummonedCreatureCount, town.summoned_creature_count);
   }
 
   template<>

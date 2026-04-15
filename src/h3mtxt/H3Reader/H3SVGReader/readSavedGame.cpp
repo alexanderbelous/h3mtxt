@@ -313,7 +313,9 @@ namespace h3svg
       }
     }
     town.banned_spells = readEnumBitmask<SpellType, 9>();
-    town.unknown4 = readByteArray<68>();
+    town.unknown4 = readByteArray<62>();
+    town.summoned_creature_type = readEnum<CreatureType32>();
+    town.summoned_creature_count = readInt<std::int16_t>();
     return town;
   }
 }

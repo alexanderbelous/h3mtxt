@@ -600,7 +600,9 @@ except `allow_normal_win` and `applies_to_computer`.
 | reserved2            |                               | 2             | Not used                                                                  |
 | spells               | `int32[30]`                   | 120           | 6 spells (enum `SpellType`) for each level of the Mage Guild              |
 | banned_spells        | `uint8[9]`                    | 9             | Bitmask; 1 bit per spell type, indicating if it is banned                 |
-| unknown4             | `uint8[68]`                   | 68            | |
+| unknown4             | `uint8[62]`                   | 62            | |
+| summoned_creature_type | `int32`                     | 4             | Enum `CreatureType` or -1 if there is no summoned creature                |
+| summoned_creature_count | `int16`                    | 2             | The number of creatures in the Portal of Summoning                        |
 
 
 ### `Hero`

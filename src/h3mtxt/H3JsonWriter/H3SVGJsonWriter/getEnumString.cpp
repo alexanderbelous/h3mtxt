@@ -52,9 +52,9 @@ namespace h3svg
 
   std::string_view getEnumString(CreatureType32 value) noexcept
   {
-    constexpr std::uint8_t kNumCreatures = 150;
-    const auto integer_value = static_cast<std::underlying_type_t<CreatureType32>>(value);
-    if (integer_value >= 0 && integer_value < kNumCreatures)
+    constexpr std::int32_t kNumCreatures = 150;
+    const std::int32_t integer_value = static_cast<std::int32_t>(value);
+    if (integer_value >= -1 && integer_value < kNumCreatures)
     {
       return getEnumString(static_cast<CreatureType>(integer_value));
     }
