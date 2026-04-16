@@ -2,11 +2,15 @@
 
 #include <h3mtxt/SavedGame/SavedGameFwd.h>
 
+#include <h3mtxt/Map/Constants/CreatureType.h>
 #include <h3mtxt/Map/Constants/HeroType.h>
 #include <h3mtxt/Map/Constants/PlayerColor.h>
+#include <h3mtxt/Map/Constants/ResourceType.h>
+#include <h3mtxt/Map/Constants/SpellType.h>
 #include <h3mtxt/Map/Constants/TownType.h>
 #include <h3mtxt/Map/Coordinates.h>
 #include <h3mtxt/Map/Utils/EnumBitmask.h>
+#include <h3mtxt/Map/Utils/ReservedData.h>
 #include <h3mtxt/SavedGame/Constants/TownBuildingTypeH3SVG.h>
 #include <h3mtxt/SavedGame/Troops.h>
 
@@ -19,9 +23,6 @@
 namespace h3svg
 {
   // Used in h3svg::Town to describe the properties of unique town buildings.
-  //
-  // H3SVG stores this as a single byte. In the game it's likely represented using bit fields;
-  // this class does the same.
   struct TownUniqueBuildingsProperties
   {
     // In H3SVG these bit fields are serialized as a single byte. Note, however, that in C++

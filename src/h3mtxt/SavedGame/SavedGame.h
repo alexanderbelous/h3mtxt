@@ -3,7 +3,6 @@
 #include <h3mtxt/SavedGame/SavedGameFwd.h>
 #include <h3mtxt/Map/Constants/MapFormat.h>
 #include <h3mtxt/Map/Constants/PlayerColor.h>
-#include <h3mtxt/Map/Utils/BitSet.h>
 #include <h3mtxt/Map/Utils/EnumBitmask.h>
 #include <h3mtxt/Map/Utils/EnumIndexedArray.h>
 #include <h3mtxt/Map/Utils/ReservedData.h>
