@@ -128,7 +128,7 @@ namespace Medea_NS
     JsonObjectWriter<h3m::EventBase>{}(out, event);
     out.writeField(Fields::kAffectedPlayers, event.affected_players);
     out.writeField(Fields::kAppliesToComputer, event.applies_to_computer);
-    out.writeField(Fields::kRemoveAfterFirstVisit, event.remove_after_first_visit);
+    out.writeField(Fields::kCancelAfterFirstVisit, event.cancel_after_first_visit);
     out.writeField(Fields::kUnknown2, event.unknown2);
   }
 

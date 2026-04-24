@@ -169,7 +169,7 @@ namespace h3m
     readEventBase(data);
     data.affected_players = readEnumBitmask<PlayerColor, 1>();
     data.applies_to_computer = readBool();
-    data.remove_after_first_visit = readBool();
+    data.cancel_after_first_visit = readBool();
     data.unknown2 = readReservedData<4>();
     return data;
   }

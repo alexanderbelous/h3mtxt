@@ -170,7 +170,7 @@ namespace h3m
         return bitmask;
       }(),
       /* .applies_to_computer = */ Bool{0},
-      /* .remove_after_first_visit = */ Bool{1},
+      /* .cancel_after_first_visit = */ Bool{1},
       /* .unknown2 = */ ReservedData<4>{}
     };
 
@@ -205,7 +205,7 @@ namespace h3m
       "\x00\x00\x00\x00\x00\x00\x00\x00"           // unknown
       "\x08"                                       // affected_players
       "\x00"                                       // applies_to_computer
-      "\x01"                                       // remove_after_first_visit
+      "\x01"                                       // cancel_after_first_visit
       "\x00\x00\x00\x00";                          // unknown2
     static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
 

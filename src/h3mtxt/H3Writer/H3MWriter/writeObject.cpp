@@ -70,7 +70,7 @@ namespace h3m
     writeEventBase(event);
     writeData(event.affected_players);
     writeData(event.applies_to_computer);
-    writeData(event.remove_after_first_visit);
+    writeData(event.cancel_after_first_visit);
     writeData(event.unknown2);
   }
 

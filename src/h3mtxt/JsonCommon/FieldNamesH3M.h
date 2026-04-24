@@ -730,7 +730,7 @@ namespace h3json
   {
     static constexpr std::string_view kAffectedPlayers = "affected_players";
     static constexpr std::string_view kAppliesToComputer = "applies_to_computer";
-    static constexpr std::string_view kRemoveAfterFirstVisit = "remove_after_first_visit";
+    static constexpr std::string_view kCancelAfterFirstVisit = "cancel_after_first_visit";
     static constexpr std::string_view kUnknown2 = "unknown2";
   };
 

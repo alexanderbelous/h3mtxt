@@ -115,7 +115,7 @@ namespace h3json
       readEventBase(value, details);
       readField(details.affected_players, value, Fields::kAffectedPlayers);
       readField(details.applies_to_computer, value, Fields::kAppliesToComputer);
-      readField(details.remove_after_first_visit, value, Fields::kRemoveAfterFirstVisit);
+      readField(details.cancel_after_first_visit, value, Fields::kCancelAfterFirstVisit);
       readField(details.unknown2, value, Fields::kUnknown2);
       return details;
     }

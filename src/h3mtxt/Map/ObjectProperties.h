@@ -120,7 +120,7 @@ namespace h3m
 
     PlayersBitmask affected_players;
     Bool applies_to_computer = false;
-    Bool remove_after_first_visit = true;
+    Bool cancel_after_first_visit = true;
     ReservedData<4> unknown2;
   };
 
