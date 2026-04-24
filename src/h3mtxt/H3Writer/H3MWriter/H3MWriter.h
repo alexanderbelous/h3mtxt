@@ -57,8 +57,6 @@ namespace h3m
 
     void writeData(const PlayerSpecs& value) const;
 
-    void writeData(const PrimarySkills& primary_skills) const;
-
     void writeData(const Quest& quest) const;
 
     template<QuestType T>
@@ -77,7 +75,7 @@ namespace h3m
 
     void writeData(const StartingHero& value) const;
 
-    void writeData(const TeamsInfo& teams) const;
+    void writeData(const Teams& teams) const;
 
     void writeData(const Tile& value) const;
 
@@ -133,7 +131,7 @@ namespace h3m
 
   template<> void H3MWriter::writeData(const ObjectProperties<ObjectPropertiesType::GARRISON>& properties) const;
 
-  template<> void H3MWriter::writeData(const ObjectProperties<ObjectPropertiesType::GENERIC_NO_PROPERTIES>& properties) const;
+  template<> void H3MWriter::writeData(const ObjectProperties<ObjectPropertiesType::NONE>& properties) const;
 
   template<> void H3MWriter::writeData(const ObjectProperties<ObjectPropertiesType::GRAIL>& properties) const;
 

@@ -40,6 +40,12 @@ namespace h3m
     }
   }
 
+  TEST_CASE("H3M.ObjectPropertiesVariant.DefaultConstructor", "[H3M]")
+  {
+    const ObjectPropertiesVariant properties;
+    REQUIRE(properties.type() == ObjectPropertiesType::NONE);
+  }
+
   TEST_CASE("H3M.Object", "[H3M]")
   {
     const std::array<ObjectTemplate, 2> kObjectsTemplates{

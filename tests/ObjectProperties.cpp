@@ -140,12 +140,7 @@ namespace h3m
           resources[ResourceType::Gold] = 5000;
           return resources;
         }(),
-        .primary_skills = PrimarySkills{
-          .attack = 1,
-          .defense = 2,
-          .spell_power = 3,
-          .knowledge = 4
-        },
+        .primary_skills = { 1, 2, 3, 4 },
         .secondary_skills = {
           SecondarySkill{.type = SecondarySkillType::EarthMagic, .level = 3},
           SecondarySkill{.type = SecondarySkillType::Wisdom, .level = 3},
@@ -170,7 +165,7 @@ namespace h3m
         return bitmask;
       }(),
       /* .applies_to_computer = */ Bool{0},
-      /* .remove_after_first_visit = */ Bool{1},
+      /* .cancel_after_first_visit = */ Bool{1},
       /* .unknown2 = */ ReservedData<4>{}
     };
 
@@ -205,7 +200,7 @@ namespace h3m
       "\x00\x00\x00\x00\x00\x00\x00\x00"           // unknown
       "\x08"                                       // affected_players
       "\x00"                                       // applies_to_computer
-      "\x01"                                       // remove_after_first_visit
+      "\x01"                                       // cancel_after_first_visit
       "\x00\x00\x00\x00";                          // unknown2
     static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
 
@@ -252,11 +247,11 @@ namespace h3m
 
   TEST_CASE("H3M.ObjectProperties.GenericNoProperties", "[H3M]")
   {
-    constexpr ObjectProperties<ObjectPropertiesType::GENERIC_NO_PROPERTIES> kProperties{};
+    constexpr ObjectProperties<ObjectPropertiesType::NONE> kProperties{};
     constexpr std::string_view kBinaryData = "";
 
     REQUIRE(asByteVector(encodeObjectProperties(kProperties)) == asByteVector(kBinaryData));
-    REQUIRE(decodeObjectProperties<ObjectPropertiesType::GENERIC_NO_PROPERTIES>(kBinaryData) == kProperties);
+    REQUIRE(decodeObjectProperties<ObjectPropertiesType::NONE>(kBinaryData) == kProperties);
     REQUIRE(encodeAndDecodeJson(kProperties) == kProperties);
   }
 
@@ -314,12 +309,7 @@ namespace h3m
         bitmask.set(SpellType::Bloodlust, true);
         return bitmask;
       }(),
-      .primary_skills = PrimarySkills{
-        .attack = 10,
-        .defense = 10,
-        .spell_power = 1,
-        .knowledge = 3
-      },
+      .primary_skills = PrimarySkills{ 10, 10, 1, 3 },
       .unknown = ReservedData<16>{}
     };
     static constexpr char kBinaryDataCStr[] =
@@ -444,12 +434,7 @@ namespace h3m
           resources[ResourceType::Gold] = 5000;
           return resources;
         }(),
-        .primary_skills = PrimarySkills{
-          .attack = 1,
-          .defense = 2,
-          .spell_power = 3,
-          .knowledge = 4
-        },
+        .primary_skills = { 1, 2, 3, 4 },
         .secondary_skills = {
           SecondarySkill{.type = SecondarySkillType::EarthMagic, .level = 3},
           SecondarySkill{.type = SecondarySkillType::Wisdom, .level = 3},

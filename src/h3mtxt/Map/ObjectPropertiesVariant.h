@@ -122,11 +122,11 @@ namespace h3m
 
   // This is so that we can guarantee that ObjectPropertiesVariant never stores a null pointer
   // for some non-inline alternative.
-  static_assert(Detail_NS::isInline<ObjectPropertiesType::GENERIC_NO_PROPERTIES>(),
-                "ObjectProperties<ObjectPropertiesType::GENERIC_NO_PROPERTIES> "
+  static_assert(Detail_NS::isInline<ObjectPropertiesType::NONE>(),
+                "ObjectProperties<ObjectPropertiesType::NONE> "
                 "must be stored in the inline storage.");
-  static_assert(std::is_nothrow_default_constructible_v<ObjectProperties<ObjectPropertiesType::GENERIC_NO_PROPERTIES>>,
-                "ObjectProperties<ObjectPropertiesType::GENERIC_NO_PROPERTIES> "
+  static_assert(std::is_nothrow_default_constructible_v<ObjectProperties<ObjectPropertiesType::NONE>>,
+                "ObjectProperties<ObjectPropertiesType::NONE> "
                 "must have a non-throwing default constructor");
 
   // Eldritch abomination capable of storing any ObjectProperties<T>.
@@ -141,7 +141,7 @@ namespace h3m
   class ObjectPropertiesVariant
   {
   public:
-    // Constructs ObjectPropertiesVariant holding ObjectProperties<ObjectPropertiesType::GENERIC_NO_PROPERTIES>.
+    // Constructs ObjectPropertiesVariant holding ObjectProperties<ObjectPropertiesType::NONE>.
     constexpr ObjectPropertiesVariant() noexcept;
 
     // Constructs ObjectPropertiesVariant holding the specified ObjectProperties.
@@ -157,7 +157,7 @@ namespace h3m
 
     // Move constructor.
     // \param other - ObjectPropertiesVariant to move from.
-    // After this call @other will be in a valid state holding GENERIC_NO_PROPERTIES.
+    // After this call @other will be in a valid state holding NONE.
     inline ObjectPropertiesVariant(ObjectPropertiesVariant&& other)
       noexcept(std::is_nothrow_move_constructible_v<Detail_NS::ObjectPropertiesVariantImpl>);
 
@@ -208,9 +208,13 @@ namespace h3m
     Detail_NS::ObjectPropertiesVariantImpl impl_;
   };
 
-  constexpr ObjectPropertiesVariant::ObjectPropertiesVariant() noexcept:
-    impl_(std::in_place_type<ObjectProperties<ObjectPropertiesType::GENERIC_NO_PROPERTIES>>)
+  constexpr ObjectPropertiesVariant::ObjectPropertiesVariant() noexcept :
+    impl_(std::in_place_type<ObjectProperties<ObjectPropertiesType::NONE>>)
   {
+    // FYI: this doesn't need to be explictly defined if
+    // ObjectProperties<ObjectPropertiesType::NONE> is the 0th alternative. However, the explicit
+    // definition makes ObjectPropertiesVariant agnostic to the order of constants in ObjectPropertiesType,
+    // which is safer.
   }
 
   template<ObjectPropertiesType T>
@@ -229,8 +233,8 @@ namespace h3m
     noexcept(std::is_nothrow_move_constructible_v<Detail_NS::ObjectPropertiesVariantImpl>) :
     impl_(std::move(other.impl_))
   {
-    // Assign GENERIC_NO_PROPERTIES to @other to ensure that it doesn't store a null unique_ptr.
-    other.impl_.emplace<ObjectProperties<ObjectPropertiesType::GENERIC_NO_PROPERTIES>>();
+    // Assign NONE to @other to ensure that it doesn't store a null unique_ptr.
+    other.impl_.emplace<ObjectProperties<ObjectPropertiesType::NONE>>();
   }
 
   ObjectPropertiesVariant& ObjectPropertiesVariant::operator=(ObjectPropertiesVariant&& other)
@@ -239,8 +243,8 @@ namespace h3m
     if (this != &other)
     {
       impl_ = std::move(other.impl_);
-      // Assign GENERIC_NO_PROPERTIES to @other to ensure that it doesn't store a null unique_ptr.
-      other.impl_.emplace<ObjectProperties<ObjectPropertiesType::GENERIC_NO_PROPERTIES>>();
+      // Assign NONE to @other to ensure that it doesn't store a null unique_ptr.
+      other.impl_.emplace<ObjectProperties<ObjectPropertiesType::NONE>>();
     }
     return *this;
   }

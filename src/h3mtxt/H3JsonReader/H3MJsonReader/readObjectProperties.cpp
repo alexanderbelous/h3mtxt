@@ -115,7 +115,7 @@ namespace h3json
       readEventBase(value, details);
       readField(details.affected_players, value, Fields::kAffectedPlayers);
       readField(details.applies_to_computer, value, Fields::kAppliesToComputer);
-      readField(details.remove_after_first_visit, value, Fields::kRemoveAfterFirstVisit);
+      readField(details.cancel_after_first_visit, value, Fields::kCancelAfterFirstVisit);
       readField(details.unknown2, value, Fields::kUnknown2);
       return details;
     }
@@ -139,11 +139,11 @@ namespace h3json
     }
   };
 
-  // ObjectProperties<ObjectPropertiesType::GENERIC_NO_PROPERTIES> has no fields.
+  // ObjectProperties<ObjectPropertiesType::NONE> has no fields.
   template<>
-  struct JsonReader<ObjectProperties<ObjectPropertiesType::GENERIC_NO_PROPERTIES>>
+  struct JsonReader<ObjectProperties<ObjectPropertiesType::NONE>>
   {
-    ObjectProperties<ObjectPropertiesType::GENERIC_NO_PROPERTIES> operator()(const Json::Value&) const
+    ObjectProperties<ObjectPropertiesType::NONE> operator()(const Json::Value&) const
     {
       return {};
     }

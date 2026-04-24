@@ -99,7 +99,7 @@ namespace h3svg
 
     StartingHero readStartingHero() const;
 
-    TeamsInfo readTeamsInfo() const;
+    Teams readTeams() const;
 
     Tile readTile() const;
 

@@ -55,7 +55,7 @@ namespace h3m
           .days = 30
         }
       },
-      .teams = TeamsInfo{
+      .teams = Teams{
         .num_teams = 3,
         .team_for_player {0, 0, 1, 0, 0, 0, 0, 2}
       },
@@ -124,12 +124,7 @@ namespace h3m
           .experience = 10000,
           .biography = "Best wizard ever",
           .gender = Gender::Male,
-          .primary_skills = PrimarySkills{
-            .attack = 5,
-            .defense = 5,
-            .spell_power = 50,
-            .knowledge = 50
-          }
+          .primary_skills = PrimarySkills{ 5, 5, 50, 50 }
         };
         return settings;
       }()

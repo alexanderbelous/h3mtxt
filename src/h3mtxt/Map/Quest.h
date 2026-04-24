@@ -5,10 +5,10 @@
 #include <h3mtxt/Map/Constants/CreatureType.h>
 #include <h3mtxt/Map/Constants/HeroType.h>
 #include <h3mtxt/Map/Constants/PlayerColor.h>
+#include <h3mtxt/Map/Constants/PrimarySkillType.h>
 #include <h3mtxt/Map/Constants/QuestType.h>
 #include <h3mtxt/Map/Constants/ResourceType.h>
 #include <h3mtxt/Map/Utils/EnumIndexedArray.h>
-#include <h3mtxt/Map/PrimarySkills.h>
 
 #include <cstdint>
 #include <string>
@@ -103,7 +103,7 @@ namespace h3m
     // * If the amount is negative for some resource, it won't be displayed as a part of the quest
     //   (equivalent to 0), but once you complete the quest your amount will increase.
     // * If all amounts are <= 0, it is considered that you have completed the quest.
-    Resources resources {};
+    Resources resources;
   };
 
   template<>
@@ -141,7 +141,7 @@ namespace h3m
     // \return the type of the quest.
     constexpr QuestType type() const noexcept;
 
-    // Get the 0-based index of the alternative corresponding to the given QuestType.
+    // Returns the 0-based index of the alternative corresponding to the given QuestType.
     // \param quest_type - type of the quest.
     // \return 0-based index of the alternative from Quest::Details that has the type
     //         QuestDetails<quest_type>, or std::variant_npos if there is no such alternative.
@@ -162,9 +162,9 @@ namespace h3m
 
     // 0 - impossible to fulfill; 0xFFFFFFFF - none.
     std::uint32_t deadline = 0xFFFFFFFF;
-    std::string proposal{};
-    std::string progress{};
-    std::string completion{};
+    std::string proposal;
+    std::string progress;
+    std::string completion;
   };
 
   constexpr QuestType Quest::type() const noexcept

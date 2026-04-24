@@ -7,14 +7,14 @@
 #include <h3mtxt/Map/Constants/HeroClass.h>
 #include <h3mtxt/Map/Constants/HeroPortrait.h>
 #include <h3mtxt/Map/Constants/HeroType.h>
-#include <h3mtxt/Map/Constants/SpellType.h>
 #include <h3mtxt/Map/Constants/ObjectClass.h>
+#include <h3mtxt/Map/Constants/PrimarySkillType.h>
 #include <h3mtxt/Map/Constants/SecondarySkillType.h>
+#include <h3mtxt/Map/Constants/SpellType.h>
 #include <h3mtxt/Map/Utils/BitSet.h>
 #include <h3mtxt/Map/Utils/EnumBitmask.h>
 #include <h3mtxt/Map/Utils/EnumIndexedArray.h>
 #include <h3mtxt/Map/Utils/ReservedData.h>
-#include <h3mtxt/Map/PrimarySkills.h>
 #include <h3mtxt/SavedGame/Constants/ArtifactSlotGroup.h>
 #include <h3mtxt/SavedGame/Constants/Constants.h>
 #include <h3mtxt/SavedGame/Constants/HeroFlag.h>

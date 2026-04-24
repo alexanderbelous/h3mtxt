@@ -54,9 +54,6 @@ namespace h3json
   h3m::PlayerSpecs JsonReader<h3m::PlayerSpecs>::operator()(const Json::Value & value) const;
 
   template<>
-  h3m::PrimarySkills JsonReader<h3m::PrimarySkills>::operator()(const Json::Value& value) const;
-
-  template<>
   h3m::Quest JsonReader<h3m::Quest>::operator()(const Json::Value& value) const;
 
   template<>
@@ -159,7 +156,7 @@ namespace h3json
   h3m::StartingHero JsonReader<h3m::StartingHero>::operator()(const Json::Value& value) const;
 
   template<>
-  h3m::TeamsInfo JsonReader<h3m::TeamsInfo>::operator()(const Json::Value& value) const;
+  h3m::Teams JsonReader<h3m::Teams>::operator()(const Json::Value& value) const;
 
   // Full specialization for TerrainsBitmask. The template version from Utils.h
   // is not used here because TerrainsBitmask is currently serialized as an array of bytes.

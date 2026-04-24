@@ -352,6 +352,12 @@ namespace h3json
   };
 
   template<>
+  inline constexpr std::array<std::string_view, 4> kEnumFieldNames<h3m::PrimarySkillType> =
+  {
+    "attack", "defense", "spell_power", "knowledge"
+  };
+
+  template<>
   inline constexpr std::array<std::string_view, 8> kEnumFieldNames<h3m::ResourceType> =
   {
     "wood", "mercury", "ore", "sulfur", "crystal", "gems", "gold", "unknown"
@@ -730,7 +736,7 @@ namespace h3json
   {
     static constexpr std::string_view kAffectedPlayers = "affected_players";
     static constexpr std::string_view kAppliesToComputer = "applies_to_computer";
-    static constexpr std::string_view kRemoveAfterFirstVisit = "remove_after_first_visit";
+    static constexpr std::string_view kCancelAfterFirstVisit = "cancel_after_first_visit";
     static constexpr std::string_view kUnknown2 = "unknown2";
   };
 
@@ -921,15 +927,6 @@ namespace h3json
   };
 
   template<>
-  struct FieldNames<h3m::PrimarySkills>
-  {
-    static constexpr std::string_view kAttack = "attack";
-    static constexpr std::string_view kDefense = "defense";
-    static constexpr std::string_view kSpellPower = "spell_power";
-    static constexpr std::string_view kKnowledge = "knowledge";
-  };
-
-  template<>
   struct FieldNames<h3m::Quest>
   {
     static constexpr std::string_view kType = "type";
@@ -977,7 +974,7 @@ namespace h3json
   };
 
   template<>
-  struct FieldNames<h3m::TeamsInfo>
+  struct FieldNames<h3m::Teams>
   {
     static constexpr std::string_view kNumTeams = "num_teams";
     static constexpr std::string_view kTeamForPlayer = "team_for_player";

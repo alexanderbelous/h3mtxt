@@ -5,7 +5,6 @@
 #include <h3mtxt/Map/Utils/SpriteTilesBitmask.h>
 #include <h3mtxt/Map/CreatureStack.h>
 #include <h3mtxt/Map/MapAdditionalInfo.h>
-#include <h3mtxt/Map/PrimarySkills.h>
 #include <h3mtxt/Map/SecondarySkill.h>
 
 #include <cstdint>
@@ -47,8 +46,8 @@ namespace h3svg
     return h3m::H3MReader{stream_}.readSpriteTilesBitmask();
   }
 
-  TeamsInfo H3SVGReader::readTeamsInfo() const
+  Teams H3SVGReader::readTeams() const
   {
-    return h3m::H3MReader{stream_}.readTeamsInfo();
+    return h3m::H3MReader{stream_}.readTeams();
   }
 }

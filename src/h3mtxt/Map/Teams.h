@@ -10,7 +10,7 @@
 
 namespace h3m
 {
-  struct TeamsInfo
+  struct Teams
   {
     // Equality comparison.
     //
@@ -20,9 +20,9 @@ namespace h3m
     // This reflects the "conditional" nature of team_for_player:
     // ideally, this member shouldn't even exist if num_teams == 0.
     //
-    // \param other - TeamsInfo to compare with.
+    // \param other - Teams to compare with.
     // \return true if @this and @other represent the same Teams setup, false otherwise.
-    constexpr bool operator==(const TeamsInfo& other) const noexcept;
+    constexpr bool operator==(const Teams& other) const noexcept;
 
     std::uint8_t num_teams = 0;
     // This field is only read/written if num_teams != 0.
@@ -30,7 +30,7 @@ namespace h3m
     EnumIndexedArray<PlayerColor, std::uint8_t, kMaxPlayers> team_for_player;
   };
 
-  constexpr bool TeamsInfo::operator==(const TeamsInfo& other) const noexcept
+  constexpr bool Teams::operator==(const Teams& other) const noexcept
   {
     return (num_teams == other.num_teams) &&
            ((num_teams == 0) || (team_for_player == other.team_for_player));

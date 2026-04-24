@@ -21,7 +21,7 @@ namespace h3m
     constexpr bool operator==(const MainTown&) const noexcept = default;
 
     // True if "Generate hero at main town" is set, false otherwise.
-    Bool generate_hero {};
+    Bool generate_hero = false;
     // Type of the player's main town.
     // 0xFF is a special value that means Random.
     TownType town_type {};
@@ -101,7 +101,7 @@ namespace h3m
     PlayerBehavior behavior = PlayerBehavior::Random;
     // True if the player's alignment is customized, false otherwise.
     // This reflects the state of the "Customize" checkbox in "Map Specifications/Player Specs/Allowed alignments".
-    Bool has_customized_alignments {};
+    Bool has_customized_alignments = false;
     TownsBitmask allowed_alignments;
     // True if Random alignment is enabled, false otherwise.
     // This reflects the state of the "Random" checkbox in "Map Specifications/Player Specs/Allowed alignments".

@@ -92,7 +92,7 @@ namespace h3m
 
     StartingHero readStartingHero() const;
 
-    TeamsInfo readTeamsInfo() const;
+    Teams readTeams() const;
 
     Tile readTile() const;
 
@@ -124,7 +124,7 @@ namespace h3m
 
   template<> ObjectProperties<ObjectPropertiesType::GARRISON> H3MReader::readObjectProperties() const;
 
-  template<> ObjectProperties<ObjectPropertiesType::GENERIC_NO_PROPERTIES> H3MReader::readObjectProperties() const;
+  template<> ObjectProperties<ObjectPropertiesType::NONE> H3MReader::readObjectProperties() const;
 
   template<> ObjectProperties<ObjectPropertiesType::GRAIL> H3MReader::readObjectProperties() const;
 

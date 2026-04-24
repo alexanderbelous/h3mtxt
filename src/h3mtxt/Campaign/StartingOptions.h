@@ -61,21 +61,26 @@ namespace h3m
       StartingOptionsDetails<StartingOptionsType::StartingHero>
     >;
 
-    constexpr StartingOptionsType type() const noexcept
-    {
-      return static_cast<StartingOptionsType>(details.index());
-    }
+    // \return the type of the starting options.
+    constexpr StartingOptionsType type() const noexcept;
 
-    // Get the 0-based index of the alternative corresponding to the given StartingOptionsType.
+    // Returns the 0-based index of the alternative corresponding to the given StartingOptionsType.
     // \param options_type - input StartingOptionsType.
     // \return 0-based index of the alternative from StartingOptions::Details that has the type
     //         StartignOptionsDetails<options_type>, or std::variant_npos if there is no such alternative.
-    static constexpr std::size_t getAlternativeIdx(StartingOptionsType options_type) noexcept
-    {
-      const std::size_t idx = static_cast<std::size_t>(options_type);
-      return idx < std::variant_size_v<Details> ? idx : std::variant_npos;
-    }
+    static constexpr std::size_t getAlternativeIdx(StartingOptionsType options_type) noexcept;
 
     Details details;
   };
+
+  constexpr StartingOptionsType StartingOptions::type() const noexcept
+  {
+    return static_cast<StartingOptionsType>(details.index());
+  }
+
+  constexpr std::size_t StartingOptions::getAlternativeIdx(StartingOptionsType options_type) noexcept
+  {
+    const std::size_t idx = static_cast<std::size_t>(options_type);
+    return idx < std::variant_size_v<Details> ? idx : std::variant_npos;
+  }
 }

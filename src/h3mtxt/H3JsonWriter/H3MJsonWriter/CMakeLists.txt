@@ -19,7 +19,6 @@ add_library(H3MJsonWriter STATIC
     "writeObject.cpp"
     "writeObjectTemplate.cpp"
     "writePlayerSpecs.cpp"
-    "writePrimarySkills.cpp"
     "writeQuest.cpp"
     "writeReward.cpp"
     "writeSecondarySkill.cpp"

@@ -30,9 +30,9 @@ namespace Medea_NS
     out.writeField(Fields::kCanHire, value.can_hire, true);
   }
 
-  void JsonObjectWriter<h3m::TeamsInfo>::operator()(FieldsWriter& out, const h3m::TeamsInfo& value) const
+  void JsonObjectWriter<h3m::Teams>::operator()(FieldsWriter& out, const h3m::Teams& value) const
   {
-    using Fields = h3json::FieldNames<h3m::TeamsInfo>;
+    using Fields = h3json::FieldNames<h3m::Teams>;
     out.writeField(Fields::kNumTeams, value.num_teams);
     if (value.num_teams != 0)
     {

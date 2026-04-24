@@ -206,7 +206,7 @@ namespace h3m
   constexpr const SpecialVictoryConditionBase* VictoryCondition::base() const noexcept
   {
     return std::visit(
-      [] <VictoryConditionType T> (const VictoryConditionDetails<T>&value) -> const SpecialVictoryConditionBase*
+      [] <VictoryConditionType T> (const VictoryConditionDetails<T>& value) -> const SpecialVictoryConditionBase*
       {
         if constexpr (T == VictoryConditionType::Normal)
         {

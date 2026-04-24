@@ -169,7 +169,7 @@ namespace h3m
     readEventBase(data);
     data.affected_players = readEnumBitmask<PlayerColor, 1>();
     data.applies_to_computer = readBool();
-    data.remove_after_first_visit = readBool();
+    data.cancel_after_first_visit = readBool();
     data.unknown2 = readReservedData<4>();
     return data;
   }
@@ -188,8 +188,8 @@ namespace h3m
   }
 
   template<>
-  ObjectProperties<ObjectPropertiesType::GENERIC_NO_PROPERTIES>
-  H3MReader::readObjectProperties<ObjectPropertiesType::GENERIC_NO_PROPERTIES>() const
+  ObjectProperties<ObjectPropertiesType::NONE>
+  H3MReader::readObjectProperties<ObjectPropertiesType::NONE>() const
   {
     return {};
   }

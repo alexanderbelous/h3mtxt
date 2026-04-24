@@ -3,6 +3,7 @@
 #include <h3mtxt/H3JsonReader/H3JsonReaderBase/H3JsonReaderBase.h>
 #include <h3mtxt/H3JsonReader/H3JsonReaderBase/VariantJsonReader.h>
 #include <h3mtxt/JsonCommon/FieldNamesH3C.h>
+#include <h3mtxt/JsonCommon/FieldNamesH3M.h>
 #include <h3mtxt/Campaign/StartingBonus.h>
 
 namespace h3json

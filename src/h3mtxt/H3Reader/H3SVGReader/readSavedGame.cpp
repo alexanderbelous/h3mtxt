@@ -80,7 +80,7 @@ namespace h3svg
     }
     saved_game.victory_condition = readVictoryCondition();
     saved_game.loss_condition = readLossCondition();
-    saved_game.teams = readTeamsInfo();
+    saved_game.teams = readTeams();
     // Read custom heroes.
     const std::uint8_t num_custom_heroes = readInt<std::uint8_t>();
     saved_game.custom_heroes.reserve(num_custom_heroes);

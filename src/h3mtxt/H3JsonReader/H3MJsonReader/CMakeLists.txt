@@ -13,7 +13,6 @@ add_library(H3MJsonReader STATIC
     "readObjectProperties.cpp"
     "readObjectTemplate.cpp"
     "readPlayerSpecs.cpp"
-    "readPrimarySkills.cpp"
     "readQuest.cpp"
     "readReward.cpp"
     "readSecondarySkill.cpp"

@@ -65,7 +65,7 @@ namespace h3svg
     // TODO: check that this works correctly for all victory condition types.
     VictoryCondition victory_condition;
     LossCondition loss_condition;
-    TeamsInfo teams;
+    Teams teams;
     std::vector<CustomHero> custom_heroes;
     // 16 bytes with unknown meaning: the values are always {0, 1, 2, 3, 4, 5, 6, 7, 0, 1, 2, 3, 4, 5, 6, 7}.
     // Modifying these bytes doesn't seem to affect anything.

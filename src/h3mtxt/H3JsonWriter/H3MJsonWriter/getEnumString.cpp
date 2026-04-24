@@ -635,7 +635,7 @@ namespace h3m
       "ARTIFACT",
       "EVENT",
       "GARRISON",
-      "GENERIC_NO_PROPERTIES",
+      "NONE",
       "GRAIL",
       "HERO",
       "MONSTER",

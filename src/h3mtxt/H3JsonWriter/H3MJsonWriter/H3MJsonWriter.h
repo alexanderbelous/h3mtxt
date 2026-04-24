@@ -138,8 +138,8 @@ namespace Medea_NS
     FieldsWriter& out, const h3m::ObjectProperties<h3m::ObjectPropertiesType::GARRISON>& details) const;
 
   template<>
-  void JsonObjectWriter<h3m::ObjectProperties<h3m::ObjectPropertiesType::GENERIC_NO_PROPERTIES>>::operator()(
-    FieldsWriter& out, const h3m::ObjectProperties<h3m::ObjectPropertiesType::GENERIC_NO_PROPERTIES>& details) const;
+  void JsonObjectWriter<h3m::ObjectProperties<h3m::ObjectPropertiesType::NONE>>::operator()(
+    FieldsWriter& out, const h3m::ObjectProperties<h3m::ObjectPropertiesType::NONE>& details) const;
 
   template<>
   void JsonObjectWriter<h3m::ObjectProperties<h3m::ObjectPropertiesType::GRAIL>>::operator()(
@@ -218,9 +218,6 @@ namespace Medea_NS
 
   template<>
   void JsonObjectWriter<h3m::PlayerSpecs>::operator()(FieldsWriter& out, const h3m::PlayerSpecs& value) const;
-
-  template<>
-  void JsonObjectWriter<h3m::PrimarySkills>::operator()(FieldsWriter& out, const h3m::PrimarySkills& value) const;
 
   template<>
   void JsonObjectWriter<h3m::Quest>::operator()(FieldsWriter& out, const h3m::Quest& quest) const;
@@ -337,7 +334,7 @@ namespace Medea_NS
   void JsonObjectWriter<h3m::StartingHero>::operator()(FieldsWriter& out, const h3m::StartingHero& value) const;
 
   template<>
-  void JsonObjectWriter<h3m::TeamsInfo>::operator()(FieldsWriter& out, const h3m::TeamsInfo& value) const;
+  void JsonObjectWriter<h3m::Teams>::operator()(FieldsWriter& out, const h3m::Teams& value) const;
 
   // Serialize h3m::TerrainsBitmask as a JSON array.
   template<>

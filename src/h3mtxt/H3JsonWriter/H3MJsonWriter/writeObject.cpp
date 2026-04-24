@@ -128,7 +128,7 @@ namespace Medea_NS
     JsonObjectWriter<h3m::EventBase>{}(out, event);
     out.writeField(Fields::kAffectedPlayers, event.affected_players);
     out.writeField(Fields::kAppliesToComputer, event.applies_to_computer);
-    out.writeField(Fields::kRemoveAfterFirstVisit, event.remove_after_first_visit);
+    out.writeField(Fields::kCancelAfterFirstVisit, event.cancel_after_first_visit);
     out.writeField(Fields::kUnknown2, event.unknown2);
   }
 
@@ -148,8 +148,8 @@ namespace Medea_NS
     out.writeField(Fields::kUnknown2, garrison.unknown2);
   }
 
-  void JsonObjectWriter<h3m::ObjectProperties<h3m::ObjectPropertiesType::GENERIC_NO_PROPERTIES>>::operator()(
-    FieldsWriter&, const h3m::ObjectProperties<h3m::ObjectPropertiesType::GENERIC_NO_PROPERTIES>&) const
+  void JsonObjectWriter<h3m::ObjectProperties<h3m::ObjectPropertiesType::NONE>>::operator()(
+    FieldsWriter&, const h3m::ObjectProperties<h3m::ObjectPropertiesType::NONE>&) const
   {
   }
 
@@ -499,7 +499,7 @@ namespace Medea_NS
     }
     out.writeField(Fields::kTemplateIdx, object.template_idx);
     out.writeField(Fields::kUnknown, object.unknown);
-    if (object.properties.type() != h3m::ObjectPropertiesType::GENERIC_NO_PROPERTIES)
+    if (object.properties.type() != h3m::ObjectPropertiesType::NONE)
     {
       object.properties.visit([&out] <h3m::ObjectPropertiesType T> (const h3m::ObjectProperties<T>& details)
                               { out.writeField(Fields::kProperties, details); });
