@@ -18,16 +18,16 @@ namespace h3json
     return hero;
   }
 
-  h3m::TeamsInfo JsonReader<h3m::TeamsInfo>::operator()(const Json::Value& value) const
+  h3m::Teams JsonReader<h3m::Teams>::operator()(const Json::Value& value) const
   {
-    using Fields = FieldNames<h3m::TeamsInfo>;
-    h3m::TeamsInfo info;
-    readField(info.num_teams, value, Fields::kNumTeams);
-    if (info.num_teams != 0)
+    using Fields = FieldNames<h3m::Teams>;
+    h3m::Teams teams;
+    readField(teams.num_teams, value, Fields::kNumTeams);
+    if (teams.num_teams != 0)
     {
-      readField(info.team_for_player, value, Fields::kTeamForPlayer);
+      readField(teams.team_for_player, value, Fields::kTeamForPlayer);
     }
-    return info;
+    return teams;
   }
 
   h3m::Rumor JsonReader<h3m::Rumor>::operator()(const Json::Value& value) const

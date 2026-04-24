@@ -977,7 +977,7 @@ namespace h3json
   };
 
   template<>
-  struct FieldNames<h3m::TeamsInfo>
+  struct FieldNames<h3m::Teams>
   {
     static constexpr std::string_view kNumTeams = "num_teams";
     static constexpr std::string_view kTeamForPlayer = "team_for_player";

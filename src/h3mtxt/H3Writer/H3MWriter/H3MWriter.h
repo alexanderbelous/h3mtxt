@@ -77,7 +77,7 @@ namespace h3m
 
     void writeData(const StartingHero& value) const;
 
-    void writeData(const TeamsInfo& teams) const;
+    void writeData(const Teams& teams) const;
 
     void writeData(const Tile& value) const;
 

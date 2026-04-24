@@ -12,7 +12,7 @@ namespace h3m
     writeData(value.can_hire);
   }
 
-  void H3MWriter::writeData(const TeamsInfo& teams) const
+  void H3MWriter::writeData(const Teams& teams) const
   {
     writeData(teams.num_teams);
     if (teams.num_teams != 0)

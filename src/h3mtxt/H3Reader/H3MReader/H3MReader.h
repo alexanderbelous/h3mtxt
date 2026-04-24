@@ -92,7 +92,7 @@ namespace h3m
 
     StartingHero readStartingHero() const;
 
-    TeamsInfo readTeamsInfo() const;
+    Teams readTeams() const;
 
     Tile readTile() const;
 

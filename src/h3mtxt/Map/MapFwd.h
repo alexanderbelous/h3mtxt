@@ -217,7 +217,7 @@ namespace h3m
 
   struct StartingHero;
 
-  struct TeamsInfo;
+  struct Teams;
 
   struct Tile;
 

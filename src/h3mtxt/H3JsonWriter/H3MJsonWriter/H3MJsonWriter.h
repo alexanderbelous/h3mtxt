@@ -337,7 +337,7 @@ namespace Medea_NS
   void JsonObjectWriter<h3m::StartingHero>::operator()(FieldsWriter& out, const h3m::StartingHero& value) const;
 
   template<>
-  void JsonObjectWriter<h3m::TeamsInfo>::operator()(FieldsWriter& out, const h3m::TeamsInfo& value) const;
+  void JsonObjectWriter<h3m::Teams>::operator()(FieldsWriter& out, const h3m::Teams& value) const;
 
   // Serialize h3m::TerrainsBitmask as a JSON array.
   template<>

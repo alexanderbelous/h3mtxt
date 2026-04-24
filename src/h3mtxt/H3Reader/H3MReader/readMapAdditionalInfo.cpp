@@ -33,18 +33,18 @@ namespace h3m
     }
   }
 
-  TeamsInfo H3MReader::readTeamsInfo() const
+  Teams H3MReader::readTeams() const
   {
-    TeamsInfo teams_info;
-    teams_info.num_teams = readInt<std::uint8_t>();
-    if (teams_info.num_teams != 0)
+    Teams teams;
+    teams.num_teams = readInt<std::uint8_t>();
+    if (teams.num_teams != 0)
     {
-      for (std::uint8_t& team : teams_info.team_for_player.data)
+      for (std::uint8_t& team : teams.team_for_player.data)
       {
         team = readInt<std::uint8_t>();
       }
     }
-    return teams_info;
+    return teams;
   }
 
   CustomHero H3MReader::readCustomHero() const
@@ -107,7 +107,7 @@ namespace h3m
     MapAdditionalInfo additional_info;
     additional_info.victory_condition = readVictoryCondition();
     additional_info.loss_condition = readLossCondition();
-    additional_info.teams = readTeamsInfo();
+    additional_info.teams = readTeams();
     additional_info.heroes_availability = readEnumBitmask<HeroType, 20>();
     // Read placeholder heroes.
     const std::uint32_t num_placeholder_heroes = readInt<std::uint32_t>();

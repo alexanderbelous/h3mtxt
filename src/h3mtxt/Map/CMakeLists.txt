@@ -61,7 +61,7 @@ set(SOURCE_LIST
     "Quest.h"
     "Reward.h"
     "SecondarySkill.h"
-    "TeamsInfo.h"
+    "Teams.h"
     "Tile.h"
     "TimedEvent.h"
     "VictoryCondition.h"

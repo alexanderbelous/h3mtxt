@@ -55,7 +55,7 @@ namespace h3m
           .days = 30
         }
       },
-      .teams = TeamsInfo{
+      .teams = Teams{
         .num_teams = 3,
         .team_for_player {0, 0, 1, 0, 0, 0, 0, 2}
       },
