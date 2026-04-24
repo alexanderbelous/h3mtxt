@@ -103,7 +103,7 @@ namespace h3m
     // * If the amount is negative for some resource, it won't be displayed as a part of the quest
     //   (equivalent to 0), but once you complete the quest your amount will increase.
     // * If all amounts are <= 0, it is considered that you have completed the quest.
-    Resources resources {};
+    Resources resources;
   };
 
   template<>
@@ -162,9 +162,9 @@ namespace h3m
 
     // 0 - impossible to fulfill; 0xFFFFFFFF - none.
     std::uint32_t deadline = 0xFFFFFFFF;
-    std::string proposal{};
-    std::string progress{};
-    std::string completion{};
+    std::string proposal;
+    std::string progress;
+    std::string completion;
   };
 
   constexpr QuestType Quest::type() const noexcept

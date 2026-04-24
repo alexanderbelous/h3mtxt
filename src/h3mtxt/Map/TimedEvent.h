@@ -39,6 +39,6 @@ namespace h3m
     // is incorrect - for example, you can add an event that repeats every 256 days.
     std::uint16_t repeat_after_days {};
     // Reserved data; should be 0s.
-    ReservedData<16> unknown {};
+    ReservedData<16> unknown;
   };
 }

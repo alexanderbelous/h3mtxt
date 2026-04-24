@@ -132,8 +132,7 @@ namespace h3m
   {
     constexpr bool operator==(const RewardDetails&) const noexcept = default;
 
-    // FYI: CreatureStack::count can be negative, in which case the number of creatures in your stack will
-    // decrease.
+    // FYI: CreatureStack::count can be negative, in which case the number of creatures in your stack will decrease.
   };
 
   struct Reward

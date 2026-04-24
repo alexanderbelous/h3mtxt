@@ -16,9 +16,9 @@ namespace h3m
   {
     constexpr bool operator==(const PrimarySkills&) const noexcept = default;
 
-    std::int8_t attack {};
-    std::int8_t defense {};
-    std::int8_t spell_power {};
-    std::int8_t knowledge {};
+    std::int8_t attack = 0;
+    std::int8_t defense = 0;
+    std::int8_t spell_power = 0;
+    std::int8_t knowledge = 0;
   };
 }

@@ -18,7 +18,7 @@ namespace h3m
     // 0-based index of the corresponding ObjectTemplate in Map.objects_templates.
     std::uint32_t template_idx {};
     // Should be all 0s; kept here for compatibility.
-    ReservedData<5> unknown {};
+    ReservedData<5> unknown;
     // Data specific to ObjectTemplate corresponding to this object.
     ObjectPropertiesVariant properties;
   };
