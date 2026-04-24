@@ -60,7 +60,7 @@ namespace h3m
     // * In the game, if the amount == -N for some resource (N > 0):
     //   * if you have >= N of this resource, then you lose N units.
     //   * if you have < N of this resource, then your new amount becomes 0.
-    Resources resources {};
+    Resources resources;
     ArtifactType artifact = ArtifactType::None;
   };
 
@@ -73,10 +73,10 @@ namespace h3m
     std::optional<Guardians> guardians;
     // The Map Editor only allows using values from [0; 99999999].
     // Negative experience points are allowed, but the game ignores them (they have the same effect as 0).
-    std::int32_t experience {};
-    std::int32_t spell_points {};
-    std::int8_t morale {};
-    std::int8_t luck {};
+    std::int32_t experience = 0;
+    std::int32_t spell_points = 0;
+    std::int8_t morale = 0;
+    std::int8_t luck = 0;
     Resources resources;
     // FYI: in the game negative values are ignored (they have the same effect as 0).
     PrimarySkills primary_skills;
@@ -93,7 +93,7 @@ namespace h3m
     std::vector<SpellType> spells;
     // FYI: if CreatureStack::count is negative, the number of creatures in the hero's stack will decrease.
     std::vector<CreatureStack> creatures;
-    ReservedData<8> unknown {};
+    ReservedData<8> unknown;
   };
 
   template<>
@@ -119,8 +119,8 @@ namespace h3m
     constexpr bool operator==(const ObjectProperties&) const noexcept = default;
 
     PlayersBitmask affected_players;
-    Bool applies_to_computer{};
-    Bool remove_after_first_visit{};
+    Bool applies_to_computer = false;
+    Bool remove_after_first_visit = true;
     ReservedData<4> unknown2;
   };
 
@@ -134,8 +134,8 @@ namespace h3m
     ReservedData<3> unknown;
     // 0xFFFF in CreatureStack::type means "no creature".
     // CreatureStack::count can be negative - such stacks will be present in the garrison.
-    std::array<CreatureStack, 7> creatures {};
-    Bool can_remove_units {};
+    std::array<CreatureStack, 7> creatures;
+    Bool can_remove_units = true;
     ReservedData<8> unknown2;
   };
 
@@ -152,7 +152,7 @@ namespace h3m
 
     // The Map Editor only allows values from [0; 127], but any 8-bit integer can be used here.
     // The Map Editor interprets it as int8_t, but the game interprets it as uint8_t: 0xFF means 255, not -1.
-    std::uint8_t allowable_radius {};
+    std::uint8_t allowable_radius = 0;
     ReservedData<3> unknown;
   };
 
@@ -227,11 +227,11 @@ namespace h3m
     // The Map Editor only allows values from [0; 4000] (0 means random), but any 16-bit integer can be used here.
     // However, in the game the number of creatures will be initialized with count % 4096 (4096 also means random),
     // so values > 4095 are somewhat useless.
-    std::uint16_t count {};
-    Disposition disposition {};
+    std::uint16_t count = 0;
+    Disposition disposition = Disposition::Aggressive;
     std::optional<MessageAndTreasure> message_and_treasure;
-    Bool never_flees {};
-    Bool does_not_grow {};
+    Bool never_flees = false;
+    Bool does_not_grow = false;
     ReservedData<2> unknown;
   };
 
@@ -296,8 +296,8 @@ namespace h3m
     // This field is only read/written if town_absod_id == 0.
     TownsBitmask alignment;
     // 0-based.
-    std::uint8_t min_level {};
-    std::uint8_t max_level {};
+    std::uint8_t min_level = 0;
+    std::uint8_t max_level = 6;
   };
 
   template<>
@@ -307,8 +307,8 @@ namespace h3m
 
     // 0xFF if none.
     std::uint32_t owner {};
-    std::uint8_t min_level {};
-    std::uint8_t max_level {};
+    std::uint8_t min_level = 0;
+    std::uint8_t max_level = 6;
   };
 
   template<>
@@ -339,8 +339,8 @@ namespace h3m
     // Multiply by 100 for Gold (i.e. subclass 6); 0 means Random.
     // The Map Editor only allows setting a value within [1; 99999]. Values greater than 99999 are OK,
     // but the game uses quantity MOD 524288, so the amount will always be within [1; 524287] or Random.
-    std::uint32_t quantity {};
-    ReservedData<4> unknown {};
+    std::uint32_t quantity = 0;
+    ReservedData<4> unknown;
   };
 
   template<>
@@ -395,8 +395,8 @@ namespace h3m
     //   to SecondarySkill, etc).
     // In other words, there's no good reason to use values of ScholarRewardType other than 0, 1, 2 or 0xFF,
     // so this class doesn't support them at all.
-    ScholarReward reward = ScholarRandomRewardType{};
-    ReservedData<6> unknown {};
+    ScholarReward reward = ScholarRandomRewardType::Default;
+    ReservedData<6> unknown;
   };
 
   template<>
@@ -406,7 +406,7 @@ namespace h3m
 
     Quest quest;
     Reward reward;
-    ReservedData<2> unknown {};
+    ReservedData<2> unknown;
   };
 
   template<>
@@ -415,7 +415,7 @@ namespace h3m
     constexpr bool operator==(const ObjectProperties&) const noexcept = default;
 
     // 0xFF means random.
-    SpellType spell {};
+    SpellType spell {0xFF};
     ReservedData<3> unknown;
   };
 
@@ -427,7 +427,7 @@ namespace h3m
     // Empty string means random message.
     std::string message;
     // Should be 0s.
-    ReservedData<4> unknown {};
+    ReservedData<4> unknown;
   };
 
   template<>
@@ -437,7 +437,7 @@ namespace h3m
 
     std::optional<Guardians> guardians;
     // FYI: unlike SHRINE, 0xFF is not allowed here (causes the game to crash).
-    SpellType spell {};
+    SpellType spell = SpellType::MagicArrow;
     ReservedData<3> unknown;
   };
 
@@ -459,7 +459,7 @@ namespace h3m
     TownBuildingsBitmask buildings;
     // Extra creatures for each creature level.
     // FYI: this is "semi-signed":
-    // * The Map Editor displays numbers > 32767 as negative numbers.
+    // * The Map Editor displays numbers outside [0; 32767] as negative numbers.
     // * In the game, however, the behavior varies:
     //   * When the event occurs, the numbers are unsigned (e.g, "65535 Archangels arrive to Innsmouth").
     //   * On the Castle Screen the numbers are signed (e.g., "-399 Archangels available").
@@ -481,14 +481,14 @@ namespace h3m
     // 0xFF if none.
     PlayerColor owner {};
     // If std::nullopt, some default name will be assigned.
-    std::optional<std::string> name {};
+    std::optional<std::string> name;
     // 0xFFFF in CreatureStack::type means no creature.
     // If CreatureStack::count <= 0 for any slot, this slot will become empty when the game starts.
     std::optional<std::array<CreatureStack, 7>> garrison;
-    Formation formation {};
+    Formation formation = Formation::Spread;
     std::optional<TownBuildings> buildings;
     // This field is only read/written if !buildings.has_value().
-    Bool has_fort {};
+    Bool has_fort = true;
     SpellsBitmask must_have_spell;
     SpellsBitmask may_not_have_spell;
     std::vector<TownEvent> events;
@@ -496,7 +496,7 @@ namespace h3m
     // For a random town:
     //   * 0xFF means "Same as Owner or Random".
     //   * [0; 7] means "Same as Player N".
-    std::uint8_t alignment {};
+    std::uint8_t alignment = 0xFF;
     ReservedData<3> unknown;
   };
 
