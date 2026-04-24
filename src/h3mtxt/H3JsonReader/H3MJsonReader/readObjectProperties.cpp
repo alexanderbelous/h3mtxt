@@ -139,11 +139,11 @@ namespace h3json
     }
   };
 
-  // ObjectProperties<ObjectPropertiesType::GENERIC_NO_PROPERTIES> has no fields.
+  // ObjectProperties<ObjectPropertiesType::NONE> has no fields.
   template<>
-  struct JsonReader<ObjectProperties<ObjectPropertiesType::GENERIC_NO_PROPERTIES>>
+  struct JsonReader<ObjectProperties<ObjectPropertiesType::NONE>>
   {
-    ObjectProperties<ObjectPropertiesType::GENERIC_NO_PROPERTIES> operator()(const Json::Value&) const
+    ObjectProperties<ObjectPropertiesType::NONE> operator()(const Json::Value&) const
     {
       return {};
     }

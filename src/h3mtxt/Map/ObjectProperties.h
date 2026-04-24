@@ -140,7 +140,7 @@ namespace h3m
   };
 
   template<>
-  struct ObjectProperties<ObjectPropertiesType::GENERIC_NO_PROPERTIES>
+  struct ObjectProperties<ObjectPropertiesType::NONE>
   {
     constexpr bool operator==(const ObjectProperties&) const noexcept = default;
   };

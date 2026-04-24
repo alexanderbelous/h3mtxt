@@ -21,7 +21,7 @@ namespace h3json
       const h3m::ObjectTemplate& object_template = objects_templates.at(object.template_idx);
       const h3m::ObjectPropertiesType object_properties_type =
         h3m::getObjectPropertiesType(object_template.object_class, object_template.object_subclass);
-      if (object_properties_type != h3m::ObjectPropertiesType::GENERIC_NO_PROPERTIES)
+      if (object_properties_type != h3m::ObjectPropertiesType::NONE)
       {
         const Json::Value& properties_json = getJsonField(value, Fields::kProperties);
         object.properties = readObjectPropertiesVariant(properties_json, object_properties_type);

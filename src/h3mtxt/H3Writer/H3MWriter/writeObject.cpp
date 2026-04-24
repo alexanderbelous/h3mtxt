@@ -85,7 +85,7 @@ namespace h3m
   }
 
   template<>
-  void H3MWriter::writeData(const ObjectProperties<ObjectPropertiesType::GENERIC_NO_PROPERTIES>&) const
+  void H3MWriter::writeData(const ObjectProperties<ObjectPropertiesType::NONE>&) const
   {
   }
 

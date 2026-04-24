@@ -133,7 +133,7 @@ namespace h3m
 
   template<> void H3MWriter::writeData(const ObjectProperties<ObjectPropertiesType::GARRISON>& properties) const;
 
-  template<> void H3MWriter::writeData(const ObjectProperties<ObjectPropertiesType::GENERIC_NO_PROPERTIES>& properties) const;
+  template<> void H3MWriter::writeData(const ObjectProperties<ObjectPropertiesType::NONE>& properties) const;
 
   template<> void H3MWriter::writeData(const ObjectProperties<ObjectPropertiesType::GRAIL>& properties) const;
 

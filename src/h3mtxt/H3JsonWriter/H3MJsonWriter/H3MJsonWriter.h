@@ -138,8 +138,8 @@ namespace Medea_NS
     FieldsWriter& out, const h3m::ObjectProperties<h3m::ObjectPropertiesType::GARRISON>& details) const;
 
   template<>
-  void JsonObjectWriter<h3m::ObjectProperties<h3m::ObjectPropertiesType::GENERIC_NO_PROPERTIES>>::operator()(
-    FieldsWriter& out, const h3m::ObjectProperties<h3m::ObjectPropertiesType::GENERIC_NO_PROPERTIES>& details) const;
+  void JsonObjectWriter<h3m::ObjectProperties<h3m::ObjectPropertiesType::NONE>>::operator()(
+    FieldsWriter& out, const h3m::ObjectProperties<h3m::ObjectPropertiesType::NONE>& details) const;
 
   template<>
   void JsonObjectWriter<h3m::ObjectProperties<h3m::ObjectPropertiesType::GRAIL>>::operator()(

@@ -28,7 +28,7 @@ namespace h3m
     ARTIFACT,
     EVENT,
     GARRISON,
-    GENERIC_NO_PROPERTIES,  // Any object for which Object doesn't store any additional info.
+    NONE,  // Any object for which Object doesn't store any additional info.
     GRAIL,
     HERO,  // HERO, PRISON and RANDOM_HERO
     MONSTER,
@@ -144,7 +144,7 @@ namespace h3m
       return ObjectPropertiesType::WITCH_HUT;
     // All other objects have no properties.
     default:
-      return ObjectPropertiesType::GENERIC_NO_PROPERTIES;
+      return ObjectPropertiesType::NONE;
     }
   }
 }

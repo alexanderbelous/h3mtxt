@@ -252,11 +252,11 @@ namespace h3m
 
   TEST_CASE("H3M.ObjectProperties.GenericNoProperties", "[H3M]")
   {
-    constexpr ObjectProperties<ObjectPropertiesType::GENERIC_NO_PROPERTIES> kProperties{};
+    constexpr ObjectProperties<ObjectPropertiesType::NONE> kProperties{};
     constexpr std::string_view kBinaryData = "";
 
     REQUIRE(asByteVector(encodeObjectProperties(kProperties)) == asByteVector(kBinaryData));
-    REQUIRE(decodeObjectProperties<ObjectPropertiesType::GENERIC_NO_PROPERTIES>(kBinaryData) == kProperties);
+    REQUIRE(decodeObjectProperties<ObjectPropertiesType::NONE>(kBinaryData) == kProperties);
     REQUIRE(encodeAndDecodeJson(kProperties) == kProperties);
   }
 

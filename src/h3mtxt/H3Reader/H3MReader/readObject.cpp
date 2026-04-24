@@ -188,8 +188,8 @@ namespace h3m
   }
 
   template<>
-  ObjectProperties<ObjectPropertiesType::GENERIC_NO_PROPERTIES>
-  H3MReader::readObjectProperties<ObjectPropertiesType::GENERIC_NO_PROPERTIES>() const
+  ObjectProperties<ObjectPropertiesType::NONE>
+  H3MReader::readObjectProperties<ObjectPropertiesType::NONE>() const
   {
     return {};
   }
