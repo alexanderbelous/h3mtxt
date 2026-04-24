@@ -141,7 +141,7 @@ namespace h3m
     // \return the type of the quest.
     constexpr QuestType type() const noexcept;
 
-    // Get the 0-based index of the alternative corresponding to the given QuestType.
+    // Returns the 0-based index of the alternative corresponding to the given QuestType.
     // \param quest_type - type of the quest.
     // \return 0-based index of the alternative from Quest::Details that has the type
     //         QuestDetails<quest_type>, or std::variant_npos if there is no such alternative.

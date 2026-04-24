@@ -91,21 +91,26 @@ namespace h3m
       StartingBonusDetails<StartingBonusType::Resource>
     >;
 
-    constexpr StartingBonusType type() const noexcept
-    {
-      return static_cast<StartingBonusType>(details.index());
-    }
+    // \return the type of the bonus.
+    constexpr StartingBonusType type() const noexcept;
 
-    // Get the 0-based index of the alternative corresponding to the given StartingBonusType.
+    // Returns the 0-based index of the alternative corresponding to the given StartingBonusType.
     // \param bonus_type - input StartingBonusType.
     // \return 0-based index of the alternative from StartingBonus::Details that has the type
     //         StartingBonusDetails<bonus_type>, or std::variant_npos if there is no such alternative.
-    static constexpr std::size_t getAlternativeIdx(StartingBonusType bonus_type) noexcept
-    {
-      const std::size_t idx = static_cast<std::size_t>(bonus_type);
-      return idx < std::variant_size_v<Details> ? idx : std::variant_npos;
-    }
+    static constexpr std::size_t getAlternativeIdx(StartingBonusType bonus_type) noexcept;
 
     Details details;
   };
+
+  constexpr StartingBonusType StartingBonus::type() const noexcept
+  {
+    return static_cast<StartingBonusType>(details.index());
+  }
+
+  constexpr std::size_t StartingBonus::getAlternativeIdx(StartingBonusType bonus_type) noexcept
+  {
+    const std::size_t idx = static_cast<std::size_t>(bonus_type);
+    return idx < std::variant_size_v<Details> ? idx : std::variant_npos;
+  }
 }

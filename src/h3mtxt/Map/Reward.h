@@ -154,7 +154,7 @@ namespace h3m
     // \return the type of the reward.
     constexpr RewardType type() const noexcept;
 
-    // Get the 0-based index of the alternative corresponding to the given RewardType.
+    // Returns the 0-based index of the alternative corresponding to the given RewardType.
     // \param reward_type - type of the reward.
     // \return 0-based index of the alternative from Reward::Details that has the type
     //         RewardDetails<reward_type>, or std::variant_npos if there is no such alternative.

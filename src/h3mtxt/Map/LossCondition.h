@@ -63,7 +63,7 @@ namespace h3m
     // \return the type of the loss condition.
     constexpr LossConditionType type() const noexcept;
 
-    // Get the 0-based index of the alternative corresponding to the given LossConditionType.
+    // Returns the 0-based index of the alternative corresponding to the given LossConditionType.
     // \param loss_condition_type - input LossConditionType.
     // \return 0-based index of the alternative from LossCondition::Details that has the type
     //         LossConditionDetails<loss_condition_type>, or std::variant_npos if there is no such alternative.
@@ -91,10 +91,6 @@ namespace h3m
     return static_cast<LossConditionType>(index);
   }
 
-  // Get the 0-based index of the alternative corresponding to the given LossConditionType.
-  // \param loss_condition_type - input LossConditionType.
-  // \return 0-based index of the alternative from LossCondition::Details that has the type
-  //         LossConditionDetails<loss_condition_type>, or std::variant_npos if there is no such alternative.
   constexpr std::size_t LossCondition::getAlternativeIdx(LossConditionType loss_condition_type) noexcept
   {
     if (loss_condition_type == LossConditionType::Normal)
