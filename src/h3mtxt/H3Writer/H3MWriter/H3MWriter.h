@@ -57,8 +57,6 @@ namespace h3m
 
     void writeData(const PlayerSpecs& value) const;
 
-    void writeData(const PrimarySkills& primary_skills) const;
-
     void writeData(const Quest& quest) const;
 
     template<QuestType T>

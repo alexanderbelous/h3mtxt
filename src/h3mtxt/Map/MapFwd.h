@@ -150,6 +150,16 @@ namespace h3m
   template<class Enum, class T, std::size_t NumElements>
   struct EnumIndexedArray;
 
+  // Represents the absolute or relative values of the hero's primary skills.
+  //
+  // This is used in HeroSettings, hero objects on the adventure map,
+  // Events on the adventure map, Pandora's Boxes, and quests.
+  //
+  // The game always interprets these as signed integers; in the Map Editor
+  // there are only 2 places where they are (incorrectly) displayed as unsigned integers:
+  // HeroSettings and hero objects on the adventure map.
+  using PrimarySkills = EnumIndexedArray<PrimarySkillType, std::int8_t, 4>;
+
   // Represents an amount of resources.
   //
   // In H3M the amount is always interpreted as int32, even though the Map Editor
@@ -190,8 +200,6 @@ namespace h3m
   struct ObjectTemplate;
 
   struct PlayerSpecs;
-
-  struct PrimarySkills;
 
   struct Quest;
 

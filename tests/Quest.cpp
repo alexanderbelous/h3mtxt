@@ -86,12 +86,7 @@ namespace h3m
   {
     const Quest kQuest = {
       .details = QuestDetails<QuestType::PrimarySkills>{
-        .skills = PrimarySkills {
-          .attack = 10,
-          .defense = 20,
-          .spell_power = 30,
-          .knowledge = 40
-        }
+        .skills = { 10, 20, 30, 40 }
       },
       .deadline = 100,
       .proposal = "Proposal message",

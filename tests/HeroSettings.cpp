@@ -239,12 +239,14 @@ namespace h3m
         .biography = std::nullopt,
         .gender = Gender::Default,
         .spells = std::nullopt,
-        .primary_skills = PrimarySkills{
-          .attack = 1,
-          .defense = 2,
-          .spell_power = 3,
-          .knowledge = 4
-        }
+        .primary_skills = []() consteval {
+          PrimarySkills primary_skills;
+          primary_skills[PrimarySkillType::Attack] = 1;
+          primary_skills[PrimarySkillType::Defense] = 2;
+          primary_skills[PrimarySkillType::SpellPower] = 3;
+          primary_skills[PrimarySkillType::Knowledge] = 4;
+          return primary_skills;
+        }()
       };
       // The binary representation of kHeroSettings.
       static constexpr char kBinaryDataCStr[] =
@@ -282,12 +284,14 @@ namespace h3m
           bitmask.set(SpellType::Armageddon, true);
           return bitmask;
          }(),
-        .primary_skills = PrimarySkills{
-          .attack = 1,
-          .defense = 2,
-          .spell_power = 3,
-          .knowledge = 4
-        }
+        .primary_skills = []() consteval {
+          PrimarySkills primary_skills;
+          primary_skills[PrimarySkillType::Attack] = 1;
+          primary_skills[PrimarySkillType::Defense] = 2;
+          primary_skills[PrimarySkillType::SpellPower] = 3;
+          primary_skills[PrimarySkillType::Knowledge] = 4;
+          return primary_skills;
+        }()
       };
       // The binary representation of kHeroSettings.
       static constexpr char kBinaryDataCStr[] =

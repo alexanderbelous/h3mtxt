@@ -4,10 +4,11 @@
 #include <h3mtxt/Campaign/Constants/StartingBonusType.h>
 #include <h3mtxt/Campaign/Constants/StartingBonusResourceType.h>
 #include <h3mtxt/Map/Constants/ArtifactType.h>
+#include <h3mtxt/Map/Constants/PrimarySkillType.h>
 #include <h3mtxt/Map/Constants/SpellType.h>
 #include <h3mtxt/Map/Constants/TownBuildingType.h>
+#include <h3mtxt/Map/Utils/EnumIndexedArray.h>
 #include <h3mtxt/Map/CreatureStack.h>
-#include <h3mtxt/Map/PrimarySkills.h>
 #include <h3mtxt/Map/SecondarySkill.h>
 
 #include <cstdint>

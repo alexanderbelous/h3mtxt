@@ -21,7 +21,6 @@
 #include <h3mtxt/Map/Utils/ReservedData.h>
 #include <h3mtxt/Map/CreatureStack.h>
 #include <h3mtxt/Map/HeroArtifacts.h>
-#include <h3mtxt/Map/PrimarySkills.h>
 #include <h3mtxt/Map/Reward.h>
 #include <h3mtxt/Map/SecondarySkill.h>
 #include <h3mtxt/Map/TimedEvent.h>

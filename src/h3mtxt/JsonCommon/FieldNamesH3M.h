@@ -352,6 +352,12 @@ namespace h3json
   };
 
   template<>
+  inline constexpr std::array<std::string_view, 4> kEnumFieldNames<h3m::PrimarySkillType> =
+  {
+    "attack", "defense", "spell_power", "knowledge"
+  };
+
+  template<>
   inline constexpr std::array<std::string_view, 8> kEnumFieldNames<h3m::ResourceType> =
   {
     "wood", "mercury", "ore", "sulfur", "crystal", "gems", "gold", "unknown"
@@ -918,15 +924,6 @@ namespace h3json
     static constexpr std::string_view kStartingHero = "starting_hero";
     static constexpr std::string_view kNumNonspecificPlaceholderHeroes = "num_nonspecific_placeholder_heroes";
     static constexpr std::string_view kHeroes = "heroes";
-  };
-
-  template<>
-  struct FieldNames<h3m::PrimarySkills>
-  {
-    static constexpr std::string_view kAttack = "attack";
-    static constexpr std::string_view kDefense = "defense";
-    static constexpr std::string_view kSpellPower = "spell_power";
-    static constexpr std::string_view kKnowledge = "knowledge";
   };
 
   template<>

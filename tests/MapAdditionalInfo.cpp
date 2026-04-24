@@ -124,12 +124,7 @@ namespace h3m
           .experience = 10000,
           .biography = "Best wizard ever",
           .gender = Gender::Male,
-          .primary_skills = PrimarySkills{
-            .attack = 5,
-            .defense = 5,
-            .spell_power = 50,
-            .knowledge = 50
-          }
+          .primary_skills = PrimarySkills{ 5, 5, 50, 50 }
         };
         return settings;
       }()

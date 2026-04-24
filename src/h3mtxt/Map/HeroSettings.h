@@ -2,10 +2,11 @@
 
 #include <h3mtxt/Map/MapFwd.h>
 #include <h3mtxt/Map/Constants/Gender.h>
+#include <h3mtxt/Map/Constants/PrimarySkillType.h>
 #include <h3mtxt/Map/Constants/SpellType.h>
 #include <h3mtxt/Map/Utils/EnumBitmask.h>
+#include <h3mtxt/Map/Utils/EnumIndexedArray.h>
 #include <h3mtxt/Map/HeroArtifacts.h>
-#include <h3mtxt/Map/PrimarySkills.h>
 #include <h3mtxt/Map/SecondarySkill.h>
 
 #include <cstdint>

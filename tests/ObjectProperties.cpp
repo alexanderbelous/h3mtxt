@@ -140,12 +140,7 @@ namespace h3m
           resources[ResourceType::Gold] = 5000;
           return resources;
         }(),
-        .primary_skills = PrimarySkills{
-          .attack = 1,
-          .defense = 2,
-          .spell_power = 3,
-          .knowledge = 4
-        },
+        .primary_skills = { 1, 2, 3, 4 },
         .secondary_skills = {
           SecondarySkill{.type = SecondarySkillType::EarthMagic, .level = 3},
           SecondarySkill{.type = SecondarySkillType::Wisdom, .level = 3},
@@ -314,12 +309,7 @@ namespace h3m
         bitmask.set(SpellType::Bloodlust, true);
         return bitmask;
       }(),
-      .primary_skills = PrimarySkills{
-        .attack = 10,
-        .defense = 10,
-        .spell_power = 1,
-        .knowledge = 3
-      },
+      .primary_skills = PrimarySkills{ 10, 10, 1, 3 },
       .unknown = ReservedData<16>{}
     };
     static constexpr char kBinaryDataCStr[] =
@@ -444,12 +434,7 @@ namespace h3m
           resources[ResourceType::Gold] = 5000;
           return resources;
         }(),
-        .primary_skills = PrimarySkills{
-          .attack = 1,
-          .defense = 2,
-          .spell_power = 3,
-          .knowledge = 4
-        },
+        .primary_skills = { 1, 2, 3, 4 },
         .secondary_skills = {
           SecondarySkill{.type = SecondarySkillType::EarthMagic, .level = 3},
           SecondarySkill{.type = SecondarySkillType::Wisdom, .level = 3},

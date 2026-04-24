@@ -54,9 +54,6 @@ namespace h3json
   h3m::PlayerSpecs JsonReader<h3m::PlayerSpecs>::operator()(const Json::Value & value) const;
 
   template<>
-  h3m::PrimarySkills JsonReader<h3m::PrimarySkills>::operator()(const Json::Value& value) const;
-
-  template<>
   h3m::Quest JsonReader<h3m::Quest>::operator()(const Json::Value& value) const;
 
   template<>

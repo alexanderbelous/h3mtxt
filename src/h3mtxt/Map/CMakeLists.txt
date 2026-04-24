@@ -57,7 +57,6 @@ set(SOURCE_LIST
     "ObjectPropertiesVariant.h"
     "ObjectTemplate.h"
     "PlayerSpecs.h"
-    "PrimarySkills.h"
     "Quest.h"
     "Reward.h"
     "SecondarySkill.h"

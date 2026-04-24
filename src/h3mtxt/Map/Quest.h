@@ -5,10 +5,10 @@
 #include <h3mtxt/Map/Constants/CreatureType.h>
 #include <h3mtxt/Map/Constants/HeroType.h>
 #include <h3mtxt/Map/Constants/PlayerColor.h>
+#include <h3mtxt/Map/Constants/PrimarySkillType.h>
 #include <h3mtxt/Map/Constants/QuestType.h>
 #include <h3mtxt/Map/Constants/ResourceType.h>
 #include <h3mtxt/Map/Utils/EnumIndexedArray.h>
-#include <h3mtxt/Map/PrimarySkills.h>
 
 #include <cstdint>
 #include <string>
