@@ -24,11 +24,11 @@ namespace h3m
   // have the same ObjectPropertiesType.
   enum class ObjectPropertiesType
   {
+    NONE,  // Any object for which Object doesn't store any additional info.
     ABANDONED_MINE,
     ARTIFACT,
     EVENT,
     GARRISON,
-    NONE,  // Any object for which Object doesn't store any additional info.
     GRAIL,
     HERO,  // HERO, PRISON and RANDOM_HERO
     MONSTER,

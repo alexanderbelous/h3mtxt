@@ -208,9 +208,13 @@ namespace h3m
     Detail_NS::ObjectPropertiesVariantImpl impl_;
   };
 
-  constexpr ObjectPropertiesVariant::ObjectPropertiesVariant() noexcept:
+  constexpr ObjectPropertiesVariant::ObjectPropertiesVariant() noexcept :
     impl_(std::in_place_type<ObjectProperties<ObjectPropertiesType::NONE>>)
   {
+    // FYI: this doesn't need to be explictly defined if
+    // ObjectProperties<ObjectPropertiesType::NONE> is the 0th alternative. However, the explicit
+    // definition makes ObjectPropertiesVariant agnostic to the order of constants in ObjectPropertiesType,
+    // which is safer.
   }
 
   template<ObjectPropertiesType T>
