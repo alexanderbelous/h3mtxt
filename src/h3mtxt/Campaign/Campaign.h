@@ -10,6 +10,8 @@ namespace h3m
   // Represents a *.h3c campaign.
   struct Campaign
   {
+    bool operator==(const Campaign&) const noexcept = default;
+
     CampaignHeader header;
     // Map for each existing scenario.
     // The number of maps must be equal to countScenarios(header).

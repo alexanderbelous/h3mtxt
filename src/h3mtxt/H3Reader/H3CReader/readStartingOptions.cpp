@@ -16,9 +16,9 @@ namespace h3m
   {
     StartingOptionsDetails<StartingOptionsType::StartingBonus> details;
     details.player = readEnum<PlayerColor>();
-    const std::uint8_t num_bonuses = readInt<std::uint8_t>();
-    details.options.reserve(num_bonuses);
-    for (std::uint8_t i = 0; i < num_bonuses; ++i)
+    const std::uint8_t num_options = readInt<std::uint8_t>();
+    details.options.reserve(num_options);
+    for (std::uint8_t i = 0; i < num_options; ++i)
     {
       details.options.push_back(readStartingBonus());
     }
@@ -29,9 +29,9 @@ namespace h3m
   StartingOptionsDetails<StartingOptionsType::HeroCrossover> H3CReader::readStartingOptionsDetails() const
   {
     StartingOptionsDetails<StartingOptionsType::HeroCrossover> details;
-    const std::uint8_t num_heroes = readInt<std::uint8_t>();
-    details.options.reserve(num_heroes);
-    for (std::uint8_t i = 0; i < num_heroes; ++i)
+    const std::uint8_t num_options = readInt<std::uint8_t>();
+    details.options.reserve(num_options);
+    for (std::uint8_t i = 0; i < num_options; ++i)
     {
       StartingOptionsDetails<StartingOptionsType::HeroCrossover>::Hero hero;
       hero.player = readEnum<PlayerColor>();
@@ -45,9 +45,9 @@ namespace h3m
   StartingOptionsDetails<StartingOptionsType::StartingHero> H3CReader::readStartingOptionsDetails() const
   {
     StartingOptionsDetails<StartingOptionsType::StartingHero> details;
-    const std::uint8_t num_heroes = readInt<std::uint8_t>();
-    details.options.reserve(num_heroes);
-    for (std::uint8_t i = 0; i < num_heroes; ++i)
+    const std::uint8_t num_options = readInt<std::uint8_t>();
+    details.options.reserve(num_options);
+    for (std::uint8_t i = 0; i < num_options; ++i)
     {
       StartingOptionsDetails<StartingOptionsType::StartingHero>::Hero hero;
       hero.player = readEnum<PlayerColor>();
