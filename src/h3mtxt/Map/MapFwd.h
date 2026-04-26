@@ -177,7 +177,11 @@ namespace h3m
 
   class HeroesSettings;
 
-  class LossCondition;
+  struct LossCondition;
+
+  // Template class for storing details of a loss condition.
+  template<LossConditionType T, class Enable = void>
+  struct LossConditionDetails;
 
   struct MainTown;
 

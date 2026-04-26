@@ -3,36 +3,6 @@
 
 namespace h3m
 {
-  LossCondition H3MReader::readLossCondition() const
-  {
-    const LossConditionType loss_condition_type = readEnum<LossConditionType>();
-    switch (loss_condition_type)
-    {
-    case LossConditionType::LoseTown:
-    {
-      LossConditionDetails<LossConditionType::LoseTown> details;
-      details.coordinates = readCoordinates();
-      return LossCondition{details};
-    }
-    case LossConditionType::LoseHero:
-    {
-      LossConditionDetails<LossConditionType::LoseHero> details;
-      details.coordinates = readCoordinates();
-      return LossCondition{details};
-    }
-    case LossConditionType::TimeExpires:
-    {
-      LossConditionDetails<LossConditionType::TimeExpires> details;
-      details.days = readInt<std::int16_t>();
-      return LossCondition{details};
-    }
-    case LossConditionType::Normal:
-      return LossCondition{};
-    default:
-      throw std::runtime_error("Invalid loss condition type.");
-    }
-  }
-
   Teams H3MReader::readTeams() const
   {
     Teams teams;

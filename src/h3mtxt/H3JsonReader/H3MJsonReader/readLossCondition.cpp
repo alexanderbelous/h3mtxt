@@ -7,37 +7,42 @@
 namespace h3json
 {
   template<>
-  struct JsonReader<h3m::LossConditionDetails<h3m::LossConditionType::LoseTown>>
+  h3m::LossConditionDetails<h3m::LossConditionType::LoseTown>
+  JsonReader<h3m::LossConditionDetails<h3m::LossConditionType::LoseTown>>::operator()(const Json::Value& value) const
   {
-    h3m::LossConditionDetails<h3m::LossConditionType::LoseTown> operator()(const Json::Value& value) const
-    {
-      h3m::LossConditionDetails<h3m::LossConditionType::LoseTown> details;
-      readField(details.coordinates, value, "coordinates");
-      return details;
-    }
-  };
+    using Fields = FieldNames<h3m::LossConditionDetails<h3m::LossConditionType::LoseTown>>;
+    h3m::LossConditionDetails<h3m::LossConditionType::LoseTown> details;
+    readField(details.coordinates, value, Fields::kCoordinates);
+    return details;
+  }
 
   template<>
-  struct JsonReader<h3m::LossConditionDetails<h3m::LossConditionType::LoseHero>>
+  h3m::LossConditionDetails<h3m::LossConditionType::LoseHero>
+  JsonReader<h3m::LossConditionDetails<h3m::LossConditionType::LoseHero>>::operator()(const Json::Value& value) const
   {
-    h3m::LossConditionDetails<h3m::LossConditionType::LoseHero> operator()(const Json::Value& value) const
-    {
-      h3m::LossConditionDetails<h3m::LossConditionType::LoseHero> details;
-      readField(details.coordinates, value, "coordinates");
-      return details;
-    }
-  };
+    using Fields = FieldNames<h3m::LossConditionDetails<h3m::LossConditionType::LoseHero>>;
+    h3m::LossConditionDetails<h3m::LossConditionType::LoseHero> details;
+    readField(details.coordinates, value, Fields::kCoordinates);
+    return details;
+  }
 
   template<>
-  struct JsonReader<h3m::LossConditionDetails<h3m::LossConditionType::TimeExpires>>
+  h3m::LossConditionDetails<h3m::LossConditionType::TimeExpires>
+  JsonReader<h3m::LossConditionDetails<h3m::LossConditionType::TimeExpires>>::operator()(const Json::Value& value) const
   {
-    h3m::LossConditionDetails<h3m::LossConditionType::TimeExpires> operator()(const Json::Value& value) const
-    {
-      h3m::LossConditionDetails<h3m::LossConditionType::TimeExpires> details;
-      readField(details.days, value, "days");
-      return details;
-    }
-  };
+    using Fields = FieldNames<h3m::LossConditionDetails<h3m::LossConditionType::TimeExpires>>;
+    h3m::LossConditionDetails<h3m::LossConditionType::TimeExpires> details;
+    readField(details.days, value, Fields::kDays);
+    return details;
+  }
+
+  template<>
+  h3m::LossConditionDetails<h3m::LossConditionType::Normal>
+  JsonReader<h3m::LossConditionDetails<h3m::LossConditionType::Normal>>::operator()(const Json::Value&) const
+  {
+    return h3m::LossConditionDetails<h3m::LossConditionType::Normal>{};
+  }
+
 
   h3m::LossCondition JsonReader<h3m::LossCondition>::operator()(const Json::Value& value) const
   {

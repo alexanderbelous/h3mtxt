@@ -2,6 +2,7 @@
 
 #include <h3mtxt/H3Writer/H3WriterBase/H3WriterBase.h>
 #include <h3mtxt/Map/MapFwd.h>
+#include <h3mtxt/Map/Constants/LossConditionType.h>
 #include <h3mtxt/Map/Constants/ObjectPropertiesType.h>
 #include <h3mtxt/Map/Constants/RewardType.h>
 #include <h3mtxt/Map/Constants/QuestType.h>
@@ -37,6 +38,9 @@ namespace h3m
     void writeData(const HeroSettings& settings) const;
 
     void writeData(const LossCondition& loss_condition) const;
+
+    template<LossConditionType T>
+    void writeData(const LossConditionDetails<T>& details) const;
 
     void writeData(const MainTown& value) const;
 
@@ -122,6 +126,14 @@ namespace h3m
   private:
     void writeEventBase(const EventBase& event) const;
   };
+
+  template<> void H3MWriter::writeData(const LossConditionDetails<LossConditionType::LoseTown>& details) const;
+
+  template<> void H3MWriter::writeData(const LossConditionDetails<LossConditionType::LoseHero>& details) const;
+
+  template<> void H3MWriter::writeData(const LossConditionDetails<LossConditionType::TimeExpires>& details) const;
+
+  template<> void H3MWriter::writeData(const LossConditionDetails<LossConditionType::Normal>& details) const;
 
   template<> void H3MWriter::writeData(const ObjectProperties<ObjectPropertiesType::ABANDONED_MINE>& properties) const;
 

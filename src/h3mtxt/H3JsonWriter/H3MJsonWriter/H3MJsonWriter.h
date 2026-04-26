@@ -1,6 +1,7 @@
 #pragma once
 
 #include <h3mtxt/Map/MapFwd.h>
+#include <h3mtxt/Map/Constants/LossConditionType.h>
 #include <h3mtxt/Map/Constants/ObjectPropertiesType.h>
 #include <h3mtxt/Map/Constants/QuestType.h>
 #include <h3mtxt/Map/Constants/RewardType.h>
@@ -84,6 +85,22 @@ namespace Medea_NS
   template<>
   void JsonObjectWriter<h3m::LossCondition>::operator()(FieldsWriter& out,
                                                         const h3m::LossCondition& loss_condition) const;
+
+  template<>
+  void JsonObjectWriter<h3m::LossConditionDetails<h3m::LossConditionType::LoseTown>>::operator()(
+    FieldsWriter& out, const h3m::LossConditionDetails<h3m::LossConditionType::LoseTown>& value) const;
+
+  template<>
+  void JsonObjectWriter<h3m::LossConditionDetails<h3m::LossConditionType::LoseHero>>::operator()(
+    FieldsWriter& out, const h3m::LossConditionDetails<h3m::LossConditionType::LoseHero>& value) const;
+
+  template<>
+  void JsonObjectWriter<h3m::LossConditionDetails<h3m::LossConditionType::TimeExpires>>::operator()(
+    FieldsWriter& out, const h3m::LossConditionDetails<h3m::LossConditionType::TimeExpires>& value) const;
+
+  template<>
+  void JsonObjectWriter<h3m::LossConditionDetails<h3m::LossConditionType::Normal>>::operator()(
+    FieldsWriter& out, const h3m::LossConditionDetails<h3m::LossConditionType::Normal>& value) const;
 
   template<>
   void JsonObjectWriter<h3m::MainTown>::operator()(FieldsWriter& out, const h3m::MainTown& value) const;

@@ -5,6 +5,7 @@ add_library(H3MReader STATIC
     "readCoordinates.cpp"
     "readCreatureStack.cpp"
     "readHeroArtifacts.cpp"
+    "readLossCondition.cpp"
     "readMap.cpp"
     "readMapAdditionalInfo.cpp"
     "readObject.cpp"

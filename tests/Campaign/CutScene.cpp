@@ -44,7 +44,7 @@ namespace h3m
   TEST_CASE("H3M.CutScene", "[H3C]")
   {
     // CutScene used in this test.
-    static constexpr CutScene kCutScene{
+    const CutScene kCutScene{
       .movie = CampaignVideo::DragonSlayer_a,
       .music = CampaignMusic::TowerTown,
       .message = "Episode I"

@@ -2,6 +2,7 @@
 
 #include <h3mtxt/H3Reader/H3ReaderBase/H3ReaderBase.h>
 #include <h3mtxt/Map/MapFwd.h>
+#include <h3mtxt/Map/Constants/LossConditionType.h>
 #include <h3mtxt/Map/Constants/ObjectPropertiesType.h>
 #include <h3mtxt/Map/Constants/QuestType.h>
 #include <h3mtxt/Map/Constants/RewardType.h>
@@ -42,6 +43,9 @@ namespace h3m
     HeroSettings readHeroSettings() const;
 
     LossCondition readLossCondition() const;
+
+    template<LossConditionType T>
+    LossConditionDetails<T> readLossConditionDetails() const;
 
     MainTown readMainTown() const;
 
@@ -108,6 +112,18 @@ namespace h3m
   private:
     void readEventBase(EventBase& event) const;
   };
+
+  template<>
+  LossConditionDetails<LossConditionType::LoseTown> H3MReader::readLossConditionDetails() const;
+
+  template<>
+  LossConditionDetails<LossConditionType::LoseHero> H3MReader::readLossConditionDetails() const;
+
+  template<>
+  LossConditionDetails<LossConditionType::TimeExpires> H3MReader::readLossConditionDetails() const;
+
+  template<>
+  LossConditionDetails<LossConditionType::Normal> H3MReader::readLossConditionDetails() const;
 
   template<ObjectPropertiesType T>
   ObjectProperties<T> H3MReader::readObjectProperties() const

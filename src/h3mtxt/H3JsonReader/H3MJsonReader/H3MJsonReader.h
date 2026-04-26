@@ -2,6 +2,7 @@
 
 #include <h3mtxt/H3JsonReader/H3JsonReaderBase/H3JsonReaderBaseFwd.h>
 #include <h3mtxt/Map/MapFwd.h>
+#include <h3mtxt/Map/Constants/LossConditionType.h>
 #include <h3mtxt/Map/Constants/QuestType.h>
 #include <h3mtxt/Map/Constants/RewardType.h>
 
@@ -31,6 +32,22 @@ namespace h3json
 
   template<>
   h3m::LossCondition JsonReader<h3m::LossCondition>::operator()(const Json::Value& value) const;
+
+  template<>
+  h3m::LossConditionDetails<h3m::LossConditionType::LoseTown>
+  JsonReader<h3m::LossConditionDetails<h3m::LossConditionType::LoseTown>>::operator()(const Json::Value& value) const;
+
+  template<>
+  h3m::LossConditionDetails<h3m::LossConditionType::LoseHero>
+  JsonReader<h3m::LossConditionDetails<h3m::LossConditionType::LoseHero>>::operator()(const Json::Value& value) const;
+
+  template<>
+  h3m::LossConditionDetails<h3m::LossConditionType::TimeExpires>
+  JsonReader<h3m::LossConditionDetails<h3m::LossConditionType::TimeExpires>>::operator()(const Json::Value& value) const;
+
+  template<>
+  h3m::LossConditionDetails<h3m::LossConditionType::Normal>
+  JsonReader<h3m::LossConditionDetails<h3m::LossConditionType::Normal>>::operator()(const Json::Value& value) const;
 
   template<>
   h3m::MainTown JsonReader<h3m::MainTown>::operator()(const Json::Value& value) const;
