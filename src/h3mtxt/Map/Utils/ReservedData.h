@@ -14,7 +14,7 @@ namespace h3m
     // Checks if all bytes in the array are 0.
     // \param data - input array.
     // \return true if all bytes in @data are 0, false otherwise.
-    constexpr bool isAllZeros(std::span<const std::byte> data) noexcept
+    constexpr bool isAllZeroes(std::span<const std::byte> data) noexcept
     {
       const std::byte* const first = data.data();
       const std::byte* const last = first + data.size();
@@ -37,12 +37,12 @@ namespace h3m
       // If @lhs is implicit but @rhs is explicit -> check that all bytes are 0 in @rhs.
       if (lhs == nullptr)
       {
-        return isAllZeros(std::span<const std::byte>{rhs, num_bytes});
+        return isAllZeroes(std::span<const std::byte>{rhs, num_bytes});
       }
       // If @lhs is explicit but @rhs is implicit -> check that all bytes are 0 in @lhs.
       if (rhs == nullptr)
       {
-        return isAllZeros(std::span<const std::byte>{lhs, num_bytes});
+        return isAllZeroes(std::span<const std::byte>{lhs, num_bytes});
       }
       // Otherwise (if both are explicit), compare the bytes in @lhs and @rhs.
       return std::equal(lhs, lhs + num_bytes, rhs);
@@ -180,14 +180,14 @@ namespace h3m
     // \return NumBytes.
     constexpr std::size_t size() const noexcept;
 
-    // Gets the value of the specified element.
+    // Returns the value of the specified element.
     //
     // No bounds checking is performed; the behavior is undefined if @index >= NumBytes.
     // \param index - 0-based index of the element.
     // \return the value of the byte at @index.
     constexpr std::byte operator[](std::size_t index) const;
 
-    // Gets the value of the specified element.
+    // Returns the value of the specified element.
     // \param index - 0-based index of the element.
     // \return the value of the byte at @index.
     // \throw std::out_of_range if @index >= NumBytes.
