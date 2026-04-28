@@ -20,7 +20,7 @@ set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 include(cmake/h3mtxt_common.cmake)
 
 # Add subdirectories with source code.
-add_subdirectory(src)
+add_subdirectory(src/h3mtxt)
 
 # Tests are disabled by default.
 # This can be overridden from the command line, e.g., "cmake -S . -B build -DH3MTXT_BUILD_TESTS=ON"
