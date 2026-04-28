@@ -15,41 +15,6 @@ namespace h3svg
     return artifact_merchants;
   }
 
-  // Always 145 bytes.
-  Player H3SVGReader::readPlayer() const
-  {
-    Player player;
-    player.player_color = readEnum<PlayerColor>();
-    player.num_heroes = readInt<std::uint8_t>();
-    player.active_hero = readEnum<HeroType>();
-    for (HeroType& hero : player.heroes)
-    {
-      hero = readEnum<HeroType>();
-    }
-    for (HeroType& hero : player.heroes_in_tavern)
-    {
-      hero = readEnum<HeroType>();
-    }
-    player.unknown1 = readInt<std::uint8_t>();
-    player.personality = readEnum<PlayerPersonality>();
-    player.unknown2 = readByteArray<5>();
-    player.days_left = readInt<std::int8_t>();
-    player.num_towns = readInt<std::uint8_t>();
-    player.current_town = readInt<std::int8_t>();
-    for (std::int8_t& town_id : player.towns)
-    {
-      town_id = readInt<std::uint8_t>();
-    }
-    player.unknown3 = readByteArray<24>();
-    player.resources = readResources();
-    player.mystical_gardens = readBitSet<4>();
-    player.unknown4 = readByteArray<4>();
-    player.corpses = readBitSet<4>();
-    player.lean_tos = readBitSet<4>();
-    player.unknown5 = readByteArray<3>();
-    return player;
-  }
-
   Rumor H3SVGReader::readRumor() const
   {
     Rumor rumor;
@@ -217,46 +182,6 @@ namespace h3svg
     }
     // TODO: read the rest.
     return saved_game;
-  }
-
-  ScenarioStartingInfo H3SVGReader::readScenarioStartingInfo() const
-  {
-    ScenarioStartingInfo starting_info;
-    // Read 32 bytes - 4 bytes per player, specifying their alignment.
-    for (TownType32& alignment : starting_info.starting_towns.data)
-    {
-      alignment = readEnum<TownType32>();
-    }
-    // Read 8 bytes.
-    // TODO: figure out what it is.
-    readBytes(std::span<std::byte, 8>{ starting_info.unknown1 });
-    // Read 1 byte - the selected difficulty level.
-    starting_info.difficulty = readEnum<MapDifficulty>();
-    // Read 251 bytes representing the filename of the original map.
-    readBytes(std::as_writable_bytes(std::span{ starting_info.map_filename }));
-    // Read 100 bytes representing the relative path to the directory in which the original map is located.
-    readBytes(std::as_writable_bytes(std::span{ starting_info.map_directory }));
-    // Read 8 bytes - 1 byte per PlayerColor, indicating who can control this color.
-    for (PlayerControlType& player_control : starting_info.players_control.data)
-    {
-      player_control = readEnum<PlayerControlType>();
-    }
-    // Read 3 bytes.
-    // TODO: figure out what this is. Seems to always be {255, 1, 1}.
-    readBytes(std::span<std::byte, 3>{ starting_info.unknown2 });
-    // Read 1 byte specifying the player turn duration.
-    starting_info.player_turn_duration = readEnum<PlayerTurnDurationType>();
-    // Read 8 bytes - 1 byte per player, specifying the starting hero.
-    for (HeroType& starting_hero : starting_info.starting_heroes.data)
-    {
-      starting_hero = readEnum<HeroType>();
-    }
-    // Read 8 bytes - 1 byte per player, specifying the starting bonus.
-    for (PlayerStartingBonusType& starting_bonus : starting_info.starting_bonuses.data)
-    {
-      starting_bonus = readEnum<PlayerStartingBonusType>();
-    }
-    return starting_info;
   }
 
   TileVisibility H3SVGReader::readTileVisibility() const
