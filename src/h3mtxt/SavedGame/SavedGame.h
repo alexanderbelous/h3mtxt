@@ -18,6 +18,7 @@
 #include <h3mtxt/SavedGame/ObjectTemplate.h>
 #include <h3mtxt/SavedGame/Player.h>
 #include <h3mtxt/SavedGame/PlayerSpecs.h>
+#include <h3mtxt/SavedGame/Rumor.h>
 #include <h3mtxt/SavedGame/ScenarioStartingInfo.h>
 #include <h3mtxt/SavedGame/Tile.h>
 #include <h3mtxt/SavedGame/TileVisibility.h>
@@ -32,17 +33,6 @@
 
 namespace h3svg
 {
-  // The equivalent of h3m::Rumor stored in the saved game.
-  struct Rumor
-  {
-    std::string text;
-    // Indicates whether this rumor has been displayed in the Tavern.
-    // This doesn't necessarily mean that the player has read this rumor - the value is set to 1
-    // when this rumor becomes the "rumor of the week", not when the player sees it in the Tavern.
-    // Note, however, that the value can be reset from 1 to 0 sometimes - I'm not sure why.
-    Bool has_been_shown {};
-  };
-
   // Represents a saved game for Heroes of Might and Magic 3 (.GM1, .GM2, ... files).
   struct SavedGame
   {

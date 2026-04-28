@@ -25,6 +25,7 @@ set(SOURCE_LIST
     "PlayerSpecs.h"
     "Quest.h"
     "Reward.h"
+    "Rumor.h"
     "SavedGame.h"
     "SavedGameFwd.h"
     "ScenarioStartingInfo.h"
