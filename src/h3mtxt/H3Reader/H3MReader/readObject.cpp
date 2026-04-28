@@ -23,7 +23,7 @@ namespace h3m
     {
       std::vector<SecondarySkill> secondary_skills;
       secondary_skills.reserve(num_secondary_skills);
-      for (std::uintmax_t i = 0; i < num_secondary_skills; ++i)
+      for (std::size_t i = 0; i < num_secondary_skills; ++i)
       {
         secondary_skills.push_back(reader.readSecondarySkill());
       }
@@ -44,7 +44,7 @@ namespace h3m
     ObjectPropertiesVariant readObjectPropertiesVariant(const H3MReader& reader,
                                                         ObjectPropertiesType object_properties_type)
     {
-      // Type of a pointer to a function that takes std::istream& and returns ObjectPropertiesVariant.
+      // Type of a pointer to a function that takes const H3MReader& and returns ObjectPropertiesVariant.
       using ReadObjectPropertiesPtr = ObjectPropertiesVariant(*)(const H3MReader& reader);
       // Generate (at compile time) an array of function pointers for each instantiation of
       // readObjectPropertiesAsVariant() ordered by ObjectPropertiesType.

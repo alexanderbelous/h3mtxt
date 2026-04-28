@@ -1,17 +1,15 @@
 #pragma once
 
+#include <h3mtxt/Map/MapFwd.h>
 #include <h3mtxt/Map/Constants/LossConditionType.h>
 #include <h3mtxt/Map/Coordinates.h>
 
 #include <cstdint>
+#include <type_traits>
 #include <variant>
 
 namespace h3m
 {
-  // Template class for storing details of a loss condition.
-  template<LossConditionType T, class Enable = void>
-  struct LossConditionDetails;
-
   // Specialization for LoseTown and LoseHero.
   template<LossConditionType T>
   struct LossConditionDetails<T, std::enable_if_t<T == LossConditionType::LoseTown ||
@@ -50,9 +48,8 @@ namespace h3m
   // Loss condition for the map.
   //
   // This is an aggregate type; the default-constructed LossCondition represents LossConditionType::Normal.
-  class LossCondition
+  struct LossCondition
   {
-  public:
     using Details = std::variant<
       LossConditionDetails<LossConditionType::LoseTown>,
       LossConditionDetails<LossConditionType::LoseHero>,

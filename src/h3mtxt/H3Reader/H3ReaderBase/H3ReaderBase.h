@@ -152,7 +152,7 @@ namespace h3m
   {
     std::array<std::byte, N> data;
     readBytes(std::span{data});
-    if (h3m::Detail_NS::isAllZeros(data))
+    if (h3m::Detail_NS::isAllZeroes(data))
     {
       return ReservedData<N>();
     }

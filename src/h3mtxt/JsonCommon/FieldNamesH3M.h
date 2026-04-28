@@ -3,6 +3,7 @@
 #include <h3mtxt/JsonCommon/JsonCommonFwd.h>
 
 #include <h3mtxt/Map/MapFwd.h>
+#include <h3mtxt/Map/Constants/LossConditionType.h>
 #include <h3mtxt/Map/Constants/ObjectPropertiesType.h>
 
 namespace h3json
@@ -633,6 +634,24 @@ namespace h3json
     // `details` (LossConditionDetails<type>).
     static constexpr std::string_view kType = "type";
     static constexpr std::string_view kDetails = "details";
+  };
+
+  template<>
+  struct FieldNames<h3m::LossConditionDetails<h3m::LossConditionType::LoseTown>>
+  {
+    static constexpr std::string_view kCoordinates = "coordinates";
+  };
+
+  template<>
+  struct FieldNames<h3m::LossConditionDetails<h3m::LossConditionType::LoseHero>>
+  {
+    static constexpr std::string_view kCoordinates = "coordinates";
+  };
+
+  template<>
+  struct FieldNames<h3m::LossConditionDetails<h3m::LossConditionType::TimeExpires>>
+  {
+    static constexpr std::string_view kDays = "days";
   };
 
   template<>

@@ -224,7 +224,7 @@ namespace h3json
     h3m::ReservedData<NumBytes> operator()(const Json::Value& value) const
     {
       std::array<std::byte, NumBytes> data = fromJson<std::array<std::byte, NumBytes>>(value);
-      if (h3m::Detail_NS::isAllZeros(data))
+      if (h3m::Detail_NS::isAllZeroes(data))
       {
         return h3m::ReservedData<NumBytes>();
       }

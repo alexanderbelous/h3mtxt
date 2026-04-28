@@ -631,11 +631,11 @@ namespace h3m
   std::string_view getEnumString(ObjectPropertiesType value) noexcept
   {
     static constexpr std::string_view kNames[] = {
+      "NONE",
       "ABANDONED_MINE",
       "ARTIFACT",
       "EVENT",
       "GARRISON",
-      "NONE",
       "GRAIL",
       "HERO",
       "MONSTER",

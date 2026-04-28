@@ -15,11 +15,14 @@ namespace h3m
   template<>
   struct StartingOptionsDetails<StartingOptionsType::None>
   {
+    constexpr bool operator==(const StartingOptionsDetails&) const noexcept = default;
   };
 
   template<>
   struct StartingOptionsDetails<StartingOptionsType::StartingBonus>
   {
+    constexpr bool operator==(const StartingOptionsDetails&) const noexcept = default;
+
     PlayerColor player {};
     // Size is serialized as std::uint8_t.
     std::vector<StartingBonus> options;
@@ -28,8 +31,12 @@ namespace h3m
   template<>
   struct StartingOptionsDetails<StartingOptionsType::HeroCrossover>
   {
+    constexpr bool operator==(const StartingOptionsDetails&) const noexcept = default;
+
     struct Hero
     {
+      constexpr bool operator==(const Hero&) const noexcept = default;
+
       PlayerColor player {};
       std::uint8_t source_scenario {};
     };
@@ -41,11 +48,15 @@ namespace h3m
   template<>
   struct StartingOptionsDetails<StartingOptionsType::StartingHero>
   {
+    constexpr bool operator==(const StartingOptionsDetails&) const noexcept = default;
+
     struct Hero
     {
-      PlayerColor player{};
+      constexpr bool operator==(const Hero&) const noexcept = default;
+
+      PlayerColor player {};
       // HeroType or 0xFFFF if random.
-      std::uint16_t type{};
+      std::uint16_t type {};
     };
 
     // Size is serialized as std::uint8_t.
@@ -60,6 +71,8 @@ namespace h3m
       StartingOptionsDetails<StartingOptionsType::HeroCrossover>,
       StartingOptionsDetails<StartingOptionsType::StartingHero>
     >;
+
+    constexpr bool operator==(const StartingOptions&) const noexcept = default;
 
     // \return the type of the starting options.
     constexpr StartingOptionsType type() const noexcept;

@@ -20,6 +20,8 @@ namespace h3m
   template<>
   struct StartingBonusDetails<StartingBonusType::Spell>
   {
+    constexpr bool operator==(const StartingBonusDetails&) const noexcept = default;
+
     // HeroType or 0xFDFF for the most powerful hero.
     std::uint16_t hero {};
     SpellType spell {};
@@ -28,6 +30,8 @@ namespace h3m
   template<>
   struct StartingBonusDetails<StartingBonusType::Creature>
   {
+    constexpr bool operator==(const StartingBonusDetails&) const noexcept = default;
+
     // HeroType or 0xFDFF for the most powerful hero.
     std::uint16_t hero {};
     CreatureStack creature_stack;
@@ -36,12 +40,16 @@ namespace h3m
   template<>
   struct StartingBonusDetails<StartingBonusType::Building>
   {
+    constexpr bool operator==(const StartingBonusDetails&) const noexcept = default;
+
     TownBuildingType building {};
   };
 
   template<>
   struct StartingBonusDetails<StartingBonusType::Artifact>
   {
+    constexpr bool operator==(const StartingBonusDetails&) const noexcept = default;
+
     // HeroType or 0xFDFF for the most powerful hero.
     std::uint16_t hero {};
     ArtifactType artifact {};
@@ -50,6 +58,8 @@ namespace h3m
   template<>
   struct StartingBonusDetails<StartingBonusType::SpellScroll>
   {
+    constexpr bool operator==(const StartingBonusDetails&) const noexcept = default;
+
     // HeroType or 0xFDFF for the most powerful hero.
     std::uint16_t hero {};
     SpellType spell {};
@@ -58,6 +68,8 @@ namespace h3m
   template<>
   struct StartingBonusDetails<StartingBonusType::PrimarySkills>
   {
+    constexpr bool operator==(const StartingBonusDetails&) const noexcept = default;
+
     // HeroType or 0xFDFF for the most powerful hero.
     std::uint16_t hero {};
     PrimarySkills skills;
@@ -66,6 +78,8 @@ namespace h3m
   template<>
   struct StartingBonusDetails<StartingBonusType::SecondarySkill>
   {
+    constexpr bool operator==(const StartingBonusDetails&) const noexcept = default;
+
     // HeroType or 0xFDFF for the most powerful hero.
     std::uint16_t hero {};
     SecondarySkill skill;
@@ -74,6 +88,8 @@ namespace h3m
   template<>
   struct StartingBonusDetails<StartingBonusType::Resource>
   {
+    constexpr bool operator==(const StartingBonusDetails&) const noexcept = default;
+
     StartingBonusResourceType type {};
     std::uint32_t amount {};
   };
@@ -90,6 +106,8 @@ namespace h3m
       StartingBonusDetails<StartingBonusType::SecondarySkill>,
       StartingBonusDetails<StartingBonusType::Resource>
     >;
+
+    constexpr bool operator==(const StartingBonus&) const noexcept = default;
 
     // \return the type of the bonus.
     constexpr StartingBonusType type() const noexcept;

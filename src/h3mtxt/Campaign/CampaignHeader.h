@@ -14,12 +14,14 @@ namespace h3m
   // Represents the header of a *.h3c campaign, i.e. everything except the underlying *.h3m maps.
   struct CampaignHeader
   {
+    constexpr bool operator==(const CampaignHeader&) const noexcept = default;
+
     CampaignFormat format = CampaignFormat::ShadowOfDeath;
     CampaignId id {};
     std::string name;
     std::string description;
-    Bool allow_selecting_difficulty {};
-    CampaignMusic theme_music {};
+    Bool allow_selecting_difficulty = false;
+    CampaignMusic theme_music = CampaignMusic::GoodTheme;
     // The number of elements should be equal to countRegions(this->id),
     // even if the campaign has unused regions.
     std::vector<CampaignScenario> scenarios;
