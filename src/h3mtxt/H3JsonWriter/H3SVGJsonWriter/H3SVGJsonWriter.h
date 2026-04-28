@@ -47,21 +47,20 @@ namespace Medea_NS
   void JsonObjectWriter<h3svg::LossCondition>::operator()(FieldsWriter& out,
                                                           const h3svg::LossCondition& loss_condition) const;
 
-  template<>
-  void JsonObjectWriter<h3svg::LossConditionDetails<h3svg::LossConditionType::LoseTown>>::operator()(
-    FieldsWriter& out, const h3svg::LossConditionDetails<h3svg::LossConditionType::LoseTown>& details) const;
+  // Partial specialization for h3svg::LossConditionDetails.
+  template<h3svg::LossConditionType T>
+  struct JsonObjectWriter<h3svg::LossConditionDetails<T>>
+  {
+    // Defined in writeLossCondition.cpp.
+    // Explicit instantiations are provided for LossConditionTypes that use the default template implementation.
+    // A specialization for LossConditionType::LoseHero is declared below.
+    void operator()(FieldsWriter& out, const h3svg::LossConditionDetails<T>& details) const;
+  };
 
   template<>
   void JsonObjectWriter<h3svg::LossConditionDetails<h3svg::LossConditionType::LoseHero>>::operator()(
-    FieldsWriter& out, const h3svg::LossConditionDetails<h3svg::LossConditionType::LoseHero>& details) const;
-
-  template<>
-  void JsonObjectWriter<h3svg::LossConditionDetails<h3svg::LossConditionType::TimeExpires>>::operator()(
-    FieldsWriter& out, const h3svg::LossConditionDetails<h3svg::LossConditionType::TimeExpires>& details) const;
-
-  template<>
-  void JsonObjectWriter<h3svg::LossConditionDetails<h3svg::LossConditionType::Normal>>::operator()(
-    FieldsWriter& out, const h3svg::LossConditionDetails<h3svg::LossConditionType::Normal>& details) const;
+    FieldsWriter& out,
+    const h3svg::LossConditionDetails<h3svg::LossConditionType::LoseHero>& details) const;
 
   template<>
   void JsonObjectWriter<h3svg::Mine>::operator()(FieldsWriter& out, const h3svg::Mine& mine) const;

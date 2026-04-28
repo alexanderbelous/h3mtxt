@@ -9,35 +9,43 @@
 
 namespace Medea_NS
 {
-  template<>
-  void JsonObjectWriter<h3svg::LossConditionDetails<h3svg::LossConditionType::LoseTown>>::operator()(
-    FieldsWriter& out, const h3svg::LossConditionDetails<h3svg::LossConditionType::LoseTown>& details) const
+  template<h3svg::LossConditionType T>
+  void JsonObjectWriter<h3svg::LossConditionDetails<T>>::operator()(
+    FieldsWriter& out, const h3svg::LossConditionDetails<T>& details) const
   {
-    out.writeField("coordinates", details.coordinates);
+    // Sanity checks.
+    static_assert(std::is_base_of_v<h3m::LossConditionDetails<T>, h3svg::LossConditionDetails<T>>,
+                  "h3svg::LossConditionDetails<T> must be derived from h3m::LossConditionDetails<T>.");
+    static_assert(sizeof(h3svg::LossConditionDetails<T>) == sizeof(h3m::LossConditionDetails<T>),
+                  "h3svg::LossConditionDetails<T> must have the same size as h3m::LossConditionDetails<T>.");
+    // Reuse the code from H3MJsonWriter.
+    JsonObjectWriter<h3m::LossConditionDetails<T>>{}(out, details);
   }
 
+  // Explicit instantiations for LossConditionTypes that use the default template implementation.
+  template
+  void JsonObjectWriter<h3svg::LossConditionDetails<h3svg::LossConditionType::LoseTown>>::operator()(
+    FieldsWriter& out, const h3svg::LossConditionDetails<h3svg::LossConditionType::LoseTown>& details) const;
+
+  template
+    void JsonObjectWriter<h3svg::LossConditionDetails<h3svg::LossConditionType::TimeExpires>>::operator()(
+      FieldsWriter& out, const h3svg::LossConditionDetails<h3svg::LossConditionType::TimeExpires>& details) const;
+
+  template
+    void JsonObjectWriter<h3svg::LossConditionDetails<h3svg::LossConditionType::Normal>>::operator()(
+      FieldsWriter& out, const h3svg::LossConditionDetails<h3svg::LossConditionType::Normal>& details) const;
+
+  // Specialization for LossConditionType::LoseHero.
   template<>
   void JsonObjectWriter<h3svg::LossConditionDetails<h3svg::LossConditionType::LoseHero>>::operator()(
     FieldsWriter& out, const h3svg::LossConditionDetails<h3svg::LossConditionType::LoseHero>& details) const
   {
-    out.writeField("hero", details.hero);
+    using Fields = h3json::FieldNames<h3svg::LossConditionDetails<h3svg::LossConditionType::LoseHero>>;
+    out.writeField(Fields::kHero, details.hero);
     if (const std::string_view enum_str = getEnumString(details.hero); !enum_str.empty())
     {
       out.writeComment(enum_str, false);
     }
-  }
-
-  template<>
-  void JsonObjectWriter<h3svg::LossConditionDetails<h3svg::LossConditionType::TimeExpires>>::operator()(
-    FieldsWriter& out, const h3svg::LossConditionDetails<h3svg::LossConditionType::TimeExpires>& details) const
-  {
-    out.writeField("days", details.days);
-  }
-
-  template<>
-  void JsonObjectWriter<h3svg::LossConditionDetails<h3svg::LossConditionType::Normal>>::operator()(
-    FieldsWriter&, const h3svg::LossConditionDetails<h3svg::LossConditionType::Normal>&) const
-  {
   }
 
   void JsonObjectWriter<h3svg::LossCondition>::operator()(FieldsWriter& out,

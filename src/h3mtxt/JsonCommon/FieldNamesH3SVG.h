@@ -279,6 +279,12 @@ namespace h3json
   };
 
   template<>
+  struct FieldNames<h3svg::LossConditionDetails<h3svg::LossConditionType::LoseHero>>
+  {
+    static constexpr std::string_view kHero = "hero";
+  };
+
+  template<>
   struct FieldNames<h3svg::Mine>
   {
     static constexpr std::string_view kOwner = "owner";
