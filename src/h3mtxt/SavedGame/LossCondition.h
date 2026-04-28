@@ -5,15 +5,13 @@
 #include <h3mtxt/Map/Constants/LossConditionType.h>
 #include <h3mtxt/Map/LossCondition.h>
 
-#include <cstdint>
 #include <variant>
 
 namespace h3svg
 {
-  // Specialization for LoseTown.
-  // Identical to H3M.
-  template<>
-  struct LossConditionDetails<LossConditionType::LoseTown> : h3m::LossConditionDetails<LossConditionType::LoseTown>
+  // The default implementation reuses h3m::LossConditionDetails.
+  template<LossConditionType T>
+  struct LossConditionDetails : h3m::LossConditionDetails<T>
   {};
 
   // Specialization for LoseHero.
@@ -22,17 +20,6 @@ namespace h3svg
   {
     HeroType16 hero {};
   };
-
-  // Specialization for TimeExpires.
-  // Identical to H3M.
-  template<>
-  struct LossConditionDetails<LossConditionType::TimeExpires> : h3m::LossConditionDetails<LossConditionType::TimeExpires>
-  {};
-
-  // Specialization for Normal.
-  template<>
-  struct LossConditionDetails<LossConditionType::Normal>
-  {};
 
   // Loss condition for the map.
   //
@@ -49,7 +36,7 @@ namespace h3svg
     // \return the type of the loss condition.
     constexpr LossConditionType type() const noexcept;
 
-    // Get the 0-based index of the alternative corresponding to the given LossConditionType.
+    // Returns the 0-based index of the alternative corresponding to the given LossConditionType.
     // \param loss_condition_type - input LossConditionType.
     // \return 0-based index of the alternative from LossCondition::Details that has the type
     //         LossConditionDetails<loss_condition_type>, or std::variant_npos if there is no such alternative.
@@ -75,17 +62,9 @@ namespace h3svg
     return static_cast<LossConditionType>(index);
   }
 
-  // Get the 0-based index of the alternative corresponding to the given LossConditionType.
-  // \param loss_condition_type - input LossConditionType.
-  // \return 0-based index of the alternative from LossCondition::Details that has the type
-  //         LossConditionDetails<loss_condition_type>, or std::variant_npos if there is no such alternative.
   constexpr std::size_t LossCondition::getAlternativeIdx(LossConditionType loss_condition_type) noexcept
   {
-    if (loss_condition_type == LossConditionType::Normal)
-    {
-      return 3;
-    }
-    const std::size_t idx = static_cast<std::size_t>(loss_condition_type);
-    return idx < 3 ? idx : std::variant_npos;
+    // Reuse h3m::LossCondition::getAlternativeIdx().
+    return h3m::LossCondition::getAlternativeIdx(loss_condition_type);
   }
 }

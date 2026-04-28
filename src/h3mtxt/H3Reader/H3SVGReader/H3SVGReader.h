@@ -44,6 +44,9 @@ namespace h3svg
 
     LossCondition readLossCondition() const;
 
+    // Defined in readLossCondition.cpp.
+    // Explicit instantiations are provided for LossConditionTypes that use the default template implementation.
+    // A specialization for LossConditionType::LoseHero is declared below.
     template<LossConditionType T>
     LossConditionDetails<T> readLossConditionDetails() const;
 
@@ -124,13 +127,7 @@ namespace h3svg
     VictoryConditionDetails<T> readVictoryConditionDetails() const;
   };
 
-  template<> LossConditionDetails<LossConditionType::LoseTown> H3SVGReader::readLossConditionDetails() const;
-
   template<> LossConditionDetails<LossConditionType::LoseHero> H3SVGReader::readLossConditionDetails() const;
-
-  template<> LossConditionDetails<LossConditionType::TimeExpires> H3SVGReader::readLossConditionDetails() const;
-
-  template<> LossConditionDetails<LossConditionType::Normal> H3SVGReader::readLossConditionDetails() const;
 
   template<QuestType T>
   QuestDetails<T> H3SVGReader::readQuestDetails() const

@@ -1,42 +1,39 @@
 #include <h3mtxt/H3Reader/H3SVGReader/H3SVGReader.h>
+
+#include <h3mtxt/H3Reader/H3MReader/H3MReader.h>
 #include <h3mtxt/SavedGame/LossCondition.h>
 
 #include <stdexcept>
+#include <type_traits>
 
 namespace h3svg
 {
-  namespace
+  // The default implementation reuses H3MReader.
+  template<LossConditionType T>
+  LossConditionDetails<T> H3SVGReader::readLossConditionDetails() const
   {
-    LossCondition::Details readLossConditionDetailsVariant(const H3SVGReader& reader, LossConditionType loss_condition_type)
-    {
-      switch (loss_condition_type)
-      {
-      case LossConditionType::LoseTown:
-        return reader.readLossConditionDetails<LossConditionType::LoseTown>();
-      case LossConditionType::LoseHero:
-        return reader.readLossConditionDetails<LossConditionType::LoseHero>();
-      case LossConditionType::TimeExpires:
-        return reader.readLossConditionDetails<LossConditionType::TimeExpires>();
-      case LossConditionType::Normal:
-        return reader.readLossConditionDetails<LossConditionType::Normal>();
-      default:
-        throw std::runtime_error("H3SVGReader::readLossCondition(): invalid LossConditionType.");
-      }
-    }
+    // Sanity checks.
+    static_assert(std::is_base_of_v<h3m::LossConditionDetails<T>, LossConditionDetails<T>>,
+                  "h3svg::LossConditionDetails<T> must be derived from h3m::LossConditionDetails<T>.");
+    static_assert(sizeof(LossConditionDetails<T>) == sizeof(h3m::LossConditionDetails<T>),
+                  "h3svg::LossConditionDetails<T> must have the same size as h3m::LossConditionDetails<T>.");
+    return { h3m::H3MReader{stream_}.readLossConditionDetails<T>() };
   }
 
-  // TODO: reuse H3MReader where applicable.
+  // Explicit instantiations of H3SVGReader::readLossConditionDetails()
+  // for LossConditionType that use the default template implementation.
+  //
+  // This is only needed so that H3SVGReader::readLossConditionDetails() can be invoked outside of this file.
+  template
+  LossConditionDetails<LossConditionType::LoseTown> H3SVGReader::readLossConditionDetails() const;
 
-  template<>
-  LossConditionDetails<LossConditionType::LoseTown> H3SVGReader::readLossConditionDetails() const
-  {
-    return LossConditionDetails<LossConditionType::LoseTown> {
-      h3m::LossConditionDetails<LossConditionType::LoseTown> {
-        .coordinates = readCoordinates()
-      }
-    };
-  }
+  template
+  LossConditionDetails<LossConditionType::TimeExpires> H3SVGReader::readLossConditionDetails() const;
 
+  template
+  LossConditionDetails<LossConditionType::Normal> H3SVGReader::readLossConditionDetails() const;
+
+  // Specialization for LossConditionType::LoseHero, which uses a different format in H3SVG.
   template<>
   LossConditionDetails<LossConditionType::LoseHero> H3SVGReader::readLossConditionDetails() const
   {
@@ -45,25 +42,21 @@ namespace h3svg
     };
   }
 
-  template<>
-  LossConditionDetails<LossConditionType::TimeExpires> H3SVGReader::readLossConditionDetails() const
-  {
-    return LossConditionDetails<LossConditionType::TimeExpires> {
-      h3m::LossConditionDetails<LossConditionType::TimeExpires> {
-        .days = readInt<std::int16_t>()
-      }
-    };
-  }
-
-  template<>
-  LossConditionDetails<LossConditionType::Normal> H3SVGReader::readLossConditionDetails() const
-  {
-    return LossConditionDetails<LossConditionType::Normal>{};
-  }
-
   LossCondition H3SVGReader::readLossCondition() const
   {
     const LossConditionType loss_condition_type = readEnum<LossConditionType>();
-    return LossCondition{ .details = readLossConditionDetailsVariant(*this, loss_condition_type) };
+    switch (loss_condition_type)
+    {
+    case LossConditionType::LoseTown:
+      return LossCondition{ .details = readLossConditionDetails<LossConditionType::LoseTown>() };
+    case LossConditionType::LoseHero:
+      return LossCondition{ .details = readLossConditionDetails<LossConditionType::LoseHero>() };
+    case LossConditionType::TimeExpires:
+      return LossCondition{ .details = readLossConditionDetails<LossConditionType::TimeExpires>() };
+    case LossConditionType::Normal:
+      return LossCondition{ .details = readLossConditionDetails<LossConditionType::Normal>() };
+    default:
+      throw std::runtime_error("H3SVGReader::readLossCondition(): invalid LossConditionType.");
+    }
   }
 }
