@@ -19,7 +19,7 @@ namespace h3m
 
   enum class ArtifactType : std::uint16_t;
 
-  enum class CreatureType : std::uint16_t;
+  enum class CreatureType : std::int16_t;
 
   enum class Disposition : std::uint8_t;
 

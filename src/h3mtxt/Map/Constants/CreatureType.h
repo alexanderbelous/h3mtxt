@@ -4,7 +4,7 @@
 
 namespace h3m
 {
-  enum class CreatureType : std::uint16_t
+  enum class CreatureType : std::int16_t
   {
     Pikeman            = 0,    // 0x00
     Halberdier         = 1,    // 0x01
@@ -161,6 +161,25 @@ namespace h3m
     FirstAidTent       = 147,  // 0x93
     AmmoCart           = 148,  // 0x94
     ArrowTowers        = 149,  // 0x95
-    // None            = -1    // 0xFFFF
+    // Special values for the town's garrison / hero's troops.
+    // Undocumented features:
+    // * The Map Editor only allows using these for random towns / random heroes, but the game
+    //   supports them for all towns/heroes.
+    Creature7U         = -15,  // 0xFFF1
+    Creature7          = -14,  // 0xFFF2
+    Creature6U         = -13,  // 0xFFF3
+    Creature6          = -12,  // 0xFFF4
+    Creature5U         = -11,  // 0xFFF5
+    Creature5          = -10,  // 0xFFF6
+    Creature4U         = -9,   // 0xFFF7
+    Creature4          = -8,   // 0xFFF8
+    Creature3U         = -7,   // 0xFFF9
+    Creature3          = -6,   // 0xFFFA
+    Creature2U         = -5,   // 0xFFFB
+    Creature2          = -4,   // 0xFFFC
+    Creature1U         = -3,   // 0xFFFD
+    Creature1          = -2,   // 0xFFFE
+    // Special value indicating absence of a creature.
+    None               = -1    // 0xFFFF
   };
 }
