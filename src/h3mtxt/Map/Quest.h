@@ -81,8 +81,9 @@ namespace h3m
     {
       constexpr bool operator==(const Creature&) const noexcept = default;
 
-      // Note that 0xFFFF is NOT a valid value here (in CreatureStack it means "no creature") -
-      // it causes the game to crash.
+      // Note that special CreatureType constants with negative values (e.g., CreatureType::None,
+      // CreatureType::Creature1, ..., CreatureType::Creature7U) cannot be used here:
+      // they will cause the game to crash.
       CreatureType type {};
       // The Map Editor only allows values from [1; 9999] for the number of creatures, but any
       // unsigned 16-bit integer can be used here.

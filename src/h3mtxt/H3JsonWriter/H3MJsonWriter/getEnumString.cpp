@@ -177,8 +177,23 @@ namespace h3m
   std::string_view getEnumString(CreatureType value) noexcept
   {
     static constexpr std::string_view kNames[] = {
-      "Pikeman",
-      "Halberdier",
+      "Creature 7 Upgrade",  // -15
+      "Creature 7",          // -14
+      "Creature 6 Upgrade",  // -13
+      "Creature 6",          // -12
+      "Creature 5 Upgrade",  // -11
+      "Creature 5",          // -10
+      "Creature 4 Upgrade",  // -9
+      "Creature 4",          // -8
+      "Creature 3 Upgrade",  // -7
+      "Creature 3",          // -6
+      "Creature 2 Upgrade",  // -5
+      "Creature 2",          // -4
+      "Creature 1 Upgrade",  // -3
+      "Creature 1",          // -2
+      "(None)",              // -1
+      "Pikeman",             // 0
+      "Halberdier",          // 1
       "Archer",
       "Marksman",
       "Griffin",
@@ -326,16 +341,26 @@ namespace h3m
       "Ballista",
       "First Aid Tent",
       "Ammo Cart",
-      "Arrow Towers"
+      "Arrow Towers"  // 149
     };
-    const std::size_t idx = static_cast<std::size_t>(value);
-    if (idx < std::size(kNames))
+    // The number of valid CreatureTypes with negative values (i.e. the number of elements in [-15; -1]).
+    constexpr std::size_t kNumNegativeValues = 15;
+    // The range [kCreatureTypeFirst; kCreatureTypeLast) of valid CreatureTypes.
+    constexpr std::int16_t kCreatureTypeFirst = -static_cast<std::int16_t>(kNumNegativeValues);
+    constexpr std::int16_t kCreatureTypeLast = std::size(kNames) - kNumNegativeValues;
+    // Pointer to kNames[kNumNegativeValues], which represents CreatureType{0}.
+    constexpr const std::string_view* kNamesRootedAtZero = kNames + kNumNegativeValues;
+    // Sanity checks.
+    static_assert(kNamesRootedAtZero[kCreatureTypeFirst] == "Creature 7 Upgrade");
+    static_assert(kNamesRootedAtZero[-2] == "Creature 1");
+    static_assert(kNamesRootedAtZero[-1] == "(None)");
+    static_assert(kNamesRootedAtZero[0] == "Pikeman");
+    static_assert(kNamesRootedAtZero[kCreatureTypeLast - 1] == "Arrow Towers");
+
+    const std::int16_t idx = static_cast<std::int16_t>(value);
+    if (idx >= kCreatureTypeFirst && idx < kCreatureTypeLast)
     {
-      return kNames[idx];
-    }
-    if (idx == 0xFFFF)
-    {
-      return "(None)";  // As displayed in the Editor.
+      return kNamesRootedAtZero[idx];
     }
     return {};
   }

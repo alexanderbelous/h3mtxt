@@ -1,6 +1,7 @@
 #include <h3mtxt/H3JsonWriter/H3SVGJsonWriter/getEnumString.h>
 
 #include <h3mtxt/H3JsonWriter/H3MJsonWriter/getEnumString.h>
+#include <h3mtxt/Map/Constants/CreatureType.h>
 #include <h3mtxt/Map/Constants/ObjectClass.h>
 #include <h3mtxt/Map/Constants/PlayerBehavior.h>
 #include <h3mtxt/SavedGame/Constants/Constants.h>
@@ -44,20 +45,29 @@ namespace h3svg
 
   std::string_view getEnumString(CreatureType8 value) noexcept
   {
-    // 0xFF is an edge case, which should be converted to 0xFFFF.
-    const CreatureType creature_type = (value == CreatureType8{ 0xFFu }) ? CreatureType{ 0xFFFFu }
+    // TODO: fix this for special negative values CreatureType::Creature1, CreatureType::Creature1U,
+    // ..., CreatureType::Creature7U.
+    // I don't think they can ever appear in the contexts where CreatureType8 is used (in fact, I don't
+    // think they ever appear in H3SVG), but the function should behave correctly for them.
+    const CreatureType creature_type = (value == CreatureType8{ 0xFFu }) ? CreatureType::None
                                                                          : static_cast<CreatureType>(value);
     return getEnumString(creature_type);
   }
 
   std::string_view getEnumString(CreatureType32 value) noexcept
   {
-    constexpr std::int32_t kNumCreatures = 150;
+    // This implementation relies on the fact that the underlying types of both
+    // CreatureType and CreatureType32 are signed integers.
+    static_assert(std::is_same_v<std::underlying_type_t<CreatureType>, std::int16_t>);
+    static_assert(std::is_same_v<std::underlying_type_t<CreatureType32>, std::int32_t>);
+    // If @value can be represented without losses as std::int16_t - delegate to getEnumString(CreatureType).
     const std::int32_t integer_value = static_cast<std::int32_t>(value);
-    if (integer_value >= -1 && integer_value < kNumCreatures)
+    if (integer_value >= std::numeric_limits<std::int16_t>::min() &&
+        integer_value <= std::numeric_limits<std::int16_t>::max())
     {
-      return getEnumString(static_cast<CreatureType>(integer_value));
+      return getEnumString(static_cast<CreatureType>(static_cast<std::int16_t>(integer_value)));
     }
+    // Otherwise - return an empty string_view.
     return std::string_view{};
   }
 

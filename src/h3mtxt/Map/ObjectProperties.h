@@ -131,7 +131,7 @@ namespace h3m
     // 0xFF means no owner.
     PlayerColor owner {};
     ReservedData<3> unknown;
-    // 0xFFFF in CreatureStack::type means "no creature".
+    // CreatureType::None is used in CreatureStack::type for empty slots.
     // CreatureStack::count can be negative - such stacks will be present in the garrison.
     std::array<CreatureStack, 7> creatures;
     Bool can_remove_units = true;
@@ -191,8 +191,12 @@ namespace h3m
     // If 2 or more elements have the same SecondarySkillType, the game will only
     // consider the first such element (and its level).
     std::optional<std::vector<SecondarySkill>> secondary_skills;
-    // 0xFFFF in CreatureStack::type means no creature.
-    // If CreatureStack::count <= 0 for any slot, this slot will become empty when the game starts.
+    // * CreatureType::None is used in CreatureStack::type for empty slots.
+    // * Special values CreatureType::Creature1, CreatureType::Creature1U, ..., CreatureType::Creature7U
+    //   can be used even for non-random heroes, representing the creatures of the hero's native TownType.
+    //   For example, CreatureType::Creature7U will become CreatureType::Archangel if the hero is Orrin.
+    //   The Map Editor only supports these special values for random heroes.
+    // * If CreatureStack::count <= 0 for any slot, this slot will become empty when the game starts.
     std::optional<std::array<CreatureStack, 7>> creatures;
     Formation formation = Formation::Spread;
     std::optional<HeroArtifacts> artifacts;
@@ -481,8 +485,9 @@ namespace h3m
     PlayerColor owner {};
     // If std::nullopt, some default name will be assigned.
     std::optional<std::string> name;
-    // 0xFFFF in CreatureStack::type means no creature.
-    // If CreatureStack::count <= 0 for any slot, this slot will become empty when the game starts.
+    // * CreatureType::None is used in CreatureStack::type for empty slots.
+    // * Special values CreatureType::Creature1, ..., CreatureType::Creature7U can be used here.
+    // * If CreatureStack::count <= 0 for any slot, this slot will become empty when the game starts.
     std::optional<std::array<CreatureStack, 7>> garrison;
     Formation formation = Formation::Spread;
     std::optional<TownBuildings> buildings;
