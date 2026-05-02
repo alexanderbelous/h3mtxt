@@ -73,8 +73,8 @@ namespace h3svg
     std::int8_t temp_morale {};
     // Temporary Luck bonus until the next battle (e.g., from Events, Faerie Rings, etc).
     std::int8_t temp_luck {};
-    // TODO: figure out what this is.
-    std::uint8_t unknown2 {};
+    // The number of artifacts in the backpack.
+    std::uint8_t backpack_count {};
     // (Air Magic skill) Level at which Disguise was cast, or -1 if it hasn't been cast.
     std::int8_t disguise_level {};
     // (Air Magic skill) Level at which Fly was cast, or -1 if it hasn't been cast.
@@ -93,10 +93,10 @@ namespace h3svg
     // Y-coordinate of the starting position if the hero has patrol; 0xFF otherwise.
     std::uint8_t patrol_y {};
     // TODO: figure out what this is.
-    // * unknown3[1] & 1 defines army combat formation (0 - Loose, 1 - Tight).
-    // * unknown3[1] & 2 defines Tactics formation (0 - Enabled, 1 - Disabled).
+    // * unknown2[1] & 1 defines army combat formation (0 - Loose, 1 - Tight).
+    // * unknown2[1] & 2 defines Tactics formation (0 - Enabled, 1 - Disabled).
     //   The bit seems to be 0 by default if the hero doesn't know Tactics.
-    std::array<std::uint8_t, 4> unknown3 {};
+    std::array<std::uint8_t, 4> unknown2 {};
     // X-coordinate of the destination, or -1 if there is none.
     std::int32_t destination_x {};
     // Y-coordinate of the destination, or -1 if there is none.
@@ -105,7 +105,7 @@ namespace h3svg
     // Note that, if meaningful, it duplicates Hero::z because you cannot plan a route to another layer.
     std::int8_t destination_z {};
       // TODO: figure out what this is.
-    std::array<std::uint8_t, 3> unknown4 {};
+    std::array<std::uint8_t, 3> unknown3 {};
     // Maximum number of movement points at the moment.
     // This the "potential" value, which basically reflects what would've been the number of move points if the hero
     // hadn't moved this turn. It's not constant though - e.g., visiting Stables, or equipping Boots of Speed increases
@@ -114,12 +114,12 @@ namespace h3svg
     // The actual number of movement points at the moment.
     std::int32_t move_points {};
     std::int32_t experience {};
-    std::array<std::uint8_t, 4> unknown5 {};
+    std::array<std::uint8_t, 4> unknown4 {};
     std::int16_t spell_points {};
     // Yes, you can make a hero with level 32767; however, this will be ignored on level-up: the new level
     // will be computed from the experience points.
     std::int16_t level {};
-    std::array<std::uint8_t, 2> unknown6 {};
+    std::array<std::uint8_t, 2> unknown5 {};
     // 1 bit per Learning Stone, indicating if the hero has visited it.
     BitSet<4> learning_stones;
     // 1 bit per Marletto Tower, indicating if the hero has visited it.

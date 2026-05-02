@@ -629,7 +629,7 @@ except `allow_normal_win` and `applies_to_computer`.
 | patrol_radius              | `int8`      | 1             | Patrol radius or -1 if the hero has no patrol                                     |
 | temp_morale                | `int8`      | 1             | Temporary Morale bonus until the next battle                                      |
 | temp_luck                  | `int8`      | 1             | Temporary Luck bonus until the next battle                                        |
-| unknown2                   | `uint8`     | 1             | TODO                                                                              |
+| backpack_count             | `uint8`     | 1             | The number of artifacts in the backpack                                           |
 | disguise_level             | `int8`      | 1             | (Air Magic) Level at which Disguise was cast, or -1 if it hasn't been cast        |
 | fly_level                  | `int8`      | 1             | (Air Magic) Level at which Fly was cast, or -1 if it hasn't been cast             |
 | num_dimension_door_casts   | `uint8`     | 1             | The number of times Dimension Door was cast                                       |
@@ -640,18 +640,18 @@ except `allow_normal_win` and `applies_to_computer`.
 | hero_portrait              | `uint8`     | 1             | Enum `HeroPortrait`                                                               |
 | patrol_x                   | `uint8`     | 1             | X-coordinate of the starting position if the hero has patrol; 0xFF otherwise      |
 | patrol_y                   | `uint8`     | 1             | Y-coordinate of the starting position if the hero has patrol; 0xFF otherwise      |
-| unknown3                   | `uint8[4]`  | 4             | TODO                                                                              |
+| unknown2                   | `uint8[4]`  | 4             | TODO                                                                              |
 | destination_x              | `int32`     | 4             | X-coordinate of the destination, or -1 if there is none                           |
 | destination_y              | `int32`     | 4             | Y-coordinate of the destination, or -1 if there is none                           |
 | destination_z              | `int8`      | 1             | Z-coordinate of the destination                                                   |
-| unknown4                   | `uint8[3]`  | 3             | TODO                                                                              |
+| unknown3                   | `uint8[3]`  | 3             | TODO                                                                              |
 | move_points_max            | `int32`     | 4             | Maximum number of movement points at the moment                                   |
 | move_points                | `int32`     | 4             | The actual number of movement points at the moment                                |
 | experience                 | `int32`     | 4             | Experience points                                                                 |
-| unknown5                   | `uint8[4]`  | 4             | TODO                                                                              |
+| unknown4                   | `uint8[4]`  | 4             | TODO                                                                              |
 | spell_points               | `uint16`    | 2             | Spell points                                                                      |
 | level                      | `int16`     | 2             | Experience level                                                                  |
-| unknown6                   | `uint8[2]`  | 2             | TODO                                                                              |
+| unknown5                   | `uint8[2]`  | 2             | TODO                                                                              |
 | learning_stones            | `uint8[4]`  | 4             | Bitmask; 1 bit per Learning Stone, indicating if the hero has visited it          |
 | marletto_towers            | `uint8[4]`  | 4             | Bitmask; 1 bit per Marletto Tower, indicating if the hero has visited it          |
 | gardens_of_revelation      | `uint8[4]`  | 4             | Bitmask; 1 bit per Garden of Revelation, indicating if the hero has visited it    |

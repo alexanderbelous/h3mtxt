@@ -65,7 +65,7 @@ namespace Medea_NS
     out.writeField(Fields::kPatrolRadius, hero.patrol_radius);
     out.writeField(Fields::kTempMorale, hero.temp_morale);
     out.writeField(Fields::kTempLuck, hero.temp_luck);
-    out.writeField(Fields::kUnknown2, hero.unknown2);
+    out.writeField(Fields::kBackpackCount, hero.backpack_count);
     out.writeField(Fields::kDisguiseLevel, hero.disguise_level);
     out.writeField(Fields::kFlyLevel, hero.fly_level);
     out.writeField(Fields::kWaterWalkLevel, hero.water_walk_level);
@@ -88,18 +88,18 @@ namespace Medea_NS
     }
     out.writeField(Fields::kPatrolX, hero.patrol_x);
     out.writeField(Fields::kPatrolY, hero.patrol_y);
-    out.writeField(Fields::kUnknown3, hero.unknown3);
+    out.writeField(Fields::kUnknown2, hero.unknown2);
     out.writeField(Fields::kDestinationX, hero.destination_x);
     out.writeField(Fields::kDestinationY, hero.destination_y);
     out.writeField(Fields::kDestinationZ, hero.destination_z);
-    out.writeField(Fields::kUnknown4, hero.unknown4);
+    out.writeField(Fields::kUnknown3, hero.unknown3);
     out.writeField(Fields::kMovePointsMax, hero.move_points_max);
     out.writeField(Fields::kMovePoints, hero.move_points);
     out.writeField(Fields::kExperience, hero.experience);
-    out.writeField(Fields::kUnknown5, hero.unknown5);
+    out.writeField(Fields::kUnknown4, hero.unknown4);
     out.writeField(Fields::kSpellPoints, hero.spell_points);
     out.writeField(Fields::kLevel, hero.level);
-    out.writeField(Fields::kUnknown6, hero.unknown6);
+    out.writeField(Fields::kUnknown5, hero.unknown5);
     out.writeField(Fields::kLearningStones, hero.learning_stones);
     out.writeField(Fields::kMarlettoTowers, hero.marletto_towers);
     out.writeField(Fields::kGardensOfRevelation, hero.gardens_of_revelation);
