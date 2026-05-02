@@ -93,6 +93,9 @@ namespace h3svg
     // Y-coordinate of the starting position if the hero has patrol; 0xFF otherwise.
     std::uint8_t patrol_y {};
     // TODO: figure out what this is.
+    // * unknown3[1] & 1 defines army combat formation (0 - Loose, 1 - Tight).
+    // * unknown3[1] & 2 defines Tactics formation (0 - Enabled, 1 - Disabled).
+    //   The bit seems to be 0 by default if the hero doesn't know Tactics.
     std::array<std::uint8_t, 4> unknown3 {};
     // X-coordinate of the destination, or -1 if there is none.
     std::int32_t destination_x {};
