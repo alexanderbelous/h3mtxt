@@ -27,10 +27,9 @@ namespace h3json
       {
         comment_builder << " (" << enum_str << ")";
       }
-      comment_builder << "\nObjectPropertiesType: " << static_cast<std::size_t>(object_properties_type);
       if (std::string_view enum_str = getEnumString(object_properties_type); !enum_str.empty())
       {
-        comment_builder << " (" << enum_str << ")";
+        comment_builder << "\nObjectPropertiesType: " << enum_str;
       }
       return comment_builder.str();
     }
