@@ -3,8 +3,6 @@
 #include <h3mtxt/Map/Constants/ObjectClass.h>
 
 #include <cstdint>
-#include <stdexcept>
-#include <type_traits>
 
 namespace h3m
 {
@@ -54,15 +52,18 @@ namespace h3m
   // Returns ObjectPropertiesType for the given object.
   // \param object_class - ObjectClass of the object.
   // \param object_subtype - subtype of the object.
-  // \return ObjectPropertiesType for the input object.
+  // \return ObjectPropertiesType for the input object,
+  //         or ObjectPropertiesType::NONE if static_cast<std::uint32_t>(object_class) >= kNumObjectClasses.
   // \throw std::invalid_argument if @object_class is not a valid ObjectClass enumerator.
   constexpr ObjectPropertiesType getObjectPropertiesType(ObjectClass object_class, std::uint32_t object_subtype)
   {
-    // The Shadow of Death has 232 object types; @object_class must be within [0; 231].
-    if (static_cast<std::underlying_type_t<ObjectClass>>(object_class) >= kNumObjectClasses)
-    {
-      throw std::invalid_argument("Invalid object_class.");
-    }
+    // FYI: this function used to throw an exception if @object_class is not a known ObjectClass constant,
+    // i.e. if static_cast<std::uint32_t>(object_class) >= 232.
+    //
+    // Using such values in maps is not safe: sometimes the game and the Map Editor treat them the same way as
+    // ObjectClass::NONE, sometimes they crash. However, both programs seem to agree that no properties should
+    // be read/written for such objects - e.g., the Map Editor may crash when you hover over such objects,
+    // but it will not report a corrupt file.
 
     switch (object_class)
     {
