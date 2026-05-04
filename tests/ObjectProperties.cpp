@@ -245,7 +245,7 @@ namespace h3m
     REQUIRE(encodeAndDecodeJson(kProperties) == kProperties);
   }
 
-  TEST_CASE("H3M.ObjectProperties.GenericNoProperties", "[H3M]")
+  TEST_CASE("H3M.ObjectProperties.None", "[H3M]")
   {
     constexpr ObjectProperties<ObjectPropertiesType::NONE> kProperties{};
     constexpr std::string_view kBinaryData = "";
