@@ -1006,12 +1006,12 @@ namespace h3m
     static constexpr std::string_view kNames[] = {
       "None",
       "Experience",
-      "SpellPoints",
+      "Spell points",
       "Morale",
       "Luck",
       "Resource",
-      "PrimarySkill",
-      "SecondarySkill",
+      "Primary skill",
+      "Secondary skill",
       "Artifact",
       "Spell",
       "Creature"
@@ -1030,9 +1030,9 @@ namespace h3m
     switch (value)
     {
     case ScholarRewardType::PrimarySkill:
-      return "PrimarySkill";
+      return "Primary skill";
     case ScholarRewardType::SecondarySkill:
-      return "SecondarySkill";
+      return "Secondary skill";
     case ScholarRewardType::Spell:
       return "Spell";
     case ScholarRewardType::Random:
