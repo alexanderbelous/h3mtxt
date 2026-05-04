@@ -152,7 +152,7 @@ namespace Medea_NS
     out.writeField(Fields::kObjectsTemplates, map.objects_templates);
     // Not writing objects directly because I want to write ObjectClass for each object in a comment.
     out.writeField(Fields::kObjects, WrappedObjects(map.objects_templates, map.objects));
-    out.writeField(Fields::kGlobalEvents, map.global_events);
+    out.writeField(Fields::kTimedEvents, map.timed_events);
     out.writeField(Fields::kPadding, map.padding);
   }
 }

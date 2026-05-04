@@ -85,12 +85,12 @@ namespace h3m
     {
       map.objects.push_back(readObject(map.objects_templates.data(), map.objects_templates.size()));
     }
-    // Read global events.
-    const std::uint32_t num_global_events = readInt<std::uint32_t>();
-    map.global_events.reserve(num_global_events);
-    for (std::uint32_t i = 0; i < num_global_events; ++i)
+    // Read timed events.
+    const std::uint32_t num_timed_events = readInt<std::uint32_t>();
+    map.timed_events.reserve(num_timed_events);
+    for (std::uint32_t i = 0; i < num_timed_events; ++i)
     {
-      map.global_events.push_back(readTimedEvent());
+      map.timed_events.push_back(readTimedEvent());
     }
     // Read padding data.
     map.padding = readReservedData<124>();

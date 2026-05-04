@@ -68,7 +68,7 @@ namespace h3m
     // Objects on the Adventure Map.
     std::vector<Object> objects;
     // Global events on this map ("Map Specifications"/"Timed Events" tab in the Editor).
-    std::vector<TimedEvent> global_events;
+    std::vector<TimedEvent> timed_events;
     // Should be 0s. Kept here for compatibility.
     ReservedData<124> padding;
   };

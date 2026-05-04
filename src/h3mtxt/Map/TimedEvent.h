@@ -16,7 +16,7 @@ namespace h3m
   // Event that is triggered on a specific day.
   //
   // This class is used in 2 places:
-  // * Map::global_events.
+  // * Map::timed_events.
   // * As a base class for TownEvent.
   struct TimedEvent
   {

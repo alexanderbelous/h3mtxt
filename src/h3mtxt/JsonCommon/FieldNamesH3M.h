@@ -672,7 +672,7 @@ namespace h3json
     static constexpr std::string_view kTiles = "tiles";
     static constexpr std::string_view kObjectsTemplates = "objects_templates";
     static constexpr std::string_view kObjects = "objects";
-    static constexpr std::string_view kGlobalEvents = "global_events";
+    static constexpr std::string_view kTimedEvents = "timed_events";
     static constexpr std::string_view kPadding = "padding";
   };
 
