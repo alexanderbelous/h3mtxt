@@ -323,7 +323,8 @@ namespace h3m
   H3MReader::readObjectProperties<ObjectPropertiesType::RANDOM_DWELLING>() const
   {
     ObjectProperties<ObjectPropertiesType::RANDOM_DWELLING> dwelling;
-    dwelling.owner = readInt<std::uint32_t>();
+    dwelling.owner = readEnum<PlayerColor>();
+    dwelling.unknown = readReservedData<3>();
     dwelling.town_absod_id = readInt<std::uint32_t>();
     if (dwelling.town_absod_id == 0)
     {
@@ -339,7 +340,8 @@ namespace h3m
   H3MReader::readObjectProperties<ObjectPropertiesType::RANDOM_DWELLING_PRESET_ALIGNMENT>() const
   {
     ObjectProperties<ObjectPropertiesType::RANDOM_DWELLING_PRESET_ALIGNMENT> dwelling;
-    dwelling.owner = readInt<std::uint32_t>();
+    dwelling.owner = readEnum<PlayerColor>();
+    dwelling.unknown = readReservedData<3>();
     dwelling.min_level = readInt<std::uint8_t>();
     dwelling.max_level = readInt<std::uint8_t>();
     return dwelling;
@@ -350,7 +352,8 @@ namespace h3m
   H3MReader::readObjectProperties<ObjectPropertiesType::RANDOM_DWELLING_PRESET_LEVEL>() const
   {
     ObjectProperties<ObjectPropertiesType::RANDOM_DWELLING_PRESET_LEVEL> dwelling;
-    dwelling.owner = readInt<std::uint32_t>();
+    dwelling.owner = readEnum<PlayerColor>();
+    dwelling.unknown = readReservedData<3>();
     dwelling.town_absod_id = readInt<std::uint32_t>();
     if (dwelling.town_absod_id == 0)
     {

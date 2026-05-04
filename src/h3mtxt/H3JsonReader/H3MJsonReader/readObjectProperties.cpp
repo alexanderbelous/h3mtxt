@@ -271,6 +271,7 @@ namespace h3json
       using Fields = FieldNames<Details>;
       Details details;
       readField(details.owner, value, Fields::kOwner);
+      readField(details.unknown, value, Fields::kUnknown);
       readField(details.town_absod_id, value, Fields::kTownAbsodId);
       if (details.town_absod_id == 0)
       {
@@ -292,6 +293,7 @@ namespace h3json
       using Fields = FieldNames<Details>;
       Details details;
       readField(details.owner, value, Fields::kOwner);
+      readField(details.unknown, value, Fields::kUnknown);
       readField(details.min_level, value, Fields::kMinLevel);
       readField(details.max_level, value, Fields::kMaxLevel);
       return details;
@@ -308,6 +310,7 @@ namespace h3json
       using Fields = FieldNames<Details>;
       Details details;
       readField(details.owner, value, Fields::kOwner);
+      readField(details.unknown, value, Fields::kUnknown);
       readField(details.town_absod_id, value, Fields::kTownAbsodId);
       if (details.town_absod_id == 0)
       {

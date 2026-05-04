@@ -297,6 +297,11 @@ namespace Medea_NS
     using Details = h3m::ObjectProperties<h3m::ObjectPropertiesType::RANDOM_DWELLING>;
     using Fields = h3json::FieldNames<Details>;
     out.writeField(Fields::kOwner, dwelling.owner);
+    if (std::string_view enum_str = h3m::getEnumString(dwelling.owner); !enum_str.empty())
+    {
+      out.writeComment(enum_str, false);
+    }
+    out.writeField(Fields::kUnknown, dwelling.unknown);
     out.writeField(Fields::kTownAbsodId, dwelling.town_absod_id);
     if (dwelling.town_absod_id == 0)
     {
@@ -312,6 +317,11 @@ namespace Medea_NS
     using Details = h3m::ObjectProperties<h3m::ObjectPropertiesType::RANDOM_DWELLING_PRESET_ALIGNMENT>;
     using Fields = h3json::FieldNames<Details>;
     out.writeField(Fields::kOwner, dwelling.owner);
+    if (std::string_view enum_str = h3m::getEnumString(dwelling.owner); !enum_str.empty())
+    {
+      out.writeComment(enum_str, false);
+    }
+    out.writeField(Fields::kUnknown, dwelling.unknown);
     out.writeField(Fields::kMinLevel, dwelling.min_level);
     out.writeField(Fields::kMaxLevel, dwelling.max_level);
   }
@@ -322,6 +332,11 @@ namespace Medea_NS
     using Details = h3m::ObjectProperties<h3m::ObjectPropertiesType::RANDOM_DWELLING_PRESET_LEVEL>;
     using Fields = h3json::FieldNames<Details>;
     out.writeField(Fields::kOwner, dwelling.owner);
+    if (std::string_view enum_str = h3m::getEnumString(dwelling.owner); !enum_str.empty())
+    {
+      out.writeComment(enum_str, false);
+    }
+    out.writeField(Fields::kUnknown, dwelling.unknown);
     out.writeField(Fields::kTownAbsodId, dwelling.town_absod_id);
     if (dwelling.town_absod_id == 0)
     {

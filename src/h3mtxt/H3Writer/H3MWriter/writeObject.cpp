@@ -163,6 +163,7 @@ namespace h3m
   void H3MWriter::writeData(const ObjectProperties<ObjectPropertiesType::RANDOM_DWELLING>& dwelling) const
   {
     writeData(dwelling.owner);
+    writeData(dwelling.unknown);
     writeData(dwelling.town_absod_id);
     if (dwelling.town_absod_id == 0)
     {
@@ -176,6 +177,7 @@ namespace h3m
   void H3MWriter::writeData(const ObjectProperties<ObjectPropertiesType::RANDOM_DWELLING_PRESET_ALIGNMENT>& dwelling) const
   {
     writeData(dwelling.owner);
+    writeData(dwelling.unknown);
     writeData(dwelling.min_level);
     writeData(dwelling.max_level);
   }
@@ -184,6 +186,7 @@ namespace h3m
   void H3MWriter::writeData(const ObjectProperties<ObjectPropertiesType::RANDOM_DWELLING_PRESET_LEVEL>& dwelling) const
   {
     writeData(dwelling.owner);
+    writeData(dwelling.unknown);
     writeData(dwelling.town_absod_id);
     if (dwelling.town_absod_id == 0)
     {

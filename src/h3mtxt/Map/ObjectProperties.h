@@ -285,6 +285,7 @@ namespace h3m
     constexpr bool operator==(const ObjectProperties& other) const noexcept
     {
       return (owner == other.owner) &&
+             (unknown == other.unknown) &&
              (town_absod_id == other.town_absod_id) &&
              ((town_absod_id != 0) || (alignment == other.alignment)) &&
              (min_level == other.min_level) &&
@@ -292,7 +293,8 @@ namespace h3m
     }
 
     // 0xFF if none.
-    std::uint32_t owner {};
+    PlayerColor owner {0xFF};
+    ReservedData<3> unknown;
     // absod_id of the town ("Random Dwelling Properties" -> "Alignment" -> "Same as").
     // If 0, the dwelling's alignment is not tied to a specific town.
     std::uint32_t town_absod_id {};
@@ -309,7 +311,8 @@ namespace h3m
     constexpr bool operator==(const ObjectProperties&) const noexcept = default;
 
     // 0xFF if none.
-    std::uint32_t owner {};
+    PlayerColor owner {0xFF};
+    ReservedData<3> unknown;
     std::uint8_t min_level = 0;
     std::uint8_t max_level = 6;
   };
@@ -320,12 +323,14 @@ namespace h3m
     constexpr bool operator==(const ObjectProperties& other) const noexcept
     {
       return (owner == other.owner) &&
+             (unknown == other.unknown) &&
              (town_absod_id == other.town_absod_id) &&
              ((town_absod_id != 0) || (alignment == other.alignment));
     }
 
     // 0xFF if none.
-    std::uint32_t owner {};
+    PlayerColor owner {0xFF};
+    ReservedData<3> unknown;
     // absod_id of the town ("Random Dwelling Properties" -> "Alignment" -> "Same as").
     // If 0, the dwelling's alignment is not tied to a specific town.
     std::uint32_t town_absod_id {};
