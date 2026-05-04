@@ -264,10 +264,10 @@ namespace Medea_NS
     JsonObjectWriter<h3m::EventBase>{}(out, pandoras_box);
   }
 
-  void JsonObjectWriter<h3m::ObjectProperties<h3m::ObjectPropertiesType::PLACEHOLDER_HERO>>::operator()(
-    FieldsWriter& out, const h3m::ObjectProperties<h3m::ObjectPropertiesType::PLACEHOLDER_HERO>& hero) const
+  void JsonObjectWriter<h3m::ObjectProperties<h3m::ObjectPropertiesType::HERO_PLACEHOLDER>>::operator()(
+    FieldsWriter& out, const h3m::ObjectProperties<h3m::ObjectPropertiesType::HERO_PLACEHOLDER>& hero) const
   {
-    using Details = h3m::ObjectProperties<h3m::ObjectPropertiesType::PLACEHOLDER_HERO>;
+    using Details = h3m::ObjectProperties<h3m::ObjectPropertiesType::HERO_PLACEHOLDER>;
     using Fields = h3json::FieldNames<Details>;
     constexpr h3m::HeroType kRandomHeroType {0xFF};
 

@@ -29,9 +29,9 @@ namespace h3m
     GARRISON,
     GRAIL,
     HERO,  // HERO, PRISON and RANDOM_HERO
+    HERO_PLACEHOLDER,
     MONSTER,
     PANDORAS_BOX,
-    PLACEHOLDER_HERO,
     QUEST_GUARD,
     RANDOM_DWELLING,
     RANDOM_DWELLING_PRESET_ALIGNMENT,
@@ -104,7 +104,7 @@ namespace h3m
     case ObjectClass::PANDORAS_BOX:
       return ObjectPropertiesType::PANDORAS_BOX;
     case ObjectClass::HERO_PLACEHOLDER:
-      return ObjectPropertiesType::PLACEHOLDER_HERO;
+      return ObjectPropertiesType::HERO_PLACEHOLDER;
     case ObjectClass::RANDOM_DWELLING:
       return ObjectPropertiesType::RANDOM_DWELLING;
     case ObjectClass::RANDOM_DWELLING_LVL:

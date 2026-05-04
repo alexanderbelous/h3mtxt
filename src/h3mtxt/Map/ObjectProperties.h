@@ -96,6 +96,12 @@ namespace h3m
   };
 
   template<>
+  struct ObjectProperties<ObjectPropertiesType::NONE>
+  {
+    constexpr bool operator==(const ObjectProperties&) const noexcept = default;
+  };
+
+  template<>
   struct ObjectProperties<ObjectPropertiesType::ABANDONED_MINE>
   {
     constexpr bool operator==(const ObjectProperties&) const noexcept = default;
@@ -136,12 +142,6 @@ namespace h3m
     std::array<CreatureStack, 7> creatures;
     Bool can_remove_units = true;
     ReservedData<8> unknown2;
-  };
-
-  template<>
-  struct ObjectProperties<ObjectPropertiesType::NONE>
-  {
-    constexpr bool operator==(const ObjectProperties&) const noexcept = default;
   };
 
   template<>
@@ -221,6 +221,33 @@ namespace h3m
     ReservedData<16> unknown;
   };
 
+  // Undocumented features:
+  // * You can effectively make a hero placeholder the visting hero of a town.
+  //   In order for a hero placeholder to start in the town, the coordinates of the Object
+  //   representing it must be exactly the same as the coordinates of the town (same as how it's
+  //   done for normal visiting heroes).
+  //   Both the Map Editor and the Unleashed Editor only allow setting specific and random heroes
+  //   as visiting heroes. In the Unleashed Editor you can manually move the hero placeholder to
+  //   the right tile, which will have the desired behavior, although the Unleashed Editor will
+  //   trigger a warning about object overlap.
+  //   Both the Map Editor and the Unleashed Editor incorrectly render such hero placeholders on
+  //   top of the town, instead of displaying them as the visiting hero in the town settings.
+  template<>
+  struct ObjectProperties<ObjectPropertiesType::HERO_PLACEHOLDER>
+  {
+    constexpr bool operator==(const ObjectProperties& other) const noexcept
+    {
+      return (owner == other.owner) &&
+             (type == other.type) &&
+             ((type != HeroType{ 0xFF }) || (power_rating == other.power_rating));
+    }
+
+    PlayerColor owner {};
+    HeroType type {};
+    // Only read/written if type == 0xFF.
+    std::uint8_t power_rating {};
+  };
+
   template<>
   struct ObjectProperties<ObjectPropertiesType::MONSTER>
   {
@@ -242,33 +269,6 @@ namespace h3m
   struct ObjectProperties<ObjectPropertiesType::PANDORAS_BOX> : EventBase
   {
     constexpr bool operator==(const ObjectProperties&) const noexcept = default;
-  };
-
-  // Undocumented features:
-  // * You can effectively make a hero placeholder the visting hero of a town.
-  //   In order for a hero placeholder to start in the town, the coordinates of the Object
-  //   representing it must be exactly the same as the coordinates of the town (same as how it's
-  //   done for normal visiting heroes).
-  //   Both the Map Editor and the Unleashed Editor only allow setting specific and random heroes
-  //   as visiting heroes. In the Unleashed Editor you can manually move the hero placeholder to
-  //   the right tile, which will have the desired behavior, although the Unleashed Editor will
-  //   trigger a warning about object overlap.
-  //   Both the Map Editor and the Unleashed Editor incorrectly render such hero placeholders on
-  //   top of the town, instead of displaying them as the visiting hero in the town settings.
-  template<>
-  struct ObjectProperties<ObjectPropertiesType::PLACEHOLDER_HERO>
-  {
-    constexpr bool operator==(const ObjectProperties& other) const noexcept
-    {
-      return (owner == other.owner) &&
-             (type == other.type) &&
-             ((type != HeroType{ 0xFF }) || (power_rating == other.power_rating));
-    }
-
-    PlayerColor owner {};
-    HeroType type {};
-    // Only read/written if type == 0xFF.
-    std::uint8_t power_rating {};
   };
 
   template<>

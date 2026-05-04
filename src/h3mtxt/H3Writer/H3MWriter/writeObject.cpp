@@ -123,6 +123,19 @@ namespace h3m
   }
 
   template<>
+  void H3MWriter::writeData(const ObjectProperties<ObjectPropertiesType::HERO_PLACEHOLDER>& hero) const
+  {
+    constexpr HeroType kRandomHeroType {0xFF};
+
+    writeData(hero.owner);
+    writeData(hero.type);
+    if (hero.type == kRandomHeroType)
+    {
+      writeData(hero.power_rating);
+    }
+  }
+
+  template<>
   void H3MWriter::writeData(const ObjectProperties<ObjectPropertiesType::MONSTER>& monster) const
   {
     writeData(monster.absod_id);
@@ -138,19 +151,6 @@ namespace h3m
   void H3MWriter::writeData(const ObjectProperties<ObjectPropertiesType::PANDORAS_BOX>& pandoras_box) const
   {
     writeEventBase(pandoras_box);
-  }
-
-  template<>
-  void H3MWriter::writeData(const ObjectProperties<ObjectPropertiesType::PLACEHOLDER_HERO>& hero) const
-  {
-    constexpr HeroType kRandomHeroType {0xFF};
-
-    writeData(hero.owner);
-    writeData(hero.type);
-    if (hero.type == kRandomHeroType)
-    {
-      writeData(hero.power_rating);
-    }
   }
 
   template<>

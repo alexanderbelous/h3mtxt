@@ -167,16 +167,16 @@ namespace Medea_NS
     FieldsWriter& out, const h3m::ObjectProperties<h3m::ObjectPropertiesType::HERO>& details) const;
 
   template<>
+  void JsonObjectWriter<h3m::ObjectProperties<h3m::ObjectPropertiesType::HERO_PLACEHOLDER>>::operator()(
+    FieldsWriter& out, const h3m::ObjectProperties<h3m::ObjectPropertiesType::HERO_PLACEHOLDER>& details) const;
+
+  template<>
   void JsonObjectWriter<h3m::ObjectProperties<h3m::ObjectPropertiesType::MONSTER>>::operator()(
     FieldsWriter& out, const h3m::ObjectProperties<h3m::ObjectPropertiesType::MONSTER>& details) const;
 
   template<>
   void JsonObjectWriter<h3m::ObjectProperties<h3m::ObjectPropertiesType::PANDORAS_BOX>>::operator()(
     FieldsWriter& out, const h3m::ObjectProperties<h3m::ObjectPropertiesType::PANDORAS_BOX>& details) const;
-
-  template<>
-  void JsonObjectWriter<h3m::ObjectProperties<h3m::ObjectPropertiesType::PLACEHOLDER_HERO>>::operator()(
-    FieldsWriter& out, const h3m::ObjectProperties<h3m::ObjectPropertiesType::PLACEHOLDER_HERO>& details) const;
 
   template<>
   void JsonObjectWriter<h3m::ObjectProperties<h3m::ObjectPropertiesType::QUEST_GUARD>>::operator()(

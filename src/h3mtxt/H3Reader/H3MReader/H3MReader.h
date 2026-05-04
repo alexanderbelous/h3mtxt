@@ -146,11 +146,11 @@ namespace h3m
 
   template<> ObjectProperties<ObjectPropertiesType::HERO> H3MReader::readObjectProperties() const;
 
+  template<> ObjectProperties<ObjectPropertiesType::HERO_PLACEHOLDER> H3MReader::readObjectProperties() const;
+
   template<> ObjectProperties<ObjectPropertiesType::MONSTER> H3MReader::readObjectProperties() const;
 
   template<> ObjectProperties<ObjectPropertiesType::PANDORAS_BOX> H3MReader::readObjectProperties() const;
-
-  template<> ObjectProperties<ObjectPropertiesType::PLACEHOLDER_HERO> H3MReader::readObjectProperties() const;
 
   template<> ObjectProperties<ObjectPropertiesType::QUEST_GUARD> H3MReader::readObjectProperties() const;
 

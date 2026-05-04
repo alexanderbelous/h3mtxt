@@ -266,6 +266,22 @@ namespace h3m
   }
 
   template<>
+  ObjectProperties<ObjectPropertiesType::HERO_PLACEHOLDER>
+  H3MReader::readObjectProperties<ObjectPropertiesType::HERO_PLACEHOLDER>() const
+  {
+    constexpr HeroType kRandomHeroType {0xFF};
+
+    ObjectProperties<ObjectPropertiesType::HERO_PLACEHOLDER> data;
+    data.owner = readEnum<PlayerColor>();
+    data.type = readEnum<HeroType>();
+    if (data.type == kRandomHeroType)
+    {
+      data.power_rating = readInt<std::uint8_t>();
+    }
+    return data;
+  }
+
+  template<>
   ObjectProperties<ObjectPropertiesType::MONSTER>
   H3MReader::readObjectProperties<ObjectPropertiesType::MONSTER>() const
   {
@@ -290,22 +306,6 @@ namespace h3m
   {
     ObjectProperties<ObjectPropertiesType::PANDORAS_BOX> data;
     readEventBase(data);
-    return data;
-  }
-
-  template<>
-  ObjectProperties<ObjectPropertiesType::PLACEHOLDER_HERO>
-  H3MReader::readObjectProperties<ObjectPropertiesType::PLACEHOLDER_HERO>() const
-  {
-    constexpr HeroType kRandomHeroType {0xFF};
-
-    ObjectProperties<ObjectPropertiesType::PLACEHOLDER_HERO> data;
-    data.owner = readEnum<PlayerColor>();
-    data.type = readEnum<HeroType>();
-    if (data.type == kRandomHeroType)
-    {
-      data.power_rating = readInt<std::uint8_t>();
-    }
     return data;
   }
 

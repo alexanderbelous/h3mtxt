@@ -227,9 +227,9 @@ namespace h3json
   };
 
   template<>
-  struct JsonReader<ObjectProperties<ObjectPropertiesType::PLACEHOLDER_HERO>>
+  struct JsonReader<ObjectProperties<ObjectPropertiesType::HERO_PLACEHOLDER>>
   {
-    using Details = ObjectProperties<ObjectPropertiesType::PLACEHOLDER_HERO>;
+    using Details = ObjectProperties<ObjectPropertiesType::HERO_PLACEHOLDER>;
 
     Details operator()(const Json::Value& value) const
     {

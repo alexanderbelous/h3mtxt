@@ -814,7 +814,7 @@ namespace h3json
   {};
 
   template<>
-  struct FieldNames<h3m::ObjectProperties<h3m::ObjectPropertiesType::PLACEHOLDER_HERO>>
+  struct FieldNames<h3m::ObjectProperties<h3m::ObjectPropertiesType::HERO_PLACEHOLDER>>
   {
     static constexpr std::string_view kOwner = "owner";
     static constexpr std::string_view kType = "type";

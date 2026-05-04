@@ -491,11 +491,11 @@ namespace h3m
     REQUIRE(encodeAndDecodeJson(kProperties) == kProperties);
   }
 
-  TEST_CASE("H3M.ObjectProperties.PlaceholderHero", "[H3M]")
+  TEST_CASE("H3M.ObjectProperties.HeroPlaceholder", "[H3M]")
   {
     SECTION("Specific")
     {
-      constexpr ObjectProperties<ObjectPropertiesType::PLACEHOLDER_HERO> kProperties = {
+      constexpr ObjectProperties<ObjectPropertiesType::HERO_PLACEHOLDER> kProperties = {
         .owner = PlayerColor::Green,
         .type = HeroType::Gunnar
       };
@@ -503,12 +503,12 @@ namespace h3m
       static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
 
       REQUIRE(asByteVector(encodeObjectProperties(kProperties)) == asByteVector(kBinaryData));
-      REQUIRE(decodeObjectProperties<ObjectPropertiesType::PLACEHOLDER_HERO>(kBinaryData) == kProperties);
+      REQUIRE(decodeObjectProperties<ObjectPropertiesType::HERO_PLACEHOLDER>(kBinaryData) == kProperties);
       REQUIRE(encodeAndDecodeJson(kProperties) == kProperties);
     }
     SECTION("Power-rated")
     {
-      constexpr ObjectProperties<ObjectPropertiesType::PLACEHOLDER_HERO> kProperties = {
+      constexpr ObjectProperties<ObjectPropertiesType::HERO_PLACEHOLDER> kProperties = {
         .owner = PlayerColor::Green,
         .type = HeroType{0xFF},
         .power_rating = 2
@@ -517,7 +517,7 @@ namespace h3m
       static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
 
       REQUIRE(asByteVector(encodeObjectProperties(kProperties)) == asByteVector(kBinaryData));
-      REQUIRE(decodeObjectProperties<ObjectPropertiesType::PLACEHOLDER_HERO>(kBinaryData) == kProperties);
+      REQUIRE(decodeObjectProperties<ObjectPropertiesType::HERO_PLACEHOLDER>(kBinaryData) == kProperties);
       REQUIRE(encodeAndDecodeJson(kProperties) == kProperties);
     }
   }

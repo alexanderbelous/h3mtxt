@@ -83,8 +83,8 @@ namespace Minimap_NS
         return properties.get<h3m::ObjectPropertiesType::GARRISON>().owner;
       case h3m::ObjectPropertiesType::HERO:
         return properties.get<h3m::ObjectPropertiesType::HERO>().owner;
-      case h3m::ObjectPropertiesType::PLACEHOLDER_HERO:
-        return properties.get<h3m::ObjectPropertiesType::PLACEHOLDER_HERO>().owner;
+      case h3m::ObjectPropertiesType::HERO_PLACEHOLDER:
+        return properties.get<h3m::ObjectPropertiesType::HERO_PLACEHOLDER>().owner;
       case h3m::ObjectPropertiesType::RANDOM_DWELLING:
         return static_cast<h3m::PlayerColor>(properties.get<h3m::ObjectPropertiesType::RANDOM_DWELLING>().owner);
       case h3m::ObjectPropertiesType::RANDOM_DWELLING_PRESET_ALIGNMENT:
