@@ -60,7 +60,8 @@ namespace Minimap_NS
       case h3m::PlayerColor::Purple: return Color{ .r = 140, .g = 41,  .b = 165 };
       case h3m::PlayerColor::Teal:   return Color{ .r = 8,   .g = 156, .b = 165 };
       case h3m::PlayerColor::Pink:   return Color{ .r = 198, .g = 123, .b = 140 };
-      default:                       return Color{ .r = 132, .g = 132, .b = 132 };  // PlayerColor{0xFF} aka "None"
+      case h3m::PlayerColor::None:
+      default:                       return Color{ .r = 132, .g = 132, .b = 132 };
       }
     }
 
@@ -74,11 +75,10 @@ namespace Minimap_NS
     // \return the owner of @properties, or std::nullopt if this object cannot be owned.
     std::optional<h3m::PlayerColor> getOwner(const h3m::ObjectPropertiesVariant& properties)
     {
-      constexpr h3m::PlayerColor kNoOwner{ 0xFF };
       switch (properties.type())
       {
       case h3m::ObjectPropertiesType::ABANDONED_MINE:
-        return kNoOwner;
+        return h3m::PlayerColor::None;
       case h3m::ObjectPropertiesType::GARRISON:
         return properties.get<h3m::ObjectPropertiesType::GARRISON>().owner;
       case h3m::ObjectPropertiesType::HERO:

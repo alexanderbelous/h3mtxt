@@ -134,8 +134,7 @@ namespace h3m
   {
     constexpr bool operator==(const ObjectProperties&) const noexcept = default;
 
-    // 0xFF means no owner.
-    PlayerColor owner {};
+    PlayerColor owner = PlayerColor::None;
     ReservedData<3> unknown;
     // CreatureType::None is used in CreatureStack::type for empty slots.
     // CreatureStack::count can be negative - such stacks will be present in the garrison.
@@ -292,8 +291,7 @@ namespace h3m
              (max_level == other.max_level);
     }
 
-    // 0xFF if none.
-    PlayerColor owner {0xFF};
+    PlayerColor owner = PlayerColor::None;
     ReservedData<3> unknown;
     // absod_id of the town ("Random Dwelling Properties" -> "Alignment" -> "Same as").
     // If 0, the dwelling's alignment is not tied to a specific town.
@@ -310,8 +308,7 @@ namespace h3m
   {
     constexpr bool operator==(const ObjectProperties&) const noexcept = default;
 
-    // 0xFF if none.
-    PlayerColor owner {0xFF};
+    PlayerColor owner = PlayerColor::None;
     ReservedData<3> unknown;
     std::uint8_t min_level = 0;
     std::uint8_t max_level = 6;
@@ -328,8 +325,7 @@ namespace h3m
              ((town_absod_id != 0) || (alignment == other.alignment));
     }
 
-    // 0xFF if none.
-    PlayerColor owner {0xFF};
+    PlayerColor owner = PlayerColor::None;
     ReservedData<3> unknown;
     // absod_id of the town ("Random Dwelling Properties" -> "Alignment" -> "Same as").
     // If 0, the dwelling's alignment is not tied to a specific town.
@@ -486,8 +482,7 @@ namespace h3m
     constexpr bool operator==(const ObjectProperties&) const noexcept = default;
 
     std::uint32_t absod_id {};
-    // 0xFF if none.
-    PlayerColor owner {};
+    PlayerColor owner = PlayerColor::None;
     // If std::nullopt, some default name will be assigned.
     std::optional<std::string> name;
     // * CreatureType::None is used in CreatureStack::type for empty slots.
@@ -514,8 +509,7 @@ namespace h3m
   {
     constexpr bool operator==(const ObjectProperties&) const noexcept = default;
 
-    // 0xFF means that there is no owner.
-    PlayerColor owner {};
+    PlayerColor owner = PlayerColor::None;
     ReservedData<3> unknown;
   };
 

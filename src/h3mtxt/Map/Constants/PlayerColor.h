@@ -6,13 +6,15 @@ namespace h3m
 {
   enum class PlayerColor : std::uint8_t
   {
-    Red = 0,
-    Blue = 1,
-    Tan = 2,
-    Green = 3,
+    Red    = 0,
+    Blue   = 1,
+    Tan    = 2,
+    Green  = 3,
     Orange = 4,
     Purple = 5,
-    Teal = 6,
-    Pink = 7
+    Teal   = 6,
+    Pink   = 7,
+    // Special value indicating no owner.
+    None   = 0xFF
   };
 }
