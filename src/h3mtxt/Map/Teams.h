@@ -16,7 +16,6 @@ namespace h3m
     //
     // FYI: if this->num_teams == 0 && other.num_teams == 0, then
     // the objects are considered equal regardless of what's stored in team_for_player.
-    //
     // This reflects the "conditional" nature of team_for_player:
     // ideally, this member shouldn't even exist if num_teams == 0.
     //

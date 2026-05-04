@@ -161,7 +161,16 @@ namespace h3m
     //   However, this is too complicated.
     // So screw it. The fields below will just be ignored during reading/writing if type() is None.
 
-    // 0 - impossible to fulfill; 0xFFFFFFFF - none.
+    // The day before which the quest must be completed.
+    // * 0 -> Month: 1; Week: 1; Day: 1. Such quests are impossible to fulfill.
+    // * 1 -> Month: 1; Week: 1; Day: 2.
+    // * ...
+    // * 0xFFFFFFFF - special value indicating no deadline.
+    //
+    // The Map Editor only allows setting values from [0; 2771] (i.e. not greater than Month: 99; Week: 4; Day: 7)
+    // or 0xFFFFFFFF (no deadline), but any unsigned 32-bit integer can be used here.
+    // * FYI: SoD_SP plugin (as of 1.19.4.2) incorrectly interprets this as a signed integer, displaying
+    //   "Time has run out." for quests with deadline >= 2147483648 (Month: 76695845; Week: 3; Day: 3).
     std::uint32_t deadline = 0xFFFFFFFF;
     std::string proposal;
     std::string progress;

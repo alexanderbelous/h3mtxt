@@ -53,7 +53,7 @@ namespace h3m
     // Basic information about the map ("Map Specifications"/"General" tab in the Editor).
     MapBasicInfo basic_info;
     // Settings for each player ("Map Specifications"/"Player specs" tab in the Editor).
-    EnumIndexedArray<PlayerColor, PlayerSpecs, kMaxPlayers> players {};
+    EnumIndexedArray<PlayerColor, PlayerSpecs, kMaxPlayers> players;
     // Additional information about the map ("Special Victory Condition", "Special Loss Condition",
     // "Teams", "Heroes", "Artifacts", "Spells", "Secondary Skills" and "Rumors" tabs in the Editor).
     MapAdditionalInfo additional_info;

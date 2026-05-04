@@ -16,10 +16,7 @@ namespace h3m
       []() consteval
       {
         EnumIndexedArray<ArtifactSlot, ArtifactType, kNumArtifactSlots> artifacts;
-        for (ArtifactType& artifact : artifacts.data)
-        {
-          artifact = ArtifactType::None;
-        }
+        artifacts.data.fill(ArtifactType::None);
         return artifacts;
       }();
 
