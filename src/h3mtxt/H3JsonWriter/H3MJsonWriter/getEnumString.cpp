@@ -6,6 +6,7 @@
 #include <h3mtxt/Map/Constants/Gender.h>
 #include <h3mtxt/Map/Constants/HeroPortrait.h>
 #include <h3mtxt/Map/Constants/LossConditionType.h>
+#include <h3mtxt/Map/Constants/PlayerColor.h>
 #include <h3mtxt/Map/Constants/ScholarRewardType.h>
 #include <h3mtxt/Map/Constants/VictoryConditionType.h>
 
@@ -970,6 +971,10 @@ namespace h3m
       "Teal",
       "Pink"
     };
+    if (value == PlayerColor::None)
+    {
+      return "(None)";
+    }
     const std::size_t idx = static_cast<std::size_t>(value);
     return (idx < std::size(kNames)) ? kNames[idx] : std::string_view{};
   }
