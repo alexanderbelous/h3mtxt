@@ -52,9 +52,7 @@ namespace h3m
   // Returns ObjectPropertiesType for the given object.
   // \param object_class - ObjectClass of the object.
   // \param object_subtype - subtype of the object.
-  // \return ObjectPropertiesType for the input object,
-  //         or ObjectPropertiesType::NONE if static_cast<std::uint32_t>(object_class) >= kNumObjectClasses.
-  // \throw std::invalid_argument if @object_class is not a valid ObjectClass enumerator.
+  // \return ObjectPropertiesType for the input object.
   constexpr ObjectPropertiesType getObjectPropertiesType(ObjectClass object_class, std::uint32_t object_subtype)
   {
     // FYI: this function used to throw an exception if @object_class is not a known ObjectClass constant,
