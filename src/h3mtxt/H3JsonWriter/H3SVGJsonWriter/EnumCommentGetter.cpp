@@ -106,57 +106,6 @@ namespace Medea_NS
     return std::string_view{};
   }
 
-  //
-  template<>
-  std::string_view EnumCommentGetter::operator()(h3svg::PrimarySkillType32 value) const
-  {
-    constexpr std::uint8_t kNumPrimarySkills = 4;
-    const auto integer_value = static_cast<std::underlying_type_t<h3svg::PrimarySkillType32>>(value);
-    if (integer_value >= 0 && integer_value < kNumPrimarySkills)
-    {
-      return (*this)(static_cast<h3svg::PrimarySkillType>(integer_value));
-    }
-    return std::string_view{};
-  }
-
-  template<>
-  std::string_view EnumCommentGetter::operator()(h3svg::ResourceType32 value) const
-  {
-    const auto integer_value = static_cast<std::underlying_type_t<h3svg::ResourceType32>>(value);
-    if (integer_value >= 0 && integer_value < h3svg::kNumResources)
-    {
-      return (*this)(static_cast<h3svg::ResourceType>(integer_value));
-    }
-    return std::string_view{};
-  }
-
-  template<>
-  std::string_view EnumCommentGetter::operator()(h3svg::SecondarySkillType32 value) const
-  {
-    const auto integer_value = static_cast<std::underlying_type_t<h3svg::SecondarySkillType32>>(value);
-    if (integer_value >= 0 && integer_value < h3svg::kNumSecondarySkills)
-    {
-      return (*this)(static_cast<h3svg::SecondarySkillType>(integer_value));
-    }
-    return std::string_view{};
-  }
-
-  template<>
-  std::string_view EnumCommentGetter::operator()(h3svg::TownType32 value) const
-  {
-    // Reuse the names for TownType.
-    using UnderlyingType = std::underlying_type_t<h3svg::TownType>;
-    using UnderlyingType32 = std::underlying_type_t<h3svg::TownType32>;
-    const UnderlyingType32 integer_value = static_cast<UnderlyingType32>(value);
-    if (integer_value >= std::numeric_limits<UnderlyingType>::min() &&
-        integer_value <= std::numeric_limits<UnderlyingType>::max())
-    {
-      return (*this)(static_cast<h3svg::TownType>(integer_value));
-    }
-    return std::string_view{};
-  }
-  //
-
   template<>
   std::string_view EnumCommentGetter::operator()(h3svg::PlayerControlType value) const
   {
@@ -224,6 +173,40 @@ namespace Medea_NS
   }
 
   template<>
+  std::string_view EnumCommentGetter::operator()(h3svg::PrimarySkillType32 value) const
+  {
+    constexpr std::uint8_t kNumPrimarySkills = 4;
+    const auto integer_value = static_cast<std::underlying_type_t<h3svg::PrimarySkillType32>>(value);
+    if (integer_value >= 0 && integer_value < kNumPrimarySkills)
+    {
+      return (*this)(static_cast<h3svg::PrimarySkillType>(integer_value));
+    }
+    return std::string_view{};
+  }
+
+  template<>
+  std::string_view EnumCommentGetter::operator()(h3svg::ResourceType32 value) const
+  {
+    const auto integer_value = static_cast<std::underlying_type_t<h3svg::ResourceType32>>(value);
+    if (integer_value >= 0 && integer_value < h3svg::kNumResources)
+    {
+      return (*this)(static_cast<h3svg::ResourceType>(integer_value));
+    }
+    return std::string_view{};
+  }
+
+  template<>
+  std::string_view EnumCommentGetter::operator()(h3svg::SecondarySkillType32 value) const
+  {
+    const auto integer_value = static_cast<std::underlying_type_t<h3svg::SecondarySkillType32>>(value);
+    if (integer_value >= 0 && integer_value < h3svg::kNumSecondarySkills)
+    {
+      return (*this)(static_cast<h3svg::SecondarySkillType>(integer_value));
+    }
+    return std::string_view{};
+  }
+
+  template<>
   std::string_view EnumCommentGetter::operator()(h3svg::SeerName value) const
   {
     static constexpr std::string_view kNames[] = {
@@ -287,6 +270,21 @@ namespace Medea_NS
     if (integer_value >= 0 && integer_value < h3svg::kNumSpells)
     {
       return (*this)(static_cast<h3svg::SpellType>(integer_value));
+    }
+    return std::string_view{};
+  }
+
+  template<>
+  std::string_view EnumCommentGetter::operator()(h3svg::TownType32 value) const
+  {
+    // Reuse the names for TownType.
+    using UnderlyingType = std::underlying_type_t<h3svg::TownType>;
+    using UnderlyingType32 = std::underlying_type_t<h3svg::TownType32>;
+    const UnderlyingType32 integer_value = static_cast<UnderlyingType32>(value);
+    if (integer_value >= std::numeric_limits<UnderlyingType>::min() &&
+        integer_value <= std::numeric_limits<UnderlyingType>::max())
+    {
+      return (*this)(static_cast<h3svg::TownType>(integer_value));
     }
     return std::string_view{};
   }

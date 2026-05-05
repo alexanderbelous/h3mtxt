@@ -34,22 +34,6 @@ namespace Medea_NS
   template<>
   std::string_view EnumCommentGetter::operator()(h3svg::ObjectClass16 value) const;
 
-  //
-
-  template<>
-  std::string_view EnumCommentGetter::operator()(h3svg::PrimarySkillType32 value) const;
-
-  template<>
-  std::string_view EnumCommentGetter::operator()(h3svg::ResourceType32 value) const;
-
-  template<>
-  std::string_view EnumCommentGetter::operator()(h3svg::SecondarySkillType32 value) const;
-
-  template<>
-  std::string_view EnumCommentGetter::operator()(h3svg::TownType32 value) const;
-
-  //
-
   template<>
   std::string_view EnumCommentGetter::operator()(h3svg::PlayerControlType value) const;
 
@@ -63,10 +47,22 @@ namespace Medea_NS
   std::string_view EnumCommentGetter::operator()(h3svg::PlayerTurnDurationType value) const;
 
   template<>
+  std::string_view EnumCommentGetter::operator()(h3svg::PrimarySkillType32 value) const;
+
+  template<>
+  std::string_view EnumCommentGetter::operator()(h3svg::ResourceType32 value) const;
+
+  template<>
+  std::string_view EnumCommentGetter::operator()(h3svg::SecondarySkillType32 value) const;
+
+  template<>
   std::string_view EnumCommentGetter::operator()(h3svg::SeerName value) const;
 
   template<>
   std::string_view EnumCommentGetter::operator()(h3svg::SpellType32 value) const;
+
+  template<>
+  std::string_view EnumCommentGetter::operator()(h3svg::TownType32 value) const;
   // ============================================================
 
   template<>
