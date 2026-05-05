@@ -7,9 +7,8 @@ namespace h3m
 {
   // Like std::integer_sequence, but for enums.
   template<class Enum, Enum... values>
-  class EnumSequence
+  struct EnumSequence
   {
-  public:
     static_assert(std::is_enum_v<Enum>, "Enum must be an enum type.");
 
     using value_type = Enum;

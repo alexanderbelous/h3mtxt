@@ -11,7 +11,7 @@ namespace h3m
   // Enums.
   //
   // Note that the underlying types of enums are significant - they should
-  // always match the actual integer type used in the H3M file format.
+  // always match the actual integer types used in the H3M file format.
   // ------------------------------------------------------------
 
   enum class ArtifactSlot : std::uint8_t;
