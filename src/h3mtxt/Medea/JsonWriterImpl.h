@@ -52,7 +52,7 @@ namespace Medea_NS
 
       // Queues a comment.
       //
-      // Comments are not written immediately in order to avoid trailing commas in printing objects/arrays.
+      // Comments are not written immediately in order to avoid trailing commas when printing objects/arrays.
       // \param comment - comment to write. Empty comments are ignored.
       // \param newline - if true, the comment will be written on a new line,
       //        otherwise on the same line as the last printed entry.
