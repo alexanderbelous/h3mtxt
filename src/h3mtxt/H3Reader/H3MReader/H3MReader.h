@@ -36,6 +36,8 @@ namespace h3m
 
     CreatureStack readCreatureStack() const;
 
+    EventBase readEventBase() const;
+
     Guardians readGuardians() const;
 
     HeroArtifacts readHeroArtifacts() const;
@@ -108,9 +110,6 @@ namespace h3m
 
     template<VictoryConditionType T>
     VictoryConditionDetails<T> readVictoryConditionDetails() const;
-
-  private:
-    void readEventBase(EventBase& event) const;
   };
 
   template<>
