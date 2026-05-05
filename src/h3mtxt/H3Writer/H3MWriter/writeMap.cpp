@@ -55,8 +55,8 @@ namespace h3m
     writeSpan(std::span{ map.objects_templates });
     writeData(safeCastVectorSize<std::uint32_t>(map.objects.size()));
     writeSpan(std::span{ map.objects });
-    writeData(safeCastVectorSize<std::uint32_t>(map.global_events.size()));
-    writeSpan(std::span{ map.global_events });
+    writeData(safeCastVectorSize<std::uint32_t>(map.timed_events.size()));
+    writeSpan(std::span{ map.timed_events });
     writeData(map.padding);
   }
 }

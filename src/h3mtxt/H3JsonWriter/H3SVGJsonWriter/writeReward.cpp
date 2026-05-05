@@ -1,9 +1,7 @@
 #include <h3mtxt/H3JsonWriter/H3SVGJsonWriter/H3SVGJsonWriter.h>
 
 #include <h3mtxt/H3JsonWriter/H3MJsonWriter/H3MJsonWriter.h>
-#include <h3mtxt/H3JsonWriter/H3MJsonWriter/getEnumString.h>
 #include <h3mtxt/H3JsonWriter/H3MJsonWriter/Utils.h>
-#include <h3mtxt/H3JsonWriter/H3SVGJsonWriter/getEnumString.h>
 #include <h3mtxt/JsonCommon/FieldNamesH3SVG.h>
 #include <h3mtxt/Medea/Medea.h>
 #include <h3mtxt/SavedGame/Reward.h>
@@ -48,10 +46,6 @@ namespace Medea_NS
     FieldsWriter& out, const h3svg::RewardDetails<h3svg::RewardType::Resource>& details) const
   {
     out.writeField("type", details.type);
-    if (std::string_view enum_str = getEnumString(details.type); !enum_str.empty())
-    {
-      out.writeComment(enum_str, false);
-    }
     out.writeField("amount", details.amount);
   }
 
@@ -59,10 +53,6 @@ namespace Medea_NS
     FieldsWriter& out, const h3svg::RewardDetails<h3svg::RewardType::PrimarySkill>& details) const
   {
     out.writeField("type", details.type);
-    if (std::string_view enum_str = getEnumString(details.type); !enum_str.empty())
-    {
-      out.writeComment(enum_str, false);
-    }
     out.writeField("value", details.value);
   }
 
@@ -70,10 +60,6 @@ namespace Medea_NS
     FieldsWriter& out, const h3svg::RewardDetails<h3svg::RewardType::SecondarySkill>& details) const
   {
     out.writeField("type", details.type);
-    if (std::string_view enum_str = getEnumString(details.type); !enum_str.empty())
-    {
-      out.writeComment(enum_str, false);
-    }
     out.writeField("level", details.level);
   }
 
@@ -81,10 +67,6 @@ namespace Medea_NS
     FieldsWriter& out, const h3svg::RewardDetails<h3svg::RewardType::Artifact>& details) const
   {
     out.writeField("type", details.artifact);
-    if (std::string_view enum_str = getEnumString(details.artifact); !enum_str.empty())
-    {
-      out.writeComment(enum_str, false);
-    }
     out.writeField("reserved", details.reserved);
   }
 
@@ -92,10 +74,6 @@ namespace Medea_NS
     FieldsWriter& out, const h3svg::RewardDetails<h3svg::RewardType::Spell>& details) const
   {
     out.writeField("type", details.spell);
-    if (std::string_view enum_str = getEnumString(details.spell); !enum_str.empty())
-    {
-      out.writeComment(enum_str, false);
-    }
     out.writeField("reserved", details.reserved);
   }
 
@@ -103,10 +81,6 @@ namespace Medea_NS
     FieldsWriter& out, const h3svg::RewardDetails<h3svg::RewardType::Creature>& details) const
   {
     out.writeField("type", details.type);
-    if (std::string_view enum_str = getEnumString(details.type); !enum_str.empty())
-    {
-      out.writeComment(enum_str, false);
-    }
     out.writeField("count", details.count);
   }
 
@@ -114,7 +88,6 @@ namespace Medea_NS
   {
     using Fields = h3json::FieldNames<h3svg::Reward>;
     out.writeField(Fields::kType, reward.type());
-    out.writeComment(getEnumString(reward.type()), false);
     if (reward.type() != h3svg::RewardType::None)
     {
       std::visit([&out] <h3svg::RewardType T> (const h3svg::RewardDetails<T>& details)

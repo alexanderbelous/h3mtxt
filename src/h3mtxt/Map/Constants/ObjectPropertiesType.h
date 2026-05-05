@@ -3,8 +3,6 @@
 #include <h3mtxt/Map/Constants/ObjectClass.h>
 
 #include <cstdint>
-#include <stdexcept>
-#include <type_traits>
 
 namespace h3m
 {
@@ -31,9 +29,9 @@ namespace h3m
     GARRISON,
     GRAIL,
     HERO,  // HERO, PRISON and RANDOM_HERO
+    HERO_PLACEHOLDER,
     MONSTER,
     PANDORAS_BOX,
-    PLACEHOLDER_HERO,
     QUEST_GUARD,
     RANDOM_DWELLING,
     RANDOM_DWELLING_PRESET_ALIGNMENT,
@@ -55,14 +53,15 @@ namespace h3m
   // \param object_class - ObjectClass of the object.
   // \param object_subtype - subtype of the object.
   // \return ObjectPropertiesType for the input object.
-  // \throw std::invalid_argument if @object_class is not a valid ObjectClass enumerator.
   constexpr ObjectPropertiesType getObjectPropertiesType(ObjectClass object_class, std::uint32_t object_subtype)
   {
-    // The Shadow of Death has 232 object types; @object_class must be within [0; 231].
-    if (static_cast<std::underlying_type_t<ObjectClass>>(object_class) >= kNumObjectClasses)
-    {
-      throw std::invalid_argument("Invalid object_class.");
-    }
+    // FYI: this function used to throw an exception if @object_class is not a known ObjectClass constant,
+    // i.e. if static_cast<std::uint32_t>(object_class) >= 232.
+    //
+    // Using such values in maps is not safe: sometimes the game and the Map Editor treat them the same way as
+    // ObjectClass::NONE, sometimes they crash. However, both programs seem to agree that no properties should
+    // be read/written for such objects - e.g., the Map Editor may crash when you hover over such objects,
+    // but it will not report a corrupt file.
 
     switch (object_class)
     {
@@ -105,7 +104,7 @@ namespace h3m
     case ObjectClass::PANDORAS_BOX:
       return ObjectPropertiesType::PANDORAS_BOX;
     case ObjectClass::HERO_PLACEHOLDER:
-      return ObjectPropertiesType::PLACEHOLDER_HERO;
+      return ObjectPropertiesType::HERO_PLACEHOLDER;
     case ObjectClass::RANDOM_DWELLING:
       return ObjectPropertiesType::RANDOM_DWELLING;
     case ObjectClass::RANDOM_DWELLING_LVL:

@@ -1,8 +1,6 @@
 #include <h3mtxt/H3JsonWriter/H3SVGJsonWriter/H3SVGJsonWriter.h>
 
 #include <h3mtxt/H3JsonWriter/H3MJsonWriter/H3MJsonWriter.h>
-#include <h3mtxt/H3JsonWriter/H3MJsonWriter/getEnumString.h>
-#include <h3mtxt/H3JsonWriter/H3SVGJsonWriter/getEnumString.h>
 #include <h3mtxt/JsonCommon/FieldNamesH3SVG.h>
 #include <h3mtxt/SavedGame/VictoryCondition.h>
 #include <h3mtxt/Medea/Medea.h>
@@ -95,10 +93,6 @@ namespace Medea_NS
   {
     JsonObjectWriter<h3svg::SpecialVictoryConditionBase>{}(out, details);
     out.writeField("artifact_type", details.artifact_type);
-    if (std::string_view enum_str = getEnumString(details.artifact_type); !enum_str.empty())
-    {
-      out.writeComment(enum_str, false);
-    }
   }
 
   template<>
@@ -108,10 +102,6 @@ namespace Medea_NS
   {
     JsonObjectWriter<h3svg::SpecialVictoryConditionBase>{}(out, details);
     out.writeField("creature_type", details.creature_type);
-    if (std::string_view enum_str = getEnumString(details.creature_type); !enum_str.empty())
-    {
-      out.writeComment(enum_str, false);
-    }
     out.writeField("count", details.count);
   }
 
@@ -122,10 +112,6 @@ namespace Medea_NS
   {
     JsonObjectWriter<h3svg::SpecialVictoryConditionBase>{}(out, details);
     out.writeField("hero", details.hero);
-    if (std::string_view enum_str = getEnumString(details.hero); !enum_str.empty())
-    {
-      out.writeComment(enum_str, false);
-    }
   }
 
   void JsonObjectWriter<h3svg::VictoryCondition>::operator()(FieldsWriter& out,
@@ -133,7 +119,6 @@ namespace Medea_NS
   {
     using Fields = h3json::FieldNames<h3svg::VictoryCondition>;
     out.writeField(Fields::kType, victory_condition.type());
-    out.writeComment(getEnumString(victory_condition.type()), false);
     if (victory_condition.type() != h3svg::VictoryConditionType::Normal)
     {
       std::visit([&out] <h3svg::VictoryConditionType T> (const h3svg::VictoryConditionDetails<T>& details)

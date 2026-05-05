@@ -13,6 +13,91 @@
 // API for JSON serialization of structures from Map library.
 namespace Medea_NS
 {
+  // ============================================================
+  // Human-readable comments for enum values.
+  // ------------------------------------------------------------
+  template<>
+  std::string_view EnumCommentGetter::operator()(h3m::ArtifactType value) const;
+
+  template<>
+  std::string_view EnumCommentGetter::operator()(h3m::CreatureType value) const;
+
+  template<>
+  std::string_view EnumCommentGetter::operator()(h3m::Disposition value) const;
+
+  template<>
+  std::string_view EnumCommentGetter::operator()(h3m::Formation value) const;
+
+  template<>
+  std::string_view EnumCommentGetter::operator()(h3m::Gender value) const;
+
+  template<>
+  std::string_view EnumCommentGetter::operator()(h3m::HeroClass value) const;
+
+  template<>
+  std::string_view EnumCommentGetter::operator()(h3m::HeroPortrait value) const;
+
+  template<>
+  std::string_view EnumCommentGetter::operator()(h3m::HeroType value) const;
+
+  template<>
+  std::string_view EnumCommentGetter::operator()(h3m::LossConditionType value) const;
+
+  template<>
+  std::string_view EnumCommentGetter::operator()(h3m::MapDifficulty value) const;
+
+  template<>
+  std::string_view EnumCommentGetter::operator()(h3m::ObjectPropertiesType value) const;
+
+  template<>
+  std::string_view EnumCommentGetter::operator()(h3m::ObjectClass value) const;
+
+  template<>
+  std::string_view EnumCommentGetter::operator()(h3m::ObjectGroup value) const;
+
+  template<>
+  std::string_view EnumCommentGetter::operator()(h3m::PlayerBehavior value) const;
+
+  template<>
+  std::string_view EnumCommentGetter::operator()(h3m::PlayerColor value) const;
+
+  template<>
+  std::string_view EnumCommentGetter::operator()(h3m::PrimarySkillType value) const;
+
+  template<>
+  std::string_view EnumCommentGetter::operator()(h3m::QuestType value) const;
+
+  template<>
+  std::string_view EnumCommentGetter::operator()(h3m::ResourceType value) const;
+
+  template<>
+  std::string_view EnumCommentGetter::operator()(h3m::RewardType value) const;
+
+  template<>
+  std::string_view EnumCommentGetter::operator()(h3m::RiverType value) const;
+
+  template<>
+  std::string_view EnumCommentGetter::operator()(h3m::RoadType value) const;
+
+  template<>
+  std::string_view EnumCommentGetter::operator()(h3m::ScholarRewardType value) const;
+
+  template<>
+  std::string_view EnumCommentGetter::operator()(h3m::SecondarySkillType value) const;
+
+  template<>
+  std::string_view EnumCommentGetter::operator()(h3m::SpellType value) const;
+
+  template<>
+  std::string_view EnumCommentGetter::operator()(h3m::TerrainType value) const;
+
+  template<>
+  std::string_view EnumCommentGetter::operator()(h3m::TownType value) const;
+
+  template<>
+  std::string_view EnumCommentGetter::operator()(h3m::VictoryConditionType value) const;
+  // ============================================================
+
   // Default implementation for h3m::EnumBitmask: serializes the bitmask as a JSON object.
   template<class Enum, std::size_t NumBytes>
   struct JsonObjectWriter<h3m::EnumBitmask<Enum, NumBytes>>
@@ -167,16 +252,16 @@ namespace Medea_NS
     FieldsWriter& out, const h3m::ObjectProperties<h3m::ObjectPropertiesType::HERO>& details) const;
 
   template<>
+  void JsonObjectWriter<h3m::ObjectProperties<h3m::ObjectPropertiesType::HERO_PLACEHOLDER>>::operator()(
+    FieldsWriter& out, const h3m::ObjectProperties<h3m::ObjectPropertiesType::HERO_PLACEHOLDER>& details) const;
+
+  template<>
   void JsonObjectWriter<h3m::ObjectProperties<h3m::ObjectPropertiesType::MONSTER>>::operator()(
     FieldsWriter& out, const h3m::ObjectProperties<h3m::ObjectPropertiesType::MONSTER>& details) const;
 
   template<>
   void JsonObjectWriter<h3m::ObjectProperties<h3m::ObjectPropertiesType::PANDORAS_BOX>>::operator()(
     FieldsWriter& out, const h3m::ObjectProperties<h3m::ObjectPropertiesType::PANDORAS_BOX>& details) const;
-
-  template<>
-  void JsonObjectWriter<h3m::ObjectProperties<h3m::ObjectPropertiesType::PLACEHOLDER_HERO>>::operator()(
-    FieldsWriter& out, const h3m::ObjectProperties<h3m::ObjectPropertiesType::PLACEHOLDER_HERO>& details) const;
 
   template<>
   void JsonObjectWriter<h3m::ObjectProperties<h3m::ObjectPropertiesType::QUEST_GUARD>>::operator()(

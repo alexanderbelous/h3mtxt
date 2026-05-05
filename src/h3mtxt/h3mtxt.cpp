@@ -1,7 +1,9 @@
 #include <h3mtxt/H3JsonReader/readH3Json.h>
 #include <h3mtxt/H3JsonWriter/H3CJsonWriter/writeH3cJson.h>
 #include <h3mtxt/H3JsonWriter/H3MJsonWriter/writeH3mJson.h>
+#include <h3mtxt/H3JsonWriter/H3SVGJsonWriter/writeH3SvgJson.h>
 #include <h3mtxt/H3Reader/parseh3.h>
+#include <h3mtxt/H3Reader/H3SVGReader/parseh3svg.h>
 #include <h3mtxt/H3Writer/H3CWriter/writeh3c.h>
 #include <h3mtxt/H3Writer/H3MWriter/writeh3m.h>
 #include <h3mtxt/Map/Constants/MapFormat.h>
@@ -104,7 +106,9 @@ int main(int argc, char** argv)
       std::cerr << "Failed to open: " << path_input.string();
       return -1;
     }
-    const Input input = readInput(stream);
+    //const Input input = readInput(stream);
+
+    const h3svg::SavedGame saved_game = h3svg::parseh3svg(stream);
     stream.close();
     std::ofstream out_stream(path_output, std::ios_base::out | std::ios_base::binary);
     if (!out_stream)
@@ -112,7 +116,8 @@ int main(int argc, char** argv)
       std::cerr << "Failed to open: " << path_output.string();
       return -1;
     }
-    writeOutput(out_stream, input);
+    h3svg::writeH3SvgJson(out_stream, saved_game);
+    //writeOutput(out_stream, input);
     out_stream.close();
   }
   catch (const std::exception& error)

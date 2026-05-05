@@ -1,9 +1,6 @@
 #include <h3mtxt/H3JsonWriter/H3SVGJsonWriter/H3SVGJsonWriter.h>
 
-#include <h3mtxt/H3JsonWriter/H3MJsonWriter/getEnumString.h>
 #include <h3mtxt/H3JsonWriter/H3MJsonWriter/H3MJsonWriter.h>
-#include <h3mtxt/H3JsonWriter/H3MJsonWriter/CommentBuilder.h>
-#include <h3mtxt/H3JsonWriter/H3SVGJsonWriter/getEnumString.h>
 #include <h3mtxt/JsonCommon/FieldNamesH3SVG.h>
 #include <h3mtxt/Medea/Medea.h>
 #include <h3mtxt/SavedGame/ObjectPropertiesTables.h>
@@ -24,10 +21,6 @@ namespace Medea_NS
     out.writeField(Fields::kObjectSubclass, boat.object_sublcass);
     out.writeField(Fields::kDirection, boat.direction);
     out.writeField(Fields::kOwner, boat.owner);
-    if (std::string_view enum_str = getEnumString(boat.owner); !enum_str.empty())
-    {
-      out.writeComment(enum_str, false);
-    }
     out.writeField(Fields::kOwnerHero, boat.owner_hero);
     out.writeField(Fields::kIsOccupied, boat.is_occupied);
     out.writeField(Fields::kX, boat.x);
@@ -40,25 +33,9 @@ namespace Medea_NS
   {
     using Fields = h3json::FieldNames<h3svg::Dwelling>;
     out.writeField(Fields::kOwner, dwelling.owner);
-    if (std::string_view enum_str = getEnumString(dwelling.owner); !enum_str.empty())
-    {
-      out.writeComment(enum_str, false);
-    }
     out.writeField(Fields::kObjectClass, dwelling.object_class);
-    if (std::string_view enum_str = getEnumString(dwelling.object_class); !enum_str.empty())
-    {
-      out.writeComment(enum_str, false);
-    }
     out.writeField(Fields::kObjectSubclass, dwelling.object_subclass);
     out.writeField(Fields::kCreatureTypes, dwelling.creature_types);
-    {
-      h3json::CommentBuilder comment_builder;
-      comment_builder.build({ getEnumString(dwelling.creature_types[0]), ", ",
-                              getEnumString(dwelling.creature_types[1]), ", ",
-                              getEnumString(dwelling.creature_types[2]), ", ",
-                              getEnumString(dwelling.creature_types[3]) });
-      out.writeComment(comment_builder.view(), false);
-    }
     out.writeField(Fields::kCreatureCounts, dwelling.creature_counts);
     out.writeField(Fields::kCoordinates, dwelling.coordinates);
     out.writeField(Fields::kGuardians, dwelling.guardians);
@@ -88,10 +65,6 @@ namespace Medea_NS
   {
     using Fields = h3json::FieldNames<h3svg::Garrison>;
     out.writeField(Fields::kOwner, garrison.owner);
-    if (std::string_view enum_str = getEnumString(garrison.owner); !enum_str.empty())
-    {
-      out.writeComment(enum_str, false);
-    }
     out.writeField(Fields::kCreatures, garrison.creatures);
     out.writeField(Fields::kCoordinates, garrison.coordinates);
     out.writeField(Fields::kCanRemoveUnits, garrison.can_remove_units);
@@ -111,10 +84,6 @@ namespace Medea_NS
   {
     using Fields = h3json::FieldNames<h3svg::Mine>;
     out.writeField(Fields::kOwner, mine.owner);
-    if (std::string_view enum_str = getEnumString(mine.owner); !enum_str.empty())
-    {
-      out.writeComment(enum_str, false);
-    }
     out.writeField(Fields::kUnknown, mine.unknown);
     out.writeField(Fields::kCreatures, mine.creatures);
     out.writeField(Fields::kCoordinates, mine.coordinates);
@@ -126,10 +95,6 @@ namespace Medea_NS
     out.writeField(Fields::kMessage, monster.message);
     out.writeField(Fields::kResources, monster.resources);
     out.writeField(Fields::kArtifact, monster.artifact);
-    if (std::string_view enum_str = getEnumString(monster.artifact); !enum_str.empty())
-    {
-      out.writeComment(enum_str, false);
-    }
   }
 
   void JsonObjectWriter<h3svg::Obelisk>::operator()(FieldsWriter& out, const h3svg::Obelisk& obelisk) const
@@ -154,10 +119,6 @@ namespace Medea_NS
     out.writeField(Fields::kReserved, seers_hut.reserved);
     out.writeField(Fields::kVisitedBy, seers_hut.visited_by);
     out.writeField(Fields::kName, seers_hut.name);
-    if (std::string_view enum_str = getEnumString(seers_hut.name); !enum_str.empty())
-    {
-      out.writeComment(enum_str, false);
-    }
   }
 
   void JsonObjectWriter<h3svg::Sign>::operator()(FieldsWriter& out, const h3svg::Sign& sign) const

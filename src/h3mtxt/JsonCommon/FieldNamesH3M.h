@@ -672,7 +672,7 @@ namespace h3json
     static constexpr std::string_view kTiles = "tiles";
     static constexpr std::string_view kObjectsTemplates = "objects_templates";
     static constexpr std::string_view kObjects = "objects";
-    static constexpr std::string_view kGlobalEvents = "global_events";
+    static constexpr std::string_view kTimedEvents = "timed_events";
     static constexpr std::string_view kPadding = "padding";
   };
 
@@ -814,7 +814,7 @@ namespace h3json
   {};
 
   template<>
-  struct FieldNames<h3m::ObjectProperties<h3m::ObjectPropertiesType::PLACEHOLDER_HERO>>
+  struct FieldNames<h3m::ObjectProperties<h3m::ObjectPropertiesType::HERO_PLACEHOLDER>>
   {
     static constexpr std::string_view kOwner = "owner";
     static constexpr std::string_view kType = "type";
@@ -831,6 +831,7 @@ namespace h3json
   struct FieldNames<h3m::ObjectProperties<h3m::ObjectPropertiesType::RANDOM_DWELLING>>
   {
     static constexpr std::string_view kOwner = "owner";
+    static constexpr std::string_view kUnknown = "unknown";
     static constexpr std::string_view kTownAbsodId = "town_absod_id";
     static constexpr std::string_view kAlignment = "alignment";
     static constexpr std::string_view kMinLevel = "min_level";
@@ -841,6 +842,7 @@ namespace h3json
   struct FieldNames<h3m::ObjectProperties<h3m::ObjectPropertiesType::RANDOM_DWELLING_PRESET_ALIGNMENT>>
   {
     static constexpr std::string_view kOwner = "owner";
+    static constexpr std::string_view kUnknown = "unknown";
     static constexpr std::string_view kMinLevel = "min_level";
     static constexpr std::string_view kMaxLevel = "max_level";
   };
@@ -849,6 +851,7 @@ namespace h3json
   struct FieldNames<h3m::ObjectProperties<h3m::ObjectPropertiesType::RANDOM_DWELLING_PRESET_LEVEL>>
   {
     static constexpr std::string_view kOwner = "owner";
+    static constexpr std::string_view kUnknown = "unknown";
     static constexpr std::string_view kTownAbsodId = "town_absod_id";
     static constexpr std::string_view kAlignment = "alignment";
   };

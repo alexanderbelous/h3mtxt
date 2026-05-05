@@ -1,6 +1,5 @@
 #include <h3mtxt/H3JsonWriter/H3MJsonWriter/H3MJsonWriter.h>
 
-#include <h3mtxt/H3JsonWriter/H3MJsonWriter/getEnumString.h>
 #include <h3mtxt/H3JsonWriter/H3MJsonWriter/Utils.h>
 #include <h3mtxt/JsonCommon/FieldNamesH3M.h>
 #include <h3mtxt/Map/Constants/Constants.h>
@@ -13,19 +12,8 @@ namespace Medea_NS
   void JsonObjectWriter<h3m::CustomHero>::operator()(FieldsWriter& out, const h3m::CustomHero& value) const
   {
     using Fields = h3json::FieldNames<h3m::CustomHero>;
-    constexpr h3m::HeroPortrait kDefaultPortrait {0xFF};
     out.writeField(Fields::kType, value.type);
-    if (auto enum_str = h3m::getEnumString(value.type); !enum_str.empty())
-    {
-      out.writeComment(enum_str, false);
-    }
     out.writeField(Fields::kPortrait, value.portrait);
-    const std::string_view hero_portrait_str =
-      (value.portrait == kDefaultPortrait) ? "(Default)" : h3m::getEnumString(value.portrait);
-    if (!hero_portrait_str.empty())
-    {
-      out.writeComment(hero_portrait_str, false);
-    }
     out.writeField(Fields::kName, value.name);
     out.writeField(Fields::kCanHire, value.can_hire, true);
   }
@@ -72,10 +60,6 @@ namespace Medea_NS
       out.writeField(Fields::kBiography, *value.biography);
     }
     out.writeField(Fields::kGender, value.gender);
-    if (auto enum_str = h3m::getEnumString(value.gender); !enum_str.empty())
-    {
-      out.writeComment(enum_str, false);
-    }
     if (value.spells)
     {
       out.writeField(Fields::kSpells , *value.spells);

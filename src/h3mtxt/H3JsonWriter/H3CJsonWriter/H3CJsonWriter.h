@@ -8,6 +8,28 @@
 // API for JSON serialization of structures from Campaign library.
 namespace Medea_NS
 {
+  // ============================================================
+  // Human-readable comments for enum values.
+  // ------------------------------------------------------------
+  template<>
+  std::string_view EnumCommentGetter::operator()(h3m::CampaignId value) const;
+
+  template<>
+  std::string_view EnumCommentGetter::operator()(h3m::CampaignMusic value) const;
+
+  template<>
+  std::string_view EnumCommentGetter::operator()(h3m::CampaignVideo value) const;
+
+  template<>
+  std::string_view EnumCommentGetter::operator()(h3m::StartingBonusResourceType value) const;
+
+  template<>
+  std::string_view EnumCommentGetter::operator()(h3m::StartingBonusType value) const;
+
+  template<>
+  std::string_view EnumCommentGetter::operator()(h3m::StartingOptionsType value) const;
+  // ============================================================
+
   template<>
   void JsonObjectWriter<h3m::Campaign>::operator()(FieldsWriter& out, const h3m::Campaign& campaign) const;
 

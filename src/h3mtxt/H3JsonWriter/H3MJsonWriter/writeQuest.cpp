@@ -1,6 +1,5 @@
 #include <h3mtxt/H3JsonWriter/H3MJsonWriter/H3MJsonWriter.h>
 
-#include <h3mtxt/H3JsonWriter/H3MJsonWriter/getEnumString.h>
 #include <h3mtxt/H3JsonWriter/H3MJsonWriter/Utils.h>
 #include <h3mtxt/JsonCommon/FieldNamesH3M.h>
 #include <h3mtxt/Map/Quest.h>
@@ -49,10 +48,6 @@ namespace Medea_NS
     void operator()(FieldsWriter& out, const h3m::QuestDetails<h3m::QuestType::Creatures>::Creature& creature) const
     {
       out.writeField("type", creature.type);
-      if (auto enum_str = h3m::getEnumString(creature.type); !enum_str.empty())
-      {
-        out.writeComment(enum_str, false);
-      }
       out.writeField("count", creature.count);
     }
   };
@@ -73,27 +68,18 @@ namespace Medea_NS
     FieldsWriter& out, const h3m::QuestDetails<h3m::QuestType::BeHero>& details) const
   {
     out.writeField("hero", details.hero);
-    if (auto enum_str = h3m::getEnumString(details.hero); !enum_str.empty())
-    {
-      out.writeComment(enum_str, false);
-    }
   }
 
   void JsonObjectWriter<h3m::QuestDetails<h3m::QuestType::BePlayer>>::operator()(
     FieldsWriter& out, const h3m::QuestDetails<h3m::QuestType::BePlayer>& details) const
   {
     out.writeField("player", details.player);
-    if (auto enum_str = h3m::getEnumString(details.player); !enum_str.empty())
-    {
-      out.writeComment(enum_str, false);
-    }
   }
 
   void JsonObjectWriter<h3m::Quest>::operator()(FieldsWriter& out, const h3m::Quest& quest) const
   {
     using Fields = h3json::FieldNames<h3m::Quest>;
     out.writeField(Fields::kType, quest.type());
-    out.writeComment(h3m::getEnumString(quest.type()), false);
     if (quest.type() != h3m::QuestType::None)
     {
       std::visit([&out] <h3m::QuestType T> (const h3m::QuestDetails<T>& details)

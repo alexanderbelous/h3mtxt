@@ -245,7 +245,7 @@ namespace h3m
     REQUIRE(encodeAndDecodeJson(kProperties) == kProperties);
   }
 
-  TEST_CASE("H3M.ObjectProperties.GenericNoProperties", "[H3M]")
+  TEST_CASE("H3M.ObjectProperties.None", "[H3M]")
   {
     constexpr ObjectProperties<ObjectPropertiesType::NONE> kProperties{};
     constexpr std::string_view kBinaryData = "";
@@ -491,11 +491,11 @@ namespace h3m
     REQUIRE(encodeAndDecodeJson(kProperties) == kProperties);
   }
 
-  TEST_CASE("H3M.ObjectProperties.PlaceholderHero", "[H3M]")
+  TEST_CASE("H3M.ObjectProperties.HeroPlaceholder", "[H3M]")
   {
     SECTION("Specific")
     {
-      constexpr ObjectProperties<ObjectPropertiesType::PLACEHOLDER_HERO> kProperties = {
+      constexpr ObjectProperties<ObjectPropertiesType::HERO_PLACEHOLDER> kProperties = {
         .owner = PlayerColor::Green,
         .type = HeroType::Gunnar
       };
@@ -503,12 +503,12 @@ namespace h3m
       static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
 
       REQUIRE(asByteVector(encodeObjectProperties(kProperties)) == asByteVector(kBinaryData));
-      REQUIRE(decodeObjectProperties<ObjectPropertiesType::PLACEHOLDER_HERO>(kBinaryData) == kProperties);
+      REQUIRE(decodeObjectProperties<ObjectPropertiesType::HERO_PLACEHOLDER>(kBinaryData) == kProperties);
       REQUIRE(encodeAndDecodeJson(kProperties) == kProperties);
     }
     SECTION("Power-rated")
     {
-      constexpr ObjectProperties<ObjectPropertiesType::PLACEHOLDER_HERO> kProperties = {
+      constexpr ObjectProperties<ObjectPropertiesType::HERO_PLACEHOLDER> kProperties = {
         .owner = PlayerColor::Green,
         .type = HeroType{0xFF},
         .power_rating = 2
@@ -517,7 +517,7 @@ namespace h3m
       static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
 
       REQUIRE(asByteVector(encodeObjectProperties(kProperties)) == asByteVector(kBinaryData));
-      REQUIRE(decodeObjectProperties<ObjectPropertiesType::PLACEHOLDER_HERO>(kBinaryData) == kProperties);
+      REQUIRE(decodeObjectProperties<ObjectPropertiesType::HERO_PLACEHOLDER>(kBinaryData) == kProperties);
       REQUIRE(encodeAndDecodeJson(kProperties) == kProperties);
     }
   }
@@ -554,13 +554,14 @@ namespace h3m
     SECTION("Tied to town")
     {
       constexpr ObjectProperties<ObjectPropertiesType::RANDOM_DWELLING> kProperties = {
-        .owner = static_cast<std::uint32_t>(PlayerColor::Green),
+        .owner = PlayerColor::Green,
         .town_absod_id = 2026,
         .min_level = 4,
         .max_level = 6
       };
       static constexpr char kBinaryDataCStr[] =
-        "\x03\x00\x00\x00" // owner
+        "\x03"             // owner
+        "\x00\x00\x00"     // unknown
         "\xea\x07\x00\x00" // town_absod_id
         "\x04"             // min_level
         "\x06";            // max_level
@@ -572,7 +573,7 @@ namespace h3m
     SECTION("Not tied to town")
     {
       constexpr ObjectProperties<ObjectPropertiesType::RANDOM_DWELLING> kProperties = {
-        .owner = static_cast<std::uint32_t>(PlayerColor::Green),
+        .owner = PlayerColor::Green,
         .town_absod_id = 0,
         .alignment = []() consteval {
           TownsBitmask bitmask;
@@ -585,7 +586,8 @@ namespace h3m
         .max_level = 6
       };
       static constexpr char kBinaryDataCStr[] =
-        "\x03\x00\x00\x00" // owner
+        "\x03"             // owner
+        "\x00\x00\x00"     // unknown
         "\x00\x00\x00\x00" // town_absod_id
         "\x22\x01"         // alignment
         "\x04"             // min_level
@@ -600,12 +602,13 @@ namespace h3m
   TEST_CASE("H3M.ObjectProperties.RandomDwellingPresetAlignment", "[H3M]")
   {
     constexpr ObjectProperties<ObjectPropertiesType::RANDOM_DWELLING_PRESET_ALIGNMENT> kProperties = {
-      .owner = static_cast<std::uint32_t>(PlayerColor::Green),
+      .owner = PlayerColor::Green,
       .min_level = 4,
       .max_level = 6
     };
     static constexpr char kBinaryDataCStr[] =
-      "\x03\x00\x00\x00" // owner
+      "\x03"             // owner
+      "\x00\x00\x00"     // unknown
       "\x04"             // min_level
       "\x06";            // max_level
     static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
@@ -619,11 +622,12 @@ namespace h3m
     SECTION("Tied to town")
     {
       constexpr ObjectProperties<ObjectPropertiesType::RANDOM_DWELLING_PRESET_LEVEL> kProperties = {
-        .owner = static_cast<std::uint32_t>(PlayerColor::Green),
+        .owner = PlayerColor::Green,
         .town_absod_id = 2026
       };
       static constexpr char kBinaryDataCStr[] =
-        "\x03\x00\x00\x00"  // owner
+        "\x03"              // owner
+        "\x00\x00\x00"      // unknown
         "\xea\x07\x00\x00"; // town_absod_id
       static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
       REQUIRE(asByteVector(encodeObjectProperties(kProperties)) == asByteVector(kBinaryData));
@@ -633,7 +637,7 @@ namespace h3m
     SECTION("Not tied to town")
     {
       constexpr ObjectProperties<ObjectPropertiesType::RANDOM_DWELLING_PRESET_LEVEL> kProperties = {
-        .owner = static_cast<std::uint32_t>(PlayerColor::Green),
+        .owner = PlayerColor::Green,
         .town_absod_id = 0,
         .alignment = []() consteval {
           TownsBitmask bitmask;
@@ -644,7 +648,8 @@ namespace h3m
         }()
       };
       static constexpr char kBinaryDataCStr[] =
-        "\x03\x00\x00\x00" // owner
+        "\x03"             // owner
+        "\x00\x00\x00"     // unknown
         "\x00\x00\x00\x00" // town_absod_id
         "\x22\x01";        // alignment
       static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };

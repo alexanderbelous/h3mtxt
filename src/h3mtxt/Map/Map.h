@@ -53,7 +53,7 @@ namespace h3m
     // Basic information about the map ("Map Specifications"/"General" tab in the Editor).
     MapBasicInfo basic_info;
     // Settings for each player ("Map Specifications"/"Player specs" tab in the Editor).
-    EnumIndexedArray<PlayerColor, PlayerSpecs, kMaxPlayers> players {};
+    EnumIndexedArray<PlayerColor, PlayerSpecs, kMaxPlayers> players;
     // Additional information about the map ("Special Victory Condition", "Special Loss Condition",
     // "Teams", "Heroes", "Artifacts", "Spells", "Secondary Skills" and "Rumors" tabs in the Editor).
     MapAdditionalInfo additional_info;
@@ -68,7 +68,7 @@ namespace h3m
     // Objects on the Adventure Map.
     std::vector<Object> objects;
     // Global events on this map ("Map Specifications"/"Timed Events" tab in the Editor).
-    std::vector<TimedEvent> global_events;
+    std::vector<TimedEvent> timed_events;
     // Should be 0s. Kept here for compatibility.
     ReservedData<124> padding;
   };

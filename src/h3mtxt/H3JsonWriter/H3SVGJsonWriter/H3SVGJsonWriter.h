@@ -10,6 +10,65 @@
 // API for JSON serialization of structures used in HoMM3 saved game format.
 namespace Medea_NS
 {
+  // ============================================================
+  // Human-readable comments for enum values.
+  // ------------------------------------------------------------
+  template<>
+  std::string_view EnumCommentGetter::operator()(h3svg::ArtifactType8 value) const;
+
+  template<>
+  std::string_view EnumCommentGetter::operator()(h3svg::ArtifactType32 value) const;
+
+  template<>
+  std::string_view EnumCommentGetter::operator()(h3svg::CreatureType8 value) const;
+
+  template<>
+  std::string_view EnumCommentGetter::operator()(h3svg::CreatureType32 value) const;
+
+  template<>
+  std::string_view EnumCommentGetter::operator()(h3svg::HeroType16 value) const;
+
+  template<>
+  std::string_view EnumCommentGetter::operator()(h3svg::ObjectClass8 value) const;
+
+  template<>
+  std::string_view EnumCommentGetter::operator()(h3svg::ObjectClass16 value) const;
+
+  //
+
+  template<>
+  std::string_view EnumCommentGetter::operator()(h3svg::PrimarySkillType32 value) const;
+
+  template<>
+  std::string_view EnumCommentGetter::operator()(h3svg::ResourceType32 value) const;
+
+  template<>
+  std::string_view EnumCommentGetter::operator()(h3svg::SecondarySkillType32 value) const;
+
+  template<>
+  std::string_view EnumCommentGetter::operator()(h3svg::TownType32 value) const;
+
+  //
+
+  template<>
+  std::string_view EnumCommentGetter::operator()(h3svg::PlayerControlType value) const;
+
+  template<>
+  std::string_view EnumCommentGetter::operator()(h3svg::PlayerPersonality value) const;
+
+  template<>
+  std::string_view EnumCommentGetter::operator()(h3svg::PlayerStartingBonusType value) const;
+
+  template<>
+  std::string_view EnumCommentGetter::operator()(h3svg::PlayerTurnDurationType value) const;
+
+  template<>
+  std::string_view EnumCommentGetter::operator()(h3svg::SeerName value) const;
+
+  template<>
+  std::string_view EnumCommentGetter::operator()(h3svg::SpellType32 value) const;
+  // ============================================================
+
   template<>
   void JsonObjectWriter<h3svg::Artifact>::operator()(FieldsWriter& out, const h3svg::Artifact& artifact) const;
 

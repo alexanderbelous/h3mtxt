@@ -1,8 +1,6 @@
 #include <h3mtxt/H3JsonWriter/H3SVGJsonWriter/H3SVGJsonWriter.h>
 
 #include <h3mtxt/H3JsonWriter/H3MJsonWriter/H3MJsonWriter.h>
-#include <h3mtxt/H3JsonWriter/H3MJsonWriter/getEnumString.h>
-#include <h3mtxt/H3JsonWriter/H3SVGJsonWriter/getEnumString.h>
 #include <h3mtxt/JsonCommon/FieldNamesH3SVG.h>
 #include <h3mtxt/SavedGame/LossCondition.h>
 #include <h3mtxt/Medea/Medea.h>
@@ -28,12 +26,12 @@ namespace Medea_NS
     FieldsWriter& out, const h3svg::LossConditionDetails<h3svg::LossConditionType::LoseTown>& details) const;
 
   template
-    void JsonObjectWriter<h3svg::LossConditionDetails<h3svg::LossConditionType::TimeExpires>>::operator()(
-      FieldsWriter& out, const h3svg::LossConditionDetails<h3svg::LossConditionType::TimeExpires>& details) const;
+  void JsonObjectWriter<h3svg::LossConditionDetails<h3svg::LossConditionType::TimeExpires>>::operator()(
+    FieldsWriter& out, const h3svg::LossConditionDetails<h3svg::LossConditionType::TimeExpires>& details) const;
 
   template
-    void JsonObjectWriter<h3svg::LossConditionDetails<h3svg::LossConditionType::Normal>>::operator()(
-      FieldsWriter& out, const h3svg::LossConditionDetails<h3svg::LossConditionType::Normal>& details) const;
+  void JsonObjectWriter<h3svg::LossConditionDetails<h3svg::LossConditionType::Normal>>::operator()(
+    FieldsWriter& out, const h3svg::LossConditionDetails<h3svg::LossConditionType::Normal>& details) const;
 
   // Specialization for LossConditionType::LoseHero.
   template<>
@@ -42,10 +40,6 @@ namespace Medea_NS
   {
     using Fields = h3json::FieldNames<h3svg::LossConditionDetails<h3svg::LossConditionType::LoseHero>>;
     out.writeField(Fields::kHero, details.hero);
-    if (const std::string_view enum_str = getEnumString(details.hero); !enum_str.empty())
-    {
-      out.writeComment(enum_str, false);
-    }
   }
 
   void JsonObjectWriter<h3svg::LossCondition>::operator()(FieldsWriter& out,
@@ -53,7 +47,6 @@ namespace Medea_NS
   {
     using Fields = h3json::FieldNames<h3svg::LossCondition>;
     out.writeField(Fields::kType, loss_condition.type());
-    out.writeComment(getEnumString(loss_condition.type()), false);
     if (loss_condition.type() != h3svg::LossConditionType::Normal)
     {
       std::visit([&out] <h3svg::LossConditionType T> (const h3svg::LossConditionDetails<T>& details)

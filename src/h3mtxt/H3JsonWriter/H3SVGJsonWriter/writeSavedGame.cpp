@@ -2,9 +2,7 @@
 
 #include <h3mtxt/H3JsonWriter/H3MJsonWriter/CommentBuilder.h>
 #include <h3mtxt/H3JsonWriter/H3MJsonWriter/H3MJsonWriter.h>
-#include <h3mtxt/H3JsonWriter/H3MJsonWriter/getEnumString.h>
 #include <h3mtxt/H3JsonWriter/H3MJsonWriter/Utils.h>
-#include <h3mtxt/H3JsonWriter/H3SVGJsonWriter/getEnumString.h>
 #include <h3mtxt/JsonCommon/FieldNamesH3M.h>
 #include <h3mtxt/JsonCommon/FieldNamesH3SVG.h>
 #include <h3mtxt/Medea/Medea.h>
@@ -67,24 +65,12 @@ namespace Medea_NS
   {
     using Fields = h3json::FieldNames<h3svg::Player>;
     out.writeField(Fields::kPlayerColor, player.player_color);
-    if (std::string_view enum_str = getEnumString(player.player_color); !enum_str.empty())
-    {
-      out.writeComment(enum_str, false);
-    }
     out.writeField(Fields::kNumHeroes, player.num_heroes);
     out.writeField(Fields::kActiveHero, player.active_hero);
-    if (std::string_view enum_str = getEnumString(player.active_hero); !enum_str.empty())
-    {
-      out.writeComment(enum_str, false);
-    }
     out.writeField(Fields::kHeroes, player.heroes);
     out.writeField(Fields::kHeroesInTavern, player.heroes_in_tavern);
     out.writeField(Fields::kUnknown1, player.unknown1);
     out.writeField(Fields::kPersonality, player.personality);
-    if (std::string_view enum_str = getEnumString(player.personality); !enum_str.empty())
-    {
-      out.writeComment(enum_str, false);
-    }
     out.writeField(Fields::kUnknown2, player.unknown2);
     out.writeField(Fields::kDaysLeft, player.days_left);
     out.writeField(Fields::kNumTowns, player.num_towns);
@@ -106,10 +92,6 @@ namespace Medea_NS
     out.writeField(Fields::kCanBeHuman, player.can_be_human);
     out.writeField(Fields::kCanBeComputer, player.can_be_computer);
     out.writeField(Fields::kBehavior, player.behavior);
-    if (auto enum_str = getEnumString(player.behavior); !enum_str.empty())
-    {
-      out.writeComment(enum_str, false);
-    }
     out.writeField(Fields::kAllowedAlignments, player.allowed_alignments);
     out.writeField(Fields::kAllowRandomAlignment, player.allow_random_alignment);
     if (player.generated_hero_coordinates.has_value())
@@ -129,14 +111,7 @@ namespace Medea_NS
   void JsonArrayWriter<h3svg::ArtifactMerchants>::operator()(const ArrayElementsWriter& out,
                                                              const h3svg::ArtifactMerchants& artifact_merchants) const
   {
-    for (h3svg::ArtifactType32 artifact : artifact_merchants.artifacts)
-    {
-      out.writeElement(artifact);
-      if (std::string_view enum_str = getEnumString(artifact); !enum_str.empty())
-      {
-        out.writeComment(enum_str, false);
-      }
-    }
+    JsonArrayWriter<std::array<h3svg::ArtifactType32, 7>>{}(out, artifact_merchants.artifacts);
   }
 
   void JsonObjectWriter<h3svg::Object>::operator()(FieldsWriter& out, const h3svg::Object& object) const
@@ -158,7 +133,7 @@ namespace Medea_NS
     out.writeField(Fields::kUnknown2, object_template.unknown2);
     out.writeField(Fields::kActionability, object_template.actionability);
     out.writeField(Fields::kObjectClass, object_template.object_class);
-    if (std::string_view enum_str = getEnumString(static_cast<h3svg::ObjectClass>(object_template.object_class));
+    if (std::string_view enum_str = EnumCommentGetter{}(static_cast<h3svg::ObjectClass>(object_template.object_class));
         !enum_str.empty())
     {
       out.writeComment(enum_str, false);
@@ -233,10 +208,6 @@ namespace Medea_NS
     out.writeField(Fields::kStartingTowns, starting_info.starting_towns);
     out.writeField(Fields::kUnknown1, starting_info.unknown1);
     out.writeField(Fields::kDifficulty, starting_info.difficulty);
-    if (std::string_view enum_str = getEnumString(starting_info.difficulty); !enum_str.empty())
-    {
-      out.writeComment(enum_str, false);
-    }
     // TODO: it sucks that we serialize this as a JSON array rather than a string.
     // Consider serializing as a string, escaping unprintable characters.
     out.writeField(Fields::kMapFilename, starting_info.map_filename);
@@ -246,10 +217,6 @@ namespace Medea_NS
     out.writeField(Fields::kPlayersControl, starting_info.players_control);
     out.writeField(Fields::kUnknown2, starting_info.unknown2);
     out.writeField(Fields::kPlayerTurnDuration, starting_info.player_turn_duration);
-    if (std::string_view enum_str = getEnumString(starting_info.player_turn_duration); !enum_str.empty())
-    {
-      out.writeComment(enum_str, false);
-    }
     out.writeField(Fields::kStartingHeroes, starting_info.starting_heroes);
     out.writeField(Fields::kStartingBonuses, starting_info.starting_bonuses);
   }
@@ -259,31 +226,15 @@ namespace Medea_NS
     using Fields = h3json::FieldNames<h3svg::Town>;
     out.writeField(Fields::kId, town.id);
     out.writeField(Fields::kOwner, town.owner);
-    if (std::string_view enum_str = getEnumString(town.owner); !enum_str.empty())
-    {
-      out.writeComment(enum_str, false);
-    }
     out.writeField(Fields::kBuiltThisTurn, town.built_this_turn);
     out.writeField(Fields::kUnknown1, town.unknown1);
     out.writeField(Fields::kType, town.type);
-    if (std::string_view enum_str = getEnumString(town.type); !enum_str.empty())
-    {
-      out.writeComment(enum_str, false);
-    }
     out.writeField(Fields::kCoordinates, town.coordinates);
     out.writeField(Fields::kGeneratedBoatX, town.generated_boat_x);
     out.writeField(Fields::kGeneratedBoatY, town.generated_boat_y);
     out.writeField(Fields::kGarrison, town.garrison);
     out.writeField(Fields::kGarrisonedHero, town.garrisoned_hero);
-    if (std::string_view enum_str = getEnumString(town.garrisoned_hero); !enum_str.empty())
-    {
-      out.writeComment(enum_str, false);
-    }
     out.writeField(Fields::kVisitingHero, town.visiting_hero);
-    if (std::string_view enum_str = getEnumString(town.visiting_hero); !enum_str.empty())
-    {
-      out.writeComment(enum_str, false);
-    }
     out.writeField(Fields::kMageGuildLevel, town.mage_guild_level);
     out.writeField(Fields::kUnknown2, town.unknown2);
     out.writeField(Fields::kName, town.name);
@@ -310,16 +261,8 @@ namespace Medea_NS
     out.writeField(Fields::kManaVortexAvailable, properties.mana_vortex_available);
     out.writeField(Fields::kMysticPondResourceAmount, properties.mystic_pond_resource_amount);
     out.writeField(Fields::kMysticPondResourceType, properties.mystic_pond_resource_type);
-    if (std::string_view enum_str = getEnumString(properties.mystic_pond_resource_type); !enum_str.empty())
-    {
-      out.writeComment(enum_str, false);
-    }
     out.writeField(Fields::kUnknown, properties.unknown);
     out.writeField(Fields::kSummonedCreatureType, properties.summoned_creature_type);
-    if (std::string_view enum_str = getEnumString(properties.summoned_creature_type); !enum_str.empty())
-    {
-      out.writeComment(enum_str, false);
-    }
     out.writeField(Fields::kSummonedCreatureCount, properties.summoned_creature_count);
   }
 
@@ -335,30 +278,14 @@ namespace Medea_NS
   {
     using Fields = h3json::FieldNames<h3svg::Tile>;
     out.writeField(Fields::kTerrainType, tile.terrain_type);
-    if (std::string_view enum_str = getEnumString(tile.terrain_type); !enum_str.empty())
-    {
-      out.writeComment(enum_str, false);
-    }
     out.writeField(Fields::kTerrainSprite, tile.terrain_sprite);
     out.writeField(Fields::kRiverType, tile.river_type);
-    if (std::string_view enum_str = getEnumString(tile.river_type); !enum_str.empty())
-    {
-      out.writeComment(enum_str, false);
-    }
     out.writeField(Fields::kRiverSprite, tile.river_sprite);
     out.writeField(Fields::kRoadType, tile.road_type);
-    if (std::string_view enum_str = getEnumString(tile.road_type); !enum_str.empty())
-    {
-      out.writeComment(enum_str, false);
-    }
     out.writeField(Fields::kRoadSprite, tile.road_sprite);
     out.writeField(Fields::kFlags1, tile.flags1);
     out.writeField(Fields::kFlags2, tile.flags2);
     out.writeField(Fields::kObjectClass, tile.object_class);
-    if (std::string_view enum_str = getEnumString(tile.object_class); !enum_str.empty())
-    {
-      out.writeComment(enum_str, false);
-    }
     out.writeField(Fields::kObjectSubclass, tile.object_subclass);
     out.writeField(Fields::kObjectIdx, tile.object_idx);
     out.writeField(Fields::kObjectProperties, tile.object_properties);

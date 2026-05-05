@@ -1,9 +1,7 @@
 #include <h3mtxt/H3JsonWriter/H3SVGJsonWriter/H3SVGJsonWriter.h>
 
 #include <h3mtxt/H3JsonWriter/H3MJsonWriter/H3MJsonWriter.h>
-#include <h3mtxt/H3JsonWriter/H3MJsonWriter/getEnumString.h>
 #include <h3mtxt/H3JsonWriter/H3MJsonWriter/Utils.h>
-#include <h3mtxt/H3JsonWriter/H3SVGJsonWriter/getEnumString.h>
 #include <h3mtxt/JsonCommon/FieldNamesH3SVG.h>
 #include <h3mtxt/Map/Constants/ArtifactType.h>
 #include <h3mtxt/Medea/Medea.h>
@@ -14,17 +12,10 @@ namespace Medea_NS
   void JsonObjectWriter<h3svg::HeroArtifact>::operator()(FieldsWriter& out, const h3svg::HeroArtifact& artifact) const
   {
     out.writeField("type", artifact.type);
-    if (auto enum_str = getEnumString(artifact.type); !enum_str.empty())
-    {
-      out.writeComment(enum_str, false);
-    }
-    out.writeField("spell_type", artifact.spell_type);
+    out.writeField("spell_type", static_cast<std::underlying_type_t<h3svg::SpellType32>>(artifact.spell_type));
     if (artifact.type == static_cast<h3svg::ArtifactType32>(h3m::ArtifactType::SpellScroll))
     {
-      if (auto enum_str = getEnumString(artifact.spell_type); !enum_str.empty())
-      {
-        out.writeComment(enum_str, false);
-      }
+      out.writeComment(EnumCommentGetter{}(artifact.spell_type), false);
     }
   }
 
@@ -49,19 +40,11 @@ namespace Medea_NS
     out.writeField(Fields::kIsVisible, hero.is_visible);
     out.writeField(Fields::kCoordinatesPacked, hero.coordinates_packed);
     out.writeField(Fields::kObjectClassUnder, hero.object_class_under);
-    if (std::string_view enum_str = getEnumString(hero.object_class_under); !enum_str.empty())
-    {
-      out.writeComment(enum_str, false);
-    }
     out.writeField(Fields::kUnknown1, hero.unknown1);
     out.writeField(Fields::kIsFemale, hero.is_female);
     out.writeField(Fields::kUseCustomBiography, hero.use_custom_biography);
     out.writeField(Fields::kBiography, hero.biography);
     out.writeField(Fields::kOwner, hero.owner);
-    if (std::string_view enum_str = getEnumString(hero.owner); !enum_str.empty())
-    {
-      out.writeComment(enum_str, false);
-    }
     out.writeField(Fields::kPatrolRadius, hero.patrol_radius);
     out.writeField(Fields::kTempMorale, hero.temp_morale);
     out.writeField(Fields::kTempLuck, hero.temp_luck);
@@ -72,20 +55,8 @@ namespace Medea_NS
     out.writeField(Fields::kNumDimensionDoorCasts, hero.num_dimension_door_casts);
     out.writeField(Fields::kVisionsLevel, hero.visions_level);
     out.writeField(Fields::kType, hero.type);
-    if (std::string_view enum_str = getEnumString(hero.type); !enum_str.empty())
-    {
-      out.writeComment(enum_str, false);
-    }
     out.writeField(Fields::kHeroClass, hero.hero_class);
-    if (std::string_view enum_str = getEnumString(hero.hero_class); !enum_str.empty())
-    {
-      out.writeComment(enum_str, false);
-    }
     out.writeField(Fields::kPortrait, hero.portrait);
-    if (std::string_view enum_str = getEnumString(hero.portrait); !enum_str.empty())
-    {
-      out.writeComment(enum_str, false);
-    }
     out.writeField(Fields::kPatrolX, hero.patrol_x);
     out.writeField(Fields::kPatrolY, hero.patrol_y);
     out.writeField(Fields::kUnknown2, hero.unknown2);

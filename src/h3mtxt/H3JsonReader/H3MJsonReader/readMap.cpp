@@ -60,7 +60,7 @@ namespace h3json
     readField(map.tiles, value, Fields::kTiles);
     readField(map.objects_templates, value, Fields::kObjectsTemplates);
     map.objects = readObjects(getJsonField(value, Fields::kObjects), map.objects_templates);
-    readField(map.global_events, value, Fields::kGlobalEvents);
+    readField(map.timed_events, value, Fields::kTimedEvents);
     readField(map.padding, value, Fields::kPadding);
     return map;
   }

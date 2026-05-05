@@ -149,11 +149,11 @@ namespace h3m
 
   template<> void H3MWriter::writeData(const ObjectProperties<ObjectPropertiesType::HERO>& properties) const;
 
+  template<> void H3MWriter::writeData(const ObjectProperties<ObjectPropertiesType::HERO_PLACEHOLDER>& properties) const;
+
   template<> void H3MWriter::writeData(const ObjectProperties<ObjectPropertiesType::MONSTER>& properties) const;
 
   template<> void H3MWriter::writeData(const ObjectProperties<ObjectPropertiesType::PANDORAS_BOX>& properties) const;
-
-  template<> void H3MWriter::writeData(const ObjectProperties<ObjectPropertiesType::PLACEHOLDER_HERO>& properties) const;
 
   template<> void H3MWriter::writeData(const ObjectProperties<ObjectPropertiesType::QUEST_GUARD>& properties) const;
 

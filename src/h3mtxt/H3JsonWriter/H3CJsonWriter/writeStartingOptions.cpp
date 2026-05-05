@@ -1,8 +1,7 @@
 #include <h3mtxt/H3JsonWriter/H3CJsonWriter/H3CJsonWriter.h>
 
 #include <h3mtxt/Campaign/StartingOptions.h>
-#include <h3mtxt/H3JsonWriter/H3CJsonWriter/getEnumString.h>
-#include <h3mtxt/H3JsonWriter/H3MJsonWriter/getEnumString.h>
+#include <h3mtxt/H3JsonWriter/H3MJsonWriter/H3MJsonWriter.h>
 #include <h3mtxt/JsonCommon/FieldNamesH3C.h>
 #include <h3mtxt/Medea/Medea.h>
 
@@ -18,10 +17,6 @@ namespace Medea_NS
                     const h3m::StartingOptionsDetails<h3m::StartingOptionsType::HeroCrossover>::Hero& hero) const
     {
       out.writeField("player", hero.player);
-      if (std::string_view enum_str = h3m::getEnumString(hero.player); !enum_str.empty())
-      {
-        out.writeComment(enum_str, false);
-      }
       out.writeField("source_scenario", hero.source_scenario);
     }
   };
@@ -40,17 +35,13 @@ namespace Medea_NS
       {
         return {};
       }
-      return h3m::getEnumString(static_cast<h3m::HeroType>(hero));
+      return EnumCommentGetter{}(static_cast<h3m::HeroType>(hero));
     }
 
     void operator()(FieldsWriter& out,
                     const h3m::StartingOptionsDetails<h3m::StartingOptionsType::StartingHero>::Hero& hero) const
     {
       out.writeField("player", hero.player);
-      if (std::string_view enum_str = h3m::getEnumString(hero.player); !enum_str.empty())
-      {
-        out.writeComment(enum_str, false);
-      }
       out.writeField("type", hero.type);
       if (std::string_view enum_str = getHeroString(hero.type); !enum_str.empty())
       {
@@ -68,10 +59,6 @@ namespace Medea_NS
     FieldsWriter& out, const h3m::StartingOptionsDetails<h3m::StartingOptionsType::StartingBonus>& details) const
   {
     out.writeField("player", details.player);
-    if (std::string_view enum_str = h3m::getEnumString(details.player); !enum_str.empty())
-    {
-      out.writeComment(enum_str, false);
-    }
     out.writeField("options", details.options);
   }
 
@@ -92,10 +79,6 @@ namespace Medea_NS
   {
     using Fields = h3json::FieldNames<h3m::StartingOptions>;
     out.writeField(Fields::kType, starting_options.type());
-    if (std::string_view enum_str = h3m::getEnumString(starting_options.type()); !enum_str.empty())
-    {
-      out.writeComment(enum_str, false);
-    }
     std::visit([&out] <h3m::StartingOptionsType T> (const h3m::StartingOptionsDetails<T>& details)
                 { out.writeField(Fields::kDetails, details); },
                 starting_options.details);

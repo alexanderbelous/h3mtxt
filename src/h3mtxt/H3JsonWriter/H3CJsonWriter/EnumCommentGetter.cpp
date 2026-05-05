@@ -1,13 +1,14 @@
-#include <h3mtxt/H3JsonWriter/H3CJsonWriter/getEnumString.h>
+#include <h3mtxt/H3JsonWriter/H3CJsonWriter/H3CJsonWriter.h>
 
 #include <h3mtxt/Campaign/Constants/StartingBonusResourceType.h>
-#include <h3mtxt/H3JsonWriter/H3MJsonWriter/getEnumString.h>
+#include <h3mtxt/H3JsonWriter/H3MJsonWriter/H3MJsonWriter.h>
 
 #include <iterator>
 
-namespace h3m
+namespace Medea_NS
 {
-  std::string_view getEnumString(CampaignId value) noexcept
+  template<>
+  std::string_view EnumCommentGetter::operator()(h3m::CampaignId value) const
   {
     static constexpr std::string_view kNames[] = {
       std::string_view{},
@@ -36,7 +37,8 @@ namespace h3m
     return (idx < std::size(kNames)) ? kNames[idx] : std::string_view{};
   }
 
-  std::string_view getEnumString(CampaignMusic value) noexcept
+  template<>
+  std::string_view EnumCommentGetter::operator()(h3m::CampaignMusic value) const
   {
     static constexpr std::string_view kNames[] = {
       "CampainMusic01",
@@ -93,7 +95,8 @@ namespace h3m
     return (idx < std::size(kNames)) ? kNames[idx] : std::string_view{};
   }
 
-  std::string_view getEnumString(CampaignVideo value) noexcept
+  template<>
+  std::string_view EnumCommentGetter::operator()(h3m::CampaignVideo value) const
   {
     static constexpr std::string_view kNames[] = {
       "Good1_a",
@@ -202,22 +205,24 @@ namespace h3m
     return (idx < std::size(kNames)) ? kNames[idx] : std::string_view{};
   }
 
-  std::string_view getEnumString(StartingBonusResourceType value) noexcept
+  template<>
+  std::string_view EnumCommentGetter::operator()(h3m::StartingBonusResourceType value) const
   {
     switch (value)
     {
-    case StartingBonusResourceType::WoodOre:
+    case h3m::StartingBonusResourceType::WoodOre:
       return "Wood and Ore";
-    case StartingBonusResourceType::MercurySulfurCrystalGems:
+    case h3m::StartingBonusResourceType::MercurySulfurCrystalGems:
       return "Mercury, Sulfur, Crystal and Gems"; // Parsley, Sage, Rosemary and Thyme
     default:
       // StartingBonusResourceType is a superset of ResourceType,
-      // so we can fall back to getEnumString(ResourceType).
-      return getEnumString(static_cast<ResourceType>(value));
+      // so we can fall back to EnumCommentGetter::operator()(ResourceType).
+      return EnumCommentGetter::operator()(static_cast<h3m::ResourceType>(value));
     }
   }
 
-  std::string_view getEnumString(StartingBonusType value) noexcept
+  template<>
+  std::string_view EnumCommentGetter::operator()(h3m::StartingBonusType value) const
   {
     static constexpr std::string_view kNames[] = {
       "Spell",
@@ -233,7 +238,8 @@ namespace h3m
     return (idx < std::size(kNames)) ? kNames[idx] : std::string_view{};
   }
 
-  std::string_view getEnumString(StartingOptionsType value) noexcept
+  template<>
+  std::string_view EnumCommentGetter::operator()(h3m::StartingOptionsType value) const
   {
     static constexpr std::string_view kNames[] = {
       "None",

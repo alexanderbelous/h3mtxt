@@ -123,6 +123,19 @@ namespace h3m
   }
 
   template<>
+  void H3MWriter::writeData(const ObjectProperties<ObjectPropertiesType::HERO_PLACEHOLDER>& hero) const
+  {
+    constexpr HeroType kRandomHeroType {0xFF};
+
+    writeData(hero.owner);
+    writeData(hero.type);
+    if (hero.type == kRandomHeroType)
+    {
+      writeData(hero.power_rating);
+    }
+  }
+
+  template<>
   void H3MWriter::writeData(const ObjectProperties<ObjectPropertiesType::MONSTER>& monster) const
   {
     writeData(monster.absod_id);
@@ -141,19 +154,6 @@ namespace h3m
   }
 
   template<>
-  void H3MWriter::writeData(const ObjectProperties<ObjectPropertiesType::PLACEHOLDER_HERO>& hero) const
-  {
-    constexpr HeroType kRandomHeroType {0xFF};
-
-    writeData(hero.owner);
-    writeData(hero.type);
-    if (hero.type == kRandomHeroType)
-    {
-      writeData(hero.power_rating);
-    }
-  }
-
-  template<>
   void H3MWriter::writeData(const ObjectProperties<ObjectPropertiesType::QUEST_GUARD>& quest_guard) const
   {
     writeData(quest_guard.quest);
@@ -163,6 +163,7 @@ namespace h3m
   void H3MWriter::writeData(const ObjectProperties<ObjectPropertiesType::RANDOM_DWELLING>& dwelling) const
   {
     writeData(dwelling.owner);
+    writeData(dwelling.unknown);
     writeData(dwelling.town_absod_id);
     if (dwelling.town_absod_id == 0)
     {
@@ -176,6 +177,7 @@ namespace h3m
   void H3MWriter::writeData(const ObjectProperties<ObjectPropertiesType::RANDOM_DWELLING_PRESET_ALIGNMENT>& dwelling) const
   {
     writeData(dwelling.owner);
+    writeData(dwelling.unknown);
     writeData(dwelling.min_level);
     writeData(dwelling.max_level);
   }
@@ -184,6 +186,7 @@ namespace h3m
   void H3MWriter::writeData(const ObjectProperties<ObjectPropertiesType::RANDOM_DWELLING_PRESET_LEVEL>& dwelling) const
   {
     writeData(dwelling.owner);
+    writeData(dwelling.unknown);
     writeData(dwelling.town_absod_id);
     if (dwelling.town_absod_id == 0)
     {

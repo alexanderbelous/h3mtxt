@@ -96,6 +96,12 @@ namespace h3m
   };
 
   template<>
+  struct ObjectProperties<ObjectPropertiesType::NONE>
+  {
+    constexpr bool operator==(const ObjectProperties&) const noexcept = default;
+  };
+
+  template<>
   struct ObjectProperties<ObjectPropertiesType::ABANDONED_MINE>
   {
     constexpr bool operator==(const ObjectProperties&) const noexcept = default;
@@ -128,20 +134,13 @@ namespace h3m
   {
     constexpr bool operator==(const ObjectProperties&) const noexcept = default;
 
-    // 0xFF means no owner.
-    PlayerColor owner {};
+    PlayerColor owner = PlayerColor::None;
     ReservedData<3> unknown;
     // CreatureType::None is used in CreatureStack::type for empty slots.
     // CreatureStack::count can be negative - such stacks will be present in the garrison.
     std::array<CreatureStack, 7> creatures;
     Bool can_remove_units = true;
     ReservedData<8> unknown2;
-  };
-
-  template<>
-  struct ObjectProperties<ObjectPropertiesType::NONE>
-  {
-    constexpr bool operator==(const ObjectProperties&) const noexcept = default;
   };
 
   template<>
@@ -221,6 +220,33 @@ namespace h3m
     ReservedData<16> unknown;
   };
 
+  // Undocumented features:
+  // * You can effectively make a hero placeholder the visting hero of a town.
+  //   In order for a hero placeholder to start in the town, the coordinates of the Object
+  //   representing it must be exactly the same as the coordinates of the town (same as how it's
+  //   done for normal visiting heroes).
+  //   Both the Map Editor and the Unleashed Editor only allow setting specific and random heroes
+  //   as visiting heroes. In the Unleashed Editor you can manually move the hero placeholder to
+  //   the right tile, which will have the desired behavior, although the Unleashed Editor will
+  //   trigger a warning about object overlap.
+  //   Both the Map Editor and the Unleashed Editor incorrectly render such hero placeholders on
+  //   top of the town, instead of displaying them as the visiting hero in the town settings.
+  template<>
+  struct ObjectProperties<ObjectPropertiesType::HERO_PLACEHOLDER>
+  {
+    constexpr bool operator==(const ObjectProperties& other) const noexcept
+    {
+      return (owner == other.owner) &&
+             (type == other.type) &&
+             ((type != HeroType{ 0xFF }) || (power_rating == other.power_rating));
+    }
+
+    PlayerColor owner {};
+    HeroType type {};
+    // Only read/written if type == 0xFF.
+    std::uint8_t power_rating {};
+  };
+
   template<>
   struct ObjectProperties<ObjectPropertiesType::MONSTER>
   {
@@ -244,33 +270,6 @@ namespace h3m
     constexpr bool operator==(const ObjectProperties&) const noexcept = default;
   };
 
-  // Undocumented features:
-  // * You can effectively make a hero placeholder the visting hero of a town.
-  //   In order for a hero placeholder to start in the town, the coordinates of the Object
-  //   representing it must be exactly the same as the coordinates of the town (same as how it's
-  //   done for normal visiting heroes).
-  //   Both the Map Editor and the Unleashed Editor only allow setting specific and random heroes
-  //   as visiting heroes. In the Unleashed Editor you can manually move the hero placeholder to
-  //   the right tile, which will have the desired behavior, although the Unleashed Editor will
-  //   trigger a warning about object overlap.
-  //   Both the Map Editor and the Unleashed Editor incorrectly render such hero placeholders on
-  //   top of the town, instead of displaying them as the visiting hero in the town settings.
-  template<>
-  struct ObjectProperties<ObjectPropertiesType::PLACEHOLDER_HERO>
-  {
-    constexpr bool operator==(const ObjectProperties& other) const noexcept
-    {
-      return (owner == other.owner) &&
-             (type == other.type) &&
-             ((type != HeroType{ 0xFF }) || (power_rating == other.power_rating));
-    }
-
-    PlayerColor owner {};
-    HeroType type {};
-    // Only read/written if type == 0xFF.
-    std::uint8_t power_rating {};
-  };
-
   template<>
   struct ObjectProperties<ObjectPropertiesType::QUEST_GUARD>
   {
@@ -285,14 +284,15 @@ namespace h3m
     constexpr bool operator==(const ObjectProperties& other) const noexcept
     {
       return (owner == other.owner) &&
+             (unknown == other.unknown) &&
              (town_absod_id == other.town_absod_id) &&
              ((town_absod_id != 0) || (alignment == other.alignment)) &&
              (min_level == other.min_level) &&
              (max_level == other.max_level);
     }
 
-    // 0xFF if none.
-    std::uint32_t owner {};
+    PlayerColor owner = PlayerColor::None;
+    ReservedData<3> unknown;
     // absod_id of the town ("Random Dwelling Properties" -> "Alignment" -> "Same as").
     // If 0, the dwelling's alignment is not tied to a specific town.
     std::uint32_t town_absod_id {};
@@ -308,8 +308,8 @@ namespace h3m
   {
     constexpr bool operator==(const ObjectProperties&) const noexcept = default;
 
-    // 0xFF if none.
-    std::uint32_t owner {};
+    PlayerColor owner = PlayerColor::None;
+    ReservedData<3> unknown;
     std::uint8_t min_level = 0;
     std::uint8_t max_level = 6;
   };
@@ -320,12 +320,13 @@ namespace h3m
     constexpr bool operator==(const ObjectProperties& other) const noexcept
     {
       return (owner == other.owner) &&
+             (unknown == other.unknown) &&
              (town_absod_id == other.town_absod_id) &&
              ((town_absod_id != 0) || (alignment == other.alignment));
     }
 
-    // 0xFF if none.
-    std::uint32_t owner {};
+    PlayerColor owner = PlayerColor::None;
+    ReservedData<3> unknown;
     // absod_id of the town ("Random Dwelling Properties" -> "Alignment" -> "Same as").
     // If 0, the dwelling's alignment is not tied to a specific town.
     std::uint32_t town_absod_id {};
@@ -481,8 +482,7 @@ namespace h3m
     constexpr bool operator==(const ObjectProperties&) const noexcept = default;
 
     std::uint32_t absod_id {};
-    // 0xFF if none.
-    PlayerColor owner {};
+    PlayerColor owner = PlayerColor::None;
     // If std::nullopt, some default name will be assigned.
     std::optional<std::string> name;
     // * CreatureType::None is used in CreatureStack::type for empty slots.
@@ -509,8 +509,7 @@ namespace h3m
   {
     constexpr bool operator==(const ObjectProperties&) const noexcept = default;
 
-    // 0xFF means that there is no owner.
-    PlayerColor owner {};
+    PlayerColor owner = PlayerColor::None;
     ReservedData<3> unknown;
   };
 

@@ -188,7 +188,7 @@ namespace h3m
           }
         }
       },
-      .global_events = {
+      .timed_events = {
         TimedEvent{
           .name = "Good luck",
           .message = "Good luck!",
@@ -365,9 +365,9 @@ namespace h3m
       "\x00"                             //   ?primary_skills
       "\x00\x00\x00\x00\x00\x00\x00\x00" //   unknown
       "\x00\x00\x00\x00\x00\x00\x00\x00"
-      // global_events
+      // timed_events
       "\x01\x00\x00\x00"
-      //   global_events[0]
+      //   timed_events[0]
       "\x09\x00\x00\x00" "Good luck"                                     // name
       "\x0a\x00\x00\x00" "Good luck!"                                    // message
       "\xe2\xff\xff\xff" "\xe2\xff\xff\xff" "\xe2\xff\xff\xff"           // resources
