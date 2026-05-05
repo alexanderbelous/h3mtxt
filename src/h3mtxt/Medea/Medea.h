@@ -112,11 +112,13 @@ namespace Medea_NS
   };
 
   // Write std::array<T, N> on a single line by default if T is serialized as Bool, Int or UInt,
-  // otherwise over multiple lines.
+  // and EnumCommentGetter is not specialzied for T; otherwise over multiple lines.
   template<class T, std::size_t N>
-  inline constexpr bool kIsSingleLineByDefault<std::array<T, N>> = kJsonDataTypeFor<T> == JsonDataType::Bool ||
-                                                                   kJsonDataTypeFor<T> == JsonDataType::Int ||
-                                                                   kJsonDataTypeFor<T> == JsonDataType::UInt;
+  inline constexpr bool kIsSingleLineByDefault<std::array<T, N>> =
+    (kJsonDataTypeFor<T> == JsonDataType::Bool ||
+     kJsonDataTypeFor<T> == JsonDataType::Int ||
+     kJsonDataTypeFor<T> == JsonDataType::UInt) &&
+    !std::is_invocable_v<EnumCommentGetter, T>;
 
   // Partial specialization for std::vector.
   template<class T, class Alloc>
@@ -129,9 +131,11 @@ namespace Medea_NS
   };
 
   // Write std::vector<T, Alloc> on a single line by default if T is serialized as Bool, Int or UInt,
-  // otherwise over multiple lines.
+  // and EnumCommentGetter is not specialzied for T; otherwise over multiple lines.
   template<class T, class Alloc>
-  inline constexpr bool kIsSingleLineByDefault<std::vector<T, Alloc>> = kJsonDataTypeFor<T> == JsonDataType::Bool ||
-                                                                        kJsonDataTypeFor<T> == JsonDataType::Int ||
-                                                                        kJsonDataTypeFor<T> == JsonDataType::UInt;
+  inline constexpr bool kIsSingleLineByDefault<std::vector<T, Alloc>> =
+    (kJsonDataTypeFor<T> == JsonDataType::Bool ||
+     kJsonDataTypeFor<T> == JsonDataType::Int ||
+     kJsonDataTypeFor<T> == JsonDataType::UInt) &&
+    !std::is_invocable_v<EnumCommentGetter, T>;
 }

@@ -1,6 +1,5 @@
 #include <h3mtxt/H3JsonWriter/H3MJsonWriter/H3MJsonWriter.h>
 
-#include <h3mtxt/H3JsonWriter/H3MJsonWriter/getEnumString.h>
 #include <h3mtxt/H3JsonWriter/H3MJsonWriter/Utils.h>
 #include <h3mtxt/JsonCommon/FieldNamesH3M.h>
 #include <h3mtxt/Map/VictoryCondition.h>
@@ -23,10 +22,6 @@ namespace Medea_NS
   {
     JsonObjectWriter<h3m::SpecialVictoryConditionBase>{}(out, value);
     out.writeField("artifact_type", value.artifact_type);
-    if (std::string_view enum_str = h3m::getEnumString(value.artifact_type); !enum_str.empty())
-    {
-      out.writeComment(enum_str, false);
-    }
   }
 
   template<>
@@ -35,10 +30,6 @@ namespace Medea_NS
   {
     JsonObjectWriter<h3m::SpecialVictoryConditionBase>{}(out, value);
     out.writeField("creature_type", value.creature_type);
-    if (std::string_view enum_str = h3m::getEnumString(value.creature_type); !enum_str.empty())
-    {
-      out.writeComment(enum_str, false);
-    }
     out.writeField("count", value.count);
   }
 
@@ -48,10 +39,6 @@ namespace Medea_NS
   {
     JsonObjectWriter<h3m::SpecialVictoryConditionBase>{}(out, value);
     out.writeField("resource_type", value.resource_type);
-    if (std::string_view enum_str = h3m::getEnumString(value.resource_type); !enum_str.empty())
-    {
-      out.writeComment(enum_str, false);
-    }
     out.writeField("amount", value.amount);
   }
 
@@ -117,7 +104,8 @@ namespace Medea_NS
   {
     JsonObjectWriter<h3m::SpecialVictoryConditionBase>{}(out, value);
     out.writeField("artifact_type", value.artifact_type);
-    if (std::string_view enum_str = h3m::getEnumString(static_cast<h3m::ArtifactType>(value.artifact_type));
+    // value.artifact_type is not an enum (it's std::uint8_t), so the comment is not printed automatically.
+    if (std::string_view enum_str = EnumCommentGetter{}(static_cast<h3m::ArtifactType>(value.artifact_type));
         !enum_str.empty())
     {
       out.writeComment(enum_str, false);
@@ -150,7 +138,6 @@ namespace Medea_NS
   {
     using Fields = h3json::FieldNames<h3m::VictoryCondition>;
     out.writeField(Fields::kType, value.type());
-    out.writeComment(h3m::getEnumString(value.type()), false);
     if (value.type() != h3m::VictoryConditionType::Normal)
     {
       std::visit([&out] <h3m::VictoryConditionType T> (const h3m::VictoryConditionDetails<T>& details)

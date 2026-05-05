@@ -1,5 +1,6 @@
 #pragma once
 
+#include <string_view>
 #include <type_traits>
 
 namespace Medea_NS
@@ -55,6 +56,47 @@ namespace Medea_NS
     //     (it's not required to be std::string_view itself to support the case where the string is returned
     //     by value).
     // ResultType operator()(const T& value) const;
+  };
+
+  // Class for getting human-readable comments for enum constants.
+  //
+  // The optional header Medea.h specializes JsonScalarGetter and kJsonDataTypeFor for all enum types;
+  // by default, enums are serialized as their integer values. Even if you choose to customize serialization
+  // for your enum type (e.g., serialize it as a string), you might want to append comments for such values.
+  //
+  // While you can do it manually via ArrayElementsWriter::writeComment() and FieldsWriter::writeComment(),
+  // that causes some boilerplate. This class facilitates this process.
+  //
+  // Note that comments returned by EnumCommentGetter are always written on the same line as the value, e.g.:
+  //   "color": 42, // Red
+  //
+  // Example:
+  //   namespace Medea_NS
+  //   {
+  //     template<>
+  //     std::string_view EnumCommentGetter::operator()(Color value) const
+  //     {
+  //       switch(value)
+  //       {
+  //         case Color::Red:   return "Red";
+  //         case Color::Green: return "Green";
+  //         case Color::Blue:  return "Blue";
+  //         default:           return "";
+  //       }
+  //     }
+  //   }
+  struct EnumCommentGetter
+  {
+    // Returns a human-readable comment for the specified enum value.
+    //
+    // The function doesn't have to return std::string_view, but the type of the returned value
+    // must be convertible to std::string_view. For example, std::string can also be returned,
+    // although that's not recommended due to potential dynamic memory allocation.
+    //
+    // \param value - input enum value.
+    // \return a human-readable comment for @value.
+    template<class Enum>
+    std::string_view operator()(Enum value) const = delete;
   };
 
   // Variable template storing JsonDataType for the specified type T.

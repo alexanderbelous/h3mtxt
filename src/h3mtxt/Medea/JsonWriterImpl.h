@@ -198,6 +198,19 @@ namespace Medea_NS
       {
         static_assert(false, "Invalid kJsonDataTypeFor<T>.");
       }
+      // Append a comment for enum values, if needed.
+      if constexpr (std::is_enum_v<std::remove_cvref_t<T>>)
+      {
+        using Enum = std::remove_cvref_t<T>;
+        if constexpr (std::is_invocable_v<EnumCommentGetter, const Enum&>)
+        {
+          static_assert(std::is_convertible_v<std::invoke_result_t<EnumCommentGetter, const Enum&>,
+                                              std::string_view>,
+                        "EnumCommentGetter::operator()(Enum value) must return a value "
+                        "that is convertible to std::string_view");
+          writeComment(EnumCommentGetter{}(value), false);
+        }
+      }
     }
 
     template<class T>

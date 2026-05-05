@@ -1,8 +1,6 @@
 #include <h3mtxt/H3JsonWriter/H3CJsonWriter/H3CJsonWriter.h>
 
 #include <h3mtxt/Campaign/Campaign.h>
-#include <h3mtxt/H3JsonWriter/H3CJsonWriter/getEnumString.h>
-#include <h3mtxt/H3JsonWriter/H3MJsonWriter/getEnumString.h>
 #include <h3mtxt/H3JsonWriter/H3MJsonWriter/H3MJsonWriter.h>
 #include <h3mtxt/H3JsonWriter/H3MJsonWriter/Utils.h>
 #include <h3mtxt/JsonCommon/FieldNamesH3M.h>
@@ -23,17 +21,9 @@ namespace Medea_NS
     using Fields = h3json::FieldNames<h3m::CampaignHeader>;
     out.writeField(Fields::kFormat, campaign.format);
     out.writeField(Fields::kId, campaign.id);
-    if (std::string_view enum_str = h3m::getEnumString(campaign.id); !enum_str.empty())
-    {
-      out.writeComment(enum_str, false);
-    }
     out.writeField(Fields::kName, campaign.name);
     out.writeField(Fields::kDescription, campaign.description);
     out.writeField(Fields::kThemeMusic, campaign.theme_music);
-    if (std::string_view enum_str = h3m::getEnumString(campaign.theme_music); !enum_str.empty())
-    {
-      out.writeComment(enum_str, false);
-    }
     out.writeField(Fields::kAllowSelectingDifficulty, campaign.allow_selecting_difficulty);
     out.writeField(Fields::kScenarios, campaign.scenarios);
   }
@@ -46,10 +36,6 @@ namespace Medea_NS
     out.writeField(Fields::kPrerequisites, scenario.prerequisites);
     out.writeField(Fields::kRegionColor, scenario.region_color);
     out.writeField(Fields::kDefaultDifficulty, scenario.default_difficulty);
-    if (std::string_view enum_str = h3m::getEnumString(scenario.default_difficulty); !enum_str.empty())
-    {
-      out.writeComment(enum_str, false);
-    }
     out.writeField(Fields::kRegionRightClickText, scenario.region_right_click_text);
     if (scenario.prologue)
     {
@@ -75,15 +61,7 @@ namespace Medea_NS
   {
     using Fields = h3json::FieldNames<h3m::CutScene>;
     out.writeField(Fields::kMovie, cutscene.movie);
-    if (std::string_view enum_str = h3m::getEnumString(cutscene.movie); !enum_str.empty())
-    {
-      out.writeComment(enum_str, false);
-    }
     out.writeField(Fields::kMusic, cutscene.music);
-    if (std::string_view enum_str = h3m::getEnumString(cutscene.music); !enum_str.empty())
-    {
-      out.writeComment(enum_str, false);
-    }
     out.writeField(Fields::kMessage, cutscene.message);
   }
 }

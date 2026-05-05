@@ -1,6 +1,5 @@
 #include <h3mtxt/H3JsonWriter/H3MJsonWriter/H3MJsonWriter.h>
 
-#include <h3mtxt/H3JsonWriter/H3MJsonWriter/getEnumString.h>
 #include <h3mtxt/H3JsonWriter/H3MJsonWriter/Utils.h>
 #include <h3mtxt/JsonCommon/FieldNamesH3M.h>
 #include <h3mtxt/Map/Reward.h>
@@ -41,10 +40,6 @@ namespace Medea_NS
     FieldsWriter& out, const h3m::RewardDetails<h3m::RewardType::Resource>& details) const
   {
     out.writeField("type", details.type);
-    if (auto enum_str = h3m::getEnumString(details.type); !enum_str.empty())
-    {
-      out.writeComment(enum_str, false);
-    }
     out.writeField("amount", details.amount);
   }
 
@@ -52,10 +47,6 @@ namespace Medea_NS
     FieldsWriter& out, const h3m::RewardDetails<h3m::RewardType::PrimarySkill>& details) const
   {
     out.writeField("type", details.type);
-    if (auto enum_str = h3m::getEnumString(details.type); !enum_str.empty())
-    {
-      out.writeComment(enum_str, false);
-    }
     out.writeField("value", details.value);
   }
 
@@ -70,20 +61,12 @@ namespace Medea_NS
     FieldsWriter& out, const h3m::RewardDetails<h3m::RewardType::Artifact>& details) const
   {
     out.writeField("artifact", details.artifact);
-    if (auto enum_str = h3m::getEnumString(details.artifact); !enum_str.empty())
-    {
-      out.writeComment(enum_str, false);
-    }
   }
 
   void JsonObjectWriter<h3m::RewardDetails<h3m::RewardType::Spell>>::operator()(
     FieldsWriter& out, const h3m::RewardDetails<h3m::RewardType::Spell>& details) const
   {
     out.writeField("spell", details.spell);
-    if (auto enum_str = h3m::getEnumString(details.spell); !enum_str.empty())
-    {
-      out.writeComment(enum_str, false);
-    }
   }
 
   void JsonObjectWriter<h3m::RewardDetails<h3m::RewardType::Creature>>::operator()(
@@ -97,7 +80,6 @@ namespace Medea_NS
   {
     using Fields = h3json::FieldNames<h3m::Reward>;
     out.writeField(Fields::kType, reward.type());
-    out.writeComment(h3m::getEnumString(reward.type()), false);
     if (reward.type() != h3m::RewardType::None)
     {
       std::visit([&out] <h3m::RewardType T> (const h3m::RewardDetails<T>& details)

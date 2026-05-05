@@ -1,6 +1,5 @@
 #include <h3mtxt/H3JsonWriter/H3MJsonWriter/H3MJsonWriter.h>
 
-#include <h3mtxt/H3JsonWriter/H3MJsonWriter/getEnumString.h>
 #include <h3mtxt/H3JsonWriter/H3MJsonWriter/Utils.h>
 #include <h3mtxt/JsonCommon/FieldNamesH3M.h>
 #include <h3mtxt/Map/ObjectTemplate.h>
@@ -29,16 +28,8 @@ namespace Medea_NS
     out.writeField(Fields::kAllowedLandscapes, value.allowed_landscapes);
     out.writeField(Fields::kLandscapeGroup, value.landscape_group);
     out.writeField(Fields::kObjectClass, value.object_class);
-    if (std::string_view enum_str = h3m::getEnumString(value.object_class); !enum_str.empty())
-    {
-      out.writeComment(enum_str, false);
-    }
     out.writeField(Fields::kObjectSubclass, value.object_subclass);
     out.writeField(Fields::kObjectGroup, value.object_group);
-    if (std::string_view enum_str = h3m::getEnumString(value.object_group); !enum_str.empty())
-    {
-      out.writeComment(enum_str, false);
-    }
     out.writeField(Fields::kIsGround, value.is_ground);
     out.writeField(Fields::kUnknown, value.unknown);
   }

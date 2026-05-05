@@ -1,6 +1,5 @@
 add_library(H3CJsonWriter STATIC
-    "getEnumString.cpp"
-    "getEnumString.h"
+    "EnumCommentGetter.cpp"
     "H3CJsonWriter.h"
     "writeCampaign.cpp"
     "writeH3cJson.cpp"

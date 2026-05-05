@@ -1,4 +1,4 @@
-#include <h3mtxt/H3JsonWriter/H3MJsonWriter/getEnumString.h>
+#include <h3mtxt/H3JsonWriter/H3MJsonWriter/H3MJsonWriter.h>
 
 #include <h3mtxt/Map/Constants/ArtifactType.h>
 #include <h3mtxt/Map/Constants/Constants.h>
@@ -8,14 +8,15 @@
 #include <h3mtxt/Map/Constants/LossConditionType.h>
 #include <h3mtxt/Map/Constants/PlayerColor.h>
 #include <h3mtxt/Map/Constants/ScholarRewardType.h>
+#include <h3mtxt/Map/Constants/TownType.h>
 #include <h3mtxt/Map/Constants/VictoryConditionType.h>
 
 #include <iterator>
-#include <type_traits>
 
-namespace h3m
+namespace Medea_NS
 {
-  std::string_view getEnumString(ArtifactType value) noexcept
+  template<>
+  std::string_view EnumCommentGetter::operator()(h3m::ArtifactType value) const
   {
     static constexpr std::string_view kNames[] = {
       "Spellbook",
@@ -163,7 +164,7 @@ namespace h3m
       "Mired in Neutrality",
       "Ironfist of the Ogre"
     };
-    if (value == ArtifactType::None)
+    if (value == h3m::ArtifactType::None)
     {
       return "(None)";
     }
@@ -175,7 +176,8 @@ namespace h3m
     return {};
   }
 
-  std::string_view getEnumString(CreatureType value) noexcept
+  template<>
+  std::string_view EnumCommentGetter::operator()(h3m::CreatureType value) const
   {
     static constexpr std::string_view kNames[] = {
       "Creature 7 Upgrade",  // -15
@@ -366,7 +368,8 @@ namespace h3m
     return {};
   }
 
-  std::string_view getEnumString(Disposition value) noexcept
+  template<>
+  std::string_view EnumCommentGetter::operator()(h3m::Disposition value) const
   {
     static constexpr std::string_view kNames[] = {
       "Compliant",
@@ -379,35 +382,38 @@ namespace h3m
     return (idx < std::size(kNames)) ? kNames[idx] : std::string_view{};
   }
 
-  std::string_view getEnumString(Formation value) noexcept
+  template<>
+  std::string_view EnumCommentGetter::operator()(h3m::Formation value) const
   {
     switch (value)
     {
-    case Formation::Spread:
+    case h3m::Formation::Spread:
       return "Spread";
-    case Formation::Grouped:
+    case h3m::Formation::Grouped:
       return "Grouped";
     default:
       return {};
     }
   }
 
-  std::string_view getEnumString(Gender value) noexcept
+  template<>
+  std::string_view EnumCommentGetter::operator()(h3m::Gender value) const
   {
     switch (value)
     {
-    case Gender::Male:
+    case h3m::Gender::Male:
       return "Male";
-    case Gender::Female:
+    case h3m::Gender::Female:
       return "Female";
-    case Gender::Default:
+    case h3m::Gender::Default:
       return "Default";
     default:
       return {};
     }
   }
 
-  std::string_view getEnumString(HeroClass value) noexcept
+  template<>
+  std::string_view EnumCommentGetter::operator()(h3m::HeroClass value) const
   {
     static constexpr std::string_view kNames[] = {
       "Knight",
@@ -433,34 +439,36 @@ namespace h3m
     return (idx < std::size(kNames)) ? kNames[idx] : std::string_view{};
   }
 
-  std::string_view getEnumString(HeroPortrait value) noexcept
+  template<>
+  std::string_view EnumCommentGetter::operator()(h3m::HeroPortrait value) const
   {
     switch (value)
     {
-    case HeroPortrait::GeneralKendal:
+    case h3m::HeroPortrait::GeneralKendal:
       return "General Kendal";
-    case HeroPortrait::Christian2:
+    case h3m::HeroPortrait::Christian2:
       return "Christian2";
-    case HeroPortrait::Ordwald:
+    case h3m::HeroPortrait::Ordwald:
       return "Ordwald";
-    case HeroPortrait::Finneas:
+    case h3m::HeroPortrait::Finneas:
       return "Finneas";
-    case HeroPortrait::Gem2:
+    case h3m::HeroPortrait::Gem2:
       return "Gem2";
-    case HeroPortrait::Sandro2:
+    case h3m::HeroPortrait::Sandro2:
       return "Sandro2";
-    case HeroPortrait::Yog2:
+    case h3m::HeroPortrait::Yog2:
       return "Yog2";
-    case HeroPortrait::Default:
+    case h3m::HeroPortrait::Default:
       return "(Default)";
     default:
       // HeroPortrait is a superset of HeroType,
-      // so we can fall back to getEnumString(HeroType).
-      return getEnumString(static_cast<HeroType>(value));
+      // so we can fall back to EnumCommentGetter::operator()(HeroType).
+      return EnumCommentGetter::operator()(static_cast<h3m::HeroType>(value));
     }
   }
 
-  std::string_view getEnumString(HeroType value) noexcept
+  template<>
+  std::string_view EnumCommentGetter::operator()(h3m::HeroType value) const
   {
     static constexpr std::string_view kNames[] = {
       "Orrin",
@@ -624,7 +632,8 @@ namespace h3m
     return (idx < std::size(kNames)) ? kNames[idx] : std::string_view{};
   }
 
-  std::string_view getEnumString(MapDifficulty value) noexcept
+  template<>
+  std::string_view EnumCommentGetter::operator()(h3m::MapDifficulty value) const
   {
     static constexpr std::string_view kNames[] = {
       "Easy",
@@ -637,24 +646,26 @@ namespace h3m
     return (idx < std::size(kNames)) ? kNames[idx] : std::string_view{};
   }
 
-  std::string_view getEnumString(LossConditionType value) noexcept
+  template<>
+  std::string_view EnumCommentGetter::operator()(h3m::LossConditionType value) const
   {
     switch (value)
     {
-    case LossConditionType::LoseTown:
+    case h3m::LossConditionType::LoseTown:
       return "LoseTown";
-    case LossConditionType::LoseHero:
+    case h3m::LossConditionType::LoseHero:
       return "LoseHero";
-    case LossConditionType::TimeExpires:
+    case h3m::LossConditionType::TimeExpires:
       return "TimeExpires";
-    case LossConditionType::Normal:
+    case h3m::LossConditionType::Normal:
       return "Normal";
     default:
       return {};
     }
   }
 
-  std::string_view getEnumString(ObjectPropertiesType value) noexcept
+  template<>
+  std::string_view EnumCommentGetter::operator()(h3m::ObjectPropertiesType value) const
   {
     static constexpr std::string_view kNames[] = {
       "NONE",
@@ -689,7 +700,8 @@ namespace h3m
     return {};
   }
 
-  std::string_view getEnumString(ObjectClass value) noexcept
+  template<>
+  std::string_view EnumCommentGetter::operator()(h3m::ObjectClass value) const
   {
     static constexpr std::string_view kNames[] = {
       "NONE",
@@ -933,7 +945,8 @@ namespace h3m
     return {};
   }
 
-  std::string_view getEnumString(ObjectGroup value) noexcept
+  template<>
+  std::string_view EnumCommentGetter::operator()(h3m::ObjectGroup value) const
   {
     static constexpr std::string_view kNames[] = {
       "Terrain",
@@ -947,7 +960,8 @@ namespace h3m
     return (idx < std::size(kNames)) ? kNames[idx] : std::string_view{};
   }
 
-  std::string_view getEnumString(PlayerBehavior value) noexcept
+  template<>
+  std::string_view EnumCommentGetter::operator()(h3m::PlayerBehavior value) const
   {
     static constexpr std::string_view kNames[] = {
       "Random",
@@ -959,7 +973,8 @@ namespace h3m
     return (idx < std::size(kNames)) ? kNames[idx] : std::string_view{};
   }
 
-  std::string_view getEnumString(PlayerColor value) noexcept
+  template<>
+  std::string_view EnumCommentGetter::operator()(h3m::PlayerColor value) const
   {
     static constexpr std::string_view kNames[] = {
       "Red",
@@ -971,7 +986,7 @@ namespace h3m
       "Teal",
       "Pink"
     };
-    if (value == PlayerColor::None)
+    if (value == h3m::PlayerColor::None)
     {
       return "(None)";
     }
@@ -979,7 +994,8 @@ namespace h3m
     return (idx < std::size(kNames)) ? kNames[idx] : std::string_view{};
   }
 
-  std::string_view getEnumString(PrimarySkillType value) noexcept
+  template<>
+  std::string_view EnumCommentGetter::operator()(h3m::PrimarySkillType value) const
   {
     static constexpr std::string_view kNames[] = {
       "Attack",
@@ -991,7 +1007,8 @@ namespace h3m
     return (idx < std::size(kNames)) ? kNames[idx] : std::string_view{};
   }
 
-  std::string_view getEnumString(ResourceType value) noexcept
+  template<>
+  std::string_view EnumCommentGetter::operator()(h3m::ResourceType value) const
   {
     static constexpr std::string_view kNames[] = {
       "Wood",
@@ -1006,7 +1023,8 @@ namespace h3m
     return (idx < std::size(kNames)) ? kNames[idx] : std::string_view{};
   }
 
-  std::string_view getEnumString(RewardType value) noexcept
+  template<>
+  std::string_view EnumCommentGetter::operator()(h3m::RewardType value) const
   {
     static constexpr std::string_view kNames[] = {
       "None",
@@ -1025,29 +1043,26 @@ namespace h3m
     return (idx < std::size(kNames)) ? kNames[idx] : std::string_view{};
   }
 
-  std::string_view getEnumString(ScholarRandomRewardType) noexcept
-  {
-    return {};
-  }
-
-  std::string_view getEnumString(ScholarRewardType value) noexcept
+  template<>
+  std::string_view EnumCommentGetter::operator()(h3m::ScholarRewardType value) const
   {
     switch (value)
     {
-    case ScholarRewardType::PrimarySkill:
+    case h3m::ScholarRewardType::PrimarySkill:
       return "Primary skill";
-    case ScholarRewardType::SecondarySkill:
+    case h3m::ScholarRewardType::SecondarySkill:
       return "Secondary skill";
-    case ScholarRewardType::Spell:
+    case h3m::ScholarRewardType::Spell:
       return "Spell";
-    case ScholarRewardType::Random:
+    case h3m::ScholarRewardType::Random:
       return "Random";
     default:
       return {};
     }
   }
 
-  std::string_view getEnumString(SecondarySkillType value) noexcept
+  template<>
+  std::string_view EnumCommentGetter::operator()(h3m::SecondarySkillType value) const
   {
     static constexpr std::string_view kNames[] = {
       "Pathfinding",
@@ -1083,7 +1098,8 @@ namespace h3m
     return (idx < std::size(kNames)) ? kNames[idx] : std::string_view{};
   }
 
-  std::string_view getEnumString(SpellType value) noexcept
+  template<>
+  std::string_view EnumCommentGetter::operator()(h3m::SpellType value) const
   {
     static constexpr std::string_view kNames[] = {
       "Summon Boat",
@@ -1161,7 +1177,8 @@ namespace h3m
     return (idx < std::size(kNames)) ? kNames[idx] : std::string_view{};
   }
 
-  std::string_view getEnumString(TerrainType value) noexcept
+  template<>
+  std::string_view EnumCommentGetter::operator()(h3m::TerrainType value) const
   {
     static constexpr std::string_view kNames[] = {
       "Dirt",
@@ -1179,7 +1196,8 @@ namespace h3m
     return (idx < std::size(kNames)) ? kNames[idx] : std::string_view{};
   }
 
-  std::string_view getEnumString(TownType value) noexcept
+  template<>
+  std::string_view EnumCommentGetter::operator()(h3m::TownType value) const
   {
     static constexpr std::string_view kNames[] = {
       "Castle",
@@ -1192,11 +1210,16 @@ namespace h3m
       "Fortress",
       "Conflux"
     };
+    if (value == h3m::TownType::Random)
+    {
+      return "(Random)";
+    }
     const std::size_t idx = static_cast<std::size_t>(value);
     return (idx < std::size(kNames)) ? kNames[idx] : std::string_view{};
   }
 
-  std::string_view getEnumString(RiverType value) noexcept
+  template<>
+  std::string_view EnumCommentGetter::operator()(h3m::RiverType value) const
   {
     static constexpr std::string_view kNames[] = {
       "None",
@@ -1209,7 +1232,8 @@ namespace h3m
     return (idx < std::size(kNames)) ? kNames[idx] : std::string_view{};
   }
 
-  std::string_view getEnumString(RoadType value) noexcept
+  template<>
+  std::string_view EnumCommentGetter::operator()(h3m::RoadType value) const
   {
     static constexpr std::string_view kNames[] = {
       "None",
@@ -1221,7 +1245,8 @@ namespace h3m
     return (idx < std::size(kNames)) ? kNames[idx] : std::string_view{};
   }
 
-  std::string_view getEnumString(QuestType value) noexcept
+  template<>
+  std::string_view EnumCommentGetter::operator()(h3m::QuestType value) const
   {
     static constexpr std::string_view kNames[] = {
       "None",
@@ -1243,7 +1268,8 @@ namespace h3m
     return {};
   }
 
-  std::string_view getEnumString(VictoryConditionType value) noexcept
+  template<>
+  std::string_view EnumCommentGetter::operator()(h3m::VictoryConditionType value) const
   {
     static constexpr std::string_view kNames[] = {
       "AcquireArtifact",
@@ -1265,6 +1291,6 @@ namespace h3m
     {
       return kNames[idx];
     }
-    return value == VictoryConditionType::Normal ? "Normal" : std::string_view{};
+    return value == h3m::VictoryConditionType::Normal ? "Normal" : std::string_view{};
   }
 }
