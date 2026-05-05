@@ -15,7 +15,7 @@ namespace h3m
     Stronghold = 6,
     Fortress = 7,
     Conflux = 8,
-    // TODO: this probably shouldn't be an enum constant.
+    // Special value indicating a Random Town.
     Random = 0xFF,
   };
 }

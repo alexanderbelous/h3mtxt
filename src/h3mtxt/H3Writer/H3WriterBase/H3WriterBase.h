@@ -156,15 +156,9 @@ namespace h3mtxt
     }
     else
     {
-      static_assert(sizeof(T) <= sizeof(std::uintmax_t), "Integer type T is too wide.");
-
       // Optimization not possible, we'll have to write the bytes one by one.
-      // TODO: this is likely redundant, just cast to uintmax_t.
-      // Widest integer type with the same signedness as T.
-      using WidestInteger = std::conditional_t<std::is_signed_v<T>, std::intmax_t, std::uintmax_t>;
-      // Cast the input number to WidestInteger first, then to uintmax_t.
-      writeUintImpl(static_cast<std::uintmax_t>(static_cast<WidestInteger>(number)),
-                    sizeof(T));
+      static_assert(sizeof(T) <= sizeof(std::uintmax_t), "Integer type T is too wide.");
+      writeUintImpl(static_cast<std::uintmax_t>(number), sizeof(T));
     }
   }
 
