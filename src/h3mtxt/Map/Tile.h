@@ -1,5 +1,7 @@
 #pragma once
 
+#include <h3mtxt/Map/MapFwd.h>
+
 #include <h3mtxt/Map/Constants/TerrainType.h>
 #include <h3mtxt/Map/Constants/TileFlag.h>
 #include <h3mtxt/Map/Constants/RoadType.h>
@@ -26,6 +28,6 @@ namespace h3m
     std::uint8_t road_sprite = 0;
     // 8-bit bitmask storing flags for this tile.
     // See Map/Constants/TileFlag.h for the details for each flag.
-    TileFlags flags {};
+    TileFlags flags;
   };
 }

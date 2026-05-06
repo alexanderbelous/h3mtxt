@@ -15,7 +15,7 @@ namespace h3m
 
     // Coordinates of the bottom right corner.
     Coordinates coordinates;
-    // 0-based index of the corresponding ObjectTemplate in Map.objects_templates.
+    // 0-based index of the corresponding ObjectTemplate in Map::objects_templates.
     std::uint32_t template_idx {};
     // Should be all 0s; kept here for compatibility.
     ReservedData<5> unknown;

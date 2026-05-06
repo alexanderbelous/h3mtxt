@@ -12,6 +12,7 @@ namespace h3m
   {
     constexpr bool operator==(const HeroArtifacts&) const noexcept = default;
 
+    // The default value for HeroArtifacts::equipped: all slots are empty.
     static constexpr EnumIndexedArray<ArtifactSlot, ArtifactType, kNumArtifactSlots> kNoEquippedArtifacts =
       []() consteval
       {

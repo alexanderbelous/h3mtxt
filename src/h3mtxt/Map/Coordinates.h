@@ -6,6 +6,7 @@
 
 namespace h3m
 {
+  // Coordinates on the Adventure Map.
   struct Coordinates
   {
     constexpr bool operator==(const Coordinates&) const noexcept = default;

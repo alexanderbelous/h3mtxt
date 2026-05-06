@@ -109,7 +109,7 @@ namespace h3m
     // The field is somewhat useless - normally, when you enable it in the Editor it enables all town types. If you
     // enable it manually in the binary data but keep one or more town types disabled, the player will only be able
     // to choose one of the enabled types + Conflux.
-    Bool allow_random_alignment {};
+    Bool allow_random_alignment = false;
     // Info about the main town, std::nullopt if the player doesn't have a main town.
     //
     // Note: technically, you can specify a town that doesn't belong to this player. If generate_hero != 0,
@@ -152,7 +152,8 @@ namespace h3m
   constexpr bool StartingHero::operator==(const StartingHero& other) const noexcept
   {
     constexpr HeroType kNoHero = static_cast<HeroType>(-1);
-    return (type == other.type) && ((type == kNoHero) ||
-                                    ((portrait == other.portrait) && (name == other.name)));
+    return (type == other.type) &&
+           ((type == kNoHero) ||
+            ((portrait == other.portrait) && (name == other.name)));
   }
 }
