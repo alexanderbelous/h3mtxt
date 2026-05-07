@@ -4,6 +4,7 @@
 #include <h3mtxt/Medea/JsonWriterImpl.h>
 
 #include <string_view>
+#include <type_traits>
 
 namespace Medea_NS
 {

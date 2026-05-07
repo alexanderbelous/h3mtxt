@@ -5,6 +5,7 @@
 #include <h3mtxt/Campaign/Constants/StartingBonusType.h>
 #include <h3mtxt/Campaign/Constants/StartingOptionsType.h>
 
+#include <cstdint>
 #include <optional>
 #include <string>
 
