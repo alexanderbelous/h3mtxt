@@ -167,6 +167,12 @@ namespace h3m
       VictoryConditionDetails<VictoryConditionType::Normal>
     >;
 
+    // Returns the 0-based index of the alternative corresponding to the given VictoryConditionType.
+    // \param victory_condition_type - type of the victory condition.
+    // \return 0-based index of the alternative from VictoryCondition::Details that has the type
+    //         VictoryConditionDetails<victory_condition_type>, or std::variant_npos if there is no such alternative.
+    static constexpr std::size_t getAlternativeIdx(VictoryConditionType victory_condition_type) noexcept;
+
     // \return the type of the victory condition.
     constexpr VictoryConditionType type() const noexcept;
 
@@ -183,6 +189,16 @@ namespace h3m
     // Details of the victory condition.
     Details details = VictoryConditionDetails<VictoryConditionType::Normal>{};
   };
+
+  constexpr std::size_t VictoryCondition::getAlternativeIdx(VictoryConditionType victory_condition_type) noexcept
+  {
+    if (victory_condition_type == VictoryConditionType::Normal)
+    {
+      return static_cast<std::size_t>(kNumSpecialVictoryConditions);
+    }
+    const std::size_t idx = static_cast<std::size_t>(victory_condition_type);
+    return idx < kNumSpecialVictoryConditions ? idx : std::variant_npos;
+  }
 
   constexpr VictoryConditionType VictoryCondition::type() const noexcept
   {
