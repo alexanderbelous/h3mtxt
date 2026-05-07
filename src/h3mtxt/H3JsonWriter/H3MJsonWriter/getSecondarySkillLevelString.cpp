@@ -3,10 +3,13 @@
 #include <h3mtxt/Map/Constants/SecondarySkillLevel.h>
 #include <h3mtxt/Map/Constants/SecondarySkillType.h>
 
-namespace h3m
+namespace h3json
 {
   namespace
   {
+    using ::h3m::SecondarySkillLevel;
+    using ::h3m::SecondarySkillType;
+
     template<SecondarySkillType T>
     std::string_view getHexedSkillLevelString(std::uint8_t level) noexcept;
 
