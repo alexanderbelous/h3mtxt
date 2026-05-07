@@ -489,7 +489,7 @@ namespace h3json
   // \return the deserialized data as ObjectPropertiesVariant.
   ObjectPropertiesVariant readObjectPropertiesVariant(const Json::Value& value, ObjectPropertiesType object_properties_type)
   {
-    // Type of a pointer to a function that takes std::istream& and returns ObjectPropertiesVariant.
+    // Type of a pointer to a function that takes const Json::Value& and returns ObjectPropertiesVariant.
     using ReadObjectPropertiesPtr = ObjectPropertiesVariant(*)(const Json::Value&);
     // Generate (at compile time) an array of function pointers for each instantiation of
     // readObjectPropertiesAsVariant() ordered by ObjectPropertiesType.
