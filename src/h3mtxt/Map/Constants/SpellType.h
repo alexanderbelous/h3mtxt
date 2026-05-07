@@ -93,5 +93,9 @@ namespace h3m
     // DragonflyDispel     = 78,  // 0x4E
     // DeathStare          = 79,  // 0x4F
     // AcidBreath          = 80   // 0x50
+
+    // Special value indicating a random spell.
+    // As far as I understand, this can only be used in ObjectProperties<ObjectPropertiesType::SHRINE>.
+    Random              = 255  // 0xFF
   };
 }

@@ -339,11 +339,6 @@ namespace Medea_NS
     using Details = h3m::ObjectProperties<h3m::ObjectPropertiesType::SHRINE>;
     using Fields = h3json::FieldNames<Details>;
     out.writeField(Fields::kSpell, shrine.spell);
-    // TODO: consider adding h3m::SpellType::Random = 0xFF.
-    if (shrine.spell == h3m::SpellType{ 0xFF })
-    {
-      out.writeComment("(Random)", false);
-    }
     out.writeField(Fields::kUnknown, shrine.unknown);
   }
 

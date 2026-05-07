@@ -8,6 +8,7 @@
 #include <h3mtxt/Map/Constants/LossConditionType.h>
 #include <h3mtxt/Map/Constants/PlayerColor.h>
 #include <h3mtxt/Map/Constants/ScholarRewardType.h>
+#include <h3mtxt/Map/Constants/SpellType.h>
 #include <h3mtxt/Map/Constants/TownType.h>
 #include <h3mtxt/Map/Constants/VictoryConditionType.h>
 
@@ -1173,6 +1174,10 @@ namespace Medea_NS
       "Water Elemental",
       "Air Elemental"
     };
+    if (value == h3m::SpellType::Random)
+    {
+      return "(Random)";
+    }
     const std::size_t idx = static_cast<std::size_t>(value);
     return (idx < std::size(kNames)) ? kNames[idx] : std::string_view{};
   }

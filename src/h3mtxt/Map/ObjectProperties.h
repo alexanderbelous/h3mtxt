@@ -418,8 +418,7 @@ namespace h3m
   {
     constexpr bool operator==(const ObjectProperties&) const noexcept = default;
 
-    // 0xFF means random.
-    SpellType spell {0xFF};
+    SpellType spell = SpellType::Random;
     ReservedData<3> unknown;
   };
 
@@ -440,7 +439,7 @@ namespace h3m
     constexpr bool operator==(const ObjectProperties&) const noexcept = default;
 
     std::optional<Guardians> guardians;
-    // FYI: unlike SHRINE, 0xFF is not allowed here (causes the game to crash).
+    // FYI: unlike SHRINE, SpellType::Random is not allowed here (causes the game to crash).
     SpellType spell = SpellType::MagicArrow;
     ReservedData<3> unknown;
   };
