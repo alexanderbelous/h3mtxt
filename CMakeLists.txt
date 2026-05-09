@@ -13,6 +13,13 @@ project(
 # Use static (MT/MTd) Windows runtime.
 set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
 
+# Explicitly set BUILD_SHARED_LIBS to OFF.
+# All library targets in h3mtxt are declared as static libraries. Thirdparty libraries
+# are also linked statically; however, jsoncpp sets BUILD_SHARED_LIBS to ON by default,
+# which is undesirable because Catch2 uses that variable to determine whether to build
+# static or shared libraries.
+option(BUILD_SHARED_LIBS "Build using shared libraries." OFF)
+
 # Organize targets into folders (if supported by IDE).
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
