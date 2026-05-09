@@ -1,3 +1,5 @@
+![JSON demo](doc/json_demo.png)
+
 # h3mtxt
 Command-line utility for converting .h3m/.h3c files (maps and campaigns for Heroes of Might and Magic 3) to a human-readable format (JSON) or vice versa.
 
