@@ -3,6 +3,7 @@
 #include <h3mtxt/H3Writer/H3WriterBase/H3WriterBase.h>
 #include <h3mtxt/Map/MapFwd.h>
 #include <h3mtxt/Map/Constants/LossConditionType.h>
+#include <h3mtxt/Map/Constants/MapFormat.h>
 #include <h3mtxt/Map/Constants/ObjectPropertiesType.h>
 #include <h3mtxt/Map/Constants/RewardType.h>
 #include <h3mtxt/Map/Constants/QuestType.h>
@@ -18,9 +19,14 @@ namespace h3m
   public:
     // Constructs H3MWriter that will append data to the specified stream.
     // \param stream - stream to append data to.
-    explicit constexpr H3MWriter(std::ostream& stream) noexcept:
-      H3WriterBase{stream}
-    {}
+    // \param map_format - the expected format of the map. Currently, only
+    //        MapFormat::ArmageddonsBlade and MapFormat::ShadowOfDeath are supported.
+    // \throw std::invalid_argument if map_format is not supported.
+    explicit H3MWriter(std::ostream& stream,
+                       MapFormat map_format = MapFormat::ShadowOfDeath);
+
+    // \return MapFormat that was passed to the constructor.
+    constexpr MapFormat format() const noexcept;
 
     // Reintroduce writeData() from the base class, so that the new overloads in H3MWriter don't hide it.
     using H3WriterBase::writeData;
@@ -44,6 +50,21 @@ namespace h3m
 
     void writeData(const MainTown& value) const;
 
+    // Writes the given map into the underlying stream.
+    //
+    // FYI: this function always uses the format specified in Map::format, even if it differs
+    // from the MapFormat that *this was constructed with. For example,
+    // if map.format == MapFormat::ArmageddonsBlade, then
+    //   H3MWriter{ stream, MapFormat::ShadowOfDeath }.writeData(map);
+    // will still write it as a map for "Armageddon's Blade".
+    //
+    // If you want to convert a map to a different format, it should be done elsewhere:
+    // * Converting to a newer version is trivial: you can just assign the desired value to Map::format.
+    // * Converting to an older version is only straightforward if the map doesn't use any features from
+    //   the later expansions. For example, ArtifactSlot::Misc5 did not exist in Armageddon's Blade; if
+    //   the input SoD map has a hero with a non-empty Misc5 slot, what should be the result of conversion?
+    //
+    // \param map - input Map.
     void writeData(const Map& map) const;
 
     void writeData(const MapAdditionalInfo& value) const;
@@ -125,7 +146,14 @@ namespace h3m
 
   private:
     void writeEventBase(const EventBase& event) const;
+
+    MapFormat map_format_;
   };
+
+  constexpr MapFormat H3MWriter::format() const noexcept
+  {
+    return map_format_;
+  }
 
   template<> void H3MWriter::writeData(const LossConditionDetails<LossConditionType::LoseTown>& details) const;
 

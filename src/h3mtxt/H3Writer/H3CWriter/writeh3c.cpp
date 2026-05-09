@@ -55,7 +55,7 @@ namespace h3m
     // Write the header as a gzip stream.
     {
       zstr::ostream zstr_stream(stream);
-      H3CWriter writer{ zstr_stream };
+      H3CWriter writer{ zstr_stream, campaign.header.format };
       writer.writeData(campaign.header.format);
       writer.writeData(campaign.header.id);
       writer.writeData(campaign.header.name);

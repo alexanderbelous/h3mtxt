@@ -1,12 +1,31 @@
 #include <h3mtxt/H3JsonWriter/H3CJsonWriter/H3CJsonWriter.h>
 
+#include <h3mtxt/Campaign/Constants/CampaignFormat.h>
 #include <h3mtxt/Campaign/Constants/StartingBonusResourceType.h>
 #include <h3mtxt/H3JsonWriter/H3MJsonWriter/H3MJsonWriter.h>
+#include <h3mtxt/Map/Constants/MapFormat.h>
 
 #include <iterator>
 
 namespace Medea_NS
 {
+  template<>
+  std::string_view EnumCommentGetter::operator()(h3m::CampaignFormat value) const
+  {
+    // Reuse the implementation for MapFormat.
+    switch (value)
+    {
+    case h3m::CampaignFormat::RestorationOfErathia:
+      return (*this)(h3m::MapFormat::RestorationOfErathia);
+    case h3m::CampaignFormat::ArmageddonsBlade:
+      return (*this)(h3m::MapFormat::ArmageddonsBlade);
+    case h3m::CampaignFormat::ShadowOfDeath:
+      return (*this)(h3m::MapFormat::ShadowOfDeath);
+    default:
+      return {};
+    }
+  }
+
   template<>
   std::string_view EnumCommentGetter::operator()(h3m::CampaignId value) const
   {

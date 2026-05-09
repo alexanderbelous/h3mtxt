@@ -1,6 +1,7 @@
 #pragma once
 
 #include <h3mtxt/Campaign/CampaignFwd.h>
+#include <h3mtxt/Campaign/Constants/CampaignFormat.h>
 #include <h3mtxt/Campaign/Constants/CampaignMusic.h>
 #include <h3mtxt/Campaign/Constants/CampaignVideo.h>
 #include <h3mtxt/Campaign/Constants/CrossoverFeature.h>
@@ -28,6 +29,11 @@ namespace h3m
   struct CrossoverOptions
   {
     constexpr bool operator==(const CrossoverOptions&) const noexcept = default;
+
+    // Returns the number of meaningful bytes in CrossoverOptions::artifacts for the specified CampaignFormat.
+    // \param format - input CampaignFormat.
+    // \return the number of meaningful bytes in CrossoverOptions::artifacts for @format.
+    static constexpr std::uint8_t getArtifactsBitmaskLength(CampaignFormat format) noexcept;
 
     // The default value for CrossoverOptions::retained_features.
     // This reflects the behavior of the Campaign Editor: all features except Artifacts
@@ -77,4 +83,17 @@ namespace h3m
     CrossoverOptions crossover_options;
     StartingOptions starting_options;
   };
+
+  constexpr std::uint8_t CrossoverOptions::getArtifactsBitmaskLength(CampaignFormat format) noexcept
+  {
+    switch (format)
+    {
+    case CampaignFormat::ShadowOfDeath:
+      return ArtifactsBitmask::kNumBytes;
+    case CampaignFormat::ArmageddonsBlade:
+      return ArtifactsBitmask::kNumBytes - 1;
+    default:
+      return 0;
+    }
+  }
 }

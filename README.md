@@ -11,7 +11,7 @@ HoMM3 maps are written as (possibly gzip-encoded) binary data. Normally, they ar
 
 Or, if you want, you can use the C++ API from this repository to programmatically modify a [`h3m::Map`](src/h3mtxt/Map/Map.h) (or [`h3m::Campaign`](src/h3mtxt/Campaign/Campaign.h)) object.
 
-Note: only **Shadow of Death** maps are supported. Currently, I have no plans to support other versions (e.g., Restoration of Erathia) or mods.
+Note: only **Armageddon's Blade** and **Shadow of Death** maps are supported. Currently, I have no plans to support other versions (e.g., Restoration of Erathia) or mods.
 
 # Usage
 Just pass the paths to the input map or campaign (.h3m/.h3c or JSON) and the output file:

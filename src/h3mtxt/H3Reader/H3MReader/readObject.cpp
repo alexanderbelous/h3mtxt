@@ -211,7 +211,7 @@ namespace h3m
     {
       data.name = readString32();
     }
-    const Bool has_experience = readBool();
+    const Bool has_experience = (map_format_ == MapFormat::ShadowOfDeath) ? readBool() : true;
     if (has_experience)
     {
       data.experience = readInt<std::int32_t>();
@@ -245,15 +245,35 @@ namespace h3m
       data.biography = readString32();
     }
     data.gender = readEnum<Gender>();
-    const Bool has_spells = readBool();
-    if (has_spells)
+    if (map_format_ == MapFormat::ShadowOfDeath)
     {
-      data.spells = readEnumBitmask<SpellType, 9>();
+      const Bool has_spells = readBool();
+      if (has_spells)
+      {
+        data.spells = readEnumBitmask<SpellType, 9>();
+      }
     }
-    const Bool has_primary_skills = readBool();
-    if (has_primary_skills)
+    else
     {
-      data.primary_skills = readPrimarySkills();
+      const SpellType spell = readEnum<SpellType>();
+      // 0xFE means SpellType::Default.
+      if (spell != SpellType::Default)
+      {
+        SpellsBitmask& spells = data.spells.emplace();
+        // 0xFF means no spells.
+        if (spell != SpellType{ 0xFF })
+        {
+          spells.set(spell, true);
+        }
+      }
+    }
+    if (map_format_ == MapFormat::ShadowOfDeath)
+    {
+      const Bool has_primary_skills = readBool();
+      if (has_primary_skills)
+      {
+        data.primary_skills = readPrimarySkills();
+      }
     }
     data.unknown = readReservedData<16>();
     return data;
@@ -479,7 +499,10 @@ namespace h3m
     {
       town.events.push_back(readTownEvent());
     }
-    town.alignment = readInt<std::uint8_t>();
+    if (map_format_ == MapFormat::ShadowOfDeath)
+    {
+      town.alignment = readInt<std::uint8_t>();
+    }
     town.unknown = readReservedData<3>();
     return town;
   }

@@ -6,6 +6,7 @@
 #include <h3mtxt/Map/Constants/Gender.h>
 #include <h3mtxt/Map/Constants/HeroPortrait.h>
 #include <h3mtxt/Map/Constants/LossConditionType.h>
+#include <h3mtxt/Map/Constants/MapFormat.h>
 #include <h3mtxt/Map/Constants/PlayerColor.h>
 #include <h3mtxt/Map/Constants/ScholarRewardType.h>
 #include <h3mtxt/Map/Constants/SpellType.h>
@@ -645,6 +646,22 @@ namespace Medea_NS
     };
     const std::size_t idx = static_cast<std::size_t>(value);
     return (idx < std::size(kNames)) ? kNames[idx] : std::string_view{};
+  }
+
+  template<>
+  std::string_view EnumCommentGetter::operator()(h3m::MapFormat value) const
+  {
+    switch (value)
+    {
+    case h3m::MapFormat::RestorationOfErathia:
+      return "Restoration of Erathia";
+    case h3m::MapFormat::ArmageddonsBlade:
+      return "Armageddon's Blade";
+    case h3m::MapFormat::ShadowOfDeath:
+      return "Shadow of Death";
+    default:
+      return {};
+    }
   }
 
   template<>

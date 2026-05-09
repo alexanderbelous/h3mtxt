@@ -21,6 +21,7 @@ namespace h3m
         return artifacts;
       }();
 
+    // FYI: ArtifactSlot::Misc5 is only meaningful for MapFormat::ShadowOfDeath.
     EnumIndexedArray<ArtifactSlot, ArtifactType, kNumArtifactSlots> equipped = kNoEquippedArtifacts;
     std::vector<ArtifactType> backpack;
   };

@@ -8,7 +8,7 @@ namespace h3m
   {
     writeData(options.retained_features);
     writeData(options.creatures);
-    writeData(options.artifacts);
+    writeSpan(std::span{ options.artifacts.bitset.data }.first(CrossoverOptions::getArtifactsBitmaskLength(format_)));
   }
 
   void H3CWriter::writeData(const CutScene& cutscene) const

@@ -40,6 +40,14 @@ namespace h3m
 
   void H3MWriter::writeData(const Map& map) const
   {
+    if (map.format != map_format_)
+    {
+      // Strictly speaking, this is an error, but it's recoverable: we can simply
+      // construct a temporary H3MWriter with the correct MapFormat.
+      // TODO: this is actually ambiguous: alternatively, we can convert the map here,
+      // e.g., write an AB map as SoD.
+      return H3MWriter{ stream_, map.format }.writeData(map);
+    }
     // Check tha the map is grammatically (not necessarily semantically) correct.
     checkMap(map);
 

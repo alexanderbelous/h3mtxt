@@ -8,6 +8,8 @@
 
 namespace h3m
 {
+  enum class CampaignFormat : std::uint32_t;
+
   enum class CampaignId : std::uint8_t;
 
   enum class CampaignMusic : std::uint8_t;

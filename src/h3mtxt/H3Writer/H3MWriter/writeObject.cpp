@@ -3,6 +3,26 @@
 
 namespace h3m
 {
+  namespace
+  {
+    SpellType getHeroSpellAB(const std::optional<SpellsBitmask>& spells)
+    {
+      if (spells.has_value())
+      {
+        for (std::size_t i = 0; i < SpellsBitmask::kNumBits; ++i)
+        {
+          if (spells->bitset[i])
+          {
+            // TODO: consider reporting an error if more than 1 spell is enabled.
+            return static_cast<SpellType>(i);
+          }
+        }
+        return SpellType{ 0xFF }; // Special value for None.
+      }
+      return SpellType::Default;
+    }
+  }
+
   void H3MWriter::writeEventBase(const EventBase& event) const
   {
     writeData(event.guardians);
@@ -103,7 +123,14 @@ namespace h3m
     writeData(hero.owner);
     writeData(hero.type);
     writeData(hero.name);
-    writeData(hero.experience);
+    if (map_format_ == MapFormat::ShadowOfDeath)
+    {
+      writeData(hero.experience);
+    }
+    else
+    {
+      writeData(hero.experience.value_or(0));
+    }
     writeData(hero.portrait);
     writeData(static_cast<Bool>(hero.secondary_skills.has_value()));
     if (hero.secondary_skills)
@@ -117,8 +144,21 @@ namespace h3m
     writeData(hero.patrol_radius);
     writeData(hero.biography);
     writeData(hero.gender);
-    writeData(hero.spells);
-    writeData(hero.primary_skills);
+    switch (map_format_)
+    {
+    case MapFormat::ShadowOfDeath:
+      writeData(hero.spells);
+      break;
+    case MapFormat::ArmageddonsBlade:
+      writeData(getHeroSpellAB(hero.spells));
+      break;
+    default:
+      break;
+    }
+    if (map_format_ == MapFormat::ShadowOfDeath)
+    {
+      writeData(hero.primary_skills);
+    }
     writeData(hero.unknown);
   }
 
@@ -272,7 +312,10 @@ namespace h3m
     writeData(town.may_not_have_spell);
     writeData(safeCastVectorSize<std::uint32_t>(town.events.size()));
     writeSpan(std::span{ town.events });
-    writeData(town.alignment);
+    if (map_format_ == MapFormat::ShadowOfDeath)
+    {
+      writeData(town.alignment);
+    }
     writeData(town.unknown);
   }
 

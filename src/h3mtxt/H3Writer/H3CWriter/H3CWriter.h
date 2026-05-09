@@ -2,6 +2,7 @@
 
 #include <h3mtxt/H3Writer/H3WriterBase/H3WriterBase.h>
 #include <h3mtxt/Campaign/CampaignFwd.h>
+#include <h3mtxt/Campaign/Constants/CampaignFormat.h>
 #include <h3mtxt/Campaign/Constants/StartingBonusType.h>
 #include <h3mtxt/Campaign/Constants/StartingOptionsType.h>
 
@@ -17,9 +18,12 @@ namespace h3m
   public:
     // Constructs H3CWriter that will append data to the specified stream.
     // \param stream - stream to append data to.
-    explicit constexpr H3CWriter(std::ostream& stream) noexcept :
-      H3WriterBase{ stream }
-    {}
+    // \param format - the expected CampaignFormat.
+    // \throw std::invalid_argument if @format is not supported.
+    explicit H3CWriter(std::ostream& stream, CampaignFormat format = CampaignFormat::ShadowOfDeath);
+
+    // \return CampaignFormat that was passed to the constructor.
+    constexpr CampaignFormat format() const noexcept;
 
     // Reintroduce writeData() from the base class, so that the new overloads in H3CWriter don't hide it.
     using H3WriterBase::writeData;
@@ -62,7 +66,15 @@ namespace h3m
     // Appends std::optional to the binary stream.
     template<class T>
     void writeData(const std::optional<T>& value) const;
+
+  private:
+    CampaignFormat format_;
   };
+
+  constexpr CampaignFormat H3CWriter::format() const noexcept
+  {
+    return format_;
+  }
 
   template<>
   void H3CWriter::writeData(const StartingBonusDetails<StartingBonusType::Spell>& details) const;

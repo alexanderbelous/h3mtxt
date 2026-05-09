@@ -1,4 +1,5 @@
 add_library(H3MReader STATIC
+    "H3MReader.cpp"
     "H3MReader.h"
     "parseh3m.cpp"
     "parseh3m.h"

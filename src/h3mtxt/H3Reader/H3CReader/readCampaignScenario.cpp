@@ -3,6 +3,9 @@
 #include <h3mtxt/Campaign/Constants/CampaignId.h>
 #include <h3mtxt/Campaign/CampaignScenario.h>
 
+#include <span>
+#include <type_traits>
+
 namespace h3m
 {
   CrossoverOptions H3CReader::readCrossoverOptions() const
@@ -10,7 +13,19 @@ namespace h3m
     CrossoverOptions options;
     options.retained_features = readEnumBitmask<CrossoverFeature, 1>();
     options.creatures = readEnumBitmask<CreatureType, 19>();
-    options.artifacts = readEnumBitmask<ArtifactType, 18>();
+    const std::span<std::uint8_t> artifacts_bitmask_data =
+      std::span{ options.artifacts.bitset.data }.first(CrossoverOptions::getArtifactsBitmaskLength(format_));
+    if constexpr (std::is_same_v<std::uint8_t, unsigned char>)
+    {
+      readBytes(std::as_writable_bytes(artifacts_bitmask_data));
+    }
+    else
+    {
+      for (std::uint8_t& byte : artifacts_bitmask_data)
+      {
+        byte = readInt<std::uint8_t>();
+      }
+    }
     return options;
   }
 

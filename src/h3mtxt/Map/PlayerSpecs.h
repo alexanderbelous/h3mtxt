@@ -101,6 +101,7 @@ namespace h3m
     PlayerBehavior behavior = PlayerBehavior::Random;
     // True if the player's alignment is customized, false otherwise.
     // This reflects the state of the "Customize" checkbox in "Map Specifications/Player Specs/Allowed alignments".
+    // Only meaningful for MapFormat::ShadowOfDeath.
     Bool has_customized_alignments = false;
     TownsBitmask allowed_alignments;
     // True if Random alignment is enabled, false otherwise.

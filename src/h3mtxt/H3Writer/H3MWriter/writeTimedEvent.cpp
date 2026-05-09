@@ -9,7 +9,10 @@ namespace h3m
     writeData(event.message);
     writeData(event.resources);
     writeData(event.affected_players);
-    writeData(event.applies_to_human);
+    if (map_format_ == MapFormat::ShadowOfDeath)
+    {
+      writeData(event.applies_to_human);
+    }
     writeData(event.applies_to_computer);
     writeData(event.day_of_first_occurence);
     writeData(event.repeat_after_days);

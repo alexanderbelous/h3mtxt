@@ -6,9 +6,9 @@ namespace h3m
   HeroArtifacts H3MReader::readHeroArtifacts() const
   {
     HeroArtifacts artifacts;
-    for (ArtifactType& artifact : artifacts.equipped.data)
+    for (std::size_t i = 0; i < countArtifactSlots(map_format_); ++i)
     {
-      artifact = readEnum<ArtifactType>();
+      artifacts.equipped.data[i] = readEnum<ArtifactType>();
     }
     const std::uint16_t backpack_count = readInt<std::uint16_t>();
     artifacts.backpack.reserve(backpack_count);

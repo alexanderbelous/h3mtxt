@@ -25,7 +25,10 @@ namespace h3m
     writeData(value.can_be_human);
     writeData(value.can_be_computer);
     writeData(value.behavior);
-    writeData(value.has_customized_alignments);
+    if (map_format_ == MapFormat::ShadowOfDeath)
+    {
+      writeData(value.has_customized_alignments);
+    }
     writeData(value.allowed_alignments);
     writeData(value.allow_random_alignment);
     writeData(value.main_town);
