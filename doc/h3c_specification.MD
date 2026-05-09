@@ -2,7 +2,7 @@
 
 ## Introduction
 
-This document describes the H3C file format used by *Heroes of Might and Magic 3* for campaigns. It specifically addresses **The Shadow of Death** campaigns - I haven't checked if the other versions (i.e. "The Restoration of Erathia" and "Armageddon's Blade") use the same format.
+This document describes the H3C file format used by *Heroes of Might and Magic 3* for campaigns. It specifically addresses **Armageddon's Blade** and **The Shadow of Death** campaigns - "The Restoration of Erathia" uses a different format, which is not covered here.
 
 An H3C file is a concatenated sequence of sections:
 * Campaign header
@@ -122,7 +122,7 @@ See [`CampaignHeader`](#CampaignHeader) for more information about `NUM_REGIONS`
 | ?prologue               | [`CutScene`](#CutScene)                 | varies        | Only present if `has_prologue` is nonzero                    |
 | has_epilogue            | `Bool`                                  | 1             | 0 if there is no epilogue, nonzero otherwise                 |
 | ?epilogue               | [`CutScene`](#CutScene)                 | varies        | Only present if `has_epilogue` is nonzero                    |
-| crossover_options       | [`CrossoverOptions`](#CrossoverOptions) | 38            | Describes what crossover heroes retain                       |
+| crossover_options       | [`CrossoverOptions`](#CrossoverOptions) | varies        | Describes what crossover heroes retain. Size is 38 bytes in SoD, but 37 in AB |
 | starting_options        | [`StartingOptions`](#StartingOptions)   | varies        | Starting options that the player can choose from in the main menu |
 
 
@@ -139,7 +139,7 @@ See [`CampaignHeader`](#CampaignHeader) for more information about `NUM_REGIONS`
 | ----------------- | ----------- | ------------- | ----------------------------------------------------------------------------------------- |
 | retained_features | `uint8`     | 1             | Bitmask; 1 bit per enum `CrossoverFeature`, indicating if this feature is retained        |
 | creatures         | `uint8[19]` | 19            | Bitmask; 1 bit per enum `CreatureType`, indicating if creatures of this type are retained |
-| artifacts         | `uint8[18]` | 18            | Bitmask; 1 bit per enum `ArtifactType`, indicating if artifacts of this type are retained |
+| artifacts         | `uint8[NUM_BYTES]` | varies        | Bitmask; 1 bit per enum `ArtifactType`, indicating if artifacts of this type are retained. `NUM_BYTES` is 18 in SoD, but 17 in AB |
 
 
 ### `StartingOptions`
