@@ -1,4 +1,5 @@
 #include <h3mtxt/H3Reader/H3MReader/H3MReader.h>
+#include <h3mtxt/Map/Utils/FeatureTesting.h>
 #include <h3mtxt/Map/PlayerSpecs.h>
 
 namespace h3m
@@ -17,8 +18,14 @@ namespace h3m
   MainTown H3MReader::readMainTown() const
   {
     MainTown main_town;
-    main_town.generate_hero = readBool();
-    main_town.town_type = readEnum<TownType>();
+    if (FeatureTesting{ map_format_ }.generateHeroAtMainTown())
+    {
+      main_town.generate_hero = readBool();
+    }
+    if (FeatureTesting{ map_format_ }.mainTownType())
+    {
+      main_town.town_type = readEnum<TownType>();
+    }
     main_town.coordinates = readCoordinates();
     return main_town;
   }
@@ -41,11 +48,12 @@ namespace h3m
     player.can_be_human = readBool();
     player.can_be_computer = readBool();
     player.behavior = readEnum<PlayerBehavior>();
-    if (map_format_ == MapFormat::ShadowOfDeath)
+    if (FeatureTesting{ map_format_ }.customizedAlignments())
     {
       player.has_customized_alignments = readInt<std::uint8_t>();
     }
-    player.allowed_alignments.bitset = readBitSet<2>();
+    player.allowed_alignments =
+      readEnumBitmask<TownType, 2>(FeatureTesting{ map_format_ }.getBitmaskSize<TownsBitmask>());
     player.allow_random_alignment = readInt<std::uint8_t>();
     const bool has_main_town = readBool();
     if (has_main_town)
@@ -54,12 +62,18 @@ namespace h3m
     }
     player.has_random_heroes = readBool();
     player.starting_hero = readStartingHero();
-    player.num_nonspecific_placeholder_heroes = readInt<std::uint8_t>();
-    const std::uint32_t num_heroes = readInt<std::uint32_t>();
-    player.heroes.reserve(num_heroes);
-    for (std::uint32_t i = 0; i < num_heroes; ++i)
+    if (FeatureTesting{ map_format_ }.numNonspecificPlaceholderHeroes())
     {
-      player.heroes.push_back(readPlayerSpecsHeroInfo(*this));
+      player.num_nonspecific_placeholder_heroes = readInt<std::uint8_t>();
+    }
+    if (FeatureTesting{ map_format_ }.startingHeroes())
+    {
+      const std::uint32_t num_heroes = readInt<std::uint32_t>();
+      player.heroes.reserve(num_heroes);
+      for (std::uint32_t i = 0; i < num_heroes; ++i)
+      {
+        player.heroes.push_back(readPlayerSpecsHeroInfo(*this));
+      }
     }
     return player;
   }

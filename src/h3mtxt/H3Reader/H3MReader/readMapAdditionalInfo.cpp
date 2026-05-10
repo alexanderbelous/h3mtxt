@@ -1,4 +1,5 @@
 #include <h3mtxt/H3Reader/H3MReader/H3MReader.h>
+#include <h3mtxt/Map/Utils/FeatureTesting.h>
 #include <h3mtxt/Map/MapAdditionalInfo.h>
 
 namespace h3m
@@ -87,7 +88,7 @@ namespace h3m
       additional_info.placeholder_heroes.push_back(readEnum<HeroType>());
     }
     // Read custom heroes.
-    if (MapAdditionalInfo::supportsCustomHeroes(map_format_))
+    if (FeatureTesting{ map_format_ }.customHeroes())
     {
       const std::uint8_t num_custom_heroes = readInt<std::uint8_t>();
       additional_info.custom_heroes.reserve(num_custom_heroes);
@@ -99,29 +100,15 @@ namespace h3m
     // Read reserved data.
     additional_info.reserved = readReservedData<31>();
     // Read disabled artifacts.
-    {
-      const std::span<std::uint8_t> bitmask_bytes =
-        std::span<std::uint8_t>{ additional_info.disabled_artifacts.bitset.data }.first(
-          MapAdditionalInfo::getDisabledArtifactsBitmaskLength(map_format_));
-      if constexpr (std::is_same_v<std::uint8_t, unsigned char>)
-      {
-        readBytes(std::as_writable_bytes(bitmask_bytes));
-      }
-      else
-      {
-        for (std::uint8_t& byte : bitmask_bytes)
-        {
-          byte = readInt<std::uint8_t>();
-        }
-      }
-    }
+    additional_info.disabled_artifacts = readEnumBitmask<ArtifactType, 18>(
+      FeatureTesting{ map_format_ }.getBitmaskSize<ArtifactsBitmask>());
     // Read disabled spells.
-    if (MapAdditionalInfo::supportsDisabledSpells(map_format_))
+    if (FeatureTesting{ map_format_ }.disabledSpells())
     {
       additional_info.disabled_spells = readEnumBitmask<SpellType, 9>();
     }
     // Read disabled secondary skills.
-    if (MapAdditionalInfo::supportsDisabledSkills(map_format_))
+    if (FeatureTesting{ map_format_ }.disabledSkills())
     {
       additional_info.disabled_skills = readEnumBitmask<SecondarySkillType, 4>();
     }
@@ -133,7 +120,7 @@ namespace h3m
       additional_info.rumors.push_back(readRumor());
     }
     // Read heroes.
-    if (MapAdditionalInfo::supportsHeroesSettings(map_format_))
+    if (FeatureTesting{ map_format_ }.heroesSettings())
     {
       for (std::uint32_t i = 0; i < kNumHeroes; ++i)
       {

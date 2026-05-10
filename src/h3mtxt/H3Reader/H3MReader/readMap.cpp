@@ -1,5 +1,6 @@
 #include <h3mtxt/H3Reader/H3MReader/H3MReader.h>
 #include <h3mtxt/Map/Map.h>
+#include <h3mtxt/Map/Utils/FeatureTesting.h>
 
 namespace h3m
 {
@@ -12,7 +13,10 @@ namespace h3m
     basic_info.name = readString32();
     basic_info.description = readString32();
     basic_info.difficulty = readEnum<MapDifficulty>();
-    basic_info.max_hero_level = readInt<std::uint8_t>();
+    if (FeatureTesting{ map_format_ }.maxHeroLevel())
+    {
+      basic_info.max_hero_level = readInt<std::uint8_t>();
+    }
     return basic_info;
   }
 

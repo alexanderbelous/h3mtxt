@@ -77,6 +77,17 @@ namespace h3m
     template<class Enum, std::size_t NumBytes>
     EnumBitmask<Enum, NumBytes> readEnumBitmask() const;
 
+    // Generalizes readEnumBitmask() above, allowing to read fewer bytes than the
+    // capacity of the returned EnumBitmask.
+    //
+    // This is useful for bitmasks whose size differs between different versions
+    // of the H3M file format (e.g., ArtifactsBitmask, TownsBitmask, etc).
+    //
+    // \param num_bytes - the number of bytes to read.
+    // \return the decoded bitmask. The bytes after @num_bytes are zero-initialized in the returned bitmask.
+    template<class Enum, std::size_t MaxBytes>
+    EnumBitmask<Enum, MaxBytes> readEnumBitmask(std::size_t num_bytes) const;
+
   private:
     // Type of the integer returned by readUintImpl().
     // FYI: technically, this can be replaced with an extended integer type like std::uint128_t. However,
@@ -169,5 +180,24 @@ namespace h3m
   EnumBitmask<Enum, NumBytes> H3ReaderBase::readEnumBitmask() const
   {
     return EnumBitmask<Enum, NumBytes>{readBitSet<NumBytes>()};
+  }
+
+  template<class Enum, std::size_t MaxBytes>
+  EnumBitmask<Enum, MaxBytes> H3ReaderBase::readEnumBitmask(std::size_t num_bytes) const
+  {
+    EnumBitmask<Enum, MaxBytes> bitmask;
+    const std::span<std::uint8_t> bitmask_bytes = std::span{ bitmask.bitset.data }.first(num_bytes);
+    if constexpr (std::is_same_v<std::uint8_t, unsigned char>)
+    {
+      readBytes(std::as_writable_bytes(bitmask_bytes));
+    }
+    else
+    {
+      for (std::uint8_t& byte : bitmask_bytes)
+      {
+        byte = readInt<std::uint8_t>();
+      }
+    }
+    return bitmask;
   }
 }

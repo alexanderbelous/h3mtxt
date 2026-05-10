@@ -50,6 +50,7 @@ namespace h3m
     // | 187            | 108              |
     // | 247            | 108              |
     // +----------------+------------------+
+    // Only meaningful for MapFormat::ArmageddonsBlade and later.
     std::uint8_t max_hero_level = 0;
   };
 

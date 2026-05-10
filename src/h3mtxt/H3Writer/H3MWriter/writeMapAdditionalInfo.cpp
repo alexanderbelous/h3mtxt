@@ -1,5 +1,6 @@
 #include <h3mtxt/H3Writer/H3MWriter/H3MWriter.h>
 #include <h3mtxt/Map/Constants/Constants.h>
+#include <h3mtxt/Map/Utils/FeatureTesting.h>
 #include <h3mtxt/Map/MapAdditionalInfo.h>
 
 namespace h3m
@@ -35,7 +36,7 @@ namespace h3m
     writeData(value.heroes_availability);
     writeData(safeCastVectorSize<std::uint32_t>(value.placeholder_heroes.size()));
     writeSpan(std::span{ value.placeholder_heroes });
-    if (MapAdditionalInfo::supportsCustomHeroes(map_format_))
+    if (FeatureTesting{ map_format_ }.customHeroes())
     {
       writeData(safeCastVectorSize<std::uint8_t>(value.custom_heroes.size()));
       writeSpan(std::span{ value.custom_heroes });
@@ -44,21 +45,21 @@ namespace h3m
     {
       const std::span<const std::uint8_t> disabled_artifacts_bitmask =
         std::span{ value.disabled_artifacts.bitset.data }.first(
-          MapAdditionalInfo::getDisabledArtifactsBitmaskLength(map_format_));
+          FeatureTesting{ map_format_ }.getBitmaskSize<ArtifactsBitmask>());
       writeSpan(disabled_artifacts_bitmask);
     }
-    if (MapAdditionalInfo::supportsDisabledSpells(map_format_))
+    if (FeatureTesting{ map_format_ }.disabledSpells())
     {
       writeData(value.disabled_spells);
     }
-    if (MapAdditionalInfo::supportsDisabledSkills(map_format_))
+    if (FeatureTesting{ map_format_ }.disabledSkills())
     {
       writeData(value.disabled_skills);
     }
     writeData(safeCastVectorSize<std::uint32_t>(value.rumors.size()));
     writeSpan(std::span{ value.rumors });
     // Write heroes' settings.
-    if (MapAdditionalInfo::supportsHeroesSettings(map_format_))
+    if (FeatureTesting{ map_format_ }.heroesSettings())
     {
       for (std::uint8_t hero_idx = 0; hero_idx < kNumHeroes; ++hero_idx)
       {

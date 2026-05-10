@@ -21,9 +21,10 @@ namespace h3m
     constexpr bool operator==(const MainTown&) const noexcept = default;
 
     // True if "Generate hero at main town" is set, false otherwise.
+    // Only meaningful for MapFormat::ArmageddonsBlade and greater.
     Bool generate_hero = false;
-    // Type of the player's main town.
-    // 0xFF is a special value that means Random.
+    // Type of the player's main town, or TownType::Random if the main town is a Random Town.
+    // Only meaningful for MapFormat::ArmageddonsBlade and greater.
     TownType town_type {};
     // Coordinates of the actionable spot (i.e. the entrance).
     Coordinates coordinates;
@@ -143,10 +144,12 @@ namespace h3m
     StartingHero starting_hero;
     // The number of non-specific placeholder heroes (i.e. configured as "Power Rating" rather than "Specific hero")
     // at the beginning of the game.
+    // Only meaningful for MapFormat::ArmageddonsBlade and later.
     std::uint8_t num_nonspecific_placeholder_heroes = 0;
     // Specific heroes that the player has at the beginning of the game:
     // * Includes Visiting heroes and regular hero objects (not random).
     // * Includes placeholder heroes configured as "Specific hero" rather than "Power rating".
+    // Only meaningful for MapFormat::ArmageddonsBlade and later.
     std::vector<HeroInfo> heroes;
   };
 

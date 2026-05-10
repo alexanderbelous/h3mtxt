@@ -75,17 +75,6 @@ namespace h3m
   {
     bool operator==(const MapAdditionalInfo&) const = default;
 
-    // \return the number of meaningful bytes in MapAdditionalInfo::disabled_artifacts for @map_format.
-    static constexpr std::uint8_t getDisabledArtifactsBitmaskLength(MapFormat map_format) noexcept;
-
-    static constexpr bool supportsCustomHeroes(MapFormat map_format) noexcept;
-
-    static constexpr bool supportsDisabledSpells(MapFormat map_format) noexcept;
-
-    static constexpr bool supportsDisabledSkills(MapFormat map_format) noexcept;
-
-    static constexpr bool supportsHeroesSettings(MapFormat map_format) noexcept;
-
     VictoryCondition victory_condition;
     LossCondition loss_condition;
     Teams teams;
@@ -141,41 +130,5 @@ namespace h3m
   const std::map<HeroType, HeroSettings>& HeroesSettings::settings() const noexcept
   {
     return settings_;
-  }
-
-  constexpr std::uint8_t MapAdditionalInfo::getDisabledArtifactsBitmaskLength(MapFormat map_format) noexcept
-  {
-    switch (map_format)
-    {
-    case MapFormat::ShadowOfDeath:
-      return ArtifactsBitmask::kNumBytes;
-    case MapFormat::ArmageddonsBlade:
-      return ArtifactsBitmask::kNumBytes - 1;
-    // In RoE disabled_artifacts is not serialized at all, which is equivalent
-    // to saying that it has 0 meaningful bytes.
-    case MapFormat::RestorationOfErathia:
-    default:
-      return 0;
-    }
-  }
-
-  constexpr bool MapAdditionalInfo::supportsCustomHeroes(MapFormat map_format) noexcept
-  {
-    return map_format == MapFormat::ShadowOfDeath;
-  }
-
-  constexpr bool MapAdditionalInfo::supportsDisabledSpells(MapFormat map_format) noexcept
-  {
-    return map_format == MapFormat::ShadowOfDeath;
-  }
-
-  constexpr bool MapAdditionalInfo::supportsDisabledSkills(MapFormat map_format) noexcept
-  {
-    return map_format == MapFormat::ShadowOfDeath;
-  }
-
-  constexpr bool MapAdditionalInfo::supportsHeroesSettings(MapFormat map_format) noexcept
-  {
-    return map_format == MapFormat::ShadowOfDeath;
   }
 }

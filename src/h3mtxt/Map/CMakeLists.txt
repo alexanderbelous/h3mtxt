@@ -40,6 +40,7 @@ set(SOURCE_LIST
     "Utils/EnumBitmask.h"
     "Utils/EnumIndexedArray.h"
     "Utils/EnumSequence.h"
+    "Utils/FeatureTesting.h"
     "Utils/ReservedData.h"
     "Utils/SpriteTilesBitmask.h"
     # etc
