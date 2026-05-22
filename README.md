@@ -37,7 +37,7 @@ See the [tutorial](doc/tutorial) for more details.
 Both the Map Editor and the Unleashed Editor put some restrictions on the user input, disallowing some features that are supported by the game, for example:
 * Special victory conditions "Defeat All Monsters" and "Survive Beyond A Time Limit".
 * Morale bonus of more than 3 from an Event / Pandora's Box.
-* Rampart with pre-built Treasury but with Dward Cottage disabled.
+* Rampart with pre-built Treasury but with Dwarf Cottage disabled.
 * Timed events that repeat every 10 days.
 * Patrol radius of more than 10 squares.
 * Custom name for a Random Hero.
