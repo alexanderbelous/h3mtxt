@@ -34,7 +34,7 @@ See the [tutorial](doc/tutorial) for more details.
 
 # Undocumented features
 
-See the comments in the source code in [Map](src/h3mtxt/Map) or the brief overview in https://gist.github.com/alexanderbelous/e5f0766845476d93eda10469c5667d9b
+Both the Map Editor and the Unleashed Editor put some restrictions on the user input, disallowing some features that are nevertheless supported by the game. See [h3m_undocumented_features.md](doc/h3m_undocumented_features.md) or the comments in the source code of [Map](src/h3mtxt/Map) for the list of all undocumented features.
 
 # Building h3mtxt
 ```sh
