@@ -3,11 +3,11 @@
 # h3mtxt
 Command-line utility for converting .h3m/.h3c files (maps and campaigns for Heroes of Might and Magic 3) to a human-readable format (JSON) or vice versa.
 
-This tool is primarily intended for HoMM3 mapmakers who want to add undocumented features to their maps.
+This tool is primarily intended for HoMM3 mapmakers who want to add [undocumented features](#undocumented-features) to their maps.
 
 HoMM3 maps are written as (possibly gzip-encoded) binary data. Normally, they are edited via the official Map Editor (or the unofficial Unleashed Editor). However, both programs have limitations: for example, they don't allow selecting a specific terrain sprite for a tile. A possible workaround is to manually edit the binary data in a hex editor, but this is error-prone and can be time-consuming.
 
-*h3mtxt* offers an alternative solution: instead of modifying a .h3m file direclty, you can first convert it to a human-readable format (JSON), edit it, and then convert it back to .h3m.
+*h3mtxt* offers an alternative solution: instead of modifying a .h3m file directly, you can first convert it to a human-readable format (JSON), edit it, and then convert it back to .h3m.
 
 Or, if you want, you can use the C++ API from this repository to programmatically modify a [`h3m::Map`](src/h3mtxt/Map/Map.h) (or [`h3m::Campaign`](src/h3mtxt/Campaign/Campaign.h)) object.
 
@@ -34,7 +34,15 @@ See the [tutorial](doc/tutorial) for more details.
 
 # Undocumented features
 
-Both the Map Editor and the Unleashed Editor put some restrictions on the user input, disallowing some features that are nevertheless supported by the game. See [h3m_undocumented_features.md](doc/h3m_undocumented_features.md) or the comments in the source code of [Map](src/h3mtxt/Map) for the list of all undocumented features.
+Both the Map Editor and the Unleashed Editor put some restrictions on the user input, disallowing some features that are supported by the game, for example:
+* Special victory conditions "Defeat All Monsters" and "Survive Beyond A Time Limit".
+* Morale bonus of more than 3 from an Event / Pandora's Box.
+* Rampart with pre-built Treasury but with Dward Cottage disabled.
+* Timed events that repeat every 10 days.
+* Patrol radius of more than 10 squares.
+* Custom name for a Random Hero.
+
+and many others. See [h3m_undocumented_features.md](doc/h3m_undocumented_features.md) or the comments in the source code of [Map](src/h3mtxt/Map) for the full list.
 
 # Building h3mtxt
 ```sh
