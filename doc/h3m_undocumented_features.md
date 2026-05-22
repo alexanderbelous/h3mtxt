@@ -164,6 +164,7 @@ The Map Editor only supports "standard" object templates, but you can add custom
 
   * `events`:
     * See `global_events` below.
+    * `buildings`: same as with `is_built` above, you can configure a timed event to build a building without its prerequisite(s), even if the Map Editor doesn't allow this (e.g., building `Artifact Merchants` without `Marketplace`).
     * `creatures`: The Map Editor only allows values from [0; 9,999] for each creature level, but you can use any 16-bit integer. The behavior for values > 32767 is inconsistent: the game interprets them as signed integers in some places, but as unsigned in the others.
 * `WITCH_HUT`: The Map Editor forces you to enable at least 1 skill, but you can disable all of them. If all skills are disabled, the Witch Hut will teach you a random globally enabled skill. If all skills are globablly disabled, the Witch Hut will not teach you anything (the game will say that "it has been deserted for some time").
 ## `global_events` (type [`h3m::TimedEvent`](../src/h3mtxt/Map/TimedEvent.h))
