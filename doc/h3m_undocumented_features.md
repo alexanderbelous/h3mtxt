@@ -47,7 +47,7 @@ Each section below describes a data member of [`h3m::Map`](../src/h3mtxt/Map/Map
 * `disabled_skills`: The Map Editor forces at least 4 skills to be enabled, but you can disable any of them if you want; the Unleashed Editor also supports this.
 * `heroes_settings`
   * `experience`: the Map Editor only allows values from [0; 99,999,999], but any signed 32-bit integer can be used here. Note that the game will freeze at start if you try to set a value >= 2,147,400,657. See [ExperienceLevels.h](../src/h3mtxt/Map/Constants/ExperienceLevels.h) for more details.
-  * `secondary_skills`: "hexed" secondary skills can be used here. See [SecondarySkillLevel.h](../master/src/h3mtxt/Map/Constants/SecondarySkillLevel.h) for more details.
+  * `secondary_skills`: "hexed" secondary skills can be used here. See [SecondarySkillLevel.h](../src/h3mtxt/Map/Constants/SecondarySkillLevel.h) for more details.
   * `artifacts`: "weird" artifacts can be put in the backpack (e.g., `Spellbook`).
   * `spells`: `Titan's Lightning Bolt` can be enabled.
   * `primary_skills`: The Map Editor only allows values from [1; 99], but any signed 8-bit integer can be used here (e.g., 127 or -128).
@@ -149,7 +149,7 @@ The Map Editor only supports "standard" object templates, but you can add custom
     * `is_built `: you can set any building as prebuilt without its prerequisites. Note that both the Map Editor and the Unleashed Editor only have partial support for this; for example, you can set `Dragon Cave` as built in `Dungeon` without `Mage Guild Level 2`, but you cannot set `Mana Vortex` as built without `Mage Guild Level 1`. However, both programs will correctly display such data, and the game handles it fine. For example, you can:
       * Set `Resource Silo` as built without `Market`.
       * Set `Artifact Merchants` as built without `Market`.
-      * Set `Mana Vortex` as built without `Mage Guild Level `.
+      * Set `Mana Vortex` as built without `Mage Guild Level 1`.
       * Set `Treasury` as built without `Dwarf Cottage`.
       * Set `Skeleton Transformer` as built without `Cursed Temple`.
 
