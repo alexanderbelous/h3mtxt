@@ -1,6 +1,7 @@
 #include <h3mtxt/H3JsonReader/H3MJsonReader/H3MJsonReader.h>
 
 #include <h3mtxt/H3JsonReader/H3JsonReaderBase/H3JsonReaderBase.h>
+#include <h3mtxt/H3JsonReader/H3JsonReaderBase/VariantJsonReader.h>
 #include <h3mtxt/JsonCommon/FieldNamesH3M.h>
 #include <h3mtxt/Map/VictoryCondition.h>
 
@@ -12,14 +13,15 @@ namespace h3json
   using ::h3m::VictoryConditionDetails;
   using ::h3m::VictoryConditionType;
 
-  namespace
+  template<>
+  h3m::SpecialVictoryConditionBase
+  JsonReader<h3m::SpecialVictoryConditionBase>::operator()(const Json::Value& value) const
   {
-    void readSpecialVictoryConditionBaseFromJson(const Json::Value& value, h3m::SpecialVictoryConditionBase& base)
-    {
-      using Fields = FieldNames<h3m::SpecialVictoryConditionBase>;
-      readField(base.allow_normal_win, value, Fields::kAllowNormalWin);
-      readField(base.applies_to_computer, value, Fields::kAppliesToComputer);
-    }
+    using Fields = FieldNames<h3m::SpecialVictoryConditionBase>;
+    h3m::SpecialVictoryConditionBase base;
+    readField(base.allow_normal_win, value, Fields::kAllowNormalWin);
+    readField(base.applies_to_computer, value, Fields::kAppliesToComputer);
+    return base;
   }
 
   template<>
@@ -27,8 +29,9 @@ namespace h3json
   {
     VictoryConditionDetails<VictoryConditionType::AcquireArtifact> operator()(const Json::Value& value) const
     {
-      VictoryConditionDetails<VictoryConditionType::AcquireArtifact> details;
-      readSpecialVictoryConditionBaseFromJson(value, details);
+      VictoryConditionDetails<VictoryConditionType::AcquireArtifact> details {
+        fromJson<h3m::SpecialVictoryConditionBase>(value)
+      };
       readField(details.artifact_type, value, "artifact_type");
       return details;
     }
@@ -39,8 +42,9 @@ namespace h3json
   {
     VictoryConditionDetails<VictoryConditionType::AccumulateCreatures> operator()(const Json::Value& value) const
     {
-      VictoryConditionDetails<VictoryConditionType::AccumulateCreatures> details;
-      readSpecialVictoryConditionBaseFromJson(value, details);
+      VictoryConditionDetails<VictoryConditionType::AccumulateCreatures> details {
+        fromJson<h3m::SpecialVictoryConditionBase>(value)
+      };
       readField(details.creature_type, value, "creature_type");
       readField(details.count, value, "count");
       return details;
@@ -52,8 +56,9 @@ namespace h3json
   {
     VictoryConditionDetails<VictoryConditionType::AccumulateResources> operator()(const Json::Value& value) const
     {
-      VictoryConditionDetails<VictoryConditionType::AccumulateResources> details;
-      readSpecialVictoryConditionBaseFromJson(value, details);
+      VictoryConditionDetails<VictoryConditionType::AccumulateResources> details {
+        fromJson<h3m::SpecialVictoryConditionBase>(value)
+      };
       readField(details.resource_type, value, "resource_type");
       readField(details.amount, value, "amount");
       return details;
@@ -65,8 +70,9 @@ namespace h3json
   {
     VictoryConditionDetails<VictoryConditionType::UpgradeTown> operator()(const Json::Value& value) const
     {
-      VictoryConditionDetails<VictoryConditionType::UpgradeTown> details;
-      readSpecialVictoryConditionBaseFromJson(value, details);
+      VictoryConditionDetails<VictoryConditionType::UpgradeTown> details {
+        fromJson<h3m::SpecialVictoryConditionBase>(value)
+      };
       readField(details.coordinates, value, "coordinates");
       readField(details.hall_level, value, "hall_level");
       readField(details.castle_level, value, "castle_level");
@@ -83,8 +89,9 @@ namespace h3json
   {
     T operator()(const Json::Value& value) const
     {
-      T details {};
-      readSpecialVictoryConditionBaseFromJson(value, details);
+      T details {
+        fromJson<h3m::SpecialVictoryConditionBase>(value)
+      };
       readField(details.coordinates, value, "coordinates");
       return details;
     }
@@ -98,9 +105,7 @@ namespace h3json
   {
     T operator()(const Json::Value& value) const
     {
-      T details {};
-      readSpecialVictoryConditionBaseFromJson(value, details);
-      return details;
+      return T{ fromJson<h3m::SpecialVictoryConditionBase>(value) };
     }
   };
 
@@ -109,8 +114,9 @@ namespace h3json
   {
     VictoryConditionDetails<VictoryConditionType::TransportArtifact> operator()(const Json::Value& value) const
     {
-      VictoryConditionDetails<VictoryConditionType::TransportArtifact> details;
-      readSpecialVictoryConditionBaseFromJson(value, details);
+      VictoryConditionDetails<VictoryConditionType::TransportArtifact> details {
+        fromJson<h3m::SpecialVictoryConditionBase>(value)
+      };
       readField(details.artifact_type, value, "artifact_type");
       readField(details.destination, value, "destination");
       return details;
@@ -122,53 +128,22 @@ namespace h3json
   {
     VictoryConditionDetails<VictoryConditionType::SurviveBeyondATimeLimit> operator()(const Json::Value& value) const
     {
-      VictoryConditionDetails<VictoryConditionType::SurviveBeyondATimeLimit> details;
-      readSpecialVictoryConditionBaseFromJson(value, details);
+      VictoryConditionDetails<VictoryConditionType::SurviveBeyondATimeLimit> details {
+        fromJson<h3m::SpecialVictoryConditionBase>(value)
+      };
       readField(details.days, value, "days");
       return details;
     }
   };
 
-  namespace
+  template<>
+  struct JsonReader<VictoryConditionDetails<VictoryConditionType::Normal>>
   {
-    VictoryCondition::Details readVictoryConditionDetailsVariant(const Json::Value& value,
-                                                                      VictoryConditionType victory_condition_type)
+    VictoryConditionDetails<VictoryConditionType::Normal> operator()(const Json::Value&) const
     {
-      switch (victory_condition_type)
-      {
-      case VictoryConditionType::AcquireArtifact:
-        return fromJson<VictoryConditionDetails<VictoryConditionType::AcquireArtifact>>(value);
-      case VictoryConditionType::AccumulateCreatures:
-        return fromJson<VictoryConditionDetails<VictoryConditionType::AccumulateCreatures>>(value);
-      case VictoryConditionType::AccumulateResources:
-        return fromJson<VictoryConditionDetails<VictoryConditionType::AccumulateResources>>(value);
-      case VictoryConditionType::UpgradeTown:
-        return fromJson<VictoryConditionDetails<VictoryConditionType::UpgradeTown>>(value);
-      case VictoryConditionType::BuildGrail:
-        return fromJson<VictoryConditionDetails<VictoryConditionType::BuildGrail>>(value);
-      case VictoryConditionType::DefeatHero:
-        return fromJson<VictoryConditionDetails<VictoryConditionType::DefeatHero>>(value);
-      case VictoryConditionType::CaptureTown:
-        return fromJson<VictoryConditionDetails<VictoryConditionType::CaptureTown>>(value);
-      case VictoryConditionType::DefeatMonster:
-        return fromJson<VictoryConditionDetails<VictoryConditionType::DefeatMonster>>(value);
-      case VictoryConditionType::FlagDwellings:
-        return fromJson<VictoryConditionDetails<VictoryConditionType::FlagDwellings>>(value);
-      case VictoryConditionType::FlagMines:
-        return fromJson<VictoryConditionDetails<VictoryConditionType::FlagMines>>(value);
-      case VictoryConditionType::TransportArtifact:
-        return fromJson<VictoryConditionDetails<VictoryConditionType::TransportArtifact>>(value);
-      case VictoryConditionType::DefeatAllMonsters:
-        return fromJson<VictoryConditionDetails<VictoryConditionType::DefeatAllMonsters>>(value);
-      case VictoryConditionType::SurviveBeyondATimeLimit:
-        return fromJson<VictoryConditionDetails<VictoryConditionType::SurviveBeyondATimeLimit>>(value);
-      case VictoryConditionType::Normal:
-        return VictoryCondition::Details{};
-      default:
-        throw std::runtime_error("JsonReader<VictoryCondition>: invalid victory_condition_type");
-      }
+      return {};
     }
-  }
+  };
 
   VictoryCondition JsonReader<VictoryCondition>::operator()(const Json::Value& value) const
   {
@@ -177,8 +152,13 @@ namespace h3json
     VictoryCondition victory_condition;
     if (victory_condition_type != VictoryConditionType::Normal)
     {
-      const Json::Value& details_json = getJsonField(value, Fields::kDetails);
-      victory_condition.details = readVictoryConditionDetailsVariant(details_json, victory_condition_type);
+      const std::size_t variant_alternative_idx = VictoryCondition::getAlternativeIdx(victory_condition_type);
+      if (variant_alternative_idx == std::variant_npos)
+      {
+        throw std::runtime_error("JsonReader<h3m::VictoryCondition>: invalid victory_condition_type");
+      }
+      victory_condition.details = VariantJsonReader<VictoryCondition::Details>{}(getJsonField(value, Fields::kDetails),
+                                                                                 variant_alternative_idx);
     }
     return victory_condition;
   }

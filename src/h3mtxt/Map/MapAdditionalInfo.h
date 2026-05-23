@@ -4,6 +4,7 @@
 #include <h3mtxt/Map/Constants/Constants.h>
 #include <h3mtxt/Map/Constants/HeroPortrait.h>
 #include <h3mtxt/Map/Constants/HeroType.h>
+#include <h3mtxt/Map/Constants/MapFormat.h>
 #include <h3mtxt/Map/Constants/PlayerColor.h>
 #include <h3mtxt/Map/Utils/EnumBitmask.h>
 #include <h3mtxt/Map/Utils/ReservedData.h>
@@ -74,6 +75,17 @@ namespace h3m
   {
     bool operator==(const MapAdditionalInfo&) const = default;
 
+    // \return the number of meaningful bytes in MapAdditionalInfo::disabled_artifacts for @map_format.
+    static constexpr std::uint8_t getDisabledArtifactsBitmaskLength(MapFormat map_format) noexcept;
+
+    static constexpr bool supportsCustomHeroes(MapFormat map_format) noexcept;
+
+    static constexpr bool supportsDisabledSpells(MapFormat map_format) noexcept;
+
+    static constexpr bool supportsDisabledSkills(MapFormat map_format) noexcept;
+
+    static constexpr bool supportsHeroesSettings(MapFormat map_format) noexcept;
+
     VictoryCondition victory_condition;
     LossCondition loss_condition;
     Teams teams;
@@ -82,6 +94,7 @@ namespace h3m
     // * 1 otherwise.
     HeroesBitmask heroes_availability;
     std::vector<HeroType> placeholder_heroes;
+    // Only meaningful for MapFormat::ShadowOfDeath.
     std::vector<CustomHero> custom_heroes;
     // Reserved data; 0s by default.
     ReservedData<31> reserved;
@@ -91,10 +104,13 @@ namespace h3m
     // if you disable them manually.
     ArtifactsBitmask disabled_artifacts;
     // 1 bit per spell; 1 means disabled, 0 means enabled.
+    // Only meaningful for MapFormat::ShadowOfDeath.
     SpellsBitmask disabled_spells;
     // 1 bit per secondary skill; 1 means disabled, 0 means enabled.
+    // Only meaningful for MapFormat::ShadowOfDeath.
     SecondarySkillsBitmask disabled_skills;
     std::vector<Rumor> rumors;
+    // Only meaningful for MapFormat::ShadowOfDeath.
     HeroesSettings heroes_settings;
   };
 
@@ -125,5 +141,41 @@ namespace h3m
   const std::map<HeroType, HeroSettings>& HeroesSettings::settings() const noexcept
   {
     return settings_;
+  }
+
+  constexpr std::uint8_t MapAdditionalInfo::getDisabledArtifactsBitmaskLength(MapFormat map_format) noexcept
+  {
+    switch (map_format)
+    {
+    case MapFormat::ShadowOfDeath:
+      return ArtifactsBitmask::kNumBytes;
+    case MapFormat::ArmageddonsBlade:
+      return ArtifactsBitmask::kNumBytes - 1;
+    // In RoE disabled_artifacts is not serialized at all, which is equivalent
+    // to saying that it has 0 meaningful bytes.
+    case MapFormat::RestorationOfErathia:
+    default:
+      return 0;
+    }
+  }
+
+  constexpr bool MapAdditionalInfo::supportsCustomHeroes(MapFormat map_format) noexcept
+  {
+    return map_format == MapFormat::ShadowOfDeath;
+  }
+
+  constexpr bool MapAdditionalInfo::supportsDisabledSpells(MapFormat map_format) noexcept
+  {
+    return map_format == MapFormat::ShadowOfDeath;
+  }
+
+  constexpr bool MapAdditionalInfo::supportsDisabledSkills(MapFormat map_format) noexcept
+  {
+    return map_format == MapFormat::ShadowOfDeath;
+  }
+
+  constexpr bool MapAdditionalInfo::supportsHeroesSettings(MapFormat map_format) noexcept
+  {
+    return map_format == MapFormat::ShadowOfDeath;
   }
 }

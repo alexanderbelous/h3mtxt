@@ -12,7 +12,7 @@ namespace Medea_NS
     using Fields = h3json::FieldNames<h3m::SecondarySkill>;
     out.writeField(Fields::kType, skill.type);
     out.writeField(Fields::kLevel, skill.level);
-    if (std::string_view enum_str = h3m::getSecondarySkillLevelString(skill.type, skill.level); !enum_str.empty())
+    if (std::string_view enum_str = h3json::getSecondarySkillLevelString(skill.type, skill.level); !enum_str.empty())
     {
       out.writeComment(enum_str, false);
     }

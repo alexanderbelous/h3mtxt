@@ -1,6 +1,7 @@
 #pragma once
 
 #include <h3mtxt/Map/MapFwd.h>
+#include <h3mtxt/Map/Constants/MapFormat.h>
 
 #include <cstdint>
 
@@ -30,4 +31,19 @@ namespace h3m
   };
 
   inline constexpr std::uint8_t kNumArtifactSlots = 19;
+
+  // Returns the number of artifact slots for the specified MapFormat.
+  // \param map_format - input MapFormat.
+  // \return the number of artifact slots for @map_format.
+  constexpr std::uint8_t countArtifactSlots(MapFormat map_format) noexcept
+  {
+    switch (map_format)
+    {
+    case MapFormat::RestorationOfErathia:
+    case MapFormat::ArmageddonsBlade:
+      return kNumArtifactSlots - 1;
+    default:
+      return kNumArtifactSlots;
+    }
+  }
 }

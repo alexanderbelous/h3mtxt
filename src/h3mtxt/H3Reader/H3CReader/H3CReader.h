@@ -3,6 +3,7 @@
 #include <h3mtxt/H3Reader/H3ReaderBase/H3ReaderBase.h>
 
 #include <h3mtxt/Campaign/CampaignFwd.h>
+#include <h3mtxt/Campaign/Constants/CampaignFormat.h>
 #include <h3mtxt/Campaign/Constants/StartingBonusType.h>
 #include <h3mtxt/Campaign/Constants/StartingOptionsType.h>
 
@@ -14,9 +15,12 @@ namespace h3m
   public:
     // Constructs a H3CReader that will read bytes from the specified istream.
     // \param stream - istream to read bytes from.
-    explicit constexpr H3CReader(std::istream& stream) noexcept :
-      H3ReaderBase{ stream }
-    {}
+    // \param format - the expected CampaignFormat.
+    // \throw std::invalid_argument if @format is not supported.
+    explicit H3CReader(std::istream& stream, CampaignFormat format = CampaignFormat::ShadowOfDeath);
+
+    // \return CampaignFormat that was passed to the constructor.
+    constexpr CampaignFormat format() const noexcept;
 
     CampaignHeader readCampaignHeader() const;
 
@@ -35,7 +39,17 @@ namespace h3m
 
     template<StartingOptionsType T>
     StartingOptionsDetails<T> readStartingOptionsDetails() const;
+
+  private:
+    CampaignHeader readCampaignHeaderWithoutFormat() const;
+
+    CampaignFormat format_;
   };
+
+  constexpr CampaignFormat H3CReader::format() const noexcept
+  {
+    return format_;
+  }
 
   template<> StartingBonusDetails<StartingBonusType::Spell> H3CReader::readStartingBonusDetails() const;
 

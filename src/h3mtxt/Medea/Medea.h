@@ -17,7 +17,6 @@ namespace Medea_NS
 {
   namespace Detail_NS
   {
-    // Writes a span of elements without any comments.
     template<class T>
     void writeSpan(const ArrayElementsWriter& elements_writer, std::span<const T> elements)
     {
@@ -49,11 +48,9 @@ namespace Medea_NS
   template<class T>
   struct JsonScalarGetter<T, std::enable_if_t<std::is_integral_v<T>>>
   {
-    using ResultType = std::conditional_t<std::is_signed_v<T>, std::intmax_t, std::uintmax_t>;
-
-    constexpr ResultType operator()(T value) const noexcept
+    constexpr T operator()(T value) const noexcept
     {
-      return static_cast<ResultType>(value);
+      return value;
     }
   };
 
@@ -66,12 +63,9 @@ namespace Medea_NS
   template<class T>
   struct JsonScalarGetter<T, std::enable_if_t<std::is_enum_v<T>>>
   {
-    using UnderlyingType = std::underlying_type_t<T>;
-    using ResultType = std::conditional_t<std::is_signed_v<UnderlyingType>, std::intmax_t, std::uintmax_t>;
-
-    constexpr ResultType operator()(T value) const noexcept
+    constexpr std::underlying_type_t<T> operator()(T value) const noexcept
     {
-      return static_cast<ResultType>(value);
+      return static_cast<std::underlying_type_t<T>>(value);
     }
   };
 

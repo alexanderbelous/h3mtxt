@@ -3,6 +3,7 @@
 #include <h3mtxt/H3Reader/H3ReaderBase/H3ReaderBase.h>
 #include <h3mtxt/Map/MapFwd.h>
 #include <h3mtxt/Map/Constants/LossConditionType.h>
+#include <h3mtxt/Map/Constants/MapFormat.h>
 #include <h3mtxt/Map/Constants/ObjectPropertiesType.h>
 #include <h3mtxt/Map/Constants/QuestType.h>
 #include <h3mtxt/Map/Constants/RewardType.h>
@@ -26,15 +27,21 @@ namespace h3m
   public:
     // Constructs a H3MReader that will read bytes from the specified istream.
     // \param stream - istream to read bytes from.
-    explicit constexpr H3MReader(std::istream& stream) noexcept :
-      H3ReaderBase{ stream }
-    {}
+    // \param map_format - the expected format of the map. Currently, only
+    //        MapFormat::ArmageddonsBlade and MapFormat::ShadowOfDeath are supported.
+    // \throw std::invalid_argument if map_format is not supported.
+    explicit H3MReader(std::istream& stream, MapFormat map_format = MapFormat::ShadowOfDeath);
+
+    // \return MapFormat that was passed to the constructor.
+    constexpr MapFormat format() const noexcept;
 
     Coordinates readCoordinates() const;
 
     CustomHero readCustomHero() const;
 
     CreatureStack readCreatureStack() const;
+
+    EventBase readEventBase() const;
 
     Guardians readGuardians() const;
 
@@ -49,6 +56,10 @@ namespace h3m
 
     MainTown readMainTown() const;
 
+    // Reads a map from the underlying stream.
+    // FYI: this function ignores MapFormat that was passed to the constructor of H3MReader:
+    // it determines the actual format from the first 4 bytes.
+    // \return the decoded map.
     Map readMap() const;
 
     MapAdditionalInfo readMapAdditionalInfo() const;
@@ -110,8 +121,15 @@ namespace h3m
     VictoryConditionDetails<T> readVictoryConditionDetails() const;
 
   private:
-    void readEventBase(EventBase& event) const;
+    Map readMapWithoutFormat() const;
+
+    MapFormat map_format_;
   };
+
+  constexpr MapFormat H3MReader::format() const noexcept
+  {
+    return map_format_;
+  }
 
   template<>
   LossConditionDetails<LossConditionType::LoseTown> H3MReader::readLossConditionDetails() const;

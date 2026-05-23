@@ -13,6 +13,7 @@
 #include <h3mtxt/Map/Tile.h>
 #include <h3mtxt/Map/TimedEvent.h>
 
+#include <stdexcept>
 #include <vector>
 
 namespace h3m
@@ -69,7 +70,7 @@ namespace h3m
     std::vector<Object> objects;
     // Global events on this map ("Map Specifications"/"Timed Events" tab in the Editor).
     std::vector<TimedEvent> timed_events;
-    // Should be 0s. Kept here for compatibility.
+    // Not used; always set to 0s by the Map Editor.
     ReservedData<124> padding;
   };
 

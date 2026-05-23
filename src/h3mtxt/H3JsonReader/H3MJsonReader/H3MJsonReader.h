@@ -173,6 +173,10 @@ namespace h3json
   h3m::StartingHero JsonReader<h3m::StartingHero>::operator()(const Json::Value& value) const;
 
   template<>
+  h3m::SpecialVictoryConditionBase
+  JsonReader<h3m::SpecialVictoryConditionBase>::operator()(const Json::Value& value) const;
+
+  template<>
   h3m::Teams JsonReader<h3m::Teams>::operator()(const Json::Value& value) const;
 
   // Full specialization for TerrainsBitmask. The template version from Utils.h

@@ -61,16 +61,13 @@ namespace h3m
     }
   }
 
-  void H3MReader::readEventBase(EventBase& event) const
+  EventBase H3MReader::readEventBase() const
   {
+    EventBase event;
     const Bool has_guardians = readBool();
     if (has_guardians)
     {
       event.guardians = readGuardians();
-    }
-    else
-    {
-      event.guardians = std::nullopt;
     }
     event.experience = readInt<std::int32_t>();
     event.spell_points = readInt<std::int32_t>();
@@ -81,27 +78,25 @@ namespace h3m
     const std::uint8_t num_secondary_skills = readInt<std::uint8_t>();
     event.secondary_skills = readSecondarySkillsVector(*this, num_secondary_skills);
     const std::uint8_t num_artifacts = readInt<std::uint8_t>();
-    event.artifacts.clear();
     event.artifacts.reserve(num_artifacts);
     for (std::uint8_t i = 0; i < num_artifacts; ++i)
     {
       event.artifacts.push_back(readEnum<ArtifactType>());
     }
     const std::uint8_t num_spells = readInt<std::uint8_t>();
-    event.spells.clear();
     event.spells.reserve(num_spells);
     for (std::uint8_t i = 0; i < num_spells; ++i)
     {
       event.spells.push_back(readEnum<SpellType>());
     }
     const std::uint8_t num_creatures = readInt<std::uint8_t>();
-    event.creatures.clear();
     event.creatures.reserve(num_creatures);
     for (std::uint8_t i = 0; i < num_creatures; ++i)
     {
       event.creatures.push_back(readCreatureStack());
     }
     event.unknown = readReservedData<8>();
+    return event;
   }
 
   Guardians H3MReader::readGuardians() const
@@ -165,8 +160,7 @@ namespace h3m
   ObjectProperties<ObjectPropertiesType::EVENT>
   H3MReader::readObjectProperties<ObjectPropertiesType::EVENT>() const
   {
-    ObjectProperties<ObjectPropertiesType::EVENT> data;
-    readEventBase(data);
+    ObjectProperties<ObjectPropertiesType::EVENT> data{ readEventBase() };
     data.affected_players = readEnumBitmask<PlayerColor, 1>();
     data.applies_to_computer = readBool();
     data.cancel_after_first_visit = readBool();
@@ -217,7 +211,7 @@ namespace h3m
     {
       data.name = readString32();
     }
-    const Bool has_experience = readBool();
+    const Bool has_experience = (map_format_ == MapFormat::ShadowOfDeath) ? readBool() : true;
     if (has_experience)
     {
       data.experience = readInt<std::int32_t>();
@@ -251,15 +245,35 @@ namespace h3m
       data.biography = readString32();
     }
     data.gender = readEnum<Gender>();
-    const Bool has_spells = readBool();
-    if (has_spells)
+    if (map_format_ == MapFormat::ShadowOfDeath)
     {
-      data.spells = readEnumBitmask<SpellType, 9>();
+      const Bool has_spells = readBool();
+      if (has_spells)
+      {
+        data.spells = readEnumBitmask<SpellType, 9>();
+      }
     }
-    const Bool has_primary_skills = readBool();
-    if (has_primary_skills)
+    else
     {
-      data.primary_skills = readPrimarySkills();
+      const SpellType spell = readEnum<SpellType>();
+      // 0xFE means SpellType::Default.
+      if (spell != SpellType::Default)
+      {
+        SpellsBitmask& spells = data.spells.emplace();
+        // 0xFF means no spells.
+        if (spell != SpellType{ 0xFF })
+        {
+          spells.set(spell, true);
+        }
+      }
+    }
+    if (map_format_ == MapFormat::ShadowOfDeath)
+    {
+      const Bool has_primary_skills = readBool();
+      if (has_primary_skills)
+      {
+        data.primary_skills = readPrimarySkills();
+      }
     }
     data.unknown = readReservedData<16>();
     return data;
@@ -304,9 +318,7 @@ namespace h3m
   ObjectProperties<ObjectPropertiesType::PANDORAS_BOX>
   H3MReader::readObjectProperties<ObjectPropertiesType::PANDORAS_BOX>() const
   {
-    ObjectProperties<ObjectPropertiesType::PANDORAS_BOX> data;
-    readEventBase(data);
-    return data;
+    return ObjectProperties<ObjectPropertiesType::PANDORAS_BOX>{ readEventBase() };
   }
 
   template<>
@@ -487,7 +499,10 @@ namespace h3m
     {
       town.events.push_back(readTownEvent());
     }
-    town.alignment = readInt<std::uint8_t>();
+    if (map_format_ == MapFormat::ShadowOfDeath)
+    {
+      town.alignment = readInt<std::uint8_t>();
+    }
     town.unknown = readReservedData<3>();
     return town;
   }

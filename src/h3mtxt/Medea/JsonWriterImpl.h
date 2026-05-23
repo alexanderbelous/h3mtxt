@@ -30,8 +30,8 @@ namespace Medea_NS
     {
     public:
       // Non-copyable, non-movable.
-      constexpr JsonWriterImpl(const JsonWriterImpl&) = delete;
-      constexpr JsonWriterImpl(JsonWriterImpl&&) = delete;
+      JsonWriterImpl(const JsonWriterImpl&) = delete;
+      JsonWriterImpl(JsonWriterImpl&&) = delete;
       JsonWriterImpl& operator=(const JsonWriterImpl&) = delete;
       JsonWriterImpl& operator=(JsonWriterImpl&&) = delete;
 
@@ -52,7 +52,7 @@ namespace Medea_NS
 
       // Queues a comment.
       //
-      // Comments are not written immediately in order to avoid trailing commas in printing objects/arrays.
+      // Comments are not written immediately in order to avoid trailing commas when printing objects/arrays.
       // \param comment - comment to write. Empty comments are ignored.
       // \param newline - if true, the comment will be written on a new line,
       //        otherwise on the same line as the last printed entry.
@@ -114,10 +114,10 @@ namespace Medea_NS
       // Comments are concatenated into a single string (newline-delimited). Comments are only written
       // to @stream_ when the next entry is printed or when the scope ends, to avoid trailing commas.
       std::string comment_;
-      // Indicates whether @comment_ should be printed on the same line as the last printed entry.
-      bool is_inline_comment_ = false;
       // The number of spaces to indent entries by.
       unsigned int indent_ = 0;
+      // Indicates whether @comment_ should be printed on the same line as the last printed entry.
+      bool is_inline_comment_ = false;
       // True if one or more entries (i.e. values or fields) have been printed in the current scope, false otherwise.
       bool has_members_in_scope_ = false;
       // True if the current value is being serialized on a single line, false otherwise.

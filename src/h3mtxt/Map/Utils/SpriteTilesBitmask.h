@@ -53,8 +53,7 @@ namespace h3m
     {
       throw std::out_of_range("SpriteTilesBitmask::at(): column is out of range.");
     }
-    const std::uint8_t mask = 1 << column;
-    return data.at(row) & mask;
+    return Detail_NS::getBit(data.at(row), column);
   }
 
   constexpr void SpriteTilesBitmask::set(std::uint8_t row, std::uint8_t column, bool value)

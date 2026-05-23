@@ -12,6 +12,7 @@ namespace h3m
   {
     constexpr bool operator==(const HeroArtifacts&) const noexcept = default;
 
+    // The default value for HeroArtifacts::equipped: all slots are empty.
     static constexpr EnumIndexedArray<ArtifactSlot, ArtifactType, kNumArtifactSlots> kNoEquippedArtifacts =
       []() consteval
       {
@@ -20,6 +21,7 @@ namespace h3m
         return artifacts;
       }();
 
+    // FYI: ArtifactSlot::Misc5 is only meaningful for MapFormat::ShadowOfDeath.
     EnumIndexedArray<ArtifactSlot, ArtifactType, kNumArtifactSlots> equipped = kNoEquippedArtifacts;
     std::vector<ArtifactType> backpack;
   };

@@ -35,23 +35,40 @@ namespace h3m
     writeData(value.heroes_availability);
     writeData(safeCastVectorSize<std::uint32_t>(value.placeholder_heroes.size()));
     writeSpan(std::span{ value.placeholder_heroes });
-    writeData(safeCastVectorSize<std::uint8_t>(value.custom_heroes.size()));
-    writeSpan(std::span{ value.custom_heroes });
+    if (MapAdditionalInfo::supportsCustomHeroes(map_format_))
+    {
+      writeData(safeCastVectorSize<std::uint8_t>(value.custom_heroes.size()));
+      writeSpan(std::span{ value.custom_heroes });
+    }
     writeData(value.reserved);
-    writeData(value.disabled_artifacts);
-    writeData(value.disabled_spells);
-    writeData(value.disabled_skills);
+    {
+      const std::span<const std::uint8_t> disabled_artifacts_bitmask =
+        std::span{ value.disabled_artifacts.bitset.data }.first(
+          MapAdditionalInfo::getDisabledArtifactsBitmaskLength(map_format_));
+      writeSpan(disabled_artifacts_bitmask);
+    }
+    if (MapAdditionalInfo::supportsDisabledSpells(map_format_))
+    {
+      writeData(value.disabled_spells);
+    }
+    if (MapAdditionalInfo::supportsDisabledSkills(map_format_))
+    {
+      writeData(value.disabled_skills);
+    }
     writeData(safeCastVectorSize<std::uint32_t>(value.rumors.size()));
     writeSpan(std::span{ value.rumors });
     // Write heroes' settings.
-    for (std::uint8_t hero_idx = 0; hero_idx < kNumHeroes; ++hero_idx)
+    if (MapAdditionalInfo::supportsHeroesSettings(map_format_))
     {
-      const HeroType hero_type = static_cast<HeroType>(hero_idx);
-      const bool has_settings = value.heroes_settings.hasSettings(hero_type);
-      writeData(static_cast<Bool>(has_settings));
-      if (has_settings)
+      for (std::uint8_t hero_idx = 0; hero_idx < kNumHeroes; ++hero_idx)
       {
-        writeData(value.heroes_settings[hero_type]);
+        const HeroType hero_type = static_cast<HeroType>(hero_idx);
+        const bool has_settings = value.heroes_settings.hasSettings(hero_type);
+        writeData(static_cast<Bool>(has_settings));
+        if (has_settings)
+        {
+          writeData(value.heroes_settings[hero_type]);
+        }
       }
     }
   }

@@ -87,17 +87,44 @@ namespace h3m
       additional_info.placeholder_heroes.push_back(readEnum<HeroType>());
     }
     // Read custom heroes.
-    const std::uint8_t num_custom_heroes = readInt<std::uint8_t>();
-    additional_info.custom_heroes.reserve(num_custom_heroes);
-    for (std::uint32_t i = 0; i < num_custom_heroes; ++i)
+    if (MapAdditionalInfo::supportsCustomHeroes(map_format_))
     {
-      additional_info.custom_heroes.push_back(readCustomHero());
+      const std::uint8_t num_custom_heroes = readInt<std::uint8_t>();
+      additional_info.custom_heroes.reserve(num_custom_heroes);
+      for (std::uint32_t i = 0; i < num_custom_heroes; ++i)
+      {
+        additional_info.custom_heroes.push_back(readCustomHero());
+      }
     }
     // Read reserved data.
     additional_info.reserved = readReservedData<31>();
-    additional_info.disabled_artifacts = readEnumBitmask<ArtifactType, 18>();
-    additional_info.disabled_spells = readEnumBitmask<SpellType, 9>();
-    additional_info.disabled_skills = readEnumBitmask<SecondarySkillType, 4>();
+    // Read disabled artifacts.
+    {
+      const std::span<std::uint8_t> bitmask_bytes =
+        std::span<std::uint8_t>{ additional_info.disabled_artifacts.bitset.data }.first(
+          MapAdditionalInfo::getDisabledArtifactsBitmaskLength(map_format_));
+      if constexpr (std::is_same_v<std::uint8_t, unsigned char>)
+      {
+        readBytes(std::as_writable_bytes(bitmask_bytes));
+      }
+      else
+      {
+        for (std::uint8_t& byte : bitmask_bytes)
+        {
+          byte = readInt<std::uint8_t>();
+        }
+      }
+    }
+    // Read disabled spells.
+    if (MapAdditionalInfo::supportsDisabledSpells(map_format_))
+    {
+      additional_info.disabled_spells = readEnumBitmask<SpellType, 9>();
+    }
+    // Read disabled secondary skills.
+    if (MapAdditionalInfo::supportsDisabledSkills(map_format_))
+    {
+      additional_info.disabled_skills = readEnumBitmask<SecondarySkillType, 4>();
+    }
     // Read rumors.
     const std::uint32_t num_rumors = readInt<std::uint32_t>();
     additional_info.rumors.reserve(num_rumors);
@@ -105,12 +132,15 @@ namespace h3m
     {
       additional_info.rumors.push_back(readRumor());
     }
-    // Read heroes
-    for (std::uint32_t i = 0; i < kNumHeroes; ++i)
+    // Read heroes.
+    if (MapAdditionalInfo::supportsHeroesSettings(map_format_))
     {
-      if (const Bool has_settings = readBool())
+      for (std::uint32_t i = 0; i < kNumHeroes; ++i)
       {
-        additional_info.heroes_settings[static_cast<HeroType>(i)] = readHeroSettings();
+        if (const Bool has_settings = readBool())
+        {
+          additional_info.heroes_settings[static_cast<HeroType>(i)] = readHeroSettings();
+        }
       }
     }
     return additional_info;

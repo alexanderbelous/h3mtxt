@@ -58,10 +58,9 @@ namespace h3json
     {
       const std::size_t num_elements = elements.size();
       checkArraySize(value, num_elements);
-      T* data = elements.data();
       for (std::size_t i = 0; i < num_elements; ++i)
       {
-        data[i] = JsonReader<T>{}(value[static_cast<Json::ArrayIndex>(i)]);
+        elements[i] = JsonReader<T>{}(value[static_cast<Json::ArrayIndex>(i)]);
       }
     }
 

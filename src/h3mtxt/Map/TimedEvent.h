@@ -28,8 +28,9 @@ namespace h3m
     // Given/taken resources.
     Resources resources;
     PlayersBitmask affected_players;
-    Bool applies_to_human {};
-    Bool applies_to_computer {};
+    // Only meaningful for MapFormat::ShadowOfDeath.
+    Bool applies_to_human = true;
+    Bool applies_to_computer = false;
     // 0-based day of first occurence (e.g., 0 stands for Day 1).
     std::uint16_t day_of_first_occurence = 0;
     // Frequency of this event; 0 means that the event doesn't repeat.

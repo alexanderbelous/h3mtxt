@@ -28,7 +28,11 @@ namespace h3m
   {
     constexpr bool operator==(const QuestDetails&) const noexcept = default;
 
+    // Experience level that must be reached to complete the quest.
+    //
     // The Map Editor only allows values from [1; 99], but any signed 32-bit integer can be used here.
+    // Note that levels outside of [0; 6424] are impossible to reach without modding / editing the saved game,
+    // and levels outside of [-32768; 32767] are impossible to reach altogether.
     std::int32_t level {};
   };
 

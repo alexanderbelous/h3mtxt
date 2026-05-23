@@ -47,6 +47,9 @@ namespace Medea_NS
   std::string_view EnumCommentGetter::operator()(h3m::MapDifficulty value) const;
 
   template<>
+  std::string_view EnumCommentGetter::operator()(h3m::MapFormat value) const;
+
+  template<>
   std::string_view EnumCommentGetter::operator()(h3m::ObjectPropertiesType value) const;
 
   template<>

@@ -17,9 +17,7 @@ namespace h3m
     // \return true if all bytes in @data are 0, false otherwise.
     constexpr bool isAllZeroes(std::span<const std::byte> data) noexcept
     {
-      const std::byte* const first = data.data();
-      const std::byte* const last = first + data.size();
-      return std::all_of(first, last, [](std::byte value) noexcept { return value == std::byte{ 0 }; });
+      return std::all_of(data.begin(), data.end(), [](std::byte value) noexcept { return value == std::byte{0}; });
     }
 
     // Checks if 2 (possibly implicit) byte arrays are equal.

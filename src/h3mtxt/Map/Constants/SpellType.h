@@ -92,6 +92,13 @@ namespace h3m
     // Thunderbolt         = 77,  // 0x4D
     // DragonflyDispel     = 78,  // 0x4E
     // DeathStare          = 79,  // 0x4F
-    // AcidBreath          = 80   // 0x50
+    // AcidBreath          = 80,  // 0x50
+
+    // Special value for the hero's default spell.
+    // This is only used in Armageddon's Blade.
+    Default             = 254, // 0xFE
+    // Special value indicating a random spell.
+    // As far as I understand, this can only be used in ObjectProperties<ObjectPropertiesType::SHRINE>.
+    Random              = 255  // 0xFF
   };
 }

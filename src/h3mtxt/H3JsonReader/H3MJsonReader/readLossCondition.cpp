@@ -1,6 +1,7 @@
 #include <h3mtxt/H3JsonReader/H3MJsonReader/H3MJsonReader.h>
 
 #include <h3mtxt/H3JsonReader/H3JsonReaderBase/H3JsonReaderBase.h>
+#include <h3mtxt/H3JsonReader/H3JsonReaderBase/VariantJsonReader.h>
 #include <h3mtxt/JsonCommon/FieldNamesH3M.h>
 #include <h3mtxt/Map/LossCondition.h>
 
@@ -52,17 +53,14 @@ namespace h3json
     {
       return h3m::LossCondition{};
     }
-    const Json::Value& details_json = getJsonField(value, Fields::kDetails);
-    switch (loss_condition_type)
+    const std::size_t variant_alternative_idx = h3m::LossCondition::getAlternativeIdx(loss_condition_type);
+    if (variant_alternative_idx == std::variant_npos)
     {
-    case h3m::LossConditionType::LoseTown:
-      return { fromJson<h3m::LossConditionDetails<h3m::LossConditionType::LoseTown>>(details_json) };
-    case h3m::LossConditionType::LoseHero:
-      return { fromJson<h3m::LossConditionDetails<h3m::LossConditionType::LoseHero>>(details_json) };
-    case h3m::LossConditionType::TimeExpires:
-      return { fromJson<h3m::LossConditionDetails<h3m::LossConditionType::TimeExpires>>(details_json) };
-    default:
       throw std::runtime_error("JsonReader<LossCondition>: invalid loss_condition_type");
     }
+    return h3m::LossCondition{
+      .details = VariantJsonReader<h3m::LossCondition::Details>{}(getJsonField(value, Fields::kDetails),
+                                                                  variant_alternative_idx)
+    };
   }
 }

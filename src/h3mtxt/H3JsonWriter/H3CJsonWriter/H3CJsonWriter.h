@@ -12,6 +12,9 @@ namespace Medea_NS
   // Human-readable comments for enum values.
   // ------------------------------------------------------------
   template<>
+  std::string_view EnumCommentGetter::operator()(h3m::CampaignFormat value) const;
+
+  template<>
   std::string_view EnumCommentGetter::operator()(h3m::CampaignId value) const;
 
   template<>

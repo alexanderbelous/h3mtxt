@@ -183,7 +183,8 @@ namespace h3m
     // 0xFF if random.
     HeroType type {};
     std::optional<std::string> name;
-    // Note: in RoE/AB experience was not optional.
+    // FYI: experience is not optional if MapFormat::ArmageddonsBlade. For compatibility, std::nullopt will be
+    // treated as 0 if MapFormat::ArmageddonsBlade (the default value used in the Map Editor).
     std::optional<std::int32_t> experience;
     std::optional<HeroPortrait> portrait;
     // The size of the vector is serialized as uint32.
@@ -210,11 +211,14 @@ namespace h3m
     std::int8_t patrol_radius = -1;
     std::optional<std::string> biography;
     Gender gender = Gender::Default;
+    // Spells known by the hero.
+    // If MapFormat::ArmageddonsBlade, at most 1 spell should be enabled; std::nullopt implies SpellType::Default.
     std::optional<SpellsBitmask> spells;
     // Treated as uint8_t in the Map Editor; in the game they will be initialized as int8_t,
     // so 0xFF becomes -1.
     // Negative Attack/Defense is displayed as 0 and is treated as 0 during combat.
     // Nonpositive Spell Power/Knowledge is displayed as 1 and is treated as 1.
+    // Only meaningful for MapFormat::ShadowOfDeath.
     std::optional<PrimarySkills> primary_skills;
     // 0s by default; kept here for compatibility.
     ReservedData<16> unknown;
@@ -418,8 +422,7 @@ namespace h3m
   {
     constexpr bool operator==(const ObjectProperties&) const noexcept = default;
 
-    // 0xFF means random.
-    SpellType spell {0xFF};
+    SpellType spell = SpellType::Random;
     ReservedData<3> unknown;
   };
 
@@ -440,7 +443,7 @@ namespace h3m
     constexpr bool operator==(const ObjectProperties&) const noexcept = default;
 
     std::optional<Guardians> guardians;
-    // FYI: unlike SHRINE, 0xFF is not allowed here (causes the game to crash).
+    // FYI: unlike SHRINE, SpellType::Random is not allowed here (causes the game to crash).
     SpellType spell = SpellType::MagicArrow;
     ReservedData<3> unknown;
   };
@@ -500,6 +503,7 @@ namespace h3m
     // For a random town:
     //   * 0xFF means "Same as Owner or Random".
     //   * [0; 7] means "Same as Player N".
+    // Only meaningful for MapFormat::ShadowOfDeath.
     std::uint8_t alignment = 0xFF;
     ReservedData<3> unknown;
   };

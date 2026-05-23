@@ -1,19 +1,18 @@
 #pragma once
 
+// Forward declarations for the Map library.
+
 #include <cstddef>
 #include <cstdint>
 
-// Forward declarations of some types used in h3m::Map.
-//
-// Note that the underlying types of enums are significant - they should always
-// match the actual integer type used in the H3M file format.
 namespace h3m
 {
-  // H3M file format uses a single byte to store a boolean. Normally, the stored value
-  // should be either 0 or 1, but there are some fields which sometimes store other values
-  // (interpreted as "true"). Just to be safe, h3mtxt stores the exact value for boolean
-  // fields.
-  using Bool = std::uint8_t;
+  // ============================================================
+  // Enums.
+  //
+  // Note that the underlying types of enums are significant - they should
+  // always match the actual integer types used in the H3M file format.
+  // ------------------------------------------------------------
 
   enum class ArtifactSlot : std::uint8_t;
 
@@ -80,14 +79,12 @@ namespace h3m
 
   enum class VictoryConditionType : std::uint8_t;
 
+  // ============================================================
+  // Utility classes.
+  // ------------------------------------------------------------
+
   template<std::size_t NumBytes>
   struct BitSet;
-
-  struct Coordinates;
-
-  struct CreatureStack;
-
-  struct CustomHero;
 
   // Wrapper around BitSet<NumBytes>.
   // * More convenient access to the stored bits - no need to explicitly cast enum values to integers.
@@ -96,19 +93,29 @@ namespace h3m
   template<class Enum, std::size_t NumBytes>
   struct EnumBitmask;
 
+  // Wrapper for std::array<T, NumElements> which allows indexing elements of the array via
+  // values of the specified Enum type without explicitly casting them to integers.
+  template<class Enum, class T, std::size_t NumElements>
+  struct EnumIndexedArray;
+
+  template<std::size_t NumBytes>
+  class ReservedData;
+
+  // ============================================================
+  // Aliases.
+  // ------------------------------------------------------------
+
+  // H3M file format uses a single byte to store a boolean. Normally, the stored value
+  // should be either 0 or 1, but there are some fields which sometimes store other values
+  // (interpreted as "true"). Just to be safe, h3mtxt stores the exact value for boolean
+  // fields.
+  using Bool = std::uint8_t;
+
   // Bitmask storing a bit for each artifact.
   //
   // There are 144 artifacts in Shadow of Death (the last 3 of them are unused content);
   // this bitmask stores exactly 144 bits.
   using ArtifactsBitmask = EnumBitmask<ArtifactType, 18>;
-
-  // Bitmask storing a bit for each creature type.
-  //
-  // There are 150 creature types in Shadow of Death (the last 5 of them are war machines and arrow towers),
-  // but this bitmask stores 152 bits.
-  //
-  // This is only used in CrossoverOptions.
-  using CreaturesBitmask = EnumBitmask<CreatureType, 19>;
 
   // Bitmask storing a bit for each valid hero.
   //
@@ -147,11 +154,6 @@ namespace h3m
   // The last 7 bits are normally set to 0 in .h3m regardless of the meaning of the bitmask.
   using TownsBitmask = EnumBitmask<TownType, 2>;
 
-  // Wrapper for std::array<T, NumElements> which allows indexing elements of the array via
-  // values of the specified Enum type without explicitly casting them to integers.
-  template<class Enum, class T, std::size_t NumElements>
-  struct EnumIndexedArray;
-
   // Represents the absolute or relative values of the hero's primary skills.
   //
   // This is used in HeroSettings, hero objects on the adventure map,
@@ -169,6 +171,16 @@ namespace h3m
   // as a reward for defeating a monster).
   using Resources = EnumIndexedArray<ResourceType, std::int32_t, 7>;
 
+  // ============================================================
+  // Structures used in the H3M file format.
+  // ------------------------------------------------------------
+
+  struct Coordinates;
+
+  struct CreatureStack;
+
+  struct CustomHero;
+
   struct EventBase;
 
   struct Guardians;
@@ -181,7 +193,7 @@ namespace h3m
 
   struct LossCondition;
 
-  // Template class for storing details of a loss condition.
+  // Template class for storing the details of a loss condition.
   template<LossConditionType T, class Enable = void>
   struct LossConditionDetails;
 
@@ -189,9 +201,9 @@ namespace h3m
 
   struct Map;
 
-  struct MapBasicInfo;
-
   struct MapAdditionalInfo;
+
+  struct MapBasicInfo;
 
   struct MessageAndTreasure;
 
@@ -212,9 +224,6 @@ namespace h3m
   // "Extension" of Quest specific to QuestType.
   template<QuestType T>
   struct QuestDetails;
-
-  template<std::size_t NumBytes>
-  class ReservedData;
 
   struct Reward;
 
@@ -246,4 +255,6 @@ namespace h3m
   // Template class for storing the details of a victory condition.
   template<VictoryConditionType T, class Enable = void>
   struct VictoryConditionDetails;
+
+  // ============================================================
 }

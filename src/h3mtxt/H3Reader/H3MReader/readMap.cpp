@@ -52,12 +52,14 @@ namespace h3m
 
   Map H3MReader::readMap() const
   {
+    const MapFormat map_format = readEnum<MapFormat>();
+    return H3MReader{ stream_, map_format }.readMapWithoutFormat();
+  }
+
+  Map H3MReader::readMapWithoutFormat() const
+  {
     Map map;
-    map.format = readEnum<MapFormat>();
-    if (map.format != MapFormat::ShadowOfDeath)
-    {
-      throw std::runtime_error("Unsupported MapFormat. Only ShadowOfDeath is supported.");
-    }
+    map.format = map_format_;
     map.basic_info = readMapBasicInfo();
     for (int i = 0; i < kMaxPlayers; ++i)
     {

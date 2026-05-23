@@ -44,12 +44,22 @@ namespace h3m
 
   namespace Detail_NS
   {
-    constexpr bool getBitsetElementUnsafe(const std::uint8_t* bitset_bytes, std::size_t bit_index) noexcept
+    // Returns the value of the specified bit of the input byte.
+    // \param byte - input byte value.
+    // \param bit_index - 0-based index of the bit (0 is LSB, 7 is MSB).
+    //        The behavior is undefined if bit_index > 7.
+    // \return the value of the bit @bit_index of @byte.
+    constexpr bool getBit(std::uint8_t byte, std::uint8_t bit_index)
+    {
+      const std::uint8_t mask = 1 << bit_index;
+      return byte & mask;
+    }
+
+    constexpr bool getBitsetElementUnsafe(const std::uint8_t* bitset_bytes, std::size_t bit_index)
     {
       const std::size_t byte_index = bit_index / 8;
-      const std::size_t bit_index_in_byte = bit_index % 8;
-      const std::uint8_t mask = 1 << bit_index_in_byte;
-      return bitset_bytes[byte_index] & mask;
+      const std::uint8_t bit_index_in_byte = static_cast<std::uint8_t>(bit_index % 8);
+      return getBit(bitset_bytes[byte_index], bit_index_in_byte);
     }
 
     constexpr bool getBitsetElement(const std::uint8_t* bitset_bytes, std::size_t num_bytes, std::size_t bit_index)
@@ -61,7 +71,12 @@ namespace h3m
       return getBitsetElementUnsafe(bitset_bytes, bit_index);
     }
 
-    constexpr void setBit(std::uint8_t& byte, std::uint8_t bit_index, bool value) noexcept
+    // Assigns the given value to the specified bit of the input byte.
+    // \param byte - input byte.
+    // \param bit_index - 0-based index of the bit (0 is LSB, 7 is MSB).
+    //        The behavior is undefined if bit_index > 7.
+    // \param value - value to assign.
+    constexpr void setBit(std::uint8_t& byte, std::uint8_t bit_index, bool value)
     {
       // Bitmask with all bits except @bit_index set to 0.
       const std::uint8_t mask = 1 << bit_index;
@@ -83,7 +98,7 @@ namespace h3m
         throw std::out_of_range("BitSet::set(): index is out of range");
       }
       const std::size_t byte_index = bit_index / 8;
-      const std::uint8_t bit_index_in_byte = bit_index % 8;
+      const std::uint8_t bit_index_in_byte = static_cast<std::uint8_t>(bit_index % 8);
       setBit(bitset_bytes[byte_index], bit_index_in_byte, value);
     }
   }

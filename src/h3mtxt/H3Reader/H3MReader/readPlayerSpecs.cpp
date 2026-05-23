@@ -41,7 +41,10 @@ namespace h3m
     player.can_be_human = readBool();
     player.can_be_computer = readBool();
     player.behavior = readEnum<PlayerBehavior>();
-    player.has_customized_alignments = readInt<std::uint8_t>();
+    if (map_format_ == MapFormat::ShadowOfDeath)
+    {
+      player.has_customized_alignments = readInt<std::uint8_t>();
+    }
     player.allowed_alignments.bitset = readBitSet<2>();
     player.allow_random_alignment = readInt<std::uint8_t>();
     const bool has_main_town = readBool();
