@@ -12,7 +12,6 @@
 #include <h3mtxt/SavedGame/Constants/PlayerTurnDurationType.h>
 #include <h3mtxt/SavedGame/Constants/TownType32.h>
 #include <h3mtxt/SavedGame/CampaignInfo.h>
-#include <h3mtxt/SavedGame/Hero.h>
 
 #include <array>
 #include <cstddef>
@@ -93,23 +92,11 @@ namespace h3svg
     EnumIndexedArray<PlayerColor, PlayerStartingBonusType, kMaxPlayers> starting_bonuses;
     // Campaign-specific data, or std::nullopt if this is a standalone map.
     std::optional<CampaignInfo> campaign_info;
-    // Heroes that crossed over from earlier scenarios.
-    //
-    // This array stores their settings at the end of the scenario from which they crossed over.
-    // For standalone maps this is normally an empty vector, but it's serialized anyway.
-    // TODO: check the behavior of "Restart Scenario" for standalone maps that have placeholder heroes
-    // after manually adding a crossover hero to the saved game.
-    //
-    // Note that this also contains crossover heroes for future scenarios: e.g., if
-    //   * Scenario 0: you play as Gelu
-    //   * Scenario 1: you play as Dracon
-    //   * Scenario 2: you play as both Gelu and Dracon
-    // then crossover_heroes for Scenario 1 will contain Gelu even though he's not present in that scenario.
-    //
-    // Length is serialized as an 8-bit integer.
-    std::vector<Hero> crossover_heroes;
-    // TODO: sometimes this is followed by more data in campaigns, but I'm not sure
-    // when / what is it / how many bytes are there. This seems to have something to do with
-    // crossover heroes: if there are none, then there is no extra data.
+    // Placeholder heroes configured as "Specific" (as opposed to "Power rating").
+    // Note that is explicitly serialized even for standalone maps, in which case it will
+    // be an empty vector even if the original .h3m file has placeholder heroes (they disappear
+    // at the start of the game anyway).
+    // Size is serialized as an 8-bit integer.
+    std::vector<HeroType16> placeholder_heroes;
   };
 }

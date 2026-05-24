@@ -46,13 +46,13 @@ namespace h3svg
     {
       starting_info.campaign_info = readCampaignInfo();
     }
-    // Read crossover heroes.
+    // Read placeholder heroes.
     {
-      const std::uint8_t num_crossover_heroes = readInt<std::uint8_t>();
-      starting_info.crossover_heroes.reserve(num_crossover_heroes);
-      for (std::size_t i = 0; i < num_crossover_heroes; ++i)
+      const std::uint8_t num_placeholder_heroes = readInt<std::uint8_t>();
+      starting_info.placeholder_heroes.reserve(num_placeholder_heroes);
+      for (std::size_t i = 0; i < num_placeholder_heroes; ++i)
       {
-        starting_info.crossover_heroes.push_back(readHero());
+        starting_info.placeholder_heroes.push_back(readEnum<HeroType16>());
       }
     }
     return starting_info;

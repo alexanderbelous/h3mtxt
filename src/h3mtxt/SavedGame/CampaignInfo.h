@@ -2,8 +2,11 @@
 
 #include <h3mtxt/SavedGame/SavedGameFwd.h>
 
+#include <h3mtxt/SavedGame/Hero.h>
+
 #include <array>
 #include <cstdint>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -16,17 +19,46 @@ namespace h3svg
     // The number of days that it took the player to complete this scenario.
     // The value is meaningless if is_completed == false, but the game seems to store 0 in this case.
     std::uint32_t num_days = 0;
+    // Score for this scenario (see https://heroes.thelazy.net/index.php/Score).
+    // The value is meaningless if is_completed == false, but the game seems to store 0 in this case.
+    std::uint32_t score = 0;
+    // 1-based rank of this scenario among all scenarios in the order in which they were played (ascending).
+    // The value is meaningless if is_completed == false, but the game seems to store 0 in this case.
+    std::uint8_t order = 0;
     // TODO: figure out what this is.
-    // * unknown[5] seems to specify the order in which scenarios were completed:
-    //   * 1 if this is the first completed scenario.
-    //   * 2 if this is the second completed scenario.
-    //   * ...
-    // * unknown[6] seems to be "is completed or started": the value is 0xFF if the scenario
-    //   has been neither completed nor started, 0 otherwise.
-    std::array<std::uint8_t, 6> unknown {};
+    // Seems to be "is completed or started": the value is 0xFF if the scenario
+    // has been neither completed nor started, 0 otherwise.
+    std::uint8_t unknown {};
   };
 
-  // Starting settings for a campaign scenario.
+  struct CrossoverInfo
+  {
+    struct UnknownPair
+    {
+      // TODO: figure out what this is. Kinda looks like HeroType16, but values are not unique.
+      std::uint16_t first {};
+      // TODO: figure out what this is. Kinda looks like move points.
+      std::uint16_t second {};
+    };
+
+    // Heroes that crossed over from earlier scenarios.
+    //
+    // This array stores their settings at the end of the scenario from which they crossed over.
+    //
+    // Note that this also contains crossover heroes for future scenarios: e.g., if
+    //   * Scenario 0: you play as Gelu
+    //   * Scenario 1: you play as Dracon
+    //   * Scenario 2: you play as both Gelu and Dracon
+    // then crossover_heroes for Scenario 1 will contain Gelu even though he's not present in that scenario.
+    //
+    // Length is serialized as an 8-bit integer.
+    std::vector<Hero> crossover_heroes;
+    // TODO: figure out what this is. Each element occupies 4 bytes.
+    // Size is serialized as a 16-bit integer.
+    std::vector<UnknownPair> unknown;
+  };
+
+  // Campaign-specific data stored in saved games.
   struct CampaignInfo
   {
     // TODO: figure out what this is.
@@ -49,7 +81,7 @@ namespace h3svg
     // Information for each region in this campaign.
     // H3SVC explicitly serializes the length as an 8-bit integer.
     std::vector<RegionInfo> regions;
-    // TODO: figure out what this is. The type seems to be Bool.
-    std::uint8_t unknown4 {};
+    // Information about crossover heroes.
+    std::optional<CrossoverInfo> crossover_info;
   };
 }

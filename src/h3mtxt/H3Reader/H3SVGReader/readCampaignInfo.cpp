@@ -3,12 +3,41 @@
 
 namespace h3svg
 {
+  CrossoverInfo H3SVGReader::readCrossoverInfo() const
+  {
+    CrossoverInfo info;
+    // Read crossover heroes.
+    {
+      const std::uint8_t num_crossover_heroes = readInt<std::uint8_t>();
+      info.crossover_heroes.reserve(num_crossover_heroes);
+      for (std::size_t i = 0; i < num_crossover_heroes; ++i)
+      {
+        info.crossover_heroes.push_back(readHero());
+      }
+    }
+    // Read unknown stuff.
+    {
+      const std::uint16_t num_elements = readInt<std::uint16_t>();
+      info.unknown.reserve(num_elements);
+      for (std::size_t i = 0; i < num_elements; ++i)
+      {
+        CrossoverInfo::UnknownPair pair;
+        pair.first = readInt<std::uint16_t>();
+        pair.second = readInt<std::uint16_t>();
+        info.unknown.push_back(pair);
+      }
+    }
+    return info;
+  }
+
   RegionInfo H3SVGReader::readRegionInfo() const
   {
     RegionInfo info;
     info.is_completed = readBool();
     info.num_days = readInt<std::uint32_t>();
-    readBytes(std::as_writable_bytes(std::span<std::uint8_t, 6>{ info.unknown }));
+    info.score = readInt<std::uint32_t>();
+    info.order = readInt<std::uint8_t>();
+    info.unknown = readInt<std::uint8_t>();
     return info;
   }
 
@@ -36,8 +65,12 @@ namespace h3svg
         info.regions.push_back(readRegionInfo());
       }
     }
-    // Read 1 byte (unknown).
-    info.unknown4 = readInt<std::uint8_t>();
+    // Read crossover info.
+    const Bool has_crossover_info = readBool();
+    if (has_crossover_info)
+    {
+      info.crossover_info = readCrossoverInfo();
+    }
     return info;
   }
 }

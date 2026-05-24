@@ -26,6 +26,8 @@ namespace h3svg
 
     CreatureStack readCreatureStack() const;
 
+    CrossoverInfo readCrossoverInfo() const;
+
     CustomHero readCustomHero() const;
 
     Boat readBoat() const;

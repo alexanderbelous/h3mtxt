@@ -65,6 +65,8 @@ namespace Medea_NS
   {
     out.writeField("is_completed", info.is_completed);
     out.writeField("num_days", info.num_days);
+    out.writeField("score", info.score);
+    out.writeField("order", info.order);
     out.writeField("unknown", info.unknown);
   }
 
@@ -77,7 +79,23 @@ namespace Medea_NS
     out.writeField("filename", info.filename);
     out.writeField("unknown3", info.unknown3);
     out.writeField("regions", info.regions);
-    out.writeField("unknown4", info.unknown4);
+    if (info.crossover_info)
+    {
+      out.writeField("crossover_info", *info.crossover_info);
+    }
+  }
+
+  void JsonObjectWriter<h3svg::CrossoverInfo::UnknownPair>::operator()(
+    FieldsWriter& out, const h3svg::CrossoverInfo::UnknownPair& pair) const
+  {
+    out.writeField("first", pair.first);
+    out.writeField("second", pair.second);
+  }
+
+  void JsonObjectWriter<h3svg::CrossoverInfo>::operator()(FieldsWriter& out, const h3svg::CrossoverInfo& info) const
+  {
+    out.writeField("crossover_heroes", info.crossover_heroes);
+    out.writeField("unknown", info.unknown);
   }
 
   void JsonObjectWriter<h3svg::Player>::operator()(FieldsWriter& out,
@@ -243,7 +261,7 @@ namespace Medea_NS
     {
       out.writeField(Fields::kCampaignInfo, *starting_info.campaign_info);
     }
-    out.writeField(Fields::kCrossoverHeroes, starting_info.crossover_heroes);
+    out.writeField(Fields::kPlaceholderHeroes, starting_info.placeholder_heroes);
   }
 
   void JsonObjectWriter<h3svg::Town>::operator()(FieldsWriter& out, const h3svg::Town& town) const

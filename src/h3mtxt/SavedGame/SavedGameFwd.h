@@ -119,6 +119,8 @@ namespace h3svg
 
   struct CampaignInfo;
 
+  struct CrossoverInfo;
+
   struct Dwelling;
 
   struct EventBase;

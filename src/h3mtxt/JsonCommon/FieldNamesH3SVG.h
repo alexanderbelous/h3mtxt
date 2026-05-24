@@ -472,7 +472,7 @@ namespace h3json
     static constexpr std::string_view kStartingHeroes = "starting_heroes";
     static constexpr std::string_view kStartingBonuses = "starting_bonuses";
     static constexpr std::string_view kCampaignInfo = "campaign_info";
-    static constexpr std::string_view kCrossoverHeroes = "crossover_heroes";
+    static constexpr std::string_view kPlaceholderHeroes = "placeholder_heroes";
   };
 
   template<>
