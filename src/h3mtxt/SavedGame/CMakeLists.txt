@@ -14,6 +14,7 @@ set(SOURCE_LIST
     "Constants/TownBuildingTypeH3SVG.h"
     "Constants/TownType32.h"
     "ArtifactMerchants.h"
+    "CampaignInfo.h"
     "EventBase.h"
     "Hero.h"
     "LossCondition.h"

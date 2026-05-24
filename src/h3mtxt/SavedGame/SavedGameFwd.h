@@ -117,6 +117,8 @@ namespace h3svg
 
   struct Boat;
 
+  struct CampaignInfo;
+
   struct Dwelling;
 
   struct EventBase;
@@ -156,6 +158,8 @@ namespace h3svg
   struct Player;
 
   struct PlayerSpecs;
+
+  struct RegionInfo;
 
   struct Quest;
 

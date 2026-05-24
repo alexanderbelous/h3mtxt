@@ -26,12 +26,15 @@ namespace h3svg
   SavedGame H3SVGReader::readSavedGame() const
   {
     SavedGame saved_game;
-    // Read and check the file signature.
-    char file_signature[5] {};
-    readBytes(std::as_writable_bytes(std::span{ file_signature }));
-    if (std::string_view{ file_signature, sizeof(file_signature) } != SavedGame::kFileSignature)
+    // Read and check the file signature (always 5 bytes).
     {
-      throw std::runtime_error("readSavedGame(): invalid file signature.");
+      readBytes(std::as_writable_bytes(std::span{ saved_game.signature }));
+      const std::string_view signature{ saved_game.signature.data(), saved_game.signature.size()};
+      if (signature != SavedGame::kSignatureMap &&
+          signature != SavedGame::kSignatureCampaign)
+      {
+        throw std::runtime_error("readSavedGame(): invalid file signature \"" + std::string{ signature } + "\".");
+      }
     }
     saved_game.reserved1 = readReservedData<3>();
     saved_game.version_major = readInt<std::uint32_t>();
@@ -56,11 +59,9 @@ namespace h3svg
     // Read 16 bytes.
     // These seem to to always be {0, 1, 2, 3, 4, 5, 6, 7, 0, 1, 2, 3, 4, 5, 6, 7}.
     saved_game.unknown1 = readByteArray<16>();
-    // Read 420 bytes - the starting settings for the map.
+    // Read the starting settings for this scenario.
+    // FYI: for standalone maps this is always 422 bytes; for campaigns, however, the size varies.
     saved_game.starting_info = readScenarioStartingInfo();
-    // Read 2 bytes.
-    // TODO: figure out what this is. Seems to always be {0, 0}.
-    saved_game.unknown2 = readByteArray<2>();
     // Read 47 bytes representing the original filename for this saved game.
     readBytes(std::as_writable_bytes(std::span{ saved_game.original_filename }));
     // Read 352 bytes.

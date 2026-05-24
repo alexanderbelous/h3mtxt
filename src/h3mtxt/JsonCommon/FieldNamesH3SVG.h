@@ -415,6 +415,7 @@ namespace h3json
   template<>
   struct FieldNames<h3svg::SavedGame>
   {
+    static constexpr std::string_view kSignature = "signature";
     static constexpr std::string_view kReserved1 = "reserved1";
     static constexpr std::string_view kVersionMajor = "version_major";
     static constexpr std::string_view kVersionMinor = "version_minor";
@@ -470,6 +471,8 @@ namespace h3json
     static constexpr std::string_view kPlayerTurnDuration = "player_turn_duration";
     static constexpr std::string_view kStartingHeroes = "starting_heroes";
     static constexpr std::string_view kStartingBonuses = "starting_bonuses";
+    static constexpr std::string_view kCampaignInfo = "campaign_info";
+    static constexpr std::string_view kCrossoverHeroes = "crossover_heroes";
   };
 
   template<>

@@ -60,6 +60,26 @@ namespace Medea_NS
     }
   };
 
+  void JsonObjectWriter<h3svg::RegionInfo>::operator()(FieldsWriter& out,
+                                                       const h3svg::RegionInfo& info) const
+  {
+    out.writeField("is_completed", info.is_completed);
+    out.writeField("num_days", info.num_days);
+    out.writeField("unknown", info.unknown);
+  }
+
+  void JsonObjectWriter<h3svg::CampaignInfo>::operator()(FieldsWriter& out, const h3svg::CampaignInfo& info) const
+  {
+    out.writeField("unknown1", info.unknown1);
+    out.writeField("region_idx", info.region_idx);
+    out.writeField("unknown2", info.unknown2);
+    out.writeField("starting_bonus_idx", info.starting_bonus_idx);
+    out.writeField("filename", info.filename);
+    out.writeField("unknown3", info.unknown3);
+    out.writeField("regions", info.regions);
+    out.writeField("unknown4", info.unknown4);
+  }
+
   void JsonObjectWriter<h3svg::Player>::operator()(FieldsWriter& out,
                                                    const h3svg::Player& player) const
   {
@@ -147,6 +167,7 @@ namespace Medea_NS
   {
     using Fields = h3json::FieldNames<h3svg::SavedGame>;
 
+    out.writeField(Fields::kSignature, std::string_view{ saved_game.signature.data(), saved_game.signature.size() });
     out.writeField(Fields::kReserved1, saved_game.reserved1);
     out.writeField(Fields::kVersionMajor, saved_game.version_major);
     out.writeField(Fields::kVersionMinor, saved_game.version_minor);
@@ -160,7 +181,6 @@ namespace Medea_NS
     out.writeField(Fields::kCustomHeroes, saved_game.custom_heroes);
     out.writeField(Fields::kUnknown1, saved_game.unknown1);
     out.writeField(Fields::kStartingInfo, saved_game.starting_info);
-    out.writeField(Fields::kUnknown2, saved_game.unknown2);
     // TODO: consider serializing as a string.
     out.writeField(Fields::kOriginalFilename, saved_game.original_filename);
     out.writeField(Fields::kUnknown3, saved_game.unknown3);
@@ -219,6 +239,11 @@ namespace Medea_NS
     out.writeField(Fields::kPlayerTurnDuration, starting_info.player_turn_duration);
     out.writeField(Fields::kStartingHeroes, starting_info.starting_heroes);
     out.writeField(Fields::kStartingBonuses, starting_info.starting_bonuses);
+    if (starting_info.campaign_info.has_value())
+    {
+      out.writeField(Fields::kCampaignInfo, *starting_info.campaign_info);
+    }
+    out.writeField(Fields::kCrossoverHeroes, starting_info.crossover_heroes);
   }
 
   void JsonObjectWriter<h3svg::Town>::operator()(FieldsWriter& out, const h3svg::Town& town) const

@@ -33,13 +33,27 @@
 
 namespace h3svg
 {
-  // Represents a saved game for Heroes of Might and Magic 3 (.GM1, .GM2, ... files).
+  // Represents a saved game for Heroes of Might and Magic 3 (.CGM, .GM1, .GM2, ... files).
+  //
+  // HoMM3 uses the same format for saved maps and saved campaigns, so this class is used for both.
   struct SavedGame
   {
-    // The first 5 bytes are always the file signature (aka magic numbers / magic bytes): "H3SVG".
-    // TODO: apparently, HD Mod may sometimes use "HDSvG" instead.
-    static constexpr std::string_view kFileSignature = "H3SVG";
+    // Signature for saved maps.
+    static constexpr std::string_view kSignatureMap = "H3SVG";
+    // Signature for saved campaigns.
+    static constexpr std::string_view kSignatureCampaign = "H3SVC";
 
+    // The first 5 bytes are always the file signature (aka magic numbers / magic bytes).
+    // This must always be one of the following:
+    // * "H3SVG", which is normally used for standalone maps.
+    // * "H3SVC", which is normally used for campaigns.
+    // Note, however, that the game doesn't really care which signature is used: instead,
+    // it relies on this->starting_info.campaign_info.has_value() to distinguish
+    // between standalone scenarios and campaigns.
+    //
+    // FYI: apparently, HD Mod used to use "HDSvG" instead (when using HD+ ?),
+    // but this doesn't seem to be the case anymore.
+    std::array<char, 5> signature = { 'H', '3', 'S', 'V', 'G' };
     ReservedData<3> reserved1;
     std::uint32_t version_major {};
     std::uint32_t version_minor {};
@@ -60,11 +74,8 @@ namespace h3svg
     // 16 bytes with unknown meaning: the values are always {0, 1, 2, 3, 4, 5, 6, 7, 0, 1, 2, 3, 4, 5, 6, 7}.
     // Modifying these bytes doesn't seem to affect anything.
     std::array<std::uint8_t, 16> unknown1 {};
-    // Starting settings for the map.
+    // Starting settings for this scenario.
     ScenarioStartingInfo starting_info;
-    // TODO: figure out what this is.
-    // Seems to always be {0, 0}
-    std::array<std::uint8_t, 2> unknown2 {};
     // Original filename used for this saved game.
     // This doesn't seem to be used anywhere in the game.
     // This is also stored as a fixed-width string. Note that HoMM3 limits the length to 47 characters

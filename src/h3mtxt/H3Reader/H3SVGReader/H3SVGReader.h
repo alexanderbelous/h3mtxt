@@ -20,6 +20,8 @@ namespace h3svg
 
     ArtifactMerchants readArtifactMerchants() const;
 
+    CampaignInfo readCampaignInfo() const;
+
     Coordinates readCoordinates() const;
 
     CreatureStack readCreatureStack() const;
@@ -76,6 +78,8 @@ namespace h3svg
     QuestDetails<T> readQuestDetails() const;
 
     QuestGuard readQuestGuard() const;
+
+    RegionInfo readRegionInfo() const;
 
     Resources readResources() const;
 

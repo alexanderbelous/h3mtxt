@@ -40,6 +40,21 @@ namespace h3svg
     {
       starting_bonus = readEnum<PlayerStartingBonusType>();
     }
+    // Read 1 byte indicating if this is a campaign scenario.
+    const Bool has_campaign_info = readBool();
+    if (has_campaign_info)
+    {
+      starting_info.campaign_info = readCampaignInfo();
+    }
+    // Read crossover heroes.
+    {
+      const std::uint8_t num_crossover_heroes = readInt<std::uint8_t>();
+      starting_info.crossover_heroes.reserve(num_crossover_heroes);
+      for (std::size_t i = 0; i < num_crossover_heroes; ++i)
+      {
+        starting_info.crossover_heroes.push_back(readHero());
+      }
+    }
     return starting_info;
   }
 }

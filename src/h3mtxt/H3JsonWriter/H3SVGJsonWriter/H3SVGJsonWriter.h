@@ -74,6 +74,9 @@ namespace Medea_NS
                                                              const h3svg::ArtifactMerchants& artifact_merchants) const;
 
   template<>
+  void JsonObjectWriter<h3svg::CampaignInfo>::operator()(FieldsWriter& out, const h3svg::CampaignInfo& info) const;
+
+  template<>
   void JsonObjectWriter<h3svg::Boat>::operator()(FieldsWriter& out, const h3svg::Boat& boat) const;
 
   template<>
@@ -191,6 +194,10 @@ namespace Medea_NS
   template<>
   void JsonObjectWriter<h3svg::QuestGuard>::operator()(FieldsWriter& out,
                                                        const h3svg::QuestGuard& quest_guard) const;
+
+  template<>
+  void JsonObjectWriter<h3svg::RegionInfo>::operator()(FieldsWriter& out,
+                                                       const h3svg::RegionInfo& info) const;
 
   template<>
   void JsonObjectWriter<h3svg::Reward>::operator()(FieldsWriter& out, const h3svg::Reward& reward) const;

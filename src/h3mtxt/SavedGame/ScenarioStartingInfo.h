@@ -11,16 +11,20 @@
 #include <h3mtxt/SavedGame/Constants/PlayerStartingBonusType.h>
 #include <h3mtxt/SavedGame/Constants/PlayerTurnDurationType.h>
 #include <h3mtxt/SavedGame/Constants/TownType32.h>
+#include <h3mtxt/SavedGame/CampaignInfo.h>
+#include <h3mtxt/SavedGame/Hero.h>
 
 #include <array>
 #include <cstddef>
+#include <optional>
+#include <vector>
 
 namespace h3svg
 {
   // Starting settings for the map.
   //
-  // The data in this class normally doesn't change during the game - H3SVG stores it so that it
-  // can be displayed in "Scenario Information".
+  // The data in this class doesn't change during the game.
+  // The game uses it in "Scenario Information" and "Restart Scenario" commands.
   struct ScenarioStartingInfo
   {
     // Starting town (i.e. alignment) for each player, or 0xFFFFFFFF if the player is absent.
@@ -40,6 +44,8 @@ namespace h3svg
     // This is different from MapBasicInfo::difficulty, which is set by the mapmaker and doesn't affect the game.
     MapDifficulty difficulty {};
     // The original filename of the map (this is used by Restart Scenario command).
+    //
+    // For campaign scenarios the game always writes "test.h3m" here.
     //
     // In H3SVG this is stored as a fixed-width string (251 bytes). Only the bytes up to the first null terminator are
     // significant - the rest often contain junk.
@@ -65,6 +71,8 @@ namespace h3svg
     // * Subdirectories are supported (both '/' and '\').
     // * Special filename ".." (the parent directory) is supported.
     // * Absolute paths (e.g., "F:\Maps") are NOT supported.
+    //
+    // For campaigns this is normally an empty string.
     std::array<char, 100> map_directory {};
     // 8 bytes: 1 byte per PlayerColor, indicating who can control this color
     // (0 - only CPU, 1 - Human or CPU, 0xFF - nobody).
@@ -73,8 +81,35 @@ namespace h3svg
     // TODO: figure out what this is.
     // Seems to always be {255, 1, 1}
     std::array<std::byte, 3> unknown2 {};
+    // 1 byte indicating player turn duration.
+    // The value is junk for campaigns (usually zero-initialized). Note that
+    // limiting player turn duration is not supported in campaigns at all.
     PlayerTurnDurationType player_turn_duration = PlayerTurnDurationType::Unlimited;
+    // 8 bytes: 1 byte per player, indicating the type of the starting hero.
+    // The values are junk for campaigns (usually zero-initialized).
     EnumIndexedArray<PlayerColor, HeroType, kMaxPlayers> starting_heroes;
+    // 8 bytes: 1 byte per player, indicating the type of the starting bonus.
+    // The values are junk for campaigns (usually zero-initialized).
     EnumIndexedArray<PlayerColor, PlayerStartingBonusType, kMaxPlayers> starting_bonuses;
+    // Campaign-specific data, or std::nullopt if this is a standalone map.
+    std::optional<CampaignInfo> campaign_info;
+    // Heroes that crossed over from earlier scenarios.
+    //
+    // This array stores their settings at the end of the scenario from which they crossed over.
+    // For standalone maps this is normally an empty vector, but it's serialized anyway.
+    // TODO: check the behavior of "Restart Scenario" for standalone maps that have placeholder heroes
+    // after manually adding a crossover hero to the saved game.
+    //
+    // Note that this also contains crossover heroes for future scenarios: e.g., if
+    //   * Scenario 0: you play as Gelu
+    //   * Scenario 1: you play as Dracon
+    //   * Scenario 2: you play as both Gelu and Dracon
+    // then crossover_heroes for Scenario 1 will contain Gelu even though he's not present in that scenario.
+    //
+    // Length is serialized as an 8-bit integer.
+    std::vector<Hero> crossover_heroes;
+    // TODO: sometimes this is followed by more data in campaigns, but I'm not sure
+    // when / what is it / how many bytes are there. This seems to have something to do with
+    // crossover heroes: if there are none, then there is no extra data.
   };
 }

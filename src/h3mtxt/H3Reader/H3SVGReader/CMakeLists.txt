@@ -3,6 +3,7 @@ add_library(H3SVGReader STATIC
     "H3SVGReader.h"
     "parseh3svg.h"
     "parseh3svg.cpp"
+    "readCampaignInfo.cpp"
     "readEventBase.cpp"
     "readHero.cpp"
     "readLossCondition.cpp"
