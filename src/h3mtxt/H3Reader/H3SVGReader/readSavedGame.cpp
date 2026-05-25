@@ -66,7 +66,7 @@ namespace h3svg
     readBytes(std::as_writable_bytes(std::span{ saved_game.original_filename }));
     // Read 352 bytes.
     // TODO: figure out what this is.
-    saved_game.unknown3 = readByteArray<352>();
+    saved_game.unknown2 = readByteArray<352>();
     // Read 144 bytes indicating which artifacts are disabled on this map (1 byte per artifact).
     saved_game.disabled_artifacts.data = readByteArray<144>();
     // Read 144 bytes for another bitmask for artifacts.
@@ -78,7 +78,7 @@ namespace h3svg
     saved_game.current_rumor = readString16();
     // Read 256 bytes.
     // TODO: figure out what this is.
-    saved_game.unknown4 = readByteArray<256>();
+    saved_game.unknown3 = readByteArray<256>();
     // Read custom rumors that can appear in the Tavern.
     {
       const std::uint32_t num_custom_rumors = readInt<std::uint32_t>();
@@ -151,12 +151,12 @@ namespace h3svg
     }
     // Read 361 bytes.
     // TODO: figure out what this is.
-    saved_game.unknown5 = readByteArray<361>();
+    saved_game.unknown4 = readByteArray<361>();
     // Read Artifact Merchants.
     saved_game.artifact_merchants = readArtifactMerchants();
     // Read 32 bytes.
     // TODO: figure out what this is.
-    saved_game.unknown6 = readByteArray<32>();
+    saved_game.unknown5 = readByteArray<32>();
     // Read 8 bytes - Keymaster's Tents.
     for (PlayersBitmask& bitmask : saved_game.keymasters_tents.data)
     {
@@ -164,14 +164,14 @@ namespace h3svg
     }
     // Read 6 bytes.
     // TODO: figure out what this is.
-    saved_game.unknown7 = readByteArray<6>();
+    saved_game.unknown6 = readByteArray<6>();
     // Read 3 bytes - 1 byte per Cartographer type.
     saved_game.cartographer_water = readEnumBitmask<PlayerColor, 1>();
     saved_game.cartographer_land = readEnumBitmask<PlayerColor, 1>();
     saved_game.cartographer_subterranean = readEnumBitmask<PlayerColor, 1>();
     // Read 4 bytes.
     // TODO: figure out what this is.
-    saved_game.unknown8 = readByteArray<4>();
+    saved_game.unknown7 = readByteArray<4>();
     // Read Fog of War.
     {
       const std::size_t num_tiles = countTiles(saved_game.basic_info);

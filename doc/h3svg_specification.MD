@@ -136,12 +136,12 @@ An H3SVG file is a single structure which we will naturally call [`SavedGame`](#
 | num_placeholder_heroes    | `uint8`                          | 1             | The number of Hero Placeholders at the beginning of the scenario |
 | placeholder_heroes        | `uint16[num_placeholder_heroes]` | varies        | Hero Placeholders at the beginning of the scenario. Each element is enum `HeroType` |
 | original_filename         | `char[47]`                       | 47            | Original filename used for this saved game                       |
-| unknown3                  | `uint8[352]`                     | 352           | TODO                                                             |
+| unknown2                  | `uint8[352]`                     | 352           | TODO                                                             |
 | disabled_artifacts        | `Bool[144]`                      | 144           | 1 byte per Artifact type indicating if it is disabled            |
 | artifacts_bitmask_unknown | `Bool[144]`                      | 144           | TODO                                                             |
 | disabled_skills           | `Bool[28]`                       | 28            | 1 byte per Secondary Skill type, indicating if it is disabled    |
 | current_rumor             | `String16`                       | varies        | The rumor currently displayed in the Tavern.                     |
-| unknown4                  | `Bool[256]`                      | 256           | TODO                                                             |
+| unknown3                  | `Bool[256]`                      | 256           | TODO                                                             |
 | num_rumors                | `uint32`                         | 4             | The number of custom rumors added by the mapmaker                |
 | rumors                    | [`Rumor[num_rumors]`](#Rumor)    | varies        | "Map Specifications / Rumors" in the Editor                      |
 | num_black_markets         | `uint8`                          | 1             | The number of Black Markets on the Adventure Map                 |
@@ -156,15 +156,15 @@ An H3SVG file is a single structure which we will naturally call [`SavedGame`](#
 | num_towns                 | `uint8`                          | 1             | The number of towns on the Adventure Map                         |
 | towns                     | [`Town[num_towns]`](#Town)       | varies        | Towns on the Adventure Map                                       |
 | heroes                    | [`Hero[156]`](#Hero)             | varies        | Properties for each hero                                         |
-| unknown5                  | `uint8[361]`                     | 361           | TODO                                                             |
+| unknown4                  | `uint8[361]`                     | 361           | TODO                                                             |
 | artifact_merchants        | [`ArtifactMerchants`](#ArtifactMerchants) | 28   | Artifacts currently available in Artifact Merchants              |
-| unknown6                  | `uint8[32]`                      | 32            | TODO                                                             |
+| unknown5                  | `uint8[32]`                      | 32            | TODO                                                             |
 | keymasters_tents          | `uint8[8]`                       | 8             | 8 bitmasks - 1 per Keymaster's Tent type - indicating which players have visited it |
-| unknown7                  | `uint8[6]`                       | 6             | TODO                                                             |
+| unknown6                  | `uint8[6]`                       | 6             | TODO                                                             |
 | cartographer_water        | `uint8`                          | 1             | Bitmask; 1 bit per player, indicating if they have visited the Water Cartographer |
 | cartographer_land         | `uint8`                          | 1             | Bitmask; 1 bit per player, indicating if they have visited the Land Cartographer |
 | cartographer_subterranean | `uint8`                          | 1             | Bitmask; 1 bit per player, indicating if they have visited the Subterranean Cartographer |
-| unknown8                  | `uint8[4]`                       | 4             | TODO                                                             |
+| unknown7                  | `uint8[4]`                       | 4             | TODO                                                             |
 | fog_of_war                | [`TileVisibility[NUM_TILES]`](#TileVisibility) | varies | Describes visibility of each tile for each player         |
 
 

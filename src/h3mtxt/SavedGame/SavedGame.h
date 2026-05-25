@@ -85,7 +85,7 @@ namespace h3svg
     std::array<char, 47> original_filename {};
     // TODO: figure out what this is.
     // The last 50 bytes look like some bitmask, but I don't know the meaning yet.
-    std::array<std::uint8_t, 352> unknown3 {};
+    std::array<std::uint8_t, 352> unknown2 {};
     // Array of boolean values indicating which artifacts are disabled on this map (1 - disabled, 0 - enabled).
     EnumIndexedArray<ArtifactType, Bool, 144> disabled_artifacts;
     // Another array of boolean values for artifacts; the meaning is not clear yet.
@@ -98,7 +98,7 @@ namespace h3svg
     std::string current_rumor;
     // TODO: figure out what this is.
     // The values seem to always be either 0x00 or 0x01; mostly 0x00.
-    std::array<std::uint8_t, 256> unknown4 {};
+    std::array<std::uint8_t, 256> unknown3 {};
     // Custom rumors that can appear in the Tavern.
     std::vector<Rumor> rumors;
     // Artifacts currently available in Black Markets on the Adventure Map.
@@ -125,15 +125,15 @@ namespace h3svg
     std::vector<Hero> heroes;
     // TODO: figure out what this is.
     // * Seems to contain the coordinates of the Grail (even if has already been dug out) near the end.
-    std::array<std::uint8_t, 361> unknown5 {};
+    std::array<std::uint8_t, 361> unknown4 {};
     ArtifactMerchants artifact_merchants;
     // TODO: figure out what this is.
-    std::array<std::uint8_t, 32> unknown6 {};
+    std::array<std::uint8_t, 32> unknown5 {};
     // 8 bitmasks - 1 for each Keymaster's Tent type - indicating which players have visited that Keymaster's Tent.
     EnumIndexedArray<KeymastersTentType, PlayersBitmask, kNumKeymastersTentTypes> keymasters_tents;
     // TODO: figure out what this is.
     // Seems to always be {0, 1, 191, 0, 64, 0}.
-    std::array<std::uint8_t, 6> unknown7 {};
+    std::array<std::uint8_t, 6> unknown6 {};
     // 1 bit per player, indicating if they have visited the Water Cartographer.
     PlayersBitmask cartographer_water;
     // 1 bit per player, indicating if they have visited the Land Cartographer.
@@ -142,7 +142,7 @@ namespace h3svg
     PlayersBitmask cartographer_subterranean;
     // TODO: figure out what this is.
     // Seems to always be 0s.
-    std::array<std::uint8_t, 4> unknown8 {};
+    std::array<std::uint8_t, 4> unknown7 {};
     // Visibility of each tile for each player.
     // The number of elements should be (has_two_levels ? 2 : 1) * map_size * map_size,
     // i.e. countTiles(this->basic_info).

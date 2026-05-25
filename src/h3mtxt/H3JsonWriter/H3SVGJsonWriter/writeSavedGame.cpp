@@ -63,25 +63,27 @@ namespace Medea_NS
   void JsonObjectWriter<h3svg::RegionInfo>::operator()(FieldsWriter& out,
                                                        const h3svg::RegionInfo& info) const
   {
-    out.writeField("is_completed", info.is_completed);
-    out.writeField("num_days", info.num_days);
-    out.writeField("score", info.score);
-    out.writeField("order", info.order);
-    out.writeField("unknown", info.unknown);
+    using Fields = h3json::FieldNames<h3svg::RegionInfo>;
+    out.writeField(Fields::kIsCompleted, info.is_completed);
+    out.writeField(Fields::kNumDays, info.num_days);
+    out.writeField(Fields::kScore, info.score);
+    out.writeField(Fields::kOrder, info.order);
+    out.writeField(Fields::kUnknown, info.unknown);
   }
 
   void JsonObjectWriter<h3svg::CampaignInfo>::operator()(FieldsWriter& out, const h3svg::CampaignInfo& info) const
   {
-    out.writeField("unknown1", info.unknown1);
-    out.writeField("region_idx", info.region_idx);
-    out.writeField("unknown2", info.unknown2);
-    out.writeField("starting_bonus_idx", info.starting_bonus_idx);
-    out.writeField("filename", info.filename);
-    out.writeField("unknown3", info.unknown3);
-    out.writeField("regions", info.regions);
+    using Fields = h3json::FieldNames<h3svg::CampaignInfo>;
+    out.writeField(Fields::kUnknown1, info.unknown1);
+    out.writeField(Fields::kRegionIdx, info.region_idx);
+    out.writeField(Fields::kUnknown2, info.unknown2);
+    out.writeField(Fields::kStartingBonusIdx, info.starting_bonus_idx);
+    out.writeField(Fields::kFilename, info.filename);
+    out.writeField(Fields::kUnknown3, info.unknown3);
+    out.writeField(Fields::kRegions, info.regions);
     if (info.crossover_info)
     {
-      out.writeField("crossover_info", *info.crossover_info);
+      out.writeField(Fields::kCrossoverInfo, *info.crossover_info);
     }
   }
 
@@ -94,8 +96,9 @@ namespace Medea_NS
 
   void JsonObjectWriter<h3svg::CrossoverInfo>::operator()(FieldsWriter& out, const h3svg::CrossoverInfo& info) const
   {
-    out.writeField("crossover_heroes", info.crossover_heroes);
-    out.writeField("unknown", info.unknown);
+    using Fields = h3json::FieldNames<h3svg::CrossoverInfo>;
+    out.writeField(Fields::kCrossoverHeroes, info.crossover_heroes);
+    out.writeField(Fields::kUnknown, info.unknown);
   }
 
   void JsonObjectWriter<h3svg::Player>::operator()(FieldsWriter& out,
@@ -201,12 +204,12 @@ namespace Medea_NS
     out.writeField(Fields::kStartingInfo, saved_game.starting_info);
     // TODO: consider serializing as a string.
     out.writeField(Fields::kOriginalFilename, saved_game.original_filename);
-    out.writeField(Fields::kUnknown3, saved_game.unknown3);
+    out.writeField(Fields::kUnknown2, saved_game.unknown2);
     out.writeField(Fields::kDisabledArtifacts, saved_game.disabled_artifacts);
     out.writeField(Fields::kArtifactsBitmaskUnknown, saved_game.artifacts_bitmask_unknown);
     out.writeField(Fields::kDisabledSkills, saved_game.disabled_skills);
     out.writeField(Fields::kCurrentRumor, saved_game.current_rumor);
-    out.writeField(Fields::kUnknown4, saved_game.unknown4);
+    out.writeField(Fields::kUnknown3, saved_game.unknown3);
     out.writeField(Fields::kRumors, saved_game.rumors);
     out.writeField(Fields::kBlackMarkets, saved_game.black_markets);
     out.writeField(Fields::kTiles,
@@ -222,15 +225,15 @@ namespace Medea_NS
     out.writeField(Fields::kPlayers, saved_game.players);
     out.writeField(Fields::kTowns, saved_game.towns);
     out.writeField(Fields::kHeroes, saved_game.heroes);
-    out.writeField(Fields::kUnknown5, saved_game.unknown5);
+    out.writeField(Fields::kUnknown4, saved_game.unknown4);
     out.writeField(Fields::kArtifactMerchants, saved_game.artifact_merchants);
-    out.writeField(Fields::kUnknown6, saved_game.unknown6);
+    out.writeField(Fields::kUnknown5, saved_game.unknown5);
     out.writeField(Fields::kKeymastersTents, saved_game.keymasters_tents);
-    out.writeField(Fields::kUnknown7, saved_game.unknown7);
+    out.writeField(Fields::kUnknown6, saved_game.unknown6);
     out.writeField(Fields::kCartographerWater, saved_game.cartographer_water);
     out.writeField(Fields::kCartographerLand, saved_game.cartographer_land);
     out.writeField(Fields::kCartographerSubterranean, saved_game.cartographer_subterranean);
-    out.writeField(Fields::kUnknown8, saved_game.unknown8);
+    out.writeField(Fields::kUnknown7, saved_game.unknown7);
     out.writeField(Fields::kFogOfWar, TilesWithMapSize<h3svg::TileVisibility>{
                                         .tiles = saved_game.fog_of_war,
                                         .map_size = saved_game.basic_info.map_size,

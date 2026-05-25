@@ -155,6 +155,26 @@ namespace h3json
   };
 
   template<>
+  struct FieldNames<h3svg::CampaignInfo>
+  {
+    static constexpr std::string_view kUnknown1 = "unknown1";
+    static constexpr std::string_view kRegionIdx = "region_idx";
+    static constexpr std::string_view kUnknown2 = "unknown2";
+    static constexpr std::string_view kStartingBonusIdx = "starting_bonus_idx";
+    static constexpr std::string_view kFilename = "filename";
+    static constexpr std::string_view kUnknown3 = "unknown3";
+    static constexpr std::string_view kRegions = "regions";
+    static constexpr std::string_view kCrossoverInfo = "crossover_info";
+  };
+
+  template<>
+  struct FieldNames<h3svg::CrossoverInfo>
+  {
+    static constexpr std::string_view kCrossoverHeroes = "crossover_heroes";
+    static constexpr std::string_view kUnknown = "unknown";
+  };
+
+  template<>
   struct FieldNames<h3svg::Dwelling>
   {
     static constexpr std::string_view kOwner = "owner";
@@ -400,6 +420,16 @@ namespace h3json
   };
 
   template<>
+  struct FieldNames<h3svg::RegionInfo>
+  {
+    static constexpr std::string_view kIsCompleted = "is_completed";
+    static constexpr std::string_view kNumDays = "num_days";
+    static constexpr std::string_view kScore = "score";
+    static constexpr std::string_view kOrder = "order";
+    static constexpr std::string_view kUnknown = "unknown";
+  };
+
+  template<>
   struct FieldNames<h3svg::Reward> : FieldNames<h3m::Reward>
   {
     // Same fields as for h3m::Reward.
@@ -429,14 +459,13 @@ namespace h3json
     static constexpr std::string_view kCustomHeroes = "custom_heroes";
     static constexpr std::string_view kUnknown1 = "unknown1";
     static constexpr std::string_view kStartingInfo = "starting_info";
-    static constexpr std::string_view kUnknown2 = "unknown2";
     static constexpr std::string_view kOriginalFilename = "original_filename";
-    static constexpr std::string_view kUnknown3 = "unknown3";
+    static constexpr std::string_view kUnknown2 = "unknown2";
     static constexpr std::string_view kDisabledArtifacts = "disabled_artifacts";
     static constexpr std::string_view kArtifactsBitmaskUnknown = "artifacts_bitmask_unknown";
     static constexpr std::string_view kDisabledSkills = "disabled_skills";
     static constexpr std::string_view kCurrentRumor = "current_rumor";
-    static constexpr std::string_view kUnknown4 = "unknown4";
+    static constexpr std::string_view kUnknown3 = "unknown3";
     static constexpr std::string_view kRumors = "rumors";
     static constexpr std::string_view kBlackMarkets = "black_markets";
     static constexpr std::string_view kTiles = "tiles";
@@ -446,15 +475,15 @@ namespace h3json
     static constexpr std::string_view kPlayers = "players";
     static constexpr std::string_view kTowns = "towns";
     static constexpr std::string_view kHeroes = "heroes";
-    static constexpr std::string_view kUnknown5 = "unknown5";
+    static constexpr std::string_view kUnknown4 = "unknown4";
     static constexpr std::string_view kArtifactMerchants = "artifact_merchants";
-    static constexpr std::string_view kUnknown6 = "unknown6";
+    static constexpr std::string_view kUnknown5 = "unknown5";
     static constexpr std::string_view kKeymastersTents = "keymasters_tents";
-    static constexpr std::string_view kUnknown7 = "unknown7";
+    static constexpr std::string_view kUnknown6 = "unknown6";
     static constexpr std::string_view kCartographerWater = "cartographer_water";
     static constexpr std::string_view kCartographerLand = "cartographer_land";
     static constexpr std::string_view kCartographerSubterranean = "cartographer_subterranean";
-    static constexpr std::string_view kUnknown8 = "unknown8";
+    static constexpr std::string_view kUnknown7 = "unknown7";
     static constexpr std::string_view kFogOfWar = "fog_of_war";
   };
 
