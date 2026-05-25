@@ -27,9 +27,10 @@ Since I reverse-engineered the file format, I thought it would be a nice idea to
 
 ## Terminology
 
-Unlike maps (.h3m) and campaigns (.h3c), the file format for saved games doesn't have a well-established name. Depending on the number of players, the game uses various filename extensions (.GM1, .GM2, ..., .GM8), but "GM" is a very ambiguous abbreviation.
+Unlike maps (.h3m) and campaigns (.h3c), the file format for saved games doesn't have a well-established name. Depending on the number of players, the game uses various filename extensions (.CGM, .GM1, .GM2, ..., .GM8), but "GM" is a very ambiguous abbreviation.
 
 In this repository I call the file format for saved games **H3SVG** since this is what the game uses as the file signature (the bytes at the beginning of the file).
+* Saved campaigns use a different signature "H3SVC", but the file format is the same, so this document uses **H3SVG** for both.
 
 ## Previous work
 
@@ -115,7 +116,7 @@ An H3SVG file is a single structure which we will naturally call [`SavedGame`](#
 
 | Field name                | Type                             | Size in bytes | Description                                                      |
 | ------------------------- | -------------------------------- | ------------- | ---------------------------------------------------------------- |
-| file_signature            | `char[5]`                        | 5             | Always equal to "H3SVG"                                          |
+| file_signature            | `char[5]`                        | 5             | "H3SVG" for standalone maps, "H3SVC" for campaigns               |
 | reserved1                 |                                  | 3             | Not used; usually 0s                                             |
 | version_major             | `int32`                          | 4             | Major version of the game                                        |
 | version_minor             | `int32`                          | 4             | Minor version of the game                                        |
@@ -130,7 +131,10 @@ An H3SVG file is a single structure which we will naturally call [`SavedGame`](#
 | custom_heroes             | [`CustomHero[num_custom_heroes]`](#CustomHero) | varies | Heroes with custom name, portrait or hireability          |
 | unknown1                  | `uint8[16]`                      | 16            | Always [0, 1, 2, 3, 4, 5, 6, 7, 0, 1, 2, 3, 4, 5, 6, 7]          |
 | starting_info             | [`ScenarioStartingInfo`](#ScenarioStartingInfo) | 420 | Starting settings for the map                               |
-| unknown2                  | `uint8[2]`                       | 2             | Always [0, 0]                                                    |
+| has_campaign_info         | `Bool`                           | 1             | 0 if this is a standalone map, nonzero otherwise                 |
+| ?campaign_info            | [`CampaignInfo`](#CampaignInfo)  | varies        | Campaign-specific data. Only present if `has_campaign_info != 0` |
+| num_placeholder_heroes    | `uint8`                          | 1             | The number of Hero Placeholders at the beginning of the scenario |
+| placeholder_heroes        | `uint16[num_placeholder_heroes]` | varies        | Hero Placeholders at the beginning of the scenario. Each element is enum `HeroType` |
 | original_filename         | `char[47]`                       | 47            | Original filename used for this saved game                       |
 | unknown3                  | `uint8[352]`                     | 352           | TODO                                                             |
 | disabled_artifacts        | `Bool[144]`                      | 144           | 1 byte per Artifact type indicating if it is disabled            |
@@ -285,13 +289,47 @@ except `allow_normal_win` and `applies_to_computer`.
 | starting_towns       | `int32[8]`           | 32            | Enum `TownType` for each player; 0xFFFFFFFF is used for absent players |
 | unknown1             | `uint8[8]`           | 8             | TODO                                                                   |
 | difficulty           | `uint8`              | 1             | Enum `MapDifficulty`; Difficulty level set by the human player         |
-| map_filename         | `char[251]`          | 251           | The original filename of the map. Only the characters before the first null terminator are significant. Used by "Restart Scenario" command |
-| map_directory        | `char[100]`          | 100           | Relative (to Heroes3.exe) path to the directory in which the original map file is located. Only the characters before the first null terminator are significant. Used by "Restart Scenario" command. The game always writes "maps" here |
+| map_filename         | `char[251]`          | 251           | The original filename of the map. Only the characters before the first null terminator are significant. Used by "Restart Scenario" command. For campaign scenarios it's always "test.h3m" |
+| map_directory        | `char[100]`          | 100           | Relative (to Heroes3.exe) path to the directory in which the original map file is located. Only the characters before the first null terminator are significant. Used by "Restart Scenario" command. The game always writes "maps" here for standalone maps |
 | players_control      | `uint8[8]`           | 8             | Enum `PlayerControlType` for each player                               |
 | unknown2             | `uint8[3]`           | 3             | Unknown. Seems to always be [255, 1, 1]                                |
-| player_turn_duration | `uint8`              | 1             | Enum `PlayerTurnDuration`                                              |
-| starting_heroes      | `uint8[8]`           | 8             | Enum `HeroType` for each player                                        |
-| starting_bonuses     | `uint8[8]`           | 8             | Enum `PlayerStartingBonus` for each player                             |
+| player_turn_duration | `uint8`              | 1             | Enum `PlayerTurnDuration`. Meaningless for campaigns                   |
+| starting_heroes      | `uint8[8]`           | 8             | Enum `HeroType` for each player. Meaningless for campaigns             |
+| starting_bonuses     | `uint8[8]`           | 8             | Enum `PlayerStartingBonus` for each player. Meaningless for campaigns  |
+
+
+### `CampaignInfo`
+| Field name         | Type                              | Size in bytes | Description                                                |
+| ------------------ | --------------------------------- | ------------- | -----------------------------------------------------------|
+| unknown1           | `uint8[3]`                        | 3             | TODO                                                       |
+| region_idx         | `uint8`                           | 3             | 0-based index of the current region                        |
+| unknown2           | `uint8[3]`                        | 3             | TODO                                                       |
+| starting_bonus_idx | `uint8`                           | 3             | 0-based index of the selected starting bonus               |
+| filename           | `String32`                        | varies        | The original filename of the .h3c file                     |
+| unknown3           | `uint8[21]`                       | 21            | TODO                                                       |
+| num_regions        | `uint8`                           | 1             | The number of regions in this campaign                     |
+| regions            | [`RegionInfo[num_regions]`](#RegionInfo) | 11     | Information for each region in this campaign               |
+| has_crossover_info | `Bool`                            | 1             | 0 if there are no crossover heroes, nonzero otherwise      |
+| ?crossover_info    | [`CrossoverInfo`](#CrossoverInfo) | varies        | Information about crossover heroes. Only present if `has_crossover_info` is nonzero |
+
+
+### `RegionInfo`
+| Field name   | Type     | Size in bytes | Description                                                                                          |
+| ------------ | -------- | ------------- | ---------------------------------------------------------------------------------------------------- |
+| is_completed | `Bool`   | 1             | 0 if this scenario hasn't been completed yet, nonzero otherwise                                      |
+| num_days     | `uint32` | 4             | The number of days that it took the player to complete this scenario                                 |
+| score        | `uint32` | 4             | Score for this scenario (see https://heroes.thelazy.net/index.php/Score)                             |
+| order        | `uint8`  | 1             | 1-based rank of this scenario among all scenarios in the order in which they were played (ascending) |
+| unknown      | `uint8`  | 1             | TODO                                                                                                 |
+
+
+### `CrossoverInfo`
+| Field name  | Type                        | Size in bytes | Description
+| ----------- | --------------------------- | ------------- | ------------------------------------------------------------------------------------ |
+| num_heroes  | `uint8`                     | 1             | The number of crossover heroes                                                       |
+| heroes      | [`Hero[num_heroes]`](#Hero) | varies        | Settings for each crossover heroe                                                    |
+| num_unknown | `uint16`                    | 2             | The number of elements in `unknown` field                                            |
+| unknown     | `uint32[num_unknown]`       | varies        | TODO. Each element is actually a pair of 16-bit integers, but the meaning is unclear |
 
 
 ### `Rumor`
