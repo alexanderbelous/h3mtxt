@@ -327,7 +327,7 @@ except `allow_normal_win` and `applies_to_computer`.
 | Field name  | Type                        | Size in bytes | Description
 | ----------- | --------------------------- | ------------- | ------------------------------------------------------------------------------------ |
 | num_heroes  | `uint8`                     | 1             | The number of crossover heroes                                                       |
-| heroes      | [`Hero[num_heroes]`](#Hero) | varies        | Settings for each crossover heroe                                                    |
+| heroes      | [`Hero[num_heroes]`](#Hero) | varies        | Settings for each crossover hero                                                     |
 | num_unknown | `uint16`                    | 2             | The number of elements in `unknown` field                                            |
 | unknown     | `uint32[num_unknown]`       | varies        | TODO. Each element is actually a pair of 16-bit integers, but the meaning is unclear |
 
