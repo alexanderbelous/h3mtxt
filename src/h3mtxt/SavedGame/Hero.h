@@ -96,6 +96,7 @@ namespace h3svg
     // * unknown2[1] & 1 defines army combat formation (0 - Loose, 1 - Tight).
     // * unknown2[1] & 2 defines Tactics formation (0 - Enabled, 1 - Disabled).
     //   The bit seems to be 0 by default if the hero doesn't know Tactics.
+    // * unknown2[2] is Hero seed.
     std::array<std::uint8_t, 4> unknown2 {};
     // X-coordinate of the destination, or -1 if there is none.
     std::int32_t destination_x {};
