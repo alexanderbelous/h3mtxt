@@ -81,10 +81,7 @@ namespace Medea_NS
     out.writeField(Fields::kFilename, info.filename);
     out.writeField(Fields::kUnknown3, info.unknown3);
     out.writeField(Fields::kRegions, info.regions);
-    if (info.crossover_info)
-    {
-      out.writeField(Fields::kCrossoverInfo, *info.crossover_info);
-    }
+    out.writeField(Fields::kCrossoverInfo, info.crossover_info);
   }
 
   void JsonObjectWriter<h3svg::CrossoverInfo::UnknownPair>::operator()(

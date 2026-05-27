@@ -77,11 +77,12 @@ namespace h3svg
     // The last byte seems to indicate whether the campaign itself is completed, but only for custom campaigns
     // (i.e. not for the official NWC campaigns).
     // The other bytes seem to always be 0s for custom campaigns, but not for the official NWC campaigns.
-    std::array<std::uint8_t, 21> unknown3;
+    std::array<std::uint8_t, 21> unknown3 {};
     // Information for each region in this campaign.
     // H3SVC explicitly serializes the length as an 8-bit integer.
     std::vector<RegionInfo> regions;
     // Information about crossover heroes.
-    std::optional<CrossoverInfo> crossover_info;
+    // Length is uint8.
+    std::vector<CrossoverInfo> crossover_info;
   };
 }

@@ -299,18 +299,18 @@ except `allow_normal_win` and `applies_to_computer`.
 
 
 ### `CampaignInfo`
-| Field name         | Type                              | Size in bytes | Description                                                |
-| ------------------ | --------------------------------- | ------------- | -----------------------------------------------------------|
-| unknown1           | `uint8[3]`                        | 3             | TODO                                                       |
-| region_idx         | `uint8`                           | 1             | 0-based index of the current region                        |
-| unknown2           | `uint8[3]`                        | 3             | TODO                                                       |
-| starting_bonus_idx | `uint8`                           | 1             | 0-based index of the selected starting bonus               |
-| filename           | `String32`                        | varies        | The original filename of the .h3c file                     |
-| unknown3           | `uint8[21]`                       | 21            | TODO                                                       |
-| num_regions        | `uint8`                           | 1             | The number of regions in this campaign                     |
-| regions            | [`RegionInfo[num_regions]`](#RegionInfo) | varies | Information for each region in this campaign               |
-| has_crossover_info | `Bool`                            | 1             | 0 if there are no crossover heroes, nonzero otherwise      |
-| ?crossover_info    | [`CrossoverInfo`](#CrossoverInfo) | varies        | Information about crossover heroes. Only present if `has_crossover_info` is nonzero |
+| Field name          | Type                              | Size in bytes | Description                                                |
+| ------------------- | --------------------------------- | ------------- | -----------------------------------------------------------|
+| unknown1            | `uint8[3]`                        | 3             | TODO                                                       |
+| region_idx          | `uint8`                           | 1             | 0-based index of the current region                        |
+| unknown2            | `uint8[3]`                        | 3             | TODO                                                       |
+| starting_bonus_idx  | `uint8`                           | 1             | 0-based index of the selected starting bonus               |
+| filename            | `String32`                        | varies        | The original filename of the .h3c file                     |
+| unknown3            | `uint8[21]`                       | 21            | TODO                                                       |
+| num_regions         | `uint8`                           | 1             | The number of regions in this campaign                     |
+| regions             | [`RegionInfo[num_regions]`](#RegionInfo) | varies | Information for each region in this campaign               |
+| num_crossover_infos | `uint8`                           | 1             | The number of elements in `crossover_info`                 |
+| crossover_info      | [`CrossoverInfo[num_crossover_infos]`](#CrossoverInfo) | varies | Information about crossover heroes           |
 
 
 ### `RegionInfo`

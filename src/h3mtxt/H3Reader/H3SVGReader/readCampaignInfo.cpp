@@ -66,10 +66,13 @@ namespace h3svg
       }
     }
     // Read crossover info.
-    const Bool has_crossover_info = readBool();
-    if (has_crossover_info)
     {
-      info.crossover_info = readCrossoverInfo();
+      const std::uint8_t num_crossover_elements = readInt<std::uint8_t>();
+      info.crossover_info.reserve(num_crossover_elements);
+      for (std::size_t i = 0; i < num_crossover_elements; ++i)
+      {
+        info.crossover_info.push_back(readCrossoverInfo());
+      }
     }
     return info;
   }
