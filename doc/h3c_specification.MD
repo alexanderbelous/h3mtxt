@@ -174,47 +174,47 @@ See [`CampaignHeader`](#CampaignHeader) for more information about `NUM_REGIONS`
 
 
 ### `StartingBonusSpell`
-| Field name | Type     | Size in bytes | Description                                          |
-| ---------- | -------- | ------------- | ---------------------------------------------------- |
-| hero       | `uint16` | 2             | Enum `HeroType` or 0xFDFF for the most powerful hero |
-| spell      | `uint8`  | 1             | Enum `SpellType`                                     |
+| Field name | Type     | Size in bytes | Description                                                                             |
+| ---------- | -------- | ------------- | --------------------------------------------------------------------------------------- |
+| hero       | `uint16` | 2             | Enum `HeroType`, or 0xFFFD for the Most Powerful Hero, or 0xFFFE for the Generated Hero |
+| spell      | `uint8`  | 1             | Enum `SpellType`                                                                        |
 
 
 ### `StartingBonusCreature`
-| Field name    | Type     | Size in bytes | Description                                          |
-| ------------- | -------- | ------------- | ---------------------------------------------------- |
-| hero          | `uint16` | 2             | Enum `HeroType` or 0xFDFF for the most powerful hero |
-| creature_type | `uint16` | 2             | Enum `CreatureType`                                  |
-| count         | `int16`  | 2             | The number of creatures                              |
+| Field name    | Type     | Size in bytes | Description                                                                             |
+| ------------- | -------- | ------------- | --------------------------------------------------------------------------------------- |
+| hero          | `uint16` | 2             | Enum `HeroType`, or 0xFFFD for the Most Powerful Hero, or 0xFFFE for the Generated Hero |
+| creature_type | `uint16` | 2             | Enum `CreatureType`                                                                     |
+| count         | `int16`  | 2             | The number of creatures                                                                 |
 
 
 ### `StartingBonusArtifact`
-| Field name | Type     | Size in bytes | Description                                          |
-| ---------- | -------- | ------------- | ---------------------------------------------------- |
-| hero       | `uint16` | 2             | Enum `HeroType` or 0xFDFF for the most powerful hero |
-| artifact   | `uint16` | 2             | Enum `ArtifactType`                                  |
+| Field name | Type     | Size in bytes | Description                                                                             |
+| ---------- | -------- | ------------- | --------------------------------------------------------------------------------------- |
+| hero       | `uint16` | 2             | Enum `HeroType`, or 0xFFFD for the Most Powerful Hero, or 0xFFFE for the Generated Hero |
+| artifact   | `uint16` | 2             | Enum `ArtifactType`                                                                     |
 
 
 ### `StartingBonusPrimarySkills`
-| Field name | Type      | Size in bytes | Description                                                                 |
-| ---------- | --------- | ------------- | --------------------------------------------------------------------------- |
-| hero       | `uint16`  | 2             | Enum `HeroType` or 0xFDFF for the most powerful hero                        |
-| skills     | `int8[4]` | 4             | Increments for each primary skill (Attack, Defense, Spell Power, Knowledge) |
+| Field name | Type      | Size in bytes | Description                                                                             |
+| ---------- | --------- | ------------- | --------------------------------------------------------------------------------------- |
+| hero       | `uint16`  | 2             | Enum `HeroType`, or 0xFFFD for the Most Powerful Hero, or 0xFFFE for the Generated Hero |
+| skills     | `int8[4]` | 4             | Increments for each primary skill (Attack, Defense, Spell Power, Knowledge)             |
 
 
 ### `StartingBonusSecondarySkill`
-| Field name | Type     | Size in bytes | Description                                              |
-| ---------- | -------- | ------------- | -------------------------------------------------------- |
-| hero       | `uint16` | 2             | Enum `HeroType` or 0xFDFF for the most powerful hero     |
-| type       | `uint8`  | 1             | Enum `SecondarySkillType`                                |
-| level      | `uint8`  | 1             | Level of expertise (1 - Basic, 2 - Advanced, 3 - Expert) |
+| Field name | Type     | Size in bytes | Description                                                                             |
+| ---------- | -------- | ------------- | --------------------------------------------------------------------------------------- |
+| hero       | `uint16` | 2             | Enum `HeroType`, or 0xFFFD for the Most Powerful Hero, or 0xFFFE for the Generated Hero |
+| type       | `uint8`  | 1             | Enum `SecondarySkillType`                                                               |
+| level      | `uint8`  | 1             | Level of expertise (1 - Basic, 2 - Advanced, 3 - Expert)                                |
 
 
 ### `StartingBonusResource`
-| Field name | Type     | Size in bytes | Description                      |
-| ---------- | -------- | ------------- | -------------------------------- |
-| type       | `uint8`  | 1             | Enum `StartingBonusResourceType` |
-| amount     | `uint32` | 4             |                                  |
+| Field name | Type    | Size in bytes | Description                      |
+| ---------- | ------- | ------------- | -------------------------------- |
+| type       | `uint8` | 1             | Enum `StartingBonusResourceType` |
+| amount     | `int32` | 4             |                                  |
 
 
 ### `HeroCrossoverOptions`

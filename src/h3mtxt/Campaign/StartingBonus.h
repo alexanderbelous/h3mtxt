@@ -22,7 +22,9 @@ namespace h3m
   {
     constexpr bool operator==(const StartingBonusDetails&) const noexcept = default;
 
-    // HeroType or 0xFDFF for the most powerful hero.
+    // HeroType or 2 special values:
+    // * 0xFFFD (-3) for the Most Powerful Hero.
+    // * 0xFFFE (-2) for the Generated Hero
     std::uint16_t hero {};
     SpellType spell {};
   };
@@ -32,7 +34,9 @@ namespace h3m
   {
     constexpr bool operator==(const StartingBonusDetails&) const noexcept = default;
 
-    // HeroType or 0xFDFF for the most powerful hero.
+    // HeroType or 2 special values:
+    // * 0xFFFD (-3) for the Most Powerful Hero.
+    // * 0xFFFE (-2) for the Generated Hero
     std::uint16_t hero {};
     CreatureStack creature_stack;
   };
@@ -50,7 +54,9 @@ namespace h3m
   {
     constexpr bool operator==(const StartingBonusDetails&) const noexcept = default;
 
-    // HeroType or 0xFDFF for the most powerful hero.
+    // HeroType or 2 special values:
+    // * 0xFFFD (-3) for the Most Powerful Hero.
+    // * 0xFFFE (-2) for the Generated Hero
     std::uint16_t hero {};
     ArtifactType artifact {};
   };
@@ -60,7 +66,9 @@ namespace h3m
   {
     constexpr bool operator==(const StartingBonusDetails&) const noexcept = default;
 
-    // HeroType or 0xFDFF for the most powerful hero.
+    // HeroType or 2 special values:
+    // * 0xFFFD (-3) for the Most Powerful Hero.
+    // * 0xFFFE (-2) for the Generated Hero
     std::uint16_t hero {};
     SpellType spell {};
   };
@@ -70,7 +78,9 @@ namespace h3m
   {
     constexpr bool operator==(const StartingBonusDetails&) const noexcept = default;
 
-    // HeroType or 0xFDFF for the most powerful hero.
+    // HeroType or 2 special values:
+    // * 0xFFFD (-3) for the Most Powerful Hero.
+    // * 0xFFFE (-2) for the Generated Hero
     std::uint16_t hero {};
     PrimarySkills skills;
   };
@@ -80,7 +90,9 @@ namespace h3m
   {
     constexpr bool operator==(const StartingBonusDetails&) const noexcept = default;
 
-    // HeroType or 0xFDFF for the most powerful hero.
+    // HeroType or 2 special values:
+    // * 0xFFFD (-3) for the Most Powerful Hero.
+    // * 0xFFFE (-2) for the Generated Hero
     std::uint16_t hero {};
     SecondarySkill skill;
   };
@@ -91,7 +103,9 @@ namespace h3m
     constexpr bool operator==(const StartingBonusDetails&) const noexcept = default;
 
     StartingBonusResourceType type {};
-    std::uint32_t amount {};
+    // The Campaign Editor only allows values from [1; 32767],
+    // but any signed 32-bit value can be used here.
+    std::int32_t amount {};
   };
 
   struct StartingBonus
