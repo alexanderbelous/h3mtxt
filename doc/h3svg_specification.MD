@@ -303,10 +303,11 @@ except `allow_normal_win` and `applies_to_computer`.
 | ------------------- | --------------------------------- | ------------- | -----------------------------------------------------------|
 | unknown1            | `uint8[3]`                        | 3             | TODO                                                       |
 | region_idx          | `uint8`                           | 1             | 0-based index of the current region                        |
-| unknown2            | `uint8[3]`                        | 3             | TODO                                                       |
+| id                  | `uint8`                           | 1             | Enum `CampaignId`                                          |
+| unknown2            | `uint8[2]`                        | 2             | TODO                                                       |
 | starting_bonus_idx  | `uint8`                           | 1             | 0-based index of the selected starting bonus               |
 | filename            | `String32`                        | varies        | The original filename of the .h3c file                     |
-| unknown3            | `uint8[21]`                       | 21            | TODO                                                       |
+| finished_campaigns  | `Bool[21]`                        | 21            | 1 `Bool` per enum `CampaignId`, indicating which campaigns have been finished |
 | num_regions         | `uint8`                           | 1             | The number of regions in this campaign                     |
 | regions             | [`RegionInfo[num_regions]`](#RegionInfo) | varies | Information for each region in this campaign               |
 | num_crossover_infos | `uint8`                           | 1             | The number of elements in `crossover_info`                 |
@@ -317,7 +318,7 @@ except `allow_normal_win` and `applies_to_computer`.
 | Field name   | Type     | Size in bytes | Description                                                                                          |
 | ------------ | -------- | ------------- | ---------------------------------------------------------------------------------------------------- |
 | is_completed | `Bool`   | 1             | 0 if this scenario hasn't been completed yet, nonzero otherwise                                      |
-| num_days     | `uint32` | 4             | The number of days that it took the player to complete this scenario                                 |
+| days         | `uint32` | 4             | The number of days that it took the player to complete this scenario                                 |
 | score        | `uint32` | 4             | Score for this scenario (see https://heroes.thelazy.net/index.php/Score)                             |
 | order        | `uint8`  | 1             | 1-based rank of this scenario among all scenarios in the order in which they were played (ascending) |
 | unknown      | `uint8`  | 1             | TODO                                                                                                 |

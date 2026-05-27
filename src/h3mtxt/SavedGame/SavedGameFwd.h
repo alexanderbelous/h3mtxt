@@ -65,6 +65,8 @@ namespace h3svg
 
   enum class ArtifactType32 : std::int32_t;
 
+  enum class CampaignId : std::uint8_t;
+
   // CreatureType8 is kinda broken: regardless of whether we use std::int8_t or std::uint8_t
   // as the underlying type, the valid enum constants don't form a continuous interval:
   // * If we use std::int8_t, then the valid values are [-128; -107] v [-15; 127].

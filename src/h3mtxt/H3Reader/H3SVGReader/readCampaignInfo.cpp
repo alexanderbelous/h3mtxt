@@ -34,7 +34,7 @@ namespace h3svg
   {
     RegionInfo info;
     info.is_completed = readBool();
-    info.num_days = readInt<std::uint32_t>();
+    info.days = readInt<std::uint32_t>();
     info.score = readInt<std::uint32_t>();
     info.order = readInt<std::uint8_t>();
     info.unknown = readInt<std::uint8_t>();
@@ -48,14 +48,19 @@ namespace h3svg
     readBytes(std::as_writable_bytes(std::span<std::uint8_t, 3>{ info.unknown1 }));
     // Read 1 byte - the index of the current region.
     info.region_idx = readInt<std::uint8_t>();
-    // Read 3 bytes (unknown).
-    readBytes(std::as_writable_bytes(std::span<std::uint8_t, 3>{ info.unknown2 }));
+    // Read 1 byte - ID of the campaign.
+    info.id = readEnum<CampaignId>();
+    // Read 2 bytes (unknown).
+    readBytes(std::as_writable_bytes(std::span<std::uint8_t, 2>{ info.unknown2 }));
     // Read 1 byte - the index of the selected starting bonus.
     info.starting_bonus_idx = readInt<std::uint8_t>();
     // Read the original filename of the .h3c file.
     info.filename = readString32();
-    // Read 21 bytes (unknown).
-    readBytes(std::as_writable_bytes(std::span<std::uint8_t, 21>{ info.unknown3 }));
+    // Read 21 bytes - the flags indicating which standard campaigns have been finished.
+    for (Bool& flag : info.finished_campaigns.data)
+    {
+      flag = readBool();
+    }
     // Read info for each region.
     {
       const std::uint8_t num_regions = readInt<std::uint8_t>();

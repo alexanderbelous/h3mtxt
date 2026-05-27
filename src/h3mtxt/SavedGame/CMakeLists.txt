@@ -2,6 +2,7 @@
 set(SOURCE_LIST
     "Constants/ArtifactSlotGroup.h"
     "Constants/ArtifactType32.h"
+    "Constants/CampaignId.h"
     "Constants/Constants.h"
     "Constants/HeroFlag.h"
     "Constants/KeymastersTentType.h"

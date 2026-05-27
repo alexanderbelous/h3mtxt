@@ -2,6 +2,8 @@
 
 #include <h3mtxt/SavedGame/SavedGameFwd.h>
 
+#include <h3mtxt/Map/Utils/EnumIndexedArray.h>
+#include <h3mtxt/SavedGame/Constants/CampaignId.h>
 #include <h3mtxt/SavedGame/Hero.h>
 
 #include <array>
@@ -17,7 +19,7 @@ namespace h3svg
     Bool is_completed = false;
     // The number of days that it took the player to complete this scenario.
     // The value is meaningless if is_completed == false, but the game seems to store 0 in this case.
-    std::uint32_t num_days = 0;
+    std::uint32_t days = 0;
     // Score for this scenario (see https://heroes.thelazy.net/index.php/Score).
     // The value is meaningless if is_completed == false, but the game seems to store 0 in this case.
     std::uint32_t score = 0;
@@ -65,18 +67,20 @@ namespace h3svg
     // 0-based index of the current region, i.e. the index of the relevant CampaignScenario element
     // from h3m::CampaignHeader::scenarios.
     std::uint8_t region_idx {};
+    // ID of the campaign.
+    CampaignId id = CampaignId::Custom;
     // TODO: figure out what this is.
-    std::array<std::uint8_t, 3> unknown2 {};
+    // * unknown2[0] seems to always be 255
+    std::array<std::uint8_t, 2> unknown2 {};
     // 0-based index of the selected starting bonus from h3m::StartingOptions.
     std::uint8_t starting_bonus_idx {};
     // The original filename of the .h3c file (this is used by View Scenario and Restart Scenario commands).
     // Serialized in H3SVC as a length-prefixed string; the length is serialized as a little-endian 32-bit integer.
     std::string filename;
-    // TODO: figure out what this is.
-    // The last byte seems to indicate whether the campaign itself is completed, but only for custom campaigns
-    // (i.e. not for the official NWC campaigns).
-    // The other bytes seem to always be 0s for custom campaigns, but not for the official NWC campaigns.
-    std::array<std::uint8_t, 21> unknown3 {};
+    // 1 Bool per CampaignId, indicating which campaigns have been finished.
+    // * The first 20 elements are for standard campaigns.
+    // * The last element is for custom (user-made) campaigns.
+    EnumIndexedArray<CampaignId, Bool, 21> finished_campaigns;
     // Information for each region in this campaign.
     // H3SVC explicitly serializes the length as an 8-bit integer.
     std::vector<RegionInfo> regions;

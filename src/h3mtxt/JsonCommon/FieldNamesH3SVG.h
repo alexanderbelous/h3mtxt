@@ -31,6 +31,32 @@ namespace h3json
   };
 
   template<>
+  inline constexpr std::array<std::string_view, 21> kEnumFieldNames<h3svg::CampaignId> =
+  {
+    "long_live_the_queen",
+    "liberation",
+    "song_for_the_father",
+    "dungeons_and_devils",
+    "long_livethe_king",
+    "spoils_of_war",
+    "seeds_of_discontent",
+    "bracada",
+    "islands",
+    "krewlod",
+    "nighon",
+    "tatalia",
+    "armageddon",
+    "hack_and_slash",
+    "birth_of_a_barbarian",
+    "new_beginning",
+    "elixir_of_life",
+    "rise_of_the_necromancer",
+    "unholy_alliance",
+    "specter_of_power",
+    "custom"
+  };
+
+  template<>
   inline constexpr std::array<std::string_view, 32> kEnumFieldNames<h3svg::HeroFlag> =
   {
     "magic_well",
@@ -159,10 +185,11 @@ namespace h3json
   {
     static constexpr std::string_view kUnknown1 = "unknown1";
     static constexpr std::string_view kRegionIdx = "region_idx";
+    static constexpr std::string_view kId = "id";
     static constexpr std::string_view kUnknown2 = "unknown2";
     static constexpr std::string_view kStartingBonusIdx = "starting_bonus_idx";
     static constexpr std::string_view kFilename = "filename";
-    static constexpr std::string_view kUnknown3 = "unknown3";
+    static constexpr std::string_view kFinishedCampaigns = "finished_campaigns";
     static constexpr std::string_view kRegions = "regions";
     static constexpr std::string_view kCrossoverInfo = "crossover_info";
   };
@@ -423,7 +450,7 @@ namespace h3json
   struct FieldNames<h3svg::RegionInfo>
   {
     static constexpr std::string_view kIsCompleted = "is_completed";
-    static constexpr std::string_view kNumDays = "num_days";
+    static constexpr std::string_view kDays = "days";
     static constexpr std::string_view kScore = "score";
     static constexpr std::string_view kOrder = "order";
     static constexpr std::string_view kUnknown = "unknown";

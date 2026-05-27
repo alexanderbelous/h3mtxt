@@ -44,6 +44,37 @@ namespace Medea_NS
   }
 
   template<>
+  std::string_view EnumCommentGetter::operator()(h3svg::CampaignId value) const
+  {
+    // FYI: reuse the implementation for h3m::CampaignId for standard campaigns.
+    static constexpr std::string_view kNames[] = {
+      "Long Live the Queen",
+      "Liberation",
+      "Song for the Father",
+      "Dungeons and Devils",
+      "Long Live the King",
+      "Spoils of War",
+      "Seeds of Discontent",
+      "Bracada",
+      "Islands",
+      "Krewlod",
+      "Nighon",
+      "Tatalia",
+      "Armageddon",
+      "Hack and Slash",
+      "Birth of a Barbarian",
+      "New Beginning",
+      "Elixir of Life",
+      "Rise of the Necromancer",
+      "Unholy Alliance",
+      "Specter of Power",
+      "Custom"
+    };
+    const std::size_t idx = static_cast<std::size_t>(value);
+    return (idx < std::size(kNames)) ? kNames[idx] : std::string_view{};
+  }
+
+  template<>
   std::string_view EnumCommentGetter::operator()(h3svg::CreatureType8 value) const
   {
     // TODO: fix this for special negative values CreatureType::Creature1, CreatureType::Creature1U,
