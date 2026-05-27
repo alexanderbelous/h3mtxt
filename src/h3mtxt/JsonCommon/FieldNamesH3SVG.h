@@ -37,7 +37,7 @@ namespace h3json
     "liberation",
     "song_for_the_father",
     "dungeons_and_devils",
-    "long_livethe_king",
+    "long_live_the_king",
     "spoils_of_war",
     "seeds_of_discontent",
     "bracada",
