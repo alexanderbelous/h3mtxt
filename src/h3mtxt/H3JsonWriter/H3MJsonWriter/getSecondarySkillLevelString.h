@@ -11,5 +11,5 @@ namespace h3json
   // \param skill - input secondary skill.
   // \param level - (possibly "hexed") level of @skill.
   // \return a comment for @level, or an empty string_view if this is not a known "hexed" level.
-  std::string_view getSecondarySkillLevelString(h3m::SecondarySkillType skill, std::uint8_t level) noexcept;
+  std::string_view getSecondarySkillLevelString(h3m::SecondarySkillType skill, std::int8_t level) noexcept;
 }
