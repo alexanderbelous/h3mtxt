@@ -67,7 +67,7 @@ namespace h3m
 
   enum class SecondarySkillType : std::uint8_t;
 
-  enum class SpellType : std::uint8_t;
+  enum class SpellType : std::int8_t;
 
   enum class TerrainType : std::uint8_t;
 

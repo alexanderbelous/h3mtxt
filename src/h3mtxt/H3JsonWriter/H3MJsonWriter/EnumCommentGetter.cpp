@@ -1195,7 +1195,7 @@ namespace Medea_NS
     {
       return "(Random)";
     }
-    const std::size_t idx = static_cast<std::size_t>(value);
+    const std::size_t idx = static_cast<std::make_unsigned_t<std::underlying_type_t<h3m::SpellType>>>(value);
     return (idx < std::size(kNames)) ? kNames[idx] : std::string_view{};
   }
 
