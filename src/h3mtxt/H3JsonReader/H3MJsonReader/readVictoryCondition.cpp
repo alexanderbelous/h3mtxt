@@ -6,6 +6,7 @@
 #include <h3mtxt/Map/VictoryCondition.h>
 
 #include <stdexcept>
+#include <type_traits>
 
 namespace h3json
 {
@@ -80,16 +81,15 @@ namespace h3json
     }
   };
 
-  template<class T>
-  struct JsonReader<T, std::enable_if_t<std::is_same_v<T, VictoryConditionDetails<VictoryConditionType::BuildGrail>> ||
-                                        std::is_same_v<T, VictoryConditionDetails<VictoryConditionType::DefeatHero>> ||
-                                        std::is_same_v<T, VictoryConditionDetails<VictoryConditionType::CaptureTown>> ||
-                                        std::is_same_v<T, VictoryConditionDetails<VictoryConditionType::DefeatMonster>>
-                                       >>
+  template<VictoryConditionType T>
+  struct JsonReader<VictoryConditionDetails<T>, std::enable_if_t<T == VictoryConditionType::BuildGrail ||
+                                                                 T == VictoryConditionType::DefeatHero ||
+                                                                 T == VictoryConditionType::CaptureTown ||
+                                                                 T == VictoryConditionType::DefeatMonster>>
   {
-    T operator()(const Json::Value& value) const
+    VictoryConditionDetails<T> operator()(const Json::Value& value) const
     {
-      T details {
+      VictoryConditionDetails<T> details {
         fromJson<h3m::SpecialVictoryConditionBase>(value)
       };
       readField(details.coordinates, value, "coordinates");
@@ -97,15 +97,14 @@ namespace h3json
     }
   };
 
-  template<class T>
-  struct JsonReader<T, std::enable_if_t<std::is_same_v<T, VictoryConditionDetails<VictoryConditionType::FlagDwellings>> ||
-                                        std::is_same_v<T, VictoryConditionDetails<VictoryConditionType::FlagMines>> ||
-                                        std::is_same_v<T, VictoryConditionDetails<VictoryConditionType::DefeatAllMonsters>>
-                                       >>
+  template<VictoryConditionType T>
+  struct JsonReader<VictoryConditionDetails<T>, std::enable_if_t<T == VictoryConditionType::FlagDwellings ||
+                                                                 T == VictoryConditionType::FlagMines ||
+                                                                 T == VictoryConditionType::DefeatAllMonsters>>
   {
-    T operator()(const Json::Value& value) const
+    VictoryConditionDetails<T> operator()(const Json::Value& value) const
     {
-      return T{ fromJson<h3m::SpecialVictoryConditionBase>(value) };
+      return VictoryConditionDetails<T>{ fromJson<h3m::SpecialVictoryConditionBase>(value) };
     }
   };
 
