@@ -22,8 +22,9 @@ namespace h3json
   RewardDetails<RewardType::Experience>
   JsonReader<RewardDetails<RewardType::Experience>>::operator()(const Json::Value& value) const
   {
+    using Fields = FieldNames<RewardDetails<RewardType::Experience>>;
     RewardDetails<RewardType::Experience> details;
-    readField(details.experience, value, "experience");
+    readField(details.experience, value, Fields::kExperience);
     return details;
   }
 
@@ -31,8 +32,9 @@ namespace h3json
   RewardDetails<RewardType::SpellPoints>
   JsonReader<RewardDetails<RewardType::SpellPoints>>::operator()(const Json::Value& value) const
   {
+    using Fields = FieldNames<RewardDetails<RewardType::SpellPoints>>;
     RewardDetails<RewardType::SpellPoints> details;
-    readField(details.spell_points, value, "spell_points");
+    readField(details.spell_points, value, Fields::kSpellPoints);
     return details;
   }
 
@@ -40,8 +42,9 @@ namespace h3json
   RewardDetails<RewardType::Morale>
   JsonReader<RewardDetails<RewardType::Morale>>::operator()(const Json::Value& value) const
   {
+    using Fields = FieldNames<RewardDetails<RewardType::Morale>>;
     RewardDetails<RewardType::Morale> details;
-    readField(details.morale, value, "morale");
+    readField(details.morale, value, Fields::kMorale);
     return details;
   }
 
@@ -49,8 +52,9 @@ namespace h3json
   RewardDetails<RewardType::Luck>
   JsonReader<RewardDetails<RewardType::Luck>>::operator()(const Json::Value& value) const
   {
+    using Fields = FieldNames<RewardDetails<RewardType::Luck>>;
     RewardDetails<RewardType::Luck> details;
-    readField(details.luck, value, "luck");
+    readField(details.luck, value, Fields::kLuck);
     return details;
   }
 
@@ -58,9 +62,10 @@ namespace h3json
   RewardDetails<RewardType::Resource>
   JsonReader<RewardDetails<RewardType::Resource>>::operator()(const Json::Value& value) const
   {
+    using Fields = FieldNames<RewardDetails<RewardType::Resource>>;
     RewardDetails<RewardType::Resource> details;
-    readField(details.type, value, "type");
-    readField(details.amount, value, "amount");
+    readField(details.type, value, Fields::kType);
+    readField(details.amount, value, Fields::kAmount);
     return details;
   }
 
@@ -68,9 +73,10 @@ namespace h3json
   RewardDetails<RewardType::PrimarySkill>
   JsonReader<RewardDetails<RewardType::PrimarySkill>>::operator()(const Json::Value& value) const
   {
+    using Fields = FieldNames<RewardDetails<RewardType::PrimarySkill>>;
     RewardDetails<RewardType::PrimarySkill> details;
-    readField(details.type, value, "type");
-    readField(details.value, value, "value");
+    readField(details.type, value, Fields::kType);
+    readField(details.value, value, Fields::kValue);
     return details;
   }
 
@@ -85,8 +91,9 @@ namespace h3json
   RewardDetails<RewardType::Artifact>
   JsonReader<RewardDetails<RewardType::Artifact>>::operator()(const Json::Value& value) const
   {
+    using Fields = FieldNames<RewardDetails<RewardType::Artifact>>;
     RewardDetails<RewardType::Artifact> details;
-    readField(details.artifact, value, "artifact");
+    readField(details.artifact, value, Fields::kArtifact);
     return details;
   }
 
@@ -94,8 +101,9 @@ namespace h3json
   RewardDetails<RewardType::Spell>
   JsonReader<RewardDetails<RewardType::Spell>>::operator()(const Json::Value& value) const
   {
+    using Fields = FieldNames<RewardDetails<RewardType::Spell>>;
     RewardDetails<RewardType::Spell> details;
-    readField(details.spell, value, "spell");
+    readField(details.spell, value, Fields::kSpell);
     return details;
   }
 
