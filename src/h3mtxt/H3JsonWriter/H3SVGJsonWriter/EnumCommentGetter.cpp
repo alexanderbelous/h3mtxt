@@ -62,8 +62,8 @@ namespace Medea_NS
     }
 
     // A few compile-time tests.
-    static_assert(isLosslessEnumCast<h3m::SpellType>(h3svg::TownType32{ -1 }));
-    static_assert(!isLosslessEnumCast<h3m::SpellType>(h3svg::TownType32{ 255 }));
+    static_assert(isLosslessEnumCast<h3m::SpellType>(h3svg::SpellType32{ -1 }));
+    static_assert(!isLosslessEnumCast<h3m::SpellType>(h3svg::SpellType32{ 255 }));
     static_assert(isLosslessEnumCast<h3m::PrimarySkillType>(h3svg::PrimarySkillType32{ 0 }));
     static_assert(isLosslessEnumCast<h3m::PrimarySkillType>(h3svg::PrimarySkillType32{ 255 }));
     static_assert(!isLosslessEnumCast<h3m::PrimarySkillType>(h3svg::PrimarySkillType32{ 256 }));
