@@ -15,65 +15,71 @@ namespace Medea_NS
   void JsonObjectWriter<h3m::RewardDetails<h3m::RewardType::Experience>>::operator()(
     FieldsWriter& out, const h3m::RewardDetails<h3m::RewardType::Experience>& details) const
   {
-    out.writeField("experience", details.experience);
+    using Fields = h3json::FieldNames<h3m::RewardDetails<h3m::RewardType::Experience>>;
+    out.writeField(Fields::kExperience, details.experience);
   }
 
   void JsonObjectWriter<h3m::RewardDetails<h3m::RewardType::SpellPoints>>::operator()(
     FieldsWriter& out, const h3m::RewardDetails<h3m::RewardType::SpellPoints>& details) const
   {
-    out.writeField("spell_points", details.spell_points);
+    using Fields = h3json::FieldNames<h3m::RewardDetails<h3m::RewardType::SpellPoints>>;
+    out.writeField(Fields::kSpellPoints, details.spell_points);
   }
 
   void JsonObjectWriter<h3m::RewardDetails<h3m::RewardType::Morale>>::operator()(
     FieldsWriter& out, const h3m::RewardDetails<h3m::RewardType::Morale>& details) const
   {
-    out.writeField("morale", details.morale);
+    using Fields = h3json::FieldNames<h3m::RewardDetails<h3m::RewardType::Morale>>;
+    out.writeField(Fields::kMorale, details.morale);
   }
 
   void JsonObjectWriter<h3m::RewardDetails<h3m::RewardType::Luck>>::operator()(
     FieldsWriter& out, const h3m::RewardDetails<h3m::RewardType::Luck>& details) const
   {
-    out.writeField("luck", details.luck);
+    using Fields = h3json::FieldNames<h3m::RewardDetails<h3m::RewardType::Luck>>;
+    out.writeField(Fields::kLuck, details.luck);
   }
 
   void JsonObjectWriter<h3m::RewardDetails<h3m::RewardType::Resource>>::operator()(
     FieldsWriter& out, const h3m::RewardDetails<h3m::RewardType::Resource>& details) const
   {
-    out.writeField("type", details.type);
-    out.writeField("amount", details.amount);
+    using Fields = h3json::FieldNames<h3m::RewardDetails<h3m::RewardType::Resource>>;
+    out.writeField(Fields::kType, details.type);
+    out.writeField(Fields::kAmount, details.amount);
   }
 
   void JsonObjectWriter<h3m::RewardDetails<h3m::RewardType::PrimarySkill>>::operator()(
     FieldsWriter& out, const h3m::RewardDetails<h3m::RewardType::PrimarySkill>& details) const
   {
-    out.writeField("type", details.type);
-    out.writeField("value", details.value);
+    using Fields = h3json::FieldNames<h3m::RewardDetails<h3m::RewardType::PrimarySkill>>;
+    out.writeField(Fields::kType, details.type);
+    out.writeField(Fields::kValue, details.value);
   }
 
   void JsonObjectWriter<h3m::RewardDetails<h3m::RewardType::SecondarySkill>>::operator()(
     FieldsWriter& out, const h3m::RewardDetails<h3m::RewardType::SecondarySkill>& details) const
   {
-    JsonObjectWriter<h3m::SecondarySkill> secondary_skill_writer {};
-    secondary_skill_writer(out, static_cast<const h3m::SecondarySkill&>(details));
+    JsonObjectWriter<h3m::SecondarySkill>{}(out, details);
   }
 
   void JsonObjectWriter<h3m::RewardDetails<h3m::RewardType::Artifact>>::operator()(
     FieldsWriter& out, const h3m::RewardDetails<h3m::RewardType::Artifact>& details) const
   {
-    out.writeField("artifact", details.artifact);
+    using Fields = h3json::FieldNames<h3m::RewardDetails<h3m::RewardType::Artifact>>;
+    out.writeField(Fields::kArtifact, details.artifact);
   }
 
   void JsonObjectWriter<h3m::RewardDetails<h3m::RewardType::Spell>>::operator()(
     FieldsWriter& out, const h3m::RewardDetails<h3m::RewardType::Spell>& details) const
   {
-    out.writeField("spell", details.spell);
+    using Fields = h3json::FieldNames<h3m::RewardDetails<h3m::RewardType::Spell>>;
+    out.writeField(Fields::kSpell, details.spell);
   }
 
   void JsonObjectWriter<h3m::RewardDetails<h3m::RewardType::Creature>>::operator()(
     FieldsWriter& out, const h3m::RewardDetails<h3m::RewardType::Creature>& details) const
   {
-    JsonObjectWriter<h3m::CreatureStack> creature_writer {};
-    creature_writer(out, static_cast<const h3m::CreatureStack&>(details));
+    JsonObjectWriter<h3m::CreatureStack>{}(out, details);
   }
 
   void JsonObjectWriter<h3m::Reward>::operator()(FieldsWriter& out, const h3m::Reward& reward) const
@@ -83,8 +89,8 @@ namespace Medea_NS
     if (reward.type() != h3m::RewardType::None)
     {
       std::visit([&out] <h3m::RewardType T> (const h3m::RewardDetails<T>& details)
-                  { out.writeField(Fields::kDetails, details); },
-                  reward.details);
+                 { out.writeField(Fields::kDetails, details); },
+                 reward.details);
     }
   }
 }

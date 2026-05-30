@@ -7,7 +7,7 @@ namespace h3m
   {
     SecondarySkill secondary_skill;
     secondary_skill.type = readEnum<SecondarySkillType>();
-    secondary_skill.level = readInt<std::uint8_t>();
+    secondary_skill.level = readInt<std::int8_t>();
     return secondary_skill;
   }
 }

@@ -261,7 +261,7 @@ namespace h3m
       {
         SpellsBitmask& spells = data.spells.emplace();
         // 0xFF means no spells.
-        if (spell != SpellType{ 0xFF })
+        if (spell != SpellType{ -1 })
         {
           spells.set(spell, true);
         }

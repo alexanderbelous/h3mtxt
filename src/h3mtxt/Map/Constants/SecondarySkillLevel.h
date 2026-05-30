@@ -2,6 +2,8 @@
 
 #include <h3mtxt/Map/Constants/SecondarySkillType.h>
 
+#include <cstdint>
+
 namespace h3m
 {
   // Levels of secodary skills are expected to be within [1; 3]. However, Heroes3.exe
@@ -171,24 +173,24 @@ namespace h3m
   template<SecondarySkillType T>
   struct SecondarySkillLevel;
 
+  // Changes the hero's scouting radius (the default scouting radius is 5).
   template<>
   struct SecondarySkillLevel<SecondarySkillType::Scouting>
   {
-    // Decreases the scouting radius by 1 square (the new scouting radius = 4).
-    static constexpr std::uint8_t k4Tiles = 0xFF;
-    // Decreases the scouting radius by 2 squares (the new scouting radius = 3).
-    static constexpr std::uint8_t k3Tiles = 0xFE;
-    // Decreases the scouting radius by 3 squares (the new scouting radius = 2).
-    static constexpr std::uint8_t k2Tiles = 0xFD;
-    // Decreases the scouting radius by 4 squares (the new scouting radius = 1).
-    static constexpr std::uint8_t k1Tile = 0xFC;
-    // Reveals the entire map.
-    static constexpr std::uint8_t kFullMap = 0xF9;
-    static constexpr std::uint8_t kFullMap2 = 0xFB;
+    // | Level (decimal)                             | Level (hex) | Effect        | Source        |
+    // | ------------------------------------------- | ----------- | ------------- | ------------- |
+    static constexpr std::int8_t k4Tiles   = -1;  // | 0xFF        | 4             | mysticism[3]  |
+    static constexpr std::int8_t k3Tiles   = -2;  // | 0xFE        | 3             | mysticism[2]  |
+    static constexpr std::int8_t k2Tiles   = -3;  // | 0xFD        | 2             | mysticism[1]  |
+    static constexpr std::int8_t k1Tile    = -4;  // | 0xFC        | 1             | mysticism[0]  |
+    static constexpr std::int8_t kFullMap  = -7;  // | 0xF9        | 1,036,831,949 | necromancy[1] |
+    static constexpr std::int8_t kFullMap2 = -5;  // | 0xFB        | 1,050,253,722 | necromancy[3] |
   };
 
+  // Increases morale of the hero's troops by the specified number.
+  //
   // During combat morale will always be clamped to [-3; 3], i.e. even with
-  // a "hexed" secondary skill you cannot increase the odds of getting Good/Bad morale.
+  // "hexed" Leadership you cannot increase the odds of getting Good/Bad morale.
   // However, such "hexed" skills can still be useful if you want to ensure that a hero
   // will have +3 morale even if it's decreased due to some factors (e.g., troops of 7
   // different alignments decrease morale by 5; presence of Undead decreases it by 1;
@@ -196,158 +198,146 @@ namespace h3m
   template<>
   struct SecondarySkillLevel<SecondarySkillType::Leadership>
   {
-    // Increases your hero's troops' morale by 101,058,054.
-    static constexpr std::uint8_t k101058054 = 0xF2;
-    // Increases your hero's troops' morale by 100,860,675.
-    static constexpr std::uint8_t k100860675 = 0xEC;
-    // Increases your hero's troops' morale by 33,554,432.
-    // This is commented out because it causes a crash when right-clicking on the skill.
-    //static constexpr std::uint8_t k33554432 = 0x80;
+    // | Level (decimal)                               | Level (hex) | Effect      |
+    // | --------------------------------------------- | ----------- | ----------- |
+    static constexpr std::int8_t k101058054 = -14;  // | 0xF2        | 101,058,054 |
+    static constexpr std::int8_t k100860675 = -20;  // | 0xEC        | 100,860,675 |
   };
 
+  // Changes the maximum level of spells that the hero can learn (the default is 2).
   template<>
   struct SecondarySkillLevel<SecondarySkillType::Wisdom>
   {
-    // The hero will only be able to learn Level 1 spells.
-    static constexpr std::uint8_t kMaxLevel1 = 0xFF;
-    // The hero won't be able to learn any spells.
-    static constexpr std::uint8_t kNoSpells = 0xFE;
+    // | Level (decimal)                              | Level (hex) | Effect |
+    // | ---------------------------------------------| ----------- | -------|
+    static constexpr std::int8_t kMaxLevel1 = -1;  // | 0xFF        | 1      |
+    static constexpr std::int8_t kNoSpells  = -2;  // | 0xFE        | 0      |
   };
 
+  // Allows your hero to regenerate the specified number of spell points per day.
+  //
+  // Note that the Mysticism never exceeds the hero's normal maximum spell points:
+  // for example, if the hero's normal maximum spell points is 100, and the hero currently has
+  // 99 spell points, even with Expert Mysticism the hero will have 100 spell points on the next day.
   template<>
   struct SecondarySkillLevel<SecondarySkillType::Mysticism>
   {
-    // Regenerates all spell points per day (same as Wizard's Well).
-    static constexpr std::uint8_t kFull = 0xFF;
-    static constexpr std::uint8_t kFull2 = 0xFE;
-    static constexpr std::uint8_t kFull3 = 0xFD;
-    // The hero won't regenerate any spell points.
-    static constexpr std::uint8_t kNoPoints = 0xFC;
-    static constexpr std::uint8_t kNoPoints2 = 0xF8;
-    static constexpr std::uint8_t kNoPoints3 = 0xF4;
+    // | Level (decimal)                              | Level (hex) | Effect        | Source        |
+    // | -------------------------------------------- | ----------- | ------------- | ------------- |
+    static constexpr std::int8_t kFull      = -1;  // | 0xFF        | 1,050,253,722 | necromancy[3] |
+    static constexpr std::int8_t kFull2     = -2;  // | 0xFE        | 1,045,220,557 | necromancy[2] |
+    static constexpr std::int8_t kFull3     = -3;  // | 0xFD        | 1,036,831,949 | necromancy[1] |
+    static constexpr std::int8_t kNoPoints  = -4;  // | 0xFC        | 0             | necromancy[0] |
+    static constexpr std::int8_t kNoPoints2 = -8;  // | 0xF8        | 0             | leadership[0] |
+    static constexpr std::int8_t kNoPoints3 = -12; // | 0xF4        | 0             | luck[0]       |
   };
 
+  // Increases luck of the hero's troops by the specified number.
+  //
   // During combat luck will always be clamped to [-3; 3], i.e. even with
-  // a "hexed" secondary skill you cannot increase the odds of getting Good/Bad luck.
+  // "hexed" Luck you cannot increase the odds of getting Good/Bad luck.
   // However, such "hexed" skills can still be useful if you want to ensure that a hero
   // will have +3 luck even if it's decreased due to some factors.
   template<>
   struct SecondarySkillLevel<SecondarySkillType::Luck>
   {
-    // Increases your hero's troops' luck by 101,058,054.
-    // "Defense Luck"
-    static constexpr std::uint8_t k101058054 = 0xF6;
-    // Increases your hero's troops' luck by 100,860,675.
-    // "Dark blue Luck"
-    static constexpr std::uint8_t k100860675 = 0xF0;
-    // Increases your hero's troops' luck by 1028.
-    // "Create strong guardians Luck"
-    static constexpr std::uint8_t k1028 = 0x98;
-    // Increases your hero's troops' luck by 771.
-    // "const_strong_monsters, Luck"
-    static constexpr std::uint8_t k771 = 0x97;
-    // Increases your hero's troops' luck by 33,686,018.
-    // "Include a random amount of water Luck"
-    static constexpr std::uint8_t k33686018 = 0x90;
-    // Increases your hero's troops' luck by 1280.
-    // This is commented out because it causes a crash when right-clicking on the skill.
-    //static constexpr std::uint8_t k1280 = 0x80;
+    // | Level (decimal)                                | Level (hex) | Effect      |
+    // | ---------------------------------------------- | ----------- | ----------- |
+    static constexpr std::int8_t k101058054 = -10;   // | 0xF6        | 101,058,054 |
+    static constexpr std::int8_t k100860675 = -16;   // | 0xF0        | 100,860,675 |
+    static constexpr std::int8_t k1028      = -104;  // | 0x98        | 1028        |
+    static constexpr std::int8_t k771       = -105;  // | 0x97        | 771         |
+    static constexpr std::int8_t k33686018  = -112;  // | 0x90        | 33,686,018  |
   };
 
   template<>
   struct SecondarySkillLevel<SecondarySkillType::Ballistics>
   {
-    static constexpr std::uint8_t k8Shots = 0xFF;
-    static constexpr std::uint8_t k0Shots1 = 0xFD;
-    static constexpr std::uint8_t k0Shots2 = 0xFC;
-    static constexpr std::uint8_t k0Shots3 = 0xFB;
-    static constexpr std::uint8_t k0Shots4 = 0xF9;
-    static constexpr std::uint8_t k0Shots5 = 0xF8;
-    static constexpr std::uint8_t k0Shots6 = 0xF7;
-    static constexpr std::uint8_t kInstakill = 0xF6;
-    static constexpr std::uint8_t kInstakill2 = 0xF1;
+    static constexpr std::int8_t k8Shots     = -1;  // 0xFF;
+    static constexpr std::int8_t k0Shots1    = -3;  // 0xFD;
+    static constexpr std::int8_t k0Shots2    = -4;  // 0xFC;
+    static constexpr std::int8_t k0Shots3    = -5;  // 0xFB;
+    static constexpr std::int8_t k0Shots4    = -7;  // 0xF9;
+    static constexpr std::int8_t k0Shots5    = -8;  // 0xF8;
+    static constexpr std::int8_t k0Shots6    = -9;  // 0xF7;
+    static constexpr std::int8_t kInstakill  = -10; // 0xF6;
+    static constexpr std::int8_t kInstakill2 = -15; // 0xF1;
   };
 
+  // The hero contributes the specified amount of gold per day to your cause.
   template<>
   struct SecondarySkillLevel<SecondarySkillType::Estates>
   {
-    // The hero contributes 1,000,000,000 gold per day to your cause.
-    static constexpr std::uint8_t kBillionPerDay = 0xFF;
+    // | Level (decimal)                                  | Level (hex) | Effect        | Source     |
+    // | ------------------------------------------------ | ----------- | ------------- | ---------- |
+    static constexpr std::int8_t kBillionPerDay = -1;  // | 0xFF        | 1,041,865,114 | armorer[3] |
   };
 
+  // Increases all hand-to-hand damage inflicted by the hero's troops by the specified amount.
   template<>
   struct SecondarySkillLevel<SecondarySkillType::Offense>
   {
-    // Increases all hand-to-hand damage inflicted by the hero's troops by 50%.
-    static constexpr std::uint8_t k50Percent = 0xFF;
+    // | Level (decimal)                              | Level (hex) | Effect | Source     |
+    // | -------------------------------------------- | ----------- | ------ | ---------- |
+    static constexpr std::int8_t k50Percent = -1;  // | 0xFF        | 50%    | archery[3] |
   };
 
+  // Reduces all damage inflicted against the hero's troops by the specified amount.
   template<>
   struct SecondarySkillLevel<SecondarySkillType::Armorer>
   {
-    // Reduces all damage inflicted against the hero's troops by 50%.
-    static constexpr std::uint8_t k50Percent = 0xFB;
+    // | Level (decimal)                              | Level (hex) | Effect | Source     |
+    // | -------------------------------------------- | ----------- | ------ | ---------- |
+    static constexpr std::int8_t k50Percent = -5;  // | 0xFB        | 50%    | archery[3] |
   };
 
+  // Increases the hero's normal maximum spell points by the specified amount.
   template<>
   struct SecondarySkillLevel<SecondarySkillType::Intelligence>
   {
-    // Increases a hero's normal maximum spell points by 15%
-    static constexpr std::uint8_t k15Percent = 0xFF;
-    // Increases a hero's normal maximum spell points by 10%
-    static constexpr std::uint8_t k10Percent = 0xFE;
-    // Increases a hero's normal maximum spell points by 5%
-    static constexpr std::uint8_t k5Percent = 0xFD;
-    // Increases a hero's normal maximum spell points by 30%
-    static constexpr std::uint8_t k30Percent = 0xFB;
-    // Increases a hero's normal maximum spell points by 20%
-    static constexpr std::uint8_t k20Percent = 0xFA;
-    // Increases a hero's normal maximum spell points by 10%
-    static constexpr std::uint8_t k10Percent1 = 0xF9;
-    // Increases a hero's normal maximum spell points by 60%
-    static constexpr std::uint8_t k60Percent = 0xEF;
-    // Increases a hero's normal maximum spell points by 40%
-    static constexpr std::uint8_t k40Percent = 0xE9;
+    // | Level (decimal)                                | Level (hex) | Effect | Source       |
+    // | ---------------------------------------------- | ----------- | ------ | ------------ |
+    static constexpr std::int8_t k15Percent  = -1;   // | 0xFF        | 15%    | sorcery[3]   |
+    static constexpr std::int8_t k10Percent  = -2;   // | 0xFE        | 10%    | sorcery[2]   |
+    static constexpr std::int8_t k5Percent   = -3;   // | 0xFD        | 5%     | sorcery[1]   |
+    static constexpr std::int8_t k30Percent  = -5;   // | 0xFB        | 30%    | logistics[3] |
+    static constexpr std::int8_t k20Percent  = -6;   // | 0xFA        | 20%    | logistics[2] |
+    static constexpr std::int8_t k10Percent1 = -7;   // | 0xF9        | 10%    | logistics[1] |
+    static constexpr std::int8_t k60Percent  = -17;  // | 0xEF        | 60%    | diplomacy[3] |
+    static constexpr std::int8_t k40Percent  = -23;  // | 0xE9        | 40%    | eagle_eye[1] |
   };
 
+  // Endows hero's troops with magic resistance of the specified strength.
   template<>
   struct SecondarySkillLevel<SecondarySkillType::Resistance>
   {
-    // Endows a hero's troops with 60% magic resistance.
-    static constexpr std::uint8_t k60Percent = 0xFF;
-    static constexpr std::uint8_t k60Percent2 = 0xFB;
-    // Endows a hero's troops with 40% magic resistance.
-    static constexpr std::uint8_t k40Percent = 0xFE;
-    static constexpr std::uint8_t k40Percent2 = 0xF9;
+    // | Level (decimal)                               | Level (hex) | Effect | Source       |
+    // | --------------------------------------------- | ----------- | ------ | ------------ |
+    static constexpr std::int8_t k60Percent  = -1;  // | 0xFF        | 60%    | diplomacy[3] |
+    static constexpr std::int8_t k60Percent2 = -5;  // | 0xFB        | 60%    | eagle_eye[3] |
+    static constexpr std::int8_t k40Percent  = -2;  // | 0xFE        | 40%    | diplomacy[2] |
+    static constexpr std::int8_t k40Percent2 = -7;  // | 0xF9        | 40%    | eagle_eye[1] |
   };
 
+  // Causes the hero's spells to inflict the specified amount of additional damage in combat.
+  //
   // FYI: if the hero's speciality is Sorcery, the bonus from a "hexed" level is still constant:
   // e.g., Gird at level 40 with Sorcery{0xF3} will inflict 60% extra damage from spells, not
   // 60% * (1 + 0.05 * 40) = 180%.
   template<>
   struct SecondarySkillLevel<SecondarySkillType::Sorcery>
   {
-    // Causes a hero's spells to inflict an additional 20% damage in combat.
-    static constexpr std::uint8_t k20Percent = 0xFE;
-    static constexpr std::uint8_t k20Percent2 = 0xF7;
-    static constexpr std::uint8_t k20Percent3 = 0xF1;
-    // Causes a hero's spells to inflict an additional 30% damage in combat.
-    static constexpr std::uint8_t k30Percent = 0xFF;
-    // Causes a hero's spells to inflict an additional 40% damage in combat.
-    static constexpr std::uint8_t k40Percent = 0xF2;
-    static constexpr std::uint8_t k40Percent2 = 0xED;
-    // Causes a hero's spells to inflict an additional 50% damage in combat.
-    static constexpr std::uint8_t k50Percent = 0xEE;
-    static constexpr std::uint8_t k50Percent2 = 0xDF;
-    // Causes a hero's spells to inflict an additional 60% damage in combat.
-    static constexpr std::uint8_t k60Percent = 0xF3;
-    static constexpr std::uint8_t k60Percent2 = 0xEF;
+    // | Level (decimal)                                | Level (hex) | Effect | Source        |
+    // | ---------------------------------------------- | ----------- | ------ | ------------- |
+    static constexpr std::int8_t k20Percent  = -2;   // | 0xFE        | 20%    | logistics[2]  |
+    static constexpr std::int8_t k20Percent2 = -9;   // | 0xF7        | 20%    | resistance[3] |
+    static constexpr std::int8_t k20Percent3 = -15;  // | 0xF1        | 20%    | diplomacy[1]  |
+    static constexpr std::int8_t k30Percent  = -1;   // | 0xFF        | 30%    | logistics[3]  |
+    static constexpr std::int8_t k40Percent  = -14;  // | 0xF2        | 40%    | diplomacy[2]  |
+    static constexpr std::int8_t k40Percent2 = -19;  // | 0xED        | 40%    | eagle_eye[1]  |
+    static constexpr std::int8_t k50Percent  = -18;  // | 0xEE        | 50%    | eagle_eye[2]  |
+    static constexpr std::int8_t k50Percent2 = -33;  // | 0xDF        | 50%    | archery[3]    |
+    static constexpr std::int8_t k60Percent  = -13;  // | 0xF3        | 60%    | diplomacy[3]  |
+    static constexpr std::int8_t k60Percent2 = -17;  // | 0xEF        | 60%    | eagle_eye[3]  |
   };
-
-  // FYI: according to LC, there is a way to enable learning level 5 spells via Eagle Eye:
-  // https://www.reddit.com/r/heroes3/comments/1iv6kkh/eagle_eye_level_5_spells_catching_in_sod_not_hota/
-  //
-  // However, this seems to rely on a different hack: nonstandard levels for Eagle Eye
-  // only affect the probability of learning the spells that you've witnessed. The maximum
-  // level of spells that can be learned is determined elsewhere (see BTB's notes).
 }

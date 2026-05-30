@@ -73,7 +73,7 @@ namespace h3m
   {
     StartingBonusDetails<StartingBonusType::Resource> details;
     details.type = readEnum<StartingBonusResourceType>();
-    details.amount = readInt<std::uint32_t>();
+    details.amount = readInt<std::int32_t>();
     return details;
   }
 

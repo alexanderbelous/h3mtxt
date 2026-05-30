@@ -16,10 +16,16 @@ namespace Medea_NS
   {
     std::string_view getStartingBonusHeroString(std::uint16_t hero) noexcept
     {
-      // TODO: this is probably incorrect (wrong byte order).
-      if (hero == 0xFDFFu)
+      constexpr std::uint16_t kMostPowerfulHero = 0xFFFDu;
+      constexpr std::uint16_t kGeneratedHero = 0xFFFEu;
+      switch (hero)
       {
-        return "(Most powerful)";
+      case kMostPowerfulHero:
+        return "(Most Powerful Hero)";
+      case kGeneratedHero:
+        return "(Generated Hero)";
+      default:
+        break;
       }
       if (hero > std::numeric_limits<std::underlying_type_t<h3m::HeroType>>::max())
       {

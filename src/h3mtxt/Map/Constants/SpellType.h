@@ -4,7 +4,7 @@
 
 namespace h3m
 {
-  enum class SpellType : std::uint8_t
+  enum class SpellType : std::int8_t
   {
     SummonBoat          = 0,   // 0x00
     ScuttleBoat         = 1,   // 0x01
@@ -96,9 +96,9 @@ namespace h3m
 
     // Special value for the hero's default spell.
     // This is only used in Armageddon's Blade.
-    Default             = 254, // 0xFE
+    Default             = -2,  // 0xFE
     // Special value indicating a random spell.
     // As far as I understand, this can only be used in ObjectProperties<ObjectPropertiesType::SHRINE>.
-    Random              = 255  // 0xFF
+    Random              = -1   // 0xFF
   };
 }

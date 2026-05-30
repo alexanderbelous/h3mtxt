@@ -5,6 +5,7 @@
 #include <h3mtxt/Map/MapFwd.h>
 #include <h3mtxt/Map/Constants/LossConditionType.h>
 #include <h3mtxt/Map/Constants/ObjectPropertiesType.h>
+#include <h3mtxt/Map/Constants/RewardType.h>
 
 namespace h3json
 {
@@ -964,6 +965,59 @@ namespace h3json
   {
     static constexpr std::string_view kType = "type";
     static constexpr std::string_view kDetails = "details";
+  };
+
+  template<>
+  struct FieldNames<h3m::RewardDetails<h3m::RewardType::None>> {};
+
+  template<>
+  struct FieldNames<h3m::RewardDetails<h3m::RewardType::Experience>>
+  {
+    static constexpr std::string_view kExperience = "experience";
+  };
+
+  template<>
+  struct FieldNames<h3m::RewardDetails<h3m::RewardType::SpellPoints>>
+  {
+    static constexpr std::string_view kSpellPoints = "spell_points";
+  };
+
+  template<>
+  struct FieldNames<h3m::RewardDetails<h3m::RewardType::Morale>>
+  {
+    static constexpr std::string_view kMorale = "morale";
+  };
+
+  template<>
+  struct FieldNames<h3m::RewardDetails<h3m::RewardType::Luck>>
+  {
+    static constexpr std::string_view kLuck = "luck";
+  };
+
+  template<>
+  struct FieldNames<h3m::RewardDetails<h3m::RewardType::Resource>>
+  {
+    static constexpr std::string_view kType = "type";
+    static constexpr std::string_view kAmount = "amount";
+  };
+
+  template<>
+  struct FieldNames<h3m::RewardDetails<h3m::RewardType::PrimarySkill>>
+  {
+    static constexpr std::string_view kType = "type";
+    static constexpr std::string_view kValue = "value";
+  };
+
+  template<>
+  struct FieldNames<h3m::RewardDetails<h3m::RewardType::Artifact>>
+  {
+    static constexpr std::string_view kArtifact = "artifact";
+  };
+
+  template<>
+  struct FieldNames<h3m::RewardDetails<h3m::RewardType::Spell>>
+  {
+    static constexpr std::string_view kSpell = "spell";
   };
 
   template<>

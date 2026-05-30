@@ -15,6 +15,6 @@ namespace h3m
     // Normally, the level should be within [1; 3] (Basic, Advanced, Expert).
     // However, the game accidentally has stable behavior for some values outside of this range
     // for some skills - see SecondarySkillLevel.h.
-    std::uint8_t level = 1;
+    std::int8_t level = 1;
   };
 }

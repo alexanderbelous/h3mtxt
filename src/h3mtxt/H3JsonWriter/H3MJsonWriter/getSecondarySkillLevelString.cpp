@@ -11,10 +11,10 @@ namespace h3json
     using ::h3m::SecondarySkillType;
 
     template<SecondarySkillType T>
-    std::string_view getHexedSkillLevelString(std::uint8_t level) noexcept;
+    std::string_view getHexedSkillLevelString(std::int8_t level) noexcept;
 
     template<>
-    std::string_view getHexedSkillLevelString<SecondarySkillType::Scouting>(std::uint8_t level) noexcept
+    std::string_view getHexedSkillLevelString<SecondarySkillType::Scouting>(std::int8_t level) noexcept
     {
       using HexedLevels = SecondarySkillLevel<SecondarySkillType::Scouting>;
       switch (level)
@@ -36,7 +36,7 @@ namespace h3json
     }
 
     template<>
-    std::string_view getHexedSkillLevelString<SecondarySkillType::Leadership>(std::uint8_t level) noexcept
+    std::string_view getHexedSkillLevelString<SecondarySkillType::Leadership>(std::int8_t level) noexcept
     {
       using HexedLevels = SecondarySkillLevel<SecondarySkillType::Leadership>;
       switch (level)
@@ -51,7 +51,7 @@ namespace h3json
     }
 
     template<>
-    std::string_view getHexedSkillLevelString<SecondarySkillType::Wisdom>(std::uint8_t level) noexcept
+    std::string_view getHexedSkillLevelString<SecondarySkillType::Wisdom>(std::int8_t level) noexcept
     {
       using HexedLevels = SecondarySkillLevel<SecondarySkillType::Wisdom>;
       switch (level)
@@ -66,7 +66,7 @@ namespace h3json
     }
 
     template<>
-    std::string_view getHexedSkillLevelString<SecondarySkillType::Mysticism>(std::uint8_t level) noexcept
+    std::string_view getHexedSkillLevelString<SecondarySkillType::Mysticism>(std::int8_t level) noexcept
     {
       using HexedLevels = SecondarySkillLevel<SecondarySkillType::Mysticism>;
       switch (level)
@@ -85,7 +85,7 @@ namespace h3json
     }
 
     template<>
-    std::string_view getHexedSkillLevelString<SecondarySkillType::Luck>(std::uint8_t level) noexcept
+    std::string_view getHexedSkillLevelString<SecondarySkillType::Luck>(std::int8_t level) noexcept
     {
       using HexedLevels = SecondarySkillLevel<SecondarySkillType::Luck>;
       switch (level)
@@ -106,7 +106,7 @@ namespace h3json
     }
 
     template<>
-    std::string_view getHexedSkillLevelString<SecondarySkillType::Ballistics>(std::uint8_t level) noexcept
+    std::string_view getHexedSkillLevelString<SecondarySkillType::Ballistics>(std::int8_t level) noexcept
     {
       using HexedLevels = SecondarySkillLevel<SecondarySkillType::Ballistics>;
       switch (level)
@@ -129,20 +129,20 @@ namespace h3json
     }
 
     template<>
-    std::string_view getHexedSkillLevelString<SecondarySkillType::Estates>(std::uint8_t level) noexcept
+    std::string_view getHexedSkillLevelString<SecondarySkillType::Estates>(std::int8_t level) noexcept
     {
       using HexedLevels = SecondarySkillLevel<SecondarySkillType::Estates>;
       switch (level)
       {
       case HexedLevels::kBillionPerDay:
-        return "+1,000,000,000 gold";
+        return "+1,041,865,114 gold";
       default:
         return {};
       }
     }
 
     template<>
-    std::string_view getHexedSkillLevelString<SecondarySkillType::Offense>(std::uint8_t level) noexcept
+    std::string_view getHexedSkillLevelString<SecondarySkillType::Offense>(std::int8_t level) noexcept
     {
       using HexedLevels = SecondarySkillLevel<SecondarySkillType::Offense>;
       switch (level)
@@ -155,7 +155,7 @@ namespace h3json
     }
 
     template<>
-    std::string_view getHexedSkillLevelString<SecondarySkillType::Armorer>(std::uint8_t level) noexcept
+    std::string_view getHexedSkillLevelString<SecondarySkillType::Armorer>(std::int8_t level) noexcept
     {
       using HexedLevels = SecondarySkillLevel<SecondarySkillType::Armorer>;
       switch (level)
@@ -168,7 +168,7 @@ namespace h3json
     }
 
     template<>
-    std::string_view getHexedSkillLevelString<SecondarySkillType::Resistance>(std::uint8_t level) noexcept
+    std::string_view getHexedSkillLevelString<SecondarySkillType::Resistance>(std::int8_t level) noexcept
     {
       using HexedLevels = SecondarySkillLevel<SecondarySkillType::Resistance>;
       switch (level)
@@ -185,7 +185,7 @@ namespace h3json
     }
 
     template<>
-    std::string_view getHexedSkillLevelString<SecondarySkillType::Sorcery>(std::uint8_t level) noexcept
+    std::string_view getHexedSkillLevelString<SecondarySkillType::Sorcery>(std::int8_t level) noexcept
     {
       using HexedLevels = SecondarySkillLevel<SecondarySkillType::Sorcery>;
       switch (level)
@@ -211,7 +211,7 @@ namespace h3json
     }
   }
 
-  std::string_view getSecondarySkillLevelString(SecondarySkillType skill, std::uint8_t level) noexcept
+  std::string_view getSecondarySkillLevelString(SecondarySkillType skill, std::int8_t level) noexcept
   {
     switch (level)
     {

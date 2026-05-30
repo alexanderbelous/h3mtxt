@@ -17,7 +17,7 @@ namespace h3m
             return static_cast<SpellType>(i);
           }
         }
-        return SpellType{ 0xFF }; // Special value for None.
+        return SpellType{ -1 }; // Special value for None.
       }
       return SpellType::Default;
     }
