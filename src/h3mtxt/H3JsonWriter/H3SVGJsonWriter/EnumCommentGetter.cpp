@@ -13,6 +13,62 @@
 
 namespace Medea_NS
 {
+  namespace
+  {
+    // Checks if the input enum value of the type `From` can be precisely represented by the enum type `To`.
+    // \param To - destination enum type.
+    // \param value - input enum value.
+    // \return true if @value can be precisely represented by the type @To, false otherwise.
+    template<class To, class From>
+    constexpr bool isLosslessEnumCast(From value) noexcept
+    {
+      static_assert(std::is_enum_v<To>, "To must be an enum type.");
+      static_assert(std::is_enum_v<From>, "From must be an enum type.");
+      using UnderlyingTypeTo = std::underlying_type_t<To>;
+      using UnderlyingTypeFrom = std::underlying_type_t<From>;
+      // This is too strict - technically, we can always safely cast std::int32_t to std::uint8_t.
+      // However, HoMM3 often uses "magic" values in which all bits are set to 1; their integral
+      // value depend on signedness (-1 if signed, MAX_VALUE if unsigned). If the input and output
+      // types have different signedness, the expected behavior of isLosslessEnumCast() is confusing.
+      // For example, h3svg::HeroType32 is signed, but h3m::HeroType is unsigned; the expected result
+      // of casting h3svg::HeroType32{-1} to h3m::HeroType is h3m::HeroType{0xFFu}, but that contradicts
+      // the logic for casting integer values: -1 cannot be accurately represented by std::uint8_t.
+      static_assert(std::is_unsigned_v<UnderlyingTypeTo> == std::is_unsigned_v<UnderlyingTypeFrom>,
+                    "The underlying integer types of To an From must have the same signedness.");
+
+      // Check that @value is greater or equal to the minimum value of UnderlyingTypeTo.
+      //
+      // No check is performed if the minimum value of UnderlyingTypeFrom is greater or equal
+      // to the minimum value of UnderlyingTypeTo.
+      if constexpr (std::numeric_limits<UnderlyingTypeFrom>::min() < std::numeric_limits<UnderlyingTypeTo>::min())
+      {
+        if (static_cast<UnderlyingTypeFrom>(value) < std::numeric_limits<UnderlyingTypeTo>::min())
+        {
+          return false;
+        }
+      }
+      // Check that @value is less or equal to the maximum value of UnderlyingTypeTo.
+      //
+      // No check is performed if the maximum value of UnderlyingTypeFrom is less or equal
+      // to the maximum value of UnderlyingTypeTo.
+      if constexpr (std::numeric_limits<UnderlyingTypeFrom>::max() > std::numeric_limits<UnderlyingTypeTo>::max())
+      {
+        if (static_cast<UnderlyingTypeFrom>(value) > std::numeric_limits<UnderlyingTypeTo>::max())
+        {
+          return false;
+        }
+      }
+      return true;
+    }
+
+    // A few compile-time tests.
+    static_assert(isLosslessEnumCast<h3m::SpellType>(h3svg::TownType32{ -1 }));
+    static_assert(!isLosslessEnumCast<h3m::SpellType>(h3svg::TownType32{ 255 }));
+    static_assert(isLosslessEnumCast<h3m::PrimarySkillType>(h3svg::PrimarySkillType32{ 0 }));
+    static_assert(isLosslessEnumCast<h3m::PrimarySkillType>(h3svg::PrimarySkillType32{ 255 }));
+    static_assert(!isLosslessEnumCast<h3m::PrimarySkillType>(h3svg::PrimarySkillType32{ 256 }));
+  }
+
   template<>
   std::string_view EnumCommentGetter::operator()(h3svg::ArtifactType8 value) const
   {
@@ -90,18 +146,10 @@ namespace Medea_NS
   template<>
   std::string_view EnumCommentGetter::operator()(h3svg::CreatureType32 value) const
   {
-    // This implementation relies on the fact that the underlying types of both
-    // CreatureType and CreatureType32 are signed integers.
-    static_assert(std::is_same_v<std::underlying_type_t<h3svg::CreatureType>, std::int16_t>);
-    static_assert(std::is_same_v<std::underlying_type_t<h3svg::CreatureType32>, std::int32_t>);
-    // If @value can be represented without losses as std::int16_t - delegate to operator()(CreatureType).
-    const std::int32_t integer_value = static_cast<std::int32_t>(value);
-    if (integer_value >= std::numeric_limits<std::int16_t>::min() &&
-        integer_value <= std::numeric_limits<std::int16_t>::max())
+    if (isLosslessEnumCast<h3m::CreatureType>(value))
     {
-      return (*this)(static_cast<h3svg::CreatureType>(static_cast<std::int16_t>(integer_value)));
+      return (*this)(static_cast<h3svg::CreatureType>(value));
     }
-    // Otherwise - return an empty string_view.
     return std::string_view{};
   }
 
@@ -119,10 +167,9 @@ namespace Medea_NS
   template<>
   std::string_view EnumCommentGetter::operator()(h3svg::ObjectClass8 value) const
   {
-    const std::uint8_t integer_value = static_cast<std::uint8_t>(value);
-    if (integer_value < h3m::kNumObjectClasses)
+    if (isLosslessEnumCast<h3m::ObjectClass>(value))
     {
-      return (*this)(static_cast<h3svg::ObjectClass>(integer_value));
+      return (*this)(static_cast<h3svg::ObjectClass>(value));
     }
     return std::string_view{};
   }
@@ -130,7 +177,7 @@ namespace Medea_NS
   template<>
   std::string_view EnumCommentGetter::operator()(h3svg::ObjectClass16 value) const
   {
-    if (static_cast<std::underlying_type_t<h3svg::ObjectClass16>>(value) < h3m::kNumObjectClasses)
+    if (isLosslessEnumCast<h3m::ObjectClass>(value))
     {
       return (*this)(static_cast<h3svg::ObjectClass>(value));
     }
@@ -206,11 +253,9 @@ namespace Medea_NS
   template<>
   std::string_view EnumCommentGetter::operator()(h3svg::PrimarySkillType32 value) const
   {
-    constexpr std::uint8_t kNumPrimarySkills = 4;
-    const auto integer_value = static_cast<std::underlying_type_t<h3svg::PrimarySkillType32>>(value);
-    if (integer_value >= 0 && integer_value < kNumPrimarySkills)
+    if (isLosslessEnumCast<h3m::PrimarySkillType>(value))
     {
-      return (*this)(static_cast<h3svg::PrimarySkillType>(integer_value));
+      return (*this)(static_cast<h3svg::PrimarySkillType>(value));
     }
     return std::string_view{};
   }
@@ -218,10 +263,9 @@ namespace Medea_NS
   template<>
   std::string_view EnumCommentGetter::operator()(h3svg::ResourceType32 value) const
   {
-    const auto integer_value = static_cast<std::underlying_type_t<h3svg::ResourceType32>>(value);
-    if (integer_value >= 0 && integer_value < h3svg::kNumResources)
+    if (isLosslessEnumCast<h3m::ResourceType>(value))
     {
-      return (*this)(static_cast<h3svg::ResourceType>(integer_value));
+      return (*this)(static_cast<h3svg::ResourceType>(value));
     }
     return std::string_view{};
   }
@@ -229,10 +273,9 @@ namespace Medea_NS
   template<>
   std::string_view EnumCommentGetter::operator()(h3svg::SecondarySkillType32 value) const
   {
-    const auto integer_value = static_cast<std::underlying_type_t<h3svg::SecondarySkillType32>>(value);
-    if (integer_value >= 0 && integer_value < h3svg::kNumSecondarySkills)
+    if (isLosslessEnumCast<h3m::SecondarySkillType>(value))
     {
-      return (*this)(static_cast<h3svg::SecondarySkillType>(integer_value));
+      return (*this)(static_cast<h3svg::SecondarySkillType>(value));
     }
     return std::string_view{};
   }
@@ -297,10 +340,9 @@ namespace Medea_NS
   template<>
   std::string_view EnumCommentGetter::operator()(h3svg::SpellType32 value) const
   {
-    const auto integer_value = static_cast<std::underlying_type_t<h3svg::SpellType32>>(value);
-    if (integer_value >= 0 && integer_value < h3svg::kNumSpells)
+    if (isLosslessEnumCast<h3m::SpellType>(value))
     {
-      return (*this)(static_cast<h3svg::SpellType>(integer_value));
+      return (*this)(static_cast<h3svg::SpellType>(value));
     }
     return std::string_view{};
   }
@@ -308,14 +350,9 @@ namespace Medea_NS
   template<>
   std::string_view EnumCommentGetter::operator()(h3svg::TownType32 value) const
   {
-    // Reuse the names for TownType.
-    using UnderlyingType = std::underlying_type_t<h3svg::TownType>;
-    using UnderlyingType32 = std::underlying_type_t<h3svg::TownType32>;
-    const UnderlyingType32 integer_value = static_cast<UnderlyingType32>(value);
-    if (integer_value >= std::numeric_limits<UnderlyingType>::min() &&
-        integer_value <= std::numeric_limits<UnderlyingType>::max())
+    if (isLosslessEnumCast<h3m::TownType>(value))
     {
-      return (*this)(static_cast<h3svg::TownType>(integer_value));
+      return (*this)(static_cast<h3svg::TownType>(value));
     }
     return std::string_view{};
   }

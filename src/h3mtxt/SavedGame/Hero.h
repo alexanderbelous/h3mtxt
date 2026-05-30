@@ -35,7 +35,7 @@ namespace h3svg
     // The value is usually 0xFFFFFFFF if this is not a spell scroll, but don't rely on that:
     //   * Empty slots in the backpack sometimes use 0.
     //   * War machines and SpellBook slots may use junk values like 1500, 3500, 8000, etc.
-    SpellType32 spell_type = static_cast<SpellType32>(0xFFFFFFFF);
+    SpellType32 spell_type = static_cast<SpellType32>(-1);
   };
 
   struct HeroArtifacts
