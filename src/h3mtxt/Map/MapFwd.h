@@ -125,7 +125,7 @@ namespace h3m
   // Bitmask storing a bit for each player.
   //
   // .h3m file format uses such bitmasks in multiple places, e.g. which players can hire
-  // a specific hero, Global Event, Event object on the adventure map, or a Event in a town).
+  // a specific hero, Global Event, Event object on the adventure map, or an Event in a town).
   using PlayersBitmask = EnumBitmask<PlayerColor, 1>;
 
   // Bitmask storing a bit for each resource type.

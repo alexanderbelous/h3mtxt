@@ -133,7 +133,7 @@ namespace h3m
   //   Garniture of Interference, Surcoat of Counterpoise and Boots of Polarity).
   // * mysticism[-1] happens to return the value stored at necromancy[3], which is reprsented by
   //   the bytes {0x9A, 0x99, 0x99, 0x3E}. When interpreted as a little-endian 32-bit unsigned
-  //   integer, its value is 1'050'253'722, i.e. the hero will regenerate more than 1 million
+  //   integer, its value is 1'050'253'722, i.e. the hero will regenerate more than 1 billion
   //   spell points per day. In practice, it means that the hero will replenish all their spell
   //   points every day.
   //

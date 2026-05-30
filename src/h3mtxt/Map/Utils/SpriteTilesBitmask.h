@@ -19,7 +19,7 @@ namespace h3m
   // (j==0 is LSB, j==7 is MSB). For example, A[5][7] is the bit corresponding to the bottom right
   // tile of the sprite.
   //
-  // FYI: in .h3m the coordinates (x, y, z) of the object on the Adventure Map refer to the bottom
+  // FYI: in .h3m the coordinates (x, y, z) of an object on the Adventure Map refer to the bottom
   // right tile of the sprite.
   struct SpriteTilesBitmask
   {

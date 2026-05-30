@@ -22,8 +22,7 @@ namespace h3m
 
     // True if "Generate hero at main town" is set, false otherwise.
     Bool generate_hero = false;
-    // Type of the player's main town.
-    // 0xFF is a special value that means Random.
+    // Type of the player's main town, or TownType::Random if it's a Random Town.
     TownType town_type {};
     // Coordinates of the actionable spot (i.e. the entrance).
     Coordinates coordinates;
