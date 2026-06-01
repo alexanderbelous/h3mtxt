@@ -1,7 +1,6 @@
 #pragma once
 
 #include <h3mtxt/Map/MapFwd.h>
-#include <h3mtxt/Map/Constants/Constants.h>
 #include <h3mtxt/Map/Constants/HeroPortrait.h>
 #include <h3mtxt/Map/Constants/HeroType.h>
 #include <h3mtxt/Map/Constants/MapFormat.h>

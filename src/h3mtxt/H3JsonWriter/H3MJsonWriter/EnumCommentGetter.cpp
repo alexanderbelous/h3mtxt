@@ -1,7 +1,6 @@
 #include <h3mtxt/H3JsonWriter/H3MJsonWriter/H3MJsonWriter.h>
 
 #include <h3mtxt/Map/Constants/ArtifactType.h>
-#include <h3mtxt/Map/Constants/Constants.h>
 #include <h3mtxt/Map/Constants/Formation.h>
 #include <h3mtxt/Map/Constants/Gender.h>
 #include <h3mtxt/Map/Constants/HeroPortrait.h>

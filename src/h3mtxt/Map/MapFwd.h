@@ -80,6 +80,16 @@ namespace h3m
   enum class VictoryConditionType : std::uint8_t;
 
   // ============================================================
+  // Constants.
+  // ------------------------------------------------------------
+
+  // The number of different Primary Skill types (i.e. cardinality of PrimarySkillType enum).
+  inline constexpr std::uint8_t kNumPrimarySkillTypes = 4;
+
+  // The number of different Resource types (i.e. cardinality of ResourceType enum).
+  inline constexpr std::uint8_t kNumResourceTypes = 7;
+
+  // ============================================================
   // Utility classes.
   // ------------------------------------------------------------
 
@@ -162,14 +172,14 @@ namespace h3m
   // The game always interprets these as signed integers; in the Map Editor
   // there are only 2 places where they are (incorrectly) displayed as unsigned integers:
   // HeroSettings and hero objects on the adventure map.
-  using PrimarySkills = EnumIndexedArray<PrimarySkillType, std::int8_t, 4>;
+  using PrimarySkills = EnumIndexedArray<PrimarySkillType, std::int8_t, kNumPrimarySkillTypes>;
 
   // Represents an amount of resources.
   //
   // In H3M the amount is always interpreted as int32, even though the Map Editor
   // doesn't allow entering negative values in some contexts (Quest Guard and
   // as a reward for defeating a monster).
-  using Resources = EnumIndexedArray<ResourceType, std::int32_t, 7>;
+  using Resources = EnumIndexedArray<ResourceType, std::int32_t, kNumResourceTypes>;
 
   // ============================================================
   // Structures used in the H3M file format.

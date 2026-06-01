@@ -1,6 +1,5 @@
 #pragma once
 
-#include <h3mtxt/Map/Constants/Constants.h>
 #include <h3mtxt/Map/Constants/MapFormat.h>
 #include <h3mtxt/Map/Constants/PlayerColor.h>
 #include <h3mtxt/Map/Utils/EnumIndexedArray.h>

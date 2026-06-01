@@ -2,7 +2,6 @@
 
 #include <h3mtxt/H3JsonWriter/H3MJsonWriter/Utils.h>
 #include <h3mtxt/JsonCommon/FieldNamesH3M.h>
-#include <h3mtxt/Map/Constants/Constants.h>
 #include <h3mtxt/Map/Constants/ExperienceLevels.h>
 #include <h3mtxt/Map/MapAdditionalInfo.h>
 #include <h3mtxt/Medea/Medea.h>

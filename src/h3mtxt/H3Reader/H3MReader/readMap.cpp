@@ -61,9 +61,9 @@ namespace h3m
     Map map;
     map.format = map_format_;
     map.basic_info = readMapBasicInfo();
-    for (int i = 0; i < kMaxPlayers; ++i)
+    for (PlayerSpecs& player_specs : map.players.data)
     {
-      map.players.data[i] = readPlayerSpecs();
+      player_specs = readPlayerSpecs();
     }
     map.additional_info = readMapAdditionalInfo();
     // Read tiles.

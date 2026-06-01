@@ -3,7 +3,6 @@ set(SOURCE_LIST
     # Constants
     "Constants/ArtifactSlot.h"
     "Constants/ArtifactType.h"
-    "Constants/Constants.h"
     "Constants/CreatureType.h"
     "Constants/Disposition.h"
     "Constants/ExperienceLevels.h"
