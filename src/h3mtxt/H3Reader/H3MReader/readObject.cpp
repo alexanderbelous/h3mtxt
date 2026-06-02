@@ -1,7 +1,7 @@
 #include <h3mtxt/H3Reader/H3MReader/H3MReader.h>
+#include <h3mtxt/Map/Utils/SwitchStatement.h>
 #include <h3mtxt/Map/ObjectTemplate.h>
 #include <h3mtxt/Map/Object.h>
-#include <h3mtxt/Map/Utils/EnumSequence.h>
 
 #include <stdexcept>
 
@@ -37,28 +37,10 @@ namespace h3m
       return reader.readObjectProperties<T>();
     }
 
-    // Reads ObjectProperties for the specified ObjectPropertiesType.
-    // \param reader - input stream.
-    // \param object_properties_type - ObjectPropertiesType of the object.
-    // \return the deserialized data as ObjectPropertiesVariant.
-    ObjectPropertiesVariant readObjectPropertiesVariant(const H3MReader& reader,
-                                                        ObjectPropertiesType object_properties_type)
-    {
-      // Type of a pointer to a function that takes const H3MReader& and returns ObjectPropertiesVariant.
-      using ReadObjectPropertiesPtr = ObjectPropertiesVariant(*)(const H3MReader& reader);
-      // Generate (at compile time) an array of function pointers for each instantiation of
-      // readObjectPropertiesAsVariant() ordered by ObjectPropertiesType.
-      constexpr std::array<ReadObjectPropertiesPtr, kNumObjectPropertiesTypes> kObjectPropertiesReaders =
-        [] <ObjectPropertiesType... object_properties_types>
-        (EnumSequence<ObjectPropertiesType, object_properties_types...> seq)
-        consteval
-        {
-          return std::array<ReadObjectPropertiesPtr, sizeof...(object_properties_types)>
-          { &readObjectPropertiesAsVariant<object_properties_types>... };
-        }(MakeEnumSequence<ObjectPropertiesType, kNumObjectPropertiesTypes>{});
-      // Invoke a function from the generated array.
-      return kObjectPropertiesReaders.at(static_cast<std::size_t>(object_properties_type))(reader);
-    }
+    // Convert the function template readObjectPropertiesAsVariant<T>() into an alias template,
+    // so that it can be passed as a template template parameter to generateSwitchStatement().
+    template<ObjectPropertiesType T>
+    using ObjectPropertiesReaderTemplateAlias = SwitchStatement_NS::StaticConstant<&readObjectPropertiesAsVariant<T>>;
   }
 
   EventBase H3MReader::readEventBase() const
@@ -526,6 +508,17 @@ namespace h3m
     return data;
   }
 
+  ObjectPropertiesVariant H3MReader::readObjectPropertiesVariant(ObjectPropertiesType object_properties_type) const
+  {
+    // Generate a switch statement for all valid ObjectPropertiesType constants.
+    // read_object_properties(N, reader) will trigger readObjectPropertiesAsVariant<N>(reader).
+    static constexpr auto switch_statement =
+      SwitchStatement_NS::generateSwitchStatement<ObjectPropertiesType,
+                                                  kNumObjectPropertiesTypes,
+                                                  ObjectPropertiesReaderTemplateAlias>();
+    return switch_statement(object_properties_type, *this);
+  }
+
   Object H3MReader::readObject(const ObjectTemplate* objects_templates, std::size_t num_objects_templates) const
   {
     Object result;
@@ -540,7 +533,7 @@ namespace h3m
     const ObjectTemplate& object_template = objects_templates[result.template_idx];
     const ObjectPropertiesType object_properties_type =
       getObjectPropertiesType(object_template.object_class, object_template.object_subclass);
-    result.properties = readObjectPropertiesVariant(*this, object_properties_type);
+    result.properties = readObjectPropertiesVariant(object_properties_type);
     return result;
   }
 }

@@ -41,6 +41,7 @@ set(SOURCE_LIST
     "Utils/EnumSequence.h"
     "Utils/ReservedData.h"
     "Utils/SpriteTilesBitmask.h"
+    "Utils/SwitchStatement.h"
     # etc
     "Coordinates.h"
     "CreatureStack.h"

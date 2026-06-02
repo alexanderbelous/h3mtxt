@@ -3,10 +3,8 @@
 #include <h3mtxt/H3JsonReader/H3JsonReaderBase/H3JsonReaderBase.h>
 #include <h3mtxt/H3JsonReader/H3JsonReaderBase/VariantJsonReader.h>
 #include <h3mtxt/JsonCommon/FieldNamesH3M.h>
-#include <h3mtxt/Map/Utils/EnumSequence.h>
+#include <h3mtxt/Map/Utils/SwitchStatement.h>
 #include <h3mtxt/Map/ObjectPropertiesVariant.h>
-
-#include <array>
 
 namespace h3json
 {
@@ -481,6 +479,11 @@ namespace h3json
     {
       return fromJson<ObjectProperties<T>>(value);
     }
+
+    // Convert the function template readObjectPropertiesAsVariant<T>() into an alias template,
+    // so that it can be passed as a template template parameter to generateSwitchStatement().
+    template<ObjectPropertiesType T>
+    using ObjectPropertiesReaderTemplateAlias = SwitchStatement_NS::StaticConstant<&readObjectPropertiesAsVariant<T>>;
   }
 
   // Reads ObjectProperties for the specified ObjectPropertiesType.
@@ -489,19 +492,10 @@ namespace h3json
   // \return the deserialized data as ObjectPropertiesVariant.
   ObjectPropertiesVariant readObjectPropertiesVariant(const Json::Value& value, ObjectPropertiesType object_properties_type)
   {
-    // Type of a pointer to a function that takes const Json::Value& and returns ObjectPropertiesVariant.
-    using ReadObjectPropertiesPtr = ObjectPropertiesVariant(*)(const Json::Value&);
-    // Generate (at compile time) an array of function pointers for each instantiation of
-    // readObjectPropertiesAsVariant() ordered by ObjectPropertiesType.
-    constexpr std::array<ReadObjectPropertiesPtr, h3m::kNumObjectPropertiesTypes> kObjectPropertiesReaders =
-      [] <ObjectPropertiesType... object_properties_types>
-      (h3m::EnumSequence<ObjectPropertiesType, object_properties_types...> seq)
-      consteval
-      {
-        return std::array<ReadObjectPropertiesPtr, sizeof...(object_properties_types)>
-        { &readObjectPropertiesAsVariant<object_properties_types>... };
-      }(h3m::MakeEnumSequence<ObjectPropertiesType, h3m::kNumObjectPropertiesTypes>{});
-    // Invoke a function from the generated array.
-    return kObjectPropertiesReaders.at(static_cast<std::size_t>(object_properties_type))(value);
+    static constexpr auto switch_statement =
+      SwitchStatement_NS::generateSwitchStatement<ObjectPropertiesType,
+                                                  h3m::kNumObjectPropertiesTypes,
+                                                  ObjectPropertiesReaderTemplateAlias>();
+    return switch_statement(object_properties_type, value);
   }
 }

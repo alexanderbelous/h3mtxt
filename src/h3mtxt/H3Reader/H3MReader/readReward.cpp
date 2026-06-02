@@ -1,8 +1,6 @@
 #include <h3mtxt/H3Reader/H3MReader/H3MReader.h>
-#include <h3mtxt/Map/Utils/EnumSequence.h>
+#include <h3mtxt/Map/Utils/SwitchStatement.h>
 #include <h3mtxt/Map/Reward.h>
-
-#include <array>
 
 namespace h3m
 {
@@ -15,29 +13,10 @@ namespace h3m
       return reader.readRewardDetails<T>();
     }
 
-    // Reads RewardDetails for the specified RewardType.
-    // \param reader - input stream.
-    // \param reward_type - type of the reward.
-    // \return the deserialized data as Reward::Details.
-    Reward::Details readRewardDetailsVariant(const H3MReader& reader, RewardType reward_type)
-    {
-      // Type of a pointer to a function that takes const H3MReader& and returns Reward::Details.
-      using ReadRewardDetailsPtr = Reward::Details(*)(const H3MReader& reader);
-      // Generate (at compile time) an array of function pointers for each instantiation of
-      // readRewardDetailsAsVariant() ordered by RewardType.
-      constexpr std::array<ReadRewardDetailsPtr, kNumRewardTypes> kRewardDetailsReaders =
-        [] <RewardType... reward_types>
-        (EnumSequence<RewardType, reward_types...> seq)
-        consteval
-        {
-          return std::array<ReadRewardDetailsPtr, sizeof...(reward_types)>
-          {
-            &readRewardDetailsAsVariant<reward_types>...
-          };
-        }(MakeEnumSequence<RewardType, kNumRewardTypes>{});
-      // Invoke a function from the generated array.
-      return kRewardDetailsReaders.at(static_cast<std::size_t>(reward_type))(reader);
-    }
+    // Convert the function template readRewardDetailsAsVariant<T>() into an alias template,
+    // so that it can be passed as a template template parameter to generateSwitchStatement().
+    template<RewardType T>
+    using RewardDetailsReaderTemplateAlias = SwitchStatement_NS::StaticConstant<&readRewardDetailsAsVariant<T>>;
   }
 
   template<>
@@ -126,7 +105,12 @@ namespace h3m
 
   Reward H3MReader::readReward() const
   {
+    // Generate a switch statement for all valid RewardType constants.
+    // read_reward_details(N, reader) will trigger readRewardDetailsAsVariant<N>(reader).
+    static constexpr auto read_reward_details =
+      SwitchStatement_NS::generateSwitchStatement<RewardType, kNumRewardTypes, RewardDetailsReaderTemplateAlias>();
+
     const RewardType reward_type = readEnum<RewardType>();
-    return Reward{ .details = readRewardDetailsVariant(*this, reward_type) };
+    return Reward{ .details = read_reward_details(reward_type, *this) };
   }
 }

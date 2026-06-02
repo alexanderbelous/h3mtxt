@@ -23,6 +23,7 @@ set(H3MTXT_TESTS_SOURCES_LIST
     "Quest.cpp"
     "ReservedData.cpp"
     "Reward.cpp"
+    "SwitchStatement.cpp"
     "TeamsInfo.cpp"
     "Tile.cpp"
     "TimedEvent.cpp"
