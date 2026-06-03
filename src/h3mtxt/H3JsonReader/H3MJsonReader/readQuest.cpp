@@ -23,7 +23,8 @@ namespace h3json
   JsonReader<QuestDetails<QuestType::Level>>::operator()(const Json::Value& value) const
   {
     QuestDetails<QuestType::Level> details;
-    readField(details.level, value, "level");
+    using Fields = FieldNames<decltype(details)>;
+    readField(details.level, value, Fields::kLevel);
     return details;
   }
 
@@ -32,7 +33,8 @@ namespace h3json
   JsonReader<QuestDetails<QuestType::PrimarySkills>>::operator()(const Json::Value& value) const
   {
     QuestDetails<QuestType::PrimarySkills> details;
-    readField(details.skills, value, "skills");
+    using Fields = FieldNames<decltype(details)>;
+    readField(details.skills, value, Fields::kSkills);
     return details;
   }
 
@@ -41,7 +43,8 @@ namespace h3json
   JsonReader<QuestDetails<QuestType::DefeatHero>>::operator()(const Json::Value& value) const
   {
     QuestDetails<QuestType::DefeatHero> details;
-    readField(details.absod_id, value, "absod_id");
+    using Fields = FieldNames<decltype(details)>;
+    readField(details.absod_id, value, Fields::kAbsodId);
     return details;
   }
 
@@ -50,7 +53,8 @@ namespace h3json
   JsonReader<QuestDetails<QuestType::DefeatMonster>>::operator()(const Json::Value& value) const
   {
     QuestDetails<QuestType::DefeatMonster> details;
-    readField(details.absod_id, value, "absod_id");
+    using Fields = FieldNames<decltype(details)>;
+    readField(details.absod_id, value, Fields::kAbsodId);
     return details;
   }
 
@@ -59,7 +63,8 @@ namespace h3json
   JsonReader<QuestDetails<QuestType::Artifacts>>::operator()(const Json::Value& value) const
   {
     QuestDetails<QuestType::Artifacts> details;
-    readField(details.artifacts, value, "artifacts");
+    using Fields = FieldNames<decltype(details)>;
+    readField(details.artifacts, value, Fields::kArtifacts);
     return details;
   }
 
@@ -80,7 +85,8 @@ namespace h3json
   JsonReader<QuestDetails<QuestType::Creatures>>::operator()(const Json::Value& value) const
   {
     QuestDetails<QuestType::Creatures> details;
-    readField(details.creatures, value, "creatures");
+    using Fields = FieldNames<decltype(details)>;
+    readField(details.creatures, value, Fields::kCreatures);
     return details;
   }
 
@@ -89,7 +95,8 @@ namespace h3json
   JsonReader<QuestDetails<QuestType::Resources>>::operator()(const Json::Value& value) const
   {
     QuestDetails<QuestType::Resources> details;
-    readField(details.resources, value, "resources");
+    using Fields = FieldNames<decltype(details)>;
+    readField(details.resources, value, Fields::kResources);
     return details;
   }
 
@@ -98,7 +105,8 @@ namespace h3json
   JsonReader<QuestDetails<QuestType::BeHero>>::operator()(const Json::Value& value) const
   {
     QuestDetails<QuestType::BeHero> details;
-    readField(details.hero, value, "hero");
+    using Fields = FieldNames<decltype(details)>;
+    readField(details.hero, value, Fields::kHero);
     return details;
   }
 
@@ -107,7 +115,8 @@ namespace h3json
   JsonReader<QuestDetails<QuestType::BePlayer>>::operator()(const Json::Value& value) const
   {
     QuestDetails<QuestType::BePlayer> details;
-    readField(details.player, value, "player");
+    using Fields = FieldNames<decltype(details)>;
+    readField(details.player, value, Fields::kPlayer);
     return details;
   }
 

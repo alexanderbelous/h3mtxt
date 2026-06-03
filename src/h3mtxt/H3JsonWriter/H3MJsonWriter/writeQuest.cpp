@@ -5,6 +5,8 @@
 #include <h3mtxt/Map/Quest.h>
 #include <h3mtxt/Medea/Medea.h>
 
+#include <type_traits>
+
 namespace Medea_NS
 {
   void JsonObjectWriter<h3m::QuestDetails<h3m::QuestType::None>>::operator()(
@@ -15,31 +17,36 @@ namespace Medea_NS
   void JsonObjectWriter<h3m::QuestDetails<h3m::QuestType::Level>>::operator()(
     FieldsWriter& out, const h3m::QuestDetails<h3m::QuestType::Level>& details) const
   {
-    out.writeField("level", details.level);
+    using Fields = h3json::FieldNames<std::remove_cvref_t<decltype(details)>>;
+    out.writeField(Fields::kLevel, details.level);
   }
 
   void JsonObjectWriter<h3m::QuestDetails<h3m::QuestType::PrimarySkills>>::operator()(
     FieldsWriter& out, const h3m::QuestDetails<h3m::QuestType::PrimarySkills>& details) const
   {
-    out.writeField("skills", details.skills);
+    using Fields = h3json::FieldNames<std::remove_cvref_t<decltype(details)>>;
+    out.writeField(Fields::kSkills, details.skills);
   }
 
   void JsonObjectWriter<h3m::QuestDetails<h3m::QuestType::DefeatHero>>::operator()(
     FieldsWriter& out, const h3m::QuestDetails<h3m::QuestType::DefeatHero>& details) const
   {
-    out.writeField("absod_id", details.absod_id);
+    using Fields = h3json::FieldNames<std::remove_cvref_t<decltype(details)>>;
+    out.writeField(Fields::kAbsodId, details.absod_id);
   }
 
   void JsonObjectWriter<h3m::QuestDetails<h3m::QuestType::DefeatMonster>>::operator()(
     FieldsWriter& out, const h3m::QuestDetails<h3m::QuestType::DefeatMonster>& details) const
   {
-    out.writeField("absod_id", details.absod_id);
+    using Fields = h3json::FieldNames<std::remove_cvref_t<decltype(details)>>;
+    out.writeField(Fields::kAbsodId, details.absod_id);
   }
 
   void JsonObjectWriter<h3m::QuestDetails<h3m::QuestType::Artifacts>>::operator()(
     FieldsWriter& out, const h3m::QuestDetails<h3m::QuestType::Artifacts>& details) const
   {
-    out.writeField("artifacts", details.artifacts);
+    using Fields = h3json::FieldNames<std::remove_cvref_t<decltype(details)>>;
+    out.writeField(Fields::kArtifacts, details.artifacts);
   }
 
   template<>
@@ -55,25 +62,29 @@ namespace Medea_NS
   void JsonObjectWriter<h3m::QuestDetails<h3m::QuestType::Creatures>>::operator()(
     FieldsWriter& out, const h3m::QuestDetails<h3m::QuestType::Creatures>& details) const
   {
-    out.writeField("creatures", details.creatures);
+    using Fields = h3json::FieldNames<std::remove_cvref_t<decltype(details)>>;
+    out.writeField(Fields::kCreatures, details.creatures);
   }
 
   void JsonObjectWriter<h3m::QuestDetails<h3m::QuestType::Resources>>::operator()(
     FieldsWriter& out, const h3m::QuestDetails<h3m::QuestType::Resources>& details) const
   {
-    out.writeField("resources", details.resources);
+    using Fields = h3json::FieldNames<std::remove_cvref_t<decltype(details)>>;
+    out.writeField(Fields::kResources, details.resources);
   }
 
   void JsonObjectWriter<h3m::QuestDetails<h3m::QuestType::BeHero>>::operator()(
     FieldsWriter& out, const h3m::QuestDetails<h3m::QuestType::BeHero>& details) const
   {
-    out.writeField("hero", details.hero);
+    using Fields = h3json::FieldNames<std::remove_cvref_t<decltype(details)>>;
+    out.writeField(Fields::kHero, details.hero);
   }
 
   void JsonObjectWriter<h3m::QuestDetails<h3m::QuestType::BePlayer>>::operator()(
     FieldsWriter& out, const h3m::QuestDetails<h3m::QuestType::BePlayer>& details) const
   {
-    out.writeField("player", details.player);
+    using Fields = h3json::FieldNames<std::remove_cvref_t<decltype(details)>>;
+    out.writeField(Fields::kPlayer, details.player);
   }
 
   void JsonObjectWriter<h3m::Quest>::operator()(FieldsWriter& out, const h3m::Quest& quest) const
