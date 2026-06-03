@@ -49,7 +49,7 @@ namespace h3json
     // \param value - input JSON value.
     // \param index - 0-based index of the alternative to deserialize.
     // \return the deserialized alternative.
-    // \throw std::out_of_range if index >= sizeof...(Types).
+    // \throw std::invalid_argument if index >= sizeof...(Types).
     Variant operator()(const Json::Value& value, std::size_t index) const
     {
       return kSwitchStatement(index, value);

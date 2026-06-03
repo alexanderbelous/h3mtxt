@@ -511,7 +511,7 @@ namespace h3m
   ObjectPropertiesVariant H3MReader::readObjectPropertiesVariant(ObjectPropertiesType object_properties_type) const
   {
     // Generate a switch statement for all valid ObjectPropertiesType constants.
-    // read_object_properties(N, reader) will trigger readObjectPropertiesAsVariant<N>(reader).
+    // switch_statement(N, reader) will trigger readObjectPropertiesAsVariant<N>(reader).
     static constexpr auto switch_statement =
       SwitchStatement_NS::generateSwitchStatement<ObjectPropertiesType,
                                                   kNumObjectPropertiesTypes,

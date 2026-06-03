@@ -50,7 +50,7 @@ namespace
     //     case AnimalType::Dog:
     //       return getAnimalSound<AnimalType::Dog>();
     //     default:
-    //       throw std::out_of_range();
+    //       throw std::invalid_argument("invalid animal_type");
     //     }
     constexpr auto switch_statement =
       SwitchStatement_NS::generateSwitchStatement<AnimalType, 3, GetAnimalSoundTemplateAlias>();
