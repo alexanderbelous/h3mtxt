@@ -46,10 +46,11 @@ namespace h3json
     h3m::HeroesSettings heroes_settings;
     for (std::size_t hero_idx = 0; hero_idx < h3m::kNumHeroes; ++hero_idx)
     {
-      if (const Json::Value* field = findJsonField(value, kFieldNames[hero_idx]))
+      const Json::Value& hero_settings_json = getJsonField(value, kFieldNames[hero_idx]);
+      if (!hero_settings_json.isNull())
       {
         const h3m::HeroType hero = static_cast<h3m::HeroType>(hero_idx);
-        heroes_settings[hero] = fromJson<h3m::HeroSettings>(*field);
+        heroes_settings[hero] = fromJson<h3m::HeroSettings>(hero_settings_json);
       }
     }
     return heroes_settings;

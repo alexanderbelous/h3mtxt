@@ -20,6 +20,13 @@ namespace h3json
   public:
     using Variant = std::variant<Types...>;
 
+    // Deserializes the input JSON as the specified alternative of the variant.
+    // \param value - input JSON value.
+    // \param index - 0-based index of the alternative to deserialize.
+    // \return the deserialized alternative.
+    // \throw std::invalid_argument if index >= sizeof...(Types).
+    Variant operator()(const Json::Value& value, std::size_t index) const;
+
   private:
     // The number of alternatives in std::variant<Types...>.
     static constexpr std::size_t kNumAlternatives = sizeof...(Types);
@@ -43,16 +50,12 @@ namespace h3json
     // kSwitchStatement(N, json_value) will trigger readAlternative<N>(json_value).
     static constexpr auto kSwitchStatement =
       SwitchStatement_NS::generateSwitchStatement<std::size_t, kNumAlternatives, AlternativeReaderTemplateAlias>();
-
-  public:
-    // Deserializes the input JSON as the specified alternative of the variant.
-    // \param value - input JSON value.
-    // \param index - 0-based index of the alternative to deserialize.
-    // \return the deserialized alternative.
-    // \throw std::invalid_argument if index >= sizeof...(Types).
-    Variant operator()(const Json::Value& value, std::size_t index) const
-    {
-      return kSwitchStatement(index, value);
-    }
   };
+
+  template<class... Types>
+  std::variant<Types...>
+  VariantJsonReader<std::variant<Types...>>::operator()(const Json::Value& value, std::size_t index) const
+  {
+    return kSwitchStatement(index, value);
+  }
 }
