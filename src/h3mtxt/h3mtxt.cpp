@@ -6,6 +6,7 @@
 #include <h3mtxt/H3Writer/H3MWriter/writeh3m.h>
 #include <h3mtxt/Map/Constants/MapFormat.h>
 
+#include <cstdlib>
 #include <filesystem>
 #include <fstream>
 #include <iostream>
@@ -15,6 +16,21 @@ namespace fs = std::filesystem;
 
 namespace
 {
+  // Obtain the version number from H3MTXT_VERSION preprocessor variable.
+  // H3MTXT_VERSION is configured in CMakeLists.txt to match the CMake project version.
+  #define H3MTXT_STRINGIFY_IMPL(x) #x
+  #define H3MTXT_STRINGIFY(x) H3MTXT_STRINGIFY_IMPL(x)
+  #ifdef H3MTXT_VERSION
+    #define H3MTXT_VERSION_STR H3MTXT_STRINGIFY(H3MTXT_VERSION)
+  #else
+    #define H3MTXT_VERSION_STR ""
+  #endif
+  // Version number of h3mtxt, or an empty string if H3MTXT_VERSION is not defined.
+  constexpr std::string_view kProgramVersion = H3MTXT_VERSION_STR;
+  #undef H3MTXT_VERSION_STR
+  #undef H3MTXT_STRINGIFY
+  #undef H3MTXT_STRINGIFY_IMPL
+
   // Checks if the input file is a (possibly gzip-compressed) .h3m or .h3c file.
   // \param stream - input stream containing the file data.
   // \return true if @stream contains a (possibly gzip-compressed) .h3m or .h3c file, false otherwise.
@@ -34,6 +50,7 @@ namespace
     }
   }
 
+  // Contents of the input file.
   struct Input
   {
     std::variant<h3m::Map, h3m::Campaign> data;
@@ -41,6 +58,7 @@ namespace
     bool is_json {};
   };
 
+  // Reads the input file.
   Input readInput(std::istream& stream)
   {
     if (isH3File(stream))
@@ -50,6 +68,7 @@ namespace
     return Input{ .data = h3json::readH3Json(stream), .is_json = true };
   }
 
+  // Writes the output file.
   void writeOutput(std::ostream& stream, const Input& input)
   {
     if (input.is_json)
@@ -75,55 +94,60 @@ namespace
       }
     }
   }
-}
 
-int main(int argc, char** argv)
-{
-  if (argc != 3)
+  void runProgram(const fs::path& path_input, const fs::path& path_output)
   {
-    std::cout << "Usage: h3mtxt <input_path> <output_path>\n"
-                 "\n"
-                 "If <input_path> is a .h3m file, the program will read the map and write it as a\n"
-                 "JSON document to <output_path>.\n"
-                 "Otherwise, the program will attempt to read <input_path> as a JSON document\n"
-                 "representing a H3M map, and then write it as .h3m file to <output_path>.\n"
-                 "\n"
-                 "The filename extension in <input_path> is not important - the program will\n"
-                 "determine the format from the file data." << std::endl;
-    return -1;
-  }
-
-  try
-  {
-    const fs::path path_input(argv[1]);
-    const fs::path path_output(argv[2]);
     std::ifstream stream(path_input, std::ios_base::in | std::ios_base::binary);
     if (!stream)
     {
-      std::cerr << "Failed to open: " << path_input.string();
-      return -1;
+      throw std::runtime_error("Failed to open: " + path_input.string());
     }
     const Input input = readInput(stream);
     stream.close();
     std::ofstream out_stream(path_output, std::ios_base::out | std::ios_base::binary);
     if (!out_stream)
     {
-      std::cerr << "Failed to open: " << path_output.string();
-      return -1;
+      throw std::runtime_error("Failed to open: " + path_output.string());
     }
     writeOutput(out_stream, input);
     out_stream.close();
   }
+}
+
+int main(int argc, char** argv)
+{
+  if (argc != 3)
+  {
+    std::cout << "h3mtxt " << kProgramVersion << "\n"
+                 "Copyright (c) 2025-2026 Alexander Belous\n"
+                 "https://github.com/alexanderbelous/h3mtxt\n"
+                 "\n"
+                 "Usage: h3mtxt <input_path> <output_path>\n"
+                 "\n"
+                 "If <input_path> is a .h3m / .h3c file, the program will read it and write it as\n"
+                 "a JSON document to <output_path>.\n"
+                 "Otherwise, the program will attempt to read <input_path> as a JSON document\n"
+                 "and then write it as a .h3m / .h3c file to <output_path>.\n"
+                 "\n"
+                 "The filename extension in <input_path> is not important - the program will\n"
+                 "determine the format from the file data." << std::endl;
+    return (argc <= 1) ? EXIT_SUCCESS : EXIT_FAILURE;
+  }
+
+  try
+  {
+    runProgram(argv[1], argv[2]);
+  }
   catch (const std::exception& error)
   {
     std::cerr << error.what() << std::endl;
-    return -1;
+    return EXIT_FAILURE;
   }
   catch (...)
   {
     std::cerr << "Unknown error." << std::endl;
-    return -1;
+    return EXIT_FAILURE;
   }
 
-  return 0;
+  return EXIT_SUCCESS;
 }
