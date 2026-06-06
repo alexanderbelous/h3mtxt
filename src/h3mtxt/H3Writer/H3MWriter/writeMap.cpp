@@ -42,10 +42,6 @@ namespace h3m
   {
     if (map.format != map_format_)
     {
-      // Strictly speaking, this is an error, but it's recoverable: we can simply
-      // construct a temporary H3MWriter with the correct MapFormat.
-      // TODO: this is actually ambiguous: alternatively, we can convert the map here,
-      // e.g., write an AB map as SoD.
       return H3MWriter{ stream_, map.format }.writeData(map);
     }
     // Check tha the map is grammatically (not necessarily semantically) correct.
@@ -55,10 +51,7 @@ namespace h3m
     writeData(map.basic_info);
     writeData(map.players);
     writeData(map.additional_info);
-    for (const Tile& tile : map.tiles)
-    {
-      writeData(tile);
-    }
+    writeSpan(std::span{ map.tiles });
     writeData(safeCastVectorSize<std::uint32_t>(map.objects_templates.size()));
     writeSpan(std::span{ map.objects_templates });
     writeData(safeCastVectorSize<std::uint32_t>(map.objects.size()));
