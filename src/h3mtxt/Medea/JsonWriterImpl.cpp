@@ -110,6 +110,13 @@ namespace Medea_NS::Detail_NS
     has_members_in_scope_ = true;
   }
 
+  void JsonWriterImpl::writeNull()
+  {
+    static constexpr std::string_view kNullStr = "null";
+    stream_.write(kNullStr.data(), kNullStr.size());
+    has_members_in_scope_ = true;
+  }
+
   void JsonWriterImpl::writeNewline()
   {
     stream_.put('\n');

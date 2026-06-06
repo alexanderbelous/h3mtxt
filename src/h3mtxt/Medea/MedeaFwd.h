@@ -13,7 +13,8 @@ namespace Medea_NS
     UInt,
     String,
     Array,
-    Object
+    Object,
+    Null
   };
 
   class ArrayElementsWriter;

@@ -91,6 +91,9 @@ namespace Medea_NS
       // Writes a string value to the output stream.
       void writeString(std::string_view value);
 
+      // Writes a NULL value to the output stream.
+      void writeNull();
+
       void writeArray(ArrayWriterPtr array_writer, const void* value, bool single_line);
 
       void writeObject(ObjectWriterPtr object_writer, const void* value, bool single_line);
@@ -175,6 +178,10 @@ namespace Medea_NS
                       "This type should be serialized as JsonDataType::String, but "
                       "JsonScalarGetter returns a value that isn't convertible to std::string_view.");
         writeString(ScalarGetter{}(value));
+      }
+      else if constexpr (kDataType == JsonDataType::Null)
+      {
+        writeNull();
       }
       else if constexpr (kDataType == JsonDataType::Array)
       {
