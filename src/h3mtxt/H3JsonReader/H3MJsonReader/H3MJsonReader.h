@@ -3,6 +3,7 @@
 #include <h3mtxt/H3JsonReader/H3JsonReaderBase/H3JsonReaderBaseFwd.h>
 #include <h3mtxt/Map/MapFwd.h>
 #include <h3mtxt/Map/Constants/LossConditionType.h>
+#include <h3mtxt/Map/Constants/ObjectPropertiesType.h>
 #include <h3mtxt/Map/Constants/QuestType.h>
 #include <h3mtxt/Map/Constants/RewardType.h>
 
@@ -17,6 +18,9 @@ namespace h3json
 
   template<>
   h3m::CustomHero JsonReader<h3m::CustomHero>::operator()(const Json::Value& value) const;
+
+  template<>
+  h3m::EventBase JsonReader<h3m::EventBase>::operator()(const Json::Value& value) const;
 
   template<>
   h3m::Guardians JsonReader<h3m::Guardians>::operator()(const Json::Value & value) const;
@@ -43,7 +47,8 @@ namespace h3json
 
   template<>
   h3m::LossConditionDetails<h3m::LossConditionType::TimeExpires>
-  JsonReader<h3m::LossConditionDetails<h3m::LossConditionType::TimeExpires>>::operator()(const Json::Value& value) const;
+  JsonReader<h3m::LossConditionDetails<h3m::LossConditionType::TimeExpires>>::operator()(
+    const Json::Value& value) const;
 
   template<>
   h3m::LossConditionDetails<h3m::LossConditionType::Normal>
@@ -63,6 +68,107 @@ namespace h3json
 
   template<>
   h3m::MessageAndTreasure JsonReader<h3m::MessageAndTreasure>::operator()(const Json::Value& value) const;
+
+  template<>
+  h3m::ObjectProperties<h3m::ObjectPropertiesType::NONE>
+  JsonReader<h3m::ObjectProperties<h3m::ObjectPropertiesType::NONE>>::operator()(const Json::Value& value) const;
+
+  template<>
+  h3m::ObjectProperties<h3m::ObjectPropertiesType::ABANDONED_MINE>
+  JsonReader<h3m::ObjectProperties<h3m::ObjectPropertiesType::ABANDONED_MINE>>::operator()(
+    const Json::Value& value) const;
+
+  template<>
+  h3m::ObjectProperties<h3m::ObjectPropertiesType::ARTIFACT>
+  JsonReader<h3m::ObjectProperties<h3m::ObjectPropertiesType::ARTIFACT>>::operator()(const Json::Value& value) const;
+
+  template<>
+  h3m::ObjectProperties<h3m::ObjectPropertiesType::EVENT>
+  JsonReader<h3m::ObjectProperties<h3m::ObjectPropertiesType::EVENT>>::operator()(const Json::Value& value) const;
+
+  template<>
+  h3m::ObjectProperties<h3m::ObjectPropertiesType::GARRISON>
+  JsonReader<h3m::ObjectProperties<h3m::ObjectPropertiesType::GARRISON>>::operator()(const Json::Value& value) const;
+
+  template<>
+  h3m::ObjectProperties<h3m::ObjectPropertiesType::GRAIL>
+  JsonReader<h3m::ObjectProperties<h3m::ObjectPropertiesType::GRAIL>>::operator()(const Json::Value& value) const;
+
+  template<>
+  h3m::ObjectProperties<h3m::ObjectPropertiesType::HERO>
+  JsonReader<h3m::ObjectProperties<h3m::ObjectPropertiesType::HERO>>::operator()(const Json::Value& value) const;
+
+  template<>
+  h3m::ObjectProperties<h3m::ObjectPropertiesType::HERO_PLACEHOLDER>
+  JsonReader<h3m::ObjectProperties<h3m::ObjectPropertiesType::HERO_PLACEHOLDER>>::operator()(
+    const Json::Value& value) const;
+
+  template<>
+  h3m::ObjectProperties<h3m::ObjectPropertiesType::MONSTER>
+  JsonReader<h3m::ObjectProperties<h3m::ObjectPropertiesType::MONSTER>>::operator()(const Json::Value& value) const;
+
+  template<>
+  h3m::ObjectProperties<h3m::ObjectPropertiesType::PANDORAS_BOX>
+  JsonReader<h3m::ObjectProperties<h3m::ObjectPropertiesType::PANDORAS_BOX>>::operator()(
+    const Json::Value& value) const;
+
+  template<>
+  h3m::ObjectProperties<h3m::ObjectPropertiesType::QUEST_GUARD>
+  JsonReader<h3m::ObjectProperties<h3m::ObjectPropertiesType::QUEST_GUARD>>::operator()(
+    const Json::Value& value) const;
+
+  template<>
+  h3m::ObjectProperties<h3m::ObjectPropertiesType::RANDOM_DWELLING>
+  JsonReader<h3m::ObjectProperties<h3m::ObjectPropertiesType::RANDOM_DWELLING>>::operator()(
+    const Json::Value& value) const;
+
+  template<>
+  h3m::ObjectProperties<h3m::ObjectPropertiesType::RANDOM_DWELLING_PRESET_ALIGNMENT>
+  JsonReader<h3m::ObjectProperties<h3m::ObjectPropertiesType::RANDOM_DWELLING_PRESET_ALIGNMENT>>::operator()(
+    const Json::Value& value) const;
+
+  template<>
+  h3m::ObjectProperties<h3m::ObjectPropertiesType::RANDOM_DWELLING_PRESET_LEVEL>
+  JsonReader<h3m::ObjectProperties<h3m::ObjectPropertiesType::RANDOM_DWELLING_PRESET_LEVEL>>::operator()(
+    const Json::Value& value) const;
+
+  template<>
+  h3m::ObjectProperties<h3m::ObjectPropertiesType::RESOURCE>
+  JsonReader<h3m::ObjectProperties<h3m::ObjectPropertiesType::RESOURCE>>::operator()(const Json::Value& value) const;
+
+  template<>
+  h3m::ObjectProperties<h3m::ObjectPropertiesType::SEERS_HUT>
+  JsonReader<h3m::ObjectProperties<h3m::ObjectPropertiesType::SEERS_HUT>>::operator()(const Json::Value& value) const;
+
+  template<>
+  h3m::ObjectProperties<h3m::ObjectPropertiesType::SCHOLAR>
+  JsonReader<h3m::ObjectProperties<h3m::ObjectPropertiesType::SCHOLAR>>::operator()(const Json::Value& value) const;
+
+  template<>
+  h3m::ObjectProperties<h3m::ObjectPropertiesType::SHRINE>
+  JsonReader<h3m::ObjectProperties<h3m::ObjectPropertiesType::SHRINE>>::operator()(const Json::Value& value) const;
+
+  template<>
+  h3m::ObjectProperties<h3m::ObjectPropertiesType::SIGN>
+  JsonReader<h3m::ObjectProperties<h3m::ObjectPropertiesType::SIGN>>::operator()(const Json::Value& value) const;
+
+  template<>
+  h3m::ObjectProperties<h3m::ObjectPropertiesType::SPELL_SCROLL>
+  JsonReader<h3m::ObjectProperties<h3m::ObjectPropertiesType::SPELL_SCROLL>>::operator()(
+    const Json::Value& value) const;
+
+  template<>
+  h3m::ObjectProperties<h3m::ObjectPropertiesType::TOWN>
+  JsonReader<h3m::ObjectProperties<h3m::ObjectPropertiesType::TOWN>>::operator()(const Json::Value& value) const;
+
+  template<>
+  h3m::ObjectProperties<h3m::ObjectPropertiesType::TRIVIAL_OWNED_OBJECT>
+  JsonReader<h3m::ObjectProperties<h3m::ObjectPropertiesType::TRIVIAL_OWNED_OBJECT>>::operator()(
+    const Json::Value& value) const;
+
+  template<>
+  h3m::ObjectProperties<h3m::ObjectPropertiesType::WITCH_HUT>
+  JsonReader<h3m::ObjectProperties<h3m::ObjectPropertiesType::WITCH_HUT>>::operator()(const Json::Value& value) const;
 
   template<>
   h3m::ObjectTemplate JsonReader<h3m::ObjectTemplate>::operator()(const Json::Value& value) const;

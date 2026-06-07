@@ -11,7 +11,7 @@ namespace h3json
   {
     h3m::PlayerSpecs::HeroInfo operator()(const Json::Value& value) const
     {
-      h3m::PlayerSpecs::HeroInfo info{};
+      h3m::PlayerSpecs::HeroInfo info;
       readField(info.type, value, "type");
       readField(info.name, value, "name");
       return info;
@@ -21,7 +21,7 @@ namespace h3json
   h3m::MainTown JsonReader<h3m::MainTown>::operator()(const Json::Value& value) const
   {
     using Fields = FieldNames<h3m::MainTown>;
-    h3m::MainTown main_town {};
+    h3m::MainTown main_town;
     readField(main_town.generate_hero, value, Fields::kGenerateHero);
     readField(main_town.town_type, value, Fields::kTownType);
     readField(main_town.coordinates, value, Fields::kCoordinates);
@@ -31,7 +31,7 @@ namespace h3json
   h3m::StartingHero JsonReader<h3m::StartingHero>::operator()(const Json::Value& value) const
   {
     using Fields = FieldNames<h3m::StartingHero>;
-    h3m::StartingHero hero {};
+    h3m::StartingHero hero;
     readField(hero.type, value, Fields::kType);
     if (hero.type != h3m::HeroType{0xFF})
     {
@@ -44,7 +44,7 @@ namespace h3json
   h3m::PlayerSpecs JsonReader<h3m::PlayerSpecs>::operator()(const Json::Value& value) const
   {
     using Fields = FieldNames<h3m::PlayerSpecs>;
-    h3m::PlayerSpecs player {};
+    h3m::PlayerSpecs player;
     readField(player.can_be_human, value, Fields::kCanBeHuman);
     readField(player.can_be_computer, value, Fields::kCanBeComputer);
     readField(player.behavior, value, Fields::kBehavior);

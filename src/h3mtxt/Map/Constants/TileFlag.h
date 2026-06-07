@@ -13,7 +13,7 @@ namespace h3m
     // Controls whether the terrain sprite should be flipped vertically.
     TerrainVerticalFlip = 1,
     // Controls whether the river sprite should be flipped horizontally.
-    RiverHorizontalFlip=  2,
+    RiverHorizontalFlip = 2,
     // Controls whether the river sprite should be flipped vertically.
     RiverVerticalFlip = 3,
     // Controls whether the road sprite should be flipped horizontally.
