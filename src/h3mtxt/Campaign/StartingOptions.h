@@ -12,6 +12,23 @@
 
 namespace h3m
 {
+  struct HeroCrossoverOption
+  {
+    constexpr bool operator==(const HeroCrossoverOption&) const noexcept = default;
+
+    PlayerColor player {};
+    std::uint8_t source_scenario {};
+  };
+
+  struct StartingHeroOption
+  {
+    constexpr bool operator==(const StartingHeroOption&) const noexcept = default;
+
+    PlayerColor player {};
+    // HeroType or 0xFFFF if random.
+    std::uint16_t type {};
+  };
+
   template<>
   struct StartingOptionsDetails<StartingOptionsType::None>
   {
@@ -33,16 +50,8 @@ namespace h3m
   {
     constexpr bool operator==(const StartingOptionsDetails&) const noexcept = default;
 
-    struct Hero
-    {
-      constexpr bool operator==(const Hero&) const noexcept = default;
-
-      PlayerColor player {};
-      std::uint8_t source_scenario {};
-    };
-
     // Size is serialized as std::uint8_t.
-    std::vector<Hero> options;
+    std::vector<HeroCrossoverOption> options;
   };
 
   template<>
@@ -50,17 +59,8 @@ namespace h3m
   {
     constexpr bool operator==(const StartingOptionsDetails&) const noexcept = default;
 
-    struct Hero
-    {
-      constexpr bool operator==(const Hero&) const noexcept = default;
-
-      PlayerColor player {};
-      // HeroType or 0xFFFF if random.
-      std::uint16_t type {};
-    };
-
     // Size is serialized as std::uint8_t.
-    std::vector<Hero> options;
+    std::vector<StartingHeroOption> options;
   };
 
   struct StartingOptions

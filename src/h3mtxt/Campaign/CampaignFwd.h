@@ -44,10 +44,14 @@ namespace h3m
 
   struct CutScene;
 
+  struct HeroCrossoverOption;
+
   struct StartingBonus;
 
   template<StartingBonusType>
   struct StartingBonusDetails;
+
+  struct StartingHeroOption;
 
   struct StartingOptions;
 

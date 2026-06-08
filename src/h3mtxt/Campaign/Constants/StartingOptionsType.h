@@ -13,4 +13,7 @@ namespace h3m
     HeroCrossover = 2,
     StartingHero = 3
   };
+
+  // The number of Starting Options types, i.e. cardinality of StartingOptionsType.
+  inline constexpr std::uint8_t kNumStartingOptionsTypes = 4;
 }

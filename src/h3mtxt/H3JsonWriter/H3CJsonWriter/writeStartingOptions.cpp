@@ -10,21 +10,9 @@
 
 namespace Medea_NS
 {
-  template<>
-  struct JsonObjectWriter<h3m::StartingOptionsDetails<h3m::StartingOptionsType::HeroCrossover>::Hero>
+  namespace
   {
-    void operator()(FieldsWriter& out,
-                    const h3m::StartingOptionsDetails<h3m::StartingOptionsType::HeroCrossover>::Hero& hero) const
-    {
-      out.writeField("player", hero.player);
-      out.writeField("source_scenario", hero.source_scenario);
-    }
-  };
-
-  template<>
-  struct JsonObjectWriter<h3m::StartingOptionsDetails<h3m::StartingOptionsType::StartingHero>::Hero>
-  {
-    static std::string_view getHeroString(std::uint16_t hero) noexcept
+    std::string_view getStartingHeroOptionComment(std::uint16_t hero) noexcept
     {
       using HeroTypeUnderlyingType = std::underlying_type_t<h3m::HeroType>;
       if (hero == 0xFFFFu)
@@ -37,18 +25,29 @@ namespace Medea_NS
       }
       return EnumCommentGetter{}(static_cast<h3m::HeroType>(hero));
     }
+  }
 
-    void operator()(FieldsWriter& out,
-                    const h3m::StartingOptionsDetails<h3m::StartingOptionsType::StartingHero>::Hero& hero) const
+  template<>
+  void JsonObjectWriter<h3m::HeroCrossoverOption>::operator()(FieldsWriter& out,
+                                                              const h3m::HeroCrossoverOption& option) const
+  {
+    using Fields = h3json::FieldNames<std::remove_cvref_t<decltype(option)>>;
+    out.writeField(Fields::kPlayer, option.player);
+    out.writeField(Fields::kSourceScenario, option.source_scenario);
+  }
+
+  template<>
+  void JsonObjectWriter<h3m::StartingHeroOption>::operator()(FieldsWriter& out,
+                                                             const h3m::StartingHeroOption& option) const
+  {
+    using Fields = h3json::FieldNames<std::remove_cvref_t<decltype(option)>>;
+    out.writeField(Fields::kPlayer, option.player);
+    out.writeField(Fields::kType, option.type);
+    if (std::string_view enum_str = getStartingHeroOptionComment(option.type); !enum_str.empty())
     {
-      out.writeField("player", hero.player);
-      out.writeField("type", hero.type);
-      if (std::string_view enum_str = getHeroString(hero.type); !enum_str.empty())
-      {
-        out.writeComment(enum_str);
-      }
+      out.writeComment(enum_str);
     }
-  };
+  }
 
   void JsonObjectWriter<h3m::StartingOptionsDetails<h3m::StartingOptionsType::None>>::operator()(
     FieldsWriter&, const h3m::StartingOptionsDetails<h3m::StartingOptionsType::None>&) const
@@ -58,20 +57,23 @@ namespace Medea_NS
   void JsonObjectWriter<h3m::StartingOptionsDetails<h3m::StartingOptionsType::StartingBonus>>::operator()(
     FieldsWriter& out, const h3m::StartingOptionsDetails<h3m::StartingOptionsType::StartingBonus>& details) const
   {
-    out.writeField("player", details.player);
-    out.writeField("options", details.options);
+    using Fields = h3json::FieldNames<std::remove_cvref_t<decltype(details)>>;
+    out.writeField(Fields::kPlayer, details.player);
+    out.writeField(Fields::kOptions, details.options);
   }
 
   void JsonObjectWriter<h3m::StartingOptionsDetails<h3m::StartingOptionsType::HeroCrossover>>::operator()(
     FieldsWriter& out, const h3m::StartingOptionsDetails<h3m::StartingOptionsType::HeroCrossover>& details) const
   {
-    out.writeField("options", details.options);
+    using Fields = h3json::FieldNames<std::remove_cvref_t<decltype(details)>>;
+    out.writeField(Fields::kOptions, details.options);
   }
 
   void JsonObjectWriter<h3m::StartingOptionsDetails<h3m::StartingOptionsType::StartingHero>>::operator()(
     FieldsWriter& out, const h3m::StartingOptionsDetails<h3m::StartingOptionsType::StartingHero>& details) const
   {
-    out.writeField("options", details.options);
+    using Fields = h3json::FieldNames<std::remove_cvref_t<decltype(details)>>;
+    out.writeField(Fields::kOptions, details.options);
   }
 
   void JsonObjectWriter<h3m::StartingOptions>::operator()(FieldsWriter& out,
@@ -80,7 +82,7 @@ namespace Medea_NS
     using Fields = h3json::FieldNames<h3m::StartingOptions>;
     out.writeField(Fields::kType, starting_options.type());
     std::visit([&out] <h3m::StartingOptionsType T> (const h3m::StartingOptionsDetails<T>& details)
-                { out.writeField(Fields::kDetails, details); },
-                starting_options.details);
+               { out.writeField(Fields::kDetails, details); },
+               starting_options.details);
   }
 }

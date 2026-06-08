@@ -24,6 +24,9 @@ namespace h3json
   h3m::CutScene JsonReader<h3m::CutScene>::operator()(const Json::Value& value) const;
 
   template<>
+  h3m::HeroCrossoverOption JsonReader<h3m::HeroCrossoverOption>::operator()(const Json::Value& value) const;
+
+  template<>
   h3m::StartingBonus JsonReader<h3m::StartingBonus>::operator()(const Json::Value& value) const;
 
   template<>
@@ -57,6 +60,9 @@ namespace h3json
   template<>
   h3m::StartingBonusDetails<h3m::StartingBonusType::Resource>
   JsonReader<h3m::StartingBonusDetails<h3m::StartingBonusType::Resource>>::operator()(const Json::Value& value) const;
+
+  template<>
+  h3m::StartingHeroOption JsonReader<h3m::StartingHeroOption>::operator()(const Json::Value& value) const;
 
   template<>
   h3m::StartingOptions JsonReader<h3m::StartingOptions>::operator()(const Json::Value& value) const;
