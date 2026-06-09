@@ -49,11 +49,13 @@ namespace Medea_NS
     }
   }
 
+  template<>
   void JsonObjectWriter<h3m::StartingOptionsDetails<h3m::StartingOptionsType::None>>::operator()(
     FieldsWriter&, const h3m::StartingOptionsDetails<h3m::StartingOptionsType::None>&) const
   {
   }
 
+  template<>
   void JsonObjectWriter<h3m::StartingOptionsDetails<h3m::StartingOptionsType::StartingBonus>>::operator()(
     FieldsWriter& out, const h3m::StartingOptionsDetails<h3m::StartingOptionsType::StartingBonus>& details) const
   {
@@ -62,6 +64,7 @@ namespace Medea_NS
     out.writeField(Fields::kOptions, details.options);
   }
 
+  template<>
   void JsonObjectWriter<h3m::StartingOptionsDetails<h3m::StartingOptionsType::HeroCrossover>>::operator()(
     FieldsWriter& out, const h3m::StartingOptionsDetails<h3m::StartingOptionsType::HeroCrossover>& details) const
   {
@@ -69,6 +72,7 @@ namespace Medea_NS
     out.writeField(Fields::kOptions, details.options);
   }
 
+  template<>
   void JsonObjectWriter<h3m::StartingOptionsDetails<h3m::StartingOptionsType::StartingHero>>::operator()(
     FieldsWriter& out, const h3m::StartingOptionsDetails<h3m::StartingOptionsType::StartingHero>& details) const
   {
@@ -76,6 +80,7 @@ namespace Medea_NS
     out.writeField(Fields::kOptions, details.options);
   }
 
+  template<>
   void JsonObjectWriter<h3m::StartingOptions>::operator()(FieldsWriter& out,
                                                           const h3m::StartingOptions& starting_options) const
   {

@@ -8,6 +8,7 @@
 
 namespace Medea_NS
 {
+  template<>
   void JsonObjectWriter<h3m::CustomHero>::operator()(FieldsWriter& out, const h3m::CustomHero& value) const
   {
     using Fields = h3json::FieldNames<h3m::CustomHero>;
@@ -17,6 +18,7 @@ namespace Medea_NS
     out.writeField(Fields::kCanHire, value.can_hire, true);
   }
 
+  template<>
   void JsonObjectWriter<h3m::Teams>::operator()(FieldsWriter& out, const h3m::Teams& value) const
   {
     using Fields = h3json::FieldNames<h3m::Teams>;
@@ -31,6 +33,7 @@ namespace Medea_NS
     }
   }
 
+  template<>
   void JsonObjectWriter<h3m::Rumor>::operator()(FieldsWriter& out, const h3m::Rumor& value) const
   {
     using Fields = h3json::FieldNames<h3m::Rumor>;
@@ -38,6 +41,7 @@ namespace Medea_NS
     out.writeField(Fields::kDescription, value.description);
   }
 
+  template<>
   void JsonObjectWriter<h3m::HeroSettings>::operator()(FieldsWriter& out, const h3m::HeroSettings& value) const
   {
     using Fields = h3json::FieldNames<h3m::HeroSettings>;
@@ -69,6 +73,7 @@ namespace Medea_NS
     }
   }
 
+  template<>
   void JsonObjectWriter<h3m::HeroesSettings>::operator()(FieldsWriter& out, const h3m::HeroesSettings& value) const
   {
     // HeroesSettings is essentially std::array<std::optional<h3m::HeroSettings>, h3m::kNumHeroes>.
@@ -84,6 +89,7 @@ namespace Medea_NS
     }
   }
 
+  template<>
   void JsonObjectWriter<h3m::MapAdditionalInfo>::operator()(FieldsWriter& out, const h3m::MapAdditionalInfo& value) const
   {
     using Fields = h3json::FieldNames<h3m::MapAdditionalInfo>;

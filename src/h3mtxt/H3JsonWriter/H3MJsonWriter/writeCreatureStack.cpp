@@ -6,6 +6,7 @@
 
 namespace Medea_NS
 {
+  template<>
   void JsonObjectWriter<h3m::CreatureStack>::operator()(FieldsWriter& out, const h3m::CreatureStack& creature_stack) const
   {
     using Fields = h3json::FieldNames<h3m::CreatureStack>;

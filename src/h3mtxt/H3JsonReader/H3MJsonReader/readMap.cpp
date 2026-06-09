@@ -48,6 +48,7 @@ namespace h3json
     }
   }
 
+  template<>
   h3m::Map JsonReader<h3m::Map>::operator()(const Json::Value& value) const
   {
     using Fields = FieldNames<h3m::Map>;

@@ -6,6 +6,7 @@
 
 namespace h3json
 {
+  template<>
   h3m::HeroSettings JsonReader<h3m::HeroSettings>::operator()(const Json::Value& value) const
   {
     using Fields = FieldNames<h3m::HeroSettings>;

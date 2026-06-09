@@ -31,12 +31,14 @@ namespace h3json
     return option;
   }
 
+  template<>
   StartingOptionsDetails<StartingOptionsType::None>
   JsonReader<StartingOptionsDetails<StartingOptionsType::None>>::operator()(const Json::Value&) const
   {
     return {};
   }
 
+  template<>
   StartingOptionsDetails<StartingOptionsType::StartingBonus>
   JsonReader<StartingOptionsDetails<StartingOptionsType::StartingBonus>>::operator()(const Json::Value& value) const
   {
@@ -47,6 +49,7 @@ namespace h3json
     return details;
   }
 
+  template<>
   StartingOptionsDetails<StartingOptionsType::HeroCrossover>
   JsonReader<StartingOptionsDetails<StartingOptionsType::HeroCrossover>>::operator()(const Json::Value& value) const
   {
@@ -56,6 +59,7 @@ namespace h3json
     return details;
   }
 
+  template<>
   StartingOptionsDetails<StartingOptionsType::StartingHero>
   JsonReader<StartingOptionsDetails<StartingOptionsType::StartingHero>>::operator()(const Json::Value& value) const
   {
@@ -65,6 +69,7 @@ namespace h3json
     return details;
   }
 
+  template<>
   StartingOptions JsonReader<StartingOptions>::operator()(const Json::Value& value) const
   {
     using Fields = FieldNames<StartingOptions>;

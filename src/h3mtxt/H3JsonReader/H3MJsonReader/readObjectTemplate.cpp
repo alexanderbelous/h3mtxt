@@ -6,11 +6,13 @@
 
 namespace h3json
 {
+  template<>
   h3m::SpriteTilesBitmask JsonReader<h3m::SpriteTilesBitmask>::operator()(const Json::Value& value) const
   {
     return h3m::SpriteTilesBitmask{ .data = fromJson<std::array<std::uint8_t, 6>>(value) };
   }
 
+  template<>
   h3m::ObjectTemplate JsonReader<h3m::ObjectTemplate>::operator()(const Json::Value& value) const
   {
     using Fields = FieldNames<h3m::ObjectTemplate>;

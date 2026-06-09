@@ -17,6 +17,7 @@ namespace Medea_NS
     }
   };
 
+  template<>
   void JsonObjectWriter<h3m::MainTown>::operator()(FieldsWriter& out, const h3m::MainTown& value) const
   {
     using Fields = h3json::FieldNames<h3m::MainTown>;
@@ -25,6 +26,7 @@ namespace Medea_NS
     out.writeField(Fields::kCoordinates, value.coordinates);
   }
 
+  template<>
   void JsonObjectWriter<h3m::StartingHero>::operator()(FieldsWriter& out, const h3m::StartingHero& value) const
   {
     using Fields = h3json::FieldNames<h3m::StartingHero>;
@@ -42,6 +44,7 @@ namespace Medea_NS
     }
   }
 
+  template<>
   void JsonObjectWriter<h3m::PlayerSpecs>::operator()(FieldsWriter& out, const h3m::PlayerSpecs& value) const
   {
     using Fields = h3json::FieldNames<h3m::PlayerSpecs>;

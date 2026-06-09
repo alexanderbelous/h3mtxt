@@ -114,6 +114,7 @@ namespace h3json
     return RewardDetails<RewardType::Creature> { fromJson<h3m::CreatureStack>(value) };
   }
 
+  template<>
   Reward JsonReader<Reward>::operator()(const Json::Value& value) const
   {
     using Fields = FieldNames<Reward>;

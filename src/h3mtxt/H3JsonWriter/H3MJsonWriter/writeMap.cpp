@@ -139,6 +139,7 @@ namespace Medea_NS
     }
   }
 
+  template<>
   void JsonObjectWriter<h3m::Map>::operator()(FieldsWriter& out, const h3m::Map& map) const
   {
     using Fields = h3json::FieldNames<h3m::Map>;

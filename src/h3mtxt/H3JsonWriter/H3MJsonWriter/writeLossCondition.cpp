@@ -37,6 +37,7 @@ namespace Medea_NS
   {
   }
 
+  template<>
   void JsonObjectWriter<h3m::LossCondition>::operator()(FieldsWriter& out,
                                                         const h3m::LossCondition& loss_condition) const
   {

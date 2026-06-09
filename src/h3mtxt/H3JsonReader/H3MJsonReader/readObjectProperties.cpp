@@ -12,6 +12,7 @@ namespace h3json
   using ::h3m::ObjectPropertiesType;
   using ::h3m::ObjectPropertiesVariant;
 
+  template<>
   h3m::EventBase JsonReader<h3m::EventBase>::operator()(const Json::Value& value) const
   {
     using Fields = FieldNames<h3m::EventBase>;
@@ -31,6 +32,7 @@ namespace h3json
     return event;
   }
 
+  template<>
   h3m::Guardians JsonReader<h3m::Guardians>::operator()(const Json::Value& value) const
   {
     using Fields = FieldNames<h3m::Guardians>;
@@ -41,6 +43,7 @@ namespace h3json
     return guardians;
   }
 
+  template<>
   h3m::MessageAndTreasure JsonReader<h3m::MessageAndTreasure>::operator()(const Json::Value& value) const
   {
     using Fields = FieldNames<h3m::MessageAndTreasure>;
@@ -51,6 +54,7 @@ namespace h3json
     return message_and_treasure;
   }
 
+  template<>
   h3m::TownBuildings JsonReader<h3m::TownBuildings>::operator()(const Json::Value& value) const
   {
     using Fields = FieldNames<h3m::TownBuildings>;
@@ -60,6 +64,7 @@ namespace h3json
     return town_buildings;
   }
 
+  template<>
   h3m::TownEvent JsonReader<h3m::TownEvent>::operator()(const Json::Value& value) const
   {
     using Fields = FieldNames<h3m::TownEvent>;

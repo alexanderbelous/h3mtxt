@@ -120,6 +120,7 @@ namespace h3json
     return details;
   }
 
+  template<>
   Quest JsonReader<Quest>::operator()(const Json::Value& value) const
   {
     using Fields = FieldNames<Quest>;

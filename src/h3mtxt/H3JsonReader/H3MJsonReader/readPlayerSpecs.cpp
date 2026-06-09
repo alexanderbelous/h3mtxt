@@ -18,6 +18,7 @@ namespace h3json
     }
   };
 
+  template<>
   h3m::MainTown JsonReader<h3m::MainTown>::operator()(const Json::Value& value) const
   {
     using Fields = FieldNames<h3m::MainTown>;
@@ -28,6 +29,7 @@ namespace h3json
     return main_town;
   }
 
+  template<>
   h3m::StartingHero JsonReader<h3m::StartingHero>::operator()(const Json::Value& value) const
   {
     using Fields = FieldNames<h3m::StartingHero>;
@@ -41,6 +43,7 @@ namespace h3json
     return hero;
   }
 
+  template<>
   h3m::PlayerSpecs JsonReader<h3m::PlayerSpecs>::operator()(const Json::Value& value) const
   {
     using Fields = FieldNames<h3m::PlayerSpecs>;

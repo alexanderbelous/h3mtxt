@@ -6,6 +6,7 @@
 
 namespace h3json
 {
+  template<>
   h3m::SecondarySkill JsonReader<h3m::SecondarySkill>::operator()(const Json::Value& value) const
   {
     using Fields = FieldNames<h3m::SecondarySkill>;

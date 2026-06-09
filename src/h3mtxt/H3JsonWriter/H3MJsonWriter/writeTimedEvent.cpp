@@ -7,6 +7,7 @@
 
 namespace Medea_NS
 {
+  template<>
   void JsonObjectWriter<h3m::TimedEvent>::operator()(FieldsWriter& out, const h3m::TimedEvent& event) const
   {
     using Fields = h3json::FieldNames<h3m::TimedEvent>;

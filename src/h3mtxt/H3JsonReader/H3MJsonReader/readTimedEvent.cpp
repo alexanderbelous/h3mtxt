@@ -6,6 +6,7 @@
 
 namespace h3json
 {
+  template<>
   h3m::TimedEvent JsonReader<h3m::TimedEvent>::operator()(const Json::Value& value) const
   {
     using Fields = FieldNames<h3m::TimedEvent>;

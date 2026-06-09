@@ -6,6 +6,7 @@
 
 namespace h3json
 {
+  template<>
   h3m::CustomHero JsonReader<h3m::CustomHero>::operator()(const Json::Value& value) const
   {
     using Fields = FieldNames<h3m::CustomHero>;
@@ -17,6 +18,7 @@ namespace h3json
     return hero;
   }
 
+  template<>
   h3m::Teams JsonReader<h3m::Teams>::operator()(const Json::Value& value) const
   {
     using Fields = FieldNames<h3m::Teams>;
@@ -29,6 +31,7 @@ namespace h3json
     return teams;
   }
 
+  template<>
   h3m::Rumor JsonReader<h3m::Rumor>::operator()(const Json::Value& value) const
   {
     using Fields = FieldNames<h3m::Rumor>;
@@ -38,6 +41,7 @@ namespace h3json
     return rumor;
   }
 
+  template<>
   h3m::HeroesSettings JsonReader<h3m::HeroesSettings>::operator()(const Json::Value& value) const
   {
     constexpr std::span<const std::string_view, h3m::kNumHeroes> kFieldNames =
@@ -56,6 +60,7 @@ namespace h3json
     return heroes_settings;
   }
 
+  template<>
   h3m::MapAdditionalInfo JsonReader<h3m::MapAdditionalInfo>::operator()(const Json::Value& value) const
   {
     using Fields = FieldNames<h3m::MapAdditionalInfo>;

@@ -6,6 +6,7 @@
 
 namespace h3json
 {
+  template<>
   h3m::CreatureStack JsonReader<h3m::CreatureStack>::operator()(const Json::Value& value) const
   {
     using Fields = FieldNames<h3m::CreatureStack>;

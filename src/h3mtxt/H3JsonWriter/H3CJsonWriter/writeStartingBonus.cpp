@@ -44,6 +44,7 @@ namespace Medea_NS
     }
   }
 
+  template<>
   void JsonObjectWriter<h3m::StartingBonusDetails<h3m::StartingBonusType::Spell>>::operator()(
     FieldsWriter& out, const h3m::StartingBonusDetails<h3m::StartingBonusType::Spell>& details) const
   {
@@ -51,6 +52,7 @@ namespace Medea_NS
     out.writeField("spell", details.spell);
   }
 
+  template<>
   void JsonObjectWriter<h3m::StartingBonusDetails<h3m::StartingBonusType::Creature>>::operator()(
     FieldsWriter& out, const h3m::StartingBonusDetails<h3m::StartingBonusType::Creature>& details) const
   {
@@ -58,12 +60,14 @@ namespace Medea_NS
     out.writeField("creature_stack", details.creature_stack);
   }
 
+  template<>
   void JsonObjectWriter<h3m::StartingBonusDetails<h3m::StartingBonusType::Building>>::operator()(
     FieldsWriter& out, const h3m::StartingBonusDetails<h3m::StartingBonusType::Building>& details) const
   {
     out.writeField("building", details.building);
   }
 
+  template<>
   void JsonObjectWriter<h3m::StartingBonusDetails<h3m::StartingBonusType::Artifact>>::operator()(
     FieldsWriter& out, const h3m::StartingBonusDetails<h3m::StartingBonusType::Artifact>& details) const
   {
@@ -71,6 +75,7 @@ namespace Medea_NS
     out.writeField("artifact", details.artifact);
   }
 
+  template<>
   void JsonObjectWriter<h3m::StartingBonusDetails<h3m::StartingBonusType::SpellScroll>>::operator()(
     FieldsWriter& out, const h3m::StartingBonusDetails<h3m::StartingBonusType::SpellScroll>& details) const
   {
@@ -78,6 +83,7 @@ namespace Medea_NS
     out.writeField("spell", details.spell);
   }
 
+  template<>
   void JsonObjectWriter<h3m::StartingBonusDetails<h3m::StartingBonusType::PrimarySkills>>::operator()(
     FieldsWriter& out, const h3m::StartingBonusDetails<h3m::StartingBonusType::PrimarySkills>& details) const
   {
@@ -85,6 +91,7 @@ namespace Medea_NS
     out.writeField("skills", details.skills);
   }
 
+  template<>
   void JsonObjectWriter<h3m::StartingBonusDetails<h3m::StartingBonusType::SecondarySkill>>::operator()(
     FieldsWriter& out, const h3m::StartingBonusDetails<h3m::StartingBonusType::SecondarySkill>& details) const
   {
@@ -92,6 +99,7 @@ namespace Medea_NS
     out.writeField("skill", details.skill);
   }
 
+  template<>
   void JsonObjectWriter<h3m::StartingBonusDetails<h3m::StartingBonusType::Resource>>::operator()(
     FieldsWriter& out, const h3m::StartingBonusDetails<h3m::StartingBonusType::Resource>& details) const
   {
@@ -99,6 +107,7 @@ namespace Medea_NS
     out.writeField("amount", details.amount);
   }
 
+  template<>
   void JsonObjectWriter<h3m::StartingBonus>::operator()(FieldsWriter& out, const h3m::StartingBonus& bonus) const
   {
     using Fields = h3json::FieldNames<h3m::StartingBonus>;
