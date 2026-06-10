@@ -17,4 +17,7 @@ namespace h3m
     // Special value indicating no owner.
     None   = 0xFF
   };
+
+  // The maximum number of players in the game.
+  inline constexpr std::uint8_t kMaxPlayers = 8;
 }

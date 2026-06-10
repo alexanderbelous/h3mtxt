@@ -144,6 +144,7 @@ namespace h3json
     }
   };
 
+  template<>
   VictoryCondition JsonReader<VictoryCondition>::operator()(const Json::Value& value) const
   {
     using Fields = FieldNames<VictoryCondition>;

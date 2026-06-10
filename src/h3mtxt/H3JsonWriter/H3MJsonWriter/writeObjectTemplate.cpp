@@ -7,18 +7,21 @@
 
 namespace Medea_NS
 {
+  template<>
   void JsonArrayWriter<h3m::SpriteTilesBitmask>::operator()(const ArrayElementsWriter& elements_writer,
                                                             const h3m::SpriteTilesBitmask& sprite_tiles_bitmask) const
   {
     h3json::Detail_NS::printBitSetImpl(elements_writer, sprite_tiles_bitmask.data);
   }
 
+  template<>
   void JsonArrayWriter<h3m::TerrainsBitmask>::operator()(const ArrayElementsWriter& elements_writer,
                                                          const h3m::TerrainsBitmask& bitmask) const
   {
     JsonArrayWriter<h3m::BitSet<2>>{}(elements_writer, bitmask.bitset);
   }
 
+  template<>
   void JsonObjectWriter<h3m::ObjectTemplate>::operator()(FieldsWriter& out, const h3m::ObjectTemplate& value) const
   {
     using Fields = h3json::FieldNames<h3m::ObjectTemplate>;

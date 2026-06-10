@@ -1,9 +1,6 @@
 #include <h3mtxt/H3Reader/H3MReader/H3MReader.h>
-#include <h3mtxt/Map/Utils/EnumSequence.h>
+#include <h3mtxt/Map/Utils/SwitchStatement.h>
 #include <h3mtxt/Map/VictoryCondition.h>
-
-#include <array>
-#include <type_traits>
 
 namespace h3m
 {
@@ -15,33 +12,10 @@ namespace h3m
       return reader.readVictoryConditionDetails<T>();
     }
 
-    VictoryCondition::Details readVictoryConditionDetailsVariant(const H3MReader& reader,
-                                                                 VictoryConditionType victory_condition_type)
-    {
-      // Type of a pointer to a function that takes const H3MReader& and returns VictoryCondition::Details.
-      using ReadVictoryConditionDetailsPtr = VictoryCondition::Details(*)(const H3MReader& reader);
-      // Generate (at compile time) an array of function pointers for each instantiation of
-      // readVictoryConditionDetails() ordered by VictoryConditionType.
-      static constexpr std::array<ReadVictoryConditionDetailsPtr, kNumSpecialVictoryConditions>
-      kVictoryConditionDetailsReaders =
-        [] <VictoryConditionType... victory_condition_types>
-        (EnumSequence<VictoryConditionType, victory_condition_types...> seq)
-        consteval
-      {
-        return std::array<ReadVictoryConditionDetailsPtr, sizeof...(victory_condition_types)>
-        {
-          &readVictoryConditionDetails<victory_condition_types>...
-        };
-      }(MakeEnumSequence<VictoryConditionType, kNumSpecialVictoryConditions>{});
-
-      // Edge case for VictoryConditionType::Normal.
-      if (victory_condition_type == VictoryConditionType::Normal)
-      {
-        return readVictoryConditionDetails<VictoryConditionType::Normal>(reader);
-      }
-      // Otherwise, invoke a function from the generated array.
-      return kVictoryConditionDetailsReaders.at(static_cast<std::size_t>(victory_condition_type))(reader);
-    }
+    // Convert the function template readVictoryConditionDetails<T>() into an alias template,
+    // so that it can be passed as a template template parameter to generateSwitchStatement().
+    template<VictoryConditionType T>
+    using VictoryConditionDetailsReaderTemplateAlias = SwitchStatement_NS::StaticConstant<&readVictoryConditionDetails<T>>;
   }
 
   SpecialVictoryConditionBase H3MReader::readSpecialVictoryConditionBase() const
@@ -163,7 +137,21 @@ namespace h3m
 
   VictoryCondition H3MReader::readVictoryCondition() const
   {
+    // Generate a switch statement for all *special* victory condition types.
+    // read_victory_condition_details(N, reader) will trigger readVictoryConditionDetails<N>(reader).
+    static constexpr auto read_special_victory_condition_details =
+      SwitchStatement_NS::generateSwitchStatement<VictoryConditionType,
+                                                  kNumSpecialVictoryConditions,
+                                                  VictoryConditionDetailsReaderTemplateAlias>();
+
+    // Read the type of the victory condition.
     const VictoryConditionType victory_condition_type = readEnum<VictoryConditionType>();
-    return VictoryCondition{readVictoryConditionDetailsVariant(*this, victory_condition_type)};
+    // Edge case for VictoryConditionType::Normal.
+    if (victory_condition_type == VictoryConditionType::Normal)
+    {
+      return VictoryCondition{ .details = readVictoryConditionDetails<VictoryConditionType::Normal>() };
+    }
+    // Otherwise, execute the generated switch statement.
+    return VictoryCondition{ .details = read_special_victory_condition_details(victory_condition_type, *this) };
   }
 }

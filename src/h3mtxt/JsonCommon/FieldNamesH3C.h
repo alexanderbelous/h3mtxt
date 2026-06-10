@@ -5,6 +5,7 @@
 #include <h3mtxt/JsonCommon/JsonCommonFwd.h>
 
 #include <h3mtxt/Campaign/CampaignFwd.h>
+#include <h3mtxt/Campaign/Constants/StartingOptionsType.h>
 
 namespace h3json
 {
@@ -72,6 +73,13 @@ namespace h3json
   };
 
   template<>
+  struct FieldNames<h3m::HeroCrossoverOption>
+  {
+    static constexpr std::string_view kPlayer = "player";
+    static constexpr std::string_view kSourceScenario = "source_scenario";
+  };
+
+  template<>
   struct FieldNames<h3m::StartingBonus>
   {
     static constexpr std::string_view kType = "type";
@@ -79,9 +87,40 @@ namespace h3json
   };
 
   template<>
+  struct FieldNames<h3m::StartingHeroOption>
+  {
+    static constexpr std::string_view kPlayer = "player";
+    static constexpr std::string_view kType = "type";
+  };
+
+  template<>
   struct FieldNames<h3m::StartingOptions>
   {
     static constexpr std::string_view kType = "type";
     static constexpr std::string_view kDetails = "details";
+  };
+
+  template<>
+  struct FieldNames<h3m::StartingOptionsDetails<h3m::StartingOptionsType::None>>
+  {
+  };
+
+  template<>
+  struct FieldNames<h3m::StartingOptionsDetails<h3m::StartingOptionsType::StartingBonus>>
+  {
+    static constexpr std::string_view kPlayer = "player";
+    static constexpr std::string_view kOptions = "options";
+  };
+
+  template<>
+  struct FieldNames<h3m::StartingOptionsDetails<h3m::StartingOptionsType::HeroCrossover>>
+  {
+    static constexpr std::string_view kOptions = "options";
+  };
+
+  template<>
+  struct FieldNames<h3m::StartingOptionsDetails<h3m::StartingOptionsType::StartingHero>>
+  {
+    static constexpr std::string_view kOptions = "options";
   };
 }

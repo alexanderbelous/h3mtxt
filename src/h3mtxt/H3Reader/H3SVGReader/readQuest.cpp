@@ -1,16 +1,12 @@
 #include <h3mtxt/H3Reader/H3SVGReader/H3SVGReader.h>
-#include <h3mtxt/Map/Utils/EnumSequence.h>
+#include <h3mtxt/Map/Utils/SwitchStatement.h>
 #include <h3mtxt/SavedGame/Quest.h>
-
-#include <array>
 
 namespace h3svg
 {
   namespace
   {
-    using ::h3m::EnumSequence;
     using ::h3m::kNumQuestTypes;
-    using ::h3m::MakeEnumSequence;
 
     template<QuestType T>
     Quest::Details readQuestDetailsAsVariant(const H3SVGReader& reader)
@@ -18,24 +14,16 @@ namespace h3svg
       return Quest::Details{ reader.readQuestDetails<T>() };
     }
 
+    template<QuestType T>
+    using QuestDetailsReaderTemplateAlias = SwitchStatement_NS::StaticConstant<&readQuestDetailsAsVariant<T>>;
+
     Quest::Details readQuestDetailsVariant(const H3SVGReader& reader, QuestType quest_type)
     {
-      // Type of a pointer to a function that takes const H3SVGReader& and returns Quest::Details.
-      using ReadQuestDetailsPtr = Quest::Details(*)(const H3SVGReader& reader);
-      // Generate (at compile time) an array of function pointers for each instantiation of
-      // readQuestDetailsAsVariant() ordered by QuestType.
-      constexpr std::array<ReadQuestDetailsPtr, kNumQuestTypes> kQuestDetailsReaders =
-        [] <QuestType... quest_types>
-        (EnumSequence<QuestType, quest_types...> seq)
-        consteval
-      {
-        return std::array<ReadQuestDetailsPtr, sizeof...(quest_types)>
-        {
-          &readQuestDetailsAsVariant<quest_types>...
-        };
-      }(MakeEnumSequence<QuestType, kNumQuestTypes>{});
-      // Invoke a function from the generated array.
-      return kQuestDetailsReaders.at(static_cast<std::size_t>(quest_type))(reader);
+      static constexpr auto switch_statement =
+        SwitchStatement_NS::generateSwitchStatement<QuestType,
+                                                    kNumQuestTypes,
+                                                    QuestDetailsReaderTemplateAlias>();
+      return switch_statement(quest_type, reader);
     }
   }
 

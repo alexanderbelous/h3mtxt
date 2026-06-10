@@ -3,7 +3,6 @@ set(SOURCE_LIST
     # Constants
     "Constants/ArtifactSlot.h"
     "Constants/ArtifactType.h"
-    "Constants/Constants.h"
     "Constants/CreatureType.h"
     "Constants/Disposition.h"
     "Constants/ExperienceLevels.h"
@@ -39,9 +38,9 @@ set(SOURCE_LIST
     "Utils/BitSet.h"
     "Utils/EnumBitmask.h"
     "Utils/EnumIndexedArray.h"
-    "Utils/EnumSequence.h"
     "Utils/ReservedData.h"
     "Utils/SpriteTilesBitmask.h"
+    "Utils/SwitchStatement.h"
     # etc
     "Coordinates.h"
     "CreatureStack.h"

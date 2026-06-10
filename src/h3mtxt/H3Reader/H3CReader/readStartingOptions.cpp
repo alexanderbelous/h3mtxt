@@ -5,6 +5,22 @@
 
 namespace h3m
 {
+  HeroCrossoverOption H3CReader::readHeroCrossoverOption() const
+  {
+    HeroCrossoverOption option;
+    option.player = readEnum<PlayerColor>();
+    option.source_scenario = readInt<std::uint8_t>();
+    return option;
+  }
+
+  StartingHeroOption H3CReader::readStartingHeroOption() const
+  {
+    StartingHeroOption option;
+    option.player = readEnum<PlayerColor>();
+    option.type = readInt<std::uint16_t>();
+    return option;
+  }
+
   template<>
   StartingOptionsDetails<StartingOptionsType::None> H3CReader::readStartingOptionsDetails() const
   {
@@ -18,7 +34,7 @@ namespace h3m
     details.player = readEnum<PlayerColor>();
     const std::uint8_t num_options = readInt<std::uint8_t>();
     details.options.reserve(num_options);
-    for (std::uint8_t i = 0; i < num_options; ++i)
+    for (std::size_t i = 0; i < num_options; ++i)
     {
       details.options.push_back(readStartingBonus());
     }
@@ -31,12 +47,9 @@ namespace h3m
     StartingOptionsDetails<StartingOptionsType::HeroCrossover> details;
     const std::uint8_t num_options = readInt<std::uint8_t>();
     details.options.reserve(num_options);
-    for (std::uint8_t i = 0; i < num_options; ++i)
+    for (std::size_t i = 0; i < num_options; ++i)
     {
-      StartingOptionsDetails<StartingOptionsType::HeroCrossover>::Hero hero;
-      hero.player = readEnum<PlayerColor>();
-      hero.source_scenario = readInt<std::uint8_t>();
-      details.options.push_back(std::move(hero));
+      details.options.push_back(readHeroCrossoverOption());
     }
     return details;
   }
@@ -47,12 +60,9 @@ namespace h3m
     StartingOptionsDetails<StartingOptionsType::StartingHero> details;
     const std::uint8_t num_options = readInt<std::uint8_t>();
     details.options.reserve(num_options);
-    for (std::uint8_t i = 0; i < num_options; ++i)
+    for (std::size_t i = 0; i < num_options; ++i)
     {
-      StartingOptionsDetails<StartingOptionsType::StartingHero>::Hero hero;
-      hero.player = readEnum<PlayerColor>();
-      hero.type = readInt<std::uint16_t>();
-      details.options.push_back(std::move(hero));
+      details.options.push_back(readStartingHeroOption());
     }
     return details;
   }

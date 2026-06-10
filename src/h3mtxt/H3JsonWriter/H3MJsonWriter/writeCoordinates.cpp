@@ -6,6 +6,7 @@
 
 namespace Medea_NS
 {
+  template<>
   void JsonObjectWriter<h3m::Coordinates>::operator()(FieldsWriter& out, const h3m::Coordinates& coordinates) const
   {
     using Fields = h3json::FieldNames<h3m::Coordinates>;

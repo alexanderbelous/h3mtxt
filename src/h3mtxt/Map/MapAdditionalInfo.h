@@ -1,7 +1,6 @@
 #pragma once
 
 #include <h3mtxt/Map/MapFwd.h>
-#include <h3mtxt/Map/Constants/Constants.h>
 #include <h3mtxt/Map/Constants/HeroPortrait.h>
 #include <h3mtxt/Map/Constants/HeroType.h>
 #include <h3mtxt/Map/Constants/MapFormat.h>
@@ -24,10 +23,10 @@ namespace h3m
   {
     constexpr bool operator==(const CustomHero&) const noexcept = default;
 
-    HeroType type{};
-    // 0xFF for default.
+    HeroType type {};
+    // Hero's portrait or 0xFF if the default portrait should be used.
     HeroPortrait portrait = HeroPortrait::Default;
-    // Hero's name, or an empty string if the default name should be used instead.
+    // Hero's name or an empty string if the default name should be used.
     std::string name;
     // Bitmask indicating which players can hire this hero.
     PlayersBitmask can_hire;

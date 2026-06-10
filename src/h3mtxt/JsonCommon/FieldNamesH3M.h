@@ -5,6 +5,7 @@
 #include <h3mtxt/Map/MapFwd.h>
 #include <h3mtxt/Map/Constants/LossConditionType.h>
 #include <h3mtxt/Map/Constants/ObjectPropertiesType.h>
+#include <h3mtxt/Map/Constants/QuestType.h>
 #include <h3mtxt/Map/Constants/RewardType.h>
 
 namespace h3json
@@ -958,6 +959,63 @@ namespace h3json
     static constexpr std::string_view kProposal = "proposal";
     static constexpr std::string_view kProgress = "progress";
     static constexpr std::string_view kCompletion = "completion";
+  };
+
+  template<>
+  struct FieldNames<h3m::QuestDetails<h3m::QuestType::None>> {};
+
+  template<>
+  struct FieldNames<h3m::QuestDetails<h3m::QuestType::Level>>
+  {
+    static constexpr std::string_view kLevel = "level";
+  };
+
+  template<>
+  struct FieldNames<h3m::QuestDetails<h3m::QuestType::PrimarySkills>>
+  {
+    static constexpr std::string_view kSkills = "skills";
+  };
+
+  template<>
+  struct FieldNames<h3m::QuestDetails<h3m::QuestType::DefeatHero>>
+  {
+    static constexpr std::string_view kAbsodId = "absod_id";
+  };
+
+  template<>
+  struct FieldNames<h3m::QuestDetails<h3m::QuestType::DefeatMonster>>
+  {
+    static constexpr std::string_view kAbsodId = "absod_id";
+  };
+
+  template<>
+  struct FieldNames<h3m::QuestDetails<h3m::QuestType::Artifacts>>
+  {
+    static constexpr std::string_view kArtifacts = "artifacts";
+  };
+
+  template<>
+  struct FieldNames<h3m::QuestDetails<h3m::QuestType::Creatures>>
+  {
+    static constexpr std::string_view kCreatures = "creatures";
+  };
+
+  template<>
+  struct FieldNames<h3m::QuestDetails<h3m::QuestType::Resources>>
+  {
+    static constexpr std::string_view kResources = "resources";
+  };
+
+  template<>
+  struct FieldNames<h3m::QuestDetails<h3m::QuestType::BeHero>>
+  {
+    static constexpr std::string_view kHero = "hero";
+  };
+
+  template<>
+  struct FieldNames<h3m::QuestDetails<h3m::QuestType::BePlayer>>
+  {
+    static constexpr std::string_view kPlayer = "player";
   };
 
   template<>

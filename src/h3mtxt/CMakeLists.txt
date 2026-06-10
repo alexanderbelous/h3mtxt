@@ -36,6 +36,9 @@ unset(CMAKE_FOLDER)
 add_executable(h3mtxt h3mtxt.cpp)
 add_executable(h3mtxt::h3mtxt ALIAS h3mtxt)
 
+# Use CMake project version as the version number of h3mtxt.
+target_compile_definitions(h3mtxt PRIVATE H3MTXT_VERSION=${CMAKE_PROJECT_VERSION})
+
 # Libraries that h3mtxt depends on.
 target_link_libraries(h3mtxt PRIVATE h3mtxt::Map)
 target_link_libraries(h3mtxt PRIVATE h3mtxt::Campaign)

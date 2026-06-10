@@ -18,6 +18,6 @@ namespace h3m
     CreatureType type = CreatureType::None;
     // The Map Editor only allows values from [1; 9999], but any signed 16-bit integer can be used here.
     // The behavior for nonpositive numbers depends on the context.
-    std::int16_t count {};
+    std::int16_t count = 0;
   };
 }

@@ -12,6 +12,7 @@ namespace h3json
   using ::h3m::StartingBonusDetails;
   using ::h3m::StartingBonusType;
 
+  template<>
   StartingBonusDetails<StartingBonusType::Spell>
   JsonReader<StartingBonusDetails<StartingBonusType::Spell>>::operator()(const Json::Value& value) const
   {
@@ -21,6 +22,7 @@ namespace h3json
     return details;
   }
 
+  template<>
   StartingBonusDetails<StartingBonusType::Creature>
   JsonReader<StartingBonusDetails<StartingBonusType::Creature>>::operator()(const Json::Value& value) const
   {
@@ -30,6 +32,7 @@ namespace h3json
     return details;
   }
 
+  template<>
   StartingBonusDetails<StartingBonusType::Building>
   JsonReader<StartingBonusDetails<StartingBonusType::Building>>::operator()(const Json::Value& value) const
   {
@@ -38,6 +41,7 @@ namespace h3json
     return details;
   }
 
+  template<>
   StartingBonusDetails<StartingBonusType::Artifact>
   JsonReader<StartingBonusDetails<StartingBonusType::Artifact>>::operator()(const Json::Value& value) const
   {
@@ -47,6 +51,7 @@ namespace h3json
     return details;
   }
 
+  template<>
   StartingBonusDetails<StartingBonusType::SpellScroll>
   JsonReader<StartingBonusDetails<StartingBonusType::SpellScroll>>::operator()(const Json::Value& value) const
   {
@@ -56,6 +61,7 @@ namespace h3json
     return details;
   }
 
+  template<>
   StartingBonusDetails<StartingBonusType::PrimarySkills>
   JsonReader<StartingBonusDetails<StartingBonusType::PrimarySkills>>::operator()(const Json::Value& value) const
   {
@@ -65,6 +71,7 @@ namespace h3json
     return details;
   }
 
+  template<>
   StartingBonusDetails<StartingBonusType::SecondarySkill>
   JsonReader<StartingBonusDetails<StartingBonusType::SecondarySkill>>::operator()(const Json::Value& value) const
   {
@@ -74,6 +81,7 @@ namespace h3json
     return details;
   }
 
+  template<>
   StartingBonusDetails<StartingBonusType::Resource>
   JsonReader<StartingBonusDetails<StartingBonusType::Resource>>::operator()(const Json::Value& value) const
   {
@@ -83,6 +91,7 @@ namespace h3json
     return details;
   }
 
+  template<>
   StartingBonus JsonReader<StartingBonus>::operator()(const Json::Value& value) const
   {
     using Fields = FieldNames<StartingBonus>;

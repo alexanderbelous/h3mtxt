@@ -134,6 +134,7 @@ namespace Medea_NS
   {
   }
 
+  template<>
   void JsonObjectWriter<h3m::VictoryCondition>::operator()(FieldsWriter& out, const h3m::VictoryCondition& value) const
   {
     using Fields = h3json::FieldNames<h3m::VictoryCondition>;

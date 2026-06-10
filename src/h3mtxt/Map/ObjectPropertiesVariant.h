@@ -1,7 +1,6 @@
 #pragma once
 
 #include <h3mtxt/Map/ObjectProperties.h>
-#include <h3mtxt/Map/Utils/EnumSequence.h>
 
 #include <cstddef>
 #include <memory>
@@ -89,14 +88,14 @@ namespace h3m
     template<class T>
     struct Traits;
 
-    template<ObjectPropertiesType... object_properties_types>
-    struct Traits<EnumSequence<ObjectPropertiesType, object_properties_types...>>
+    template<std::size_t... object_property_type_indices>
+    struct Traits<std::index_sequence<object_property_type_indices...>>
     {
-      using type = std::variant<AlternativeImpl<object_properties_types>...>;
+      using type = std::variant<AlternativeImpl<static_cast<ObjectPropertiesType>(object_property_type_indices)>...>;
     };
 
     // Type of the underlying std::variant.
-    using Impl = typename Traits<MakeEnumSequence<ObjectPropertiesType, kNumObjectPropertiesTypes>>::type;
+    using Impl = typename Traits<std::make_index_sequence<kNumObjectPropertiesTypes>>::type;
 
   public:
     // This is so that we can guarantee that ObjectPropertiesVariant never stores a null pointer

@@ -9,6 +9,7 @@
 
 namespace Medea_NS
 {
+  template<>
   void JsonObjectWriter<h3m::Campaign>::operator()(FieldsWriter& out, const h3m::Campaign& campaign) const
   {
     using Fields = h3json::FieldNames<h3m::Campaign>;
@@ -16,6 +17,7 @@ namespace Medea_NS
     out.writeField(Fields::kMaps, campaign.maps);
   }
 
+  template<>
   void JsonObjectWriter<h3m::CampaignHeader>::operator()(FieldsWriter& out, const h3m::CampaignHeader& campaign) const
   {
     using Fields = h3json::FieldNames<h3m::CampaignHeader>;
@@ -28,6 +30,7 @@ namespace Medea_NS
     out.writeField(Fields::kScenarios, campaign.scenarios);
   }
 
+  template<>
   void JsonObjectWriter<h3m::CampaignScenario>::operator()(FieldsWriter& out, const h3m::CampaignScenario& scenario) const
   {
     using Fields = h3json::FieldNames<h3m::CampaignScenario>;
@@ -49,6 +52,7 @@ namespace Medea_NS
     out.writeField(Fields::kStartingOptions, scenario.starting_options);
   }
 
+  template<>
   void JsonObjectWriter<h3m::CrossoverOptions>::operator()(FieldsWriter& out, const h3m::CrossoverOptions& options) const
   {
     using Fields = h3json::FieldNames<h3m::CrossoverOptions>;
@@ -57,6 +61,7 @@ namespace Medea_NS
     out.writeField(Fields::kArtifacts, options.artifacts);
   }
 
+  template<>
   void JsonObjectWriter<h3m::CutScene>::operator()(FieldsWriter& out, const h3m::CutScene& cutscene) const
   {
     using Fields = h3json::FieldNames<h3m::CutScene>;

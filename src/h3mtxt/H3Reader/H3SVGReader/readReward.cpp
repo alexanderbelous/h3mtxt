@@ -1,17 +1,14 @@
 #include <h3mtxt/H3Reader/H3SVGReader/H3SVGReader.h>
-#include <h3mtxt/Map/Utils/EnumSequence.h>
+#include <h3mtxt/Map/Utils/SwitchStatement.h>
 #include <h3mtxt/SavedGame/Reward.h>
 
-#include <array>
 #include <stdexcept>
 
 namespace h3svg
 {
   namespace
   {
-    using ::h3m::EnumSequence;
     using ::h3m::kNumRewardTypes;
-    using ::h3m::MakeEnumSequence;
 
     template<RewardType T>
     Reward::Details readRewardDetailsAsVariant(const H3SVGReader& reader)
@@ -19,24 +16,16 @@ namespace h3svg
       return Reward::Details{ reader.readRewardDetails<T>() };
     }
 
+    template<RewardType T>
+    using RewardDetailsReaderTemplateAlias = SwitchStatement_NS::StaticConstant<&readRewardDetailsAsVariant<T>>;
+
     Reward::Details readRewardDetailsVariant(const H3SVGReader& reader, RewardType reward_type)
     {
-      // Type of a pointer to a function that takes const H3SVGReader& and returns Reward::Details.
-      using ReadRewardDetailsPtr = Reward::Details(*)(const H3SVGReader& reader);
-      // Generate (at compile time) an array of function pointers for each instantiation of
-      // readRewardDetailsAsVariant() ordered by RewardType.
-      static constexpr std::array<ReadRewardDetailsPtr, kNumRewardTypes> kRewardDetailsReaders =
-        [] <RewardType... reward_types>
-        (EnumSequence<RewardType, reward_types...> seq)
-        consteval
-      {
-        return std::array<ReadRewardDetailsPtr, sizeof...(reward_types)>
-        {
-          &readRewardDetailsAsVariant<reward_types>...
-        };
-      }(MakeEnumSequence<RewardType, kNumRewardTypes>{});
-      // Invoke a function from the generated array.
-      return kRewardDetailsReaders.at(static_cast<std::size_t>(reward_type))(reader);
+      static constexpr auto switch_statement =
+        SwitchStatement_NS::generateSwitchStatement<RewardType,
+                                                    kNumRewardTypes,
+                                                    RewardDetailsReaderTemplateAlias>();
+      return switch_statement(reward_type, reader);
     }
   }
 

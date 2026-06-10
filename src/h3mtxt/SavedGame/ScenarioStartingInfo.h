@@ -27,7 +27,7 @@ namespace h3svg
   struct ScenarioStartingInfo
   {
     // Starting town (i.e. alignment) for each player, or 0xFFFFFFFF if the player is absent.
-    EnumIndexedArray<PlayerColor, TownType32, kMaxPlayers> starting_towns;
+    EnumIndexedArray<PlayerColor, TownType32, h3m::kMaxPlayers> starting_towns;
     // TODO: figure out what this is.
     // This looks like 1 byte per PlayerColor data:
     // * 0x00 is used for the human player.
@@ -76,7 +76,7 @@ namespace h3svg
     // 8 bytes: 1 byte per PlayerColor, indicating who can control this color
     // (0 - only CPU, 1 - Human or CPU, 0xFF - nobody).
     // This duplicates data from SavedGame::players, but H3SVG explicitly stores it, so we should too.
-    EnumIndexedArray<PlayerColor, PlayerControlType, kMaxPlayers> players_control;
+    EnumIndexedArray<PlayerColor, PlayerControlType, h3m::kMaxPlayers> players_control;
     // TODO: figure out what this is.
     // Seems to always be {255, 1, 1}
     std::array<std::byte, 3> unknown2 {};
@@ -86,10 +86,10 @@ namespace h3svg
     PlayerTurnDurationType player_turn_duration = PlayerTurnDurationType::Unlimited;
     // 8 bytes: 1 byte per player, indicating the type of the starting hero.
     // The values are junk for campaigns (usually zero-initialized).
-    EnumIndexedArray<PlayerColor, HeroType, kMaxPlayers> starting_heroes;
+    EnumIndexedArray<PlayerColor, HeroType, h3m::kMaxPlayers> starting_heroes;
     // 8 bytes: 1 byte per player, indicating the type of the starting bonus.
     // The values are junk for campaigns (usually zero-initialized).
-    EnumIndexedArray<PlayerColor, PlayerStartingBonusType, kMaxPlayers> starting_bonuses;
+    EnumIndexedArray<PlayerColor, PlayerStartingBonusType, h3m::kMaxPlayers> starting_bonuses;
     // Campaign-specific data, or std::nullopt if this is a standalone map.
     std::optional<CampaignInfo> campaign_info;
     // Placeholder heroes configured as "Specific" (as opposed to "Power rating").

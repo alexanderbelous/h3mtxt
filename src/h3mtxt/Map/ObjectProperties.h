@@ -453,9 +453,9 @@ namespace h3m
     constexpr bool operator==(const TownBuildings&) const noexcept = default;
 
     // Each bit indicates whether the building is built.
-    TownBuildingsBitmask is_built {};
+    TownBuildingsBitmask is_built;
     // Each bit indicates whether the building is disabled.
-    TownBuildingsBitmask is_disabled {};
+    TownBuildingsBitmask is_disabled;
   };
 
   struct TownEvent : TimedEvent

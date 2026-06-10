@@ -6,6 +6,7 @@
 
 namespace h3json
 {
+  template<>
   h3m::Coordinates JsonReader<h3m::Coordinates>::operator()(const Json::Value& value) const
   {
     using Fields = FieldNames<h3m::Coordinates>;

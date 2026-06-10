@@ -51,6 +51,10 @@ namespace Medea_NS
   void JsonObjectWriter<h3m::CutScene>::operator()(FieldsWriter& out, const h3m::CutScene& cutscene) const;
 
   template<>
+  void JsonObjectWriter<h3m::HeroCrossoverOption>::operator()(FieldsWriter& out,
+                                                              const h3m::HeroCrossoverOption& option) const;
+
+  template<>
   void JsonObjectWriter<h3m::StartingBonus>::operator()(FieldsWriter& out, const h3m::StartingBonus& bonus) const;
 
   template<>
@@ -84,6 +88,10 @@ namespace Medea_NS
   template<>
   void JsonObjectWriter<h3m::StartingBonusDetails<h3m::StartingBonusType::Resource>>::operator()(
     FieldsWriter& out, const h3m::StartingBonusDetails<h3m::StartingBonusType::Resource>& details) const;
+
+  template<>
+  void JsonObjectWriter<h3m::StartingHeroOption>::operator()(FieldsWriter& out,
+                                                             const h3m::StartingHeroOption& option) const;
 
   template<>
   void JsonObjectWriter<h3m::StartingOptions>::operator()(FieldsWriter& out,

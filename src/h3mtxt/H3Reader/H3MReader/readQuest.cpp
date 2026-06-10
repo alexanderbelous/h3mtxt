@@ -1,44 +1,22 @@
 #include <h3mtxt/H3Reader/H3MReader/H3MReader.h>
+#include <h3mtxt/Map/Utils/SwitchStatement.h>
 #include <h3mtxt/Map/Quest.h>
-#include <h3mtxt/Map/Utils/EnumSequence.h>
-
-#include <array>
-#include <type_traits>
 
 namespace h3m
 {
   namespace
   {
-    // Wrapper around H3MReader::readQuestDetails(), which returns the result as Quest::Details variant.
+    // Function template that wraps H3MReader::readQuestDetails(), returning the result as Quest::Details variant.
     template<QuestType T>
     Quest::Details readQuestDetailsAsVariant(const H3MReader& reader)
     {
       return reader.readQuestDetails<T>();
     }
 
-    // Reads QuestDetails for the specified QuestType.
-    // \param reader - input stream.
-    // \param quest_type - type of the quest.
-    // \return the deserialized data as Quest::Details.
-    Quest::Details readQuestDetailsVariant(const H3MReader& reader, QuestType quest_type)
-    {
-      // Type of a pointer to a function that takes const H3MReader& and returns Quest::Details.
-      using ReadQuestDetailsPtr = Quest::Details(*)(const H3MReader& reader);
-      // Generate (at compile time) an array of function pointers for each instantiation of
-      // readQuestDetailsAsVariant() ordered by QuestType.
-      constexpr std::array<ReadQuestDetailsPtr, kNumQuestTypes> kQuestDetailsReaders =
-        [] <QuestType... quest_types>
-        (EnumSequence<QuestType, quest_types...> seq)
-        consteval
-        {
-          return std::array<ReadQuestDetailsPtr, sizeof...(quest_types)>
-          {
-            &readQuestDetailsAsVariant<quest_types>...
-          };
-        }(MakeEnumSequence<QuestType, kNumQuestTypes>{});
-      // Invoke a function from the generated array.
-      return kQuestDetailsReaders.at(static_cast<std::size_t>(quest_type))(reader);
-    }
+    // Convert the function template readQuestDetailsAsVariant<T>() into an alias template,
+    // so that it can be passed as a template template parameter to generateSwitchStatement().
+    template<QuestType T>
+    using QuestDetailsReaderTemplateAlias = SwitchStatement_NS::StaticConstant<&readQuestDetailsAsVariant<T>>;
   }
 
   template<>
@@ -134,9 +112,14 @@ namespace h3m
 
   Quest H3MReader::readQuest() const
   {
+    // Generate a switch statement for all valid QuestType constants.
+    // read_quest_details(N, reader) will trigger readQuestDetailsAsVariant<N>(reader).
+    static constexpr auto read_quest_details =
+      SwitchStatement_NS::generateSwitchStatement<QuestType, kNumQuestTypes, QuestDetailsReaderTemplateAlias>();
+
     Quest quest;
     const QuestType quest_type = readEnum<QuestType>();
-    quest.details = readQuestDetailsVariant(*this, quest_type);
+    quest.details = read_quest_details(quest_type, *this);
     if (quest_type != QuestType::None)
     {
       quest.deadline = readInt<std::uint32_t>();

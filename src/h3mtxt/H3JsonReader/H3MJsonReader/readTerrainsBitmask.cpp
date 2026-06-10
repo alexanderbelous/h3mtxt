@@ -5,6 +5,7 @@
 
 namespace h3json
 {
+  template<>
   h3m::TerrainsBitmask JsonReader<h3m::TerrainsBitmask>::operator()(const Json::Value& value) const
   {
     h3m::TerrainsBitmask bitmask;

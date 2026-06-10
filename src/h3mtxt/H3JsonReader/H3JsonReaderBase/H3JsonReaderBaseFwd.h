@@ -9,6 +9,7 @@ namespace h3json
   template<class T, class Enable = void>
   struct JsonReader
   {
+    // Deserializes a value of type T from the input JSON.
     // \param value - input JSON value.
     // \return @value deserialized as an object of type T.
     T operator()(const Json::Value& value) const;

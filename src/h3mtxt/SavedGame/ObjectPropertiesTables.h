@@ -2,7 +2,6 @@
 
 #include <h3mtxt/SavedGame/SavedGameFwd.h>
 
-#include <h3mtxt/Map/Constants/Constants.h>
 #include <h3mtxt/Map/Constants/PlayerColor.h>
 #include <h3mtxt/Map/Constants/ResourceType.h>
 #include <h3mtxt/Map/Utils/EnumBitmask.h>

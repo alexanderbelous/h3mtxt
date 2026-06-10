@@ -1,51 +1,39 @@
 #include <h3mtxt/H3Reader/H3SVGReader/H3SVGReader.h>
 
 #include <h3mtxt/H3Reader/H3MReader/H3MReader.h>
-#include <h3mtxt/Map/Utils/EnumSequence.h>
+#include <h3mtxt/Map/Utils/SwitchStatement.h>
 #include <h3mtxt/SavedGame/VictoryCondition.h>
 
-#include <array>
 #include <type_traits>
 
 namespace h3svg
 {
   namespace
   {
-    using ::h3m::EnumSequence;
-    using ::h3m::MakeEnumSequence;
-
     template<VictoryConditionType T>
     VictoryCondition::Details readVictoryConditionDetailsAsVariant(const H3SVGReader& reader)
     {
       return reader.readVictoryConditionDetails<T>();
     }
 
+    template<VictoryConditionType T>
+    using VictoryConditionDetailsReaderTemplateAlias =
+      SwitchStatement_NS::StaticConstant<&readVictoryConditionDetailsAsVariant<T>>;
+
     VictoryCondition::Details readVictoryConditionDetailsVariant(const H3SVGReader& reader,
                                                                  VictoryConditionType victory_condition_type)
     {
-      // Type of a pointer to a function that takes const H3SVGReader& and returns VictoryCondition::Details.
-      using ReadVictoryConditionDetailsPtr = VictoryCondition::Details(*)(const H3SVGReader& reader);
-      // Generate (at compile time) an array of function pointers for each instantiation of
-      // readVictoryConditionDetailsAsVariant() ordered by VictoryConditionType.
-      static constexpr std::array<ReadVictoryConditionDetailsPtr, kNumSpecialVictoryConditions>
-      kVictoryConditionDetailsReaders =
-        [] <VictoryConditionType... victory_condition_types>
-        (EnumSequence<VictoryConditionType, victory_condition_types...> seq)
-        consteval
-      {
-        return std::array<ReadVictoryConditionDetailsPtr, sizeof...(victory_condition_types)>
-        {
-          &readVictoryConditionDetailsAsVariant<victory_condition_types>...
-        };
-      }(MakeEnumSequence<VictoryConditionType, kNumSpecialVictoryConditions>{});
-
+      static constexpr auto switch_statement =
+        SwitchStatement_NS::generateSwitchStatement<VictoryConditionType,
+                                                    kNumSpecialVictoryConditions,
+                                                    VictoryConditionDetailsReaderTemplateAlias>();
       // Edge case for VictoryConditionType::Normal.
       if (victory_condition_type == VictoryConditionType::Normal)
       {
         return readVictoryConditionDetailsAsVariant<VictoryConditionType::Normal>(reader);
       }
-      // Otherwise, invoke a function from the generated array.
-      return kVictoryConditionDetailsReaders.at(static_cast<std::size_t>(victory_condition_type))(reader);
+      // Otherwise, execute the generated switch statement.
+      return switch_statement(victory_condition_type, reader);
     }
   }
 

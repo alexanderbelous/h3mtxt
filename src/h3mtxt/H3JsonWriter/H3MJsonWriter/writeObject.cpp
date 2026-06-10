@@ -37,6 +37,7 @@ namespace h3json
 
 namespace Medea_NS
 {
+  template<>
   void JsonObjectWriter<h3m::TownBuildings>::operator()(FieldsWriter& out,
                                                         const h3m::TownBuildings& town_buildings) const
   {
@@ -45,6 +46,7 @@ namespace Medea_NS
     out.writeField(Fields::kIsDisabled, town_buildings.is_disabled);
   }
 
+  template<>
   void JsonObjectWriter<h3m::TownEvent>::operator()(FieldsWriter& out, const h3m::TownEvent& town_event) const
   {
     using Fields = h3json::FieldNames<h3m::TownEvent>;
@@ -54,6 +56,7 @@ namespace Medea_NS
     out.writeField(Fields::kUnknown2, town_event.unknown2);
   }
 
+  template<>
   void JsonObjectWriter<h3m::Guardians>::operator()(FieldsWriter& out, const h3m::Guardians& guardians) const
   {
     using Fields = h3json::FieldNames<h3m::Guardians>;
@@ -65,6 +68,7 @@ namespace Medea_NS
     out.writeField(Fields::kUnknown, guardians.unknown);
   }
 
+  template<>
   void JsonObjectWriter<h3m::MessageAndTreasure>::operator()(FieldsWriter& out,
                                                              const h3m::MessageAndTreasure& data) const
   {
@@ -74,6 +78,7 @@ namespace Medea_NS
     out.writeField(Fields::kArtifact, data.artifact);
   }
 
+  template<>
   void JsonObjectWriter<h3m::EventBase>::operator()(FieldsWriter& out, const h3m::EventBase& event) const
   {
     using Fields = h3json::FieldNames<h3m::EventBase>;
@@ -94,6 +99,7 @@ namespace Medea_NS
     out.writeField(Fields::kUnknown, event.unknown);
   }
 
+  template<>
   void JsonObjectWriter<h3m::ObjectProperties<h3m::ObjectPropertiesType::ABANDONED_MINE>>::operator()(
     FieldsWriter& out, const h3m::ObjectProperties<h3m::ObjectPropertiesType::ABANDONED_MINE>& details) const
   {
@@ -103,6 +109,7 @@ namespace Medea_NS
     out.writeField(Fields::kUnknown, details.unknown);
   }
 
+  template<>
   void JsonObjectWriter<h3m::ObjectProperties<h3m::ObjectPropertiesType::ARTIFACT>>::operator()(
     FieldsWriter& out, const h3m::ObjectProperties<h3m::ObjectPropertiesType::ARTIFACT>& artifact) const
   {
@@ -114,6 +121,7 @@ namespace Medea_NS
     }
   }
 
+  template<>
   void JsonObjectWriter<h3m::ObjectProperties<h3m::ObjectPropertiesType::EVENT>>::operator()(
     FieldsWriter& out, const h3m::ObjectProperties<h3m::ObjectPropertiesType::EVENT>& event) const
   {
@@ -126,6 +134,7 @@ namespace Medea_NS
     out.writeField(Fields::kUnknown2, event.unknown2);
   }
 
+  template<>
   void JsonObjectWriter<h3m::ObjectProperties<h3m::ObjectPropertiesType::GARRISON>>::operator()(
     FieldsWriter& out, const h3m::ObjectProperties<h3m::ObjectPropertiesType::GARRISON>& garrison) const
   {
@@ -138,11 +147,13 @@ namespace Medea_NS
     out.writeField(Fields::kUnknown2, garrison.unknown2);
   }
 
+  template<>
   void JsonObjectWriter<h3m::ObjectProperties<h3m::ObjectPropertiesType::NONE>>::operator()(
     FieldsWriter&, const h3m::ObjectProperties<h3m::ObjectPropertiesType::NONE>&) const
   {
   }
 
+  template<>
   void JsonObjectWriter<h3m::ObjectProperties<h3m::ObjectPropertiesType::GRAIL>>::operator()(
     FieldsWriter& out, const h3m::ObjectProperties<h3m::ObjectPropertiesType::GRAIL>& grail) const
   {
@@ -152,6 +163,7 @@ namespace Medea_NS
     out.writeField(Fields::kUnknown, grail.unknown);
   }
 
+  template<>
   void JsonObjectWriter<h3m::ObjectProperties<h3m::ObjectPropertiesType::HERO>>::operator()(
     FieldsWriter& out, const h3m::ObjectProperties<h3m::ObjectPropertiesType::HERO>& hero) const
   {
@@ -207,6 +219,7 @@ namespace Medea_NS
     out.writeField(Fields::kUnknown, hero.unknown);
   }
 
+  template<>
   void JsonObjectWriter<h3m::ObjectProperties<h3m::ObjectPropertiesType::MONSTER>>::operator()(
     FieldsWriter& out, const h3m::ObjectProperties<h3m::ObjectPropertiesType::MONSTER>& monster) const
   {
@@ -225,12 +238,14 @@ namespace Medea_NS
     out.writeField(Fields::kUnknown, monster.unknown);
   }
 
+  template<>
   void JsonObjectWriter<h3m::ObjectProperties<h3m::ObjectPropertiesType::PANDORAS_BOX>>::operator()(
     FieldsWriter& out, const h3m::ObjectProperties<h3m::ObjectPropertiesType::PANDORAS_BOX>& pandoras_box) const
   {
     JsonObjectWriter<h3m::EventBase>{}(out, pandoras_box);
   }
 
+  template<>
   void JsonObjectWriter<h3m::ObjectProperties<h3m::ObjectPropertiesType::HERO_PLACEHOLDER>>::operator()(
     FieldsWriter& out, const h3m::ObjectProperties<h3m::ObjectPropertiesType::HERO_PLACEHOLDER>& hero) const
   {
@@ -246,6 +261,7 @@ namespace Medea_NS
     }
   }
 
+  template<>
   void JsonObjectWriter<h3m::ObjectProperties<h3m::ObjectPropertiesType::QUEST_GUARD>>::operator()(
     FieldsWriter& out, const h3m::ObjectProperties<h3m::ObjectPropertiesType::QUEST_GUARD>& quest_guard) const
   {
@@ -254,6 +270,7 @@ namespace Medea_NS
     out.writeField(Fields::kQuest, quest_guard.quest);
   }
 
+  template<>
   void JsonObjectWriter<h3m::ObjectProperties<h3m::ObjectPropertiesType::RANDOM_DWELLING>>::operator()(
     FieldsWriter& out, const h3m::ObjectProperties<h3m::ObjectPropertiesType::RANDOM_DWELLING>& dwelling) const
   {
@@ -270,6 +287,7 @@ namespace Medea_NS
     out.writeField(Fields::kMaxLevel, dwelling.max_level);
   }
 
+  template<>
   void JsonObjectWriter<h3m::ObjectProperties<h3m::ObjectPropertiesType::RANDOM_DWELLING_PRESET_ALIGNMENT>>::operator()(
     FieldsWriter& out, const h3m::ObjectProperties<h3m::ObjectPropertiesType::RANDOM_DWELLING_PRESET_ALIGNMENT>& dwelling) const
   {
@@ -281,6 +299,7 @@ namespace Medea_NS
     out.writeField(Fields::kMaxLevel, dwelling.max_level);
   }
 
+  template<>
   void JsonObjectWriter<h3m::ObjectProperties<h3m::ObjectPropertiesType::RANDOM_DWELLING_PRESET_LEVEL>>::operator()(
     FieldsWriter& out, const h3m::ObjectProperties<h3m::ObjectPropertiesType::RANDOM_DWELLING_PRESET_LEVEL>& dwelling) const
   {
@@ -295,6 +314,7 @@ namespace Medea_NS
     }
   }
 
+  template<>
   void JsonObjectWriter<h3m::ObjectProperties<h3m::ObjectPropertiesType::RESOURCE>>::operator()(
     FieldsWriter& out, const h3m::ObjectProperties<h3m::ObjectPropertiesType::RESOURCE>& details) const
   {
@@ -308,6 +328,7 @@ namespace Medea_NS
     out.writeField(Fields::kUnknown, details.unknown);
   }
 
+  template<>
   void JsonObjectWriter<h3m::ObjectProperties<h3m::ObjectPropertiesType::SCHOLAR>>::operator()(
     FieldsWriter& out, const h3m::ObjectProperties<h3m::ObjectPropertiesType::SCHOLAR>& scholar) const
   {
@@ -323,6 +344,7 @@ namespace Medea_NS
     out.writeField(Fields::kUnknown, scholar.unknown);
   }
 
+  template<>
   void JsonObjectWriter<h3m::ObjectProperties<h3m::ObjectPropertiesType::SEERS_HUT>>::operator()(
     FieldsWriter& out, const h3m::ObjectProperties<h3m::ObjectPropertiesType::SEERS_HUT>& seers_hut) const
   {
@@ -333,6 +355,7 @@ namespace Medea_NS
     out.writeField(Fields::kUnknown, seers_hut.unknown);
   }
 
+  template<>
   void JsonObjectWriter<h3m::ObjectProperties<h3m::ObjectPropertiesType::SHRINE>>::operator()(
     FieldsWriter& out, const h3m::ObjectProperties<h3m::ObjectPropertiesType::SHRINE>& shrine) const
   {
@@ -342,6 +365,7 @@ namespace Medea_NS
     out.writeField(Fields::kUnknown, shrine.unknown);
   }
 
+  template<>
   void JsonObjectWriter<h3m::ObjectProperties<h3m::ObjectPropertiesType::SIGN>>::operator()(
     FieldsWriter& out, const h3m::ObjectProperties<h3m::ObjectPropertiesType::SIGN>& sign) const
   {
@@ -351,6 +375,7 @@ namespace Medea_NS
     out.writeField(Fields::kUnknown, sign.unknown);
   }
 
+  template<>
   void JsonObjectWriter<h3m::ObjectProperties<h3m::ObjectPropertiesType::SPELL_SCROLL>>::operator()(
     FieldsWriter& out, const h3m::ObjectProperties<h3m::ObjectPropertiesType::SPELL_SCROLL>& spell_scroll) const
   {
@@ -364,6 +389,7 @@ namespace Medea_NS
     out.writeField(Fields::kUnknown, spell_scroll.unknown);
   }
 
+  template<>
   void JsonObjectWriter<h3m::ObjectProperties<h3m::ObjectPropertiesType::TOWN>>::operator()(
     FieldsWriter& out, const h3m::ObjectProperties<h3m::ObjectPropertiesType::TOWN>& town) const
   {
@@ -395,6 +421,7 @@ namespace Medea_NS
     out.writeField(Fields::kUnknown, town.unknown);
   }
 
+  template<>
   void JsonObjectWriter<h3m::ObjectProperties<h3m::ObjectPropertiesType::TRIVIAL_OWNED_OBJECT>>::operator()(
     FieldsWriter& out, const h3m::ObjectProperties<h3m::ObjectPropertiesType::TRIVIAL_OWNED_OBJECT>& details) const
   {
@@ -404,6 +431,7 @@ namespace Medea_NS
     out.writeField(Fields::kUnknown, details.unknown);
   }
 
+  template<>
   void JsonObjectWriter<h3m::ObjectProperties<h3m::ObjectPropertiesType::WITCH_HUT>>::operator()(
     FieldsWriter& out, const h3m::ObjectProperties<h3m::ObjectPropertiesType::WITCH_HUT>& witch_hut) const
   {

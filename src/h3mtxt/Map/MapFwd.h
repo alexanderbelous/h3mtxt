@@ -7,12 +7,16 @@
 
 namespace h3m
 {
-  // ============================================================
+  // ==========================================================================
   // Enums.
   //
-  // Note that the underlying types of enums are significant - they should
-  // always match the actual integer types used in the H3M file format.
-  // ------------------------------------------------------------
+  // Note that the underlying types of enums are significant - the width (the
+  // number of bytes) and signeness of each enum type match the width and
+  // signedness used in the H3M file format.
+  // * The signedness of enums is not always observable from H3M alone - e.g.,
+  //   it's impossible to say whether Disposition is signed or unsigned,
+  //   because the game only uses the values from [0; 4].
+  // --------------------------------------------------------------------------
 
   enum class ArtifactSlot : std::uint8_t;
 
@@ -79,9 +83,19 @@ namespace h3m
 
   enum class VictoryConditionType : std::uint8_t;
 
-  // ============================================================
+  // ==========================================================================
+  // Constants.
+  // --------------------------------------------------------------------------
+
+  // The number of different Primary Skill types (i.e. cardinality of PrimarySkillType enum).
+  inline constexpr std::uint8_t kNumPrimarySkillTypes = 4;
+
+  // The number of different Resource types (i.e. cardinality of ResourceType enum).
+  inline constexpr std::uint8_t kNumResourceTypes = 7;
+
+  // ==========================================================================
   // Utility classes.
-  // ------------------------------------------------------------
+  // --------------------------------------------------------------------------
 
   template<std::size_t NumBytes>
   struct BitSet;
@@ -101,9 +115,9 @@ namespace h3m
   template<std::size_t NumBytes>
   class ReservedData;
 
-  // ============================================================
+  // ==========================================================================
   // Aliases.
-  // ------------------------------------------------------------
+  // --------------------------------------------------------------------------
 
   // H3M file format uses a single byte to store a boolean. Normally, the stored value
   // should be either 0 or 1, but there are some fields which sometimes store other values
@@ -125,7 +139,7 @@ namespace h3m
   // Bitmask storing a bit for each player.
   //
   // .h3m file format uses such bitmasks in multiple places, e.g. which players can hire
-  // a specific hero, Global Event, Event object on the adventure map, or a Event in a town).
+  // a specific hero, Global Event, Event object on the adventure map, or an Event in a town).
   using PlayersBitmask = EnumBitmask<PlayerColor, 1>;
 
   // Bitmask storing a bit for each resource type.
@@ -162,18 +176,18 @@ namespace h3m
   // The game always interprets these as signed integers; in the Map Editor
   // there are only 2 places where they are (incorrectly) displayed as unsigned integers:
   // HeroSettings and hero objects on the adventure map.
-  using PrimarySkills = EnumIndexedArray<PrimarySkillType, std::int8_t, 4>;
+  using PrimarySkills = EnumIndexedArray<PrimarySkillType, std::int8_t, kNumPrimarySkillTypes>;
 
   // Represents an amount of resources.
   //
   // In H3M the amount is always interpreted as int32, even though the Map Editor
   // doesn't allow entering negative values in some contexts (Quest Guard and
   // as a reward for defeating a monster).
-  using Resources = EnumIndexedArray<ResourceType, std::int32_t, 7>;
+  using Resources = EnumIndexedArray<ResourceType, std::int32_t, kNumResourceTypes>;
 
-  // ============================================================
+  // ==========================================================================
   // Structures used in the H3M file format.
-  // ------------------------------------------------------------
+  // --------------------------------------------------------------------------
 
   struct Coordinates;
 
@@ -256,5 +270,5 @@ namespace h3m
   template<VictoryConditionType T, class Enable = void>
   struct VictoryConditionDetails;
 
-  // ============================================================
+  // ==========================================================================
 }

@@ -7,6 +7,7 @@
 
 namespace Medea_NS
 {
+  template<>
   void JsonObjectWriter<h3m::Tile>::operator()(FieldsWriter& out, const h3m::Tile& value) const
   {
     using Fields = h3json::FieldNames<h3m::Tile>;

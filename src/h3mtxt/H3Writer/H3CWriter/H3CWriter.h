@@ -45,10 +45,14 @@ namespace h3m
 
     void writeData(const CutScene& cutscene) const;
 
+    void writeData(const HeroCrossoverOption& option) const;
+
     void writeData(const StartingBonus& bonus) const;
 
     template<StartingBonusType T>
     void writeData(const StartingBonusDetails<T>& details) const;
+
+    void writeData(const StartingHeroOption& option) const;
 
     void writeData(const StartingOptions& options) const;
 

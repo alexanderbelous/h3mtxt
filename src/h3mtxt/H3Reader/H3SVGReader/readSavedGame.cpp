@@ -143,8 +143,8 @@ namespace h3svg
     }
     // Read heroes.
     {
-      saved_game.heroes.reserve(kNumHeroes);
-      for (std::uint32_t i = 0; i < kNumHeroes; ++i)
+      saved_game.heroes.reserve(h3m::kNumHeroes);
+      for (std::uint32_t i = 0; i < h3m::kNumHeroes; ++i)
       {
         saved_game.heroes.push_back(readHero());
       }

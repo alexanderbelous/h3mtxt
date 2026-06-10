@@ -65,7 +65,7 @@ namespace h3svg
     // Basic information about the map.
     MapBasicInfo basic_info;
     // Basic information about the players.
-    EnumIndexedArray<PlayerColor, PlayerSpecs, kMaxPlayers> players_specs;
+    EnumIndexedArray<PlayerColor, PlayerSpecs, h3m::kMaxPlayers> players_specs;
     // TODO: check that this works correctly for all victory condition types.
     VictoryCondition victory_condition;
     LossCondition loss_condition;
@@ -117,7 +117,7 @@ namespace h3svg
     // Tables storing additional data for objects whose properties aren't fully described by Tile.
     ObjectPropertiesTables object_properties_tables;
     // Current state for each player.
-    EnumIndexedArray<PlayerColor, Player, kMaxPlayers> players;
+    EnumIndexedArray<PlayerColor, Player, h3m::kMaxPlayers> players;
     // Towns on the Adventure Map.
     std::vector<Town> towns;
     // The number of elements must always be equal to h3m::kNumHeroes (156).

@@ -201,4 +201,8 @@ namespace h3m
     Boragus     = 154, // 0x9A
     Xeron       = 155  // 0x9B
   };
+
+
+  // The number of different hero types, i.e. cardinality of HeroType.
+  inline constexpr std::uint8_t kNumHeroes = 156;
 }

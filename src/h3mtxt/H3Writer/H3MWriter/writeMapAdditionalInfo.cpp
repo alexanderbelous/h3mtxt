@@ -1,5 +1,4 @@
 #include <h3mtxt/H3Writer/H3MWriter/H3MWriter.h>
-#include <h3mtxt/Map/Constants/Constants.h>
 #include <h3mtxt/Map/MapAdditionalInfo.h>
 
 namespace h3m

@@ -44,7 +44,7 @@ namespace h3json
     return h3m::LossConditionDetails<h3m::LossConditionType::Normal>{};
   }
 
-
+  template<>
   h3m::LossCondition JsonReader<h3m::LossCondition>::operator()(const Json::Value& value) const
   {
     using Fields = FieldNames<h3m::LossCondition>;

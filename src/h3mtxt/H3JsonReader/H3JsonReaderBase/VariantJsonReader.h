@@ -2,8 +2,8 @@
 
 #include <h3mtxt/H3JsonReader/H3JsonReaderBase/H3JsonReaderBaseFwd.h>
 
-#include <array>
-#include <type_traits>
+#include <h3mtxt/Map/Utils/SwitchStatement.h>
+
 #include <variant>
 
 namespace h3json
@@ -17,8 +17,17 @@ namespace h3json
   template<class... Types>
   class VariantJsonReader<std::variant<Types...>>
   {
+  public:
     using Variant = std::variant<Types...>;
 
+    // Deserializes the input JSON as the specified alternative of the variant.
+    // \param value - input JSON value.
+    // \param index - 0-based index of the alternative to deserialize.
+    // \return the deserialized alternative.
+    // \throw std::invalid_argument if index >= sizeof...(Types).
+    Variant operator()(const Json::Value& value, std::size_t index) const;
+
+  private:
     // The number of alternatives in std::variant<Types...>.
     static constexpr std::size_t kNumAlternatives = sizeof...(Types);
 
@@ -29,33 +38,24 @@ namespace h3json
     static Variant readAlternative(const Json::Value& value)
     {
       using Alternative = std::variant_alternative_t<N, Variant>;
-      return Variant(std::in_place_index<N>, JsonReader<Alternative>{}(value));
+      return Variant{ std::in_place_index<N>, JsonReader<Alternative>{}(value) };
     }
 
-    // Type of a pointer to a function that takes const Json::Value& and returns Variant.
-    using AlternativeReaderPtr = Variant(*)(const Json::Value&);
+    // Convert the function template readAlternative<T>() into an alias template,
+    // so that it can be passed as a template template parameter to generateSwitchStatement().
+    template<std::size_t N>
+    using AlternativeReaderTemplateAlias = SwitchStatement_NS::StaticConstant<&readAlternative<N>>;
 
-    // Compile-time array of function pointers for each instantiation of readAlternative().
-    static constexpr std::array<AlternativeReaderPtr, kNumAlternatives> kReaders =
-      [] <std::size_t... alternative_idx>
-      (std::index_sequence<alternative_idx...> seq)
-      consteval
-    {
-      return std::array<AlternativeReaderPtr, sizeof...(alternative_idx)>
-      {
-        &readAlternative<alternative_idx>...
-      };
-    }(std::make_index_sequence<kNumAlternatives>{});
-
-  public:
-    // Deserializes the input JSON as the specified alternative of the variant.
-    // \param value - input JSON value.
-    // \param index - 0-based index of the alternative to deserialize.
-    // \return the deserialized alternative.
-    // \throw std::out_of_range if index >= sizeof...(Types).
-    Variant operator()(const Json::Value& value, std::size_t index) const
-    {
-      return kReaders.at(index)(value);
-    }
+    // Generate a switch statement for alternatives [0; kNumAlternatives).
+    // kSwitchStatement(N, json_value) will trigger readAlternative<N>(json_value).
+    static constexpr auto kSwitchStatement =
+      SwitchStatement_NS::generateSwitchStatement<std::size_t, kNumAlternatives, AlternativeReaderTemplateAlias>();
   };
+
+  template<class... Types>
+  std::variant<Types...>
+  VariantJsonReader<std::variant<Types...>>::operator()(const Json::Value& value, std::size_t index) const
+  {
+    return kSwitchStatement(index, value);
+  }
 }

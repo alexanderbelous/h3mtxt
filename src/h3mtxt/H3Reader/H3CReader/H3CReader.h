@@ -30,10 +30,14 @@ namespace h3m
 
     CutScene readCutScene() const;
 
+    HeroCrossoverOption readHeroCrossoverOption() const;
+
     StartingBonus readStartingBonus() const;
 
     template<StartingBonusType T>
     StartingBonusDetails<T> readStartingBonusDetails() const;
+
+    StartingHeroOption readStartingHeroOption() const;
 
     StartingOptions readStartingOptions() const;
 

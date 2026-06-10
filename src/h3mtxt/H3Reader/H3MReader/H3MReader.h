@@ -81,6 +81,8 @@ namespace h3m
     template<ObjectPropertiesType T>
     ObjectProperties<T> readObjectProperties() const;
 
+    ObjectPropertiesVariant readObjectPropertiesVariant(ObjectPropertiesType object_properties_type) const;
+
     PlayerSpecs readPlayerSpecs() const;
 
     PrimarySkills readPrimarySkills() const;

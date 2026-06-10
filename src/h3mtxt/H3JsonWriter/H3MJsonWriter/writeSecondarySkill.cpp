@@ -7,6 +7,7 @@
 
 namespace Medea_NS
 {
+  template<>
   void JsonObjectWriter<h3m::SecondarySkill>::operator()(FieldsWriter& out, const h3m::SecondarySkill& skill) const
   {
     using Fields = h3json::FieldNames<h3m::SecondarySkill>;

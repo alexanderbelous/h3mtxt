@@ -11,4 +11,7 @@ namespace h3m
     TimeExpires = 2,
     Normal = 0xFF,
   };
+
+  // The number of special loss condition types, i.e. the number of valid LossConditionTypes other than Normal.
+  inline constexpr std::uint8_t kNumSpecialLossConditionTypes = 3;
 }

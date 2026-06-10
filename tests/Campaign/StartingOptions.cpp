@@ -116,16 +116,14 @@ namespace h3m
 
   TEST_CASE("H3M.StartingOptionsDetails.HeroCrossover", "[H3C]")
   {
-    using Hero = StartingOptionsDetails<StartingOptionsType::HeroCrossover>::Hero;
-
     // StartingOptionsDetails used in this test.
     const StartingOptionsDetails<StartingOptionsType::HeroCrossover> kStartingOptionsDetails{
       .options = {
-        Hero{
+        HeroCrossoverOption{
           .player = PlayerColor::Green,
           .source_scenario = 1
         },
-        Hero{
+        HeroCrossoverOption{
           .player = PlayerColor::Teal,
           .source_scenario = 1
         }
@@ -148,20 +146,18 @@ namespace h3m
 
   TEST_CASE("H3M.StartingOptionsDetails.StartingHero", "[H3C]")
   {
-    using Hero = StartingOptionsDetails<StartingOptionsType::StartingHero>::Hero;
-
     // StartingOptionsDetails used in this test.
     const StartingOptionsDetails<StartingOptionsType::StartingHero> kStartingOptionsDetails{
       .options = {
-        Hero{
+        StartingHeroOption{
           .player = PlayerColor::Red,
           .type = static_cast<std::uint16_t>(HeroType::SirMullich)
         },
-        Hero{
+        StartingHeroOption{
           .player = PlayerColor::Blue,
           .type = static_cast<std::uint16_t>(HeroType::Mephala)
         },
-        Hero{
+        StartingHeroOption{
           .player = PlayerColor::Tan,
           .type = static_cast<std::uint16_t>(HeroType::Gunnar)
         }

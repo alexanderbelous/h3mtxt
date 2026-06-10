@@ -2,11 +2,11 @@
 
 #include <h3mtxt/H3JsonReader/H3JsonReaderBase/H3JsonReaderBase.h>
 #include <h3mtxt/JsonCommon/FieldNamesH3M.h>
-#include <h3mtxt/Map/Constants/Constants.h>
 #include <h3mtxt/Map/MapAdditionalInfo.h>
 
 namespace h3json
 {
+  template<>
   h3m::CustomHero JsonReader<h3m::CustomHero>::operator()(const Json::Value& value) const
   {
     using Fields = FieldNames<h3m::CustomHero>;
@@ -18,6 +18,7 @@ namespace h3json
     return hero;
   }
 
+  template<>
   h3m::Teams JsonReader<h3m::Teams>::operator()(const Json::Value& value) const
   {
     using Fields = FieldNames<h3m::Teams>;
@@ -30,6 +31,7 @@ namespace h3json
     return teams;
   }
 
+  template<>
   h3m::Rumor JsonReader<h3m::Rumor>::operator()(const Json::Value& value) const
   {
     using Fields = FieldNames<h3m::Rumor>;
@@ -39,6 +41,7 @@ namespace h3json
     return rumor;
   }
 
+  template<>
   h3m::HeroesSettings JsonReader<h3m::HeroesSettings>::operator()(const Json::Value& value) const
   {
     constexpr std::span<const std::string_view, h3m::kNumHeroes> kFieldNames =
@@ -47,15 +50,17 @@ namespace h3json
     h3m::HeroesSettings heroes_settings;
     for (std::size_t hero_idx = 0; hero_idx < h3m::kNumHeroes; ++hero_idx)
     {
-      if (const Json::Value* field = findJsonField(value, kFieldNames[hero_idx]))
+      const Json::Value& hero_settings_json = getJsonField(value, kFieldNames[hero_idx]);
+      if (!hero_settings_json.isNull())
       {
         const h3m::HeroType hero = static_cast<h3m::HeroType>(hero_idx);
-        heroes_settings[hero] = fromJson<h3m::HeroSettings>(*field);
+        heroes_settings[hero] = fromJson<h3m::HeroSettings>(hero_settings_json);
       }
     }
     return heroes_settings;
   }
 
+  template<>
   h3m::MapAdditionalInfo JsonReader<h3m::MapAdditionalInfo>::operator()(const Json::Value& value) const
   {
     using Fields = FieldNames<h3m::MapAdditionalInfo>;

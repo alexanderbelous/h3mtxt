@@ -7,6 +7,7 @@
 
 namespace h3json
 {
+  template<>
   h3m::Campaign JsonReader<h3m::Campaign>::operator()(const Json::Value& value) const
   {
     using Fields = FieldNames<h3m::Campaign>;
@@ -16,6 +17,7 @@ namespace h3json
     return campaign;
   }
 
+  template<>
   h3m::CampaignHeader JsonReader<h3m::CampaignHeader>::operator()(const Json::Value& value) const
   {
     using Fields = FieldNames<h3m::CampaignHeader>;
@@ -30,6 +32,7 @@ namespace h3json
     return header;
   }
 
+  template<>
   h3m::CampaignScenario JsonReader<h3m::CampaignScenario>::operator()(const Json::Value& value) const
   {
     using Fields = FieldNames<h3m::CampaignScenario>;
@@ -47,6 +50,7 @@ namespace h3json
     return scenario;
   }
 
+  template<>
   h3m::CrossoverOptions JsonReader<h3m::CrossoverOptions>::operator()(const Json::Value& value) const
   {
     using Fields = FieldNames<h3m::CrossoverOptions>;
@@ -57,6 +61,7 @@ namespace h3json
     return options;
   }
 
+  template<>
   h3m::CutScene JsonReader<h3m::CutScene>::operator()(const Json::Value& value) const
   {
     using Fields = FieldNames<h3m::CutScene>;

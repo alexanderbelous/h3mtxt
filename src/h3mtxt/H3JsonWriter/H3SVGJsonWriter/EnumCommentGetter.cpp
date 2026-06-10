@@ -2,6 +2,7 @@
 
 #include <h3mtxt/H3JsonWriter/H3MJsonWriter/H3MJsonWriter.h>
 #include <h3mtxt/Map/Constants/CreatureType.h>
+#include <h3mtxt/Map/Constants/HeroType.h>
 #include <h3mtxt/Map/Constants/ObjectClass.h>
 #include <h3mtxt/Map/Constants/PlayerBehavior.h>
 #include <h3mtxt/SavedGame/Constants/Constants.h>
@@ -10,6 +11,8 @@
 
 #include <limits>
 #include <type_traits>
+
+using ::h3m::kNumHeroes;
 
 namespace Medea_NS
 {
@@ -26,7 +29,7 @@ namespace Medea_NS
       static_assert(std::is_enum_v<From>, "From must be an enum type.");
       using UnderlyingTypeTo = std::underlying_type_t<To>;
       using UnderlyingTypeFrom = std::underlying_type_t<From>;
-      // This is too strict - technically, we can always safely cast std::int32_t to std::uint8_t.
+      // This is too strict - technically, we can always safely cast std::uint8_t to std::int32_t.
       // However, HoMM3 often uses "magic" values in which all bits are set to 1; their integral
       // value depend on signedness (-1 if signed, MAX_VALUE if unsigned). If the input and output
       // types have different signedness, the expected behavior of isLosslessEnumCast() is confusing.
@@ -157,7 +160,7 @@ namespace Medea_NS
   std::string_view EnumCommentGetter::operator()(h3svg::HeroType16 value) const
   {
     const std::uint16_t integer_value = static_cast<std::uint16_t>(value);
-    if (integer_value < h3svg::kNumHeroes)
+    if (integer_value < kNumHeroes)
     {
       return (*this)(static_cast<h3svg::HeroType>(static_cast<std::uint8_t>(integer_value)));
     }
