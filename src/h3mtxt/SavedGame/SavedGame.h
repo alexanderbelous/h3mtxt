@@ -124,16 +124,24 @@ namespace h3svg
     // However, I'm not using std::array here because that would make sizeof(SavedGame) Hueg Like XBox (~160KB).
     std::vector<Hero> heroes;
     // TODO: figure out what this is.
-    // * Seems to contain the coordinates of the Grail (even if has already been dug out) near the end.
-    std::array<std::uint8_t, 361> unknown4 {};
+    std::array<std::uint8_t, 323> unknown4 {};
+    // Day of the current date (normally within [1; 7]).
+    std::uint16_t day {};
+    // Week of the current date (normally within [1; 4]).
+    std::uint16_t week {};
+    // Month of the current date (initialized with 1 at the start of the game; resets to 0 after Month 65535).
+    std::uint16_t month {};
+    // TODO: figure out what this is.
+    // * Seems to contain the coordinates of the Grail (even if has already been dug out).
+    std::array<std::uint8_t, 32> unknown5 {};
     ArtifactMerchants artifact_merchants;
     // TODO: figure out what this is.
-    std::array<std::uint8_t, 32> unknown5 {};
+    std::array<std::uint8_t, 32> unknown6 {};
     // 8 bitmasks - 1 for each Keymaster's Tent type - indicating which players have visited that Keymaster's Tent.
     EnumIndexedArray<KeymastersTentType, PlayersBitmask, kNumKeymastersTentTypes> keymasters_tents;
     // TODO: figure out what this is.
     // Seems to always be {0, 1, 191, 0, 64, 0}.
-    std::array<std::uint8_t, 6> unknown6 {};
+    std::array<std::uint8_t, 6> unknown7 {};
     // 1 bit per player, indicating if they have visited the Water Cartographer.
     PlayersBitmask cartographer_water;
     // 1 bit per player, indicating if they have visited the Land Cartographer.
@@ -142,7 +150,7 @@ namespace h3svg
     PlayersBitmask cartographer_subterranean;
     // TODO: figure out what this is.
     // Seems to always be 0s.
-    std::array<std::uint8_t, 4> unknown7 {};
+    std::array<std::uint8_t, 4> unknown8 {};
     // Visibility of each tile for each player.
     // The number of elements should be (has_two_levels ? 2 : 1) * map_size * map_size,
     // i.e. countTiles(this->basic_info).

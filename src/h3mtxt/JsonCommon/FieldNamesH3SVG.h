@@ -503,14 +503,18 @@ namespace h3json
     static constexpr std::string_view kTowns = "towns";
     static constexpr std::string_view kHeroes = "heroes";
     static constexpr std::string_view kUnknown4 = "unknown4";
-    static constexpr std::string_view kArtifactMerchants = "artifact_merchants";
+    static constexpr std::string_view kDay = "day";
+    static constexpr std::string_view kWeek = "week";
+    static constexpr std::string_view kMonth = "month";
     static constexpr std::string_view kUnknown5 = "unknown5";
-    static constexpr std::string_view kKeymastersTents = "keymasters_tents";
+    static constexpr std::string_view kArtifactMerchants = "artifact_merchants";
     static constexpr std::string_view kUnknown6 = "unknown6";
+    static constexpr std::string_view kKeymastersTents = "keymasters_tents";
+    static constexpr std::string_view kUnknown7 = "unknown7";
     static constexpr std::string_view kCartographerWater = "cartographer_water";
     static constexpr std::string_view kCartographerLand = "cartographer_land";
     static constexpr std::string_view kCartographerSubterranean = "cartographer_subterranean";
-    static constexpr std::string_view kUnknown7 = "unknown7";
+    static constexpr std::string_view kUnknown8 = "unknown8";
     static constexpr std::string_view kFogOfWar = "fog_of_war";
   };
 

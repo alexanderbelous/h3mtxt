@@ -149,14 +149,21 @@ namespace h3svg
         saved_game.heroes.push_back(readHero());
       }
     }
-    // Read 361 bytes.
+    // Read 323 bytes.
     // TODO: figure out what this is.
-    saved_game.unknown4 = readByteArray<361>();
+    saved_game.unknown4 = readByteArray<323>();
+    // Read 6 bytes - the current date.
+    saved_game.day = readInt<std::uint16_t>();
+    saved_game.week = readInt<std::uint16_t>();
+    saved_game.month = readInt<std::uint16_t>();
+    // Read 32 bytes.
+    // TODO: figure out what this is.
+    saved_game.unknown5 = readByteArray<32>();
     // Read Artifact Merchants.
     saved_game.artifact_merchants = readArtifactMerchants();
     // Read 32 bytes.
     // TODO: figure out what this is.
-    saved_game.unknown5 = readByteArray<32>();
+    saved_game.unknown6 = readByteArray<32>();
     // Read 8 bytes - Keymaster's Tents.
     for (PlayersBitmask& bitmask : saved_game.keymasters_tents.data)
     {
@@ -164,14 +171,14 @@ namespace h3svg
     }
     // Read 6 bytes.
     // TODO: figure out what this is.
-    saved_game.unknown6 = readByteArray<6>();
+    saved_game.unknown7 = readByteArray<6>();
     // Read 3 bytes - 1 byte per Cartographer type.
     saved_game.cartographer_water = readEnumBitmask<PlayerColor, 1>();
     saved_game.cartographer_land = readEnumBitmask<PlayerColor, 1>();
     saved_game.cartographer_subterranean = readEnumBitmask<PlayerColor, 1>();
     // Read 4 bytes.
     // TODO: figure out what this is.
-    saved_game.unknown7 = readByteArray<4>();
+    saved_game.unknown8 = readByteArray<4>();
     // Read Fog of War.
     {
       const std::size_t num_tiles = countTiles(saved_game.basic_info);
