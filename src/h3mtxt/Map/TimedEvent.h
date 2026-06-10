@@ -31,7 +31,8 @@ namespace h3m
     // Only meaningful for MapFormat::ShadowOfDeath.
     Bool applies_to_human = true;
     Bool applies_to_computer = false;
-    // 0-based day of first occurence (e.g., 0 stands for Day 1).
+    // 0-based day of first occurence (e.g., 0 stands for Month: 1, Week: 1, Day: 1).
+    // The Map Editor interprets this as a signed integer; I haven't checked the game behavior.
     std::uint16_t day_of_first_occurence = 0;
     // Frequency of this event; 0 means that the event doesn't repeat.
     // The Map Editor only allows setting a value from a small set (0-7, 14, 21, 28); if you set another value manually

@@ -74,14 +74,8 @@ namespace h3m
 
   constexpr LossConditionType LossCondition::type() const noexcept
   {
-    constexpr std::size_t kNormalDetailsIndex = 3;
-    static_assert(std::is_same_v<std::variant_alternative_t<kNormalDetailsIndex, Details>,
-                                 LossConditionDetails<LossConditionType::Normal>>,
-                  "kNormalDetailsIndex must be the index of the alternative for Normal loss condition.");
-
     const std::size_t index = details.index();
-    // Hack to avoid writing a switch statement over all loss condition types.
-    if (index == kNormalDetailsIndex)
+    if (index == kNumSpecialLossConditionTypes)
     {
       return LossConditionType::Normal;
     }
@@ -92,9 +86,9 @@ namespace h3m
   {
     if (loss_condition_type == LossConditionType::Normal)
     {
-      return 3;
+      return kNumSpecialLossConditionTypes;
     }
     const std::size_t idx = static_cast<std::size_t>(loss_condition_type);
-    return idx < 3 ? idx : std::variant_npos;
+    return idx < kNumSpecialLossConditionTypes ? idx : std::variant_npos;
   }
 }
