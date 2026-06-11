@@ -15,7 +15,7 @@ namespace h3m
       event.applies_to_human = readBool();
     }
     event.applies_to_computer = readBool();
-    event.day_of_first_occurence = readInt<std::uint16_t>();
+    event.day_of_first_occurence = readInt<std::int16_t>();
     event.repeat_after_days = readInt<std::uint16_t>();
     event.unknown = readReservedData<16>();
     return event;
