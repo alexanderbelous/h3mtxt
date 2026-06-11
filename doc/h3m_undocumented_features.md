@@ -171,4 +171,6 @@ The Map Editor only supports "standard" object templates, but you can add custom
 * `day_of_first_occurence`: The Map Editor only allows setting a value from `[0; 671]`, i.e. a date within `["Month: 1, Week: 1, Day: 1", "Month: 24, Week: 4, Day: 7"]`. However, any signed 16-bit integer can be used here. Note that only values from `[-28; 32767]` (i.e. dates within `["Month: 0, Week: 1, Day: 1"; "Month: 1171, Week: 2, Day: 1"]`) are feasible: an event, whose day of first occurence is outside of this range, will never trigger.
   * "Time is a flat circle": `Month: 65535, Week: 4, Day: 7` is followed by `Month: 0, Week: 1, Day: 1`.
   * Events with the day of first occurence from `[-28; -1]` are extremely unlikely to trigger in any game, because they require 65535 months of gameplay.
-* `repeat_after_days`: the Map Editor only allows a number from a small set (0-7, 14, 21, 28), but any 16-bit integer can be used here. I'm not sure about the signedness (e.g., is 32,768 treated as 1170 months, 1 week, 1 day, or is it -1 day?).
+* `repeat_after_days`:
+  * The Map Editor only allows a number from a small set (0-7, 14, 21, 28), but any 16-bit integer can be used here.
+  * 0 is used for non-recurring events, but due to the cyclical nature of time in HoMM3 even non-recurring events trigger again after 65536 months (because the date itself happens again).

@@ -69,8 +69,10 @@ namespace h3m
     // See the comments above for more information about the nature of time in HoMM3.
     std::int16_t day_of_first_occurence = 0;
     // Frequency of this event; 0 means that the event doesn't repeat.
-    // The Map Editor only allows setting a value from a small set (0-7, 14, 21, 28); if you set another value manually
-    // and try to view it in the Editor, it will freeze. The game handles it correctly, though.
+    // The Map Editor only allows setting a value from a small set (0-7, 14, 21, 28); if you set another value
+    // manually and try to view it in the Editor, it will freeze. The game handles it correctly, though.
+    // * Due to the cyclical nature of time in HoMM3, even events with repeat_after_days == 0
+    //   *will* trigger again after 65536 months (i.e. 1'835'008 days).
     // Note: some other parsers interpret this as uint8_t and the `unknown` field below as 17 bytes, but that
     // is incorrect - for example, you can add an event that repeats every 256 days.
     std::uint16_t repeat_after_days = 0;
