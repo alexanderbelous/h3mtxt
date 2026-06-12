@@ -1,5 +1,7 @@
 add_library(H3MJsonWriter STATIC
     "CommentBuilder.h"
+    "DateUtils.cpp"
+    "DateUtils.h"
     "EnumCommentGetter.cpp"
     "getSecondarySkillLevelString.cpp"
     "getSecondarySkillLevelString.h"

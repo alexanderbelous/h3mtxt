@@ -173,6 +173,8 @@ namespace h3m
     //
     // The Map Editor only allows setting values from [0; 2771] (i.e. not greater than Month: 99; Week: 4; Day: 7)
     // or 0xFFFFFFFF (no deadline), but any unsigned 32-bit integer can be used here.
+    // * Due to the cyclical nature of time in HoMM3, deadlines greater than "Month: 65535, Week: 4, Day: 7"
+    //   (i.e. deadline > 1834979) are equivalent to no deadline.
     // * FYI: SoD_SP plugin (as of 1.19.4.2) incorrectly interprets this as a signed integer, displaying
     //   "Time has run out." for quests with deadline >= 2147483648 (Month: 76695845; Week: 3; Day: 3).
     std::uint32_t deadline = 0xFFFFFFFF;

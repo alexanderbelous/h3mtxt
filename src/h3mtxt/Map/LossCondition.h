@@ -35,6 +35,8 @@ namespace h3m
     // but any signed 16-bit integer can be used here. The Map Editor will freeze when viewing the
     // details of the Loss Condition if a value outside of the above-mentioned set is used, but
     // the game handles them correctly.
+    //
+    // Nonpositive values are equivalent to 1.
     std::int16_t days {};
   };
 
