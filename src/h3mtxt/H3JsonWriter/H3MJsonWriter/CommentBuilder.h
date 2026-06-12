@@ -6,7 +6,8 @@
 #include <type_traits>
 #include <utility>
 
-namespace h3json
+// Not a part of the public API.
+namespace h3json::Detail_NS
 {
   // Lame alternative for std::format. Not using std::format here because it still causes bloat.
   class CommentBuilder

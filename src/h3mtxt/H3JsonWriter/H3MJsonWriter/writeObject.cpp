@@ -20,7 +20,7 @@ namespace h3json
       const h3m::ObjectPropertiesType object_properties_type =
         h3m::getObjectPropertiesType(object_class, object_template.object_subclass);
 
-      CommentBuilder comment_builder;
+      Detail_NS::CommentBuilder comment_builder;
       comment_builder << "ObjectClass: " << static_cast<std::size_t>(object_class);
       if (std::string_view enum_str = Medea_NS::EnumCommentGetter{}(object_class); !enum_str.empty())
       {
