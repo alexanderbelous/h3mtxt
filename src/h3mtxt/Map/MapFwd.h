@@ -20,7 +20,7 @@ namespace h3m
 
   enum class ArtifactSlot : std::uint8_t;
 
-  enum class ArtifactType : std::uint16_t;
+  enum class ArtifactType : std::int16_t;
 
   enum class CreatureType : std::int16_t;
 
