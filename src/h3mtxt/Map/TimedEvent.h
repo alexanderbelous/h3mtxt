@@ -14,7 +14,7 @@
 // ============================================================================
 // On the nature of time in HoMM3.
 // ----------------------------------------------------------------------------
-// Like in the "The Wheel of Time", time is circular in HoMM3:
+// Like in "The Wheel of Time", time is circular in HoMM3:
 // * Each scenario starts on "Month: 1, Week: 1, Day: 1".
 // * Each week has 7 days: e.g., "Month: 1, Week: 1, Day: 7" is followed by "Month: 1, Week: 2, Day: 1".
 // * Each month has 4 weeks: e.g., "Month: 1, Week: 4, Day: 7" is followed by "Month: 2, Week: 1, Day: 1".
