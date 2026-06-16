@@ -572,7 +572,7 @@ namespace h3json
   struct FieldNames<h3m::CreatureStack>
   {
     static constexpr std::string_view kType = "type";
-    static constexpr std::string_view kCount = "count";
+    static constexpr std::string_view kQuantity = "quantity";
   };
 
   template<>

@@ -12,7 +12,7 @@ namespace h3json
     using Fields = FieldNames<h3m::CreatureStack>;
     h3m::CreatureStack creature_stack;
     readField(creature_stack.type, value, Fields::kType);
-    readField(creature_stack.count, value, Fields::kCount);
+    readField(creature_stack.quantity, value, Fields::kQuantity);
     return creature_stack;
   }
 }

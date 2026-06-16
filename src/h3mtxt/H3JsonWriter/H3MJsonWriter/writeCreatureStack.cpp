@@ -11,6 +11,6 @@ namespace Medea_NS
   {
     using Fields = h3json::FieldNames<h3m::CreatureStack>;
     out.writeField(Fields::kType, creature_stack.type);
-    out.writeField(Fields::kCount, creature_stack.count);
+    out.writeField(Fields::kQuantity, creature_stack.quantity);
   }
 }

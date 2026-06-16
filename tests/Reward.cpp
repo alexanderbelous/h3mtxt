@@ -210,7 +210,7 @@ namespace h3m
       .details = RewardDetails<RewardType::Creature>{
         CreatureStack{
           .type = CreatureType::Sharpshooter,
-          .count = 100
+          .quantity = 100
         }
       }
     };

@@ -7,7 +7,7 @@ namespace h3m
   {
     CreatureStack creature_stack;
     creature_stack.type = readEnum<CreatureType>();
-    creature_stack.count = readInt<std::int16_t>();
+    creature_stack.quantity = readInt<std::int16_t>();
     return creature_stack;
   }
 }

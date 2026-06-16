@@ -82,10 +82,10 @@ namespace h3m
         .guardians = Guardians{
           .message = "Ready to fight some dragons?",
           .creatures = std::array<CreatureStack, 7>{
-            CreatureStack{.type = CreatureType::BlackDragon, .count = 5},
-            CreatureStack{.type = CreatureType::GreenDragon, .count = 11},
-            CreatureStack{.type = CreatureType::RedDragon, .count = 10},
-            CreatureStack{.type = CreatureType::GoldDragon, .count = 6},
+            CreatureStack{.type = CreatureType::BlackDragon, .quantity = 5},
+            CreatureStack{.type = CreatureType::GreenDragon, .quantity = 11},
+            CreatureStack{.type = CreatureType::RedDragon, .quantity = 10},
+            CreatureStack{.type = CreatureType::GoldDragon, .quantity = 6},
             CreatureStack{},
             CreatureStack{},
             CreatureStack{}
@@ -120,8 +120,8 @@ namespace h3m
         .guardians = Guardians{
           .message = "Boo!",
           .creatures = std::array<CreatureStack, 7>{
-            CreatureStack{.type = CreatureType::GhostDragon, .count = 5},
-            CreatureStack{.type = CreatureType::Wraith, .count = 100},
+            CreatureStack{.type = CreatureType::GhostDragon, .quantity = 5},
+            CreatureStack{.type = CreatureType::Wraith, .quantity = 100},
             CreatureStack{},
             CreatureStack{},
             CreatureStack{},
@@ -154,8 +154,8 @@ namespace h3m
           SpellType::ForceField
         },
         .creatures = {
-          CreatureStack{.type = CreatureType::Sharpshooter, .count = 50},
-          CreatureStack{.type = CreatureType::HarpyHag, .count = 100}
+          CreatureStack{.type = CreatureType::Sharpshooter, .quantity = 50},
+          CreatureStack{.type = CreatureType::HarpyHag, .quantity = 100}
         },
         .unknown = ReservedData<8>{}
       },
@@ -215,8 +215,8 @@ namespace h3m
       .owner = PlayerColor::Green,
       .unknown = ReservedData<3>{},
       .creatures = {
-        CreatureStack{.type = CreatureType::Sharpshooter, .count = 200},
-        CreatureStack{.type = CreatureType::Enchanter, .count = 100},
+        CreatureStack{.type = CreatureType::Sharpshooter, .quantity = 200},
+        CreatureStack{.type = CreatureType::Enchanter, .quantity = 100},
         CreatureStack{},
         CreatureStack{},
         CreatureStack{},
@@ -284,7 +284,7 @@ namespace h3m
         SecondarySkill{.type = SecondarySkillType::EagleEye, .level = 3}
       },
       .creatures = std::array<CreatureStack, 7>{
-        CreatureStack{.type = CreatureType::Sprite, .count = 1},
+        CreatureStack{.type = CreatureType::Sprite, .quantity = 1},
         CreatureStack{},
         CreatureStack{},
         CreatureStack{},
@@ -414,8 +414,8 @@ namespace h3m
         .guardians = Guardians{
           .message = "Boo!",
           .creatures = std::array<CreatureStack, 7>{
-            CreatureStack{.type = CreatureType::GhostDragon, .count = 5},
-            CreatureStack{.type = CreatureType::Wraith, .count = 100},
+            CreatureStack{.type = CreatureType::GhostDragon, .quantity = 5},
+            CreatureStack{.type = CreatureType::Wraith, .quantity = 100},
             CreatureStack{},
             CreatureStack{},
             CreatureStack{},
@@ -448,8 +448,8 @@ namespace h3m
           SpellType::ForceField
         },
         .creatures = {
-          CreatureStack{.type = CreatureType::Sharpshooter, .count = 50},
-          CreatureStack{.type = CreatureType::HarpyHag, .count = 100}
+          CreatureStack{.type = CreatureType::Sharpshooter, .quantity = 50},
+          CreatureStack{.type = CreatureType::HarpyHag, .quantity = 100}
         },
         .unknown = ReservedData<8>{}
       }
@@ -681,10 +681,10 @@ namespace h3m
         .guardians = Guardians{
           .message = "Ready to fight some dragons?",
           .creatures = std::array<CreatureStack, 7>{
-            CreatureStack{.type = CreatureType::BlackDragon, .count = 5},
-            CreatureStack{.type = CreatureType::GreenDragon, .count = 11},
-            CreatureStack{.type = CreatureType::RedDragon, .count = 10},
-            CreatureStack{.type = CreatureType::GoldDragon, .count = 6},
+            CreatureStack{.type = CreatureType::BlackDragon, .quantity = 5},
+            CreatureStack{.type = CreatureType::GreenDragon, .quantity = 11},
+            CreatureStack{.type = CreatureType::RedDragon, .quantity = 10},
+            CreatureStack{.type = CreatureType::GoldDragon, .quantity = 6},
             CreatureStack{},
             CreatureStack{},
             CreatureStack{}
@@ -856,10 +856,10 @@ namespace h3m
         .guardians = Guardians{
           .message = "Ready to fight some dragons?",
           .creatures = std::array<CreatureStack, 7>{
-            CreatureStack{.type = CreatureType::BlackDragon, .count = 5},
-            CreatureStack{.type = CreatureType::GreenDragon, .count = 11},
-            CreatureStack{.type = CreatureType::RedDragon, .count = 10},
-            CreatureStack{.type = CreatureType::GoldDragon, .count = 6},
+            CreatureStack{.type = CreatureType::BlackDragon, .quantity = 5},
+            CreatureStack{.type = CreatureType::GreenDragon, .quantity = 11},
+            CreatureStack{.type = CreatureType::RedDragon, .quantity = 10},
+            CreatureStack{.type = CreatureType::GoldDragon, .quantity = 6},
             CreatureStack{},
             CreatureStack{},
             CreatureStack{}
@@ -898,8 +898,8 @@ namespace h3m
       .owner = PlayerColor::Blue,
       .name = "Innsmouth",
       .garrison = std::array<CreatureStack, 7>{
-        CreatureStack{.type = CreatureType::Lizardman, .count = 70},
-        CreatureStack{.type = CreatureType::Peasant, .count = 200},
+        CreatureStack{.type = CreatureType::Lizardman, .quantity = 70},
+        CreatureStack{.type = CreatureType::Peasant, .quantity = 200},
         CreatureStack{},
         CreatureStack{},
         CreatureStack{},

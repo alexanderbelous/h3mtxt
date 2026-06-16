@@ -35,7 +35,7 @@ namespace h3m
   void H3MWriter::writeData(const CreatureStack& value) const
   {
     writeData(value.type);
-    writeData(value.count);
+    writeData(value.quantity);
   }
 
   void H3MWriter::writeData(const HeroArtifacts& value) const

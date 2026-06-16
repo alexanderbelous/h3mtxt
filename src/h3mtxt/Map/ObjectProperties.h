@@ -41,7 +41,7 @@ namespace h3m
     constexpr bool operator==(const Guardians&) const noexcept = default;
 
     std::string message;
-    // FYI: CreatureStack::count can be negative. Stacks with negative numbers of creatures will be
+    // FYI: CreatureStack::quantity can be negative. Stacks with negative numbers of creatures will be
     // present on the battlefield, but the behavior is weird (such a stack can only move 1 hex during the 1st turn,
     // and then it will never get a chance to move again).
     std::optional<std::array<CreatureStack, 7>> creatures;
@@ -90,7 +90,7 @@ namespace h3m
     // If it's indeed treated as signed, then it's possible that "negative" lengths are equivalent to 0
     // (no spells should be read/written), but I haven't checked it.
     std::vector<SpellType> spells;
-    // FYI: if CreatureStack::count is negative, the number of creatures in the hero's stack will decrease.
+    // FYI: if CreatureStack::quantity is negative, the number of creatures in the hero's stack will decrease.
     std::vector<CreatureStack> creatures;
     ReservedData<8> unknown;
   };
@@ -137,7 +137,7 @@ namespace h3m
     PlayerColor owner = PlayerColor::None;
     ReservedData<3> unknown;
     // CreatureType::None is used in CreatureStack::type for empty slots.
-    // CreatureStack::count can be negative - such stacks will be present in the garrison.
+    // CreatureStack::quantity can be negative - such stacks will be present in the garrison.
     std::array<CreatureStack, 7> creatures;
     Bool can_remove_units = true;
     ReservedData<8> unknown2;
@@ -196,7 +196,7 @@ namespace h3m
     //   can be used even for non-random heroes, representing the creatures of the hero's native TownType.
     //   For example, CreatureType::Creature7U will become CreatureType::Archangel if the hero is Orrin.
     //   The Map Editor only supports these special values for random heroes.
-    // * If CreatureStack::count <= 0 for any slot, this slot will become empty when the game starts.
+    // * If CreatureStack::quantity <= 0 for any slot, this slot will become empty when the game starts.
     std::optional<std::array<CreatureStack, 7>> creatures;
     Formation formation = Formation::Spread;
     std::optional<HeroArtifacts> artifacts;
@@ -490,7 +490,7 @@ namespace h3m
     std::optional<std::string> name;
     // * CreatureType::None is used in CreatureStack::type for empty slots.
     // * Special values CreatureType::Creature1, ..., CreatureType::Creature7U can be used here.
-    // * If CreatureStack::count <= 0 for any slot, this slot will become empty when the game starts.
+    // * If CreatureStack::quantity <= 0 for any slot, this slot will become empty when the game starts.
     std::optional<std::array<CreatureStack, 7>> garrison;
     Formation formation = Formation::Spread;
     std::optional<TownBuildings> buildings;

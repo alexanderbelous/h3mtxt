@@ -79,7 +79,7 @@ namespace h3m
   {
     constexpr bool operator==(const QuestDetails&) const noexcept = default;
 
-    // Not using CreatureStack here, because CreatureStack::count is a signed 16-bit integer,
+    // Not using CreatureStack here, because CreatureStack::quantity is a signed 16-bit integer,
     // but counts in quests are interpreted as unisnged 16-bit integers.
     struct Creature
     {

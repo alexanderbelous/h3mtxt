@@ -89,7 +89,7 @@ namespace h3m
       .hero = static_cast<std::uint16_t>(HeroType::Gunnar),
       .creature_stack = {
         .type = CreatureType::MinotaurKing,
-        .count = 12
+        .quantity = 12
       }
     };
 
