@@ -38,7 +38,7 @@ namespace Medea_NS
   {
     using Fields = h3json::FieldNames<h3m::Rumor>;
     out.writeField(Fields::kName, value.name);
-    out.writeField(Fields::kDescription, value.description);
+    out.writeField(Fields::kText, value.text);
   }
 
   template<>

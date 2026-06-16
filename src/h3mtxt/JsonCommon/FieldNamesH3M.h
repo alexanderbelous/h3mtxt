@@ -1082,7 +1082,7 @@ namespace h3json
   struct FieldNames<h3m::Rumor>
   {
     static constexpr std::string_view kName = "name";
-    static constexpr std::string_view kDescription = "description";
+    static constexpr std::string_view kText = "text";
   };
 
   template<>

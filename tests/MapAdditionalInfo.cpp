@@ -111,11 +111,11 @@ namespace h3m
       .rumors = {
         Rumor{
           .name = "Grail",
-          .description = "The Grail is buried on the northern island."
+          .text = "The Grail is buried on the northern island."
         },
         Rumor{
           .name = "Walking Dead",
-          .description = "The Walking Dead are great warriors!"
+          .text = "The Walking Dead are great warriors!"
         }
       },
       .heroes_settings = []() {
