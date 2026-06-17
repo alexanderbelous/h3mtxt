@@ -199,7 +199,7 @@ namespace h3json
     using Fields = FieldNames<Properties>;
     Properties properties;
     readField(properties.absod_id, value, Fields::kAbsodId);
-    readField(properties.count, value, Fields::kCount);
+    readField(properties.quantity, value, Fields::kQuantity);
     readField(properties.disposition, value, Fields::kDisposition);
     readField(properties.message_and_treasure, value, Fields::kMessageAndTreasure);
     readField(properties.never_flees, value, Fields::kNeverFlees);

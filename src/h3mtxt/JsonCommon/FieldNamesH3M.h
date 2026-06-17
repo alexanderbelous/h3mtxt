@@ -803,7 +803,7 @@ namespace h3json
   struct FieldNames<h3m::ObjectProperties<h3m::ObjectPropertiesType::MONSTER>>
   {
     static constexpr std::string_view kAbsodId = "absod_id";
-    static constexpr std::string_view kCount = "count";
+    static constexpr std::string_view kQuantity = "quantity";
     static constexpr std::string_view kDisposition = "disposition";
     static constexpr std::string_view kMessageAndTreasure = "message_and_treasure";
     static constexpr std::string_view kNeverFlees = "never_flees";

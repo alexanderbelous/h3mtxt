@@ -227,7 +227,7 @@ namespace Medea_NS
     using Fields = h3json::FieldNames<Details>;
 
     out.writeField(Fields::kAbsodId, monster.absod_id);
-    out.writeField(Fields::kCount, monster.count);
+    out.writeField(Fields::kQuantity, monster.quantity);
     out.writeField(Fields::kDisposition, monster.disposition);
     if (monster.message_and_treasure)
     {

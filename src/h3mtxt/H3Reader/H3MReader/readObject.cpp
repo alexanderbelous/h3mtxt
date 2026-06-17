@@ -283,7 +283,7 @@ namespace h3m
   {
     ObjectProperties<ObjectPropertiesType::MONSTER> monster;
     monster.absod_id = readInt<std::uint32_t>();
-    monster.count = readInt<std::uint16_t>();
+    monster.quantity = readInt<std::uint16_t>();
     monster.disposition = readEnum<Disposition>();
     const Bool has_message_and_treasure = readBool();
     if (has_message_and_treasure)

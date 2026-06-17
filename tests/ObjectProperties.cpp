@@ -368,7 +368,7 @@ namespace h3m
   {
     const ObjectProperties<ObjectPropertiesType::MONSTER> kProperties = {
       .absod_id = 2026,
-      .count = 100,
+      .quantity = 100,
       .disposition = Disposition::Savage,
       .message_and_treasure = MessageAndTreasure{
         .message = "Boo!",
@@ -385,7 +385,7 @@ namespace h3m
     };
     static constexpr char kBinaryDataCStr[] =
       "\xea\x07\x00\x00"        // absod_id
-      "\x64\x00"                // count
+      "\x64\x00"                // quantity
       "\x04"                    // disposition
       "\x01"                    // ?message_and_treasure
       "\x04\x00\x00\x00" "Boo!" //   message

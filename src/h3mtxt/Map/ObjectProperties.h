@@ -258,9 +258,9 @@ namespace h3m
 
     std::uint32_t absod_id {};
     // The Map Editor only allows values from [0; 4000] (0 means random), but any 16-bit integer can be used here.
-    // However, in the game the number of creatures will be initialized with count % 4096 (4096 also means random),
+    // However, in the game the number of creatures will be initialized with quantity % 4096 (4096 also means random),
     // so values > 4095 are somewhat useless.
-    std::uint16_t count = 0;
+    std::uint16_t quantity = 0;
     Disposition disposition = Disposition::Aggressive;
     std::optional<MessageAndTreasure> message_and_treasure;
     Bool never_flees = false;
