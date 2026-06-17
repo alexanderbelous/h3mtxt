@@ -65,7 +65,7 @@ namespace h3json
     using Fields = FieldNames<RewardDetails<RewardType::Resource>>;
     RewardDetails<RewardType::Resource> details;
     readField(details.type, value, Fields::kType);
-    readField(details.amount, value, Fields::kAmount);
+    readField(details.quantity, value, Fields::kQuantity);
     return details;
   }
 

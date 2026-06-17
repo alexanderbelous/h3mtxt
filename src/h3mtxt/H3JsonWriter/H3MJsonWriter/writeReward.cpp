@@ -51,7 +51,7 @@ namespace Medea_NS
   {
     using Fields = h3json::FieldNames<h3m::RewardDetails<h3m::RewardType::Resource>>;
     out.writeField(Fields::kType, details.type);
-    out.writeField(Fields::kAmount, details.amount);
+    out.writeField(Fields::kQuantity, details.quantity);
   }
 
   template<>

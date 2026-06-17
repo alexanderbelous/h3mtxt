@@ -124,7 +124,7 @@ namespace h3m
     constexpr Reward kReward = {
       .details = RewardDetails<RewardType::Resource>{
         .type = ResourceType::Gold,
-        .amount = 10000
+        .quantity = 10000
       }
     };
     static constexpr char kBinaryDataCStr[] = "\x05" "\x06" "\x10\x27\x00\x00";

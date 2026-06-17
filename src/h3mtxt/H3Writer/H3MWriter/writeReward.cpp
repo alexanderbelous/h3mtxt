@@ -36,7 +36,7 @@ namespace h3m
   void H3MWriter::writeData(const RewardDetails<RewardType::Resource>& data) const
   {
     writeData(data.type);
-    writeData(data.amount);
+    writeData(data.quantity);
   }
 
   template<>

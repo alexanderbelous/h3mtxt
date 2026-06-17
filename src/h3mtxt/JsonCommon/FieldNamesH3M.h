@@ -1056,7 +1056,7 @@ namespace h3json
   struct FieldNames<h3m::RewardDetails<h3m::RewardType::Resource>>
   {
     static constexpr std::string_view kType = "type";
-    static constexpr std::string_view kAmount = "amount";
+    static constexpr std::string_view kQuantity = "quantity";
   };
 
   template<>

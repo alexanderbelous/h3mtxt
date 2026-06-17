@@ -83,7 +83,7 @@ namespace h3m
     // However, the behavior is fine for all int32_t values:
     // * 0 has no effect (no resources given).
     // * Negative values reduce your current amount of this resource, but it won't go below 0.
-    std::int32_t amount {};
+    std::int32_t quantity {};
   };
 
   template<>
