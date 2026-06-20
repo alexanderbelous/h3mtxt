@@ -75,7 +75,7 @@ namespace h3json
     {
       QuestDetails<QuestType::Creatures>::Creature creature;
       readField(creature.type, value, "type");
-      readField(creature.count, value, "count");
+      readField(creature.quantity, value, "quantity");
       return creature;
     }
   };

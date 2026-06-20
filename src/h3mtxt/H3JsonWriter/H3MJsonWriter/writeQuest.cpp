@@ -75,7 +75,7 @@ namespace Medea_NS
     void operator()(FieldsWriter& out, const h3m::QuestDetails<h3m::QuestType::Creatures>::Creature& creature) const
     {
       out.writeField("type", creature.type);
-      out.writeField("count", creature.count);
+      out.writeField("quantity", creature.quantity);
     }
   };
 

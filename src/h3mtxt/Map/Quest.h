@@ -91,7 +91,7 @@ namespace h3m
       CreatureType type {};
       // The Map Editor only allows values from [1; 9999] for the number of creatures, but any
       // unsigned 16-bit integer can be used here.
-      std::uint16_t count {};
+      std::uint16_t quantity {};
     };
 
     // The Editor doesn't allow an empty array here. If you set it manually:

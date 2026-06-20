@@ -80,7 +80,7 @@ namespace h3m
     {
       QuestDetails<QuestType::Creatures>::Creature creature;
       creature.type = readEnum<CreatureType>();
-      creature.count = readInt<std::uint16_t>();
+      creature.quantity = readInt<std::uint16_t>();
       details.creatures.push_back(std::move(creature));
     }
     return details;

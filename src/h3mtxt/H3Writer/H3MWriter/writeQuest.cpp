@@ -46,7 +46,7 @@ namespace h3m
     for (const QuestDetails<QuestType::Creatures>::Creature& creature : data.creatures)
     {
       writeData(creature.type);
-      writeData(creature.count);
+      writeData(creature.quantity);
     }
   }
 
