@@ -9,6 +9,7 @@
 #include <h3mtxt/Map/Constants/QuestType.h>
 #include <h3mtxt/Map/Constants/ResourceType.h>
 #include <h3mtxt/Map/Utils/EnumIndexedArray.h>
+#include <h3mtxt/Map/Utils/TypedQuantity.h>
 
 #include <cstdint>
 #include <string>
@@ -81,18 +82,14 @@ namespace h3m
 
     // Not using CreatureStack here, because CreatureStack::quantity is a signed 16-bit integer,
     // but counts in quests are interpreted as unisnged 16-bit integers.
-    struct Creature
-    {
-      constexpr bool operator==(const Creature&) const noexcept = default;
-
-      // Note that special CreatureType constants with negative values (e.g., CreatureType::None,
-      // CreatureType::Creature1, ..., CreatureType::Creature7U) cannot be used here:
-      // they will cause the game to crash.
-      CreatureType type {};
-      // The Map Editor only allows values from [1; 9999] for the number of creatures, but any
-      // unsigned 16-bit integer can be used here.
-      std::uint16_t quantity {};
-    };
+    //
+    // Note that special CreatureType constants with negative values (e.g., CreatureType::None,
+    // CreatureType::Creature1, ..., CreatureType::Creature7U) cannot be used here:
+    // they will cause the game to crash.
+    //
+    // The Map Editor only allows setting a quantity from [1; 9999], but any
+    // unsigned 16-bit integer can be used here.
+    using Creature = TypedQuantity<CreatureType, std::uint16_t>;
 
     // The Editor doesn't allow an empty array here. If you set it manually:
     // * The Editor will freeze when you try to view the properties of this Quest Guard / Seer's Hut.

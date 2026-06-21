@@ -185,7 +185,7 @@ See [`CampaignHeader`](#CampaignHeader) for more information about `NUM_REGIONS`
 | ------------- | -------- | ------------- | --------------------------------------------------------------------------------------- |
 | hero          | `uint16` | 2             | Enum `HeroType`, or 0xFFFD for the Most Powerful Hero, or 0xFFFE for the Generated Hero |
 | creature_type | `uint16` | 2             | Enum `CreatureType`                                                                     |
-| count         | `int16`  | 2             | The number of creatures                                                                 |
+| quantity      | `int16`  | 2             | The number of creatures                                                                 |
 
 
 ### `StartingBonusArtifact`
@@ -214,7 +214,7 @@ See [`CampaignHeader`](#CampaignHeader) for more information about `NUM_REGIONS`
 | Field name | Type    | Size in bytes | Description                      |
 | ---------- | ------- | ------------- | -------------------------------- |
 | type       | `uint8` | 1             | Enum `StartingBonusResourceType` |
-| amount     | `int32` | 4             |                                  |
+| quantity   | `int32` | 4             |                                  |
 
 
 ### `HeroCrossoverOptions`

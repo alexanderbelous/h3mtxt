@@ -62,11 +62,9 @@ namespace h3json
   RewardDetails<RewardType::Resource>
   JsonReader<RewardDetails<RewardType::Resource>>::operator()(const Json::Value& value) const
   {
-    using Fields = FieldNames<RewardDetails<RewardType::Resource>>;
-    RewardDetails<RewardType::Resource> details;
-    readField(details.type, value, Fields::kType);
-    readField(details.quantity, value, Fields::kQuantity);
-    return details;
+    return RewardDetails<RewardType::Resource> {
+      fromJson<h3m::TypedQuantity<h3m::ResourceType, std::int32_t>>(value)
+    };
   }
 
   template<>

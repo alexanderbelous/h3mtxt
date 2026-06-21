@@ -115,6 +115,9 @@ namespace h3m
   template<std::size_t NumBytes>
   class ReservedData;
 
+  template<class T, class Quantity>
+  struct TypedQuantity;
+
   // ==========================================================================
   // Aliases.
   // --------------------------------------------------------------------------

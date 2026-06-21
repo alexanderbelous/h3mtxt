@@ -38,8 +38,7 @@ namespace h3m
   VictoryConditionDetails<VictoryConditionType::AccumulateCreatures> H3MReader::readVictoryConditionDetails() const
   {
     VictoryConditionDetails<VictoryConditionType::AccumulateCreatures> details{ readSpecialVictoryConditionBase() };
-    details.creature_type = readEnum<CreatureType>();
-    details.count = readInt<std::int32_t>();
+    details.creatures = readTypedQuantity<CreatureType, std::int32_t>();
     return details;
   }
 
@@ -47,8 +46,7 @@ namespace h3m
   VictoryConditionDetails<VictoryConditionType::AccumulateResources> H3MReader::readVictoryConditionDetails() const
   {
     VictoryConditionDetails<VictoryConditionType::AccumulateResources> details{ readSpecialVictoryConditionBase() };
-    details.resource_type = readEnum<ResourceType>();
-    details.quantity = readInt<std::int32_t>();
+    details.resources = readTypedQuantity<ResourceType, std::int32_t>();
     return details;
   }
 

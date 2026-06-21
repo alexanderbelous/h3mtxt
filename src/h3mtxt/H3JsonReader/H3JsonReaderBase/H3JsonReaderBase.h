@@ -3,11 +3,13 @@
 // Specializes JsonReader for common types and provides a few utility functions.
 
 #include <h3mtxt/H3JsonReader/H3JsonReaderBase/H3JsonReaderBaseFwd.h>
+#include <h3mtxt/JsonCommon/FieldNamesH3M.h>
 #include <h3mtxt/JsonCommon/getEnumFieldNames.h>
 #include <h3mtxt/Map/Utils/BitSet.h>
 #include <h3mtxt/Map/Utils/EnumBitmask.h>
 #include <h3mtxt/Map/Utils/EnumIndexedArray.h>
 #include <h3mtxt/Map/Utils/ReservedData.h>
+#include <h3mtxt/Map/Utils/TypedQuantity.h>
 
 #include <json/json.h>
 
@@ -130,6 +132,13 @@ namespace h3json
   struct JsonReader<h3m::EnumIndexedArray<Enum, T, NumElements>>
   {
     h3m::EnumIndexedArray<Enum, T, NumElements> operator()(const Json::Value& value) const;
+  };
+
+  // Partial specialization for TypedQuantity.
+  template<class Enum, class Quantity>
+  struct JsonReader<h3m::TypedQuantity<Enum, Quantity>>
+  {
+    h3m::TypedQuantity<Enum, Quantity> operator()(const Json::Value& value) const;
   };
 
   // ============================================================
@@ -277,5 +286,16 @@ namespace h3json
     h3m::EnumIndexedArray<Enum, T, NumElements> enum_indexed_array;
     Detail_NS::readEnumIndexedArrayImpl(value, std::span<T>{ enum_indexed_array.data }, kNames.data());
     return enum_indexed_array;
+  }
+
+  template<class Enum, class Quantity>
+  h3m::TypedQuantity<Enum, Quantity>
+  JsonReader<h3m::TypedQuantity<Enum, Quantity>>::operator()(const Json::Value& value) const
+  {
+    using Fields = FieldNames<h3m::TypedQuantity<Enum, Quantity>>;
+    h3m::TypedQuantity<Enum, Quantity> result;
+    readField(result.type, value, Fields::kType);
+    readField(result.quantity, value, Fields::kQuantity);
+    return result;
   }
 }

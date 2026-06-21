@@ -8,6 +8,7 @@
 #include <h3mtxt/Map/Constants/SpellType.h>
 #include <h3mtxt/Map/Constants/TownBuildingType.h>
 #include <h3mtxt/Map/Utils/EnumIndexedArray.h>
+#include <h3mtxt/Map/Utils/TypedQuantity.h>
 #include <h3mtxt/Map/CreatureStack.h>
 #include <h3mtxt/Map/SecondarySkill.h>
 
@@ -98,14 +99,12 @@ namespace h3m
   };
 
   template<>
-  struct StartingBonusDetails<StartingBonusType::Resource>
+  struct StartingBonusDetails<StartingBonusType::Resource> : TypedQuantity<StartingBonusResourceType, std::int32_t>
   {
     constexpr bool operator==(const StartingBonusDetails&) const noexcept = default;
 
-    StartingBonusResourceType type {};
-    // The Campaign Editor only allows values from [1; 32767],
+    // The Campaign Editor only allows setting a quantity from [1; 32767],
     // but any signed 32-bit value can be used here.
-    std::int32_t quantity {};
   };
 
   struct StartingBonus

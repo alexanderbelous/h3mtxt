@@ -560,6 +560,13 @@ namespace h3json
     "padding_15"
   };
 
+  template<class Enum, class Quantity>
+  struct FieldNames<h3m::TypedQuantity<Enum, Quantity>>
+  {
+    static constexpr std::string_view kType = "type";
+    static constexpr std::string_view kQuantity = "quantity";
+  };
+
   template<>
   struct FieldNames<h3m::Coordinates>
   {
@@ -1053,10 +1060,9 @@ namespace h3json
   };
 
   template<>
-  struct FieldNames<h3m::RewardDetails<h3m::RewardType::Resource>>
+  struct FieldNames<h3m::RewardDetails<h3m::RewardType::Resource>> :
+    FieldNames<h3m::TypedQuantity<h3m::ResourceType, std::int32_t>>
   {
-    static constexpr std::string_view kType = "type";
-    static constexpr std::string_view kQuantity = "quantity";
   };
 
   template<>

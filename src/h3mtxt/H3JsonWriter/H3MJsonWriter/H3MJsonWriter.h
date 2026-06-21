@@ -142,6 +142,14 @@ namespace Medea_NS
   template<std::size_t NumBytes>
   inline constexpr bool kIsSingleLineByDefault<h3m::ReservedData<NumBytes>> = true;
 
+  // Default implementation for h3m::TypedQuantity: serializes the value as a JSON object.
+  template<class Enum, class Quantity>
+  struct JsonObjectWriter<h3m::TypedQuantity<Enum, Quantity>>
+  {
+    // Defined in Utils.h.
+    void operator()(FieldsWriter& out, const h3m::TypedQuantity<Enum, Quantity>& value) const;
+  };
+
   template<>
   void JsonObjectWriter<h3m::Coordinates>::operator()(FieldsWriter& out, const h3m::Coordinates& coordinates) const;
 

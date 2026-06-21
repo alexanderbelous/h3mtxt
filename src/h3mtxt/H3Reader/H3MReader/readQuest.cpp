@@ -78,10 +78,7 @@ namespace h3m
     details.creatures.reserve(num_creatures);
     for (std::uint8_t i = 0; i < num_creatures; ++i)
     {
-      QuestDetails<QuestType::Creatures>::Creature creature;
-      creature.type = readEnum<CreatureType>();
-      creature.quantity = readInt<std::uint16_t>();
-      details.creatures.push_back(std::move(creature));
+      details.creatures.push_back(readTypedQuantity<CreatureType, std::uint16_t>());
     }
     return details;
   }

@@ -91,6 +91,10 @@ namespace h3mtxt
     template<std::size_t NumBytes>
     void writeData(const h3m::ReservedData<NumBytes>& reserved_data) const;
 
+    // Appends an h3m::TypedQuantity to the binary stream.
+    template<class Enum, class Quantity>
+    void writeData(const h3m::TypedQuantity<Enum, Quantity>& value) const;
+
     void writeString16(std::string_view value) const;
 
     void writeString32(std::string_view value) const;
@@ -203,6 +207,13 @@ namespace h3mtxt
   void H3WriterBase::writeData(const h3m::ReservedData<NumBytes>& reserved_data) const
   {
     writeReservedDataImpl(reserved_data.data(), NumBytes);
+  }
+
+  template<class Enum, class Quantity>
+  void H3WriterBase::writeData(const h3m::TypedQuantity<Enum, Quantity>& value) const
+  {
+    writeData(value.type);
+    writeData(value.quantity);
   }
 
   template<class T>

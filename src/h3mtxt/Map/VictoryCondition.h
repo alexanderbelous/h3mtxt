@@ -5,6 +5,7 @@
 #include <h3mtxt/Map/Constants/CreatureType.h>
 #include <h3mtxt/Map/Constants/ResourceType.h>
 #include <h3mtxt/Map/Constants/VictoryConditionType.h>
+#include <h3mtxt/Map/Utils/TypedQuantity.h>
 #include <h3mtxt/Map/Coordinates.h>
 
 #include <cstdint>
@@ -49,12 +50,11 @@ namespace h3m
   {
     constexpr bool operator==(const VictoryConditionDetails&) const noexcept = default;
 
-    CreatureType creature_type {};
-    // The number of creatures to accumulate.
-    // * The Map Editor only allows a value within [1; 99999], but any signed 32-bit integer can be used here
-    //   (e.g., 1,000,000 Peasants).
-    // * A negative value almost immediately leads to a victory, though.
-    std::int32_t count {};
+    // Creatures to accumulate.
+    // * The Map Editor only allows setting a quantity within [1; 99999],
+    //   but any signed 32-bit integer can be used here (e.g., 1,000,000 Peasants).
+    // * A negative quantity almost immediately leads to a victory, though.
+    TypedQuantity<CreatureType, std::int32_t> creatures;
   };
 
   // Specialization for AccumulateResources.
@@ -63,10 +63,10 @@ namespace h3m
   {
     constexpr bool operator==(const VictoryConditionDetails&) const noexcept = default;
 
-    ResourceType resource_type {};
-    // The amount to accumulate.
-    // The Map Editor only allows setting a value from [1; 9999999], but any signed 32-bit integer can be used here.
-    std::int32_t quantity {};
+    // Resources to accumulate.
+    // The Map Editor only allows setting a quantity within [1; 9999999],
+    // but any signed 32-bit integer can be used here.
+    TypedQuantity<ResourceType, std::int32_t> resources;
   };
 
   // Specialization for UpgradeTown.

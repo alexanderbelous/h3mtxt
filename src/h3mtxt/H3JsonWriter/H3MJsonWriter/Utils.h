@@ -1,11 +1,13 @@
 #pragma once
 
 #include <h3mtxt/H3JsonWriter/H3MJsonWriter/H3MJsonWriter.h>
+#include <h3mtxt/JsonCommon/FieldNamesH3M.h>
 #include <h3mtxt/JsonCommon/getEnumFieldNames.h>
 #include <h3mtxt/Map/Utils/BitSet.h>
 #include <h3mtxt/Map/Utils/EnumBitmask.h>
 #include <h3mtxt/Map/Utils/EnumIndexedArray.h>
 #include <h3mtxt/Map/Utils/ReservedData.h>
+#include <h3mtxt/Map/Utils/TypedQuantity.h>
 #include <h3mtxt/Medea/Medea.h>
 
 #include <span>
@@ -66,5 +68,14 @@ namespace Medea_NS
     {
       out.writeField(kNames[i], enum_indexed_array.data[i]);
     }
+  }
+
+  template<class Enum, class Quantity>
+  void JsonObjectWriter<h3m::TypedQuantity<Enum, Quantity>>::operator()(
+    FieldsWriter& out, const h3m::TypedQuantity<Enum, Quantity>& value) const
+  {
+    using Fields = h3json::FieldNames<h3m::TypedQuantity<Enum, Quantity>>;
+    out.writeField(Fields::kType, value.type);
+    out.writeField(Fields::kQuantity, value.quantity);
   }
 }

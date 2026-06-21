@@ -71,10 +71,9 @@ namespace h3m
   template<>
   StartingBonusDetails<StartingBonusType::Resource> H3CReader::readStartingBonusDetails() const
   {
-    StartingBonusDetails<StartingBonusType::Resource> details;
-    details.type = readEnum<StartingBonusResourceType>();
-    details.quantity = readInt<std::int32_t>();
-    return details;
+    return StartingBonusDetails<StartingBonusType::Resource>{
+      readTypedQuantity<StartingBonusResourceType, std::int32_t>()
+    };
   }
 
   StartingBonus H3CReader::readStartingBonus() const

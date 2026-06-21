@@ -29,8 +29,7 @@ namespace Medea_NS
     FieldsWriter& out, const h3m::VictoryConditionDetails<h3m::VictoryConditionType::AccumulateCreatures>& value) const
   {
     JsonObjectWriter<h3m::SpecialVictoryConditionBase>{}(out, value);
-    out.writeField("creature_type", value.creature_type);
-    out.writeField("count", value.count);
+    out.writeField("creatures", value.creatures);
   }
 
   template<>
@@ -38,8 +37,7 @@ namespace Medea_NS
     FieldsWriter& out, const h3m::VictoryConditionDetails<h3m::VictoryConditionType::AccumulateResources>& value) const
   {
     JsonObjectWriter<h3m::SpecialVictoryConditionBase>{}(out, value);
-    out.writeField("resource_type", value.resource_type);
-    out.writeField("quantity", value.quantity);
+    out.writeField("resources", value.resources);
   }
 
   template<>

@@ -35,8 +35,7 @@ namespace h3m
       void operator()(const H3MWriter& writer, const VictoryConditionDetails<VictoryConditionType::AccumulateCreatures>& value) const
       {
         writeSpecialVictoryConditionBase(writer, value);
-        writer.writeData(value.creature_type);
-        writer.writeData(value.count);
+        writer.writeData(value.creatures);
       }
     };
 
@@ -46,8 +45,7 @@ namespace h3m
       void operator()(const H3MWriter& writer, const VictoryConditionDetails<VictoryConditionType::AccumulateResources>& value) const
       {
         writeSpecialVictoryConditionBase(writer, value);
-        writer.writeData(value.resource_type);
-        writer.writeData(value.quantity);
+        writer.writeData(value.resources);
       }
     };
 

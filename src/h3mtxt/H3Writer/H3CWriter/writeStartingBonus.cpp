@@ -55,8 +55,8 @@ namespace h3m
   template<>
   void H3CWriter::writeData(const StartingBonusDetails<StartingBonusType::Resource>& details) const
   {
-    writeData(details.type);
-    writeData(details.quantity);
+    const TypedQuantity<StartingBonusResourceType, std::int32_t>& resources = details;
+    writeData(resources);
   }
 
   void H3CWriter::writeData(const StartingBonus& bonus) const

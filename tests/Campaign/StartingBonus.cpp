@@ -210,8 +210,10 @@ namespace h3m
   {
     // StartingBonusDetails used in this test.
     static constexpr StartingBonusDetails<StartingBonusType::Resource> kStartingBonusDetails{
-      .type = StartingBonusResourceType::MercurySulfurCrystalGems,
-      .quantity = 5
+      TypedQuantity<StartingBonusResourceType, std::int32_t>{
+        .type = StartingBonusResourceType::MercurySulfurCrystalGems,
+        .quantity = 5
+      }
     };
 
     // The binary representation of kStartingBonusDetails.
@@ -230,8 +232,10 @@ namespace h3m
     // StartingBonus used in this test.
     static constexpr StartingBonus kStartingBonus = {
       .details = StartingBonusDetails<StartingBonusType::Resource>{
-        .type = StartingBonusResourceType::WoodOre,
-        .quantity = 10
+        TypedQuantity<StartingBonusResourceType, std::int32_t>{
+          .type = StartingBonusResourceType::WoodOre,
+          .quantity = 10
+        }
       }
     };
 

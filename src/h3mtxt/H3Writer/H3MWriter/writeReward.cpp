@@ -35,8 +35,8 @@ namespace h3m
   template<>
   void H3MWriter::writeData(const RewardDetails<RewardType::Resource>& data) const
   {
-    writeData(data.type);
-    writeData(data.quantity);
+    const TypedQuantity<ResourceType, std::int32_t>& typed_quantity = data;
+    writeData(typed_quantity);
   }
 
   template<>

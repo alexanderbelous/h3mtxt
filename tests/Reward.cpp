@@ -123,8 +123,10 @@ namespace h3m
   {
     constexpr Reward kReward = {
       .details = RewardDetails<RewardType::Resource>{
-        .type = ResourceType::Gold,
-        .quantity = 10000
+        TypedQuantity<ResourceType, std::int32_t>{
+          .type = ResourceType::Gold,
+          .quantity = 10000
+        }
       }
     };
     static constexpr char kBinaryDataCStr[] = "\x05" "\x06" "\x10\x27\x00\x00";

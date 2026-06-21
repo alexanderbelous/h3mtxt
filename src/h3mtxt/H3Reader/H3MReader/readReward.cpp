@@ -60,10 +60,7 @@ namespace h3m
   template<>
   RewardDetails<RewardType::Resource> H3MReader::readRewardDetails<RewardType::Resource>() const
   {
-    RewardDetails<RewardType::Resource> details;
-    details.type = readEnum<ResourceType>();
-    details.quantity = readInt<std::int32_t>();
-    return details;
+    return RewardDetails<RewardType::Resource>{ readTypedQuantity<ResourceType, std::int32_t>() };
   }
 
   template<>

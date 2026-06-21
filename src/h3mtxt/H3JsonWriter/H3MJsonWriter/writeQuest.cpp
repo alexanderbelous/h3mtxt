@@ -70,16 +70,6 @@ namespace Medea_NS
   }
 
   template<>
-  struct JsonObjectWriter<h3m::QuestDetails<h3m::QuestType::Creatures>::Creature>
-  {
-    void operator()(FieldsWriter& out, const h3m::QuestDetails<h3m::QuestType::Creatures>::Creature& creature) const
-    {
-      out.writeField("type", creature.type);
-      out.writeField("quantity", creature.quantity);
-    }
-  };
-
-  template<>
   void JsonObjectWriter<h3m::QuestDetails<h3m::QuestType::Creatures>>::operator()(
     FieldsWriter& out, const h3m::QuestDetails<h3m::QuestType::Creatures>& details) const
   {

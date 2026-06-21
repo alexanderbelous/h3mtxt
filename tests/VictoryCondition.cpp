@@ -63,8 +63,10 @@ namespace h3m
     constexpr VictoryCondition kVictoryCondition = {
       VictoryConditionDetails<VictoryConditionType::AccumulateCreatures>{
         SpecialVictoryConditionBase{.allow_normal_win = 0, .applies_to_computer = 0},
-        CreatureType::AzureDragon,
-        99
+        TypedQuantity<CreatureType, std::int32_t>{
+          .type = CreatureType::AzureDragon,
+          .quantity = 99
+        }
       }
     };
     static constexpr char kBinaryDataCStr[] = "\x01\x00\x00\x84\x00\x63\x00\x00\x00";
@@ -81,8 +83,10 @@ namespace h3m
     constexpr VictoryCondition kVictoryCondition = {
       VictoryConditionDetails<VictoryConditionType::AccumulateResources>{
         SpecialVictoryConditionBase{.allow_normal_win = 0, .applies_to_computer = 0},
-        ResourceType::Gems,
-        100
+        TypedQuantity<ResourceType, std::int32_t>{
+          .type = ResourceType::Gems,
+          .quantity = 100
+        }
       }
     };
     static constexpr char kBinaryDataCStr[] = "\x02\x00\x00\x05\x64\x00\x00\x00";

@@ -6,6 +6,7 @@
 #include <h3mtxt/Map/Constants/PrimarySkillType.h>
 #include <h3mtxt/Map/Constants/ResourceType.h>
 #include <h3mtxt/Map/Constants/RewardType.h>
+#include <h3mtxt/Map/Utils/TypedQuantity.h>
 #include <h3mtxt/Map/CreatureStack.h>
 #include <h3mtxt/Map/SecondarySkill.h>
 
@@ -74,16 +75,14 @@ namespace h3m
   };
 
   template<>
-  struct RewardDetails<RewardType::Resource>
+  struct RewardDetails<RewardType::Resource> : TypedQuantity<ResourceType, std::int32_t>
   {
     constexpr bool operator==(const RewardDetails&) const noexcept = default;
 
-    ResourceType type {};
-    // The Map Editor only allow setting a value within [1; 32767].
+    // The Map Editor only allow setting a quantity within [1; 32767].
     // However, the behavior is fine for all int32_t values:
     // * 0 has no effect (no resources given).
     // * Negative values reduce your current amount of this resource, but it won't go below 0.
-    std::int32_t quantity {};
   };
 
   template<>
