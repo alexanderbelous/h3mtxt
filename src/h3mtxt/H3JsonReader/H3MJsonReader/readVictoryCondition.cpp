@@ -61,7 +61,7 @@ namespace h3json
         fromJson<h3m::SpecialVictoryConditionBase>(value)
       };
       readField(details.resource_type, value, "resource_type");
-      readField(details.amount, value, "amount");
+      readField(details.quantity, value, "quantity");
       return details;
     }
   };

@@ -66,7 +66,7 @@ namespace h3m
     ResourceType resource_type {};
     // The amount to accumulate.
     // The Map Editor only allows setting a value from [1; 9999999], but any signed 32-bit integer can be used here.
-    std::int32_t amount {};
+    std::int32_t quantity {};
   };
 
   // Specialization for UpgradeTown.

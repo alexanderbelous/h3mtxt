@@ -47,7 +47,7 @@ namespace h3m
       {
         writeSpecialVictoryConditionBase(writer, value);
         writer.writeData(value.resource_type);
-        writer.writeData(value.amount);
+        writer.writeData(value.quantity);
       }
     };
 

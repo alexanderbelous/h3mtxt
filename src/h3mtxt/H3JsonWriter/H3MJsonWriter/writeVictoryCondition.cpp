@@ -39,7 +39,7 @@ namespace Medea_NS
   {
     JsonObjectWriter<h3m::SpecialVictoryConditionBase>{}(out, value);
     out.writeField("resource_type", value.resource_type);
-    out.writeField("amount", value.amount);
+    out.writeField("quantity", value.quantity);
   }
 
   template<>

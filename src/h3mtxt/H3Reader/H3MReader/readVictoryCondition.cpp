@@ -48,7 +48,7 @@ namespace h3m
   {
     VictoryConditionDetails<VictoryConditionType::AccumulateResources> details{ readSpecialVictoryConditionBase() };
     details.resource_type = readEnum<ResourceType>();
-    details.amount = readInt<std::int32_t>();
+    details.quantity = readInt<std::int32_t>();
     return details;
   }
 
