@@ -104,7 +104,7 @@ namespace Medea_NS
     FieldsWriter& out, const h3m::StartingBonusDetails<h3m::StartingBonusType::Resource>& details) const
   {
     out.writeField("type", details.type);
-    out.writeField("amount", details.amount);
+    out.writeField("quantity", details.quantity);
   }
 
   template<>

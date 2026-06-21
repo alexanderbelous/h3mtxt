@@ -105,7 +105,7 @@ namespace h3m
     StartingBonusResourceType type {};
     // The Campaign Editor only allows values from [1; 32767],
     // but any signed 32-bit value can be used here.
-    std::int32_t amount {};
+    std::int32_t quantity {};
   };
 
   struct StartingBonus

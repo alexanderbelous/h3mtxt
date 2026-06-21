@@ -87,7 +87,7 @@ namespace h3json
   {
     StartingBonusDetails<StartingBonusType::Resource> details;
     readField(details.type, value, "type");
-    readField(details.amount, value, "amount");
+    readField(details.quantity, value, "quantity");
     return details;
   }
 
