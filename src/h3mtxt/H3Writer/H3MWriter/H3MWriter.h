@@ -247,7 +247,7 @@ namespace h3m
 
   template<> void H3MWriter::writeData(const RewardDetails<RewardType::Artifact>& details) const;
 
-  template<> void H3MWriter::writeData(const RewardDetails<RewardType::Creature>& details) const;
+  template<> void H3MWriter::writeData(const RewardDetails<RewardType::Creatures>& details) const;
 
   template<class T>
   void H3MWriter::writeSpan(std::span<const T> values) const

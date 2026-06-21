@@ -263,8 +263,8 @@ namespace h3json
   JsonReader<h3m::RewardDetails<h3m::RewardType::Spell>>::operator()(const Json::Value& value) const;
 
   template<>
-  h3m::RewardDetails<h3m::RewardType::Creature>
-  JsonReader<h3m::RewardDetails<h3m::RewardType::Creature>>::operator()(const Json::Value& value) const;
+  h3m::RewardDetails<h3m::RewardType::Creatures>
+  JsonReader<h3m::RewardDetails<h3m::RewardType::Creatures>>::operator()(const Json::Value& value) const;
 
   template<>
   h3m::Rumor JsonReader<h3m::Rumor>::operator()(const Json::Value& value) const;

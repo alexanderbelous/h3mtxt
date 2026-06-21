@@ -252,7 +252,7 @@ namespace h3m
 
   template<> RewardDetails<RewardType::Spell> H3MReader::readRewardDetails() const;
 
-  template<> RewardDetails<RewardType::Creature> H3MReader::readRewardDetails() const;
+  template<> RewardDetails<RewardType::Creatures> H3MReader::readRewardDetails() const;
 
   template<>
   VictoryConditionDetails<VictoryConditionType::AcquireArtifact> H3MReader::readVictoryConditionDetails() const;

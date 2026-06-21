@@ -98,9 +98,9 @@ namespace h3m
   }
 
   template<>
-  RewardDetails<RewardType::Creature> H3MReader::readRewardDetails<RewardType::Creature>() const
+  RewardDetails<RewardType::Creatures> H3MReader::readRewardDetails<RewardType::Creatures>() const
   {
-    return RewardDetails<RewardType::Creature> { readCreatureStack() };
+    return RewardDetails<RewardType::Creatures> { readCreatureStack() };
   }
 
   Reward H3MReader::readReward() const

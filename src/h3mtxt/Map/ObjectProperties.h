@@ -473,7 +473,7 @@ namespace h3m
     //   * In Kingdom Overview the numbers are also signed (both in vanilla and in HD mod).
     //   * (HD mod only) On the Town Screen the numbers are unsigned (e.g., "65137 Archangels available").
     // In the vanilla game you cannot hire creatures if the available amount is negative. In HD mod,
-    // however, you can use Ctrl+LeftMouseButton the maximum possible amount of creatures (within the available
+    // however, you can use Ctrl+LeftMouseButton to hire the maximum possible amount of creatures (within the available
     // resources), and HD mod incorrectly interprets this as an unsigned number. Looks like a bug in HD mod.
     std::array<std::uint16_t, 7> creatures {};
     ReservedData<4> unknown2;

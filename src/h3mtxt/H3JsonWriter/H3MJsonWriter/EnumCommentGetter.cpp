@@ -1054,7 +1054,7 @@ namespace Medea_NS
       "Secondary skill",
       "Artifact",
       "Spell",
-      "Creature"
+      "Creatures"
     };
     const std::size_t idx = static_cast<std::size_t>(value);
     return (idx < std::size(kNames)) ? kNames[idx] : std::string_view{};

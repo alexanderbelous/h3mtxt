@@ -60,7 +60,7 @@ namespace h3m
   {
     constexpr bool operator==(const QuestDetails&) const noexcept = default;
 
-    std::uint32_t absod_id{};
+    std::uint32_t absod_id {};
   };
 
   template<>

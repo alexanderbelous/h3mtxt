@@ -128,7 +128,7 @@ namespace h3m
   };
 
   template<>
-  struct RewardDetails<RewardType::Creature> : CreatureStack
+  struct RewardDetails<RewardType::Creatures> : CreatureStack
   {
     constexpr bool operator==(const RewardDetails&) const noexcept = default;
 
@@ -148,7 +148,7 @@ namespace h3m
       RewardDetails<RewardType::SecondarySkill>,
       RewardDetails<RewardType::Artifact>,
       RewardDetails<RewardType::Spell>,
-      RewardDetails<RewardType::Creature>
+      RewardDetails<RewardType::Creatures>
     >;
 
     // \return the type of the reward.

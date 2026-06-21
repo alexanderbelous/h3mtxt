@@ -411,8 +411,8 @@ namespace Medea_NS
     FieldsWriter& out, const h3m::RewardDetails<h3m::RewardType::Spell>& details) const;
 
   template<>
-  void JsonObjectWriter<h3m::RewardDetails<h3m::RewardType::Creature>>::operator()(
-    FieldsWriter& out, const h3m::RewardDetails<h3m::RewardType::Creature>& details) const;
+  void JsonObjectWriter<h3m::RewardDetails<h3m::RewardType::Creatures>>::operator()(
+    FieldsWriter& out, const h3m::RewardDetails<h3m::RewardType::Creatures>& details) const;
 
   template<>
   void JsonObjectWriter<h3m::Rumor>::operator()(FieldsWriter& out, const h3m::Rumor& value) const;

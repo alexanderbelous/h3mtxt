@@ -108,10 +108,10 @@ namespace h3json
   }
 
   template<>
-  RewardDetails<RewardType::Creature>
-  JsonReader<RewardDetails<RewardType::Creature>>::operator()(const Json::Value& value) const
+  RewardDetails<RewardType::Creatures>
+  JsonReader<RewardDetails<RewardType::Creatures>>::operator()(const Json::Value& value) const
   {
-    return RewardDetails<RewardType::Creature> { fromJson<h3m::CreatureStack>(value) };
+    return RewardDetails<RewardType::Creatures> { fromJson<h3m::CreatureStack>(value) };
   }
 
   template<>

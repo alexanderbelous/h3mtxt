@@ -204,10 +204,10 @@ namespace h3m
     REQUIRE(encodeAndDecodeJson(kReward) == kReward);
   }
 
-  TEST_CASE("H3M.Reward.Creature", "[H3M]")
+  TEST_CASE("H3M.Reward.Creatures", "[H3M]")
   {
     constexpr Reward kReward = {
-      .details = RewardDetails<RewardType::Creature>{
+      .details = RewardDetails<RewardType::Creatures>{
         CreatureStack{
           .type = CreatureType::Sharpshooter,
           .quantity = 100
@@ -217,7 +217,7 @@ namespace h3m
     static constexpr char kBinaryDataCStr[] = "\x0a" "\x89\x00" "\x64\x00";
     static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
 
-    static_assert(kReward.type() == RewardType::Creature);
+    static_assert(kReward.type() == RewardType::Creatures);
     REQUIRE(asByteVector(encodeReward(kReward)) == asByteVector(kBinaryData));
     REQUIRE(decodeReward(kBinaryData) == kReward);
     REQUIRE(encodeAndDecodeJson(kReward) == kReward);
