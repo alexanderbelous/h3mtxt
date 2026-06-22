@@ -50,9 +50,6 @@ namespace Medea_NS
     FieldsWriter& out, const h3m::RewardDetails<h3m::RewardType::Resource>& details) const
   {
     JsonObjectWriter<h3m::TypedQuantity<h3m::ResourceType, std::int32_t>>{}(out, details);
-    using Fields = h3json::FieldNames<h3m::RewardDetails<h3m::RewardType::Resource>>;
-    out.writeField(Fields::kType, details.type);
-    out.writeField(Fields::kQuantity, details.quantity);
   }
 
   template<>
