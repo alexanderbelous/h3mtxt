@@ -80,15 +80,12 @@ namespace h3m
   {
     constexpr bool operator==(const QuestDetails&) const noexcept = default;
 
-    // Not using CreatureStack here, because CreatureStack::quantity is a signed 16-bit integer,
-    // but counts in quests are interpreted as unisnged 16-bit integers.
-    //
-    // Note that special CreatureType constants with negative values (e.g., CreatureType::None,
+    // Special CreatureType constants with negative values (e.g., CreatureType::None,
     // CreatureType::Creature1, ..., CreatureType::Creature7U) cannot be used here:
     // they will cause the game to crash.
     //
-    // The Map Editor only allows setting a quantity from [1; 9999], but any
-    // unsigned 16-bit integer can be used here.
+    // The Map Editor only allows setting a quantity from [1; 9999], but any unsigned 16-bit integer
+    // can be used here. Note that unlike h3m::Army, quantities are unsigned here.
     using Creature = TypedQuantity<CreatureType, std::uint16_t>;
 
     // The Editor doesn't allow an empty array here. If you set it manually:

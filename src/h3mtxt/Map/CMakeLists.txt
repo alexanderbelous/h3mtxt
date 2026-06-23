@@ -43,8 +43,8 @@ set(SOURCE_LIST
     "Utils/SwitchStatement.h"
     "Utils/TypedQuantity.h"
     # etc
+    "Army.h"
     "Coordinates.h"
-    "CreatureStack.h"
     "HeroArtifacts.h"
     "HeroSettings.h"
     "LossCondition.h"

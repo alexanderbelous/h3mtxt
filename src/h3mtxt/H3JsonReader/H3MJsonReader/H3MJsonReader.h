@@ -11,10 +11,10 @@
 namespace h3json
 {
   template<>
-  h3m::Coordinates JsonReader<h3m::Coordinates>::operator()(const Json::Value& value) const;
+  h3m::Army JsonReader<h3m::Army>::operator()(const Json::Value& value) const;
 
   template<>
-  h3m::CreatureStack JsonReader<h3m::CreatureStack>::operator()(const Json::Value& value) const;
+  h3m::Coordinates JsonReader<h3m::Coordinates>::operator()(const Json::Value& value) const;
 
   template<>
   h3m::CustomHero JsonReader<h3m::CustomHero>::operator()(const Json::Value& value) const;

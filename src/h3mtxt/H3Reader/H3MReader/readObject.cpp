@@ -9,16 +9,6 @@ namespace h3m
 {
   namespace
   {
-    std::array<CreatureStack, 7> readCreatureStackArray(const H3MReader& reader)
-    {
-      std::array<CreatureStack, 7> creatures;
-      for (CreatureStack& creature_stack : creatures)
-      {
-        creature_stack = reader.readCreatureStack();
-      }
-      return creatures;
-    }
-
     std::vector<SecondarySkill> readSecondarySkillsVector(const H3MReader& reader, std::size_t num_secondary_skills)
     {
       std::vector<SecondarySkill> secondary_skills;
@@ -75,7 +65,7 @@ namespace h3m
     event.creatures.reserve(num_creatures);
     for (std::uint8_t i = 0; i < num_creatures; ++i)
     {
-      event.creatures.push_back(readCreatureStack());
+      event.creatures.push_back(readTypedQuantity<CreatureType, std::int16_t>());
     }
     event.unknown = readReservedData<8>();
     return event;
@@ -88,7 +78,7 @@ namespace h3m
     const Bool has_creatures = readBool();
     if (has_creatures)
     {
-      guardians.creatures = readCreatureStackArray(*this);
+      guardians.creatures = readArmy();
     }
     guardians.unknown = readReservedData<4>();
     return guardians;
@@ -157,7 +147,7 @@ namespace h3m
     ObjectProperties<ObjectPropertiesType::GARRISON> data;
     data.owner = readEnum<PlayerColor>();
     data.unknown = readReservedData<3>();
-    data.creatures = readCreatureStackArray(*this);
+    data.creatures = readArmy();
     data.can_remove_units = readBool();
     data.unknown2 = readReservedData<8>();
     return data;
@@ -212,7 +202,7 @@ namespace h3m
     const Bool has_creatures = readBool();
     if (has_creatures)
     {
-      data.creatures = readCreatureStackArray(*this);
+      data.creatures = readArmy();
     }
     data.formation = readEnum<Formation>();
     const Bool has_artifacts = readBool();
@@ -459,7 +449,7 @@ namespace h3m
     const Bool has_garrison = readBool();
     if (has_garrison)
     {
-      town.garrison = readCreatureStackArray(*this);
+      town.garrison = readArmy();
     }
     town.formation = readEnum<Formation>();
     const Bool has_buildings = readBool();

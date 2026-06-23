@@ -210,7 +210,7 @@ namespace h3m
   {
     constexpr Reward kReward = {
       .details = RewardDetails<RewardType::Creatures>{
-        CreatureStack{
+        .creatures = {
           .type = CreatureType::Sharpshooter,
           .quantity = 100
         }

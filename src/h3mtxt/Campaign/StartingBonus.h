@@ -4,12 +4,12 @@
 #include <h3mtxt/Campaign/Constants/StartingBonusType.h>
 #include <h3mtxt/Campaign/Constants/StartingBonusResourceType.h>
 #include <h3mtxt/Map/Constants/ArtifactType.h>
+#include <h3mtxt/Map/Constants/CreatureType.h>
 #include <h3mtxt/Map/Constants/PrimarySkillType.h>
 #include <h3mtxt/Map/Constants/SpellType.h>
 #include <h3mtxt/Map/Constants/TownBuildingType.h>
 #include <h3mtxt/Map/Utils/EnumIndexedArray.h>
 #include <h3mtxt/Map/Utils/TypedQuantity.h>
-#include <h3mtxt/Map/CreatureStack.h>
 #include <h3mtxt/Map/SecondarySkill.h>
 
 #include <cstdint>
@@ -39,7 +39,7 @@ namespace h3m
     // * 0xFFFD (-3) for the Most Powerful Hero.
     // * 0xFFFE (-2) for the Generated Hero
     std::uint16_t hero {};
-    CreatureStack creature_stack;
+    TypedQuantity<CreatureType, std::int16_t> creature_stack;
   };
 
   template<>
@@ -99,12 +99,13 @@ namespace h3m
   };
 
   template<>
-  struct StartingBonusDetails<StartingBonusType::Resource> : TypedQuantity<StartingBonusResourceType, std::int32_t>
+  struct StartingBonusDetails<StartingBonusType::Resource>
   {
     constexpr bool operator==(const StartingBonusDetails&) const noexcept = default;
 
     // The Campaign Editor only allows setting a quantity from [1; 32767],
     // but any signed 32-bit value can be used here.
+    TypedQuantity<StartingBonusResourceType, std::int32_t> resource;
   };
 
   struct StartingBonus

@@ -157,8 +157,9 @@ namespace Medea_NS
   template<>
   inline constexpr bool kIsSingleLineByDefault<h3m::Coordinates> = true;
 
+  // Serializes h3m::Army as a JSON array.
   template<>
-  void JsonObjectWriter<h3m::CreatureStack>::operator()(FieldsWriter& out, const h3m::CreatureStack& creature_stack) const;
+  void JsonArrayWriter<h3m::Army>::operator()(const ArrayElementsWriter& elements_writer, const h3m::Army& army) const;
 
   template<>
   void JsonObjectWriter<h3m::CustomHero>::operator()(FieldsWriter& out, const h3m::CustomHero& value) const;

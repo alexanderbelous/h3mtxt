@@ -31,9 +31,9 @@ namespace h3m
     // Reintroduce writeData() from the base class, so that the new overloads in H3MWriter don't hide it.
     using H3WriterBase::writeData;
 
-    void writeData(const Coordinates& value) const;
+    void writeData(const Army& value) const;
 
-    void writeData(const CreatureStack& value) const;
+    void writeData(const Coordinates& value) const;
 
     void writeData(const CustomHero& value) const;
 

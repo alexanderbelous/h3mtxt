@@ -576,13 +576,6 @@ namespace h3json
   };
 
   template<>
-  struct FieldNames<h3m::CreatureStack>
-  {
-    static constexpr std::string_view kType = "type";
-    static constexpr std::string_view kQuantity = "quantity";
-  };
-
-  template<>
   struct FieldNames<h3m::CustomHero>
   {
     static constexpr std::string_view kType = "type";
@@ -1060,9 +1053,9 @@ namespace h3json
   };
 
   template<>
-  struct FieldNames<h3m::RewardDetails<h3m::RewardType::Resource>> :
-    FieldNames<h3m::TypedQuantity<h3m::ResourceType, std::int32_t>>
+  struct FieldNames<h3m::RewardDetails<h3m::RewardType::Resource>>
   {
+    static constexpr std::string_view kResource = "resource";
   };
 
   template<>
@@ -1082,6 +1075,12 @@ namespace h3json
   struct FieldNames<h3m::RewardDetails<h3m::RewardType::Spell>>
   {
     static constexpr std::string_view kSpell = "spell";
+  };
+
+  template<>
+  struct FieldNames<h3m::RewardDetails<h3m::RewardType::Creatures>>
+  {
+    static constexpr std::string_view kCreatures = "creatures";
   };
 
   template<>

@@ -81,14 +81,14 @@ namespace h3m
       const ObjectProperties<ObjectPropertiesType::ARTIFACT> kProperties = {
         .guardians = Guardians{
           .message = "Ready to fight some dragons?",
-          .creatures = std::array<CreatureStack, 7>{
-            CreatureStack{.type = CreatureType::BlackDragon, .quantity = 5},
-            CreatureStack{.type = CreatureType::GreenDragon, .quantity = 11},
-            CreatureStack{.type = CreatureType::RedDragon, .quantity = 10},
-            CreatureStack{.type = CreatureType::GoldDragon, .quantity = 6},
-            CreatureStack{},
-            CreatureStack{},
-            CreatureStack{}
+          .creatures = Army{
+            Army::CreatureStack{.type = CreatureType::BlackDragon, .quantity = 5},
+            Army::CreatureStack{.type = CreatureType::GreenDragon, .quantity = 11},
+            Army::CreatureStack{.type = CreatureType::RedDragon, .quantity = 10},
+            Army::CreatureStack{.type = CreatureType::GoldDragon, .quantity = 6},
+            Army::kEmptySlot,
+            Army::kEmptySlot,
+            Army::kEmptySlot
           },
           .unknown = ReservedData<4>{}
         }
@@ -119,14 +119,14 @@ namespace h3m
       EventBase{
         .guardians = Guardians{
           .message = "Boo!",
-          .creatures = std::array<CreatureStack, 7>{
-            CreatureStack{.type = CreatureType::GhostDragon, .quantity = 5},
-            CreatureStack{.type = CreatureType::Wraith, .quantity = 100},
-            CreatureStack{},
-            CreatureStack{},
-            CreatureStack{},
-            CreatureStack{},
-            CreatureStack{}
+          .creatures = Army{
+            Army::CreatureStack{.type = CreatureType::GhostDragon, .quantity = 5},
+            Army::CreatureStack{.type = CreatureType::Wraith, .quantity = 100},
+            Army::kEmptySlot,
+            Army::kEmptySlot,
+            Army::kEmptySlot,
+            Army::kEmptySlot,
+            Army::kEmptySlot
           },
           .unknown = ReservedData<4>{}
         },
@@ -154,8 +154,8 @@ namespace h3m
           SpellType::ForceField
         },
         .creatures = {
-          CreatureStack{.type = CreatureType::Sharpshooter, .quantity = 50},
-          CreatureStack{.type = CreatureType::HarpyHag, .quantity = 100}
+          TypedQuantity<CreatureType, std::int16_t>{.type = CreatureType::Sharpshooter, .quantity = 50},
+          TypedQuantity<CreatureType, std::int16_t>{.type = CreatureType::HarpyHag, .quantity = 100}
         },
         .unknown = ReservedData<8>{}
       },
@@ -215,13 +215,13 @@ namespace h3m
       .owner = PlayerColor::Green,
       .unknown = ReservedData<3>{},
       .creatures = {
-        CreatureStack{.type = CreatureType::Sharpshooter, .quantity = 200},
-        CreatureStack{.type = CreatureType::Enchanter, .quantity = 100},
-        CreatureStack{},
-        CreatureStack{},
-        CreatureStack{},
-        CreatureStack{},
-        CreatureStack{}
+        Army::CreatureStack{.type = CreatureType::Sharpshooter, .quantity = 200},
+        Army::CreatureStack{.type = CreatureType::Enchanter, .quantity = 100},
+        Army::kEmptySlot,
+        Army::kEmptySlot,
+        Army::kEmptySlot,
+        Army::kEmptySlot,
+        Army::kEmptySlot
       },
       .can_remove_units = 1,
       .unknown2 = ReservedData<8>{}
@@ -283,14 +283,14 @@ namespace h3m
         SecondarySkill{.type = SecondarySkillType::Diplomacy, .level = 3},
         SecondarySkill{.type = SecondarySkillType::EagleEye, .level = 3}
       },
-      .creatures = std::array<CreatureStack, 7>{
-        CreatureStack{.type = CreatureType::Sprite, .quantity = 1},
-        CreatureStack{},
-        CreatureStack{},
-        CreatureStack{},
-        CreatureStack{},
-        CreatureStack{},
-        CreatureStack{},
+      .creatures = Army{
+        Army::CreatureStack{.type = CreatureType::Sprite, .quantity = 1},
+        Army::kEmptySlot,
+        Army::kEmptySlot,
+        Army::kEmptySlot,
+        Army::kEmptySlot,
+        Army::kEmptySlot,
+        Army::kEmptySlot,
       },
       .formation = Formation::Grouped,
       .artifacts = HeroArtifacts{
@@ -413,14 +413,14 @@ namespace h3m
       EventBase{
         .guardians = Guardians{
           .message = "Boo!",
-          .creatures = std::array<CreatureStack, 7>{
-            CreatureStack{.type = CreatureType::GhostDragon, .quantity = 5},
-            CreatureStack{.type = CreatureType::Wraith, .quantity = 100},
-            CreatureStack{},
-            CreatureStack{},
-            CreatureStack{},
-            CreatureStack{},
-            CreatureStack{}
+          .creatures = Army{
+            Army::CreatureStack{.type = CreatureType::GhostDragon, .quantity = 5},
+            Army::CreatureStack{.type = CreatureType::Wraith, .quantity = 100},
+            Army::kEmptySlot,
+            Army::kEmptySlot,
+            Army::kEmptySlot,
+            Army::kEmptySlot,
+            Army::kEmptySlot
           },
           .unknown = ReservedData<4>{}
         },
@@ -448,8 +448,8 @@ namespace h3m
           SpellType::ForceField
         },
         .creatures = {
-          CreatureStack{.type = CreatureType::Sharpshooter, .quantity = 50},
-          CreatureStack{.type = CreatureType::HarpyHag, .quantity = 100}
+          TypedQuantity<CreatureType, std::int16_t>{.type = CreatureType::Sharpshooter, .quantity = 50},
+          TypedQuantity<CreatureType, std::int16_t>{.type = CreatureType::HarpyHag, .quantity = 100}
         },
         .unknown = ReservedData<8>{}
       }
@@ -680,14 +680,14 @@ namespace h3m
       const ObjectProperties<ObjectPropertiesType::RESOURCE> kProperties = {
         .guardians = Guardians{
           .message = "Ready to fight some dragons?",
-          .creatures = std::array<CreatureStack, 7>{
-            CreatureStack{.type = CreatureType::BlackDragon, .quantity = 5},
-            CreatureStack{.type = CreatureType::GreenDragon, .quantity = 11},
-            CreatureStack{.type = CreatureType::RedDragon, .quantity = 10},
-            CreatureStack{.type = CreatureType::GoldDragon, .quantity = 6},
-            CreatureStack{},
-            CreatureStack{},
-            CreatureStack{}
+          .creatures = Army{
+            Army::CreatureStack{.type = CreatureType::BlackDragon, .quantity = 5},
+            Army::CreatureStack{.type = CreatureType::GreenDragon, .quantity = 11},
+            Army::CreatureStack{.type = CreatureType::RedDragon, .quantity = 10},
+            Army::CreatureStack{.type = CreatureType::GoldDragon, .quantity = 6},
+            Army::kEmptySlot,
+            Army::kEmptySlot,
+            Army::kEmptySlot
           },
           .unknown = ReservedData<4>{}
         },
@@ -855,14 +855,14 @@ namespace h3m
       const ObjectProperties<ObjectPropertiesType::SPELL_SCROLL> kProperties = {
         .guardians = Guardians{
           .message = "Ready to fight some dragons?",
-          .creatures = std::array<CreatureStack, 7>{
-            CreatureStack{.type = CreatureType::BlackDragon, .quantity = 5},
-            CreatureStack{.type = CreatureType::GreenDragon, .quantity = 11},
-            CreatureStack{.type = CreatureType::RedDragon, .quantity = 10},
-            CreatureStack{.type = CreatureType::GoldDragon, .quantity = 6},
-            CreatureStack{},
-            CreatureStack{},
-            CreatureStack{}
+          .creatures = Army{
+            Army::CreatureStack{.type = CreatureType::BlackDragon, .quantity = 5},
+            Army::CreatureStack{.type = CreatureType::GreenDragon, .quantity = 11},
+            Army::CreatureStack{.type = CreatureType::RedDragon, .quantity = 10},
+            Army::CreatureStack{.type = CreatureType::GoldDragon, .quantity = 6},
+            Army::kEmptySlot,
+            Army::kEmptySlot,
+            Army::kEmptySlot
           },
           .unknown = ReservedData<4>{}
         },
@@ -897,14 +897,14 @@ namespace h3m
       .absod_id = 1931,
       .owner = PlayerColor::Blue,
       .name = "Innsmouth",
-      .garrison = std::array<CreatureStack, 7>{
-        CreatureStack{.type = CreatureType::Lizardman, .quantity = 70},
-        CreatureStack{.type = CreatureType::Peasant, .quantity = 200},
-        CreatureStack{},
-        CreatureStack{},
-        CreatureStack{},
-        CreatureStack{},
-        CreatureStack{}
+      .garrison = Army{
+        Army::CreatureStack{.type = CreatureType::Lizardman, .quantity = 70},
+        Army::CreatureStack{.type = CreatureType::Peasant, .quantity = 200},
+        Army::kEmptySlot,
+        Army::kEmptySlot,
+        Army::kEmptySlot,
+        Army::kEmptySlot,
+        Army::kEmptySlot
       },
       .formation = Formation::Grouped,
       .buildings = TownBuildings{

@@ -35,11 +35,11 @@ namespace h3m
     // \return MapFormat that was passed to the constructor.
     constexpr MapFormat format() const noexcept;
 
+    Army readArmy() const;
+
     Coordinates readCoordinates() const;
 
     CustomHero readCustomHero() const;
-
-    CreatureStack readCreatureStack() const;
 
     EventBase readEventBase() const;
 

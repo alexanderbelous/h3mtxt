@@ -49,7 +49,8 @@ namespace Medea_NS
   void JsonObjectWriter<h3m::RewardDetails<h3m::RewardType::Resource>>::operator()(
     FieldsWriter& out, const h3m::RewardDetails<h3m::RewardType::Resource>& details) const
   {
-    JsonObjectWriter<h3m::TypedQuantity<h3m::ResourceType, std::int32_t>>{}(out, details);
+    using Fields = h3json::FieldNames<h3m::RewardDetails<h3m::RewardType::Resource>>;
+    out.writeField(Fields::kResource, details.resource);
   }
 
   template<>
@@ -88,7 +89,8 @@ namespace Medea_NS
   void JsonObjectWriter<h3m::RewardDetails<h3m::RewardType::Creatures>>::operator()(
     FieldsWriter& out, const h3m::RewardDetails<h3m::RewardType::Creatures>& details) const
   {
-    JsonObjectWriter<h3m::CreatureStack>{}(out, details);
+    using Fields = h3json::FieldNames<h3m::RewardDetails<h3m::RewardType::Creatures>>;
+    out.writeField(Fields::kCreatures, details.creatures);
   }
 
   template<>

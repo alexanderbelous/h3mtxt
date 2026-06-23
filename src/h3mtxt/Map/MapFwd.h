@@ -192,9 +192,9 @@ namespace h3m
   // Structures used in the H3M file format.
   // --------------------------------------------------------------------------
 
-  struct Coordinates;
+  struct Army;
 
-  struct CreatureStack;
+  struct Coordinates;
 
   struct CustomHero;
 

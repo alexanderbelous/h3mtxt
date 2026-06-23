@@ -62,9 +62,10 @@ namespace h3json
   RewardDetails<RewardType::Resource>
   JsonReader<RewardDetails<RewardType::Resource>>::operator()(const Json::Value& value) const
   {
-    return RewardDetails<RewardType::Resource> {
-      fromJson<h3m::TypedQuantity<h3m::ResourceType, std::int32_t>>(value)
-    };
+    using Fields = FieldNames<RewardDetails<RewardType::Resource>>;
+    RewardDetails<RewardType::Resource> details;
+    readField(details.resource, value, Fields::kResource);
+    return details;
   }
 
   template<>
@@ -109,7 +110,10 @@ namespace h3json
   RewardDetails<RewardType::Creatures>
   JsonReader<RewardDetails<RewardType::Creatures>>::operator()(const Json::Value& value) const
   {
-    return RewardDetails<RewardType::Creatures> { fromJson<h3m::CreatureStack>(value) };
+    using Fields = FieldNames<RewardDetails<RewardType::Creatures>>;
+    RewardDetails<RewardType::Creatures> details;
+    readField(details.creatures, value, Fields::kCreatures);
+    return details;
   }
 
   template<>

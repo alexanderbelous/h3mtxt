@@ -60,7 +60,9 @@ namespace h3m
   template<>
   RewardDetails<RewardType::Resource> H3MReader::readRewardDetails<RewardType::Resource>() const
   {
-    return RewardDetails<RewardType::Resource>{ readTypedQuantity<ResourceType, std::int32_t>() };
+    return RewardDetails<RewardType::Resource>{
+      .resource = readTypedQuantity<ResourceType, std::int32_t>()
+    };
   }
 
   template<>
@@ -97,7 +99,9 @@ namespace h3m
   template<>
   RewardDetails<RewardType::Creatures> H3MReader::readRewardDetails<RewardType::Creatures>() const
   {
-    return RewardDetails<RewardType::Creatures> { readCreatureStack() };
+    return RewardDetails<RewardType::Creatures> {
+      .creatures = readTypedQuantity<CreatureType, std::int16_t>()
+    };
   }
 
   Reward H3MReader::readReward() const

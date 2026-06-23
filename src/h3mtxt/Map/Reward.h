@@ -2,12 +2,12 @@
 
 #include <h3mtxt/Map/MapFwd.h>
 #include <h3mtxt/Map/Constants/ArtifactType.h>
+#include <h3mtxt/Map/Constants/CreatureType.h>
 #include <h3mtxt/Map/Constants/SpellType.h>
 #include <h3mtxt/Map/Constants/PrimarySkillType.h>
 #include <h3mtxt/Map/Constants/ResourceType.h>
 #include <h3mtxt/Map/Constants/RewardType.h>
 #include <h3mtxt/Map/Utils/TypedQuantity.h>
-#include <h3mtxt/Map/CreatureStack.h>
 #include <h3mtxt/Map/SecondarySkill.h>
 
 #include <variant>
@@ -75,7 +75,7 @@ namespace h3m
   };
 
   template<>
-  struct RewardDetails<RewardType::Resource> : TypedQuantity<ResourceType, std::int32_t>
+  struct RewardDetails<RewardType::Resource>
   {
     constexpr bool operator==(const RewardDetails&) const noexcept = default;
 
@@ -83,6 +83,7 @@ namespace h3m
     // However, the behavior is fine for all int32_t values:
     // * 0 has no effect (no resources given).
     // * Negative values reduce your current amount of this resource, but it won't go below 0.
+    TypedQuantity<ResourceType, std::int32_t> resource;
   };
 
   template<>
@@ -127,11 +128,13 @@ namespace h3m
   };
 
   template<>
-  struct RewardDetails<RewardType::Creatures> : CreatureStack
+  struct RewardDetails<RewardType::Creatures>
   {
     constexpr bool operator==(const RewardDetails&) const noexcept = default;
 
-    // FYI: CreatureStack::quantity can be negative, in which case the number of creatures in your stack will decrease.
+    // CreatureType::None causes the game to crash.
+    // Quantity can be negative, in which case the number of creatures in your stack will decrease.
+    TypedQuantity<CreatureType, std::int16_t> creatures;
   };
 
   struct Reward
