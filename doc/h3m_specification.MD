@@ -517,8 +517,8 @@ An H3M file is a single structure which we will naturally call [`Map`](#Map).
 | ?has_spells           | `Bool`      | 1             | Indicates whether the spells are customized for this hero. Only present in **The Shadow of Death** maps |
 | ?spells               | `uint8[9]`  | 9             | Bitmask; 1 bit per [`SpellType`](../src/h3mtxt/Map/Constants/SpellType.h), indicating whether the hero knows that spell. Only present if `has_spells` is present and is nonzero |
 | ?spell                | `uint8`     | 1             | Enum [`SpellType`](../src/h3mtxt/Map/Constants/SpellType.h). Only present in **Armageddon's Blade** maps |
-| has_primary_skills    | `Bool`      | 1             | Indicates whether the primary skills are customized for this hero                  |
-| ?primary_skills       | `int8[4]`   | 4             | The value of each primary skill in order of [`PrimarySkillType`](../src/h3mtxt/Map/Constants/PrimarySkillType.h). Only present if `has_primary_skills` is nonzero |
+| ?has_primary_skills   | `Bool`      | 1             | Indicates whether the primary skills are customized for this hero. Only present in **The Shadow of Death** maps |
+| ?primary_skills       | `int8[4]`   | 4             | The value of each primary skill in order of [`PrimarySkillType`](../src/h3mtxt/Map/Constants/PrimarySkillType.h). Only present if `has_primary_skills` is present and is nonzero |
 | reserved              | `uint8[16]` | 1             | Not used; set to 0s by default by the Map Editor                                   |
 
 
@@ -772,7 +772,7 @@ An H3M file is a single structure which we will naturally call [`Map`](#Map).
 | may_not_have_spell | `uint8[9]` | 9             | Bitmask; 1 bit per [`SpellType`](../src/h3mtxt/Map/Constants/SpellType.h), indicating whether this spell may not appear in the Mage Guild |
 | num_events         | `uint32`   | 4             | The number of Timed Events for this town                                        |
 | events             | [`TownEvent[num_events]`](#TownEvent) | varies | Timed Events for this town |
-| alignment          | `uint8`    | 1             | For a non-random town: should be `0xFF`. For a Random Town: should be interpreted as [`PlayerColor`](../src/h3mtxt/Map/Constants/PlayerColor.h) ("Same as Player N"); `0xFF` means "Same as Owner or Random" |
+| ?alignment         | `uint8`    | 1             | For a non-random town: should be `0xFF`. For a Random Town: should be interpreted as [`PlayerColor`](../src/h3mtxt/Map/Constants/PlayerColor.h) ("Same as Player N"); `0xFF` means "Same as Owner or Random". Only present in **The Shadow of Death** maps |
 | reserved           | `uint8[3]` | 3             | Not used; set to 0s by default by the Map Editor                                |
 
 
