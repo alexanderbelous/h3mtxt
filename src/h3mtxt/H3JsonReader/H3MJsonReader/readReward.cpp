@@ -83,7 +83,10 @@ namespace h3json
   RewardDetails<RewardType::SecondarySkill>
   JsonReader<RewardDetails<RewardType::SecondarySkill>>::operator()(const Json::Value& value) const
   {
-    return RewardDetails<RewardType::SecondarySkill> { fromJson<h3m::SecondarySkill>(value) };
+    using Fields = FieldNames<RewardDetails<RewardType::SecondarySkill>>;
+    RewardDetails<RewardType::SecondarySkill> details;
+    readField(details.secondary_skill, value, Fields::kSecondarySkill);
+    return details;
   }
 
   template<>

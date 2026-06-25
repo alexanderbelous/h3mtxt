@@ -77,7 +77,9 @@ namespace h3m
   template<>
   RewardDetails<RewardType::SecondarySkill> H3MReader::readRewardDetails<RewardType::SecondarySkill>() const
   {
-    return RewardDetails<RewardType::SecondarySkill> { readSecondarySkill() };
+    return RewardDetails<RewardType::SecondarySkill> {
+      .secondary_skill = readSecondarySkill()
+    };
   }
 
   template<>

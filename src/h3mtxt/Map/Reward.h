@@ -105,9 +105,11 @@ namespace h3m
   };
 
   template<>
-  struct RewardDetails<RewardType::SecondarySkill> : SecondarySkill
+  struct RewardDetails<RewardType::SecondarySkill>
   {
     constexpr bool operator==(const RewardDetails&) const noexcept = default;
+
+    SecondarySkill secondary_skill;
   };
 
   template<>

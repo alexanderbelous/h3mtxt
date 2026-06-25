@@ -1066,6 +1066,12 @@ namespace h3json
   };
 
   template<>
+  struct FieldNames<h3m::RewardDetails<h3m::RewardType::SecondarySkill>>
+  {
+    static constexpr std::string_view kSecondarySkill = "secondary_skill";
+  };
+
+  template<>
   struct FieldNames<h3m::RewardDetails<h3m::RewardType::Artifact>>
   {
     static constexpr std::string_view kArtifact = "artifact";

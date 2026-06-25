@@ -66,7 +66,8 @@ namespace Medea_NS
   void JsonObjectWriter<h3m::RewardDetails<h3m::RewardType::SecondarySkill>>::operator()(
     FieldsWriter& out, const h3m::RewardDetails<h3m::RewardType::SecondarySkill>& details) const
   {
-    JsonObjectWriter<h3m::SecondarySkill>{}(out, details);
+    using Fields = h3json::FieldNames<h3m::RewardDetails<h3m::RewardType::SecondarySkill>>;
+    out.writeField(Fields::kSecondarySkill, details.secondary_skill);
   }
 
   template<>

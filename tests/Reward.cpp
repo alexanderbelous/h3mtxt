@@ -123,7 +123,7 @@ namespace h3m
   {
     constexpr Reward kReward = {
       .details = RewardDetails<RewardType::Resource>{
-        TypedQuantity<ResourceType, std::int32_t>{
+        .resource = {
           .type = ResourceType::Gold,
           .quantity = 10000
         }
@@ -159,7 +159,7 @@ namespace h3m
   {
     constexpr Reward kReward = {
       .details = RewardDetails<RewardType::SecondarySkill>{
-        SecondarySkill{
+        .secondary_skill = {
           .type = SecondarySkillType::EarthMagic,
           .level = 3
         }

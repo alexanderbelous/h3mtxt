@@ -48,7 +48,7 @@ namespace h3m
   template<>
   void H3MWriter::writeData(const RewardDetails<RewardType::SecondarySkill>& data) const
   {
-    writeData(static_cast<const SecondarySkill&>(data));
+    writeData(data.secondary_skill);
   }
 
   template<>
