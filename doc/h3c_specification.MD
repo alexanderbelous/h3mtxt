@@ -247,6 +247,4 @@ See [`CampaignHeader`](#CampaignHeader) for more information about `NUM_REGIONS`
 
 ### `Map`
 
-Contents of an H3M file. This document does not cover the H3M file format.
-* [HeroWO](https://github.com/HeroWO-js/h3m2json/blob/master/h3m-The-Corpus.txt) has a good description of the file format, although it has a few bugs.
-* [H3MReader](../src/h3mtxt/H3Reader/H3MReader) from this repository is a C++ library for parsing H3M files.
+Contents of an H3M file. See [h3m_specification.MD](h3m_specification.MD) for the specification of the H3M file format.
