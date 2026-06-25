@@ -812,4 +812,4 @@ An H3M file is a single structure which we will naturally call [`Map`](#Map).
 | reserved               | `uint8[16]` | 16            | Not used; set to 0s by default by the Map Editor                                         |
 
 
-[^1] Strictly speaking, *all* events are recurring: even if `repeat_after_days` is set to 0, the event will trigger again after 65536 months because time is a flat circle.
+[^1]: Strictly speaking, *all* events are recurring: even if `repeat_after_days` is set to 0, the event will trigger again after 65536 months because time is a flat circle.
