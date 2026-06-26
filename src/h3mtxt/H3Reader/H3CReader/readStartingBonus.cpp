@@ -72,7 +72,7 @@ namespace h3m
   StartingBonusDetails<StartingBonusType::Resource> H3CReader::readStartingBonusDetails() const
   {
     return StartingBonusDetails<StartingBonusType::Resource>{
-      .resource = readTypedQuantity<StartingBonusResourceType, std::int32_t>()
+      .resource = readTypedQuantity<ResourceType, std::int32_t>()
     };
   }
 

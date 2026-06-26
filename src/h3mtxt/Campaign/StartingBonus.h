@@ -2,10 +2,10 @@
 
 #include <h3mtxt/Campaign/CampaignFwd.h>
 #include <h3mtxt/Campaign/Constants/StartingBonusType.h>
-#include <h3mtxt/Campaign/Constants/StartingBonusResourceType.h>
 #include <h3mtxt/Map/Constants/ArtifactType.h>
 #include <h3mtxt/Map/Constants/CreatureType.h>
 #include <h3mtxt/Map/Constants/PrimarySkillType.h>
+#include <h3mtxt/Map/Constants/ResourceType.h>
 #include <h3mtxt/Map/Constants/SpellType.h>
 #include <h3mtxt/Map/Constants/TownBuildingType.h>
 #include <h3mtxt/Map/Utils/EnumIndexedArray.h>
@@ -105,7 +105,7 @@ namespace h3m
 
     // The Campaign Editor only allows setting a quantity from [1; 32767],
     // but any signed 32-bit value can be used here.
-    TypedQuantity<StartingBonusResourceType, std::int32_t> resource;
+    TypedQuantity<ResourceType, std::int32_t> resource;
   };
 
   struct StartingBonus

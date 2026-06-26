@@ -1,7 +1,6 @@
 #include <h3mtxt/H3JsonWriter/H3CJsonWriter/H3CJsonWriter.h>
 
 #include <h3mtxt/Campaign/Constants/CampaignFormat.h>
-#include <h3mtxt/Campaign/Constants/StartingBonusResourceType.h>
 #include <h3mtxt/H3JsonWriter/H3MJsonWriter/H3MJsonWriter.h>
 #include <h3mtxt/Map/Constants/MapFormat.h>
 
@@ -222,22 +221,6 @@ namespace Medea_NS
     };
     const std::size_t idx = static_cast<std::size_t>(value);
     return (idx < std::size(kNames)) ? kNames[idx] : std::string_view{};
-  }
-
-  template<>
-  std::string_view EnumCommentGetter::operator()(h3m::StartingBonusResourceType value) const
-  {
-    switch (value)
-    {
-    case h3m::StartingBonusResourceType::WoodOre:
-      return "Wood and Ore";
-    case h3m::StartingBonusResourceType::MercurySulfurCrystalGems:
-      return "Mercury, Sulfur, Crystal and Gems"; // Parsley, Sage, Rosemary and Thyme
-    default:
-      // StartingBonusResourceType is a superset of ResourceType,
-      // so we can fall back to EnumCommentGetter::operator()(ResourceType).
-      return EnumCommentGetter::operator()(static_cast<h3m::ResourceType>(value));
-    }
   }
 
   template<>

@@ -213,7 +213,7 @@ See [`CampaignHeader`](#CampaignHeader) for more information about `NUM_REGIONS`
 ### `StartingBonusResource`
 | Field name | Type    | Size in bytes | Description                      |
 | ---------- | ------- | ------------- | -------------------------------- |
-| type       | `uint8` | 1             | Enum `StartingBonusResourceType` |
+| type       | `uint8` | 1             | Enum `ResourceType` |
 | quantity   | `int32` | 4             |                                  |
 
 
