@@ -1,5 +1,6 @@
 #include <h3mtxt/H3JsonWriter/H3MJsonWriter/H3MJsonWriter.h>
 
+#include <h3mtxt/H3JsonWriter/H3MJsonWriter/DateUtils.h>
 #include <h3mtxt/H3JsonWriter/H3MJsonWriter/Utils.h>
 #include <h3mtxt/JsonCommon/FieldNamesH3M.h>
 #include <h3mtxt/Map/TimedEvent.h>
@@ -18,6 +19,7 @@ namespace Medea_NS
     out.writeField(Fields::kAppliesToHuman, event.applies_to_human);
     out.writeField(Fields::kAppliesToComputer, event.applies_to_computer);
     out.writeField(Fields::kDayOfFirstOccurence, event.day_of_first_occurence);
+    out.writeComment(h3json::Detail_NS::makeDateComment(event.day_of_first_occurence), false);
     out.writeField(Fields::kRepeatAfterDays, event.repeat_after_days);
     out.writeField(Fields::kUnknown, event.unknown);
   }

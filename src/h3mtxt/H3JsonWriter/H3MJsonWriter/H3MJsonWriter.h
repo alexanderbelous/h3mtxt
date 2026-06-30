@@ -142,6 +142,14 @@ namespace Medea_NS
   template<std::size_t NumBytes>
   inline constexpr bool kIsSingleLineByDefault<h3m::ReservedData<NumBytes>> = true;
 
+  // Default implementation for h3m::TypedQuantity: serializes the value as a JSON object.
+  template<class Enum, class Quantity>
+  struct JsonObjectWriter<h3m::TypedQuantity<Enum, Quantity>>
+  {
+    // Defined in Utils.h.
+    void operator()(FieldsWriter& out, const h3m::TypedQuantity<Enum, Quantity>& value) const;
+  };
+
   template<>
   void JsonObjectWriter<h3m::Coordinates>::operator()(FieldsWriter& out, const h3m::Coordinates& coordinates) const;
 
@@ -149,8 +157,9 @@ namespace Medea_NS
   template<>
   inline constexpr bool kIsSingleLineByDefault<h3m::Coordinates> = true;
 
+  // Serializes h3m::Army as a JSON array.
   template<>
-  void JsonObjectWriter<h3m::CreatureStack>::operator()(FieldsWriter& out, const h3m::CreatureStack& creature_stack) const;
+  void JsonArrayWriter<h3m::Army>::operator()(const ArrayElementsWriter& elements_writer, const h3m::Army& army) const;
 
   template<>
   void JsonObjectWriter<h3m::CustomHero>::operator()(FieldsWriter& out, const h3m::CustomHero& value) const;
@@ -411,8 +420,8 @@ namespace Medea_NS
     FieldsWriter& out, const h3m::RewardDetails<h3m::RewardType::Spell>& details) const;
 
   template<>
-  void JsonObjectWriter<h3m::RewardDetails<h3m::RewardType::Creature>>::operator()(
-    FieldsWriter& out, const h3m::RewardDetails<h3m::RewardType::Creature>& details) const;
+  void JsonObjectWriter<h3m::RewardDetails<h3m::RewardType::Creatures>>::operator()(
+    FieldsWriter& out, const h3m::RewardDetails<h3m::RewardType::Creatures>& details) const;
 
   template<>
   void JsonObjectWriter<h3m::Rumor>::operator()(FieldsWriter& out, const h3m::Rumor& value) const;

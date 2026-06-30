@@ -50,8 +50,7 @@ namespace Medea_NS
     FieldsWriter& out, const h3m::RewardDetails<h3m::RewardType::Resource>& details) const
   {
     using Fields = h3json::FieldNames<h3m::RewardDetails<h3m::RewardType::Resource>>;
-    out.writeField(Fields::kType, details.type);
-    out.writeField(Fields::kAmount, details.amount);
+    out.writeField(Fields::kResource, details.resource);
   }
 
   template<>
@@ -67,7 +66,8 @@ namespace Medea_NS
   void JsonObjectWriter<h3m::RewardDetails<h3m::RewardType::SecondarySkill>>::operator()(
     FieldsWriter& out, const h3m::RewardDetails<h3m::RewardType::SecondarySkill>& details) const
   {
-    JsonObjectWriter<h3m::SecondarySkill>{}(out, details);
+    using Fields = h3json::FieldNames<h3m::RewardDetails<h3m::RewardType::SecondarySkill>>;
+    out.writeField(Fields::kSecondarySkill, details.secondary_skill);
   }
 
   template<>
@@ -87,10 +87,11 @@ namespace Medea_NS
   }
 
   template<>
-  void JsonObjectWriter<h3m::RewardDetails<h3m::RewardType::Creature>>::operator()(
-    FieldsWriter& out, const h3m::RewardDetails<h3m::RewardType::Creature>& details) const
+  void JsonObjectWriter<h3m::RewardDetails<h3m::RewardType::Creatures>>::operator()(
+    FieldsWriter& out, const h3m::RewardDetails<h3m::RewardType::Creatures>& details) const
   {
-    JsonObjectWriter<h3m::CreatureStack>{}(out, details);
+    using Fields = h3json::FieldNames<h3m::RewardDetails<h3m::RewardType::Creatures>>;
+    out.writeField(Fields::kCreatures, details.creatures);
   }
 
   template<>

@@ -35,11 +35,11 @@ namespace h3m
     // \return MapFormat that was passed to the constructor.
     constexpr MapFormat format() const noexcept;
 
+    Army readArmy() const;
+
     Coordinates readCoordinates() const;
 
     CustomHero readCustomHero() const;
-
-    CreatureStack readCreatureStack() const;
 
     EventBase readEventBase() const;
 
@@ -252,7 +252,7 @@ namespace h3m
 
   template<> RewardDetails<RewardType::Spell> H3MReader::readRewardDetails() const;
 
-  template<> RewardDetails<RewardType::Creature> H3MReader::readRewardDetails() const;
+  template<> RewardDetails<RewardType::Creatures> H3MReader::readRewardDetails() const;
 
   template<>
   VictoryConditionDetails<VictoryConditionType::AcquireArtifact> H3MReader::readVictoryConditionDetails() const;

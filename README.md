@@ -5,7 +5,7 @@ Command-line utility for converting .h3m/.h3c files (maps and campaigns for Hero
 
 This tool is primarily intended for HoMM3 mapmakers who want to add [undocumented features](#undocumented-features) to their maps.
 
-HoMM3 maps are written as (possibly gzip-encoded) binary data. Normally, they are edited via the official Map Editor (or the unofficial Unleashed Editor). However, both programs have limitations: for example, they don't allow selecting a specific terrain sprite for a tile. A possible workaround is to manually edit the binary data in a hex editor, but this is error-prone and can be time-consuming.
+HoMM3 maps are written as binary data (see [File formats](#file-formats)). Normally, they are edited via the official Map Editor (or the unofficial Unleashed Editor). However, both programs have limitations: for example, they don't allow selecting a specific terrain sprite for a tile. A possible workaround is to manually edit the binary data in a hex editor, but this is error-prone and can be time-consuming.
 
 *h3mtxt* offers an alternative solution: instead of modifying a .h3m file directly, you can first convert it to a human-readable format (JSON), edit it, and then convert it back to .h3m.
 
@@ -31,6 +31,10 @@ h3mtxt my_campaign.h3c.json my_campaign_new.h3c
 The filename extensions are not important - the program will detect the file type by inspecting the data.
 
 See the [tutorial](doc/tutorial) for more details.
+
+# File formats
+* [Specification of the H3M file format](doc/h3m_specification.MD)
+* [Specification of the H3C file format](doc/h3c_specification.MD)
 
 # Undocumented features
 

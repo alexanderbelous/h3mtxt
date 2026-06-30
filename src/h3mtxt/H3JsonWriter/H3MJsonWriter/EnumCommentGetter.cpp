@@ -1028,16 +1028,35 @@ namespace Medea_NS
   std::string_view EnumCommentGetter::operator()(h3m::ResourceType value) const
   {
     static constexpr std::string_view kNames[] = {
-      "Wood",
-      "Mercury",
-      "Ore",
-      "Sulfur",
-      "Crystal",
-      "Gems",
-      "Gold",
+      "Wood and Ore",                      // -3
+      "Mercury, Sulfur, Crystal and Gems", // -2; Parsley, Sage, Rosemary and Thyme
+      std::string_view{},                  // -1; None, but cannot be reliably used anywhere
+      "Wood",                              //  0
+      "Mercury",                           //  1
+      "Ore",                               //  2
+      "Sulfur",                            //  3
+      "Crystal",                           //  4
+      "Gems",                              //  5
+      "Gold",                              //  6
     };
-    const std::size_t idx = static_cast<std::size_t>(value);
-    return (idx < std::size(kNames)) ? kNames[idx] : std::string_view{};
+    using Index = std::underlying_type_t<h3m::ResourceType>;
+    constexpr std::size_t kNumNegativeValues = 3;
+    constexpr Index kIndexFirst = -static_cast<Index>(kNumNegativeValues);
+    constexpr Index kIndexLast = static_cast<Index>(std::size(kNames) - kNumNegativeValues);
+    constexpr const std::string_view* kNamesRootedAtZero = kNames + kNumNegativeValues;
+
+    // Sanity checks.
+    static_assert(std::is_signed_v<Index>, "The underlying type of h3m::ResourceType must be signed.");
+    static_assert(kNamesRootedAtZero[-3] == "Wood and Ore");
+    static_assert(kNamesRootedAtZero[0] == "Wood");
+    static_assert(kNamesRootedAtZero[6] == "Gold");
+
+    const Index index = static_cast<Index>(value);
+    if (kIndexFirst <= index && index < kIndexLast)
+    {
+      return kNamesRootedAtZero[index];
+    }
+    return std::string_view{};
   }
 
   template<>
@@ -1054,7 +1073,7 @@ namespace Medea_NS
       "Secondary skill",
       "Artifact",
       "Spell",
-      "Creature"
+      "Creatures"
     };
     const std::size_t idx = static_cast<std::size_t>(value);
     return (idx < std::size(kNames)) ? kNames[idx] : std::string_view{};

@@ -185,7 +185,7 @@ See [`CampaignHeader`](#CampaignHeader) for more information about `NUM_REGIONS`
 | ------------- | -------- | ------------- | --------------------------------------------------------------------------------------- |
 | hero          | `uint16` | 2             | Enum `HeroType`, or 0xFFFD for the Most Powerful Hero, or 0xFFFE for the Generated Hero |
 | creature_type | `uint16` | 2             | Enum `CreatureType`                                                                     |
-| count         | `int16`  | 2             | The number of creatures                                                                 |
+| quantity      | `int16`  | 2             | The number of creatures                                                                 |
 
 
 ### `StartingBonusArtifact`
@@ -213,8 +213,8 @@ See [`CampaignHeader`](#CampaignHeader) for more information about `NUM_REGIONS`
 ### `StartingBonusResource`
 | Field name | Type    | Size in bytes | Description                      |
 | ---------- | ------- | ------------- | -------------------------------- |
-| type       | `uint8` | 1             | Enum `StartingBonusResourceType` |
-| amount     | `int32` | 4             |                                  |
+| type       | `uint8` | 1             | Enum `ResourceType` |
+| quantity   | `int32` | 4             |                                  |
 
 
 ### `HeroCrossoverOptions`
@@ -247,6 +247,4 @@ See [`CampaignHeader`](#CampaignHeader) for more information about `NUM_REGIONS`
 
 ### `Map`
 
-Contents of an H3M file. This document does not cover the H3M file format.
-* [HeroWO](https://github.com/HeroWO-js/h3m2json/blob/master/h3m-The-Corpus.txt) has a good description of the file format, although it has a few bugs.
-* [H3MReader](../src/h3mtxt/H3Reader/H3MReader) from this repository is a C++ library for parsing H3M files.
+Contents of an H3M file. See [h3m_specification.MD](h3m_specification.MD) for the specification of the H3M file format.

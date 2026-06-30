@@ -37,7 +37,7 @@ namespace h3m
     constexpr bool operator==(const Rumor&) const noexcept = default;
 
     std::string name;
-    std::string description;
+    std::string text;
   };
 
   // Stores settings for all heroes.

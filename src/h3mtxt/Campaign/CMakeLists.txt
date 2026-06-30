@@ -6,7 +6,6 @@ set(SOURCE_LIST
     "Constants/CampaignVideo.h"
     "Constants/CrossoverFeature.h"
     "Constants/RegionColor.h"
-    "Constants/StartingBonusResourceType.h"
     "Constants/StartingBonusType.h"
     "Constants/StartingOptionsType.h"
     "Campaign.h"

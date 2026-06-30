@@ -1,7 +1,7 @@
 #include <h3mtxt/H3Writer/H3MWriter/H3MWriter.h>
 
+#include <h3mtxt/Map/Army.h>
 #include <h3mtxt/Map/Coordinates.h>
-#include <h3mtxt/Map/CreatureStack.h>
 #include <h3mtxt/Map/HeroArtifacts.h>
 #include <h3mtxt/Map/SecondarySkill.h>
 
@@ -25,17 +25,16 @@ namespace h3m
     writeString32(value);
   }
 
+  void H3MWriter::writeData(const Army& value) const
+  {
+    writeData(value.slots);
+  }
+
   void H3MWriter::writeData(const Coordinates& value) const
   {
     writeData(value.x);
     writeData(value.y);
     writeData(value.z);
-  }
-
-  void H3MWriter::writeData(const CreatureStack& value) const
-  {
-    writeData(value.type);
-    writeData(value.count);
   }
 
   void H3MWriter::writeData(const HeroArtifacts& value) const

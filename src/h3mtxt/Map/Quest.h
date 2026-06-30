@@ -9,6 +9,7 @@
 #include <h3mtxt/Map/Constants/QuestType.h>
 #include <h3mtxt/Map/Constants/ResourceType.h>
 #include <h3mtxt/Map/Utils/EnumIndexedArray.h>
+#include <h3mtxt/Map/Utils/TypedQuantity.h>
 
 #include <cstdint>
 #include <string>
@@ -60,7 +61,7 @@ namespace h3m
   {
     constexpr bool operator==(const QuestDetails&) const noexcept = default;
 
-    std::uint32_t absod_id{};
+    std::uint32_t absod_id {};
   };
 
   template<>
@@ -79,20 +80,13 @@ namespace h3m
   {
     constexpr bool operator==(const QuestDetails&) const noexcept = default;
 
-    // Not using CreatureStack here, because CreatureStack::count is a signed 16-bit integer,
-    // but counts in quests are interpreted as unisnged 16-bit integers.
-    struct Creature
-    {
-      constexpr bool operator==(const Creature&) const noexcept = default;
-
-      // Note that special CreatureType constants with negative values (e.g., CreatureType::None,
-      // CreatureType::Creature1, ..., CreatureType::Creature7U) cannot be used here:
-      // they will cause the game to crash.
-      CreatureType type {};
-      // The Map Editor only allows values from [1; 9999] for the number of creatures, but any
-      // unsigned 16-bit integer can be used here.
-      std::uint16_t count {};
-    };
+    // Special CreatureType constants with negative values (e.g., CreatureType::None,
+    // CreatureType::Creature1, ..., CreatureType::Creature7U) cannot be used here:
+    // they will cause the game to crash.
+    //
+    // The Map Editor only allows setting a quantity from [1; 9999], but any unsigned 16-bit integer
+    // can be used here. Note that unlike h3m::Army, quantities are unsigned here.
+    using Creature = TypedQuantity<CreatureType, std::uint16_t>;
 
     // The Editor doesn't allow an empty array here. If you set it manually:
     // * The Editor will freeze when you try to view the properties of this Quest Guard / Seer's Hut.
@@ -173,6 +167,8 @@ namespace h3m
     //
     // The Map Editor only allows setting values from [0; 2771] (i.e. not greater than Month: 99; Week: 4; Day: 7)
     // or 0xFFFFFFFF (no deadline), but any unsigned 32-bit integer can be used here.
+    // * Due to the cyclical nature of time in HoMM3, deadlines greater than "Month: 65535, Week: 4, Day: 7"
+    //   (i.e. deadline > 1834979) are equivalent to no deadline.
     // * FYI: SoD_SP plugin (as of 1.19.4.2) incorrectly interprets this as a signed integer, displaying
     //   "Time has run out." for quests with deadline >= 2147483648 (Month: 76695845; Week: 3; Day: 3).
     std::uint32_t deadline = 0xFFFFFFFF;

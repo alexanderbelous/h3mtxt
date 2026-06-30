@@ -24,8 +24,6 @@ namespace h3svg
 
     Coordinates readCoordinates() const;
 
-    CreatureStack readCreatureStack() const;
-
     CrossoverInfo readCrossoverInfo() const;
 
     CustomHero readCustomHero() const;
@@ -187,7 +185,7 @@ namespace h3svg
 
   template<> RewardDetails<RewardType::Spell> H3SVGReader::readRewardDetails() const;
 
-  template<> RewardDetails<RewardType::Creature> H3SVGReader::readRewardDetails() const;
+  template<> RewardDetails<RewardType::Creatures> H3SVGReader::readRewardDetails() const;
 
   template<>
   VictoryConditionDetails<VictoryConditionType::AcquireArtifact> H3SVGReader::readVictoryConditionDetails() const;

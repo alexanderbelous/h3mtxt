@@ -4,6 +4,7 @@
 #include <h3mtxt/Map/Utils/BitSet.h>
 #include <h3mtxt/Map/Utils/EnumBitmask.h>
 #include <h3mtxt/Map/Utils/ReservedData.h>
+#include <h3mtxt/Map/Utils/TypedQuantity.h>
 
 #include <array>
 #include <cstddef>
@@ -76,6 +77,10 @@ namespace h3m
     // where the i-th bit is the encoded boolean value for the enum value static_cast<T>(i).
     template<class Enum, std::size_t NumBytes>
     EnumBitmask<Enum, NumBytes> readEnumBitmask() const;
+
+    // Reads a TypedQuantity from the stream.
+    template<class Enum, class Quantity>
+    TypedQuantity<Enum, Quantity> readTypedQuantity() const;
 
   private:
     // Type of the integer returned by readUintImpl().
@@ -169,5 +174,14 @@ namespace h3m
   EnumBitmask<Enum, NumBytes> H3ReaderBase::readEnumBitmask() const
   {
     return EnumBitmask<Enum, NumBytes>{readBitSet<NumBytes>()};
+  }
+
+  template<class Enum, class Quantity>
+  TypedQuantity<Enum, Quantity> H3ReaderBase::readTypedQuantity() const
+  {
+    TypedQuantity<Enum, Quantity> result;
+    result.type = readEnum<Enum>();
+    result.quantity = readInt<Quantity>();
+    return result;
   }
 }

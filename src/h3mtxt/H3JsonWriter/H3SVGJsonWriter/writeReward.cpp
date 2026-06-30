@@ -45,8 +45,7 @@ namespace Medea_NS
   void JsonObjectWriter<h3svg::RewardDetails<h3svg::RewardType::Resource>>::operator()(
     FieldsWriter& out, const h3svg::RewardDetails<h3svg::RewardType::Resource>& details) const
   {
-    out.writeField("type", details.type);
-    out.writeField("amount", details.amount);
+    out.writeField("resource", details.resource);
   }
 
   void JsonObjectWriter<h3svg::RewardDetails<h3svg::RewardType::PrimarySkill>>::operator()(
@@ -77,11 +76,10 @@ namespace Medea_NS
     out.writeField("reserved", details.reserved);
   }
 
-  void JsonObjectWriter<h3svg::RewardDetails<h3svg::RewardType::Creature>>::operator()(
-    FieldsWriter& out, const h3svg::RewardDetails<h3svg::RewardType::Creature>& details) const
+  void JsonObjectWriter<h3svg::RewardDetails<h3svg::RewardType::Creatures>>::operator()(
+    FieldsWriter& out, const h3svg::RewardDetails<h3svg::RewardType::Creatures>& details) const
   {
-    out.writeField("type", details.type);
-    out.writeField("count", details.count);
+    out.writeField("creatures", details.creatures);
   }
 
   void JsonObjectWriter<h3svg::Reward>::operator()(FieldsWriter& out, const h3svg::Reward& reward) const

@@ -43,11 +43,7 @@ namespace h3m
   void H3MWriter::writeData(const QuestDetails<QuestType::Creatures>& data) const
   {
     writeData(safeCastVectorSize<std::uint8_t>(data.creatures.size()));
-    for (const QuestDetails<QuestType::Creatures>::Creature& creature : data.creatures)
-    {
-      writeData(creature.type);
-      writeData(creature.count);
-    }
+    writeSpan(std::span{ data.creatures });
   }
 
   template<>

@@ -63,7 +63,7 @@ namespace h3svg
     event.creatures.reserve(num_creatures);
     for (std::uint8_t i = 0; i < num_creatures; ++i)
     {
-      event.creatures.push_back(readCreatureStack());
+      event.creatures.push_back(readTypedQuantity<CreatureType, std::int16_t>());
     }
     return event;
   }

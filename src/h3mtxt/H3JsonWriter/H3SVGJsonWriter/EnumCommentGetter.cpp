@@ -85,19 +85,9 @@ namespace Medea_NS
   template<>
   std::string_view EnumCommentGetter::operator()(h3svg::ArtifactType32 value) const
   {
-    // TODO: replace the underlying type of h3m::ArtifactType with std::int16_t.
-    // The issue is basically this:
-    //   static_cast<ArtifactType>(std::int32_t(65535)) == static_cast<ArtifactType>(std::int32_t(-1))
-    // In reality, ArtifactType::None is encoded as 0xFFFFFFFF when using a 32-bit integer, not as
-    // 0x0000FFFF.
-    static_assert(std::is_same_v<std::underlying_type_t<h3svg::ArtifactType>, std::uint16_t>,
-                  "This function assumes that h3svg::ArtifactType has uint16_t as the underlying type.");
-    using UnderlyingType32 = std::underlying_type_t<h3svg::ArtifactType32>;
-    const UnderlyingType32 integer_value = static_cast<UnderlyingType32>(value);
-    if (integer_value >= std::numeric_limits<std::int16_t>::min() ||
-        integer_value <= std::numeric_limits<std::int16_t>::max())
+    if (isLosslessEnumCast<h3m::ArtifactType>(value))
     {
-      return (*this)(static_cast<h3svg::ArtifactType>(static_cast<std::int16_t>(integer_value)));
+      return (*this)(static_cast<h3svg::ArtifactType>(value));
     }
     return std::string_view{};
   }

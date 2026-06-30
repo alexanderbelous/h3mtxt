@@ -1,7 +1,7 @@
 add_library(H3MJsonReader STATIC
     "H3MJsonReader.h"
+    "readArmy.cpp"
     "readCoordinates.cpp"
-    "readCreatureStack.cpp"
     "readH3mJson.cpp"
     "readH3mJson.h"
     "readHeroArtifacts.cpp"

@@ -41,9 +41,10 @@ set(SOURCE_LIST
     "Utils/ReservedData.h"
     "Utils/SpriteTilesBitmask.h"
     "Utils/SwitchStatement.h"
+    "Utils/TypedQuantity.h"
     # etc
+    "Army.h"
     "Coordinates.h"
-    "CreatureStack.h"
     "HeroArtifacts.h"
     "HeroSettings.h"
     "LossCondition.h"

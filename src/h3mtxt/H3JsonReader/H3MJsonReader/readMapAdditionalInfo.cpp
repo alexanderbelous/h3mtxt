@@ -37,7 +37,7 @@ namespace h3json
     using Fields = FieldNames<h3m::Rumor>;
     h3m::Rumor rumor;
     readField(rumor.name, value, Fields::kName);
-    readField(rumor.description, value, Fields::kDescription);
+    readField(rumor.text, value, Fields::kText);
     return rumor;
   }
 

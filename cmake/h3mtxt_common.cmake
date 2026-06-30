@@ -10,6 +10,9 @@ endif()
 # \param target - target to modify.
 function(h3mtxt_add_common_compiler_options target)
   if(MSVC)
+    # Expand __cplusplus macro to the actual standard (by default, MSVC uses 199711L for legacy reasons).
+    target_compile_options(${target} PUBLIC "/Zc:__cplusplus")
+
     # Use Unicode Character Set.
     target_compile_definitions(${target} PRIVATE _UNICODE)
 

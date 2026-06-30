@@ -20,7 +20,7 @@ namespace h3m
 
   enum class ArtifactSlot : std::uint8_t;
 
-  enum class ArtifactType : std::uint16_t;
+  enum class ArtifactType : std::int16_t;
 
   enum class CreatureType : std::int16_t;
 
@@ -57,7 +57,7 @@ namespace h3m
 
   enum class QuestType : std::uint8_t;
 
-  enum class ResourceType : std::uint8_t;
+  enum class ResourceType : std::int8_t;
 
   enum class RewardType : std::uint8_t;
 
@@ -114,6 +114,9 @@ namespace h3m
 
   template<std::size_t NumBytes>
   class ReservedData;
+
+  template<class T, class Quantity>
+  struct TypedQuantity;
 
   // ==========================================================================
   // Aliases.
@@ -189,9 +192,9 @@ namespace h3m
   // Structures used in the H3M file format.
   // --------------------------------------------------------------------------
 
-  struct Coordinates;
+  struct Army;
 
-  struct CreatureStack;
+  struct Coordinates;
 
   struct CustomHero;
 

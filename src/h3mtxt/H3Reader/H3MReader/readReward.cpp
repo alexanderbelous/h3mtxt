@@ -60,10 +60,9 @@ namespace h3m
   template<>
   RewardDetails<RewardType::Resource> H3MReader::readRewardDetails<RewardType::Resource>() const
   {
-    RewardDetails<RewardType::Resource> details;
-    details.type = readEnum<ResourceType>();
-    details.amount = readInt<std::int32_t>();
-    return details;
+    return RewardDetails<RewardType::Resource>{
+      .resource = readTypedQuantity<ResourceType, std::int32_t>()
+    };
   }
 
   template<>
@@ -78,7 +77,9 @@ namespace h3m
   template<>
   RewardDetails<RewardType::SecondarySkill> H3MReader::readRewardDetails<RewardType::SecondarySkill>() const
   {
-    return RewardDetails<RewardType::SecondarySkill> { readSecondarySkill() };
+    return RewardDetails<RewardType::SecondarySkill> {
+      .secondary_skill = readSecondarySkill()
+    };
   }
 
   template<>
@@ -98,9 +99,11 @@ namespace h3m
   }
 
   template<>
-  RewardDetails<RewardType::Creature> H3MReader::readRewardDetails<RewardType::Creature>() const
+  RewardDetails<RewardType::Creatures> H3MReader::readRewardDetails<RewardType::Creatures>() const
   {
-    return RewardDetails<RewardType::Creature> { readCreatureStack() };
+    return RewardDetails<RewardType::Creatures> {
+      .creatures = readTypedQuantity<CreatureType, std::int16_t>()
+    };
   }
 
   Reward H3MReader::readReward() const

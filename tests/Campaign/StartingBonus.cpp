@@ -89,7 +89,7 @@ namespace h3m
       .hero = static_cast<std::uint16_t>(HeroType::Gunnar),
       .creature_stack = {
         .type = CreatureType::MinotaurKing,
-        .count = 12
+        .quantity = 12
       }
     };
 
@@ -210,8 +210,10 @@ namespace h3m
   {
     // StartingBonusDetails used in this test.
     static constexpr StartingBonusDetails<StartingBonusType::Resource> kStartingBonusDetails{
-      .type = StartingBonusResourceType::MercurySulfurCrystalGems,
-      .amount = 5
+      .resource = {
+        .type = ResourceType::MercurySulfurCrystalGems,
+        .quantity = 5
+      }
     };
 
     // The binary representation of kStartingBonusDetails.
@@ -230,8 +232,10 @@ namespace h3m
     // StartingBonus used in this test.
     static constexpr StartingBonus kStartingBonus = {
       .details = StartingBonusDetails<StartingBonusType::Resource>{
-        .type = StartingBonusResourceType::WoodOre,
-        .amount = 10
+        TypedQuantity<ResourceType, std::int32_t>{
+          .type = ResourceType::WoodOre,
+          .quantity = 10
+        }
       }
     };
 

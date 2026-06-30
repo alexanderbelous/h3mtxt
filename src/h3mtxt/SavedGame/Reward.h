@@ -1,8 +1,10 @@
 #pragma once
 
 #include <h3mtxt/SavedGame/SavedGameFwd.h>
+#include <h3mtxt/Map/Constants/CreatureType.h>
 #include <h3mtxt/Map/Constants/RewardType.h>
 #include <h3mtxt/Map/Utils/ReservedData.h>
+#include <h3mtxt/Map/Utils/TypedQuantity.h>
 
 #include <cstdint>
 #include <variant>
@@ -46,8 +48,7 @@ namespace h3svg
   template<>
   struct RewardDetails<RewardType::Resource>
   {
-    ResourceType32 type {};
-    std::int32_t amount {};
+    TypedQuantity<ResourceType32, std::int32_t> resource;
   };
 
   template<>
@@ -79,10 +80,9 @@ namespace h3svg
   };
 
   template<>
-  struct RewardDetails<RewardType::Creature>
+  struct RewardDetails<RewardType::Creatures>
   {
-    CreatureType32 type {};
-    std::int32_t count {};
+    TypedQuantity<CreatureType32, std::int32_t> creatures;
   };
 
   // The equivalent of h3m::Reward stored in H3SVG.
@@ -105,7 +105,7 @@ namespace h3svg
       RewardDetails<RewardType::SecondarySkill>,
       RewardDetails<RewardType::Artifact>,
       RewardDetails<RewardType::Spell>,
-      RewardDetails<RewardType::Creature>
+      RewardDetails<RewardType::Creatures>
     >;
 
     // \return the type of the reward.

@@ -19,7 +19,6 @@ namespace h3svg
   using ::h3m::BitSet;
   using ::h3m::Bool;
   using ::h3m::Coordinates;
-  using ::h3m::CreatureStack;
   using ::h3m::CreatureType;
   using ::h3m::CustomHero;
   using ::h3m::EnumBitmask;
@@ -57,6 +56,7 @@ namespace h3svg
   using ::h3m::TownBuildingType;
   using ::h3m::TownType;
   using ::h3m::TownsBitmask;
+  using ::h3m::TypedQuantity;
   using ::h3m::VictoryConditionType;
 
   enum class ArtifactSlotGroup : std::uint8_t;
@@ -99,7 +99,7 @@ namespace h3svg
 
   enum class PrimarySkillType32 : std::uint32_t;
 
-  enum class ResourceType32 : std::uint32_t;
+  enum class ResourceType32 : std::int32_t;
 
   enum class SecondarySkillType32 : std::uint32_t;
 

@@ -46,8 +46,7 @@ namespace h3json
       VictoryConditionDetails<VictoryConditionType::AccumulateCreatures> details {
         fromJson<h3m::SpecialVictoryConditionBase>(value)
       };
-      readField(details.creature_type, value, "creature_type");
-      readField(details.count, value, "count");
+      readField(details.creatures, value, "creatures");
       return details;
     }
   };
@@ -60,8 +59,7 @@ namespace h3json
       VictoryConditionDetails<VictoryConditionType::AccumulateResources> details {
         fromJson<h3m::SpecialVictoryConditionBase>(value)
       };
-      readField(details.resource_type, value, "resource_type");
-      readField(details.amount, value, "amount");
+      readField(details.resources, value, "resources");
       return details;
     }
   };

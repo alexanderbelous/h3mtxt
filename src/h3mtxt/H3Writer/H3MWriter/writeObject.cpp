@@ -179,7 +179,7 @@ namespace h3m
   void H3MWriter::writeData(const ObjectProperties<ObjectPropertiesType::MONSTER>& monster) const
   {
     writeData(monster.absod_id);
-    writeData(monster.count);
+    writeData(monster.quantity);
     writeData(monster.disposition);
     writeData(monster.message_and_treasure);
     writeData(monster.never_flees);

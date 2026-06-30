@@ -10,6 +10,22 @@ namespace h3m
   // stores a bit for each constant of the specified enum.
   //
   // This is just to reduce boilerplate.
+  //
+  // Note that the class treats the underlying enum values as unsigned integers even if the declaration of
+  // Enum uses a signed integer for the underlying type. This is to address the following issue:
+  //   enum class ArtifactType8 : std::int8_t
+  //   {
+  //     Spellbook                   = 0,                              // 0x00
+  //     SpellScroll                 = 1,                              // 0x01
+  //     ...
+  //     ArmageddonsBlade            = static_cast<std::int8_t>(128),  // 0x80
+  //     ...
+  //     IronfistOfTheOgre           = static_cast<std::int8_t>(143),  // 0x8F
+  //     None                        = -1                              // 0xFF
+  //   };
+  //
+  //   static_assert(static_cast<std::size_t>(ArtifactType8::ArmageddonsBlade) == 18446744073709551488;
+  //   static_assert(static_cast<std::uint8_t>(ArtifactType8::ArmageddonsBlade) = 128;
   template<class Enum, std::size_t NumBytes>
   struct EnumBitmask
   {
@@ -38,12 +54,14 @@ namespace h3m
   template<class Enum, std::size_t NumBytes>
   constexpr bool EnumBitmask<Enum, NumBytes>::operator[](Enum enum_value) const
   {
-    return bitset.at(static_cast<std::size_t>(enum_value));
+    using UnderlyingTypeUnsigned = std::make_unsigned_t<std::underlying_type_t<Enum>>;
+    return bitset.at(static_cast<UnderlyingTypeUnsigned>(enum_value));
   }
 
   template<class Enum, std::size_t NumBytes>
   constexpr void EnumBitmask<Enum, NumBytes>::set(Enum enum_value, bool value)
   {
-    bitset.set(static_cast<std::size_t>(enum_value), value);
+    using UnderlyingTypeUnsigned = std::make_unsigned_t<std::underlying_type_t<Enum>>;
+    bitset.set(static_cast<UnderlyingTypeUnsigned>(enum_value), value);
   }
 }

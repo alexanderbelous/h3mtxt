@@ -3,7 +3,6 @@
 #include <h3mtxt/H3Reader/H3MReader/H3MReader.h>
 #include <h3mtxt/Map/Utils/EnumIndexedArray.h>
 #include <h3mtxt/Map/Utils/SpriteTilesBitmask.h>
-#include <h3mtxt/Map/CreatureStack.h>
 #include <h3mtxt/Map/MapAdditionalInfo.h>
 #include <h3mtxt/Map/SecondarySkill.h>
 
@@ -14,11 +13,6 @@ namespace h3svg
   Coordinates H3SVGReader::readCoordinates() const
   {
     return h3m::H3MReader{stream_}.readCoordinates();
-  }
-
-  CreatureStack H3SVGReader::readCreatureStack() const
-  {
-    return h3m::H3MReader{stream_}.readCreatureStack();
   }
 
   CustomHero H3SVGReader::readCustomHero() const

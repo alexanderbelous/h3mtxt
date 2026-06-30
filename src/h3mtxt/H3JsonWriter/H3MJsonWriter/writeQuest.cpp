@@ -1,5 +1,6 @@
 #include <h3mtxt/H3JsonWriter/H3MJsonWriter/H3MJsonWriter.h>
 
+#include <h3mtxt/H3JsonWriter/H3MJsonWriter/DateUtils.h>
 #include <h3mtxt/H3JsonWriter/H3MJsonWriter/Utils.h>
 #include <h3mtxt/JsonCommon/FieldNamesH3M.h>
 #include <h3mtxt/Map/Quest.h>
@@ -9,6 +10,19 @@
 
 namespace Medea_NS
 {
+  namespace
+  {
+    std::string makeDeadlineComment(std::uint32_t deadline)
+    {
+      constexpr std::uint32_t kDateMaxFeasible = static_cast<std::uint32_t>(h3json::Detail_NS::kDateMaxFeasible);
+      if (deadline <= kDateMaxFeasible)
+      {
+        return h3json::Detail_NS::makeDateComment(static_cast<std::int32_t>(deadline));
+      }
+      return "None";
+    }
+  }
+
   template<>
   void JsonObjectWriter<h3m::QuestDetails<h3m::QuestType::None>>::operator()(
     FieldsWriter&, const h3m::QuestDetails<h3m::QuestType::None>&) const
@@ -56,16 +70,6 @@ namespace Medea_NS
   }
 
   template<>
-  struct JsonObjectWriter<h3m::QuestDetails<h3m::QuestType::Creatures>::Creature>
-  {
-    void operator()(FieldsWriter& out, const h3m::QuestDetails<h3m::QuestType::Creatures>::Creature& creature) const
-    {
-      out.writeField("type", creature.type);
-      out.writeField("count", creature.count);
-    }
-  };
-
-  template<>
   void JsonObjectWriter<h3m::QuestDetails<h3m::QuestType::Creatures>>::operator()(
     FieldsWriter& out, const h3m::QuestDetails<h3m::QuestType::Creatures>& details) const
   {
@@ -108,6 +112,7 @@ namespace Medea_NS
                  { out.writeField(Fields::kDetails, details); },
                  quest.details);
       out.writeField(Fields::kDeadline, quest.deadline);
+      out.writeComment(makeDeadlineComment(quest.deadline), false);
       out.writeField(Fields::kProposal, quest.proposal);
       out.writeField(Fields::kProgress, quest.progress);
       out.writeField(Fields::kCompletion, quest.completion);

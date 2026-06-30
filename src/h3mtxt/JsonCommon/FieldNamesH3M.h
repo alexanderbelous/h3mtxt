@@ -560,19 +560,19 @@ namespace h3json
     "padding_15"
   };
 
+  template<class Enum, class Quantity>
+  struct FieldNames<h3m::TypedQuantity<Enum, Quantity>>
+  {
+    static constexpr std::string_view kType = "type";
+    static constexpr std::string_view kQuantity = "quantity";
+  };
+
   template<>
   struct FieldNames<h3m::Coordinates>
   {
     static constexpr std::string_view kX = "x";
     static constexpr std::string_view kY = "y";
     static constexpr std::string_view kZ = "z";
-  };
-
-  template<>
-  struct FieldNames<h3m::CreatureStack>
-  {
-    static constexpr std::string_view kType = "type";
-    static constexpr std::string_view kCount = "count";
   };
 
   template<>
@@ -803,7 +803,7 @@ namespace h3json
   struct FieldNames<h3m::ObjectProperties<h3m::ObjectPropertiesType::MONSTER>>
   {
     static constexpr std::string_view kAbsodId = "absod_id";
-    static constexpr std::string_view kCount = "count";
+    static constexpr std::string_view kQuantity = "quantity";
     static constexpr std::string_view kDisposition = "disposition";
     static constexpr std::string_view kMessageAndTreasure = "message_and_treasure";
     static constexpr std::string_view kNeverFlees = "never_flees";
@@ -1055,8 +1055,7 @@ namespace h3json
   template<>
   struct FieldNames<h3m::RewardDetails<h3m::RewardType::Resource>>
   {
-    static constexpr std::string_view kType = "type";
-    static constexpr std::string_view kAmount = "amount";
+    static constexpr std::string_view kResource = "resource";
   };
 
   template<>
@@ -1064,6 +1063,12 @@ namespace h3json
   {
     static constexpr std::string_view kType = "type";
     static constexpr std::string_view kValue = "value";
+  };
+
+  template<>
+  struct FieldNames<h3m::RewardDetails<h3m::RewardType::SecondarySkill>>
+  {
+    static constexpr std::string_view kSecondarySkill = "secondary_skill";
   };
 
   template<>
@@ -1079,10 +1084,16 @@ namespace h3json
   };
 
   template<>
+  struct FieldNames<h3m::RewardDetails<h3m::RewardType::Creatures>>
+  {
+    static constexpr std::string_view kCreatures = "creatures";
+  };
+
+  template<>
   struct FieldNames<h3m::Rumor>
   {
     static constexpr std::string_view kName = "name";
-    static constexpr std::string_view kDescription = "description";
+    static constexpr std::string_view kText = "text";
   };
 
   template<>

@@ -4,11 +4,10 @@
 
 namespace h3m
 {
-  // ArtifactType used to be written as uint8 in RoE. In SoD this was changed to uint16
-  // almost everywhere; however, there is at least one case where it's still written
-  // as uint8 - "Transport Artifact" victory condition.
-  // Regardless, this shouldn't be an issue, since there are fewer than 256 artifacts.
-  enum class ArtifactType : std::uint16_t
+  // ArtifactType used to be written as an 8-bit integer in RoE. In AB this was changed to a
+  // 16-bit integer almost everywhere; however, there is at least one case where it's still written
+  // as an 8-bit integer - "Transport Artifact" victory condition.
+  enum class ArtifactType : std::int16_t
   {
     Spellbook                   = 0,    // 0x00
     SpellScroll                 = 1,    // 0x01
@@ -158,6 +157,6 @@ namespace h3m
     MiredInNeutrality           = 142,  // 0x8E
     IronfistOfTheOgre           = 143,  // 0x8F
     // Magic number indicating "None" (the absence of an artifact in the slot).
-    None                        = 65535 // 0xFFFF
+    None                        = -1    // 0xFFFF
   };
 }

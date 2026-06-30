@@ -75,8 +75,7 @@ namespace h3svg
   RewardDetails<RewardType::Resource> H3SVGReader::readRewardDetails() const
   {
     return {
-      .type = readEnum<ResourceType32>(),
-      .amount = readInt<std::int32_t>()
+      .resource = readTypedQuantity<ResourceType32, std::int32_t>()
     };
   }
 
@@ -117,11 +116,10 @@ namespace h3svg
   }
 
   template<>
-  RewardDetails<RewardType::Creature> H3SVGReader::readRewardDetails() const
+  RewardDetails<RewardType::Creatures> H3SVGReader::readRewardDetails() const
   {
     return {
-      .type = readEnum<CreatureType32>(),
-      .count = readInt<std::int32_t>()
+      .creatures = readTypedQuantity<CreatureType32, std::int32_t>()
     };
   }
 

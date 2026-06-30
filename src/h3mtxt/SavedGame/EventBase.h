@@ -2,10 +2,11 @@
 
 #include <h3mtxt/SavedGame/SavedGameFwd.h>
 
+#include <h3mtxt/Map/Constants/CreatureType.h>
 #include <h3mtxt/Map/Constants/PrimarySkillType.h>
 #include <h3mtxt/Map/Constants/ResourceType.h>
 #include <h3mtxt/Map/Utils/EnumIndexedArray.h>
-#include <h3mtxt/Map/CreatureStack.h>
+#include <h3mtxt/Map/Utils/TypedQuantity.h>
 #include <h3mtxt/Map/SecondarySkill.h>
 #include <h3mtxt/SavedGame/Troops.h>
 
@@ -45,6 +46,6 @@ namespace h3svg
     // Size is serialzied as an 8-bit integer.
     std::vector<SpellType> spells;
     // Size is serialzied as an 8-bit integer.
-    std::vector<CreatureStack> creatures;
+    std::vector<TypedQuantity<CreatureType, std::int16_t>> creatures;
   };
 }

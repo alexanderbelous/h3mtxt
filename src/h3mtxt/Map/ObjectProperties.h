@@ -2,6 +2,7 @@
 
 #include <h3mtxt/Map/MapFwd.h>
 #include <h3mtxt/Map/Constants/ArtifactType.h>
+#include <h3mtxt/Map/Constants/CreatureType.h>
 #include <h3mtxt/Map/Constants/Disposition.h>
 #include <h3mtxt/Map/Constants/Formation.h>
 #include <h3mtxt/Map/Constants/Gender.h>
@@ -19,7 +20,7 @@
 #include <h3mtxt/Map/Utils/EnumBitmask.h>
 #include <h3mtxt/Map/Utils/EnumIndexedArray.h>
 #include <h3mtxt/Map/Utils/ReservedData.h>
-#include <h3mtxt/Map/CreatureStack.h>
+#include <h3mtxt/Map/Army.h>
 #include <h3mtxt/Map/HeroArtifacts.h>
 #include <h3mtxt/Map/Reward.h>
 #include <h3mtxt/Map/SecondarySkill.h>
@@ -41,10 +42,10 @@ namespace h3m
     constexpr bool operator==(const Guardians&) const noexcept = default;
 
     std::string message;
-    // FYI: CreatureStack::count can be negative. Stacks with negative numbers of creatures will be
+    // FYI: CreatureStack::quantity can be negative. Stacks with negative numbers of creatures will be
     // present on the battlefield, but the behavior is weird (such a stack can only move 1 hex during the 1st turn,
     // and then it will never get a chance to move again).
-    std::optional<std::array<CreatureStack, 7>> creatures;
+    std::optional<Army> creatures;
     ReservedData<4> unknown;
   };
 
@@ -90,8 +91,8 @@ namespace h3m
     // If it's indeed treated as signed, then it's possible that "negative" lengths are equivalent to 0
     // (no spells should be read/written), but I haven't checked it.
     std::vector<SpellType> spells;
-    // FYI: if CreatureStack::count is negative, the number of creatures in the hero's stack will decrease.
-    std::vector<CreatureStack> creatures;
+    // FYI: if CreatureStack::quantity is negative, the number of creatures in the hero's stack will decrease.
+    std::vector<TypedQuantity<CreatureType, std::int16_t>> creatures;
     ReservedData<8> unknown;
   };
 
@@ -136,9 +137,8 @@ namespace h3m
 
     PlayerColor owner = PlayerColor::None;
     ReservedData<3> unknown;
-    // CreatureType::None is used in CreatureStack::type for empty slots.
-    // CreatureStack::count can be negative - such stacks will be present in the garrison.
-    std::array<CreatureStack, 7> creatures;
+    // Creatue stacks with negative quantities will be present in the garrison.
+    Army creatures;
     Bool can_remove_units = true;
     ReservedData<8> unknown2;
   };
@@ -196,8 +196,8 @@ namespace h3m
     //   can be used even for non-random heroes, representing the creatures of the hero's native TownType.
     //   For example, CreatureType::Creature7U will become CreatureType::Archangel if the hero is Orrin.
     //   The Map Editor only supports these special values for random heroes.
-    // * If CreatureStack::count <= 0 for any slot, this slot will become empty when the game starts.
-    std::optional<std::array<CreatureStack, 7>> creatures;
+    // * If CreatureStack::quantity <= 0 for any slot, this slot will become empty when the game starts.
+    std::optional<Army> creatures;
     Formation formation = Formation::Spread;
     std::optional<HeroArtifacts> artifacts;
     // The Map Editor only allows values from [0; 10] or 0xFF (no patrol).
@@ -258,9 +258,9 @@ namespace h3m
 
     std::uint32_t absod_id {};
     // The Map Editor only allows values from [0; 4000] (0 means random), but any 16-bit integer can be used here.
-    // However, in the game the number of creatures will be initialized with count % 4096 (4096 also means random),
+    // However, in the game the number of creatures will be initialized with quantity % 4096 (4096 also means random),
     // so values > 4095 are somewhat useless.
-    std::uint16_t count = 0;
+    std::uint16_t quantity = 0;
     Disposition disposition = Disposition::Aggressive;
     std::optional<MessageAndTreasure> message_and_treasure;
     Bool never_flees = false;
@@ -473,7 +473,7 @@ namespace h3m
     //   * In Kingdom Overview the numbers are also signed (both in vanilla and in HD mod).
     //   * (HD mod only) On the Town Screen the numbers are unsigned (e.g., "65137 Archangels available").
     // In the vanilla game you cannot hire creatures if the available amount is negative. In HD mod,
-    // however, you can use Ctrl+LeftMouseButton the maximum possible amount of creatures (within the available
+    // however, you can use Ctrl+LeftMouseButton to hire the maximum possible amount of creatures (within the available
     // resources), and HD mod incorrectly interprets this as an unsigned number. Looks like a bug in HD mod.
     std::array<std::uint16_t, 7> creatures {};
     ReservedData<4> unknown2;
@@ -490,8 +490,8 @@ namespace h3m
     std::optional<std::string> name;
     // * CreatureType::None is used in CreatureStack::type for empty slots.
     // * Special values CreatureType::Creature1, ..., CreatureType::Creature7U can be used here.
-    // * If CreatureStack::count <= 0 for any slot, this slot will become empty when the game starts.
-    std::optional<std::array<CreatureStack, 7>> garrison;
+    // * If CreatureStack::quantity <= 0 for any slot, this slot will become empty when the game starts.
+    std::optional<Army> garrison;
     Formation formation = Formation::Spread;
     std::optional<TownBuildings> buildings;
     // This field is only read/written if !buildings.has_value().

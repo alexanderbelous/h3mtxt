@@ -1,5 +1,6 @@
 #include <h3mtxt/H3JsonWriter/H3MJsonWriter/H3MJsonWriter.h>
 
+#include <h3mtxt/H3JsonWriter/H3MJsonWriter/DateUtils.h>
 #include <h3mtxt/H3JsonWriter/H3MJsonWriter/Utils.h>
 #include <h3mtxt/JsonCommon/FieldNamesH3M.h>
 #include <h3mtxt/Map/LossCondition.h>
@@ -7,6 +8,18 @@
 
 namespace Medea_NS
 {
+  namespace
+  {
+    std::string makeTimeExpiresComment(std::int16_t days)
+    {
+      if (days <= 0)
+      {
+        days = 1;
+      }
+      return "Fail to win before " + h3json::Detail_NS::makeDateComment(days);
+    }
+  }
+
   template<>
   void JsonObjectWriter<h3m::LossConditionDetails<h3m::LossConditionType::LoseTown>>::operator()(
     FieldsWriter& out, const h3m::LossConditionDetails<h3m::LossConditionType::LoseTown>& value) const
@@ -29,6 +42,7 @@ namespace Medea_NS
   {
     using Fields = h3json::FieldNames<h3m::LossConditionDetails<h3m::LossConditionType::TimeExpires>>;
     out.writeField(Fields::kDays, value.days);
+    out.writeComment(makeTimeExpiresComment(value.days), false);
   }
 
   template<>

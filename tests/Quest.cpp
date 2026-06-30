@@ -195,10 +195,10 @@ namespace h3m
     const Quest kQuest = {
       .details = QuestDetails<QuestType::Creatures>{
         .creatures = {
-          QuestDetails<QuestType::Creatures>::Creature{.type = CreatureType::AzureDragon, .count = 1},
-          QuestDetails<QuestType::Creatures>::Creature{.type = CreatureType::CrystalDragon, .count = 2},
-          QuestDetails<QuestType::Creatures>::Creature{.type = CreatureType::RustDragon, .count = 3},
-          QuestDetails<QuestType::Creatures>::Creature{.type = CreatureType::FaerieDragon, .count = 4},
+          TypedQuantity<CreatureType, std::uint16_t>{.type = CreatureType::AzureDragon, .quantity = 1},
+          TypedQuantity<CreatureType, std::uint16_t>{.type = CreatureType::CrystalDragon, .quantity = 2},
+          TypedQuantity<CreatureType, std::uint16_t>{.type = CreatureType::RustDragon, .quantity = 3},
+          TypedQuantity<CreatureType, std::uint16_t>{.type = CreatureType::FaerieDragon, .quantity = 4},
         }
       },
       .deadline = 100,

@@ -31,7 +31,7 @@ namespace h3m
   {
     Rumor rumor;
     rumor.name = readString32();
-    rumor.description = readString32();
+    rumor.text = readString32();
     return rumor;
   }
 

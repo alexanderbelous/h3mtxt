@@ -24,9 +24,6 @@ namespace Medea_NS
   std::string_view EnumCommentGetter::operator()(h3m::CampaignVideo value) const;
 
   template<>
-  std::string_view EnumCommentGetter::operator()(h3m::StartingBonusResourceType value) const;
-
-  template<>
   std::string_view EnumCommentGetter::operator()(h3m::StartingBonusType value) const;
 
   template<>

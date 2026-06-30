@@ -123,8 +123,10 @@ namespace h3m
   {
     constexpr Reward kReward = {
       .details = RewardDetails<RewardType::Resource>{
-        .type = ResourceType::Gold,
-        .amount = 10000
+        .resource = {
+          .type = ResourceType::Gold,
+          .quantity = 10000
+        }
       }
     };
     static constexpr char kBinaryDataCStr[] = "\x05" "\x06" "\x10\x27\x00\x00";
@@ -157,7 +159,7 @@ namespace h3m
   {
     constexpr Reward kReward = {
       .details = RewardDetails<RewardType::SecondarySkill>{
-        SecondarySkill{
+        .secondary_skill = {
           .type = SecondarySkillType::EarthMagic,
           .level = 3
         }
@@ -204,20 +206,20 @@ namespace h3m
     REQUIRE(encodeAndDecodeJson(kReward) == kReward);
   }
 
-  TEST_CASE("H3M.Reward.Creature", "[H3M]")
+  TEST_CASE("H3M.Reward.Creatures", "[H3M]")
   {
     constexpr Reward kReward = {
-      .details = RewardDetails<RewardType::Creature>{
-        CreatureStack{
+      .details = RewardDetails<RewardType::Creatures>{
+        .creatures = {
           .type = CreatureType::Sharpshooter,
-          .count = 100
+          .quantity = 100
         }
       }
     };
     static constexpr char kBinaryDataCStr[] = "\x0a" "\x89\x00" "\x64\x00";
     static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
 
-    static_assert(kReward.type() == RewardType::Creature);
+    static_assert(kReward.type() == RewardType::Creatures);
     REQUIRE(asByteVector(encodeReward(kReward)) == asByteVector(kBinaryData));
     REQUIRE(decodeReward(kBinaryData) == kReward);
     REQUIRE(encodeAndDecodeJson(kReward) == kReward);

@@ -63,9 +63,9 @@ Each section below describes a data member of [`h3m::Map`](../src/h3mtxt/Map/Map
 The Map Editor only supports "standard" object templates, but you can add custom ones (e.g., a `Prison` that looks like a hero); the Unleashed Editor also supports this.
 ## `objects` (type [`h3m::Object`](../src/h3mtxt/Map/Object.h))
 * `ABANDONED_MINE`: `Wood` can be enabled as a potential resource.
-* `ARTIFACT`: any signed 16-bit number can be used in `guardians.creatures.count` (e.g., 20,000 Peasants in a stack). The Map Editor only allows a number from [1; 9999].
+* `ARTIFACT`: any signed 16-bit number can be used in `guardians.creatures.quantity` (e.g., 20,000 Peasants in a stack). The Map Editor only allows a number from [1; 9999].
 * `EVENT`:
-  * `guardians`: any signed 16-bit number can be used in `guardians.creatures.count` (e.g., 20,000 Peasants in a stack). The Map Editor only allows a number from [1; 9999].
+  * `guardians`: any signed 16-bit number can be used in `guardians.creatures.quantity` (e.g., 20,000 Peasants in a stack). The Map Editor only allows a number from [1; 9999].
   * `morale`: any signed 8-bit number can be used (e.g., -10 or +10). The Map Editor only allows a value from [-3; 3].
   * `luck`: any signed 8-bit number can be used (e.g., -10 or +10). The Map Editor only allows a value from [-3; 3].
   * `primary_skills`: The Map Editor only allows a value from [0; 99] for each skill, but any signed 8-bit number can be used for each skill (e.g., +127). Negative values are ignored (they have the same effect as 0). Note that the game uses modular arithmetic for primary skills: e.g., if the hero's Attack is currently 10 and the Event grants +127 Attack, the new value will become 0x89 == -119. By using 2 events, you can effectively decrease the value of the hero's primary skill: e.g., the first Event gives +127 Attack, the second gives +119 Attack; the combined effect will be -10 Attack.
@@ -93,28 +93,28 @@ The Map Editor only supports "standard" object templates, but you can add custom
     * Negative values indicate that the hero has no patrol, i.e. can go anywhere. Note that this is equivalent to 0xFF, so values [-128; -2] are rather useless - just use -1 instead, which is already supported by the Map Editor.
   * `primary_skills`: The Map Editor only allows a value from [0; 99] for each skill, but any signed 8-bit number can be used for each skill (e.g., +100 or -128).
 * `MONSTER`:
-  * `count`: The Map Editor only allows values from [0; 4000] (0 means random), but any 16-bit integer can be used here. However, in the game the number of creatures will be initialized with `count` MOD 4096 (4096 also means random), so values > 4095 are somewhat useless.
+  * `quantity`: The Map Editor only allows values from [0; 4000] (0 means random), but any 16-bit integer can be used here. However, in the game the number of creatures will be initialized with `quantity` MOD 4096 (4096 also means random), so values > 4095 are somewhat useless.
   * `message_and_treasure`:
     * `resources`: The Map Editor only allows values from [0; 99,999] for each resource, but any signed 32-bit integer can be used. Negative amounts cause you to lose resources, but your new amount will not go below 0.
     * `artifact`: unusual artifacts (e.g., `Spellbook`) can be used here.
-* `PANDORAS_BOX`: see `EVENT`.
-* `PLACEHOLDER_HERO`:
+* `HERO_PLACEHOLDER`:
   * Have you noticed that crossover heroes in campaigns never start inside a town? The Map Editor doesn't support setting a hero placeholder as the visiting hero of a town, but it can be done.
 
     In order for a hero placeholder to start in the town, the coordinates of the Object representing it must be exactly the same as the coordinates of the town (this is the same as how it's done for normal visiting heroes). You can do this via the Unleashed Editor by manually moving the hero placeholder to the right tile, although the Unleashed Editor will trigger a warning about object overlap.
 
     Both the Map Editor and the Unleashed Editor incorrectly render such hero placeholders on top of the town, instead of displaying them as the visiting hero in the town settings.
+* `PANDORAS_BOX`: see `EVENT`.
 * `QUEST_GUARD`:
   * `Level`: The Map Editor only allows values from [1; 99], but any signed 32-bit integer can be used here.
   * `PrimarySkills`: The Map Editor only allows values from [1; 99], but any signed 8-bit integer can be used here. Nonpositive values are ignored: e.g., even if the hero's Attack is -128, and the quest requires achieving -10 Attack, the game will consider that the hero has completed the quest.
   * `Artifacts`: unusual artifacts (e.g., `Spellbook`) can be used here.
   * `Creatures`:
-    * `count`: The Map Editor only allows values from [1; 9999] for the number of creatures, but any unsigned 16-bit integer can be used here.
+    * `quantity`: The Map Editor only allows values from [1; 9999] for the number of creatures, but any unsigned 16-bit integer can be used here.
   * `Resources`: The Map Editor only allows values from [1; 99,999], but any signed 32-bit integer can be used here.
     * If the amount is negative for some resource, it won't be displayed as a part of the quest (equivalent to 0), but once you complete the quest your amount will increase.
     * If all amounts are <= 0, it is considered that you have completed the quest.
 * `RESOURCE`:
-  * `guardians`: any signed 16-bit number can be used in `creatures.count` (e.g., 20,000 Peasants in a stack). The Map Editor only allows a number from [1; 9,999].
+  * `guardians`: any signed 16-bit number can be used in `creatures.quantity` (e.g., 20,000 Peasants in a stack). The Map Editor only allows a number from [1; 9,999].
   * `quantity`: The Map Editor only allows setting a value within [1; 99,999]. Values greater than 99,999 are OK, but the game uses `quantity` MOD 524,288, so the actual amount will always be within [1; 524,287] or Random.
 * `SEERS_HUT`:
   * `quest`: see `QUEST` above.
@@ -129,7 +129,7 @@ The Map Editor only supports "standard" object templates, but you can add custom
     * `Morale`: The Map Editor only allows setting a value from [1; 3], but any signed 8-bit integer can be used here (e.g., +5 or -7).
     * `Luck`: The Map Editor only allows setting a value from [1; 3], but any signed 8-bit integer can be used here (e.g., +5 or -7).
     * `Resource`:
-      * `amount`: The Map Editor only allow setting a value within [1; 32767], but any signed 32-bit integer can be used here.
+      * `quantity`: The Map Editor only allow setting a value within [1; 32767], but any signed 32-bit integer can be used here.
         * 0 has no effect (no resources given).
         * Negative values reduce your current amount of this resource, but it won't go below 0.
     * `PrimarySkill`:
@@ -137,14 +137,14 @@ The Map Editor only supports "standard" object templates, but you can add custom
     * `SecondarySkill`: a "hexed" secondary skill can be granted here.
     * `Artifact`: unusual artifacts (e.g., `Spellbook`) can be used here.
     * `Spell`: `Titan's Lightning Bolt` can be granted.
-    * `Creature`: `count` can be negative, in which case the number of creatures in your stack will decrease.
+    * `Creatures`: `quantity` can be negative, in which case the number of creatures in your stack will decrease.
 * `SHRINE`:
   * `spell`: The Map Editor only allows choosing a level N spell, where N it determined by the subtype of the Shrine (1, 2 or 3). However, you can set any spell here, including level 4 and level 5 spells (e.g., "Town Portal", "Fly", "Titan's Lightning Bolt").
 * `SPELL_SCROLL`:
-  * `guardians`: any signed 16-bit number can be used in `creatures.count` (e.g., 20,000 Peasants in a stack). The Map Editor only allows a number from [1; 9999].
+  * `guardians`: any signed 16-bit number can be used in `creatures.quantity` (e.g., 20,000 Peasants in a stack). The Map Editor only allows a number from [1; 9999].
   * `spell`: `Titan's Lightning Bolt` can be used here.
 * `TOWN`:
-  * `garrison`: The Map Editor only allows values from [1; 9,999] in each non-empty slot, but you can use any signed 16-bit integer. If `count` <= 0 for some slot, this slot will become empty when the game starts.
+  * `garrison`: The Map Editor only allows values from [1; 9,999] in each non-empty slot, but you can use any signed 16-bit integer. If `quantity` <= 0 for some slot, this slot will become empty when the game starts.
   * `buildings`:
     * `is_built `: you can set any building as prebuilt without its prerequisites. Note that both the Map Editor and the Unleashed Editor only have partial support for this; for example, you can set `Dragon Cave` as built in `Dungeon` without `Mage Guild Level 2`, but you cannot set `Mana Vortex` as built without `Mage Guild Level 1`. However, both programs will correctly display such data, and the game handles it fine. For example, you can:
       * Set `Resource Silo` as built without `Market`.
@@ -168,4 +168,9 @@ The Map Editor only supports "standard" object templates, but you can add custom
     * `creatures`: The Map Editor only allows values from [0; 9,999] for each creature level, but you can use any 16-bit integer. The behavior for values > 32767 is inconsistent: the game interprets them as signed integers in some places, but as unsigned in the others.
 * `WITCH_HUT`: The Map Editor forces you to enable at least 1 skill, but you can disable all of them. If all skills are disabled, the Witch Hut will teach you a random globally enabled skill. If all skills are globablly disabled, the Witch Hut will not teach you anything (the game will say that "it has been deserted for some time").
 ## `global_events` (type [`h3m::TimedEvent`](../src/h3mtxt/Map/TimedEvent.h))
-* `repeat_after_days`: the Map Editor only allows a number from a small set (0-7, 14, 21, 28), but any 16-bit integer can be used here. I'm not sure about the signedness (e.g., is 32,768 treated as 1170 months, 1 week, 1 day, or is it -1 day?).
+* `day_of_first_occurence`: The Map Editor only allows setting a value from `[0; 671]`, i.e. a date within `["Month: 1, Week: 1, Day: 1", "Month: 24, Week: 4, Day: 7"]`. However, any signed 16-bit integer can be used here. Note that only values from `[-28; 32767]` (i.e. dates within `["Month: 0, Week: 1, Day: 1"; "Month: 1171, Week: 2, Day: 1"]`) are feasible: an event, whose day of first occurence is outside of this range, will never trigger.
+  * "Time is a flat circle": `Month: 65535, Week: 4, Day: 7` is followed by `Month: 0, Week: 1, Day: 1`.
+  * Events with the day of first occurence from `[-28; -1]` are extremely unlikely to trigger in any game, because they require 65535 months of gameplay.
+* `repeat_after_days`:
+  * The Map Editor only allows a number from a small set (0-7, 14, 21, 28), but any 16-bit integer can be used here.
+  * 0 is used for non-recurring events, but due to the cyclical nature of time in HoMM3 even non-recurring events trigger again after 65536 months (because the date itself happens again).

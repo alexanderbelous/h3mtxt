@@ -86,8 +86,7 @@ namespace h3json
   JsonReader<StartingBonusDetails<StartingBonusType::Resource>>::operator()(const Json::Value& value) const
   {
     StartingBonusDetails<StartingBonusType::Resource> details;
-    readField(details.type, value, "type");
-    readField(details.amount, value, "amount");
+    readField(details.resource, value, "resource");
     return details;
   }
 

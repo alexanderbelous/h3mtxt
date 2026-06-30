@@ -18,8 +18,6 @@ namespace h3m
 
   enum class CrossoverFeature : std::uint8_t;
 
-  enum class StartingBonusResourceType : std::uint8_t;
-
   enum class StartingBonusType : std::uint8_t;
 
   enum class StartingOptionsType : std::uint8_t;

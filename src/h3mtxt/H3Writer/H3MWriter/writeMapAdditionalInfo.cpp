@@ -23,7 +23,7 @@ namespace h3m
   void H3MWriter::writeData(const Rumor& value) const
   {
     writeData(value.name);
-    writeData(value.description);
+    writeData(value.text);
   }
 
   void H3MWriter::writeData(const MapAdditionalInfo& value) const

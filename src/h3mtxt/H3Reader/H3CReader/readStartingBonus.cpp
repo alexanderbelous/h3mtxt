@@ -20,7 +20,7 @@ namespace h3m
   {
     StartingBonusDetails<StartingBonusType::Creature> details;
     details.hero = readInt<std::uint16_t>();
-    details.creature_stack = H3MReader{ stream_ }.readCreatureStack();
+    details.creature_stack = readTypedQuantity<CreatureType, std::int16_t>();
     return details;
   }
 
@@ -71,10 +71,9 @@ namespace h3m
   template<>
   StartingBonusDetails<StartingBonusType::Resource> H3CReader::readStartingBonusDetails() const
   {
-    StartingBonusDetails<StartingBonusType::Resource> details;
-    details.type = readEnum<StartingBonusResourceType>();
-    details.amount = readInt<std::int32_t>();
-    return details;
+    return StartingBonusDetails<StartingBonusType::Resource>{
+      .resource = readTypedQuantity<ResourceType, std::int32_t>()
+    };
   }
 
   StartingBonus H3CReader::readStartingBonus() const

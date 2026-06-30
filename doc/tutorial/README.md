@@ -6,7 +6,7 @@ This is a tutorial for using undocumented features of the .h3m file format via *
 
 1. You need to have "Heroes of Might and Magic III: The Shadow of Death" installed (or The Complete Edition). The undocumented features of the game that can be used via *h3mtxt* refer to the behavior of the official game. I have no idea if these features work in mods (such as HoTA) or alternative engines (such as VCMI), and I don't care.
    * As an exception, [HoMM3 HD](https://sites.google.com/site/heroes3hd/) mod and the [SoD SP](http://heroescommunity.com/viewthread.php3?TID=44581) plugin are fine - generally, they aim to preserve the original behavior of the game.
-2. You need to have a compiled *h3mtxt* program. If you are using Microsoft Windows, you can just download the latest version from https://github.com/alexanderbelous/h3mtxt/releases . Alternatively, if you have some programming skills, you can build it yourself from the source files: see the instructions at https://github.com/alexanderbelous/h3mtxt .
+2. You need to have a compiled *h3mtxt* program. If you are using Microsoft Windows, you can just download the latest version from https://github.com/alexanderbelous/h3mtxt/releases . Alternatively, if you have some programming skills, you can build it yourself from the source files: see the [build instructions](https://github.com/alexanderbelous/h3mtxt#building-h3mtxt).
 3. You need to have at least the basic knowledge of how to use the [command-line interface](https://en.wikipedia.org/wiki/Command-line_interface) (CLI). *h3mtxt* doesn't currently have a graphical user interface (GUI), so converting .h3m/.h3c files to JSON (or the other way around) is done via CLI.
 4. (Optional) The tutorial will be easier to follow if you have at least basic knowledge of the [JSON](https://en.wikipedia.org/wiki/JSON) serialization format.
 5. (Optional) I recommend that you use a text editor that has syntax highlight for JSON (for example, [Sublime Text](https://www.sublimetext.com/)).
@@ -33,7 +33,7 @@ This should create a new file named `test_map.h3m.json` in the directory in whic
 The created JSON documents starts like this:
 ```jsonc
 {
-  "format": 28,
+  "format": 28, // Shadow of Death
   "basic_info": {
     "is_playable": 1,
     "map_size": 36,
@@ -54,11 +54,9 @@ The `"objects"` member starts like this:
   "objects": [
     // Object 0
     {
-      "x": 35,
-      "y": 5,
-      "z": 0,
+      "coordinates": {"x": 35, "y": 5, "z": 0},
       // ObjectClass: 98 (TOWN)
-      // ObjectPropertiesType: 20 (TOWN)
+      // ObjectPropertiesType: TOWN
       "template_idx": 2,
       "unknown": [0, 0, 0, 0, 0],
       "properties": {
@@ -74,38 +72,28 @@ The `"objects"` member starts like this:
 Each element of `"objects"` is represented by [`Object`](../../src/h3mtxt/Map/Object.h) structure.
 
 Different objects on the Adventure Map have different properties. In the .h3m file format, properties are split into 2 groups:
-* Properties of the *object template* (represented by [`ObjectTemplate`](../../src/h3mtxt/Map/ObjectTemplate.h) structure): for example, all standard `Shipyard` objects use the same template, which defines:
-  * the sprite, which determines the image used in the game for such objects.
-  * The "type" of the object. In .h3m the type is defined by 2 values, sometimes called `object_class` and `object_subclass`. These determine what the object **does**:
-    * `ObjectClass::ALTAR_OF_SACRIFICE` (2) allows sacrificing artifacts and/or creatures in exchange for experience.
-    * `ObjectClass::SHIPYARD` (87) allows buying ships.
-    * ... and so on. See [`ObjectClass.h`](../../src/h3mtxt/Map/Constants/ObjectClass.h) for the full list.
-  * which tiles of the object are passable and which ones are not (i.e. if the hero can move freely though these tiles)
-  * which tiles of the object are actionable and which ones are not (i.e. the hero can interact with the object on these tiles)
-  * ...
-* Properties of the *object* itself (represented by [`ObjectProperties`](../../src/h3mtxt/Map/ObjectProperties.h)):
-  * These vary depending on `object_class` and `object_subclass` from the template used by this object. In practice, even though there are a lot of combinations of `object_class` and `object_subclass`, most of them have the same set of properties. In *h3mtxt* these sets are called [`ObjectPropertiesType`](../../src/h3mtxt/Map/Constants/ObjectPropertiesType.h).
+* Properties of the *object template* (represented by [`ObjectTemplate`](../../src/h3mtxt/Map/ObjectTemplate.h) structure), which can be shared between multiple objects on the Adventure Map. For example, the template specifies which image should be rendered in the game for such objects.
+* Properties of the *object* itself (represented by [`ObjectProperties`](../../src/h3mtxt/Map/ObjectProperties.h)).
 
+Properties of the object depend on its "type", which is defined in the object template (`object_class` and `object_subclass` fields). In practice, even though there are a lot of combinations of `object_class` and `object_subclass`, most of them have the same set of properties. In *h3mtxt* these sets are called [`ObjectPropertiesType`](../../src/h3mtxt/Map/Constants/ObjectPropertiesType.h).
 
 ## Find the section for the `Pandora's Box` that gives `Morale` bonus
 
-You can either search for a string `This {Pandora's Box} contains a {Morale} bonus` or search for an object whose `(x, y)` coordinates on the Adventure Map are `(7, 1)`.
+You can either search for a string `This {Pandora's Box} contains a {Morale} bonus` or search for an object whose `(x, y, z)` coordinates on the Adventure Map are `(7, 1, 0)`.
 * This is a convenient way of finding the relevant sections in JSON documents generated by *h3mtxt*. If your object has a custom message, there is likely exactly 1 match in the JSON document (unless you reuse this message in other objects). Otherwise, you can search for an objects via its coordinates, since you already know them from the Map Editor.
 
 This section looks like this:
 ```jsonc
     // Object 7
     {
-      "x": 7,
-      "y": 1,
-      "z": 0,
+      "coordinates": {"x": 7, "y": 1, "z": 0},
       // ObjectClass: 6 (PANDORAS_BOX)
-      // ObjectPropertiesType: 8 (PANDORAS_BOX)
+      // ObjectPropertiesType: PANDORAS_BOX
       "template_idx": 9,
       "unknown": [0, 0, 0, 0, 0],
       "properties": {
         "guardians": {
-          "message": "This {Pandora's Box} contains a {Morale} bonus.\n\nBoth the official Map Editor and the Unleashed Editor only allow the bonus to be within [-3; +3], but {h3mtxt} allows using any number withing [-128; 127].\n\nThis can be useful if, for example you want to ensure that the hero's troops will have +3 {Morale} even though they come from 7 different town types (in which case their {Morale} is decreased by 5).",
+          "message": "This {Pandora's Box} contains a {Morale} bonus.\n\nBoth the official Map Editor and the Unleashed Editor only allow the bonus to be within [-3; +3], but {h3mtxt} allows using any number within [-128; 127].\n\nThis can be useful if, for example you want to ensure that the hero's troops will have +3 {Morale} even though they come from 7 different town types (in which case their {Morale} is decreased by 5).",
           "unknown": [0, 0, 0, 0]
         },
         "experience": 0,
@@ -163,10 +151,6 @@ h3mtxt test_map.h3m.json test_map_morale_20.h3m
 Use the File Explorer, or the command line, or whatever you prefer. You are a mapmaker, I'm sure you know how to do this.
 
 The file containing the new map is called `test_map_morale_20.h3m`.
-
-## Run HoMM3
-
-You don't need help doing this, right?
 
 ## Start playing the map you've created
 

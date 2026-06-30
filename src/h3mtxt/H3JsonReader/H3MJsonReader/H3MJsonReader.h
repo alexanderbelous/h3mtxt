@@ -11,10 +11,10 @@
 namespace h3json
 {
   template<>
-  h3m::Coordinates JsonReader<h3m::Coordinates>::operator()(const Json::Value& value) const;
+  h3m::Army JsonReader<h3m::Army>::operator()(const Json::Value& value) const;
 
   template<>
-  h3m::CreatureStack JsonReader<h3m::CreatureStack>::operator()(const Json::Value& value) const;
+  h3m::Coordinates JsonReader<h3m::Coordinates>::operator()(const Json::Value& value) const;
 
   template<>
   h3m::CustomHero JsonReader<h3m::CustomHero>::operator()(const Json::Value& value) const;
@@ -263,8 +263,8 @@ namespace h3json
   JsonReader<h3m::RewardDetails<h3m::RewardType::Spell>>::operator()(const Json::Value& value) const;
 
   template<>
-  h3m::RewardDetails<h3m::RewardType::Creature>
-  JsonReader<h3m::RewardDetails<h3m::RewardType::Creature>>::operator()(const Json::Value& value) const;
+  h3m::RewardDetails<h3m::RewardType::Creatures>
+  JsonReader<h3m::RewardDetails<h3m::RewardType::Creatures>>::operator()(const Json::Value& value) const;
 
   template<>
   h3m::Rumor JsonReader<h3m::Rumor>::operator()(const Json::Value& value) const;

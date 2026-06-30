@@ -16,7 +16,7 @@ namespace h3m
     SecondarySkill = 7,
     Artifact = 8,
     Spell = 9,
-    Creature = 10,
+    Creatures = 10,
     // FYI: there seem to be no "hidden" types here. If you try using values outside [0; 10],
     // the game will treat them the same way as None, but the Map Editor will crash while
     // trying to open the map.

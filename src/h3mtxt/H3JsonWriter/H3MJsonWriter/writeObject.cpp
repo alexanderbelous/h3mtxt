@@ -20,7 +20,7 @@ namespace h3json
       const h3m::ObjectPropertiesType object_properties_type =
         h3m::getObjectPropertiesType(object_class, object_template.object_subclass);
 
-      CommentBuilder comment_builder;
+      Detail_NS::CommentBuilder comment_builder;
       comment_builder << "ObjectClass: " << static_cast<std::size_t>(object_class);
       if (std::string_view enum_str = Medea_NS::EnumCommentGetter{}(object_class); !enum_str.empty())
       {
@@ -227,7 +227,7 @@ namespace Medea_NS
     using Fields = h3json::FieldNames<Details>;
 
     out.writeField(Fields::kAbsodId, monster.absod_id);
-    out.writeField(Fields::kCount, monster.count);
+    out.writeField(Fields::kQuantity, monster.quantity);
     out.writeField(Fields::kDisposition, monster.disposition);
     if (monster.message_and_treasure)
     {

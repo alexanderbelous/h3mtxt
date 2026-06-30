@@ -103,8 +103,7 @@ namespace Medea_NS
   void JsonObjectWriter<h3m::StartingBonusDetails<h3m::StartingBonusType::Resource>>::operator()(
     FieldsWriter& out, const h3m::StartingBonusDetails<h3m::StartingBonusType::Resource>& details) const
   {
-    out.writeField("type", details.type);
-    out.writeField("amount", details.amount);
+    out.writeField("resource", details.resource);
   }
 
   template<>

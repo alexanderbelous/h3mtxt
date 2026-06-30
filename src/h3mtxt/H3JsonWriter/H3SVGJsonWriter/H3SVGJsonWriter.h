@@ -249,8 +249,8 @@ namespace Medea_NS
     FieldsWriter& out, const h3svg::RewardDetails<h3svg::RewardType::Spell>& details) const;
 
   template<>
-  void JsonObjectWriter<h3svg::RewardDetails<h3svg::RewardType::Creature>>::operator()(
-    FieldsWriter& out, const h3svg::RewardDetails<h3svg::RewardType::Creature>& details) const;
+  void JsonObjectWriter<h3svg::RewardDetails<h3svg::RewardType::Creatures>>::operator()(
+    FieldsWriter& out, const h3svg::RewardDetails<h3svg::RewardType::Creatures>& details) const;
 
   template<>
   void JsonObjectWriter<h3svg::Rumor>::operator()(FieldsWriter& out, const h3svg::Rumor& rumor) const;

@@ -64,8 +64,7 @@ namespace h3json
   {
     using Fields = FieldNames<RewardDetails<RewardType::Resource>>;
     RewardDetails<RewardType::Resource> details;
-    readField(details.type, value, Fields::kType);
-    readField(details.amount, value, Fields::kAmount);
+    readField(details.resource, value, Fields::kResource);
     return details;
   }
 
@@ -84,7 +83,10 @@ namespace h3json
   RewardDetails<RewardType::SecondarySkill>
   JsonReader<RewardDetails<RewardType::SecondarySkill>>::operator()(const Json::Value& value) const
   {
-    return RewardDetails<RewardType::SecondarySkill> { fromJson<h3m::SecondarySkill>(value) };
+    using Fields = FieldNames<RewardDetails<RewardType::SecondarySkill>>;
+    RewardDetails<RewardType::SecondarySkill> details;
+    readField(details.secondary_skill, value, Fields::kSecondarySkill);
+    return details;
   }
 
   template<>
@@ -108,10 +110,13 @@ namespace h3json
   }
 
   template<>
-  RewardDetails<RewardType::Creature>
-  JsonReader<RewardDetails<RewardType::Creature>>::operator()(const Json::Value& value) const
+  RewardDetails<RewardType::Creatures>
+  JsonReader<RewardDetails<RewardType::Creatures>>::operator()(const Json::Value& value) const
   {
-    return RewardDetails<RewardType::Creature> { fromJson<h3m::CreatureStack>(value) };
+    using Fields = FieldNames<RewardDetails<RewardType::Creatures>>;
+    RewardDetails<RewardType::Creatures> details;
+    readField(details.creatures, value, Fields::kCreatures);
+    return details;
   }
 
   template<>
