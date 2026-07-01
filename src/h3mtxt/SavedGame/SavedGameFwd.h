@@ -123,6 +123,8 @@ namespace h3svg
 
   struct CrossoverInfo;
 
+  struct Date;
+
   struct Dwelling;
 
   struct EventBase;

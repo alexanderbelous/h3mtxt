@@ -5,6 +5,7 @@
 #include <h3mtxt/Map/Utils/SpriteTilesBitmask.h>
 #include <h3mtxt/Map/MapAdditionalInfo.h>
 #include <h3mtxt/Map/SecondarySkill.h>
+#include <h3mtxt/SavedGame/Date.h>
 
 #include <cstdint>
 
@@ -18,6 +19,15 @@ namespace h3svg
   CustomHero H3SVGReader::readCustomHero() const
   {
     return h3m::H3MReader{stream_}.readCustomHero();
+  }
+
+  Date H3SVGReader::readDate() const
+  {
+    Date date;
+    date.day = readInt<std::uint16_t>();
+    date.week = readInt<std::uint16_t>();
+    date.month = readInt<std::uint16_t>();
+    return date;
   }
 
   PrimarySkills H3SVGReader::readPrimarySkills() const

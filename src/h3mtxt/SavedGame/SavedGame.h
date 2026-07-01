@@ -11,6 +11,7 @@
 #include <h3mtxt/SavedGame/Constants/Constants.h>
 #include <h3mtxt/SavedGame/Constants/KeymastersTentType.h>
 #include <h3mtxt/SavedGame/ArtifactMerchants.h>
+#include <h3mtxt/SavedGame/Date.h>
 #include <h3mtxt/SavedGame/Hero.h>
 #include <h3mtxt/SavedGame/LossCondition.h>
 #include <h3mtxt/SavedGame/ObjectPropertiesTables.h>
@@ -125,12 +126,8 @@ namespace h3svg
     std::vector<Hero> heroes;
     // TODO: figure out what this is.
     std::array<std::uint8_t, 323> unknown4 {};
-    // Day of the current date (normally within [1; 7]).
-    std::uint16_t day {};
-    // Week of the current date (normally within [1; 4]).
-    std::uint16_t week {};
-    // Month of the current date (initialized with 1 at the start of the game; resets to 0 after Month 65535).
-    std::uint16_t month {};
+    // The current date.
+    Date current_date;
     // TODO: figure out what this is.
     // * Seems to contain the coordinates of the Grail (even if has already been dug out).
     std::array<std::uint8_t, 32> unknown5 {};

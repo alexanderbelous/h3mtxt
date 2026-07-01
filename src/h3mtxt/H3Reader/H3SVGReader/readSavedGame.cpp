@@ -153,9 +153,7 @@ namespace h3svg
     // TODO: figure out what this is.
     saved_game.unknown4 = readByteArray<323>();
     // Read 6 bytes - the current date.
-    saved_game.day = readInt<std::uint16_t>();
-    saved_game.week = readInt<std::uint16_t>();
-    saved_game.month = readInt<std::uint16_t>();
+    saved_game.current_date = readDate();
     // Read 32 bytes.
     // TODO: figure out what this is.
     saved_game.unknown5 = readByteArray<32>();

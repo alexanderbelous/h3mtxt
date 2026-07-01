@@ -202,6 +202,14 @@ namespace h3json
   };
 
   template<>
+  struct FieldNames<h3svg::Date>
+  {
+    static constexpr std::string_view kMonth = "month";
+    static constexpr std::string_view kWeek = "week";
+    static constexpr std::string_view kDay = "day";
+  };
+
+  template<>
   struct FieldNames<h3svg::Dwelling>
   {
     static constexpr std::string_view kOwner = "owner";
@@ -503,9 +511,7 @@ namespace h3json
     static constexpr std::string_view kTowns = "towns";
     static constexpr std::string_view kHeroes = "heroes";
     static constexpr std::string_view kUnknown4 = "unknown4";
-    static constexpr std::string_view kDay = "day";
-    static constexpr std::string_view kWeek = "week";
-    static constexpr std::string_view kMonth = "month";
+    static constexpr std::string_view kCurrentDate = "current_date";
     static constexpr std::string_view kUnknown5 = "unknown5";
     static constexpr std::string_view kArtifactMerchants = "artifact_merchants";
     static constexpr std::string_view kUnknown6 = "unknown6";

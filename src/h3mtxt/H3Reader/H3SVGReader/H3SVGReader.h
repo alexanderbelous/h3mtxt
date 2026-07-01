@@ -30,6 +30,8 @@ namespace h3svg
 
     Boat readBoat() const;
 
+    Date readDate() const;
+
     Dwelling readDwelling() const;
 
     EventBase readEventBase() const;

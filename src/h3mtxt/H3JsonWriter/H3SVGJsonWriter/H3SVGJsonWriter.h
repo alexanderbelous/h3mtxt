@@ -86,6 +86,9 @@ namespace Medea_NS
   void JsonObjectWriter<h3svg::CrossoverInfo>::operator()(FieldsWriter& out, const h3svg::CrossoverInfo& info) const;
 
   template<>
+  void JsonObjectWriter<h3svg::Date>::operator()(FieldsWriter& out, const h3svg::Date& date) const;
+
+  template<>
   void JsonObjectWriter<h3svg::Dwelling>::operator()(FieldsWriter& out, const h3svg::Dwelling& dwelling) const;
 
   template<>

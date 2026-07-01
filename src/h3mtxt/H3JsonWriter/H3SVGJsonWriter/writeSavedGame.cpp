@@ -99,6 +99,15 @@ namespace Medea_NS
     out.writeField(Fields::kUnknown, info.unknown);
   }
 
+  template<>
+  void JsonObjectWriter<h3svg::Date>::operator()(FieldsWriter& out, const h3svg::Date& date) const
+  {
+    using Fields = h3json::FieldNames<h3svg::Date>;
+    out.writeField(Fields::kMonth, date.month);
+    out.writeField(Fields::kWeek, date.week);
+    out.writeField(Fields::kDay, date.day);
+  }
+
   void JsonObjectWriter<h3svg::Player>::operator()(FieldsWriter& out,
                                                    const h3svg::Player& player) const
   {
@@ -224,9 +233,7 @@ namespace Medea_NS
     out.writeField(Fields::kTowns, saved_game.towns);
     out.writeField(Fields::kHeroes, saved_game.heroes);
     out.writeField(Fields::kUnknown4, saved_game.unknown4);
-    out.writeField(Fields::kDay, saved_game.day);
-    out.writeField(Fields::kWeek, saved_game.week);
-    out.writeField(Fields::kMonth, saved_game.month);
+    out.writeField(Fields::kCurrentDate, saved_game.current_date, true);
     out.writeField(Fields::kUnknown5, saved_game.unknown5);
     out.writeField(Fields::kArtifactMerchants, saved_game.artifact_merchants);
     out.writeField(Fields::kUnknown6, saved_game.unknown6);
