@@ -53,7 +53,6 @@ namespace Medea_NS
     out.writeField(Fields::kMysticPondResourceType, properties.mystic_pond_resource_type);
     // Written as bool because this bit field can only be 0 or 1.
     out.writeField(Fields::kUnknown, static_cast<bool>(properties.unknown));
-    out.writeField(Fields::kSummonedCreatureType, properties.summoned_creature_type);
-    out.writeField(Fields::kSummonedCreatureCount, properties.summoned_creature_count);
+    out.writeField(Fields::kSummonedCreatures, properties.summoned_creatures);
   }
 }

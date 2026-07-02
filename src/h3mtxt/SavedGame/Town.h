@@ -11,6 +11,7 @@
 #include <h3mtxt/Map/Coordinates.h>
 #include <h3mtxt/Map/Utils/EnumBitmask.h>
 #include <h3mtxt/Map/Utils/ReservedData.h>
+#include <h3mtxt/Map/Utils/TypedQuantity.h>
 #include <h3mtxt/SavedGame/Constants/TownBuildingTypeH3SVG.h>
 #include <h3mtxt/SavedGame/Troops.h>
 
@@ -33,13 +34,14 @@ namespace h3svg
     // The way it is defined right now, this bit field only supports values [-4; 3].
     ResourceType mystic_pond_resource_type   : 3 = ResourceType{ 7 };
     Bool unknown                             : 1 = 0; // todo: reserved? part of resource_type?
-    // Type of the creature in the Portal of Summoning or 0xFFFFFFFF if there is none.
-    // This field is "lazy-evaluated" in HoMM3 - it only gets initialized when you view the available
+    // Creatures in the Portal of Summoning.
+    // If there are no summoned creatures, the type is -1 (0xFFFFFFFF); quantity may contain junk in this case.
+    // Note that this field is lazy-evaluated in HoMM3 - it only gets initialized when you view the available
     // creatures from the Town Screen or Kingdom Overview.
-    CreatureType32 summoned_creature_type = CreatureType32{ -1 };
-    // The number of creatures in the Portal of Summoning.
-    // Only meaningful if summoned_creature_type != -1 (the game may write junk here if there are no summoned creatures).
-    std::int16_t summoned_creature_count = 0;
+    TypedQuantity<CreatureType32, std::int16_t> summoned_creatures = {
+      .type = static_cast<CreatureType32>(CreatureType::None),
+      .quantity = 0
+    };
   };
 
   // Information about a town stored in H3SVG.

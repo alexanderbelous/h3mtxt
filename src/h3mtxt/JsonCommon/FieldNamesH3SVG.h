@@ -643,8 +643,7 @@ namespace h3json
     static constexpr std::string_view kMysticPondResourceAmount = "mystic_pond_resource_amount";
     static constexpr std::string_view kMysticPondResourceType = "mystic_pond_resource_type";
     static constexpr std::string_view kUnknown = "unknown";
-    static constexpr std::string_view kSummonedCreatureType = "summoned_creature_type";
-    static constexpr std::string_view kSummonedCreatureCount = "summoned_creature_count";
+    static constexpr std::string_view kSummonedCreatures = "summoned_creatures";
   };
 
   template<>

@@ -64,8 +64,7 @@ namespace h3svg
       properties.mystic_pond_resource_type = static_cast<ResourceType>((packed_data >> 4) & 0b111);
       properties.unknown = static_cast<Bool>(packed_data >> 7);
     }
-    properties.summoned_creature_type = readEnum<CreatureType32>();
-    properties.summoned_creature_count = readInt<std::int16_t>();
+    properties.summoned_creatures = readTypedQuantity<CreatureType32, std::int16_t>();
     return properties;
   }
 }
