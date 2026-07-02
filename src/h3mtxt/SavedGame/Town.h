@@ -29,6 +29,8 @@ namespace h3svg
     // it's implementation-defined whether bit fields are packed.
     Bool mana_vortex_available               : 1 = 0;
     std::uint8_t mystic_pond_resource_amount : 3 = 0;
+    // TODO: probably buggy for values [4; 6], because the underlying type of ResourceType is signed.
+    // The way it is defined right now, this bit field only supports values [-4; 3].
     ResourceType mystic_pond_resource_type   : 3 = ResourceType{ 7 };
     Bool unknown                             : 1 = 0; // todo: reserved? part of resource_type?
     // Type of the creature in the Portal of Summoning or 0xFFFFFFFF if there is none.

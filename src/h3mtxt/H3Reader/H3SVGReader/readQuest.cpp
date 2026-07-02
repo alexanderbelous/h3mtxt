@@ -89,10 +89,7 @@ namespace h3svg
     details.creatures.reserve(num_creature_stacks);
     for (std::uint8_t i = 0; i < num_creature_stacks; ++i)
     {
-      QuestDetails<QuestType::Creatures>::Creature creature_stack;
-      creature_stack.type = readEnum<CreatureType>();
-      creature_stack.count = readInt<std::int32_t>();
-      details.creatures.push_back(creature_stack);
+      details.creatures.push_back(readTypedQuantity<CreatureType, std::int32_t>());
     }
     return details;
   }

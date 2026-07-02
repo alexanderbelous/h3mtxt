@@ -8,15 +8,6 @@
 
 namespace Medea_NS
 {
-  // TODO: it kinda sucks that it's declared here.
-  template<>
-  void JsonObjectWriter<h3svg::QuestDetails<h3svg::QuestType::Creatures>::Creature>::operator()(
-    FieldsWriter& out, const h3svg::QuestDetails<h3svg::QuestType::Creatures>::Creature& creature) const
-  {
-    out.writeField("type", creature.type);
-    out.writeField("count", creature.count);
-  }
-
   // TODO: reuse the implementations for h3m::QuestDetails where applicable.
 
   void JsonObjectWriter<h3svg::QuestDetails<h3svg::QuestType::None>>::operator()(

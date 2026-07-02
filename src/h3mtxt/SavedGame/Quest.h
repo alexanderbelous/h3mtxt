@@ -3,6 +3,7 @@
 #include <h3mtxt/SavedGame/SavedGameFwd.h>
 
 #include <h3mtxt/Map/Utils/EnumBitmask.h>
+#include <h3mtxt/Map/Utils/TypedQuantity.h>
 #include <h3mtxt/Map/Quest.h>
 
 #include <array>
@@ -61,11 +62,8 @@ namespace h3svg
   template<>
   struct QuestDetails<QuestType::Creatures>
   {
-    struct Creature
-    {
-      CreatureType type {};
-      std::int32_t count {};
-    };
+    using Creature = TypedQuantity<CreatureType, std::int32_t>;
+
     // Size is serialized as an 8-bit integer.
     std::vector<Creature> creatures;
   };

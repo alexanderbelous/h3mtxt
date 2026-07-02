@@ -9,6 +9,7 @@ add_library(H3SVGJsonWriter STATIC
     "writeQuest.cpp"
     "writeReward.cpp"
     "writeSavedGame.cpp"
+    "writeTown.cpp"
     "writeVictoryCondition.cpp"
 )
 add_library(h3mtxt::H3SVGJsonWriter ALIAS H3SVGJsonWriter)

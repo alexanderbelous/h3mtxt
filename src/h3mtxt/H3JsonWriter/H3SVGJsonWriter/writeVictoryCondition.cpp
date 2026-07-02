@@ -1,6 +1,7 @@
 #include <h3mtxt/H3JsonWriter/H3SVGJsonWriter/H3SVGJsonWriter.h>
 
 #include <h3mtxt/H3JsonWriter/H3MJsonWriter/H3MJsonWriter.h>
+#include <h3mtxt/H3JsonWriter/H3MJsonWriter/Utils.h>
 #include <h3mtxt/JsonCommon/FieldNamesH3SVG.h>
 #include <h3mtxt/SavedGame/VictoryCondition.h>
 #include <h3mtxt/Medea/Medea.h>
@@ -101,8 +102,7 @@ namespace Medea_NS
     const h3svg::VictoryConditionDetails<h3svg::VictoryConditionType::AccumulateCreatures>& details) const
   {
     JsonObjectWriter<h3svg::SpecialVictoryConditionBase>{}(out, details);
-    out.writeField("creature_type", details.creature_type);
-    out.writeField("count", details.count);
+    out.writeField("creatures", details.creatures);
   }
 
   template<>

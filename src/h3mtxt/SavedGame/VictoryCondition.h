@@ -35,8 +35,7 @@ namespace h3svg
   template<>
   struct VictoryConditionDetails<VictoryConditionType::AccumulateCreatures> : SpecialVictoryConditionBase
   {
-    CreatureType8 creature_type {};
-    std::int32_t count {};
+    TypedQuantity<CreatureType8, std::int32_t> creatures;
   };
 
   // Specialization for DefeatHero.

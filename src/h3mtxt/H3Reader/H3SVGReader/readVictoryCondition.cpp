@@ -108,8 +108,7 @@ namespace h3svg
   VictoryConditionDetails<VictoryConditionType::AccumulateCreatures> H3SVGReader::readVictoryConditionDetails() const
   {
     VictoryConditionDetails<VictoryConditionType::AccumulateCreatures> details{ readSpecialVictoryConditionBase() };
-    details.creature_type = readEnum<CreatureType8>();
-    details.count = readInt<std::int32_t>();
+    details.creatures = readTypedQuantity<CreatureType8, std::int32_t>();
     return details;
   }
 
