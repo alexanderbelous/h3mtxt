@@ -69,23 +69,23 @@ namespace h3svg
     std::string biography;
     PlayerColor owner {};
     // Patrol radius or -1 if there is none.
-    std::int8_t patrol_radius {};
+    std::int8_t patrol_radius = -1;
     // Temporary Morale bonus until the next battle (e.g., from Events, Temples, etc).
-    std::int8_t temp_morale {};
+    std::int8_t temp_morale = 0;
     // Temporary Luck bonus until the next battle (e.g., from Events, Faerie Rings, etc).
-    std::int8_t temp_luck {};
+    std::int8_t temp_luck = 0;
     // The number of artifacts in the backpack.
-    std::uint8_t backpack_count {};
+    std::uint8_t backpack_count = 0;
     // (Air Magic skill) Level at which Disguise was cast, or -1 if it hasn't been cast.
-    std::int8_t disguise_level {};
+    std::int8_t disguise_level = -1;
     // (Air Magic skill) Level at which Fly was cast, or -1 if it hasn't been cast.
-    std::int8_t fly_level {};
+    std::int8_t fly_level = -1;
     // (Water Magic skill) Level at which Water Walk was cast, or -1 if it hasn't been cast.
-    std::int8_t water_walk_level {};
+    std::int8_t water_walk_level = -1;
     // The number of times Dimension Door was cast.
-    std::uint8_t num_dimension_door_casts {};
+    std::uint8_t num_dimension_door_casts = 0;
     // Level at which Visions was cast, or -1 if it hasn't been cast.
-    std::int8_t visions_level {};
+    std::int8_t visions_level = -1;
     HeroType type {};
     HeroClass hero_class {};
     HeroPortrait portrait {};
@@ -100,9 +100,9 @@ namespace h3svg
     // * unknown2[2] is Hero seed.
     std::array<std::uint8_t, 4> unknown2 {};
     // X-coordinate of the destination, or -1 if there is none.
-    std::int32_t destination_x {};
+    std::int32_t destination_x = -1;
     // Y-coordinate of the destination, or -1 if there is none.
-    std::int32_t destination_y {};
+    std::int32_t destination_y = -1;
     // TODO: likely std::int16_t, but not std::int32_t.
     // Note that, if meaningful, it duplicates Hero::z because you cannot plan a route to another layer.
     std::int8_t destination_z {};
@@ -161,7 +161,7 @@ namespace h3svg
     // hasn't learned yet.
     EnumIndexedArray<SpellType, Bool, kNumSpells> spells_available;
     HeroArtifacts artifacts;
-    Bool is_sleeping {};
+    Bool is_sleeping = false;
     // 1 bit per town, indicating if the hero has visited it.
     // This is used, for example, to determine if the hero's Knowledge should increase when visiting
     // a Tower with Wall of Knowledge built.

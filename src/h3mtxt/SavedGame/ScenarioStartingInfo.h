@@ -41,7 +41,7 @@ namespace h3svg
     std::array<std::byte, 8> unknown1 {};
     // Selected difficulty level.
     // This is different from MapBasicInfo::difficulty, which is set by the mapmaker and doesn't affect the game.
-    MapDifficulty difficulty {};
+    MapDifficulty difficulty = MapDifficulty::Normal;
     // The original filename of the map (this is used by Restart Scenario command).
     //
     // For campaign scenarios the game always writes "test.h3m" here.

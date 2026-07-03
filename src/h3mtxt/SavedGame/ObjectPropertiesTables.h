@@ -44,7 +44,7 @@ namespace h3svg
     // (0 - North, 2 - East, 3 - SouthEast, 7 - NorthWest, ...)
     std::uint8_t direction {};
     // 0-7 or 0xFF if no owner.
-    PlayerColor owner {};
+    PlayerColor owner = PlayerColor::None;
     // ~ The last hero who used this boat, or 0xFFFF if none
     HeroType16 owner_hero {};
     // 0 if the boat exists (hasn't been scuttled) and is not boarded by a hero, 1 otherwise.
@@ -62,7 +62,7 @@ namespace h3svg
 
   struct Dwelling
   {
-    PlayerColor owner {};
+    PlayerColor owner = PlayerColor::None;
     // CREATURE_GENERATOR1 or CREATURE_GENERATOR4
     ObjectClass8 object_class {};
     std::uint8_t object_subclass {};
@@ -71,22 +71,22 @@ namespace h3svg
     std::array<std::uint16_t, 4> creature_counts {};
     Coordinates coordinates;
     // Creatures guarding this dwelling.
-    Troops guardians {};
+    Troops guardians;
     // Seems to always be 0xFF.
     std::uint8_t unknown {};
   };
 
   struct Garrison
   {
-    PlayerColor owner {};
+    PlayerColor owner = PlayerColor::None;
     Troops creatures;
     Coordinates coordinates;
-    Bool can_remove_units {};
+    Bool can_remove_units = true;
   };
 
   struct Mine
   {
-    PlayerColor owner {};
+    PlayerColor owner = PlayerColor::None;
     // TODO: replace with something type-safe.
     // * For regular mines - stores {ResourceType, 0} (aka object_subclass of the mine).
     // * For lighthouses - stores {100, 0}.
@@ -102,7 +102,7 @@ namespace h3svg
     std::string message;
     Resources resources;
     // ArtifactType or 0xFF if there is none.
-    ArtifactType8 artifact {};
+    ArtifactType8 artifact = static_cast<ArtifactType8>(ArtifactType::None);
   };
 
   struct Obelisk
@@ -150,12 +150,12 @@ namespace h3svg
     // Given/taken resources.
     Resources resources;
     PlayersBitmask affected_players;
-    Bool applies_to_human {};
-    Bool applies_to_computer {};
+    Bool applies_to_human = true;
+    Bool applies_to_computer = false;
     // 0-based day of first occurence (e.g., 0 stands for Day 1).
-    std::uint16_t day_of_first_occurence {};
+    std::uint16_t day_of_first_occurence = 0;
     // Frequency of this event; 0 means that the event doesn't repeat.
-    std::uint16_t repeat_after_days {};
+    std::uint16_t repeat_after_days = 0;
   };
 
   // The equivalent of h3m::TownEvent stored in the saved game.

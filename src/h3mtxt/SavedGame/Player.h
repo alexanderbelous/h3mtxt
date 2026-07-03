@@ -33,9 +33,9 @@ namespace h3svg
     // The number of days left to live without a town, or -1 if the player has at least 1 town.
     std::int8_t days_left {};
     // The number of towns owned by the player.
-    std::uint8_t num_towns {};
+    std::uint8_t num_towns = 0;
     // ID of the currently selected town, or -1 if there is none.
-    std::int8_t current_town {};
+    std::int8_t current_town = -1;
     // IDs of towns owned by the player (see Town::id). Only the first @num_towns elements are meaningful - the
     // rest are usually set to 0xFF.
     std::array<std::int8_t, 48> towns {};

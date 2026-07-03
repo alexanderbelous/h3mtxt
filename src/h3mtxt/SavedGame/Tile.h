@@ -30,10 +30,10 @@ namespace h3svg
 
     TerrainType terrain_type {};
     std::uint8_t terrain_sprite {};
-    RiverType river_type {};
-    std::uint8_t river_sprite {};
-    RoadType road_type {};
-    std::uint8_t road_sprite {};
+    RiverType river_type = RiverType::None;
+    std::uint8_t river_sprite = 0;
+    RoadType road_type = RoadType::None;
+    std::uint8_t road_sprite = 0;
     // TODO: replace with EnumBitmask.
     // flags1 defines terrain_x, terrain_y, river_x, river_y flags:
     //   bool terrain_x = flags1 & 1;

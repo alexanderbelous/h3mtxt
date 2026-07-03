@@ -33,10 +33,10 @@ namespace h3svg
   struct EventBase
   {
     std::optional<Guardians> guardians;
-    std::int32_t experience {};
-    std::int32_t spell_points {};
-    std::int8_t morale {};
-    std::int8_t luck {};
+    std::int32_t experience = 0;
+    std::int32_t spell_points = 0;
+    std::int8_t morale = 0;
+    std::int8_t luck = 0;
     Resources resources;
     PrimarySkills primary_skills;
     // Size is serialzied as an 8-bit integer.

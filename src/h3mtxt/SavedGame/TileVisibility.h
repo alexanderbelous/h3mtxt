@@ -16,6 +16,6 @@ namespace h3svg
     // In this case a sword will be rendered when you hover the mouse over this tile, even
     // if the wandering creature is not visible. Note, however, that no sword will be rendered
     // for players for which this tile is still hidden by the Fog of War.
-    Bool has_adjacent_monster {};
+    Bool has_adjacent_monster = false;
   };
 }
