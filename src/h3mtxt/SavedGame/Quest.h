@@ -5,6 +5,7 @@
 #include <h3mtxt/Map/Utils/EnumBitmask.h>
 #include <h3mtxt/Map/Utils/TypedQuantity.h>
 #include <h3mtxt/Map/Quest.h>
+#include <h3mtxt/SavedGame/CoordinatesPacked.h>
 
 #include <array>
 #include <cstdint>
@@ -43,15 +44,11 @@ namespace h3svg
   template<>
   struct QuestDetails<QuestType::DefeatMonster>
   {
-    // Absolutely idiotic format - X is 16-bit, Y is 8-bit and Z is Bool.
-    // TODO: it's likely the packed uint32 format - X is 16 bit, Y is 10 bit, Z is 6 bit.
-    std::uint16_t x {};
-    std::uint8_t y {};
-    // Not necessarily 0 or 1 - apparently, 0x04 is usually used for subterranean.
-    Bool z {};
+    // Coordinates of the monster on the Adventure Map.
+    CoordinatesPacked coordinates;
     CreatureType creature_type {};
     // Player who defeated this monster, or 0xFF if no one has yet.
-    PlayerColor completed_by {};
+    PlayerColor completed_by = PlayerColor::None;
   };
 
   // Identical to h3m::QuestDetails<QuestType::Artifacts>.

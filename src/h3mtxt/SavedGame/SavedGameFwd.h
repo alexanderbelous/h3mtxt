@@ -121,6 +121,8 @@ namespace h3svg
 
   struct CampaignInfo;
 
+  struct CoordinatesPacked;
+
   struct CrossoverInfo;
 
   struct Date;

@@ -178,6 +178,8 @@ namespace h3json
     static constexpr std::string_view kY = "y";
     static constexpr std::string_view kZ = "z";
     static constexpr std::string_view kUnknown2 = "unknown2";
+    static constexpr std::string_view kCoordinatesPacked = "coordinates_packed";
+    static constexpr std::string_view kUnknown3 = "unknown3";
   };
 
   template<>
@@ -192,6 +194,16 @@ namespace h3json
     static constexpr std::string_view kFinishedCampaigns = "finished_campaigns";
     static constexpr std::string_view kRegions = "regions";
     static constexpr std::string_view kCrossoverInfo = "crossover_info";
+  };
+
+  template<>
+  struct FieldNames<h3svg::CoordinatesPacked>
+  {
+    static constexpr std::string_view kX = "x";
+    static constexpr std::string_view kY = "y";
+    static constexpr std::string_view kZ = "z";
+    static constexpr std::string_view kPadding1 = "padding1";
+    static constexpr std::string_view kPadding2 = "padding2";
   };
 
   template<>

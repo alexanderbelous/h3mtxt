@@ -38,9 +38,7 @@ namespace Medea_NS
   void JsonObjectWriter<h3svg::QuestDetails<h3svg::QuestType::DefeatMonster>>::operator()(
     FieldsWriter& out, const h3svg::QuestDetails<h3svg::QuestType::DefeatMonster>& details) const
   {
-    out.writeField("x", details.x);
-    out.writeField("y", details.y);
-    out.writeField("z", details.z);
+    out.writeField("coordinates", details.coordinates);
     out.writeField("creature_type", details.creature_type);
     out.writeField("completed_by", details.completed_by);
   }

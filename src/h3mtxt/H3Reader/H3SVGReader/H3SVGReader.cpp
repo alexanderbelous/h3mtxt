@@ -5,6 +5,7 @@
 #include <h3mtxt/Map/Utils/SpriteTilesBitmask.h>
 #include <h3mtxt/Map/MapAdditionalInfo.h>
 #include <h3mtxt/Map/SecondarySkill.h>
+#include <h3mtxt/SavedGame/CoordinatesPacked.h>
 #include <h3mtxt/SavedGame/Date.h>
 
 #include <cstdint>
@@ -14,6 +15,18 @@ namespace h3svg
   Coordinates H3SVGReader::readCoordinates() const
   {
     return h3m::H3MReader{stream_}.readCoordinates();
+  }
+
+  CoordinatesPacked H3SVGReader::readCoordinatesPacked() const
+  {
+    const std::uint32_t data = readInt<std::uint32_t>();
+    CoordinatesPacked coordinates;
+    coordinates.x = static_cast<std::uint16_t>(data & 0x3FFu);
+    coordinates.padding1 = static_cast<std::uint16_t>((data >> 10) & 0x3Fu);
+    coordinates.y = static_cast<std::uint16_t>((data >> 16) & 0x3FFu);
+    coordinates.z = static_cast<std::uint16_t>((data >> 26) & 1u);
+    coordinates.padding2 = static_cast<std::uint16_t>(data >> 27);
+    return coordinates;
   }
 
   CustomHero H3SVGReader::readCustomHero() const

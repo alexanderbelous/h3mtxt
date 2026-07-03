@@ -83,6 +83,13 @@ namespace Medea_NS
   void JsonObjectWriter<h3svg::CampaignInfo>::operator()(FieldsWriter& out, const h3svg::CampaignInfo& info) const;
 
   template<>
+  void JsonObjectWriter<h3svg::CoordinatesPacked>::operator()(FieldsWriter& out,
+                                                              const h3svg::CoordinatesPacked& coordinates) const;
+
+  template<>
+  inline constexpr bool kIsSingleLineByDefault<h3svg::CoordinatesPacked> = true;
+
+  template<>
   void JsonObjectWriter<h3svg::CrossoverInfo>::operator()(FieldsWriter& out, const h3svg::CrossoverInfo& info) const;
 
   template<>

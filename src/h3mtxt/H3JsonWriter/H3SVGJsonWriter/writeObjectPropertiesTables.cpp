@@ -27,6 +27,8 @@ namespace Medea_NS
     out.writeField(Fields::kY, boat.y);
     out.writeField(Fields::kZ, boat.z);
     out.writeField(Fields::kUnknown2, boat.unknown2);
+    out.writeField(Fields::kCoordinatesPacked, boat.coordinates_packed);
+    out.writeField(Fields::kUnknown3, boat.unknown3);
   }
 
   void JsonObjectWriter<h3svg::Dwelling>::operator()(FieldsWriter& out, const h3svg::Dwelling& dwelling) const

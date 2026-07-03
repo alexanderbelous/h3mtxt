@@ -17,12 +17,14 @@ namespace h3svg
     boat.object_sublcass = readInt<std::uint8_t>();
     boat.direction = readInt<std::uint8_t>();
     boat.owner = readEnum<PlayerColor>();
-    boat.owner_hero = readInt<std::uint16_t>();
+    boat.owner_hero = readEnum<HeroType16>();
     boat.is_occupied = readBool();
     boat.x = readInt<std::uint16_t>();
     boat.y = readInt<std::uint16_t>();
     boat.z = readInt<std::uint16_t>();
-    boat.unknown2 = readByteArray<14>();
+    boat.unknown2 = readInt<std::uint8_t>();
+    boat.coordinates_packed = readCoordinatesPacked();
+    boat.unknown3 = readByteArray<9>();
     return boat;
   }
 

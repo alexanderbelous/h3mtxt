@@ -60,9 +60,7 @@ namespace h3svg
   QuestDetails<QuestType::DefeatMonster> H3SVGReader::readQuestDetails() const
   {
     QuestDetails<QuestType::DefeatMonster> details;
-    details.x = readInt<std::uint16_t>();
-    details.y = readInt<std::uint8_t>();
-    details.z = readBool();
+    details.coordinates = readCoordinatesPacked();
     details.creature_type = readEnum<CreatureType>();
     details.completed_by = readEnum<PlayerColor>();
     return details;

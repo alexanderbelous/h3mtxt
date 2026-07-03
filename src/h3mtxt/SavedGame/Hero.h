@@ -18,6 +18,7 @@
 #include <h3mtxt/SavedGame/Constants/ArtifactSlotGroup.h>
 #include <h3mtxt/SavedGame/Constants/Constants.h>
 #include <h3mtxt/SavedGame/Constants/HeroFlag.h>
+#include <h3mtxt/SavedGame/CoordinatesPacked.h>
 #include <h3mtxt/SavedGame/Troops.h>
 
 #include <array>
@@ -54,7 +55,7 @@ namespace h3svg
     std::int16_t y {};
     std::int16_t z {};
     Bool is_visible {};
-    std::uint32_t coordinates_packed {};
+    CoordinatesPacked coordinates_packed;
     // ObjectClass of the object under the hero, or ObjectClass::NONE if there is none.
     ObjectClass object_class_under {};
     // TODO: figure out what this is.

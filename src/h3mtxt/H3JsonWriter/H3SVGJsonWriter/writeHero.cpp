@@ -9,6 +9,18 @@
 
 namespace Medea_NS
 {
+  template<>
+  void JsonObjectWriter<h3svg::CoordinatesPacked>::operator()(FieldsWriter& out,
+                                                              const h3svg::CoordinatesPacked& coordinates) const
+  {
+    using Fields = h3json::FieldNames<h3svg::CoordinatesPacked>;
+    out.writeField(Fields::kX, coordinates.x);
+    out.writeField(Fields::kY, coordinates.y);
+    out.writeField(Fields::kZ, coordinates.z);
+    out.writeField(Fields::kPadding1, coordinates.padding1);
+    out.writeField(Fields::kPadding2, coordinates.padding2);
+  }
+
   void JsonObjectWriter<h3svg::HeroArtifact>::operator()(FieldsWriter& out, const h3svg::HeroArtifact& artifact) const
   {
     out.writeField("type", artifact.type);

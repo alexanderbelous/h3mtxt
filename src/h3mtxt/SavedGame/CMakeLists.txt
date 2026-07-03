@@ -16,6 +16,7 @@ set(SOURCE_LIST
     "Constants/TownType32.h"
     "ArtifactMerchants.h"
     "CampaignInfo.h"
+    "CoordinatesPacked.h"
     "Date.h"
     "EventBase.h"
     "Hero.h"

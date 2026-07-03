@@ -46,7 +46,7 @@ namespace h3svg
     // 0-7 or 0xFF if no owner.
     PlayerColor owner {};
     // ~ The last hero who used this boat, or 0xFFFF if none
-    std::uint16_t owner_hero {};
+    HeroType16 owner_hero {};
     // 0 if the boat exists (hasn't been scuttled) and is not boarded by a hero, 1 otherwise.
     // Not entirely sure about this one though - maybe scuttled boats are removed from the table.
     Bool is_occupied {};
@@ -54,8 +54,10 @@ namespace h3svg
     std::uint16_t y {};
     std::uint16_t z {};
     // TODO: figure out what this is.
-    // Seems to duplicate the coordinates, but in the packed format.
-    std::array<std::uint8_t, 14> unknown2 {};
+    std::uint8_t unknown2 {};
+    CoordinatesPacked coordinates_packed;
+    // TODO: figure out what this is.
+    std::array<std::uint8_t, 9> unknown3 {};
   };
 
   struct Dwelling
