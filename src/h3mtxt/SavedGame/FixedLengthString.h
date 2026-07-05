@@ -34,7 +34,7 @@ namespace h3svg
   //
   // \param N - the number of bytes
   template<std::size_t N>
-  class FixedWidthString
+  class FixedLengthString
   {
   public:
     using value_type = char;
@@ -46,24 +46,24 @@ namespace h3svg
     using const_pointer = const char*;
 
     // Constructs an empty string.
-    constexpr FixedWidthString() noexcept = default;
+    constexpr FixedLengthString() noexcept = default;
 
-    // Constructs a FixedWidthString from the input null-terminated string.
+    // Constructs a FixedLengthString from the input null-terminated string.
     // \param str - input null-terminated string.
     // \throw std::length_error if str.size() > N.
-    constexpr FixedWidthString(const char* str);
+    constexpr FixedLengthString(const char* str);
 
-    // Constructs a FixedWidthString from the input std::string_view.
+    // Constructs a FixedLengthString from the input std::string_view.
     // \param str - input std::string_view.
     // \throw std::length_error if str.size() > N.
-    constexpr FixedWidthString(std::string_view str);
+    constexpr FixedLengthString(std::string_view str);
 
     // Replaces the contents with the bytes from the input std::string_view.
     // \param str - input std::string_view. If str.size() < N, the function will assign '\0'
     //        to all bytes [str.size(), N) in the buffer.
     // \return *this
     // \throw std::length_error if str.size() > N.
-    constexpr FixedWidthString& operator=(std::string_view str);
+    constexpr FixedLengthString& operator=(std::string_view str);
 
     // \return N.
     static constexpr std::size_t bufferSize() noexcept;
@@ -131,22 +131,22 @@ namespace h3svg
   };
 
   template<std::size_t N>
-  constexpr FixedWidthString<N>::FixedWidthString(const char* str):
-    FixedWidthString(std::string_view{ str })
+  constexpr FixedLengthString<N>::FixedLengthString(const char* str):
+    FixedLengthString(std::string_view{ str })
   {}
 
   template<std::size_t N>
-  constexpr FixedWidthString<N>::FixedWidthString(std::string_view str)
+  constexpr FixedLengthString<N>::FixedLengthString(std::string_view str)
   {
     *this = str;
   }
 
   template<std::size_t N>
-  constexpr FixedWidthString<N>& FixedWidthString<N>::operator=(std::string_view str)
+  constexpr FixedLengthString<N>& FixedLengthString<N>::operator=(std::string_view str)
   {
     if (str.size() > N)
     {
-      throw std::length_error("FixedWidthString: the input string is too long.");
+      throw std::length_error("FixedLengthString: the input string is too long.");
     }
     std::fill(std::copy(str.begin(), str.end(), data_.begin()),
               data_.end(),
@@ -155,91 +155,91 @@ namespace h3svg
   }
 
   template<std::size_t N>
-  static constexpr std::size_t FixedWidthString<N>::bufferSize() noexcept
+  static constexpr std::size_t FixedLengthString<N>::bufferSize() noexcept
   {
     return N;
   }
 
   template<std::size_t N>
-  constexpr std::span<char, N> FixedWidthString<N>::buffer() noexcept
+  constexpr std::span<char, N> FixedLengthString<N>::buffer() noexcept
   {
     return std::span<char, N>{ data(), N };
   }
 
   template<std::size_t N>
-  constexpr std::span<const char, N> FixedWidthString<N>::buffer() const noexcept
+  constexpr std::span<const char, N> FixedLengthString<N>::buffer() const noexcept
   {
     return std::span<const char, N>{ data(), N };
   }
 
   template<std::size_t N>
-  constexpr std::string_view FixedWidthString<N>::bufferView() const noexcept
+  constexpr std::string_view FixedLengthString<N>::bufferView() const noexcept
   {
     return std::string_view{ data(), N };
   }
 
   template<std::size_t N>
-  constexpr char& FixedWidthString<N>::operator[](std::size_t n)
+  constexpr char& FixedLengthString<N>::operator[](std::size_t n)
   {
     return data_[n];
   }
 
   template<std::size_t N>
-  constexpr const char& FixedWidthString<N>::operator[](std::size_t n) const
+  constexpr const char& FixedLengthString<N>::operator[](std::size_t n) const
   {
     return data_[n];
   }
 
   template<std::size_t N>
-  constexpr char& FixedWidthString<N>::at(std::size_t n)
+  constexpr char& FixedLengthString<N>::at(std::size_t n)
   {
     return data_.at(n);
   }
 
   template<std::size_t N>
-  constexpr const char& FixedWidthString<N>::at(std::size_t n) const
+  constexpr const char& FixedLengthString<N>::at(std::size_t n) const
   {
     return data_.at(n);
   }
 
   template<std::size_t N>
-  constexpr char* FixedWidthString<N>::data() noexcept
+  constexpr char* FixedLengthString<N>::data() noexcept
   {
     return data_.data();
   }
 
   template<std::size_t N>
-  constexpr const char* FixedWidthString<N>::data() const noexcept
+  constexpr const char* FixedLengthString<N>::data() const noexcept
   {
     return data_.data();
   }
 
   template<std::size_t N>
-  constexpr FixedWidthString<N>::operator std::string_view() const noexcept
+  constexpr FixedLengthString<N>::operator std::string_view() const noexcept
   {
     return std::string_view{ data(), size() };
   }
 
   template<std::size_t N>
-  constexpr std::size_t FixedWidthString<N>::size() const noexcept
+  constexpr std::size_t FixedLengthString<N>::size() const noexcept
   {
     return std::find(data_.begin(), data_.end(), '\0') - data_.begin();
   }
 
   template<std::size_t N>
-  constexpr std::size_t FixedWidthString<N>::length() const noexcept
+  constexpr std::size_t FixedLengthString<N>::length() const noexcept
   {
     return size();
   }
 
   template<std::size_t N>
-  constexpr bool FixedWidthString<N>::empty() const noexcept
+  constexpr bool FixedLengthString<N>::empty() const noexcept
   {
     return size() == 0;
   }
 
   template<std::size_t N>
-  constexpr void FixedWidthString<N>::clear() noexcept
+  constexpr void FixedLengthString<N>::clear() noexcept
   {
     data_.fill('\0');
   }

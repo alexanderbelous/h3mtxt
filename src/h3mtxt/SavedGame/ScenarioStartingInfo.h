@@ -12,7 +12,7 @@
 #include <h3mtxt/SavedGame/Constants/PlayerTurnDurationType.h>
 #include <h3mtxt/SavedGame/Constants/TownType32.h>
 #include <h3mtxt/SavedGame/CampaignInfo.h>
-#include <h3mtxt/SavedGame/FixedWidthString.h>
+#include <h3mtxt/SavedGame/FixedLengthString.h>
 
 #include <array>
 #include <cstddef>
@@ -59,7 +59,7 @@ namespace h3svg
     // allow inspecting and modifying any byte, as long as it doesn't lead to corrupt data.
     //
     // For now, I will define this as an array of 251 bytes, but this might change in the future.
-    FixedWidthString<251> map_filename;
+    FixedLengthString<251> map_filename;
     // Relative (to Heroes3.exe) path to the directory in which the original map is located.
     //
     // In H3SVG this is stored as a fixed-width string (100 bytes):
@@ -73,7 +73,7 @@ namespace h3svg
     // * Absolute paths (e.g., "F:\Maps") are NOT supported.
     //
     // For campaigns this is normally an empty string.
-    FixedWidthString<100> map_directory;
+    FixedLengthString<100> map_directory;
     // 8 bytes: 1 byte per PlayerColor, indicating who can control this color
     // (0 - only CPU, 1 - Human or CPU, 0xFF - nobody).
     // This duplicates data from SavedGame::players, but H3SVG explicitly stores it, so we should too.

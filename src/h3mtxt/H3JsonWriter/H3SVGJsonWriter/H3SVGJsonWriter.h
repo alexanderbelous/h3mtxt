@@ -68,7 +68,7 @@ namespace Medea_NS
   std::string_view EnumCommentGetter::operator()(h3svg::TownType32 value) const;
   // ============================================================
 
-  // Serialize h3svg::FixedWidthString as JsonDataType::String.
+  // Serialize h3svg::FixedLengthString as JsonDataType::String.
   //
   // TODO: this is "lossy": the junk bytes after the first null terminator are ignored, so deserializing
   // FxiedWidthString from the generated JSON String will produce an unequal object.
@@ -77,13 +77,13 @@ namespace Medea_NS
   // * Serialize as a String only if all bytes after the first null terminator are also null terminators.
   // * Escape the null terminator and the bytes after it.
   template<std::size_t N>
-  inline constexpr JsonDataType kJsonDataTypeFor<h3svg::FixedWidthString<N>> = JsonDataType::String;
+  inline constexpr JsonDataType kJsonDataTypeFor<h3svg::FixedLengthString<N>> = JsonDataType::String;
 
   template<std::size_t N>
-  struct JsonScalarGetter<h3svg::FixedWidthString<N>>
+  struct JsonScalarGetter<h3svg::FixedLengthString<N>>
   {
     // Defined in Utils.h
-    std::string_view operator()(const h3svg::FixedWidthString<N>& str) const;
+    std::string_view operator()(const h3svg::FixedLengthString<N>& str) const;
   };
 
   template<>

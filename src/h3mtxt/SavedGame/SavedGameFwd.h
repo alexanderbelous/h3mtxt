@@ -132,7 +132,7 @@ namespace h3svg
   struct EventBase;
 
   template<std::size_t N>
-  class FixedWidthString;
+  class FixedLengthString;
 
   struct Garrison;
 

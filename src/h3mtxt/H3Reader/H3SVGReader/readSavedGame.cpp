@@ -23,12 +23,10 @@ namespace h3svg
     return rumor;
   }
 
-  constexpr FixedWidthString<5> kFoo = "H3SVG";
-
   SavedGame H3SVGReader::readSavedGame() const
   {
     SavedGame saved_game;
-    saved_game.signature = readFixedWidthString<5>();
+    saved_game.signature = readFixedLengthString<5>();
     // Check the file signature (always 5 bytes).
     {
       const std::string_view signature = saved_game.signature;
@@ -65,7 +63,7 @@ namespace h3svg
     // FYI: for standalone maps this is always 422 bytes; for campaigns, however, the size varies.
     saved_game.starting_info = readScenarioStartingInfo();
     // Read 47 bytes representing the original filename for this saved game.
-    saved_game.original_filename = readFixedWidthString<47>();
+    saved_game.original_filename = readFixedLengthString<47>();
     // Read 352 bytes.
     // TODO: figure out what this is.
     saved_game.unknown2 = readByteArray<352>();

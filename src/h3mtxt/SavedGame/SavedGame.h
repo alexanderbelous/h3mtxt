@@ -12,7 +12,7 @@
 #include <h3mtxt/SavedGame/Constants/KeymastersTentType.h>
 #include <h3mtxt/SavedGame/ArtifactMerchants.h>
 #include <h3mtxt/SavedGame/Date.h>
-#include <h3mtxt/SavedGame/FixedWidthString.h>
+#include <h3mtxt/SavedGame/FixedLengthString.h>
 #include <h3mtxt/SavedGame/Hero.h>
 #include <h3mtxt/SavedGame/LossCondition.h>
 #include <h3mtxt/SavedGame/ObjectPropertiesTables.h>
@@ -55,7 +55,7 @@ namespace h3svg
     //
     // FYI: apparently, HD Mod used to use "HDSvG" instead (when using HD+ ?),
     // but this doesn't seem to be the case anymore.
-    FixedWidthString<5> signature = "H3SVG"; // { 'H', '3', 'S', 'V', 'G' };
+    FixedLengthString<5> signature = "H3SVG"; // { 'H', '3', 'S', 'V', 'G' };
     ReservedData<3> reserved1;
     std::uint32_t version_major {};
     std::uint32_t version_minor {};
@@ -84,7 +84,7 @@ namespace h3svg
     // (e.g., "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefg.GM1"), but it's probably not the limit of this field.
     // It's hard to figure out what the actual limit is, since the value is not used anywhere.
     // I don't know if this needs to be null-terminated (again, because it's not used anywhere).
-    FixedWidthString<47> original_filename;
+    FixedLengthString<47> original_filename;
     // TODO: figure out what this is.
     // The last 50 bytes look like some bitmask, but I don't know the meaning yet.
     std::array<std::uint8_t, 352> unknown2 {};
