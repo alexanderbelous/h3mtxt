@@ -8,6 +8,7 @@
 #include <h3mtxt/Map/Utils/EnumIndexedArray.h>
 #include <h3mtxt/Map/Utils/ReservedData.h>
 #include <h3mtxt/Map/Coordinates.h>
+#include <h3mtxt/SavedGame/Constants/BoatType.h>
 #include <h3mtxt/SavedGame/Constants/SeerName.h>
 #include <h3mtxt/SavedGame/EventBase.h>
 #include <h3mtxt/SavedGame/Quest.h>
@@ -40,7 +41,7 @@ namespace h3svg
     // Why the fuck is it serialized at all?
     std::array<std::uint8_t, 2> unknown1 {};
     // (0 - Necropolis, 1 - Castle, 2 - Fortress)
-    std::uint8_t object_sublcass {};
+    BoatType object_sublcass {};
     // (0 - North, 2 - East, 3 - SouthEast, 7 - NorthWest, ...)
     std::uint8_t direction {};
     // 0-7 or 0xFF if no owner.

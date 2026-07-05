@@ -20,6 +20,9 @@ namespace Medea_NS
   std::string_view EnumCommentGetter::operator()(h3svg::ArtifactType32 value) const;
 
   template<>
+  std::string_view EnumCommentGetter::operator()(h3svg::BoatType value) const;
+
+  template<>
   std::string_view EnumCommentGetter::operator()(h3svg::CampaignId value) const;
 
   template<>

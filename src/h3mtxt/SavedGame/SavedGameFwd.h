@@ -65,6 +65,8 @@ namespace h3svg
 
   enum class ArtifactType32 : std::int32_t;
 
+  enum class BoatType : std::uint8_t;
+
   enum class CampaignId : std::uint8_t;
 
   // CreatureType8 is kinda broken: regardless of whether we use std::int8_t or std::uint8_t

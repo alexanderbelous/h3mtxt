@@ -5,6 +5,8 @@
 #include <h3mtxt/Map/Constants/HeroType.h>
 #include <h3mtxt/Map/Constants/ObjectClass.h>
 #include <h3mtxt/Map/Constants/PlayerBehavior.h>
+#include <h3mtxt/Map/Constants/TownType.h>
+#include <h3mtxt/SavedGame/Constants/BoatType.h>
 #include <h3mtxt/SavedGame/Constants/Constants.h>
 #include <h3mtxt/SavedGame/Constants/PlayerControlType.h>
 #include <h3mtxt/SavedGame/Constants/PlayerPersonality.h>
@@ -90,6 +92,22 @@ namespace Medea_NS
       return (*this)(static_cast<h3svg::ArtifactType>(value));
     }
     return std::string_view{};
+  }
+
+  template<>
+  std::string_view EnumCommentGetter::operator()(h3svg::BoatType value) const
+  {
+    switch (value)
+    {
+    case h3svg::BoatType::Necropolis:
+      return (*this)(h3m::TownType::Necropolis);
+    case h3svg::BoatType::Castle:
+      return (*this)(h3m::TownType::Castle);
+    case h3svg::BoatType::Fortress:
+      return (*this)(h3m::TownType::Fortress);
+    default:
+      return std::string_view{};
+    }
   }
 
   template<>
