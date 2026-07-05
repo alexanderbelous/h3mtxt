@@ -38,20 +38,20 @@ namespace h3svg
     std::int8_t current_town = -1;
     // IDs of towns owned by the player (see Town::id). Only the first @num_towns elements are meaningful - the
     // rest are usually set to 0xFF.
-    std::array<std::int8_t, 48> towns {};
-    // TODO: figure out what this is.
-    // Each element seems to always be 0xFF. Maybe reserved for more towns?
-    std::array<std::uint8_t, 24> unknown3 {};
+    // Note that the Map Editor forbids placing more than 48 towns on the Adventure Map, but this
+    // array has room for 72.
+    std::array<std::int8_t, 72> towns {};
     Resources resources;
     // 1 bit per Mystical Garden, indicating if the player has visited it this week.
     BitSet<4> mystical_gardens;
     // TODO: figure out what this is.
-    std::array<std::uint8_t, 4> unknown4 {};
+    // Really does seem to be BitSet<4> magic_springs.
+    std::array<std::uint8_t, 4> unknown3 {};
     // 1 bit per Corpse, indicating if the player has visited it.
     BitSet<4> corpses;
     // 1 bit per Lean To, indicating if the player has visited it.
     BitSet<4> lean_tos;
     // TODO: figure out what this is.
-    std::array<std::uint8_t, 3> unknown5 {};
+    std::array<std::uint8_t, 3> unknown4 {};
   };
 }

@@ -28,13 +28,12 @@ namespace h3svg
     {
       town_id = readInt<std::uint8_t>();
     }
-    player.unknown3 = readByteArray<24>();
     player.resources = readResources();
     player.mystical_gardens = readBitSet<4>();
-    player.unknown4 = readByteArray<4>();
+    player.unknown3 = readByteArray<4>();
     player.corpses = readBitSet<4>();
     player.lean_tos = readBitSet<4>();
-    player.unknown5 = readByteArray<3>();
+    player.unknown4 = readByteArray<3>();
     return player;
   }
 }
