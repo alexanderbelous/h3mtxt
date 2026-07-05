@@ -50,7 +50,7 @@ namespace Medea_NS
   std::string_view EnumCommentGetter::operator()(h3svg::PlayerStartingBonusType value) const;
 
   template<>
-  std::string_view EnumCommentGetter::operator()(h3svg::PlayerTurnDurationType value) const;
+  std::string_view EnumCommentGetter::operator()(h3svg::TurnDurationType value) const;
 
   template<>
   std::string_view EnumCommentGetter::operator()(h3svg::PrimarySkillType32 value) const;

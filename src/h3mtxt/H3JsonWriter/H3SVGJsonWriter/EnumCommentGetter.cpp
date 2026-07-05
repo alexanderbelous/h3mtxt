@@ -242,7 +242,7 @@ namespace Medea_NS
   }
 
   template<>
-  std::string_view EnumCommentGetter::operator()(h3svg::PlayerTurnDurationType value) const
+  std::string_view EnumCommentGetter::operator()(h3svg::TurnDurationType value) const
   {
     static constexpr std::string_view kNames[] = {
       "1 Minute",

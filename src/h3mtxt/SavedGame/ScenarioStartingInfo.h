@@ -9,8 +9,8 @@
 #include <h3mtxt/SavedGame/Constants/Constants.h>
 #include <h3mtxt/SavedGame/Constants/PlayerControlType.h>
 #include <h3mtxt/SavedGame/Constants/PlayerStartingBonusType.h>
-#include <h3mtxt/SavedGame/Constants/PlayerTurnDurationType.h>
 #include <h3mtxt/SavedGame/Constants/TownType32.h>
+#include <h3mtxt/SavedGame/Constants/TurnDurationType.h>
 #include <h3mtxt/SavedGame/CampaignInfo.h>
 #include <h3mtxt/SavedGame/FixedLengthString.h>
 
@@ -84,7 +84,7 @@ namespace h3svg
     // 1 byte indicating player turn duration.
     // The value is junk for campaigns (usually zero-initialized). Note that
     // limiting player turn duration is not supported in campaigns at all.
-    PlayerTurnDurationType player_turn_duration = PlayerTurnDurationType::Unlimited;
+    TurnDurationType player_turn_duration = TurnDurationType::Unlimited;
     // 8 bytes: 1 byte per player, indicating the type of the starting hero.
     // The values are junk for campaigns (usually zero-initialized).
     EnumIndexedArray<PlayerColor, HeroType, h3m::kMaxPlayers> starting_heroes;

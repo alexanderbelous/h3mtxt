@@ -97,7 +97,7 @@ namespace h3svg
 
   enum class PlayerStartingBonusType : std::uint8_t;
 
-  enum class PlayerTurnDurationType : std::uint8_t;
+  enum class TurnDurationType : std::uint8_t;
 
   enum class PrimarySkillType32 : std::uint32_t;
 

@@ -29,7 +29,7 @@ namespace h3svg
     // TODO: figure out what this is. Seems to always be {255, 1, 1}.
     readBytes(std::span<std::byte, 3>{ starting_info.unknown2 });
     // Read 1 byte specifying the player turn duration.
-    starting_info.player_turn_duration = readEnum<PlayerTurnDurationType>();
+    starting_info.player_turn_duration = readEnum<TurnDurationType>();
     // Read 8 bytes - 1 byte per player, specifying the starting hero.
     for (HeroType& starting_hero : starting_info.starting_heroes.data)
     {
