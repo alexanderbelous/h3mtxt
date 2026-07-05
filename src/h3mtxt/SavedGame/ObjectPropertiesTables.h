@@ -37,9 +37,10 @@ namespace h3svg
   // This is almost as bad as Tile::object_properties. Seriously, who fucking designed H3SVG?
   struct Boat
   {
-    // unknown[1] seems to be the boat ID, i.e. the index of the boat in SavedGame::boats.
-    // Why the fuck is it serialized at all?
-    std::array<std::uint8_t, 2> unknown1 {};
+    // TODO: figure out what this is.
+    std::uint8_t unknown1 {};
+    // 0-based index of this boat in ObjectPropertiesTables::boats.
+    std::uint8_t id {};
     // (0 - Necropolis, 1 - Castle, 2 - Fortress)
     BoatType object_sublcass {};
     // (0 - North, 2 - East, 3 - SouthEast, 7 - NorthWest, ...)

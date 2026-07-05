@@ -13,7 +13,8 @@ namespace h3svg
   {
     // Always 28 bytes, apparently.
     Boat boat;
-    boat.unknown1 = readByteArray<2>();
+    boat.unknown1 = readInt<std::uint8_t>();
+    boat.id = readInt<std::uint8_t>();
     boat.object_sublcass = readEnum<BoatType>();
     boat.direction = readInt<std::uint8_t>();
     boat.owner = readEnum<PlayerColor>();

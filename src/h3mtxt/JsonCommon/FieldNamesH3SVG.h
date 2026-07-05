@@ -169,6 +169,7 @@ namespace h3json
   struct FieldNames<h3svg::Boat>
   {
     static constexpr std::string_view kUnknown1 = "unknown1";
+    static constexpr std::string_view kId = "id";
     static constexpr std::string_view kObjectSubclass = "object_sublcass";
     static constexpr std::string_view kDirection = "direction";
     static constexpr std::string_view kOwner = "owner";

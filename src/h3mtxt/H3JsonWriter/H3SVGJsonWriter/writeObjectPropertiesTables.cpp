@@ -18,6 +18,7 @@ namespace Medea_NS
     using Fields = h3json::FieldNames<h3svg::Boat>;
 
     out.writeField(Fields::kUnknown1, boat.unknown1);
+    out.writeField(Fields::kId, boat.id);
     out.writeField(Fields::kObjectSubclass, boat.object_sublcass);
     out.writeField(Fields::kDirection, boat.direction);
     out.writeField(Fields::kOwner, boat.owner);
