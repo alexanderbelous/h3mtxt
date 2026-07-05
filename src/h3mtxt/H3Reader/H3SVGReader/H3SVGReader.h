@@ -6,6 +6,7 @@
 #include <h3mtxt/Map/Constants/RewardType.h>
 #include <h3mtxt/Map/Constants/VictoryConditionType.h>
 #include <h3mtxt/SavedGame/SavedGameFwd.h>
+#include <h3mtxt/SavedGame/FixedWidthString.h>
 
 namespace h3svg
 {
@@ -37,6 +38,9 @@ namespace h3svg
     Dwelling readDwelling() const;
 
     EventBase readEventBase() const;
+
+    template<std::size_t N>
+    FixedWidthString<N> readFixedWidthString() const;
 
     Garrison readGarrison() const;
 
@@ -134,6 +138,14 @@ namespace h3svg
     template<VictoryConditionType T>
     VictoryConditionDetails<T> readVictoryConditionDetails() const;
   };
+
+  template<std::size_t N>
+  FixedWidthString<N> H3SVGReader::readFixedWidthString() const
+  {
+    FixedWidthString<N> str;
+    readBytes(std::as_writable_bytes(str.buffer()));
+    return str;
+  }
 
   template<> LossConditionDetails<LossConditionType::LoseHero> H3SVGReader::readLossConditionDetails() const;
 

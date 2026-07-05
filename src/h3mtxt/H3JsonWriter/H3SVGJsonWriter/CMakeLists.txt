@@ -1,6 +1,7 @@
 add_library(H3SVGJsonWriter STATIC
     "EnumCommentGetter.cpp"
     "H3SVGJsonWriter.h"
+    "Utils.h"
     "writeH3SvgJson.cpp"
     "writeH3SvgJson.h"
     "writeHero.cpp"

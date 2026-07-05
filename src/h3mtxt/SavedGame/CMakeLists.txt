@@ -19,6 +19,7 @@ set(SOURCE_LIST
     "CoordinatesPacked.h"
     "Date.h"
     "EventBase.h"
+    "FixedWidthString.h"
     "Hero.h"
     "LossCondition.h"
     "ObjectPropertiesTables.h"

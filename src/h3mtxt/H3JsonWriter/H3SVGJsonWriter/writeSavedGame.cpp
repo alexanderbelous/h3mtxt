@@ -3,6 +3,7 @@
 #include <h3mtxt/H3JsonWriter/H3MJsonWriter/CommentBuilder.h>
 #include <h3mtxt/H3JsonWriter/H3MJsonWriter/H3MJsonWriter.h>
 #include <h3mtxt/H3JsonWriter/H3MJsonWriter/Utils.h>
+#include <h3mtxt/H3JsonWriter/H3SVGJsonWriter/Utils.h>
 #include <h3mtxt/JsonCommon/FieldNamesH3M.h>
 #include <h3mtxt/JsonCommon/FieldNamesH3SVG.h>
 #include <h3mtxt/Medea/Medea.h>
@@ -195,7 +196,7 @@ namespace Medea_NS
   {
     using Fields = h3json::FieldNames<h3svg::SavedGame>;
 
-    out.writeField(Fields::kSignature, std::string_view{ saved_game.signature.data(), saved_game.signature.size() });
+    out.writeField(Fields::kSignature, saved_game.signature);
     out.writeField(Fields::kReserved1, saved_game.reserved1);
     out.writeField(Fields::kVersionMajor, saved_game.version_major);
     out.writeField(Fields::kVersionMinor, saved_game.version_minor);
@@ -209,7 +210,6 @@ namespace Medea_NS
     out.writeField(Fields::kCustomHeroes, saved_game.custom_heroes);
     out.writeField(Fields::kUnknown1, saved_game.unknown1);
     out.writeField(Fields::kStartingInfo, saved_game.starting_info);
-    // TODO: consider serializing as a string.
     out.writeField(Fields::kOriginalFilename, saved_game.original_filename);
     out.writeField(Fields::kUnknown2, saved_game.unknown2);
     out.writeField(Fields::kDisabledArtifacts, saved_game.disabled_artifacts);
@@ -258,11 +258,7 @@ namespace Medea_NS
     out.writeField(Fields::kStartingTowns, starting_info.starting_towns);
     out.writeField(Fields::kUnknown1, starting_info.unknown1);
     out.writeField(Fields::kDifficulty, starting_info.difficulty);
-    // TODO: it sucks that we serialize this as a JSON array rather than a string.
-    // Consider serializing as a string, escaping unprintable characters.
     out.writeField(Fields::kMapFilename, starting_info.map_filename);
-    // TODO: consider serializing as a string rather than a JSON array,
-    //       escaping unprintable characters.
     out.writeField(Fields::kMapDirectory, starting_info.map_directory);
     out.writeField(Fields::kPlayersControl, starting_info.players_control);
     out.writeField(Fields::kUnknown2, starting_info.unknown2);

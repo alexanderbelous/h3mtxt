@@ -17,9 +17,9 @@ namespace h3svg
     // Read 1 byte - the selected difficulty level.
     starting_info.difficulty = readEnum<MapDifficulty>();
     // Read 251 bytes representing the filename of the original map.
-    readBytes(std::as_writable_bytes(std::span{ starting_info.map_filename }));
+    starting_info.map_filename = readFixedWidthString<251>();
     // Read 100 bytes representing the relative path to the directory in which the original map is located.
-    readBytes(std::as_writable_bytes(std::span{ starting_info.map_directory }));
+    starting_info.map_directory = readFixedWidthString<100>();
     // Read 8 bytes - 1 byte per PlayerColor, indicating who can control this color.
     for (PlayerControlType& player_control : starting_info.players_control.data)
     {

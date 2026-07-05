@@ -131,6 +131,9 @@ namespace h3svg
 
   struct EventBase;
 
+  template<std::size_t N>
+  class FixedWidthString;
+
   struct Garrison;
 
   struct Guardians;

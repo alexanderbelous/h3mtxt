@@ -147,7 +147,7 @@ namespace h3svg
     HeroFlags flags;
     Troops army;
     // Fixed-size; only the characters before the first null terminator are significant.
-    std::array<char, 13> name {};
+    FixedWidthString<13> name;
     // Level for each SeconadrySkillType.
     EnumIndexedArray<SecondarySkillType, std::uint8_t, kNumSecondarySkills> secondary_skills_levels {};
     // Slot on the Hero Screen for each SecondarySkillType.

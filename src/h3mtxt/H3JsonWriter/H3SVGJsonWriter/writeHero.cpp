@@ -2,6 +2,7 @@
 
 #include <h3mtxt/H3JsonWriter/H3MJsonWriter/H3MJsonWriter.h>
 #include <h3mtxt/H3JsonWriter/H3MJsonWriter/Utils.h>
+#include <h3mtxt/H3JsonWriter/H3SVGJsonWriter/Utils.h>
 #include <h3mtxt/JsonCommon/FieldNamesH3SVG.h>
 #include <h3mtxt/Map/Constants/ArtifactType.h>
 #include <h3mtxt/Medea/Medea.h>
