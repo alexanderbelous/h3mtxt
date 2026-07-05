@@ -144,13 +144,15 @@ namespace h3svg
   template<std::size_t N>
   constexpr FixedLengthString<N>& FixedLengthString<N>::operator=(std::string_view str)
   {
-    if (str.size() > N)
+    const std::size_t n = str.size();
+    if (n > N)
     {
       throw std::length_error("FixedLengthString: the input string is too long.");
     }
-    std::fill(std::copy(str.begin(), str.end(), data_.begin()),
-              data_.end(),
-              '\0');
+    // @str and @data_ may overlap, but in that case it's guaranteed that &str[0] >= &data_[0],
+    // so we will be copying to the left.
+    std::copy_backward(str.begin(), str.begin() + n, data_.begin() + n);
+    std::fill(data_.begin() + n, data_.end(), '\0');
     return *this;
   }
 
