@@ -434,10 +434,10 @@ namespace h3json
     static constexpr std::string_view kTowns = "towns";
     static constexpr std::string_view kResources = "resources";
     static constexpr std::string_view kMysticalGardens = "mystical_gardens";
-    static constexpr std::string_view kUnknown3 = "unknown3";
+    static constexpr std::string_view kMagicSprings = "magic_springs";
     static constexpr std::string_view kCorpses = "corpses";
     static constexpr std::string_view kLeanTos = "lean_tos";
-    static constexpr std::string_view kUnknown4 = "unknown4";
+    static constexpr std::string_view kUnknown3 = "unknown3";
   };
 
   template<>

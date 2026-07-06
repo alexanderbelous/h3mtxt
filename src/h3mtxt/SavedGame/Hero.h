@@ -31,7 +31,7 @@ namespace h3svg
   struct HeroArtifact
   {
     // Type of the artifact, or 0xFFFFFFFF if there is none.
-    ArtifactType32 type = static_cast<ArtifactType32>(-1);
+    ArtifactType32 type = static_cast<ArtifactType32>(ArtifactType::None);
     // Type of the spell for spell scrolls; meaningless if this isn't a spell scroll.
     // The value is usually 0xFFFFFFFF if this is not a spell scroll, but don't rely on that:
     //   * Empty slots in the backpack sometimes use 0.

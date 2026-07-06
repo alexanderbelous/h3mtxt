@@ -571,18 +571,21 @@ except `allow_normal_win` and `applies_to_computer`.
 
 
 ### `Boat`
-| Field name      | Type        | Size in bytes | Description                                          |
-| --------------- | ----------- | ------------- | ---------------------------------------------------- |
-| unknown1        | `uint8[2]`  | 2             |                                                      |
-| object_subclass | `uint8`     | 1             | Boat style: 0 - Necropolis, 1 - Castle, 2 - Fortress |
-| direction       | `uint8`     | 1             | Enum; describes the current direction of the boat    |
-| owner           | `uint8`     | 1             | Enum `PlayerColor`                                   |
-| owner_hero      | `uint8`     | 1             | Enum `HeroType`                                      |
-| is_occupied     | `Bool`      | 1             |                                                      |
-| x               | `uint16`    | 2             |                                                      |
-| y               | `uint16`    | 2             |                                                      |
-| z               | `uint16`    | 2             |                                                      |
-| unknown2        | `uint8[14]` | 14            | TODO. Seems to be coordinates_packed                 |
+| Field name         | Type        | Size in bytes | Description                                          |
+| ------------------ | ----------- | ------------- | ---------------------------------------------------- |
+| unknown1           | `uint8`     | 1             |                                                      |
+| id                 | `uint8`     | 1             | 0-based index of this boat in `ObjectPropertiesTables.boats` |
+| object_subclass    | `uint8`     | 1             | Boat style: 0 - Necropolis, 1 - Castle, 2 - Fortress |
+| direction          | `uint8`     | 1             | Enum; describes the current direction of the boat    |
+| owner              | `uint8`     | 1             | Enum `PlayerColor`                                   |
+| owner_hero         | `uint8`     | 1             | Enum `HeroType`                                      |
+| is_occupied        | `Bool`      | 1             |                                                      |
+| x                  | `uint16`    | 2             |                                                      |
+| y                  | `uint16`    | 2             |                                                      |
+| z                  | `uint16`    | 2             |                                                      |
+| unknown2           | `uint8`     | 1             | TODO                                                 |
+| coordinates_packed | `uint32`    | 4             | Duplicates the coordinates using the packed format   |
+| unknown2           | `uint8[9]`  | 9             | TODO. Seems to be coordinates_packed                 |
 
 
 ### `Obelisk`
@@ -605,14 +608,13 @@ except `allow_normal_win` and `applies_to_computer`.
 | days_left        | `int8`      | 1             | The number of days left to live without a town, or -1 if the player has at least 1 town |
 | num_towns        | `uint8`     | 1             | The number of towns owned by the player                                                 |
 | current_town     | `int8`      | 1             | ID of the currently selected town, or -1 if there is none                               |
-| towns            | `int8[48]`  | 48            | IDs of towns owned by the player (see Town.id)                                          |
-| unknown3         | `uint8[24]` | 24            | TODO                                                                                    |
+| towns            | `int8[72]`  | 72            | IDs of towns owned by the player (see Town.id)                                          |
 | resources        | `int32[7]`  | 28            | The current amount for each Resource type                                               |
-| mystical_gardens | `uint32`    | 4             | Bitmask; 1 bit per Mystical Garden, indicating if the player has visited it this week   |
-| unknown4         | `uint8[4]`  | 4             | TODO                                                                                    |
-| corpses          | `uint32`    | 4             | Bitmask; 1 bit per Corpse, indicating if the player has visited it                      |
-| lean_tos         | `uint32`    | 4             | Bitmask; 1 bit per Lean To, indicating if the player has visited it                     |
-| unknown5         | `uint8[3]`  | 4             | TODO                                                                                    |
+| mystical_gardens | `uint8[4]`  | 4             | Bitmask; 1 bit per Mystical Garden, indicating if the player has visited it this week   |
+| magic_springs    | `uint8[4]`  | 4             | Bitmask; 1 bit per Magic Spring, indicating if the player has visited it this week      |
+| corpses          | `uint8[4]`  | 4             | Bitmask; 1 bit per Corpse, indicating if the player has visited it                      |
+| lean_tos         | `uint8[4]`  | 4             | Bitmask; 1 bit per Lean To, indicating if the player has visited it                     |
+| unknown3         | `uint8[3]`  | 3             | TODO                                                                                    |
 
 
 ### `Town`

@@ -30,10 +30,10 @@ namespace h3svg
     }
     player.resources = readResources();
     player.mystical_gardens = readBitSet<4>();
-    player.unknown3 = readByteArray<4>();
+    player.magic_springs = readBitSet<4>();
     player.corpses = readBitSet<4>();
     player.lean_tos = readBitSet<4>();
-    player.unknown4 = readByteArray<3>();
+    player.unknown3 = readByteArray<3>();
     return player;
   }
 }
