@@ -8,6 +8,7 @@
 #include <h3mtxt/Map/Constants/HeroPortrait.h>
 #include <h3mtxt/Map/Constants/HeroType.h>
 #include <h3mtxt/Map/Constants/ObjectClass.h>
+#include <h3mtxt/Map/Constants/PlayerColor.h>
 #include <h3mtxt/Map/Constants/PrimarySkillType.h>
 #include <h3mtxt/Map/Constants/SecondarySkillType.h>
 #include <h3mtxt/Map/Constants/SpellType.h>
@@ -67,7 +68,7 @@ namespace h3svg
     Bool use_custom_biography {};
     // String length is 32-bit.
     std::string biography;
-    PlayerColor owner {};
+    PlayerColor owner = PlayerColor::None;
     // Patrol radius or -1 if there is none.
     std::int8_t patrol_radius = -1;
     // Temporary Morale bonus until the next battle (e.g., from Events, Temples, etc).
@@ -115,12 +116,12 @@ namespace h3svg
     std::int32_t move_points_max {};
     // The actual number of movement points at the moment.
     std::int32_t move_points {};
-    std::int32_t experience {};
+    std::int32_t experience = 0;
     std::array<std::uint8_t, 4> unknown4 {};
     std::int16_t spell_points {};
     // Yes, you can make a hero with level 32767; however, this will be ignored on level-up: the new level
     // will be computed from the experience points.
-    std::int16_t level {};
+    std::int16_t level = 1;
     std::array<std::uint8_t, 2> unknown5 {};
     // 1 bit per Learning Stone, indicating if the hero has visited it.
     BitSet<4> learning_stones;
@@ -149,9 +150,9 @@ namespace h3svg
     // Fixed-size; only the characters before the first null terminator are significant.
     FixedLengthString<13> name;
     // Level for each SeconadrySkillType.
-    EnumIndexedArray<SecondarySkillType, std::uint8_t, kNumSecondarySkills> secondary_skills_levels {};
+    EnumIndexedArray<SecondarySkillType, std::uint8_t, kNumSecondarySkills> secondary_skills_levels;
     // Slot on the Hero Screen for each SecondarySkillType.
-    EnumIndexedArray<SecondarySkillType, std::uint8_t, kNumSecondarySkills> secondary_skills_slots {};
+    EnumIndexedArray<SecondarySkillType, std::uint8_t, kNumSecondarySkills> secondary_skills_slots;
     // Primary skills of the hero (equipped artifacts are taken into account).
     PrimarySkills primary_skills;
     // 70 bytes: 1 per SpellType, indicating whether the hero has learned this spell.

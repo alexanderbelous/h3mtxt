@@ -17,6 +17,8 @@ namespace h3svg
   // In H3SVG there is a case where these "slot groups" are explicitly used to specify which slots are locked
   // by combination artifacts. Locks are not assigned to specific ArtifactSlots - instead, the number of locks
   // is specified for each ArtifactSlotGroup.
+  //
+  // FYI: Grail is an exceptional artifact because it cannot be placed in any slot.
   enum class ArtifactSlotGroup : std::uint8_t
   {
     Head        = 0,
@@ -79,7 +81,7 @@ namespace h3svg
     case ArtifactSlot::Spellbook:
       return ArtifactSlotGroup::Spellbook;
     default:
-      throw std::invalid_argument("getSlotGroup(): invalid ArtifactSlot");
+      throw std::invalid_argument("getArtifactSlotGroup(): invalid ArtifactSlot");
     }
   }
 }

@@ -226,7 +226,7 @@ namespace h3svg
     // As usual, H3SVG is doing stupid shit: first, the number of obelisks N is serialized as an 8-bit integer,
     // followed by 48 bytes - 1 byte per obelisk. Only the bytes [0; N) are meaningful - the rest will likely
     // be 0s.
-    std::uint8_t num_obelisks {};
+    std::uint8_t num_obelisks = 0;
     std::array<Obelisk, 48> obelisks;
   };
 }
