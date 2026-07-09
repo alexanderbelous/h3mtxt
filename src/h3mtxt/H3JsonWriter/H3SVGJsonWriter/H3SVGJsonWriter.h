@@ -26,6 +26,9 @@ namespace Medea_NS
   std::string_view EnumCommentGetter::operator()(h3svg::CampaignId value) const;
 
   template<>
+  std::string_view EnumCommentGetter::operator()(h3svg::CompassPoint value) const;
+
+  template<>
   std::string_view EnumCommentGetter::operator()(h3svg::CreatureType8 value) const;
 
   template<>

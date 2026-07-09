@@ -4,6 +4,7 @@ set(SOURCE_LIST
     "Constants/ArtifactType32.h"
     "Constants/BoatType.h"
     "Constants/CampaignId.h"
+    "Constants/CompassPoint.h"
     "Constants/Constants.h"
     "Constants/HeroFlag.h"
     "Constants/KeymastersTentType.h"

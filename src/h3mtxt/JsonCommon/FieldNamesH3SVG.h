@@ -168,7 +168,7 @@ namespace h3json
   template<>
   struct FieldNames<h3svg::Boat>
   {
-    static constexpr std::string_view kUnknown1 = "unknown1";
+    static constexpr std::string_view kExists = "exists";
     static constexpr std::string_view kId = "id";
     static constexpr std::string_view kObjectSubclass = "object_sublcass";
     static constexpr std::string_view kDirection = "direction";
@@ -178,9 +178,9 @@ namespace h3json
     static constexpr std::string_view kX = "x";
     static constexpr std::string_view kY = "y";
     static constexpr std::string_view kZ = "z";
-    static constexpr std::string_view kUnknown2 = "unknown2";
+    static constexpr std::string_view kIsVisible = "is_visible";
     static constexpr std::string_view kCoordinatesPacked = "coordinates_packed";
-    static constexpr std::string_view kUnknown3 = "unknown3";
+    static constexpr std::string_view kUnknown = "unknown";
   };
 
   template<>

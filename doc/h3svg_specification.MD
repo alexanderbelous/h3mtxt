@@ -571,21 +571,21 @@ except `allow_normal_win` and `applies_to_computer`.
 
 
 ### `Boat`
-| Field name         | Type        | Size in bytes | Description                                          |
-| ------------------ | ----------- | ------------- | ---------------------------------------------------- |
-| unknown1           | `uint8`     | 1             |                                                      |
+| Field name         | Type        | Size in bytes | Description                                                  |
+| ------------------ | ----------- | ------------- | ------------------------------------------------------------ |
+| exists             | `Bool`      | 1             | 0 if scuttled/sunk, nonzero otherwise                        |
 | id                 | `uint8`     | 1             | 0-based index of this boat in `ObjectPropertiesTables.boats` |
-| object_subclass    | `uint8`     | 1             | Boat style: 0 - Necropolis, 1 - Castle, 2 - Fortress |
-| direction          | `uint8`     | 1             | Enum; describes the current direction of the boat    |
-| owner              | `uint8`     | 1             | Enum `PlayerColor`                                   |
-| owner_hero         | `uint8`     | 1             | Enum `HeroType`                                      |
-| is_occupied        | `Bool`      | 1             |                                                      |
-| x                  | `uint16`    | 2             |                                                      |
-| y                  | `uint16`    | 2             |                                                      |
-| z                  | `uint16`    | 2             |                                                      |
-| unknown2           | `uint8`     | 1             | TODO                                                 |
-| coordinates_packed | `uint32`    | 4             | Duplicates the coordinates using the packed format   |
-| unknown2           | `uint8[9]`  | 9             | TODO. Seems to be coordinates_packed                 |
+| object_subclass    | `uint8`     | 1             | Enum `BoatType`                                              |
+| direction          | `uint8`     | 1             | Enum `CompassPoint`; the current orientation of the boat     |
+| owner              | `uint8`     | 1             | Enum `PlayerColor`                                           |
+| owner_hero         | `uint8`     | 1             | Enum `HeroType`                                              |
+| is_occupied        | `Bool`      | 1             | 0 if the boat is boarded by a hero, nonzero otherwise        |
+| x                  | `uint16`    | 2             | X-coordinate of the boat on the Adventure Map                |
+| y                  | `uint16`    | 2             | Y-coordinate of the boat on the Adventure Map                |
+| z                  | `uint16`    | 2             | Z-coordinate of the boat on the Adventure Map                |
+| is_visible         | `Bool`      | 1             | 0 if the boat is occupied/scuttled/sunk, nonzero otherwise   |
+| coordinates_packed | `uint32`    | 4             | Duplicates the coordinates using the packed format           |
+| unknown            | `uint8[9]`  | 9             | TODO                                                         |
 
 
 ### `Obelisk`

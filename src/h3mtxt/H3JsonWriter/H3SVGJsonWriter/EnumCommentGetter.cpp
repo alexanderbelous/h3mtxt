@@ -142,6 +142,23 @@ namespace Medea_NS
   }
 
   template<>
+  std::string_view EnumCommentGetter::operator()(h3svg::CompassPoint value) const
+  {
+    static constexpr std::string_view kNames[] = {
+      "North",
+      "NorthEast",
+      "East",
+      "SouthEast",
+      "South",
+      "SouthWest",
+      "West",
+      "NorthWest"
+    };
+    const std::size_t idx = static_cast<std::uint8_t>(value);
+    return (idx < std::size(kNames)) ? kNames[idx] : std::string_view{};
+  }
+
+  template<>
   std::string_view EnumCommentGetter::operator()(h3svg::CreatureType8 value) const
   {
     // TODO: fix this for special negative values CreatureType::Creature1, CreatureType::Creature1U,

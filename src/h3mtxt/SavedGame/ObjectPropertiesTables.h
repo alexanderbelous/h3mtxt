@@ -8,6 +8,7 @@
 #include <h3mtxt/Map/Utils/EnumIndexedArray.h>
 #include <h3mtxt/Map/Utils/ReservedData.h>
 #include <h3mtxt/Map/Coordinates.h>
+#include <h3mtxt/SavedGame/Constants/CompassPoint.h>
 #include <h3mtxt/SavedGame/Constants/BoatType.h>
 #include <h3mtxt/SavedGame/Constants/SeerName.h>
 #include <h3mtxt/SavedGame/EventBase.h>
@@ -28,38 +29,45 @@ namespace h3svg
     Guardians guardians;
   };
 
-  // Yet another idiotic format.
-  // 1) The coordinates are stored twice: first as 16-bit integers, then as a singled 32-bit integer (packed).
-  // 2) The coordinates (and direction) are apparently "stale" if the boat is currently occupied by
-  //    a hero - they indicate the position where the hero boarded the boat, not the current one.
-  // 3) AFAIU, if the hero dies on a boat, the boat is not removed from the table.
+  // Stores the details about a boat on the Adventure Map.
   //
-  // This is almost as bad as Tile::object_properties. Seriously, who fucking designed H3SVG?
+  // The format is brittle bullshit:
+  // * The coordinates (and orientation) become stale when a hero boards the boat - they keep indicating
+  //   the position where the hero boarded the boat, not the current one.
+  // * `coordinates_packed` must be synchronized with `x`, `y`, `z`.
+  // * `is_visible` must be synchornized with (exists && !is_occupied).
+  // * `is_occupied` must be synchronized with Hero::flags[HeroFlag::Boat].
+  // * `exists` must be synchornized with the data stored in the respective Tile.
+  //
+  // Violating these invariants can lead to nonsense behavior, e.g., the same boat being on 2 different tiles
+  // simultaneously.
   struct Boat
   {
-    // TODO: figure out what this is.
-    std::uint8_t unknown1 {};
+    // 1 if the boat is present on the Adventure Map, 0 otherwise (i.e. if it has been scuttled/sunk).
+    // A destroyed boat remains in ObjectPropertiesTables::boats until it is replaced by
+    // a new summoned/constructed boat.
+    Bool exists = false;
     // 0-based index of this boat in ObjectPropertiesTables::boats.
     std::uint8_t id {};
     // (0 - Necropolis, 1 - Castle, 2 - Fortress)
     BoatType object_sublcass {};
-    // (0 - North, 2 - East, 3 - SouthEast, 7 - NorthWest, ...)
-    std::uint8_t direction {};
+    // Orientation of the boat on the Adventure Map.
+    CompassPoint orientation {};
     // 0-7 or 0xFF if no owner.
     PlayerColor owner = PlayerColor::None;
     // ~ The last hero who used this boat, or 0xFFFF if none
-    HeroType16 owner_hero {};
-    // 0 if the boat exists (hasn't been scuttled) and is not boarded by a hero, 1 otherwise.
-    // Not entirely sure about this one though - maybe scuttled boats are removed from the table.
-    Bool is_occupied {};
+    HeroType16 owner_hero = static_cast<HeroType16>(-1);
+    // 0 if the boat is not boarded by a hero, nonzero otherwise.
+    Bool is_occupied = false;
+    // The current position of the boat.
     std::uint16_t x {};
     std::uint16_t y {};
     std::uint16_t z {};
-    // TODO: figure out what this is.
-    std::uint8_t unknown2 {};
+    // 0 if the boat is occupied/scuttled/sunk, nonzero otherwise.
+    Bool is_visible = false;
     CoordinatesPacked coordinates_packed;
     // TODO: figure out what this is.
-    std::array<std::uint8_t, 9> unknown3 {};
+    std::array<std::uint8_t, 9> unknown {};
   };
 
   struct Dwelling

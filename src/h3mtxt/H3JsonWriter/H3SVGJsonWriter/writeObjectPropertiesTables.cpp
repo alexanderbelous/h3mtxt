@@ -17,19 +17,19 @@ namespace Medea_NS
   {
     using Fields = h3json::FieldNames<h3svg::Boat>;
 
-    out.writeField(Fields::kUnknown1, boat.unknown1);
+    out.writeField(Fields::kExists, boat.exists);
     out.writeField(Fields::kId, boat.id);
     out.writeField(Fields::kObjectSubclass, boat.object_sublcass);
-    out.writeField(Fields::kDirection, boat.direction);
+    out.writeField(Fields::kDirection, boat.orientation);
     out.writeField(Fields::kOwner, boat.owner);
     out.writeField(Fields::kOwnerHero, boat.owner_hero);
     out.writeField(Fields::kIsOccupied, boat.is_occupied);
     out.writeField(Fields::kX, boat.x);
     out.writeField(Fields::kY, boat.y);
     out.writeField(Fields::kZ, boat.z);
-    out.writeField(Fields::kUnknown2, boat.unknown2);
+    out.writeField(Fields::kIsVisible, boat.is_visible);
     out.writeField(Fields::kCoordinatesPacked, boat.coordinates_packed);
-    out.writeField(Fields::kUnknown3, boat.unknown3);
+    out.writeField(Fields::kUnknown, boat.unknown);
   }
 
   void JsonObjectWriter<h3svg::Dwelling>::operator()(FieldsWriter& out, const h3svg::Dwelling& dwelling) const
