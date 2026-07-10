@@ -214,6 +214,8 @@ namespace h3svg
 
   struct Troops;
 
+  struct University;
+
   struct VictoryCondition;
 
   template<VictoryConditionType T>

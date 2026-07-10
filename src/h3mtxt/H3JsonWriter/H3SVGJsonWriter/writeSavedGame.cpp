@@ -258,7 +258,8 @@ namespace Medea_NS
     out.writeField(Fields::kMonolithsOneWay, saved_game.monoliths_one_way);
     out.writeField(Fields::kWhirlpools, saved_game.whirlpools);
     out.writeField(Fields::kSubterraneanGates, saved_game.subterranean_gates);
-    // out.writeField("unknown9", saved_game.unknown9);
+    out.writeField("unknown9", saved_game.unknown9);
+    out.writeField("universities", saved_game.universities);
   }
 
   void JsonObjectWriter<h3svg::ScenarioStartingInfo>::operator()(FieldsWriter& out,
@@ -315,5 +316,12 @@ namespace Medea_NS
     using Fields = h3json::FieldNames<h3svg::TileVisibility>;
     out.writeField(Fields::kVisibility, tile_visibility.visibility, true);
     out.writeField(Fields::kHasAdjacentMonster, tile_visibility.has_adjacent_monster);
+  }
+
+  template<>
+  void JsonObjectWriter<h3svg::University>::operator()(FieldsWriter& out, const h3svg::University& university) const
+  {
+    using Fields = h3json::FieldNames<h3svg::University>;
+    out.writeField(Fields::kSkills, university.skills);
   }
 }

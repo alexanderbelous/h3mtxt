@@ -44,6 +44,13 @@ namespace h3svg
     std::vector<CoordinatesPacked> exits;
   };
 
+  struct University
+  {
+    // TODO: replace with either std::pair<SecondarySkillType, ReservedData<3>> or SecondarySkillType32.
+    // Check the behavior when fewer than 4 skills are enabled globally.
+    std::array<std::uint32_t, 4> skills {};
+  };
+
   // Represents a saved game for Heroes of Might and Magic 3 (.CGM, .GM1, .GM2, ... files).
   //
   // HoMM3 uses the same format for saved maps and saved campaigns, so this class is used for both.
@@ -172,6 +179,12 @@ namespace h3svg
     ObjectExits whirlpools;
     // All actionable tiles of Subterranean Gates.
     ObjectExits subterranean_gates;
+    // TODO: figure out what this is.
+    // The length is serialized as a 16-bit integer.
+    std::vector<std::uint32_t> unknown9;
+    // Properties for each University on the Adventure Map.
+    // The length is serialized as a 16-bit integer.
+    std::vector<University> universities;
 
     // TODO: reverse-engineer the rest.
     // std::array<std::uint8_t, 512> unknown9 {}; // for reverse-engineering

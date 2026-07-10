@@ -212,6 +212,24 @@ namespace h3svg
     saved_game.whirlpools = readObjectExits();
     // Read Subterranean Gates.
     saved_game.subterranean_gates = readObjectExits();
+    // Read unknown9.
+    {
+      const std::uint16_t num_elements = readInt<std::uint16_t>();
+      saved_game.unknown9.reserve(num_elements);
+      for (std::uint16_t i = 0; i < num_elements; ++i)
+      {
+        saved_game.unknown9.push_back(readInt<std::uint32_t>());
+      }
+    }
+    // Read Universities.
+    {
+      const std::uint16_t num_universities = readInt<std::uint16_t>();
+      saved_game.universities.reserve(num_universities);
+      for (std::uint16_t i = 0; i < num_universities; ++i)
+      {
+        saved_game.universities.push_back(readUniversity());
+      }
+    }
     // TODO: read the rest.
     // saved_game.unknown9 = readByteArray<512>();
     return saved_game;
@@ -223,5 +241,15 @@ namespace h3svg
     tile_visibility.visibility = readEnumBitmask<PlayerColor, 1>();
     tile_visibility.has_adjacent_monster = readBool();
     return tile_visibility;
+  }
+
+  University H3SVGReader::readUniversity() const
+  {
+    University university;
+    for (std::uint32_t& secondary_skill : university.skills)
+    {
+      secondary_skill = readInt<std::uint32_t>();
+    }
+    return university;
   }
 }

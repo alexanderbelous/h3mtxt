@@ -132,6 +132,8 @@ namespace h3svg
 
     Troops readTroops() const;
 
+    University readUniversity() const;
+
     VictoryCondition readVictoryCondition() const;
 
     // Defined in readVictoryCondition.cpp.

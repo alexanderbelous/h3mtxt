@@ -544,6 +544,8 @@ namespace h3json
     static constexpr std::string_view kMonolithsOneWay = "monoliths_one_way";
     static constexpr std::string_view kWhirlpools = "whirlpools";
     static constexpr std::string_view kSubterraneanGates = "subterranean_gates";
+    static constexpr std::string_view kUnknown9 = "unknown9";
+    static constexpr std::string_view kUniversities = "universities";
   };
 
   template<>
@@ -673,6 +675,12 @@ namespace h3json
   {
     static constexpr std::string_view kCreatureTypes = "creature_types";
     static constexpr std::string_view kCreatureCounts = "creature_counts";
+  };
+
+  template<>
+  struct FieldNames<h3svg::University>
+  {
+    static constexpr std::string_view kSkills = "skills";
   };
 
   template<>
