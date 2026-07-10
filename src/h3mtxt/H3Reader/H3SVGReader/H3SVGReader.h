@@ -27,6 +27,8 @@ namespace h3svg
 
     CoordinatesPacked readCoordinatesPacked() const;
 
+    CreatureBank readCreatureBank() const;
+
     CrossoverInfo readCrossoverInfo() const;
 
     CustomHero readCustomHero() const;

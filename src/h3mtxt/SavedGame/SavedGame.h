@@ -11,6 +11,7 @@
 #include <h3mtxt/SavedGame/Constants/Constants.h>
 #include <h3mtxt/SavedGame/Constants/KeymastersTentType.h>
 #include <h3mtxt/SavedGame/ArtifactMerchants.h>
+#include <h3mtxt/SavedGame/CreatureBank.h>
 #include <h3mtxt/SavedGame/Date.h>
 #include <h3mtxt/SavedGame/FixedLengthString.h>
 #include <h3mtxt/SavedGame/Hero.h>
@@ -185,10 +186,12 @@ namespace h3svg
     // Properties for each University on the Adventure Map.
     // The length is serialized as a 16-bit integer.
     std::vector<University> universities;
+    // Creature banks on the Adventure Map.
+    // The length is serialized as a 16-bit integer.
+    std::vector<CreatureBank> creature_banks;
 
     // TODO: reverse-engineer the rest.
-    // std::array<std::uint8_t, 512> unknown9 {}; // for reverse-engineering
-    // * Creature banks
+    // std::array<std::uint8_t, 512> unknown10 {}; // for reverse-engineering
     // * Previous turns for all opponents (probably for all players, because that would be
     //   necessary in multiplayer games).
     // * etc.

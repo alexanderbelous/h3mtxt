@@ -15,6 +15,21 @@ namespace h3svg
     return artifact_merchants;
   }
 
+  CreatureBank H3SVGReader::readCreatureBank() const
+  {
+    CreatureBank creature_bank;
+    creature_bank.guards = readTroops();
+    creature_bank.resources = readResources();
+    creature_bank.creatures = readTypedQuantity<CreatureType32, std::uint8_t>();
+    const std::uint16_t num_artifacts = readInt<std::uint16_t>();
+    creature_bank.artifacts.reserve(num_artifacts);
+    for (std::uint16_t i = 0; i < num_artifacts; ++i)
+    {
+      creature_bank.artifacts.push_back(readEnum<ArtifactType32>());
+    }
+    return creature_bank;
+  }
+
   ObjectExits H3SVGReader::readObjectExits() const
   {
     ObjectExits object_exits;
@@ -230,8 +245,17 @@ namespace h3svg
         saved_game.universities.push_back(readUniversity());
       }
     }
+    // Read Creature Banks.
+    {
+      const std::uint16_t num_creature_banks = readInt<std::uint16_t>();
+      saved_game.creature_banks.reserve(num_creature_banks);
+      for (std::uint16_t i = 0; i < num_creature_banks; ++i)
+      {
+        saved_game.creature_banks.push_back(readCreatureBank());
+      }
+    }
     // TODO: read the rest.
-    // saved_game.unknown9 = readByteArray<512>();
+    // saved_game.unknown10 = readByteArray<512>();
     return saved_game;
   }
 

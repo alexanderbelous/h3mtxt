@@ -19,6 +19,7 @@ set(SOURCE_LIST
     "ArtifactMerchants.h"
     "CampaignInfo.h"
     "CoordinatesPacked.h"
+    "CreatureBank.h"
     "Date.h"
     "EventBase.h"
     "FixedLengthString.h"

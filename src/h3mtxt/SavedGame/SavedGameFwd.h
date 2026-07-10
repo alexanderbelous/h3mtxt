@@ -127,6 +127,8 @@ namespace h3svg
 
   struct CoordinatesPacked;
 
+  struct CreatureBank;
+
   struct CrossoverInfo;
 
   struct Date;

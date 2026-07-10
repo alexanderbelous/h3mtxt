@@ -86,6 +86,15 @@ namespace Medea_NS
     out.writeField(Fields::kCrossoverInfo, info.crossover_info);
   }
 
+  template<>
+  void JsonObjectWriter<h3svg::CreatureBank>::operator()(FieldsWriter& out, const h3svg::CreatureBank& creature_bank) const
+  {
+    out.writeField("guards", creature_bank.guards);
+    out.writeField("resources", creature_bank.resources);
+    out.writeField("creatures", creature_bank.creatures);
+    out.writeField("artifacts", creature_bank.artifacts);
+  }
+
   void JsonObjectWriter<h3svg::CrossoverInfo::UnknownPair>::operator()(
     FieldsWriter& out, const h3svg::CrossoverInfo::UnknownPair& pair) const
   {
@@ -260,6 +269,8 @@ namespace Medea_NS
     out.writeField(Fields::kSubterraneanGates, saved_game.subterranean_gates);
     out.writeField(Fields::kUnknown9, saved_game.unknown9);
     out.writeField(Fields::kUniversities, saved_game.universities);
+    out.writeField(Fields::kCreatureBanks, saved_game.creature_banks);
+    // out.writeField("unknown10", saved_game.unknown10);
   }
 
   void JsonObjectWriter<h3svg::ScenarioStartingInfo>::operator()(FieldsWriter& out,

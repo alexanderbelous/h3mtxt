@@ -114,6 +114,9 @@ namespace Medea_NS
   inline constexpr bool kIsSingleLineByDefault<h3svg::CoordinatesPacked> = true;
 
   template<>
+  void JsonObjectWriter<h3svg::CreatureBank>::operator()(FieldsWriter& out, const h3svg::CreatureBank& creature_bank) const;
+
+  template<>
   void JsonObjectWriter<h3svg::CrossoverInfo>::operator()(FieldsWriter& out, const h3svg::CrossoverInfo& info) const;
 
   template<>
