@@ -181,6 +181,8 @@ namespace h3svg
     // All actionable tiles of Subterranean Gates.
     ObjectExits subterranean_gates;
     // TODO: figure out what this is.
+    // * Hypothesis: links Subterranean Gates, i.e. subterranean_gates[i] is mapped to subterranean_gates[unknown9[i]].
+    //   It's weird, however, that the length is explicitly serialized.
     // The length is serialized as a 16-bit integer.
     std::vector<std::uint32_t> unknown9;
     // Properties for each University on the Adventure Map.
