@@ -170,6 +170,9 @@ namespace Medea_NS
   void JsonObjectWriter<h3svg::Obelisk>::operator()(FieldsWriter& out, const h3svg::Obelisk& obelisk) const;
 
   template<>
+  void JsonObjectWriter<h3svg::ObjectExits>::operator()(FieldsWriter& out, const h3svg::ObjectExits& object_exits) const;
+
+  template<>
   void JsonObjectWriter<h3svg::ObjectPropertiesTables>::operator()(FieldsWriter& out,
                                                                    const h3svg::ObjectPropertiesTables& tables) const;
 

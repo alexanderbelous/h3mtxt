@@ -35,6 +35,15 @@
 
 namespace h3svg
 {
+  // Stores the locations of all exists for an object that "teleports" a hero to another location
+  // (e.g., One-Way Monoliths, Two-Way Monoliths, Whirlpools, Subterranean Gates).
+  struct ObjectExits
+  {
+    // The length is serialized as a 16-bit integer.
+    // Padding bits in CoordinatesPacked may contain junk.
+    std::vector<CoordinatesPacked> exits;
+  };
+
   // Represents a saved game for Heroes of Might and Magic 3 (.CGM, .GM1, .GM2, ... files).
   //
   // HoMM3 uses the same format for saved maps and saved campaigns, so this class is used for both.
@@ -155,14 +164,24 @@ namespace h3svg
     // i.e. countTiles(this->basic_info).
     // Tile (x, y, z) has the index ((z * map_size + y) * map_size + x).
     std::vector<TileVisibility> fog_of_war;
+    // The locations of Two-Way Monoliths for each valid object_subclass.
+    std::array<ObjectExits, 8> monoliths_two_way;
+    // The locations of One-Way Monolith Exits for each valid object_subclass.
+    std::array<ObjectExits, 8> monoliths_one_way;
+    // All actionable tiles of Whirlpools.
+    ObjectExits whirlpools;
+    // All actionable tiles of Subterranean Gates.
+    ObjectExits subterranean_gates;
 
     // TODO: reverse-engineer the rest.
-    //
-    // Obviuously, there are other fields as well, but I don't know yet where they are located:
-    // * Timestamp for the saved game (Heroes3.exe stores it somewhere in the file instead of using
-    //   filesystem metadata)
+    // std::array<std::uint8_t, 512> unknown9 {}; // for reverse-engineering
+    // * Creature banks
     // * Previous turns for all opponents (probably for all players, because that would be
     //   necessary in multiplayer games).
     // * etc.
+    //
+    // FYI: HoMM3 seems to read the timestamp for the saved game from the file instead of using the
+    // filesystem metadata. However, I'm not sure if it's explicitly serialized or if the game
+    // uses gzip's timestamp.
   };
 }

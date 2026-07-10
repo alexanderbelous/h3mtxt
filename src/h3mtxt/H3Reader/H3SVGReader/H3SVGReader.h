@@ -64,6 +64,8 @@ namespace h3svg
 
     Mine readMine() const;
 
+    ObjectExits readObjectExits() const;
+
     Monster readMonster() const;
 
     Obelisk readObelisk() const;

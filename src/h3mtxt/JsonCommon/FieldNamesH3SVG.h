@@ -376,6 +376,12 @@ namespace h3json
   };
 
   template<>
+  struct FieldNames<h3svg::ObjectExits>
+  {
+    static constexpr std::string_view kExits = "exits";
+  };
+
+  template<>
   struct FieldNames<h3svg::ObjectPropertiesTables>
   {
     static constexpr std::string_view kEventsAndPandorasBoxes = "events_and_pandoras_boxes";
@@ -534,6 +540,10 @@ namespace h3json
     static constexpr std::string_view kCartographerSubterranean = "cartographer_subterranean";
     static constexpr std::string_view kUnknown8 = "unknown8";
     static constexpr std::string_view kFogOfWar = "fog_of_war";
+    static constexpr std::string_view kMonolithsTwoWay = "monoliths_two_way";
+    static constexpr std::string_view kMonolithsOneWay = "monoliths_one_way";
+    static constexpr std::string_view kWhirlpools = "whirlpools";
+    static constexpr std::string_view kSubterraneanGates = "subterranean_gates";
   };
 
   template<>

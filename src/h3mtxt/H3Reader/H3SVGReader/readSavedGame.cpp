@@ -15,6 +15,18 @@ namespace h3svg
     return artifact_merchants;
   }
 
+  ObjectExits H3SVGReader::readObjectExits() const
+  {
+    ObjectExits object_exits;
+    const std::uint16_t num_exits = readInt<std::uint16_t>();
+    object_exits.exits.reserve(num_exits);
+    for (std::uint16_t i = 0; i < num_exits; ++i)
+    {
+      object_exits.exits.push_back(readCoordinatesPacked());
+    }
+    return object_exits;
+  }
+
   Rumor H3SVGReader::readRumor() const
   {
     Rumor rumor;
@@ -186,7 +198,22 @@ namespace h3svg
         saved_game.fog_of_war.push_back(readTileVisibility());
       }
     }
+    // Read Two-Way Monoliths.
+    for (ObjectExits& monolith : saved_game.monoliths_two_way)
+    {
+      monolith = readObjectExits();
+    }
+    // Read One-Way Monoliths.
+    for (ObjectExits& monolith : saved_game.monoliths_one_way)
+    {
+      monolith = readObjectExits();
+    }
+    // Read Whirlpools.
+    saved_game.whirlpools = readObjectExits();
+    // Read Subterranean Gates.
+    saved_game.subterranean_gates = readObjectExits();
     // TODO: read the rest.
+    // saved_game.unknown9 = readByteArray<512>();
     return saved_game;
   }
 

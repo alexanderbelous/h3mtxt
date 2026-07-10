@@ -170,6 +170,10 @@ An H3SVG file is a single structure which we will naturally call [`SavedGame`](#
 | cartographer_subterranean | `uint8`                          | 1             | Bitmask; 1 bit per player, indicating if they have visited the Subterranean Cartographer |
 | unknown8                  | `uint8[4]`                       | 4             | TODO                                                             |
 | fog_of_war                | [`TileVisibility[NUM_TILES]`](#TileVisibility) | varies | Describes visibility of each tile for each player         |
+| monoliths_two_way         | [`ObjectExits[8]`](#ObjectExits) | varies        | Exists for each subtype of Monolith Two-Way                      |
+| monoliths_one_way         | [`ObjectExits[8]`](#ObjectExits) | varies        | Exists for each subtype of Monolith One-Way                      |
+| whirlpools                | [`ObjectExits`](#ObjectExits)    | varies        | All actionable tiles of Whirlpools                               |
+| subterranean_gates        | [`ObjectExits`](#ObjectExits)    | varies        | All actionable tiles of Subterranean Gates                       |
 
 
 ### `MapBasicInfo`
@@ -741,3 +745,10 @@ except `allow_normal_win` and `applies_to_computer`.
 | -------------------- | ------- | ------------- | ------------------------------------------------------------------------------ |
 | visibility           | `uint8` | 1             | Bitmask; 1 bit per `PlayerColor`, indicating if this tile is currently visible |
 | has_adjacent_monster | `Bool`  | 1             | 1 if there's a monster on this or adjacent tile, 0 otherwise                   |
+
+
+### `ObjectExits`
+| Field name | Type                | Size in bytes | Description                                                        |
+| ---------- | ------------------- | ------------- | ------------------------------------------------------------------ |
+| num_exits  | `uint16`            | 2             | The number of exits                                                |
+| exits      | `uint32[num_exits]` | varies        | The coordinates (serialized using the packed format) for each exit |

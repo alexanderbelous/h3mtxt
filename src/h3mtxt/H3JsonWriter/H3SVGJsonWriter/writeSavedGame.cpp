@@ -109,6 +109,13 @@ namespace Medea_NS
     out.writeField(Fields::kDay, date.day);
   }
 
+  template<>
+  void JsonObjectWriter<h3svg::ObjectExits>::operator()(FieldsWriter& out, const h3svg::ObjectExits& object_exits) const
+  {
+    using Fields = h3json::FieldNames<h3svg::ObjectExits>;
+    out.writeField(Fields::kExits, object_exits.exits);
+  }
+
   void JsonObjectWriter<h3svg::Player>::operator()(FieldsWriter& out,
                                                    const h3svg::Player& player) const
   {
@@ -247,6 +254,11 @@ namespace Medea_NS
                                         .map_size = saved_game.basic_info.map_size,
                                         .has_two_levels = static_cast<bool>(saved_game.basic_info.has_two_levels)
                                       });
+    out.writeField(Fields::kMonolithsTwoWay, saved_game.monoliths_two_way);
+    out.writeField(Fields::kMonolithsOneWay, saved_game.monoliths_one_way);
+    out.writeField(Fields::kWhirlpools, saved_game.whirlpools);
+    out.writeField(Fields::kSubterraneanGates, saved_game.subterranean_gates);
+    // out.writeField("unknown9", saved_game.unknown9);
   }
 
   void JsonObjectWriter<h3svg::ScenarioStartingInfo>::operator()(FieldsWriter& out,
