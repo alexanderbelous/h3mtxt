@@ -258,8 +258,8 @@ namespace Medea_NS
     out.writeField(Fields::kMonolithsOneWay, saved_game.monoliths_one_way);
     out.writeField(Fields::kWhirlpools, saved_game.whirlpools);
     out.writeField(Fields::kSubterraneanGates, saved_game.subterranean_gates);
-    out.writeField("unknown9", saved_game.unknown9);
-    out.writeField("universities", saved_game.universities);
+    out.writeField(Fields::kUnknown9, saved_game.unknown9);
+    out.writeField(Fields::kUniversities, saved_game.universities);
   }
 
   void JsonObjectWriter<h3svg::ScenarioStartingInfo>::operator()(FieldsWriter& out,
