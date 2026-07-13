@@ -60,9 +60,12 @@ namespace h3svg
     PlayerColor player{};
     // ID of the boat (see Boat::id).
     std::uint8_t boat_id {};
-    std::array<std::uint8_t, 4> unknown1 {};
-    HeroType hero {};
-    std::uint8_t unknown2 {};
+    std::array<std::uint8_t, 2> unknown {};
+    // The previous owner or 0xFFFF if there was none.
+    HeroType16 owner_old = static_cast<HeroType16>(-1);
+    // The new owner.
+    // Note that when a hero scuttles a neutral boat they still become an owner of that boat.
+    HeroType16 owner_new {};
   };
 
   template<>

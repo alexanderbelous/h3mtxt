@@ -57,9 +57,9 @@ namespace Medea_NS
   {
     out.writeField("player", details.player);
     out.writeField("boat_id", details.boat_id);
-    out.writeField("unknown1", details.unknown1);
-    out.writeField("hero", details.hero);
-    out.writeField("unknown2", details.unknown2);
+    out.writeField("unknown", details.unknown);
+    out.writeField("owner_old", details.owner_old);
+    out.writeField("owner_new", details.owner_new);
   }
 
   template<>

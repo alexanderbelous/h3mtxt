@@ -55,9 +55,9 @@ namespace h3svg
       ReplayEventDetails<ReplayEventType::HideBoat> details;
       details.player = readEnum<PlayerColor>();
       details.boat_id = readInt<std::uint8_t>();
-      details.unknown1 = readByteArray<4>();
-      details.hero = readEnum<HeroType>();
-      details.unknown2 = readInt<std::uint8_t>();
+      details.unknown = readByteArray<2>();
+      details.owner_old = readEnum<HeroType16>();
+      details.owner_new = readEnum<HeroType16>();
       return ReplayEvent{ .details = details };
     }
     case ReplayEventType::ShowBoat:
