@@ -21,11 +21,11 @@ namespace h3svg
   {
     const std::uint32_t data = readInt<std::uint32_t>();
     CoordinatesPacked coordinates;
-    coordinates.x = static_cast<std::uint16_t>(data & 0x3FFu);
-    coordinates.padding1 = static_cast<std::uint16_t>((data >> 10) & 0x3Fu);
-    coordinates.y = static_cast<std::uint16_t>((data >> 16) & 0x3FFu);
-    coordinates.z = static_cast<std::uint16_t>((data >> 26) & 1u);
-    coordinates.padding2 = static_cast<std::uint16_t>(data >> 27);
+    coordinates.x = static_cast<std::int16_t>(data & 0x3FFu);
+    coordinates.padding1 = static_cast<std::int16_t>((data >> 10) & 0x3Fu);
+    coordinates.y = static_cast<std::int16_t>((data >> 16) & 0x3FFu);
+    coordinates.z = static_cast<std::int16_t>((data >> 26) & 0x0Fu);
+    coordinates.padding2 = static_cast<std::int16_t>(data >> 30);
     return coordinates;
   }
 

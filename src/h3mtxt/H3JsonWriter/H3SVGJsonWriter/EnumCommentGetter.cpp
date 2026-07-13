@@ -298,8 +298,8 @@ namespace Medea_NS
     case h3svg::ReplayEventType::TeleportHero: return "TeleportHero";
     case h3svg::ReplayEventType::FlagMine: return "FlagMine";
     case h3svg::ReplayEventType::CaptureTown: return "CaptureTown";
-    case h3svg::ReplayEventType::ScuttleBoat: return "ScuttleBoat";
-    case h3svg::ReplayEventType::BuildBoat: return "BuildBoat";
+    case h3svg::ReplayEventType::HideBoat: return "HideBoat";
+    case h3svg::ReplayEventType::ShowBoat: return "ShowBoat";
     case h3svg::ReplayEventType::RemoveMapItem: return "RemoveMapItem";
     case h3svg::ReplayEventType::HideHero: return "HideHero";
     case h3svg::ReplayEventType::ShowHero: return "ShowHero";

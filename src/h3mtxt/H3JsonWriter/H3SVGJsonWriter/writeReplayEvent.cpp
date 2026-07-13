@@ -15,7 +15,7 @@ namespace Medea_NS
   {
     out.writeField("player", details.player);
     out.writeField("hero", details.hero);
-    out.writeField("unknown", details.unknown);
+    out.writeField("direction", details.direction);
     out.writeField("from", details.from);
     out.writeField("to", details.to);
   }
@@ -26,7 +26,7 @@ namespace Medea_NS
   {
     out.writeField("player", details.player);
     out.writeField("hero", details.hero);
-    out.writeField("unknown", details.unknown);
+    out.writeField("orientation", details.orientation);
     out.writeField("from", details.from);
     out.writeField("to", details.to);
   }
@@ -52,8 +52,8 @@ namespace Medea_NS
   }
 
   template<>
-  void JsonObjectWriter<h3svg::ReplayEventDetails<h3svg::ReplayEventType::ScuttleBoat>>::operator()(
-    FieldsWriter& out, const h3svg::ReplayEventDetails<h3svg::ReplayEventType::ScuttleBoat>& details) const
+  void JsonObjectWriter<h3svg::ReplayEventDetails<h3svg::ReplayEventType::HideBoat>>::operator()(
+    FieldsWriter& out, const h3svg::ReplayEventDetails<h3svg::ReplayEventType::HideBoat>& details) const
   {
     out.writeField("player", details.player);
     out.writeField("boat_id", details.boat_id);
@@ -63,13 +63,13 @@ namespace Medea_NS
   }
 
   template<>
-  void JsonObjectWriter<h3svg::ReplayEventDetails<h3svg::ReplayEventType::BuildBoat>>::operator()(
-    FieldsWriter& out, const h3svg::ReplayEventDetails<h3svg::ReplayEventType::BuildBoat>& details) const
+  void JsonObjectWriter<h3svg::ReplayEventDetails<h3svg::ReplayEventType::ShowBoat>>::operator()(
+    FieldsWriter& out, const h3svg::ReplayEventDetails<h3svg::ReplayEventType::ShowBoat>& details) const
   {
     out.writeField("player", details.player);
     out.writeField("unknown1", details.unknown1);
-    out.writeField("coordinates", details.coordinates);
-    out.writeField("unknown2", details.unknown2);
+    out.writeField("coordinates_new", details.coordinates_new);
+    out.writeField("coordinates_old", details.coordinates_old);
   }
 
   template<>
@@ -87,7 +87,8 @@ namespace Medea_NS
   {
     out.writeField("player", details.player);
     out.writeField("hero", details.hero);
-    out.writeField("unknown", details.unknown);
+    out.writeField("owner_new", details.owner_new);
+    out.writeField("owner_old", details.owner_old);
   }
 
   template<>
@@ -96,9 +97,11 @@ namespace Medea_NS
   {
     out.writeField("player", details.player);
     out.writeField("hero", details.hero);
-    out.writeField("unknown1", details.unknown1);
-    out.writeField("coordinates", details.coordinates);
-    out.writeField("unknown2", details.unknown2);
+    out.writeField("owner_new", details.owner_new);
+    out.writeField("owner_old", details.owner_old);
+    out.writeField("coordinates_new", details.coordinates_new);
+    out.writeField("coordinates_old", details.coordinates_old);
+    out.writeField("unknown", details.unknown);
   }
 
   template<>

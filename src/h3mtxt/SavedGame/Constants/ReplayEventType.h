@@ -12,8 +12,8 @@ namespace h3svg
     TeleportHero            = 2, // A hero teleports via Monolith, Town Portal, Dimension Door, etc.
     FlagMine                = 3, // Flag mine/lighthouse (NOT garrison/dwelling)
     CaptureTown             = 4,
-    ScuttleBoat             = 5, // TODO: rename to HideBoat. This is also recorded when a hero boards a boat.
-    BuildBoat               = 6,
+    HideBoat                = 5, // A hero boards or scuttles a boat.
+    ShowBoat                = 6, // A hero disembarks from a boat or a player builds a new boat.
     RemoveMapItem           = 7, // Defeat monster, pick up resource, pick up artifact.
     HideHero                = 8, // A hero was dismissed/garrisoned or retreated from a battle.
     ShowHero                = 9, // A hero was hired/de-garrisoned.

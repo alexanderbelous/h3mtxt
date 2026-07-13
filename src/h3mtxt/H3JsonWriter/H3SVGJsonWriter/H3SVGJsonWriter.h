@@ -270,12 +270,12 @@ namespace Medea_NS
     FieldsWriter& out, const h3svg::ReplayEventDetails<h3svg::ReplayEventType::CaptureTown>& details) const;
 
   template<>
-  void JsonObjectWriter<h3svg::ReplayEventDetails<h3svg::ReplayEventType::ScuttleBoat>>::operator()(
-    FieldsWriter& out, const h3svg::ReplayEventDetails<h3svg::ReplayEventType::ScuttleBoat>& details) const;
+  void JsonObjectWriter<h3svg::ReplayEventDetails<h3svg::ReplayEventType::HideBoat>>::operator()(
+    FieldsWriter& out, const h3svg::ReplayEventDetails<h3svg::ReplayEventType::HideBoat>& details) const;
 
   template<>
-  void JsonObjectWriter<h3svg::ReplayEventDetails<h3svg::ReplayEventType::BuildBoat>>::operator()(
-    FieldsWriter& out, const h3svg::ReplayEventDetails<h3svg::ReplayEventType::BuildBoat>& details) const;
+  void JsonObjectWriter<h3svg::ReplayEventDetails<h3svg::ReplayEventType::ShowBoat>>::operator()(
+    FieldsWriter& out, const h3svg::ReplayEventDetails<h3svg::ReplayEventType::ShowBoat>& details) const;
 
   template<>
   void JsonObjectWriter<h3svg::ReplayEventDetails<h3svg::ReplayEventType::RemoveMapItem>>::operator()(

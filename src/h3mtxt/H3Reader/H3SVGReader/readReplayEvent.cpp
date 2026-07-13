@@ -17,7 +17,7 @@ namespace h3svg
       ReplayEventDetails<ReplayEventType::MoveHero> details;
       details.player = readEnum<PlayerColor>();
       details.hero = readInt<std::uint32_t>();
-      details.unknown = readInt<std::uint8_t>();
+      details.direction = readEnum<CompassPoint>();
       details.from = readCoordinatesPacked();
       details.to = readCoordinatesPacked();
       return ReplayEvent{ .details = details };
@@ -27,7 +27,7 @@ namespace h3svg
       ReplayEventDetails<ReplayEventType::TeleportHero> details;
       details.player = readEnum<PlayerColor>();
       details.hero = readInt<std::uint32_t>();
-      details.unknown = readInt<std::uint8_t>();
+      details.orientation = readEnum<CompassPoint>();
       details.from = readCoordinatesPacked();
       details.to = readCoordinatesPacked();
       return ReplayEvent{ .details = details };
@@ -50,9 +50,9 @@ namespace h3svg
       details.owner_new = readEnum<PlayerColor>();
       return ReplayEvent{ .details = details };
     }
-    case ReplayEventType::ScuttleBoat:
+    case ReplayEventType::HideBoat:
     {
-      ReplayEventDetails<ReplayEventType::ScuttleBoat> details;
+      ReplayEventDetails<ReplayEventType::HideBoat> details;
       details.player = readEnum<PlayerColor>();
       details.boat_id = readInt<std::uint8_t>();
       details.unknown1 = readByteArray<4>();
@@ -60,13 +60,13 @@ namespace h3svg
       details.unknown2 = readInt<std::uint8_t>();
       return ReplayEvent{ .details = details };
     }
-    case ReplayEventType::BuildBoat:
+    case ReplayEventType::ShowBoat:
     {
-      ReplayEventDetails<ReplayEventType::BuildBoat> details;
+      ReplayEventDetails<ReplayEventType::ShowBoat> details;
       details.player = readEnum<PlayerColor>();
       details.unknown1 = readByteArray<7>();
-      details.coordinates = readCoordinatesPacked();
-      details.unknown2 = readByteArray<4>();
+      details.coordinates_new = readCoordinatesPacked();
+      details.coordinates_old = readCoordinatesPacked();
       return ReplayEvent{ .details = details };
     }
     case ReplayEventType::RemoveMapItem:
@@ -82,7 +82,8 @@ namespace h3svg
       ReplayEventDetails<ReplayEventType::HideHero> details;
       details.player = readEnum<PlayerColor>();
       details.hero = readInt<std::uint32_t>();
-      details.unknown = readInt<std::uint16_t>();
+      details.owner_new = readEnum<PlayerColor>();
+      details.owner_old = readEnum<PlayerColor>();
       return ReplayEvent{ .details = details };
     }
     case ReplayEventType::ShowHero:
@@ -90,9 +91,11 @@ namespace h3svg
       ReplayEventDetails<ReplayEventType::ShowHero> details;
       details.player = readEnum<PlayerColor>();
       details.hero = readInt<std::uint32_t>();
-      details.unknown1 = readByteArray<2>();
-      details.coordinates = readCoordinatesPacked();
-      details.unknown2 = readByteArray<6>();
+      details.owner_new = readEnum<PlayerColor>();
+      details.owner_old = readEnum<PlayerColor>();
+      details.coordinates_new = readCoordinatesPacked();
+      details.coordinates_old = readCoordinatesPacked();
+      details.unknown = readByteArray<2>();
       return ReplayEvent{ .details = details };
     }
     case ReplayEventType::ChangeTerrainVisibility:

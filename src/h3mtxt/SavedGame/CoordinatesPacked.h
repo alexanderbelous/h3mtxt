@@ -7,7 +7,7 @@ namespace h3svg
   // H3SVG uses a packed format for coordinates in some places, serializing them as a single 32-bit integer:
   // * Bits [0; 10) store the X coordinate.
   // * Bits [16; 26) store the Y coordinate.
-  // * Bit 26 stores the Z coordinate.
+  // * Bits [26; 30) store the Z coordinate.
   //
   // In H3API this is called h3::H3Position.
   //
@@ -18,18 +18,18 @@ namespace h3svg
   // I suspect that the game defines this simply as
   //     struct CoordinatesPacked
   //     {
-  //       std::uint16_t x : 10 {};
-  //       std::uint16_t y : 10 {};
-  //       std::uint16_t z : 1 {};
+  //       std::int16_t x : 10 {};
+  //       std::int16_t y : 10 {};
+  //       std::int16_t z : 4 {};
   //     };
   // i.e. the padding bits are implicit. However, they are explicitly written in H3SVG,
   // so h3mtxt explicitly defines them as well.
   struct CoordinatesPacked
   {
-    std::uint16_t x        : 10 {};  // [0; 1023]
-    std::uint16_t padding1 : 6  {};  // [0; 63]
-    std::uint16_t y        : 10 {};  // [0; 1023]
-    std::uint16_t z        : 1  {};  // [0; 1]
-    std::uint16_t padding2 : 5  {};  // [0; 31]
+    std::int16_t x        : 10 {};  // [-512; 511]
+    std::int16_t padding1 : 6  {};  // [-32; 31]
+    std::int16_t y        : 10 {};  // [-512; 511]
+    std::int16_t z        : 4  {};  // [-8; 7]
+    std::int16_t padding2 : 2  {};  // [-2; 1]
   };
 }
