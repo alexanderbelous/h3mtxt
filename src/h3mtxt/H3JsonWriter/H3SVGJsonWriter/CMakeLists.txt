@@ -8,6 +8,7 @@ add_library(H3SVGJsonWriter STATIC
     "writeLossCondition.cpp"
     "writeObjectPropertiesTables.cpp"
     "writeQuest.cpp"
+    "writeReplayEvent.cpp"
     "writeReward.cpp"
     "writeSavedGame.cpp"
     "writeTown.cpp"

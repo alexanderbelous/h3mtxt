@@ -254,8 +254,18 @@ namespace h3svg
         saved_game.creature_banks.push_back(readCreatureBank());
       }
     }
+    // Read Replay data.
+    {
+      const std::uint32_t num_replay_events = readInt<std::uint32_t>();
+      saved_game.previous_turn.reserve(num_replay_events);
+      for (std::uint32_t i = 0; i < num_replay_events; ++i)
+      {
+        saved_game.previous_turn.push_back(readReplayEvent());
+      }
+    }
+    //saved_game.previous_turn = readReplayEvents();
     // TODO: read the rest.
-    // saved_game.unknown10 = readByteArray<512>();
+    //saved_game.unknown10 = readByteArray<512>();
     return saved_game;
   }
 

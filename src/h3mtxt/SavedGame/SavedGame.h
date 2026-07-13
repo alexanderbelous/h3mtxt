@@ -21,6 +21,7 @@
 #include <h3mtxt/SavedGame/ObjectTemplate.h>
 #include <h3mtxt/SavedGame/Player.h>
 #include <h3mtxt/SavedGame/PlayerSpecs.h>
+#include <h3mtxt/SavedGame/Replay.h>
 #include <h3mtxt/SavedGame/Rumor.h>
 #include <h3mtxt/SavedGame/ScenarioStartingInfo.h>
 #include <h3mtxt/SavedGame/Tile.h>
@@ -191,9 +192,12 @@ namespace h3svg
     // Creature banks on the Adventure Map.
     // The length is serialized as a 16-bit integer.
     std::vector<CreatureBank> creature_banks;
+    // Data recorded for the last turn for all players.
+    // The length is serialized as a 32-bit integer.
+    std::vector<ReplayEvent> previous_turn;
 
     // TODO: reverse-engineer the rest.
-    // std::array<std::uint8_t, 512> unknown10 {}; // for reverse-engineering
+     std::array<std::uint8_t, 512> unknown10 {}; // for reverse-engineering
     // * Previous turns for all opponents (probably for all players, because that would be
     //   necessary in multiplayer games).
     // * etc.

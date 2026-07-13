@@ -270,7 +270,8 @@ namespace Medea_NS
     out.writeField(Fields::kUnknown9, saved_game.unknown9);
     out.writeField(Fields::kUniversities, saved_game.universities);
     out.writeField(Fields::kCreatureBanks, saved_game.creature_banks);
-    // out.writeField("unknown10", saved_game.unknown10);
+    out.writeField("previous_turn", saved_game.previous_turn);
+    //out.writeField("unknown10", saved_game.unknown10);
   }
 
   void JsonObjectWriter<h3svg::ScenarioStartingInfo>::operator()(FieldsWriter& out,

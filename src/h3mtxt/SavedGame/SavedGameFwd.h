@@ -103,6 +103,8 @@ namespace h3svg
 
   enum class PrimarySkillType32 : std::uint32_t;
 
+  enum class ReplayEventType : std::uint8_t;
+
   enum class ResourceType32 : std::int32_t;
 
   enum class SecondarySkillType32 : std::uint32_t;
@@ -179,6 +181,11 @@ namespace h3svg
   struct PlayerSpecs;
 
   struct RegionInfo;
+
+  template<ReplayEventType T>
+  struct ReplayEventDetails;
+
+  struct ReplayEvent;
 
   struct Quest;
 

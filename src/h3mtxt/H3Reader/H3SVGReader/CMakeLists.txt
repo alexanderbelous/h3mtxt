@@ -14,6 +14,7 @@ add_library(H3SVGReader STATIC
     "readPlayer.cpp"
     "readPlayerSpecs.cpp"
     "readQuest.cpp"
+    "readReplayEvent.cpp"
     "readReward.cpp"
     "readSavedGame.cpp"
     "readScenarioStartingInfo.cpp"

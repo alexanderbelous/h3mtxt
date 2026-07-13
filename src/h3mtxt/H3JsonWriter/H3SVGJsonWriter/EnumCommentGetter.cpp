@@ -10,6 +10,7 @@
 #include <h3mtxt/SavedGame/Constants/Constants.h>
 #include <h3mtxt/SavedGame/Constants/PlayerControlType.h>
 #include <h3mtxt/SavedGame/Constants/PlayerPersonality.h>
+#include <h3mtxt/SavedGame/Constants/ReplayEventType.h>
 
 #include <limits>
 #include <type_traits>
@@ -286,6 +287,25 @@ namespace Medea_NS
       return (*this)(static_cast<h3svg::PrimarySkillType>(value));
     }
     return std::string_view{};
+  }
+
+  template<>
+  std::string_view EnumCommentGetter::operator()(h3svg::ReplayEventType value) const
+  {
+    switch (value)
+    {
+    case h3svg::ReplayEventType::MoveHero: return "MoveHero";
+    case h3svg::ReplayEventType::TeleportHero: return "TeleportHero";
+    case h3svg::ReplayEventType::FlagMine: return "FlagMine";
+    case h3svg::ReplayEventType::CaptureTown: return "CaptureTown";
+    case h3svg::ReplayEventType::ScuttleBoat: return "ScuttleBoat";
+    case h3svg::ReplayEventType::BuildBoat: return "BuildBoat";
+    case h3svg::ReplayEventType::RemoveMapItem: return "RemoveMapItem";
+    case h3svg::ReplayEventType::HideHero: return "HideHero";
+    case h3svg::ReplayEventType::ShowHero: return "ShowHero";
+    case h3svg::ReplayEventType::ChangeTerrainVisibility: return "ChangeTerrainVisibility";
+    default: return {};
+    }
   }
 
   template<>
