@@ -41,6 +41,7 @@ namespace h3svg
 
     void writeData(const Date& value) const;
 
+    // Defined in Utils.h
     template<std::size_t N>
     void writeData(const FixedLengthString<N>& str) const;
 

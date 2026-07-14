@@ -4,6 +4,8 @@ add_library(H3SVGWriter STATIC
     "MapBasicInfo.cpp"
     "PlayerSpecs.cpp"
     "SavedGame.cpp"
+    "Utils.h"
+    "VictoryCondition.cpp"
 )
 add_library(h3mtxt::H3SVGWriter ALIAS H3SVGWriter)
 

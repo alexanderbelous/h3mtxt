@@ -65,6 +65,11 @@ namespace h3svg
     // \throw std::length_error if str.size() > N.
     constexpr FixedLengthString& operator=(std::string_view str);
 
+    // Equality comparsion.
+    // \param other - FixedLengthString to compare with.
+    // \return true if (*this)[i] == other[i] for each i in [0; N), false otherwise.
+    constexpr bool operator==(const FixedLengthString& other) const noexcept = default;
+
     // \return N.
     static constexpr std::size_t bufferSize() noexcept;
 
