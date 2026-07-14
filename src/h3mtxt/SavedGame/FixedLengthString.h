@@ -151,6 +151,15 @@ namespace h3svg
     }
     // @str and @data_ may overlap, but in that case it's guaranteed that &str[0] >= &data_[0],
     // so we will be copying to the left.
+    // TODO: strictly speaking, it can be possible that &str[0] < &data_[0]:
+    //   struct Foo
+    //   {
+    //     char values[10] {};
+    //     FixedLengthString<10> str;
+    //   };
+    //
+    //   Foo foo;
+    //   foo.str = std::string_view{ reinterpret_cast<const char*>(&foo) + 5, 10 };
     std::copy_backward(str.begin(), str.begin() + n, data_.begin() + n);
     std::fill(data_.begin() + n, data_.end(), '\0');
     return *this;

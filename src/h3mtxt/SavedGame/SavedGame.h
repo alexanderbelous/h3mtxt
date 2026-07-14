@@ -73,10 +73,10 @@ namespace h3svg
     //
     // FYI: apparently, HD Mod used to use "HDSvG" instead (when using HD+ ?),
     // but this doesn't seem to be the case anymore.
-    FixedLengthString<5> signature = "H3SVG"; // { 'H', '3', 'S', 'V', 'G' };
+    FixedLengthString<5> signature = "H3SVG";
     ReservedData<3> reserved1;
-    std::uint32_t version_major {};
-    std::uint32_t version_minor {};
+    std::uint32_t version_major = 42;
+    std::uint32_t version_minor = 2;
     // HD mod keeps this zero-initialized; the vanilla game (HoMM3 Complete) doesn't, but the values
     // don't seem to mean anything.
     ReservedData<32> reserved2;
