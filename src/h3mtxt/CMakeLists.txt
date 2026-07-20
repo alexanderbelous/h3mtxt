@@ -49,6 +49,7 @@ target_link_libraries(h3mtxt PRIVATE h3mtxt::H3JsonReader)
 target_link_libraries(h3mtxt PRIVATE h3mtxt::H3MJsonWriter)
 target_link_libraries(h3mtxt PRIVATE h3mtxt::H3CJsonWriter)
 target_link_libraries(h3mtxt PRIVATE h3mtxt::H3SVGJsonWriter)
+target_link_libraries(h3mtxt PRIVATE h3mtxt::H3SVGWriter)
 
 # Set compiler options for h3mtxt.
 h3mtxt_add_common_compiler_options(h3mtxt)

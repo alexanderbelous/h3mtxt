@@ -1,5 +1,7 @@
 #include <h3mtxt/H3Writer/H3SVGWriter/H3SVGWriter.h>
 
+#include <h3mtxt/H3Writer/H3MWriter/H3MWriter.h>
+
 namespace h3svg
 {
   H3SVGWriter::H3SVGWriter(std::ostream& stream, MapFormat map_format) :
@@ -11,5 +13,20 @@ namespace h3svg
     {
       throw std::invalid_argument("H3SVGWriter: invalid MapFormat");
     }
+  }
+
+  void H3SVGWriter::writeData(const Coordinates& value) const
+  {
+    h3m::H3MWriter{ stream_, format() }.writeData(value);
+  }
+
+  void H3SVGWriter::writeData(const CustomHero& value) const
+  {
+    h3m::H3MWriter{ stream_, format() }.writeData(value);
+  }
+
+  void H3SVGWriter::writeData(const Teams& teams) const
+  {
+    h3m::H3MWriter{ stream_, format() }.writeData(teams);
   }
 }

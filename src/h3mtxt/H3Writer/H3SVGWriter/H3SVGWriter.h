@@ -53,6 +53,9 @@ namespace h3svg
 
     void writeData(const LossCondition& loss_condition) const;
 
+    // Defined in LossCondition.cpp.
+    // Explicit instantiations are provided for LossConditionTypes that use the default template implementation.
+    // A specialization for LossConditionType::LoseHero is declared below.
     template<LossConditionType T>
     void writeData(const LossConditionDetails<T>& details) const;
 
@@ -158,13 +161,8 @@ namespace h3svg
     return map_format_;
   }
 
-  template<> void H3SVGWriter::writeData(const LossConditionDetails<LossConditionType::LoseTown>& details) const;
-
-  template<> void H3SVGWriter::writeData(const LossConditionDetails<LossConditionType::LoseHero>& details) const;
-
-  template<> void H3SVGWriter::writeData(const LossConditionDetails<LossConditionType::TimeExpires>& details) const;
-
-  template<> void H3SVGWriter::writeData(const LossConditionDetails<LossConditionType::Normal>& details) const;
+  template<>
+  void H3SVGWriter::writeData(const LossConditionDetails<LossConditionType::LoseHero>& details) const;
 
   template<> void H3SVGWriter::writeData(const QuestDetails<QuestType::None>& details) const;
 

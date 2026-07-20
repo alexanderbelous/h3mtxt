@@ -6,6 +6,7 @@
 #include <h3mtxt/H3Reader/H3SVGReader/parseh3svg.h>
 #include <h3mtxt/H3Writer/H3CWriter/writeh3c.h>
 #include <h3mtxt/H3Writer/H3MWriter/writeh3m.h>
+#include <h3mtxt/H3Writer/H3SVGWriter/writeh3svg.h>
 #include <h3mtxt/Map/Constants/MapFormat.h>
 #include <h3mtxt/SavedGame/SavedGame.h>
 
@@ -115,6 +116,7 @@ namespace
       throw std::runtime_error("Failed to open: " + path_output.string());
     }
     h3svg::writeH3SvgJson(out_stream, saved_game);
+    //h3svg::writeh3svg(out_stream, saved_game, false);
     //writeOutput(out_stream, input);
     out_stream.close();
   }
