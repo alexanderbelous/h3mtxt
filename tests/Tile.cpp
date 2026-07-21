@@ -8,12 +8,12 @@
 
 #include <catch2/catch_test_macros.hpp>
 
-#include <iterator>
 #include <sstream>
 #include <string>
 #include <string_view>
 #include <utility>
 
+using namespace std::string_view_literals;
 using ::Testing_NS::asByteVector;
 using ::Testing_NS::encodeAndDecodeJson;
 
@@ -60,10 +60,7 @@ namespace h3m
     };
 
     // The binary representation of kTile.
-    static constexpr char kBinaryDataCStr[] = "\x02\x07\x01\x04\x03\x09\x44";
-
-    // std::string_view into kBinaryData.
-    static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
+    static constexpr std::string_view kBinaryData = "\x02\x07\x01\x04\x03\x09\x44"sv;
 
     REQUIRE(asByteVector(encodeTile(kTile)) == asByteVector(kBinaryData));
     REQUIRE(decodeTile(kBinaryData) == kTile);

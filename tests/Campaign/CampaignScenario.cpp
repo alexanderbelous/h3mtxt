@@ -10,12 +10,12 @@
 
 #include <catch2/catch_test_macros.hpp>
 
-#include <iterator>
 #include <sstream>
 #include <string>
 #include <string_view>
 #include <utility>
 
+using namespace std::string_view_literals;
 using ::Testing_NS::asByteVector;
 using ::Testing_NS::encodeAndDecodeJson;
 
@@ -111,7 +111,7 @@ namespace h3m
     };
 
     // The binary representation of kScenario.
-    static constexpr char kBinaryDataCStr[] =
+    static constexpr std::string_view kBinaryData =
       "\x0e\x00\x00\x00" "scenario_6.h3m" // map_filename
       "\x00\xc4\x09\x00"                  // map_file_size
       "\x14"                              // prerequisites
@@ -131,10 +131,8 @@ namespace h3m
       "\x03"
       "\x02"
       "\x01" "\x55\x00" "\x53\x00" "\x01\x00"
-      "\x04" "\x55\x00" "\x17";
-
-    // std::string_view into kBinaryData.
-    static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
+      "\x04" "\x55\x00" "\x17"
+      ""sv;
 
     REQUIRE(asByteVector(encodeCampaignScenario(kScenario, kCampaignId)) == asByteVector(kBinaryData));
     REQUIRE(decodeCampaignScenario(kBinaryData, kCampaignId) == kScenario);

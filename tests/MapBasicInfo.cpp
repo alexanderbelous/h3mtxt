@@ -8,12 +8,12 @@
 
 #include <catch2/catch_test_macros.hpp>
 
-#include <iterator>
 #include <sstream>
 #include <string>
 #include <string_view>
 #include <utility>
 
+using namespace std::string_view_literals;
 using ::Testing_NS::asByteVector;
 using ::Testing_NS::encodeAndDecodeJson;
 
@@ -54,18 +54,16 @@ namespace h3m
       .max_hero_level = 50
     };
     // The binary representation of kMapBasicInfo.
-    static constexpr char kBinaryDataCStr[] =  // | Type     | Field name     | Value             | Size in bytes |
-                                               // | -------- | -------------- | ----------------- | ------------- |
-      "\x01"                                   // | Bool     | is_playable    | 1                 | 1             |
-      "\x24\x00\x00\x00"                       // | uint32   | map_size       | 36                | 4             |
-      "\x00"                                   // | Bool     | has_two_levels | 0                 | 1             |
-      "\x08\x00\x00\x00" "Test map"            // | String32 | name           | "Test map"        | 12            |
-      "\x0f\x00\x00\x00" "Map description"     // | String32 | description    | "Map description" | 19            |
-      "\x04"                                   // | uint8    | difficulty     | 4                 | 1             |
-      "\x32";                                  // | uint8    | max_hero_level | 50                | 1             |
-
-    // std::string_view into kBinaryData.
-    static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
+    static constexpr std::string_view kBinaryData =  // | Type     | Field name     | Value             | Size in bytes |
+                                                     // | -------- | -------------- | ----------------- | ------------- |
+      "\x01"                                         // | Bool     | is_playable    | 1                 | 1             |
+      "\x24\x00\x00\x00"                             // | uint32   | map_size       | 36                | 4             |
+      "\x00"                                         // | Bool     | has_two_levels | 0                 | 1             |
+      "\x08\x00\x00\x00" "Test map"                  // | String32 | name           | "Test map"        | 12            |
+      "\x0f\x00\x00\x00" "Map description"           // | String32 | description    | "Map description" | 19            |
+      "\x04"                                         // | uint8    | difficulty     | 4                 | 1             |
+      "\x32"                                         // | uint8    | max_hero_level | 50                | 1             |
+      ""sv;
 
     REQUIRE(asByteVector(encodeMapBasicInfo(kMapBasicInfo)) == asByteVector(kBinaryData));
     REQUIRE(decodeMapBasicInfo(kBinaryData) == kMapBasicInfo);

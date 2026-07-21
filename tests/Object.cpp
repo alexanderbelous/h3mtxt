@@ -8,12 +8,13 @@
 #include <catch2/catch_test_macros.hpp>
 
 #include <array>
-#include <iterator>
 #include <span>
 #include <sstream>
 #include <string>
 #include <string_view>
+#include <utility>
 
+using namespace std::string_view_literals;
 using ::Testing_NS::asByteVector;
 
 namespace h3m
@@ -83,15 +84,15 @@ namespace h3m
         .unknown = ReservedData<4>{}
       }
     };
-    static constexpr char kBinaryDataCStr[] =
+    static constexpr std::string_view kBinaryData =
       "\x4b\x16\x01"                          // coordinates
       "\x01\x00\x00\x00"                      // template_idx
       "\x00\x00\x00\x00\x00"                  // unknown
                                               // properties
       "\x12\x00\x00\x00" "KEEP OFF THE GRASS" //   message
-      "\x00\x00\x00\x00";                     //   unknown
-    // std::string_view into kBinaryDataCStr.
-    static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
+      "\x00\x00\x00\x00"                      //   unknown
+      ""sv;
+
     REQUIRE(asByteVector(encodeObject(kObject)) == asByteVector(kBinaryData));
     REQUIRE(decodeObject(kObjectsTemplates, kBinaryData) == kObject);
   }

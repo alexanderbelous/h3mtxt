@@ -8,12 +8,12 @@
 
 #include <catch2/catch_test_macros.hpp>
 
-#include <iterator>
 #include <sstream>
 #include <string>
 #include <string_view>
 #include <utility>
 
+using namespace std::string_view_literals;
 using ::Testing_NS::asByteVector;
 using ::Testing_NS::encodeAndDecodeJson;
 
@@ -47,9 +47,7 @@ namespace h3m
     {
       const Teams kTeams{ .num_teams = 0 };
       // The binary representation of kTeams.
-      static constexpr char kBinaryDataCStr[] = "\x00";
-      // std::string_view into kBinaryDataCStr.
-      static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
+      static constexpr std::string_view kBinaryData = "\x00"sv;
       REQUIRE(asByteVector(encodeTeams(kTeams)) == asByteVector(kBinaryData));
       REQUIRE(decodeTeams(kBinaryData) == kTeams);
       REQUIRE(encodeAndDecodeJson(kTeams) == kTeams);
@@ -61,11 +59,9 @@ namespace h3m
         .team_for_player {0, 0, 1, 0, 0, 0, 0, 2}
       };
       // The binary representation of kTeams.
-      static constexpr char kBinaryDataCStr[] =
+      static constexpr std::string_view kBinaryData =
         "\x03"
-        "\x00\x00\x01\x00\x00\x00\x00\x02";
-      // std::string_view into kBinaryDataCStr.
-      static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
+        "\x00\x00\x01\x00\x00\x00\x00\x02"sv;
       REQUIRE(asByteVector(encodeTeams(kTeams)) == asByteVector(kBinaryData));
       REQUIRE(decodeTeams(kBinaryData) == kTeams);
       REQUIRE(encodeAndDecodeJson(kTeams) == kTeams);

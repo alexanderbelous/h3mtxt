@@ -8,11 +8,12 @@
 
 #include <catch2/catch_test_macros.hpp>
 
-#include <iterator>
 #include <sstream>
 #include <string>
 #include <string_view>
+#include <utility>
 
+using namespace std::string_view_literals;
 using ::Testing_NS::asByteVector;
 using ::Testing_NS::encodeAndDecodeJson;
 
@@ -56,29 +57,28 @@ namespace h3m
         }()
       };
       // The binary representation of kHeroArtifacts.
-      static constexpr char kBinaryDataCStr[] =
-        "\xff\xff"  // Head
-        "\x48\x00"  // Shoulders
-        "\xff\xff"  // Neck
-        "\xff\xff"  // RightHand
-        "\xff\xff"  // LeftHand
-        "\xff\xff"  // Torso
-        "\xff\xff"  // RightRing
-        "\x46\x00"  // LeftRing
-        "\x62\x00"  // Feet
-        "\xff\xff"  // Misc1
-        "\xff\xff"  // Misc2
-        "\xff\xff"  // Misc3
-        "\xff\xff"  // Misc4
-        "\xff\xff"  // WarMachine1
-        "\xff\xff"  // WarMachine2
-        "\xff\xff"  // WarMachine3
-        "\xff\xff"  // WarMachine4
-        "\x00\x00"  // Spellbook
-        "\xff\xff"  // Misc5
-        "\x00\x00"; // backpack
-      // std::string_view into kBinaryDataCStr.
-      static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
+      static constexpr std::string_view kBinaryData =
+        "\xff\xff"    // Head
+        "\x48\x00"    // Shoulders
+        "\xff\xff"    // Neck
+        "\xff\xff"    // RightHand
+        "\xff\xff"    // LeftHand
+        "\xff\xff"    // Torso
+        "\xff\xff"    // RightRing
+        "\x46\x00"    // LeftRing
+        "\x62\x00"    // Feet
+        "\xff\xff"    // Misc1
+        "\xff\xff"    // Misc2
+        "\xff\xff"    // Misc3
+        "\xff\xff"    // Misc4
+        "\xff\xff"    // WarMachine1
+        "\xff\xff"    // WarMachine2
+        "\xff\xff"    // WarMachine3
+        "\xff\xff"    // WarMachine4
+        "\x00\x00"    // Spellbook
+        "\xff\xff"    // Misc5
+        "\x00\x00"sv; // backpack
+
       REQUIRE(asByteVector(encodeHeroArtifacts(kHeroArtifacts)) == asByteVector(kBinaryData));
       REQUIRE(decodeHeroArtifacts(kBinaryData) == kHeroArtifacts);
       REQUIRE(encodeAndDecodeJson(kHeroArtifacts) == kHeroArtifacts);
@@ -97,29 +97,28 @@ namespace h3m
         .backpack = {ArtifactType::AdmiralsHat, ArtifactType::ArmorOfTheDamned}
       };
       // The binary representation of kHeroArtifacts.
-      static constexpr char kBinaryDataCStr[] =
-        "\xff\xff"                        // Head
-        "\x48\x00"                        // Shoulders
-        "\xff\xff"                        // Neck
-        "\xff\xff"                        // RightHand
-        "\xff\xff"                        // LeftHand
-        "\xff\xff"                        // Torso
-        "\xff\xff"                        // RightRing
-        "\x46\x00"                        // LeftRing
-        "\x62\x00"                        // Feet
-        "\xff\xff"                        // Misc1
-        "\xff\xff"                        // Misc2
-        "\xff\xff"                        // Misc3
-        "\xff\xff"                        // Misc4
-        "\xff\xff"                        // WarMachine1
-        "\xff\xff"                        // WarMachine2
-        "\xff\xff"                        // WarMachine3
-        "\xff\xff"                        // WarMachine4
-        "\x00\x00"                        // Spellbook
-        "\xff\xff"                        // Misc5
-        "\x02\x00" "\x88\x00" "\x84\x00"; // backpack
-      // std::string_view into kBinaryDataCStr.
-      static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
+      static constexpr std::string_view kBinaryData =
+        "\xff\xff"                          // Head
+        "\x48\x00"                          // Shoulders
+        "\xff\xff"                          // Neck
+        "\xff\xff"                          // RightHand
+        "\xff\xff"                          // LeftHand
+        "\xff\xff"                          // Torso
+        "\xff\xff"                          // RightRing
+        "\x46\x00"                          // LeftRing
+        "\x62\x00"                          // Feet
+        "\xff\xff"                          // Misc1
+        "\xff\xff"                          // Misc2
+        "\xff\xff"                          // Misc3
+        "\xff\xff"                          // Misc4
+        "\xff\xff"                          // WarMachine1
+        "\xff\xff"                          // WarMachine2
+        "\xff\xff"                          // WarMachine3
+        "\xff\xff"                          // WarMachine4
+        "\x00\x00"                          // Spellbook
+        "\xff\xff"                          // Misc5
+        "\x02\x00" "\x88\x00" "\x84\x00"sv; // backpack
+
       REQUIRE(asByteVector(encodeHeroArtifacts(kHeroArtifacts)) == asByteVector(kBinaryData));
       REQUIRE(decodeHeroArtifacts(kBinaryData) == kHeroArtifacts);
       REQUIRE(encodeAndDecodeJson(kHeroArtifacts) == kHeroArtifacts);

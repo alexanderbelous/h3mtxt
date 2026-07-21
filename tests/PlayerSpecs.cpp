@@ -8,12 +8,12 @@
 
 #include <catch2/catch_test_macros.hpp>
 
-#include <iterator>
 #include <sstream>
 #include <string>
 #include <string_view>
 #include <utility>
 
+using namespace std::string_view_literals;
 using ::Testing_NS::asByteVector;
 using ::Testing_NS::encodeAndDecodeJson;
 
@@ -86,8 +86,7 @@ namespace h3m
       .town_type = TownType::Dungeon,
       .coordinates{.x = 70, .y = 24, .z = 1}
     };
-    static constexpr char kBinaryDataCStr[] = "\x01\x05\x46\x18\x01";
-    static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
+    static constexpr std::string_view kBinaryData = "\x01\x05\x46\x18\x01"sv;
 
     REQUIRE(asByteVector(encodeMainTown(kMainTown)) == asByteVector(kBinaryData));
     REQUIRE(decodeMainTown(kBinaryData) == kMainTown);
@@ -99,7 +98,7 @@ namespace h3m
     SECTION("None")
     {
       const StartingHero kStartingHero = { .type = static_cast<HeroType>(-1) };
-      constexpr std::string_view kBinaryData = "\xff";
+      constexpr std::string_view kBinaryData = "\xff"sv;
       REQUIRE(asByteVector(encodeStartingHero(kStartingHero)) == asByteVector(kBinaryData));
       REQUIRE(decodeStartingHero(kBinaryData) == kStartingHero);
       REQUIRE(encodeAndDecodeJson(kStartingHero) == kStartingHero);
@@ -111,8 +110,7 @@ namespace h3m
         .portrait = HeroPortrait::Mephala,
         .name = "Jessica"
       };
-      static constexpr char kBinaryDataCStr[] = "\x97\x10\x07\x00\x00\x00Jessica";
-      static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
+      static constexpr std::string_view kBinaryData = "\x97\x10\x07\x00\x00\x00Jessica"sv;
       REQUIRE(asByteVector(encodeStartingHero(kStartingHero)) == asByteVector(kBinaryData));
       REQUIRE(decodeStartingHero(kBinaryData) == kStartingHero);
       REQUIRE(encodeAndDecodeJson(kStartingHero) == kStartingHero);
@@ -150,7 +148,7 @@ namespace h3m
         PlayerSpecs::HeroInfo{.type = HeroType::Orrin, .name = ""},
       }
     };
-    static constexpr char kBinaryDataCStr[] =
+    static constexpr std::string_view kBinaryData =
       "\x01"                                                                   // can_be_human
       "\x01"                                                                   // can_be_computer
       "\x00"                                                                   // behavior
@@ -162,8 +160,8 @@ namespace h3m
       "\x00"                                                                   // has_random_heroes
       "\x97\x10\x07\x00\x00\x00Jessica"                                        // starting_hero
       "\x00"                                                                   // num_nonspecific_placeholder_heroes
-      "\x02\x00\x00\x00" "\x97\x07\x00\x00\x00Jessica" "\x00\x00\x00\x00\x00"; // heroes
-    static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
+      "\x02\x00\x00\x00" "\x97\x07\x00\x00\x00Jessica" "\x00\x00\x00\x00\x00"  // heroes
+      ""sv;
 
     REQUIRE(asByteVector(encodePlayerSpecs(kPlayerSpecs)) == asByteVector(kBinaryData));
     REQUIRE(decodePlayerSpecs(kBinaryData) == kPlayerSpecs);

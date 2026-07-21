@@ -8,11 +8,12 @@
 
 #include <catch2/catch_test_macros.hpp>
 
-#include <iterator>
 #include <sstream>
 #include <string>
 #include <string_view>
+#include <utility>
 
+using namespace std::string_view_literals;
 using ::Testing_NS::asByteVector;
 using ::Testing_NS::encodeAndDecodeJson;
 
@@ -130,7 +131,7 @@ namespace h3m
       }()
     };
     // The binary representation of kMapAdditionalInfo.
-    static constexpr char kBinaryDataCStr[] =
+    static constexpr std::string_view kBinaryData =
       "\x00"                                             // victory_condition
         "\x00\x00" "\x80\x00"
       "\x02"                                             // loss_condition
@@ -175,9 +176,8 @@ namespace h3m
         "\x00"                                       // gender
         "\x00"                                       // spells
         "\x01" "\x05\x05\x32\x32"                    // primary_skills
-      "\x00\x00\x00\x00\x00\x00\x00\x00";
-    // std::string_view into kBinaryDataCStr.
-    static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
+      "\x00\x00\x00\x00\x00\x00\x00\x00"
+      ""sv;
     REQUIRE(asByteVector(encodeMapAdditionalInfo(kMapAdditionalInfo)) == asByteVector(kBinaryData));
     REQUIRE(decodeMapAdditionalInfo(kBinaryData) == kMapAdditionalInfo);
     REQUIRE(encodeAndDecodeJson(kMapAdditionalInfo) == kMapAdditionalInfo);

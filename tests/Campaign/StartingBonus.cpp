@@ -9,12 +9,12 @@
 
 #include <catch2/catch_test_macros.hpp>
 
-#include <iterator>
 #include <sstream>
 #include <string>
 #include <string_view>
 #include <utility>
 
+using namespace std::string_view_literals;
 using ::Testing_NS::asByteVector;
 using ::Testing_NS::encodeAndDecodeJson;
 
@@ -72,10 +72,7 @@ namespace h3m
     };
 
     // The binary representation of kStartingBonusDetails.
-    static constexpr char kBinaryDataCStr[] = "\x55\x00" "\x09";
-
-    // std::string_view into kBinaryData.
-    static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
+    static constexpr std::string_view kBinaryData = "\x55\x00" "\x09" ""sv;
 
     REQUIRE(asByteVector(encodeStartingBonusDetails(kStartingBonusDetails)) == asByteVector(kBinaryData));
     REQUIRE(decodeStartingBonusDetails<StartingBonusType::Spell>(kBinaryData) == kStartingBonusDetails);
@@ -94,10 +91,7 @@ namespace h3m
     };
 
     // The binary representation of kStartingBonusDetails.
-    static constexpr char kBinaryDataCStr[] = "\x55\x00" "\x4f\x00" "\x0c\x00";
-
-    // std::string_view into kBinaryData.
-    static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
+    static constexpr std::string_view kBinaryData = "\x55\x00" "\x4f\x00" "\x0c\x00" ""sv;
 
     REQUIRE(asByteVector(encodeStartingBonusDetails(kStartingBonusDetails)) == asByteVector(kBinaryData));
     REQUIRE(decodeStartingBonusDetails<StartingBonusType::Creature>(kBinaryData) == kStartingBonusDetails);
@@ -112,10 +106,7 @@ namespace h3m
     };
 
     // The binary representation of kStartingBonusDetails.
-    static constexpr char kBinaryDataCStr[] = "\x22";
-
-    // std::string_view into kBinaryData.
-    static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
+    static constexpr std::string_view kBinaryData = "\x22" ""sv;
 
     REQUIRE(asByteVector(encodeStartingBonusDetails(kStartingBonusDetails)) == asByteVector(kBinaryData));
     REQUIRE(decodeStartingBonusDetails<StartingBonusType::Building>(kBinaryData) == kStartingBonusDetails);
@@ -131,10 +122,7 @@ namespace h3m
     };
 
     // The binary representation of kStartingBonusDetails.
-    static constexpr char kBinaryDataCStr[] = "\x55\x00" "\x46\x00";
-
-    // std::string_view into kBinaryData.
-    static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
+    static constexpr std::string_view kBinaryData = "\x55\x00" "\x46\x00" ""sv;
 
     REQUIRE(asByteVector(encodeStartingBonusDetails(kStartingBonusDetails)) == asByteVector(kBinaryData));
     REQUIRE(decodeStartingBonusDetails<StartingBonusType::Artifact>(kBinaryData) == kStartingBonusDetails);
@@ -150,10 +138,7 @@ namespace h3m
     };
 
     // The binary representation of kStartingBonusDetails.
-    static constexpr char kBinaryDataCStr[] = "\x55\x00" "\x09";
-
-    // std::string_view into kBinaryData.
-    static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
+    static constexpr std::string_view kBinaryData = "\x55\x00" "\x09" ""sv;
 
     REQUIRE(asByteVector(encodeStartingBonusDetails(kStartingBonusDetails)) == asByteVector(kBinaryData));
     REQUIRE(decodeStartingBonusDetails<StartingBonusType::SpellScroll>(kBinaryData) == kStartingBonusDetails);
@@ -174,10 +159,7 @@ namespace h3m
     };
 
     // The binary representation of kStartingBonusDetails.
-    static constexpr char kBinaryDataCStr[] = "\x55\x00" "\x04\x03\x00\x00";
-
-    // std::string_view into kBinaryData.
-    static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
+    static constexpr std::string_view kBinaryData = "\x55\x00" "\x04\x03\x00\x00" ""sv;
 
     REQUIRE(asByteVector(encodeStartingBonusDetails(kStartingBonusDetails)) == asByteVector(kBinaryData));
     REQUIRE(decodeStartingBonusDetails<StartingBonusType::PrimarySkills>(kBinaryData) == kStartingBonusDetails);
@@ -196,10 +178,7 @@ namespace h3m
     };
 
     // The binary representation of kStartingBonusDetails.
-    static constexpr char kBinaryDataCStr[] = "\x55\x00" "\x11" "\x03";
-
-    // std::string_view into kBinaryData.
-    static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
+    static constexpr std::string_view kBinaryData = "\x55\x00" "\x11" "\x03" ""sv;
 
     REQUIRE(asByteVector(encodeStartingBonusDetails(kStartingBonusDetails)) == asByteVector(kBinaryData));
     REQUIRE(decodeStartingBonusDetails<StartingBonusType::SecondarySkill>(kBinaryData) == kStartingBonusDetails);
@@ -217,10 +196,7 @@ namespace h3m
     };
 
     // The binary representation of kStartingBonusDetails.
-    static constexpr char kBinaryDataCStr[] = "\xfe" "\x05\x00\x00\x00";
-
-    // std::string_view into kBinaryData.
-    static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
+    static constexpr std::string_view kBinaryData = "\xfe" "\x05\x00\x00\x00" ""sv;
 
     REQUIRE(asByteVector(encodeStartingBonusDetails(kStartingBonusDetails)) == asByteVector(kBinaryData));
     REQUIRE(decodeStartingBonusDetails<StartingBonusType::Resource>(kBinaryData) == kStartingBonusDetails);
@@ -240,10 +216,7 @@ namespace h3m
     };
 
     // The binary representation of kStartingBonus.
-    static constexpr char kBinaryDataCStr[] = "\x07" "\xfd" "\x0a\x00\x00\x00";
-
-    // std::string_view into kBinaryData.
-    static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
+    static constexpr std::string_view kBinaryData = "\x07" "\xfd" "\x0a\x00\x00\x00" ""sv;
 
     static_assert(kStartingBonus.type() == StartingBonusType::Resource);
     REQUIRE(asByteVector(encodeStartingBonus(kStartingBonus)) == asByteVector(kBinaryData));
