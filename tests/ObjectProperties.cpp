@@ -8,12 +8,12 @@
 
 #include <catch2/catch_test_macros.hpp>
 
-#include <iterator>
 #include <sstream>
 #include <string>
 #include <string_view>
 #include <utility>
 
+using namespace std::string_view_literals;
 using ::Testing_NS::asByteVector;
 using ::Testing_NS::encodeAndDecodeJson;
 
@@ -54,8 +54,7 @@ namespace h3m
       }(),
       .unknown = ReservedData<3>{}
     };
-    static constexpr char kBinaryDataCStr[] = "\x30\x00\x00\x00";
-    static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
+    static constexpr std::string_view kBinaryData = "\x30\x00\x00\x00"sv;
 
     REQUIRE(asByteVector(encodeObjectProperties(kProperties)) == asByteVector(kBinaryData));
     REQUIRE(decodeObjectProperties<ObjectPropertiesType::ABANDONED_MINE>(kBinaryData) == kProperties);
@@ -69,8 +68,7 @@ namespace h3m
       const ObjectProperties<ObjectPropertiesType::ARTIFACT> kProperties = {
         .guardians = std::nullopt
       };
-      static constexpr char kBinaryDataCStr[] = "\x00";
-      static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
+      static constexpr std::string_view kBinaryData = "\x00"sv;
 
       REQUIRE(asByteVector(encodeObjectProperties(kProperties)) == asByteVector(kBinaryData));
       REQUIRE(decodeObjectProperties<ObjectPropertiesType::ARTIFACT>(kBinaryData) == kProperties);
@@ -93,7 +91,7 @@ namespace h3m
           .unknown = ReservedData<4>{}
         }
       };
-      static constexpr char kBinaryDataCStr[] =
+      static constexpr std::string_view kBinaryData =
         "\x01"                                              // has_guardians
           "\x1c\x00\x00\x00" "Ready to fight some dragons?" // message
           "\x01"                                            // has_creatures
@@ -104,8 +102,8 @@ namespace h3m
             "\xff\xff" "\x00\x00"
             "\xff\xff" "\x00\x00"
             "\xff\xff" "\x00\x00"
-          "\x00\x00\x00\x00";                               // unknown
-      static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
+          "\x00\x00\x00\x00"                                // unknown
+        ""sv;
 
       REQUIRE(asByteVector(encodeObjectProperties(kProperties)) == asByteVector(kBinaryData));
       REQUIRE(decodeObjectProperties<ObjectPropertiesType::ARTIFACT>(kBinaryData) == kProperties);
@@ -169,7 +167,7 @@ namespace h3m
       /* .unknown2 = */ ReservedData<4>{}
     };
 
-    static constexpr char kBinaryDataCStr[] =
+    static constexpr std::string_view kBinaryData =
       "\x01"                                       // has_guardians
       "\x04\x00\x00\x00" "Boo!"                    //   message
       "\x01"                                       //   has_creatures
@@ -201,8 +199,8 @@ namespace h3m
       "\x08"                                       // affected_players
       "\x00"                                       // applies_to_computer
       "\x01"                                       // cancel_after_first_visit
-      "\x00\x00\x00\x00";                          // unknown2
-    static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
+      "\x00\x00\x00\x00"                           // unknown2
+      ""sv;
 
     REQUIRE(asByteVector(encodeObjectProperties(kProperties)) == asByteVector(kBinaryData));
     REQUIRE(decodeObjectProperties<ObjectPropertiesType::EVENT>(kBinaryData) == kProperties);
@@ -223,10 +221,10 @@ namespace h3m
         Army::kEmptySlot,
         Army::kEmptySlot
       },
-      .can_remove_units = 1,
+      .can_remove_units = true,
       .unknown2 = ReservedData<8>{}
     };
-    static constexpr char kBinaryDataCStr[] =
+    static constexpr std::string_view kBinaryData =
       "\x03"                              // owner
       "\x00\x00\x00"                      // unknown
         "\x89\x00" "\xc8\x00"             // creatures
@@ -237,8 +235,8 @@ namespace h3m
         "\xff\xff" "\x00\x00"
         "\xff\xff" "\x00\x00"
       "\x01"                              // can_remove_units
-      "\x00\x00\x00\x00\x00\x00\x00\x00"; // unknown2
-    static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
+      "\x00\x00\x00\x00\x00\x00\x00\x00"  // unknown2
+      ""sv;
 
     REQUIRE(asByteVector(encodeObjectProperties(kProperties)) == asByteVector(kBinaryData));
     REQUIRE(decodeObjectProperties<ObjectPropertiesType::GARRISON>(kBinaryData) == kProperties);
@@ -261,8 +259,7 @@ namespace h3m
       .allowable_radius = 10,
       .unknown = ReservedData<3>{}
     };
-    static constexpr char kBinaryDataCStr[] = "\x0a\x00\x00\x00";
-    static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
+    static constexpr std::string_view kBinaryData = "\x0a\x00\x00\x00"sv;
 
     REQUIRE(asByteVector(encodeObjectProperties(kProperties)) == asByteVector(kBinaryData));
     REQUIRE(decodeObjectProperties<ObjectPropertiesType::GRAIL>(kBinaryData) == kProperties);
@@ -312,7 +309,7 @@ namespace h3m
       .primary_skills = PrimarySkills{ 10, 10, 1, 3 },
       .unknown = ReservedData<16>{}
     };
-    static constexpr char kBinaryDataCStr[] =
+    static constexpr std::string_view kBinaryData =
       "\x19\x60\x00\x00"                              // absod_id
       "\x03"                                          // owner
       "\x41"                                          // type
@@ -356,8 +353,8 @@ namespace h3m
       "\x01" "\x00\x00\x00\x00\x00\x08\x00\x00\x00"   // spells
       "\x01" "\x0a\x0a\x01\x03"                       // primary_skills
       "\x00\x00\x00\x00\x00\x00\x00\x00"              // unknown
-      "\x00\x00\x00\x00\x00\x00\x00\x00";
-    static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
+      "\x00\x00\x00\x00\x00\x00\x00\x00"
+      ""sv;
 
     REQUIRE(asByteVector(encodeObjectProperties(kProperties)) == asByteVector(kBinaryData));
     REQUIRE(decodeObjectProperties<ObjectPropertiesType::HERO>(kBinaryData) == kProperties);
@@ -383,7 +380,7 @@ namespace h3m
       .does_not_grow = 1,
       .unknown = ReservedData<2>{}
     };
-    static constexpr char kBinaryDataCStr[] =
+    static constexpr std::string_view kBinaryData =
       "\xea\x07\x00\x00"        // absod_id
       "\x64\x00"                // quantity
       "\x04"                    // disposition
@@ -399,8 +396,8 @@ namespace h3m
       "\x31\x00"                //   artifact
       "\x01"                    // never_flees
       "\x01"                    // does_not_grow
-      "\x00\x00";               // unknown
-    static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
+      "\x00\x00"                // unknown
+      ""sv;
 
     REQUIRE(asByteVector(encodeObjectProperties(kProperties)) == asByteVector(kBinaryData));
     REQUIRE(decodeObjectProperties<ObjectPropertiesType::MONSTER>(kBinaryData) == kProperties);
@@ -455,7 +452,7 @@ namespace h3m
       }
     };
 
-    static constexpr char kBinaryDataCStr[] =
+    static constexpr std::string_view kBinaryData =
       "\x01"                                       // has_guardians
       "\x04\x00\x00\x00" "Boo!"                    //   message
       "\x01"                                       //   has_creatures
@@ -483,8 +480,8 @@ namespace h3m
       "\x02" "\x59\x00" "\x2a\x00"                 // artifacts
       "\x02" "\x09" "\x0c"                         // spells
       "\x02" "\x89\x00\x32\x00" "\x49\x00\x64\x00" // creatures
-      "\x00\x00\x00\x00\x00\x00\x00\x00";          // unknown
-    static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
+      "\x00\x00\x00\x00\x00\x00\x00\x00"           // unknown
+      ""sv;
 
     REQUIRE(asByteVector(encodeObjectProperties(kProperties)) == asByteVector(kBinaryData));
     REQUIRE(decodeObjectProperties<ObjectPropertiesType::PANDORAS_BOX>(kBinaryData) == kProperties);
@@ -499,8 +496,7 @@ namespace h3m
         .owner = PlayerColor::Green,
         .type = HeroType::Gunnar
       };
-      static constexpr char kBinaryDataCStr[] = "\x03" "\x55";
-      static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
+      static constexpr std::string_view kBinaryData = "\x03" "\x55" ""sv;
 
       REQUIRE(asByteVector(encodeObjectProperties(kProperties)) == asByteVector(kBinaryData));
       REQUIRE(decodeObjectProperties<ObjectPropertiesType::HERO_PLACEHOLDER>(kBinaryData) == kProperties);
@@ -513,8 +509,7 @@ namespace h3m
         .type = HeroType{0xFF},
         .power_rating = 2
       };
-      static constexpr char kBinaryDataCStr[] = "\x03" "\xff" "\x02";
-      static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
+      static constexpr std::string_view kBinaryData = "\x03" "\xff" "\x02" ""sv;
 
       REQUIRE(asByteVector(encodeObjectProperties(kProperties)) == asByteVector(kBinaryData));
       REQUIRE(decodeObjectProperties<ObjectPropertiesType::HERO_PLACEHOLDER>(kBinaryData) == kProperties);
@@ -535,14 +530,14 @@ namespace h3m
         .completion = "You may pass."
       }
     };
-    static constexpr char kBinaryDataCStr[] =
+    static constexpr std::string_view kBinaryData =
       "\x08"                                      // quest_type
       "\x10"                                      //   hero
       "\x1c\x00\x00\x00"                          // deadline
       "\x16\x00\x00\x00" "Only Mephala may pass." // proposal
       "\x13\x00\x00\x00" "You're not Mephala."    // progress
-      "\x0d\x00\x00\x00" "You may pass.";         // completion
-    static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
+      "\x0d\x00\x00\x00" "You may pass."          // completion
+      ""sv;
 
     REQUIRE(asByteVector(encodeObjectProperties(kProperties)) == asByteVector(kBinaryData));
     REQUIRE(decodeObjectProperties<ObjectPropertiesType::QUEST_GUARD>(kBinaryData) == kProperties);
@@ -559,13 +554,13 @@ namespace h3m
         .min_level = 4,
         .max_level = 6
       };
-      static constexpr char kBinaryDataCStr[] =
+      static constexpr std::string_view kBinaryData =
         "\x03"             // owner
         "\x00\x00\x00"     // unknown
         "\xea\x07\x00\x00" // town_absod_id
         "\x04"             // min_level
-        "\x06";            // max_level
-      static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
+        "\x06"             // max_level
+        ""sv;
       REQUIRE(asByteVector(encodeObjectProperties(kProperties)) == asByteVector(kBinaryData));
       REQUIRE(decodeObjectProperties<ObjectPropertiesType::RANDOM_DWELLING>(kBinaryData) == kProperties);
       REQUIRE(encodeAndDecodeJson(kProperties) == kProperties);
@@ -585,14 +580,14 @@ namespace h3m
         .min_level = 4,
         .max_level = 6
       };
-      static constexpr char kBinaryDataCStr[] =
+      static constexpr std::string_view kBinaryData =
         "\x03"             // owner
         "\x00\x00\x00"     // unknown
         "\x00\x00\x00\x00" // town_absod_id
         "\x22\x01"         // alignment
         "\x04"             // min_level
-        "\x06";            // max_level
-      static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
+        "\x06"             // max_level
+        ""sv;
       REQUIRE(asByteVector(encodeObjectProperties(kProperties)) == asByteVector(kBinaryData));
       REQUIRE(decodeObjectProperties<ObjectPropertiesType::RANDOM_DWELLING>(kBinaryData) == kProperties);
       REQUIRE(encodeAndDecodeJson(kProperties) == kProperties);
@@ -606,12 +601,12 @@ namespace h3m
       .min_level = 4,
       .max_level = 6
     };
-    static constexpr char kBinaryDataCStr[] =
+    static constexpr std::string_view kBinaryData =
       "\x03"             // owner
       "\x00\x00\x00"     // unknown
       "\x04"             // min_level
-      "\x06";            // max_level
-    static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
+      "\x06"             // max_level
+      ""sv;
     REQUIRE(asByteVector(encodeObjectProperties(kProperties)) == asByteVector(kBinaryData));
     REQUIRE(decodeObjectProperties<ObjectPropertiesType::RANDOM_DWELLING_PRESET_ALIGNMENT>(kBinaryData) == kProperties);
     REQUIRE(encodeAndDecodeJson(kProperties) == kProperties);
@@ -625,11 +620,11 @@ namespace h3m
         .owner = PlayerColor::Green,
         .town_absod_id = 2026
       };
-      static constexpr char kBinaryDataCStr[] =
+      static constexpr std::string_view kBinaryData =
         "\x03"              // owner
         "\x00\x00\x00"      // unknown
-        "\xea\x07\x00\x00"; // town_absod_id
-      static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
+        "\xea\x07\x00\x00"  // town_absod_id
+        ""sv;
       REQUIRE(asByteVector(encodeObjectProperties(kProperties)) == asByteVector(kBinaryData));
       REQUIRE(decodeObjectProperties<ObjectPropertiesType::RANDOM_DWELLING_PRESET_LEVEL>(kBinaryData) == kProperties);
       REQUIRE(encodeAndDecodeJson(kProperties) == kProperties);
@@ -647,12 +642,12 @@ namespace h3m
           return bitmask;
         }()
       };
-      static constexpr char kBinaryDataCStr[] =
+      static constexpr std::string_view kBinaryData =
         "\x03"             // owner
         "\x00\x00\x00"     // unknown
         "\x00\x00\x00\x00" // town_absod_id
-        "\x22\x01";        // alignment
-      static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
+        "\x22\x01"         // alignment
+        ""sv;
       REQUIRE(asByteVector(encodeObjectProperties(kProperties)) == asByteVector(kBinaryData));
       REQUIRE(decodeObjectProperties<ObjectPropertiesType::RANDOM_DWELLING_PRESET_LEVEL>(kBinaryData) == kProperties);
       REQUIRE(encodeAndDecodeJson(kProperties) == kProperties);
@@ -668,8 +663,7 @@ namespace h3m
         .quantity = 30,
         .unknown = ReservedData<4>{}
       };
-      static constexpr char kBinaryDataCStr[] = "\x00" "\x1e\x00\x00\x00" "\x00\x00\x00\x00";
-      static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
+      static constexpr std::string_view kBinaryData = "\x00" "\x1e\x00\x00\x00" "\x00\x00\x00\x00" ""sv;
 
       REQUIRE(asByteVector(encodeObjectProperties(kProperties)) == asByteVector(kBinaryData));
       REQUIRE(decodeObjectProperties<ObjectPropertiesType::RESOURCE>(kBinaryData) == kProperties);
@@ -694,7 +688,7 @@ namespace h3m
         .quantity = 200,
         .unknown = ReservedData<4>{}
       };
-      static constexpr char kBinaryDataCStr[] =
+      static constexpr std::string_view kBinaryData =
         "\x01"                                              // has_guardians
           "\x1c\x00\x00\x00" "Ready to fight some dragons?" //   message
           "\x01"                                            //   has_creatures
@@ -707,8 +701,8 @@ namespace h3m
             "\xff\xff" "\x00\x00"
           "\x00\x00\x00\x00"                                //   unknown
         "\xc8\x00\x00\x00"                                  // quantity
-        "\x00\x00\x00\x00";                                 // unknown
-      static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
+        "\x00\x00\x00\x00"                                  // unknown
+        ""sv;
 
       REQUIRE(asByteVector(encodeObjectProperties(kProperties)) == asByteVector(kBinaryData));
       REQUIRE(decodeObjectProperties<ObjectPropertiesType::RESOURCE>(kBinaryData) == kProperties);
@@ -724,8 +718,7 @@ namespace h3m
         .reward = PrimarySkillType::SpellPower,
         .unknown = ReservedData<6>{}
       };
-      static constexpr char kBinaryDataCStr[] = "\x00" "\x02" "\x00\x00\x00\x00\x00\x00";
-      static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
+      static constexpr std::string_view kBinaryData = "\x00" "\x02" "\x00\x00\x00\x00\x00\x00" ""sv;
       REQUIRE(asByteVector(encodeObjectProperties(kProperties)) == asByteVector(kBinaryData));
       REQUIRE(decodeObjectProperties<ObjectPropertiesType::SCHOLAR>(kBinaryData) == kProperties);
       REQUIRE(encodeAndDecodeJson(kProperties) == kProperties);
@@ -736,8 +729,7 @@ namespace h3m
         .reward = SecondarySkillType::EagleEye,
         .unknown = ReservedData<6>{}
       };
-      static constexpr char kBinaryDataCStr[] = "\x01" "\x0b" "\x00\x00\x00\x00\x00\x00";
-      static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
+      static constexpr std::string_view kBinaryData = "\x01" "\x0b" "\x00\x00\x00\x00\x00\x00" ""sv;
       REQUIRE(asByteVector(encodeObjectProperties(kProperties)) == asByteVector(kBinaryData));
       REQUIRE(decodeObjectProperties<ObjectPropertiesType::SCHOLAR>(kBinaryData) == kProperties);
       REQUIRE(encodeAndDecodeJson(kProperties) == kProperties);
@@ -748,8 +740,7 @@ namespace h3m
         .reward = SpellType::Armageddon,
         .unknown = ReservedData<6>{}
       };
-      static constexpr char kBinaryDataCStr[] = "\x02" "\x1a" "\x00\x00\x00\x00\x00\x00";
-      static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
+      static constexpr std::string_view kBinaryData = "\x02" "\x1a" "\x00\x00\x00\x00\x00\x00" ""sv;
       REQUIRE(asByteVector(encodeObjectProperties(kProperties)) == asByteVector(kBinaryData));
       REQUIRE(decodeObjectProperties<ObjectPropertiesType::SCHOLAR>(kBinaryData) == kProperties);
       REQUIRE(encodeAndDecodeJson(kProperties) == kProperties);
@@ -760,8 +751,7 @@ namespace h3m
         .reward = ScholarRandomRewardType::Default,
         .unknown = ReservedData<6>{}
       };
-      static constexpr char kBinaryDataCStr[] = "\xff" "\x00" "\x00\x00\x00\x00\x00\x00";
-      static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
+      static constexpr std::string_view kBinaryData = "\xff" "\x00" "\x00\x00\x00\x00\x00\x00" ""sv;
       REQUIRE(asByteVector(encodeObjectProperties(kProperties)) == asByteVector(kBinaryData));
       REQUIRE(decodeObjectProperties<ObjectPropertiesType::SCHOLAR>(kBinaryData) == kProperties);
       REQUIRE(encodeAndDecodeJson(kProperties) == kProperties);
@@ -787,7 +777,7 @@ namespace h3m
       },
       .unknown = ReservedData<2>{}
     };
-    static constexpr char kBinaryDataCStr[] =
+    static constexpr std::string_view kBinaryData =
       "\x08"                                    // quest_type
       "\x10"                                    //   hero
       "\x1c\x00\x00\x00"                        // deadline
@@ -796,8 +786,8 @@ namespace h3m
       "\x08\x00\x00\x00" "Finally!"             // completion
       "\x09"                                    // reward_type
       "\x0c"                                    //   spell
-      "\x00\x00";                               // unknown
-    static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
+      "\x00\x00"                                // unknown
+      ""sv;
 
     REQUIRE(asByteVector(encodeObjectProperties(kProperties)) == asByteVector(kBinaryData));
     REQUIRE(decodeObjectProperties<ObjectPropertiesType::SEERS_HUT>(kBinaryData) == kProperties);
@@ -810,8 +800,7 @@ namespace h3m
       .spell = SpellType::Slow,
       .unknown = ReservedData<3>{}
     };
-    static constexpr char kBinaryDataCStr[] = "\x36\x00\x00\x00";
-    static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
+    static constexpr std::string_view kBinaryData = "\x36\x00\x00\x00"sv;
 
     REQUIRE(asByteVector(encodeObjectProperties(kProperties)) == asByteVector(kBinaryData));
     REQUIRE(decodeObjectProperties<ObjectPropertiesType::SHRINE>(kBinaryData) == kProperties);
@@ -824,10 +813,10 @@ namespace h3m
       .message = "KEEP OFF THE GRASS",
       .unknown = ReservedData<4>{}
     };
-    static constexpr char kBinaryDataCStr[] =
+    static constexpr std::string_view kBinaryData =
       "\x12\x00\x00\x00" "KEEP OFF THE GRASS"
-      "\x00\x00\x00\x00";
-    static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
+      "\x00\x00\x00\x00"
+      ""sv;
 
     REQUIRE(asByteVector(encodeObjectProperties(kProperties)) == asByteVector(kBinaryData));
     REQUIRE(decodeObjectProperties<ObjectPropertiesType::SIGN>(kBinaryData) == kProperties);
@@ -843,8 +832,7 @@ namespace h3m
         .spell = SpellType::TownPortal,
         .unknown = ReservedData<3>{}
       };
-      static constexpr char kBinaryDataCStr[] = "\x00\x09\x00\x00\x00";
-      static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
+      static constexpr std::string_view kBinaryData = "\x00\x09\x00\x00\x00" ""sv;
 
       REQUIRE(asByteVector(encodeObjectProperties(kProperties)) == asByteVector(kBinaryData));
       REQUIRE(decodeObjectProperties<ObjectPropertiesType::SPELL_SCROLL>(kBinaryData) == kProperties);
@@ -869,7 +857,7 @@ namespace h3m
         .spell = SpellType::ForceField,
         .unknown = ReservedData<3>{}
       };
-      static constexpr char kBinaryDataCStr[] =
+      static constexpr std::string_view kBinaryData =
         "\x01"                                              // has_guardians
           "\x1c\x00\x00\x00" "Ready to fight some dragons?" //   message
           "\x01"                                            //   has_creatures
@@ -882,8 +870,8 @@ namespace h3m
             "\xff\xff" "\x00\x00"
           "\x00\x00\x00\x00"                                //   unknown
         "\x0c"                                              // spell
-        "\x00\x00\x00";                                     // unknown
-      static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
+        "\x00\x00\x00"                                      // unknown
+        ""sv;
 
       REQUIRE(asByteVector(encodeObjectProperties(kProperties)) == asByteVector(kBinaryData));
       REQUIRE(decodeObjectProperties<ObjectPropertiesType::SPELL_SCROLL>(kBinaryData) == kProperties);
@@ -959,7 +947,7 @@ namespace h3m
       .alignment = 0xFF,
       .unknown = ReservedData<3>{}
     };
-    static constexpr char kBinaryDataCStr[] =
+    static constexpr std::string_view kBinaryData =
       "\x8b\x07\x00\x00"                     // absod_id
       "\x01"                                 // owner
       "\x01"                                 // ?name
@@ -1000,8 +988,8 @@ namespace h3m
           "\x00\x00" "\x00\x00" "\x00\x00"
           "\x00\x00\x00\x00"                                      // unknown2
       "\xff"                                 // alignment
-      "\x00\x00\x00";                        // unknown
-    static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
+      "\x00\x00\x00"                         // unknown
+      ""sv;
 
     REQUIRE(asByteVector(encodeObjectProperties(kProperties)) == asByteVector(kBinaryData));
     REQUIRE(decodeObjectProperties<ObjectPropertiesType::TOWN>(kBinaryData) == kProperties);
@@ -1014,8 +1002,7 @@ namespace h3m
       .owner = PlayerColor::Green,
       .unknown = ReservedData<3>{}
     };
-    static constexpr char kBinaryDataCStr[] = "\x03\x00\x00\x00";
-    static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
+    static constexpr std::string_view kBinaryData = "\x03\x00\x00\x00"sv;
 
     REQUIRE(asByteVector(encodeObjectProperties(kProperties)) == asByteVector(kBinaryData));
     REQUIRE(decodeObjectProperties<ObjectPropertiesType::TRIVIAL_OWNED_OBJECT>(kBinaryData) == kProperties);
@@ -1034,8 +1021,7 @@ namespace h3m
         return bitmask;
       }()
     };
-    static constexpr char kBinaryDataCStr[] = "\x00\xc0\x03\x00";
-    static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
+    static constexpr std::string_view kBinaryData = "\x00\xc0\x03\x00"sv;
 
     REQUIRE(asByteVector(encodeObjectProperties(kProperties)) == asByteVector(kBinaryData));
     REQUIRE(decodeObjectProperties<ObjectPropertiesType::WITCH_HUT>(kBinaryData) == kProperties);

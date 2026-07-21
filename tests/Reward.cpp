@@ -8,12 +8,12 @@
 
 #include <catch2/catch_test_macros.hpp>
 
-#include <iterator>
 #include <sstream>
 #include <string>
 #include <string_view>
 #include <utility>
 
+using namespace std::string_view_literals;
 using ::Testing_NS::asByteVector;
 using ::Testing_NS::encodeAndDecodeJson;
 
@@ -46,8 +46,7 @@ namespace h3m
     constexpr Reward kReward = {
       .details = RewardDetails<RewardType::None>{}
     };
-    static constexpr char kBinaryDataCStr[] = "\x00";
-    static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
+    static constexpr std::string_view kBinaryData = "\x00"sv;
 
     static_assert(kReward.type() == RewardType::None);
     REQUIRE(asByteVector(encodeReward(kReward)) == asByteVector(kBinaryData));
@@ -62,8 +61,7 @@ namespace h3m
         .experience = 5000
       }
     };
-    static constexpr char kBinaryDataCStr[] = "\x01" "\x88\x13\x00\x00";
-    static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
+    static constexpr std::string_view kBinaryData = "\x01" "\x88\x13\x00\x00" ""sv;
 
     static_assert(kReward.type() == RewardType::Experience);
     REQUIRE(asByteVector(encodeReward(kReward)) == asByteVector(kBinaryData));
@@ -78,8 +76,7 @@ namespace h3m
         .spell_points = 500
       }
     };
-    static constexpr char kBinaryDataCStr[] = "\x02" "\xf4\x01\x00\x00";
-    static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
+    static constexpr std::string_view kBinaryData = "\x02" "\xf4\x01\x00\x00" ""sv;
 
     static_assert(kReward.type() == RewardType::SpellPoints);
     REQUIRE(asByteVector(encodeReward(kReward)) == asByteVector(kBinaryData));
@@ -94,8 +91,7 @@ namespace h3m
         .morale = 2
       }
     };
-    static constexpr char kBinaryDataCStr[] = "\x03" "\x02";
-    static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
+    static constexpr std::string_view kBinaryData = "\x03" "\x02" ""sv;
 
     static_assert(kReward.type() == RewardType::Morale);
     REQUIRE(asByteVector(encodeReward(kReward)) == asByteVector(kBinaryData));
@@ -110,8 +106,7 @@ namespace h3m
         .luck = 2
       }
     };
-    static constexpr char kBinaryDataCStr[] = "\x04" "\x02";
-    static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
+    static constexpr std::string_view kBinaryData = "\x04" "\x02" ""sv;
 
     static_assert(kReward.type() == RewardType::Luck);
     REQUIRE(asByteVector(encodeReward(kReward)) == asByteVector(kBinaryData));
@@ -129,8 +124,7 @@ namespace h3m
         }
       }
     };
-    static constexpr char kBinaryDataCStr[] = "\x05" "\x06" "\x10\x27\x00\x00";
-    static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
+    static constexpr std::string_view kBinaryData = "\x05" "\x06" "\x10\x27\x00\x00" ""sv;
 
     static_assert(kReward.type() == RewardType::Resource);
     REQUIRE(asByteVector(encodeReward(kReward)) == asByteVector(kBinaryData));
@@ -146,8 +140,7 @@ namespace h3m
         .value = 5
       }
     };
-    static constexpr char kBinaryDataCStr[] = "\x06" "\x03" "\x05";
-    static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
+    static constexpr std::string_view kBinaryData = "\x06" "\x03" "\x05" ""sv;
 
     static_assert(kReward.type() == RewardType::PrimarySkill);
     REQUIRE(asByteVector(encodeReward(kReward)) == asByteVector(kBinaryData));
@@ -165,8 +158,7 @@ namespace h3m
         }
       }
     };
-    static constexpr char kBinaryDataCStr[] = "\x07" "\x11" "\x03";
-    static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
+    static constexpr std::string_view kBinaryData = "\x07" "\x11" "\x03" ""sv;
 
     static_assert(kReward.type() == RewardType::SecondarySkill);
     REQUIRE(asByteVector(encodeReward(kReward)) == asByteVector(kBinaryData));
@@ -181,8 +173,7 @@ namespace h3m
         .artifact = ArtifactType::ElixirOfLife
       }
     };
-    static constexpr char kBinaryDataCStr[] = "\x08" "\x83\x00";
-    static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
+    static constexpr std::string_view kBinaryData = "\x08" "\x83\x00" ""sv;
 
     static_assert(kReward.type() == RewardType::Artifact);
     REQUIRE(asByteVector(encodeReward(kReward)) == asByteVector(kBinaryData));
@@ -197,8 +188,7 @@ namespace h3m
         .spell = SpellType::ForceField
       }
     };
-    static constexpr char kBinaryDataCStr[] = "\x09" "\x0c";
-    static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
+    static constexpr std::string_view kBinaryData = "\x09" "\x0c" ""sv;
 
     static_assert(kReward.type() == RewardType::Spell);
     REQUIRE(asByteVector(encodeReward(kReward)) == asByteVector(kBinaryData));
@@ -216,8 +206,7 @@ namespace h3m
         }
       }
     };
-    static constexpr char kBinaryDataCStr[] = "\x0a" "\x89\x00" "\x64\x00";
-    static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
+    static constexpr std::string_view kBinaryData = "\x0a" "\x89\x00" "\x64\x00" ""sv;
 
     static_assert(kReward.type() == RewardType::Creatures);
     REQUIRE(asByteVector(encodeReward(kReward)) == asByteVector(kBinaryData));

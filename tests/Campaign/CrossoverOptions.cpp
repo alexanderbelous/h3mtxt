@@ -8,12 +8,12 @@
 
 #include <catch2/catch_test_macros.hpp>
 
-#include <iterator>
 #include <sstream>
 #include <string>
 #include <string_view>
 #include <utility>
 
+using namespace std::string_view_literals;
 using ::Testing_NS::asByteVector;
 using ::Testing_NS::encodeAndDecodeJson;
 
@@ -66,13 +66,11 @@ namespace h3m
     };
 
     // The binary representation of kCrossoverOptions.
-    static constexpr char kBinaryDataCStr[] =
+    static constexpr std::string_view kBinaryData =
       "\x07"
       "\x00\x20\x00\x00" "\x00\x00\x00\x00" "\x00\x00\x00\x00" "\x00\x00\x00\x00" "\x00\x02\x00"
-      "\x00\x00\x00\x00" "\x00\x00\x02\x00" "\x00\x00\x00\x00" "\x00\x00\x00\x00" "\x00\x00";
-
-    // std::string_view into kBinaryData.
-    static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
+      "\x00\x00\x00\x00" "\x00\x00\x02\x00" "\x00\x00\x00\x00" "\x00\x00\x00\x00" "\x00\x00"
+      ""sv;
 
     REQUIRE(asByteVector(encodeCrossoverOptions(kCrossoverOptions)) == asByteVector(kBinaryData));
     REQUIRE(decodeCrossoverOptions(kBinaryData) == kCrossoverOptions);

@@ -9,12 +9,12 @@
 
 #include <catch2/catch_test_macros.hpp>
 
-#include <iterator>
 #include <sstream>
 #include <string>
 #include <string_view>
 #include <utility>
 
+using namespace std::string_view_literals;
 using ::Testing_NS::asByteVector;
 using ::Testing_NS::encodeAndDecodeJson;
 
@@ -100,14 +100,12 @@ namespace h3m
     };
 
     // The binary representation of kStartingOptionsDetails.
-    static constexpr char kBinaryDataCStr[] =
+    static constexpr std::string_view kBinaryData =
       "\x03"
       "\x02"
       "\x01" "\x55\x00" "\x53\x00" "\x01\x00"
-      "\x04" "\x55\x00" "\x17";
-
-    // std::string_view into kBinaryData.
-    static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
+      "\x04" "\x55\x00" "\x17"
+      ""sv;
 
     REQUIRE(asByteVector(encodeStartingOptionsDetails(kStartingOptionsDetails)) == asByteVector(kBinaryData));
     REQUIRE(decodeStartingOptionsDetails<StartingOptionsType::StartingBonus>(kBinaryData) == kStartingOptionsDetails);
@@ -131,13 +129,11 @@ namespace h3m
     };
 
     // The binary representation of kStartingOptionsDetails.
-    static constexpr char kBinaryDataCStr[] =
+    static constexpr std::string_view kBinaryData =
       "\x02"
       "\x03" "\x01"
-      "\x06" "\x01";
-
-    // std::string_view into kBinaryData.
-    static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
+      "\x06" "\x01"
+      ""sv;
 
     REQUIRE(asByteVector(encodeStartingOptionsDetails(kStartingOptionsDetails)) == asByteVector(kBinaryData));
     REQUIRE(decodeStartingOptionsDetails<StartingOptionsType::HeroCrossover>(kBinaryData) == kStartingOptionsDetails);
@@ -165,14 +161,12 @@ namespace h3m
     };
 
     // The binary representation of kStartingOptionsDetails.
-    static constexpr char kBinaryDataCStr[] =
+    static constexpr std::string_view kBinaryData =
       "\x03"
       "\x00" "\x90\x00"
       "\x01" "\x10\x00"
-      "\x02" "\x55\x00";
-
-    // std::string_view into kBinaryData.
-    static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
+      "\x02" "\x55\x00"
+      ""sv;
 
     REQUIRE(asByteVector(encodeStartingOptionsDetails(kStartingOptionsDetails)) == asByteVector(kBinaryData));
     REQUIRE(decodeStartingOptionsDetails<StartingOptionsType::StartingHero>(kBinaryData) == kStartingOptionsDetails);
@@ -206,15 +200,13 @@ namespace h3m
     };
 
     // The binary representation of kStartingOptionsDetails.
-    static constexpr char kBinaryDataCStr[] =
+    static constexpr std::string_view kBinaryData =
       "\x01"
       "\x03"
       "\x02"
       "\x01" "\x55\x00" "\x53\x00" "\x01\x00"
-      "\x04" "\x55\x00" "\x17";
-
-    // std::string_view into kBinaryData.
-    static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
+      "\x04" "\x55\x00" "\x17"
+      ""sv;
 
     REQUIRE(kStartingOptions.type() == StartingOptionsType::StartingBonus);
     REQUIRE(asByteVector(encodeStartingOptions(kStartingOptions)) == asByteVector(kBinaryData));

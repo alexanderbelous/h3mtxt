@@ -8,11 +8,11 @@
 
 #include <catch2/catch_test_macros.hpp>
 
-#include <iterator>
 #include <sstream>
 #include <string>
 #include <utility>
 
+using namespace std::string_view_literals;
 using ::Testing_NS::asByteVector;
 using ::Testing_NS::encodeAndDecodeJson;
 
@@ -56,19 +56,17 @@ namespace h3m
       .unknown = ReservedData<16>{}
     };
     // The binary representation of kObjectTemplate.
-    static constexpr char kBinaryDataCStr[] =
-      "\x0c\x00\x00\x00" "AVWmrnd0.def"                                   // def
-      "\xff\xff\xff\xff\xff\x7f"                                          // passability
-      "\x00\x00\x00\x00\x00\x80"                                          // actionability
-      "\xff\x00"                                                          // allowed_landscapes
-      "\x01\x00"                                                          // landscape_group
-      "\x47\x00\x00\x00"                                                  // object_class
-      "\x00\x00\x00\x00"                                                  // object_subclass
-      "\x02"                                                              // object_group
-      "\x00"                                                              // is_ground
-      "\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"; // unknown
-    // std::string_view into kBinaryData.
-    static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
+    static constexpr std::string_view kBinaryData =
+      "\x0c\x00\x00\x00" "AVWmrnd0.def"                                     // def
+      "\xff\xff\xff\xff\xff\x7f"                                            // passability
+      "\x00\x00\x00\x00\x00\x80"                                            // actionability
+      "\xff\x00"                                                            // allowed_landscapes
+      "\x01\x00"                                                            // landscape_group
+      "\x47\x00\x00\x00"                                                    // object_class
+      "\x00\x00\x00\x00"                                                    // object_subclass
+      "\x02"                                                                // object_group
+      "\x00"                                                                // is_ground
+      "\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"sv; // unknown
 
     REQUIRE(asByteVector(encodeObjectTemplate(kObjectTemplate)) == asByteVector(kBinaryData));
     REQUIRE(decodeObjectTemplate(kBinaryData) == kObjectTemplate);

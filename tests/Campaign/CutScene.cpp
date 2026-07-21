@@ -8,12 +8,12 @@
 
 #include <catch2/catch_test_macros.hpp>
 
-#include <iterator>
 #include <sstream>
 #include <string>
 #include <string_view>
 #include <utility>
 
+using namespace std::string_view_literals;
 using ::Testing_NS::asByteVector;
 using ::Testing_NS::encodeAndDecodeJson;
 
@@ -51,10 +51,7 @@ namespace h3m
     };
 
     // The binary representation of kCutScene.
-    static constexpr char kBinaryDataCStr[] = "\x26" "\x11" "\x09\x00\x00\x00" "Episode I";
-
-    // std::string_view into kBinaryData.
-    static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
+    static constexpr std::string_view kBinaryData = "\x26" "\x11" "\x09\x00\x00\x00" "Episode I"sv;
 
     REQUIRE(asByteVector(encodeCutScene(kCutScene)) == asByteVector(kBinaryData));
     REQUIRE(decodeCutScene(kBinaryData) == kCutScene);

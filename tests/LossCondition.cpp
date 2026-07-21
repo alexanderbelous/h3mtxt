@@ -8,12 +8,12 @@
 
 #include <catch2/catch_test_macros.hpp>
 
-#include <iterator>
 #include <sstream>
 #include <string>
 #include <string_view>
 #include <utility>
 
+using namespace std::string_view_literals;
 using ::Testing_NS::asByteVector;
 using ::Testing_NS::encodeAndDecodeJson;
 
@@ -48,8 +48,7 @@ namespace h3m
         .coordinates = Coordinates{.x = 10, .y = 20, .z = 1}
       }
     };
-    static constexpr char kBinaryDataCStr[] = "\x00\x0a\x14\x01";
-    static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
+    static constexpr std::string_view kBinaryData = "\x00\x0a\x14\x01"sv;
 
     static_assert(kLossCondition.type() == LossConditionType::LoseTown);
     REQUIRE(asByteVector(encodeLossCondition(kLossCondition)) == asByteVector(kBinaryData));
@@ -64,8 +63,7 @@ namespace h3m
         .coordinates = Coordinates{.x = 10, .y = 20, .z = 1}
       }
     };
-    static constexpr char kBinaryDataCStr[] = "\x01\x0a\x14\x01";
-    static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
+    static constexpr std::string_view kBinaryData = "\x01\x0a\x14\x01"sv;
 
     static_assert(kLossCondition.type() == LossConditionType::LoseHero);
     REQUIRE(asByteVector(encodeLossCondition(kLossCondition)) == asByteVector(kBinaryData));
@@ -80,8 +78,7 @@ namespace h3m
         .days = 99
       }
     };
-    static constexpr char kBinaryDataCStr[] = "\x02\x63\x00";
-    static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
+    static constexpr std::string_view kBinaryData = "\x02\x63\x00"sv;
 
     static_assert(kLossCondition.type() == LossConditionType::TimeExpires);
     REQUIRE(asByteVector(encodeLossCondition(kLossCondition)) == asByteVector(kBinaryData));
@@ -94,8 +91,7 @@ namespace h3m
     constexpr LossCondition kLossCondition = {
       LossConditionDetails<LossConditionType::Normal>{}
     };
-    static constexpr char kBinaryDataCStr[] = "\xff";
-    static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
+    static constexpr std::string_view kBinaryData = "\xff"sv;
 
     static_assert(kLossCondition.type() == LossConditionType::Normal);
     REQUIRE(asByteVector(encodeLossCondition(kLossCondition)) == asByteVector(kBinaryData));

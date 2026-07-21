@@ -8,11 +8,12 @@
 
 #include <catch2/catch_test_macros.hpp>
 
-#include <iterator>
 #include <sstream>
 #include <string>
 #include <string_view>
+#include <utility>
 
+using namespace std::string_view_literals;
 using ::Testing_NS::asByteVector;
 using ::Testing_NS::encodeAndDecodeJson;
 
@@ -54,9 +55,7 @@ namespace h3m
         .primary_skills = std::nullopt
       };
       // The binary representation of kHeroSettings.
-      static constexpr char kBinaryDataCStr[] = "\x00\x00\x00\x00\xff\x00\x00";
-      // std::string_view into kBinaryDataCStr.
-      static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
+      static constexpr std::string_view kBinaryData = "\x00\x00\x00\x00\xff\x00\x00"sv;
       REQUIRE(asByteVector(encodeHeroSettings(kHeroSettings)) == asByteVector(kBinaryData));
       REQUIRE(decodeHeroSettings(kBinaryData) == kHeroSettings);
       REQUIRE(encodeAndDecodeJson(kHeroSettings) == kHeroSettings);
@@ -73,12 +72,10 @@ namespace h3m
         .primary_skills = std::nullopt
       };
       // The binary representation of kHeroSettings.
-      static constexpr char kBinaryDataCStr[] =
+      static constexpr std::string_view kBinaryData =
         "\x01"
           "\x10\x27\x00\x00"
-        "\x00\x00\x00\xff\x00\x00";
-      // std::string_view into kBinaryDataCStr.
-      static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
+        "\x00\x00\x00\xff\x00\x00"sv;
       REQUIRE(asByteVector(encodeHeroSettings(kHeroSettings)) == asByteVector(kBinaryData));
       REQUIRE(decodeHeroSettings(kBinaryData) == kHeroSettings);
       REQUIRE(encodeAndDecodeJson(kHeroSettings) == kHeroSettings);
@@ -98,13 +95,11 @@ namespace h3m
         .primary_skills = std::nullopt
       };
       // The binary representation of kHeroSettings.
-      static constexpr char kBinaryDataCStr[] =
+      static constexpr std::string_view kBinaryData =
         "\x00"
         "\x01"
           "\x02\x00\x00\x00" "\x02\x03" "\x07\x02"
-        "\x00\x00\xff\x00\x00";
-      // std::string_view into kBinaryDataCStr.
-      static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
+        "\x00\x00\xff\x00\x00"sv;
       REQUIRE(asByteVector(encodeHeroSettings(kHeroSettings)) == asByteVector(kBinaryData));
       REQUIRE(decodeHeroSettings(kBinaryData) == kHeroSettings);
       REQUIRE(encodeAndDecodeJson(kHeroSettings) == kHeroSettings);
@@ -129,7 +124,7 @@ namespace h3m
         .primary_skills = std::nullopt
       };
       // The binary representation of kHeroSettings.
-      static constexpr char kBinaryDataCStr[] =
+      static constexpr std::string_view kBinaryData =
         "\x00\x00"
         "\x01"
           "\xff\xff"  // Head
@@ -153,9 +148,7 @@ namespace h3m
           "\xff\xff"  // Misc5
           "\x01\x00"  // backpack
             "\x59\x00"
-        "\x00\xff\x00\x00";
-      // std::string_view into kBinaryDataCStr.
-      static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
+        "\x00\xff\x00\x00"sv;
       REQUIRE(asByteVector(encodeHeroSettings(kHeroSettings)) == asByteVector(kBinaryData));
       REQUIRE(decodeHeroSettings(kBinaryData) == kHeroSettings);
       REQUIRE(encodeAndDecodeJson(kHeroSettings) == kHeroSettings);
@@ -172,13 +165,11 @@ namespace h3m
         .primary_skills = std::nullopt
       };
       // The binary representation of kHeroSettings.
-      static constexpr char kBinaryDataCStr[] =
+      static constexpr std::string_view kBinaryData =
         "\x00\x00\x00"
         "\x01"
           "\x23\x00\x00\x00" "Born on a Monday,\nBuried on Sunday."
-        "\xff\x00\x00";
-      // std::string_view into kBinaryDataCStr.
-      static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
+        "\xff\x00\x00"sv;
       REQUIRE(asByteVector(encodeHeroSettings(kHeroSettings)) == asByteVector(kBinaryData));
       REQUIRE(decodeHeroSettings(kBinaryData) == kHeroSettings);
       REQUIRE(encodeAndDecodeJson(kHeroSettings) == kHeroSettings);
@@ -195,9 +186,7 @@ namespace h3m
         .primary_skills = std::nullopt
       };
       // The binary representation of kHeroSettings.
-      static constexpr char kBinaryDataCStr[] = "\x00\x00\x00\x00\x00\x00\x00";
-      // std::string_view into kBinaryDataCStr.
-      static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
+      static constexpr std::string_view kBinaryData = "\x00\x00\x00\x00\x00\x00\x00"sv;
       REQUIRE(asByteVector(encodeHeroSettings(kHeroSettings)) == asByteVector(kBinaryData));
       REQUIRE(decodeHeroSettings(kBinaryData) == kHeroSettings);
       REQUIRE(encodeAndDecodeJson(kHeroSettings) == kHeroSettings);
@@ -219,13 +208,11 @@ namespace h3m
         .primary_skills = std::nullopt
       };
       // The binary representation of kHeroSettings.
-      static constexpr char kBinaryDataCStr[] =
+      static constexpr std::string_view kBinaryData =
         "\x00\x00\x00\x00\xff"
         "\x01"
           "\x00\x02\x00\x04\x00\x00\x00\x00\x00"
-        "\x00";
-      // std::string_view into kBinaryDataCStr.
-      static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
+        "\x00"sv;
       REQUIRE(asByteVector(encodeHeroSettings(kHeroSettings)) == asByteVector(kBinaryData));
       REQUIRE(decodeHeroSettings(kBinaryData) == kHeroSettings);
       REQUIRE(encodeAndDecodeJson(kHeroSettings) == kHeroSettings);
@@ -249,12 +236,10 @@ namespace h3m
         }()
       };
       // The binary representation of kHeroSettings.
-      static constexpr char kBinaryDataCStr[] =
+      static constexpr std::string_view kBinaryData =
         "\x00\x00\x00\x00\xff\x00"
         "\x01"
-          "\x01\x02\x03\x04";
-      // std::string_view into kBinaryDataCStr.
-      static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
+          "\x01\x02\x03\x04"sv;
       REQUIRE(asByteVector(encodeHeroSettings(kHeroSettings)) == asByteVector(kBinaryData));
       REQUIRE(decodeHeroSettings(kBinaryData) == kHeroSettings);
       REQUIRE(encodeAndDecodeJson(kHeroSettings) == kHeroSettings);
@@ -294,7 +279,7 @@ namespace h3m
         }()
       };
       // The binary representation of kHeroSettings.
-      static constexpr char kBinaryDataCStr[] =
+      static constexpr std::string_view kBinaryData =
         "\x01"                                     // Experience
           "\x10\x27\x00\x00"
         "\x01"                                     // Secondary skills
@@ -327,9 +312,7 @@ namespace h3m
         "\x01"                                     // Spells
           "\x00\x02\x00\x04\x00\x00\x00\x00\x00"
         "\x01"                                     // Primary skills
-          "\x01\x02\x03\x04";
-      // std::string_view into kBinaryDataCStr.
-      static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
+          "\x01\x02\x03\x04"sv;
       REQUIRE(asByteVector(encodeHeroSettings(kHeroSettings)) == asByteVector(kBinaryData));
       REQUIRE(decodeHeroSettings(kBinaryData) == kHeroSettings);
       REQUIRE(encodeAndDecodeJson(kHeroSettings) == kHeroSettings);

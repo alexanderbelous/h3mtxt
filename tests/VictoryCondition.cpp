@@ -8,12 +8,12 @@
 
 #include <catch2/catch_test_macros.hpp>
 
-#include <iterator>
 #include <sstream>
 #include <string>
 #include <string_view>
 #include <utility>
 
+using namespace std::string_view_literals;
 using ::Testing_NS::asByteVector;
 using ::Testing_NS::encodeAndDecodeJson;
 
@@ -49,8 +49,7 @@ namespace h3m
         ArtifactType::ArmageddonsBlade
       }
     };
-    static constexpr char kBinaryDataCStr[] = "\x00\x01\x01\x80\x00";
-    static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
+    static constexpr std::string_view kBinaryData = "\x00\x01\x01\x80\x00"sv;
 
     static_assert(kVictoryCondition.type() == VictoryConditionType::AcquireArtifact);
     REQUIRE(asByteVector(encodeVictoryCondition(kVictoryCondition)) == asByteVector(kBinaryData));
@@ -69,8 +68,7 @@ namespace h3m
         }
       }
     };
-    static constexpr char kBinaryDataCStr[] = "\x01\x00\x00\x84\x00\x63\x00\x00\x00";
-    static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
+    static constexpr std::string_view kBinaryData = "\x01\x00\x00\x84\x00\x63\x00\x00\x00"sv;
 
     static_assert(kVictoryCondition.type() == VictoryConditionType::AccumulateCreatures);
     REQUIRE(asByteVector(encodeVictoryCondition(kVictoryCondition)) == asByteVector(kBinaryData));
@@ -89,8 +87,7 @@ namespace h3m
         }
       }
     };
-    static constexpr char kBinaryDataCStr[] = "\x02\x00\x00\x05\x64\x00\x00\x00";
-    static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
+    static constexpr std::string_view kBinaryData = "\x02\x00\x00\x05\x64\x00\x00\x00"sv;
 
     static_assert(kVictoryCondition.type() == VictoryConditionType::AccumulateResources);
     REQUIRE(asByteVector(encodeVictoryCondition(kVictoryCondition)) == asByteVector(kBinaryData));
@@ -108,8 +105,7 @@ namespace h3m
         0  // Fort
       }
     };
-    static constexpr char kBinaryDataCStr[] = "\x03\x00\x00\x0a\x14\x01\x02\x00";
-    static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
+    static constexpr std::string_view kBinaryData = "\x03\x00\x00\x0a\x14\x01\x02\x00"sv;
 
     static_assert(kVictoryCondition.type() == VictoryConditionType::UpgradeTown);
     REQUIRE(asByteVector(encodeVictoryCondition(kVictoryCondition)) == asByteVector(kBinaryData));
@@ -125,8 +121,7 @@ namespace h3m
         Coordinates{.x = 10, .y = 20, .z = 1}
       }
     };
-    static constexpr char kBinaryDataCStr[] = "\x04\x00\x00\x0a\x14\x01";
-    static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
+    static constexpr std::string_view kBinaryData = "\x04\x00\x00\x0a\x14\x01"sv;
 
     static_assert(kVictoryCondition.type() == VictoryConditionType::BuildGrail);
     REQUIRE(asByteVector(encodeVictoryCondition(kVictoryCondition)) == asByteVector(kBinaryData));
@@ -142,8 +137,7 @@ namespace h3m
         Coordinates{.x = 10, .y = 20, .z = 1}
       }
     };
-    static constexpr char kBinaryDataCStr[] = "\x05\x00\x00\x0a\x14\x01";
-    static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
+    static constexpr std::string_view kBinaryData = "\x05\x00\x00\x0a\x14\x01"sv;
 
     static_assert(kVictoryCondition.type() == VictoryConditionType::DefeatHero);
     REQUIRE(asByteVector(encodeVictoryCondition(kVictoryCondition)) == asByteVector(kBinaryData));
@@ -159,8 +153,7 @@ namespace h3m
         Coordinates{.x = 10, .y = 20, .z = 1}
       }
     };
-    static constexpr char kBinaryDataCStr[] = "\x06\x00\x00\x0a\x14\x01";
-    static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
+    static constexpr std::string_view kBinaryData = "\x06\x00\x00\x0a\x14\x01"sv;
 
     static_assert(kVictoryCondition.type() == VictoryConditionType::CaptureTown);
     REQUIRE(asByteVector(encodeVictoryCondition(kVictoryCondition)) == asByteVector(kBinaryData));
@@ -176,8 +169,7 @@ namespace h3m
         Coordinates{.x = 10, .y = 20, .z = 1}
       }
     };
-    static constexpr char kBinaryDataCStr[] = "\x07\x00\x00\x0a\x14\x01";
-    static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
+    static constexpr std::string_view kBinaryData = "\x07\x00\x00\x0a\x14\x01"sv;
 
     static_assert(kVictoryCondition.type() == VictoryConditionType::DefeatMonster);
     REQUIRE(asByteVector(encodeVictoryCondition(kVictoryCondition)) == asByteVector(kBinaryData));
@@ -192,8 +184,7 @@ namespace h3m
         SpecialVictoryConditionBase{.allow_normal_win = 1, .applies_to_computer = 0}
       }
     };
-    static constexpr char kBinaryDataCStr[] = "\x08\x01\x00";
-    static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
+    static constexpr std::string_view kBinaryData = "\x08\x01\x00"sv;
 
     static_assert(kVictoryCondition.type() == VictoryConditionType::FlagDwellings);
     REQUIRE(asByteVector(encodeVictoryCondition(kVictoryCondition)) == asByteVector(kBinaryData));
@@ -208,8 +199,7 @@ namespace h3m
         SpecialVictoryConditionBase{.allow_normal_win = 1, .applies_to_computer = 0}
       }
     };
-    static constexpr char kBinaryDataCStr[] = "\x09\x01\x00";
-    static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
+    static constexpr std::string_view kBinaryData = "\x09\x01\x00"sv;
 
     static_assert(kVictoryCondition.type() == VictoryConditionType::FlagMines);
     REQUIRE(asByteVector(encodeVictoryCondition(kVictoryCondition)) == asByteVector(kBinaryData));
@@ -226,8 +216,7 @@ namespace h3m
         Coordinates{.x = 10, .y = 20, .z = 1}
       }
     };
-    static constexpr char kBinaryDataCStr[] = "\x0a\x01\x00\x80\x0a\x14\x01";
-    static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
+    static constexpr std::string_view kBinaryData = "\x0a\x01\x00\x80\x0a\x14\x01"sv;
 
     static_assert(kVictoryCondition.type() == VictoryConditionType::TransportArtifact);
     REQUIRE(asByteVector(encodeVictoryCondition(kVictoryCondition)) == asByteVector(kBinaryData));
@@ -242,8 +231,7 @@ namespace h3m
         SpecialVictoryConditionBase{.allow_normal_win = 1, .applies_to_computer = 0}
       }
     };
-    static constexpr char kBinaryDataCStr[] = "\x0b\x01\x00";
-    static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
+    static constexpr std::string_view kBinaryData = "\x0b\x01\x00"sv;
 
     static_assert(kVictoryCondition.type() == VictoryConditionType::DefeatAllMonsters);
     REQUIRE(asByteVector(encodeVictoryCondition(kVictoryCondition)) == asByteVector(kBinaryData));
@@ -259,8 +247,7 @@ namespace h3m
         99
       }
     };
-    static constexpr char kBinaryDataCStr[] = "\x0c\x01\x00\x63\x00\x00\x00";
-    static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
+    static constexpr std::string_view kBinaryData = "\x0c\x01\x00\x63\x00\x00\x00"sv;
 
     static_assert(kVictoryCondition.type() == VictoryConditionType::SurviveBeyondATimeLimit);
     REQUIRE(asByteVector(encodeVictoryCondition(kVictoryCondition)) == asByteVector(kBinaryData));
@@ -273,8 +260,7 @@ namespace h3m
     constexpr VictoryCondition kVictoryCondition = {
       VictoryConditionDetails<VictoryConditionType::Normal>{}
     };
-    static constexpr char kBinaryDataCStr[] = "\xff";
-    static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
+    static constexpr std::string_view kBinaryData = "\xff"sv;
 
     static_assert(kVictoryCondition.type() == VictoryConditionType::Normal);
     REQUIRE(asByteVector(encodeVictoryCondition(kVictoryCondition)) == asByteVector(kBinaryData));

@@ -8,12 +8,12 @@
 
 #include <catch2/catch_test_macros.hpp>
 
-#include <iterator>
 #include <sstream>
 #include <string>
 #include <string_view>
 #include <utility>
 
+using namespace std::string_view_literals;
 using ::Testing_NS::asByteVector;
 using ::Testing_NS::encodeAndDecodeJson;
 
@@ -60,7 +60,7 @@ namespace h3m
       .unknown = ReservedData<16>{}
     };
     // The binary representation of kTimedEvent.
-    static constexpr char kBinaryDataCStr[] =
+    static constexpr std::string_view kBinaryData =
       "\x11\x00\x00\x00" "Resources for Red"                              // name
       "\x06\x00\x00\x00" "Enjoy!"                                         // message
       "\x01\x00\x00\x00" "\x02\x00\x00\x00" "\x03\x00\x00\x00"            // resources
@@ -71,9 +71,8 @@ namespace h3m
       "\x00"                                                              // applies_to_computer
       "\x07\x00"                                                          // day_of_first_occurence
       "\x1c\x00"                                                          // repeat_after_days
-      "\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"; // unknown
-    // std::string_view into kBinaryDataCStr.
-    static constexpr std::string_view kBinaryData{ kBinaryDataCStr, std::size(kBinaryDataCStr) - 1 };
+      "\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"  // unknown
+      ""sv;
 
     REQUIRE(asByteVector(encodeTimedEvent(kTimedEvent)) == asByteVector(kBinaryData));
     REQUIRE(decodeTimedEvent(kBinaryData) == kTimedEvent);
