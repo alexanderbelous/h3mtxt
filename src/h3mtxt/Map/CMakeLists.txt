@@ -38,6 +38,7 @@ set(SOURCE_LIST
     "Utils/BitSet.h"
     "Utils/EnumBitmask.h"
     "Utils/EnumIndexedArray.h"
+    "Utils/makeArrayOfDuplicates.h"
     "Utils/ReservedData.h"
     "Utils/SpriteTilesBitmask.h"
     "Utils/SwitchStatement.h"

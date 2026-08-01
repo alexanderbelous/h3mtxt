@@ -87,6 +87,9 @@ namespace h3m
   // Constants.
   // --------------------------------------------------------------------------
 
+  // The number of slots in an army.
+  inline constexpr std::size_t kNumArmySlots = 7;
+
   // The number of different Primary Skill types (i.e. cardinality of PrimarySkillType enum).
   inline constexpr std::uint8_t kNumPrimarySkillTypes = 4;
 

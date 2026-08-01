@@ -9,7 +9,7 @@ namespace h3json
   h3m::Army JsonReader<h3m::Army>::operator()(const Json::Value& value) const
   {
     return h3m::Army{
-      .slots = fromJson<std::array<h3m::TypedQuantity<h3m::CreatureType, std::int16_t>, h3m::Army::kNumSlots>>(value)
+      .slots = fromJson<std::array<h3m::Army::CreatureStack, h3m::kNumArmySlots>>(value)
     };
   }
 }
