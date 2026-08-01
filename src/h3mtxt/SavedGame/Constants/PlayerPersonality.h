@@ -18,6 +18,6 @@ namespace h3svg
     Warrior = 0,
     Builder = 1,
     Exporer = 2,
-    Human = 3
+    Human   = 3
   };
 }
