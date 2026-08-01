@@ -8,7 +8,7 @@
 #include <h3mtxt/Map/Utils/BitSet.h>
 #include <h3mtxt/Map/Utils/EnumIndexedArray.h>
 #include <h3mtxt/SavedGame/Constants/PlayerPersonality.h>
-#include <h3mtxt/SavedGame/Utils.h>
+#include <h3mtxt/Map/Utils/makeArrayOfDuplicates.h>
 
 #include <array>
 #include <cstdint>
@@ -24,8 +24,8 @@ namespace h3svg
     HeroType active_hero = HeroType{0xFF};
     // All heroes on the Adventure Map (i.e. not garrisoned inside towns).
     // If the player has fewer than 8 heroes, 0xFF is used in empty slots.
-    std::array<HeroType, 8> heroes = Detail_NS::makeArrayOfDuplicates<8>(HeroType{ 0xFF });
-    std::array<HeroType, 2> heroes_in_tavern = Detail_NS::makeArrayOfDuplicates<2>(HeroType{ 0xFF });
+    std::array<HeroType, 8> heroes = h3m::Detail_NS::makeArrayOfDuplicates<8>(HeroType{ 0xFF });
+    std::array<HeroType, 2> heroes_in_tavern = h3m::Detail_NS::makeArrayOfDuplicates<2>(HeroType{ 0xFF });
     // TODO: figure out what this is.
     std::uint8_t unknown1 {};
     PlayerPersonality personality {};
@@ -41,7 +41,7 @@ namespace h3svg
     // meaningful - the rest are usually set to 0xFF.
     // Note that the Map Editor forbids placing more than 48 towns on the Adventure Map,
     // but this array has room for 72.
-    std::array<std::int8_t, 72> towns = Detail_NS::makeArrayOfDuplicates<72>(std::int8_t{ -1 });
+    std::array<std::int8_t, 72> towns = h3m::Detail_NS::makeArrayOfDuplicates<72>(std::int8_t{ -1 });
     Resources resources;
     // 1 bit per Mystical Garden, indicating if the player has visited it this week.
     BitSet<4> mystical_gardens;

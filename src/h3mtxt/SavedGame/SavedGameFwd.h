@@ -59,6 +59,8 @@ namespace h3svg
   using ::h3m::TypedQuantity;
   using ::h3m::VictoryConditionType;
 
+  using ::h3m::kNumArmySlots;
+
   enum class ArtifactSlotGroup : std::uint8_t;
 
   enum class ArtifactType8 : std::uint8_t;
