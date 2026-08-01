@@ -2,6 +2,7 @@
 
 #include <h3mtxt/Map/MapFwd.h>
 #include <h3mtxt/Map/Constants/CreatureType.h>
+#include <h3mtxt/Map/Utils/makeArrayOfDuplicates.h>
 #include <h3mtxt/Map/Utils/TypedQuantity.h>
 
 #include <array>
@@ -21,23 +22,16 @@ namespace h3m
     using CreatureStack = TypedQuantity<CreatureType, std::int16_t>;
 
     // The number of slots.
+    [[deprecated("Use h3m::kNumArmySlots instead.")]]
     static constexpr std::size_t kNumSlots = 7;
 
     // Represents an empty slot.
-    static constexpr CreatureStack kEmptySlot{
-      .type = CreatureType::None,
-      .quantity = 0
-    };
+    static constexpr CreatureStack kEmptySlot{ .type = CreatureType::None, .quantity = 0 };
 
     // Equality comparison.
     constexpr bool operator==(const Army&) const noexcept = default;
 
     // Creature stack for each slot.
-    std::array<CreatureStack, kNumSlots> slots = []() consteval
-      {
-        std::array<CreatureStack, kNumSlots> result {};
-        result.fill(kEmptySlot);
-        return result;
-      }();
+    std::array<CreatureStack, kNumArmySlots> slots = Detail_NS::makeArrayOfDuplicates<kNumArmySlots>(kEmptySlot);
   };
 }
