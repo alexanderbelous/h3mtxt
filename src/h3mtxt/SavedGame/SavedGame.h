@@ -199,14 +199,10 @@ namespace h3svg
     // The length is serialized as a 32-bit integer.
     std::vector<ReplayEvent> previous_turn;
 
-    // TODO: reverse-engineer the rest.
-     std::array<std::uint8_t, 512> unknown10 {}; // for reverse-engineering
-    // * Previous turns for all opponents (probably for all players, because that would be
-    //   necessary in multiplayer games).
-    // * etc.
-    //
-    // FYI: HoMM3 seems to read the timestamp for the saved game from the file instead of using the
-    // filesystem metadata. However, I'm not sure if it's explicitly serialized or if the game
-    // uses gzip's timestamp.
+    // TODO: when using SoD_SP, there seem to be some extra bytes after `previous_turn`, but it's unclear how many.
+    // Discarding these bytes seems unwise - they might store meaningful data for SoD_SP. The safest approach
+    // would be to exhaust the input stream when reading the saved game (or, in case of GZIP-compressed files,
+    // get the size of the uncompressed data from GZIP metadata), and store it, for example,
+    // as std::vector<std::uint8_t>.
   };
 }

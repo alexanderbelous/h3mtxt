@@ -263,9 +263,6 @@ namespace h3svg
         saved_game.previous_turn.push_back(readReplayEvent());
       }
     }
-    //saved_game.previous_turn = readReplayEvents();
-    // TODO: read the rest.
-    //saved_game.unknown10 = readByteArray<512>();
     return saved_game;
   }
 
