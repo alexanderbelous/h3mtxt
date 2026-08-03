@@ -37,7 +37,7 @@
 
 namespace h3svg
 {
-  // Stores the locations of all exists for an object that "teleports" a hero to another location
+  // Stores the locations of all exits for an object that "teleports" a hero to another location
   // (e.g., One-Way Monoliths, Two-Way Monoliths, Whirlpools, Subterranean Gates).
   struct ObjectExits
   {
@@ -50,6 +50,10 @@ namespace h3svg
   {
     // TODO: replace with either std::pair<SecondarySkillType, ReservedData<3>> or SecondarySkillType32.
     // Check the behavior when fewer than 4 skills are enabled globally.
+    // UPD: the game crashes at start if there's a University on the Adventure Map but fewer than 4 skills
+    // are enabled. It's possible that SecondarySkillType{-1} is still used for "None" in Witch Huts.
+    // TODO: try modifying a saved game and setting 0x000000FF or 0xFFFFFFFF as one of the skills in the
+    // University.
     std::array<std::uint32_t, 4> skills {};
   };
 
@@ -86,7 +90,6 @@ namespace h3svg
     MapBasicInfo basic_info;
     // Basic information about the players.
     EnumIndexedArray<PlayerColor, PlayerSpecs, h3m::kMaxPlayers> players_specs;
-    // TODO: check that this works correctly for all victory condition types.
     VictoryCondition victory_condition;
     LossCondition loss_condition;
     Teams teams;

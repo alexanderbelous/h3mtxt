@@ -19,7 +19,10 @@ namespace h3svg
     Resources resources;
     // Creatures given as a reward.
     // TODO: check if the quantity is signed.
-    TypedQuantity<CreatureType32, std::uint8_t> creatures;
+    TypedQuantity<CreatureType32, std::uint8_t> creatures = {
+      .type = static_cast<CreatureType32>(CreatureType::None),
+      .quantity = 0
+    };
     // Artifacts given as a reward.
     // The length is serialized as a 16-bit integer.
     std::vector<ArtifactType32> artifacts;

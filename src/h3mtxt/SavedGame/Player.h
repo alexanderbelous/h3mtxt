@@ -7,8 +7,8 @@
 #include <h3mtxt/Map/Constants/ResourceType.h>
 #include <h3mtxt/Map/Utils/BitSet.h>
 #include <h3mtxt/Map/Utils/EnumIndexedArray.h>
-#include <h3mtxt/SavedGame/Constants/PlayerPersonality.h>
 #include <h3mtxt/Map/Utils/makeArrayOfDuplicates.h>
+#include <h3mtxt/SavedGame/Constants/PlayerPersonality.h>
 
 #include <array>
 #include <cstdint>
