@@ -33,9 +33,13 @@ namespace h3svg
 
     void writeData(const ArtifactMerchants& value) const;
 
+    void writeData(const CampaignInfo& value) const;
+
     void writeData(const CreatureBank& value) const;
 
     void writeData(const Coordinates& value) const;
+
+    void writeData(const CrossoverInfo& value) const;
 
     void writeData(const CustomHero& value) const;
 
@@ -77,6 +81,8 @@ namespace h3svg
 
     template<QuestType T>
     void writeData(const QuestDetails<T>& details) const;
+
+    void writeData(const RegionInfo& value) const;
 
     void writeData(const ReplayEvent& event) const;
 

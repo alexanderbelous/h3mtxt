@@ -20,6 +20,7 @@
 #include <h3mtxt/SavedGame/Constants/Constants.h>
 #include <h3mtxt/SavedGame/Constants/HeroFlag.h>
 #include <h3mtxt/SavedGame/CoordinatesPacked.h>
+#include <h3mtxt/SavedGame/FixedLengthString.h>
 #include <h3mtxt/SavedGame/Troops.h>
 
 #include <array>
