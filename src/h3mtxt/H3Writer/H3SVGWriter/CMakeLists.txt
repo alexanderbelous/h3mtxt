@@ -1,4 +1,5 @@
 add_library(H3SVGWriter STATIC
+    "ArtifactMerchants.cpp"
     "CampaignInfo.cpp"
     "H3SVGWriter.cpp"
     "H3SVGWriter.h"

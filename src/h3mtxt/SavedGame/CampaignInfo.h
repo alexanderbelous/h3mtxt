@@ -19,6 +19,7 @@ namespace h3svg
     Bool is_completed = false;
     // The number of days that it took the player to complete this scenario.
     // The value is meaningless if is_completed == false, but the game seems to store 0 in this case.
+    // TODO: check if this is signed: see the comment regarding the nature of time in HoMM3 in Map/TimedEvent.h.
     std::uint32_t days = 0;
     // Score for this scenario (see https://heroes.thelazy.net/index.php/Score).
     // The value is meaningless if is_completed == false, but the game seems to store 0 in this case.
