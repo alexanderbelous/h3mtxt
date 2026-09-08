@@ -65,13 +65,13 @@ namespace h3svg
 
     void writeData(const MapBasicInfo& value) const;
 
-    void writeData(const ObjectTemplate& value) const;
-
     void writeData(const Object& object) const;
 
     void writeData(const ObjectExits& exits) const;
 
     void writeData(const ObjectPropertiesTables& value) const;
+
+    void writeData(const ObjectTemplate& value) const;
 
     void writeData(const Player& value) const;
 

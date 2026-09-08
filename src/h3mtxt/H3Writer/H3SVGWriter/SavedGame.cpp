@@ -35,11 +35,11 @@ namespace h3svg
     writeSpan(std::span{ saved_game.rumors });
     writeData(safeCastVectorSize<std::uint8_t>(saved_game.black_markets.size()));
     writeSpan(std::span{ saved_game.black_markets });
-    //writeSpan(std::span{ saved_game.tiles });
-    //writeData(safeCastVectorSize<std::uint32_t>(saved_game.objects_templates.size()));
-    //writeSpan(std::span{ saved_game.objects_templates });
-    //writeData(safeCastVectorSize<std::uint32_t>(saved_game.objects.size()));
-    //writeSpan(std::span{ saved_game.objects });
+    writeSpan(std::span{ saved_game.tiles });
+    writeData(safeCastVectorSize<std::uint32_t>(saved_game.objects_templates.size()));
+    writeSpan(std::span{ saved_game.objects_templates });
+    writeData(safeCastVectorSize<std::uint32_t>(saved_game.objects.size()));
+    writeSpan(std::span{ saved_game.objects });
     //writeData(saved_game.object_properties_tables);
     //writeData(saved_game.players);
     //writeData(safeCastVectorSize<std::uint8_t>(saved_game.towns.size()));
