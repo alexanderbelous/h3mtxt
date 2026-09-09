@@ -45,6 +45,8 @@ namespace h3svg
 
     void writeData(const Date& value) const;
 
+    void writeData(const EventBase& event) const;
+
     // Defined in Utils.h
     template<std::size_t N>
     void writeData(const FixedLengthString<N>& str) const;
@@ -157,8 +159,6 @@ namespace h3svg
     void writeData(const std::optional<T>& value) const;
 
   private:
-    void writeEventBase(const EventBase& event) const;
-
     MapFormat map_format_;
   };
 

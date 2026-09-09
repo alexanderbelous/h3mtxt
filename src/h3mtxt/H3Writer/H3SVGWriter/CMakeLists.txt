@@ -1,11 +1,13 @@
 add_library(H3SVGWriter STATIC
     "ArtifactMerchants.cpp"
     "CampaignInfo.cpp"
+    "EventBase.cpp"
     "H3SVGWriter.cpp"
     "H3SVGWriter.h"
     "LossCondition.cpp"
     "MapBasicInfo.cpp"
     "Object.cpp"
+    "ObjectPropertiesTables.cpp"
     "ObjectTemplate.cpp"
     "PlayerSpecs.cpp"
     "SavedGame.cpp"

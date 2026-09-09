@@ -40,7 +40,7 @@ namespace h3svg
     writeSpan(std::span{ saved_game.objects_templates });
     writeData(safeCastVectorSize<std::uint32_t>(saved_game.objects.size()));
     writeSpan(std::span{ saved_game.objects });
-    //writeData(saved_game.object_properties_tables);
+    writeData(saved_game.object_properties_tables);
     //writeData(saved_game.players);
     //writeData(safeCastVectorSize<std::uint8_t>(saved_game.towns.size()));
     //writeSpan(std::span{ saved_game.towns });
