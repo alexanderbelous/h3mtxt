@@ -31,7 +31,11 @@ namespace h3svg
     // Reintroduce writeData() from the base class, so that the new overloads in H3SVGWriter don't hide it.
     using H3WriterBase::writeData;
 
+    void writeData(const Artifact& artifact) const;
+
     void writeData(const ArtifactMerchants& value) const;
+
+    void writeData(const Boat& boat) const;
 
     void writeData(const CampaignInfo& value) const;
 
@@ -45,11 +49,15 @@ namespace h3svg
 
     void writeData(const Date& value) const;
 
+    void writeData(const Dwelling& dwelling) const;
+
     void writeData(const EventBase& event) const;
 
     // Defined in Utils.h
     template<std::size_t N>
     void writeData(const FixedLengthString<N>& str) const;
+
+    void writeData(const Garrison& garrison) const;
 
     void writeData(const Guardians& guardians) const;
 
@@ -67,6 +75,12 @@ namespace h3svg
 
     void writeData(const MapBasicInfo& value) const;
 
+    void writeData(const Mine& mine) const;
+
+    void writeData(const Monster& monster) const;
+
+    void writeData(const Obelisk& obelisk) const;
+
     void writeData(const Object& object) const;
 
     void writeData(const ObjectExits& exits) const;
@@ -83,6 +97,8 @@ namespace h3svg
 
     template<QuestType T>
     void writeData(const QuestDetails<T>& details) const;
+
+    void writeData(const QuestGuard& quest_guard) const;
 
     void writeData(const RegionInfo& value) const;
 
@@ -110,6 +126,10 @@ namespace h3svg
 
     void writeData(const SecondarySkill& secondary_skill) const;
 
+    void writeData(const SeersHut& seers_hut) const;
+
+    void writeData(const Sign& sign) const;
+
     void writeData(const SpriteTilesBitmask& value) const;
 
     void writeData(const StartingHero& value) const;
@@ -125,6 +145,8 @@ namespace h3svg
     void writeData(const Town& town) const;
 
     void writeData(const TownEvent& event) const;
+
+    void writeData(const Troops& troops) const;
 
     void writeData(const University& university) const;
 
@@ -159,6 +181,16 @@ namespace h3svg
     void writeData(const std::optional<T>& value) const;
 
   private:
+    // Syntactic sugar for serializing a dynamic array of elements.
+    //
+    // Same as:
+    //   writeData(safeCastVectorSize<SizeType>(values.size()));
+    //   writeSpan(values);
+    //
+    // \param values - elements to serialize.
+    template<class SizeType, class T>
+    void writeVector(std::span<const T> values) const;
+
     MapFormat map_format_;
   };
 
@@ -247,5 +279,12 @@ namespace h3svg
     {
       writeData(*value);
     }
+  }
+
+  template<class SizeType, class T>
+  void H3SVGWriter::writeVector(std::span<const T> values) const
+  {
+    writeData(safeCastVectorSize<SizeType>(values.size()));
+    writeSpan(values);
   }
 }

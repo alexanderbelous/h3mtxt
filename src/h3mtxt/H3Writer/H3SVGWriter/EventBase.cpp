@@ -4,6 +4,18 @@
 
 namespace h3svg
 {
+  void H3SVGWriter::writeData(const Troops& troops) const
+  {
+    writeData(troops.creature_types);
+    writeData(troops.creature_counts);
+  }
+
+  void H3SVGWriter::writeData(const Guardians& guardians) const
+  {
+    writeString16(guardians.message);
+    writeData(guardians.creatures);
+  }
+
   void H3SVGWriter::writeData(const EventBase& event) const
   {
     writeData(event.guardians);
@@ -13,13 +25,9 @@ namespace h3svg
     writeData(event.luck);
     writeData(event.resources);
     writeData(event.primary_skills);
-    writeData(safeCastVectorSize<std::uint8_t>(event.secondary_skills.size()));
-    writeSpan(std::span{ event.secondary_skills });
-    writeData(safeCastVectorSize<std::uint8_t>(event.artifacts.size()));
-    writeSpan(std::span{ event.artifacts });
-    writeData(safeCastVectorSize<std::uint8_t>(event.spells.size()));
-    writeSpan(std::span{ event.spells });
-    writeData(safeCastVectorSize<std::uint8_t>(event.creatures.size()));
-    writeSpan(std::span{ event.creatures });
+    writeVector<std::uint8_t>(std::span{ event.secondary_skills });
+    writeVector<std::uint8_t>(std::span{ event.artifacts });
+    writeVector<std::uint8_t>(std::span{ event.spells });
+    writeVector<std::uint8_t>(std::span{ event.creatures });
   }
 }
