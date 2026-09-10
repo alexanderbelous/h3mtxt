@@ -8,6 +8,7 @@
 #include <h3mtxt/Map/Utils/ReservedData.h>
 #include <h3mtxt/Map/MapAdditionalInfo.h>
 #include <h3mtxt/Map/MapBasicInfo.h>
+#include <h3mtxt/SavedGame/Constants/CartographerType.h>
 #include <h3mtxt/SavedGame/Constants/Constants.h>
 #include <h3mtxt/SavedGame/Constants/KeymastersTentType.h>
 #include <h3mtxt/SavedGame/ArtifactMerchants.h>
@@ -162,12 +163,8 @@ namespace h3svg
     // TODO: figure out what this is.
     // Seems to always be {0, 1, 191, 0, 64, 0}.
     std::array<std::uint8_t, 6> unknown7 {};
-    // 1 bit per player, indicating if they have visited the Water Cartographer.
-    PlayersBitmask cartographer_water;
-    // 1 bit per player, indicating if they have visited the Land Cartographer.
-    PlayersBitmask cartographer_land;
-    // 1 bit per player, indicating if they have visited the Subterranean Cartographer.
-    PlayersBitmask cartographer_subterranean;
+    // 3 bitmasks - 1 for each Cartographer type - indicating which players have visited that Cartographer.
+    EnumIndexedArray<CartographerType, PlayersBitmask, kNumCartographerTypes> cartographers;
     // TODO: figure out what this is.
     // Seems to always be 0s.
     std::array<std::uint8_t, 4> unknown8 {};

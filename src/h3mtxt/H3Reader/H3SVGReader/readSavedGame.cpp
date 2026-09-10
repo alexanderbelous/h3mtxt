@@ -198,9 +198,10 @@ namespace h3svg
     // TODO: figure out what this is.
     saved_game.unknown7 = readByteArray<6>();
     // Read 3 bytes - 1 byte per Cartographer type.
-    saved_game.cartographer_water = readEnumBitmask<PlayerColor, 1>();
-    saved_game.cartographer_land = readEnumBitmask<PlayerColor, 1>();
-    saved_game.cartographer_subterranean = readEnumBitmask<PlayerColor, 1>();
+    for (PlayersBitmask& bitmask : saved_game.cartographers.data)
+    {
+      bitmask = readEnumBitmask<PlayerColor, 1>();
+    }
     // Read 4 bytes.
     // TODO: figure out what this is.
     saved_game.unknown8 = readByteArray<4>();

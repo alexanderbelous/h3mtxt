@@ -57,6 +57,14 @@ namespace h3json
   };
 
   template<>
+  inline constexpr std::array<std::string_view, 3> kEnumFieldNames<h3svg::CartographerType> =
+  {
+    "water",
+    "land",
+    "subterranean"
+  };
+
+  template<>
   inline constexpr std::array<std::string_view, 32> kEnumFieldNames<h3svg::HeroFlag> =
   {
     "magic_well",
@@ -535,9 +543,7 @@ namespace h3json
     static constexpr std::string_view kUnknown6 = "unknown6";
     static constexpr std::string_view kKeymastersTents = "keymasters_tents";
     static constexpr std::string_view kUnknown7 = "unknown7";
-    static constexpr std::string_view kCartographerWater = "cartographer_water";
-    static constexpr std::string_view kCartographerLand = "cartographer_land";
-    static constexpr std::string_view kCartographerSubterranean = "cartographer_subterranean";
+    static constexpr std::string_view kCartographers = "cartographers";
     static constexpr std::string_view kUnknown8 = "unknown8";
     static constexpr std::string_view kFogOfWar = "fog_of_war";
     static constexpr std::string_view kMonolithsTwoWay = "monoliths_two_way";

@@ -71,6 +71,8 @@ namespace h3svg
 
   enum class CampaignId : std::uint8_t;
 
+  enum class CartographerType : std::uint8_t;
+
   enum class CompassPoint : std::uint8_t;
 
   // CreatureType8 is kinda broken: regardless of whether we use std::int8_t or std::uint8_t
