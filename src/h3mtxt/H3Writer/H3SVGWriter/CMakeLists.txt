@@ -10,6 +10,7 @@ add_library(H3SVGWriter STATIC
     "Object.cpp"
     "ObjectPropertiesTables.cpp"
     "ObjectTemplate.cpp"
+    "Player.cpp"
     "PlayerSpecs.cpp"
     "SavedGame.cpp"
     "ScenarioStartingInfo.cpp"
