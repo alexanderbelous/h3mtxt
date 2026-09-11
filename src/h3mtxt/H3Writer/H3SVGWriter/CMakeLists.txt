@@ -15,6 +15,7 @@ add_library(H3SVGWriter STATIC
     "SavedGame.cpp"
     "ScenarioStartingInfo.cpp"
     "Tile.cpp"
+    "Town.cpp"
     "Utils.h"
     "VictoryCondition.cpp"
     "writeh3svg.cpp"

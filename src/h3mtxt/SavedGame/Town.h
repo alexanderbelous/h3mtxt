@@ -55,7 +55,7 @@ namespace h3svg
     std::uint8_t id {};
     PlayerColor owner {};
     // 1 if a building has already been built in this town this turn, 0 otherwise.
-    Bool built_this_turn {};
+    Bool built_this_turn = false;
     std::uint8_t unknown1 {};
     TownType type {};
     Coordinates coordinates;
@@ -65,11 +65,11 @@ namespace h3svg
     std::uint8_t generated_boat_y {};
     Troops garrison;
     // HeroType of the garrisoned hero or 0xFF if there is none.
-    HeroType garrisoned_hero {};
+    HeroType garrisoned_hero = HeroType{ 0xFF };
     // HeroType of the visiting hero or 0xFF if there is none.
-    HeroType visiting_hero {};
+    HeroType visiting_hero = HeroType{ 0xFF };
     // The current level of the Mage Guild (within [0; 5]).
-    std::uint8_t mage_guild_level {};
+    std::uint8_t mage_guild_level = 0;
     // Seems to always be 0.
     std::uint8_t unknown2 {};
     std::string name;

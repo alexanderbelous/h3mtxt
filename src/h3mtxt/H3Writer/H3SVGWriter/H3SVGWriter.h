@@ -148,6 +148,8 @@ namespace h3svg
 
     void writeData(const TownEvent& event) const;
 
+    void writeData(const TownUniqueBuildingsProperties& properties) const;
+
     void writeData(const Troops& troops) const;
 
     void writeData(const University& university) const;
