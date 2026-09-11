@@ -9,6 +9,23 @@ namespace h3svg
     writeData(artifact.guardians);
   }
 
+  void H3SVGWriter::writeData(const Boat& boat) const
+  {
+    writeData(boat.exists);
+    writeData(boat.id);
+    writeData(boat.object_sublcass);
+    writeData(boat.orientation);
+    writeData(boat.owner);
+    writeData(boat.owner_hero);
+    writeData(boat.is_occupied);
+    writeData(boat.x);
+    writeData(boat.y);
+    writeData(boat.z);
+    writeData(boat.is_visible);
+    writeData(boat.coordinates_packed);
+    writeData(boat.unknown);
+  }
+
   void H3SVGWriter::writeData(const Dwelling& dwelling) const
   {
     writeData(dwelling.owner);

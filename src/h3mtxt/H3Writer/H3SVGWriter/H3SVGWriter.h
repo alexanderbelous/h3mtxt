@@ -41,7 +41,9 @@ namespace h3svg
 
     void writeData(const CreatureBank& value) const;
 
-    void writeData(const Coordinates& value) const;
+    void writeData(const Coordinates& coordinates) const;
+
+    void writeData(const CoordinatesPacked& coordinates) const;
 
     void writeData(const CrossoverInfo& value) const;
 

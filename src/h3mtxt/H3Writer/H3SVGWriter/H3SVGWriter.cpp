@@ -15,9 +15,9 @@ namespace h3svg
     }
   }
 
-  void H3SVGWriter::writeData(const Coordinates& value) const
+  void H3SVGWriter::writeData(const Coordinates& coordinates) const
   {
-    h3m::H3MWriter{ stream_, format() }.writeData(value);
+    h3m::H3MWriter{ stream_, format() }.writeData(coordinates);
   }
 
   void H3SVGWriter::writeData(const CustomHero& value) const

@@ -1,6 +1,7 @@
 add_library(H3SVGWriter STATIC
     "ArtifactMerchants.cpp"
     "CampaignInfo.cpp"
+    "CoordinatesPacked.cpp"
     "EventBase.cpp"
     "H3SVGWriter.cpp"
     "H3SVGWriter.h"

@@ -37,8 +37,7 @@ namespace h3svg
     writeVector<std::uint32_t>(std::span{ saved_game.objects });
     writeData(saved_game.object_properties_tables);
     //writeData(saved_game.players);
-    //writeData(safeCastVectorSize<std::uint8_t>(saved_game.towns.size()));
-    //writeSpan(std::span{ saved_game.towns });
+    //writeVector<std::uint8_t>(std::span{ saved_game.towns });
     //if (saved_game.heroes.size() != h3m::kNumHeroes)
     //{
     //  throw std::invalid_argument("H3SVGWriter: wrong number of elements in SavedGame::heroes");
@@ -51,22 +50,16 @@ namespace h3svg
     //writeData(saved_game.unknown6);
     //writeData(saved_game.keymasters_tents);
     //writeData(saved_game.unknown7);
-    //writeData(saved_game.cartographer_water);
-    //writeData(saved_game.cartographer_land);
-    //writeData(saved_game.cartographer_subterranean);
+    //writeData(saved_game.cartographers);
     //writeData(saved_game.unknown8);
     //writeSpan(std::span{ saved_game.fog_of_war });
     //writeData(saved_game.monoliths_two_way);
     //writeData(saved_game.monoliths_one_way);
     //writeData(saved_game.whirlpools);
     //writeData(saved_game.subterranean_gates);
-    //writeData(safeCastVectorSize<std::uint16_t>(saved_game.unknown9.size()));
-    //writeSpan(std::span{ saved_game.unknown9 });
-    //writeData(safeCastVectorSize<std::uint16_t>(saved_game.universities.size()));
-    //writeSpan(std::span{ saved_game.universities });
-    //writeData(safeCastVectorSize<std::uint16_t>(saved_game.creature_banks.size()));
-    //writeSpan(std::span{ saved_game.creature_banks });
-    //writeData(safeCastVectorSize<std::uint32_t>(saved_game.previous_turn.size()));
-    //writeSpan(std::span{ saved_game.previous_turn });
+    //writeVector<std::uint16_t>(std::span{ saved_game.unknown9 });
+    //writeVector<std::uint16_t>(std::span{ saved_game.universities });
+    //writeVector<std::uint16_t>(std::span{ saved_game.creature_banks });
+    //writeVector<std::uint32_t>(std::span{ saved_game.previous_turn });
   }
 }
