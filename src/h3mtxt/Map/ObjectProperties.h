@@ -504,6 +504,7 @@ namespace h3m
     //   * 0xFF means "Same as Owner or Random".
     //   * [0; 7] means "Same as Player N".
     // Only meaningful for MapFormat::ShadowOfDeath.
+    // TODO: change the type to PlayerColor.
     std::uint8_t alignment = 0xFF;
     ReservedData<3> unknown;
   };

@@ -202,7 +202,6 @@ namespace h3m
     Xeron       = 155  // 0x9B
   };
 
-
   // The number of different hero types, i.e. cardinality of HeroType.
   inline constexpr std::uint8_t kNumHeroes = 156;
 }

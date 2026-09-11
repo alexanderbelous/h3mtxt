@@ -42,4 +42,7 @@ namespace h3m
     // At Advanced/Expert level it is already displayed as "Basic First Aid" with the above-mentioned behavior.
     // This is used in the map "Awakening from Abyss" by LC.
   };
+
+  // The number of secondary skills in the game, i.e. the cardinality of SecondarySkillType.
+  inline constexpr std::size_t kNumSecondarySkills = 28;
 }
