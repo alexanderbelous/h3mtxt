@@ -80,7 +80,7 @@ namespace h3svg
 
   void H3SVGWriter::writeData(const Reward& reward) const
   {
-    writeData(reward.type());
+    writeData(static_cast<std::uint32_t>(reward.type()));
     std::visit([this] <RewardType T> (const RewardDetails<T>& details)
                { writeData(details); },
                reward.details);
