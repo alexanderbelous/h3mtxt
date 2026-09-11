@@ -3,7 +3,6 @@
 #include <h3mtxt/H3Writer/H3WriterBase/H3WriterBase.h>
 #include <h3mtxt/Map/Constants/LossConditionType.h>
 #include <h3mtxt/Map/Constants/MapFormat.h>
-#include <h3mtxt/Map/Constants/ObjectPropertiesType.h>
 #include <h3mtxt/Map/Constants/RewardType.h>
 #include <h3mtxt/Map/Constants/QuestType.h>
 #include <h3mtxt/SavedGame/SavedGameFwd.h>
@@ -221,6 +220,12 @@ namespace h3svg
 
   template<> void H3SVGWriter::writeData(const QuestDetails<QuestType::BeHero>& details) const;
 
+  template<RewardType T>
+  void H3SVGWriter::writeData(const RewardDetails<T>&) const
+  {
+    static_assert(false, "Invalid RewardType.");
+  }
+
   template<> void H3SVGWriter::writeData(const RewardDetails<RewardType::None>& details) const;
 
   template<> void H3SVGWriter::writeData(const RewardDetails<RewardType::Experience>& details) const;
@@ -238,6 +243,8 @@ namespace h3svg
   template<> void H3SVGWriter::writeData(const RewardDetails<RewardType::SecondarySkill>& details) const;
 
   template<> void H3SVGWriter::writeData(const RewardDetails<RewardType::Artifact>& details) const;
+
+  template<> void H3SVGWriter::writeData(const RewardDetails<RewardType::Spell>& details) const;
 
   template<> void H3SVGWriter::writeData(const RewardDetails<RewardType::Creatures>& details) const;
 

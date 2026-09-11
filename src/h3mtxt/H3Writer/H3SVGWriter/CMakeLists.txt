@@ -14,6 +14,7 @@ add_library(H3SVGWriter STATIC
     "Quest.cpp"
     "Player.cpp"
     "PlayerSpecs.cpp"
+    "Reward.cpp"
     "SavedGame.cpp"
     "ScenarioStartingInfo.cpp"
     "Tile.cpp"
