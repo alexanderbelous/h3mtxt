@@ -25,6 +25,16 @@ namespace h3svg
     h3m::H3MWriter{ stream_, format() }.writeData(value);
   }
 
+  void H3SVGWriter::writeData(const SecondarySkill& secondary_skill) const
+  {
+    h3m::H3MWriter{ stream_, format() }.writeData(secondary_skill);
+  }
+
+  void H3SVGWriter::writeData(const SpriteTilesBitmask& value) const
+  {
+    h3m::H3MWriter{ stream_, format() }.writeData(value);
+  }
+
   void H3SVGWriter::writeData(const Teams& teams) const
   {
     h3m::H3MWriter{ stream_, format() }.writeData(teams);

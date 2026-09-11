@@ -7,6 +7,12 @@
 
 namespace h3svg
 {
+  void H3SVGWriter::writeData(const Rumor& rumor) const
+  {
+    writeString16(rumor.text);
+    writeData(rumor.has_been_shown);
+  }
+
   void H3SVGWriter::writeData(const SavedGame& saved_game) const
   {
     writeData(saved_game.signature);
