@@ -43,12 +43,12 @@ namespace h3svg
 
   struct HeroArtifacts
   {
-    EnumIndexedArray<ArtifactSlot, HeroArtifact, 19> equipped;
+    EnumIndexedArray<ArtifactSlot, HeroArtifact, h3m::kNumArtifactSlots> equipped;
     std::array<HeroArtifact, 64> backpack;
     // TODO: figure out what this is.
     std::uint8_t unknown {};
     // 14 bytes: The number of locks from combination artifacts for each ArtifactSlotGroup.
-    EnumIndexedArray<ArtifactSlotGroup, std::uint8_t, kNumArtifactSlotGroups> locks {};
+    EnumIndexedArray<ArtifactSlotGroup, std::uint8_t, kNumArtifactSlotGroups> locks;
   };
 
   struct Hero
@@ -59,7 +59,7 @@ namespace h3svg
     Bool is_visible {};
     CoordinatesPacked coordinates_packed;
     // ObjectClass of the object under the hero, or ObjectClass::NONE if there is none.
-    ObjectClass object_class_under {};
+    ObjectClass object_class_under = ObjectClass::NONE;
     // TODO: figure out what this is.
     //   unknown1[0] seems to be Bool is_actionable_under; Events and Anchor points are not considered actionable.
     //   The rest seems to either be uint32_t object_idx or something like Tile::object_properties.
