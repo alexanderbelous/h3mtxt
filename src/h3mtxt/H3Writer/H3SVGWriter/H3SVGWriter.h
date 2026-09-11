@@ -6,6 +6,7 @@
 #include <h3mtxt/Map/Constants/RewardType.h>
 #include <h3mtxt/Map/Constants/QuestType.h>
 #include <h3mtxt/SavedGame/SavedGameFwd.h>
+#include <h3mtxt/SavedGame/Constants/ReplayEventType.h>
 
 #include <optional>
 #include <string>
@@ -109,6 +110,9 @@ namespace h3svg
     void writeData(const RegionInfo& value) const;
 
     void writeData(const ReplayEvent& event) const;
+
+    template<ReplayEventType T>
+    void writeData(const ReplayEventDetails<T>& details) const;
 
     void writeData(const Reward& reward) const;
 
@@ -219,6 +223,42 @@ namespace h3svg
   template<> void H3SVGWriter::writeData(const QuestDetails<QuestType::Creatures>& details) const;
 
   template<> void H3SVGWriter::writeData(const QuestDetails<QuestType::BeHero>& details) const;
+
+  template<ReplayEventType T>
+  void H3SVGWriter::writeData(const ReplayEventDetails<T>&) const
+  {
+    static_assert(false, "Invalid ReplayEventType.");
+  }
+
+  template<>
+  void H3SVGWriter::writeData(const ReplayEventDetails<ReplayEventType::MoveHero>& details) const;
+
+  template<>
+  void H3SVGWriter::writeData(const ReplayEventDetails<ReplayEventType::TeleportHero>& details) const;
+
+  template<>
+  void H3SVGWriter::writeData(const ReplayEventDetails<ReplayEventType::FlagMine>& details) const;
+
+  template<>
+  void H3SVGWriter::writeData(const ReplayEventDetails<ReplayEventType::CaptureTown>& details) const;
+
+  template<>
+  void H3SVGWriter::writeData(const ReplayEventDetails<ReplayEventType::HideBoat>& details) const;
+
+  template<>
+  void H3SVGWriter::writeData(const ReplayEventDetails<ReplayEventType::ShowBoat>& details) const;
+
+  template<>
+  void H3SVGWriter::writeData(const ReplayEventDetails<ReplayEventType::RemoveMapItem>& details) const;
+
+  template<>
+  void H3SVGWriter::writeData(const ReplayEventDetails<ReplayEventType::HideHero>& details) const;
+
+  template<>
+  void H3SVGWriter::writeData(const ReplayEventDetails<ReplayEventType::ShowHero>& details) const;
+
+  template<>
+  void H3SVGWriter::writeData(const ReplayEventDetails<ReplayEventType::ChangeTerrainVisibility>& details) const;
 
   template<RewardType T>
   void H3SVGWriter::writeData(const RewardDetails<T>&) const
