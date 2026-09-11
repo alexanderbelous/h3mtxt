@@ -1,3 +1,4 @@
+#include <h3mtxt/Campaign/Constants/CampaignFormat.h>
 #include <h3mtxt/H3JsonReader/readH3Json.h>
 #include <h3mtxt/H3JsonWriter/H3CJsonWriter/writeH3cJson.h>
 #include <h3mtxt/H3JsonWriter/H3MJsonWriter/writeH3mJson.h>
@@ -35,19 +36,24 @@ namespace
   #undef H3MTXT_STRINGIFY
   #undef H3MTXT_STRINGIFY_IMPL
 
-  // Checks if the input file is a (possibly gzip-compressed) .h3m or .h3c file.
+  // Checks if the input file is a (possibly gzip-compressed) .h3m, .h3c or H3SVG file.
   // \param stream - input stream containing the file data.
-  // \return true if @stream contains a (possibly gzip-compressed) .h3m or .h3c file, false otherwise.
+  // \return true if @stream contains a (possibly gzip-compressed) .h3m, .h3c or H3SVG file,
+  //         false otherwise.
   bool isH3File(std::istream& stream)
   {
-    constexpr char kGzipFirstByte = 0x1F;
+    constexpr int kGzipFirstByte = 0x1F;
     const int first_byte = stream.peek();
     switch (first_byte)
     {
     case kGzipFirstByte:
-    case static_cast<std::uint8_t>(h3m::MapFormat::RestorationOfErathia):
-    case static_cast<std::uint8_t>(h3m::MapFormat::ArmageddonsBlade):
-    case static_cast<std::uint8_t>(h3m::MapFormat::ShadowOfDeath):
+    case static_cast<int>(h3m::MapFormat::RestorationOfErathia):
+    case static_cast<int>(h3m::MapFormat::ArmageddonsBlade):
+    case static_cast<int>(h3m::MapFormat::ShadowOfDeath):
+    case static_cast<int>(h3m::CampaignFormat::RestorationOfErathia):
+    case static_cast<int>(h3m::CampaignFormat::ArmageddonsBlade):
+    case static_cast<int>(h3m::CampaignFormat::ShadowOfDeath):
+    case static_cast<int>('H'):
       return true;
     default:
       return false;
@@ -57,7 +63,7 @@ namespace
   // Contents of the input file.
   struct Input
   {
-    std::variant<h3m::Map, h3m::Campaign> data;
+    std::variant<h3m::Map, h3m::Campaign, h3svg::SavedGame> data;
     // True if the input file is a JSON document, false otherwise.
     bool is_json {};
   };
@@ -67,57 +73,101 @@ namespace
   {
     if (isH3File(stream))
     {
-      return Input{ .data = h3m::parseh3(stream), .is_json = false };
+      return Input{ .data = h3mtxt::parseh3(stream), .is_json = false };
     }
-    return Input{ .data = h3json::readH3Json(stream), .is_json = true };
+    std::variant<h3m::Map, h3m::Campaign> data = h3json::readH3Json(stream);
+    if (h3m::Map* map = std::get_if<h3m::Map>(&data))
+    {
+      return Input{ .data = std::move(*map), .is_json = true };
+    }
+    else
+    {
+      return Input{ .data = std::move(std::get<h3m::Campaign>(data)), .is_json = true };
+    }
   }
+
+  // Class for serialzing Map/Campaign/SavedGame as H3M/H3C/H3SVG respectively.
+  class H3FileWriter
+  {
+  public:
+    explicit H3FileWriter(std::ostream& stream):
+      stream_{ stream }
+    {}
+
+    void operator()(const h3m::Map& map) const
+    {
+      h3m::writeh3m(stream_, map);
+    }
+
+    void operator()(const h3m::Campaign& campaign) const
+    {
+      h3m::writeh3c(stream_, campaign);
+    }
+
+    void operator()(const h3svg::SavedGame& saved_game) const
+    {
+      h3svg::writeh3svg(stream_, saved_game);
+    }
+
+  private:
+    std::ostream& stream_;
+  };
+
+  // Class for serialzing Map/Campaign/SavedGame as JSON.
+  class H3JsonFileWriter
+  {
+  public:
+    explicit H3JsonFileWriter(std::ostream& stream):
+      stream_{ stream }
+    {}
+
+    void operator()(const h3m::Map& map) const
+    {
+      h3m::writeH3mJson(stream_, map);
+    }
+
+    void operator()(const h3m::Campaign& campaign) const
+    {
+      h3m::writeH3cJson(stream_, campaign);
+    }
+
+    void operator()(const h3svg::SavedGame& saved_game) const
+    {
+      h3svg::writeH3SvgJson(stream_, saved_game);
+    }
+
+  private:
+    std::ostream& stream_;
+  };
 
   // Writes the output file.
   void writeOutput(std::ostream& stream, const Input& input)
   {
     if (input.is_json)
     {
-      if (const h3m::Map* map = std::get_if<h3m::Map>(&input.data))
-      {
-        h3m::writeh3m(stream, *map);
-      }
-      else
-      {
-        h3m::writeh3c(stream, std::get<h3m::Campaign>(input.data));
-      }
+      std::visit(H3FileWriter{ stream }, input.data);
     }
     else
     {
-      if (const h3m::Map* map = std::get_if<h3m::Map>(&input.data))
-      {
-        h3m::writeH3mJson(stream, *map);
-      }
-      else
-      {
-        h3m::writeH3cJson(stream, std::get<h3m::Campaign>(input.data));
-      }
+      std::visit(H3JsonFileWriter{ stream }, input.data);
     }
   }
 
   void runProgram(const fs::path& path_input, const fs::path& path_output)
   {
-    std::ifstream stream(path_input, std::ios_base::in | std::ios_base::binary);
+    std::ifstream stream(path_input, std::ios_base::binary);
     if (!stream)
     {
       throw std::runtime_error("Failed to open: " + path_input.string());
     }
-    //const Input input = readInput(stream);
-
-    const h3svg::SavedGame saved_game = h3svg::parseh3svg(stream);
+    const Input input = readInput(stream);
     stream.close();
-    std::ofstream out_stream(path_output, std::ios_base::out | std::ios_base::binary);
+    std::ofstream out_stream(path_output, std::ios_base::binary);
     if (!out_stream)
     {
       throw std::runtime_error("Failed to open: " + path_output.string());
     }
-    h3svg::writeH3SvgJson(out_stream, saved_game);
-    //h3svg::writeh3svg(out_stream, saved_game, false);
-    //writeOutput(out_stream, input);
+    writeOutput(out_stream, input);
     out_stream.close();
   }
 }

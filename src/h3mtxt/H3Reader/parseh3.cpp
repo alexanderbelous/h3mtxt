@@ -2,12 +2,62 @@
 
 #include <h3mtxt/H3Reader/H3CReader/H3CReader.h>
 #include <h3mtxt/H3Reader/H3MReader/H3MReader.h>
-
-#include <h3mtxt/thirdparty/zstr/src/zstr.hpp>
+#include <h3mtxt/H3Reader/H3SVGReader/H3SVGReader.h>
+#include <h3mtxt/H3Reader/H3SVGReader/zstr_patch.h>
 
 namespace h3m
 {
   std::variant<Map, Campaign> parseh3(std::istream& stream)
+  {
+    std::variant<Map, Campaign, h3svg::SavedGame> data = h3mtxt::parseh3(stream);
+    switch (data.index())
+    {
+    case 0:
+      return std::move(std::get<h3m::Map>(data));
+    case 1:
+      return std::move(std::get<h3m::Campaign>(data));
+    default:
+      throw std::runtime_error("parseh3(): Unknown file format.");
+    }
+  }
+}
+
+namespace h3mtxt
+{
+  namespace
+  {
+    // Reads an uncompressed map/campaign/saved game from the input stream.
+    std::variant<h3m::Map, h3m::Campaign, h3svg::SavedGame> parseh3Uncompressed(std::istream& stream)
+    {
+      switch (stream.peek())
+      {
+      case static_cast<int>(h3m::MapFormat::RestorationOfErathia):
+      case static_cast<int>(h3m::MapFormat::ArmageddonsBlade):
+      case static_cast<int>(h3m::MapFormat::ShadowOfDeath):
+        return h3m::H3MReader{ stream }.readMap();
+      case static_cast<int>(h3m::CampaignFormat::RestorationOfErathia):
+      case static_cast<int>(h3m::CampaignFormat::ArmageddonsBlade):
+      case static_cast<int>(h3m::CampaignFormat::ShadowOfDeath):
+      {
+        h3m::Campaign campaign{ .header = h3m::H3CReader{ stream }.readCampaignHeader() };
+        const std::size_t num_scenarios = countScenarios(campaign.header);
+        campaign.maps.reserve(num_scenarios);
+        for (std::size_t i = 0; i < num_scenarios; ++i)
+        {
+          // TODO: add support for the case when the header is compressed but one or more maps are uncompressed.
+          campaign.maps.push_back(h3m::H3MReader{ stream }.readMap());
+        }
+        return campaign;
+      }
+      case static_cast<int>('H'):
+        return h3svg::H3SVGReader{ stream }.readSavedGame();
+      default:
+        throw std::runtime_error("parseh3(): Unknown file format.");
+      }
+    }
+  }
+
+  std::variant<h3m::Map, h3m::Campaign, h3svg::SavedGame> parseh3(std::istream& stream)
   {
     constexpr char kGzipFirstByte = 0x1F;
     if (!stream)
@@ -20,43 +70,16 @@ namespace h3m
     {
       throw std::runtime_error("parseh3(): Empty stream passed.");
     }
-    // If @stream doesn't start with a gzip stream, then it cannot be a *.h3c file.
-    switch (first_byte)
+    if (stream.peek() == kGzipFirstByte)
     {
-    case static_cast<std::uint8_t>(MapFormat::RestorationOfErathia):
-    case static_cast<std::uint8_t>(MapFormat::ArmageddonsBlade):
-    case static_cast<std::uint8_t>(MapFormat::ShadowOfDeath):
-      return H3MReader{ stream }.readMap();
-    case kGzipFirstByte:
-      break;
-    default:
-      throw std::runtime_error("parseh3(): Unknown file format.");
+      // TODO: decompress only the first Gzip stream. This is needed to support campaigns with
+      // compressed headers that contain one or more uncompressed maps.
+      h3svg::ZstrIstreamPatched zstr_stream{ stream };
+      return parseh3Uncompressed(zstr_stream);
     }
-    // OK, the stream starts with a gzip stream.
-    zstr::istream zstr_stream(stream);
-    const int first_decompressed_byte = zstr_stream.peek();
-    switch (first_decompressed_byte)
+    else
     {
-    case static_cast<std::uint8_t>(MapFormat::RestorationOfErathia):
-    case static_cast<std::uint8_t>(MapFormat::ArmageddonsBlade):
-    case static_cast<std::uint8_t>(MapFormat::ShadowOfDeath):
-      return H3MReader{ zstr_stream }.readMap();
-    case static_cast<std::uint8_t>(CampaignFormat::RestorationOfErathia):
-    case static_cast<std::uint8_t>(CampaignFormat::ArmageddonsBlade):
-    case static_cast<std::uint8_t>(CampaignFormat::ShadowOfDeath):
-    {
-      Campaign campaign{ .header = H3CReader{zstr_stream}.readCampaignHeader() };
-      const std::size_t num_scenarios = countScenarios(campaign.header);
-      campaign.maps.reserve(num_scenarios);
-      for (std::size_t i = 0; i < num_scenarios; ++i)
-      {
-        // TODO: add support for the case when one or more maps are not gzip-compressed.
-        campaign.maps.push_back(H3MReader{ zstr_stream }.readMap());
-      }
-      return campaign;
-    }
-    default:
-      throw std::runtime_error("parseh3(): Unknown file format.");
+      return parseh3Uncompressed(stream);
     }
   }
 }
