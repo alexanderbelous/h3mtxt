@@ -77,5 +77,13 @@ namespace h3svg
     std::visit([this] <QuestType T> (const QuestDetails<T>& details)
                { writeData(details); },
                quest.details);
+    if (quest.type() != QuestType::None)
+    {
+      writeData(quest.unknown);
+      writeData(quest.deadline);
+      writeString32(quest.proposal);
+      writeString32(quest.progress);
+      writeString32(quest.completion);
+    }
   }
 }
