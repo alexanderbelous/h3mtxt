@@ -111,13 +111,13 @@ namespace h3svg
     // The last 50 bytes look like some bitmask, but I don't know the meaning yet.
     std::array<std::uint8_t, 352> unknown2 {};
     // Array of boolean values indicating which artifacts are disabled on this map (1 - disabled, 0 - enabled).
-    EnumIndexedArray<ArtifactType, Bool, 144> disabled_artifacts;
+    EnumIndexedArray<ArtifactType, Bool, h3m::kNumArtifactTypes> disabled_artifacts;
     // Another array of boolean values for artifacts; the meaning is not clear yet.
     // TODO: figure out what this is. It seems that the value is always 1 if the artifact is disabled,
     // but it can also be 1 even if the artifact is enabled.
-    EnumIndexedArray<ArtifactType, Bool, 144> artifacts_bitmask_unknown;
+    EnumIndexedArray<ArtifactType, Bool, h3m::kNumArtifactTypes> artifacts_bitmask_unknown;
     // Array of boolean values indicating which secondary skills are disabled on this map (1 - disabled, 0 - enabled).
-    EnumIndexedArray<SecondarySkillType, Bool, kNumSecondarySkills> disabled_skills;
+    EnumIndexedArray<SecondarySkillType, Bool, h3m::kNumSecondarySkills> disabled_skills;
     // The currently displayed rumor in the Tavern.
     std::string current_rumor;
     // TODO: figure out what this is.

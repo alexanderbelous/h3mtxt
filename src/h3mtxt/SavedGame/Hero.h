@@ -151,17 +151,17 @@ namespace h3svg
     // Fixed-size; only the characters before the first null terminator are significant.
     FixedLengthString<13> name;
     // Level for each SeconadrySkillType.
-    EnumIndexedArray<SecondarySkillType, std::uint8_t, kNumSecondarySkills> secondary_skills_levels;
+    EnumIndexedArray<SecondarySkillType, std::uint8_t, h3m::kNumSecondarySkills> secondary_skills_levels;
     // Slot on the Hero Screen for each SecondarySkillType.
-    EnumIndexedArray<SecondarySkillType, std::uint8_t, kNumSecondarySkills> secondary_skills_slots;
+    EnumIndexedArray<SecondarySkillType, std::uint8_t, h3m::kNumSecondarySkills> secondary_skills_slots;
     // Primary skills of the hero (equipped artifacts are taken into account).
     PrimarySkills primary_skills;
     // 70 bytes: 1 per SpellType, indicating whether the hero has learned this spell.
-    EnumIndexedArray<SpellType, Bool, kNumSpells> spells_learned;
+    EnumIndexedArray<SpellType, Bool, h3m::kNumSpells> spells_learned;
     // 70 bytes: 1 per SpellType, indicating whether the hero can cast this spell. Note that some
     // artifacts (e.g., Spell Scrolls, Armageddon's Blade, etc) allow casting spells that the hero
     // hasn't learned yet.
-    EnumIndexedArray<SpellType, Bool, kNumSpells> spells_available;
+    EnumIndexedArray<SpellType, Bool, h3m::kNumSpells> spells_available;
     HeroArtifacts artifacts;
     Bool is_sleeping = false;
     // 1 bit per town, indicating if the hero has visited it.
