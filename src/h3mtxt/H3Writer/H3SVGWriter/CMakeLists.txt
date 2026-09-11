@@ -5,6 +5,7 @@ add_library(H3SVGWriter STATIC
     "EventBase.cpp"
     "H3SVGWriter.cpp"
     "H3SVGWriter.h"
+    "Hero.cpp"
     "LossCondition.cpp"
     "MapBasicInfo.cpp"
     "Object.cpp"

@@ -44,11 +44,11 @@ namespace h3svg
     writeData(saved_game.object_properties_tables);
     writeData(saved_game.players);
     writeVector<std::uint8_t>(std::span{ saved_game.towns });
-    //if (saved_game.heroes.size() != h3m::kNumHeroes)
-    //{
-    //  throw std::invalid_argument("H3SVGWriter: wrong number of elements in SavedGame::heroes");
-    //}
-    //writeSpan(std::span{ saved_game.heroes });
+    if (saved_game.heroes.size() != h3m::kNumHeroes)
+    {
+      throw std::invalid_argument("H3SVGWriter: wrong number of elements in SavedGame::heroes");
+    }
+    writeSpan(std::span{ saved_game.heroes });
     //writeData(saved_game.unknown4);
     //writeData(saved_game.current_date);
     //writeData(saved_game.unknown5);

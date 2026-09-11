@@ -37,7 +37,6 @@ namespace h3svg
     hero.y = readInt<std::int16_t>();
     hero.z = readInt<std::int16_t>();
     hero.is_visible = readBool();
-    // TODO: use a custom class.
     hero.coordinates_packed = readCoordinatesPacked();
     hero.object_class_under = readEnum<ObjectClass>();
     hero.unknown1 = readByteArray<5>();

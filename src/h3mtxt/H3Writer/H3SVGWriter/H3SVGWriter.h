@@ -65,7 +65,9 @@ namespace h3svg
 
     void writeData(const Hero& hero) const;
 
-    void writeData(const HeroArtifacts& value) const;
+    void writeData(const HeroArtifact& artifact) const;
+
+    void writeData(const HeroArtifacts& artifacts) const;
 
     void writeData(const LossCondition& loss_condition) const;
 
