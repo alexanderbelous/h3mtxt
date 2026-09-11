@@ -1,4 +1,6 @@
 #include <h3mtxt/H3Reader/H3SVGReader/H3SVGReader.h>
+
+#include <h3mtxt/H3Reader/H3MReader/H3MReader.h>
 #include <h3mtxt/Map/Utils/SwitchStatement.h>
 #include <h3mtxt/SavedGame/Quest.h>
 
@@ -27,23 +29,37 @@ namespace h3svg
     }
   }
 
-  template<>
-  QuestDetails<QuestType::None> H3SVGReader::readQuestDetails() const
+  // The default implementation reuses H3MReader.
+  template<QuestType T>
+  QuestDetails<T> H3SVGReader::readQuestDetails() const
   {
-    return {};
+    // Sanity checks.
+    static_assert(std::is_base_of_v<h3m::QuestDetails<T>, QuestDetails<T>>,
+                  "h3svg::QuestDetails<T> must be derived from h3m::QuestDetails<T>.");
+    static_assert(sizeof(QuestDetails<T>) == sizeof(h3m::QuestDetails<T>),
+                  "h3svg::QuestDetails<T> must have the same size as h3m::QuestDetails<T>.");
+    return { h3m::H3MReader{stream_}.readQuestDetails<T>() };
   }
+
+  template
+  QuestDetails<QuestType::None> H3SVGReader::readQuestDetails() const;
+
+  template
+  QuestDetails<QuestType::PrimarySkills> H3SVGReader::readQuestDetails() const;
+
+  template
+  QuestDetails<QuestType::Artifacts> H3SVGReader::readQuestDetails() const;
+
+  template
+  QuestDetails<QuestType::Resources> H3SVGReader::readQuestDetails() const;
+
+  template
+  QuestDetails<QuestType::BePlayer> H3SVGReader::readQuestDetails() const;
 
   template<>
   QuestDetails<QuestType::Level> H3SVGReader::readQuestDetails() const
   {
     return QuestDetails<QuestType::Level> { .level = readInt<std::int16_t>() };
-  }
-
-  // TODO: reuse the implementations for h3m::QuestDetails where applicable.
-  template<>
-  QuestDetails<QuestType::PrimarySkills> H3SVGReader::readQuestDetails() const
-  {
-    return QuestDetails<QuestType::PrimarySkills> { readPrimarySkills() };
   }
 
   template<>
@@ -67,19 +83,6 @@ namespace h3svg
   }
 
   template<>
-  QuestDetails<QuestType::Artifacts> H3SVGReader::readQuestDetails() const
-  {
-    QuestDetails<QuestType::Artifacts> details;
-    const std::uint8_t num_artifacts = readInt<std::uint8_t>();
-    details.artifacts.reserve(num_artifacts);
-    for (std::uint8_t i = 0; i < num_artifacts; ++i)
-    {
-      details.artifacts.push_back(readEnum<ArtifactType>());
-    }
-    return details;
-  }
-
-  template<>
   QuestDetails<QuestType::Creatures> H3SVGReader::readQuestDetails() const
   {
     QuestDetails<QuestType::Creatures> details;
@@ -93,24 +96,12 @@ namespace h3svg
   }
 
   template<>
-  QuestDetails<QuestType::Resources> H3SVGReader::readQuestDetails() const
-  {
-    return QuestDetails<QuestType::Resources> { readResources() };
-  }
-
-  template<>
   QuestDetails<QuestType::BeHero> H3SVGReader::readQuestDetails() const
   {
     QuestDetails<QuestType::BeHero> details;
     details.hero = readEnum<HeroType>();
     details.unknown = readInt<std::uint8_t>();
     return details;
-  }
-
-  template<>
-  QuestDetails<QuestType::BePlayer> H3SVGReader::readQuestDetails() const
-  {
-    return QuestDetails<QuestType::BePlayer> { readEnum<PlayerColor>() };
   }
 
   Quest H3SVGReader::readQuest() const

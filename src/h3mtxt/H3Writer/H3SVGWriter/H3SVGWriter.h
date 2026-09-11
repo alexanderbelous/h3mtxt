@@ -99,6 +99,9 @@ namespace h3svg
 
     void writeData(const Quest& quest) const;
 
+    // Defined in Quest.cpp.
+    // Explicit instantiations are provided for QuestTypes that use the default template implementation.
+    // A few specializations are declared below.
     template<QuestType T>
     void writeData(const QuestDetails<T>& details) const;
 
@@ -208,25 +211,15 @@ namespace h3svg
   template<>
   void H3SVGWriter::writeData(const LossConditionDetails<LossConditionType::LoseHero>& details) const;
 
-  template<> void H3SVGWriter::writeData(const QuestDetails<QuestType::None>& details) const;
-
   template<> void H3SVGWriter::writeData(const QuestDetails<QuestType::Level>& details) const;
-
-  template<> void H3SVGWriter::writeData(const QuestDetails<QuestType::PrimarySkills>& details) const;
 
   template<> void H3SVGWriter::writeData(const QuestDetails<QuestType::DefeatHero>& details) const;
 
   template<> void H3SVGWriter::writeData(const QuestDetails<QuestType::DefeatMonster>& details) const;
 
-  template<> void H3SVGWriter::writeData(const QuestDetails<QuestType::Artifacts>& details) const;
-
   template<> void H3SVGWriter::writeData(const QuestDetails<QuestType::Creatures>& details) const;
 
-  template<> void H3SVGWriter::writeData(const QuestDetails<QuestType::Resources>& details) const;
-
   template<> void H3SVGWriter::writeData(const QuestDetails<QuestType::BeHero>& details) const;
-
-  template<> void H3SVGWriter::writeData(const QuestDetails<QuestType::BePlayer>& details) const;
 
   template<> void H3SVGWriter::writeData(const RewardDetails<RewardType::None>& details) const;
 

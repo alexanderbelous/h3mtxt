@@ -86,6 +86,9 @@ namespace h3svg
 
     Quest readQuest() const;
 
+    // Defined in readQuest.cpp.
+    // Explicit instantiations are provided for QuestTypes that use the default template implementation.
+    // A few specializations are declared below.
     template<QuestType T>
     QuestDetails<T> readQuestDetails() const;
 
@@ -160,31 +163,15 @@ namespace h3svg
 
   template<> LossConditionDetails<LossConditionType::LoseHero> H3SVGReader::readLossConditionDetails() const;
 
-  template<QuestType T>
-  QuestDetails<T> H3SVGReader::readQuestDetails() const
-  {
-    static_assert(false, "Missing specialization for readQuestDetails<T>().");
-  }
-
-  template<> QuestDetails<QuestType::None> H3SVGReader::readQuestDetails() const;
-
   template<> QuestDetails<QuestType::Level> H3SVGReader::readQuestDetails() const;
-
-  template<> QuestDetails<QuestType::PrimarySkills> H3SVGReader::readQuestDetails() const;
 
   template<> QuestDetails<QuestType::DefeatHero> H3SVGReader::readQuestDetails() const;
 
   template<> QuestDetails<QuestType::DefeatMonster> H3SVGReader::readQuestDetails() const;
 
-  template<> QuestDetails<QuestType::Artifacts> H3SVGReader::readQuestDetails() const;
-
   template<> QuestDetails<QuestType::Creatures> H3SVGReader::readQuestDetails() const;
 
-  template<> QuestDetails<QuestType::Resources> H3SVGReader::readQuestDetails() const;
-
   template<> QuestDetails<QuestType::BeHero> H3SVGReader::readQuestDetails() const;
-
-  template<> QuestDetails<QuestType::BePlayer> H3SVGReader::readQuestDetails() const;
 
   template<RewardType T>
   RewardDetails<T> H3SVGReader::readRewardDetails() const

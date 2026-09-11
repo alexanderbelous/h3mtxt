@@ -15,8 +15,9 @@
 
 namespace h3svg
 {
-  template<>
-  struct QuestDetails<QuestType::None>
+  // The default implementation reuses h3m::QuestDetails.
+  template<QuestType T>
+  struct QuestDetails : h3m::QuestDetails<T>
   {};
 
   template<>
@@ -26,11 +27,6 @@ namespace h3svg
     std::int16_t level {};
   };
 
-  // Identical to h3m::QuestDetails<QuestType::PrimarySkills>.
-  template<>
-  struct QuestDetails<QuestType::PrimarySkills> : h3m::QuestDetails<QuestType::PrimarySkills>
-  {};
-
   template<>
   struct QuestDetails<QuestType::DefeatHero>
   {
@@ -38,7 +34,7 @@ namespace h3svg
     HeroType hero {};
     // TODO: maybe hero should be treated as a 16-bit enum instead.
     std::uint8_t unknown {};
-    PlayersBitmask completed_by {};
+    PlayersBitmask completed_by;
   };
 
   template<>
@@ -51,11 +47,6 @@ namespace h3svg
     PlayerColor completed_by = PlayerColor::None;
   };
 
-  // Identical to h3m::QuestDetails<QuestType::Artifacts>.
-  template<>
-  struct QuestDetails<QuestType::Artifacts> : h3m::QuestDetails<QuestType::Artifacts>
-  {};
-
   template<>
   struct QuestDetails<QuestType::Creatures>
   {
@@ -65,11 +56,6 @@ namespace h3svg
     std::vector<Creature> creatures;
   };
 
-  // Identical to h3m::QuestDetails<QuestType::Resources>.
-  template<>
-  struct QuestDetails<QuestType::Resources> : h3m::QuestDetails<QuestType::Resources>
-  {};
-
   template<>
   struct QuestDetails<QuestType::BeHero>
   {
@@ -77,11 +63,6 @@ namespace h3svg
     // TODO: maybe hero should be treated as a 16-bit enum instead. 
     std::uint8_t unknown {};
   };
-
-  // Identical to h3m::QuestDetails<QuestType::BePlayer>.
-  template<>
-  struct QuestDetails<QuestType::BePlayer> : h3m::QuestDetails<QuestType::BePlayer>
-  {};
 
   // The equivalent of h3m::Quest stored in saved games.
   struct Quest
