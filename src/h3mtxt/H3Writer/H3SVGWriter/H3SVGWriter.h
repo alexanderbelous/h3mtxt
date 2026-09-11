@@ -39,7 +39,7 @@ namespace h3svg
 
     void writeData(const CampaignInfo& value) const;
 
-    void writeData(const CreatureBank& value) const;
+    void writeData(const CreatureBank& creature_bank) const;
 
     void writeData(const Coordinates& coordinates) const;
 
@@ -87,7 +87,7 @@ namespace h3svg
 
     void writeData(const Object& object) const;
 
-    void writeData(const ObjectExits& exits) const;
+    void writeData(const ObjectExits& object_exits) const;
 
     void writeData(const ObjectPropertiesTables& value) const;
 

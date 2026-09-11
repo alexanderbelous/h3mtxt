@@ -167,16 +167,16 @@ namespace h3svg
 
   struct Obelisk;
 
-  struct ObjectExits;
+  struct Object;
 
-  struct ObjectPropertiesTables;
+  struct ObjectExits;
 
   template<ObjectPropertiesType T>
   struct ObjectProperties;
 
-  struct ObjectPropertiesVariant;
+  struct ObjectPropertiesTables;
 
-  struct Object;
+  struct ObjectPropertiesVariant;
 
   struct ObjectTemplate;
 

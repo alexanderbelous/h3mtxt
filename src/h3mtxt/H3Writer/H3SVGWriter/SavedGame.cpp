@@ -7,6 +7,26 @@
 
 namespace h3svg
 {
+  void H3SVGWriter::writeData(const CreatureBank& creature_bank) const
+  {
+    writeData(creature_bank.guards);
+    writeData(creature_bank.resources);
+    writeData(creature_bank.creatures);
+    writeVector<std::uint16_t>(std::span{ creature_bank.artifacts });
+  }
+
+  void H3SVGWriter::writeData(const Date& date) const
+  {
+    writeData(date.day);
+    writeData(date.week);
+    writeData(date.month);
+  }
+
+  void H3SVGWriter::writeData(const ObjectExits& object_exits) const
+  {
+    writeVector<std::uint16_t>(std::span{ object_exits.exits });
+  }
+
   void H3SVGWriter::writeData(const Rumor& rumor) const
   {
     writeString16(rumor.text);
@@ -49,23 +69,34 @@ namespace h3svg
       throw std::invalid_argument("H3SVGWriter: wrong number of elements in SavedGame::heroes");
     }
     writeSpan(std::span{ saved_game.heroes });
-    //writeData(saved_game.unknown4);
-    //writeData(saved_game.current_date);
-    //writeData(saved_game.unknown5);
-    //writeData(saved_game.artifact_merchants);
-    //writeData(saved_game.unknown6);
-    //writeData(saved_game.keymasters_tents);
-    //writeData(saved_game.unknown7);
-    //writeData(saved_game.cartographers);
-    //writeData(saved_game.unknown8);
-    //writeSpan(std::span{ saved_game.fog_of_war });
-    //writeData(saved_game.monoliths_two_way);
-    //writeData(saved_game.monoliths_one_way);
-    //writeData(saved_game.whirlpools);
-    //writeData(saved_game.subterranean_gates);
-    //writeVector<std::uint16_t>(std::span{ saved_game.unknown9 });
-    //writeVector<std::uint16_t>(std::span{ saved_game.universities });
-    //writeVector<std::uint16_t>(std::span{ saved_game.creature_banks });
-    //writeVector<std::uint32_t>(std::span{ saved_game.previous_turn });
+    writeData(saved_game.unknown4);
+    writeData(saved_game.current_date);
+    writeData(saved_game.unknown5);
+    writeData(saved_game.artifact_merchants);
+    writeData(saved_game.unknown6);
+    writeData(saved_game.keymasters_tents);
+    writeData(saved_game.unknown7);
+    writeData(saved_game.cartographers);
+    writeData(saved_game.unknown8);
+    writeSpan(std::span{ saved_game.fog_of_war });
+    writeData(saved_game.monoliths_two_way);
+    writeData(saved_game.monoliths_one_way);
+    writeData(saved_game.whirlpools);
+    writeData(saved_game.subterranean_gates);
+    writeVector<std::uint16_t>(std::span{ saved_game.unknown9 });
+    writeVector<std::uint16_t>(std::span{ saved_game.universities });
+    writeVector<std::uint16_t>(std::span{ saved_game.creature_banks });
+    writeVector<std::uint32_t>(std::span{ saved_game.previous_turn });
+  }
+
+  void H3SVGWriter::writeData(const TileVisibility& value) const
+  {
+    writeData(value.visibility);
+    writeData(value.has_adjacent_monster);
+  }
+
+  void H3SVGWriter::writeData(const University& university) const
+  {
+    writeData(university.skills);
   }
 }
