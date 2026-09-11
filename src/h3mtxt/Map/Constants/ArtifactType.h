@@ -159,4 +159,7 @@ namespace h3m
     // Magic number indicating "None" (the absence of an artifact in the slot).
     None                        = -1    // 0xFFFF
   };
+
+  // The number of different artifacts in the game, i.e. the cardinality of ArtifactType.
+  inline constexpr std::size_t kNumArtifactTypes = 144;
 }

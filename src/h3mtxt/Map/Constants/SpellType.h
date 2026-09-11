@@ -101,4 +101,7 @@ namespace h3m
     // As far as I understand, this can only be used in ObjectProperties<ObjectPropertiesType::SHRINE>.
     Random              = -1   // 0xFF
   };
+
+  // The number of spells in the game, i.e. the cardinality of SpellType.
+  inline constexpr std::size_t kNumSpells = 70;
 }
