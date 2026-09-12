@@ -7,57 +7,52 @@ namespace h3m
 {
   namespace
   {
-    // Writes common data of a special victory conditions into the given stream.
-    // \param stream - output stream.
-    // \param base - common data of a special victory condtion.
-    void writeSpecialVictoryConditionBase(const H3MWriter& writer, const SpecialVictoryConditionBase& base)
-    {
-      writer.writeData(base.allow_normal_win);
-      writer.writeData(base.applies_to_computer);
-    }
-
     template<VictoryConditionType T, class Enable = void>
     struct VictoryConditionDetailsWriter;
 
     template<>
     struct VictoryConditionDetailsWriter<VictoryConditionType::AcquireArtifact>
     {
-      void operator()(const H3MWriter& writer, const VictoryConditionDetails<VictoryConditionType::AcquireArtifact>& value) const
+      void operator()(const H3MWriter& writer,
+                      const VictoryConditionDetails<VictoryConditionType::AcquireArtifact>& details) const
       {
-        writeSpecialVictoryConditionBase(writer, value);
-        writer.writeData(value.artifact_type);
+        writer.writeData(static_cast<const SpecialVictoryConditionBase&>(details));
+        writer.writeData(details.artifact_type);
       }
     };
 
     template<>
     struct VictoryConditionDetailsWriter<VictoryConditionType::AccumulateCreatures>
     {
-      void operator()(const H3MWriter& writer, const VictoryConditionDetails<VictoryConditionType::AccumulateCreatures>& value) const
+      void operator()(const H3MWriter& writer,
+                      const VictoryConditionDetails<VictoryConditionType::AccumulateCreatures>& details) const
       {
-        writeSpecialVictoryConditionBase(writer, value);
-        writer.writeData(value.creatures);
+        writer.writeData(static_cast<const SpecialVictoryConditionBase&>(details));
+        writer.writeData(details.creatures);
       }
     };
 
     template<>
     struct VictoryConditionDetailsWriter<VictoryConditionType::AccumulateResources>
     {
-      void operator()(const H3MWriter& writer, const VictoryConditionDetails<VictoryConditionType::AccumulateResources>& value) const
+      void operator()(const H3MWriter& writer,
+                      const VictoryConditionDetails<VictoryConditionType::AccumulateResources>& details) const
       {
-        writeSpecialVictoryConditionBase(writer, value);
-        writer.writeData(value.resources);
+        writer.writeData(static_cast<const SpecialVictoryConditionBase&>(details));
+        writer.writeData(details.resources);
       }
     };
 
     template<>
     struct VictoryConditionDetailsWriter<VictoryConditionType::UpgradeTown>
     {
-      void operator()(const H3MWriter& writer, const VictoryConditionDetails<VictoryConditionType::UpgradeTown>& value) const
+      void operator()(const H3MWriter& writer,
+                      const VictoryConditionDetails<VictoryConditionType::UpgradeTown>& details) const
       {
-        writeSpecialVictoryConditionBase(writer, value);
-        writer.writeData(value.coordinates);
-        writer.writeData(value.hall_level);
-        writer.writeData(value.castle_level);
+        writer.writeData(static_cast<const SpecialVictoryConditionBase&>(details));
+        writer.writeData(details.coordinates);
+        writer.writeData(details.hall_level);
+        writer.writeData(details.castle_level);
       }
     };
 
@@ -67,10 +62,10 @@ namespace h3m
                                                              T == VictoryConditionType::CaptureTown ||
                                                              T == VictoryConditionType::DefeatMonster>>
     {
-      void operator()(const H3MWriter& writer, const VictoryConditionDetails<T>& value) const
+      void operator()(const H3MWriter& writer, const VictoryConditionDetails<T>& details) const
       {
-        writeSpecialVictoryConditionBase(writer, value);
-        writer.writeData(value.coordinates);
+        writer.writeData(static_cast<const SpecialVictoryConditionBase&>(details));
+        writer.writeData(details.coordinates);
       }
     };
 
@@ -79,30 +74,32 @@ namespace h3m
                                                              T == VictoryConditionType::FlagMines ||
                                                              T == VictoryConditionType::DefeatAllMonsters>>
     {
-      void operator()(const H3MWriter& writer, const VictoryConditionDetails<T>& value) const
+      void operator()(const H3MWriter& writer, const VictoryConditionDetails<T>& details) const
       {
-        writeSpecialVictoryConditionBase(writer, value);
+        writer.writeData(static_cast<const SpecialVictoryConditionBase&>(details));
       }
     };
 
     template<>
     struct VictoryConditionDetailsWriter<VictoryConditionType::TransportArtifact>
     {
-      void operator()(const H3MWriter& writer, const VictoryConditionDetails<VictoryConditionType::TransportArtifact>& value) const
+      void operator()(const H3MWriter& writer,
+                      const VictoryConditionDetails<VictoryConditionType::TransportArtifact>& details) const
       {
-        writeSpecialVictoryConditionBase(writer, value);
-        writer.writeData(value.artifact_type);
-        writer.writeData(value.destination);
+        writer.writeData(static_cast<const SpecialVictoryConditionBase&>(details));
+        writer.writeData(details.artifact_type);
+        writer.writeData(details.destination);
       }
     };
 
     template<>
     struct VictoryConditionDetailsWriter<VictoryConditionType::SurviveBeyondATimeLimit>
     {
-      void operator()(const H3MWriter& writer, const VictoryConditionDetails<VictoryConditionType::SurviveBeyondATimeLimit>& value) const
+      void operator()(const H3MWriter& writer,
+                      const VictoryConditionDetails<VictoryConditionType::SurviveBeyondATimeLimit>& details) const
       {
-        writeSpecialVictoryConditionBase(writer, value);
-        writer.writeData(value.days);
+        writer.writeData(static_cast<const SpecialVictoryConditionBase&>(details));
+        writer.writeData(details.days);
       }
     };
 
@@ -115,11 +112,40 @@ namespace h3m
     };
   }
 
+  void H3MWriter::writeData(const SpecialVictoryConditionBase& base) const
+  {
+    writeData(base.allow_normal_win);
+    writeData(base.applies_to_computer);
+  }
+
   void H3MWriter::writeData(const VictoryCondition& victory_condition) const
   {
     writeData(victory_condition.type());
-    std::visit([this] <VictoryConditionType T> (const VictoryConditionDetails<T>& value)
-               { VictoryConditionDetailsWriter<T>{}(*this, value); },
+    std::visit([this] <VictoryConditionType T> (const VictoryConditionDetails<T>& details)
+               { writeData(details); },
                victory_condition.details);
   }
+
+  template<VictoryConditionType T>
+  void H3MWriter::writeData(const VictoryConditionDetails<T>& details) const
+  {
+    VictoryConditionDetailsWriter<T>{}(*this, details);
+  }
+
+  // Explicit instantiations of H3MWriter::writeData(const VictoryConditionDetails<T>&)
+  // for all valid VictoryConditionTypes.
+  template void H3MWriter::writeData(const VictoryConditionDetails<VictoryConditionType::AcquireArtifact>&) const;
+  template void H3MWriter::writeData(const VictoryConditionDetails<VictoryConditionType::AccumulateCreatures>&) const;
+  template void H3MWriter::writeData(const VictoryConditionDetails<VictoryConditionType::AccumulateResources>&) const;
+  template void H3MWriter::writeData(const VictoryConditionDetails<VictoryConditionType::UpgradeTown>&) const;
+  template void H3MWriter::writeData(const VictoryConditionDetails<VictoryConditionType::BuildGrail>&) const;
+  template void H3MWriter::writeData(const VictoryConditionDetails<VictoryConditionType::DefeatHero>&) const;
+  template void H3MWriter::writeData(const VictoryConditionDetails<VictoryConditionType::CaptureTown>&) const;
+  template void H3MWriter::writeData(const VictoryConditionDetails<VictoryConditionType::DefeatMonster>&) const;
+  template void H3MWriter::writeData(const VictoryConditionDetails<VictoryConditionType::FlagDwellings>&) const;
+  template void H3MWriter::writeData(const VictoryConditionDetails<VictoryConditionType::FlagMines>&) const;
+  template void H3MWriter::writeData(const VictoryConditionDetails<VictoryConditionType::TransportArtifact>&) const;
+  template void H3MWriter::writeData(const VictoryConditionDetails<VictoryConditionType::DefeatAllMonsters>&) const;
+  template void H3MWriter::writeData(const VictoryConditionDetails<VictoryConditionType::SurviveBeyondATimeLimit>&) const;
+  template void H3MWriter::writeData(const VictoryConditionDetails<VictoryConditionType::Normal>&) const;
 }
