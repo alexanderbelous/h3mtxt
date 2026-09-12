@@ -96,6 +96,8 @@ namespace h3m
 
     void writeData(const SecondarySkill& secondary_skill) const;
 
+    void writeData(const SpecialVictoryConditionBase& value) const;
+
     void writeData(const SpriteTilesBitmask& value) const;
 
     void writeData(const StartingHero& value) const;
@@ -111,6 +113,11 @@ namespace h3m
     void writeData(const TownEvent& event) const;
 
     void writeData(const VictoryCondition& victory_condition) const;
+
+    // Defined in writeVictoryCondition.cpp.
+    // Explicit instantiations are provided for all valid VictoryConditionTypes.
+    template<VictoryConditionType T>
+    void writeData(const VictoryConditionDetails<T>& details) const;
 
     // In H3M strings are always written as length-prefixed strings with length being serialized as
     // a 32-bit integer, so we can just overload writeData() for std::string.
