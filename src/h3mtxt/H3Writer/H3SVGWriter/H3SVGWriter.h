@@ -5,6 +5,7 @@
 #include <h3mtxt/Map/Constants/MapFormat.h>
 #include <h3mtxt/Map/Constants/RewardType.h>
 #include <h3mtxt/Map/Constants/QuestType.h>
+#include <h3mtxt/Map/Constants/VictoryConditionType.h>
 #include <h3mtxt/SavedGame/SavedGameFwd.h>
 #include <h3mtxt/SavedGame/Constants/ReplayEventType.h>
 
@@ -140,6 +141,8 @@ namespace h3svg
 
     void writeData(const Sign& sign) const;
 
+    void writeData(const SpecialVictoryConditionBase& base) const;
+
     void writeData(const SpriteTilesBitmask& value) const;
 
     void writeData(const StartingHero& value) const;
@@ -163,6 +166,9 @@ namespace h3svg
     void writeData(const University& university) const;
 
     void writeData(const VictoryCondition& victory_condition) const;
+
+    template<VictoryConditionType T>
+    void writeData(const VictoryConditionDetails<T>& details) const;
 
     // Appends an array of elements to the binary stream.
     //
@@ -287,6 +293,15 @@ namespace h3svg
   template<> void H3SVGWriter::writeData(const RewardDetails<RewardType::Spell>& details) const;
 
   template<> void H3SVGWriter::writeData(const RewardDetails<RewardType::Creatures>& details) const;
+
+  template<>
+  void H3SVGWriter::writeData(const VictoryConditionDetails<VictoryConditionType::AcquireArtifact>& details) const;
+
+  template<>
+  void H3SVGWriter::writeData(const VictoryConditionDetails<VictoryConditionType::AccumulateCreatures>& details) const;
+
+  template<>
+  void H3SVGWriter::writeData(const VictoryConditionDetails<VictoryConditionType::DefeatHero>& details) const;
 
   template<class T>
   void H3SVGWriter::writeSpan(std::span<const T> values) const
