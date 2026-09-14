@@ -1,6 +1,7 @@
 add_subdirectory(H3JsonReaderBase)
 add_subdirectory(H3MJsonReader)
 add_subdirectory(H3CJsonReader)
+add_subdirectory(H3SVGJsonReader)
 
 add_library(H3JsonReader STATIC
     "readH3Json.cpp"
@@ -17,8 +18,10 @@ target_include_directories(H3JsonReader PUBLIC "${H3MTXT_SRC_DIR}")
 target_link_libraries(H3JsonReader PUBLIC h3mtxt::Campaign)
 target_link_libraries(H3JsonReader PUBLIC h3mtxt::H3MJsonReader)
 target_link_libraries(H3JsonReader PUBLIC h3mtxt::H3CJsonReader)
+target_link_libraries(H3JsonReader PUBLIC h3mtxt::H3SVGJsonReader)
 target_link_libraries(H3JsonReader PRIVATE h3mtxt::JsonCommon)
 target_link_libraries(H3JsonReader PUBLIC h3mtxt::Map)
+target_link_libraries(H3JsonReader PUBLIC h3mtxt::SavedGame)
 # Thirdparty libraries:
 target_link_libraries(H3JsonReader PUBLIC jsoncpp::jsoncpp_static)
 
