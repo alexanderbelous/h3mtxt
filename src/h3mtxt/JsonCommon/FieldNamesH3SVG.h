@@ -216,6 +216,15 @@ namespace h3json
   };
 
   template<>
+  struct FieldNames<h3svg::CreatureBank>
+  {
+    static constexpr std::string_view kGuards = "guards";
+    static constexpr std::string_view kResources = "resources";
+    static constexpr std::string_view kCreatures = "creatures";
+    static constexpr std::string_view kArtifacts = "artifacts";
+  };
+
+  template<>
   struct FieldNames<h3svg::CrossoverInfo>
   {
     static constexpr std::string_view kCrossoverHeroes = "crossover_heroes";

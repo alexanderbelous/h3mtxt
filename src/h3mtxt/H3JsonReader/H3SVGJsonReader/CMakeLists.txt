@@ -1,8 +1,16 @@
 add_library(H3SVGJsonReader STATIC
     "H3SVGJsonReader.h"
+    "Hero.cpp"
+    "LossCondition.cpp"
+    "ObjectPropertiesTable.cpp"
+    "Player.cpp"
     "readH3SVGJson.cpp"
     "readH3SVGJson.h"
+    "ReplayEvent.cpp"
     "SavedGame.cpp"
+    "ScenarioStartingInfo.cpp"
+    "Town.cpp"
+    "VictoryCondition.cpp"
 )
 add_library(h3mtxt::H3SVGJsonReader ALIAS H3SVGJsonReader)
 

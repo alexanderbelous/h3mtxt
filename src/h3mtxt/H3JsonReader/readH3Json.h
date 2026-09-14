@@ -2,6 +2,7 @@
 
 #include <h3mtxt/Campaign/Campaign.h>
 #include <h3mtxt/Map/Map.h>
+#include <h3mtxt/SavedGame/SavedGame.h>
 
 #include <iosfwd>
 #include <variant>
@@ -13,4 +14,6 @@ namespace h3json
   //        either a JSON-serialized h3m::Map or a JSON-serialized h3m::Campaign.
   // \return the parsed map/campaign.
   std::variant<h3m::Map, h3m::Campaign> readH3Json(std::istream& stream);
+
+  std::variant<h3m::Map, h3m::Campaign, h3svg::SavedGame> readH3Json2(std::istream& stream);
 }

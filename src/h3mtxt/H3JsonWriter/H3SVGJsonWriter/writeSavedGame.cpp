@@ -89,10 +89,11 @@ namespace Medea_NS
   template<>
   void JsonObjectWriter<h3svg::CreatureBank>::operator()(FieldsWriter& out, const h3svg::CreatureBank& creature_bank) const
   {
-    out.writeField("guards", creature_bank.guards);
-    out.writeField("resources", creature_bank.resources);
-    out.writeField("creatures", creature_bank.creatures);
-    out.writeField("artifacts", creature_bank.artifacts);
+    using Fields = h3json::FieldNames<h3svg::CreatureBank>;
+    out.writeField(Fields::kGuards, creature_bank.guards);
+    out.writeField(Fields::kResources, creature_bank.resources);
+    out.writeField(Fields::kCreatures, creature_bank.creatures);
+    out.writeField(Fields::kArtifacts, creature_bank.artifacts);
   }
 
   void JsonObjectWriter<h3svg::CrossoverInfo::UnknownPair>::operator()(
