@@ -2,8 +2,11 @@
 
 #include <h3mtxt/H3JsonReader/H3JsonReaderBase/H3JsonReaderBase.h>
 #include <h3mtxt/H3JsonReader/H3MJsonReader/H3MJsonReader.h>
+#include <h3mtxt/H3JsonReader/H3SVGJsonReader/Utils.h>
 #include <h3mtxt/JsonCommon/FieldNamesH3SVG.h>
 #include <h3mtxt/SavedGame/SavedGame.h>
+
+#include <stdexcept>
 
 namespace h3json
 {
@@ -12,6 +15,32 @@ namespace h3json
   {
     return h3svg::ArtifactMerchants{
       .artifacts = fromJson<std::array<h3svg::ArtifactType32, h3svg::ArtifactMerchants::kNumSlots>>(value)
+    };
+  }
+
+  template<>
+  h3svg::CoordinatesPacked JsonReader<h3svg::CoordinatesPacked>::operator()(const Json::Value& value) const
+  {
+    using Fields = h3json::FieldNames<h3svg::CoordinatesPacked>;
+
+    const auto readFieldSafe = [&value](std::string_view field_name,
+                                        std::int16_t bound_lower, std::int16_t bound_upper)
+      {
+        const std::int16_t field_value = readField<std::int16_t>(value, field_name);
+        if (field_value < bound_lower || field_value > bound_upper)
+        {
+          throw std::runtime_error("JsonReader<h3svg::CoordinatesPacked>: field \"" +
+                                   std::string{ field_name } + "\" is out of range.");
+        }
+        return field_value;
+      };
+
+    return h3svg::CoordinatesPacked{
+      .x = readFieldSafe(Fields::kX, -512, 511),
+      .padding1 = readFieldSafe(Fields::kPadding1, -32, 31),
+      .y = readFieldSafe(Fields::kY, -512, 511),
+      .z = readFieldSafe(Fields::kZ, -8, 7),
+      .padding2 = readFieldSafe(Fields::kPadding2, -2, 1)
     };
   }
 
@@ -58,6 +87,40 @@ namespace h3json
   }
 
   template<>
+  h3svg::ObjectTemplate JsonReader<h3svg::ObjectTemplate>::operator()(const Json::Value& value) const
+  {
+    using Fields = h3json::FieldNames<h3svg::ObjectTemplate>;
+    h3svg::ObjectTemplate object_template;
+    readField(object_template.def, value, Fields::kDef);
+    readField(object_template.width, value, Fields::kWidth);
+    readField(object_template.height, value, Fields::kHeight);
+    readField(object_template.unknown1, value, Fields::kUnknown1);
+    readField(object_template.passability, value, Fields::kPassability);
+    readField(object_template.unknown2, value, Fields::kUnknown2);
+    readField(object_template.actionability, value, Fields::kActionability);
+    readField(object_template.object_class, value, Fields::kObjectClass);
+    readField(object_template.object_subclass, value, Fields::kObjectSubclass);
+    readField(object_template.reserved, value, Fields::kReserved);
+    readField(object_template.is_ground, value, Fields::kIsGround);
+    return object_template;
+  }
+
+  template<>
+  h3svg::PlayerSpecs JsonReader<h3svg::PlayerSpecs>::operator()(const Json::Value& value) const
+  {
+    using Fields = h3json::FieldNames<h3svg::PlayerSpecs>;
+    h3svg::PlayerSpecs player;
+    readField(player.can_be_human, value, Fields::kCanBeHuman);
+    readField(player.can_be_computer, value, Fields::kCanBeComputer);
+    readField(player.behavior, value, Fields::kBehavior);
+    readField(player.allowed_alignments, value, Fields::kAllowedAlignments);
+    readField(player.allow_random_alignment, value, Fields::kAllowRandomAlignment);
+    readField(player.generated_hero_coordinates, value, Fields::kGeneratedHeroCoordinates);
+    readField(player.starting_hero, value, Fields::kStartingHero);
+    return player;
+  }
+
+  template<>
   h3svg::Rumor JsonReader<h3svg::Rumor>::operator()(const Json::Value& value) const
   {
     using Fields = h3json::FieldNames<h3svg::Rumor>;
@@ -66,7 +129,6 @@ namespace h3json
     readField(rumor.has_been_shown, value, Fields::kHasBeenShown);
     return rumor;
   }
-
 
   template<>
   h3svg::SavedGame JsonReader<h3svg::SavedGame>::operator()(const Json::Value& value) const
@@ -126,6 +188,12 @@ namespace h3json
   }
 
   template<>
+  h3svg::Tile JsonReader<h3svg::Tile>::operator()(const Json::Value& value) const
+  {
+    throw std::runtime_error("Not implemented.");
+  }
+
+  template<>
   h3svg::TileVisibility JsonReader<h3svg::TileVisibility>::operator()(const Json::Value& value) const
   {
     using Fields = h3json::FieldNames<h3svg::TileVisibility>;
@@ -133,6 +201,16 @@ namespace h3json
     readField(tile_visibility.visibility, value, Fields::kVisibility);
     readField(tile_visibility.has_adjacent_monster, value, Fields::kHasAdjacentMonster);
     return tile_visibility;
+  }
+
+  template<>
+  h3svg::Troops JsonReader<h3svg::Troops>::operator()(const Json::Value& value) const
+  {
+    using Fields = h3json::FieldNames<h3svg::Troops>;
+    h3svg::Troops troops;
+    readField(troops.creature_types, value, Fields::kCreatureTypes);
+    readField(troops.creature_counts, value, Fields::kCreatureCounts);
+    return troops;
   }
 
   template<>

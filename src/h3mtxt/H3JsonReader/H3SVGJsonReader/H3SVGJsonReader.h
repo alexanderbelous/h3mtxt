@@ -10,10 +10,20 @@ namespace h3json
   h3svg::ArtifactMerchants JsonReader<h3svg::ArtifactMerchants>::operator()(const Json::Value& value) const;
 
   template<>
+  h3svg::CoordinatesPacked JsonReader<h3svg::CoordinatesPacked>::operator()(const Json::Value& value) const;
+
+  template<>
   h3svg::CreatureBank JsonReader<h3svg::CreatureBank>::operator()(const Json::Value& value) const;
 
   template<>
   h3svg::Date JsonReader<h3svg::Date>::operator()(const Json::Value& value) const;
+
+  // Defined in Utils.h.
+  template<std::size_t N>
+  struct JsonReader<h3svg::FixedLengthString<N>>
+  {
+    h3svg::FixedLengthString<N> operator()(const Json::Value& value) const;
+  };
 
   template<>
   h3svg::LossCondition JsonReader<h3svg::LossCondition>::operator()(const Json::Value& value) const;
@@ -29,6 +39,9 @@ namespace h3json
 
   template<>
   h3svg::Player JsonReader<h3svg::Player>::operator()(const Json::Value& value) const;
+
+  template<>
+  h3svg::PlayerSpecs JsonReader<h3svg::PlayerSpecs>::operator()(const Json::Value& value) const;
 
   template<>
   h3svg::ReplayEvent JsonReader<h3svg::ReplayEvent>::operator()(const Json::Value& value) const;
@@ -50,6 +63,9 @@ namespace h3json
 
   template<>
   h3svg::Town JsonReader<h3svg::Town>::operator()(const Json::Value& value) const;
+
+  template<>
+  h3svg::Troops JsonReader<h3svg::Troops>::operator()(const Json::Value& value) const;
 
   template<>
   h3svg::University JsonReader<h3svg::University>::operator()(const Json::Value& value) const;
