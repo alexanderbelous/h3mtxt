@@ -26,6 +26,8 @@ namespace h3svg
   // so h3mtxt explicitly defines them as well.
   struct CoordinatesPacked
   {
+    constexpr bool operator==(const CoordinatesPacked&) const noexcept = default;
+
     std::int16_t x        : 10 {};  // [-512; 511]
     std::int16_t padding1 : 6  {};  // [-32; 31]
     std::int16_t y        : 10 {};  // [-512; 511]
