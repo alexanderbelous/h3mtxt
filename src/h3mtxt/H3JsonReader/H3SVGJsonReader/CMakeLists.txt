@@ -23,6 +23,7 @@ target_include_directories(H3SVGJsonReader PUBLIC "${H3MTXT_SRC_DIR}")
 # Dependencies:
 target_link_libraries(H3SVGJsonReader PRIVATE h3mtxt::JsonCommon)
 target_link_libraries(H3SVGJsonReader PUBLIC h3mtxt::H3JsonReaderBase)
+target_link_libraries(H3SVGJsonReader PRIVATE h3mtxt::H3MJsonReader)
 target_link_libraries(H3SVGJsonReader PUBLIC h3mtxt::SavedGame)
 # Thirdparty libraries:
 target_link_libraries(H3SVGJsonReader PUBLIC jsoncpp::jsoncpp_static)

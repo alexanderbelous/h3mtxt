@@ -14,6 +14,8 @@ namespace h3svg
   // std::array<CreatureStack, 7>.
   struct Troops
   {
+    constexpr bool operator==(const Troops&) const noexcept = default;
+
     // Each element is CreatureType or 0xFFFFFFFF if the stack is empty.
     std::array<CreatureType32, kNumArmySlots> creature_types =
       h3m::Detail_NS::makeArrayOfDuplicates<kNumArmySlots>(static_cast<CreatureType32>(CreatureType::None));

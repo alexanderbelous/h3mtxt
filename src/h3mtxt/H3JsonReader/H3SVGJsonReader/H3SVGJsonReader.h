@@ -65,6 +65,10 @@ namespace h3json
   h3svg::Town JsonReader<h3svg::Town>::operator()(const Json::Value& value) const;
 
   template<>
+  h3svg::TownUniqueBuildingsProperties
+  JsonReader<h3svg::TownUniqueBuildingsProperties>::operator()(const Json::Value& value) const;
+
+  template<>
   h3svg::Troops JsonReader<h3svg::Troops>::operator()(const Json::Value& value) const;
 
   template<>

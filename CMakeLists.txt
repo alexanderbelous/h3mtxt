@@ -58,6 +58,7 @@ install(TARGETS h3mtxt)
 # Tests
 if(H3MTXT_BUILD_TESTS)
   install(TARGETS h3mtxt_tests DESTINATION ${CMAKE_INSTALL_BINDIR}/tests)
+  install(TARGETS h3mtxt_SavedGame_tests DESTINATION ${CMAKE_INSTALL_BINDIR}/tests)
 endif()
 
 # Examples

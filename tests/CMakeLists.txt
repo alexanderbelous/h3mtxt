@@ -1,4 +1,5 @@
 add_subdirectory(thirdparty/Catch2 EXCLUDE_FROM_ALL)
+add_subdirectory(SavedGame)
 
 set(H3MTXT_TESTS_HEADERS_LIST
     "Utils.h"
@@ -10,9 +11,6 @@ set(H3MTXT_TESTS_SOURCES_LIST
     "Campaign/CutScene.cpp"
     "Campaign/StartingBonus.cpp"
     "Campaign/StartingOptions.cpp"
-    "SavedGame/h3svg_CoordinatesPacked.cpp"
-    "SavedGame/h3svg_FixedLengthString.cpp"
-    "SavedGame/h3svg_MapBasicInfo.cpp"
     "HeroArtifacts.cpp"
     "HeroSettings.cpp"
     "LossCondition.cpp"
@@ -50,12 +48,7 @@ target_link_libraries(h3mtxt_tests PRIVATE h3mtxt::H3MJsonReader)
 target_link_libraries(h3mtxt_tests PRIVATE h3mtxt::H3MJsonWriter)
 target_link_libraries(h3mtxt_tests PRIVATE h3mtxt::H3MReader)
 target_link_libraries(h3mtxt_tests PRIVATE h3mtxt::H3MWriter)
-target_link_libraries(h3mtxt_tests PRIVATE h3mtxt::H3SVGReader)
-target_link_libraries(h3mtxt_tests PRIVATE h3mtxt::H3SVGWriter)
-target_link_libraries(h3mtxt_tests PRIVATE h3mtxt::H3SVGJsonReader)
-target_link_libraries(h3mtxt_tests PRIVATE h3mtxt::H3SVGJsonWriter)
 target_link_libraries(h3mtxt_tests PRIVATE h3mtxt::Map)
-target_link_libraries(h3mtxt_tests PRIVATE h3mtxt::SavedGame)
 # Thirdparty libraries:
 target_link_libraries(h3mtxt_tests PRIVATE Catch2::Catch2WithMain)
 

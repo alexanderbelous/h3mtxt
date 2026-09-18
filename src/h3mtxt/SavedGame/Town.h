@@ -26,6 +26,8 @@ namespace h3svg
   // Used in h3svg::Town to describe the properties of unique town buildings.
   struct TownUniqueBuildingsProperties
   {
+    constexpr bool operator==(const TownUniqueBuildingsProperties&) const noexcept = default;
+
     // In H3SVG these bit fields are serialized as a single byte. Note, however, that in C++
     // it's implementation-defined whether bit fields are packed.
     Bool mana_vortex_available               : 1 = 0;
@@ -51,6 +53,8 @@ namespace h3svg
   // and it seems that they are very similar.
   struct Town
   {
+    constexpr bool operator==(const Town&) const noexcept = default;
+
     // 0-based index of this town in SavedGame::towns.
     std::uint8_t id {};
     PlayerColor owner {};
