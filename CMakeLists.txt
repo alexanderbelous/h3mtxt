@@ -6,7 +6,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 project(
   h3mtxt
-  VERSION 1.0.2
+  VERSION 1.0.3
   LANGUAGES CXX
 )
 
@@ -57,8 +57,9 @@ install(TARGETS h3mtxt)
 
 # Tests
 if(H3MTXT_BUILD_TESTS)
-  install(TARGETS h3mtxt_tests DESTINATION ${CMAKE_INSTALL_BINDIR}/tests)
-  install(TARGETS h3mtxt_SavedGame_tests DESTINATION ${CMAKE_INSTALL_BINDIR}/tests)
+  install(TARGETS h3mtxt_tests_Map DESTINATION ${CMAKE_INSTALL_BINDIR}/tests)
+  install(TARGETS h3mtxt_tests_Campaign DESTINATION ${CMAKE_INSTALL_BINDIR}/tests)
+  install(TARGETS h3mtxt_tests_SavedGame DESTINATION ${CMAKE_INSTALL_BINDIR}/tests)
 endif()
 
 # Examples
