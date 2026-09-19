@@ -1,41 +1,18 @@
 #include "../Utils.h"
+#include "TestingUtils_H3SVG.h"
 
-#include <h3mtxt/H3JsonReader/H3SVGJsonReader/H3SVGJsonReader.h>
-#include <h3mtxt/H3JsonWriter/H3SVGJsonWriter/H3SVGJsonWriter.h>
-#include <h3mtxt/H3Reader/H3SVGReader/H3SVGReader.h>
-#include <h3mtxt/H3Writer/H3SVGWriter/H3SVGWriter.h>
 #include <h3mtxt/SavedGame/CoordinatesPacked.h>
 
 #include <catch2/catch_test_macros.hpp>
 
-#include <iterator>
-#include <sstream>
-#include <string>
-#include <string_view>
-#include <utility>
-
 using namespace std::string_view_literals;
 using ::Testing_NS::asByteVector;
 using ::Testing_NS::encodeAndDecodeJson;
+using ::Testing_NS::encodeViaH3SVGWriter;
+using ::Testing_NS::H3SVGReaderAdapter;
 
 namespace h3svg
 {
-  namespace
-  {
-    std::string encodeCoordinatesPacked(const CoordinatesPacked& coordinates)
-    {
-      std::ostringstream stream;
-      H3SVGWriter{ stream }.writeData(coordinates);
-      return std::move(stream).str();
-    }
-
-    CoordinatesPacked decodeCoordinatesPacked(std::string_view encoded_data)
-    {
-      std::istringstream stream{ std::string{encoded_data} };
-      return H3SVGReader{ stream }.readCoordinatesPacked();
-    }
-  }
-
   // Test encoding/decoding CoordinatesPacked for H3SVG.
   TEST_CASE("H3SVG.CoordinatesPacked", "[H3SVG]")
   {
@@ -62,8 +39,8 @@ namespace h3svg
     // +-----------+-----------+-----------+-----------+
     static constexpr std::string_view kBinaryData = "\x64\x34\x32\x44"sv;
 
-    REQUIRE(asByteVector(encodeCoordinatesPacked(kCoordinates)) == asByteVector(kBinaryData));
-    REQUIRE(decodeCoordinatesPacked(kBinaryData) == kCoordinates);
+    REQUIRE(asByteVector(encodeViaH3SVGWriter(kCoordinates)) == asByteVector(kBinaryData));
+    REQUIRE(H3SVGReaderAdapter(kBinaryData).readCoordinatesPacked() == kCoordinates);
     REQUIRE(encodeAndDecodeJson(kCoordinates) == kCoordinates);
   }
 }

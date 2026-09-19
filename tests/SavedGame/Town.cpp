@@ -1,40 +1,20 @@
 #include "../Utils.h"
+#include "TestingUtils_H3SVG.h"
 
-#include <h3mtxt/H3JsonReader/H3SVGJsonReader/H3SVGJsonReader.h>
-#include <h3mtxt/H3JsonWriter/H3SVGJsonWriter/H3SVGJsonWriter.h>
-#include <h3mtxt/H3Reader/H3SVGReader/H3SVGReader.h>
-#include <h3mtxt/H3Writer/H3SVGWriter/H3SVGWriter.h>
 #include <h3mtxt/SavedGame/Town.h>
 
 #include <catch2/catch_test_macros.hpp>
 
-#include <iterator>
-#include <sstream>
-#include <string>
-#include <string_view>
-#include <utility>
-
 using namespace std::string_view_literals;
 using ::Testing_NS::asByteVector;
 using ::Testing_NS::encodeAndDecodeJson;
+using ::Testing_NS::encodeViaH3SVGWriter;
+using ::Testing_NS::H3SVGReaderAdapter;
 
 namespace h3svg
 {
   namespace
   {
-    std::string encodeTown(const Town& town)
-    {
-      std::ostringstream stream;
-      H3SVGWriter{ stream }.writeData(town);
-      return std::move(stream).str();
-    }
-
-    Town decodeTown(std::string_view encoded_data)
-    {
-      std::istringstream stream{ std::string{encoded_data} };
-      return H3SVGReader{ stream }.readTown();
-    }
-
     template<class Enum, std::size_t NumBytes>
     constexpr EnumBitmask<Enum, NumBytes> makeEnumBitmask(std::initializer_list<Enum> bits_to_set)
     {
@@ -221,8 +201,8 @@ namespace h3svg
           "\x01\x00"         // quantity
       ""sv;
 
-    REQUIRE(asByteVector(encodeTown(kTown)) == asByteVector(kBinaryData));
-    REQUIRE(decodeTown(kBinaryData) == kTown);
+    REQUIRE(asByteVector(encodeViaH3SVGWriter(kTown)) == asByteVector(kBinaryData));
+    REQUIRE(H3SVGReaderAdapter(kBinaryData).readTown() == kTown);
     REQUIRE(encodeAndDecodeJson(kTown) == kTown);
   }
 }

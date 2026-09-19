@@ -1,44 +1,18 @@
 #include "../Utils.h"
+#include "TestingUtils_H3SVG.h"
 
-#include <h3mtxt/H3Reader/H3SVGReader/H3SVGReader.h>
-#include <h3mtxt/H3Writer/H3SVGWriter/H3SVGWriter.h>
 #include <h3mtxt/Map/MapBasicInfo.h>
 
 #include <catch2/catch_test_macros.hpp>
 
-#include <iterator>
-#include <sstream>
-#include <string>
-#include <string_view>
-#include <utility>
-
 using namespace std::string_view_literals;
 using ::Testing_NS::asByteVector;
+using ::Testing_NS::encodeAndDecodeJson;
+using ::Testing_NS::encodeViaH3SVGWriter;
+using ::Testing_NS::H3SVGReaderAdapter;
 
 namespace h3svg
 {
-  namespace
-  {
-    // Encodes h3m::MapBasicInfo via H3MWriter.
-    // \param map_basic_info - input MapBasicInfo.
-    // \return std::string storing the encoded data.
-    std::string encodeMapBasicInfo(const MapBasicInfo& map_basic_info)
-    {
-      std::ostringstream stream;
-      H3SVGWriter{ stream }.writeData(map_basic_info);
-      return std::move(stream).str();
-    }
-
-    // Decodes h3m::MapBasicInfo via H3MReader.
-    // \param encoded_data - input binary data.
-    // \return h3m::MapBasicInfo decoded from @encoded_data.
-    MapBasicInfo decodeMapBasicInfo(std::string_view encoded_data)
-    {
-      std::istringstream stream{ std::string{encoded_data} };
-      return H3SVGReader{ stream }.readMapBasicInfo();
-    }
-  }
-
   // Test encoding/decoding MapBasicInfo for H3SVG.
   TEST_CASE("H3SVG.MapBasicInfo", "[H3SVG]")
   {
@@ -63,7 +37,7 @@ namespace h3svg
       "\x32"                                         // | uint8    | max_hero_level | 50                | 1             |
       ""sv;
 
-    REQUIRE(asByteVector(encodeMapBasicInfo(kMapBasicInfo)) == asByteVector(kBinaryData));
-    REQUIRE(decodeMapBasicInfo(kBinaryData) == kMapBasicInfo);
+    REQUIRE(asByteVector(encodeViaH3SVGWriter(kMapBasicInfo)) == asByteVector(kBinaryData));
+    REQUIRE(H3SVGReaderAdapter(kBinaryData).readMapBasicInfo() == kMapBasicInfo);
   }
 }
