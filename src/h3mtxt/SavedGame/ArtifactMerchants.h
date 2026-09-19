@@ -15,6 +15,8 @@ namespace h3svg
     // The number of slots in Artifact Merchants / Black Market.
     static constexpr std::size_t kNumSlots = 7;
 
+    constexpr bool operator==(const ArtifactMerchants&) const noexcept = default;
+
     // Each element should be either a valid ArtifactType constant or -1 if the slot is empty.
     std::array<ArtifactType32, kNumSlots> artifacts =
       h3m::Detail_NS::makeArrayOfDuplicates<kNumSlots>(static_cast<ArtifactType32>(ArtifactType::None));

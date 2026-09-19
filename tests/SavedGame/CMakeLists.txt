@@ -2,6 +2,8 @@ add_executable(h3mtxt_tests_SavedGame
     "CoordinatesPacked.cpp"
     "FixedLengthString.cpp"
     "MapBasicInfo.cpp"
+    "SavedGame.cpp"
+    "TestingUtils_H3SVG.h"
     "Town.cpp"
 )
 
