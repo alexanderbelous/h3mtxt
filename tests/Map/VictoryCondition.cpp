@@ -1,67 +1,22 @@
-#include "../Utils.h"
+#include "TestUtils_H3M.h"
 
-#include <h3mtxt/H3JsonReader/H3MJsonReader/H3MJsonReader.h>
-#include <h3mtxt/H3JsonWriter/H3MJsonWriter/H3MJsonWriter.h>
-#include <h3mtxt/H3Reader/H3MReader/H3MReader.h>
-#include <h3mtxt/H3Writer/H3MWriter/H3MWriter.h>
 #include <h3mtxt/Map/VictoryCondition.h>
 
 #include <catch2/catch_template_test_macros.hpp>
 #include <catch2/catch_test_macros.hpp>
 
-#include <sstream>
-#include <string>
 #include <string_view>
-#include <utility>
 
 using namespace std::string_view_literals;
 using ::Testing_NS::asByteVector;
 using ::Testing_NS::encodeAndDecodeJson;
+using ::Testing_NS::encodeViaH3MWriter;
+using ::Testing_NS::H3MReaderAdapter;
 
 namespace h3m
 {
   namespace
   {
-    // Encodes h3m::VictoryCondition via H3MWriter.
-    // \param victory_condition - input VictoryCondition.
-    // \return std::string storing the encoded data.
-    std::string encodeVictoryCondition(const VictoryCondition& victory_condition)
-    {
-      std::ostringstream stream;
-      H3MWriter{ stream }.writeData(victory_condition);
-      return std::move(stream).str();
-    }
-
-    // Decodes h3m::VictoryCondition via H3MReader.
-    // \param encoded_data - input binary data.
-    // \return h3m::VictoryCondition decoded from @encoded_data.
-    VictoryCondition decodeVictoryCondition(std::string_view encoded_data)
-    {
-      std::istringstream stream{ std::string{encoded_data} };
-      return H3MReader{ stream }.readVictoryCondition();
-    }
-
-    // Encodes h3m::VictoryConditionDetails via H3MWriter.
-    // \param details - input VictoryConditionDetails.
-    // \return std::string storing the encoded data.
-    template<VictoryConditionType T>
-    std::string encodeVictoryConditionDetails(const VictoryConditionDetails<T>& details)
-    {
-      std::ostringstream stream;
-      H3MWriter{ stream }.writeData(details);
-      return std::move(stream).str();
-    }
-
-    // Decodes h3m::VictoryConditionDetails via H3MReader.
-    // \param encoded_data - input binary data.
-    // \return h3m::VictoryConditionDetails decoded from @encoded_data.
-    template<VictoryConditionType T>
-    VictoryConditionDetails<T> decodeVictoryConditionDetails(std::string_view encoded_data)
-    {
-      std::istringstream stream{ std::string{encoded_data} };
-      return H3MReader{ stream }.readVictoryConditionDetails<T>();
-    }
-
     // Aggregates data for a test case for h3m::VictoryCondition.
     struct VictoryConditionTestCase
     {
@@ -260,16 +215,16 @@ namespace h3m
     static_assert(kVictoryCondition.type() == kVictoryConditionType);
 
     // Test serialization of h3m::VictoryCondition.
-    REQUIRE(asByteVector(encodeVictoryCondition(kVictoryCondition)) == asByteVector(kBinaryData));
-    REQUIRE(decodeVictoryCondition(kBinaryData) == kVictoryCondition);
+    REQUIRE(asByteVector(encodeViaH3MWriter(kVictoryCondition)) == asByteVector(kBinaryData));
+    REQUIRE(H3MReaderAdapter(kBinaryData).readVictoryCondition() == kVictoryCondition);
     REQUIRE(encodeAndDecodeJson(kVictoryCondition) == kVictoryCondition);
 
     // Test serialization of h3m::VictoryConditionDetails.
     static constexpr const auto& kVictoryConditionDetails =
       std::get<VictoryConditionDetails<kVictoryConditionType>>(kVictoryCondition.details);
     static constexpr std::string_view kBinaryDataDetails = kBinaryData.substr(1);
-    REQUIRE(asByteVector(encodeVictoryConditionDetails(kVictoryConditionDetails)) == asByteVector(kBinaryDataDetails));
-    REQUIRE(decodeVictoryConditionDetails<kVictoryConditionType>(kBinaryDataDetails) == kVictoryConditionDetails);
+    REQUIRE(asByteVector(encodeViaH3MWriter(kVictoryConditionDetails)) == asByteVector(kBinaryDataDetails));
+    REQUIRE(H3MReaderAdapter(kBinaryDataDetails).readVictoryConditionDetails<kVictoryConditionType>() == kVictoryConditionDetails);
     REQUIRE(encodeAndDecodeJson(kVictoryConditionDetails) == kVictoryConditionDetails);
   }
 }

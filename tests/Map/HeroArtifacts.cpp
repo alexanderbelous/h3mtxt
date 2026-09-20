@@ -1,46 +1,19 @@
-#include "../Utils.h"
+#include "TestUtils_H3M.h"
 
-#include <h3mtxt/H3JsonReader/H3MJsonReader/H3MJsonReader.h>
-#include <h3mtxt/H3JsonWriter/H3MJsonWriter/H3MJsonWriter.h>
-#include <h3mtxt/H3Reader/H3MReader/H3MReader.h>
-#include <h3mtxt/H3Writer/H3MWriter/H3MWriter.h>
 #include <h3mtxt/Map/HeroArtifacts.h>
 
 #include <catch2/catch_test_macros.hpp>
 
-#include <sstream>
-#include <string>
 #include <string_view>
-#include <utility>
 
 using namespace std::string_view_literals;
 using ::Testing_NS::asByteVector;
 using ::Testing_NS::encodeAndDecodeJson;
+using ::Testing_NS::encodeViaH3MWriter;
+using ::Testing_NS::H3MReaderAdapter;
 
 namespace h3m
 {
-  namespace
-  {
-    // Encodes h3m::HeroArtifacts via H3MWriter.
-    // \param hero_artifacts - input HeroArtifacts.
-    // \return std::string storing the encoded data.
-    std::string encodeHeroArtifacts(const HeroArtifacts& hero_artifacts)
-    {
-      std::ostringstream stream;
-      H3MWriter{ stream }.writeData(hero_artifacts);
-      return std::move(stream).str();
-    }
-
-    // Decodes h3m::HeroArtifacts via H3MReader.
-    // \param encoded_data - input binary data.
-    // \return h3m::HeroArtifacts decoded from @encoded_data.
-    HeroArtifacts decodeHeroArtifacts(std::string_view encoded_data)
-    {
-      std::istringstream stream{ std::string{encoded_data} };
-      return H3MReader{ stream }.readHeroArtifacts();
-    }
-  }
-
   TEST_CASE("H3M.HeroArtifacts", "[H3M]")
   {
     SECTION("Empty backpack")
@@ -79,8 +52,8 @@ namespace h3m
         "\xff\xff"    // Misc5
         "\x00\x00"sv; // backpack
 
-      REQUIRE(asByteVector(encodeHeroArtifacts(kHeroArtifacts)) == asByteVector(kBinaryData));
-      REQUIRE(decodeHeroArtifacts(kBinaryData) == kHeroArtifacts);
+      REQUIRE(asByteVector(encodeViaH3MWriter(kHeroArtifacts)) == asByteVector(kBinaryData));
+      REQUIRE(H3MReaderAdapter(kBinaryData).readHeroArtifacts() == kHeroArtifacts);
       REQUIRE(encodeAndDecodeJson(kHeroArtifacts) == kHeroArtifacts);
     }
     SECTION("Non-empty backpack")
@@ -119,8 +92,8 @@ namespace h3m
         "\xff\xff"                          // Misc5
         "\x02\x00" "\x88\x00" "\x84\x00"sv; // backpack
 
-      REQUIRE(asByteVector(encodeHeroArtifacts(kHeroArtifacts)) == asByteVector(kBinaryData));
-      REQUIRE(decodeHeroArtifacts(kBinaryData) == kHeroArtifacts);
+      REQUIRE(asByteVector(encodeViaH3MWriter(kHeroArtifacts)) == asByteVector(kBinaryData));
+      REQUIRE(H3MReaderAdapter(kBinaryData).readHeroArtifacts() == kHeroArtifacts);
       REQUIRE(encodeAndDecodeJson(kHeroArtifacts) == kHeroArtifacts);
     }
   }

@@ -1,47 +1,25 @@
-#include "../Utils.h"
+#include "TestUtils_H3M.h"
 
 #include <h3mtxt/H3JsonReader/H3JsonReaderBase/H3JsonReaderBase.h>
 #include <h3mtxt/H3JsonWriter/H3MJsonWriter/Utils.h>
-#include <h3mtxt/H3Reader/H3MReader/H3MReader.h>
-#include <h3mtxt/H3Writer/H3MWriter/H3MWriter.h>
 #include <h3mtxt/Map/Utils/ReservedData.h>
 
 #include <catch2/catch_template_test_macros.hpp>
 #include <catch2/catch_test_macros.hpp>
 
 #include <cstddef>
-#include <sstream>
-#include <string>
+#include <string_view>
 #include <utility>
 
 using ::Testing_NS::asByteVector;
 using ::Testing_NS::encodeAndDecodeJson;
+using ::Testing_NS::encodeViaH3MWriter;
+using ::Testing_NS::H3MReaderAdapter;
 
 namespace h3m
 {
   namespace
   {
-    // Encodes h3m::ReservedData via H3MWriter.
-    // \param reserved_data - input ReservedData.
-    // \return std::string storing the encoded data.
-    template<std::size_t NumBytes>
-    std::string encodeReservedData(const ReservedData<NumBytes>& reserved_data)
-    {
-      std::ostringstream stream;
-      H3MWriter{ stream }.writeData(reserved_data);
-      return std::move(stream).str();
-    }
-
-    // Decodes h3m::ReservedData via H3MReader.
-    // \param encoded_data - input binary data.
-    // \return h3m::ReservedData decoded from @encoded_data.
-    template<std::size_t NumBytes>
-    ReservedData<NumBytes> decodeReservedData(std::string_view encoded_data)
-    {
-      std::istringstream stream{ std::string{encoded_data} };
-      return H3MReader{ stream }.readReservedData<NumBytes>();
-    }
-
     template<std::size_t N>
     constexpr std::array<std::byte, N> makeIotaArray() noexcept
     {
@@ -406,8 +384,8 @@ namespace h3m
       const ReservedData<kSize> kReservedData;
       static constexpr std::array<char, kSize> kBinaryDataArray {};
       static constexpr std::string_view kBinaryData{ kBinaryDataArray.data(), kSize };
-      REQUIRE(asByteVector(encodeReservedData(kReservedData)) == asByteVector(kBinaryData));
-      REQUIRE(decodeReservedData<kSize>(kBinaryData) == kReservedData);
+      REQUIRE(asByteVector(encodeViaH3MWriter(kReservedData)) == asByteVector(kBinaryData));
+      REQUIRE(H3MReaderAdapter(kBinaryData).readReservedData<kSize>() == kReservedData);
       REQUIRE(encodeAndDecodeJson(kReservedData) == kReservedData);
     }
     SECTION("Non-zero")
@@ -415,8 +393,8 @@ namespace h3m
       static constexpr std::array<std::byte, kSize> kValues = makeIotaArray<kSize>();
       const ReservedData<kSize> kReservedData{ kValues };
       const std::string_view kBinaryData{ reinterpret_cast<const char*>(kValues.data()), kSize };
-      REQUIRE(asByteVector(encodeReservedData(kReservedData)) == asByteVector(kBinaryData));
-      REQUIRE(decodeReservedData<kSize>(kBinaryData) == kReservedData);
+      REQUIRE(asByteVector(encodeViaH3MWriter(kReservedData)) == asByteVector(kBinaryData));
+      REQUIRE(H3MReaderAdapter(kBinaryData).readReservedData<kSize>() == kReservedData);
       REQUIRE(encodeAndDecodeJson(kReservedData) == kReservedData);
     }
   }

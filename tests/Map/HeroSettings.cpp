@@ -1,46 +1,19 @@
-#include "../Utils.h"
+#include "TestUtils_H3M.h"
 
-#include <h3mtxt/H3JsonReader/H3MJsonReader/H3MJsonReader.h>
-#include <h3mtxt/H3JsonWriter/H3MJsonWriter/H3MJsonWriter.h>
-#include <h3mtxt/H3Reader/H3MReader/H3MReader.h>
-#include <h3mtxt/H3Writer/H3MWriter/H3MWriter.h>
 #include <h3mtxt/Map/HeroSettings.h>
 
 #include <catch2/catch_test_macros.hpp>
 
-#include <sstream>
-#include <string>
 #include <string_view>
-#include <utility>
 
 using namespace std::string_view_literals;
 using ::Testing_NS::asByteVector;
 using ::Testing_NS::encodeAndDecodeJson;
+using ::Testing_NS::encodeViaH3MWriter;
+using ::Testing_NS::H3MReaderAdapter;
 
 namespace h3m
 {
-  namespace
-  {
-    // Encodes h3m::HeroSettings via H3MWriter.
-    // \param hero_settings - input HeroSettings.
-    // \return std::string storing the encoded data.
-    std::string encodeHeroSettings(const HeroSettings& hero_settings)
-    {
-      std::ostringstream stream;
-      H3MWriter{ stream }.writeData(hero_settings);
-      return std::move(stream).str();
-    }
-
-    // Decodes h3m::HeroSettings via H3MReader.
-    // \param encoded_data - input binary data.
-    // \return h3m::HeroSettings decoded from @encoded_data.
-    HeroSettings decodeHeroSettings(std::string_view encoded_data)
-    {
-      std::istringstream stream{ std::string{encoded_data} };
-      return H3MReader{ stream }.readHeroSettings();
-    }
-  }
-
   TEST_CASE("H3M.HeroSettings", "[H3M]")
   {
     SECTION("None")
@@ -56,8 +29,8 @@ namespace h3m
       };
       // The binary representation of kHeroSettings.
       static constexpr std::string_view kBinaryData = "\x00\x00\x00\x00\xff\x00\x00"sv;
-      REQUIRE(asByteVector(encodeHeroSettings(kHeroSettings)) == asByteVector(kBinaryData));
-      REQUIRE(decodeHeroSettings(kBinaryData) == kHeroSettings);
+      REQUIRE(asByteVector(encodeViaH3MWriter(kHeroSettings)) == asByteVector(kBinaryData));
+      REQUIRE(H3MReaderAdapter(kBinaryData).readHeroSettings() == kHeroSettings);
       REQUIRE(encodeAndDecodeJson(kHeroSettings) == kHeroSettings);
     }
     SECTION("Experience")
@@ -76,8 +49,8 @@ namespace h3m
         "\x01"
           "\x10\x27\x00\x00"
         "\x00\x00\x00\xff\x00\x00"sv;
-      REQUIRE(asByteVector(encodeHeroSettings(kHeroSettings)) == asByteVector(kBinaryData));
-      REQUIRE(decodeHeroSettings(kBinaryData) == kHeroSettings);
+      REQUIRE(asByteVector(encodeViaH3MWriter(kHeroSettings)) == asByteVector(kBinaryData));
+      REQUIRE(H3MReaderAdapter(kBinaryData).readHeroSettings() == kHeroSettings);
       REQUIRE(encodeAndDecodeJson(kHeroSettings) == kHeroSettings);
     }
     SECTION("SecondarySkills")
@@ -100,8 +73,8 @@ namespace h3m
         "\x01"
           "\x02\x00\x00\x00" "\x02\x03" "\x07\x02"
         "\x00\x00\xff\x00\x00"sv;
-      REQUIRE(asByteVector(encodeHeroSettings(kHeroSettings)) == asByteVector(kBinaryData));
-      REQUIRE(decodeHeroSettings(kBinaryData) == kHeroSettings);
+      REQUIRE(asByteVector(encodeViaH3MWriter(kHeroSettings)) == asByteVector(kBinaryData));
+      REQUIRE(H3MReaderAdapter(kBinaryData).readHeroSettings() == kHeroSettings);
       REQUIRE(encodeAndDecodeJson(kHeroSettings) == kHeroSettings);
     }
     SECTION("Artifacts")
@@ -149,8 +122,8 @@ namespace h3m
           "\x01\x00"  // backpack
             "\x59\x00"
         "\x00\xff\x00\x00"sv;
-      REQUIRE(asByteVector(encodeHeroSettings(kHeroSettings)) == asByteVector(kBinaryData));
-      REQUIRE(decodeHeroSettings(kBinaryData) == kHeroSettings);
+      REQUIRE(asByteVector(encodeViaH3MWriter(kHeroSettings)) == asByteVector(kBinaryData));
+      REQUIRE(H3MReaderAdapter(kBinaryData).readHeroSettings() == kHeroSettings);
       REQUIRE(encodeAndDecodeJson(kHeroSettings) == kHeroSettings);
     }
     SECTION("Biography")
@@ -170,8 +143,8 @@ namespace h3m
         "\x01"
           "\x23\x00\x00\x00" "Born on a Monday,\nBuried on Sunday."
         "\xff\x00\x00"sv;
-      REQUIRE(asByteVector(encodeHeroSettings(kHeroSettings)) == asByteVector(kBinaryData));
-      REQUIRE(decodeHeroSettings(kBinaryData) == kHeroSettings);
+      REQUIRE(asByteVector(encodeViaH3MWriter(kHeroSettings)) == asByteVector(kBinaryData));
+      REQUIRE(H3MReaderAdapter(kBinaryData).readHeroSettings() == kHeroSettings);
       REQUIRE(encodeAndDecodeJson(kHeroSettings) == kHeroSettings);
     }
     SECTION("Gender")
@@ -187,8 +160,8 @@ namespace h3m
       };
       // The binary representation of kHeroSettings.
       static constexpr std::string_view kBinaryData = "\x00\x00\x00\x00\x00\x00\x00"sv;
-      REQUIRE(asByteVector(encodeHeroSettings(kHeroSettings)) == asByteVector(kBinaryData));
-      REQUIRE(decodeHeroSettings(kBinaryData) == kHeroSettings);
+      REQUIRE(asByteVector(encodeViaH3MWriter(kHeroSettings)) == asByteVector(kBinaryData));
+      REQUIRE(H3MReaderAdapter(kBinaryData).readHeroSettings() == kHeroSettings);
       REQUIRE(encodeAndDecodeJson(kHeroSettings) == kHeroSettings);
     }
     SECTION("Spells")
@@ -213,8 +186,8 @@ namespace h3m
         "\x01"
           "\x00\x02\x00\x04\x00\x00\x00\x00\x00"
         "\x00"sv;
-      REQUIRE(asByteVector(encodeHeroSettings(kHeroSettings)) == asByteVector(kBinaryData));
-      REQUIRE(decodeHeroSettings(kBinaryData) == kHeroSettings);
+      REQUIRE(asByteVector(encodeViaH3MWriter(kHeroSettings)) == asByteVector(kBinaryData));
+      REQUIRE(H3MReaderAdapter(kBinaryData).readHeroSettings() == kHeroSettings);
       REQUIRE(encodeAndDecodeJson(kHeroSettings) == kHeroSettings);
     }
     SECTION("PrimarySkills")
@@ -240,8 +213,8 @@ namespace h3m
         "\x00\x00\x00\x00\xff\x00"
         "\x01"
           "\x01\x02\x03\x04"sv;
-      REQUIRE(asByteVector(encodeHeroSettings(kHeroSettings)) == asByteVector(kBinaryData));
-      REQUIRE(decodeHeroSettings(kBinaryData) == kHeroSettings);
+      REQUIRE(asByteVector(encodeViaH3MWriter(kHeroSettings)) == asByteVector(kBinaryData));
+      REQUIRE(H3MReaderAdapter(kBinaryData).readHeroSettings() == kHeroSettings);
       REQUIRE(encodeAndDecodeJson(kHeroSettings) == kHeroSettings);
     }
     SECTION("ALL")
@@ -313,8 +286,8 @@ namespace h3m
           "\x00\x02\x00\x04\x00\x00\x00\x00\x00"
         "\x01"                                     // Primary skills
           "\x01\x02\x03\x04"sv;
-      REQUIRE(asByteVector(encodeHeroSettings(kHeroSettings)) == asByteVector(kBinaryData));
-      REQUIRE(decodeHeroSettings(kBinaryData) == kHeroSettings);
+      REQUIRE(asByteVector(encodeViaH3MWriter(kHeroSettings)) == asByteVector(kBinaryData));
+      REQUIRE(H3MReaderAdapter(kBinaryData).readHeroSettings() == kHeroSettings);
       REQUIRE(encodeAndDecodeJson(kHeroSettings) == kHeroSettings);
     }
   }

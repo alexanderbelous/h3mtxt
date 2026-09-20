@@ -14,6 +14,19 @@
 
 namespace Testing_NS
 {
+  // Owns std::istringstream.
+  // The derived classes can use it together with the Base-from-Member idiom
+  // to initialize the underlying stream before passing it to the constructor of another base class.
+  class IStringStreamWrapper
+  {
+  public:
+    IStringStreamWrapper(std::string_view data):
+      stream{ std::string{data} }
+    {}
+
+    std::istringstream stream;
+  };
+
   // Serializes the input value as JSON.
   // \param value - input value.
   // \return std::string storing a JSON value that represents @value.

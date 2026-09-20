@@ -2,6 +2,8 @@
 
 // Common utilities to reduce boilerplate in test cases.
 
+#include "../Utils.h"
+
 #include <h3mtxt/H3JsonReader/H3SVGJsonReader/H3SVGJsonReader.h>
 #include <h3mtxt/H3JsonWriter/H3SVGJsonWriter/H3SVGJsonWriter.h>
 #include <h3mtxt/H3Writer/H3SVGWriter/H3SVGWriter.h>
@@ -14,22 +16,6 @@
 
 namespace Testing_NS
 {
-  namespace Detail_NS
-  {
-    // Owns std::istringstream.
-    // The derived classes can use it together with the Base-from-Member idiom
-    // to initialize the underlying stream before passing it to the constructor of another base class.
-    class IStringStreamWrapper
-    {
-    public:
-      IStringStreamWrapper(std::string_view data):
-        stream{ std::string{data} }
-      {}
-
-      std::istringstream stream;
-    };
-  }
-
   // Encodes the given value via H3SVGWriter::writeData().
   // \param value - value to encode.
   // \return a string containing the bytes serialized for @value.
@@ -42,7 +28,7 @@ namespace Testing_NS
   }
 
   // Adapter for H3SVGReader that reads the bytes from the given string.
-  class H3SVGReaderAdapter : private Detail_NS::IStringStreamWrapper,
+  class H3SVGReaderAdapter : private IStringStreamWrapper,
                              public h3svg::H3SVGReader
   {
   public:

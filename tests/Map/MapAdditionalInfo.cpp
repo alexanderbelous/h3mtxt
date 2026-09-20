@@ -1,46 +1,19 @@
-#include "../Utils.h"
+#include "TestUtils_H3M.h"
 
-#include <h3mtxt/H3JsonReader/H3MJsonReader/H3MJsonReader.h>
-#include <h3mtxt/H3JsonWriter/H3MJsonWriter/H3MJsonWriter.h>
-#include <h3mtxt/H3Reader/H3MReader/H3MReader.h>
-#include <h3mtxt/H3Writer/H3MWriter/H3MWriter.h>
 #include <h3mtxt/Map/MapAdditionalInfo.h>
 
 #include <catch2/catch_test_macros.hpp>
 
-#include <sstream>
-#include <string>
 #include <string_view>
-#include <utility>
 
 using namespace std::string_view_literals;
 using ::Testing_NS::asByteVector;
 using ::Testing_NS::encodeAndDecodeJson;
+using ::Testing_NS::encodeViaH3MWriter;
+using ::Testing_NS::H3MReaderAdapter;
 
 namespace h3m
 {
-  namespace
-  {
-    // Encodes h3m::MapAdditionalInfo via H3MWriter.
-    // \param map_additional_info - input MapAdditionalInfo.
-    // \return std::string storing the encoded data.
-    std::string encodeMapAdditionalInfo(const MapAdditionalInfo& map_additional_info)
-    {
-      std::ostringstream stream;
-      H3MWriter{ stream }.writeData(map_additional_info);
-      return std::move(stream).str();
-    }
-
-    // Decodes h3m::MapAdditionalInfo via H3MReader.
-    // \param encoded_data - input binary data.
-    // \return h3m::MapAdditionalInfo decoded from @encoded_data.
-    MapAdditionalInfo decodeMapAdditionalInfo(std::string_view encoded_data)
-    {
-      std::istringstream stream{ std::string{encoded_data} };
-      return H3MReader{ stream }.readMapAdditionalInfo();
-    }
-  }
-
   TEST_CASE("H3M.MapAdditionalInfo", "[H3M]")
   {
     // MapAdditionalInfo used in this test.
@@ -178,8 +151,8 @@ namespace h3m
         "\x01" "\x05\x05\x32\x32"                    // primary_skills
       "\x00\x00\x00\x00\x00\x00\x00\x00"
       ""sv;
-    REQUIRE(asByteVector(encodeMapAdditionalInfo(kMapAdditionalInfo)) == asByteVector(kBinaryData));
-    REQUIRE(decodeMapAdditionalInfo(kBinaryData) == kMapAdditionalInfo);
+    REQUIRE(asByteVector(encodeViaH3MWriter(kMapAdditionalInfo)) == asByteVector(kBinaryData));
+    REQUIRE(H3MReaderAdapter(kBinaryData).readMapAdditionalInfo() == kMapAdditionalInfo);
     REQUIRE(encodeAndDecodeJson(kMapAdditionalInfo) == kMapAdditionalInfo);
   }
 }

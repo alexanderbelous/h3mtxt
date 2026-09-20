@@ -14,6 +14,7 @@ add_executable(h3mtxt_tests_Map
     "Reward.cpp"
     "SwitchStatement.cpp"
     "TeamsInfo.cpp"
+    "TestUtils_H3M.h"
     "Tile.cpp"
     "TimedEvent.cpp"
     "VictoryCondition.cpp"

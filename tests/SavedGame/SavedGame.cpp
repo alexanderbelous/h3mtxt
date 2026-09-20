@@ -1,4 +1,3 @@
-#include "../Utils.h"
 #include "TestingUtils_H3SVG.h"
 
 #include <h3mtxt/SavedGame/SavedGame.h>
