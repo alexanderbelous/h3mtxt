@@ -1,46 +1,19 @@
-#include "../Utils.h"
+#include "TestUtils_H3C.h"
 
-#include <h3mtxt/H3JsonReader/H3CJsonReader/H3CJsonReader.h>
-#include <h3mtxt/H3JsonWriter/H3CJsonWriter/H3CJsonWriter.h>
-#include <h3mtxt/H3Reader/H3CReader/H3CReader.h>
-#include <h3mtxt/H3Writer/H3CWriter/H3CWriter.h>
 #include <h3mtxt/Campaign/CampaignScenario.h>
 
 #include <catch2/catch_test_macros.hpp>
 
-#include <sstream>
-#include <string>
 #include <string_view>
-#include <utility>
 
 using namespace std::string_view_literals;
 using ::Testing_NS::asByteVector;
 using ::Testing_NS::encodeAndDecodeJson;
+using ::Testing_NS::encodeViaH3CWriter;
+using ::Testing_NS::H3CReaderAdapter;
 
 namespace h3m
 {
-  namespace
-  {
-    // Encodes h3m::CrossoverOptions via H3CWriter.
-    // \param crossover_options - input CrossoverOptions.
-    // \return std::string storing the encoded data.
-    std::string encodeCrossoverOptions(const CrossoverOptions& crossover_options)
-    {
-      std::ostringstream stream;
-      H3CWriter{ stream }.writeData(crossover_options);
-      return std::move(stream).str();
-    }
-
-    // Decodes h3m::CrossoverOptions via H3MReader.
-    // \param encoded_data - input binary data.
-    // \return h3m::CrossoverOptions decoded from @encoded_data.
-    CrossoverOptions decodeCrossoverOptions(std::string_view encoded_data)
-    {
-      std::istringstream stream{ std::string{encoded_data} };
-      return H3CReader{ stream }.readCrossoverOptions();
-    }
-  }
-
   TEST_CASE("H3M.CrossoverOptions", "[H3C]")
   {
     // CrossoverOptions used in this test.
@@ -72,8 +45,8 @@ namespace h3m
       "\x00\x00\x00\x00" "\x00\x00\x02\x00" "\x00\x00\x00\x00" "\x00\x00\x00\x00" "\x00\x00"
       ""sv;
 
-    REQUIRE(asByteVector(encodeCrossoverOptions(kCrossoverOptions)) == asByteVector(kBinaryData));
-    REQUIRE(decodeCrossoverOptions(kBinaryData) == kCrossoverOptions);
+    REQUIRE(asByteVector(encodeViaH3CWriter(kCrossoverOptions)) == asByteVector(kBinaryData));
+    REQUIRE(H3CReaderAdapter(kBinaryData).readCrossoverOptions() == kCrossoverOptions);
     REQUIRE(encodeAndDecodeJson(kCrossoverOptions) == kCrossoverOptions);
   }
 }

@@ -1,9 +1,5 @@
-#include "../Utils.h"
+#include "TestUtils_H3C.h"
 
-#include <h3mtxt/H3JsonReader/H3CJsonReader/H3CJsonReader.h>
-#include <h3mtxt/H3JsonWriter/H3CJsonWriter/H3CJsonWriter.h>
-#include <h3mtxt/H3Reader/H3CReader/H3CReader.h>
-#include <h3mtxt/H3Writer/H3CWriter/H3CWriter.h>
 #include <h3mtxt/Campaign/Constants/CampaignId.h>
 #include <h3mtxt/Campaign/CampaignScenario.h>
 #include <h3mtxt/Map/Constants/HeroType.h>
@@ -18,6 +14,7 @@
 using namespace std::string_view_literals;
 using ::Testing_NS::asByteVector;
 using ::Testing_NS::encodeAndDecodeJson;
+using ::Testing_NS::H3CReaderAdapter;
 
 namespace h3m
 {
@@ -33,13 +30,12 @@ namespace h3m
       return std::move(stream).str();
     }
 
-    // Decodes h3m::CampaignScenario via H3MReader.
+    // Decodes h3m::CampaignScenario via H3CReader.
     // \param encoded_data - input binary data.
     // \return h3m::CampaignScenario decoded from @encoded_data.
     CampaignScenario decodeCampaignScenario(std::string_view encoded_data, CampaignId campaign_id)
     {
-      std::istringstream stream{ std::string{encoded_data} };
-      return H3CReader{ stream }.readCampaignScenario(campaign_id);
+      return H3CReaderAdapter(encoded_data).readCampaignScenario(campaign_id);
     }
   }
 

@@ -4,6 +4,7 @@ add_executable(h3mtxt_tests_Campaign
     "CutScene.cpp"
     "StartingBonus.cpp"
     "StartingOptions.cpp"
+    "TestUtils_H3C.h"
 )
 
 # Dependencies:

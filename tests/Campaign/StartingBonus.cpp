@@ -1,68 +1,20 @@
-#include "../Utils.h"
+#include "TestUtils_H3C.h"
 
-#include <h3mtxt/H3JsonReader/H3CJsonReader/H3CJsonReader.h>
-#include <h3mtxt/H3JsonWriter/H3CJsonWriter/H3CJsonWriter.h>
-#include <h3mtxt/H3Reader/H3CReader/H3CReader.h>
-#include <h3mtxt/H3Writer/H3CWriter/H3CWriter.h>
 #include <h3mtxt/Campaign/StartingBonus.h>
 #include <h3mtxt/Map/Constants/HeroType.h>
 
 #include <catch2/catch_test_macros.hpp>
 
-#include <sstream>
-#include <string>
 #include <string_view>
-#include <utility>
 
 using namespace std::string_view_literals;
 using ::Testing_NS::asByteVector;
 using ::Testing_NS::encodeAndDecodeJson;
+using ::Testing_NS::encodeViaH3CWriter;
+using ::Testing_NS::H3CReaderAdapter;
 
 namespace h3m
 {
-  namespace
-  {
-    // Encodes h3m::StartingBonusDetails via H3CWriter.
-    // \param starting_bonus_details - input StartingBonusDetails.
-    // \return std::string storing the encoded data.
-    template<StartingBonusType T>
-    std::string encodeStartingBonusDetails(const StartingBonusDetails<T>& starting_bonus_details)
-    {
-      std::ostringstream stream;
-      H3CWriter{ stream }.writeData(starting_bonus_details);
-      return std::move(stream).str();
-    }
-
-    // Decodes h3m::StartingBonusDetails via H3MReader.
-    // \param encoded_data - input binary data.
-    // \return h3m::StartingBonusDetails decoded from @encoded_data.
-    template<StartingBonusType T>
-    StartingBonusDetails<T> decodeStartingBonusDetails(std::string_view encoded_data)
-    {
-      std::istringstream stream{ std::string{encoded_data} };
-      return H3CReader{ stream }.readStartingBonusDetails<T>();
-    }
-
-    // Encodes h3m::StartingBonus via H3CWriter.
-    // \param starting_bonus - input StartingBonus.
-    // \return std::string storing the encoded data.
-    std::string encodeStartingBonus(const StartingBonus& starting_bonus)
-    {
-      std::ostringstream stream;
-      H3CWriter{ stream }.writeData(starting_bonus);
-      return std::move(stream).str();
-    }
-
-    // Decodes h3m::StartingBonus via H3MReader.
-    // \param encoded_data - input binary data.
-    // \return h3m::StartingBonus decoded from @encoded_data.
-    StartingBonus decodeStartingBonus(std::string_view encoded_data)
-    {
-      std::istringstream stream{ std::string{encoded_data} };
-      return H3CReader{ stream }.readStartingBonus();
-    }
-  }
-
   TEST_CASE("H3M.StartingBonusDetails.Spell", "[H3C]")
   {
     // StartingBonusDetails used in this test.
@@ -74,8 +26,9 @@ namespace h3m
     // The binary representation of kStartingBonusDetails.
     static constexpr std::string_view kBinaryData = "\x55\x00" "\x09" ""sv;
 
-    REQUIRE(asByteVector(encodeStartingBonusDetails(kStartingBonusDetails)) == asByteVector(kBinaryData));
-    REQUIRE(decodeStartingBonusDetails<StartingBonusType::Spell>(kBinaryData) == kStartingBonusDetails);
+    REQUIRE(asByteVector(encodeViaH3CWriter(kStartingBonusDetails)) == asByteVector(kBinaryData));
+    REQUIRE(H3CReaderAdapter(kBinaryData).readStartingBonusDetails<StartingBonusType::Spell>() ==
+            kStartingBonusDetails);
     REQUIRE(encodeAndDecodeJson(kStartingBonusDetails) == kStartingBonusDetails);
   }
 
@@ -93,8 +46,9 @@ namespace h3m
     // The binary representation of kStartingBonusDetails.
     static constexpr std::string_view kBinaryData = "\x55\x00" "\x4f\x00" "\x0c\x00" ""sv;
 
-    REQUIRE(asByteVector(encodeStartingBonusDetails(kStartingBonusDetails)) == asByteVector(kBinaryData));
-    REQUIRE(decodeStartingBonusDetails<StartingBonusType::Creature>(kBinaryData) == kStartingBonusDetails);
+    REQUIRE(asByteVector(encodeViaH3CWriter(kStartingBonusDetails)) == asByteVector(kBinaryData));
+    REQUIRE(H3CReaderAdapter(kBinaryData).readStartingBonusDetails<StartingBonusType::Creature>() ==
+            kStartingBonusDetails);
     REQUIRE(encodeAndDecodeJson(kStartingBonusDetails) == kStartingBonusDetails);
   }
 
@@ -108,8 +62,9 @@ namespace h3m
     // The binary representation of kStartingBonusDetails.
     static constexpr std::string_view kBinaryData = "\x22" ""sv;
 
-    REQUIRE(asByteVector(encodeStartingBonusDetails(kStartingBonusDetails)) == asByteVector(kBinaryData));
-    REQUIRE(decodeStartingBonusDetails<StartingBonusType::Building>(kBinaryData) == kStartingBonusDetails);
+    REQUIRE(asByteVector(encodeViaH3CWriter(kStartingBonusDetails)) == asByteVector(kBinaryData));
+    REQUIRE(H3CReaderAdapter(kBinaryData).readStartingBonusDetails<StartingBonusType::Building>() ==
+            kStartingBonusDetails);
     REQUIRE(encodeAndDecodeJson(kStartingBonusDetails) == kStartingBonusDetails);
   }
 
@@ -124,8 +79,9 @@ namespace h3m
     // The binary representation of kStartingBonusDetails.
     static constexpr std::string_view kBinaryData = "\x55\x00" "\x46\x00" ""sv;
 
-    REQUIRE(asByteVector(encodeStartingBonusDetails(kStartingBonusDetails)) == asByteVector(kBinaryData));
-    REQUIRE(decodeStartingBonusDetails<StartingBonusType::Artifact>(kBinaryData) == kStartingBonusDetails);
+    REQUIRE(asByteVector(encodeViaH3CWriter(kStartingBonusDetails)) == asByteVector(kBinaryData));
+    REQUIRE(H3CReaderAdapter(kBinaryData).readStartingBonusDetails<StartingBonusType::Artifact>() ==
+            kStartingBonusDetails);
     REQUIRE(encodeAndDecodeJson(kStartingBonusDetails) == kStartingBonusDetails);
   }
 
@@ -140,8 +96,9 @@ namespace h3m
     // The binary representation of kStartingBonusDetails.
     static constexpr std::string_view kBinaryData = "\x55\x00" "\x09" ""sv;
 
-    REQUIRE(asByteVector(encodeStartingBonusDetails(kStartingBonusDetails)) == asByteVector(kBinaryData));
-    REQUIRE(decodeStartingBonusDetails<StartingBonusType::SpellScroll>(kBinaryData) == kStartingBonusDetails);
+    REQUIRE(asByteVector(encodeViaH3CWriter(kStartingBonusDetails)) == asByteVector(kBinaryData));
+    REQUIRE(H3CReaderAdapter(kBinaryData).readStartingBonusDetails<StartingBonusType::SpellScroll>() ==
+            kStartingBonusDetails);
     REQUIRE(encodeAndDecodeJson(kStartingBonusDetails) == kStartingBonusDetails);
   }
 
@@ -161,8 +118,9 @@ namespace h3m
     // The binary representation of kStartingBonusDetails.
     static constexpr std::string_view kBinaryData = "\x55\x00" "\x04\x03\x00\x00" ""sv;
 
-    REQUIRE(asByteVector(encodeStartingBonusDetails(kStartingBonusDetails)) == asByteVector(kBinaryData));
-    REQUIRE(decodeStartingBonusDetails<StartingBonusType::PrimarySkills>(kBinaryData) == kStartingBonusDetails);
+    REQUIRE(asByteVector(encodeViaH3CWriter(kStartingBonusDetails)) == asByteVector(kBinaryData));
+    REQUIRE(H3CReaderAdapter(kBinaryData).readStartingBonusDetails<StartingBonusType::PrimarySkills>() ==
+            kStartingBonusDetails);
     REQUIRE(encodeAndDecodeJson(kStartingBonusDetails) == kStartingBonusDetails);
   }
 
@@ -180,8 +138,9 @@ namespace h3m
     // The binary representation of kStartingBonusDetails.
     static constexpr std::string_view kBinaryData = "\x55\x00" "\x11" "\x03" ""sv;
 
-    REQUIRE(asByteVector(encodeStartingBonusDetails(kStartingBonusDetails)) == asByteVector(kBinaryData));
-    REQUIRE(decodeStartingBonusDetails<StartingBonusType::SecondarySkill>(kBinaryData) == kStartingBonusDetails);
+    REQUIRE(asByteVector(encodeViaH3CWriter(kStartingBonusDetails)) == asByteVector(kBinaryData));
+    REQUIRE(H3CReaderAdapter(kBinaryData).readStartingBonusDetails<StartingBonusType::SecondarySkill>() ==
+            kStartingBonusDetails);
     REQUIRE(encodeAndDecodeJson(kStartingBonusDetails) == kStartingBonusDetails);
   }
 
@@ -198,8 +157,9 @@ namespace h3m
     // The binary representation of kStartingBonusDetails.
     static constexpr std::string_view kBinaryData = "\xfe" "\x05\x00\x00\x00" ""sv;
 
-    REQUIRE(asByteVector(encodeStartingBonusDetails(kStartingBonusDetails)) == asByteVector(kBinaryData));
-    REQUIRE(decodeStartingBonusDetails<StartingBonusType::Resource>(kBinaryData) == kStartingBonusDetails);
+    REQUIRE(asByteVector(encodeViaH3CWriter(kStartingBonusDetails)) == asByteVector(kBinaryData));
+    REQUIRE(H3CReaderAdapter(kBinaryData).readStartingBonusDetails<StartingBonusType::Resource>() ==
+            kStartingBonusDetails);
     REQUIRE(encodeAndDecodeJson(kStartingBonusDetails) == kStartingBonusDetails);
   }
 
@@ -219,8 +179,8 @@ namespace h3m
     static constexpr std::string_view kBinaryData = "\x07" "\xfd" "\x0a\x00\x00\x00" ""sv;
 
     static_assert(kStartingBonus.type() == StartingBonusType::Resource);
-    REQUIRE(asByteVector(encodeStartingBonus(kStartingBonus)) == asByteVector(kBinaryData));
-    REQUIRE(decodeStartingBonus(kBinaryData) == kStartingBonus);
+    REQUIRE(asByteVector(encodeViaH3CWriter(kStartingBonus)) == asByteVector(kBinaryData));
+    REQUIRE(H3CReaderAdapter(kBinaryData).readStartingBonus() == kStartingBonus);
     REQUIRE(encodeAndDecodeJson(kStartingBonus) == kStartingBonus);
   }
 }

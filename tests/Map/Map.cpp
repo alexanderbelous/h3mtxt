@@ -1,46 +1,19 @@
-#include "../Utils.h"
+#include "TestUtils_H3M.h"
 
-#include <h3mtxt/H3JsonReader/H3MJsonReader/H3MJsonReader.h>
-#include <h3mtxt/H3JsonWriter/H3MJsonWriter/H3MJsonWriter.h>
-#include <h3mtxt/H3Reader/H3MReader/H3MReader.h>
-#include <h3mtxt/H3Writer/H3MWriter/H3MWriter.h>
 #include <h3mtxt/Map/Map.h>
 
 #include <catch2/catch_test_macros.hpp>
 
-#include <sstream>
-#include <string>
 #include <string_view>
-#include <utility>
 
 using namespace std::string_view_literals;
 using ::Testing_NS::asByteVector;
 using ::Testing_NS::encodeAndDecodeJson;
+using ::Testing_NS::encodeViaH3MWriter;
+using ::Testing_NS::H3MReaderAdapter;
 
 namespace h3m
 {
-  namespace
-  {
-    // Encodes h3m::Map via H3MWriter.
-    // \param map - input Map.
-    // \return std::string storing the encoded data.
-    std::string encodeMap(const Map& map)
-    {
-      std::ostringstream stream;
-      H3MWriter{ stream }.writeData(map);
-      return std::move(stream).str();
-    }
-
-    // Decodes h3m::Map via H3MReader.
-    // \param encoded_data - input binary data.
-    // \return h3m::Map decoded from @encoded_data.
-    Map decodeMap(std::string_view encoded_data)
-    {
-      std::istringstream stream{ std::string{encoded_data} };
-      return H3MReader{ stream }.readMap();
-    }
-  }
-
   // FYI: Apart from serialization, this test indirectly checks some default initializers.
   // For example, MapAdditionalInfo::victory_condition is expected to be VictoryConditionType::Normal by default.
   TEST_CASE("H3M.Map", "[H3M]")
@@ -391,8 +364,8 @@ namespace h3m
       "\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
       ""sv;
 
-    REQUIRE(asByteVector(encodeMap(kMap)) == asByteVector(kBinaryData));
-    REQUIRE(decodeMap(kBinaryData) == kMap);
+    REQUIRE(asByteVector(encodeViaH3MWriter(kMap)) == asByteVector(kBinaryData));
+    REQUIRE(H3MReaderAdapter(kBinaryData).readMap() == kMap);
     REQUIRE(encodeAndDecodeJson(kMap) == kMap);
   }
 }

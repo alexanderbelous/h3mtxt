@@ -1,7 +1,5 @@
-#include "../Utils.h"
+#include "TestUtils_H3M.h"
 
-#include <h3mtxt/H3Reader/H3MReader/H3MReader.h>
-#include <h3mtxt/H3Writer/H3MWriter/H3MWriter.h>
 #include <h3mtxt/Map/Object.h>
 #include <h3mtxt/Map/ObjectTemplate.h>
 
@@ -9,10 +7,8 @@
 
 #include <array>
 #include <span>
-#include <sstream>
 #include <string>
 #include <string_view>
-#include <utility>
 
 using namespace std::string_view_literals;
 using ::Testing_NS::asByteVector;
@@ -26,9 +22,7 @@ namespace h3m
     // \return std::string storing the encoded data.
     std::string encodeObject(const Object& object)
     {
-      std::ostringstream stream;
-      H3MWriter{ stream }.writeData(object);
-      return std::move(stream).str();
+      return Testing_NS::encodeViaH3MWriter(object);
     }
 
     // Decodes h3m::Object via H3MReader.
@@ -36,8 +30,8 @@ namespace h3m
     // \return h3m::Object decoded from @encoded_data.
     Object decodeObject(std::span<const ObjectTemplate> objects_templates, std::string_view encoded_data)
     {
-      std::istringstream stream{ std::string{encoded_data} };
-      return H3MReader{ stream }.readObject(objects_templates.data(), objects_templates.size());
+      return Testing_NS::H3MReaderAdapter(encoded_data).readObject(objects_templates.data(),
+                                                                   objects_templates.size());
     }
   }
 

@@ -1,68 +1,20 @@
-#include "../Utils.h"
+#include "TestUtils_H3C.h"
 
-#include <h3mtxt/H3JsonReader/H3CJsonReader/H3CJsonReader.h>
-#include <h3mtxt/H3JsonWriter/H3CJsonWriter/H3CJsonWriter.h>
-#include <h3mtxt/H3Reader/H3CReader/H3CReader.h>
-#include <h3mtxt/H3Writer/H3CWriter/H3CWriter.h>
 #include <h3mtxt/Campaign/StartingOptions.h>
 #include <h3mtxt/Map/Constants/HeroType.h>
 
 #include <catch2/catch_test_macros.hpp>
 
-#include <sstream>
-#include <string>
 #include <string_view>
-#include <utility>
 
 using namespace std::string_view_literals;
 using ::Testing_NS::asByteVector;
 using ::Testing_NS::encodeAndDecodeJson;
+using ::Testing_NS::encodeViaH3CWriter;
+using ::Testing_NS::H3CReaderAdapter;
 
 namespace h3m
 {
-  namespace
-  {
-    // Encodes h3m::StartingOptionsDetails via H3CWriter.
-    // \param starting_options_details - input StartingOptionsDetails.
-    // \return std::string storing the encoded data.
-    template<StartingOptionsType T>
-    std::string encodeStartingOptionsDetails(const StartingOptionsDetails<T>& starting_options_details)
-    {
-      std::ostringstream stream;
-      H3CWriter{ stream }.writeData(starting_options_details);
-      return std::move(stream).str();
-    }
-
-    // Decodes h3m::StartingOptionsDetails via H3MReader.
-    // \param encoded_data - input binary data.
-    // \return h3m::StartingOptionsDetails decoded from @encoded_data.
-    template<StartingOptionsType T>
-    StartingOptionsDetails<T> decodeStartingOptionsDetails(std::string_view encoded_data)
-    {
-      std::istringstream stream{ std::string{encoded_data} };
-      return H3CReader{ stream }.readStartingOptionsDetails<T>();
-    }
-
-    // Encodes h3m::StartingOptions via H3CWriter.
-    // \param starting_options - input StartingOptions.
-    // \return std::string storing the encoded data.
-    std::string encodeStartingOptions(const StartingOptions& starting_options)
-    {
-      std::ostringstream stream;
-      H3CWriter{ stream }.writeData(starting_options);
-      return std::move(stream).str();
-    }
-
-    // Decodes h3m::StartingOptions via H3MReader.
-    // \param encoded_data - input binary data.
-    // \return h3m::StartingOptions decoded from @encoded_data.
-    StartingOptions decodeStartingOptions(std::string_view encoded_data)
-    {
-      std::istringstream stream{ std::string{encoded_data} };
-      return H3CReader{ stream }.readStartingOptions();
-    }
-  }
-
   TEST_CASE("H3M.StartingOptionsDetails.None", "[H3C]")
   {
     // StartingOptionsDetails used in this test.
@@ -70,8 +22,9 @@ namespace h3m
     // The binary representation of kStartingOptionsDetails.
     static constexpr std::string_view kBinaryData;
 
-    REQUIRE(asByteVector(encodeStartingOptionsDetails(kStartingOptionsDetails)) == asByteVector(kBinaryData));
-    REQUIRE(decodeStartingOptionsDetails<StartingOptionsType::None>(kBinaryData) == kStartingOptionsDetails);
+    REQUIRE(asByteVector(encodeViaH3CWriter(kStartingOptionsDetails)) == asByteVector(kBinaryData));
+    REQUIRE(H3CReaderAdapter(kBinaryData).readStartingOptionsDetails<StartingOptionsType::None>() ==
+            kStartingOptionsDetails);
     REQUIRE(encodeAndDecodeJson(kStartingOptionsDetails) == kStartingOptionsDetails);
   }
 
@@ -107,8 +60,9 @@ namespace h3m
       "\x04" "\x55\x00" "\x17"
       ""sv;
 
-    REQUIRE(asByteVector(encodeStartingOptionsDetails(kStartingOptionsDetails)) == asByteVector(kBinaryData));
-    REQUIRE(decodeStartingOptionsDetails<StartingOptionsType::StartingBonus>(kBinaryData) == kStartingOptionsDetails);
+    REQUIRE(asByteVector(encodeViaH3CWriter(kStartingOptionsDetails)) == asByteVector(kBinaryData));
+    REQUIRE(H3CReaderAdapter(kBinaryData).readStartingOptionsDetails<StartingOptionsType::StartingBonus>() ==
+            kStartingOptionsDetails);
     REQUIRE(encodeAndDecodeJson(kStartingOptionsDetails) == kStartingOptionsDetails);
   }
 
@@ -135,8 +89,9 @@ namespace h3m
       "\x06" "\x01"
       ""sv;
 
-    REQUIRE(asByteVector(encodeStartingOptionsDetails(kStartingOptionsDetails)) == asByteVector(kBinaryData));
-    REQUIRE(decodeStartingOptionsDetails<StartingOptionsType::HeroCrossover>(kBinaryData) == kStartingOptionsDetails);
+    REQUIRE(asByteVector(encodeViaH3CWriter(kStartingOptionsDetails)) == asByteVector(kBinaryData));
+    REQUIRE(H3CReaderAdapter(kBinaryData).readStartingOptionsDetails<StartingOptionsType::HeroCrossover>() ==
+            kStartingOptionsDetails);
     REQUIRE(encodeAndDecodeJson(kStartingOptionsDetails) == kStartingOptionsDetails);
   }
 
@@ -168,8 +123,9 @@ namespace h3m
       "\x02" "\x55\x00"
       ""sv;
 
-    REQUIRE(asByteVector(encodeStartingOptionsDetails(kStartingOptionsDetails)) == asByteVector(kBinaryData));
-    REQUIRE(decodeStartingOptionsDetails<StartingOptionsType::StartingHero>(kBinaryData) == kStartingOptionsDetails);
+    REQUIRE(asByteVector(encodeViaH3CWriter(kStartingOptionsDetails)) == asByteVector(kBinaryData));
+    REQUIRE(H3CReaderAdapter(kBinaryData).readStartingOptionsDetails<StartingOptionsType::StartingHero>() ==
+            kStartingOptionsDetails);
     REQUIRE(encodeAndDecodeJson(kStartingOptionsDetails) == kStartingOptionsDetails);
   }
 
@@ -209,8 +165,8 @@ namespace h3m
       ""sv;
 
     REQUIRE(kStartingOptions.type() == StartingOptionsType::StartingBonus);
-    REQUIRE(asByteVector(encodeStartingOptions(kStartingOptions)) == asByteVector(kBinaryData));
-    REQUIRE(decodeStartingOptions(kBinaryData) == kStartingOptions);
+    REQUIRE(asByteVector(encodeViaH3CWriter(kStartingOptions)) == asByteVector(kBinaryData));
+    REQUIRE(H3CReaderAdapter(kBinaryData).readStartingOptions() == kStartingOptions);
     REQUIRE(encodeAndDecodeJson(kStartingOptions) == kStartingOptions);
   }
 }

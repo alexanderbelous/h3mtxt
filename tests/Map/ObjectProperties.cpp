@@ -1,45 +1,28 @@
-#include "../Utils.h"
+#include "TestUtils_H3M.h"
 
-#include <h3mtxt/H3JsonReader/H3MJsonReader/H3MJsonReader.h>
-#include <h3mtxt/H3JsonWriter/H3MJsonWriter/H3MJsonWriter.h>
-#include <h3mtxt/H3Reader/H3MReader/H3MReader.h>
-#include <h3mtxt/H3Writer/H3MWriter/H3MWriter.h>
 #include <h3mtxt/Map/ObjectProperties.h>
 
 #include <catch2/catch_test_macros.hpp>
 
-#include <sstream>
-#include <string>
 #include <string_view>
-#include <utility>
 
 using namespace std::string_view_literals;
 using ::Testing_NS::asByteVector;
 using ::Testing_NS::encodeAndDecodeJson;
+using ::Testing_NS::encodeViaH3MWriter;
+using ::Testing_NS::H3MReaderAdapter;
 
 namespace h3m
 {
   namespace
   {
-    // Encodes h3m::ObjectProperties<T> via H3MWriter.
-    // \param object_properties - input ObjectProperties<T>.
-    // \return std::string storing the encoded data.
-    template<ObjectPropertiesType T>
-    std::string encodeObjectProperties(const ObjectProperties<T>& object_properties)
-    {
-      std::ostringstream stream;
-      H3MWriter{ stream }.writeData(object_properties);
-      return std::move(stream).str();
-    }
-
     // Decodes h3m::ObjectProperties<T> via H3MReader.
     // \param encoded_data - input binary data.
     // \return h3m::ObjectProperties<T> decoded from @encoded_data.
     template<ObjectPropertiesType T>
     ObjectProperties<T> decodeObjectProperties(std::string_view encoded_data)
     {
-      std::istringstream stream{ std::string{encoded_data} };
-      return H3MReader{ stream }.readObjectProperties<T>();
+      return H3MReaderAdapter(encoded_data).readObjectProperties<T>();
     }
   }
 
@@ -56,7 +39,7 @@ namespace h3m
     };
     static constexpr std::string_view kBinaryData = "\x30\x00\x00\x00"sv;
 
-    REQUIRE(asByteVector(encodeObjectProperties(kProperties)) == asByteVector(kBinaryData));
+    REQUIRE(asByteVector(encodeViaH3MWriter(kProperties)) == asByteVector(kBinaryData));
     REQUIRE(decodeObjectProperties<ObjectPropertiesType::ABANDONED_MINE>(kBinaryData) == kProperties);
     REQUIRE(encodeAndDecodeJson(kProperties) == kProperties);
   }
@@ -70,7 +53,7 @@ namespace h3m
       };
       static constexpr std::string_view kBinaryData = "\x00"sv;
 
-      REQUIRE(asByteVector(encodeObjectProperties(kProperties)) == asByteVector(kBinaryData));
+      REQUIRE(asByteVector(encodeViaH3MWriter(kProperties)) == asByteVector(kBinaryData));
       REQUIRE(decodeObjectProperties<ObjectPropertiesType::ARTIFACT>(kBinaryData) == kProperties);
       REQUIRE(encodeAndDecodeJson(kProperties) == kProperties);
     }
@@ -105,7 +88,7 @@ namespace h3m
           "\x00\x00\x00\x00"                                // unknown
         ""sv;
 
-      REQUIRE(asByteVector(encodeObjectProperties(kProperties)) == asByteVector(kBinaryData));
+      REQUIRE(asByteVector(encodeViaH3MWriter(kProperties)) == asByteVector(kBinaryData));
       REQUIRE(decodeObjectProperties<ObjectPropertiesType::ARTIFACT>(kBinaryData) == kProperties);
       REQUIRE(encodeAndDecodeJson(kProperties) == kProperties);
     }
@@ -202,7 +185,7 @@ namespace h3m
       "\x00\x00\x00\x00"                           // unknown2
       ""sv;
 
-    REQUIRE(asByteVector(encodeObjectProperties(kProperties)) == asByteVector(kBinaryData));
+    REQUIRE(asByteVector(encodeViaH3MWriter(kProperties)) == asByteVector(kBinaryData));
     REQUIRE(decodeObjectProperties<ObjectPropertiesType::EVENT>(kBinaryData) == kProperties);
     REQUIRE(encodeAndDecodeJson(kProperties) == kProperties);
   }
@@ -238,7 +221,7 @@ namespace h3m
       "\x00\x00\x00\x00\x00\x00\x00\x00"  // unknown2
       ""sv;
 
-    REQUIRE(asByteVector(encodeObjectProperties(kProperties)) == asByteVector(kBinaryData));
+    REQUIRE(asByteVector(encodeViaH3MWriter(kProperties)) == asByteVector(kBinaryData));
     REQUIRE(decodeObjectProperties<ObjectPropertiesType::GARRISON>(kBinaryData) == kProperties);
     REQUIRE(encodeAndDecodeJson(kProperties) == kProperties);
   }
@@ -248,7 +231,7 @@ namespace h3m
     constexpr ObjectProperties<ObjectPropertiesType::NONE> kProperties{};
     constexpr std::string_view kBinaryData = "";
 
-    REQUIRE(asByteVector(encodeObjectProperties(kProperties)) == asByteVector(kBinaryData));
+    REQUIRE(asByteVector(encodeViaH3MWriter(kProperties)) == asByteVector(kBinaryData));
     REQUIRE(decodeObjectProperties<ObjectPropertiesType::NONE>(kBinaryData) == kProperties);
     REQUIRE(encodeAndDecodeJson(kProperties) == kProperties);
   }
@@ -261,7 +244,7 @@ namespace h3m
     };
     static constexpr std::string_view kBinaryData = "\x0a\x00\x00\x00"sv;
 
-    REQUIRE(asByteVector(encodeObjectProperties(kProperties)) == asByteVector(kBinaryData));
+    REQUIRE(asByteVector(encodeViaH3MWriter(kProperties)) == asByteVector(kBinaryData));
     REQUIRE(decodeObjectProperties<ObjectPropertiesType::GRAIL>(kBinaryData) == kProperties);
     REQUIRE(encodeAndDecodeJson(kProperties) == kProperties);
   }
@@ -356,7 +339,7 @@ namespace h3m
       "\x00\x00\x00\x00\x00\x00\x00\x00"
       ""sv;
 
-    REQUIRE(asByteVector(encodeObjectProperties(kProperties)) == asByteVector(kBinaryData));
+    REQUIRE(asByteVector(encodeViaH3MWriter(kProperties)) == asByteVector(kBinaryData));
     REQUIRE(decodeObjectProperties<ObjectPropertiesType::HERO>(kBinaryData) == kProperties);
     REQUIRE(encodeAndDecodeJson(kProperties) == kProperties);
   }
@@ -399,7 +382,7 @@ namespace h3m
       "\x00\x00"                // unknown
       ""sv;
 
-    REQUIRE(asByteVector(encodeObjectProperties(kProperties)) == asByteVector(kBinaryData));
+    REQUIRE(asByteVector(encodeViaH3MWriter(kProperties)) == asByteVector(kBinaryData));
     REQUIRE(decodeObjectProperties<ObjectPropertiesType::MONSTER>(kBinaryData) == kProperties);
     REQUIRE(encodeAndDecodeJson(kProperties) == kProperties);
   }
@@ -483,7 +466,7 @@ namespace h3m
       "\x00\x00\x00\x00\x00\x00\x00\x00"           // unknown
       ""sv;
 
-    REQUIRE(asByteVector(encodeObjectProperties(kProperties)) == asByteVector(kBinaryData));
+    REQUIRE(asByteVector(encodeViaH3MWriter(kProperties)) == asByteVector(kBinaryData));
     REQUIRE(decodeObjectProperties<ObjectPropertiesType::PANDORAS_BOX>(kBinaryData) == kProperties);
     REQUIRE(encodeAndDecodeJson(kProperties) == kProperties);
   }
@@ -498,7 +481,7 @@ namespace h3m
       };
       static constexpr std::string_view kBinaryData = "\x03" "\x55" ""sv;
 
-      REQUIRE(asByteVector(encodeObjectProperties(kProperties)) == asByteVector(kBinaryData));
+      REQUIRE(asByteVector(encodeViaH3MWriter(kProperties)) == asByteVector(kBinaryData));
       REQUIRE(decodeObjectProperties<ObjectPropertiesType::HERO_PLACEHOLDER>(kBinaryData) == kProperties);
       REQUIRE(encodeAndDecodeJson(kProperties) == kProperties);
     }
@@ -511,7 +494,7 @@ namespace h3m
       };
       static constexpr std::string_view kBinaryData = "\x03" "\xff" "\x02" ""sv;
 
-      REQUIRE(asByteVector(encodeObjectProperties(kProperties)) == asByteVector(kBinaryData));
+      REQUIRE(asByteVector(encodeViaH3MWriter(kProperties)) == asByteVector(kBinaryData));
       REQUIRE(decodeObjectProperties<ObjectPropertiesType::HERO_PLACEHOLDER>(kBinaryData) == kProperties);
       REQUIRE(encodeAndDecodeJson(kProperties) == kProperties);
     }
@@ -539,7 +522,7 @@ namespace h3m
       "\x0d\x00\x00\x00" "You may pass."          // completion
       ""sv;
 
-    REQUIRE(asByteVector(encodeObjectProperties(kProperties)) == asByteVector(kBinaryData));
+    REQUIRE(asByteVector(encodeViaH3MWriter(kProperties)) == asByteVector(kBinaryData));
     REQUIRE(decodeObjectProperties<ObjectPropertiesType::QUEST_GUARD>(kBinaryData) == kProperties);
     REQUIRE(encodeAndDecodeJson(kProperties) == kProperties);
   }
@@ -561,7 +544,7 @@ namespace h3m
         "\x04"             // min_level
         "\x06"             // max_level
         ""sv;
-      REQUIRE(asByteVector(encodeObjectProperties(kProperties)) == asByteVector(kBinaryData));
+      REQUIRE(asByteVector(encodeViaH3MWriter(kProperties)) == asByteVector(kBinaryData));
       REQUIRE(decodeObjectProperties<ObjectPropertiesType::RANDOM_DWELLING>(kBinaryData) == kProperties);
       REQUIRE(encodeAndDecodeJson(kProperties) == kProperties);
     }
@@ -588,7 +571,7 @@ namespace h3m
         "\x04"             // min_level
         "\x06"             // max_level
         ""sv;
-      REQUIRE(asByteVector(encodeObjectProperties(kProperties)) == asByteVector(kBinaryData));
+      REQUIRE(asByteVector(encodeViaH3MWriter(kProperties)) == asByteVector(kBinaryData));
       REQUIRE(decodeObjectProperties<ObjectPropertiesType::RANDOM_DWELLING>(kBinaryData) == kProperties);
       REQUIRE(encodeAndDecodeJson(kProperties) == kProperties);
     }
@@ -607,7 +590,7 @@ namespace h3m
       "\x04"             // min_level
       "\x06"             // max_level
       ""sv;
-    REQUIRE(asByteVector(encodeObjectProperties(kProperties)) == asByteVector(kBinaryData));
+    REQUIRE(asByteVector(encodeViaH3MWriter(kProperties)) == asByteVector(kBinaryData));
     REQUIRE(decodeObjectProperties<ObjectPropertiesType::RANDOM_DWELLING_PRESET_ALIGNMENT>(kBinaryData) == kProperties);
     REQUIRE(encodeAndDecodeJson(kProperties) == kProperties);
   }
@@ -625,7 +608,7 @@ namespace h3m
         "\x00\x00\x00"      // unknown
         "\xea\x07\x00\x00"  // town_absod_id
         ""sv;
-      REQUIRE(asByteVector(encodeObjectProperties(kProperties)) == asByteVector(kBinaryData));
+      REQUIRE(asByteVector(encodeViaH3MWriter(kProperties)) == asByteVector(kBinaryData));
       REQUIRE(decodeObjectProperties<ObjectPropertiesType::RANDOM_DWELLING_PRESET_LEVEL>(kBinaryData) == kProperties);
       REQUIRE(encodeAndDecodeJson(kProperties) == kProperties);
     }
@@ -648,7 +631,7 @@ namespace h3m
         "\x00\x00\x00\x00" // town_absod_id
         "\x22\x01"         // alignment
         ""sv;
-      REQUIRE(asByteVector(encodeObjectProperties(kProperties)) == asByteVector(kBinaryData));
+      REQUIRE(asByteVector(encodeViaH3MWriter(kProperties)) == asByteVector(kBinaryData));
       REQUIRE(decodeObjectProperties<ObjectPropertiesType::RANDOM_DWELLING_PRESET_LEVEL>(kBinaryData) == kProperties);
       REQUIRE(encodeAndDecodeJson(kProperties) == kProperties);
     }
@@ -665,7 +648,7 @@ namespace h3m
       };
       static constexpr std::string_view kBinaryData = "\x00" "\x1e\x00\x00\x00" "\x00\x00\x00\x00" ""sv;
 
-      REQUIRE(asByteVector(encodeObjectProperties(kProperties)) == asByteVector(kBinaryData));
+      REQUIRE(asByteVector(encodeViaH3MWriter(kProperties)) == asByteVector(kBinaryData));
       REQUIRE(decodeObjectProperties<ObjectPropertiesType::RESOURCE>(kBinaryData) == kProperties);
       REQUIRE(encodeAndDecodeJson(kProperties) == kProperties);
     }
@@ -704,7 +687,7 @@ namespace h3m
         "\x00\x00\x00\x00"                                  // unknown
         ""sv;
 
-      REQUIRE(asByteVector(encodeObjectProperties(kProperties)) == asByteVector(kBinaryData));
+      REQUIRE(asByteVector(encodeViaH3MWriter(kProperties)) == asByteVector(kBinaryData));
       REQUIRE(decodeObjectProperties<ObjectPropertiesType::RESOURCE>(kBinaryData) == kProperties);
       REQUIRE(encodeAndDecodeJson(kProperties) == kProperties);
     }
@@ -719,7 +702,7 @@ namespace h3m
         .unknown = ReservedData<6>{}
       };
       static constexpr std::string_view kBinaryData = "\x00" "\x02" "\x00\x00\x00\x00\x00\x00" ""sv;
-      REQUIRE(asByteVector(encodeObjectProperties(kProperties)) == asByteVector(kBinaryData));
+      REQUIRE(asByteVector(encodeViaH3MWriter(kProperties)) == asByteVector(kBinaryData));
       REQUIRE(decodeObjectProperties<ObjectPropertiesType::SCHOLAR>(kBinaryData) == kProperties);
       REQUIRE(encodeAndDecodeJson(kProperties) == kProperties);
     }
@@ -730,7 +713,7 @@ namespace h3m
         .unknown = ReservedData<6>{}
       };
       static constexpr std::string_view kBinaryData = "\x01" "\x0b" "\x00\x00\x00\x00\x00\x00" ""sv;
-      REQUIRE(asByteVector(encodeObjectProperties(kProperties)) == asByteVector(kBinaryData));
+      REQUIRE(asByteVector(encodeViaH3MWriter(kProperties)) == asByteVector(kBinaryData));
       REQUIRE(decodeObjectProperties<ObjectPropertiesType::SCHOLAR>(kBinaryData) == kProperties);
       REQUIRE(encodeAndDecodeJson(kProperties) == kProperties);
     }
@@ -741,7 +724,7 @@ namespace h3m
         .unknown = ReservedData<6>{}
       };
       static constexpr std::string_view kBinaryData = "\x02" "\x1a" "\x00\x00\x00\x00\x00\x00" ""sv;
-      REQUIRE(asByteVector(encodeObjectProperties(kProperties)) == asByteVector(kBinaryData));
+      REQUIRE(asByteVector(encodeViaH3MWriter(kProperties)) == asByteVector(kBinaryData));
       REQUIRE(decodeObjectProperties<ObjectPropertiesType::SCHOLAR>(kBinaryData) == kProperties);
       REQUIRE(encodeAndDecodeJson(kProperties) == kProperties);
     }
@@ -752,7 +735,7 @@ namespace h3m
         .unknown = ReservedData<6>{}
       };
       static constexpr std::string_view kBinaryData = "\xff" "\x00" "\x00\x00\x00\x00\x00\x00" ""sv;
-      REQUIRE(asByteVector(encodeObjectProperties(kProperties)) == asByteVector(kBinaryData));
+      REQUIRE(asByteVector(encodeViaH3MWriter(kProperties)) == asByteVector(kBinaryData));
       REQUIRE(decodeObjectProperties<ObjectPropertiesType::SCHOLAR>(kBinaryData) == kProperties);
       REQUIRE(encodeAndDecodeJson(kProperties) == kProperties);
     }
@@ -789,7 +772,7 @@ namespace h3m
       "\x00\x00"                                // unknown
       ""sv;
 
-    REQUIRE(asByteVector(encodeObjectProperties(kProperties)) == asByteVector(kBinaryData));
+    REQUIRE(asByteVector(encodeViaH3MWriter(kProperties)) == asByteVector(kBinaryData));
     REQUIRE(decodeObjectProperties<ObjectPropertiesType::SEERS_HUT>(kBinaryData) == kProperties);
     REQUIRE(encodeAndDecodeJson(kProperties) == kProperties);
   }
@@ -802,7 +785,7 @@ namespace h3m
     };
     static constexpr std::string_view kBinaryData = "\x36\x00\x00\x00"sv;
 
-    REQUIRE(asByteVector(encodeObjectProperties(kProperties)) == asByteVector(kBinaryData));
+    REQUIRE(asByteVector(encodeViaH3MWriter(kProperties)) == asByteVector(kBinaryData));
     REQUIRE(decodeObjectProperties<ObjectPropertiesType::SHRINE>(kBinaryData) == kProperties);
     REQUIRE(encodeAndDecodeJson(kProperties) == kProperties);
   }
@@ -818,7 +801,7 @@ namespace h3m
       "\x00\x00\x00\x00"
       ""sv;
 
-    REQUIRE(asByteVector(encodeObjectProperties(kProperties)) == asByteVector(kBinaryData));
+    REQUIRE(asByteVector(encodeViaH3MWriter(kProperties)) == asByteVector(kBinaryData));
     REQUIRE(decodeObjectProperties<ObjectPropertiesType::SIGN>(kBinaryData) == kProperties);
     REQUIRE(encodeAndDecodeJson(kProperties) == kProperties);
   }
@@ -834,7 +817,7 @@ namespace h3m
       };
       static constexpr std::string_view kBinaryData = "\x00\x09\x00\x00\x00" ""sv;
 
-      REQUIRE(asByteVector(encodeObjectProperties(kProperties)) == asByteVector(kBinaryData));
+      REQUIRE(asByteVector(encodeViaH3MWriter(kProperties)) == asByteVector(kBinaryData));
       REQUIRE(decodeObjectProperties<ObjectPropertiesType::SPELL_SCROLL>(kBinaryData) == kProperties);
       REQUIRE(encodeAndDecodeJson(kProperties) == kProperties);
     }
@@ -873,7 +856,7 @@ namespace h3m
         "\x00\x00\x00"                                      // unknown
         ""sv;
 
-      REQUIRE(asByteVector(encodeObjectProperties(kProperties)) == asByteVector(kBinaryData));
+      REQUIRE(asByteVector(encodeViaH3MWriter(kProperties)) == asByteVector(kBinaryData));
       REQUIRE(decodeObjectProperties<ObjectPropertiesType::SPELL_SCROLL>(kBinaryData) == kProperties);
       REQUIRE(encodeAndDecodeJson(kProperties) == kProperties);
     }
@@ -991,7 +974,7 @@ namespace h3m
       "\x00\x00\x00"                         // unknown
       ""sv;
 
-    REQUIRE(asByteVector(encodeObjectProperties(kProperties)) == asByteVector(kBinaryData));
+    REQUIRE(asByteVector(encodeViaH3MWriter(kProperties)) == asByteVector(kBinaryData));
     REQUIRE(decodeObjectProperties<ObjectPropertiesType::TOWN>(kBinaryData) == kProperties);
     REQUIRE(encodeAndDecodeJson(kProperties) == kProperties);
   }
@@ -1004,7 +987,7 @@ namespace h3m
     };
     static constexpr std::string_view kBinaryData = "\x03\x00\x00\x00"sv;
 
-    REQUIRE(asByteVector(encodeObjectProperties(kProperties)) == asByteVector(kBinaryData));
+    REQUIRE(asByteVector(encodeViaH3MWriter(kProperties)) == asByteVector(kBinaryData));
     REQUIRE(decodeObjectProperties<ObjectPropertiesType::TRIVIAL_OWNED_OBJECT>(kBinaryData) == kProperties);
     REQUIRE(encodeAndDecodeJson(kProperties) == kProperties);
   }
@@ -1023,7 +1006,7 @@ namespace h3m
     };
     static constexpr std::string_view kBinaryData = "\x00\xc0\x03\x00"sv;
 
-    REQUIRE(asByteVector(encodeObjectProperties(kProperties)) == asByteVector(kBinaryData));
+    REQUIRE(asByteVector(encodeViaH3MWriter(kProperties)) == asByteVector(kBinaryData));
     REQUIRE(decodeObjectProperties<ObjectPropertiesType::WITCH_HUT>(kBinaryData) == kProperties);
     REQUIRE(encodeAndDecodeJson(kProperties) == kProperties);
   }

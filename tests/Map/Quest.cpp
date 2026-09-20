@@ -1,46 +1,19 @@
-#include "../Utils.h"
+#include "TestUtils_H3M.h"
 
-#include <h3mtxt/H3JsonReader/H3MJsonReader/H3MJsonReader.h>
-#include <h3mtxt/H3JsonWriter/H3MJsonWriter/H3MJsonWriter.h>
-#include <h3mtxt/H3Reader/H3MReader/H3MReader.h>
-#include <h3mtxt/H3Writer/H3MWriter/H3MWriter.h>
 #include <h3mtxt/Map/Quest.h>
 
 #include <catch2/catch_test_macros.hpp>
 
-#include <sstream>
-#include <string>
 #include <string_view>
-#include <utility>
 
 using namespace std::string_view_literals;
 using ::Testing_NS::asByteVector;
 using ::Testing_NS::encodeAndDecodeJson;
+using ::Testing_NS::encodeViaH3MWriter;
+using ::Testing_NS::H3MReaderAdapter;
 
 namespace h3m
 {
-  namespace
-  {
-    // Encodes h3m::Quest via H3MWriter.
-    // \param quest - input Quest.
-    // \return std::string storing the encoded data.
-    std::string encodeQuest(const Quest& quest)
-    {
-      std::ostringstream stream;
-      H3MWriter{ stream }.writeData(quest);
-      return std::move(stream).str();
-    }
-
-    // Decodes h3m::Quest via H3MReader.
-    // \param encoded_data - input binary data.
-    // \return h3m::Quest decoded from @encoded_data.
-    Quest decodeQuest(std::string_view encoded_data)
-    {
-      std::istringstream stream{ std::string{encoded_data} };
-      return H3MReader{ stream }.readQuest();
-    }
-  }
-
   TEST_CASE("H3M.Quest.None", "[H3M]")
   {
     const Quest kQuest = {
@@ -49,8 +22,8 @@ namespace h3m
     static constexpr std::string_view kBinaryData = "\x00"sv;
 
     REQUIRE(kQuest.type() == QuestType::None);
-    REQUIRE(asByteVector(encodeQuest(kQuest)) == asByteVector(kBinaryData));
-    REQUIRE(decodeQuest(kBinaryData) == kQuest);
+    REQUIRE(asByteVector(encodeViaH3MWriter(kQuest)) == asByteVector(kBinaryData));
+    REQUIRE(H3MReaderAdapter(kBinaryData).readQuest() == kQuest);
     REQUIRE(encodeAndDecodeJson(kQuest) == kQuest);
   }
 
@@ -75,8 +48,8 @@ namespace h3m
       ""sv;
 
     REQUIRE(kQuest.type() == QuestType::Level);
-    REQUIRE(asByteVector(encodeQuest(kQuest)) == asByteVector(kBinaryData));
-    REQUIRE(decodeQuest(kBinaryData) == kQuest);
+    REQUIRE(asByteVector(encodeViaH3MWriter(kQuest)) == asByteVector(kBinaryData));
+    REQUIRE(H3MReaderAdapter(kBinaryData).readQuest() == kQuest);
     REQUIRE(encodeAndDecodeJson(kQuest) == kQuest);
   }
 
@@ -101,8 +74,8 @@ namespace h3m
       ""sv;
 
     REQUIRE(kQuest.type() == QuestType::PrimarySkills);
-    REQUIRE(asByteVector(encodeQuest(kQuest)) == asByteVector(kBinaryData));
-    REQUIRE(decodeQuest(kBinaryData) == kQuest);
+    REQUIRE(asByteVector(encodeViaH3MWriter(kQuest)) == asByteVector(kBinaryData));
+    REQUIRE(H3MReaderAdapter(kBinaryData).readQuest() == kQuest);
     REQUIRE(encodeAndDecodeJson(kQuest) == kQuest);
   }
 
@@ -127,8 +100,8 @@ namespace h3m
       ""sv;
 
     REQUIRE(kQuest.type() == QuestType::DefeatHero);
-    REQUIRE(asByteVector(encodeQuest(kQuest)) == asByteVector(kBinaryData));
-    REQUIRE(decodeQuest(kBinaryData) == kQuest);
+    REQUIRE(asByteVector(encodeViaH3MWriter(kQuest)) == asByteVector(kBinaryData));
+    REQUIRE(H3MReaderAdapter(kBinaryData).readQuest() == kQuest);
     REQUIRE(encodeAndDecodeJson(kQuest) == kQuest);
   }
 
@@ -153,8 +126,8 @@ namespace h3m
       ""sv;
 
     REQUIRE(kQuest.type() == QuestType::DefeatMonster);
-    REQUIRE(asByteVector(encodeQuest(kQuest)) == asByteVector(kBinaryData));
-    REQUIRE(decodeQuest(kBinaryData) == kQuest);
+    REQUIRE(asByteVector(encodeViaH3MWriter(kQuest)) == asByteVector(kBinaryData));
+    REQUIRE(H3MReaderAdapter(kBinaryData).readQuest() == kQuest);
     REQUIRE(encodeAndDecodeJson(kQuest) == kQuest);
   }
 
@@ -179,8 +152,8 @@ namespace h3m
       ""sv;
 
     REQUIRE(kQuest.type() == QuestType::Artifacts);
-    REQUIRE(asByteVector(encodeQuest(kQuest)) == asByteVector(kBinaryData));
-    REQUIRE(decodeQuest(kBinaryData) == kQuest);
+    REQUIRE(asByteVector(encodeViaH3MWriter(kQuest)) == asByteVector(kBinaryData));
+    REQUIRE(H3MReaderAdapter(kBinaryData).readQuest() == kQuest);
     REQUIRE(encodeAndDecodeJson(kQuest) == kQuest);
   }
 
@@ -210,8 +183,8 @@ namespace h3m
       ""sv;
 
     REQUIRE(kQuest.type() == QuestType::Creatures);
-    REQUIRE(asByteVector(encodeQuest(kQuest)) == asByteVector(kBinaryData));
-    REQUIRE(decodeQuest(kBinaryData) == kQuest);
+    REQUIRE(asByteVector(encodeViaH3MWriter(kQuest)) == asByteVector(kBinaryData));
+    REQUIRE(H3MReaderAdapter(kBinaryData).readQuest() == kQuest);
     REQUIRE(encodeAndDecodeJson(kQuest) == kQuest);
   }
 
@@ -237,8 +210,8 @@ namespace h3m
       ""sv;
 
     REQUIRE(kQuest.type() == QuestType::Resources);
-    REQUIRE(asByteVector(encodeQuest(kQuest)) == asByteVector(kBinaryData));
-    REQUIRE(decodeQuest(kBinaryData) == kQuest);
+    REQUIRE(asByteVector(encodeViaH3MWriter(kQuest)) == asByteVector(kBinaryData));
+    REQUIRE(H3MReaderAdapter(kBinaryData).readQuest() == kQuest);
     REQUIRE(encodeAndDecodeJson(kQuest) == kQuest);
   }
 
@@ -263,8 +236,8 @@ namespace h3m
       ""sv;
 
     REQUIRE(kQuest.type() == QuestType::BeHero);
-    REQUIRE(asByteVector(encodeQuest(kQuest)) == asByteVector(kBinaryData));
-    REQUIRE(decodeQuest(kBinaryData) == kQuest);
+    REQUIRE(asByteVector(encodeViaH3MWriter(kQuest)) == asByteVector(kBinaryData));
+    REQUIRE(H3MReaderAdapter(kBinaryData).readQuest() == kQuest);
     REQUIRE(encodeAndDecodeJson(kQuest) == kQuest);
   }
 
@@ -289,8 +262,8 @@ namespace h3m
       ""sv;
 
     REQUIRE(kQuest.type() == QuestType::BePlayer);
-    REQUIRE(asByteVector(encodeQuest(kQuest)) == asByteVector(kBinaryData));
-    REQUIRE(decodeQuest(kBinaryData) == kQuest);
+    REQUIRE(asByteVector(encodeViaH3MWriter(kQuest)) == asByteVector(kBinaryData));
+    REQUIRE(H3MReaderAdapter(kBinaryData).readQuest() == kQuest);
     REQUIRE(encodeAndDecodeJson(kQuest) == kQuest);
   }
 }

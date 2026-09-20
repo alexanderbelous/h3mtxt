@@ -1,46 +1,19 @@
-#include "../Utils.h"
+#include "TestUtils_H3M.h"
 
-#include <h3mtxt/H3JsonReader/H3MJsonReader/H3MJsonReader.h>
-#include <h3mtxt/H3JsonWriter/H3MJsonWriter/H3MJsonWriter.h>
-#include <h3mtxt/H3Reader/H3MReader/H3MReader.h>
-#include <h3mtxt/H3Writer/H3MWriter/H3MWriter.h>
 #include <h3mtxt/Map/MapBasicInfo.h>
 
 #include <catch2/catch_test_macros.hpp>
 
-#include <sstream>
-#include <string>
 #include <string_view>
-#include <utility>
 
 using namespace std::string_view_literals;
 using ::Testing_NS::asByteVector;
 using ::Testing_NS::encodeAndDecodeJson;
+using ::Testing_NS::encodeViaH3MWriter;
+using ::Testing_NS::H3MReaderAdapter;
 
 namespace h3m
 {
-  namespace
-  {
-    // Encodes h3m::MapBasicInfo via H3MWriter.
-    // \param map_basic_info - input MapBasicInfo.
-    // \return std::string storing the encoded data.
-    std::string encodeMapBasicInfo(const MapBasicInfo& map_basic_info)
-    {
-      std::ostringstream stream;
-      H3MWriter{ stream }.writeData(map_basic_info);
-      return std::move(stream).str();
-    }
-
-    // Decodes h3m::MapBasicInfo via H3MReader.
-    // \param encoded_data - input binary data.
-    // \return h3m::MapBasicInfo decoded from @encoded_data.
-    MapBasicInfo decodeMapBasicInfo(std::string_view encoded_data)
-    {
-      std::istringstream stream{ std::string{encoded_data} };
-      return H3MReader{ stream }.readMapBasicInfo();
-    }
-  }
-
   // Test encoding/decoding MapBasicInfo for H3M.
   TEST_CASE("H3M.MapBasicInfo", "[H3M]")
   {
@@ -65,8 +38,8 @@ namespace h3m
       "\x32"                                         // | uint8    | max_hero_level | 50                | 1             |
       ""sv;
 
-    REQUIRE(asByteVector(encodeMapBasicInfo(kMapBasicInfo)) == asByteVector(kBinaryData));
-    REQUIRE(decodeMapBasicInfo(kBinaryData) == kMapBasicInfo);
+    REQUIRE(asByteVector(encodeViaH3MWriter(kMapBasicInfo)) == asByteVector(kBinaryData));
+    REQUIRE(H3MReaderAdapter(kBinaryData).readMapBasicInfo() == kMapBasicInfo);
     REQUIRE(encodeAndDecodeJson(kMapBasicInfo) == kMapBasicInfo);
   }
 }
