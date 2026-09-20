@@ -2,6 +2,7 @@
 
 #include <h3mtxt/SavedGame/SavedGameFwd.h>
 
+#include <h3mtxt/Map/Constants/HeroType.h>
 #include <h3mtxt/Map/Constants/LossConditionType.h>
 #include <h3mtxt/Map/LossCondition.h>
 
@@ -12,12 +13,16 @@ namespace h3svg
   // The default implementation reuses h3m::LossConditionDetails.
   template<LossConditionType T>
   struct LossConditionDetails : h3m::LossConditionDetails<T>
-  {};
+  {
+    constexpr bool operator==(const LossConditionDetails&) const noexcept = default;
+  };
 
   // Specialization for LoseHero.
   template<>
   struct LossConditionDetails<LossConditionType::LoseHero>
   {
+    constexpr bool operator==(const LossConditionDetails&) const noexcept = default;
+
     HeroType16 hero {};
   };
 
@@ -32,6 +37,8 @@ namespace h3svg
       LossConditionDetails<LossConditionType::TimeExpires>,
       LossConditionDetails<LossConditionType::Normal>
     >;
+
+    constexpr bool operator==(const LossCondition&) const noexcept = default;
 
     // \return the type of the loss condition.
     constexpr LossConditionType type() const noexcept;

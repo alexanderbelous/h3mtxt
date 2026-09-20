@@ -10,6 +10,6 @@ namespace h3json
   template<>
   h3svg::ReplayEvent JsonReader<h3svg::ReplayEvent>::operator()(const Json::Value& value) const
   {
-    throw std::logic_error("Not implemented.");
+    throw std::logic_error("JsonReader<h3svg::ReplayEvent>: Not implemented.");
   }
 }

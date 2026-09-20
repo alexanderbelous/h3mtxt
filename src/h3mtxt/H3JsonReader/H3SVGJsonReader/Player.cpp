@@ -10,6 +10,6 @@ namespace h3json
   template<>
   h3svg::Player JsonReader<h3svg::Player>::operator()(const Json::Value& value) const
   {
-    throw std::logic_error("Not implemented.");
+    throw std::logic_error("JsonReader<h3svg::Player>: Not implemented.");
   }
 }

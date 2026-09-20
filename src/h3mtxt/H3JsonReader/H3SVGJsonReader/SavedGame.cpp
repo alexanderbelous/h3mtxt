@@ -190,7 +190,7 @@ namespace h3json
   template<>
   h3svg::Tile JsonReader<h3svg::Tile>::operator()(const Json::Value& value) const
   {
-    throw std::runtime_error("Not implemented.");
+    throw std::runtime_error("JsonReader<h3svg::Tile>: Not implemented.");
   }
 
   template<>
