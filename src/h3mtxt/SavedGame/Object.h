@@ -11,6 +11,8 @@ namespace h3svg
   // Unlike H3M, H3SVG stores the properties of the object separately from the object itself.
   struct Object
   {
+    constexpr bool operator==(const Object&) const noexcept = default;
+
     // Coordinates of the bottom right corner.
     Coordinates coordinates;
     // 0-based index of the corresponding element in SavedGame::objects_templates.

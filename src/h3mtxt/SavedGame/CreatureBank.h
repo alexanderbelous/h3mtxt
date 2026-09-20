@@ -14,6 +14,8 @@ namespace h3svg
 {
   struct CreatureBank
   {
+    constexpr bool operator==(const CreatureBank&) const noexcept = default;
+
     Troops guards;
     // Resources given as a reward.
     Resources resources;

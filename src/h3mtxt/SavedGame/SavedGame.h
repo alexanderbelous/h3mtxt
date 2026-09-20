@@ -42,6 +42,8 @@ namespace h3svg
   // (e.g., One-Way Monoliths, Two-Way Monoliths, Whirlpools, Subterranean Gates).
   struct ObjectExits
   {
+    constexpr bool operator==(const ObjectExits&) const noexcept = default;
+
     // The length is serialized as a 16-bit integer.
     // Padding bits in CoordinatesPacked may contain junk.
     std::vector<CoordinatesPacked> exits;
