@@ -1,4 +1,5 @@
 add_executable(h3mtxt_tests_SavedGame
+    "CampaignInfo.cpp"
     "CoordinatesPacked.cpp"
     "FixedLengthString.cpp"
     "LossCondition.cpp"

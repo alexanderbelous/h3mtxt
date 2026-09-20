@@ -4,17 +4,23 @@
 #include <h3mtxt/Map/Constants/LossConditionType.h>
 #include <h3mtxt/SavedGame/SavedGameFwd.h>
 
-// API for deserializing H3M data from JSON.
+// API for deserializing H3SVG data from JSON.
 namespace h3json
 {
   template<>
   h3svg::ArtifactMerchants JsonReader<h3svg::ArtifactMerchants>::operator()(const Json::Value& value) const;
 
   template<>
+  h3svg::CampaignInfo JsonReader<h3svg::CampaignInfo>::operator()(const Json::Value& value) const;
+
+  template<>
   h3svg::CoordinatesPacked JsonReader<h3svg::CoordinatesPacked>::operator()(const Json::Value& value) const;
 
   template<>
   h3svg::CreatureBank JsonReader<h3svg::CreatureBank>::operator()(const Json::Value& value) const;
+
+  template<>
+  h3svg::CrossoverInfo JsonReader<h3svg::CrossoverInfo>::operator()(const Json::Value& value) const;
 
   template<>
   h3svg::Date JsonReader<h3svg::Date>::operator()(const Json::Value& value) const;
@@ -53,6 +59,9 @@ namespace h3json
 
   template<>
   h3svg::PlayerSpecs JsonReader<h3svg::PlayerSpecs>::operator()(const Json::Value& value) const;
+
+  template<>
+  h3svg::RegionInfo JsonReader<h3svg::RegionInfo>::operator()(const Json::Value& value) const;
 
   template<>
   h3svg::ReplayEvent JsonReader<h3svg::ReplayEvent>::operator()(const Json::Value& value) const;

@@ -187,10 +187,35 @@ namespace h3json
     return saved_game;
   }
 
+  // TODO: move the declaration to H3SVGJsonReader.h (requires unnesting Tile::ObjectToRender).
+  template<>
+  h3svg::Tile::ObjectToRender JsonReader<h3svg::Tile::ObjectToRender>::operator()(const Json::Value & value) const
+  {
+    h3svg::Tile::ObjectToRender object_to_render;
+    readField(object_to_render.object_idx, value, "object_idx");
+    readField(object_to_render.unknown, value, "unknown");
+    return object_to_render;
+  }
+
   template<>
   h3svg::Tile JsonReader<h3svg::Tile>::operator()(const Json::Value& value) const
   {
-    throw std::runtime_error("JsonReader<h3svg::Tile>: Not implemented.");
+    using Fields = h3json::FieldNames<h3svg::Tile>;
+    h3svg::Tile tile;
+    readField(tile.terrain_type, value, Fields::kTerrainType);
+    readField(tile.terrain_sprite, value, Fields::kTerrainSprite);
+    readField(tile.river_type, value, Fields::kRiverType);
+    readField(tile.river_sprite, value, Fields::kRiverSprite);
+    readField(tile.road_type, value, Fields::kRoadType);
+    readField(tile.road_sprite, value, Fields::kRoadSprite);
+    readField(tile.flags1, value, Fields::kFlags1);
+    readField(tile.flags2, value, Fields::kFlags2);
+    readField(tile.object_class, value, Fields::kObjectClass);
+    readField(tile.object_subclass, value, Fields::kObjectSubclass);
+    readField(tile.object_idx, value, Fields::kObjectIdx);
+    readField(tile.object_properties, value, Fields::kObjectProperties);
+    readField(tile.objects_to_render, value, Fields::kObjectsToRender);
+    return tile;
   }
 
   template<>

@@ -1,5 +1,6 @@
 add_library(H3SVGJsonReader STATIC
     "H3SVGJsonReader.h"
+    "CampaignInfo.cpp"
     "Hero.cpp"
     "LossCondition.cpp"
     "ObjectPropertiesTable.cpp"

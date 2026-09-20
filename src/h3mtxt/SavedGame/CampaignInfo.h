@@ -15,6 +15,8 @@ namespace h3svg
 {
   struct RegionInfo
   {
+    constexpr bool operator==(const RegionInfo&) const noexcept = default;
+
     // 0 if this scenario hasn't been completed yet, nonzero otherwise.
     Bool is_completed = false;
     // The number of days that it took the player to complete this scenario.
@@ -37,11 +39,15 @@ namespace h3svg
   {
     struct UnknownPair
     {
+      constexpr bool operator==(const UnknownPair&) const noexcept = default;
+
       // TODO: figure out what this is. Kinda looks like HeroType16, but values are not unique.
       std::uint16_t first {};
       // TODO: figure out what this is. Kinda looks like move points.
       std::uint16_t second {};
     };
+
+    constexpr bool operator==(const CrossoverInfo&) const noexcept = default;
 
     // Heroes that crossed over from earlier scenarios.
     //
@@ -63,6 +69,8 @@ namespace h3svg
   // Campaign-specific data stored in saved games.
   struct CampaignInfo
   {
+    constexpr bool operator==(const CampaignInfo&) const noexcept = default;
+
     // TODO: figure out what this is.
     std::array<std::uint8_t, 3> unknown1 {};
     // 0-based index of the current region, i.e. the index of the relevant CampaignScenario element

@@ -32,6 +32,8 @@ namespace h3svg
   // Artifact equipped on the hero or stored in the backpack.
   struct HeroArtifact
   {
+    constexpr bool operator==(const HeroArtifact&) const noexcept = default;
+
     // Type of the artifact, or 0xFFFFFFFF if there is none.
     ArtifactType32 type = static_cast<ArtifactType32>(ArtifactType::None);
     // Type of the spell for spell scrolls; meaningless if this isn't a spell scroll.
@@ -43,6 +45,8 @@ namespace h3svg
 
   struct HeroArtifacts
   {
+    constexpr bool operator==(const HeroArtifacts&) const noexcept = default;
+
     EnumIndexedArray<ArtifactSlot, HeroArtifact, h3m::kNumArtifactSlots> equipped;
     std::array<HeroArtifact, 64> backpack;
     // TODO: figure out what this is.
@@ -53,6 +57,8 @@ namespace h3svg
 
   struct Hero
   {
+    constexpr bool operator==(const Hero&) const noexcept = default;
+
     std::int16_t x {};
     std::int16_t y {};
     std::int16_t z {};
