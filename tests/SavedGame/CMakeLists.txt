@@ -1,9 +1,11 @@
 add_executable(h3mtxt_tests_SavedGame
     "CampaignInfo.cpp"
     "CoordinatesPacked.cpp"
+    "EventBase.cpp"
     "FixedLengthString.cpp"
     "LossCondition.cpp"
     "MapBasicInfo.cpp"
+    "ObjectPropertiesTables.cpp"
     "SavedGame.cpp"
     "TestingUtils_H3SVG.h"
     "Town.cpp"

@@ -26,6 +26,8 @@ namespace h3svg
   // Unlike H3M, guardians are not optional here.
   struct Artifact
   {
+    constexpr bool operator==(const Artifact&) const noexcept = default;
+
     Guardians guardians;
   };
 
@@ -143,6 +145,8 @@ namespace h3svg
 
   struct Sign
   {
+    constexpr bool operator==(const Sign&) const noexcept = default;
+
     std::string message;
     // 0 if a random default message should be displayed, 1 otherwise.
     // Note that in H3M an empty string implies that a random default message will be

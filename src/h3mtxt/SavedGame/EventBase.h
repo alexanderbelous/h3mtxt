@@ -2,9 +2,11 @@
 
 #include <h3mtxt/SavedGame/SavedGameFwd.h>
 
+#include <h3mtxt/Map/Constants/ArtifactType.h>
 #include <h3mtxt/Map/Constants/CreatureType.h>
 #include <h3mtxt/Map/Constants/PrimarySkillType.h>
 #include <h3mtxt/Map/Constants/ResourceType.h>
+#include <h3mtxt/Map/Constants/SpellType.h>
 #include <h3mtxt/Map/Utils/EnumIndexedArray.h>
 #include <h3mtxt/Map/Utils/TypedQuantity.h>
 #include <h3mtxt/Map/SecondarySkill.h>
@@ -20,6 +22,8 @@ namespace h3svg
   // Equivalent of h3m::Guardians used in H3SVG.
   struct Guardians
   {
+    constexpr bool operator==(const Guardians&) const noexcept = default;
+
     // Serialized in H3SVG as a length-prefixed string; length is a 16-bit little-endian integer.
     std::string message;
     std::optional<Troops> creatures;
@@ -32,6 +36,8 @@ namespace h3svg
   // * artifacts are stored differently (as 8-bit integers instead of 16-bit integers).
   struct EventBase
   {
+    constexpr bool operator==(const EventBase&) const noexcept = default;
+
     std::optional<Guardians> guardians;
     std::int32_t experience = 0;
     std::int32_t spell_points = 0;
