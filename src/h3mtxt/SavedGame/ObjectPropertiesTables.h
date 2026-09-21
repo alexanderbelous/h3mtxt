@@ -4,6 +4,7 @@
 
 #include <h3mtxt/Map/Constants/PlayerColor.h>
 #include <h3mtxt/Map/Constants/ResourceType.h>
+#include <h3mtxt/Map/Constants/TownBuildingType.h>
 #include <h3mtxt/Map/Utils/EnumBitmask.h>
 #include <h3mtxt/Map/Utils/EnumIndexedArray.h>
 #include <h3mtxt/Map/Utils/ReservedData.h>
@@ -90,6 +91,8 @@ namespace h3svg
 
   struct Garrison
   {
+    constexpr bool operator==(const Garrison&) const noexcept = default;
+
     PlayerColor owner = PlayerColor::None;
     Troops creatures;
     Coordinates coordinates;
@@ -110,6 +113,8 @@ namespace h3svg
 
   struct Monster
   {
+    constexpr bool operator==(const Monster&) const noexcept = default;
+
     // Serialized in H3SVG as a length-prefixed string, with length being serialized as a 16-bit little-endian integer.
     std::string message;
     Resources resources;
@@ -119,6 +124,8 @@ namespace h3svg
 
   struct Obelisk
   {
+    constexpr bool operator==(const Obelisk&) const noexcept = default;
+
     // 1 bit per player, indicating whether the player has visited this Obelisk.
     PlayersBitmask visited_by;
   };
@@ -160,6 +167,8 @@ namespace h3svg
   // This is nearly identical to h3m::TimedEvent, except that `name` and `unknown` are missing.
   struct TimedEvent
   {
+    constexpr bool operator==(const TimedEvent&) const noexcept = default;
+
     std::string message;
     // Given/taken resources.
     Resources resources;
@@ -175,6 +184,8 @@ namespace h3svg
   // The equivalent of h3m::TownEvent stored in the saved game.
   struct TownEvent : TimedEvent
   {
+    constexpr bool operator==(const TownEvent&) const noexcept = default;
+
     // ID of the affected town (see h3svg::Town::id).
     std::uint8_t town_id {};
     // 1 bit per TownBuildingType indicating whether the building gets built.

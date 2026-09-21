@@ -36,7 +36,13 @@ namespace h3json
   h3svg::Garrison
   JsonReader<h3svg::Garrison>::operator()(const Json::Value& value) const
   {
-    throw std::logic_error("JsonReader<h3svg::Garrison>: Not implemented.");
+    using Fields = h3json::FieldNames<h3svg::Garrison>;
+    h3svg::Garrison garrison;
+    readField(garrison.owner, value, Fields::kOwner);
+    readField(garrison.creatures, value, Fields::kCreatures);
+    readField(garrison.coordinates, value, Fields::kCoordinates);
+    readField(garrison.can_remove_units, value, Fields::kCanRemoveUnits);
+    return garrison;
   }
 
   template<>
@@ -50,14 +56,22 @@ namespace h3json
   h3svg::Monster
   JsonReader<h3svg::Monster>::operator()(const Json::Value& value) const
   {
-    throw std::logic_error("JsonReader<h3svg::Monster>: Not implemented.");
+    using Fields = h3json::FieldNames<h3svg::Monster>;
+    h3svg::Monster monster;
+    readField(monster.message, value, Fields::kMessage);
+    readField(monster.resources, value, Fields::kResources);
+    readField(monster.artifact, value, Fields::kArtifact);
+    return monster;
   }
 
   template<>
   h3svg::Obelisk
   JsonReader<h3svg::Obelisk>::operator()(const Json::Value& value) const
   {
-    throw std::logic_error("JsonReader<h3svg::Obelisk>: Not implemented.");
+    using Fields = h3json::FieldNames<h3svg::Obelisk>;
+    h3svg::Obelisk obelisk;
+    readField(obelisk.visited_by, value, Fields::kVisitedBy);
+    return obelisk;
   }
 
   template<>
@@ -112,13 +126,28 @@ namespace h3json
   h3svg::TimedEvent
   JsonReader<h3svg::TimedEvent>::operator()(const Json::Value& value) const
   {
-    throw std::logic_error("JsonReader<h3svg::TimedEvent>: Not implemented.");
+    using Fields = h3json::FieldNames<h3svg::TimedEvent>;
+    h3svg::TimedEvent event;
+    readField(event.message, value, Fields::kMessage);
+    readField(event.resources, value, Fields::kResources);
+    readField(event.affected_players, value, Fields::kAffectedPlayers);
+    readField(event.applies_to_human, value, Fields::kAppliesToHuman);
+    readField(event.applies_to_computer, value, Fields::kAppliesToComputer);
+    readField(event.day_of_first_occurence, value, Fields::kDayOfFirstOccurence);
+    readField(event.repeat_after_days, value, Fields::kRepeatAfterDays);
+    return event;
   }
 
   template<>
   h3svg::TownEvent
   JsonReader<h3svg::TownEvent>::operator()(const Json::Value& value) const
   {
-    throw std::logic_error("JsonReader<h3svg::TownEvent>: Not implemented.");
+    using Fields = h3json::FieldNames<h3svg::TownEvent>;
+    h3svg::TownEvent event{ fromJson<h3svg::TimedEvent>(value) };
+    readField(event.town_id, value, Fields::kTownId);
+    readField(event.buildings, value, Fields::kBuildings);
+    readField(event.reserved, value, Fields::kReserved);
+    readField(event.creatures, value, Fields::kCreatures);
+    return event;
   }
 }
