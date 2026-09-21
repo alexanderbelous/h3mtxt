@@ -2,6 +2,7 @@
 
 #include <h3mtxt/H3JsonReader/H3JsonReaderBase/H3JsonReaderBaseFwd.h>
 #include <h3mtxt/Map/Constants/LossConditionType.h>
+#include <h3mtxt/Map/Constants/QuestType.h>
 #include <h3mtxt/SavedGame/SavedGameFwd.h>
 
 // API for deserializing H3SVG data from JSON.
@@ -109,6 +110,36 @@ namespace h3json
   JsonReader<h3svg::PlayerSpecs>::operator()(const Json::Value& value) const;
 
   template<>
+  h3svg::Quest
+  JsonReader<h3svg::Quest>::operator()(const Json::Value& value) const;
+
+  template<h3svg::QuestType T>
+  struct JsonReader<h3svg::QuestDetails<T>>
+  {
+    h3svg::QuestDetails<T> operator()(const Json::Value& value) const;
+  };
+
+  template<>
+  h3svg::QuestDetails<h3svg::QuestType::Level>
+  JsonReader<h3svg::QuestDetails<h3svg::QuestType::Level>>::operator()(const Json::Value& value) const;
+
+  template<>
+  h3svg::QuestDetails<h3svg::QuestType::DefeatHero>
+  JsonReader<h3svg::QuestDetails<h3svg::QuestType::DefeatHero>>::operator()(const Json::Value& value) const;
+
+  template<>
+  h3svg::QuestDetails<h3svg::QuestType::DefeatMonster>
+  JsonReader<h3svg::QuestDetails<h3svg::QuestType::DefeatMonster>>::operator()(const Json::Value& value) const;
+
+  template<>
+  h3svg::QuestDetails<h3svg::QuestType::Creatures>
+  JsonReader<h3svg::QuestDetails<h3svg::QuestType::Creatures>>::operator()(const Json::Value& value) const;
+
+  template<>
+  h3svg::QuestDetails<h3svg::QuestType::BeHero>
+  JsonReader<h3svg::QuestDetails<h3svg::QuestType::BeHero>>::operator()(const Json::Value& value) const;
+
+  template<>
   h3svg::QuestGuard
   JsonReader<h3svg::QuestGuard>::operator()(const Json::Value& value) const;
 
@@ -119,6 +150,10 @@ namespace h3json
   template<>
   h3svg::ReplayEvent
   JsonReader<h3svg::ReplayEvent>::operator()(const Json::Value& value) const;
+
+  template<>
+  h3svg::Reward
+  JsonReader<h3svg::Reward>::operator()(const Json::Value& value) const;
 
   template<>
   h3svg::Rumor

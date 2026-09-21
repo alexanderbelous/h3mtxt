@@ -482,6 +482,33 @@ namespace h3json
     static constexpr std::string_view kUnknown = "unknown";
   };
 
+  // The default implementation reuses the names of fields from h3m::QuestDetails.
+  template<h3svg::QuestType T>
+  struct FieldNames<h3svg::QuestDetails<T>> : FieldNames<h3m::QuestDetails<T>> {};
+
+  template<>
+  struct FieldNames<h3svg::QuestDetails<h3svg::QuestType::DefeatHero>>
+  {
+    static constexpr std::string_view kHero = "hero";
+    static constexpr std::string_view kUnknown = "unknown";
+    static constexpr std::string_view kCompletedBy = "completed_by";
+  };
+
+  template<>
+  struct FieldNames<h3svg::QuestDetails<h3svg::QuestType::DefeatMonster>>
+  {
+    static constexpr std::string_view kCoordinates = "coordinates";
+    static constexpr std::string_view kCreatureType = "creature_type";
+    static constexpr std::string_view kCompletedBy = "completed_by";
+  };
+
+  template<>
+  struct FieldNames<h3svg::QuestDetails<h3svg::QuestType::BeHero>>
+  {
+    static constexpr std::string_view kHero = "hero";
+    static constexpr std::string_view kUnknown = "unknown";
+  };
+
   template<>
   struct FieldNames<h3svg::QuestGuard>
   {

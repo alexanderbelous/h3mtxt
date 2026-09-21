@@ -18,60 +18,65 @@ namespace Medea_NS
   void JsonObjectWriter<h3svg::QuestDetails<h3svg::QuestType::Level>>::operator()(
     FieldsWriter& out, const h3svg::QuestDetails<h3svg::QuestType::Level>& details) const
   {
-    out.writeField("level", details.level);
+    using Fields = h3json::FieldNames<h3svg::QuestDetails<h3svg::QuestType::Level>>;
+    out.writeField(Fields::kLevel, details.level);
   }
 
   void JsonObjectWriter<h3svg::QuestDetails<h3svg::QuestType::PrimarySkills>>::operator()(
     FieldsWriter& out, const h3svg::QuestDetails<h3svg::QuestType::PrimarySkills>& details) const
   {
-    out.writeField("primary_skills", details.skills);
+    JsonObjectWriter<h3m::QuestDetails<h3m::QuestType::PrimarySkills>>{}(out, details);
   }
 
   void JsonObjectWriter<h3svg::QuestDetails<h3svg::QuestType::DefeatHero>>::operator()(
     FieldsWriter& out, const h3svg::QuestDetails<h3svg::QuestType::DefeatHero>& details) const
   {
-    out.writeField("hero", details.hero);
-    out.writeField("unknown", details.unknown);
-    out.writeField("completed_by", details.completed_by);
+    using Fields = h3json::FieldNames<h3svg::QuestDetails<h3svg::QuestType::DefeatHero>>;
+    out.writeField(Fields::kHero, details.hero);
+    out.writeField(Fields::kUnknown, details.unknown);
+    out.writeField(Fields::kCompletedBy, details.completed_by);
   }
 
   void JsonObjectWriter<h3svg::QuestDetails<h3svg::QuestType::DefeatMonster>>::operator()(
     FieldsWriter& out, const h3svg::QuestDetails<h3svg::QuestType::DefeatMonster>& details) const
   {
-    out.writeField("coordinates", details.coordinates);
-    out.writeField("creature_type", details.creature_type);
-    out.writeField("completed_by", details.completed_by);
+    using Fields = h3json::FieldNames<h3svg::QuestDetails<h3svg::QuestType::DefeatMonster>>;
+    out.writeField(Fields::kCoordinates, details.coordinates);
+    out.writeField(Fields::kCreatureType, details.creature_type);
+    out.writeField(Fields::kCompletedBy, details.completed_by);
   }
 
   void JsonObjectWriter<h3svg::QuestDetails<h3svg::QuestType::Artifacts>>::operator()(
     FieldsWriter& out, const h3svg::QuestDetails<h3svg::QuestType::Artifacts>& details) const
   {
-    out.writeField("artifacts", details.artifacts);
+    JsonObjectWriter<h3m::QuestDetails<h3m::QuestType::Artifacts>>{}(out, details);
   }
 
   void JsonObjectWriter<h3svg::QuestDetails<h3svg::QuestType::Creatures>>::operator()(
     FieldsWriter& out, const h3svg::QuestDetails<h3svg::QuestType::Creatures>& details) const
   {
-    out.writeField("creatures", details.creatures);
+    using Fields = h3json::FieldNames<h3svg::QuestDetails<h3svg::QuestType::Creatures>>;
+    out.writeField(Fields::kCreatures, details.creatures);
   }
 
   void JsonObjectWriter<h3svg::QuestDetails<h3svg::QuestType::Resources>>::operator()(
     FieldsWriter& out, const h3svg::QuestDetails<h3svg::QuestType::Resources>& details) const
   {
-    out.writeField("resources", details.resources);
+    JsonObjectWriter<h3m::QuestDetails<h3m::QuestType::Resources>>{}(out, details);
   }
 
   void JsonObjectWriter<h3svg::QuestDetails<h3svg::QuestType::BeHero>>::operator()(
     FieldsWriter& out, const h3svg::QuestDetails<h3svg::QuestType::BeHero>& details) const
   {
-    out.writeField("hero", details.hero);
-    out.writeField("unknown", details.unknown);
+    using Fields = h3json::FieldNames<h3svg::QuestDetails<h3svg::QuestType::BeHero>>;
+    out.writeField(Fields::kHero, details.hero);
+    out.writeField(Fields::kUnknown, details.unknown);
   }
 
   void JsonObjectWriter<h3svg::QuestDetails<h3svg::QuestType::BePlayer>>::operator()(
     FieldsWriter& out, const h3svg::QuestDetails<h3svg::QuestType::BePlayer>& details) const
   {
-    out.writeField("player", details.player);
+    JsonObjectWriter<h3m::QuestDetails<h3m::QuestType::BePlayer>>{}(out, details);
   }
 
   void JsonObjectWriter<h3svg::Quest>::operator()(FieldsWriter& out, const h3svg::Quest& quest) const

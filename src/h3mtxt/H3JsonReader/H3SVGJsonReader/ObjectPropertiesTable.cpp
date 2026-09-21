@@ -101,14 +101,25 @@ namespace h3json
   h3svg::QuestGuard
   JsonReader<h3svg::QuestGuard>::operator()(const Json::Value& value) const
   {
-    throw std::logic_error("JsonReader<h3svg::QuestGuard>: Not implemented.");
+    using Fields = h3json::FieldNames<h3svg::QuestGuard>;
+    h3svg::QuestGuard quest_guard;
+    readField(quest_guard.quest, value, Fields::kQuest);
+    readField(quest_guard.visited_by, value, Fields::kVisitedBy);
+    return quest_guard;
   }
 
   template<>
   h3svg::SeersHut
   JsonReader<h3svg::SeersHut>::operator()(const Json::Value& value) const
   {
-    throw std::logic_error("JsonReader<h3svg::SeersHut>: Not implemented.");
+    using Fields = h3json::FieldNames<h3svg::SeersHut>;
+    h3svg::SeersHut seers_hut;
+    readField(seers_hut.quest, value, Fields::kQuest);
+    readField(seers_hut.reward, value, Fields::kReward);
+    readField(seers_hut.reserved, value, Fields::kReserved);
+    readField(seers_hut.visited_by, value, Fields::kVisitedBy);
+    readField(seers_hut.name, value, Fields::kName);
+    return seers_hut;
   }
 
   template<>

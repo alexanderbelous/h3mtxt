@@ -18,11 +18,15 @@ namespace h3svg
   // The default implementation reuses h3m::QuestDetails.
   template<QuestType T>
   struct QuestDetails : h3m::QuestDetails<T>
-  {};
+  {
+    constexpr bool operator==(const QuestDetails&) const noexcept = default;
+  };
 
   template<>
   struct QuestDetails<QuestType::Level>
   {
+    constexpr bool operator==(const QuestDetails&) const noexcept = default;
+
     // Note that the level is stored as a 16-bit integer here - in H3M it's stored as a 32-bit integer.
     std::int16_t level {};
   };
@@ -30,6 +34,8 @@ namespace h3svg
   template<>
   struct QuestDetails<QuestType::DefeatHero>
   {
+    constexpr bool operator==(const QuestDetails&) const noexcept = default;
+
     // Note that the hero is represented here by their HeroType - H3M uses absod_id instead.
     HeroType hero {};
     // TODO: maybe hero should be treated as a 16-bit enum instead.
@@ -40,6 +46,8 @@ namespace h3svg
   template<>
   struct QuestDetails<QuestType::DefeatMonster>
   {
+    constexpr bool operator==(const QuestDetails&) const noexcept = default;
+
     // Coordinates of the monster on the Adventure Map.
     CoordinatesPacked coordinates;
     CreatureType creature_type {};
@@ -52,6 +60,8 @@ namespace h3svg
   {
     using Creature = TypedQuantity<CreatureType, std::int32_t>;
 
+    constexpr bool operator==(const QuestDetails&) const noexcept = default;
+
     // Size is serialized as an 8-bit integer.
     std::vector<Creature> creatures;
   };
@@ -59,6 +69,8 @@ namespace h3svg
   template<>
   struct QuestDetails<QuestType::BeHero>
   {
+    constexpr bool operator==(const QuestDetails&) const noexcept = default;
+
     HeroType hero {};
     // TODO: maybe hero should be treated as a 16-bit enum instead. 
     std::uint8_t unknown {};
@@ -79,6 +91,8 @@ namespace h3svg
       QuestDetails<QuestType::BeHero>,
       QuestDetails<QuestType::BePlayer>
     >;
+
+    constexpr bool operator==(const Quest&) const noexcept = default;
 
     // \return the type of the quest.
     constexpr QuestType type() const noexcept;
