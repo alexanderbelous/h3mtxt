@@ -14,35 +14,22 @@ namespace h3json
   h3svg::LossConditionDetails<T>
   JsonReader<h3svg::LossConditionDetails<T>>::operator()(const Json::Value& value) const
   {
-    // Sanity checks
-    static_assert(std::is_base_of_v<h3m::LossConditionDetails<T>, h3svg::LossConditionDetails<T>>,
-                  "h3svg::LossConditionDetails<T> must be derived from h3m::LossConditionDetails<T>");
-    static_assert(sizeof(h3m::LossConditionDetails<T>) == sizeof(h3svg::LossConditionDetails<T>),
-                  "h3svg::LossConditionDetails<T> must have the same size as h3m::LossConditionDetails<T>");
-    return h3svg::LossConditionDetails<T>{ fromJson<h3m::LossConditionDetails<T>>(value) };
-  }
-
-  // Explicit instantiations for LossConditionTypes that use the default implementation.
-  template
-  h3svg::LossConditionDetails<h3svg::LossConditionType::LoseTown>
-  JsonReader<h3svg::LossConditionDetails<h3svg::LossConditionType::LoseTown>>::operator()(const Json::Value&) const;
-
-  template
-  h3svg::LossConditionDetails<h3svg::LossConditionType::TimeExpires>
-  JsonReader<h3svg::LossConditionDetails<h3svg::LossConditionType::TimeExpires>>::operator()(const Json::Value&) const;
-
-  template
-  h3svg::LossConditionDetails<h3svg::LossConditionType::Normal>
-  JsonReader<h3svg::LossConditionDetails<h3svg::LossConditionType::Normal>>::operator()(const Json::Value&) const;
-
-  template<>
-  h3svg::LossConditionDetails<h3svg::LossConditionType::LoseHero>
-  JsonReader<h3svg::LossConditionDetails<h3svg::LossConditionType::LoseHero>>::operator()(const Json::Value& value) const
-  {
-    using Fields = h3json::FieldNames<h3svg::LossConditionDetails<h3svg::LossConditionType::LoseHero>>;
-    h3svg::LossConditionDetails<h3svg::LossConditionType::LoseHero> details;
-    readField(details.hero, value, Fields::kHero);
-    return details;
+    if constexpr (T == h3svg::LossConditionType::LoseHero)
+    {
+      using Fields = h3json::FieldNames<h3svg::LossConditionDetails<h3svg::LossConditionType::LoseHero>>;
+      h3svg::LossConditionDetails<h3svg::LossConditionType::LoseHero> details;
+      readField(details.hero, value, Fields::kHero);
+      return details;
+    }
+    else
+    {
+      // Sanity checks
+      static_assert(std::is_base_of_v<h3m::LossConditionDetails<T>, h3svg::LossConditionDetails<T>>,
+                    "h3svg::LossConditionDetails<T> must be derived from h3m::LossConditionDetails<T>");
+      static_assert(sizeof(h3m::LossConditionDetails<T>) == sizeof(h3svg::LossConditionDetails<T>),
+                    "h3svg::LossConditionDetails<T> must have the same size as h3m::LossConditionDetails<T>");
+      return h3svg::LossConditionDetails<T>{ fromJson<h3m::LossConditionDetails<T>>(value) };
+    }
   }
 
   template<>

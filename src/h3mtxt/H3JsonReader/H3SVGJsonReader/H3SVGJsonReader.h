@@ -1,7 +1,6 @@
 #pragma once
 
 #include <h3mtxt/H3JsonReader/H3JsonReaderBase/H3JsonReaderBaseFwd.h>
-#include <h3mtxt/Map/Constants/LossConditionType.h>
 #include <h3mtxt/Map/Constants/QuestType.h>
 #include <h3mtxt/SavedGame/SavedGameFwd.h>
 
@@ -78,12 +77,10 @@ namespace h3json
   template<h3svg::LossConditionType T>
   struct JsonReader<h3svg::LossConditionDetails<T>>
   {
+    // Defined in LossCondition.cpp.
+    // Template instantiations are provided for all valid LossConditionTypes.
     h3svg::LossConditionDetails<T> operator()(const Json::Value& value) const;
   };
-
-  template<>
-  h3svg::LossConditionDetails<h3svg::LossConditionType::LoseHero>
-  JsonReader<h3svg::LossConditionDetails<h3svg::LossConditionType::LoseHero>>::operator()(const Json::Value& value) const;
 
   template<>
   h3svg::Mine
