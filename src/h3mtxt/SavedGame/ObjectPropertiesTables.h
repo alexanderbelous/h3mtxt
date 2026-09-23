@@ -75,6 +75,8 @@ namespace h3svg
 
   struct Dwelling
   {
+    constexpr bool operator==(const Dwelling&) const noexcept = default;
+
     PlayerColor owner = PlayerColor::None;
     // CREATURE_GENERATOR1 or CREATURE_GENERATOR4
     ObjectClass8 object_class {};
@@ -101,6 +103,8 @@ namespace h3svg
 
   struct Mine
   {
+    constexpr bool operator==(const Mine&) const noexcept = default;
+
     PlayerColor owner = PlayerColor::None;
     // TODO: replace with something type-safe.
     // * For regular mines - stores {ResourceType, 0} (aka object_subclass of the mine).

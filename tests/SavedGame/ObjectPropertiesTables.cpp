@@ -49,6 +49,53 @@ namespace h3svg
     REQUIRE(encodeAndDecodeJson(kArtifact) == kArtifact);
   }
 
+  TEST_CASE("H3SVG.Dwelling", "[H3SVG]")
+  {
+    constexpr Dwelling kDwelling = {
+      .owner = PlayerColor::Orange,
+      .object_class = static_cast<ObjectClass8>(ObjectClass::CREATURE_GENERATOR1),
+      .object_subclass = 32,
+      .creature_types = {
+        static_cast<CreatureType8>(CreatureType::Manticore),
+        static_cast<CreatureType8>(CreatureType::None),
+        static_cast<CreatureType8>(CreatureType::None),
+        static_cast<CreatureType8>(CreatureType::None)
+      },
+      .creature_counts = {2, 0, 0, 0},
+      .coordinates = {.x = 12, .y = 44, .z = 1},
+      .guardians = {
+        .creature_types = {
+          static_cast<CreatureType32>(CreatureType::Manticore),
+          static_cast<CreatureType32>(CreatureType::None),
+          static_cast<CreatureType32>(CreatureType::None),
+          static_cast<CreatureType32>(CreatureType::None),
+          static_cast<CreatureType32>(CreatureType::None),
+          static_cast<CreatureType32>(CreatureType::None),
+          static_cast<CreatureType32>(CreatureType::None),
+        },
+        .creature_counts = {6, 0, 0, 0, 0, 0, 0}
+      },
+      .unknown = 255
+    };
+    static constexpr std::string_view kBinaryData =
+      "\x04" // owner
+      "\x11" // object_class
+      "\x20" // object_subclass
+      "\x50" "\xff" "\xff" "\xff" // creature_types
+      "\x02\x00" "\x00\x00" "\x00\x00" "\x00\x00" // creature_counts
+      "\x0c\x2c\x01" // coordinates
+      "\x50\x00\x00\x00" "\xff\xff\xff\xff" "\xff\xff\xff\xff" "\xff\xff\xff\xff"
+      "\xff\xff\xff\xff" "\xff\xff\xff\xff" "\xff\xff\xff\xff"
+      "\x06\x00\x00\x00" "\x00\x00\x00\x00" "\x00\x00\x00\x00" "\x00\x00\x00\x00"
+      "\x00\x00\x00\x00" "\x00\x00\x00\x00" "\x00\x00\x00\x00"
+      "\xff" // unknown
+      ""sv;
+
+    REQUIRE(asByteVector(encodeViaH3SVGWriter(kDwelling)) == asByteVector(kBinaryData));
+    REQUIRE(H3SVGReaderAdapter(kBinaryData).readDwelling() == kDwelling);
+    REQUIRE(encodeAndDecodeJson(kDwelling) == kDwelling);
+  }
+
   TEST_CASE("H3SVG.Garrison", "[H3SVG]")
   {
     const Garrison kGarrison = {
@@ -83,6 +130,40 @@ namespace h3svg
     REQUIRE(asByteVector(encodeViaH3SVGWriter(kGarrison)) == asByteVector(kBinaryData));
     REQUIRE(H3SVGReaderAdapter(kBinaryData).readGarrison() == kGarrison);
     REQUIRE(encodeAndDecodeJson(kGarrison) == kGarrison);
+  }
+
+  TEST_CASE("H3SVG.Mine", "[H3SVG]")
+  {
+    constexpr Mine kMine = {
+      .owner = PlayerColor::Green,
+      .unknown = {3, 4},
+      .creatures = {
+        .creature_types = {
+          static_cast<CreatureType32>(CreatureType::Peasant),
+          static_cast<CreatureType32>(CreatureType::None),
+          static_cast<CreatureType32>(CreatureType::None),
+          static_cast<CreatureType32>(CreatureType::None),
+          static_cast<CreatureType32>(CreatureType::None),
+          static_cast<CreatureType32>(CreatureType::None),
+          static_cast<CreatureType32>(CreatureType::None)
+        },
+        .creature_counts = {50, 0, 0, 0, 0, 0, 0}
+      },
+      .coordinates = {.x = 15, .y = 44, .z = 1}
+    };
+    static constexpr std::string_view kBinaryData =
+      "\x03" // owner
+      "\x03\x04" // unknown
+      "\x8b\x00\x00\x00" "\xff\xff\xff\xff" "\xff\xff\xff\xff" "\xff\xff\xff\xff" // creature_types
+      "\xff\xff\xff\xff" "\xff\xff\xff\xff" "\xff\xff\xff\xff"
+      "\x32\x00\x00\x00" "\x00\x00\x00\x00" "\x00\x00\x00\x00" "\x00\x00\x00\x00" // creature_counts
+      "\x00\x00\x00\x00" "\x00\x00\x00\x00" "\x00\x00\x00\x00"
+      "\x0f\x2c\x01" // coordinates
+      ""sv;
+
+    REQUIRE(asByteVector(encodeViaH3SVGWriter(kMine)) == asByteVector(kBinaryData));
+    REQUIRE(H3SVGReaderAdapter(kBinaryData).readMine() == kMine);
+    REQUIRE(encodeAndDecodeJson(kMine) == kMine);
   }
 
   TEST_CASE("H3SVG.Monster", "[H3SVG]")

@@ -29,7 +29,17 @@ namespace h3json
   h3svg::Dwelling
   JsonReader<h3svg::Dwelling>::operator()(const Json::Value& value) const
   {
-    throw std::logic_error("JsonReader<h3svg::Dwelling>: Not implemented.");
+    using Fields = h3json::FieldNames<h3svg::Dwelling>;
+    h3svg::Dwelling dwelling;
+    readField(dwelling.owner, value, Fields::kOwner);
+    readField(dwelling.object_class, value, Fields::kObjectClass);
+    readField(dwelling.object_subclass, value, Fields::kObjectSubclass);
+    readField(dwelling.creature_types, value, Fields::kCreatureTypes);
+    readField(dwelling.creature_counts, value, Fields::kCreatureCounts);
+    readField(dwelling.coordinates, value, Fields::kCoordinates);
+    readField(dwelling.guardians, value, Fields::kGuardians);
+    readField(dwelling.unknown, value, Fields::kUnknown);
+    return dwelling;
   }
 
   template<>
@@ -49,7 +59,13 @@ namespace h3json
   h3svg::Mine
   JsonReader<h3svg::Mine>::operator()(const Json::Value& value) const
   {
-    throw std::logic_error("JsonReader<h3svg::Mine>: Not implemented.");
+    using Fields = h3json::FieldNames<h3svg::Mine>;
+    h3svg::Mine mine;
+    readField(mine.owner, value, Fields::kOwner);
+    readField(mine.unknown, value, Fields::kUnknown);
+    readField(mine.creatures, value, Fields::kCreatures);
+    readField(mine.coordinates, value, Fields::kCoordinates);
+    return mine;
   }
 
   template<>
