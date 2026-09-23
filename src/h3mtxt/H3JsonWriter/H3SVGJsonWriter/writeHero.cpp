@@ -24,8 +24,10 @@ namespace Medea_NS
 
   void JsonObjectWriter<h3svg::HeroArtifact>::operator()(FieldsWriter& out, const h3svg::HeroArtifact& artifact) const
   {
-    out.writeField("type", artifact.type);
-    out.writeField("spell_type", static_cast<std::underlying_type_t<h3svg::SpellType32>>(artifact.spell_type));
+    using Fields = h3json::FieldNames<h3svg::HeroArtifact>;
+
+    out.writeField(Fields::kType, artifact.type);
+    out.writeField(Fields::kSpellType, static_cast<std::underlying_type_t<h3svg::SpellType32>>(artifact.spell_type));
     if (artifact.type == static_cast<h3svg::ArtifactType32>(h3m::ArtifactType::SpellScroll))
     {
       out.writeComment(EnumCommentGetter{}(artifact.spell_type), false);

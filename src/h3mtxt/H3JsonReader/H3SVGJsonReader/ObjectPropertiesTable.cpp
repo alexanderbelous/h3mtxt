@@ -4,8 +4,6 @@
 #include <h3mtxt/JsonCommon/FieldNamesH3SVG.h>
 #include <h3mtxt/SavedGame/ObjectPropertiesTables.h>
 
-#include <stdexcept>
-
 namespace h3json
 {
   template<>
@@ -22,7 +20,22 @@ namespace h3json
   h3svg::Boat
   JsonReader<h3svg::Boat>::operator()(const Json::Value& value) const
   {
-    throw std::logic_error("JsonReader<h3svg::Boat>: Not implemented.");
+    using Fields = h3json::FieldNames<h3svg::Boat>;
+    h3svg::Boat boat;
+    readField(boat.exists, value, Fields::kExists);
+    readField(boat.id, value, Fields::kId);
+    readField(boat.object_sublcass, value, Fields::kObjectSubclass);
+    readField(boat.orientation, value, Fields::kDirection);
+    readField(boat.owner, value, Fields::kOwner);
+    readField(boat.owner_hero, value, Fields::kOwnerHero);
+    readField(boat.is_occupied, value, Fields::kIsOccupied);
+    readField(boat.x, value, Fields::kX);
+    readField(boat.y, value, Fields::kY);
+    readField(boat.z, value, Fields::kZ);
+    readField(boat.is_visible, value, Fields::kIsVisible);
+    readField(boat.coordinates_packed, value, Fields::kCoordinatesPacked);
+    readField(boat.unknown, value, Fields::kUnknown);
+    return boat;
   }
 
   template<>

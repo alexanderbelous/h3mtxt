@@ -126,10 +126,11 @@ namespace Medea_NS
   void JsonObjectWriter<h3svg::ReplayEvent>::operator()(FieldsWriter& out,
                                                         const h3svg::ReplayEvent& replay_event) const
   {
-    out.writeField("type", replay_event.type());
+    using Fields = h3json::FieldNames<h3svg::ReplayEvent>;
+    out.writeField(Fields::kType, replay_event.type());
     std::visit([&out] <h3svg::ReplayEventType T> (const h3svg::ReplayEventDetails<T>& details)
                {
-                 out.writeField("details", details);
+                 out.writeField(Fields::kDetails, details);
                },
                replay_event.details);
   }

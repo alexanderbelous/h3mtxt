@@ -64,6 +64,14 @@ namespace h3json
   JsonReader<h3svg::Guardians>::operator()(const Json::Value& value) const;
 
   template<>
+  h3svg::HeroArtifact
+  JsonReader<h3svg::HeroArtifact>::operator()(const Json::Value& value) const;
+
+  template<>
+  h3svg::HeroArtifacts
+  JsonReader<h3svg::HeroArtifacts>::operator()(const Json::Value& value) const;
+
+  template<>
   h3svg::LossCondition
   JsonReader<h3svg::LossCondition>::operator()(const Json::Value& value) const;
 
@@ -150,6 +158,14 @@ namespace h3json
   template<>
   h3svg::ReplayEvent
   JsonReader<h3svg::ReplayEvent>::operator()(const Json::Value& value) const;
+
+  template<h3svg::ReplayEventType T>
+  struct JsonReader<h3svg::ReplayEventDetails<T>>
+  {
+    // Defined in ReplayEvent.cpp.
+    // Template instantiations are provided for all valid ReplayEventTypes.
+    h3svg::ReplayEventDetails<T> operator()(const Json::Value& value) const;
+  };
 
   template<>
   h3svg::Reward

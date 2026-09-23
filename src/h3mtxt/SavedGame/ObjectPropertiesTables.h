@@ -46,6 +46,8 @@ namespace h3svg
   // simultaneously.
   struct Boat
   {
+    constexpr bool operator==(const Boat&) const noexcept = default;
+
     // 1 if the boat is present on the Adventure Map, 0 otherwise (i.e. if it has been scuttled/sunk).
     // A destroyed boat remains in ObjectPropertiesTables::boats until it is replaced by
     // a new summoned/constructed boat.

@@ -349,6 +349,13 @@ namespace h3json
   };
 
   template<>
+  struct FieldNames<h3svg::HeroArtifact>
+  {
+    static constexpr std::string_view kType = "type";
+    static constexpr std::string_view kSpellType = "spell_type";
+  };
+
+  template<>
   struct FieldNames<h3svg::HeroArtifacts>
   {
     static constexpr std::string_view kEquipped = "equipped";
@@ -524,6 +531,13 @@ namespace h3json
     static constexpr std::string_view kScore = "score";
     static constexpr std::string_view kOrder = "order";
     static constexpr std::string_view kUnknown = "unknown";
+  };
+
+  template<>
+  struct FieldNames<h3svg::ReplayEvent>
+  {
+    static constexpr std::string_view kType = "type";
+    static constexpr std::string_view kDetails = "details";
   };
 
   template<>

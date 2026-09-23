@@ -149,6 +149,12 @@ namespace h3svg
     // \return ReplayEventType of this event.
     constexpr ReplayEventType type() const noexcept;
 
+    // Returns the 0-based index of the alternative corresponding to the given ReplayEventType.
+    // \param event_type - type of the event.
+    // \return 0-based index of the alternative from ReplayEvent::Details that has the type
+    //         ReplayEventDetails<event_type>, or std::variant_npos if there is no such alternative.
+    static constexpr std::size_t getAlternativeIdx(ReplayEventType event_type) noexcept;
+
     Details details;
   };
 
@@ -170,6 +176,24 @@ namespace h3svg
     default:
       // Unreachable.
       return static_cast<ReplayEventType>(-1);
+    }
+  }
+
+  constexpr std::size_t ReplayEvent::getAlternativeIdx(ReplayEventType event_type) noexcept
+  {
+    switch (event_type)
+    {
+    case ReplayEventType::MoveHero:                return 0;
+    case ReplayEventType::TeleportHero:            return 1;
+    case ReplayEventType::FlagMine:                return 2;
+    case ReplayEventType::CaptureTown:             return 3;
+    case ReplayEventType::HideBoat:                return 4;
+    case ReplayEventType::ShowBoat:                return 5;
+    case ReplayEventType::RemoveMapItem:           return 6;
+    case ReplayEventType::HideHero:                return 7;
+    case ReplayEventType::ShowHero:                return 8;
+    case ReplayEventType::ChangeTerrainVisibility: return 9;
+    default:                                       return std::variant_npos;
     }
   }
 }

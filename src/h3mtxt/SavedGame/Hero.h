@@ -117,7 +117,7 @@ namespace h3svg
       // TODO: figure out what this is.
     std::array<std::uint8_t, 3> unknown3 {};
     // Maximum number of movement points at the moment.
-    // This the "potential" value, which basically reflects what would've been the number of move points if the hero
+    // This is the "potential" value, which basically reflects what would've been the number of move points if the hero
     // hadn't moved this turn. It's not constant though - e.g., visiting Stables, or equipping Boots of Speed increases
     // this number.
     std::int32_t move_points_max {};
