@@ -155,6 +155,14 @@ namespace h3json
   h3svg::Reward
   JsonReader<h3svg::Reward>::operator()(const Json::Value& value) const;
 
+  template<h3svg::RewardType T>
+  struct JsonReader<h3svg::RewardDetails<T>>
+  {
+    // Defined in Reward.cpp.
+    // Template instantiations are provided for all valid RewardTypes.
+    h3svg::RewardDetails<T> operator()(const Json::Value& value) const;
+  };
+
   template<>
   h3svg::Rumor
   JsonReader<h3svg::Rumor>::operator()(const Json::Value& value) const;

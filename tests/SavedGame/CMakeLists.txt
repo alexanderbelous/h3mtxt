@@ -7,6 +7,7 @@ add_executable(h3mtxt_tests_SavedGame
     "MapBasicInfo.cpp"
     "ObjectPropertiesTables.cpp"
     "Quest.cpp"
+    "Reward.cpp"
     "SavedGame.cpp"
     "TestingUtils_H3SVG.h"
     "Town.cpp"

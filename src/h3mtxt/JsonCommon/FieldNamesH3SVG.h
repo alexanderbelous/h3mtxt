@@ -533,6 +533,77 @@ namespace h3json
   };
 
   template<>
+  struct FieldNames<h3svg::RewardDetails<h3svg::RewardType::None>> :
+    FieldNames<h3m::RewardDetails<h3m::RewardType::None>>
+  {
+    static constexpr std::string_view kReserved = "reserved";
+  };
+
+  template<>
+  struct FieldNames<h3svg::RewardDetails<h3svg::RewardType::Experience>> :
+    FieldNames<h3m::RewardDetails<h3m::RewardType::Experience>>
+  {
+    static constexpr std::string_view kReserved = "reserved";
+  };
+
+  template<>
+  struct FieldNames<h3svg::RewardDetails<h3svg::RewardType::SpellPoints>> :
+    FieldNames<h3m::RewardDetails<h3m::RewardType::SpellPoints>>
+  {
+    static constexpr std::string_view kReserved = "reserved";
+  };
+
+  template<>
+  struct FieldNames<h3svg::RewardDetails<h3svg::RewardType::Morale>> :
+    FieldNames<h3m::RewardDetails<h3m::RewardType::Morale>>
+  {
+    static constexpr std::string_view kReserved = "reserved";
+  };
+
+  template<>
+  struct FieldNames<h3svg::RewardDetails<h3svg::RewardType::Luck>> :
+    FieldNames<h3m::RewardDetails<h3m::RewardType::Luck>>
+  {
+    static constexpr std::string_view kReserved = "reserved";
+  };
+
+  template<>
+  struct FieldNames<h3svg::RewardDetails<h3svg::RewardType::Resource>> :
+    FieldNames<h3m::RewardDetails<h3m::RewardType::Resource>>
+  {};
+
+  template<>
+  struct FieldNames<h3svg::RewardDetails<h3svg::RewardType::PrimarySkill>> :
+    FieldNames<h3m::RewardDetails<h3m::RewardType::PrimarySkill>>
+  {};
+
+  template<>
+  struct FieldNames<h3svg::RewardDetails<h3svg::RewardType::SecondarySkill>>
+  {
+    static constexpr std::string_view kType = "type";
+    static constexpr std::string_view kLevel = "level";
+  };
+
+  template<>
+  struct FieldNames<h3svg::RewardDetails<h3svg::RewardType::Artifact>> :
+    FieldNames<h3m::RewardDetails<h3m::RewardType::Artifact>>
+  {
+    static constexpr std::string_view kReserved = "reserved";
+  };
+
+  template<>
+  struct FieldNames<h3svg::RewardDetails<h3svg::RewardType::Spell>> :
+    FieldNames<h3m::RewardDetails<h3m::RewardType::Spell>>
+  {
+    static constexpr std::string_view kReserved = "reserved";
+  };
+
+  template<>
+  struct FieldNames<h3svg::RewardDetails<h3svg::RewardType::Creatures>> :
+    FieldNames<h3m::RewardDetails<h3m::RewardType::Creatures>>
+  {};
+
+  template<>
   struct FieldNames<h3svg::Rumor>
   {
     static constexpr std::string_view kText = "text";
