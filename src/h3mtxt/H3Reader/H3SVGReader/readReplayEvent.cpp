@@ -64,7 +64,7 @@ namespace h3svg
     {
       ReplayEventDetails<ReplayEventType::ShowBoat> details;
       details.player = readEnum<PlayerColor>();
-      details.unknown1 = readByteArray<7>();
+      details.unknown = readByteArray<7>();
       details.coordinates_new = readCoordinatesPacked();
       details.coordinates_old = readCoordinatesPacked();
       return ReplayEvent{ .details = details };

@@ -74,7 +74,7 @@ namespace h3svg
     PlayerColor player{};
     // unknown[0] is probably Boat::id
     // The rest is smth like boarded_hero, owner_hero_old, owner_hero_new
-    std::array<std::uint8_t, 7> unknown1 {};
+    std::array<std::uint8_t, 7> unknown {};
     // The new coordinates of the boat.
     CoordinatesPacked coordinates_new;
     // The old coordinates of the boat ((-1, -1, -1) if the boat has just been constructed).

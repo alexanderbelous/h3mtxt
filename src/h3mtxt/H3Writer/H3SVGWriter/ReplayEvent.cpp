@@ -56,7 +56,7 @@ namespace h3svg
   void H3SVGWriter::writeData(const ReplayEventDetails<ReplayEventType::ShowBoat>& details) const
   {
     writeData(details.player);
-    writeData(details.unknown1);
+    writeData(details.unknown);
     writeData(details.coordinates_new);
     writeData(details.coordinates_old);
   }

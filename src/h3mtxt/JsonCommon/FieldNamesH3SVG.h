@@ -6,6 +6,7 @@
 
 #include <h3mtxt/JsonCommon/FieldNamesH3M.h>
 #include <h3mtxt/SavedGame/SavedGameFwd.h>
+#include <h3mtxt/SavedGame/Constants/ReplayEventType.h>
 
 #include <string_view>
 
@@ -538,6 +539,99 @@ namespace h3json
   {
     static constexpr std::string_view kType = "type";
     static constexpr std::string_view kDetails = "details";
+  };
+
+  template<>
+  struct FieldNames<h3svg::ReplayEventDetails<h3svg::ReplayEventType::MoveHero>>
+  {
+    static constexpr std::string_view kPlayer = "player";
+    static constexpr std::string_view kHero = "hero";
+    static constexpr std::string_view kDirection = "direction";
+    static constexpr std::string_view kFrom = "from";
+    static constexpr std::string_view kTo = "to";
+  };
+
+  template<>
+  struct FieldNames<h3svg::ReplayEventDetails<h3svg::ReplayEventType::TeleportHero>>
+  {
+    static constexpr std::string_view kPlayer = "player";
+    static constexpr std::string_view kHero = "hero";
+    static constexpr std::string_view kOrientation = "orientation";
+    static constexpr std::string_view kFrom = "from";
+    static constexpr std::string_view kTo = "to";
+  };
+
+  template<>
+  struct FieldNames<h3svg::ReplayEventDetails<h3svg::ReplayEventType::FlagMine>>
+  {
+    static constexpr std::string_view kPlayer = "player";
+    static constexpr std::string_view kId = "id";
+    static constexpr std::string_view kOwnerOld = "owner_old";
+    static constexpr std::string_view kOwnerNew = "owner_new";
+  };
+
+  template<>
+  struct FieldNames<h3svg::ReplayEventDetails<h3svg::ReplayEventType::CaptureTown>>
+  {
+    static constexpr std::string_view kPlayer = "player";
+    static constexpr std::string_view kTownId = "town_id";
+    static constexpr std::string_view kOwnerOld = "owner_old";
+    static constexpr std::string_view kOwnerNew = "owner_new";
+  };
+
+  template<>
+  struct FieldNames<h3svg::ReplayEventDetails<h3svg::ReplayEventType::HideBoat>>
+  {
+    static constexpr std::string_view kPlayer = "player";
+    static constexpr std::string_view kBoatId = "boat_id";
+    static constexpr std::string_view kUnknown = "unknown";
+    static constexpr std::string_view kOwnerOld = "owner_old";
+    static constexpr std::string_view kOwnerNew = "owner_new";
+  };
+
+  template<>
+  struct FieldNames<h3svg::ReplayEventDetails<h3svg::ReplayEventType::ShowBoat>>
+  {
+    static constexpr std::string_view kPlayer = "player";
+    static constexpr std::string_view kUnknown = "unknown";
+    static constexpr std::string_view kCoordinatesNew = "coordinates_new";
+    static constexpr std::string_view kCoordinatesOld = "coordinates_old";
+  };
+
+  template<>
+  struct FieldNames<h3svg::ReplayEventDetails<h3svg::ReplayEventType::RemoveMapItem>>
+  {
+    static constexpr std::string_view kPlayer = "player";
+    static constexpr std::string_view kCoordinates = "coordinates";
+    static constexpr std::string_view kUnknown = "unknown";
+  };
+
+  template<>
+  struct FieldNames<h3svg::ReplayEventDetails<h3svg::ReplayEventType::HideHero>>
+  {
+    static constexpr std::string_view kPlayer = "player";
+    static constexpr std::string_view kHero = "hero";
+    static constexpr std::string_view kOwnerNew = "owner_new";
+    static constexpr std::string_view kOwnerOld = "owner_old";
+  };
+
+  template<>
+  struct FieldNames<h3svg::ReplayEventDetails<h3svg::ReplayEventType::ShowHero>>
+  {
+    static constexpr std::string_view kPlayer = "player";
+    static constexpr std::string_view kHero = "hero";
+    static constexpr std::string_view kOwnerNew = "owner_new";
+    static constexpr std::string_view kOwnerOld = "owner_old";
+    static constexpr std::string_view kCoordinatesNew = "coordinates_new";
+    static constexpr std::string_view kCoordinatesOld = "coordinates_old";
+    static constexpr std::string_view kUnknown = "unknown";
+  };
+
+  template<>
+  struct FieldNames<h3svg::ReplayEventDetails<h3svg::ReplayEventType::ChangeTerrainVisibility>>
+  {
+    static constexpr std::string_view kPlayer = "player";
+    static constexpr std::string_view kChanges = "changes";
   };
 
   template<>
