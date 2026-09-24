@@ -138,4 +138,26 @@ namespace h3svg
     REQUIRE(H3SVGReaderAdapter(kBinaryData).readObjectExits() == kObjectExits);
     REQUIRE(encodeAndDecodeJson(kObjectExits) == kObjectExits);
   }
+
+  TEST_CASE("H3SVG.University", "[H3SVG]")
+  {
+    static constexpr University kUniversity = {
+      .skills = {
+        static_cast<SecondarySkillType32>(SecondarySkillType::Armorer),
+        static_cast<SecondarySkillType32>(SecondarySkillType::EarthMagic),
+        static_cast<SecondarySkillType32>(SecondarySkillType::Tactics),
+        static_cast<SecondarySkillType32>(SecondarySkillType::Intelligence)
+      }
+    };
+    static constexpr std::string_view kBinaryData =
+      "\x17\x00\x00\x00"
+      "\x11\x00\x00\x00"
+      "\x13\x00\x00\x00"
+      "\x18\x00\x00\x00"
+      ""sv;
+
+    REQUIRE(asByteVector(encodeViaH3SVGWriter(kUniversity)) == asByteVector(kBinaryData));
+    REQUIRE(H3SVGReaderAdapter(kBinaryData).readUniversity() == kUniversity);
+    REQUIRE(encodeAndDecodeJson(kUniversity) == kUniversity);
+  }
 }

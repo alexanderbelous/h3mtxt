@@ -28,6 +28,7 @@
 #include <h3mtxt/SavedGame/Tile.h>
 #include <h3mtxt/SavedGame/TileVisibility.h>
 #include <h3mtxt/SavedGame/Town.h>
+#include <h3mtxt/SavedGame/University.h>
 #include <h3mtxt/SavedGame/VictoryCondition.h>
 
 #include <array>
@@ -47,17 +48,6 @@ namespace h3svg
     // The length is serialized as a 16-bit integer.
     // Padding bits in CoordinatesPacked may contain junk.
     std::vector<CoordinatesPacked> exits;
-  };
-
-  struct University
-  {
-    // TODO: replace with either std::pair<SecondarySkillType, ReservedData<3>> or SecondarySkillType32.
-    // Check the behavior when fewer than 4 skills are enabled globally.
-    // UPD: the game crashes at start if there's a University on the Adventure Map but fewer than 4 skills
-    // are enabled. It's possible that SecondarySkillType{-1} is still used for "None" in Witch Huts.
-    // TODO: try modifying a saved game and setting 0x000000FF or 0xFFFFFFFF as one of the skills in the
-    // University.
-    std::array<std::uint32_t, 4> skills {};
   };
 
   // Represents a saved game for Heroes of Might and Magic 3 (.CGM, .GM1, .GM2, ... files).

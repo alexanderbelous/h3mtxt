@@ -44,6 +44,7 @@ set(SOURCE_LIST
     "TileVisibility.h"
     "Town.h"
     "Troops.h"
+    "University.h"
     "VictoryCondition.h"
 )
 

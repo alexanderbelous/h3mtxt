@@ -278,9 +278,9 @@ namespace h3svg
   University H3SVGReader::readUniversity() const
   {
     University university;
-    for (std::uint32_t& secondary_skill : university.skills)
+    for (SecondarySkillType32& secondary_skill : university.skills)
     {
-      secondary_skill = readInt<std::uint32_t>();
+      secondary_skill = readEnum<SecondarySkillType32>();
     }
     return university;
   }
