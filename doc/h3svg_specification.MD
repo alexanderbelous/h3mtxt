@@ -178,6 +178,8 @@ An H3SVG file is a single structure which we will naturally call [`SavedGame`](#
 | unknown9                  | `uint32[num_unknown9]`           | varies        | TODO                                                             |
 | num_universities          | `uint16`                         | 2             | The number of Universities on the Adventure Map                  |
 | universities              | [`University[num_universities]`](#University) | varies | Universities on the Adventure Map                          |
+| num_replay_events         | `uint32`                         | 4             | The number of recorded events from the previous turn             |
+| replay_events             | [`ReplayEvent[num_replay_events]`](#ReplayEvent) | varies | Recorded events from the previous turn |
 
 
 ### `MapBasicInfo`
@@ -762,3 +764,10 @@ except `allow_normal_win` and `applies_to_computer`.
 | Field name | Type        | Size in bytes | Description                                                                                         |
 | ---------- | ----------- | ------------- | --------------------------------------------------------------------------------------------------- |
 | skills     | `uint32[4]` | 16            | Secondarky skills that can be learned in this University. Each element is enum `SecondarySkillType` |
+
+
+### `ReplayEvent`
+| Field name | Type                          | Size in bytes | Description                                            |
+| ---------- | ----------------------------- | ------------- | ------------------------------------------------------ |
+| type       | `uint8`                       | 1             | Enum `ReplayEventType`                                 |
+| details    | varies                        | varies        | TODO                                                   |
