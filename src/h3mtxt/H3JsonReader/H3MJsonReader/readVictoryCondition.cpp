@@ -6,7 +6,6 @@
 #include <h3mtxt/Map/VictoryCondition.h>
 
 #include <stdexcept>
-#include <type_traits>
 
 namespace h3json
 {
@@ -25,122 +24,64 @@ namespace h3json
     return base;
   }
 
-  template<>
-  struct JsonReader<VictoryConditionDetails<VictoryConditionType::AcquireArtifact>>
-  {
-    VictoryConditionDetails<VictoryConditionType::AcquireArtifact> operator()(const Json::Value& value) const
-    {
-      VictoryConditionDetails<VictoryConditionType::AcquireArtifact> details {
-        fromJson<h3m::SpecialVictoryConditionBase>(value)
-      };
-      readField(details.artifact_type, value, "artifact_type");
-      return details;
-    }
-  };
-
-  template<>
-  struct JsonReader<VictoryConditionDetails<VictoryConditionType::AccumulateCreatures>>
-  {
-    VictoryConditionDetails<VictoryConditionType::AccumulateCreatures> operator()(const Json::Value& value) const
-    {
-      VictoryConditionDetails<VictoryConditionType::AccumulateCreatures> details {
-        fromJson<h3m::SpecialVictoryConditionBase>(value)
-      };
-      readField(details.creatures, value, "creatures");
-      return details;
-    }
-  };
-
-  template<>
-  struct JsonReader<VictoryConditionDetails<VictoryConditionType::AccumulateResources>>
-  {
-    VictoryConditionDetails<VictoryConditionType::AccumulateResources> operator()(const Json::Value& value) const
-    {
-      VictoryConditionDetails<VictoryConditionType::AccumulateResources> details {
-        fromJson<h3m::SpecialVictoryConditionBase>(value)
-      };
-      readField(details.resources, value, "resources");
-      return details;
-    }
-  };
-
-  template<>
-  struct JsonReader<VictoryConditionDetails<VictoryConditionType::UpgradeTown>>
-  {
-    VictoryConditionDetails<VictoryConditionType::UpgradeTown> operator()(const Json::Value& value) const
-    {
-      VictoryConditionDetails<VictoryConditionType::UpgradeTown> details {
-        fromJson<h3m::SpecialVictoryConditionBase>(value)
-      };
-      readField(details.coordinates, value, "coordinates");
-      readField(details.hall_level, value, "hall_level");
-      readField(details.castle_level, value, "castle_level");
-      return details;
-    }
-  };
-
   template<VictoryConditionType T>
-  struct JsonReader<VictoryConditionDetails<T>, std::enable_if_t<T == VictoryConditionType::BuildGrail ||
-                                                                 T == VictoryConditionType::DefeatHero ||
-                                                                 T == VictoryConditionType::CaptureTown ||
-                                                                 T == VictoryConditionType::DefeatMonster>>
+  VictoryConditionDetails<T>
+  JsonReader<VictoryConditionDetails<T>>::operator()(const Json::Value& value) const
   {
-    VictoryConditionDetails<T> operator()(const Json::Value& value) const
-    {
-      VictoryConditionDetails<T> details {
-        fromJson<h3m::SpecialVictoryConditionBase>(value)
-      };
-      readField(details.coordinates, value, "coordinates");
-      return details;
-    }
-  };
-
-  template<VictoryConditionType T>
-  struct JsonReader<VictoryConditionDetails<T>, std::enable_if_t<T == VictoryConditionType::FlagDwellings ||
-                                                                 T == VictoryConditionType::FlagMines ||
-                                                                 T == VictoryConditionType::DefeatAllMonsters>>
-  {
-    VictoryConditionDetails<T> operator()(const Json::Value& value) const
-    {
-      return VictoryConditionDetails<T>{ fromJson<h3m::SpecialVictoryConditionBase>(value) };
-    }
-  };
-
-  template<>
-  struct JsonReader<VictoryConditionDetails<VictoryConditionType::TransportArtifact>>
-  {
-    VictoryConditionDetails<VictoryConditionType::TransportArtifact> operator()(const Json::Value& value) const
-    {
-      VictoryConditionDetails<VictoryConditionType::TransportArtifact> details {
-        fromJson<h3m::SpecialVictoryConditionBase>(value)
-      };
-      readField(details.artifact_type, value, "artifact_type");
-      readField(details.destination, value, "destination");
-      return details;
-    }
-  };
-
-  template<>
-  struct JsonReader<VictoryConditionDetails<VictoryConditionType::SurviveBeyondATimeLimit>>
-  {
-    VictoryConditionDetails<VictoryConditionType::SurviveBeyondATimeLimit> operator()(const Json::Value& value) const
-    {
-      VictoryConditionDetails<VictoryConditionType::SurviveBeyondATimeLimit> details {
-        fromJson<h3m::SpecialVictoryConditionBase>(value)
-      };
-      readField(details.days, value, "days");
-      return details;
-    }
-  };
-
-  template<>
-  struct JsonReader<VictoryConditionDetails<VictoryConditionType::Normal>>
-  {
-    VictoryConditionDetails<VictoryConditionType::Normal> operator()(const Json::Value&) const
+    if constexpr (T == VictoryConditionType::Normal)
     {
       return {};
     }
-  };
+    else
+    {
+      VictoryConditionDetails<T> details{ fromJson<h3m::SpecialVictoryConditionBase>(value) };
+      if constexpr (T == VictoryConditionType::AcquireArtifact)
+      {
+        readField(details.artifact_type, value, "artifact_type");
+      }
+      else if constexpr (T == VictoryConditionType::AccumulateCreatures)
+      {
+        readField(details.creatures, value, "creatures");
+      }
+      else if constexpr (T == VictoryConditionType::AccumulateResources)
+      {
+        readField(details.resources, value, "resources");
+      }
+      else if constexpr (T == VictoryConditionType::UpgradeTown)
+      {
+        readField(details.coordinates, value, "coordinates");
+        readField(details.hall_level, value, "hall_level");
+        readField(details.castle_level, value, "castle_level");
+      }
+      else if constexpr (T == VictoryConditionType::BuildGrail ||
+                         T == VictoryConditionType::DefeatHero ||
+                         T == VictoryConditionType::CaptureTown ||
+                         T == VictoryConditionType::DefeatMonster)
+      {
+        readField(details.coordinates, value, "coordinates");
+      }
+      else if constexpr (T == VictoryConditionType::FlagDwellings ||
+                         T == VictoryConditionType::FlagMines ||
+                         T == VictoryConditionType::DefeatAllMonsters)
+      {
+        // No fields other than those inherited from SpecialVictoryConditionBase.
+      }
+      else if constexpr (T == VictoryConditionType::TransportArtifact)
+      {
+        readField(details.artifact_type, value, "artifact_type");
+        readField(details.destination, value, "destination");
+      }
+      else if constexpr (T == VictoryConditionType::SurviveBeyondATimeLimit)
+      {
+        readField(details.days, value, "days");
+      }
+      else
+      {
+        static_assert(false, "Invalid VictoryConditionType.");
+      }
+      return details;
+    }
+  }
 
   template<>
   VictoryCondition JsonReader<VictoryCondition>::operator()(const Json::Value& value) const
