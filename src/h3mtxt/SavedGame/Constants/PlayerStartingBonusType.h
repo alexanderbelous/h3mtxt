@@ -14,6 +14,7 @@ namespace h3svg
   {
     Artifact = 0,
     Gold = 1,
-    Resource = 2
+    Resource = 2,
+    Random = 3  // Only used for absent players in saved games.
   };
 }

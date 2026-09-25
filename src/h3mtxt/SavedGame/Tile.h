@@ -19,9 +19,6 @@ namespace h3svg
     struct ObjectToRender
     {
       // 0-based index of the object from SavedGame::objects.
-      // TODO: it might actually be object_template_idx. Double-check.
-      //       The easiest way to check would be having 2 objects with the same template being
-      //       rendered on this tile.
       std::uint16_t object_idx {};
       // TODO: figure out what this is.
       // Somehow determines the sprite tile of @object_idx to render.
