@@ -1,8 +1,5 @@
 #pragma once
 
-#include <h3mtxt/Map/Constants/LossConditionType.h>
-#include <h3mtxt/Map/Constants/QuestType.h>
-#include <h3mtxt/Map/Constants/RewardType.h>
 #include <h3mtxt/SavedGame/SavedGameFwd.h>
 #include <h3mtxt/SavedGame/Constants/ReplayEventType.h>
 #include <h3mtxt/Medea/MedeaFwd.h>
@@ -156,15 +153,9 @@ namespace Medea_NS
   struct JsonObjectWriter<h3svg::LossConditionDetails<T>>
   {
     // Defined in LossCondition.cpp.
-    // Explicit instantiations are provided for LossConditionTypes that use the default template implementation.
-    // A specialization for LossConditionType::LoseHero is declared below.
+    // Template instantiations are provided for all valid LossConditionTypes.
     void operator()(FieldsWriter& out, const h3svg::LossConditionDetails<T>& details) const;
   };
-
-  template<>
-  void JsonObjectWriter<h3svg::LossConditionDetails<h3svg::LossConditionType::LoseHero>>::operator()(
-    FieldsWriter& out,
-    const h3svg::LossConditionDetails<h3svg::LossConditionType::LoseHero>& details) const;
 
   template<>
   void JsonObjectWriter<h3svg::Mine>::operator()(FieldsWriter& out, const h3svg::Mine& mine) const;
@@ -200,45 +191,14 @@ namespace Medea_NS
   template<>
   void JsonObjectWriter<h3svg::Quest>::operator()(FieldsWriter& out, const h3svg::Quest& quest) const;
 
-  template<>
-  void JsonObjectWriter<h3svg::QuestDetails<h3svg::QuestType::None>>::operator()(
-    FieldsWriter& out, const h3svg::QuestDetails<h3svg::QuestType::None>& details) const;
-
-  template<>
-  void JsonObjectWriter<h3svg::QuestDetails<h3svg::QuestType::Level>>::operator()(
-    FieldsWriter& out, const h3svg::QuestDetails<h3svg::QuestType::Level>& details) const;
-
-  template<>
-  void JsonObjectWriter<h3svg::QuestDetails<h3svg::QuestType::PrimarySkills>>::operator()(
-    FieldsWriter& out, const h3svg::QuestDetails<h3svg::QuestType::PrimarySkills>& details) const;
-
-  template<>
-  void JsonObjectWriter<h3svg::QuestDetails<h3svg::QuestType::DefeatHero>>::operator()(
-    FieldsWriter& out, const h3svg::QuestDetails<h3svg::QuestType::DefeatHero>& details) const;
-
-  template<>
-  void JsonObjectWriter<h3svg::QuestDetails<h3svg::QuestType::DefeatMonster>>::operator()(
-    FieldsWriter& out, const h3svg::QuestDetails<h3svg::QuestType::DefeatMonster>& details) const;
-
-  template<>
-  void JsonObjectWriter<h3svg::QuestDetails<h3svg::QuestType::Artifacts>>::operator()(
-    FieldsWriter& out, const h3svg::QuestDetails<h3svg::QuestType::Artifacts>& details) const;
-
-  template<>
-  void JsonObjectWriter<h3svg::QuestDetails<h3svg::QuestType::Creatures>>::operator()(
-    FieldsWriter& out, const h3svg::QuestDetails<h3svg::QuestType::Creatures>& details) const;
-
-  template<>
-  void JsonObjectWriter<h3svg::QuestDetails<h3svg::QuestType::Resources>>::operator()(
-    FieldsWriter& out, const h3svg::QuestDetails<h3svg::QuestType::Resources>& details) const;
-
-  template<>
-  void JsonObjectWriter<h3svg::QuestDetails<h3svg::QuestType::BeHero>>::operator()(
-    FieldsWriter& out, const h3svg::QuestDetails<h3svg::QuestType::BeHero>& details) const;
-
-  template<>
-  void JsonObjectWriter<h3svg::QuestDetails<h3svg::QuestType::BePlayer>>::operator()(
-    FieldsWriter& out, const h3svg::QuestDetails<h3svg::QuestType::BePlayer>& details) const;
+  // Partial specialization for h3svg::QuestDetails.
+  template<h3svg::QuestType T>
+  struct JsonObjectWriter<h3svg::QuestDetails<T>>
+  {
+    // Defined in Quest.cpp.
+    // Template instantiations are provided for all valid QuestTypes.
+    void operator()(FieldsWriter& out, const h3svg::QuestDetails<T>& details) const;
+  };
 
   template<>
   void JsonObjectWriter<h3svg::QuestGuard>::operator()(FieldsWriter& out,
@@ -295,49 +255,14 @@ namespace Medea_NS
   template<>
   void JsonObjectWriter<h3svg::Reward>::operator()(FieldsWriter& out, const h3svg::Reward& reward) const;
 
-  template<>
-  void JsonObjectWriter<h3svg::RewardDetails<h3svg::RewardType::None>>::operator()(
-    FieldsWriter& out, const h3svg::RewardDetails<h3svg::RewardType::None>& details) const;
-
-  template<>
-  void JsonObjectWriter<h3svg::RewardDetails<h3svg::RewardType::Experience>>::operator()(
-    FieldsWriter& out, const h3svg::RewardDetails<h3svg::RewardType::Experience>& details) const;
-
-  template<>
-  void JsonObjectWriter<h3svg::RewardDetails<h3svg::RewardType::SpellPoints>>::operator()(
-    FieldsWriter& out, const h3svg::RewardDetails<h3svg::RewardType::SpellPoints>& details) const;
-
-  template<>
-  void JsonObjectWriter<h3svg::RewardDetails<h3svg::RewardType::Morale>>::operator()(
-    FieldsWriter& out, const h3svg::RewardDetails<h3svg::RewardType::Morale>& details) const;
-
-  template<>
-  void JsonObjectWriter<h3svg::RewardDetails<h3svg::RewardType::Luck>>::operator()(
-    FieldsWriter& out, const h3svg::RewardDetails<h3svg::RewardType::Luck>& details) const;
-
-  template<>
-  void JsonObjectWriter<h3svg::RewardDetails<h3svg::RewardType::Resource>>::operator()(
-    FieldsWriter& out, const h3svg::RewardDetails<h3svg::RewardType::Resource>& details) const;
-
-  template<>
-  void JsonObjectWriter<h3svg::RewardDetails<h3svg::RewardType::PrimarySkill>>::operator()(
-    FieldsWriter& out, const h3svg::RewardDetails<h3svg::RewardType::PrimarySkill>& details) const;
-
-  template<>
-  void JsonObjectWriter<h3svg::RewardDetails<h3svg::RewardType::SecondarySkill>>::operator()(
-    FieldsWriter& out, const h3svg::RewardDetails<h3svg::RewardType::SecondarySkill>& details) const;
-
-  template<>
-  void JsonObjectWriter<h3svg::RewardDetails<h3svg::RewardType::Artifact>>::operator()(
-    FieldsWriter& out, const h3svg::RewardDetails<h3svg::RewardType::Artifact>& details) const;
-
-  template<>
-  void JsonObjectWriter<h3svg::RewardDetails<h3svg::RewardType::Spell>>::operator()(
-    FieldsWriter& out, const h3svg::RewardDetails<h3svg::RewardType::Spell>& details) const;
-
-  template<>
-  void JsonObjectWriter<h3svg::RewardDetails<h3svg::RewardType::Creatures>>::operator()(
-    FieldsWriter& out, const h3svg::RewardDetails<h3svg::RewardType::Creatures>& details) const;
+  // Partial specialization for h3svg::RewardDetails.
+  template<h3svg::RewardType T>
+  struct JsonObjectWriter<h3svg::RewardDetails<T>>
+  {
+    // Defined in Reward.cpp.
+    // Template instantiations are provided for all valid RewardTypes.
+    void operator()(FieldsWriter& out, const h3svg::RewardDetails<T>& details) const;
+  };
 
   template<>
   void JsonObjectWriter<h3svg::Rumor>::operator()(FieldsWriter& out, const h3svg::Rumor& rumor) const;

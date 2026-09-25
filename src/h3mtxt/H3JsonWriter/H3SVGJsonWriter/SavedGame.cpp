@@ -62,30 +62,11 @@ namespace Medea_NS
   };
 
   template<>
-  void JsonObjectWriter<h3svg::RegionInfo>::operator()(FieldsWriter& out,
-                                                       const h3svg::RegionInfo& info) const
+  void JsonArrayWriter<h3svg::ArtifactMerchants>::operator()(const ArrayElementsWriter& out,
+                                                             const h3svg::ArtifactMerchants& artifact_merchants) const
   {
-    using Fields = h3json::FieldNames<h3svg::RegionInfo>;
-    out.writeField(Fields::kIsCompleted, info.is_completed);
-    out.writeField(Fields::kDays, info.days);
-    out.writeField(Fields::kScore, info.score);
-    out.writeField(Fields::kOrder, info.order);
-    out.writeField(Fields::kUnknown, info.unknown);
-  }
-
-  template<>
-  void JsonObjectWriter<h3svg::CampaignInfo>::operator()(FieldsWriter& out, const h3svg::CampaignInfo& info) const
-  {
-    using Fields = h3json::FieldNames<h3svg::CampaignInfo>;
-    out.writeField(Fields::kUnknown1, info.unknown1);
-    out.writeField(Fields::kRegionIdx, info.region_idx);
-    out.writeField(Fields::kId, info.id);
-    out.writeField(Fields::kUnknown2, info.unknown2);
-    out.writeField(Fields::kStartingBonusIdx, info.starting_bonus_idx);
-    out.writeField(Fields::kFilename, info.filename);
-    out.writeField(Fields::kFinishedCampaigns, info.finished_campaigns);
-    out.writeField(Fields::kRegions, info.regions);
-    out.writeField(Fields::kCrossoverInfo, info.crossover_info);
+    JsonArrayWriter<std::array<h3svg::ArtifactType32, h3svg::ArtifactMerchants::kNumSlots>>{}(
+      out, artifact_merchants.artifacts);
   }
 
   template<>
@@ -99,28 +80,20 @@ namespace Medea_NS
   }
 
   template<>
-  void JsonObjectWriter<h3svg::CrossoverInfo::UnknownPair>::operator()(
-    FieldsWriter& out, const h3svg::CrossoverInfo::UnknownPair& pair) const
-  {
-    out.writeField("first", pair.first);
-    out.writeField("second", pair.second);
-  }
-
-  template<>
-  void JsonObjectWriter<h3svg::CrossoverInfo>::operator()(FieldsWriter& out, const h3svg::CrossoverInfo& info) const
-  {
-    using Fields = h3json::FieldNames<h3svg::CrossoverInfo>;
-    out.writeField(Fields::kCrossoverHeroes, info.crossover_heroes);
-    out.writeField(Fields::kUnknown, info.unknown);
-  }
-
-  template<>
   void JsonObjectWriter<h3svg::Date>::operator()(FieldsWriter& out, const h3svg::Date& date) const
   {
     using Fields = h3json::FieldNames<h3svg::Date>;
     out.writeField(Fields::kMonth, date.month);
     out.writeField(Fields::kWeek, date.week);
     out.writeField(Fields::kDay, date.day);
+  }
+
+  template<>
+  void JsonObjectWriter<h3svg::Object>::operator()(FieldsWriter& out, const h3svg::Object& object) const
+  {
+    using Fields = h3json::FieldNames<h3svg::Object>;
+    out.writeField(Fields::kCoordinates, object.coordinates);
+    out.writeField(Fields::kTemplateIdx, object.template_idx);
   }
 
   template<>
@@ -131,28 +104,26 @@ namespace Medea_NS
   }
 
   template<>
-  void JsonObjectWriter<h3svg::Player>::operator()(FieldsWriter& out,
-                                                   const h3svg::Player& player) const
+  void JsonObjectWriter<h3svg::ObjectTemplate>::operator()(FieldsWriter& out,
+                                                           const h3svg::ObjectTemplate& object_template) const
   {
-    using Fields = h3json::FieldNames<h3svg::Player>;
-    out.writeField(Fields::kPlayerColor, player.player_color);
-    out.writeField(Fields::kNumHeroes, player.num_heroes);
-    out.writeField(Fields::kActiveHero, player.active_hero);
-    out.writeField(Fields::kHeroes, player.heroes);
-    out.writeField(Fields::kHeroesInTavern, player.heroes_in_tavern);
-    out.writeField(Fields::kUnknown1, player.unknown1);
-    out.writeField(Fields::kPersonality, player.personality);
-    out.writeField(Fields::kUnknown2, player.unknown2);
-    out.writeField(Fields::kDaysLeft, player.days_left);
-    out.writeField(Fields::kNumTowns, player.num_towns);
-    out.writeField(Fields::kCurrentTown, player.current_town);
-    out.writeField(Fields::kTowns, player.towns);
-    out.writeField(Fields::kResources, player.resources);
-    out.writeField(Fields::kMysticalGardens, player.mystical_gardens);
-    out.writeField(Fields::kMagicSprings, player.magic_springs);
-    out.writeField(Fields::kCorpses, player.corpses);
-    out.writeField(Fields::kLeanTos, player.lean_tos);
-    out.writeField(Fields::kUnknown3, player.unknown3);
+    using Fields = h3json::FieldNames<h3svg::ObjectTemplate>;
+    out.writeField(Fields::kDef, object_template.def);
+    out.writeField(Fields::kWidth, object_template.width);
+    out.writeField(Fields::kHeight, object_template.height);
+    out.writeField(Fields::kUnknown1, object_template.unknown1);
+    out.writeField(Fields::kPassability, object_template.passability);
+    out.writeField(Fields::kUnknown2, object_template.unknown2);
+    out.writeField(Fields::kActionability, object_template.actionability);
+    out.writeField(Fields::kObjectClass, object_template.object_class);
+    if (std::string_view enum_str = EnumCommentGetter{}(static_cast<h3svg::ObjectClass>(object_template.object_class));
+        !enum_str.empty())
+    {
+      out.writeComment(enum_str, false);
+    }
+    out.writeField(Fields::kObjectSubclass, object_template.object_subclass);
+    out.writeField(Fields::kReserved, object_template.reserved);
+    out.writeField(Fields::kIsGround, object_template.is_ground);
   }
 
   template<>
@@ -178,44 +149,6 @@ namespace Medea_NS
     using Fields = h3json::FieldNames<h3svg::Rumor>;
     out.writeField(Fields::kText, rumor.text);
     out.writeField(Fields::kHasBeenShown, rumor.has_been_shown);
-  }
-
-  template<>
-  void JsonArrayWriter<h3svg::ArtifactMerchants>::operator()(const ArrayElementsWriter& out,
-                                                             const h3svg::ArtifactMerchants& artifact_merchants) const
-  {
-    JsonArrayWriter<std::array<h3svg::ArtifactType32, 7>>{}(out, artifact_merchants.artifacts);
-  }
-
-  template<>
-  void JsonObjectWriter<h3svg::Object>::operator()(FieldsWriter& out, const h3svg::Object& object) const
-  {
-    using Fields = h3json::FieldNames<h3svg::Object>;
-    out.writeField(Fields::kCoordinates, object.coordinates);
-    out.writeField(Fields::kTemplateIdx, object.template_idx);
-  }
-
-  template<>
-  void JsonObjectWriter<h3svg::ObjectTemplate>::operator()(FieldsWriter& out,
-                                                           const h3svg::ObjectTemplate& object_template) const
-  {
-    using Fields = h3json::FieldNames<h3svg::ObjectTemplate>;
-    out.writeField(Fields::kDef, object_template.def);
-    out.writeField(Fields::kWidth, object_template.width);
-    out.writeField(Fields::kHeight, object_template.height);
-    out.writeField(Fields::kUnknown1, object_template.unknown1);
-    out.writeField(Fields::kPassability, object_template.passability);
-    out.writeField(Fields::kUnknown2, object_template.unknown2);
-    out.writeField(Fields::kActionability, object_template.actionability);
-    out.writeField(Fields::kObjectClass, object_template.object_class);
-    if (std::string_view enum_str = EnumCommentGetter{}(static_cast<h3svg::ObjectClass>(object_template.object_class));
-        !enum_str.empty())
-    {
-      out.writeComment(enum_str, false);
-    }
-    out.writeField(Fields::kObjectSubclass, object_template.object_subclass);
-    out.writeField(Fields::kReserved, object_template.reserved);
-    out.writeField(Fields::kIsGround, object_template.is_ground);
   }
 
   template<>
@@ -281,29 +214,6 @@ namespace Medea_NS
     out.writeField(Fields::kUniversities, saved_game.universities);
     out.writeField(Fields::kCreatureBanks, saved_game.creature_banks);
     out.writeField(Fields::kPreviousTurn, saved_game.previous_turn);
-  }
-
-  template<>
-  void JsonObjectWriter<h3svg::ScenarioStartingInfo>::operator()(FieldsWriter& out,
-                                                                 const h3svg::ScenarioStartingInfo& starting_info) const
-  {
-    using Fields = h3json::FieldNames<h3svg::ScenarioStartingInfo>;
-
-    out.writeField(Fields::kStartingTowns, starting_info.starting_towns);
-    out.writeField(Fields::kUnknown1, starting_info.unknown1);
-    out.writeField(Fields::kDifficulty, starting_info.difficulty);
-    out.writeField(Fields::kMapFilename, starting_info.map_filename);
-    out.writeField(Fields::kMapDirectory, starting_info.map_directory);
-    out.writeField(Fields::kPlayersControl, starting_info.players_control);
-    out.writeField(Fields::kUnknown2, starting_info.unknown2);
-    out.writeField(Fields::kPlayerTurnDuration, starting_info.player_turn_duration);
-    out.writeField(Fields::kStartingHeroes, starting_info.starting_heroes);
-    out.writeField(Fields::kStartingBonuses, starting_info.starting_bonuses);
-    if (starting_info.campaign_info.has_value())
-    {
-      out.writeField(Fields::kCampaignInfo, *starting_info.campaign_info);
-    }
-    out.writeField(Fields::kPlaceholderHeroes, starting_info.placeholder_heroes);
   }
 
   template<>

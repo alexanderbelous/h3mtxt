@@ -5,41 +5,29 @@
 #include <h3mtxt/SavedGame/LossCondition.h>
 #include <h3mtxt/Medea/Medea.h>
 
+#include <type_traits>
+
 namespace Medea_NS
 {
   template<h3svg::LossConditionType T>
   void JsonObjectWriter<h3svg::LossConditionDetails<T>>::operator()(
     FieldsWriter& out, const h3svg::LossConditionDetails<T>& details) const
   {
-    // Sanity checks.
-    static_assert(std::is_base_of_v<h3m::LossConditionDetails<T>, h3svg::LossConditionDetails<T>>,
-                  "h3svg::LossConditionDetails<T> must be derived from h3m::LossConditionDetails<T>.");
-    static_assert(sizeof(h3svg::LossConditionDetails<T>) == sizeof(h3m::LossConditionDetails<T>),
-                  "h3svg::LossConditionDetails<T> must have the same size as h3m::LossConditionDetails<T>.");
-    // Reuse the code from H3MJsonWriter.
-    JsonObjectWriter<h3m::LossConditionDetails<T>>{}(out, details);
-  }
-
-  // Explicit instantiations for LossConditionTypes that use the default template implementation.
-  template
-  void JsonObjectWriter<h3svg::LossConditionDetails<h3svg::LossConditionType::LoseTown>>::operator()(
-    FieldsWriter& out, const h3svg::LossConditionDetails<h3svg::LossConditionType::LoseTown>& details) const;
-
-  template
-  void JsonObjectWriter<h3svg::LossConditionDetails<h3svg::LossConditionType::TimeExpires>>::operator()(
-    FieldsWriter& out, const h3svg::LossConditionDetails<h3svg::LossConditionType::TimeExpires>& details) const;
-
-  template
-  void JsonObjectWriter<h3svg::LossConditionDetails<h3svg::LossConditionType::Normal>>::operator()(
-    FieldsWriter& out, const h3svg::LossConditionDetails<h3svg::LossConditionType::Normal>& details) const;
-
-  // Specialization for LossConditionType::LoseHero.
-  template<>
-  void JsonObjectWriter<h3svg::LossConditionDetails<h3svg::LossConditionType::LoseHero>>::operator()(
-    FieldsWriter& out, const h3svg::LossConditionDetails<h3svg::LossConditionType::LoseHero>& details) const
-  {
-    using Fields = h3json::FieldNames<h3svg::LossConditionDetails<h3svg::LossConditionType::LoseHero>>;
-    out.writeField(Fields::kHero, details.hero);
+    if constexpr (T == h3svg::LossConditionType::LoseHero)
+    {
+      using Fields = h3json::FieldNames<h3svg::LossConditionDetails<T>>;
+      out.writeField(Fields::kHero, details.hero);
+    }
+    else
+    {
+      // Sanity checks.
+      static_assert(std::is_base_of_v<h3m::LossConditionDetails<T>, h3svg::LossConditionDetails<T>>,
+                    "h3svg::LossConditionDetails<T> must be derived from h3m::LossConditionDetails<T>.");
+      static_assert(sizeof(h3svg::LossConditionDetails<T>) == sizeof(h3m::LossConditionDetails<T>),
+                    "h3svg::LossConditionDetails<T> must have the same size as h3m::LossConditionDetails<T>.");
+      // Reuse H3MJsonWriter.
+      JsonObjectWriter<h3m::LossConditionDetails<T>>{}(out, details);
+    }
   }
 
   template<>

@@ -6,87 +6,49 @@
 #include <h3mtxt/Medea/Medea.h>
 #include <h3mtxt/SavedGame/Quest.h>
 
+#include <type_traits>
+
 namespace Medea_NS
 {
-  // TODO: reuse the implementations for h3m::QuestDetails where applicable.
-
-  template<>
-  void JsonObjectWriter<h3svg::QuestDetails<h3svg::QuestType::None>>::operator()(
-    FieldsWriter&, const h3svg::QuestDetails<h3svg::QuestType::None>&) const
+  template<h3svg::QuestType T>
+  void JsonObjectWriter<h3svg::QuestDetails<T>>::operator()(FieldsWriter& out,
+                                                            const h3svg::QuestDetails<T>& details) const
   {
-  }
+    using Fields = h3json::FieldNames<h3svg::QuestDetails<T>>;
 
-  template<>
-  void JsonObjectWriter<h3svg::QuestDetails<h3svg::QuestType::Level>>::operator()(
-    FieldsWriter& out, const h3svg::QuestDetails<h3svg::QuestType::Level>& details) const
-  {
-    using Fields = h3json::FieldNames<h3svg::QuestDetails<h3svg::QuestType::Level>>;
-    out.writeField(Fields::kLevel, details.level);
-  }
-
-  template<>
-  void JsonObjectWriter<h3svg::QuestDetails<h3svg::QuestType::PrimarySkills>>::operator()(
-    FieldsWriter& out, const h3svg::QuestDetails<h3svg::QuestType::PrimarySkills>& details) const
-  {
-    JsonObjectWriter<h3m::QuestDetails<h3m::QuestType::PrimarySkills>>{}(out, details);
-  }
-
-  template<>
-  void JsonObjectWriter<h3svg::QuestDetails<h3svg::QuestType::DefeatHero>>::operator()(
-    FieldsWriter& out, const h3svg::QuestDetails<h3svg::QuestType::DefeatHero>& details) const
-  {
-    using Fields = h3json::FieldNames<h3svg::QuestDetails<h3svg::QuestType::DefeatHero>>;
-    out.writeField(Fields::kHero, details.hero);
-    out.writeField(Fields::kUnknown, details.unknown);
-    out.writeField(Fields::kCompletedBy, details.completed_by);
-  }
-
-  template<>
-  void JsonObjectWriter<h3svg::QuestDetails<h3svg::QuestType::DefeatMonster>>::operator()(
-    FieldsWriter& out, const h3svg::QuestDetails<h3svg::QuestType::DefeatMonster>& details) const
-  {
-    using Fields = h3json::FieldNames<h3svg::QuestDetails<h3svg::QuestType::DefeatMonster>>;
-    out.writeField(Fields::kCoordinates, details.coordinates);
-    out.writeField(Fields::kCreatureType, details.creature_type);
-    out.writeField(Fields::kCompletedBy, details.completed_by);
-  }
-
-  template<>
-  void JsonObjectWriter<h3svg::QuestDetails<h3svg::QuestType::Artifacts>>::operator()(
-    FieldsWriter& out, const h3svg::QuestDetails<h3svg::QuestType::Artifacts>& details) const
-  {
-    JsonObjectWriter<h3m::QuestDetails<h3m::QuestType::Artifacts>>{}(out, details);
-  }
-
-  template<>
-  void JsonObjectWriter<h3svg::QuestDetails<h3svg::QuestType::Creatures>>::operator()(
-    FieldsWriter& out, const h3svg::QuestDetails<h3svg::QuestType::Creatures>& details) const
-  {
-    using Fields = h3json::FieldNames<h3svg::QuestDetails<h3svg::QuestType::Creatures>>;
-    out.writeField(Fields::kCreatures, details.creatures);
-  }
-
-  template<>
-  void JsonObjectWriter<h3svg::QuestDetails<h3svg::QuestType::Resources>>::operator()(
-    FieldsWriter& out, const h3svg::QuestDetails<h3svg::QuestType::Resources>& details) const
-  {
-    JsonObjectWriter<h3m::QuestDetails<h3m::QuestType::Resources>>{}(out, details);
-  }
-
-  template<>
-  void JsonObjectWriter<h3svg::QuestDetails<h3svg::QuestType::BeHero>>::operator()(
-    FieldsWriter& out, const h3svg::QuestDetails<h3svg::QuestType::BeHero>& details) const
-  {
-    using Fields = h3json::FieldNames<h3svg::QuestDetails<h3svg::QuestType::BeHero>>;
-    out.writeField(Fields::kHero, details.hero);
-    out.writeField(Fields::kUnknown, details.unknown);
-  }
-
-  template<>
-  void JsonObjectWriter<h3svg::QuestDetails<h3svg::QuestType::BePlayer>>::operator()(
-    FieldsWriter& out, const h3svg::QuestDetails<h3svg::QuestType::BePlayer>& details) const
-  {
-    JsonObjectWriter<h3m::QuestDetails<h3m::QuestType::BePlayer>>{}(out, details);
+    if constexpr (T == h3svg::QuestType::Level)
+    {
+      out.writeField(Fields::kLevel, details.level);
+    }
+    else if constexpr (T == h3svg::QuestType::DefeatHero)
+    {
+      out.writeField(Fields::kHero, details.hero);
+      out.writeField(Fields::kUnknown, details.unknown);
+      out.writeField(Fields::kCompletedBy, details.completed_by);
+    }
+    else if constexpr (T == h3svg::QuestType::DefeatMonster)
+    {
+      out.writeField(Fields::kCoordinates, details.coordinates);
+      out.writeField(Fields::kCreatureType, details.creature_type);
+      out.writeField(Fields::kCompletedBy, details.completed_by);
+    }
+    else if constexpr (T == h3svg::QuestType::Creatures)
+    {
+      out.writeField(Fields::kCreatures, details.creatures);
+    }
+    else if constexpr (T == h3svg::QuestType::BeHero)
+    {
+      out.writeField(Fields::kHero, details.hero);
+      out.writeField(Fields::kUnknown, details.unknown);
+    }
+    else
+    {
+      static_assert(std::is_base_of_v<h3m::QuestDetails<T>, h3svg::QuestDetails<T>>,
+                    "h3svg::QuestDetails<T> must be derived from h3m::QuestDetails<T>.");
+      static_assert(sizeof(h3svg::QuestDetails<T>) == sizeof(h3m::QuestDetails<T>),
+                    "h3svg::QuestDetails<T> must have the same size as h3m::QuestDetails<T>.");
+      JsonObjectWriter<h3m::QuestDetails<T>>{}(out, details);
+    }
   }
 
   template<>
