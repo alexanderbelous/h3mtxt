@@ -42,6 +42,7 @@ namespace Medea_NS
     out.writeField(Fields::kHero, details.hero);
   }
 
+  template<>
   void JsonObjectWriter<h3svg::LossCondition>::operator()(FieldsWriter& out,
                                                           const h3svg::LossCondition& loss_condition) const
   {

@@ -61,6 +61,7 @@ namespace Medea_NS
     }
   };
 
+  template<>
   void JsonObjectWriter<h3svg::RegionInfo>::operator()(FieldsWriter& out,
                                                        const h3svg::RegionInfo& info) const
   {
@@ -72,6 +73,7 @@ namespace Medea_NS
     out.writeField(Fields::kUnknown, info.unknown);
   }
 
+  template<>
   void JsonObjectWriter<h3svg::CampaignInfo>::operator()(FieldsWriter& out, const h3svg::CampaignInfo& info) const
   {
     using Fields = h3json::FieldNames<h3svg::CampaignInfo>;
@@ -96,6 +98,7 @@ namespace Medea_NS
     out.writeField(Fields::kArtifacts, creature_bank.artifacts);
   }
 
+  template<>
   void JsonObjectWriter<h3svg::CrossoverInfo::UnknownPair>::operator()(
     FieldsWriter& out, const h3svg::CrossoverInfo::UnknownPair& pair) const
   {
@@ -103,6 +106,7 @@ namespace Medea_NS
     out.writeField("second", pair.second);
   }
 
+  template<>
   void JsonObjectWriter<h3svg::CrossoverInfo>::operator()(FieldsWriter& out, const h3svg::CrossoverInfo& info) const
   {
     using Fields = h3json::FieldNames<h3svg::CrossoverInfo>;
@@ -126,6 +130,7 @@ namespace Medea_NS
     out.writeField(Fields::kExits, object_exits.exits);
   }
 
+  template<>
   void JsonObjectWriter<h3svg::Player>::operator()(FieldsWriter& out,
                                                    const h3svg::Player& player) const
   {
@@ -150,6 +155,7 @@ namespace Medea_NS
     out.writeField(Fields::kUnknown3, player.unknown3);
   }
 
+  template<>
   void JsonObjectWriter<h3svg::PlayerSpecs>::operator()(FieldsWriter& out, const h3svg::PlayerSpecs& player) const
   {
     using Fields = h3json::FieldNames<h3svg::PlayerSpecs>;
@@ -166,6 +172,7 @@ namespace Medea_NS
     out.writeField(Fields::kStartingHero, player.starting_hero);
   }
 
+  template<>
   void JsonObjectWriter<h3svg::Rumor>::operator()(FieldsWriter& out, const h3svg::Rumor& rumor) const
   {
     using Fields = h3json::FieldNames<h3svg::Rumor>;
@@ -173,12 +180,14 @@ namespace Medea_NS
     out.writeField(Fields::kHasBeenShown, rumor.has_been_shown);
   }
 
+  template<>
   void JsonArrayWriter<h3svg::ArtifactMerchants>::operator()(const ArrayElementsWriter& out,
                                                              const h3svg::ArtifactMerchants& artifact_merchants) const
   {
     JsonArrayWriter<std::array<h3svg::ArtifactType32, 7>>{}(out, artifact_merchants.artifacts);
   }
 
+  template<>
   void JsonObjectWriter<h3svg::Object>::operator()(FieldsWriter& out, const h3svg::Object& object) const
   {
     using Fields = h3json::FieldNames<h3svg::Object>;
@@ -186,6 +195,7 @@ namespace Medea_NS
     out.writeField(Fields::kTemplateIdx, object.template_idx);
   }
 
+  template<>
   void JsonObjectWriter<h3svg::ObjectTemplate>::operator()(FieldsWriter& out,
                                                            const h3svg::ObjectTemplate& object_template) const
   {
@@ -208,6 +218,7 @@ namespace Medea_NS
     out.writeField(Fields::kIsGround, object_template.is_ground);
   }
 
+  template<>
   void JsonObjectWriter<h3svg::SavedGame>::operator()(FieldsWriter& out, const h3svg::SavedGame& saved_game) const
   {
     using Fields = h3json::FieldNames<h3svg::SavedGame>;
@@ -272,6 +283,7 @@ namespace Medea_NS
     out.writeField(Fields::kPreviousTurn, saved_game.previous_turn);
   }
 
+  template<>
   void JsonObjectWriter<h3svg::ScenarioStartingInfo>::operator()(FieldsWriter& out,
                                                                  const h3svg::ScenarioStartingInfo& starting_info) const
   {
@@ -302,6 +314,7 @@ namespace Medea_NS
     out.writeField("unknown", object_to_render.unknown);
   }
 
+  template<>
   void JsonObjectWriter<h3svg::Tile>::operator()(FieldsWriter& out, const h3svg::Tile& tile) const
   {
     using Fields = h3json::FieldNames<h3svg::Tile>;
@@ -320,6 +333,7 @@ namespace Medea_NS
     out.writeField(Fields::kObjectsToRender, tile.objects_to_render);
   }
 
+  template<>
   void JsonObjectWriter<h3svg::TileVisibility>::operator()(FieldsWriter& out,
                                                            const h3svg::TileVisibility& tile_visibility) const
   {

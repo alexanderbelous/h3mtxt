@@ -22,6 +22,7 @@ namespace Medea_NS
     out.writeField(Fields::kPadding2, coordinates.padding2);
   }
 
+  template<>
   void JsonObjectWriter<h3svg::HeroArtifact>::operator()(FieldsWriter& out, const h3svg::HeroArtifact& artifact) const
   {
     using Fields = h3json::FieldNames<h3svg::HeroArtifact>;
@@ -34,6 +35,7 @@ namespace Medea_NS
     }
   }
 
+  template<>
   void JsonObjectWriter<h3svg::HeroArtifacts>::operator()(FieldsWriter& out,
                                                           const h3svg::HeroArtifacts& artifacts) const
   {
@@ -45,6 +47,7 @@ namespace Medea_NS
     out.writeField(Fields::kLocks, artifacts.locks);
   }
 
+  template<>
   void JsonObjectWriter<h3svg::Hero>::operator()(FieldsWriter& out, const h3svg::Hero& hero) const
   {
     using Fields = h3json::FieldNames<h3svg::Hero>;

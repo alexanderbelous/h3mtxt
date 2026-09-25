@@ -114,6 +114,7 @@ namespace Medea_NS
     out.writeField("hero", details.hero);
   }
 
+  template<>
   void JsonObjectWriter<h3svg::VictoryCondition>::operator()(FieldsWriter& out,
                                                              const h3svg::VictoryCondition& victory_condition) const
   {

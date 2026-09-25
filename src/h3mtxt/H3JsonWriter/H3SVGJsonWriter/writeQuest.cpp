@@ -10,11 +10,13 @@ namespace Medea_NS
 {
   // TODO: reuse the implementations for h3m::QuestDetails where applicable.
 
+  template<>
   void JsonObjectWriter<h3svg::QuestDetails<h3svg::QuestType::None>>::operator()(
     FieldsWriter&, const h3svg::QuestDetails<h3svg::QuestType::None>&) const
   {
   }
 
+  template<>
   void JsonObjectWriter<h3svg::QuestDetails<h3svg::QuestType::Level>>::operator()(
     FieldsWriter& out, const h3svg::QuestDetails<h3svg::QuestType::Level>& details) const
   {
@@ -22,12 +24,14 @@ namespace Medea_NS
     out.writeField(Fields::kLevel, details.level);
   }
 
+  template<>
   void JsonObjectWriter<h3svg::QuestDetails<h3svg::QuestType::PrimarySkills>>::operator()(
     FieldsWriter& out, const h3svg::QuestDetails<h3svg::QuestType::PrimarySkills>& details) const
   {
     JsonObjectWriter<h3m::QuestDetails<h3m::QuestType::PrimarySkills>>{}(out, details);
   }
 
+  template<>
   void JsonObjectWriter<h3svg::QuestDetails<h3svg::QuestType::DefeatHero>>::operator()(
     FieldsWriter& out, const h3svg::QuestDetails<h3svg::QuestType::DefeatHero>& details) const
   {
@@ -37,6 +41,7 @@ namespace Medea_NS
     out.writeField(Fields::kCompletedBy, details.completed_by);
   }
 
+  template<>
   void JsonObjectWriter<h3svg::QuestDetails<h3svg::QuestType::DefeatMonster>>::operator()(
     FieldsWriter& out, const h3svg::QuestDetails<h3svg::QuestType::DefeatMonster>& details) const
   {
@@ -46,12 +51,14 @@ namespace Medea_NS
     out.writeField(Fields::kCompletedBy, details.completed_by);
   }
 
+  template<>
   void JsonObjectWriter<h3svg::QuestDetails<h3svg::QuestType::Artifacts>>::operator()(
     FieldsWriter& out, const h3svg::QuestDetails<h3svg::QuestType::Artifacts>& details) const
   {
     JsonObjectWriter<h3m::QuestDetails<h3m::QuestType::Artifacts>>{}(out, details);
   }
 
+  template<>
   void JsonObjectWriter<h3svg::QuestDetails<h3svg::QuestType::Creatures>>::operator()(
     FieldsWriter& out, const h3svg::QuestDetails<h3svg::QuestType::Creatures>& details) const
   {
@@ -59,12 +66,14 @@ namespace Medea_NS
     out.writeField(Fields::kCreatures, details.creatures);
   }
 
+  template<>
   void JsonObjectWriter<h3svg::QuestDetails<h3svg::QuestType::Resources>>::operator()(
     FieldsWriter& out, const h3svg::QuestDetails<h3svg::QuestType::Resources>& details) const
   {
     JsonObjectWriter<h3m::QuestDetails<h3m::QuestType::Resources>>{}(out, details);
   }
 
+  template<>
   void JsonObjectWriter<h3svg::QuestDetails<h3svg::QuestType::BeHero>>::operator()(
     FieldsWriter& out, const h3svg::QuestDetails<h3svg::QuestType::BeHero>& details) const
   {
@@ -73,12 +82,14 @@ namespace Medea_NS
     out.writeField(Fields::kUnknown, details.unknown);
   }
 
+  template<>
   void JsonObjectWriter<h3svg::QuestDetails<h3svg::QuestType::BePlayer>>::operator()(
     FieldsWriter& out, const h3svg::QuestDetails<h3svg::QuestType::BePlayer>& details) const
   {
     JsonObjectWriter<h3m::QuestDetails<h3m::QuestType::BePlayer>>{}(out, details);
   }
 
+  template<>
   void JsonObjectWriter<h3svg::Quest>::operator()(FieldsWriter& out, const h3svg::Quest& quest) const
   {
     using Fields = h3json::FieldNames<h3svg::Quest>;

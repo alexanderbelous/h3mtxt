@@ -10,6 +10,7 @@
 
 namespace Medea_NS
 {
+  template<>
   void JsonObjectWriter<h3svg::Town>::operator()(FieldsWriter& out, const h3svg::Town& town) const
   {
     using Fields = h3json::FieldNames<h3svg::Town>;
