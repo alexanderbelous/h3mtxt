@@ -305,6 +305,14 @@ namespace h3json
   template<>
   h3m::VictoryCondition JsonReader<h3m::VictoryCondition>::operator()(const Json::Value& value) const;
 
+  template<h3m::VictoryConditionType T>
+  struct JsonReader<h3m::VictoryConditionDetails<T>>
+  {
+    // Defined in readVictoryCondition.cpp.
+    // Template instantiations are provided for all valid VictoryConditionTypes.
+    h3m::VictoryConditionDetails<T> operator()(const Json::Value& value) const;
+  };
+
   h3m::ObjectPropertiesVariant readObjectPropertiesVariant(const Json::Value& value,
                                                            h3m::ObjectPropertiesType object_properties_type);
 }
