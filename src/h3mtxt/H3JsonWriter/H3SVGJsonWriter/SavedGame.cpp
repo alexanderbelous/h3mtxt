@@ -3,7 +3,7 @@
 #include <h3mtxt/H3JsonWriter/H3MJsonWriter/CommentBuilder.h>
 #include <h3mtxt/H3JsonWriter/H3MJsonWriter/H3MJsonWriter.h>
 #include <h3mtxt/H3JsonWriter/H3MJsonWriter/Utils.h>
-#include <h3mtxt/H3JsonWriter/H3SVGJsonWriter/Utils.h>
+#include <h3mtxt/H3JsonWriter/H3SVGJsonWriter/FixedLengthString.h>
 #include <h3mtxt/JsonCommon/FieldNamesH3M.h>
 #include <h3mtxt/JsonCommon/FieldNamesH3SVG.h>
 #include <h3mtxt/Medea/Medea.h>

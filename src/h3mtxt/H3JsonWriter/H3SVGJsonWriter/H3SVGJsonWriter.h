@@ -3,7 +3,6 @@
 #include <h3mtxt/Map/Constants/LossConditionType.h>
 #include <h3mtxt/Map/Constants/QuestType.h>
 #include <h3mtxt/Map/Constants/RewardType.h>
-#include <h3mtxt/Map/Constants/VictoryConditionType.h>
 #include <h3mtxt/SavedGame/SavedGameFwd.h>
 #include <h3mtxt/SavedGame/Constants/ReplayEventType.h>
 #include <h3mtxt/Medea/MedeaFwd.h>
@@ -92,7 +91,7 @@ namespace Medea_NS
   template<std::size_t N>
   struct JsonScalarGetter<h3svg::FixedLengthString<N>>
   {
-    // Defined in Utils.h
+    // Defined in FixedLengthString.h
     std::string_view operator()(const h3svg::FixedLengthString<N>& str) const;
   };
 
@@ -156,7 +155,7 @@ namespace Medea_NS
   template<h3svg::LossConditionType T>
   struct JsonObjectWriter<h3svg::LossConditionDetails<T>>
   {
-    // Defined in writeLossCondition.cpp.
+    // Defined in LossCondition.cpp.
     // Explicit instantiations are provided for LossConditionTypes that use the default template implementation.
     // A specialization for LossConditionType::LoseHero is declared below.
     void operator()(FieldsWriter& out, const h3svg::LossConditionDetails<T>& details) const;
@@ -390,24 +389,8 @@ namespace Medea_NS
   template<h3svg::VictoryConditionType T>
   struct JsonObjectWriter<h3svg::VictoryConditionDetails<T>>
   {
-    // Defined in writeVictoryCondition.cpp.
-    // Explicit instantiations are provided for VictoryConditionTypes that use the default template implementation.
-    // A few specializations are declared below.
+    // Defined in VictoryCondition.cpp.
+    // Template instantiations are provided for all valid VictoryConditionTypes.
     void operator()(FieldsWriter& out, const h3svg::VictoryConditionDetails<T>& details) const;
   };
-
-  template<>
-  void JsonObjectWriter<h3svg::VictoryConditionDetails<h3svg::VictoryConditionType::AcquireArtifact>>::operator()(
-    FieldsWriter& out,
-    const h3svg::VictoryConditionDetails<h3svg::VictoryConditionType::AcquireArtifact>& details) const;
-
-  template<>
-  void JsonObjectWriter<h3svg::VictoryConditionDetails<h3svg::VictoryConditionType::AccumulateCreatures>>::operator()(
-    FieldsWriter& out,
-    const h3svg::VictoryConditionDetails<h3svg::VictoryConditionType::AccumulateCreatures>& details) const;
-
-  template<>
-  void JsonObjectWriter<h3svg::VictoryConditionDetails<h3svg::VictoryConditionType::DefeatHero>>::operator()(
-    FieldsWriter& out,
-    const h3svg::VictoryConditionDetails<h3svg::VictoryConditionType::DefeatHero>& details) const;
 }

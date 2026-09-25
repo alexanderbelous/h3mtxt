@@ -1,18 +1,18 @@
 add_library(H3SVGJsonWriter STATIC
     "EnumCommentGetter.cpp"
+    "FixedLengthString.h"
     "H3SVGJsonWriter.h"
-    "Utils.h"
+    "Hero.cpp"
+    "LossCondition.cpp"
+    "ObjectPropertiesTables.cpp"
+    "Quest.cpp"
+    "ReplayEvent.cpp"
+    "Reward.cpp"
+    "SavedGame.cpp"
+    "Town.cpp"
+    "VictoryCondition.cpp"
     "writeH3SvgJson.cpp"
     "writeH3SvgJson.h"
-    "writeHero.cpp"
-    "writeLossCondition.cpp"
-    "writeObjectPropertiesTables.cpp"
-    "writeQuest.cpp"
-    "writeReplayEvent.cpp"
-    "writeReward.cpp"
-    "writeSavedGame.cpp"
-    "writeTown.cpp"
-    "writeVictoryCondition.cpp"
 )
 add_library(h3mtxt::H3SVGJsonWriter ALIAS H3SVGJsonWriter)
 
