@@ -11,6 +11,7 @@ add_executable(h3mtxt_tests_SavedGame
     "SavedGame.cpp"
     "TestingUtils_H3SVG.h"
     "Town.cpp"
+    "VictoryCondition.cpp"
 )
 
 # Dependencies:

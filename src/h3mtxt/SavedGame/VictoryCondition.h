@@ -18,7 +18,9 @@ namespace h3svg
   // The default implementation reuses h3m::VictoryConditionDetails
   template<VictoryConditionType T>
   struct VictoryConditionDetails : h3m::VictoryConditionDetails<T>
-  {};
+  {
+    constexpr bool operator==(const VictoryConditionDetails&) const noexcept = default;
+  };
 
   // Specialization for AcquireArtifact.
   // In H3SVG the artifact type is encoded as an 8-bit integer,
@@ -26,6 +28,8 @@ namespace h3svg
   template<>
   struct VictoryConditionDetails<VictoryConditionType::AcquireArtifact> : SpecialVictoryConditionBase
   {
+    constexpr bool operator==(const VictoryConditionDetails&) const noexcept = default;
+
     ArtifactType8 artifact_type {};
   };
 
@@ -35,6 +39,8 @@ namespace h3svg
   template<>
   struct VictoryConditionDetails<VictoryConditionType::AccumulateCreatures> : SpecialVictoryConditionBase
   {
+    constexpr bool operator==(const VictoryConditionDetails&) const noexcept = default;
+
     TypedQuantity<CreatureType8, std::int32_t> creatures;
   };
 
@@ -43,6 +49,8 @@ namespace h3svg
   template<>
   struct VictoryConditionDetails<VictoryConditionType::DefeatHero> : SpecialVictoryConditionBase
   {
+    constexpr bool operator==(const VictoryConditionDetails&) const noexcept = default;
+
     HeroType hero {};
   };
 
@@ -66,11 +74,20 @@ namespace h3svg
       VictoryConditionDetails<VictoryConditionType::Normal>
     >;
 
+    constexpr bool operator==(const VictoryCondition&) const noexcept = default;
+
+    static constexpr std::size_t getAlternativeIdx(VictoryConditionType victory_condition_type) noexcept;
+
     // \return the type of the victory condition.
     constexpr VictoryConditionType type() const noexcept;
 
     Details details = VictoryConditionDetails<VictoryConditionType::Normal>{};
   };
+
+  constexpr std::size_t VictoryCondition::getAlternativeIdx(VictoryConditionType victory_condition_type) noexcept
+  {
+    return h3m::VictoryCondition::getAlternativeIdx(victory_condition_type);
+  }
 
   constexpr VictoryConditionType VictoryCondition::type() const noexcept
   {

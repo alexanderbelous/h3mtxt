@@ -231,4 +231,12 @@ namespace h3json
   template<>
   h3svg::VictoryCondition
   JsonReader<h3svg::VictoryCondition>::operator()(const Json::Value& value) const;
+
+  template<h3svg::VictoryConditionType T>
+  struct JsonReader<h3svg::VictoryConditionDetails<T>>
+  {
+    // Defined in VictoryCondition.cpp.
+    // Template instantiations are provided for all valid VictoryConditionTypes.
+    h3svg::VictoryConditionDetails<T> operator()(const Json::Value& value) const;
+  };
 }
