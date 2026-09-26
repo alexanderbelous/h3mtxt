@@ -140,8 +140,14 @@ namespace h3svg
     // However, I'm not using std::array here because that would make sizeof(SavedGame) Hueg Like XBox (~160KB).
     std::vector<Hero> heroes;
     // TODO: figure out what this is.
-    // * Seems to contain the coordinates of the Grail (even if has already been dug out).
-    std::array<std::uint8_t, 323> unknown4 {};
+    std::array<std::uint8_t, 314> unknown4 {};
+    // Coordinates of the Grail or (-1,-1,-1) if there is none.
+    std::int16_t grail_x = -1;
+    std::int16_t grail_y = -1;
+    std::int8_t grail_z = -1;
+    std::array<std::uint8_t, 3> unknown4a {};
+    // Indicates whether any player has cheated.
+    Bool is_cheater = false;
     // The current date.
     Date current_date;
     // TODO: figure out what this is.

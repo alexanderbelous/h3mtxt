@@ -156,7 +156,12 @@ An H3SVG file is a single structure which we will naturally call [`SavedGame`](#
 | num_towns                 | `uint8`                          | 1             | The number of towns on the Adventure Map                         |
 | towns                     | [`Town[num_towns]`](#Town)       | varies        | Towns on the Adventure Map                                       |
 | heroes                    | [`Hero[156]`](#Hero)             | varies        | Properties for each hero                                         |
-| unknown4                  | `uint8[323]`                     | 323           | TODO                                                             |
+| unknown4                  | `uint8[314]`                     | 314           | TODO                                                             |
+| grail_x                   | `int16`                          | 2             | X-coordinate of the Grail, or -1 if there is none                |
+| grail_y                   | `int16`                          | 2             | Y-coordinate of the Grail, or -1 if there is none                |
+| grail_z                   | `int8`                           | 1             | Z-coordinate of the Grail, or -1 if there is none                |
+| unknown4a                 | `uint8[3]`                       | 3             | TODO                                                             |
+| is_cheater                | `Bool`                           | 1             | Indicates whether any player has cheated                         |
 | day                       | `uint16`                         | 2             | Day of the current date (normally within [1; 7])                 |
 | week                      | `uint16`                         | 2             | Week of the current date (normally within [1; 4])                |
 | month                     | `uint16`                         | 2             | Month of the current date (initialized with 1 at the start of the game; resets to 0 after Month 65535) |

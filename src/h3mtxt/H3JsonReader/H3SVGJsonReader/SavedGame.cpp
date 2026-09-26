@@ -167,6 +167,11 @@ namespace h3json
     readField(saved_game.towns, value, Fields::kTowns);
     readField(saved_game.heroes, value, Fields::kHeroes);
     readField(saved_game.unknown4, value, Fields::kUnknown4);
+    readField(saved_game.grail_x, value, Fields::kGrailX);
+    readField(saved_game.grail_y, value, Fields::kGrailY);
+    readField(saved_game.grail_z, value, Fields::kGrailZ);
+    readField(saved_game.unknown4a, value, Fields::kUnknown4a);
+    readField(saved_game.is_cheater, value, Fields::kIsCheater);
     readField(saved_game.current_date, value, Fields::kCurrentDate);
     readField(saved_game.unknown5, value, Fields::kUnknown5);
     readField(saved_game.artifact_merchants, value, Fields::kArtifactMerchants);

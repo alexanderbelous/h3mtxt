@@ -176,9 +176,18 @@ namespace h3svg
         saved_game.heroes.push_back(readHero());
       }
     }
-    // Read 323 bytes.
+    // Read 314 bytes.
     // TODO: figure out what this is.
-    saved_game.unknown4 = readByteArray<323>();
+    saved_game.unknown4 = readByteArray<314>();
+    // Read 5 bytes - the coordinates of the Grail.
+    saved_game.grail_x = readInt<std::int16_t>();
+    saved_game.grail_y = readInt<std::int16_t>();
+    saved_game.grail_z = readInt<std::int8_t>();
+    // Read 3 bytes.
+    // TODO: figure out what this is.
+    saved_game.unknown4a = readByteArray<3>();
+    // Read 1 byte indicating whether any player has cheated.
+    saved_game.is_cheater = readBool();
     // Read 6 bytes - the current date.
     saved_game.current_date = readDate();
     // Read 32 bytes.

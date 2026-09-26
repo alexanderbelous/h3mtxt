@@ -70,6 +70,11 @@ namespace h3svg
     }
     writeSpan(std::span{ saved_game.heroes });
     writeData(saved_game.unknown4);
+    writeData(saved_game.grail_x);
+    writeData(saved_game.grail_y);
+    writeData(saved_game.grail_z);
+    writeData(saved_game.unknown4a);
+    writeData(saved_game.is_cheater);
     writeData(saved_game.current_date);
     writeData(saved_game.unknown5);
     writeData(saved_game.artifact_merchants);

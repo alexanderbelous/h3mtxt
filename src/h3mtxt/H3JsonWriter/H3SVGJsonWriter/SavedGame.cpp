@@ -193,6 +193,11 @@ namespace Medea_NS
     out.writeField(Fields::kTowns, saved_game.towns);
     out.writeField(Fields::kHeroes, saved_game.heroes);
     out.writeField(Fields::kUnknown4, saved_game.unknown4);
+    out.writeField(Fields::kGrailX, saved_game.grail_x);
+    out.writeField(Fields::kGrailY, saved_game.grail_y);
+    out.writeField(Fields::kGrailZ, saved_game.grail_z);
+    out.writeField(Fields::kUnknown4a, saved_game.unknown4a);
+    out.writeField(Fields::kIsCheater, saved_game.is_cheater);
     out.writeField(Fields::kCurrentDate, saved_game.current_date, true);
     out.writeField(Fields::kUnknown5, saved_game.unknown5);
     out.writeField(Fields::kArtifactMerchants, saved_game.artifact_merchants);

@@ -752,6 +752,11 @@ namespace h3json
     static constexpr std::string_view kTowns = "towns";
     static constexpr std::string_view kHeroes = "heroes";
     static constexpr std::string_view kUnknown4 = "unknown4";
+    static constexpr std::string_view kGrailX = "grail_x";
+    static constexpr std::string_view kGrailY = "grail_y";
+    static constexpr std::string_view kGrailZ = "grail_z";
+    static constexpr std::string_view kUnknown4a = "unknown4a";
+    static constexpr std::string_view kIsCheater = "is_cheater";
     static constexpr std::string_view kCurrentDate = "current_date";
     static constexpr std::string_view kUnknown5 = "unknown5";
     static constexpr std::string_view kArtifactMerchants = "artifact_merchants";
