@@ -248,6 +248,9 @@ namespace h3svg
   void H3SVGWriter::writeData(const ReplayEventDetails<ReplayEventType::ShowHero>& details) const;
 
   template<>
+  void H3SVGWriter::writeData(const ReplayEventDetails<ReplayEventType::Unknown10>& details) const;
+
+  template<>
   void H3SVGWriter::writeData(const ReplayEventDetails<ReplayEventType::ChangeTerrainVisibility>& details) const;
 
   template<RewardType T>

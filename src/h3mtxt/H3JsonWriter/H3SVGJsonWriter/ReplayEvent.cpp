@@ -112,6 +112,13 @@ namespace Medea_NS
   }
 
   template<>
+  void JsonObjectWriter<h3svg::ReplayEventDetails<h3svg::ReplayEventType::Unknown10>>::operator()(
+    FieldsWriter& out, const h3svg::ReplayEventDetails<h3svg::ReplayEventType::Unknown10>& details) const
+  {
+    out.writeField("unknown", details.unknown);
+  }
+
+  template<>
   void JsonObjectWriter<h3svg::ReplayEventDetails<h3svg::ReplayEventType::ChangeTerrainVisibility>::TileVisiblityChange>::operator()(
     FieldsWriter& out,
     const h3svg::ReplayEventDetails<h3svg::ReplayEventType::ChangeTerrainVisibility>::TileVisiblityChange & change) const

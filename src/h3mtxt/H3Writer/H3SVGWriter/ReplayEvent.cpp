@@ -91,6 +91,12 @@ namespace h3svg
   }
 
   template<>
+  void H3SVGWriter::writeData(const ReplayEventDetails<ReplayEventType::Unknown10>& details) const
+  {
+    writeData(details.unknown);
+  }
+
+  template<>
   void H3SVGWriter::writeData(const ReplayEventDetails<ReplayEventType::ChangeTerrainVisibility>& details) const
   {
     writeData(details.player);

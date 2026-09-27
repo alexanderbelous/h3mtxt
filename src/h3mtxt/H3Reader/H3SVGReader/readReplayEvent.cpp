@@ -98,6 +98,12 @@ namespace h3svg
       details.unknown = readByteArray<2>();
       return ReplayEvent{ .details = details };
     }
+    case ReplayEventType::Unknown10:
+    {
+      ReplayEventDetails<ReplayEventType::Unknown10> details;
+      details.unknown = readByteArray<details.kNumBytes>();
+      return ReplayEvent{ .details = details };
+    }
     case ReplayEventType::ChangeTerrainVisibility:
     {
       ReplayEventDetails<ReplayEventType::ChangeTerrainVisibility> details;

@@ -115,6 +115,16 @@ namespace h3svg
   };
 
   template<>
+  struct ReplayEventDetails<ReplayEventType::Unknown10>
+  {
+    static constexpr std::size_t kNumBytes = 2;
+
+    // unknown[0] is probably `PlayerColor player`, but this is hard to confirm
+    // because the event is a no-op.
+    std::array<std::uint8_t, kNumBytes> unknown{};
+  };
+
+  template<>
   struct ReplayEventDetails<ReplayEventType::ChangeTerrainVisibility>
   {
     struct TileVisiblityChange
@@ -143,6 +153,7 @@ namespace h3svg
       ReplayEventDetails<ReplayEventType::RemoveMapItem>,
       ReplayEventDetails<ReplayEventType::HideHero>,
       ReplayEventDetails<ReplayEventType::ShowHero>,
+      ReplayEventDetails<ReplayEventType::Unknown10>,
       ReplayEventDetails<ReplayEventType::ChangeTerrainVisibility>
     >;
 
@@ -161,39 +172,15 @@ namespace h3svg
   constexpr ReplayEventType ReplayEvent::type() const noexcept
   {
     const std::size_t index = details.index();
-    switch (index)
-    {
-    case 0: return ReplayEventType::MoveHero;
-    case 1: return ReplayEventType::TeleportHero;
-    case 2: return ReplayEventType::FlagMine;
-    case 3: return ReplayEventType::CaptureTown;
-    case 4: return ReplayEventType::HideBoat;
-    case 5: return ReplayEventType::ShowBoat;
-    case 6: return ReplayEventType::RemoveMapItem;
-    case 7: return ReplayEventType::HideHero;
-    case 8: return ReplayEventType::ShowHero;
-    case 9: return ReplayEventType::ChangeTerrainVisibility;
-    default:
-      // Unreachable.
-      return static_cast<ReplayEventType>(-1);
-    }
+    return static_cast<ReplayEventType>(index + 1);
   }
 
   constexpr std::size_t ReplayEvent::getAlternativeIdx(ReplayEventType event_type) noexcept
   {
-    switch (event_type)
+    if ((1 <= static_cast<std::size_t>(event_type)) && (static_cast<std::size_t>(event_type) <= 11))
     {
-    case ReplayEventType::MoveHero:                return 0;
-    case ReplayEventType::TeleportHero:            return 1;
-    case ReplayEventType::FlagMine:                return 2;
-    case ReplayEventType::CaptureTown:             return 3;
-    case ReplayEventType::HideBoat:                return 4;
-    case ReplayEventType::ShowBoat:                return 5;
-    case ReplayEventType::RemoveMapItem:           return 6;
-    case ReplayEventType::HideHero:                return 7;
-    case ReplayEventType::ShowHero:                return 8;
-    case ReplayEventType::ChangeTerrainVisibility: return 9;
-    default:                                       return std::variant_npos;
+      return static_cast<std::size_t>(event_type) - 1;
     }
+    return std::variant_npos;
   }
 }
