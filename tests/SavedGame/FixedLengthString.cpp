@@ -1,6 +1,6 @@
 #include "TestingUtils_H3SVG.h"
 
-#include <h3mtxt/H3Writer/H3SVGWriter/Utils.h>
+#include <h3mtxt/H3Writer/H3SVGWriter/FixedLengthString.h>
 #include <h3mtxt/SavedGame/FixedLengthString.h>
 
 #include <catch2/catch_test_macros.hpp>

@@ -1,6 +1,6 @@
 #include <h3mtxt/H3Writer/H3SVGWriter/H3SVGWriter.h>
 
-#include <h3mtxt/H3Writer/H3SVGWriter/Utils.h>
+#include <h3mtxt/H3Writer/H3SVGWriter/FixedLengthString.h>
 #include <h3mtxt/SavedGame/ScenarioStartingInfo.h>
 
 namespace h3svg

@@ -53,7 +53,7 @@ namespace h3svg
 
     void writeData(const EventBase& event) const;
 
-    // Defined in Utils.h
+    // Defined in FixedLengthString.h
     template<std::size_t N>
     void writeData(const FixedLengthString<N>& str) const;
 
