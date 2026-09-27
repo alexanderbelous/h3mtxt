@@ -2,6 +2,7 @@ add_library(H3SVGJsonReader STATIC
     "H3SVGJsonReader.h"
     "CampaignInfo.cpp"
     "EventBase.cpp"
+    "FixedLengthString.h"
     "Hero.cpp"
     "LossCondition.cpp"
     "ObjectPropertiesTable.cpp"
@@ -14,7 +15,6 @@ add_library(H3SVGJsonReader STATIC
     "SavedGame.cpp"
     "ScenarioStartingInfo.cpp"
     "Town.cpp"
-    "Utils.h"
     "VictoryCondition.cpp"
 )
 add_library(h3mtxt::H3SVGJsonReader ALIAS H3SVGJsonReader)

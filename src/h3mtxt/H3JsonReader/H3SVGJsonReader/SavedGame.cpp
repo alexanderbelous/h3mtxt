@@ -2,7 +2,7 @@
 
 #include <h3mtxt/H3JsonReader/H3JsonReaderBase/H3JsonReaderBase.h>
 #include <h3mtxt/H3JsonReader/H3MJsonReader/H3MJsonReader.h>
-#include <h3mtxt/H3JsonReader/H3SVGJsonReader/Utils.h>
+#include <h3mtxt/H3JsonReader/H3SVGJsonReader/FixedLengthString.h>
 #include <h3mtxt/JsonCommon/FieldNamesH3SVG.h>
 #include <h3mtxt/SavedGame/SavedGame.h>
 

@@ -46,7 +46,7 @@ namespace h3json
   h3svg::EventBase
   JsonReader<h3svg::EventBase>::operator()(const Json::Value& value) const;
 
-  // Defined in Utils.h.
+  // Defined in FixedLengthString.h.
   template<std::size_t N>
   struct JsonReader<h3svg::FixedLengthString<N>>
   {
