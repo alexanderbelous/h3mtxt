@@ -22,7 +22,7 @@
 #include <h3mtxt/SavedGame/ObjectTemplate.h>
 #include <h3mtxt/SavedGame/Player.h>
 #include <h3mtxt/SavedGame/PlayerSpecs.h>
-#include <h3mtxt/SavedGame/Replay.h>
+#include <h3mtxt/SavedGame/ReplayEvent.h>
 #include <h3mtxt/SavedGame/Rumor.h>
 #include <h3mtxt/SavedGame/ScenarioStartingInfo.h>
 #include <h3mtxt/SavedGame/Tile.h>

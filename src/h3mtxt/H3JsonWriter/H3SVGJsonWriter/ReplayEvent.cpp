@@ -3,7 +3,7 @@
 #include <h3mtxt/H3JsonWriter/H3MJsonWriter/Utils.h>
 #include <h3mtxt/JsonCommon/FieldNamesH3SVG.h>
 #include <h3mtxt/Medea/Medea.h>
-#include <h3mtxt/SavedGame/Replay.h>
+#include <h3mtxt/SavedGame/ReplayEvent.h>
 
 namespace Medea_NS
 {

@@ -1,6 +1,6 @@
 #include <h3mtxt/H3Reader/H3SVGReader/H3SVGReader.h>
 
-#include <h3mtxt/SavedGame/Replay.h>
+#include <h3mtxt/SavedGame/ReplayEvent.h>
 
 #include <stdexcept>
 #include <string> // For debugging

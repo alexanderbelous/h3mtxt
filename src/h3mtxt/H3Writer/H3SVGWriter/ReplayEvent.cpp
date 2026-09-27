@@ -1,6 +1,6 @@
 #include <h3mtxt/H3Writer/H3SVGWriter/H3SVGWriter.h>
 
-#include <h3mtxt/SavedGame/Replay.h>
+#include <h3mtxt/SavedGame/ReplayEvent.h>
 
 namespace h3svg
 {

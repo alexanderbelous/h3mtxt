@@ -3,7 +3,7 @@
 #include <h3mtxt/H3JsonReader/H3JsonReaderBase/H3JsonReaderBase.h>
 #include <h3mtxt/H3JsonReader/H3JsonReaderBase/VariantJsonReader.h>
 #include <h3mtxt/JsonCommon/FieldNamesH3SVG.h>
-#include <h3mtxt/SavedGame/Replay.h>
+#include <h3mtxt/SavedGame/ReplayEvent.h>
 
 namespace h3json
 {
