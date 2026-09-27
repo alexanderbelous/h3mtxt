@@ -1,11 +1,8 @@
 #pragma once
 
 #include <h3mtxt/H3Writer/H3WriterBase/H3WriterBase.h>
-#include <h3mtxt/Map/Constants/LossConditionType.h>
 #include <h3mtxt/Map/Constants/MapFormat.h>
 #include <h3mtxt/Map/Constants/RewardType.h>
-#include <h3mtxt/Map/Constants/QuestType.h>
-#include <h3mtxt/Map/Constants/VictoryConditionType.h>
 #include <h3mtxt/SavedGame/SavedGameFwd.h>
 #include <h3mtxt/SavedGame/Constants/ReplayEventType.h>
 
@@ -73,8 +70,7 @@ namespace h3svg
     void writeData(const LossCondition& loss_condition) const;
 
     // Defined in LossCondition.cpp.
-    // Explicit instantiations are provided for LossConditionTypes that use the default template implementation.
-    // A specialization for LossConditionType::LoseHero is declared below.
+    // Template instantiations are provided for all valid LossConditionTypes.
     template<LossConditionType T>
     void writeData(const LossConditionDetails<T>& details) const;
 
@@ -101,8 +97,7 @@ namespace h3svg
     void writeData(const Quest& quest) const;
 
     // Defined in Quest.cpp.
-    // Explicit instantiations are provided for QuestTypes that use the default template implementation.
-    // A few specializations are declared below.
+    // Template instantiations are provided for all valid QuestTypes.
     template<QuestType T>
     void writeData(const QuestDetails<T>& details) const;
 
@@ -167,6 +162,8 @@ namespace h3svg
 
     void writeData(const VictoryCondition& victory_condition) const;
 
+    // Defined in VictoryCondition.cpp.
+    // Template instantiations are provided for all valid VictoryConditionTypes.
     template<VictoryConditionType T>
     void writeData(const VictoryConditionDetails<T>& details) const;
 
@@ -216,19 +213,6 @@ namespace h3svg
   {
     return map_format_;
   }
-
-  template<>
-  void H3SVGWriter::writeData(const LossConditionDetails<LossConditionType::LoseHero>& details) const;
-
-  template<> void H3SVGWriter::writeData(const QuestDetails<QuestType::Level>& details) const;
-
-  template<> void H3SVGWriter::writeData(const QuestDetails<QuestType::DefeatHero>& details) const;
-
-  template<> void H3SVGWriter::writeData(const QuestDetails<QuestType::DefeatMonster>& details) const;
-
-  template<> void H3SVGWriter::writeData(const QuestDetails<QuestType::Creatures>& details) const;
-
-  template<> void H3SVGWriter::writeData(const QuestDetails<QuestType::BeHero>& details) const;
 
   template<ReplayEventType T>
   void H3SVGWriter::writeData(const ReplayEventDetails<T>&) const
@@ -293,15 +277,6 @@ namespace h3svg
   template<> void H3SVGWriter::writeData(const RewardDetails<RewardType::Spell>& details) const;
 
   template<> void H3SVGWriter::writeData(const RewardDetails<RewardType::Creatures>& details) const;
-
-  template<>
-  void H3SVGWriter::writeData(const VictoryConditionDetails<VictoryConditionType::AcquireArtifact>& details) const;
-
-  template<>
-  void H3SVGWriter::writeData(const VictoryConditionDetails<VictoryConditionType::AccumulateCreatures>& details) const;
-
-  template<>
-  void H3SVGWriter::writeData(const VictoryConditionDetails<VictoryConditionType::DefeatHero>& details) const;
 
   template<class T>
   void H3SVGWriter::writeSpan(std::span<const T> values) const
