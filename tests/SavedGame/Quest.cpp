@@ -89,8 +89,7 @@ namespace h3svg
   {
     const Quest kQuest = {
       .details = QuestDetails<QuestType::DefeatHero>{
-        .hero = HeroType::Gunnar,
-        .unknown = 42,
+        .hero = static_cast<HeroType16>(HeroType::Gunnar),
         .completed_by = []() consteval {
           PlayersBitmask bitmask;
           bitmask.set(PlayerColor::Green, true);
@@ -106,7 +105,7 @@ namespace h3svg
     };
     static constexpr std::string_view kBinaryData =
       "\x03"
-      "\x55" "\x2a" "\x48"
+      "\x55\x00" "\x48"
       "\x0b\x58"
       "\x64\x00\x00\x00"
       "\x10\x00\x00\x00" "Proposal message"
@@ -248,8 +247,7 @@ namespace h3svg
   {
     const Quest kQuest = {
       .details = QuestDetails<QuestType::BeHero>{
-        .hero = HeroType::Gunnar,
-        .unknown = 42
+        .hero = static_cast<HeroType16>(HeroType::Gunnar)
       },
       .unknown = {11, 88},
       .deadline = 100,
@@ -259,7 +257,7 @@ namespace h3svg
     };
     static constexpr std::string_view kBinaryData =
       "\x08"
-      "\x55" "\x2a"
+      "\x55\x00"
       "\x0b\x58"
       "\x64\x00\x00\x00"
       "\x10\x00\x00\x00" "Proposal message"

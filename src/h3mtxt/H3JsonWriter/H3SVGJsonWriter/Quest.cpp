@@ -23,7 +23,6 @@ namespace Medea_NS
     else if constexpr (T == h3svg::QuestType::DefeatHero)
     {
       out.writeField(Fields::kHero, details.hero);
-      out.writeField(Fields::kUnknown, details.unknown);
       out.writeField(Fields::kCompletedBy, details.completed_by);
     }
     else if constexpr (T == h3svg::QuestType::DefeatMonster)
@@ -39,7 +38,6 @@ namespace Medea_NS
     else if constexpr (T == h3svg::QuestType::BeHero)
     {
       out.writeField(Fields::kHero, details.hero);
-      out.writeField(Fields::kUnknown, details.unknown);
     }
     else
     {

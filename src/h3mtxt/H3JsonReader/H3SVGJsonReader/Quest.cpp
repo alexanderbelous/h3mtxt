@@ -30,7 +30,6 @@ namespace h3json
       else if constexpr (T == h3svg::QuestType::DefeatHero)
       {
         readField(details.hero, value, Fields::kHero);
-        readField(details.unknown, value, Fields::kUnknown);
         readField(details.completed_by, value, Fields::kCompletedBy);
       }
       else if constexpr (T == h3svg::QuestType::DefeatMonster)
@@ -46,7 +45,6 @@ namespace h3json
       else if constexpr (T == h3svg::QuestType::BeHero)
       {
         readField(details.hero, value, Fields::kHero);
-        readField(details.unknown, value, Fields::kUnknown);
       }
       else
       {

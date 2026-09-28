@@ -66,8 +66,7 @@ namespace h3svg
   QuestDetails<QuestType::DefeatHero> H3SVGReader::readQuestDetails() const
   {
     QuestDetails<QuestType::DefeatHero> details;
-    details.hero = readEnum<HeroType>();
-    details.unknown = readInt<std::uint8_t>();
+    details.hero = readEnum<HeroType16>();
     details.completed_by = readEnumBitmask<PlayerColor, 1>();
     return details;
   }
@@ -99,8 +98,7 @@ namespace h3svg
   QuestDetails<QuestType::BeHero> H3SVGReader::readQuestDetails() const
   {
     QuestDetails<QuestType::BeHero> details;
-    details.hero = readEnum<HeroType>();
-    details.unknown = readInt<std::uint8_t>();
+    details.hero = readEnum<HeroType16>();
     return details;
   }
 

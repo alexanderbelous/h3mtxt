@@ -508,7 +508,6 @@ namespace h3json
   struct FieldNames<h3svg::QuestDetails<h3svg::QuestType::DefeatHero>>
   {
     static constexpr std::string_view kHero = "hero";
-    static constexpr std::string_view kUnknown = "unknown";
     static constexpr std::string_view kCompletedBy = "completed_by";
   };
 
@@ -524,7 +523,6 @@ namespace h3json
   struct FieldNames<h3svg::QuestDetails<h3svg::QuestType::BeHero>>
   {
     static constexpr std::string_view kHero = "hero";
-    static constexpr std::string_view kUnknown = "unknown";
   };
 
   template<>

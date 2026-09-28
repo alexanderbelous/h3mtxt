@@ -37,9 +37,7 @@ namespace h3svg
     constexpr bool operator==(const QuestDetails&) const noexcept = default;
 
     // Note that the hero is represented here by their HeroType - H3M uses absod_id instead.
-    HeroType hero {};
-    // TODO: maybe hero should be treated as a 16-bit enum instead.
-    std::uint8_t unknown {};
+    HeroType16 hero {};
     PlayersBitmask completed_by;
   };
 
@@ -71,9 +69,7 @@ namespace h3svg
   {
     constexpr bool operator==(const QuestDetails&) const noexcept = default;
 
-    HeroType hero {};
-    // TODO: maybe hero should be treated as a 16-bit enum instead. 
-    std::uint8_t unknown {};
+    HeroType16 hero {};
   };
 
   // The equivalent of h3m::Quest stored in saved games.
@@ -99,6 +95,7 @@ namespace h3svg
 
     Details details;
     // The fiels below are only read/written if type() != QuestType::None.
+    // * unknown[0] seems to be `Bool has_reward` (1 for Seer's Hut, 0 for Quest Guard).
     std::array<std::uint8_t, 2> unknown {};
     // 0 - impossible to fulfill; 0xFFFFFFFF - none.
     std::uint32_t deadline = 0xFFFFFFFF;

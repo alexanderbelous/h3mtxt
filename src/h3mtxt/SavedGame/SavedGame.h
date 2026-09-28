@@ -97,6 +97,7 @@ namespace h3svg
     // Another array of boolean values for artifacts; the meaning is not clear yet.
     // TODO: figure out what this is. It seems that the value is always 1 if the artifact is disabled,
     // but it can also be 1 even if the artifact is enabled.
+    // * The value is often (but not always) 1 if the artifact is present on the map.
     EnumIndexedArray<ArtifactType, Bool, h3m::kNumArtifactTypes> artifacts_bitmask_unknown;
     // Array of boolean values indicating which secondary skills are disabled on this map (1 - disabled, 0 - enabled).
     EnumIndexedArray<SecondarySkillType, Bool, h3m::kNumSecondarySkills> disabled_skills;

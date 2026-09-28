@@ -15,7 +15,6 @@ namespace h3svg
     else if constexpr (T == QuestType::DefeatHero)
     {
       writeData(details.hero);
-      writeData(details.unknown);
       writeData(details.completed_by);
     }
     else if constexpr (T == QuestType::DefeatMonster)
@@ -31,7 +30,6 @@ namespace h3svg
     else if constexpr (T == QuestType::BeHero)
     {
       writeData(details.hero);
-      writeData(details.unknown);
     }
     else
     {
