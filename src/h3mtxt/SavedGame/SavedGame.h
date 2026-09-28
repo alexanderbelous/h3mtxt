@@ -9,7 +9,6 @@
 #include <h3mtxt/Map/MapAdditionalInfo.h>
 #include <h3mtxt/Map/MapBasicInfo.h>
 #include <h3mtxt/SavedGame/Constants/CartographerType.h>
-#include <h3mtxt/SavedGame/Constants/Constants.h>
 #include <h3mtxt/SavedGame/Constants/KeymastersTentType.h>
 #include <h3mtxt/SavedGame/ArtifactMerchants.h>
 #include <h3mtxt/SavedGame/CreatureBank.h>

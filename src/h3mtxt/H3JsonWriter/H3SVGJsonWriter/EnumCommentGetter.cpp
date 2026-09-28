@@ -7,7 +7,6 @@
 #include <h3mtxt/Map/Constants/PlayerBehavior.h>
 #include <h3mtxt/Map/Constants/TownType.h>
 #include <h3mtxt/SavedGame/Constants/BoatType.h>
-#include <h3mtxt/SavedGame/Constants/Constants.h>
 #include <h3mtxt/SavedGame/Constants/PlayerControlType.h>
 #include <h3mtxt/SavedGame/Constants/PlayerPersonality.h>
 #include <h3mtxt/SavedGame/Constants/ReplayEventType.h>

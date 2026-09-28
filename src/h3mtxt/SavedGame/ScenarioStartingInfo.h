@@ -6,7 +6,6 @@
 #include <h3mtxt/Map/Constants/MapDifficulty.h>
 #include <h3mtxt/Map/Constants/PlayerColor.h>
 #include <h3mtxt/Map/Utils/EnumIndexedArray.h>
-#include <h3mtxt/SavedGame/Constants/Constants.h>
 #include <h3mtxt/SavedGame/Constants/PlayerControlType.h>
 #include <h3mtxt/SavedGame/Constants/PlayerStartingBonusType.h>
 #include <h3mtxt/SavedGame/Constants/TownType32.h>
