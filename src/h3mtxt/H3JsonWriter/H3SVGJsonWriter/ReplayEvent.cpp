@@ -12,7 +12,7 @@ namespace Medea_NS
     FieldsWriter& out, const h3svg::ReplayEventDetails<h3svg::ReplayEventType::MoveHero>& details) const
   {
     using Fields = h3json::FieldNames<h3svg::ReplayEventDetails<h3svg::ReplayEventType::MoveHero>>;
-    out.writeField(Fields::kPlayer, details.player);
+    JsonObjectWriter<h3svg::ReplayEventDetailsBase>{}(out, details);
     out.writeField(Fields::kHero, details.hero);
     out.writeField(Fields::kDirection, details.direction);
     out.writeField(Fields::kFrom, details.from);
@@ -24,7 +24,7 @@ namespace Medea_NS
     FieldsWriter& out, const h3svg::ReplayEventDetails<h3svg::ReplayEventType::TeleportHero>& details) const
   {
     using Fields = h3json::FieldNames<h3svg::ReplayEventDetails<h3svg::ReplayEventType::TeleportHero>>;
-    out.writeField(Fields::kPlayer, details.player);
+    JsonObjectWriter<h3svg::ReplayEventDetailsBase>{}(out, details);
     out.writeField(Fields::kHero, details.hero);
     out.writeField(Fields::kOrientation, details.orientation);
     out.writeField(Fields::kFrom, details.from);
@@ -36,7 +36,7 @@ namespace Medea_NS
     FieldsWriter& out, const h3svg::ReplayEventDetails<h3svg::ReplayEventType::FlagMine>& details) const
   {
     using Fields = h3json::FieldNames<h3svg::ReplayEventDetails<h3svg::ReplayEventType::FlagMine>>;
-    out.writeField(Fields::kPlayer, details.player);
+    JsonObjectWriter<h3svg::ReplayEventDetailsBase>{}(out, details);
     out.writeField(Fields::kId, details.id);
     out.writeField(Fields::kOwnerOld, details.owner_old);
     out.writeField(Fields::kOwnerNew, details.owner_new);
@@ -47,7 +47,7 @@ namespace Medea_NS
     FieldsWriter& out, const h3svg::ReplayEventDetails<h3svg::ReplayEventType::CaptureTown>& details) const
   {
     using Fields = h3json::FieldNames<h3svg::ReplayEventDetails<h3svg::ReplayEventType::CaptureTown>>;
-    out.writeField(Fields::kPlayer, details.player);
+    JsonObjectWriter<h3svg::ReplayEventDetailsBase>{}(out, details);
     out.writeField(Fields::kTownId, details.town_id);
     out.writeField(Fields::kOwnerOld, details.owner_old);
     out.writeField(Fields::kOwnerNew, details.owner_new);
@@ -58,7 +58,7 @@ namespace Medea_NS
     FieldsWriter& out, const h3svg::ReplayEventDetails<h3svg::ReplayEventType::HideBoat>& details) const
   {
     using Fields = h3json::FieldNames<h3svg::ReplayEventDetails<h3svg::ReplayEventType::HideBoat>>;
-    out.writeField(Fields::kPlayer, details.player);
+    JsonObjectWriter<h3svg::ReplayEventDetailsBase>{}(out, details);
     out.writeField(Fields::kBoatId, details.boat_id);
     out.writeField(Fields::kUnknown, details.unknown);
     out.writeField(Fields::kOwnerOld, details.owner_old);
@@ -70,7 +70,7 @@ namespace Medea_NS
     FieldsWriter& out, const h3svg::ReplayEventDetails<h3svg::ReplayEventType::ShowBoat>& details) const
   {
     using Fields = h3json::FieldNames<h3svg::ReplayEventDetails<h3svg::ReplayEventType::ShowBoat>>;
-    out.writeField(Fields::kPlayer, details.player);
+    JsonObjectWriter<h3svg::ReplayEventDetailsBase>{}(out, details);
     out.writeField(Fields::kUnknown, details.unknown);
     out.writeField(Fields::kCoordinatesNew, details.coordinates_new);
     out.writeField(Fields::kCoordinatesOld, details.coordinates_old);
@@ -81,7 +81,7 @@ namespace Medea_NS
     FieldsWriter& out, const h3svg::ReplayEventDetails<h3svg::ReplayEventType::RemoveMapItem>& details) const
   {
     using Fields = h3json::FieldNames<h3svg::ReplayEventDetails<h3svg::ReplayEventType::RemoveMapItem>>;
-    out.writeField(Fields::kPlayer, details.player);
+    JsonObjectWriter<h3svg::ReplayEventDetailsBase>{}(out, details);
     out.writeField(Fields::kCoordinates, details.coordinates);
     out.writeField(Fields::kUnknown, details.unknown);
   }
@@ -91,7 +91,7 @@ namespace Medea_NS
     FieldsWriter& out, const h3svg::ReplayEventDetails<h3svg::ReplayEventType::HideHero>& details) const
   {
     using Fields = h3json::FieldNames<h3svg::ReplayEventDetails<h3svg::ReplayEventType::HideHero>>;
-    out.writeField(Fields::kPlayer, details.player);
+    JsonObjectWriter<h3svg::ReplayEventDetailsBase>{}(out, details);
     out.writeField(Fields::kHero, details.hero);
     out.writeField(Fields::kOwnerNew, details.owner_new);
     out.writeField(Fields::kOwnerOld, details.owner_old);
@@ -102,7 +102,7 @@ namespace Medea_NS
     FieldsWriter& out, const h3svg::ReplayEventDetails<h3svg::ReplayEventType::ShowHero>& details) const
   {
     using Fields = h3json::FieldNames<h3svg::ReplayEventDetails<h3svg::ReplayEventType::ShowHero>>;
-    out.writeField(Fields::kPlayer, details.player);
+    JsonObjectWriter<h3svg::ReplayEventDetailsBase>{}(out, details);
     out.writeField(Fields::kHero, details.hero);
     out.writeField(Fields::kOwnerNew, details.owner_new);
     out.writeField(Fields::kOwnerOld, details.owner_old);
@@ -116,7 +116,7 @@ namespace Medea_NS
     FieldsWriter& out, const h3svg::ReplayEventDetails<h3svg::ReplayEventType::Unknown10>& details) const
   {
     using Fields = h3json::FieldNames<h3svg::ReplayEventDetails<h3svg::ReplayEventType::Unknown10>>;
-    out.writeField(Fields::kPlayer, details.player);
+    JsonObjectWriter<h3svg::ReplayEventDetailsBase>{}(out, details);
     out.writeField(Fields::kUnknown, details.unknown);
   }
 
@@ -135,8 +135,16 @@ namespace Medea_NS
     FieldsWriter& out, const h3svg::ReplayEventDetails<h3svg::ReplayEventType::ChangeTerrainVisibility>& details) const
   {
     using Fields = h3json::FieldNames<h3svg::ReplayEventDetails<h3svg::ReplayEventType::ChangeTerrainVisibility>>;
-    out.writeField(Fields::kPlayer, details.player);
+    JsonObjectWriter<h3svg::ReplayEventDetailsBase>{}(out, details);
     out.writeField(Fields::kChanges, details.changes);
+  }
+
+  template<>
+  void JsonObjectWriter<h3svg::ReplayEventDetailsBase>::operator()(
+    FieldsWriter& out, const h3svg::ReplayEventDetailsBase& base) const
+  {
+    using Fields = h3json::FieldNames<h3svg::ReplayEventDetailsBase>;
+    out.writeField(Fields::kPlayer, base.player);
   }
 
   template<>

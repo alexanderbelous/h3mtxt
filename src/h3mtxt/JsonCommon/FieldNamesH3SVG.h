@@ -550,9 +550,16 @@ namespace h3json
   };
 
   template<>
-  struct FieldNames<h3svg::ReplayEventDetails<h3svg::ReplayEventType::MoveHero>>
+  struct FieldNames<h3svg::ReplayEventDetailsBase>
   {
     static constexpr std::string_view kPlayer = "player";
+  };
+
+
+  template<>
+  struct FieldNames<h3svg::ReplayEventDetails<h3svg::ReplayEventType::MoveHero>> :
+    FieldNames<h3svg::ReplayEventDetailsBase>
+  {
     static constexpr std::string_view kHero = "hero";
     static constexpr std::string_view kDirection = "direction";
     static constexpr std::string_view kFrom = "from";
@@ -560,9 +567,9 @@ namespace h3json
   };
 
   template<>
-  struct FieldNames<h3svg::ReplayEventDetails<h3svg::ReplayEventType::TeleportHero>>
+  struct FieldNames<h3svg::ReplayEventDetails<h3svg::ReplayEventType::TeleportHero>> :
+    FieldNames<h3svg::ReplayEventDetailsBase>
   {
-    static constexpr std::string_view kPlayer = "player";
     static constexpr std::string_view kHero = "hero";
     static constexpr std::string_view kOrientation = "orientation";
     static constexpr std::string_view kFrom = "from";
@@ -570,27 +577,27 @@ namespace h3json
   };
 
   template<>
-  struct FieldNames<h3svg::ReplayEventDetails<h3svg::ReplayEventType::FlagMine>>
+  struct FieldNames<h3svg::ReplayEventDetails<h3svg::ReplayEventType::FlagMine>> :
+    FieldNames<h3svg::ReplayEventDetailsBase>
   {
-    static constexpr std::string_view kPlayer = "player";
     static constexpr std::string_view kId = "id";
     static constexpr std::string_view kOwnerOld = "owner_old";
     static constexpr std::string_view kOwnerNew = "owner_new";
   };
 
   template<>
-  struct FieldNames<h3svg::ReplayEventDetails<h3svg::ReplayEventType::CaptureTown>>
+  struct FieldNames<h3svg::ReplayEventDetails<h3svg::ReplayEventType::CaptureTown>> :
+    FieldNames<h3svg::ReplayEventDetailsBase>
   {
-    static constexpr std::string_view kPlayer = "player";
     static constexpr std::string_view kTownId = "town_id";
     static constexpr std::string_view kOwnerOld = "owner_old";
     static constexpr std::string_view kOwnerNew = "owner_new";
   };
 
   template<>
-  struct FieldNames<h3svg::ReplayEventDetails<h3svg::ReplayEventType::HideBoat>>
+  struct FieldNames<h3svg::ReplayEventDetails<h3svg::ReplayEventType::HideBoat>> :
+    FieldNames<h3svg::ReplayEventDetailsBase>
   {
-    static constexpr std::string_view kPlayer = "player";
     static constexpr std::string_view kBoatId = "boat_id";
     static constexpr std::string_view kUnknown = "unknown";
     static constexpr std::string_view kOwnerOld = "owner_old";
@@ -598,35 +605,35 @@ namespace h3json
   };
 
   template<>
-  struct FieldNames<h3svg::ReplayEventDetails<h3svg::ReplayEventType::ShowBoat>>
+  struct FieldNames<h3svg::ReplayEventDetails<h3svg::ReplayEventType::ShowBoat>> :
+    FieldNames<h3svg::ReplayEventDetailsBase>
   {
-    static constexpr std::string_view kPlayer = "player";
     static constexpr std::string_view kUnknown = "unknown";
     static constexpr std::string_view kCoordinatesNew = "coordinates_new";
     static constexpr std::string_view kCoordinatesOld = "coordinates_old";
   };
 
   template<>
-  struct FieldNames<h3svg::ReplayEventDetails<h3svg::ReplayEventType::RemoveMapItem>>
+  struct FieldNames<h3svg::ReplayEventDetails<h3svg::ReplayEventType::RemoveMapItem>> :
+    FieldNames<h3svg::ReplayEventDetailsBase>
   {
-    static constexpr std::string_view kPlayer = "player";
     static constexpr std::string_view kCoordinates = "coordinates";
     static constexpr std::string_view kUnknown = "unknown";
   };
 
   template<>
-  struct FieldNames<h3svg::ReplayEventDetails<h3svg::ReplayEventType::HideHero>>
+  struct FieldNames<h3svg::ReplayEventDetails<h3svg::ReplayEventType::HideHero>> :
+    FieldNames<h3svg::ReplayEventDetailsBase>
   {
-    static constexpr std::string_view kPlayer = "player";
     static constexpr std::string_view kHero = "hero";
     static constexpr std::string_view kOwnerNew = "owner_new";
     static constexpr std::string_view kOwnerOld = "owner_old";
   };
 
   template<>
-  struct FieldNames<h3svg::ReplayEventDetails<h3svg::ReplayEventType::ShowHero>>
+  struct FieldNames<h3svg::ReplayEventDetails<h3svg::ReplayEventType::ShowHero>> :
+    FieldNames<h3svg::ReplayEventDetailsBase>
   {
-    static constexpr std::string_view kPlayer = "player";
     static constexpr std::string_view kHero = "hero";
     static constexpr std::string_view kOwnerNew = "owner_new";
     static constexpr std::string_view kOwnerOld = "owner_old";
@@ -636,16 +643,16 @@ namespace h3json
   };
 
   template<>
-  struct FieldNames<h3svg::ReplayEventDetails<h3svg::ReplayEventType::Unknown10>>
+  struct FieldNames<h3svg::ReplayEventDetails<h3svg::ReplayEventType::Unknown10>> :
+    FieldNames<h3svg::ReplayEventDetailsBase>
   {
-    static constexpr std::string_view kPlayer = "player";
     static constexpr std::string_view kUnknown = "unknown";
   };
 
   template<>
-  struct FieldNames<h3svg::ReplayEventDetails<h3svg::ReplayEventType::ChangeTerrainVisibility>>
+  struct FieldNames<h3svg::ReplayEventDetails<h3svg::ReplayEventType::ChangeTerrainVisibility>> :
+    FieldNames<h3svg::ReplayEventDetailsBase>
   {
-    static constexpr std::string_view kPlayer = "player";
     static constexpr std::string_view kChanges = "changes";
   };
 

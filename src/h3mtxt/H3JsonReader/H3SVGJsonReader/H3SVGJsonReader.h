@@ -150,6 +150,10 @@ namespace h3json
   };
 
   template<>
+  h3svg::ReplayEventDetailsBase
+  JsonReader<h3svg::ReplayEventDetailsBase>::operator()(const Json::Value& value) const;
+
+  template<>
   h3svg::Reward
   JsonReader<h3svg::Reward>::operator()(const Json::Value& value) const;
 

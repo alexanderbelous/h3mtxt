@@ -261,6 +261,10 @@ namespace Medea_NS
     FieldsWriter& out, const h3svg::ReplayEventDetails<h3svg::ReplayEventType::ChangeTerrainVisibility>& details) const;
 
   template<>
+  void JsonObjectWriter<h3svg::ReplayEventDetailsBase>::operator()(
+    FieldsWriter& out, const h3svg::ReplayEventDetailsBase& base) const;
+
+  template<>
   void JsonObjectWriter<h3svg::Reward>::operator()(FieldsWriter& out, const h3svg::Reward& reward) const;
 
   // Partial specialization for h3svg::RewardDetails.

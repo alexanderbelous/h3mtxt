@@ -14,10 +14,15 @@
 
 namespace h3svg
 {
-  template<>
-  struct ReplayEventDetails<ReplayEventType::MoveHero>
+  struct ReplayEventDetailsBase
   {
-    PlayerColor player {};
+    // Player for which this event was recorded.
+    PlayerColor player{};
+  };
+
+  template<>
+  struct ReplayEventDetails<ReplayEventType::MoveHero> : ReplayEventDetailsBase
+  {
     std::uint32_t hero {};
     CompassPoint direction {}; // TODO: rename to orientation -> this only affects the rendered sprite.
     CoordinatesPacked from;
@@ -25,9 +30,8 @@ namespace h3svg
   };
 
   template<>
-  struct ReplayEventDetails<ReplayEventType::TeleportHero>
+  struct ReplayEventDetails<ReplayEventType::TeleportHero> : ReplayEventDetailsBase
   {
-    PlayerColor player{};
     std::uint32_t hero{};
     CompassPoint orientation {};
     CoordinatesPacked from;
@@ -35,9 +39,8 @@ namespace h3svg
   };
 
   template<>
-  struct ReplayEventDetails<ReplayEventType::FlagMine>
+  struct ReplayEventDetails<ReplayEventType::FlagMine> : ReplayEventDetailsBase
   {
-    PlayerColor player {};
     // 0-based index of the flagged object from ObjectPropertiesTables::mines_and_lighthouses.
     std::uint32_t id {};
     PlayerColor owner_old = PlayerColor::None;
@@ -45,9 +48,8 @@ namespace h3svg
   };
 
   template<>
-  struct ReplayEventDetails<ReplayEventType::CaptureTown>
+  struct ReplayEventDetails<ReplayEventType::CaptureTown> : ReplayEventDetailsBase
   {
-    PlayerColor player{};
     // ID of the town (see Town::id).
     std::uint32_t town_id {};
     PlayerColor owner_old = PlayerColor::None;
@@ -55,9 +57,8 @@ namespace h3svg
   };
 
   template<>
-  struct ReplayEventDetails<ReplayEventType::HideBoat>
+  struct ReplayEventDetails<ReplayEventType::HideBoat> : ReplayEventDetailsBase
   {
-    PlayerColor player{};
     // ID of the boat (see Boat::id).
     std::uint8_t boat_id {};
     std::array<std::uint8_t, 2> unknown {};
@@ -69,9 +70,8 @@ namespace h3svg
   };
 
   template<>
-  struct ReplayEventDetails<ReplayEventType::ShowBoat>
+  struct ReplayEventDetails<ReplayEventType::ShowBoat> : ReplayEventDetailsBase
   {
-    PlayerColor player{};
     // unknown[0] is probably Boat::id
     // The rest is smth like boarded_hero, owner_hero_old, owner_hero_new
     std::array<std::uint8_t, 7> unknown {};
@@ -82,18 +82,16 @@ namespace h3svg
   };
 
   template<>
-  struct ReplayEventDetails<ReplayEventType::RemoveMapItem>
+  struct ReplayEventDetails<ReplayEventType::RemoveMapItem> : ReplayEventDetailsBase
   {
-    PlayerColor player{};
     // Coordinates of the actionable tile.
     CoordinatesPacked coordinates;
     std::array<std::uint8_t, 12> unknown{}; // The first 4? bytes are object_idx;
   };
 
   template<>
-  struct ReplayEventDetails<ReplayEventType::HideHero>
+  struct ReplayEventDetails<ReplayEventType::HideHero> : ReplayEventDetailsBase
   {
-    PlayerColor player {};
     std::uint32_t hero {};
     // None if the hero is dismissed / defeated.
     PlayerColor owner_new = PlayerColor::None;
@@ -101,9 +99,8 @@ namespace h3svg
   };
 
   template<>
-  struct ReplayEventDetails<ReplayEventType::ShowHero>
+  struct ReplayEventDetails<ReplayEventType::ShowHero> : ReplayEventDetailsBase
   {
-    PlayerColor player{};
     std::uint32_t hero{};
     PlayerColor owner_new {};
     // None if the hero has just been hired.
@@ -115,14 +112,13 @@ namespace h3svg
   };
 
   template<>
-  struct ReplayEventDetails<ReplayEventType::Unknown10>
+  struct ReplayEventDetails<ReplayEventType::Unknown10> : ReplayEventDetailsBase
   {
-    PlayerColor player{};
     std::uint8_t unknown{};
   };
 
   template<>
-  struct ReplayEventDetails<ReplayEventType::ChangeTerrainVisibility>
+  struct ReplayEventDetails<ReplayEventType::ChangeTerrainVisibility> : ReplayEventDetailsBase
   {
     struct TileVisiblityChange
     {
@@ -131,7 +127,6 @@ namespace h3svg
       TileVisibility visibility_new;
     };
 
-    PlayerColor player{};
     // Size is serialized as a 16-bit integer.
     std::vector<TileVisiblityChange> changes;
   };
@@ -163,6 +158,12 @@ namespace h3svg
     //         ReplayEventDetails<event_type>, or std::variant_npos if there is no such alternative.
     static constexpr std::size_t getAlternativeIdx(ReplayEventType event_type) noexcept;
 
+    // \return a mutable reference to ReplayEventDetailsBase of the alternative currently stored in @details.
+    constexpr ReplayEventDetailsBase& base() noexcept;
+
+    // \return a const reference to ReplayEventDetailsBase of the alternative currently stored in @details.
+    constexpr const ReplayEventDetailsBase& base() const noexcept;
+
     Details details;
   };
 
@@ -179,5 +180,19 @@ namespace h3svg
       return static_cast<std::size_t>(event_type) - 1;
     }
     return std::variant_npos;
+  }
+
+  constexpr ReplayEventDetailsBase& ReplayEvent::base() noexcept
+  {
+    return const_cast<ReplayEventDetailsBase&>(const_cast<const ReplayEvent&>(*this).base());
+  }
+
+  constexpr const ReplayEventDetailsBase& ReplayEvent::base() const noexcept
+  {
+    return std::visit([] <ReplayEventType T> (const ReplayEventDetails<T>&details) -> const ReplayEventDetailsBase&
+                      {
+                        return details;
+                      },
+                      details);
   }
 }

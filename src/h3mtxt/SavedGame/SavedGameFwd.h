@@ -189,10 +189,12 @@ namespace h3svg
 
   struct RegionInfo;
 
+  struct ReplayEvent;
+
   template<ReplayEventType T>
   struct ReplayEventDetails;
 
-  struct ReplayEvent;
+  struct ReplayEventDetailsBase;
 
   struct Quest;
 

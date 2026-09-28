@@ -112,6 +112,8 @@ namespace h3svg
     template<ReplayEventType T>
     void writeData(const ReplayEventDetails<T>& details) const;
 
+    void writeData(const ReplayEventDetailsBase& base) const;
+
     void writeData(const Reward& reward) const;
 
     template<RewardType T>

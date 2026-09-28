@@ -98,10 +98,12 @@ namespace h3svg
 
     RegionInfo readRegionInfo() const;
 
+    ReplayEvent readReplayEvent() const;
+
     template<ReplayEventType T>
     ReplayEventDetails<T> readReplayEventDetails() const;
 
-    ReplayEvent readReplayEvent() const;
+    ReplayEventDetailsBase readReplayEventDetailsBase() const;
 
     Resources readResources() const;
 

@@ -28,10 +28,9 @@ namespace h3json
   JsonReader<h3svg::ReplayEventDetails<T>>::operator()(const Json::Value& value) const
   {
     using Fields = h3json::FieldNames<h3svg::ReplayEventDetails<T>>;
-    h3svg::ReplayEventDetails<T> details;
+    h3svg::ReplayEventDetails<T> details{ fromJson<h3svg::ReplayEventDetailsBase>(value) };
     if constexpr (T == h3svg::ReplayEventType::MoveHero)
     {
-      readField(details.player, value, Fields::kPlayer);
       readField(details.hero, value, Fields::kHero);
       readField(details.direction, value, Fields::kDirection);
       readField(details.from, value, Fields::kFrom);
@@ -39,7 +38,6 @@ namespace h3json
     }
     else if constexpr (T == h3svg::ReplayEventType::TeleportHero)
     {
-      readField(details.player, value, Fields::kPlayer);
       readField(details.hero, value, Fields::kHero);
       readField(details.orientation, value, Fields::kOrientation);
       readField(details.from, value, Fields::kFrom);
@@ -47,21 +45,18 @@ namespace h3json
     }
     else if constexpr (T == h3svg::ReplayEventType::FlagMine)
     {
-      readField(details.player, value, Fields::kPlayer);
       readField(details.id, value, Fields::kId);
       readField(details.owner_old, value, Fields::kOwnerOld);
       readField(details.owner_new, value, Fields::kOwnerNew);
     }
     else if constexpr (T == h3svg::ReplayEventType::CaptureTown)
     {
-      readField(details.player, value, Fields::kPlayer);
       readField(details.town_id, value, Fields::kTownId);
       readField(details.owner_old, value, Fields::kOwnerOld);
       readField(details.owner_new, value, Fields::kOwnerNew);
     }
     else if constexpr (T == h3svg::ReplayEventType::HideBoat)
     {
-      readField(details.player, value, Fields::kPlayer);
       readField(details.boat_id, value, Fields::kBoatId);
       readField(details.unknown, value, Fields::kUnknown);
       readField(details.owner_old, value, Fields::kOwnerOld);
@@ -69,27 +64,23 @@ namespace h3json
     }
     else if constexpr (T == h3svg::ReplayEventType::ShowBoat)
     {
-      readField(details.player, value, Fields::kPlayer);
       readField(details.unknown, value, Fields::kUnknown);
       readField(details.coordinates_new, value, Fields::kCoordinatesNew);
       readField(details.coordinates_old, value, Fields::kCoordinatesOld);
     }
     else if constexpr (T == h3svg::ReplayEventType::RemoveMapItem)
     {
-      readField(details.player, value, Fields::kPlayer);
       readField(details.coordinates, value, Fields::kCoordinates);
       readField(details.unknown, value, Fields::kUnknown);
     }
     else if constexpr (T == h3svg::ReplayEventType::HideHero)
     {
-      readField(details.player, value, Fields::kPlayer);
       readField(details.hero, value, Fields::kHero);
       readField(details.owner_new, value, Fields::kOwnerNew);
       readField(details.owner_old, value, Fields::kOwnerOld);
     }
     else if constexpr (T == h3svg::ReplayEventType::ShowHero)
     {
-      readField(details.player, value, Fields::kPlayer);
       readField(details.hero, value, Fields::kHero);
       readField(details.owner_new, value, Fields::kOwnerNew);
       readField(details.owner_old, value, Fields::kOwnerOld);
@@ -99,12 +90,10 @@ namespace h3json
     }
     else if constexpr (T == h3svg::ReplayEventType::Unknown10)
     {
-      readField(details.player, value, Fields::kPlayer);
       readField(details.unknown, value, Fields::kUnknown);
     }
     else if constexpr (T == h3svg::ReplayEventType::ChangeTerrainVisibility)
     {
-      readField(details.player, value, Fields::kPlayer);
       readField(details.changes, value, Fields::kChanges);
     }
     else
@@ -112,6 +101,16 @@ namespace h3json
       static_assert(false, "Invalid ReplayEventType.");
     }
     return details;
+  }
+
+  template<>
+  h3svg::ReplayEventDetailsBase
+  JsonReader<h3svg::ReplayEventDetailsBase>::operator()(const Json::Value& value) const
+  {
+    using Fields = h3json::FieldNames<h3svg::ReplayEventDetailsBase>;
+    h3svg::ReplayEventDetailsBase base;
+    readField(base.player, value, Fields::kPlayer);
+    return base;
   }
 
   template<>

@@ -4,111 +4,112 @@
 
 #include <stdexcept>
 #include <string> // For debugging
+#include <utility>
 
 namespace h3svg
 {
+  namespace
+  {
+    template<ReplayEventType T>
+    ReplayEvent::Details readReplayDetailsAsVariant(const H3SVGReader& reader)
+    {
+      return reader.readReplayEventDetails<T>();
+    }
+  }
+
   ReplayEvent H3SVGReader::readReplayEvent() const
   {
+    // The number of valid ReplayEventTypes (excluding ReplayEventType{0}, which is invalid).
+    static constexpr std::size_t kNumReplayEventTypes = 11;
+    using FunctionPtr = ReplayEvent::Details(*)(const H3SVGReader&);
+    static constexpr std::array<FunctionPtr, kNumReplayEventTypes> kReaders =
+      [] <std::size_t... Indices> (std::index_sequence<Indices...>) consteval
+      {
+        std::array<FunctionPtr, kNumReplayEventTypes> result = {
+          &readReplayDetailsAsVariant<static_cast<ReplayEventType>(Indices + 1)>...
+        };
+        return result;
+      }(std::make_index_sequence<kNumReplayEventTypes>{});
+
     const ReplayEventType event_type = readEnum<ReplayEventType>();
-    switch (event_type)
+    if (static_cast<std::size_t>(event_type) < 1 || static_cast<std::size_t>(event_type) > kNumReplayEventTypes)
     {
-    case ReplayEventType::MoveHero:
+      throw std::logic_error("Invalid ReplayEventType " + std::to_string(static_cast<std::uint8_t>(event_type)));
+    }
+    return ReplayEvent{
+      .details = kReaders[static_cast<std::size_t>(event_type) - 1](*this)
+    };
+  }
+
+  template<ReplayEventType T>
+  ReplayEventDetails<T> H3SVGReader::readReplayEventDetails() const
+  {
+    ReplayEventDetails<T> details{ readReplayEventDetailsBase() };
+    if constexpr (T == ReplayEventType::MoveHero)
     {
-      ReplayEventDetails<ReplayEventType::MoveHero> details;
-      details.player = readEnum<PlayerColor>();
       details.hero = readInt<std::uint32_t>();
       details.direction = readEnum<CompassPoint>();
       details.from = readCoordinatesPacked();
       details.to = readCoordinatesPacked();
-      return ReplayEvent{ .details = details };
     }
-    case ReplayEventType::TeleportHero:
+    else if constexpr (T == ReplayEventType::TeleportHero)
     {
-      ReplayEventDetails<ReplayEventType::TeleportHero> details;
-      details.player = readEnum<PlayerColor>();
       details.hero = readInt<std::uint32_t>();
       details.orientation = readEnum<CompassPoint>();
       details.from = readCoordinatesPacked();
       details.to = readCoordinatesPacked();
-      return ReplayEvent{ .details = details };
     }
-    case ReplayEventType::FlagMine:
+    else if constexpr (T == ReplayEventType::FlagMine)
     {
-      ReplayEventDetails<ReplayEventType::FlagMine> details;
-      details.player = readEnum<PlayerColor>();
       details.id = readInt<std::uint32_t>();
       details.owner_old = readEnum<PlayerColor>();
       details.owner_new = readEnum<PlayerColor>();
-      return ReplayEvent{ .details = details };
     }
-    case ReplayEventType::CaptureTown:
+    else if constexpr (T == ReplayEventType::CaptureTown)
     {
-      ReplayEventDetails<ReplayEventType::CaptureTown> details;
-      details.player = readEnum<PlayerColor>();
       details.town_id = readInt<std::uint32_t>();
       details.owner_old = readEnum<PlayerColor>();
       details.owner_new = readEnum<PlayerColor>();
-      return ReplayEvent{ .details = details };
     }
-    case ReplayEventType::HideBoat:
+    else if constexpr (T == ReplayEventType::HideBoat)
     {
-      ReplayEventDetails<ReplayEventType::HideBoat> details;
-      details.player = readEnum<PlayerColor>();
       details.boat_id = readInt<std::uint8_t>();
       details.unknown = readByteArray<2>();
       details.owner_old = readEnum<HeroType16>();
       details.owner_new = readEnum<HeroType16>();
-      return ReplayEvent{ .details = details };
     }
-    case ReplayEventType::ShowBoat:
+    else if constexpr (T == ReplayEventType::ShowBoat)
     {
-      ReplayEventDetails<ReplayEventType::ShowBoat> details;
-      details.player = readEnum<PlayerColor>();
       details.unknown = readByteArray<7>();
       details.coordinates_new = readCoordinatesPacked();
       details.coordinates_old = readCoordinatesPacked();
-      return ReplayEvent{ .details = details };
     }
-    case ReplayEventType::RemoveMapItem:
+    else if constexpr (T == ReplayEventType::RemoveMapItem)
     {
-      ReplayEventDetails<ReplayEventType::RemoveMapItem> details;
-      details.player = readEnum<PlayerColor>();
       details.coordinates = readCoordinatesPacked();
       details.unknown = readByteArray<12>();
-      return ReplayEvent{ .details = details };
     }
-    case ReplayEventType::HideHero:
+    else if constexpr (T == ReplayEventType::HideHero)
     {
-      ReplayEventDetails<ReplayEventType::HideHero> details;
-      details.player = readEnum<PlayerColor>();
       details.hero = readInt<std::uint32_t>();
       details.owner_new = readEnum<PlayerColor>();
       details.owner_old = readEnum<PlayerColor>();
-      return ReplayEvent{ .details = details };
     }
-    case ReplayEventType::ShowHero:
+    else if constexpr (T == ReplayEventType::ShowHero)
     {
-      ReplayEventDetails<ReplayEventType::ShowHero> details;
-      details.player = readEnum<PlayerColor>();
       details.hero = readInt<std::uint32_t>();
       details.owner_new = readEnum<PlayerColor>();
       details.owner_old = readEnum<PlayerColor>();
       details.coordinates_new = readCoordinatesPacked();
       details.coordinates_old = readCoordinatesPacked();
       details.unknown = readByteArray<2>();
-      return ReplayEvent{ .details = details };
     }
-    case ReplayEventType::Unknown10:
+    else if constexpr (T == ReplayEventType::Unknown10)
     {
-      ReplayEventDetails<ReplayEventType::Unknown10> details;
-      details.player = readEnum<PlayerColor>();
       details.unknown = readInt<std::uint8_t>();
-      return ReplayEvent{ .details = details };
     }
-    case ReplayEventType::ChangeTerrainVisibility:
+    else if constexpr (T == ReplayEventType::ChangeTerrainVisibility)
     {
-      ReplayEventDetails<ReplayEventType::ChangeTerrainVisibility> details;
-      details.player = readEnum<PlayerColor>();
       const std::uint16_t num_tiles = readInt<std::uint16_t>();
       details.changes.reserve(num_tiles);
       for (std::uint16_t i = 0; i < num_tiles; ++i)
@@ -119,10 +120,18 @@ namespace h3svg
         change.visibility_new = readTileVisibility();
         details.changes.push_back(change);
       }
-      return ReplayEvent{ .details = details };
     }
-    default:
-      throw std::logic_error("Unsupported ReplayEventType " + std::to_string(static_cast<std::uint8_t>(event_type)));
+    else
+    {
+      static_assert(false, "Invalid ReplayEventType.");
     }
+    return details;
+  }
+
+  ReplayEventDetailsBase H3SVGReader::readReplayEventDetailsBase() const
+  {
+    return ReplayEventDetailsBase{
+      .player = readEnum<PlayerColor>()
+    };
   }
 }
