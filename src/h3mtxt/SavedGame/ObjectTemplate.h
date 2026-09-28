@@ -1,6 +1,7 @@
 #pragma once
 
 #include <h3mtxt/SavedGame/SavedGameFwd.h>
+
 #include <h3mtxt/Map/MapFwd.h>
 #include <h3mtxt/Map/Utils/ReservedData.h>
 #include <h3mtxt/Map/Utils/SpriteTilesBitmask.h>

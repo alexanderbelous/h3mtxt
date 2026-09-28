@@ -1,9 +1,11 @@
 #pragma once
 
-#include <h3mtxt/SavedGame/SavedGame.h>
+#include <h3mtxt/SavedGame/SavedGameFwd.h>
 
+#include <h3mtxt/Map/Constants/ArtifactType.h>
 #include <h3mtxt/Map/Constants/CreatureType.h>
 #include <h3mtxt/Map/Constants/ResourceType.h>
+#include <h3mtxt/Map/Utils/EnumIndexedArray.h>
 #include <h3mtxt/Map/Utils/TypedQuantity.h>
 #include <h3mtxt/SavedGame/Troops.h>
 

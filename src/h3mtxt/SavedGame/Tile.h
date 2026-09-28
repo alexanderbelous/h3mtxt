@@ -2,6 +2,7 @@
 
 #include <h3mtxt/SavedGame/SavedGameFwd.h>
 
+#include <h3mtxt/Map/Constants/ObjectClass.h>
 #include <h3mtxt/Map/Constants/RiverType.h>
 #include <h3mtxt/Map/Constants/RoadType.h>
 #include <h3mtxt/Map/Constants/TerrainType.h>

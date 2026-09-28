@@ -55,14 +55,8 @@ namespace h3svg
 
   constexpr LossConditionType LossCondition::type() const noexcept
   {
-    constexpr std::size_t kNormalDetailsIndex = 3;
-    static_assert(std::is_same_v<std::variant_alternative_t<kNormalDetailsIndex, Details>,
-                                 LossConditionDetails<LossConditionType::Normal>>,
-                  "kNormalDetailsIndex must be the index of the alternative for Normal loss condition.");
-
     const std::size_t index = details.index();
-    // Hack to avoid writing a switch statement over all loss condition types.
-    if (index == kNormalDetailsIndex)
+    if (index == 3)
     {
       return LossConditionType::Normal;
     }

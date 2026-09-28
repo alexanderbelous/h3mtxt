@@ -19,7 +19,7 @@
 
 namespace h3svg
 {
-  // Equivalent of h3m::Guardians used in H3SVG.
+  // The equivalent of h3m::Guardians used in H3SVG.
   struct Guardians
   {
     constexpr bool operator==(const Guardians&) const noexcept = default;

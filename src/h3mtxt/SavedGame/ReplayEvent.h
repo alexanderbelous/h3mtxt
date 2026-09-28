@@ -19,7 +19,7 @@ namespace h3svg
   {
     PlayerColor player {};
     std::uint32_t hero {};
-    CompassPoint direction {};
+    CompassPoint direction {}; // TODO: rename to orientation -> this only affects the rendered sprite.
     CoordinatesPacked from;
     CoordinatesPacked to;
   };

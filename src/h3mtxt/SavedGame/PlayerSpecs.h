@@ -2,6 +2,8 @@
 
 #include <h3mtxt/SavedGame/SavedGameFwd.h>
 
+#include <h3mtxt/Map/Constants/PlayerBehavior.h>
+#include <h3mtxt/Map/Constants/TownType.h>
 #include <h3mtxt/Map/PlayerSpecs.h>
 #include <h3mtxt/Map/Coordinates.h>
 
