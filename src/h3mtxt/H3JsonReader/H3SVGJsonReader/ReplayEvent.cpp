@@ -99,7 +99,8 @@ namespace h3json
     }
     else if constexpr (T == h3svg::ReplayEventType::Unknown10)
     {
-      readField(details.unknown, value, "unknown");
+      readField(details.player, value, Fields::kPlayer);
+      readField(details.unknown, value, Fields::kUnknown);
     }
     else if constexpr (T == h3svg::ReplayEventType::ChangeTerrainVisibility)
     {

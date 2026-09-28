@@ -101,7 +101,8 @@ namespace h3svg
     case ReplayEventType::Unknown10:
     {
       ReplayEventDetails<ReplayEventType::Unknown10> details;
-      details.unknown = readByteArray<details.kNumBytes>();
+      details.player = readEnum<PlayerColor>();
+      details.unknown = readInt<std::uint8_t>();
       return ReplayEvent{ .details = details };
     }
     case ReplayEventType::ChangeTerrainVisibility:

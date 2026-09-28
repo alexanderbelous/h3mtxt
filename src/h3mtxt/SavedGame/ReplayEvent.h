@@ -117,11 +117,8 @@ namespace h3svg
   template<>
   struct ReplayEventDetails<ReplayEventType::Unknown10>
   {
-    static constexpr std::size_t kNumBytes = 2;
-
-    // unknown[0] is probably `PlayerColor player`, but this is hard to confirm
-    // because the event is a no-op.
-    std::array<std::uint8_t, kNumBytes> unknown{};
+    PlayerColor player{};
+    std::uint8_t unknown{};
   };
 
   template<>

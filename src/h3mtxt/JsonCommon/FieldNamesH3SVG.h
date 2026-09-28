@@ -636,6 +636,13 @@ namespace h3json
   };
 
   template<>
+  struct FieldNames<h3svg::ReplayEventDetails<h3svg::ReplayEventType::Unknown10>>
+  {
+    static constexpr std::string_view kPlayer = "player";
+    static constexpr std::string_view kUnknown = "unknown";
+  };
+
+  template<>
   struct FieldNames<h3svg::ReplayEventDetails<h3svg::ReplayEventType::ChangeTerrainVisibility>>
   {
     static constexpr std::string_view kPlayer = "player";
