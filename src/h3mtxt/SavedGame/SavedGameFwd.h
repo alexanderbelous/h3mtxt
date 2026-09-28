@@ -184,6 +184,8 @@ namespace h3svg
 
   struct PlayerSpecs;
 
+  struct Portals;
+
   struct RegionInfo;
 
   template<ReplayEventType T>
@@ -212,6 +214,8 @@ namespace h3svg
   struct SeersHut;
 
   struct Sign;
+
+  struct SubterraneanGates;
 
   struct Tile;
 

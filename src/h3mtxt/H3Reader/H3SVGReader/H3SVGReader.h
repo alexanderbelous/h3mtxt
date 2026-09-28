@@ -84,6 +84,8 @@ namespace h3svg
 
     PrimarySkills readPrimarySkills() const;
 
+    Portals readPortals() const;
+
     Quest readQuest() const;
 
     // Defined in readQuest.cpp.
@@ -125,6 +127,8 @@ namespace h3svg
     SpecialVictoryConditionBase readSpecialVictoryConditionBase() const;
 
     StartingHero readStartingHero() const;
+
+    SubterraneanGates readSubterraneanGates() const;
 
     Teams readTeams() const;
 

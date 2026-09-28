@@ -7,6 +7,7 @@ add_library(H3SVGJsonReader STATIC
     "LossCondition.cpp"
     "ObjectPropertiesTable.cpp"
     "Player.cpp"
+    "Portals.cpp"
     "Quest.cpp"
     "readH3SVGJson.cpp"
     "readH3SVGJson.h"

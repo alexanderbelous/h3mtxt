@@ -484,6 +484,16 @@ namespace h3json
   };
 
   template<>
+  struct FieldNames<h3svg::Portals>
+  {
+    static constexpr std::string_view kMonolithsTwoWay = "monoliths_two_way";
+    static constexpr std::string_view kMonolithsOneWay = "monoliths_one_way";
+    static constexpr std::string_view kWhirlpools = "whirlpools";
+    static constexpr std::string_view kSubterraneanGates = "subterranean_gates";
+
+  };
+
+  template<>
   struct FieldNames<h3svg::Quest> : FieldNames<h3m::Quest>
   {
     // Same fields as for h3m::Quest, plus 1 currently unknown 2-byte field.
@@ -766,11 +776,7 @@ namespace h3json
     static constexpr std::string_view kCartographers = "cartographers";
     static constexpr std::string_view kUnknown8 = "unknown8";
     static constexpr std::string_view kFogOfWar = "fog_of_war";
-    static constexpr std::string_view kMonolithsTwoWay = "monoliths_two_way";
-    static constexpr std::string_view kMonolithsOneWay = "monoliths_one_way";
-    static constexpr std::string_view kWhirlpools = "whirlpools";
-    static constexpr std::string_view kSubterraneanGates = "subterranean_gates";
-    static constexpr std::string_view kUnknown9 = "unknown9";
+    static constexpr std::string_view kPortals = "portals";
     static constexpr std::string_view kUniversities = "universities";
     static constexpr std::string_view kCreatureBanks = "creature_banks";
     static constexpr std::string_view kPreviousTurn = "previous_turn";
@@ -808,6 +814,13 @@ namespace h3json
   {
     static constexpr std::string_view kMessage = "message";
     static constexpr std::string_view kIsCustom = "is_custom";
+  };
+
+  template<>
+  struct FieldNames<h3svg::SubterraneanGates>
+  {
+    static constexpr std::string_view kGates = "gates";
+    static constexpr std::string_view kPairings = "pairings";
   };
 
   template<>

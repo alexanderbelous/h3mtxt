@@ -97,13 +97,6 @@ namespace Medea_NS
   }
 
   template<>
-  void JsonObjectWriter<h3svg::ObjectExits>::operator()(FieldsWriter& out, const h3svg::ObjectExits& object_exits) const
-  {
-    using Fields = h3json::FieldNames<h3svg::ObjectExits>;
-    out.writeField(Fields::kExits, object_exits.exits);
-  }
-
-  template<>
   void JsonObjectWriter<h3svg::ObjectTemplate>::operator()(FieldsWriter& out,
                                                            const h3svg::ObjectTemplate& object_template) const
   {
@@ -211,11 +204,7 @@ namespace Medea_NS
                                         .map_size = saved_game.basic_info.map_size,
                                         .has_two_levels = static_cast<bool>(saved_game.basic_info.has_two_levels)
                                       });
-    out.writeField(Fields::kMonolithsTwoWay, saved_game.monoliths_two_way);
-    out.writeField(Fields::kMonolithsOneWay, saved_game.monoliths_one_way);
-    out.writeField(Fields::kWhirlpools, saved_game.whirlpools);
-    out.writeField(Fields::kSubterraneanGates, saved_game.subterranean_gates);
-    out.writeField(Fields::kUnknown9, saved_game.unknown9);
+    out.writeField(Fields::kPortals, saved_game.portals);
     out.writeField(Fields::kUniversities, saved_game.universities);
     out.writeField(Fields::kCreatureBanks, saved_game.creature_banks);
     out.writeField(Fields::kPreviousTurn, saved_game.previous_turn);

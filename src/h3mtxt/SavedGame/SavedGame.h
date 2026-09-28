@@ -22,6 +22,7 @@
 #include <h3mtxt/SavedGame/ObjectTemplate.h>
 #include <h3mtxt/SavedGame/Player.h>
 #include <h3mtxt/SavedGame/PlayerSpecs.h>
+#include <h3mtxt/SavedGame/Portals.h>
 #include <h3mtxt/SavedGame/ReplayEvent.h>
 #include <h3mtxt/SavedGame/Rumor.h>
 #include <h3mtxt/SavedGame/ScenarioStartingInfo.h>
@@ -39,17 +40,6 @@
 
 namespace h3svg
 {
-  // Stores the locations of all exits for an object that "teleports" a hero to another location
-  // (e.g., One-Way Monoliths, Two-Way Monoliths, Whirlpools, Subterranean Gates).
-  struct ObjectExits
-  {
-    constexpr bool operator==(const ObjectExits&) const noexcept = default;
-
-    // The length is serialized as a 16-bit integer.
-    // Padding bits in CoordinatesPacked may contain junk.
-    std::vector<CoordinatesPacked> exits;
-  };
-
   // Represents a saved game for Heroes of Might and Magic 3 (.CGM, .GM1, .GM2, ... files).
   //
   // HoMM3 uses the same format for saved maps and saved campaigns, so this class is used for both.
@@ -171,19 +161,8 @@ namespace h3svg
     // i.e. countTiles(this->basic_info).
     // Tile (x, y, z) has the index ((z * map_size + y) * map_size + x).
     std::vector<TileVisibility> fog_of_war;
-    // The locations of Two-Way Monoliths for each valid object_subclass.
-    std::array<ObjectExits, 8> monoliths_two_way;
-    // The locations of One-Way Monolith Exits for each valid object_subclass.
-    std::array<ObjectExits, 8> monoliths_one_way;
-    // All actionable tiles of Whirlpools.
-    ObjectExits whirlpools;
-    // All actionable tiles of Subterranean Gates.
-    ObjectExits subterranean_gates;
-    // TODO: figure out what this is.
-    // * Hypothesis: links Subterranean Gates, i.e. subterranean_gates[i] is mapped to subterranean_gates[unknown9[i]].
-    //   It's weird, however, that the length is explicitly serialized.
-    // The length is serialized as a 16-bit integer.
-    std::vector<std::uint32_t> unknown9;
+    // Information about all portals on the map (i.e. Monoliths, Whirlpools and Subterranean Gates).
+    Portals portals;
     // Properties for each University on the Adventure Map.
     // The length is serialized as a 16-bit integer.
     std::vector<University> universities;

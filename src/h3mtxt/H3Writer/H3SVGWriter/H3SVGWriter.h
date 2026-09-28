@@ -94,6 +94,8 @@ namespace h3svg
 
     void writeData(const PlayerSpecs& value) const;
 
+    void writeData(const Portals& portals) const;
+
     void writeData(const Quest& quest) const;
 
     // Defined in Quest.cpp.
@@ -141,6 +143,8 @@ namespace h3svg
     void writeData(const SpriteTilesBitmask& value) const;
 
     void writeData(const StartingHero& value) const;
+
+    void writeData(const SubterraneanGates& value) const;
 
     void writeData(const Teams& teams) const;
 

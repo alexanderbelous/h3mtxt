@@ -12,6 +12,7 @@ add_library(H3SVGWriter STATIC
     "Object.cpp"
     "ObjectPropertiesTables.cpp"
     "ObjectTemplate.cpp"
+    "Portals.cpp"
     "Quest.cpp"
     "Player.cpp"
     "PlayerSpecs.cpp"

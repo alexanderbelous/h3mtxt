@@ -114,6 +114,10 @@ namespace h3json
   JsonReader<h3svg::PlayerSpecs>::operator()(const Json::Value& value) const;
 
   template<>
+  h3svg::Portals
+  JsonReader<h3svg::Portals>::operator()(const Json::Value& value) const;
+
+  template<>
   h3svg::Quest
   JsonReader<h3svg::Quest>::operator()(const Json::Value& value) const;
 
@@ -176,6 +180,10 @@ namespace h3json
   template<>
   h3svg::Sign
   JsonReader<h3svg::Sign>::operator()(const Json::Value& value) const;
+
+  template<>
+  h3svg::SubterraneanGates
+  JsonReader<h3svg::SubterraneanGates>::operator()(const Json::Value& value) const;
 
   template<>
   h3svg::Tile

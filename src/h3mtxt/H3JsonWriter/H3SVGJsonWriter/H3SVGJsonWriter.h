@@ -189,6 +189,10 @@ namespace Medea_NS
                                                         const h3svg::PlayerSpecs& player_specs) const;
 
   template<>
+  void JsonObjectWriter<h3svg::Portals>::operator()(FieldsWriter& out,
+                                                    const h3svg::Portals& portals) const;
+
+  template<>
   void JsonObjectWriter<h3svg::Quest>::operator()(FieldsWriter& out, const h3svg::Quest& quest) const;
 
   // Partial specialization for h3svg::QuestDetails.
@@ -283,6 +287,10 @@ namespace Medea_NS
 
   template<>
   void JsonObjectWriter<h3svg::Sign>::operator()(FieldsWriter& out, const h3svg::Sign& sign) const;
+
+  template<>
+  void JsonObjectWriter<h3svg::SubterraneanGates>::operator()(FieldsWriter& out,
+                                                              const h3svg::SubterraneanGates& subterranean_gates) const;
 
   template<>
   void JsonObjectWriter<h3svg::Tile>::operator()(FieldsWriter& out, const h3svg::Tile& tile) const;

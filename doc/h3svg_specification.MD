@@ -175,12 +175,7 @@ An H3SVG file is a single structure which we will naturally call [`SavedGame`](#
 | cartographer_subterranean | `uint8`                          | 1             | Bitmask; 1 bit per player, indicating if they have visited the Subterranean Cartographer |
 | unknown8                  | `uint8[4]`                       | 4             | TODO                                                             |
 | fog_of_war                | [`TileVisibility[NUM_TILES]`](#TileVisibility) | varies | Describes visibility of each tile for each player         |
-| monoliths_two_way         | [`ObjectExits[8]`](#ObjectExits) | varies        | Exists for each subtype of Monolith Two-Way                      |
-| monoliths_one_way         | [`ObjectExits[8]`](#ObjectExits) | varies        | Exists for each subtype of Monolith One-Way                      |
-| whirlpools                | [`ObjectExits`](#ObjectExits)    | varies        | All actionable tiles of Whirlpools                               |
-| subterranean_gates        | [`ObjectExits`](#ObjectExits)    | varies        | All actionable tiles of Subterranean Gates                       |
-| num_unknown9              | `uint16`                         | 2             | The number of elements in `unknown9` field                       |
-| unknown9                  | `uint32[num_unknown9]`           | varies        | TODO                                                             |
+| portals                   | [`Portals`](#Portals)            | varies        | Information about all portals on the map (i.e. Monoliths, Whirlpools and Subterranean Gates) |
 | num_universities          | `uint16`                         | 2             | The number of Universities on the Adventure Map                  |
 | universities              | [`University[num_universities]`](#University) | varies | Universities on the Adventure Map                          |
 | num_replay_events         | `uint32`                         | 4             | The number of recorded events from the previous turn             |
@@ -758,11 +753,28 @@ except `allow_normal_win` and `applies_to_computer`.
 | has_adjacent_monster | `Bool`  | 1             | 1 if there's a monster on this or adjacent tile, 0 otherwise                   |
 
 
+### `Portals`
+| Field name         | Type                                      | Size in bytes | Description                                                |
+| ------------------ | ----------------------------------------- | ------------- | ---------------------------------------------------------- |
+| monoliths_two_way  | [`ObjectExits[8]`](#ObjectExits)          | varies        | Exists for each subtype of Monolith Two-Way                |
+| monoliths_one_way  | [`ObjectExits[8]`](#ObjectExits)          | varies        | Exists for each subtype of Monolith One-Way                |
+| whirlpools         | [`ObjectExits`](#ObjectExits)             | varies        | All actionable tiles of Whirlpools                         |
+| subterranean_gates | [`SubterraneanGates`](#SubterraneanGates) | varies        | The locations of all Subterranean Gates and their pairings |
+
+
 ### `ObjectExits`
 | Field name | Type                | Size in bytes | Description                                                        |
 | ---------- | ------------------- | ------------- | ------------------------------------------------------------------ |
 | num_exits  | `uint16`            | 2             | The number of exits                                                |
 | exits      | `uint32[num_exits]` | varies        | The coordinates (serialized using the packed format) for each exit |
+
+
+### `SubterraneanGates`
+| Field name   | Type                          | Size in bytes | Description                                |
+| ------------ | ----------------------------- | ------------- | ------------------------------------------ |
+| gates        | [`ObjectExits`](#ObjectExits) | varies        | All actionable tiles of Subterranean Gates |
+| num_pairings | `uint16`                      | 2             | The number of elements in `unknown9` field |
+| pairings     | `int32[num_pairings]`         | varies        | Pairs up `gates.exits[i]` with `gates.exits[pairings[i]]`. Stores -1 for degenerate gates |
 
 
 ### `University`

@@ -22,11 +22,6 @@ namespace h3svg
     writeData(date.month);
   }
 
-  void H3SVGWriter::writeData(const ObjectExits& object_exits) const
-  {
-    writeVector<std::uint16_t>(std::span{ object_exits.exits });
-  }
-
   void H3SVGWriter::writeData(const Rumor& rumor) const
   {
     writeString16(rumor.text);
@@ -84,11 +79,7 @@ namespace h3svg
     writeData(saved_game.cartographers);
     writeData(saved_game.unknown8);
     writeSpan(std::span{ saved_game.fog_of_war });
-    writeData(saved_game.monoliths_two_way);
-    writeData(saved_game.monoliths_one_way);
-    writeData(saved_game.whirlpools);
-    writeData(saved_game.subterranean_gates);
-    writeVector<std::uint16_t>(std::span{ saved_game.unknown9 });
+    writeData(saved_game.portals);
     writeVector<std::uint16_t>(std::span{ saved_game.universities });
     writeVector<std::uint16_t>(std::span{ saved_game.creature_banks });
     writeVector<std::uint32_t>(std::span{ saved_game.previous_turn });

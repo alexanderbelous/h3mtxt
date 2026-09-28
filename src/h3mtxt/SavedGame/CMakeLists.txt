@@ -33,6 +33,7 @@ set(SOURCE_LIST
     "ObjectTemplate.h"
     "Player.h"
     "PlayerSpecs.h"
+    "Portals.h"
     "ReplayEvent.h"
     "Quest.h"
     "Reward.h"

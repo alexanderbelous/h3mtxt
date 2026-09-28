@@ -6,6 +6,7 @@ add_library(H3SVGJsonWriter STATIC
     "Hero.cpp"
     "LossCondition.cpp"
     "ObjectPropertiesTables.cpp"
+    "Portals.cpp"
     "Player.cpp"
     "Quest.cpp"
     "ReplayEvent.cpp"

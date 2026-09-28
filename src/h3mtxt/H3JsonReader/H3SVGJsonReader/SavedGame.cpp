@@ -78,15 +78,6 @@ namespace h3json
   }
 
   template<>
-  h3svg::ObjectExits JsonReader<h3svg::ObjectExits>::operator()(const Json::Value& value) const
-  {
-    using Fields = h3json::FieldNames<h3svg::ObjectExits>;
-    h3svg::ObjectExits object_exits;
-    readField(object_exits.exits, value, Fields::kExits);
-    return object_exits;
-  }
-
-  template<>
   h3svg::ObjectTemplate JsonReader<h3svg::ObjectTemplate>::operator()(const Json::Value& value) const
   {
     using Fields = h3json::FieldNames<h3svg::ObjectTemplate>;
@@ -181,11 +172,7 @@ namespace h3json
     readField(saved_game.cartographers, value, Fields::kCartographers);
     readField(saved_game.unknown8, value, Fields::kUnknown8);
     readField(saved_game.fog_of_war, value, Fields::kFogOfWar);
-    readField(saved_game.monoliths_two_way, value, Fields::kMonolithsTwoWay);
-    readField(saved_game.monoliths_one_way, value, Fields::kMonolithsOneWay);
-    readField(saved_game.whirlpools, value, Fields::kWhirlpools);
-    readField(saved_game.subterranean_gates, value, Fields::kSubterraneanGates);
-    readField(saved_game.unknown9, value, Fields::kUnknown9);
+    readField(saved_game.portals, value, Fields::kPortals);
     readField(saved_game.universities, value, Fields::kUniversities);
     readField(saved_game.creature_banks, value, Fields::kCreatureBanks);
     readField(saved_game.previous_turn, value, Fields::kPreviousTurn);
