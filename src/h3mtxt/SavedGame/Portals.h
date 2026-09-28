@@ -32,6 +32,11 @@ namespace h3svg
     // * Otherwise, the exit for gates.exits[i] is gates.exits[pairings[i]].
     // The number of elements should be equal to gates.exits.size(). However, H3SVG explicitly
     // stores this number as a 16-bit integer.
+    //
+    // HoMM3 "pairs up" each subterranean gate with its closest partner on the opposite layer
+    // at the start of the scenario, so, normally, the mapping is symmetric (i.e. pairings[pairings[i]] == i).
+    // However, the game correctly handles any mappings (e.g., gate A can lead to gate B,
+    // but gate B leads to gate C instead of A).
     std::vector<std::int32_t> pairings;
   };
 
