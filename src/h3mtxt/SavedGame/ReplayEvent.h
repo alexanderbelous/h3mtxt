@@ -86,7 +86,9 @@ namespace h3svg
   {
     // Coordinates of the actionable tile.
     CoordinatesPacked coordinates;
-    std::array<std::uint8_t, 12> unknown{}; // The first 4? bytes are object_idx;
+    // 0-based index of the object in SavedGame::objects.
+    std::uint32_t object_idx {};
+    std::array<std::uint8_t, 8> unknown{};
   };
 
   template<>
@@ -189,7 +191,7 @@ namespace h3svg
 
   constexpr const ReplayEventDetailsBase& ReplayEvent::base() const noexcept
   {
-    return std::visit([] <ReplayEventType T> (const ReplayEventDetails<T>&details) -> const ReplayEventDetailsBase&
+    return std::visit([] <ReplayEventType T> (const ReplayEventDetails<T>& details) -> const ReplayEventDetailsBase&
                       {
                         return details;
                       },

@@ -4,6 +4,7 @@
 
 namespace h3m
 {
+  // TODO: change the underlying type to std::int8_t (minor API break).
   enum class PlayerColor : std::uint8_t
   {
     Red    = 0,

@@ -71,6 +71,7 @@ namespace h3json
     else if constexpr (T == h3svg::ReplayEventType::RemoveMapItem)
     {
       readField(details.coordinates, value, Fields::kCoordinates);
+      readField(details.object_idx, value, Fields::kObjectIdx);
       readField(details.unknown, value, Fields::kUnknown);
     }
     else if constexpr (T == h3svg::ReplayEventType::HideHero)

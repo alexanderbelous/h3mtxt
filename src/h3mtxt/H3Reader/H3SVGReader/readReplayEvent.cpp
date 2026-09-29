@@ -87,7 +87,8 @@ namespace h3svg
     else if constexpr (T == ReplayEventType::RemoveMapItem)
     {
       details.coordinates = readCoordinatesPacked();
-      details.unknown = readByteArray<12>();
+      details.object_idx = readInt<std::uint32_t>();
+      details.unknown = readByteArray<8>();
     }
     else if constexpr (T == ReplayEventType::HideHero)
     {

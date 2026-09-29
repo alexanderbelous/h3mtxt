@@ -618,6 +618,7 @@ namespace h3json
     FieldNames<h3svg::ReplayEventDetailsBase>
   {
     static constexpr std::string_view kCoordinates = "coordinates";
+    static constexpr std::string_view kObjectIdx = "object_idx";
     static constexpr std::string_view kUnknown = "unknown";
   };
 

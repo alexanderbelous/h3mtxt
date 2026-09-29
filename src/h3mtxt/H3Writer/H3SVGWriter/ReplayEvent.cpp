@@ -66,6 +66,7 @@ namespace h3svg
   {
     writeData(static_cast<const ReplayEventDetailsBase&>(details));
     writeData(details.coordinates);
+    writeData(details.object_idx);
     writeData(details.unknown);
   }
 

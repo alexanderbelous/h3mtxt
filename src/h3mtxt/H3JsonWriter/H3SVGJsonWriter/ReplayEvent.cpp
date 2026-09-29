@@ -83,6 +83,7 @@ namespace Medea_NS
     using Fields = h3json::FieldNames<h3svg::ReplayEventDetails<h3svg::ReplayEventType::RemoveMapItem>>;
     JsonObjectWriter<h3svg::ReplayEventDetailsBase>{}(out, details);
     out.writeField(Fields::kCoordinates, details.coordinates);
+    out.writeField(Fields::kObjectIdx, details.object_idx);
     out.writeField(Fields::kUnknown, details.unknown);
   }
 
