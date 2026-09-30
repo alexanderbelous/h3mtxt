@@ -164,34 +164,36 @@ namespace h3svg
         saved_game.heroes.push_back(readHero());
       }
     }
-    // Read 156 bytes.
-    // TODO: figure out what this is.
-    saved_game.unknown4 = readByteArray<156>();
+    // Read 156 bytes - 1 per HeroType - indicating the current owner.
+    for (PlayerColor& owner : saved_game.hero_owner.data)
+    {
+      owner = readEnum<PlayerColor>();
+    }
     // Read 156 bytes - 1 per HeroType - indicating which players can hire this hero.
     for (PlayersBitmask& bitmask : saved_game.hero_can_be_hired_by.data)
     {
       bitmask = readEnumBitmask<PlayerColor, 1>();
     }
-    saved_game.unknown5 = readByteArray<2>();
+    saved_game.unknown4 = readByteArray<2>();
     // Read 5 bytes - the coordinates of the Grail.
     saved_game.grail_x = readInt<std::int16_t>();
     saved_game.grail_y = readInt<std::int16_t>();
     saved_game.grail_z = readInt<std::int8_t>();
     // Read 3 bytes.
     // TODO: figure out what this is.
-    saved_game.unknown6 = readByteArray<3>();
+    saved_game.unknown5 = readByteArray<3>();
     // Read 1 byte indicating whether any player has cheated.
     saved_game.is_cheater = readBool();
     // Read 6 bytes - the current date.
     saved_game.current_date = readDate();
     // Read 32 bytes.
     // TODO: figure out what this is.
-    saved_game.unknown7 = readByteArray<32>();
+    saved_game.unknown6 = readByteArray<32>();
     // Read Artifact Merchants.
     saved_game.artifact_merchants = readArtifactMerchants();
     // Read 32 bytes.
     // TODO: figure out what this is.
-    saved_game.unknown8 = readByteArray<32>();
+    saved_game.unknown7 = readByteArray<32>();
     // Read 8 bytes - Keymaster's Tents.
     for (PlayersBitmask& bitmask : saved_game.keymasters_tents.data)
     {
@@ -210,7 +212,7 @@ namespace h3svg
     }
     // Read 4 bytes.
     // TODO: figure out what this is.
-    saved_game.unknown9 = readByteArray<4>();
+    saved_game.unknown8 = readByteArray<4>();
     // Read Fog of War.
     {
       const std::size_t num_tiles = countTiles(saved_game.basic_info);
