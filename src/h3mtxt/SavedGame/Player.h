@@ -9,6 +9,7 @@
 #include <h3mtxt/Map/Utils/EnumIndexedArray.h>
 #include <h3mtxt/Map/Utils/makeArrayOfDuplicates.h>
 #include <h3mtxt/SavedGame/Constants/PlayerPersonality.h>
+#include <h3mtxt/SavedGame/CoordinatesPacked.h>
 
 #include <array>
 #include <cstdint>
@@ -30,7 +31,11 @@ namespace h3svg
     std::uint8_t unknown1 {};
     PlayerPersonality personality {};
     // TODO: figure out what this is.
-    std::array<std::uint8_t, 5> unknown2 {};
+    std::uint8_t unknown2 {};
+    // The best guess for the location of the Grail, or (-1, -1, -1) if there is none.
+    // Only used for computer players; remains (-1, -1, -1) for human players even if the player
+    // knows the exact location of the Grail.
+    CoordinatesPacked grail_guess{ .x = -1, .y = -1, .z = -1 };
     // The number of days left to live without a town, or -1 if the player has at least 1 town.
     std::int8_t days_left = -1;
     // The number of towns owned by the player.

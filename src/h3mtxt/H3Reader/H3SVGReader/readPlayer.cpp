@@ -20,7 +20,8 @@ namespace h3svg
     }
     player.unknown1 = readInt<std::uint8_t>();
     player.personality = readEnum<PlayerPersonality>();
-    player.unknown2 = readByteArray<5>();
+    player.unknown2 = readInt<std::uint8_t>();
+    player.grail_guess = readCoordinatesPacked();
     player.days_left = readInt<std::int8_t>();
     player.num_towns = readInt<std::uint8_t>();
     player.current_town = readInt<std::int8_t>();

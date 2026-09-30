@@ -21,6 +21,7 @@ namespace Medea_NS
     out.writeField(Fields::kUnknown1, player.unknown1);
     out.writeField(Fields::kPersonality, player.personality);
     out.writeField(Fields::kUnknown2, player.unknown2);
+    out.writeField(Fields::kGrailGuess, player.grail_guess);
     out.writeField(Fields::kDaysLeft, player.days_left);
     out.writeField(Fields::kNumTowns, player.num_towns);
     out.writeField(Fields::kCurrentTown, player.current_town);

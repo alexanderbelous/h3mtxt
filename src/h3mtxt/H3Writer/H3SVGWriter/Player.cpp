@@ -14,6 +14,7 @@ namespace h3svg
     writeData(player.unknown1);
     writeData(player.personality);
     writeData(player.unknown2);
+    writeData(player.grail_guess);
     writeData(player.days_left);
     writeData(player.num_towns);
     writeData(player.current_town);

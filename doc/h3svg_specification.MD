@@ -614,7 +614,8 @@ except `allow_normal_win` and `applies_to_computer`.
 | heroes_in_tavern | `uint8[2]`  | 2             | Enum `HeroType` for each slot in the Tavern                                             |
 | unknown1         | `uint8`     | 1             | TODO                                                                                    |
 | personality      | `uint32`    | 4             | Enum `PlayerPersonality`                                                                |
-| unknown2         | `uint8[5]`  | 5             | TODO                                                                                    |
+| unknown2         | `uint8`     | 1             | TODO                                                                                    |
+| grail_guess      | `uint32`    | 4             | The best guess for the coordinates of the Grail (serialized using the packed format)    |
 | days_left        | `int8`      | 1             | The number of days left to live without a town, or -1 if the player has at least 1 town |
 | num_towns        | `uint8`     | 1             | The number of towns owned by the player                                                 |
 | current_town     | `int8`      | 1             | ID of the currently selected town, or -1 if there is none                               |

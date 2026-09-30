@@ -19,6 +19,7 @@ namespace h3json
     readField(player.unknown1, value, Fields::kUnknown1);
     readField(player.personality, value, Fields::kPersonality);
     readField(player.unknown2, value, Fields::kUnknown2);
+    readField(player.grail_guess, value, Fields::kGrailGuess);
     readField(player.days_left, value, Fields::kDaysLeft);
     readField(player.num_towns, value, Fields::kNumTowns);
     readField(player.current_town, value, Fields::kCurrentTown);
