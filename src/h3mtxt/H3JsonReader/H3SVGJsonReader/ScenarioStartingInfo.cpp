@@ -13,12 +13,12 @@ namespace h3json
     using Fields = h3json::FieldNames<h3svg::ScenarioStartingInfo>;
     h3svg::ScenarioStartingInfo starting_info;
     readField(starting_info.starting_towns, value, Fields::kStartingTowns);
-    readField(starting_info.unknown1, value, Fields::kUnknown1);
+    readField(starting_info.player_types, value, Fields::kPlayerTypes);
     readField(starting_info.difficulty, value, Fields::kDifficulty);
     readField(starting_info.map_filename, value, Fields::kMapFilename);
     readField(starting_info.map_directory, value, Fields::kMapDirectory);
     readField(starting_info.players_control, value, Fields::kPlayersControl);
-    readField(starting_info.unknown2, value, Fields::kUnknown2);
+    readField(starting_info.unknown, value, Fields::kUnknown);
     readField(starting_info.player_turn_duration, value, Fields::kPlayerTurnDuration);
     readField(starting_info.starting_heroes, value, Fields::kStartingHeroes);
     readField(starting_info.starting_bonuses, value, Fields::kStartingBonuses);

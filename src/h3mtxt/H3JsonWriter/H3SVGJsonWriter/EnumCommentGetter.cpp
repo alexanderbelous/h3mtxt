@@ -9,6 +9,7 @@
 #include <h3mtxt/SavedGame/Constants/BoatType.h>
 #include <h3mtxt/SavedGame/Constants/PlayerControlType.h>
 #include <h3mtxt/SavedGame/Constants/PlayerPersonality.h>
+#include <h3mtxt/SavedGame/Constants/PlayerType.h>
 #include <h3mtxt/SavedGame/Constants/ReplayEventType.h>
 
 #include <limits>
@@ -257,6 +258,18 @@ namespace Medea_NS
     };
     const std::size_t idx = static_cast<std::size_t>(value);
     return (idx < std::size(kNames)) ? kNames[idx] : std::string_view{};
+  }
+
+  template<>
+  std::string_view EnumCommentGetter::operator()(h3svg::PlayerType value) const
+  {
+    switch (value)
+    {
+    case h3svg::PlayerType::Human: return "Human";
+    case h3svg::PlayerType::Computer: return "Computer";
+    case h3svg::PlayerType::None: return "None";
+    default: return {};
+    }
   }
 
   template<>

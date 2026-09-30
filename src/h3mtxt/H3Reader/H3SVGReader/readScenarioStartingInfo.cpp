@@ -11,9 +11,11 @@ namespace h3svg
     {
       alignment = readEnum<TownType32>();
     }
-    // Read 8 bytes.
-    // TODO: figure out what it is.
-    readBytes(std::span<std::byte, 8>{ starting_info.unknown1 });
+    // Read 8 bytes - 1 byte per player, specifying their type (Human/Computer/None).
+    for (PlayerType& player_type : starting_info.player_types.data)
+    {
+      player_type = readEnum<PlayerType>();
+    }
     // Read 1 byte - the selected difficulty level.
     starting_info.difficulty = readEnum<MapDifficulty>();
     // Read 251 bytes representing the filename of the original map.
@@ -25,9 +27,8 @@ namespace h3svg
     {
       player_control = readEnum<PlayerControlType>();
     }
-    // Read 3 bytes.
-    // TODO: figure out what this is. Seems to always be {255, 1, 1}.
-    readBytes(std::span<std::byte, 3>{ starting_info.unknown2 });
+    // Read 3 bytes (unknown meaning).
+    starting_info.unknown = readByteArray<3>();
     // Read 1 byte specifying the player turn duration.
     starting_info.player_turn_duration = readEnum<TurnDurationType>();
     // Read 8 bytes - 1 byte per player, specifying the starting hero.

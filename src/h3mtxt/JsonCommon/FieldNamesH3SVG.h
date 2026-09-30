@@ -800,12 +800,12 @@ namespace h3json
   struct FieldNames<h3svg::ScenarioStartingInfo>
   {
     static constexpr std::string_view kStartingTowns = "starting_towns";
-    static constexpr std::string_view kUnknown1 = "unknown1";
+    static constexpr std::string_view kPlayerTypes = "player_types";
     static constexpr std::string_view kDifficulty = "difficulty";
     static constexpr std::string_view kMapFilename = "map_filename";
     static constexpr std::string_view kMapDirectory = "map_directory";
     static constexpr std::string_view kPlayersControl = "players_control";
-    static constexpr std::string_view kUnknown2 = "unknown2";
+    static constexpr std::string_view kUnknown = "unknown";
     static constexpr std::string_view kPlayerTurnDuration = "player_turn_duration";
     static constexpr std::string_view kStartingHeroes = "starting_heroes";
     static constexpr std::string_view kStartingBonuses = "starting_bonuses";

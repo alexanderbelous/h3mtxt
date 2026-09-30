@@ -301,12 +301,12 @@ except `allow_normal_win` and `applies_to_computer`.
 | Field name           | Type                 | Size in bytes | Description                                                            |
 | -------------------- | -------------------- | ------------- | ---------------------------------------------------------------------- |
 | starting_towns       | `int32[8]`           | 32            | Enum `TownType` for each player; 0xFFFFFFFF is used for absent players |
-| unknown1             | `uint8[8]`           | 8             | TODO                                                                   |
+| player_types         | `int8[8]`            | 8             | Enum `PlayerType` for each player; 0xFF is used for absent players     |
 | difficulty           | `uint8`              | 1             | Enum `MapDifficulty`; Difficulty level set by the human player         |
 | map_filename         | `char[251]`          | 251           | The original filename of the map. Only the characters before the first null terminator are significant. Used by "Restart Scenario" command. For campaign scenarios it's always "test.h3m" |
 | map_directory        | `char[100]`          | 100           | Relative (to Heroes3.exe) path to the directory in which the original map file is located. Only the characters before the first null terminator are significant. Used by "Restart Scenario" command. The game always writes "maps" here for standalone maps |
 | players_control      | `uint8[8]`           | 8             | Enum `PlayerControlType` for each player                               |
-| unknown2             | `uint8[3]`           | 3             | Unknown. Seems to always be [255, 1, 1]                                |
+| unknown              | `uint8[3]`           | 3             | Unknown. Seems to always be [255, 1, 1]                                |
 | player_turn_duration | `uint8`              | 1             | Enum `PlayerTurnDuration`. Meaningless for campaigns                   |
 | starting_heroes      | `uint8[8]`           | 8             | Enum `HeroType` for each player. Meaningless for campaigns             |
 | starting_bonuses     | `uint8[8]`           | 8             | Enum `PlayerStartingBonus` for each player. Meaningless for campaigns  |

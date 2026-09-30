@@ -8,12 +8,12 @@ namespace h3svg
   void H3SVGWriter::writeData(const ScenarioStartingInfo& starting_info) const
   {
     writeData(starting_info.starting_towns);
-    writeData(starting_info.unknown1);
+    writeData(starting_info.player_types);
     writeData(starting_info.difficulty);
     writeData(starting_info.map_filename);
     writeData(starting_info.map_directory);
     writeData(starting_info.players_control);
-    writeData(starting_info.unknown2);
+    writeData(starting_info.unknown);
     writeData(starting_info.player_turn_duration);
     writeData(starting_info.starting_heroes);
     writeData(starting_info.starting_bonuses);

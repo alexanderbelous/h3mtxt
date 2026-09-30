@@ -12,6 +12,7 @@ set(SOURCE_LIST
     "Constants/PlayerControlType.h"
     "Constants/PlayerPersonality.h"
     "Constants/PlayerStartingBonusType.h"
+    "Constants/PlayerType.h"
     "Constants/ReplayEventType.h"
     "Constants/SeerName.h"
     "Constants/TownBuildingTypeH3SVG.h"

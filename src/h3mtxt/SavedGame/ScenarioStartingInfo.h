@@ -6,8 +6,10 @@
 #include <h3mtxt/Map/Constants/MapDifficulty.h>
 #include <h3mtxt/Map/Constants/PlayerColor.h>
 #include <h3mtxt/Map/Utils/EnumIndexedArray.h>
+#include <h3mtxt/Map/Utils/makeArrayOfDuplicates.h>
 #include <h3mtxt/SavedGame/Constants/PlayerControlType.h>
 #include <h3mtxt/SavedGame/Constants/PlayerStartingBonusType.h>
+#include <h3mtxt/SavedGame/Constants/PlayerType.h>
 #include <h3mtxt/SavedGame/Constants/TownType32.h>
 #include <h3mtxt/SavedGame/Constants/TurnDurationType.h>
 #include <h3mtxt/SavedGame/CampaignInfo.h>
@@ -24,21 +26,22 @@ namespace h3svg
   //
   // The data in this class doesn't change during the game.
   // The game uses it in "Scenario Information" and "Restart Scenario" commands.
+  //
+  // Similar to h3::H3PlayersInfo in H3API.
   struct ScenarioStartingInfo
   {
     // Starting town (i.e. alignment) for each player, or 0xFFFFFFFF if the player is absent.
-    EnumIndexedArray<PlayerColor, TownType32, h3m::kMaxPlayers> starting_towns;
-    // TODO: figure out what this is.
-    // This looks like 1 byte per PlayerColor data:
-    // * 0x00 is used for the human player.
-    // * 0x0A is used for computer players.
-    // * 0xFF is used for missing players.
-    //
+    EnumIndexedArray<PlayerColor, TownType32, h3m::kMaxPlayers> starting_towns = {
+      .data = h3m::Detail_NS::makeArrayOfDuplicates<h3m::kMaxPlayers>(TownType32{-1})
+    };
+    // Type for each player (Human/Computer), or 0xFF if the player is absent.
     // AFAIK, this only affects whether the player will be displayed in "Scenario Information" -
     // players, for which 0xFF is stored, will not be displayed. If you manually modify the saved
     // game and set 0xFF for an existing player, this player will not be shown in "Scenario
     // Information" anymore.
-    std::array<std::byte, 8> unknown1 {};
+    EnumIndexedArray<PlayerColor, PlayerType, h3m::kMaxPlayers> player_types = {
+      .data = h3m::Detail_NS::makeArrayOfDuplicates<h3m::kMaxPlayers>(PlayerType::None)
+    };
     // Selected difficulty level.
     // This is different from MapBasicInfo::difficulty, which is set by the mapmaker and doesn't affect the game.
     MapDifficulty difficulty = MapDifficulty::Normal;
@@ -76,23 +79,28 @@ namespace h3svg
     // 8 bytes: 1 byte per PlayerColor, indicating who can control this color
     // (0 - only CPU, 1 - Human or CPU, 0xFF - nobody).
     // This duplicates data from SavedGame::players, but H3SVG explicitly stores it, so we should too.
-    EnumIndexedArray<PlayerColor, PlayerControlType, h3m::kMaxPlayers> players_control;
-    // TODO: figure out what this is.
-    // Seems to always be {255, 1, 1}
-    std::array<std::byte, 3> unknown2 {};
+    EnumIndexedArray<PlayerColor, PlayerControlType, h3m::kMaxPlayers> players_control = {
+      .data = h3m::Detail_NS::makeArrayOfDuplicates<h3m::kMaxPlayers>(PlayerControlType::None)
+    };
+    // Unknown; seems to always be {255, 1, 1}.
+    std::array<std::uint8_t, 3> unknown = { 255, 1, 1 };
     // 1 byte indicating player turn duration.
     // The value is junk for campaigns (usually zero-initialized). Note that
     // limiting player turn duration is not supported in campaigns at all.
     TurnDurationType player_turn_duration = TurnDurationType::Unlimited;
     // 8 bytes: 1 byte per player, indicating the type of the starting hero.
     // The values are junk for campaigns (usually zero-initialized).
-    EnumIndexedArray<PlayerColor, HeroType, h3m::kMaxPlayers> starting_heroes;
+    EnumIndexedArray<PlayerColor, HeroType, h3m::kMaxPlayers> starting_heroes = {
+      .data = h3m::Detail_NS::makeArrayOfDuplicates<h3m::kMaxPlayers>(HeroType{0xFFu})
+    };
     // 8 bytes: 1 byte per player, indicating the type of the starting bonus.
     // The values are junk for campaigns (usually zero-initialized).
-    EnumIndexedArray<PlayerColor, PlayerStartingBonusType, h3m::kMaxPlayers> starting_bonuses;
+    EnumIndexedArray<PlayerColor, PlayerStartingBonusType, h3m::kMaxPlayers> starting_bonuses = {
+      .data = h3m::Detail_NS::makeArrayOfDuplicates<h3m::kMaxPlayers>(PlayerStartingBonusType::Random)
+    };
     // Campaign-specific data, or std::nullopt if this is a standalone map.
     std::optional<CampaignInfo> campaign_info;
-    // Placeholder heroes configured as "Specific" (as opposed to "Power rating").
+    // Hero placeholders configured as "Specific" (as opposed to "Power rating").
     // Note that is explicitly serialized even for standalone maps, in which case it will
     // be an empty vector even if the original .h3m file has placeholder heroes (they disappear
     // at the start of the game anyway).

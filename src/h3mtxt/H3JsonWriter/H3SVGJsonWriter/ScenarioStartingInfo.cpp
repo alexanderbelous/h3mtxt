@@ -16,12 +16,12 @@ namespace Medea_NS
     using Fields = h3json::FieldNames<h3svg::ScenarioStartingInfo>;
 
     out.writeField(Fields::kStartingTowns, starting_info.starting_towns);
-    out.writeField(Fields::kUnknown1, starting_info.unknown1);
+    out.writeField(Fields::kPlayerTypes, starting_info.player_types);
     out.writeField(Fields::kDifficulty, starting_info.difficulty);
     out.writeField(Fields::kMapFilename, starting_info.map_filename);
     out.writeField(Fields::kMapDirectory, starting_info.map_directory);
     out.writeField(Fields::kPlayersControl, starting_info.players_control);
-    out.writeField(Fields::kUnknown2, starting_info.unknown2);
+    out.writeField(Fields::kUnknown, starting_info.unknown);
     out.writeField(Fields::kPlayerTurnDuration, starting_info.player_turn_duration);
     out.writeField(Fields::kStartingHeroes, starting_info.starting_heroes);
     out.writeField(Fields::kStartingBonuses, starting_info.starting_bonuses);
