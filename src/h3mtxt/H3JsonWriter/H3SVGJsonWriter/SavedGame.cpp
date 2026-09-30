@@ -196,9 +196,9 @@ namespace Medea_NS
     out.writeField(Fields::kArtifactMerchants, saved_game.artifact_merchants);
     out.writeField(Fields::kUnknown6, saved_game.unknown6);
     out.writeField(Fields::kKeymastersTents, saved_game.keymasters_tents);
+    out.writeField(Fields::kCartographerEffects, saved_game.cartographer_effects);
+    out.writeField(Fields::kCartographerVisited, saved_game.cartographer_visited);
     out.writeField(Fields::kUnknown7, saved_game.unknown7);
-    out.writeField(Fields::kCartographers, saved_game.cartographers);
-    out.writeField(Fields::kUnknown8, saved_game.unknown8);
     out.writeField(Fields::kFogOfWar, TilesWithMapSize<h3svg::TileVisibility>{
                                         .tiles = saved_game.fog_of_war,
                                         .map_size = saved_game.basic_info.map_size,

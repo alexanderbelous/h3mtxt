@@ -191,17 +191,20 @@ namespace h3svg
     {
       bitmask = readEnumBitmask<PlayerColor, 1>();
     }
-    // Read 6 bytes.
-    // TODO: figure out what this is.
-    saved_game.unknown7 = readByteArray<6>();
+    // Read 6 bytes - 2 bytes (TerrainBitmask) for each Cartographer type,
+    // indicating which terrain types are revealed by this cartographer.
+    for (TerrainsBitmask& bitmask : saved_game.cartographer_effects.data)
+    {
+      bitmask = readEnumBitmask<TerrainType, 2>();
+    }
     // Read 3 bytes - 1 byte per Cartographer type.
-    for (PlayersBitmask& bitmask : saved_game.cartographers.data)
+    for (PlayersBitmask& bitmask : saved_game.cartographer_visited.data)
     {
       bitmask = readEnumBitmask<PlayerColor, 1>();
     }
     // Read 4 bytes.
     // TODO: figure out what this is.
-    saved_game.unknown8 = readByteArray<4>();
+    saved_game.unknown7 = readByteArray<4>();
     // Read Fog of War.
     {
       const std::size_t num_tiles = countTiles(saved_game.basic_info);

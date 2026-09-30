@@ -169,11 +169,11 @@ An H3SVG file is a single structure which we will naturally call [`SavedGame`](#
 | artifact_merchants        | [`ArtifactMerchants`](#ArtifactMerchants) | 28   | Artifacts currently available in Artifact Merchants              |
 | unknown6                  | `uint8[32]`                      | 32            | TODO                                                             |
 | keymasters_tents          | `uint8[8]`                       | 8             | 8 bitmasks - 1 per Keymaster's Tent type - indicating which players have visited it |
-| unknown7                  | `uint8[6]`                       | 6             | TODO                                                             |
+| cartographer_effects      | `uint16[3]`                      | 6             | 3 bitmasks - 1 per `CartographerType` - indicating which terrain types are revealed by this cartographer |
 | cartographer_water        | `uint8`                          | 1             | Bitmask; 1 bit per player, indicating if they have visited the Water Cartographer |
 | cartographer_land         | `uint8`                          | 1             | Bitmask; 1 bit per player, indicating if they have visited the Land Cartographer |
 | cartographer_subterranean | `uint8`                          | 1             | Bitmask; 1 bit per player, indicating if they have visited the Subterranean Cartographer |
-| unknown8                  | `uint8[4]`                       | 4             | TODO                                                             |
+| unknown7                  | `uint8[4]`                       | 4             | TODO                                                             |
 | fog_of_war                | [`TileVisibility[NUM_TILES]`](#TileVisibility) | varies | Describes visibility of each tile for each player         |
 | portals                   | [`Portals`](#Portals)            | varies        | Information about all portals on the map (i.e. Monoliths, Whirlpools and Subterranean Gates) |
 | num_universities          | `uint16`                         | 2             | The number of Universities on the Adventure Map                  |

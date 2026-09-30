@@ -75,9 +75,9 @@ namespace h3svg
     writeData(saved_game.artifact_merchants);
     writeData(saved_game.unknown6);
     writeData(saved_game.keymasters_tents);
+    writeData(saved_game.cartographer_effects);
+    writeData(saved_game.cartographer_visited);
     writeData(saved_game.unknown7);
-    writeData(saved_game.cartographers);
-    writeData(saved_game.unknown8);
     writeSpan(std::span{ saved_game.fog_of_war });
     writeData(saved_game.portals);
     writeVector<std::uint16_t>(std::span{ saved_game.universities });

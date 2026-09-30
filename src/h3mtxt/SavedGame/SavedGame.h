@@ -150,14 +150,19 @@ namespace h3svg
     std::array<std::uint8_t, 32> unknown6 {};
     // 8 bitmasks - 1 for each Keymaster's Tent type - indicating which players have visited that Keymaster's Tent.
     EnumIndexedArray<KeymastersTentType, PlayersBitmask, kNumKeymastersTentTypes> keymasters_tents;
-    // TODO: figure out what this is.
-    // Seems to always be {0, 1, 191, 0, 64, 0}.
-    std::array<std::uint8_t, 6> unknown7 {};
+    // 3 bitmasks - 1 for each Cartographer type - indicating which TerrainTypes are revealed by this Cartographer.
+    EnumIndexedArray<CartographerType, TerrainsBitmask, kNumCartographerTypes> cartographer_effects = {
+      .data = {
+        TerrainsBitmask{.bitset {.data = {0, 1}}},   // Only Water
+        TerrainsBitmask{.bitset {.data = {191, 0}}}, // All except Subterranean and Water
+        TerrainsBitmask{.bitset {.data = {64, 0}}}   // Only Subterranean
+      }
+    };
     // 3 bitmasks - 1 for each Cartographer type - indicating which players have visited that Cartographer.
-    EnumIndexedArray<CartographerType, PlayersBitmask, kNumCartographerTypes> cartographers;
+    EnumIndexedArray<CartographerType, PlayersBitmask, kNumCartographerTypes> cartographer_visited;
     // TODO: figure out what this is.
     // Seems to always be 0s.
-    std::array<std::uint8_t, 4> unknown8 {};
+    std::array<std::uint8_t, 4> unknown7 {};
     // Visibility of each tile for each player.
     // The number of elements should be (has_two_levels ? 2 : 1) * map_size * map_size,
     // i.e. countTiles(this->basic_info).

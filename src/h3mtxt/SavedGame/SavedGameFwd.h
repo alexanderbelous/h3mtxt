@@ -52,6 +52,7 @@ namespace h3svg
   using ::h3m::StartingHero;
   using ::h3m::Teams;
   using ::h3m::TerrainType;
+  using ::h3m::TerrainsBitmask;
   using ::h3m::TownBuildingsBitmask;
   using ::h3m::TownBuildingType;
   using ::h3m::TownType;
