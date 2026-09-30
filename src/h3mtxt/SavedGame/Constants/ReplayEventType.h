@@ -18,7 +18,7 @@ namespace h3svg
     RemoveMapItem           = 7,  // Defeat monster, pick up resource, pick up artifact.
     HideHero                = 8,  // A hero was dismissed/garrisoned or retreated from a battle.
     ShowHero                = 9,  // A hero was hired/de-garrisoned.
-    Unknown10               = 10, // Seems to be a no-op, but supported by the game.
+    DefeatPlayer            = 10, // Seems to be a no-op, but supported by the game (credits to RoseKavalier for the name).
     ChangeTerrainVisibility = 11  // Changes in terrain visibility due to hero movement / Cover of Darkness, etc.
   };
 }

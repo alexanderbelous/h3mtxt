@@ -105,7 +105,7 @@ namespace h3svg
       details.coordinates_old = readCoordinatesPacked();
       details.unknown = readByteArray<2>();
     }
-    else if constexpr (T == ReplayEventType::Unknown10)
+    else if constexpr (T == ReplayEventType::DefeatPlayer)
     {
       details.unknown = readInt<std::uint8_t>();
     }

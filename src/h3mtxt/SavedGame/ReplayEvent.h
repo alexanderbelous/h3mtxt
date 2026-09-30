@@ -114,7 +114,7 @@ namespace h3svg
   };
 
   template<>
-  struct ReplayEventDetails<ReplayEventType::Unknown10> : ReplayEventDetailsBase
+  struct ReplayEventDetails<ReplayEventType::DefeatPlayer> : ReplayEventDetailsBase
   {
     std::uint8_t unknown{};
   };
@@ -147,7 +147,7 @@ namespace h3svg
       ReplayEventDetails<ReplayEventType::RemoveMapItem>,
       ReplayEventDetails<ReplayEventType::HideHero>,
       ReplayEventDetails<ReplayEventType::ShowHero>,
-      ReplayEventDetails<ReplayEventType::Unknown10>,
+      ReplayEventDetails<ReplayEventType::DefeatPlayer>,
       ReplayEventDetails<ReplayEventType::ChangeTerrainVisibility>
     >;
 

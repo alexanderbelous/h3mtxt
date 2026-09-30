@@ -113,10 +113,10 @@ namespace Medea_NS
   }
 
   template<>
-  void JsonObjectWriter<h3svg::ReplayEventDetails<h3svg::ReplayEventType::Unknown10>>::operator()(
-    FieldsWriter& out, const h3svg::ReplayEventDetails<h3svg::ReplayEventType::Unknown10>& details) const
+  void JsonObjectWriter<h3svg::ReplayEventDetails<h3svg::ReplayEventType::DefeatPlayer>>::operator()(
+    FieldsWriter& out, const h3svg::ReplayEventDetails<h3svg::ReplayEventType::DefeatPlayer>& details) const
   {
-    using Fields = h3json::FieldNames<h3svg::ReplayEventDetails<h3svg::ReplayEventType::Unknown10>>;
+    using Fields = h3json::FieldNames<h3svg::ReplayEventDetails<h3svg::ReplayEventType::DefeatPlayer>>;
     JsonObjectWriter<h3svg::ReplayEventDetailsBase>{}(out, details);
     out.writeField(Fields::kUnknown, details.unknown);
   }

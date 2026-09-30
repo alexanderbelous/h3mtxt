@@ -89,7 +89,7 @@ namespace h3json
       readField(details.coordinates_old, value, Fields::kCoordinatesOld);
       readField(details.unknown, value, Fields::kUnknown);
     }
-    else if constexpr (T == h3svg::ReplayEventType::Unknown10)
+    else if constexpr (T == h3svg::ReplayEventType::DefeatPlayer)
     {
       readField(details.unknown, value, Fields::kUnknown);
     }

@@ -92,7 +92,7 @@ namespace h3svg
   }
 
   template<>
-  void H3SVGWriter::writeData(const ReplayEventDetails<ReplayEventType::Unknown10>& details) const
+  void H3SVGWriter::writeData(const ReplayEventDetails<ReplayEventType::DefeatPlayer>& details) const
   {
     writeData(static_cast<const ReplayEventDetailsBase&>(details));
     writeData(details.unknown);

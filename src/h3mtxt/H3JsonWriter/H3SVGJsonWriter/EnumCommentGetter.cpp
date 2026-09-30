@@ -316,6 +316,7 @@ namespace Medea_NS
     case h3svg::ReplayEventType::RemoveMapItem: return "RemoveMapItem";
     case h3svg::ReplayEventType::HideHero: return "HideHero";
     case h3svg::ReplayEventType::ShowHero: return "ShowHero";
+    case h3svg::ReplayEventType::DefeatPlayer: return "DefeatPlayer";
     case h3svg::ReplayEventType::ChangeTerrainVisibility: return "ChangeTerrainVisibility";
     default: return {};
     }

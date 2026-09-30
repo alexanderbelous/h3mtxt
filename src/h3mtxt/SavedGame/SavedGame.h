@@ -78,6 +78,8 @@ namespace h3svg
     std::vector<CustomHero> custom_heroes;
     // 16 bytes with unknown meaning: the values are always {0, 1, 2, 3, 4, 5, 6, 7, 0, 1, 2, 3, 4, 5, 6, 7}.
     // Modifying these bytes doesn't seem to affect anything.
+    // The last 8 bytes are likely supposed to represent handicap, but the game ignores doesn't read it
+    // from the saved games (bug?) and doesn't support modifying handicap when loading saved games.
     std::array<std::uint8_t, 16> unknown1 = { 0, 1, 2, 3, 4, 5, 6, 7, 0, 1, 2, 3, 4, 5, 6, 7 };
     // Starting settings for this scenario.
     ScenarioStartingInfo starting_info;
