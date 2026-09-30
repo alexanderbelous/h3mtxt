@@ -1,6 +1,7 @@
 #pragma once
 
 #include <h3mtxt/SavedGame/SavedGameFwd.h>
+#include <h3mtxt/Map/Constants/HeroType.h>
 #include <h3mtxt/Map/Constants/MapFormat.h>
 #include <h3mtxt/Map/Constants/PlayerColor.h>
 #include <h3mtxt/Map/Utils/EnumBitmask.h>
@@ -132,22 +133,28 @@ namespace h3svg
     // However, I'm not using std::array here because that would make sizeof(SavedGame) Hueg Like XBox (~160KB).
     std::vector<Hero> heroes;
     // TODO: figure out what this is.
-    std::array<std::uint8_t, 314> unknown4 {};
+    // Probably `PlayerColor[156] hero_owner`, but 64 is used sometimes with unclear meaning.
+    std::array<std::uint8_t, 156> unknown4 {};
+    // 156 bitmasks - 1 per HeroType, indicating which players can hire this hero.
+    // The value is meaningless if this hero is disabled altogether (usually 0xFF).
+    // Partially duplicates @custom_heroes.
+    EnumIndexedArray<HeroType, PlayersBitmask, h3m::kNumHeroes> hero_can_be_hired_by {};
+    std::array<std::uint8_t, 2> unknown5{};
     // Coordinates of the Grail or (-1,-1,-1) if there is none.
     std::int16_t grail_x = -1;
     std::int16_t grail_y = -1;
     std::int8_t grail_z = -1;
-    std::array<std::uint8_t, 3> unknown4a {};
+    std::array<std::uint8_t, 3> unknown6 {};
     // Indicates whether any player has cheated.
     Bool is_cheater = false;
     // The current date.
     Date current_date;
     // TODO: figure out what this is.
     // * Always 0s?
-    std::array<std::uint8_t, 32> unknown5 {};
+    std::array<std::uint8_t, 32> unknown7 {};
     ArtifactMerchants artifact_merchants;
     // TODO: figure out what this is.
-    std::array<std::uint8_t, 32> unknown6 {};
+    std::array<std::uint8_t, 32> unknown8 {};
     // 8 bitmasks - 1 for each Keymaster's Tent type - indicating which players have visited that Keymaster's Tent.
     EnumIndexedArray<KeymastersTentType, PlayersBitmask, kNumKeymastersTentTypes> keymasters_tents;
     // 3 bitmasks - 1 for each Cartographer type - indicating which TerrainTypes are revealed by this Cartographer.
@@ -162,7 +169,7 @@ namespace h3svg
     EnumIndexedArray<CartographerType, PlayersBitmask, kNumCartographerTypes> cartographer_visited;
     // TODO: figure out what this is.
     // Seems to always be 0s.
-    std::array<std::uint8_t, 4> unknown7 {};
+    std::array<std::uint8_t, 4> unknown9 {};
     // Visibility of each tile for each player.
     // The number of elements should be (has_two_levels ? 2 : 1) * map_size * map_size,
     // i.e. countTiles(this->basic_info).

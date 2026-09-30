@@ -186,19 +186,21 @@ namespace Medea_NS
     out.writeField(Fields::kTowns, saved_game.towns);
     out.writeField(Fields::kHeroes, saved_game.heroes);
     out.writeField(Fields::kUnknown4, saved_game.unknown4);
+    out.writeField(Fields::kHeroCanBeHiredBy, saved_game.hero_can_be_hired_by);
+    out.writeField(Fields::kUnknown5, saved_game.unknown5);
     out.writeField(Fields::kGrailX, saved_game.grail_x);
     out.writeField(Fields::kGrailY, saved_game.grail_y);
     out.writeField(Fields::kGrailZ, saved_game.grail_z);
-    out.writeField(Fields::kUnknown4a, saved_game.unknown4a);
+    out.writeField(Fields::kUnknown6, saved_game.unknown6);
     out.writeField(Fields::kIsCheater, saved_game.is_cheater);
     out.writeField(Fields::kCurrentDate, saved_game.current_date, true);
-    out.writeField(Fields::kUnknown5, saved_game.unknown5);
+    out.writeField(Fields::kUnknown7, saved_game.unknown7);
     out.writeField(Fields::kArtifactMerchants, saved_game.artifact_merchants);
-    out.writeField(Fields::kUnknown6, saved_game.unknown6);
+    out.writeField(Fields::kUnknown8, saved_game.unknown8);
     out.writeField(Fields::kKeymastersTents, saved_game.keymasters_tents);
     out.writeField(Fields::kCartographerEffects, saved_game.cartographer_effects);
     out.writeField(Fields::kCartographerVisited, saved_game.cartographer_visited);
-    out.writeField(Fields::kUnknown7, saved_game.unknown7);
+    out.writeField(Fields::kUnknown9, saved_game.unknown9);
     out.writeField(Fields::kFogOfWar, TilesWithMapSize<h3svg::TileVisibility>{
                                         .tiles = saved_game.fog_of_war,
                                         .map_size = saved_game.basic_info.map_size,

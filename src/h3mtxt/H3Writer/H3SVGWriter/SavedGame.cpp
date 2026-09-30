@@ -65,19 +65,21 @@ namespace h3svg
     }
     writeSpan(std::span{ saved_game.heroes });
     writeData(saved_game.unknown4);
+    writeData(saved_game.hero_can_be_hired_by);
+    writeData(saved_game.unknown5);
     writeData(saved_game.grail_x);
     writeData(saved_game.grail_y);
     writeData(saved_game.grail_z);
-    writeData(saved_game.unknown4a);
+    writeData(saved_game.unknown6);
     writeData(saved_game.is_cheater);
     writeData(saved_game.current_date);
-    writeData(saved_game.unknown5);
+    writeData(saved_game.unknown7);
     writeData(saved_game.artifact_merchants);
-    writeData(saved_game.unknown6);
+    writeData(saved_game.unknown8);
     writeData(saved_game.keymasters_tents);
     writeData(saved_game.cartographer_effects);
     writeData(saved_game.cartographer_visited);
-    writeData(saved_game.unknown7);
+    writeData(saved_game.unknown9);
     writeSpan(std::span{ saved_game.fog_of_war });
     writeData(saved_game.portals);
     writeVector<std::uint16_t>(std::span{ saved_game.universities });

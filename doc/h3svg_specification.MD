@@ -156,24 +156,26 @@ An H3SVG file is a single structure which we will naturally call [`SavedGame`](#
 | num_towns                 | `uint8`                          | 1             | The number of towns on the Adventure Map                         |
 | towns                     | [`Town[num_towns]`](#Town)       | varies        | Towns on the Adventure Map                                       |
 | heroes                    | [`Hero[156]`](#Hero)             | varies        | Properties for each hero                                         |
-| unknown4                  | `uint8[314]`                     | 314           | TODO                                                             |
+| unknown4                  | `uint8[156]`                     | 156           | TODO                                                             |
+| hero_can_be_hired_by      | `uint8[156]`                     | 156           | 156 bitmasks - 1 per `HeroType` - indicating which players can hire this hero |
+| unknown5                  | `uint8[2]`                       | 2             | TODO                                                             |
 | grail_x                   | `int16`                          | 2             | X-coordinate of the Grail, or -1 if there is none                |
 | grail_y                   | `int16`                          | 2             | Y-coordinate of the Grail, or -1 if there is none                |
 | grail_z                   | `int8`                           | 1             | Z-coordinate of the Grail, or -1 if there is none                |
-| unknown4a                 | `uint8[3]`                       | 3             | TODO                                                             |
+| unknown6                  | `uint8[3]`                       | 3             | TODO                                                             |
 | is_cheater                | `Bool`                           | 1             | Indicates whether any player has cheated                         |
 | day                       | `uint16`                         | 2             | Day of the current date (normally within [1; 7])                 |
 | week                      | `uint16`                         | 2             | Week of the current date (normally within [1; 4])                |
 | month                     | `uint16`                         | 2             | Month of the current date (initialized with 1 at the start of the game; resets to 0 after Month 65535) |
-| unknown5                  | `uint8[32]`                      | 32            | TODO                                                              |
+| unknown7                  | `uint8[32]`                      | 32            | TODO                                                              |
 | artifact_merchants        | [`ArtifactMerchants`](#ArtifactMerchants) | 28   | Artifacts currently available in Artifact Merchants              |
-| unknown6                  | `uint8[32]`                      | 32            | TODO                                                             |
+| unknown8                  | `uint8[32]`                      | 32            | TODO                                                             |
 | keymasters_tents          | `uint8[8]`                       | 8             | 8 bitmasks - 1 per Keymaster's Tent type - indicating which players have visited it |
 | cartographer_effects      | `uint16[3]`                      | 6             | 3 bitmasks - 1 per `CartographerType` - indicating which terrain types are revealed by this cartographer |
 | cartographer_water        | `uint8`                          | 1             | Bitmask; 1 bit per player, indicating if they have visited the Water Cartographer |
 | cartographer_land         | `uint8`                          | 1             | Bitmask; 1 bit per player, indicating if they have visited the Land Cartographer |
 | cartographer_subterranean | `uint8`                          | 1             | Bitmask; 1 bit per player, indicating if they have visited the Subterranean Cartographer |
-| unknown7                  | `uint8[4]`                       | 4             | TODO                                                             |
+| unknown9                  | `uint8[4]`                       | 4             | TODO                                                             |
 | fog_of_war                | [`TileVisibility[NUM_TILES]`](#TileVisibility) | varies | Describes visibility of each tile for each player         |
 | portals                   | [`Portals`](#Portals)            | varies        | Information about all portals on the map (i.e. Monoliths, Whirlpools and Subterranean Gates) |
 | num_universities          | `uint16`                         | 2             | The number of Universities on the Adventure Map                  |
