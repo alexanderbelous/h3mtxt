@@ -29,6 +29,7 @@ namespace h3json
     readField(player.magic_springs, value, Fields::kMagicSprings);
     readField(player.corpses, value, Fields::kCorpses);
     readField(player.lean_tos, value, Fields::kLeanTos);
+    readField(player.show_tactics_message, value, Fields::kShowTacticsMessage);
     readField(player.unknown3, value, Fields::kUnknown3);
     return player;
   }

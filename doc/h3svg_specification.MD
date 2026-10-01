@@ -627,7 +627,8 @@ except `allow_normal_win` and `applies_to_computer`.
 | magic_springs    | `uint8[4]`  | 4             | Bitmask; 1 bit per Magic Spring, indicating if the player has visited it this week      |
 | corpses          | `uint8[4]`  | 4             | Bitmask; 1 bit per Corpse, indicating if the player has visited it                      |
 | lean_tos         | `uint8[4]`  | 4             | Bitmask; 1 bit per Lean To, indicating if the player has visited it                     |
-| unknown3         | `uint8[3]`  | 3             | TODO                                                                                    |
+| show_tactics_message | `Bool`  | 1             | 1 if the message about Tactics Phase should be displayed, 0 otherwise                   |
+| unknown3         | `uint8[2]`  | 2             | TODO                                                                                    |
 
 
 ### `Town`

@@ -31,6 +31,7 @@ namespace Medea_NS
     out.writeField(Fields::kMagicSprings, player.magic_springs);
     out.writeField(Fields::kCorpses, player.corpses);
     out.writeField(Fields::kLeanTos, player.lean_tos);
+    out.writeField(Fields::kShowTacticsMessage, player.show_tactics_message);
     out.writeField(Fields::kUnknown3, player.unknown3);
   }
 }

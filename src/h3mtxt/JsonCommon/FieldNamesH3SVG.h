@@ -506,6 +506,7 @@ namespace h3json
     static constexpr std::string_view kMagicSprings = "magic_springs";
     static constexpr std::string_view kCorpses = "corpses";
     static constexpr std::string_view kLeanTos = "lean_tos";
+    static constexpr std::string_view kShowTacticsMessage = "show_tactics_message";
     static constexpr std::string_view kUnknown3 = "unknown3";
   };
 

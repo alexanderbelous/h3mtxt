@@ -34,7 +34,8 @@ namespace h3svg
     player.magic_springs = readBitSet<4>();
     player.corpses = readBitSet<4>();
     player.lean_tos = readBitSet<4>();
-    player.unknown3 = readByteArray<3>();
+    player.show_tactics_message = readBool();
+    player.unknown3 = readByteArray<2>();
     return player;
   }
 }

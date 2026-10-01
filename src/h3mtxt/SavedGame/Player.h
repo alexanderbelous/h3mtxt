@@ -61,7 +61,10 @@ namespace h3svg
     BitSet<4> corpses;
     // 1 bit per Lean To, indicating if the player has visited it.
     BitSet<4> lean_tos;
+    // 1 if the message about Tactics Phase should be displayed, 0 otherwise.
+    // Resets to 0 for human players after the first time Tactics Phase happens.
+    Bool show_tactics_message = true;
     // TODO: figure out what this is.
-    std::array<std::uint8_t, 3> unknown3 {};
+    std::array<std::uint8_t, 2> unknown3 {};
   };
 }

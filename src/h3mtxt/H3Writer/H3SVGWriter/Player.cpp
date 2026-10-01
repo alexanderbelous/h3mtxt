@@ -24,6 +24,7 @@ namespace h3svg
     writeData(player.magic_springs);
     writeData(player.corpses);
     writeData(player.lean_tos);
+    writeData(player.show_tactics_message);
     writeData(player.unknown3);
   }
 }
