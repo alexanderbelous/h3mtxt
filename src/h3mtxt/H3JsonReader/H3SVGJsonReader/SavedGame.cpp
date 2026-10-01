@@ -168,11 +168,11 @@ namespace h3json
     readField(saved_game.current_date, value, Fields::kCurrentDate);
     readField(saved_game.unknown6, value, Fields::kUnknown6);
     readField(saved_game.artifact_merchants, value, Fields::kArtifactMerchants);
-    readField(saved_game.unknown7, value, Fields::kUnknown7);
+    readField(saved_game.visited_objects, value, Fields::kVisitedObjects);
     readField(saved_game.keymasters_tents, value, Fields::kKeymastersTents);
     readField(saved_game.cartographer_effects, value, Fields::kCartographerEffects);
     readField(saved_game.cartographer_visited, value, Fields::kCartographerVisited);
-    readField(saved_game.unknown8, value, Fields::kUnknown8);
+    readField(saved_game.unknown7, value, Fields::kUnknown7);
     readField(saved_game.fog_of_war, value, Fields::kFogOfWar);
     readField(saved_game.portals, value, Fields::kPortals);
     readField(saved_game.universities, value, Fields::kUniversities);

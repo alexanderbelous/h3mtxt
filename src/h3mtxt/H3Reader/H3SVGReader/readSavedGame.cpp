@@ -191,9 +191,12 @@ namespace h3svg
     saved_game.unknown6 = readByteArray<32>();
     // Read Artifact Merchants.
     saved_game.artifact_merchants = readArtifactMerchants();
-    // Read 32 bytes.
-    // TODO: figure out what this is.
-    saved_game.unknown7 = readByteArray<32>();
+    // Read 32 bytes - 1 PlayersBitmask per VisitableObjectType,
+    // indicating which players have visited an object of this type.
+    for (PlayersBitmask& bitmask : saved_game.visited_objects.data)
+    {
+      bitmask = readEnumBitmask<PlayerColor, 1>();
+    }
     // Read 8 bytes - Keymaster's Tents.
     for (PlayersBitmask& bitmask : saved_game.keymasters_tents.data)
     {
@@ -212,7 +215,7 @@ namespace h3svg
     }
     // Read 4 bytes.
     // TODO: figure out what this is.
-    saved_game.unknown8 = readByteArray<4>();
+    saved_game.unknown7 = readByteArray<4>();
     // Read Fog of War.
     {
       const std::size_t num_tiles = countTiles(saved_game.basic_info);

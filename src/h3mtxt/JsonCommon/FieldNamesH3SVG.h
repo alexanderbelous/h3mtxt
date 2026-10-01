@@ -169,6 +169,43 @@ namespace h3json
   };
 
   template<>
+  inline constexpr std::array<std::string_view, 32> kEnumFieldNames<h3svg::VisitableObjectType> =
+  {
+    "buoy",
+    "swan_pond",
+    "faerie_ring",
+    "fountain_of_fortune",
+    "garden_of_revelation",
+    "learning_stone",
+    "library_of_enlightenment",
+    "marletto_tower",
+    "mercenary_camp",
+    "school_of_magic",
+    "school_of_war",
+    "star_axis",
+    "witch_hut",
+    "fountain_of_youth",
+    "hill_fort",
+    "magic_spring",
+    "mermaids",
+    "rally_flag",
+    "tree_of_knowledge",
+    "shrine_of_magic_incantation",
+    "shrine_of_magic_gesture",
+    "shrine_of_magic_thought",
+    "idol_of_fortune",
+    "temple",
+    "university",
+    "magic_well",
+    "oasis",
+    "watering_hole",
+    "altar_of_sacrifice",
+    "unknown_29",
+    "unknown_30",
+    "unknown_31"
+  };
+
+  template<>
   struct FieldNames<h3svg::Artifact>
   {
     static constexpr std::string_view kGuardians = "guardians";
@@ -786,11 +823,11 @@ namespace h3json
     static constexpr std::string_view kCurrentDate = "current_date";
     static constexpr std::string_view kUnknown6 = "unknown6";
     static constexpr std::string_view kArtifactMerchants = "artifact_merchants";
-    static constexpr std::string_view kUnknown7 = "unknown7";
+    static constexpr std::string_view kVisitedObjects = "visited_objects";
     static constexpr std::string_view kKeymastersTents = "keymasters_tents";
     static constexpr std::string_view kCartographerEffects = "cartographer_effects";
     static constexpr std::string_view kCartographerVisited = "cartographer_visited";
-    static constexpr std::string_view kUnknown8 = "unknown8";
+    static constexpr std::string_view kUnknown7 = "unknown7";
     static constexpr std::string_view kFogOfWar = "fog_of_war";
     static constexpr std::string_view kPortals = "portals";
     static constexpr std::string_view kUniversities = "universities";

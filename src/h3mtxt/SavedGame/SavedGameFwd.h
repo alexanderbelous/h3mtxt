@@ -125,6 +125,8 @@ namespace h3svg
 
   enum class TownType32 : std::int32_t;
 
+  enum class VisitableObjectType : std::uint8_t;
+
   using HeroFlags = EnumBitmask<HeroFlag, 4>;
 
   struct Artifact;

@@ -18,6 +18,7 @@ set(SOURCE_LIST
     "Constants/TownBuildingTypeH3SVG.h"
     "Constants/TownType32.h"
     "Constants/TurnDurationType.h"
+    "Constants/VisitableObjectType.h"
     "ArtifactMerchants.h"
     "CampaignInfo.h"
     "CoordinatesPacked.h"

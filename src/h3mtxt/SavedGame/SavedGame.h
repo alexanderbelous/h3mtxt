@@ -11,6 +11,7 @@
 #include <h3mtxt/Map/MapBasicInfo.h>
 #include <h3mtxt/SavedGame/Constants/CartographerType.h>
 #include <h3mtxt/SavedGame/Constants/KeymastersTentType.h>
+#include <h3mtxt/SavedGame/Constants/VisitableObjectType.h>
 #include <h3mtxt/SavedGame/ArtifactMerchants.h>
 #include <h3mtxt/SavedGame/CreatureBank.h>
 #include <h3mtxt/SavedGame/Date.h>
@@ -154,8 +155,9 @@ namespace h3svg
     // * Always 0s?
     std::array<std::uint8_t, 32> unknown6 {};
     ArtifactMerchants artifact_merchants;
-    // TODO: figure out what this is.
-    std::array<std::uint8_t, 32> unknown7 {};
+    // 1 PlayersBitmask per VisitableObjectType, indicating which players have visited an object of this type.
+    // This is used in the game to determine whether to show the description when hovering over an object of this type.
+    EnumIndexedArray<VisitableObjectType, PlayersBitmask, 32> visited_objects;
     // 8 bitmasks - 1 for each Keymaster's Tent type - indicating which players have visited that Keymaster's Tent.
     EnumIndexedArray<KeymastersTentType, PlayersBitmask, kNumKeymastersTentTypes> keymasters_tents;
     // 3 bitmasks - 1 for each Cartographer type - indicating which TerrainTypes are revealed by this Cartographer.
@@ -170,7 +172,7 @@ namespace h3svg
     EnumIndexedArray<CartographerType, PlayersBitmask, kNumCartographerTypes> cartographer_visited;
     // TODO: figure out what this is.
     // Seems to always be 0s.
-    std::array<std::uint8_t, 4> unknown8 {};
+    std::array<std::uint8_t, 4> unknown7 {};
     // Visibility of each tile for each player.
     // The number of elements should be (has_two_levels ? 2 : 1) * map_size * map_size,
     // i.e. countTiles(this->basic_info).

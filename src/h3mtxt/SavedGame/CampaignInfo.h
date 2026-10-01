@@ -72,6 +72,7 @@ namespace h3svg
     constexpr bool operator==(const CampaignInfo&) const noexcept = default;
 
     // TODO: figure out what this is.
+    // * One of the bytes is likely `Bool is_cheater`, judging by H3API.
     std::array<std::uint8_t, 3> unknown1 {};
     // 0-based index of the current region, i.e. the index of the relevant CampaignScenario element
     // from h3m::CampaignHeader::scenarios.
