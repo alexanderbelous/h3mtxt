@@ -82,8 +82,8 @@ namespace h3json
   };
 
   template<>
-  h3svg::Mine
-  JsonReader<h3svg::Mine>::operator()(const Json::Value& value) const;
+  h3svg::MineLighthouse
+  JsonReader<h3svg::MineLighthouse>::operator()(const Json::Value& value) const;
 
   template<>
   h3svg::Monster

@@ -65,6 +65,7 @@ namespace h3svg
     // Resets to 0 for human players after the first time Tactics Phase happens.
     Bool show_tactics_message = true;
     // TODO: figure out what this is.
+    // * Looks like some bitmask for flags.
     std::array<std::uint8_t, 2> unknown3 {};
   };
 }

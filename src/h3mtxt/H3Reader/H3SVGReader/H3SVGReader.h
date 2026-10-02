@@ -64,7 +64,7 @@ namespace h3svg
 
     MapBasicInfo readMapBasicInfo() const;
 
-    Mine readMine() const;
+    MineLighthouse readMine() const;
 
     ObjectExits readObjectExits() const;
 

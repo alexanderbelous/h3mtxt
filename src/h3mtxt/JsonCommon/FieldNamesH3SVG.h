@@ -415,10 +415,11 @@ namespace h3json
   };
 
   template<>
-  struct FieldNames<h3svg::Mine>
+  struct FieldNames<h3svg::MineLighthouse>
   {
     static constexpr std::string_view kOwner = "owner";
-    static constexpr std::string_view kUnknown = "unknown";
+    static constexpr std::string_view kType = "type";
+    static constexpr std::string_view kIsAbandonedMine = "is_abandoned_mine";
     static constexpr std::string_view kCreatures = "creatures";
     static constexpr std::string_view kCoordinates = "coordinates";
   };

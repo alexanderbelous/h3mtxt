@@ -69,13 +69,14 @@ namespace h3json
   }
 
   template<>
-  h3svg::Mine
-  JsonReader<h3svg::Mine>::operator()(const Json::Value& value) const
+  h3svg::MineLighthouse
+  JsonReader<h3svg::MineLighthouse>::operator()(const Json::Value& value) const
   {
-    using Fields = h3json::FieldNames<h3svg::Mine>;
-    h3svg::Mine mine;
+    using Fields = h3json::FieldNames<h3svg::MineLighthouse>;
+    h3svg::MineLighthouse mine;
     readField(mine.owner, value, Fields::kOwner);
-    readField(mine.unknown, value, Fields::kUnknown);
+    readField(mine.type, value, Fields::kType);
+    readField(mine.is_abandoned_mine, value, Fields::kIsAbandonedMine);
     readField(mine.creatures, value, Fields::kCreatures);
     readField(mine.coordinates, value, Fields::kCoordinates);
     return mine;

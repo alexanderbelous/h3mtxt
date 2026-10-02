@@ -132,11 +132,12 @@ namespace h3svg
     REQUIRE(encodeAndDecodeJson(kGarrison) == kGarrison);
   }
 
-  TEST_CASE("H3SVG.Mine", "[H3SVG]")
+  TEST_CASE("H3SVG.MineLighthouse", "[H3SVG]")
   {
-    constexpr Mine kMine = {
+    constexpr MineLighthouse kMine = {
       .owner = PlayerColor::Green,
-      .unknown = {3, 4},
+      .type = ResourceType::Gems,
+      .is_abandoned_mine = true,
       .creatures = {
         .creature_types = {
           static_cast<CreatureType32>(CreatureType::Peasant),
@@ -153,7 +154,8 @@ namespace h3svg
     };
     static constexpr std::string_view kBinaryData =
       "\x03" // owner
-      "\x03\x04" // unknown
+      "\x05" // type
+      "\x01" // is_abandoned_mine
       "\x8b\x00\x00\x00" "\xff\xff\xff\xff" "\xff\xff\xff\xff" "\xff\xff\xff\xff" // creature_types
       "\xff\xff\xff\xff" "\xff\xff\xff\xff" "\xff\xff\xff\xff"
       "\x32\x00\x00\x00" "\x00\x00\x00\x00" "\x00\x00\x00\x00" "\x00\x00\x00\x00" // creature_counts

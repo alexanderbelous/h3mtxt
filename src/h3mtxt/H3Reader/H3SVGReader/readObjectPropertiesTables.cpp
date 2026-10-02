@@ -59,11 +59,12 @@ namespace h3svg
     return garrison;
   }
 
-  Mine H3SVGReader::readMine() const
+  MineLighthouse H3SVGReader::readMine() const
   {
-    Mine mine;
+    MineLighthouse mine;
     mine.owner = readEnum<PlayerColor>();
-    mine.unknown = readByteArray<2>();
+    mine.type = readEnum<ResourceType>();
+    mine.is_abandoned_mine = readBool();
     mine.creatures = readTroops();
     mine.coordinates = readCoordinates();
     return mine;

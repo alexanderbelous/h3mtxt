@@ -552,12 +552,13 @@ except `allow_normal_win` and `applies_to_computer`.
 
 
 ### `Mine`
-| Field name  | Type                          | Size in bytes | Description                  |
-| ----------- | ----------------------------- | ------------- | ---------------------------- |
-| owner       | `uint8`                       | 1             | Enum `PlayerColor`           |
-| unknown     | `uint8[2]`                    | 2             |                              |
-| creatures   | [`Troops`](#Troops)           | 56            | Creatures guarding this mine |
-| coordinates | [`Coordinates`](#Coordinates) | 3             |                              |
+| Field name        | Type                          | Size in bytes | Description                                        |
+| ----------------- | ----------------------------- | ------------- | -------------------------------------------------- |
+| owner             | `uint8`                       | 1             | Enum `PlayerColor`                                 |
+| type              | `uint8`                       | 1             | Enum `ResourceType` or 100 if this is a Lighthouse |
+| is_abandoned_mine | `Bool`                        | 1             | 1 if this is an Abandoned Mine, 0 otherwise        |
+| creatures         | [`Troops`](#Troops)           | 56            | Creatures guarding this mine                       |
+| coordinates       | [`Coordinates`](#Coordinates) | 3             |                                                    |
 
 
 ### `Garrison`

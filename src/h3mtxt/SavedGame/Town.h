@@ -10,6 +10,7 @@
 #include <h3mtxt/Map/Constants/TownType.h>
 #include <h3mtxt/Map/Coordinates.h>
 #include <h3mtxt/Map/Utils/EnumBitmask.h>
+#include <h3mtxt/Map/Utils/makeArrayOfDuplicates.h>
 #include <h3mtxt/Map/Utils/ReservedData.h>
 #include <h3mtxt/Map/Utils/TypedQuantity.h>
 #include <h3mtxt/SavedGame/Constants/TownBuildingTypeH3SVG.h>
@@ -57,7 +58,7 @@ namespace h3svg
 
     // 0-based index of this town in SavedGame::towns.
     std::uint8_t id {};
-    PlayerColor owner {};
+    PlayerColor owner = PlayerColor::None;
     // 1 if a building has already been built in this town this turn, 0 otherwise.
     Bool built_this_turn = false;
     std::uint8_t unknown1 {};
@@ -65,8 +66,8 @@ namespace h3svg
     Coordinates coordinates;
     // X and Y coordinates of the tile where the boat will be generated when built via the town's
     // Shipyard, or {0xFF, 0xFF} if this town cannot build ships.
-    std::uint8_t generated_boat_x {};
-    std::uint8_t generated_boat_y {};
+    std::uint8_t generated_boat_x { 0xFF };
+    std::uint8_t generated_boat_y { 0xFF };
     Troops garrison;
     // HeroType of the garrisoned hero or 0xFF if there is none.
     HeroType garrisoned_hero = HeroType{ 0xFF };
@@ -96,7 +97,9 @@ namespace h3svg
     // 6 spells for each level of the Mage Guild.
     // Note that the values for nonexistent slots likely contain junk bytes (e.g., spells[1][5] is not even
     // guarantred to be a valid SpellType).
-    std::array<std::array<SpellType32, 6>, 5> spells {};
+    std::array<std::array<SpellType32, 6>, 5> spells =
+      h3m::Detail_NS::makeArrayOfDuplicates<5>(
+        h3m::Detail_NS::makeArrayOfDuplicates<6>(static_cast<SpellType32>(-1)));
     // 1 bit per SpellType, indicating whether it is banned (1 - banned, 0 - not banned).
     SpellsBitmask banned_spells;
     // TODO: reverse-engineer

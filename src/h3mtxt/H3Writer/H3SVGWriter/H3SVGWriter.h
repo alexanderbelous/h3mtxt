@@ -76,7 +76,7 @@ namespace h3svg
 
     void writeData(const MapBasicInfo& value) const;
 
-    void writeData(const Mine& mine) const;
+    void writeData(const MineLighthouse& mine) const;
 
     void writeData(const Monster& monster) const;
 

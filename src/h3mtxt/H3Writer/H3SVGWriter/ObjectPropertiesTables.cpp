@@ -46,10 +46,11 @@ namespace h3svg
     writeData(garrison.can_remove_units);
   }
 
-  void H3SVGWriter::writeData(const Mine& mine) const
+  void H3SVGWriter::writeData(const MineLighthouse& mine) const
   {
     writeData(mine.owner);
-    writeData(mine.unknown);
+    writeData(mine.type);
+    writeData(mine.is_abandoned_mine);
     writeData(mine.creatures);
     writeData(mine.coordinates);
   }

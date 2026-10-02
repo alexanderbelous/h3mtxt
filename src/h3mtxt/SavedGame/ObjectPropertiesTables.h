@@ -103,16 +103,18 @@ namespace h3svg
     Bool can_remove_units = true;
   };
 
-  struct Mine
+  struct MineLighthouse
   {
-    constexpr bool operator==(const Mine&) const noexcept = default;
+    constexpr bool operator==(const MineLighthouse&) const noexcept = default;
+
+    // Special value used in @type for Lighthouses.
+    static constexpr ResourceType kLighthouseType{ 100 };
 
     PlayerColor owner = PlayerColor::None;
-    // TODO: replace with something type-safe.
-    // * For regular mines - stores {ResourceType, 0} (aka object_subclass of the mine).
-    // * For lighthouses - stores {100, 0}.
-    // * For abandoned mines - stores {ResourceType, 1}
-    std::array<std::uint8_t, 2> unknown {};
+    // ResourceType of the resource produced by the mine, or 100 if this is a Lighthouse.
+    ResourceType type {};
+    // 1 if this is an Abandoned Mine, 0 otherwise.
+    Bool is_abandoned_mine = false;
     Troops creatures;
     Coordinates coordinates;
   };
@@ -242,7 +244,7 @@ namespace h3svg
     // Signs and Ocean Bottles on the Adventure Map.
     std::vector<Sign> signs_and_ocean_bottles;
     // Mines, Abandoned Mines and Lighthouses
-    std::vector<Mine> mines_and_lighthouses;
+    std::vector<MineLighthouse> mines_and_lighthouses;
     // Creature Dwellings.
     std::vector<Dwelling> dwellings;
     // Garrisons on the Adventure Map.

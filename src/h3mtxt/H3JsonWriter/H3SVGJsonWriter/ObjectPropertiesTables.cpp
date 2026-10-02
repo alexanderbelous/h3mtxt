@@ -90,11 +90,12 @@ namespace Medea_NS
   }
 
   template<>
-  void JsonObjectWriter<h3svg::Mine>::operator()(FieldsWriter& out, const h3svg::Mine& mine) const
+  void JsonObjectWriter<h3svg::MineLighthouse>::operator()(FieldsWriter& out, const h3svg::MineLighthouse& mine) const
   {
-    using Fields = h3json::FieldNames<h3svg::Mine>;
+    using Fields = h3json::FieldNames<h3svg::MineLighthouse>;
     out.writeField(Fields::kOwner, mine.owner);
-    out.writeField(Fields::kUnknown, mine.unknown);
+    out.writeField(Fields::kType, mine.type);
+    out.writeField(Fields::kIsAbandonedMine, mine.is_abandoned_mine);
     out.writeField(Fields::kCreatures, mine.creatures);
     out.writeField(Fields::kCoordinates, mine.coordinates);
   }

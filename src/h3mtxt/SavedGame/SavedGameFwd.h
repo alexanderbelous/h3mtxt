@@ -167,7 +167,7 @@ namespace h3svg
   template<LossConditionType T>
   struct LossConditionDetails;
 
-  struct Mine;
+  struct MineLighthouse;
 
   struct Monster;
 
