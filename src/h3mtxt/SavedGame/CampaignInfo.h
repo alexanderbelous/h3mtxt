@@ -72,8 +72,11 @@ namespace h3svg
     constexpr bool operator==(const CampaignInfo&) const noexcept = default;
 
     // TODO: figure out what this is.
-    // * One of the bytes is likely `Bool is_cheater`, judging by H3API.
-    std::array<std::uint8_t, 3> unknown1 {};
+    std::uint8_t unknown1 {};
+    // Indicates whether cheats have been used in any scenario.
+    Bool is_cheater = false;
+    // TODO: figure out what this is.
+    std::uint8_t unknown2 {};
     // 0-based index of the current region, i.e. the index of the relevant CampaignScenario element
     // from h3m::CampaignHeader::scenarios.
     std::uint8_t region_idx {};
@@ -81,7 +84,7 @@ namespace h3svg
     CampaignId id = CampaignId::Custom;
     // TODO: figure out what this is.
     // * unknown2[0] seems to always be 255
-    std::array<std::uint8_t, 2> unknown2 {};
+    std::array<std::uint8_t, 2> unknown3 {};
     // 0-based index of the selected starting bonus from h3m::StartingOptions.
     std::uint8_t starting_bonus_idx {};
     // The original filename of the .h3c file (this is used by View Scenario and Restart Scenario commands).

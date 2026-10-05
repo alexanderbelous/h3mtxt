@@ -12,9 +12,11 @@ namespace h3json
     using Fields = h3json::FieldNames<h3svg::CampaignInfo>;
     h3svg::CampaignInfo info;
     readField(info.unknown1, value, Fields::kUnknown1);
+    readField(info.is_cheater, value, Fields::kIsCheater);
+    readField(info.unknown2, value, Fields::kUnknown2);
     readField(info.region_idx, value, Fields::kRegionIdx);
     readField(info.id, value, Fields::kId);
-    readField(info.unknown2, value, Fields::kUnknown2);
+    readField(info.unknown3, value, Fields::kUnknown3);
     readField(info.starting_bonus_idx, value, Fields::kStartingBonusIdx);
     readField(info.filename, value, Fields::kFilename);
     readField(info.finished_campaigns, value, Fields::kFinishedCampaigns);

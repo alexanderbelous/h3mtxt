@@ -316,11 +316,13 @@ except `allow_normal_win` and `applies_to_computer`.
 
 ### `CampaignInfo`
 | Field name          | Type                              | Size in bytes | Description                                                |
-| ------------------- | --------------------------------- | ------------- | -----------------------------------------------------------|
-| unknown1            | `uint8[3]`                        | 3             | TODO                                                       |
+| ------------------- | --------------------------------- | ------------- | ---------------------------------------------------------- |
+| unknown1            | `uint8`                           | 1             | TODO                                                       |
+| is_cheater          | `Bool`                            | 1             | Indicates whether cheats have been used in any scenario    |
+| unknown2            | `uint8`                           | 1             | TODO                                                       |
 | region_idx          | `uint8`                           | 1             | 0-based index of the current region                        |
 | id                  | `uint8`                           | 1             | Enum `CampaignId`                                          |
-| unknown2            | `uint8[2]`                        | 2             | TODO                                                       |
+| unknown3            | `uint8[2]`                        | 2             | TODO                                                       |
 | starting_bonus_idx  | `uint8`                           | 1             | 0-based index of the selected starting bonus               |
 | filename            | `String32`                        | varies        | The original filename of the .h3c file                     |
 | finished_campaigns  | `Bool[21]`                        | 21            | 1 `Bool` per enum `CampaignId`, indicating which campaigns have been finished |

@@ -44,14 +44,18 @@ namespace h3svg
   CampaignInfo H3SVGReader::readCampaignInfo() const
   {
     CampaignInfo info;
-    // Read 3 bytes (unknown).
-    readBytes(std::as_writable_bytes(std::span<std::uint8_t, 3>{ info.unknown1 }));
+    // Read 1 byte (unknown).
+    info.unknown1 = readInt<std::uint8_t>();
+    // Read 1 byte  indicating whether cheats have been used in any scenario.
+    info.is_cheater = readBool();
+    // Read 1 byte (unknown).
+    info.unknown2 = readInt<std::uint8_t>();
     // Read 1 byte - the index of the current region.
     info.region_idx = readInt<std::uint8_t>();
     // Read 1 byte - ID of the campaign.
     info.id = readEnum<CampaignId>();
     // Read 2 bytes (unknown).
-    readBytes(std::as_writable_bytes(std::span<std::uint8_t, 2>{ info.unknown2 }));
+    readBytes(std::as_writable_bytes(std::span<std::uint8_t, 2>{ info.unknown3 }));
     // Read 1 byte - the index of the selected starting bonus.
     info.starting_bonus_idx = readInt<std::uint8_t>();
     // Read the original filename of the .h3c file.

@@ -233,9 +233,11 @@ namespace h3json
   struct FieldNames<h3svg::CampaignInfo>
   {
     static constexpr std::string_view kUnknown1 = "unknown1";
+    static constexpr std::string_view kIsCheater = "is_cheater";
+    static constexpr std::string_view kUnknown2 = "unknown2";
     static constexpr std::string_view kRegionIdx = "region_idx";
     static constexpr std::string_view kId = "id";
-    static constexpr std::string_view kUnknown2 = "unknown2";
+    static constexpr std::string_view kUnknown3 = "unknown3";
     static constexpr std::string_view kStartingBonusIdx = "starting_bonus_idx";
     static constexpr std::string_view kFilename = "filename";
     static constexpr std::string_view kFinishedCampaigns = "finished_campaigns";

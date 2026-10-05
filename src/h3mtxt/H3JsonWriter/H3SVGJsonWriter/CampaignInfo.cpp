@@ -14,9 +14,11 @@ namespace Medea_NS
   {
     using Fields = h3json::FieldNames<h3svg::CampaignInfo>;
     out.writeField(Fields::kUnknown1, info.unknown1);
+    out.writeField(Fields::kIsCheater, info.is_cheater);
+    out.writeField(Fields::kUnknown2, info.unknown2);
     out.writeField(Fields::kRegionIdx, info.region_idx);
     out.writeField(Fields::kId, info.id);
-    out.writeField(Fields::kUnknown2, info.unknown2);
+    out.writeField(Fields::kUnknown3, info.unknown3);
     out.writeField(Fields::kStartingBonusIdx, info.starting_bonus_idx);
     out.writeField(Fields::kFilename, info.filename);
     out.writeField(Fields::kFinishedCampaigns, info.finished_campaigns);

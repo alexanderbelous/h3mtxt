@@ -7,9 +7,11 @@ namespace h3svg
   void H3SVGWriter::writeData(const CampaignInfo& campaign_info) const
   {
     writeData(campaign_info.unknown1);
+    writeData(campaign_info.is_cheater);
+    writeData(campaign_info.unknown2);
     writeData(campaign_info.region_idx);
     writeData(campaign_info.id);
-    writeData(campaign_info.unknown2);
+    writeData(campaign_info.unknown3);
     writeData(campaign_info.starting_bonus_idx);
     writeString32(campaign_info.filename);
     writeData(campaign_info.finished_campaigns);
