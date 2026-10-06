@@ -123,12 +123,13 @@ namespace h3svg
     // The actual number of movement points at the moment.
     std::int32_t move_points {};
     std::int32_t experience = 0;
-    std::array<std::uint8_t, 4> unknown4 {};
+    // The number of learned secondary skills.
+    std::int32_t num_secondary_skills = 0;
     std::int16_t spell_points {};
     // Yes, you can make a hero with level 32767; however, this will be ignored on level-up: the new level
     // will be computed from the experience points.
     std::int16_t level = 1;
-    std::array<std::uint8_t, 2> unknown5 {};
+    std::array<std::uint8_t, 2> unknown4 {};
     // 1 bit per Learning Stone, indicating if the hero has visited it.
     BitSet<4> learning_stones;
     // 1 bit per Marletto Tower, indicating if the hero has visited it.

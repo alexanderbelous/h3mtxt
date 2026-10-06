@@ -85,10 +85,10 @@ namespace Medea_NS
     out.writeField(Fields::kMovePointsMax, hero.move_points_max);
     out.writeField(Fields::kMovePoints, hero.move_points);
     out.writeField(Fields::kExperience, hero.experience);
-    out.writeField(Fields::kUnknown4, hero.unknown4);
+    out.writeField(Fields::kNumSecondarySkills, hero.num_secondary_skills);
     out.writeField(Fields::kSpellPoints, hero.spell_points);
     out.writeField(Fields::kLevel, hero.level);
-    out.writeField(Fields::kUnknown5, hero.unknown5);
+    out.writeField(Fields::kUnknown4, hero.unknown4);
     out.writeField(Fields::kLearningStones, hero.learning_stones);
     out.writeField(Fields::kMarlettoTowers, hero.marletto_towers);
     out.writeField(Fields::kGardensOfRevelation, hero.gardens_of_revelation);

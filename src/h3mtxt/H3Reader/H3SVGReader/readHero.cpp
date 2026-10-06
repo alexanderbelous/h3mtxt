@@ -66,10 +66,10 @@ namespace h3svg
     hero.move_points_max = readInt<std::int32_t>();
     hero.move_points = readInt<std::int32_t>();
     hero.experience = readInt<std::int32_t>();
-    hero.unknown4 = readByteArray<4>();
+    hero.num_secondary_skills = readInt<std::int32_t>();
     hero.spell_points = readInt<std::int16_t>();
     hero.level = readInt<std::int16_t>();
-    hero.unknown5 = readByteArray<2>();
+    hero.unknown4 = readByteArray<2>();
     hero.learning_stones = readBitSet<4>();
     hero.marletto_towers = readBitSet<4>();
     hero.gardens_of_revelation = readBitSet<4>();

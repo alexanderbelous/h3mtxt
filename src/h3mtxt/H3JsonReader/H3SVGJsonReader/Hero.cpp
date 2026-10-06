@@ -45,10 +45,10 @@ namespace h3json
     readField(hero.move_points_max, value, Fields::kMovePointsMax);
     readField(hero.move_points, value, Fields::kMovePoints);
     readField(hero.experience, value, Fields::kExperience);
-    readField(hero.unknown4, value, Fields::kUnknown4);
+    readField(hero.num_secondary_skills, value, Fields::kNumSecondarySkills);
     readField(hero.spell_points, value, Fields::kSpellPoints);
     readField(hero.level, value, Fields::kLevel);
-    readField(hero.unknown5, value, Fields::kUnknown5);
+    readField(hero.unknown4, value, Fields::kUnknown4);
     readField(hero.learning_stones, value, Fields::kLearningStones);
     readField(hero.marletto_towers, value, Fields::kMarlettoTowers);
     readField(hero.gardens_of_revelation, value, Fields::kGardensOfRevelation);

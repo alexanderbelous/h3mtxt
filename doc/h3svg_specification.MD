@@ -710,10 +710,10 @@ except `allow_normal_win` and `applies_to_computer`.
 | move_points_max            | `int32`     | 4             | Maximum number of movement points at the moment                                   |
 | move_points                | `int32`     | 4             | The actual number of movement points at the moment                                |
 | experience                 | `int32`     | 4             | Experience points                                                                 |
-| unknown4                   | `uint8[4]`  | 4             | TODO                                                                              |
+| num_secondary_skills       | `int32`     | 4             | The number of learned Secondary Skills                                            |
 | spell_points               | `uint16`    | 2             | Spell points                                                                      |
 | level                      | `int16`     | 2             | Experience level                                                                  |
-| unknown5                   | `uint8[2]`  | 2             | TODO                                                                              |
+| unknown4                   | `uint8[2]`  | 2             | TODO                                                                              |
 | learning_stones            | `uint8[4]`  | 4             | Bitmask; 1 bit per Learning Stone, indicating if the hero has visited it          |
 | marletto_towers            | `uint8[4]`  | 4             | Bitmask; 1 bit per Marletto Tower, indicating if the hero has visited it          |
 | gardens_of_revelation      | `uint8[4]`  | 4             | Bitmask; 1 bit per Garden of Revelation, indicating if the hero has visited it    |

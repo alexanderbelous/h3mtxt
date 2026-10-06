@@ -360,10 +360,10 @@ namespace h3json
     static constexpr std::string_view kMovePointsMax = "move_points_max";
     static constexpr std::string_view kMovePoints = "move_points";
     static constexpr std::string_view kExperience = "experience";
-    static constexpr std::string_view kUnknown4 = "unknown4";
+    static constexpr std::string_view kNumSecondarySkills = "num_secondary_skills";
     static constexpr std::string_view kSpellPoints = "spell_points";
     static constexpr std::string_view kLevel = "level";
-    static constexpr std::string_view kUnknown5 = "unknown5";
+    static constexpr std::string_view kUnknown4 = "unknown4";
     static constexpr std::string_view kLearningStones = "learning_stones";
     static constexpr std::string_view kMarlettoTowers = "marletto_towers";
     static constexpr std::string_view kGardensOfRevelation = "gardens_of_revelation";

@@ -40,10 +40,10 @@ namespace h3svg
     writeData(hero.move_points_max);
     writeData(hero.move_points);
     writeData(hero.experience);
-    writeData(hero.unknown4);
+    writeData(hero.num_secondary_skills);
     writeData(hero.spell_points);
     writeData(hero.level);
-    writeData(hero.unknown5);
+    writeData(hero.unknown4);
     writeData(hero.learning_stones);
     writeData(hero.marletto_towers);
     writeData(hero.gardens_of_revelation);
