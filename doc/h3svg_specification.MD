@@ -703,7 +703,8 @@ except `allow_normal_win` and `applies_to_computer`.
 | hero_portrait              | `uint8`     | 1             | Enum `HeroPortrait`                                                               |
 | patrol_x                   | `uint8`     | 1             | X-coordinate of the starting position if the hero has patrol; 0xFF otherwise      |
 | patrol_y                   | `uint8`     | 1             | Y-coordinate of the starting position if the hero has patrol; 0xFF otherwise      |
-| unknown2                   | `uint8[4]`  | 4             | TODO                                                                              |
+| orientation                | `uint8`     | 1             | Enum `CompassPoint`; orientation of the hero on the Adventure Map                 |
+| unknown2                   | `uint8[3]`  | 3             | TODO                                                                              |
 | destination_x              | `int32`     | 4             | X-coordinate of the destination, or -1 if there is none                           |
 | destination_y              | `int32`     | 4             | Y-coordinate of the destination, or -1 if there is none                           |
 | destination_z              | `int8`      | 1             | Z-coordinate of the destination                                                   |

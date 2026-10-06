@@ -78,6 +78,7 @@ namespace Medea_NS
     out.writeField(Fields::kPortrait, hero.portrait);
     out.writeField(Fields::kPatrolX, hero.patrol_x);
     out.writeField(Fields::kPatrolY, hero.patrol_y);
+    out.writeField(Fields::kOrientation, hero.orientation);
     out.writeField(Fields::kUnknown2, hero.unknown2);
     out.writeField(Fields::kDestinationX, hero.destination_x);
     out.writeField(Fields::kDestinationY, hero.destination_y);

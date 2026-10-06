@@ -17,6 +17,7 @@
 #include <h3mtxt/Map/Utils/EnumIndexedArray.h>
 #include <h3mtxt/Map/Utils/ReservedData.h>
 #include <h3mtxt/SavedGame/Constants/ArtifactSlotGroup.h>
+#include <h3mtxt/SavedGame/Constants/CompassPoint.h>
 #include <h3mtxt/SavedGame/Constants/HeroFlag.h>
 #include <h3mtxt/SavedGame/CoordinatesPacked.h>
 #include <h3mtxt/SavedGame/FixedLengthString.h>
@@ -102,12 +103,14 @@ namespace h3svg
     std::uint8_t patrol_x = 0xFF;
     // Y-coordinate of the starting position if the hero has patrol; 0xFF otherwise.
     std::uint8_t patrol_y = 0xFF;
+    // Orientation of the hero on the Adventure Map.
+    CompassPoint orientation = CompassPoint::East;
     // TODO: figure out what this is.
-    // * unknown2[1] & 1 defines army combat formation (0 - Loose, 1 - Tight).
-    // * unknown2[1] & 2 defines Tactics formation (0 - Enabled, 1 - Disabled).
+    // * unknown2[0] & 1 defines army combat formation (0 - Loose, 1 - Tight).
+    // * unknown2[0] & 2 defines Tactics formation (0 - Enabled, 1 - Disabled).
     //   The bit seems to be 0 by default if the hero doesn't know Tactics.
-    // * unknown2[2] is Hero seed.
-    std::array<std::uint8_t, 4> unknown2 {};
+    // * unknown2[1] is Hero seed.
+    std::array<std::uint8_t, 3> unknown2 {};
     // X-coordinate of the destination, or -1 if there is none.
     std::int32_t destination_x = -1;
     // Y-coordinate of the destination, or -1 if there is none.

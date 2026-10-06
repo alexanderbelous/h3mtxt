@@ -353,6 +353,7 @@ namespace h3json
     static constexpr std::string_view kPortrait = "portrait";
     static constexpr std::string_view kPatrolX = "patrol_x";
     static constexpr std::string_view kPatrolY = "patrol_y";
+    static constexpr std::string_view kOrientation = "orientation";
     static constexpr std::string_view kUnknown2 = "unknown2";
     static constexpr std::string_view kDestinationX = "destination_x";
     static constexpr std::string_view kDestinationY = "destination_y";

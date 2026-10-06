@@ -59,7 +59,8 @@ namespace h3svg
     hero.portrait = readEnum<HeroPortrait>();
     hero.patrol_x = readInt<std::uint8_t>();
     hero.patrol_y = readInt<std::uint8_t>();
-    hero.unknown2 = readByteArray<4>();
+    hero.orientation = readEnum<CompassPoint>();
+    hero.unknown2 = readByteArray<3>();
     hero.destination_x = readInt<std::int32_t>();
     hero.destination_y = readInt<std::int32_t>();
     hero.destination_z = readInt<std::int8_t>();
