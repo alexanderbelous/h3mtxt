@@ -19,6 +19,8 @@ namespace h3svg
   // Represents the current state of a player.
   struct Player
   {
+    constexpr bool operator==(const Player&) const noexcept = default;
+
     PlayerColor player_color {};
     std::uint8_t num_heroes = 0;
     // HeroType of the currently active hero, 0xFF if there is none.
