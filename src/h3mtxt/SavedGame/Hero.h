@@ -123,9 +123,8 @@ namespace h3svg
     std::int32_t destination_x = -1;
     // Y-coordinate of the destination, or -1 if there is none.
     std::int32_t destination_y = -1;
-    // TODO: likely std::int16_t, but not std::int32_t.
-    // Note that, if meaningful, it duplicates Hero::z because you cannot plan a route to another layer.
-    std::int8_t destination_z {};
+    // Z-coordinate of the destionation.
+    std::int8_t destination_z = 0;
       // TODO: figure out what this is.
     std::array<std::uint8_t, 3> unknown3 {};
     // Maximum number of movement points at the moment.
