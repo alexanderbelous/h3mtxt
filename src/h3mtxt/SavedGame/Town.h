@@ -17,9 +17,7 @@
 #include <h3mtxt/SavedGame/Troops.h>
 
 #include <array>
-#include <bit>
 #include <cstdint>
-#include <stdexcept>
 #include <string>
 
 namespace h3svg

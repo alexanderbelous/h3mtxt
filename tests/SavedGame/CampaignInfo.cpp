@@ -15,10 +15,12 @@ namespace h3svg
   TEST_CASE("H3SVG.CampaignInfo", "[H3SVG]")
   {
     const CampaignInfo kCampaignInfo = {
-      .unknown1 = {0, 0, 0},
+      .unknown1 = 0,
+      .is_cheater = false,
+      .unknown2 = 0,
       .region_idx = 5,
       .id = CampaignId::Custom,
-      .unknown2 = {0, 0},
+      .unknown3 = {0, 0},
       .starting_bonus_idx = 1,
       .filename = "Eternal Love.h3c",
       .finished_campaigns = []() consteval {
@@ -55,10 +57,12 @@ namespace h3svg
     };
 
     static constexpr std::string_view kBinaryData =
-      "\x00\x00\x00"                        // unknown
+      "\x00"                                // unknown1
+      "\x00"                                // is_cheater
+      "\x00"                                // unknown2
       "\x05"                                // region_idx
       "\x14"                                // id
-      "\x00\x00"                            // unknown2
+      "\x00\x00"                            // unknown3
       "\x01"                                // starting_bonus_idx
       "\x10\x00\x00\x00" "Eternal Love.h3c" // filename
       "\x01\x00\x00\x00\x00\x00\x00"        // finished_campaigns
