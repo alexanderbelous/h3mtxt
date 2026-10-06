@@ -3,6 +3,7 @@ add_executable(h3mtxt_tests_SavedGame
     "CoordinatesPacked.cpp"
     "EventBase.cpp"
     "FixedLengthString.cpp"
+    "Hero.cpp"
     "LossCondition.cpp"
     "MapBasicInfo.cpp"
     "ObjectPropertiesTables.cpp"
