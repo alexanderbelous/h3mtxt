@@ -34,6 +34,8 @@ namespace h3svg
     writeData(hero.patrol_x);
     writeData(hero.patrol_y);
     writeData(hero.orientation);
+    writeData(hero.formation_flags);
+    writeData(hero.seed);
     writeData(hero.unknown2);
     writeData(hero.destination_x);
     writeData(hero.destination_y);

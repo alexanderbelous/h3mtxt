@@ -6,6 +6,7 @@ set(SOURCE_LIST
     "Constants/CampaignId.h"
     "Constants/CartographerType.h"
     "Constants/CompassPoint.h"
+    "Constants/FormationFlag.h"
     "Constants/HeroFlag.h"
     "Constants/KeymastersTentType.h"
     "Constants/ObjectPropertiesType.h"

@@ -18,6 +18,7 @@
 #include <h3mtxt/Map/Utils/ReservedData.h>
 #include <h3mtxt/SavedGame/Constants/ArtifactSlotGroup.h>
 #include <h3mtxt/SavedGame/Constants/CompassPoint.h>
+#include <h3mtxt/SavedGame/Constants/FormationFlag.h>
 #include <h3mtxt/SavedGame/Constants/HeroFlag.h>
 #include <h3mtxt/SavedGame/CoordinatesPacked.h>
 #include <h3mtxt/SavedGame/FixedLengthString.h>
@@ -105,12 +106,19 @@ namespace h3svg
     std::uint8_t patrol_y = 0xFF;
     // Orientation of the hero on the Adventure Map.
     CompassPoint orientation = CompassPoint::East;
+    // Bitmask storing the formation flags.
+    // Only the 2 least significant bits are meaningful:
+    // * Bit 0 defines army combat formation (0 - Loose, 1 - Tight).
+    // * Bit 1 defines Tactics formation (0 - Disabled, 1 - Enabled).
+    FormationFlags formation_flags = []() consteval {
+                                       FormationFlags result;
+                                       result.set(FormationFlag::Tactics, true);
+                                       return result;
+                                     }();
+    // Initial seed for the PRNG that controls the primary/secondary skills offered on level-up.
+    std::uint8_t seed = 0xFF;
     // TODO: figure out what this is.
-    // * unknown2[0] & 1 defines army combat formation (0 - Loose, 1 - Tight).
-    // * unknown2[0] & 2 defines Tactics formation (0 - Enabled, 1 - Disabled).
-    //   The bit seems to be 0 by default if the hero doesn't know Tactics.
-    // * unknown2[1] is Hero seed.
-    std::array<std::uint8_t, 3> unknown2 {};
+    std::uint8_t unknown2 {};
     // X-coordinate of the destination, or -1 if there is none.
     std::int32_t destination_x = -1;
     // Y-coordinate of the destination, or -1 if there is none.

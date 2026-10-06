@@ -704,7 +704,9 @@ except `allow_normal_win` and `applies_to_computer`.
 | patrol_x                   | `uint8`     | 1             | X-coordinate of the starting position if the hero has patrol; 0xFF otherwise      |
 | patrol_y                   | `uint8`     | 1             | Y-coordinate of the starting position if the hero has patrol; 0xFF otherwise      |
 | orientation                | `uint8`     | 1             | Enum `CompassPoint`; orientation of the hero on the Adventure Map                 |
-| unknown2                   | `uint8[3]`  | 3             | TODO                                                                              |
+| formation_flags            | `uint8`     | 1             | Bitmask; 1 bit per enum `FormationFlag`                                           |
+| seed                       | `uint8`     | 1             | Initial seed for the PRNG that controls the skills offered on level-up            |
+| unknown2                   | `uint8`     | 1             | TODO                                                                              |
 | destination_x              | `int32`     | 4             | X-coordinate of the destination, or -1 if there is none                           |
 | destination_y              | `int32`     | 4             | Y-coordinate of the destination, or -1 if there is none                           |
 | destination_z              | `int8`      | 1             | Z-coordinate of the destination                                                   |

@@ -39,6 +39,8 @@ namespace h3json
     readField(hero.patrol_x, value, Fields::kPatrolX);
     readField(hero.patrol_y, value, Fields::kPatrolY);
     readField(hero.orientation, value, Fields::kOrientation);
+    readField(hero.formation_flags, value, Fields::kFormationFlags);
+    readField(hero.seed, value, Fields::kSeed);
     readField(hero.unknown2, value, Fields::kUnknown2);
     readField(hero.destination_x, value, Fields::kDestinationX);
     readField(hero.destination_y, value, Fields::kDestinationY);

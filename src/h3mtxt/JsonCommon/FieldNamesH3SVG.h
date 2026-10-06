@@ -66,6 +66,19 @@ namespace h3json
   };
 
   template<>
+  inline constexpr std::array<std::string_view, 8> kEnumFieldNames<h3svg::FormationFlag> =
+  {
+    "tight",
+    "tactics",
+    "padding_2",
+    "padding_3",
+    "padding_4",
+    "padding_5",
+    "padding_6",
+    "padding_7"
+  };
+
+  template<>
   inline constexpr std::array<std::string_view, 32> kEnumFieldNames<h3svg::HeroFlag> =
   {
     "magic_well",
@@ -354,6 +367,8 @@ namespace h3json
     static constexpr std::string_view kPatrolX = "patrol_x";
     static constexpr std::string_view kPatrolY = "patrol_y";
     static constexpr std::string_view kOrientation = "orientation";
+    static constexpr std::string_view kFormationFlags = "formation_flags";
+    static constexpr std::string_view kSeed = "seed";
     static constexpr std::string_view kUnknown2 = "unknown2";
     static constexpr std::string_view kDestinationX = "destination_x";
     static constexpr std::string_view kDestinationY = "destination_y";
