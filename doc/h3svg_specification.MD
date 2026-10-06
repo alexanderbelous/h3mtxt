@@ -683,7 +683,8 @@ except `allow_normal_win` and `applies_to_computer`.
 | is_visible                 | `Bool`      | 1             | Indicates whether the hero is currently visible on the map                        |
 | coordinates_packed         | `uint32`    | 4             | Duplicates the coordinates using the packed format                                |
 | object_class_under         | `uint32`    | 4             | Enum `ObjectClass` of the object on the same tile under the hero                  |
-| unknown1                   | `uint8[5]`  | 5             | TODO                                                                              |
+| has_object_under           | `Bool`      | 1             | Indicates whether there is an actionable object under the hero                    |
+| unknown1                   | `uint8[4]`  | 4             | TODO                                                                              |
 | is_female                  | `Bool`      | 1             | 1 if the hero is female, 0 otherwise                                              |
 | use_custom_biography       | `Bool`      | 1             | 1 if the custom biography should be displayed, 0 otherwise                        |
 | biography                  | `String32`  | varies        | The hero's biography                                                              |

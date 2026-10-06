@@ -39,7 +39,8 @@ namespace h3svg
     hero.is_visible = readBool();
     hero.coordinates_packed = readCoordinatesPacked();
     hero.object_class_under = readEnum<ObjectClass>();
-    hero.unknown1 = readByteArray<5>();
+    hero.has_object_under = readBool();
+    hero.unknown1 = readByteArray<4>();
     hero.is_female = readBool();
     hero.use_custom_biography = readBool();
     hero.biography = readString32();

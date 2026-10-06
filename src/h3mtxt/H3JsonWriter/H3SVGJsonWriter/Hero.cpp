@@ -58,6 +58,7 @@ namespace Medea_NS
     out.writeField(Fields::kIsVisible, hero.is_visible);
     out.writeField(Fields::kCoordinatesPacked, hero.coordinates_packed);
     out.writeField(Fields::kObjectClassUnder, hero.object_class_under);
+    out.writeField(Fields::kHasObjectUnder, hero.has_object_under);
     out.writeField(Fields::kUnknown1, hero.unknown1);
     out.writeField(Fields::kIsFemale, hero.is_female);
     out.writeField(Fields::kUseCustomBiography, hero.use_custom_biography);

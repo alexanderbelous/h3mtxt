@@ -13,6 +13,7 @@ namespace h3svg
     writeData(hero.is_visible);
     writeData(hero.coordinates_packed);
     writeData(hero.object_class_under);
+    writeData(hero.has_object_under);
     writeData(hero.unknown1);
     writeData(hero.is_female);
     writeData(hero.use_custom_biography);

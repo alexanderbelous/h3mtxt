@@ -58,17 +58,19 @@ namespace h3svg
   {
     constexpr bool operator==(const Hero&) const noexcept = default;
 
-    std::int16_t x {};
-    std::int16_t y {};
-    std::int16_t z {};
-    Bool is_visible {};
+    std::int16_t x = -1;
+    std::int16_t y = -1;
+    std::int16_t z = -1;
+    Bool is_visible = false;
     CoordinatesPacked coordinates_packed;
     // ObjectClass of the object under the hero, or ObjectClass::NONE if there is none.
     ObjectClass object_class_under = ObjectClass::NONE;
+    // Indicates whether there is an actionable object under the hero.
+    Bool has_object_under = false;
     // TODO: figure out what this is.
-    //   unknown1[0] seems to be Bool is_actionable_under; Events and Anchor points are not considered actionable.
-    //   The rest seems to either be uint32_t object_idx or something like Tile::object_properties.
-    std::array<std::uint8_t, 5> unknown1 {};
+    // Seems to be Tile::object_properties: this field basically acts as a temporary storage for the properties
+    // of the object while the tile is occupied by the hero. Genius design.
+    std::array<std::uint8_t, 4> unknown1 {};
     Bool is_female {};
     // If 0, the default biography will be displayed for this hero, otherwise the custom one (i.e. Hero::biography).
     Bool use_custom_biography {};
@@ -97,9 +99,9 @@ namespace h3svg
     HeroClass hero_class {};
     HeroPortrait portrait {};
     // X-coordinate of the starting position if the hero has patrol; 0xFF otherwise.
-    std::uint8_t patrol_x {};
+    std::uint8_t patrol_x = 0xFF;
     // Y-coordinate of the starting position if the hero has patrol; 0xFF otherwise.
-    std::uint8_t patrol_y {};
+    std::uint8_t patrol_y = 0xFF;
     // TODO: figure out what this is.
     // * unknown2[1] & 1 defines army combat formation (0 - Loose, 1 - Tight).
     // * unknown2[1] & 2 defines Tactics formation (0 - Enabled, 1 - Disabled).

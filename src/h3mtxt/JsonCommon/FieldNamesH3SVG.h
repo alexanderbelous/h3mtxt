@@ -333,6 +333,7 @@ namespace h3json
     static constexpr std::string_view kIsVisible = "is_visible";
     static constexpr std::string_view kCoordinatesPacked = "coordinates_packed";
     static constexpr std::string_view kObjectClassUnder = "object_class_under";
+    static constexpr std::string_view kHasObjectUnder = "has_object_under";
     static constexpr std::string_view kUnknown1 = "unknown1";
     static constexpr std::string_view kIsFemale = "is_female";
     static constexpr std::string_view kUseCustomBiography = "use_custom_biography";

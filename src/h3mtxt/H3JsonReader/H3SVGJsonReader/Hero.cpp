@@ -18,6 +18,7 @@ namespace h3json
     readField(hero.is_visible, value, Fields::kIsVisible);
     readField(hero.coordinates_packed, value, Fields::kCoordinatesPacked);
     readField(hero.object_class_under, value, Fields::kObjectClassUnder);
+    readField(hero.has_object_under, value, Fields::kHasObjectUnder);
     readField(hero.unknown1, value, Fields::kUnknown1);
     readField(hero.is_female, value, Fields::kIsFemale);
     readField(hero.use_custom_biography, value, Fields::kUseCustomBiography);
