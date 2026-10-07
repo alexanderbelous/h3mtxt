@@ -85,9 +85,9 @@ namespace h3json
     readField(object_template.def, value, Fields::kDef);
     readField(object_template.width, value, Fields::kWidth);
     readField(object_template.height, value, Fields::kHeight);
-    readField(object_template.unknown1, value, Fields::kUnknown1);
+    readField(object_template.colors, value, Fields::kColors);
     readField(object_template.passability, value, Fields::kPassability);
-    readField(object_template.unknown2, value, Fields::kUnknown2);
+    readField(object_template.shadows, value, Fields::kShadows);
     readField(object_template.actionability, value, Fields::kActionability);
     readField(object_template.object_class, value, Fields::kObjectClass);
     readField(object_template.object_subclass, value, Fields::kObjectSubclass);

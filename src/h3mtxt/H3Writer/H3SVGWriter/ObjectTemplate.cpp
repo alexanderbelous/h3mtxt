@@ -9,9 +9,9 @@ namespace h3svg
     writeString16(object_template.def);
     writeData(object_template.width);
     writeData(object_template.height);
-    writeData(object_template.unknown1);
+    writeData(object_template.colors);
     writeData(object_template.passability);
-    writeData(object_template.unknown2);
+    writeData(object_template.shadows);
     writeData(object_template.actionability);
     writeData(object_template.object_class);
     writeData(object_template.object_subclass);

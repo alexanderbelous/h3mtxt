@@ -104,16 +104,11 @@ namespace Medea_NS
     out.writeField(Fields::kDef, object_template.def);
     out.writeField(Fields::kWidth, object_template.width);
     out.writeField(Fields::kHeight, object_template.height);
-    out.writeField(Fields::kUnknown1, object_template.unknown1);
+    out.writeField(Fields::kColors, object_template.colors);
     out.writeField(Fields::kPassability, object_template.passability);
-    out.writeField(Fields::kUnknown2, object_template.unknown2);
+    out.writeField(Fields::kShadows, object_template.shadows);
     out.writeField(Fields::kActionability, object_template.actionability);
     out.writeField(Fields::kObjectClass, object_template.object_class);
-    if (std::string_view enum_str = EnumCommentGetter{}(static_cast<h3svg::ObjectClass>(object_template.object_class));
-        !enum_str.empty())
-    {
-      out.writeComment(enum_str, false);
-    }
     out.writeField(Fields::kObjectSubclass, object_template.object_subclass);
     out.writeField(Fields::kReserved, object_template.reserved);
     out.writeField(Fields::kIsGround, object_template.is_ground);

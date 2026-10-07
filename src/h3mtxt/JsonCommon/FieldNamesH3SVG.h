@@ -495,9 +495,9 @@ namespace h3json
     static constexpr std::string_view kDef = "def";
     static constexpr std::string_view kWidth = "width";
     static constexpr std::string_view kHeight = "height";
-    static constexpr std::string_view kUnknown1 = "unknown1";
+    static constexpr std::string_view kColors = "colors";
     static constexpr std::string_view kPassability = "passability";
-    static constexpr std::string_view kUnknown2 = "unknown2";
+    static constexpr std::string_view kShadows = "shadows";
     static constexpr std::string_view kActionability = "actionability";
     static constexpr std::string_view kObjectClass = "object_class";
     static constexpr std::string_view kObjectSubclass = "object_subclass";
