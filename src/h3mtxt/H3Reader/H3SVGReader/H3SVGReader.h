@@ -136,6 +136,8 @@ namespace h3svg
 
     Tile readTile() const;
 
+    TileRenderInfo readTileRenderInfo() const;
+
     TileVisibility readTileVisibility() const;
 
     TimedEvent readTimedEvent() const;

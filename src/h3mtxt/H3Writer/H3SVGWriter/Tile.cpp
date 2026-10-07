@@ -18,12 +18,14 @@ namespace h3svg
     writeData(tile.object_subclass);
     writeData(tile.object_idx);
     writeData(tile.object_properties);
-    writeData(safeCastVectorSize<std::uint32_t>(tile.objects_to_render.size()));
-    // TODO: replace with writeSpan(std::span{ tile.objects_to_render });
-    for (const Tile::ObjectToRender& object : tile.objects_to_render)
-    {
-      writeData(object.object_idx);
-      writeData(object.unknown);
-    }
+    writeVector<std::uint32_t>(std::span{ tile.objects_to_render });
+  }
+
+  void H3SVGWriter::writeData(const TileRenderInfo& object_to_render) const
+  {
+    writeData(object_to_render.object_idx);
+    const std::uint8_t sprite_tile_coordinates_packed = (object_to_render.y << 4) | object_to_render.x;
+    writeData(sprite_tile_coordinates_packed);
+    writeData(object_to_render.z_buffer);
   }
 }

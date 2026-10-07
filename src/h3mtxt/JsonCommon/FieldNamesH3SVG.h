@@ -916,6 +916,15 @@ namespace h3json
   };
 
   template<>
+  struct FieldNames<h3svg::TileRenderInfo>
+  {
+    static constexpr std::string_view kObjectIdx = "object_idx";
+    static constexpr std::string_view kX = "x";
+    static constexpr std::string_view kY = "y";
+    static constexpr std::string_view kZBuffer = "z_buffer";
+  };
+
+  template<>
   struct FieldNames<h3svg::TileVisibility>
   {
     static constexpr std::string_view kVisibility = "visibility";

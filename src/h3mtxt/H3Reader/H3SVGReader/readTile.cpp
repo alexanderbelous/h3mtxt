@@ -22,11 +22,19 @@ namespace h3svg
     tile.objects_to_render.reserve(num_objects_to_render);
     for (std::uint32_t i = 0; i < num_objects_to_render; ++i)
     {
-      Tile::ObjectToRender object_to_render;
-      object_to_render.object_idx = readInt<std::uint16_t>();
-      object_to_render.unknown = readInt<std::uint16_t>();
-      tile.objects_to_render.push_back(object_to_render);
+      tile.objects_to_render.push_back(readTileRenderInfo());
     }
     return tile;
+  }
+
+  TileRenderInfo H3SVGReader::readTileRenderInfo() const
+  {
+    TileRenderInfo object_to_render;
+    object_to_render.object_idx = readInt<std::uint16_t>();
+    const std::uint8_t sprite_tile_coordinates_packed = readInt<std::uint8_t>();
+    object_to_render.x = static_cast<std::uint8_t>(sprite_tile_coordinates_packed & 0x0Fu);
+    object_to_render.y = static_cast<std::uint8_t>((sprite_tile_coordinates_packed & 0xF0u) >> 4);
+    object_to_render.z_buffer = readInt<std::uint8_t>();
+    return object_to_render;
   }
 }

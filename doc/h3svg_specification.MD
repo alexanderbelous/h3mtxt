@@ -383,10 +383,11 @@ except `allow_normal_win` and `applies_to_computer`.
 
 
 ### `ObjectToRender`
-| Field name | Type     | Size in bytes | Description                                                            |
-| ---------- | -------- | ------------- | ---------------------------------------------------------------------- |
-| object_idx | `uint16` | 2             | 0-based index of the object in SavedGame.objects                       |
-| unknown    | `uint16` | 2             | Somehow specified which part of the sprite to render                   |
+| Field name         | Type     | Size in bytes | Description                                                            |
+| ------------------ | -------- | ------------- | ---------------------------------------------------------------------- |
+| object_idx         | `uint16` | 2             | 0-based index of the object in SavedGame.objects                       |
+| tile_coordinates   | `uint8`  | 1             | Sprite tile coordinates in the packed format: the lowest 4 bits are X, the highest 4 bits are Y |
+| z_buffer           | `uint8`  | 1             | Establishes the order in which to render `Tile.objects_to_render`      |
 
 
 ### `ObjectTemplate`

@@ -213,14 +213,6 @@ namespace Medea_NS
   }
 
   template<>
-  void JsonObjectWriter<h3svg::Tile::ObjectToRender>::operator()(
-    FieldsWriter& out, const h3svg::Tile::ObjectToRender& object_to_render) const
-  {
-    out.writeField("object_idx", object_to_render.object_idx);
-    out.writeField("unknown", object_to_render.unknown);
-  }
-
-  template<>
   void JsonObjectWriter<h3svg::Tile>::operator()(FieldsWriter& out, const h3svg::Tile& tile) const
   {
     using Fields = h3json::FieldNames<h3svg::Tile>;
@@ -237,6 +229,17 @@ namespace Medea_NS
     out.writeField(Fields::kObjectIdx, tile.object_idx);
     out.writeField(Fields::kObjectProperties, tile.object_properties);
     out.writeField(Fields::kObjectsToRender, tile.objects_to_render);
+  }
+
+  template<>
+  void JsonObjectWriter<h3svg::TileRenderInfo>::operator()(FieldsWriter& out,
+                                                           const h3svg::TileRenderInfo& object_to_render) const
+  {
+    using Fields = h3json::FieldNames<h3svg::TileRenderInfo>;
+    out.writeField(Fields::kObjectIdx, object_to_render.object_idx);
+    out.writeField(Fields::kX, object_to_render.x);
+    out.writeField(Fields::kY, object_to_render.y);
+    out.writeField(Fields::kZBuffer, object_to_render.z_buffer);
   }
 
   template<>

@@ -181,16 +181,6 @@ namespace h3json
     return saved_game;
   }
 
-  // TODO: move the declaration to H3SVGJsonReader.h (requires unnesting Tile::ObjectToRender).
-  template<>
-  h3svg::Tile::ObjectToRender JsonReader<h3svg::Tile::ObjectToRender>::operator()(const Json::Value & value) const
-  {
-    h3svg::Tile::ObjectToRender object_to_render;
-    readField(object_to_render.object_idx, value, "object_idx");
-    readField(object_to_render.unknown, value, "unknown");
-    return object_to_render;
-  }
-
   template<>
   h3svg::Tile JsonReader<h3svg::Tile>::operator()(const Json::Value& value) const
   {
@@ -210,6 +200,19 @@ namespace h3json
     readField(tile.object_properties, value, Fields::kObjectProperties);
     readField(tile.objects_to_render, value, Fields::kObjectsToRender);
     return tile;
+  }
+
+  template<>
+  h3svg::TileRenderInfo JsonReader<h3svg::TileRenderInfo>::operator()(const Json::Value & value) const
+  {
+    using Fields = h3json::FieldNames<h3svg::TileRenderInfo>;
+    h3svg::TileRenderInfo object_to_render;
+    readField(object_to_render.object_idx, value, Fields::kObjectIdx);
+    // TODO: check that the integer values can be represented by the bit fields x and y.
+    object_to_render.x = readField<std::uint8_t>(value, Fields::kX);
+    object_to_render.y = readField<std::uint8_t>(value, Fields::kY);
+    readField(object_to_render.z_buffer, value, Fields::kZBuffer);
+    return object_to_render;
   }
 
   template<>

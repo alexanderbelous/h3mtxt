@@ -14,18 +14,29 @@
 
 namespace h3svg
 {
+  // Represents a sprite tile of an object on the Adventure Map.
+  // This is used in Tile::objects_to_render to specify which objects to render on that tile.
+  struct TileRenderInfo
+  {
+    // 0-based index of the object from SavedGame::objects.
+    std::uint16_t object_idx {};
+    // Coordinates of the sprite tile of @object_idx to render.
+    // The bottom right corner of the sprite is used as the reference (0, 0);
+    // the X axis points left, the Y axis points up.
+    std::uint8_t x : 4 {};
+    std::uint8_t y : 4 {};
+    // Establishes the order in which to render Tile::objects_to_render;
+    // * By default, the value is almost always equal to `y-1`.
+    // * 0 is a special value used for objects that are part of the ground.
+    // * Values >= 7 don't appear by default.
+    // * Objects with the same `z_buffer` value will be rendered in order of their appearence
+    //   in in Tile::objects_to_render.
+    std::uint8_t z_buffer {};
+  };
+
   // The equivalent of h3m::Tile stored in the saved game.
   struct Tile
   {
-    struct ObjectToRender
-    {
-      // 0-based index of the object from SavedGame::objects.
-      std::uint16_t object_idx {};
-      // TODO: figure out what this is.
-      // Somehow determines the sprite tile of @object_idx to render.
-      std::uint16_t unknown {};
-    };
-
     TerrainType terrain_type {};
     std::uint8_t terrain_sprite {};
     RiverType river_type = RiverType::None;
@@ -61,8 +72,8 @@ namespace h3svg
     // TODO: add getters/setters for the properties.
     std::array<std::byte, 4> object_properties {};
     // Objects whose sprites overlap with the current tile.
-    // The sprites will be rendered in order the respective objects appear in the vector
-    // (0th object is rendered first, then 1st object is rendered on top of it, etc).
-    std::vector<ObjectToRender> objects_to_render;
+    // The sprites will be rendered in order of TileRenderInfo::z_buffer; sprites with the same Z-buffer value
+    // will be rendered in order of their appearance in this array.
+    std::vector<TileRenderInfo> objects_to_render;
   };
 }

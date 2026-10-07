@@ -194,6 +194,10 @@ namespace h3json
   JsonReader<h3svg::Tile>::operator()(const Json::Value& value) const;
 
   template<>
+  h3svg::TileRenderInfo
+  JsonReader<h3svg::TileRenderInfo>::operator()(const Json::Value& value) const;
+
+  template<>
   h3svg::TileVisibility
   JsonReader<h3svg::TileVisibility>::operator()(const Json::Value& value) const;
 

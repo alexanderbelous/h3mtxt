@@ -303,6 +303,10 @@ namespace Medea_NS
   void JsonObjectWriter<h3svg::Tile>::operator()(FieldsWriter& out, const h3svg::Tile& tile) const;
 
   template<>
+  void JsonObjectWriter<h3svg::TileRenderInfo>::operator()(FieldsWriter& out,
+                                                           const h3svg::TileRenderInfo& object_to_render) const;
+
+  template<>
   void JsonObjectWriter<h3svg::TileVisibility>::operator()(FieldsWriter& out,
                                                            const h3svg::TileVisibility& tile_visibility) const;
 

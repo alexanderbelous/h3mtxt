@@ -152,6 +152,8 @@ namespace h3svg
 
     void writeData(const Tile& value) const;
 
+    void writeData(const TileRenderInfo& value) const;
+
     void writeData(const TileVisibility& value) const;
 
     void writeData(const TimedEvent& event) const;
