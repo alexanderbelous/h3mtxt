@@ -228,12 +228,10 @@ namespace h3m
     else
     {
       const SpellType spell = readEnum<SpellType>();
-      // 0xFE means SpellType::Default.
       if (spell != SpellType::Default)
       {
         SpellsBitmask& spells = data.spells.emplace();
-        // 0xFF means no spells.
-        if (spell != SpellType{ -1 })
+        if (spell != SpellType::None)
         {
           spells.set(spell, true);
         }

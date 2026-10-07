@@ -1138,7 +1138,9 @@ namespace Medea_NS
   std::string_view EnumCommentGetter::operator()(h3m::SpellType value) const
   {
     static constexpr std::string_view kNames[] = {
-      "Summon Boat",
+      "(Default)",   // -2
+      "(None)",      // -1
+      "Summon Boat", //  0
       "Scuttle Boat",
       "Visions",
       "View Earth",
@@ -1209,12 +1211,25 @@ namespace Medea_NS
       "Water Elemental",
       "Air Elemental"
     };
-    if (value == h3m::SpellType::Random)
+
+    using Index = std::underlying_type_t<h3m::SpellType>;
+    constexpr std::size_t kNumNegativeValues = 2;
+    constexpr Index kIndexFirst = -static_cast<Index>(kNumNegativeValues);
+    constexpr Index kIndexLast = static_cast<Index>(std::size(kNames) - kNumNegativeValues);
+    constexpr const std::string_view* kNamesRootedAtZero = kNames + kNumNegativeValues;
+
+    // Sanity checks.
+    static_assert(std::is_signed_v<Index>, "The underlying type of h3m::SpellType must be signed.");
+    static_assert(kNamesRootedAtZero[static_cast<Index>(h3m::SpellType::Default)] == "(Default)");
+    static_assert(kNamesRootedAtZero[static_cast<Index>(h3m::SpellType::SummonBoat)] == "Summon Boat");
+    static_assert(kNamesRootedAtZero[static_cast<Index>(h3m::SpellType::AirElemental)] == "Air Elemental");
+
+    const Index index = static_cast<Index>(value);
+    if (kIndexFirst <= index && index < kIndexLast)
     {
-      return "(Random)";
+      return kNamesRootedAtZero[index];
     }
-    const std::size_t idx = static_cast<std::make_unsigned_t<std::underlying_type_t<h3m::SpellType>>>(value);
-    return (idx < std::size(kNames)) ? kNames[idx] : std::string_view{};
+    return std::string_view{};
   }
 
   template<>

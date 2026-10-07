@@ -355,13 +355,28 @@ namespace Medea_NS
     out.writeField(Fields::kUnknown, seers_hut.unknown);
   }
 
+  namespace
+  {
+    // Strong alias for h3m::SpellType.
+    enum class ShrineSpellType : std::underlying_type_t<h3m::SpellType>;
+  }
+
+  // Specialize EnumCommentGetter for ShrineSpellType.
+  // In shrines 0xFF means "Random" instead of "None".
+  template<>
+  std::string_view EnumCommentGetter::operator()(ShrineSpellType value) const
+  {
+    const h3m::SpellType spell = static_cast<h3m::SpellType>(value);
+    return spell == h3m::SpellType::None ? "(Random)" : (*this)(spell);
+  }
+
   template<>
   void JsonObjectWriter<h3m::ObjectProperties<h3m::ObjectPropertiesType::SHRINE>>::operator()(
     FieldsWriter& out, const h3m::ObjectProperties<h3m::ObjectPropertiesType::SHRINE>& shrine) const
   {
     using Details = h3m::ObjectProperties<h3m::ObjectPropertiesType::SHRINE>;
     using Fields = h3json::FieldNames<Details>;
-    out.writeField(Fields::kSpell, shrine.spell);
+    out.writeField(Fields::kSpell, static_cast<ShrineSpellType>(shrine.spell));
     out.writeField(Fields::kUnknown, shrine.unknown);
   }
 
