@@ -422,7 +422,11 @@ namespace h3m
   {
     constexpr bool operator==(const ObjectProperties&) const noexcept = default;
 
-    SpellType spell = SpellType::Random;
+    // Spell to teach, or SpellType::None if a random globally enabled spell of the target level
+    // should be taught instead.
+    // * Note that the game behavior for SpellType::None is buggy if all spells are disabled globally,
+    //   potentially crashing the program.
+    SpellType spell = SpellType::None;
     ReservedData<3> unknown;
   };
 

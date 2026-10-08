@@ -97,9 +97,11 @@ namespace h3m
     // Special value for the hero's default spell.
     // This is only used in Armageddon's Blade.
     Default             = -2,  // 0xFE
-    // Special value indicating a random spell.
-    // As far as I understand, this can only be used in ObjectProperties<ObjectPropertiesType::SHRINE>.
-    Random              = -1   // 0xFF
+    // Special value indicating no spell.
+    None                = -1,  // 0xFF
+
+    // Alias for None, which has a special meaning in shrines.
+    Random [[deprecated("Use SpellType::None instead.")]] = None // 0xFF
   };
 
   // The number of spells in the game, i.e. the cardinality of SpellType.
