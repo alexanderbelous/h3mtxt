@@ -97,7 +97,7 @@ namespace h3svg
     // guarantred to be a valid SpellType).
     std::array<std::array<SpellType32, 6>, 5> spells =
       h3m::Detail_NS::makeArrayOfDuplicates<5>(
-        h3m::Detail_NS::makeArrayOfDuplicates<6>(static_cast<SpellType32>(-1)));
+        h3m::Detail_NS::makeArrayOfDuplicates<6>(static_cast<SpellType32>(SpellType::None)));
     // 1 bit per SpellType, indicating whether it is banned (1 - banned, 0 - not banned).
     SpellsBitmask banned_spells;
     // TODO: reverse-engineer

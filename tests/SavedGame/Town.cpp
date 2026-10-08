@@ -90,7 +90,7 @@ namespace h3svg
             static_cast<SpellType32>(SpellType::Haste),
             static_cast<SpellType32>(SpellType::Cure),
             static_cast<SpellType32>(SpellType::Curse),
-            static_cast<SpellType32>(-1)
+            static_cast<SpellType32>(SpellType::None)
           },
         // Level 2
         {
@@ -98,35 +98,35 @@ namespace h3svg
           static_cast<SpellType32>(SpellType::LightningBolt),
           static_cast<SpellType32>(SpellType::FireWall),
           static_cast<SpellType32>(SpellType::DisruptingRay),
-          static_cast<SpellType32>(-1),
-          static_cast<SpellType32>(-1)
+          static_cast<SpellType32>(SpellType::None),
+          static_cast<SpellType32>(SpellType::None)
         },
         // Level 3
         {
           static_cast<SpellType32>(SpellType::ForceField),
           static_cast<SpellType32>(SpellType::AntiMagic),
           static_cast<SpellType32>(SpellType::Fireball),
-          static_cast<SpellType32>(-1),
-          static_cast<SpellType32>(-1),
-          static_cast<SpellType32>(-1)
+          static_cast<SpellType32>(SpellType::None),
+          static_cast<SpellType32>(SpellType::None),
+          static_cast<SpellType32>(SpellType::None)
         },
         // Level 4
         {
           static_cast<SpellType32>(SpellType::Resurrection),
           static_cast<SpellType32>(SpellType::TownPortal),
-          static_cast<SpellType32>(-1),
-          static_cast<SpellType32>(-1),
-          static_cast<SpellType32>(-1),
-          static_cast<SpellType32>(-1)
+          static_cast<SpellType32>(SpellType::None),
+          static_cast<SpellType32>(SpellType::None),
+          static_cast<SpellType32>(SpellType::None),
+          static_cast<SpellType32>(SpellType::None)
         },
         // Level 5
         {
           static_cast<SpellType32>(SpellType::Implosion),
-          static_cast<SpellType32>(-1),
-          static_cast<SpellType32>(-1),
-          static_cast<SpellType32>(-1),
-          static_cast<SpellType32>(-1),
-          static_cast<SpellType32>(-1)
+          static_cast<SpellType32>(SpellType::None),
+          static_cast<SpellType32>(SpellType::None),
+          static_cast<SpellType32>(SpellType::None),
+          static_cast<SpellType32>(SpellType::None),
+          static_cast<SpellType32>(SpellType::None)
         }
       }},
       .banned_spells = {},
