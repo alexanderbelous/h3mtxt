@@ -18,6 +18,8 @@ namespace h3svg
   // This is used in Tile::objects_to_render to specify which objects to render on that tile.
   struct TileRenderInfo
   {
+    constexpr bool operator==(const TileRenderInfo&) const noexcept = default;
+
     // 0-based index of the object from SavedGame::objects.
     std::uint16_t object_idx {};
     // Coordinates of the sprite tile of @object_idx to render.
@@ -37,6 +39,8 @@ namespace h3svg
   // The equivalent of h3m::Tile stored in the saved game.
   struct Tile
   {
+    constexpr bool operator==(const Tile&) const noexcept = default;
+
     TerrainType terrain_type {};
     std::uint8_t terrain_sprite {};
     RiverType river_type = RiverType::None;

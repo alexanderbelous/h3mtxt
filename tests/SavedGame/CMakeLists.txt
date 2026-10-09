@@ -13,6 +13,7 @@ add_executable(h3mtxt_tests_SavedGame
     "Reward.cpp"
     "SavedGame.cpp"
     "TestingUtils_H3SVG.h"
+    "Tile.cpp"
     "Town.cpp"
     "VictoryCondition.cpp"
 )
