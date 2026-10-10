@@ -49,6 +49,42 @@ namespace h3svg
     REQUIRE(encodeAndDecodeJson(kArtifact) == kArtifact);
   }
 
+  TEST_CASE("H3SVG.Boat", "[H3SVG]")
+  {
+    const Boat kBoat = {
+      .exists = true,
+      .id = 5,
+      .object_sublcass = BoatType::Fortress,
+      .orientation = CompassPoint::NorthWest,
+      .owner = PlayerColor::Green,
+      .owner_hero = static_cast<HeroType16>(HeroType::Mephala),
+      .is_occupied = false,
+      .x = 12,
+      .y = 104,
+      .z = 1,
+      .is_visible = true,
+      .coordinates_packed = {.x = 12, .y = 104, .z = 1},
+      .unknown = {0, 0, 0, 0, 0, 0, 0, 0, 0}
+    };
+    static constexpr std::string_view kBinaryData =
+      "\x01" // exists
+      "\x05" // id
+      "\x02" // object_subclass
+      "\x07" // orientation
+      "\x03" // owner
+      "\x10\x00" // owner_hero
+      "\x00" // is_occupied
+      "\x0c\x00" "\x68\x00" "\x01\x00" // x, y, z
+      "\x01" // is_visible
+      "\x0c\x00\x68\x04" // coordinates_packed
+      "\x00\x00\x00\x00\x00\x00\x00\x00\x00" // unknown
+      ""sv;
+
+    REQUIRE(asByteVector(encodeViaH3SVGWriter(kBoat)) == asByteVector(kBinaryData));
+    REQUIRE(H3SVGReaderAdapter(kBinaryData).readBoat() == kBoat);
+    REQUIRE(encodeAndDecodeJson(kBoat) == kBoat);
+  }
+
   TEST_CASE("H3SVG.Dwelling", "[H3SVG]")
   {
     constexpr Dwelling kDwelling = {
@@ -203,6 +239,93 @@ namespace h3svg
     REQUIRE(asByteVector(encodeViaH3SVGWriter(kObelisk)) == asByteVector(kBinaryData));
     REQUIRE(H3SVGReaderAdapter(kBinaryData).readObelisk() == kObelisk);
     REQUIRE(encodeAndDecodeJson(kObelisk) == kObelisk);
+  }
+
+  TEST_CASE("H3SVG.QuestGuard", "[H3SVG]")
+  {
+    const QuestGuard kQuestGuard = {
+      .quest = {
+        .details = QuestDetails<QuestType::Level>{
+          .level = 42
+        },
+        .unknown = {11, 88},
+        .deadline = 100,
+        .proposal = "Proposal message",
+        .progress = "Progress message",
+        .completion = "Completion message"
+      },
+      .visited_by = []() consteval {
+        PlayersBitmask bitmask;
+        bitmask.set(PlayerColor::Green, true);
+        bitmask.set(PlayerColor::Teal, true);
+        return bitmask;
+      }()
+    };
+    static constexpr std::string_view kBinaryData =
+      "\x01" // quest_type
+      "\x2a\x00" // level
+      "\x0b\x58" // unknown
+      "\x64\x00\x00\x00" // deadline
+      "\x10\x00\x00\x00" "Proposal message" // proposal
+      "\x10\x00\x00\x00" "Progress message" // progress
+      "\x12\x00\x00\x00" "Completion message" // completion
+      "\x48" // visited_by
+      ""sv;
+
+    REQUIRE(asByteVector(encodeViaH3SVGWriter(kQuestGuard)) == asByteVector(kBinaryData));
+    REQUIRE(H3SVGReaderAdapter(kBinaryData).readQuestGuard() == kQuestGuard);
+    REQUIRE(encodeAndDecodeJson(kQuestGuard) == kQuestGuard);
+  }
+
+  TEST_CASE("H3SVG.SeersHut", "[H3SVG]")
+  {
+    const SeersHut kSeersHut = {
+      .quest = {
+        .details = QuestDetails<QuestType::Level>{
+          .level = 42
+        },
+        .unknown = {11, 88},
+        .deadline = 100,
+        .proposal = "Proposal message",
+        .progress = "Progress message",
+        .completion = "Completion message"
+      },
+      .reward = {
+        .details = RewardDetails<RewardType::Resource>{
+          .resource = {
+            .type = static_cast<ResourceType32>(ResourceType::Crystal),
+            .quantity = 20
+          }
+        }
+      },
+      .reserved = 0,
+      .visited_by = []() consteval {
+        PlayersBitmask bitmask;
+        bitmask.set(PlayerColor::Green, true);
+        bitmask.set(PlayerColor::Teal, true);
+        return bitmask;
+      }(),
+      .name = SeerName::Frederick
+    };
+    static constexpr std::string_view kBinaryData =
+      "\x01" // quest_type
+      "\x2a\x00" // level
+      "\x0b\x58" // unknown
+      "\x64\x00\x00\x00" // deadline
+      "\x10\x00\x00\x00" "Proposal message" // proposal
+      "\x10\x00\x00\x00" "Progress message" // progress
+      "\x12\x00\x00\x00" "Completion message" // completion
+      "\x05\x00\x00\x00" // reward_type
+      "\x04\x00\x00\x00" // resource_type
+      "\x14\x00\x00\x00" // resource_quantity
+      "\x00" // reserved
+      "\x48" // visited_by
+      "\x0a" // name
+      ""sv;
+
+    REQUIRE(asByteVector(encodeViaH3SVGWriter(kSeersHut)) == asByteVector(kBinaryData));
+    REQUIRE(H3SVGReaderAdapter(kBinaryData).readSeersHut() == kSeersHut);
+    REQUIRE(encodeAndDecodeJson(kSeersHut) == kSeersHut);
   }
 
   TEST_CASE("H3SVG.Sign", "[H3SVG]")

@@ -140,6 +140,8 @@ namespace h3svg
 
   struct QuestGuard
   {
+    constexpr bool operator==(const QuestGuard&) const noexcept = default;
+
     // Note: H3SVG stores QuestType::None for completed quests.
     Quest quest;
     // 1 bit per player, indicating whether the player has visited this Quest Guard.
@@ -148,6 +150,8 @@ namespace h3svg
 
   struct SeersHut
   {
+    constexpr bool operator==(const SeersHut&) const noexcept = default;
+
     // Note: H3SVG stores QuestType::None for completed quests.
     Quest quest;
     // Reward, on the other hand, remains unchanged for completed quests.
