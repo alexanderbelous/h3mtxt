@@ -43,8 +43,7 @@ namespace h3svg
       .river_sprite = 2,
       .road_type = RoadType::Cobblestone,
       .road_sprite = 4,
-      .flags1 = 1,
-      .flags2 = 0,
+      .flags = {1, 0},
       .object_class = static_cast<ObjectClass16>(ObjectClass::WARRIORS_TOMB),
       .object_subclass = 0,
       .object_idx = 110,
@@ -63,8 +62,7 @@ namespace h3svg
       "\x02" // river_sprite
       "\x03" // road_type
       "\x04" // road_sprite
-      "\x01" // flags1
-      "\x00" // flags2
+      "\x01\x00" // flags
       "\x6c\x00" // object_class
       "\x00\x00" // object_subclass
       "\x6e\x00" // object_idx

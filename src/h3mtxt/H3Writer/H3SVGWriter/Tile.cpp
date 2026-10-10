@@ -12,8 +12,7 @@ namespace h3svg
     writeData(tile.river_sprite);
     writeData(tile.road_type);
     writeData(tile.road_sprite);
-    writeData(tile.flags1);
-    writeData(tile.flags2);
+    writeData(tile.flags);
     writeData(tile.object_class);
     writeData(tile.object_subclass);
     writeData(tile.object_idx);

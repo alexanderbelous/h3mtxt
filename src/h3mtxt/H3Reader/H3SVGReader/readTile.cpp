@@ -12,8 +12,7 @@ namespace h3svg
     tile.river_sprite = readInt<std::uint8_t>();
     tile.road_type = readEnum<RoadType>();
     tile.road_sprite = readInt<std::uint8_t>();
-    tile.flags1 = readInt<std::uint8_t>();
-    tile.flags2 = readInt<std::uint8_t>();
+    tile.flags = readEnumBitmask<TileFlag, 2>();
     tile.object_class = readEnum<ObjectClass16>();
     tile.object_subclass = readInt<std::uint16_t>();
     tile.object_idx = readInt<std::uint16_t>();

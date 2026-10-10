@@ -129,6 +129,27 @@ namespace h3json
   };
 
   template<>
+  inline constexpr std::array<std::string_view, 16> kEnumFieldNames<h3svg::TileFlag> =
+  {
+    "terrain_x",
+    "terrain_y",
+    "river_x",
+    "river_y",
+    "road_x",
+    "road_y",
+    "is_passable",
+    "unknown7",
+    "is_obstructed",
+    "unknown9",
+    "unknown10",
+    "unknown11",
+    "is_actionable",
+    "unknown13",
+    "unknown14",
+    "unknown15"
+  };
+
+  template<>
   inline constexpr std::array<std::string_view, 48> kEnumFieldNames<h3svg::TownBuildingTypeH3SVG> =
   {
     "mage_guild1",
@@ -906,8 +927,7 @@ namespace h3json
     static constexpr std::string_view kRiverSprite = "river_sprite";
     static constexpr std::string_view kRoadType = "road_type";
     static constexpr std::string_view kRoadSprite = "road_sprite";
-    static constexpr std::string_view kFlags1 = "flags1";
-    static constexpr std::string_view kFlags2 = "flags2";
+    static constexpr std::string_view kFlags = "flags";
     static constexpr std::string_view kObjectClass = "object_class";
     static constexpr std::string_view kObjectSubclass = "object_subclass";
     static constexpr std::string_view kObjectIdx = "object_idx";

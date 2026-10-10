@@ -6,6 +6,8 @@
 #include <h3mtxt/Map/Constants/RiverType.h>
 #include <h3mtxt/Map/Constants/RoadType.h>
 #include <h3mtxt/Map/Constants/TerrainType.h>
+#include <h3mtxt/Map/Utils/EnumBitmask.h>
+#include <h3mtxt/SavedGame/Constants/TileFlag.h>
 
 #include <array>
 #include <cstddef>
@@ -47,18 +49,7 @@ namespace h3svg
     std::uint8_t river_sprite = 0;
     RoadType road_type = RoadType::None;
     std::uint8_t road_sprite = 0;
-    // TODO: replace with EnumBitmask.
-    // flags1 defines terrain_x, terrain_y, river_x, river_y flags:
-    //   bool terrain_x = flags1 & 1;
-    //   bool terrain_y = flags1 & 2;
-    //   bool river_x   = flags1 & 4;
-    //   bool river_y   = flags1 & 8;
-    //   bool road_x    = flags1 & 16;
-    //   bool road_y    = flags1 & 32;
-    // hypothesis:
-    //   bool no_obstacles = flags1 & 64;  // or "passable"
-    std::uint8_t flags1 {};
-    std::uint8_t flags2 {};
+    TileFlags flags;
     // Note: in H3SVG it is serialized as a 16-bit integer, even though in h3m it is serialized as a 32-bit integer.
     ObjectClass16 object_class {};
     // * If (object_class == 0 || object_class == 3): should store 0xFFFF.

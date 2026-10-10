@@ -192,8 +192,7 @@ namespace h3json
     readField(tile.river_sprite, value, Fields::kRiverSprite);
     readField(tile.road_type, value, Fields::kRoadType);
     readField(tile.road_sprite, value, Fields::kRoadSprite);
-    readField(tile.flags1, value, Fields::kFlags1);
-    readField(tile.flags2, value, Fields::kFlags2);
+    readField(tile.flags, value, Fields::kFlags);
     readField(tile.object_class, value, Fields::kObjectClass);
     readField(tile.object_subclass, value, Fields::kObjectSubclass);
     readField(tile.object_idx, value, Fields::kObjectIdx);

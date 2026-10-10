@@ -217,8 +217,7 @@ namespace Medea_NS
     out.writeField(Fields::kRiverSprite, tile.river_sprite);
     out.writeField(Fields::kRoadType, tile.road_type);
     out.writeField(Fields::kRoadSprite, tile.road_sprite);
-    out.writeField(Fields::kFlags1, tile.flags1);
-    out.writeField(Fields::kFlags2, tile.flags2);
+    out.writeField(Fields::kFlags, tile.flags, true);
     out.writeField(Fields::kObjectClass, tile.object_class);
     out.writeField(Fields::kObjectSubclass, tile.object_subclass);
     out.writeField(Fields::kObjectIdx, tile.object_idx);

@@ -109,6 +109,8 @@ namespace h3svg
 
   enum class PlayerType : std::int8_t;
 
+  enum class TileFlag : std::uint8_t;
+
   enum class TurnDurationType : std::uint8_t;
 
   enum class PrimarySkillType32 : std::uint32_t;
@@ -132,6 +134,8 @@ namespace h3svg
   using FormationFlags = EnumBitmask<FormationFlag, 1>;
 
   using HeroFlags = EnumBitmask<HeroFlag, 4>;
+
+  using TileFlags = EnumBitmask<TileFlag, 2>;
 
   struct Artifact;
 
