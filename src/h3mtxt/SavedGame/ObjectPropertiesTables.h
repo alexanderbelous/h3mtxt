@@ -223,6 +223,8 @@ namespace h3svg
   // Adventure Map). The reason is simply the order in which data is serialized in H3SVG.
   struct ObjectPropertiesTables
   {
+    constexpr bool operator==(const ObjectPropertiesTables&) const noexcept = default;
+
     // Events and Pandora's Boxes on the Adventure Map.
     std::vector<EventBase> events_and_pandoras_boxes;
     // Artifacts and Spell scrolls on the Adventure Map.

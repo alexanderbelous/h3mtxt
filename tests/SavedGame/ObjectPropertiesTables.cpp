@@ -241,6 +241,48 @@ namespace h3svg
     REQUIRE(encodeAndDecodeJson(kObelisk) == kObelisk);
   }
 
+  TEST_CASE("H3SVG.ObjectPropertiesTables", "[H3SVG]")
+  {
+    const ObjectPropertiesTables kTables = {
+      .events_and_pandoras_boxes = {},
+      .artifacts_and_spell_scrolls = {},
+      .monsters = {},
+      .seers_huts = {},
+      .quest_guards = {},
+      .global_events = {},
+      .town_events = {},
+      .signs_and_ocean_bottles = {},
+      .mines_and_lighthouses = {},
+      .dwellings = {},
+      .garrisons = {},
+      .boats = {},
+      .num_obelisks = 0,
+      .obelisks = {}
+    };
+    static constexpr std::string_view kBinaryData =
+      "\x00\x00" // events_and_pandoras_boxes
+      "\x00\x00" // artifacts_and_spell_scrolls
+      "\x00\x00" // monsters
+      "\x00\x00" // seers_huts
+      "\x00\x00" // quest_guards
+      "\x00\x00\x00\x00" // global_events
+      "\x00\x00\x00\x00" // town_events
+      "\x00" // signs_and_ocean_bottles
+      "\x00" // mines_and_lighthouses
+      "\x00\x00" // dwellings
+      "\x00" // garrisons
+      "\x00" // boats
+      "\x00" // num_obelisks
+      "\x00\x00\x00\x00" "\x00\x00\x00\x00" "\x00\x00\x00\x00" "\x00\x00\x00\x00" // obelisks
+      "\x00\x00\x00\x00" "\x00\x00\x00\x00" "\x00\x00\x00\x00" "\x00\x00\x00\x00"
+      "\x00\x00\x00\x00" "\x00\x00\x00\x00" "\x00\x00\x00\x00" "\x00\x00\x00\x00"
+      ""sv;
+
+    REQUIRE(asByteVector(encodeViaH3SVGWriter(kTables)) == asByteVector(kBinaryData));
+    REQUIRE(H3SVGReaderAdapter(kBinaryData).readObjectPropertiesTables() == kTables);
+    REQUIRE(encodeAndDecodeJson(kTables) == kTables);
+  }
+
   TEST_CASE("H3SVG.QuestGuard", "[H3SVG]")
   {
     const QuestGuard kQuestGuard = {
