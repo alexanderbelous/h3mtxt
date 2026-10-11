@@ -21,8 +21,7 @@ namespace h3svg
     Bool is_completed = false;
     // The number of days that it took the player to complete this scenario.
     // The value is meaningless if is_completed == false, but the game seems to store 0 in this case.
-    // TODO: check if this is signed: see the comment regarding the nature of time in HoMM3 in Map/TimedEvent.h.
-    std::uint32_t days = 0;
+    std::int32_t days = 0;
     // Score for this scenario (see https://heroes.thelazy.net/index.php/Score).
     // The value is meaningless if is_completed == false, but the game seems to store 0 in this case.
     std::uint32_t score = 0;
@@ -85,8 +84,9 @@ namespace h3svg
     // TODO: figure out what this is.
     // * unknown2[0] seems to always be 255
     std::array<std::uint8_t, 2> unknown3 {};
-    // 0-based index of the selected starting bonus from h3m::StartingOptions.
-    std::uint8_t starting_bonus_idx {};
+    // 0-based index of the selected starting bonus from h3m::StartingOptions,
+    // or -1 if there are no options.
+    std::int8_t starting_bonus_idx {};
     // The original filename of the .h3c file (this is used by View Scenario and Restart Scenario commands).
     // Serialized in H3SVC as a length-prefixed string; the length is serialized as a little-endian 32-bit integer.
     std::string filename;

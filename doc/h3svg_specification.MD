@@ -321,7 +321,7 @@ except `allow_normal_win` and `applies_to_computer`.
 | region_idx          | `uint8`                           | 1             | 0-based index of the current region                     |
 | id                  | `uint8`                           | 1             | Enum [`CampaignId`](../src/h3mtxt/SavedGame/Constants/CampaignId.h) |
 | unknown3            | `uint8[2]`                        | 2             | TODO                                                    |
-| starting_bonus_idx  | `uint8`                           | 1             | 0-based index of the selected starting bonus            |
+| starting_bonus_idx  | `int8`                            | 1             | 0-based index of the selected starting bonus            |
 | filename            | `String32`                        | varies        | The original filename of the .h3c file                  |
 | finished_campaigns  | `Bool[21]`                        | 21            | 1 `Bool` per [`CampaignId`](../src/h3mtxt/SavedGame/Constants/CampaignId.h), indicating which campaigns have been finished |
 | num_regions         | `uint8`                           | 1             | The number of regions in this campaign                  |
@@ -334,7 +334,7 @@ except `allow_normal_win` and `applies_to_computer`.
 | Field name   | Type     | Size in bytes | Description                                                                                          |
 | ------------ | -------- | ------------- | ---------------------------------------------------------------------------------------------------- |
 | is_completed | `Bool`   | 1             | 0 if this scenario hasn't been completed yet, nonzero otherwise                                      |
-| days         | `uint32` | 4             | The number of days that it took the player to complete this scenario                                 |
+| days         | `int32`  | 4             | The number of days that it took the player to complete this scenario                                 |
 | score        | `uint32` | 4             | Score for this scenario (see https://heroes.thelazy.net/index.php/Score)                             |
 | order        | `uint8`  | 1             | 1-based rank of this scenario among all scenarios in the order in which they were played (ascending) |
 | unknown      | `uint8`  | 1             | TODO                                                                                                 |

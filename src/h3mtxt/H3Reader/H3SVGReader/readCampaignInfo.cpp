@@ -34,7 +34,7 @@ namespace h3svg
   {
     RegionInfo info;
     info.is_completed = readBool();
-    info.days = readInt<std::uint32_t>();
+    info.days = readInt<std::int32_t>();
     info.score = readInt<std::uint32_t>();
     info.order = readInt<std::uint8_t>();
     info.unknown = readInt<std::uint8_t>();
@@ -57,7 +57,7 @@ namespace h3svg
     // Read 2 bytes (unknown).
     readBytes(std::as_writable_bytes(std::span<std::uint8_t, 2>{ info.unknown3 }));
     // Read 1 byte - the index of the selected starting bonus.
-    info.starting_bonus_idx = readInt<std::uint8_t>();
+    info.starting_bonus_idx = readInt<std::int8_t>();
     // Read the original filename of the .h3c file.
     info.filename = readString32();
     // Read 21 bytes - the flags indicating which standard campaigns have been finished.
