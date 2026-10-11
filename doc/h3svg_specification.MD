@@ -121,7 +121,7 @@ An H3SVG file is a single structure which we will naturally call [`SavedGame`](#
 | version_major             | `int32`                          | 4             | Major version of the game                                        |
 | version_minor             | `int32`                          | 4             | Minor version of the game                                        |
 | reserved2                 |                                  | 32            | Not used                                                         |
-| map_format                | `int32`                          | 4             | Enum: 14 -> RoE, 21 -> AB, 28 -> SoD                             |
+| map_format                | `int32`                          | 4             | Enum [`MapFormat`](../src/h3mtxt/Map/Constants/MapFormat.h)      |
 | map_basic_info            | [`MapBasicInfo`](#MapBasicInfo)  | varies        | "Map Specifications / General" in the Map Editor                 |
 | players_specs             | [`PlayerSpecs[8]`](#PlayerSpecs) | varies        | "Map Specifications / Player Specs" in the Editor                |
 | victory_condition         | [`VictoryCondition`](#VictoryCondition) | varies | "Map Specifications / Special Victory Condition" in the Editor   |
@@ -137,9 +137,9 @@ An H3SVG file is a single structure which we will naturally call [`SavedGame`](#
 | placeholder_heroes        | `uint16[num_placeholder_heroes]` | varies        | Hero Placeholders at the beginning of the scenario. Each element is enum `HeroType` |
 | original_filename         | `char[47]`                       | 47            | Original filename used for this saved game                       |
 | unknown2                  | `uint8[352]`                     | 352           | TODO                                                             |
-| disabled_artifacts        | `Bool[144]`                      | 144           | 1 byte per Artifact type indicating if it is disabled            |
+| disabled_artifacts        | `Bool[144]`                      | 144           | 1 byte per [`ArtifactType`](../src/h3mtxt/Map/Constants/ArtifactType.h) indicating if it is disabled |
 | artifacts_bitmask_unknown | `Bool[144]`                      | 144           | TODO                                                             |
-| disabled_skills           | `Bool[28]`                       | 28            | 1 byte per Secondary Skill type, indicating if it is disabled    |
+| disabled_skills           | `Bool[28]`                       | 28            | 1 byte per [`SecondarySkillType`](../src/h3mtxt/Map/Constants/SecondarySkillType.h), indicating if it is disabled |
 | current_rumor             | `String16`                       | varies        | The rumor currently displayed in the Tavern.                     |
 | unknown3                  | `Bool[256]`                      | 256           | TODO                                                             |
 | num_rumors                | `uint32`                         | 4             | The number of custom rumors added by the mapmaker                |
@@ -156,8 +156,8 @@ An H3SVG file is a single structure which we will naturally call [`SavedGame`](#
 | num_towns                 | `uint8`                          | 1             | The number of towns on the Adventure Map                         |
 | towns                     | [`Town[num_towns]`](#Town)       | varies        | Towns on the Adventure Map                                       |
 | heroes                    | [`Hero[156]`](#Hero)             | varies        | Properties for each hero                                         |
-| hero_owner                | `uint8[156]`                     | 156           | Enum `PlayerColor` for each `HeroType`, indicating the current owner. `0x40` is a special value meaning that the hero is disabled OR currently available in the Tavern for some player |
-| hero_can_be_hired_by      | `uint8[156]`                     | 156           | 156 bitmasks - 1 per `HeroType` - indicating which players can hire this hero |
+| hero_owner                | `uint8[156]`                     | 156           | Enum [`PlayerColor`](../src/h3mtxt/Map/Constants/PlayerColor.h) for each [`HeroType`](../src/h3mtxt/Map/Constants/HeroType.h), indicating the current owner. `0x40` is a special value meaning that the hero is disabled OR currently available in the Tavern for some player |
+| hero_can_be_hired_by      | `uint8[156]`                     | 156           | 156 bitmasks - 1 per [`HeroType`](../src/h3mtxt/Map/Constants/HeroType.h). Each bitmask has 8 bits - 1 per [`PlayerColor`](../src/h3mtxt/Map/Constants/PlayerColor.h) - indicating which players can hire this hero |
 | unknown4                  | `uint8[2]`                       | 2             | TODO                                                             |
 | grail_x                   | `int16`                          | 2             | X-coordinate of the Grail, or -1 if there is none                |
 | grail_y                   | `int16`                          | 2             | Y-coordinate of the Grail, or -1 if there is none                |
@@ -169,12 +169,10 @@ An H3SVG file is a single structure which we will naturally call [`SavedGame`](#
 | month                     | `uint16`                         | 2             | Month of the current date (initialized with 1 at the start of the game; resets to 0 after Month 65535) |
 | unknown6                  | `uint8[32]`                      | 32            | TODO                                                              |
 | artifact_merchants        | [`ArtifactMerchants`](#ArtifactMerchants) | 28   | Artifacts currently available in Artifact Merchants              |
-| visited_objects           | `uint8[32]`                      | 32            | 32 bitmasks - 1 per `VisitableObjectType` - indicating which players have visited an object of this type |
-| keymasters_tents          | `uint8[8]`                       | 8             | 8 bitmasks - 1 per Keymaster's Tent type - indicating which players have visited it |
-| cartographer_effects      | `uint16[3]`                      | 6             | 3 bitmasks - 1 per `CartographerType` - indicating which terrain types are revealed by this cartographer |
-| cartographer_water        | `uint8`                          | 1             | Bitmask; 1 bit per player, indicating if they have visited the Water Cartographer |
-| cartographer_land         | `uint8`                          | 1             | Bitmask; 1 bit per player, indicating if they have visited the Land Cartographer |
-| cartographer_subterranean | `uint8`                          | 1             | Bitmask; 1 bit per player, indicating if they have visited the Subterranean Cartographer |
+| visited_objects           | `uint8[32]`                      | 32            | 32 bitmasks - 1 per [`VisitableObjectType`](../src/h3mtxt/SavedGame/Constants/VisitableObjectType.h). Each bitmask has 8 bits - 1 per [`PlayerColor`](../src/h3mtxt/Map/Constants/PlayerColor.h) - indicating which players have visited an object of this type |
+| keymasters_tents          | `uint8[8]`                       | 8             | 8 bitmasks - 1 per [`KeymastersTentType`](../src/h3mtxt/SavedGame/Constants/KeymastersTentType.h). Each bitmask has 8 bits - 1 per [`PlayerColor`](../src/h3mtxt/Map/Constants/PlayerColor.h) - indicating which players have visited it |
+| cartographer_effects      | `uint16[3]`                      | 6             | 3 bitmasks - 1 per [`CartographerType`](../src/h3mtxt/SavedGame/Constants/CartographerType.h). Each bitmask has 16 bits - 1 per [`TerrainType`](../src/h3mtxt/Map/Constants/TerrainType.h) - indicating which terrain types are revealed by this cartographer |
+| cartographer_visited      | `uint8[3]`                       | 3             | 3 bitmask -  1 per [`CartographerType`](../src/h3mtxt/SavedGame/Constants/CartographerType.h). Each bitmask has 8 bits - 1 per [`PlayerColor`](../src/h3mtxt/Map/Constants/PlayerColor.h) - indicating which players have visited this Cartographer |
 | unknown7                  | `uint8[4]`                       | 4             | TODO                                                             |
 | fog_of_war                | [`TileVisibility[NUM_TILES]`](#TileVisibility) | varies | Describes visibility of each tile for each player         |
 | portals                   | [`Portals`](#Portals)            | varies        | Information about all portals on the map (i.e. Monoliths, Whirlpools and Subterranean Gates) |
@@ -192,8 +190,8 @@ An H3SVG file is a single structure which we will naturally call [`SavedGame`](#
 | has_two_levels | `Bool`     | 1             | 0 if there is no subterranean level, 1 otherwise            |
 | name           | `String16` | varies        | The name of the map (as set by the mapmaker)                |
 | description    | `String16` | varies        | The description of the map (as set by the mapmaker)         |
-| difficulty     | `uint8`    | 1             | Enum `MapDifficulty` as suggested by the mapmaker           |
-| max_hero_level | `uint8`    | 1             | The maximum allowed level for all heroes                    |
+| difficulty     | `uint8`    | 1             | Enum [`MapDifficulty`](../src/h3mtxt/Map/Constants/MapDifficulty.h) as suggested by the mapmaker |
+| max_hero_level | `uint8`    | 1             | The maximum allowed level for all heroes; 0 means no limit  |
 
 
 ### `PlayerSpecs`
@@ -201,8 +199,8 @@ An H3SVG file is a single structure which we will naturally call [`SavedGame`](#
 | --------------------------- | -------------- | ------------- | --------------------------------------------------------------------------------- |
 | can_be_human                | `Bool`         | 1             | 1 if this player can be controlled by a human, 0 otherwise                        |
 | can_be_computer             | `Bool`         | 1             | 1 if this player can be controlled by the computer, 0 otherwise                   |
-| behavior                    | `uint8`        | 1             | Enum `PlayerBehavior` as set by the mapmaker                                      |
-| allowed_alignments          | `uint8[2]`     | 2             | Bitmask; 1 bit for each town type, indicating if it can be the player's alignment |
+| behavior                    | `uint8`        | 1             | Enum [`PlayerBehavior`](../src/h3mtxt/Map/Constants/PlayerBehavior.h) as set by the mapmaker |
+| allowed_alignments          | `uint8[2]`     | 2             | Bitmask; 1 bit per [`TownType`](../src/h3mtxt/Map/Constants/TownType.h), indicating if it can be the player's alignment |
 | allow_random_alignment      | `Bool`         | 1             | 1 if Random alignment is enabled, 0 otherwise.                                    |
 | has_generated_hero          | `Bool`         | 1             | 1 if a hero is generated in the main town for this player, 0 otherwise            |
 | ?generated_hero_coordinates | [`Coordinates`](#Coordinates) | 3 | Coordinates of the main town. Only present if has_generated_hero != 0          |
@@ -218,25 +216,25 @@ An H3SVG file is a single structure which we will naturally call [`SavedGame`](#
 
 
 ### `StartingHero`
-| Field name | Type       | Size in bytes | Description                                           |
-| ---------- | ---------- | ------------- | ----------------------------------------------------- |
-| type       | `uint8`    | 1             | Enum `HeroType`                                       |
-| ?portrait  | `uint8`    | 1             | Enum `HeroPortrait`. Only present if type is not 0xFF |
-| ?name      | `String16` | varies        | Only present if type is not 0xFF                      |
+| Field name | Type       | Size in bytes | Description                                               |
+| ---------- | ---------- | ------------- | --------------------------------------------------------- |
+| type       | `uint8`    | 1             | Enum [`HeroType`](../src/h3mtxt/Map/Constants/HeroType.h) |
+| ?portrait  | `uint8`    | 1             | Enum [`HeroPortrait`](../src/h3mtxt/Map/Constants/HeroPortrait.h). Only present if type is not 0xFF |
+| ?name      | `String16` | varies        | Only present if type is not 0xFF                          |
 
 
 ### `VictoryCondition`
 | Field name            | Type                                 | Size in bytes | Description                                                       |
 | --------------------- | ------------------------------------ | ------------- | ----------------------------------------------------------------- |
-| type                  | `uint8`                              | 1             | Enum `VictoryConditionType`                                       |
+| type                  | `uint8`                              | 1             | Enum [`VictoryConditionType`](../src/h3mtxt/Map/Constants/VictoryConditionType.h) |
 | ?allow_normal_win     | `Bool`                               | 1             | Only present if type is NOT `0xFF` (`Normal`)                     |
 | ?applies_to_computer  | `Bool`                               | 1             | Only present if type is NOT `0xFF` (`Normal`)                     |
-| ?artifact             | `uint8`                              | 1             | Only present if type = 0 (`AcquireArtifact`); Enum `ArtifactType` |
+| ?artifact             | `uint8`                              | 1             | Only present if type = 0 (`AcquireArtifact`); Enum [`ArtifactType`](../src/h3mtxt/Map/Constants/ArtifactType.h) |
 | ?accumulate_creatures | [`AccumulateCreatures`](#AccumulateCreatures) | 5    | Only present if type = 1 (`AccumulateCreatures`)                  |
 | ?accumulate_resources | [`AccumulateResources`](#AccumulateResources) | 5    | Only present if type = 2 (`AccumulateResources`)                  |
 | ?upgrade_town         | [`UpgradeTown`](#UpgradeTown)        | 5             | Only present if type = 3 (`UpgradeTown`)                          |
 | ?town_coordinates     | [`Coordinates`](#Coordinates)        | 3             | Only present if type = 4 (`BuildGrail`) or 6 (`CaptureTown`)      |
-| ?hero                 | `uint8`                              | 1             | Only present if type = 5 (`DefeatHero`); Enum `HeroType`          |
+| ?hero                 | `uint8`                              | 1             | Only present if type = 5 (`DefeatHero`); Enum [`HeroType`](../src/h3mtxt/Map/Constants/HeroType.h) |
 | ?monster_coordinates  | [`Coordinates`](#Coordinates)        | 3             | Only present if type = 7 (`DefeatMonster`)                        |
 | ?transport_artifact   | [`TransportArtifact`](#TransportArtifact) | 4        | Only present if type = 10 (`TransportArtifact`)                   |
 | ?days                 | `int32`                              | 4             | Only present if type = 12 (`SurviveBeyondATimeLimit`)             |
@@ -246,17 +244,17 @@ except `allow_normal_win` and `applies_to_computer`.
 
 
 ### `AccumulateCreatures`
-| Field name    | Type    | Size in bytes | Description         |
-| ------------- | ------- | ------------- | ------------------- |
-| creature_type | `uint8` | 1             | Enum `CreatureType` |
-| count         | `int32` | 4             |                     |
+| Field name    | Type    | Size in bytes | Description                                                       |
+| ------------- | ------- | ------------- | ----------------------------------------------------------------- |
+| creature_type | `uint8` | 1             | Enum [`CreatureType`](../src/h3mtxt/Map/Constants/CreatureType.h) |
+| count         | `int32` | 4             |                                                                   |
 
 
 ### `AccumulateResources`
-| Field name    | Type    | Size in bytes | Description         |
-| ------------- | ------- | ------------- | ------------------- |
-| resource_type | `uint8` | 1             | Enum `ResourceType` |
-| amount        | `int32` | 4             |                     |
+| Field name    | Type    | Size in bytes | Description                                                       |
+| ------------- | ------- | ------------- | ----------------------------------------------------------------- |
+| resource_type | `uint8` | 1             | Enum [`ResourceType`](../src/h3mtxt/Map/Constants/ResourceType.h) |
+| amount        | `int32` | 4             |                                                                   |
 
 
 ### `UpgradeTown`
@@ -268,68 +266,68 @@ except `allow_normal_win` and `applies_to_computer`.
 
 
 ### `TransportArtifact`
-| Field name   | Type                          | Size in bytes | Description             |
-| ------------ | ----------------------------- | ------------- | ----------------------- |
-| artifact     | `uint8`                       | 1             | Enum `ArtifactType`     |
-| destination  | [`Coordinates`](#Coordinates) | 3             | Coordinates of the town |
+| Field name   | Type                          | Size in bytes | Description                                                       |
+| ------------ | ----------------------------- | ------------- | ----------------------------------------------------------------- |
+| artifact     | `uint8`                       | 1             | Enum [`ArtifactType`](../src/h3mtxt/Map/Constants/ArtifactType.h) |
+| destination  | [`Coordinates`](#Coordinates) | 3             | Coordinates of the town                                           |
 
 
 ### `LossCondition`
-| Field name | Type                          | Size in bytes | Description                                            |
-| ---------- | ----------------------------- | ------------- | ------------------------------------------------------ |
-| type       | `uint8`                       | 1             | Enum `LossConditionType`                               |
-| ?town      | [`Coordinates`](#Coordinates) | 3             | Only present if type = 0 (`LoseTown`)                  |
-| ?hero      | `uint16`                      | 2             | Only present if type = 1 (`LoseHero`); Enum `HeroType` |
-| ?days      | `int16`                       | 2             | Only present if type = 2 (`TimeExpires`)               |
+| Field name | Type                          | Size in bytes | Description                              |
+| ---------- | ----------------------------- | ------------- | ---------------------------------------- |
+| type       | `uint8`                       | 1             | Enum `LossConditionType`                 |
+| ?town      | [`Coordinates`](#Coordinates) | 3             | Only present if type = 0 (`LoseTown`)    |
+| ?hero      | `uint16`                      | 2             | Only present if type = 1 (`LoseHero`); Enum [`HeroType`](../src/h3mtxt/Map/Constants/HeroType.h) |
+| ?days      | `int16`                       | 2             | Only present if type = 2 (`TimeExpires`) |
 
 
 ### `TeamsInfo`
-| Field name       | Type       | Size in bytes | Description                                                                                |
-| ---------------- | ---------- | ------------- | ------------------------------------------------------------------------------------------ |
-| num_teams        | `uint8`    | 1             | The number of teams                                                                        |
-| ?team_for_player | `uint8[8]` | 8             | 1 byte per player, indicating the 0-based index of the team. Only present if num_teams > 0 |
+| Field name       | Type       | Size in bytes | Description         |
+| ---------------- | ---------- | ------------- | ------------------- |
+| num_teams        | `uint8`    | 1             | The number of teams |
+| ?team_for_player | `uint8[8]` | 8             | 1 byte per [`PlayerColor`](../src/h3mtxt/Map/Constants/PlayerColor.h), indicating the 0-based index of the team. Only present if num_teams > 0 |
 
 
 ### `CustomHero`
-| Field name | Type       | Size in bytes | Description                                                            |
-| ---------- | ---------- | ------------- | ---------------------------------------------------------------------- |
-| type       | `uint8`    | 1             | Enum `HeroType`                                                        |
-| portrait   | `uint8`    | 1             | Enum `HeroPortrait`                                                    |
-| name       | `String32` | varies        | The name of the hero                                                   |
-| can_hire   | `uint8`    | 1             | Bitmask; 1 bit per player, indicating if the player can hire this hero |
+| Field name | Type       | Size in bytes | Description                                                       |
+| ---------- | ---------- | ------------- | ----------------------------------------------------------------- |
+| type       | `uint8`    | 1             | Enum [`HeroType`](../src/h3mtxt/Map/Constants/HeroType.h)         |
+| portrait   | `uint8`    | 1             | Enum [`HeroPortrait`](../src/h3mtxt/Map/Constants/HeroPortrait.h) |
+| name       | `String32` | varies        | The name of the hero                                              |
+| can_hire   | `uint8`    | 1             | Bitmask; 1 bit per [`PlayerColor`](../src/h3mtxt/Map/Constants/PlayerColor.h), indicating if the player can hire this hero |
 
 
 ### `ScenarioStartingInfo`
-| Field name           | Type                 | Size in bytes | Description                                                            |
-| -------------------- | -------------------- | ------------- | ---------------------------------------------------------------------- |
-| starting_towns       | `int32[8]`           | 32            | Enum `TownType` for each player; 0xFFFFFFFF is used for absent players |
-| player_types         | `int8[8]`            | 8             | Enum `PlayerType` for each player; 0xFF is used for absent players     |
-| difficulty           | `uint8`              | 1             | Enum `MapDifficulty`; Difficulty level set by the human player         |
+| Field name           | Type                 | Size in bytes | Description |
+| -------------------- | -------------------- | ------------- | ----------- |
+| starting_towns       | `int32[8]`           | 32            | Enum [`TownType`](../src/h3mtxt/Map/Constants/TownType.h) for each [`PlayerColor`](../src/h3mtxt/Map/Constants/PlayerColor.h); 0xFFFFFFFF is used for absent players |
+| player_types         | `int8[8]`            | 8             | Enum [`PlayerType`](../src/h3mtxt/SavedGame/Constants/PlayerType.h) for each [`PlayerColor`](../src/h3mtxt/Map/Constants/PlayerColor.h); 0xFF is used for absent players |
+| difficulty           | `uint8`              | 1             | Enum [`MapDifficulty`](../src/h3mtxt/Map/Constants/MapDifficulty.h); Difficulty level set by the human player |
 | map_filename         | `char[251]`          | 251           | The original filename of the map. Only the characters before the first null terminator are significant. Used by "Restart Scenario" command. For campaign scenarios it's always "test.h3m" |
 | map_directory        | `char[100]`          | 100           | Relative (to Heroes3.exe) path to the directory in which the original map file is located. Only the characters before the first null terminator are significant. Used by "Restart Scenario" command. The game always writes "maps" here for standalone maps |
-| players_control      | `uint8[8]`           | 8             | Enum `PlayerControlType` for each player                               |
-| unknown              | `uint8[3]`           | 3             | Unknown. Seems to always be [255, 1, 1]                                |
-| player_turn_duration | `uint8`              | 1             | Enum `PlayerTurnDuration`. Meaningless for campaigns                   |
-| starting_heroes      | `uint8[8]`           | 8             | Enum `HeroType` for each player. Meaningless for campaigns             |
-| starting_bonuses     | `uint8[8]`           | 8             | Enum `PlayerStartingBonus` for each player. Meaningless for campaigns  |
+| players_control      | `uint8[8]`           | 8             | Enum [`PlayerControlType`](../src/h3mtxt/SavedGame/Constants/PlayerControlType.h) for each [`PlayerColor`](../src/h3mtxt/Map/Constants/PlayerColor.h) |
+| unknown              | `uint8[3]`           | 3             | Unknown. Seems to always be [255, 1, 1] |
+| player_turn_duration | `uint8`              | 1             | Enum [`PlayerTurnDuration`](../src/h3mtxt/SavedGame/Constants/PlayerTurnDuration.h). Meaningless for campaigns |
+| starting_heroes      | `uint8[8]`           | 8             | Enum [`HeroType`](../src/h3mtxt/Map/Constants/HeroType.h) for each [`PlayerColor`](../src/h3mtxt/Map/Constants/PlayerColor.h). Meaningless for campaigns |
+| starting_bonuses     | `uint8[8]`           | 8             | Enum [`PlayerStartingBonus`](../src/h3mtxt/SavedGame/Constants/PlayerStartingBonus.h) for each [`PlayerColor`](../src/h3mtxt/Map/Constants/PlayerColor.h). Meaningless for campaigns |
 
 
 ### `CampaignInfo`
-| Field name          | Type                              | Size in bytes | Description                                                |
-| ------------------- | --------------------------------- | ------------- | ---------------------------------------------------------- |
-| unknown1            | `uint8`                           | 1             | TODO                                                       |
-| is_cheater          | `Bool`                            | 1             | Indicates whether cheats have been used in any scenario    |
-| unknown2            | `uint8`                           | 1             | TODO                                                       |
-| region_idx          | `uint8`                           | 1             | 0-based index of the current region                        |
-| id                  | `uint8`                           | 1             | Enum `CampaignId`                                          |
-| unknown3            | `uint8[2]`                        | 2             | TODO                                                       |
-| starting_bonus_idx  | `uint8`                           | 1             | 0-based index of the selected starting bonus               |
-| filename            | `String32`                        | varies        | The original filename of the .h3c file                     |
-| finished_campaigns  | `Bool[21]`                        | 21            | 1 `Bool` per enum `CampaignId`, indicating which campaigns have been finished |
-| num_regions         | `uint8`                           | 1             | The number of regions in this campaign                     |
-| regions             | [`RegionInfo[num_regions]`](#RegionInfo) | varies | Information for each region in this campaign               |
-| num_crossover_infos | `uint8`                           | 1             | The number of elements in `crossover_info`                 |
-| crossover_info      | [`CrossoverInfo[num_crossover_infos]`](#CrossoverInfo) | varies | Information about crossover heroes           |
+| Field name          | Type                              | Size in bytes | Description                                             |
+| ------------------- | --------------------------------- | ------------- | ------------------------------------------------------- |
+| unknown1            | `uint8`                           | 1             | TODO                                                    |
+| is_cheater          | `Bool`                            | 1             | Indicates whether cheats have been used in any scenario |
+| unknown2            | `uint8`                           | 1             | TODO                                                    |
+| region_idx          | `uint8`                           | 1             | 0-based index of the current region                     |
+| id                  | `uint8`                           | 1             | Enum [`CampaignId`](../src/h3mtxt/SavedGame/Constants/CampaignId.h) |
+| unknown3            | `uint8[2]`                        | 2             | TODO                                                    |
+| starting_bonus_idx  | `uint8`                           | 1             | 0-based index of the selected starting bonus            |
+| filename            | `String32`                        | varies        | The original filename of the .h3c file                  |
+| finished_campaigns  | `Bool[21]`                        | 21            | 1 `Bool` per [`CampaignId`](../src/h3mtxt/SavedGame/Constants/CampaignId.h), indicating which campaigns have been finished |
+| num_regions         | `uint8`                           | 1             | The number of regions in this campaign                  |
+| regions             | [`RegionInfo[num_regions]`](#RegionInfo) | varies | Information for each region in this campaign            |
+| num_crossover_infos | `uint8`                           | 1             | The number of elements in `crossover_info`              |
+| crossover_info      | [`CrossoverInfo[num_crossover_infos]`](#CrossoverInfo) | varies | Information about crossover heroes        |
 
 
 ### `RegionInfo`
@@ -359,22 +357,22 @@ except `allow_normal_win` and `applies_to_computer`.
 
 
 ### `ArtifactMerchants`
-| Field name | Type       | Size in bytes | Description                                                            |
-| ---------- | ---------- | ------------- | ---------------------------------------------------------------------- |
-| artifacts  | `int32[7]` | 28            | Enum `ArtifactType` for each slot. 0xFFFFFFFF is used for empty slots  |
+| Field name | Type       | Size in bytes | Description |
+| ---------- | ---------- | ------------- | ----------- |
+| artifacts  | `int32[7]` | 28            | Enum [`ArtifactType`](../src/h3mtxt/Map/Constants/ArtifactType.h) for each slot. 0xFFFFFFFF is used for empty slots  |
 
 
 ### `Tile`
 | Field name            | Type       | Size in bytes | Description                                                                        |
 | --------------------- | ---------- | ------------- | ---------------------------------------------------------------------------------- |
-| terrain_type          | `uint8`    | 1             | Enum `TerrainType`                                                                 |
+| terrain_type          | `uint8`    | 1             | Enum [`TerrainType`](../src/h3mtxt/Map/Constants/TerrainType.h)                    |
 | terrain_sprite        | `uint8`    | 1             | 0-based index of the sprite for `terrain_type` to render on this tile              |
-| river_type            | `uint8`    | 1             | Enum `RiverType`                                                                   |
+| river_type            | `uint8`    | 1             | Enum [`RiverType`](../src/h3mtxt/Map/Constants/RiverType.h)                        |
 | river_sprite          | `uint8`    | 1             | 0-based index of the sprite for `river_type` to render on this tile                |
-| road_type             | `uint8`    | 1             | Enum `RoadType`                                                                    |
+| road_type             | `uint8`    | 1             | Enum [`RoadType`](../src/h3mtxt/Map/Constants/RoadType.h)                          |
 | road_sprite           | `uint8`    | 1             | 0-based index of the sprite for `road_type` to render on this tile                 |
-| flags                 | `uint8[2]` | 2             | Bitmask; TODO                                                                      |
-| object_class          | `uint16`   | 2             | Enum `ObjectClass` - type of the object on this tile.                              |
+| flags                 | `uint8[2]` | 2             | Bitmask; 1 bit per [`TileFlag`](../src/h3mtxt/SavedGame/Constants/TileFlag.h)      |
+| object_class          | `uint16`   | 2             | Enum [`ObjectClass`](../src/h3mtxt/Map/Constants/ObjectClass.h) - type of the object on this tile |
 | object_subclass       | `uint16`   | 2             | TODO                                                                               |
 | object_idx            | `uint16`   | 2             | 0-based index of the object in SavedGame.objects, or 0xFFFF if there is no object  |
 | object_properties     | `uint8[4]` | 4             | TODO: pain                                                                         |
@@ -400,7 +398,7 @@ except `allow_normal_win` and `applies_to_computer`.
 | passability     | `SpriteTilesBitmask` | 6             | |
 | unknown2        | `SpriteTilesBitmask` | 6             | |
 | actionablility  | `SpriteTilesBitmask` | 6             | |
-| object_class    | `uint16`             | 2             | Enum `ObjectClass`; indicates the type of the object   |
+| object_class    | `uint16`             | 2             | Enum [`ObjectClass`](../src/h3mtxt/Map/Constants/ObjectClass.h); indicates the type of the object |
 | object_subclass | `uint16`             | 2             | Subtype of the object                                  |
 | reserved        |                      | 2             | Always [0, 0]                                          |
 | is_ground       | `Bool`               | 1             | Indicates whether this object is a part of the ground  |
@@ -441,7 +439,7 @@ except `allow_normal_win` and `applies_to_computer`.
 | num_boats                   | `uint8`                             | 1                | The number of boats on the Adventure Map            |
 | boats                       | [`Boat[num_boats]`](#Boat)          | varies           | Boats on the Adventure map                          |
 | num_obelisks                | `uint8`                             | 1                | The number of Obelisks on the Adventure Map         |
-| obelisks                    | [`Obelisk[49]`](#Obelisk)           | 49               | Only the first num_obelisks elements are meaningful |
+| obelisks                    | [`Obelisk[48]`](#Obelisk)           | 48               | Only the first num_obelisks elements are meaningful |
 
 
 ### `Guardians`
@@ -453,98 +451,92 @@ except `allow_normal_win` and `applies_to_computer`.
 
 
 ### `Troops`
-| Field name      | Type       | Size in bytes | Description                                                           |
-| --------------- | ---------- | ------------- | --------------------------------------------------------------------- |
-| creature_types  | `int32[7]` | 28            | Enum `CreatureType` for each slot; 0xFFFFFFFF is used for empty slots |
-| creature_counts | `int32[7]` | 28            | The number of creatures for each slot                                 |
+| Field name      | Type       | Size in bytes | Description                           |
+| --------------- | ---------- | ------------- | ------------------------------------- |
+| creature_types  | `int32[7]` | 28            | Enum [`CreatureType`](../src/h3mtxt/Map/Constants/CreatureType.h) for each slot; 0xFFFFFFFF is used for empty slots |
+| creature_counts | `int32[7]` | 28            | The number of creatures for each slot |
 
 
 ### `EventBase`
-| Field name           | Type                                      | Size in bytes | Description                                             |
-| -------------------- | ----------------------------------------- | ------------- | ------------------------------------------------------- |
-| has_guardians        | `Bool`                                    | 1             |                                                         |
-| ?guardians           | [`Guardians`](#Guardians)                 | varies        | Only present if has_guardians != 0                      |
-| experience           | `int32`                                   | 4             | Experience points to give/take                          |
-| spell_points         | `int32`                                   | 4             | Spell points to give/take                               |
-| morale               | `int8`                                    | 1             | Morale bonus                                            |
-| luck                 | `int8`                                    | 1             | Luck bonus                                              |
-| resources            | `int32[7]`                                | 28            | The amount to give/take for each Resource type          |
-| primary_skills       | `int8[4]`                                 | 4             | Increments/decrements for each Primary Skill type       |
-| num_secondary_skills | `uint8`                                   | 1             | The number of Secondary Skills to grant                 |
-| secondary_skills     | [`SecondarySkill[num_secondary_skills]`](#SecondarySkill) | varies | Secondary Skills to grant                      |
-| num_artifacts        | `uint8`                                   | 1             | The number of artifacts to give                         |
-| artifacts            | `uint8[num_artifacts]`                    | varies        | Artifacts to give (each element is enum `ArtifactType`) |
-| num_spells           | `uint8`                                   | 1             | The number of spells to give                            |
-| spells               | `uint8[num_spells]`                       | varies        | Spells to give (each element is enum `SpellType`)       |
-| num_creatures        | `uint8`                                   | 1             | The number of creature stacks to give                   |
-| creatures            | [`CreatureStack[num_creatures]`](#CreatureStack) | varies | Creature stacks to give                                 |
+| Field name           | Type                                      | Size in bytes | Description                                       |
+| -------------------- | ----------------------------------------- | ------------- | ------------------------------------------------- |
+| has_guardians        | `Bool`                                    | 1             |                                                   |
+| ?guardians           | [`Guardians`](#Guardians)                 | varies        | Only present if has_guardians != 0                |
+| experience           | `int32`                                   | 4             | Experience points to give/take                    |
+| spell_points         | `int32`                                   | 4             | Spell points to give/take                         |
+| morale               | `int8`                                    | 1             | Morale bonus                                      |
+| luck                 | `int8`                                    | 1             | Luck bonus                                        |
+| resources            | `int32[7]`                                | 28            | The amount to give/take for each Resource type    |
+| primary_skills       | `int8[4]`                                 | 4             | Increments/decrements for each Primary Skill type |
+| num_secondary_skills | `uint8`                                   | 1             | The number of Secondary Skills to grant           |
+| secondary_skills     | [`SecondarySkill[num_secondary_skills]`](#SecondarySkill) | varies | Secondary Skills to grant                |
+| num_artifacts        | `uint8`                                   | 1             | The number of artifacts to give                   |
+| artifacts            | `uint8[num_artifacts]`                    | varies        | Artifacts to give; each element is enum [`ArtifactType`](../src/h3mtxt/Map/Constants/ArtifactType.h) |
+| num_spells           | `uint8`                                   | 1             | The number of spells to give                      |
+| spells               | `uint8[num_spells]`                       | varies        | Spells to give; each element is enum [`SpellType`](../src/h3mtxt/Map/Constants/SpellType.h) |
+| num_creatures        | `uint8`                                   | 1             | The number of creature stacks to give             |
+| creatures            | [`CreatureStack[num_creatures]`](#CreatureStack) | varies | Creature stacks to give                           |
 
 
 ### `SecondarySkill`
-| Field name | Type    | Size in bytes | Description               |
-| ---------- | ------- | ------------- | ------------------------- |
-| type       | `uint8` | 1             | Enum `SecondarySkillType` |
-| level      | `uint8` | 1             | Level of expertise        |
+| Field name | Type    | Size in bytes | Description                                                                   |
+| ---------- | ------- | ------------- | ----------------------------------------------------------------------------- |
+| type       | `uint8` | 1             | Enum [`SecondarySkillType`](../src/h3mtxt/Map/Constants/SecondarySkillType.h) |
+| level      | `uint8` | 1             | Level of expertise                                                            |
 
 
 ### `CreatureStack`
-| Field name | Type     | Size in bytes | Description                                     |
-| ---------- | -------- | ------------- | ----------------------------------------------- |
-| type       | `uint16` | 2             | Enum `CreatureType`; 0xFFFF means "no creature" |
-| count      | `int16`  | 2             | The number of creatures                         |
+| Field name | Type     | Size in bytes | Description                                                                                   |
+| ---------- | -------- | ------------- | --------------------------------------------------------------------------------------------- |
+| type       | `uint16` | 2             | Enum [`CreatureType`](../src/h3mtxt/Map/Constants/CreatureType.h); 0xFFFF means "no creature" |
+| count      | `int16`  | 2             | The number of creatures                                                                       |
 
 
 ### `Monster`
-| Field name | Type       | Size in bytes | Description                                        |
-| ---------- | ---------- | ------------- | -------------------------------------------------- |
-| message    | `String16` | varies        | Message to display                                 |
-| resources  | `int32[7]` | 28            | Increments for each Resource type                  |
-| artifact   | `uint8`    | 1             | Enum `ArtifactType` or 0xFF if there's no artifact |
+| Field name | Type       | Size in bytes | Description                                                                                      |
+| ---------- | ---------- | ------------- | ------------------------------------------------------------------------------------------------ |
+| message    | `String16` | varies        | Message to display                                                                               |
+| resources  | `int32[7]` | 28            | Increments for each [`ResourceType`](../src/h3mtxt/Map/Constants/ResourceType.h)                 |
+| artifact   | `uint8`    | 1             | Enum [`ArtifactType`](../src/h3mtxt/Map/Constants/ArtifactType.h) or 0xFF if there's no artifact |
 
 
 ### `SeersHut`
-| Field name | Type     | Size in bytes | Description                                                                |
-| ---------- | -------- | ------------- | -------------------------------------------------------------------------- |
-| quest      | `Quest`  | varies        |                                                                            |
-| reward     | `Reward` | 12            |                                                                            |
-| reserved   |          | 1             | 0 by default; modifying the value seems to have no effect                  |
-| visited_by | `uint8`  | 1             | Bitmask; 1 bit per player, indicating if they have visited this Seer's Hut |
-| name       | `uint8`  | 1             | Enum `SeerName`                                                            |
+| Field name | Type                | Size in bytes | Description                                                     |
+| ---------- | ------------------- | ------------- | --------------------------------------------------------------- |
+| quest      | [`Quest`](#Quest)   | varies        |                                                                 |
+| reward     | [`Reward`](#Reward) | 12            |                                                                 |
+| reserved   |                     | 1             | 0 by default; modifying the value seems to have no effect       |
+| visited_by | `uint8`             | 1             | Bitmask; 1 bit per [`PlayerColor`](../src/h3mtxt/Map/Constants/PlayerColor.h), indicating if they have visited this Seer's Hut |
+| name       | `uint8`             | 1             | Enum [`SeerName`](../src/h3mtxt/SavedGame/Constants/SeerName.h) |
 
 
 ### `QuestGuard`
-| Field name | Type     | Size in bytes | Description                                                                 |
-| ---------- | -------- | ------------- | --------------------------------------------------------------------------- |
-| quest      | `Quest`  | varies        |                                                                             |
-| visited_by | `uint8`  | 1             | Bitmask; 1 bit per player, indicating if they have visited this Quest Guard |
+| Field name | Type              | Size in bytes | Description |
+| ---------- | ----------------- | ------------- | ----------- |
+| quest      | [`Quest`](#Quest) | varies        |             |
+| visited_by | `uint8`           | 1             | Bitmask; 1 bit per [`PlayerColor`](../src/h3mtxt/Map/Constants/PlayerColor.h), indicating if they have visited this Quest Guard |
 
 
 ### `TimedEvent`
-| Field name             | Type       | Size in bytes | Description                                                                   |
-| ---------------------- | ---------- | ------------- | ----------------------------------------------------------------------------- |
-| message                | `String16` | varies        | Text to display                                                               |
-| resources              | `int32[7]` | 28            | The amount to give/take for each Resource type                                |
-| affected_players       | `uint8`    | 1             | Bitmask; 1 bit per player, indicating if the player is affected by this event |
-| applies_to_human       | `Bool`     | 1             |                                                                               |
-| applies_to_computer    | `Bool`     | 1             |                                                                               |
-| day_of_first_occurence | `uint16`   | 2             | 0 means Month: 1, Week: 1, Day: 1                                             |
-| repeat_after_days      | `uint16`   | 2             | Frequency of the event; 0 means that the even does not repeat                 |
+| Field name             | Type       | Size in bytes | Description                                                   |
+| ---------------------- | ---------- | ------------- | ------------------------------------------------------------- |
+| message                | `String16` | varies        | Text to display                                               |
+| resources              | `int32[7]` | 28            | The amount to give/take for each [`ResourceType`](../src/h3mtxt/Map/Constants/ResourceType.h) |
+| affected_players       | `uint8`    | 1             | Bitmask; 1 bit per [`PlayerColor`](../src/h3mtxt/Map/Constants/PlayerColor.h), indicating if the player is affected by this event |
+| applies_to_human       | `Bool`     | 1             |                                                               |
+| applies_to_computer    | `Bool`     | 1             |                                                               |
+| day_of_first_occurence | `uint16`   | 2             | 0 means "Month: 1, Week: 1, Day: 1"                           |
+| repeat_after_days      | `uint16`   | 2             | Frequency of the event; 0 means that the even does not repeat |
 
 
 ### `TownEvent`
-| Field name             | Type        | Size in bytes | Description                                                                   |
-| ---------------------- | ----------- | ------------- | ----------------------------------------------------------------------------- |
-| message                | `String16`  | varies        | Text to display                                                               |
-| resources              | `int32[7]`  | 28            | The amount to give/take for each Resource type                                |
-| affected_players       | `uint8`     | 1             | Bitmask; 1 bit per player, indicating if the player is affected by this event |
-| applies_to_human       | `Bool`      | 1             |                                                                               |
-| applies_to_computer    | `Bool`      | 1             |                                                                               |
-| day_of_first_occurence | `uint16`    | 2             | 0 means Month: 1, Week: 1, Day: 1                                             |
-| repeat_after_days      | `uint16`    | 2             | Frequency of the event; 0 means that the even does not repeat                 |
-| town_id                | `uint8`     | 1             | ID of the affected town; see Town.id                                          |
-| buildings              | `uint8[6]`  | 6             | Bitmask; 1 bit per Town Building type, indicating if it should be built       |
-| reserved               |             | 2             | Not used; always [0, 0]                                                       |
-| creatures              | `uint16[7]` | 14            | The number of new recruits for each creature level                            |
+| Field name  | Type                        | Size in bytes | Description                                        |
+| ----------- | --------------------------- | ------------- | -------------------------------------------------- |
+| timed_event | [`TimedEvent`](#TimedEvent) | varies        | Base data                                          |
+| town_id     | `uint8`                     | 1             | ID of the affected town; see Town.id               |
+| buildings   | `uint8[6]`                  | 6             | Bitmask; 1 bit per [`TownBuildingType`](../src/h3mtxt/Map/Constants/TownBuildingType.h), indicating if it should be built |
+| reserved    |                             | 2             | Not used; always [0, 0]                            |
+| creatures   | `uint16[7]`                 | 14            | The number of new recruits for each creature level |
 
 
 ### `Sign`
@@ -555,35 +547,35 @@ except `allow_normal_win` and `applies_to_computer`.
 
 
 ### `Mine`
-| Field name        | Type                          | Size in bytes | Description                                        |
-| ----------------- | ----------------------------- | ------------- | -------------------------------------------------- |
-| owner             | `uint8`                       | 1             | Enum `PlayerColor`                                 |
-| type              | `uint8`                       | 1             | Enum `ResourceType` or 100 if this is a Lighthouse |
-| is_abandoned_mine | `Bool`                        | 1             | 1 if this is an Abandoned Mine, 0 otherwise        |
-| creatures         | [`Troops`](#Troops)           | 56            | Creatures guarding this mine                       |
-| coordinates       | [`Coordinates`](#Coordinates) | 3             |                                                    |
+| Field name        | Type                          | Size in bytes | Description                                                     |
+| ----------------- | ----------------------------- | ------------- | --------------------------------------------------------------- |
+| owner             | `uint8`                       | 1             | Enum [`PlayerColor`](../src/h3mtxt/Map/Constants/PlayerColor.h) |
+| type              | `uint8`                       | 1             | Enum [`ResourceType`](../src/h3mtxt/Map/Constants/ResourceType.h) or 100 if this is a Lighthouse |
+| is_abandoned_mine | `Bool`                        | 1             | 1 if this is an Abandoned Mine, 0 otherwise                     |
+| creatures         | [`Troops`](#Troops)           | 56            | Creatures guarding this mine                                    |
+| coordinates       | [`Coordinates`](#Coordinates) | 3             |                                                                 |
 
 
 ### `Garrison`
-| Field name       | Type                          | Size in bytes | Description                            |
-| ---------------- | ----------------------------- | ------------- | -------------------------------------- |
-| owner            | `uint8`                       | 1             | Enum `PlayerColor`                     |
-| creatures        | [`Troops`](#Troops)           | 56            |                                        |
-| coordinates      | [`Coordinates`](#Coordinates) | 3             |                                        |
-| can_remove_units | `Bool`                        | 1             | Indicates whether troops are removable |
+| Field name       | Type                          | Size in bytes | Description                                                     |
+| ---------------- | ----------------------------- | ------------- | --------------------------------------------------------------- |
+| owner            | `uint8`                       | 1             | Enum [`PlayerColor`](../src/h3mtxt/Map/Constants/PlayerColor.h) |
+| creatures        | [`Troops`](#Troops)           | 56            |                                                                 |
+| coordinates      | [`Coordinates`](#Coordinates) | 3             |                                                                 |
+| can_remove_units | `Bool`                        | 1             | Indicates whether troops are removable                          |
 
 
 ### `Dwelling`
-| Field name      | Type                          | Size in bytes | Description                                         |
-| --------------- | ----------------------------- | ------------- | --------------------------------------------------- |
-| owner           | `uint8`                       | 1             | Enum `PlayerColor`                                  |
-| object_class    | `uint8`                       | 1             | Enum `ObjectClass`. Should be either 17 or 20       |
-| object_subclass | `uint8`                       | 1             | Defines the type of the creatures in this dwelling  |
-| creature_types  | `uint8[4]`                    | 4             | Enum `CreatureType` for each slot                   |
-| creature_counts | `uint16[4]`                   | 8             | The number of available creatures for each slot     |
-| coordinates     | [`Coordinates`](#Coordinates) | 3             | Coordinates on the Adventure Map                    |
-| guardians       | [`Troops`](#Troops)           | 56            | Creatures guarding this dwelling                    |
-| unknown         | `uint8`                       | 1             |                                                     |
+| Field name      | Type                          | Size in bytes | Description                                                     |
+| --------------- | ----------------------------- | ------------- | --------------------------------------------------------------- |
+| owner           | `uint8`                       | 1             | Enum [`PlayerColor`](../src/h3mtxt/Map/Constants/PlayerColor.h) |
+| object_class    | `uint8`                       | 1             | Enum [`ObjectClass`](../src/h3mtxt/Map/Constants/ObjectClass.h). Should be either 17 or 20 |
+| object_subclass | `uint8`                       | 1             | Defines the type of the creatures in this dwelling              |
+| creature_types  | `uint8[4]`                    | 4             | Enum [`CreatureType`](../src/h3mtxt/Map/Constants/CreatureType.h) for each slot |
+| creature_counts | `uint16[4]`                   | 8             | The number of available creatures for each slot                 |
+| coordinates     | [`Coordinates`](#Coordinates) | 3             | Coordinates on the Adventure Map                                |
+| guardians       | [`Troops`](#Troops)           | 56            | Creatures guarding this dwelling                                |
+| unknown         | `uint8`                       | 1             |                                                                 |
 
 
 ### `Boat`
@@ -605,9 +597,9 @@ except `allow_normal_win` and `applies_to_computer`.
 
 
 ### `Obelisk`
-| Field name | Type    | Size in bytes | Description                                                             |
-| ---------- | ------- | ------------- | ----------------------------------------------------------------------- |
-| visited_by | `uint8` | 1             | Bitmask; 1 bit per player, indicating if they have visited this Obelisk |
+| Field name | Type    | Size in bytes | Description |
+| ---------- | ------- | ------------- | ----------- |
+| visited_by | `uint8` | 1             | Bitmask; 1 bit per [`PlayerColor`](../src/h3mtxt/Map/Constants/PlayerColor.h), indicating if they have visited this Obelisk |
 
 
 ### `Player`
@@ -743,26 +735,26 @@ except `allow_normal_win` and `applies_to_computer`.
 
 
 ### `HeroArtifacts`
-| Field name | Type                      | Size in bytes | Description                                                                 |
-| ---------- | ------------------------- | ------------- | --------------------------------------------------------------------------- |
-| equipped   | [`HeroArtifact[19]`](#HeroArtifact) | 152 | Artifact in each slot                                                       |
-| backpack   | [`HeroArtifact[64]`](#HeroArtifact) | 512 | Artifacts in the backpack                                                   |
-| unknown    | `uint8`                   | 1             | TODO                                                                        |
-| locks      | `uint8[14]`               | 14            | The number of locks from combination artifacts per enum `ArtifactSlotGroup` |
+| Field name | Type                                | Size in bytes | Description               |
+| ---------- | ----------------------------------- | ------------- | ------------------------- |
+| equipped   | [`HeroArtifact[19]`](#HeroArtifact) | 152           | Artifact in each slot     |
+| backpack   | [`HeroArtifact[64]`](#HeroArtifact) | 512           | Artifacts in the backpack |
+| unknown    | `uint8`                             | 1             | TODO                      |
+| locks      | `uint8[14]`                         | 14            | The number of locks from combination artifacts per enum [`ArtifactSlotGroup`](../src/h3mtxt/SavedGame/Constants/ArtifactSlotGroup.h) |
 
 
 ### `HeroArtifact`
-| Field name | Type    | Size in bytes | Description                                                  |
-| ---------- | ------- | ------------- | ------------------------------------------------------------ |
-| type       | `int32` | 4             | Enum `ArtifactType` or 0xFFFFFFFF if there is no artifact    |
-| spell_type | `int32` | 4             | Enum `SpellType`. Only meaningful if type == 1 (SpellScroll) |
+| Field name | Type    | Size in bytes | Description                                                                                             |
+| ---------- | ------- | ------------- | ------------------------------------------------------------------------------------------------------- |
+| type       | `int32` | 4             | Enum [`ArtifactType`](../src/h3mtxt/Map/Constants/ArtifactType.h) or 0xFFFFFFFF if there is no artifact |
+| spell_type | `int32` | 4             | Enum [`SpellType`](../src/h3mtxt/Map/Constants/SpellType.h). Only meaningful if type == 1 (SpellScroll) |
 
 
 ### `TileVisibility`
-| Field name           | Type    | Size in bytes | Description                                                                    |
-| -------------------- | ------- | ------------- | ------------------------------------------------------------------------------ |
-| visibility           | `uint8` | 1             | Bitmask; 1 bit per `PlayerColor`, indicating if this tile is currently visible |
-| has_adjacent_monster | `Bool`  | 1             | 1 if there's a monster on this or adjacent tile, 0 otherwise                   |
+| Field name           | Type    | Size in bytes | Description                                                  |
+| -------------------- | ------- | ------------- | ------------------------------------------------------------ |
+| visibility           | `uint8` | 1             | Bitmask; 1 bit per [`PlayerColor`](../src/h3mtxt/Map/Constants/PlayerColor.h), indicating if this tile is currently visible |
+| has_adjacent_monster | `Bool`  | 1             | 1 if there's a monster on this or adjacent tile, 0 otherwise |
 
 
 ### `Portals`
@@ -790,13 +782,13 @@ except `allow_normal_win` and `applies_to_computer`.
 
 
 ### `University`
-| Field name | Type        | Size in bytes | Description                                                                                         |
-| ---------- | ----------- | ------------- | --------------------------------------------------------------------------------------------------- |
-| skills     | `uint32[4]` | 16            | Secondarky skills that can be learned in this University. Each element is enum `SecondarySkillType` |
+| Field name | Type        | Size in bytes | Description |
+| ---------- | ----------- | ------------- | ----------- |
+| skills     | `uint32[4]` | 16            | Secondarky skills that can be learned in this University. Each element is enum [`SecondarySkillType`](../src/h3mtxt/Map/Constants/SecondarySkillType.h) |
 
 
 ### `ReplayEvent`
-| Field name | Type                          | Size in bytes | Description                                            |
-| ---------- | ----------------------------- | ------------- | ------------------------------------------------------ |
-| type       | `uint8`                       | 1             | Enum `ReplayEventType`                                 |
-| details    | varies                        | varies        | TODO                                                   |
+| Field name | Type                          | Size in bytes | Description                                                                   |
+| ---------- | ----------------------------- | ------------- | ----------------------------------------------------------------------------- |
+| type       | `uint8`                       | 1             | Enum [`ReplayEventType`](../src/h3mtxt/SavedGame/Constants/ReplayEventType.h) |
+| details    | varies                        | varies        | TODO                                                                          |
