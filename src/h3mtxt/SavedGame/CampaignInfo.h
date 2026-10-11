@@ -86,7 +86,7 @@ namespace h3svg
     std::array<std::uint8_t, 2> unknown3 {};
     // 0-based index of the selected starting bonus from h3m::StartingOptions,
     // or -1 if there are no options.
-    std::int8_t starting_bonus_idx {};
+    std::int8_t starting_bonus_idx = -1;
     // The original filename of the .h3c file (this is used by View Scenario and Restart Scenario commands).
     // Serialized in H3SVC as a length-prefixed string; the length is serialized as a little-endian 32-bit integer.
     std::string filename;
