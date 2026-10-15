@@ -35,6 +35,9 @@ namespace Medea_NS
   std::string_view EnumCommentGetter::operator()(h3svg::HeroType16 value) const;
 
   template<>
+  std::string_view EnumCommentGetter::operator()(h3svg::HeroType32 value) const;
+
+  template<>
   std::string_view EnumCommentGetter::operator()(h3svg::ObjectClass8 value) const;
 
   template<>

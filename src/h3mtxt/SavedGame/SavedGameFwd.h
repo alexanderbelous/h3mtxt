@@ -90,7 +90,9 @@ namespace h3svg
 
   enum class HeroFlag;
 
-  enum class HeroType16 : std::uint16_t;
+  enum class HeroType16 : std::int16_t;
+
+  enum class HeroType32 : std::int32_t;
 
   enum class KeymastersTentType : std::uint8_t;
 

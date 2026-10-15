@@ -2,6 +2,7 @@
 
 #include <h3mtxt/SavedGame/SavedGameFwd.h>
 
+#include <h3mtxt/Map/Constants/HeroType.h>
 #include <h3mtxt/Map/Constants/PlayerColor.h>
 #include <h3mtxt/SavedGame/Constants/CompassPoint.h>
 #include <h3mtxt/SavedGame/Constants/ReplayEventType.h>
@@ -17,13 +18,13 @@ namespace h3svg
   struct ReplayEventDetailsBase
   {
     // Player for which this event was recorded.
-    PlayerColor player{};
+    PlayerColor player {};
   };
 
   template<>
   struct ReplayEventDetails<ReplayEventType::MoveHero> : ReplayEventDetailsBase
   {
-    std::uint32_t hero {};
+    HeroType32 hero {};
     CompassPoint direction {}; // TODO: rename to orientation -> this only affects the rendered sprite.
     CoordinatesPacked from;
     CoordinatesPacked to;
@@ -32,7 +33,7 @@ namespace h3svg
   template<>
   struct ReplayEventDetails<ReplayEventType::TeleportHero> : ReplayEventDetailsBase
   {
-    std::uint32_t hero{};
+    HeroType32 hero {};
     CompassPoint orientation {};
     CoordinatesPacked from;
     CoordinatesPacked to;
@@ -88,13 +89,13 @@ namespace h3svg
     CoordinatesPacked coordinates;
     // 0-based index of the object in SavedGame::objects.
     std::uint32_t object_idx {};
-    std::array<std::uint8_t, 8> unknown{};
+    std::array<std::uint8_t, 8> unknown {};
   };
 
   template<>
   struct ReplayEventDetails<ReplayEventType::HideHero> : ReplayEventDetailsBase
   {
-    std::uint32_t hero {};
+    HeroType32 hero {};
     // None if the hero is dismissed / defeated.
     PlayerColor owner_new = PlayerColor::None;
     PlayerColor owner_old {};
@@ -103,7 +104,7 @@ namespace h3svg
   template<>
   struct ReplayEventDetails<ReplayEventType::ShowHero> : ReplayEventDetailsBase
   {
-    std::uint32_t hero{};
+    HeroType32 hero {};
     PlayerColor owner_new {};
     // None if the hero has just been hired.
     PlayerColor owner_old = PlayerColor::None;
@@ -116,7 +117,7 @@ namespace h3svg
   template<>
   struct ReplayEventDetails<ReplayEventType::DefeatPlayer> : ReplayEventDetailsBase
   {
-    std::uint8_t unknown{};
+    std::uint8_t unknown {};
   };
 
   template<>

@@ -185,8 +185,19 @@ namespace Medea_NS
   template<>
   std::string_view EnumCommentGetter::operator()(h3svg::HeroType16 value) const
   {
-    const std::uint16_t integer_value = static_cast<std::uint16_t>(value);
-    if (integer_value < kNumHeroes)
+    // Delegate to EnumCommentGetter::operator()(h3svg::HeroType32).
+    return (*this)(static_cast<h3svg::HeroType32>(value));
+  }
+
+  template<>
+  std::string_view EnumCommentGetter::operator()(h3svg::HeroType32 value) const
+  {
+    using IntegerValue = std::underlying_type_t<h3svg::HeroType32>;
+    static_assert(std::is_signed_v<IntegerValue>, "The underlying type of h3svg::HeroType32 must be signed.");
+    constexpr IntegerValue kValueMin = -3; // Most Powerful Hero.
+    constexpr IntegerValue kValueMax = static_cast<IntegerValue>(kNumHeroes) - 1;
+    const IntegerValue integer_value = static_cast<IntegerValue>(value);
+    if (kValueMin <= integer_value && integer_value <= kValueMax)
     {
       return (*this)(static_cast<h3svg::HeroType>(static_cast<std::uint8_t>(integer_value)));
     }

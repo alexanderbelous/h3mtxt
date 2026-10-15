@@ -47,14 +47,14 @@ namespace h3svg
     ReplayEventDetails<T> details{ readReplayEventDetailsBase() };
     if constexpr (T == ReplayEventType::MoveHero)
     {
-      details.hero = readInt<std::uint32_t>();
+      details.hero = readEnum<HeroType32>();
       details.direction = readEnum<CompassPoint>();
       details.from = readCoordinatesPacked();
       details.to = readCoordinatesPacked();
     }
     else if constexpr (T == ReplayEventType::TeleportHero)
     {
-      details.hero = readInt<std::uint32_t>();
+      details.hero = readEnum<HeroType32>();
       details.orientation = readEnum<CompassPoint>();
       details.from = readCoordinatesPacked();
       details.to = readCoordinatesPacked();
@@ -92,13 +92,13 @@ namespace h3svg
     }
     else if constexpr (T == ReplayEventType::HideHero)
     {
-      details.hero = readInt<std::uint32_t>();
+      details.hero = readEnum<HeroType32>();
       details.owner_new = readEnum<PlayerColor>();
       details.owner_old = readEnum<PlayerColor>();
     }
     else if constexpr (T == ReplayEventType::ShowHero)
     {
-      details.hero = readInt<std::uint32_t>();
+      details.hero = readEnum<HeroType32>();
       details.owner_new = readEnum<PlayerColor>();
       details.owner_old = readEnum<PlayerColor>();
       details.coordinates_new = readCoordinatesPacked();
