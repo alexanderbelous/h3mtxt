@@ -1,10 +1,7 @@
 #pragma once
 
 #include <h3mtxt/H3Reader/H3ReaderBase/H3ReaderBase.h>
-#include <h3mtxt/Map/Constants/LossConditionType.h>
-#include <h3mtxt/Map/Constants/QuestType.h>
 #include <h3mtxt/Map/Constants/RewardType.h>
-#include <h3mtxt/Map/Constants/VictoryConditionType.h>
 #include <h3mtxt/SavedGame/SavedGameFwd.h>
 #include <h3mtxt/SavedGame/FixedLengthString.h>
 
@@ -21,6 +18,8 @@ namespace h3svg
 
     ArtifactMerchants readArtifactMerchants() const;
 
+    Boat readBoat() const;
+
     CampaignInfo readCampaignInfo() const;
 
     Coordinates readCoordinates() const;
@@ -32,8 +31,6 @@ namespace h3svg
     CrossoverInfo readCrossoverInfo() const;
 
     CustomHero readCustomHero() const;
-
-    Boat readBoat() const;
 
     Date readDate() const;
 
@@ -57,8 +54,7 @@ namespace h3svg
     LossCondition readLossCondition() const;
 
     // Defined in readLossCondition.cpp.
-    // Explicit instantiations are provided for LossConditionTypes that use the default template implementation.
-    // A specialization for LossConditionType::LoseHero is declared below.
+    // Template instantiations are provided for all valid LossConditionTypes.
     template<LossConditionType T>
     LossConditionDetails<T> readLossConditionDetails() const;
 
@@ -89,8 +85,7 @@ namespace h3svg
     Quest readQuest() const;
 
     // Defined in readQuest.cpp.
-    // Explicit instantiations are provided for QuestTypes that use the default template implementation.
-    // A few specializations are declared below.
+    // Template instantiations are provided for all valid QuestTypes.
     template<QuestType T>
     QuestDetails<T> readQuestDetails() const;
 
@@ -142,9 +137,9 @@ namespace h3svg
 
     TimedEvent readTimedEvent() const;
 
-    TownEvent readTownEvent() const;
-
     Town readTown() const;
+
+    TownEvent readTownEvent() const;
 
     TownUniqueBuildingsProperties readTownUniqueBuildingsProperties() const;
 
@@ -155,8 +150,7 @@ namespace h3svg
     VictoryCondition readVictoryCondition() const;
 
     // Defined in readVictoryCondition.cpp.
-    // Explicit instantiations are provided for VictoryConditionTypes that use the default template implementation.
-    // A few specializations are declared below.
+    // Template instantiations are provided for all valid VictoryConditionTypes.
     template<VictoryConditionType T>
     VictoryConditionDetails<T> readVictoryConditionDetails() const;
   };
@@ -168,18 +162,6 @@ namespace h3svg
     readBytes(std::as_writable_bytes(str.buffer()));
     return str;
   }
-
-  template<> LossConditionDetails<LossConditionType::LoseHero> H3SVGReader::readLossConditionDetails() const;
-
-  template<> QuestDetails<QuestType::Level> H3SVGReader::readQuestDetails() const;
-
-  template<> QuestDetails<QuestType::DefeatHero> H3SVGReader::readQuestDetails() const;
-
-  template<> QuestDetails<QuestType::DefeatMonster> H3SVGReader::readQuestDetails() const;
-
-  template<> QuestDetails<QuestType::Creatures> H3SVGReader::readQuestDetails() const;
-
-  template<> QuestDetails<QuestType::BeHero> H3SVGReader::readQuestDetails() const;
 
   template<RewardType T>
   RewardDetails<T> H3SVGReader::readRewardDetails() const
@@ -208,13 +190,4 @@ namespace h3svg
   template<> RewardDetails<RewardType::Spell> H3SVGReader::readRewardDetails() const;
 
   template<> RewardDetails<RewardType::Creatures> H3SVGReader::readRewardDetails() const;
-
-  template<>
-  VictoryConditionDetails<VictoryConditionType::AcquireArtifact> H3SVGReader::readVictoryConditionDetails() const;
-
-  template<>
-  VictoryConditionDetails<VictoryConditionType::AccumulateCreatures> H3SVGReader::readVictoryConditionDetails() const;
-
-  template<>
-  VictoryConditionDetails<VictoryConditionType::DefeatHero> H3SVGReader::readVictoryConditionDetails() const;
 }

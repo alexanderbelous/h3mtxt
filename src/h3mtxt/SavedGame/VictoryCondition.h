@@ -12,9 +12,6 @@
 
 namespace h3svg
 {
-  // Reuse a few things from H3M.
-  using ::h3m::kNumSpecialVictoryConditions;
-
   // The default implementation reuses h3m::VictoryConditionDetails
   template<VictoryConditionType T>
   struct VictoryConditionDetails : h3m::VictoryConditionDetails<T>
@@ -91,12 +88,12 @@ namespace h3svg
 
   constexpr VictoryConditionType VictoryCondition::type() const noexcept
   {
-    static_assert(std::is_same_v<std::variant_alternative_t<kNumSpecialVictoryConditions, Details>,
+    static_assert(std::is_same_v<std::variant_alternative_t<h3m::kNumSpecialVictoryConditions, Details>,
                                  VictoryConditionDetails<VictoryConditionType::Normal>>,
                   "kNumSpecialVictoryConditions must be the index of the alternative for Normal victory condition.");
 
     const std::size_t index = details.index();
-    if (index == kNumSpecialVictoryConditions)
+    if (index == h3m::kNumSpecialVictoryConditions)
     {
       return VictoryConditionType::Normal;
     }

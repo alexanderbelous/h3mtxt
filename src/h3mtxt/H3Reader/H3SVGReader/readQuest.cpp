@@ -29,77 +29,52 @@ namespace h3svg
     }
   }
 
-  // The default implementation reuses H3MReader.
   template<QuestType T>
   QuestDetails<T> H3SVGReader::readQuestDetails() const
   {
-    // Sanity checks.
-    static_assert(std::is_base_of_v<h3m::QuestDetails<T>, QuestDetails<T>>,
-                  "h3svg::QuestDetails<T> must be derived from h3m::QuestDetails<T>.");
-    static_assert(sizeof(QuestDetails<T>) == sizeof(h3m::QuestDetails<T>),
-                  "h3svg::QuestDetails<T> must have the same size as h3m::QuestDetails<T>.");
-    return { h3m::H3MReader{stream_}.readQuestDetails<T>() };
-  }
-
-  template
-  QuestDetails<QuestType::None> H3SVGReader::readQuestDetails() const;
-
-  template
-  QuestDetails<QuestType::PrimarySkills> H3SVGReader::readQuestDetails() const;
-
-  template
-  QuestDetails<QuestType::Artifacts> H3SVGReader::readQuestDetails() const;
-
-  template
-  QuestDetails<QuestType::Resources> H3SVGReader::readQuestDetails() const;
-
-  template
-  QuestDetails<QuestType::BePlayer> H3SVGReader::readQuestDetails() const;
-
-  template<>
-  QuestDetails<QuestType::Level> H3SVGReader::readQuestDetails() const
-  {
-    return QuestDetails<QuestType::Level> { .level = readInt<std::int16_t>() };
-  }
-
-  template<>
-  QuestDetails<QuestType::DefeatHero> H3SVGReader::readQuestDetails() const
-  {
-    QuestDetails<QuestType::DefeatHero> details;
-    details.hero = readEnum<HeroType16>();
-    details.completed_by = readEnumBitmask<PlayerColor, 1>();
-    return details;
-  }
-
-  template<>
-  QuestDetails<QuestType::DefeatMonster> H3SVGReader::readQuestDetails() const
-  {
-    QuestDetails<QuestType::DefeatMonster> details;
-    details.coordinates = readCoordinatesPacked();
-    details.creature_type = readEnum<CreatureType>();
-    details.completed_by = readEnum<PlayerColor>();
-    return details;
-  }
-
-  template<>
-  QuestDetails<QuestType::Creatures> H3SVGReader::readQuestDetails() const
-  {
-    QuestDetails<QuestType::Creatures> details;
-    const std::uint8_t num_creature_stacks = readInt<std::uint8_t>();
-    details.creatures.reserve(num_creature_stacks);
-    for (std::uint8_t i = 0; i < num_creature_stacks; ++i)
+    if constexpr (std::is_base_of_v<h3m::QuestDetails<T>, QuestDetails<T>> &&
+                  sizeof(QuestDetails<T>) == sizeof(h3m::QuestDetails<T>))
     {
-      details.creatures.push_back(readTypedQuantity<CreatureType, std::int32_t>());
+      // Reuse H3MReader.
+      return { h3m::H3MReader{stream_}.readQuestDetails<T>() };
     }
-    return details;
-  }
-
-  template<>
-  QuestDetails<QuestType::BeHero> H3SVGReader::readQuestDetails() const
-  {
-    QuestDetails<QuestType::BeHero> details;
-    details.hero = readEnum<HeroType16>();
-    return details;
+    else
+    {
+      QuestDetails<T> details;
+      if constexpr (T == QuestType::Level)
+      {
+        details.level = readInt<std::int16_t>();
+      }
+      else if constexpr (T == QuestType::DefeatHero)
+      {
+        details.hero = readEnum<HeroType16>();
+        details.completed_by = readEnumBitmask<PlayerColor, 1>();
+      }
+      else if constexpr (T == QuestType::DefeatMonster)
+      {
+        details.coordinates = readCoordinatesPacked();
+        details.creature_type = readEnum<CreatureType>();
+        details.completed_by = readEnum<PlayerColor>();
+      }
+      else if constexpr (T == QuestType::Creatures)
+      {
+        const std::uint8_t num_creature_stacks = readInt<std::uint8_t>();
+        details.creatures.reserve(num_creature_stacks);
+        for (std::uint8_t i = 0; i < num_creature_stacks; ++i)
+        {
+          details.creatures.push_back(readTypedQuantity<CreatureType, std::int32_t>());
+        }
+      }
+      else if constexpr (T == QuestType::BeHero)
+      {
+        details.hero = readEnum<HeroType16>();
+      }
+      else
+      {
+        static_assert(false, "Invalid QuestType.");
+      }
+      return details;
+    }
   }
 
   Quest H3SVGReader::readQuest() const
