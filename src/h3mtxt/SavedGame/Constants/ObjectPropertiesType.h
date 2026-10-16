@@ -12,6 +12,10 @@ namespace h3svg
   {
     None,  // Used for objects that don't have properties (e.g., mountains, flowers, etc).
     BlackMarket,
+    Campfire,
+    CreatureBank,
+    Dwelling,
+    Corpse,
     WitchHut
   };
 
@@ -26,6 +30,17 @@ namespace h3svg
     {
     case ObjectClass::BLACK_MARKET:
       return ObjectPropertiesType::BlackMarket;
+    case ObjectClass::CAMPFIRE:
+      return ObjectPropertiesType::Campfire;
+    case ObjectClass::CREATURE_BANK:
+    case ObjectClass::DERELICT_SHIP:
+    case ObjectClass::DRAGON_UTOPIA:
+      return ObjectPropertiesType::CreatureBank;
+    case ObjectClass::CREATURE_GENERATOR1:
+      // TODO: probably should be returned for CREATURE_GENERATOR4 as well.
+      return ObjectPropertiesType::Dwelling;
+    case ObjectClass::CORPSE:
+      return ObjectPropertiesType::Corpse;
     case ObjectClass::WITCH_HUT:
       return ObjectPropertiesType::WitchHut;
     default:

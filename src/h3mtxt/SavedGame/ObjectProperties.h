@@ -2,14 +2,21 @@
 
 #include <h3mtxt/SavedGame/SavedGameFwd.h>
 
+#include <h3mtxt/Map/Constants/ArtifactType.h>
+#include <h3mtxt/Map/Constants/PlayerColor.h>
+#include <h3mtxt/Map/Constants/ResourceType.h>
+#include <h3mtxt/Map/Utils/EnumBitmask.h>
 #include <h3mtxt/Map/Utils/ReservedData.h>
 #include <h3mtxt/SavedGame/Constants/ObjectPropertiesType.h>
 
 #include <cstdint>
-#include <variant>
 
 namespace h3svg
 {
+  // In H3SVG the "simple" properties of an object on the Adventure Map are always serialized as 4 bytes,
+  // whose meaning depends on ObjectClass.
+  // Credits to Maurice for reverse-engineering: http://heroescommunity.com/viewthread.php3?TID=46018
+
   // The equivalent of h3m::ObjectProperties stored in saved games.
   //
   // The properties of objects in H3SVG differ from their properties in H3M: for example, a
@@ -58,17 +65,46 @@ namespace h3svg
   struct ObjectProperties<ObjectPropertiesType::BlackMarket>
   {
     // 0-based index of the element in SavedGame::black_markets.
-    std::uint32_t black_market_idx {};
+    std::uint32_t index {};
   };
 
-  struct ObjectPropertiesVariant
+  template<>
+  struct ObjectProperties<ObjectPropertiesType::Campfire>
   {
-    using Details = std::variant<
-      ObjectProperties<ObjectPropertiesType::None>,
-      ObjectProperties<ObjectPropertiesType::BlackMarket>
-      //ObjectProperties<ObjectPropertiesType::WitchHut>
-    >;
+    ReservedData<3> reserved;
+    std::uint8_t quantity : 4 = 0;
+    ResourceType resource_type : 4 {};
+  };
 
-    Details details = ObjectProperties<ObjectPropertiesType::None>{};
+  template<>
+  struct ObjectProperties<ObjectPropertiesType::CreatureBank>
+  {
+    // Not used; 5 bits, always 1s by default.
+    std::int8_t reserved1 : 5 = -1;
+    PlayersBitmask visited_by;
+    // 0-based of the element in SavedGame::creature_banks.
+    // TODO: a few MSBs are not part of the index, they mean something else.
+    std::uint16_t index : 14 = {};
+    // Not used; 5 bits, always 1s by default.
+    std::int8_t reserved2 : 5 = -1;
+  };
+
+  template<>
+  struct ObjectProperties<ObjectPropertiesType::Dwelling>
+  {
+    // 0-based index of the element in ObjectPropertiesTables::dwellings.
+    std::uint32_t index {};
+  };
+
+  template<>
+  struct ObjectProperties<ObjectPropertiesType::Corpse>
+  {
+    // 0-based index of the corpse. This is used in h3svg::Player::corpses to keep track
+    // of the corpses visited by the player.
+    std::uint16_t id : 5 = {};
+    std::uint16_t reserved1 : 1 = 1;
+    ArtifactType artifact : 10 = ArtifactType::None;
+    std::uint16_t is_lootable : 1 = false;
+    std::int16_t reserved2 : 15 = -1;
   };
 }

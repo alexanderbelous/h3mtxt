@@ -192,8 +192,6 @@ namespace h3svg
 
   struct ObjectPropertiesTables;
 
-  struct ObjectPropertiesVariant;
-
   struct ObjectTemplate;
 
   struct Player;

@@ -8,6 +8,7 @@
 #include <h3mtxt/Map/Constants/TerrainType.h>
 #include <h3mtxt/Map/Utils/EnumBitmask.h>
 #include <h3mtxt/SavedGame/Constants/TileFlag.h>
+#include <h3mtxt/SavedGame/ObjectPropertiesData.h>
 
 #include <array>
 #include <cstddef>
@@ -51,16 +52,16 @@ namespace h3svg
     std::uint8_t road_sprite = 0;
     TileFlags flags;
     // Note: in H3SVG it is serialized as a 16-bit integer, even though in h3m it is serialized as a 32-bit integer.
-    ObjectClass16 object_class {};
+    ObjectClass16 object_class = static_cast<ObjectClass16>(ObjectClass::NONE);
     // * If (object_class == 0 || object_class == 3): should store 0xFFFF.
     // * Otherwise, the behavior varies. Often, this is equal to object_subclass from the template used by this object,
     //   but sometimes it's an independent value - for example, for Refugee Camp it stores CreatureType of the
     //   currently available creature.
     // object_subclass or  0xFFFF if there's no object on this tile (i.e. if object_class == 0 || object_class == 3).
-    std::uint16_t object_subclass {};
+    std::uint16_t object_subclass = static_cast<std::uint16_t>(-1);
     // 0-based index of the object in SavedGame::objects that is displayed on this tile,
-    // or 0xFFFF if there is no object on this tile
-    std::uint16_t object_idx {};
+    // or 0xFFFF if there is no object on this tile.
+    std::uint16_t object_idx = static_cast<std::uint16_t>(-1);
     // Properties of the object at this tile.
     // This is always serialized in H3SVG as 4 bytes, but their meaning depends on object_class and object_subclass.
     // Credits to Maurice for reverse-engineering: http://heroescommunity.com/viewthread.php3?TID=46018
