@@ -173,7 +173,7 @@ namespace h3m
 
     // Constructs an explicit array.
     // \param data - values to assign to the elements.
-    explicit ReservedData(const std::array<std::byte, NumBytes>& data);
+    explicit constexpr ReservedData(const std::array<std::byte, NumBytes>& data);
 
     // \return NumBytes.
     constexpr std::size_t size() const noexcept;
@@ -204,7 +204,7 @@ namespace h3m
 
     // Allocates memory for the elements, if needed.
     // isExplicit() will return true after this call.
-    void makeExplicit();
+    constexpr void makeExplicit();
 
     // Equality comparison.
     // \param other - ReservedData to compare with.
@@ -217,7 +217,7 @@ namespace h3m
   };
 
   template<std::size_t NumBytes>
-  ReservedData<NumBytes>::ReservedData(const std::array<std::byte, NumBytes>& data)
+  constexpr ReservedData<NumBytes>::ReservedData(const std::array<std::byte, NumBytes>& data)
   {
     storage_.makeExplicit();
     std::copy_n(data.data(), NumBytes, storage_.data());
@@ -265,7 +265,7 @@ namespace h3m
   }
 
   template<std::size_t NumBytes>
-  void ReservedData<NumBytes>::makeExplicit()
+  constexpr void ReservedData<NumBytes>::makeExplicit()
   {
     storage_.makeExplicit();
   }
