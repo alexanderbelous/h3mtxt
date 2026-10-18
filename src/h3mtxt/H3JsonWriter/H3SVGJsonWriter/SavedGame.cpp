@@ -8,6 +8,7 @@
 #include <h3mtxt/JsonCommon/FieldNamesH3SVG.h>
 #include <h3mtxt/Medea/Medea.h>
 #include <h3mtxt/SavedGame/SavedGame.h>
+#include <h3mtxt/SavedGame/ObjectPropertiesData.h>
 
 namespace Medea_NS
 {
@@ -222,6 +223,41 @@ namespace Medea_NS
     out.writeField(Fields::kObjectSubclass, tile.object_subclass);
     out.writeField(Fields::kObjectIdx, tile.object_idx);
     out.writeField(Fields::kObjectProperties, tile.object_properties);
+    // Experimental: serialize the properties as structured data.
+    const h3svg::ObjectPropertiesType object_properties_type =
+      h3svg::getObjectPropertiesType(tile.object_class, tile.object_subclass);
+    const h3svg::ObjectPropertiesData object_properties_data = {
+      .data = {
+        static_cast<std::uint8_t>(tile.object_properties[0]),
+        static_cast<std::uint8_t>(tile.object_properties[1]),
+        static_cast<std::uint8_t>(tile.object_properties[2]),
+        static_cast<std::uint8_t>(tile.object_properties[3])
+      }
+    };
+    switch (object_properties_type)
+    {
+    case h3svg::ObjectPropertiesType::None:
+      out.writeField("object_properties2", object_properties_data.get<h3svg::ObjectPropertiesType::None>());
+      break;
+    case h3svg::ObjectPropertiesType::BlackMarket:
+      out.writeField("object_properties2", object_properties_data.get<h3svg::ObjectPropertiesType::BlackMarket>());
+      break;
+    case h3svg::ObjectPropertiesType::Campfire:
+      out.writeField("object_properties2", object_properties_data.get<h3svg::ObjectPropertiesType::Campfire>());
+      break;
+    case h3svg::ObjectPropertiesType::CreatureBank:
+      out.writeField("object_properties2", object_properties_data.get<h3svg::ObjectPropertiesType::CreatureBank>());
+      break;
+    case h3svg::ObjectPropertiesType::Dwelling:
+      out.writeField("object_properties2", object_properties_data.get<h3svg::ObjectPropertiesType::Dwelling>());
+      break;
+    case h3svg::ObjectPropertiesType::Corpse:
+      out.writeField("object_properties2", object_properties_data.get<h3svg::ObjectPropertiesType::Corpse>());
+      break;
+    default:
+      break;
+    }
+    //
     out.writeField(Fields::kObjectsToRender, tile.objects_to_render);
   }
 

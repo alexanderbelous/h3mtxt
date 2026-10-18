@@ -16,6 +16,10 @@ namespace h3svg
     CreatureBank,
     Dwelling,
     Corpse,
+    Floatsam,
+    FountainOfFortune,
+    Garrison,
+    LeanTo,
     WitchHut
   };
 
@@ -41,6 +45,15 @@ namespace h3svg
       return ObjectPropertiesType::Dwelling;
     case ObjectClass::CORPSE:
       return ObjectPropertiesType::Corpse;
+    case ObjectClass::FLOTSAM:
+      return ObjectPropertiesType::Floatsam;
+    case ObjectClass::FOUNTAIN_OF_FORTUNE:
+      return ObjectPropertiesType::FountainOfFortune;
+    case ObjectClass::GARRISON:
+    case ObjectClass::GARRISON2:
+      return ObjectPropertiesType::Garrison;
+    case ObjectClass::LEAN_TO:
+      return ObjectPropertiesType::LeanTo;
     case ObjectClass::WITCH_HUT:
       return ObjectPropertiesType::WitchHut;
     default:

@@ -5,6 +5,7 @@ add_library(H3SVGJsonWriter STATIC
     "H3SVGJsonWriter.h"
     "Hero.cpp"
     "LossCondition.cpp"
+    "ObjectProperties.cpp"
     "ObjectPropertiesTables.cpp"
     "Portals.cpp"
     "Player.cpp"

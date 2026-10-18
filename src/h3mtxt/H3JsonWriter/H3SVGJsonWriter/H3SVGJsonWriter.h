@@ -175,6 +175,15 @@ namespace Medea_NS
   template<>
   void JsonObjectWriter<h3svg::ObjectExits>::operator()(FieldsWriter& out, const h3svg::ObjectExits& object_exits) const;
 
+  // Partial specialization for h3svg::ObjectProperties.
+  template<h3svg::ObjectPropertiesType T>
+  struct JsonObjectWriter<h3svg::ObjectProperties<T>>
+  {
+    // Defined in ObjectProperties.cpp.
+    // Template instantiations are provided for all valid ObjectPropertiesTypes.
+    void operator()(FieldsWriter& out, const h3svg::ObjectProperties<T>& properties) const;
+  };
+
   template<>
   void JsonObjectWriter<h3svg::ObjectPropertiesTables>::operator()(FieldsWriter& out,
                                                                    const h3svg::ObjectPropertiesTables& tables) const;
