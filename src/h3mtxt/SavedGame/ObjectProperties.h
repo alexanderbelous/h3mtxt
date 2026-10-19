@@ -120,6 +120,29 @@ namespace h3svg
   };
 
   template<>
+  struct ObjectProperties<ObjectPropertiesType::SeersHut>
+  {
+    // 0-based index of the element in ObjectPropertiesTables::seers_huts.
+    std::uint32_t index {};
+  };
+
+  template<>
+  struct ObjectProperties<ObjectPropertiesType::Shrine>
+  {
+    PlayersBitmask visited_by;        // Bits [5; 12]
+    std::int16_t spell : 10 {};       // Bits [13; 22]
+    std::int16_t reserved1 : 5 = -1;  // Bits [0; 4]
+    std::int16_t reserved2 : 9 = -1;  // Bits [23; 31]
+  };
+
+  template<>
+  struct ObjectProperties<ObjectPropertiesType::Sign>
+  {
+    // 0-based index of the element in ObjectPropertiesTables::signs_and_ocean_bottles.
+    std::uint32_t index {};
+  };
+
+  template<>
   struct ObjectProperties<ObjectPropertiesType::University>
   {
     std::int32_t reserved1 : 5 = -1;  // Bits [0; 4]

@@ -98,12 +98,22 @@ namespace h3svg
       // \return the deserialized bits as a 32-bit integer.
       constexpr std::uint32_t readImpl(std::size_t num_bits)
       {
-        constexpr std::uint32_t kAllOnes = static_cast<std::uint32_t>(-1);
-        // Mask with bits [0; num_bits) set to 1 and the rest set to 0.
-        const std::uint32_t mask = static_cast<std::uint32_t>(~(kAllOnes << num_bits));
-        const std::uint32_t result = data_as_int_ & mask;
-        data_as_int_ >>= num_bits;
-        return result;
+        // Edge case: num_bits == 32.
+        if (num_bits >= 32)
+        {
+          // Ideally, we should also assign 0 to data_as_int_. However, reading more
+          // bits would be an error anyway, so screw it.
+          return data_as_int_;
+        }
+        else
+        {
+          constexpr std::uint32_t kAllOnes = static_cast<std::uint32_t>(-1);
+          // Mask with bits [0; num_bits) set to 1 and the rest set to 0.
+          const std::uint32_t mask = static_cast<std::uint32_t>(~(kAllOnes << num_bits));
+          const std::uint32_t result = data_as_int_ & mask;
+          data_as_int_ >>= num_bits;
+          return result;
+        }
       }
 
       // Input bits.
@@ -217,6 +227,51 @@ namespace h3svg
   // TODO
   template<>
   constexpr void ObjectPropertiesData::set(const ObjectProperties<ObjectPropertiesType::Corpse>& properties);
+
+  // ==================== SeersHut ====================
+  template<>
+  constexpr ObjectProperties<ObjectPropertiesType::SeersHut> ObjectPropertiesData::get() const
+  {
+    Detail_NS::BitsReader reader{ data };
+    return {
+      .index = reader.readInt<std::uint32_t, 32>()
+    };
+  }
+
+  // TODO
+  template<>
+  constexpr void ObjectPropertiesData::set(const ObjectProperties<ObjectPropertiesType::SeersHut>& properties);
+
+  // ==================== Shrine ====================
+  template<>
+  constexpr ObjectProperties<ObjectPropertiesType::Shrine> ObjectPropertiesData::get() const
+  {
+    ObjectProperties<ObjectPropertiesType::Shrine> properties;
+    Detail_NS::BitsReader reader{ data };
+    properties.reserved1 = reader.readInt<std::int16_t, 5>();
+    properties.visited_by.bitset.data[0] = reader.readInt<std::uint8_t, 8>();
+    properties.spell = reader.readInt<std::int16_t, 10>();
+    properties.reserved2 = reader.readInt<std::int16_t, 9>();
+    return properties;
+  }
+
+  // TODO
+  template<>
+  constexpr void ObjectPropertiesData::set(const ObjectProperties<ObjectPropertiesType::Shrine>& properties);
+
+  // ==================== Sign ====================
+  template<>
+  constexpr ObjectProperties<ObjectPropertiesType::Sign> ObjectPropertiesData::get() const
+  {
+    Detail_NS::BitsReader reader{ data };
+    return {
+      .index = reader.readInt<std::uint32_t, 32>()
+    };
+  }
+
+  // TODO
+  template<>
+  constexpr void ObjectPropertiesData::set(const ObjectProperties<ObjectPropertiesType::Sign>& properties);
 
   // ==================== University ====================
   template<>

@@ -20,6 +20,9 @@ namespace h3svg
     FountainOfFortune,
     Garrison,
     LeanTo,
+    SeersHut,
+    Shrine,
+    Sign,
     University,
     WitchHut
   };
@@ -55,6 +58,15 @@ namespace h3svg
       return ObjectPropertiesType::Garrison;
     case ObjectClass::LEAN_TO:
       return ObjectPropertiesType::LeanTo;
+    case ObjectClass::SHRINE_OF_MAGIC_INCANTATION:
+    case ObjectClass::SHRINE_OF_MAGIC_GESTURE:
+    case ObjectClass::SHRINE_OF_MAGIC_THOUGHT:
+      return ObjectPropertiesType::Shrine;
+    case ObjectClass::OCEAN_BOTTLE:
+    case ObjectClass::SIGN:
+      return ObjectPropertiesType::Sign;
+    case ObjectClass::SEER_HUT:
+      return ObjectPropertiesType::SeersHut;
     case ObjectClass::UNIVERSITY:
       return ObjectPropertiesType::University;
     case ObjectClass::WITCH_HUT:

@@ -49,6 +49,21 @@ namespace Medea_NS
       out.writeField("is_lootable", properties.is_lootable);
       out.writeField("reserved2", properties.reserved2);
     }
+    else if constexpr (T == ObjectPropertiesType::SeersHut)
+    {
+      out.writeField("index", properties.index);
+    }
+    else if constexpr (T == ObjectPropertiesType::Shrine)
+    {
+      out.writeField("reserved1", properties.reserved1);
+      out.writeField("visited_by", properties.visited_by);
+      out.writeField("spell", properties.spell);
+      out.writeField("reserved2", properties.reserved2);
+    }
+    else if constexpr (T == ObjectPropertiesType::Sign)
+    {
+      out.writeField("index", properties.index);
+    }
     else if constexpr (T == ObjectPropertiesType::University)
     {
       out.writeField("reserved1", properties.reserved1);
@@ -88,6 +103,18 @@ namespace Medea_NS
   template
   void JsonObjectWriter<ObjectProperties<ObjectPropertiesType::Corpse>>::operator()(
     FieldsWriter& out, const ObjectProperties<ObjectPropertiesType::Corpse>&) const;
+
+  template
+  void JsonObjectWriter<ObjectProperties<ObjectPropertiesType::SeersHut>>::operator()(
+    FieldsWriter& out, const ObjectProperties<ObjectPropertiesType::SeersHut>&) const;
+
+  template
+  void JsonObjectWriter<ObjectProperties<ObjectPropertiesType::Shrine>>::operator()(
+    FieldsWriter& out, const ObjectProperties<ObjectPropertiesType::Shrine>&) const;
+
+  template
+  void JsonObjectWriter<ObjectProperties<ObjectPropertiesType::Sign>>::operator()(
+    FieldsWriter& out, const ObjectProperties<ObjectPropertiesType::Sign>&) const;
 
   template
   void JsonObjectWriter<ObjectProperties<ObjectPropertiesType::University>>::operator()(

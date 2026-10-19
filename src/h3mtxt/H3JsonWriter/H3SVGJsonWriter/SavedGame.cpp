@@ -254,6 +254,15 @@ namespace Medea_NS
     case h3svg::ObjectPropertiesType::Corpse:
       out.writeField("object_properties2", object_properties_data.get<h3svg::ObjectPropertiesType::Corpse>());
       break;
+    case h3svg::ObjectPropertiesType::SeersHut:
+      out.writeField("object_properties2", object_properties_data.get<h3svg::ObjectPropertiesType::SeersHut>());
+      break;
+    case h3svg::ObjectPropertiesType::Shrine:
+      out.writeField("object_properties2", object_properties_data.get<h3svg::ObjectPropertiesType::Shrine>());
+      break;
+    case h3svg::ObjectPropertiesType::Sign:
+      out.writeField("object_properties2", object_properties_data.get<h3svg::ObjectPropertiesType::Sign>());
+      break;
     case h3svg::ObjectPropertiesType::University:
       out.writeField("object_properties2", object_properties_data.get<h3svg::ObjectPropertiesType::University>());
       break;
