@@ -254,6 +254,12 @@ namespace Medea_NS
     case h3svg::ObjectPropertiesType::Corpse:
       out.writeField("object_properties2", object_properties_data.get<h3svg::ObjectPropertiesType::Corpse>());
       break;
+    case h3svg::ObjectPropertiesType::University:
+      out.writeField("object_properties2", object_properties_data.get<h3svg::ObjectPropertiesType::University>());
+      break;
+    case h3svg::ObjectPropertiesType::WitchHut:
+      out.writeField("object_properties2", object_properties_data.get<h3svg::ObjectPropertiesType::WitchHut>());
+      break;
     default:
       break;
     }

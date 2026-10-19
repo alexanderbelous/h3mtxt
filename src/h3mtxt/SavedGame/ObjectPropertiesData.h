@@ -217,4 +217,38 @@ namespace h3svg
   // TODO
   template<>
   constexpr void ObjectPropertiesData::set(const ObjectProperties<ObjectPropertiesType::Corpse>& properties);
+
+  // ==================== University ====================
+  template<>
+  constexpr ObjectProperties<ObjectPropertiesType::University> ObjectPropertiesData::get() const
+  {
+    Detail_NS::BitsReader reader{ data };
+    return {
+      .reserved1 = reader.readInt<std::int32_t, 5>(),
+      .reserved2 = reader.readInt<std::int32_t, 8>(),
+      .index = reader.readInt<std::int32_t, 12>(),
+      .reserved3 = reader.readInt<std::int32_t, 7>(),
+    };
+  }
+
+  // TODO
+  template<>
+  constexpr void ObjectPropertiesData::set(const ObjectProperties<ObjectPropertiesType::University>& properties);
+
+  // ==================== WitchHut ====================
+  template<>
+  constexpr ObjectProperties<ObjectPropertiesType::WitchHut> ObjectPropertiesData::get() const
+  {
+    ObjectProperties<ObjectPropertiesType::WitchHut> properties;
+    Detail_NS::BitsReader reader{ data };
+    properties.reserved1 = reader.readInt<std::uint8_t, 5>();
+    properties.visited_by.bitset.data[0] = reader.readInt<std::uint8_t, 8>();
+    properties.skill = reader.readEnum<SecondarySkillType, 8>();
+    properties.reserved2 = reader.readInt<std::uint16_t, 11>();
+    return properties;
+  }
+
+  // TODO
+  template<>
+  constexpr void ObjectPropertiesData::set(const ObjectProperties<ObjectPropertiesType::WitchHut>& properties);
 }

@@ -94,10 +94,10 @@ namespace h3svg
   template<>
   struct ObjectProperties<ObjectPropertiesType::FountainOfFortune>
   {
-    std::int8_t reserved1 : 5 = -1;
-    std::int8_t reserved2 : 8 = 0;
-    std::int8_t luck_bonus : 4 = 0;
-    std::int16_t reserved3 : 15 = -1;
+    std::int32_t reserved1 : 5 = -1;
+    std::int32_t reserved2 : 8 = 0;
+    std::int32_t luck_bonus : 4 = 0;
+    std::int32_t reserved3 : 15 = -1;
   };
 
   template<>
@@ -120,11 +120,24 @@ namespace h3svg
   };
 
   template<>
+  struct ObjectProperties<ObjectPropertiesType::University>
+  {
+    std::int32_t reserved1 : 5 = -1;  // Bits [0; 4]
+    std::int32_t reserved2 : 8 = 0;   // Bits [5; 12]
+    // 0-based index of the element in SavedGame::universities,
+    // or -1 if this is not an actionable tile.
+    std::int32_t index : 12 = {};     // Bits [13; 24]
+    std::int32_t reserved3 : 7 = -1;  // Bits [25; 31]
+  };
+
+  template<>
   struct ObjectProperties<ObjectPropertiesType::WitchHut>
   {
-    std::uint8_t reserved1 : 5 = 0;
-    PlayersBitmask visited_by;
-    SecondarySkillType skill {};
-    std::uint16_t reserved2 : 11 = 0;
+    std::uint16_t reserved1 : 5 = 0;  // Bits [0; 4]
+    std::uint16_t reserved2 : 11 = 0; // Bits [21; 31]
+    // TODO: probably should be 7 bits (and reserved2 should be 12 bits):
+    // None is represented by 0x7F, not by 0xFF.
+    SecondarySkillType skill = static_cast<SecondarySkillType>(0x7F); // Bits [13; 20]
+    PlayersBitmask visited_by;        // Bits [5; 12]
   };
 }

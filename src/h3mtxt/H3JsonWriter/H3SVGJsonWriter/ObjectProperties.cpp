@@ -49,6 +49,20 @@ namespace Medea_NS
       out.writeField("is_lootable", properties.is_lootable);
       out.writeField("reserved2", properties.reserved2);
     }
+    else if constexpr (T == ObjectPropertiesType::University)
+    {
+      out.writeField("reserved1", properties.reserved1);
+      out.writeField("reserved2", properties.reserved2);
+      out.writeField("index", properties.index);
+      out.writeField("reserved3", properties.reserved3);
+    }
+    else if constexpr (T == ObjectPropertiesType::WitchHut)
+    {
+      out.writeField("reserved1", properties.reserved1);
+      out.writeField("reserved2", properties.reserved2);
+      out.writeField("skill", properties.skill);
+      out.writeField("visited_by", properties.visited_by);
+    }
   }
 
   template
@@ -74,4 +88,12 @@ namespace Medea_NS
   template
   void JsonObjectWriter<ObjectProperties<ObjectPropertiesType::Corpse>>::operator()(
     FieldsWriter& out, const ObjectProperties<ObjectPropertiesType::Corpse>&) const;
+
+  template
+  void JsonObjectWriter<ObjectProperties<ObjectPropertiesType::University>>::operator()(
+    FieldsWriter& out, const ObjectProperties<ObjectPropertiesType::University>&) const;
+
+  template
+  void JsonObjectWriter<ObjectProperties<ObjectPropertiesType::WitchHut>>::operator()(
+    FieldsWriter& out, const ObjectProperties<ObjectPropertiesType::WitchHut>&) const;
 }

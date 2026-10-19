@@ -20,6 +20,7 @@ namespace h3svg
     FountainOfFortune,
     Garrison,
     LeanTo,
+    University,
     WitchHut
   };
 
@@ -54,6 +55,8 @@ namespace h3svg
       return ObjectPropertiesType::Garrison;
     case ObjectClass::LEAN_TO:
       return ObjectPropertiesType::LeanTo;
+    case ObjectClass::UNIVERSITY:
+      return ObjectPropertiesType::University;
     case ObjectClass::WITCH_HUT:
       return ObjectPropertiesType::WitchHut;
     default:
