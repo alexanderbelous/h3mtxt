@@ -27,14 +27,14 @@ namespace h3svg
     WitchHut
   };
 
-  // Returns ObjectPropertiesType for the given object.
-  // \param object_class - ObjectClass16 of the object.
-  // \param object_subclass - subtype of the object.
+  inline constexpr std::size_t kNumObjectPropertiesTypes = 15;
+
+  // Returns ObjectPropertiesType for the given ObjectClass.
+  // \param object_class - ObjectClass of the object.
   // \return ObjectPropertiesType for the input object.
-  // \throw std::invalid_argument if @object_class and @object_subclass do not define a valid object type.
-  constexpr ObjectPropertiesType getObjectPropertiesType(ObjectClass16 object_class, std::uint16_t)
+  constexpr ObjectPropertiesType getObjectPropertiesType(ObjectClass object_class)
   {
-    switch (static_cast<ObjectClass>(object_class))
+    switch (object_class)
     {
     case ObjectClass::BLACK_MARKET:
       return ObjectPropertiesType::BlackMarket;

@@ -3,7 +3,9 @@
 #include <h3mtxt/H3JsonWriter/H3MJsonWriter/H3MJsonWriter.h>
 #include <h3mtxt/H3JsonWriter/H3MJsonWriter/Utils.h>
 #include <h3mtxt/JsonCommon/FieldNamesH3SVG.h>
+#include <h3mtxt/Map/Utils/SwitchStatement.h>
 #include <h3mtxt/SavedGame/ObjectProperties.h>
+#include <h3mtxt/SavedGame/ObjectPropertiesData.h>
 #include <h3mtxt/Medea/Medea.h>
 
 using ::h3svg::ObjectProperties;
@@ -49,6 +51,29 @@ namespace Medea_NS
       out.writeField("is_lootable", properties.is_lootable);
       out.writeField("reserved2", properties.reserved2);
     }
+    else if constexpr (T == ObjectPropertiesType::Floatsam)
+    {
+      out.writeField("content", properties.content);
+    }
+    else if constexpr (T == ObjectPropertiesType::FountainOfFortune)
+    {
+      out.writeField("reserved1", properties.reserved1);
+      out.writeField("reserved2", properties.reserved2);
+      out.writeField("luck_bonus", properties.luck_bonus);
+      out.writeField("reserved3", properties.reserved3);
+    }
+    else if constexpr (T == ObjectPropertiesType::Garrison)
+    {
+      out.writeField("index", properties.index);
+    }
+    else if constexpr (T == ObjectPropertiesType::LeanTo)
+    {
+      out.writeField("index", properties.index);
+      out.writeField("reserved1", properties.reserved1);
+      out.writeField("quantity", properties.quantity);
+      out.writeField("resource_type", properties.resource_type);
+      out.writeField("reserved2", properties.reserved2);
+    }
     else if constexpr (T == ObjectPropertiesType::SeersHut)
     {
       out.writeField("index", properties.index);
@@ -78,49 +103,34 @@ namespace Medea_NS
       out.writeField("skill", properties.skill);
       out.writeField("visited_by", properties.visited_by);
     }
+    else
+    {
+      static_assert(false, "Not implemented.");
+    }
   }
 
-  template
-  void JsonObjectWriter<ObjectProperties<ObjectPropertiesType::None>>::operator()(
-    FieldsWriter& out, const ObjectProperties<ObjectPropertiesType::None>&) const;
+  namespace
+  {
+    template<ObjectPropertiesType T>
+    void writeObjectPropertiesImpl(FieldsWriter& out, const h3svg::ObjectPropertiesData& properties)
+    {
+      JsonObjectWriter<ObjectProperties<T>>{}(out, properties.get<T>());
+    }
 
-  template
-  void JsonObjectWriter<ObjectProperties<ObjectPropertiesType::BlackMarket>>::operator()(
-    FieldsWriter& out, const ObjectProperties<ObjectPropertiesType::BlackMarket>&) const;
+    template<ObjectPropertiesType T>
+    using writeObjectPropertiesImplAlias = SwitchStatement_NS::StaticConstant<&writeObjectPropertiesImpl<T>>;
+  }
 
-  template
-  void JsonObjectWriter<ObjectProperties<ObjectPropertiesType::Campfire>>::operator()(
-    FieldsWriter& out, const ObjectProperties<ObjectPropertiesType::Campfire>&) const;
+  void writeObjectProperties(FieldsWriter& out,
+                             const h3svg::ObjectPropertiesData& properties,
+                             h3svg::ObjectClass object_class)
+  {
+    static constexpr auto switch_statement =
+      SwitchStatement_NS::generateSwitchStatement<ObjectPropertiesType,
+                                                  h3svg::kNumObjectPropertiesTypes,
+                                                  writeObjectPropertiesImplAlias>();
 
-  template
-  void JsonObjectWriter<ObjectProperties<ObjectPropertiesType::CreatureBank>>::operator()(
-    FieldsWriter& out, const ObjectProperties<ObjectPropertiesType::CreatureBank>&) const;
-
-  template
-  void JsonObjectWriter<ObjectProperties<ObjectPropertiesType::Dwelling>>::operator()(
-    FieldsWriter& out, const ObjectProperties<ObjectPropertiesType::Dwelling>&) const;
-
-  template
-  void JsonObjectWriter<ObjectProperties<ObjectPropertiesType::Corpse>>::operator()(
-    FieldsWriter& out, const ObjectProperties<ObjectPropertiesType::Corpse>&) const;
-
-  template
-  void JsonObjectWriter<ObjectProperties<ObjectPropertiesType::SeersHut>>::operator()(
-    FieldsWriter& out, const ObjectProperties<ObjectPropertiesType::SeersHut>&) const;
-
-  template
-  void JsonObjectWriter<ObjectProperties<ObjectPropertiesType::Shrine>>::operator()(
-    FieldsWriter& out, const ObjectProperties<ObjectPropertiesType::Shrine>&) const;
-
-  template
-  void JsonObjectWriter<ObjectProperties<ObjectPropertiesType::Sign>>::operator()(
-    FieldsWriter& out, const ObjectProperties<ObjectPropertiesType::Sign>&) const;
-
-  template
-  void JsonObjectWriter<ObjectProperties<ObjectPropertiesType::University>>::operator()(
-    FieldsWriter& out, const ObjectProperties<ObjectPropertiesType::University>&) const;
-
-  template
-  void JsonObjectWriter<ObjectProperties<ObjectPropertiesType::WitchHut>>::operator()(
-    FieldsWriter& out, const ObjectProperties<ObjectPropertiesType::WitchHut>&) const;
+    const h3svg::ObjectPropertiesType object_properties_type = h3svg::getObjectPropertiesType(object_class);
+    switch_statement(object_properties_type, out, properties);
+  }
 }

@@ -124,7 +124,6 @@ namespace h3svg
     };
   }
 
-  // ==================== None ====================
   template<>
   constexpr ObjectProperties<ObjectPropertiesType::None> ObjectPropertiesData::get() const
   {
@@ -137,7 +136,6 @@ namespace h3svg
     data = properties.reserved;
   }
 
-  // ==================== BlackMarket ====================
   template<>
   constexpr ObjectProperties<ObjectPropertiesType::BlackMarket> ObjectPropertiesData::get() const
   {
@@ -156,7 +154,6 @@ namespace h3svg
     }
   }
 
-  // ==================== Campfire ====================
   template<>
   constexpr ObjectProperties<ObjectPropertiesType::Campfire> ObjectPropertiesData::get() const
   {
@@ -179,7 +176,6 @@ namespace h3svg
     data[3] = properties.reserved[2];
   }
 
-  // ==================== CreatureBank ====================
   template<>
   constexpr ObjectProperties<ObjectPropertiesType::CreatureBank> ObjectPropertiesData::get() const
   {
@@ -192,11 +188,6 @@ namespace h3svg
     };
   }
 
-  // TODO
-  template<>
-  constexpr void ObjectPropertiesData::set(const ObjectProperties<ObjectPropertiesType::CreatureBank>& properties);
-
-  // ==================== Dwelling ====================
   template<>
   constexpr ObjectProperties<ObjectPropertiesType::Dwelling> ObjectPropertiesData::get() const
   {
@@ -206,11 +197,6 @@ namespace h3svg
     };
   }
 
-  // TODO
-  template<>
-  constexpr void ObjectPropertiesData::set(const ObjectProperties<ObjectPropertiesType::Dwelling>& properties);
-
-  // ==================== Corpse ====================
   template<>
   constexpr ObjectProperties<ObjectPropertiesType::Corpse> ObjectPropertiesData::get() const
   {
@@ -224,11 +210,49 @@ namespace h3svg
     };
   }
 
-  // TODO
   template<>
-  constexpr void ObjectPropertiesData::set(const ObjectProperties<ObjectPropertiesType::Corpse>& properties);
+  constexpr ObjectProperties<ObjectPropertiesType::Floatsam> ObjectPropertiesData::get() const
+  {
+    Detail_NS::BitsReader reader{ data };
+    return {
+      .content = reader.readEnum<ObjectProperties<ObjectPropertiesType::Floatsam>::FloatsamContentType, 32>()
+    };
+  }
 
-  // ==================== SeersHut ====================
+  template<>
+  constexpr ObjectProperties<ObjectPropertiesType::FountainOfFortune> ObjectPropertiesData::get() const
+  {
+    Detail_NS::BitsReader reader{ data };
+    return {
+      .reserved1 = reader.readInt<std::int32_t, 5>(),
+      .reserved2 = reader.readInt<std::int32_t, 8>(),
+      .luck_bonus = reader.readInt<std::int32_t, 4>(),
+      .reserved3 = reader.readInt<std::int32_t, 15>()
+    };
+  }
+
+  template<>
+  constexpr ObjectProperties<ObjectPropertiesType::Garrison> ObjectPropertiesData::get() const
+  {
+    Detail_NS::BitsReader reader{ data };
+    return {
+      .index = reader.readInt<std::uint32_t, 32>()
+    };
+  }
+
+  template<>
+  constexpr ObjectProperties<ObjectPropertiesType::LeanTo> ObjectPropertiesData::get() const
+  {
+    Detail_NS::BitsReader reader{ data };
+    return {
+      .index = reader.readInt<std::uint8_t, 5>(),
+      .reserved1 = reader.readInt<std::uint8_t, 1>(),
+      .quantity = reader.readInt<std::uint8_t, 4>(),
+      .resource_type = reader.readInt<ResourceType, 4>(),
+      .reserved2 = reader.readInt<std::int32_t, 18>()
+    };
+  }
+
   template<>
   constexpr ObjectProperties<ObjectPropertiesType::SeersHut> ObjectPropertiesData::get() const
   {
@@ -238,11 +262,6 @@ namespace h3svg
     };
   }
 
-  // TODO
-  template<>
-  constexpr void ObjectPropertiesData::set(const ObjectProperties<ObjectPropertiesType::SeersHut>& properties);
-
-  // ==================== Shrine ====================
   template<>
   constexpr ObjectProperties<ObjectPropertiesType::Shrine> ObjectPropertiesData::get() const
   {
@@ -255,11 +274,6 @@ namespace h3svg
     return properties;
   }
 
-  // TODO
-  template<>
-  constexpr void ObjectPropertiesData::set(const ObjectProperties<ObjectPropertiesType::Shrine>& properties);
-
-  // ==================== Sign ====================
   template<>
   constexpr ObjectProperties<ObjectPropertiesType::Sign> ObjectPropertiesData::get() const
   {
@@ -269,11 +283,6 @@ namespace h3svg
     };
   }
 
-  // TODO
-  template<>
-  constexpr void ObjectPropertiesData::set(const ObjectProperties<ObjectPropertiesType::Sign>& properties);
-
-  // ==================== University ====================
   template<>
   constexpr ObjectProperties<ObjectPropertiesType::University> ObjectPropertiesData::get() const
   {
@@ -286,11 +295,6 @@ namespace h3svg
     };
   }
 
-  // TODO
-  template<>
-  constexpr void ObjectPropertiesData::set(const ObjectProperties<ObjectPropertiesType::University>& properties);
-
-  // ==================== WitchHut ====================
   template<>
   constexpr ObjectProperties<ObjectPropertiesType::WitchHut> ObjectPropertiesData::get() const
   {
@@ -302,8 +306,4 @@ namespace h3svg
     properties.reserved2 = reader.readInt<std::uint16_t, 11>();
     return properties;
   }
-
-  // TODO
-  template<>
-  constexpr void ObjectPropertiesData::set(const ObjectProperties<ObjectPropertiesType::WitchHut>& properties);
 }

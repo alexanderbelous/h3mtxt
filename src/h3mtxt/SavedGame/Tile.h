@@ -11,7 +11,6 @@
 #include <h3mtxt/SavedGame/ObjectPropertiesData.h>
 
 #include <array>
-#include <cstddef>
 #include <cstdint>
 #include <vector>
 
@@ -66,7 +65,7 @@ namespace h3svg
     // This is always serialized in H3SVG as 4 bytes, but their meaning depends on object_class and object_subclass.
     // Credits to Maurice for reverse-engineering: http://heroescommunity.com/viewthread.php3?TID=46018
     // TODO: add getters/setters for the properties.
-    std::array<std::byte, 4> object_properties {};
+    std::array<std::uint8_t, 4> object_properties {};
     // Objects whose sprites overlap with the current tile.
     // The sprites will be rendered in order of TileRenderInfo::z_buffer; sprites with the same Z-buffer value
     // will be rendered in order of their appearance in this array.

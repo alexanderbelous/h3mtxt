@@ -208,6 +208,22 @@ namespace Medea_NS
     out.writeField(Fields::kPreviousTurn, saved_game.previous_turn);
   }
 
+  namespace
+  {
+    struct ObjectPropertiesTypeSafe
+    {
+      h3svg::ObjectPropertiesData properties;
+      h3svg::ObjectClass object_class = h3svg::ObjectClass::NONE;
+    };
+  }
+
+  template<>
+  void JsonObjectWriter<ObjectPropertiesTypeSafe>::operator()(FieldsWriter& out,
+                                                              const ObjectPropertiesTypeSafe& value) const
+  {
+    writeObjectProperties(out, value.properties, value.object_class);
+  }
+
   template<>
   void JsonObjectWriter<h3svg::Tile>::operator()(FieldsWriter& out, const h3svg::Tile& tile) const
   {
@@ -224,55 +240,13 @@ namespace Medea_NS
     out.writeField(Fields::kObjectIdx, tile.object_idx);
     out.writeField(Fields::kObjectProperties, tile.object_properties);
     // Experimental: serialize the properties as structured data.
-    const h3svg::ObjectPropertiesType object_properties_type =
-      h3svg::getObjectPropertiesType(tile.object_class, tile.object_subclass);
-    const h3svg::ObjectPropertiesData object_properties_data = {
-      .data = {
-        static_cast<std::uint8_t>(tile.object_properties[0]),
-        static_cast<std::uint8_t>(tile.object_properties[1]),
-        static_cast<std::uint8_t>(tile.object_properties[2]),
-        static_cast<std::uint8_t>(tile.object_properties[3])
-      }
-    };
-    switch (object_properties_type)
-    {
-    case h3svg::ObjectPropertiesType::None:
-      out.writeField("object_properties2", object_properties_data.get<h3svg::ObjectPropertiesType::None>());
-      break;
-    case h3svg::ObjectPropertiesType::BlackMarket:
-      out.writeField("object_properties2", object_properties_data.get<h3svg::ObjectPropertiesType::BlackMarket>());
-      break;
-    case h3svg::ObjectPropertiesType::Campfire:
-      out.writeField("object_properties2", object_properties_data.get<h3svg::ObjectPropertiesType::Campfire>());
-      break;
-    case h3svg::ObjectPropertiesType::CreatureBank:
-      out.writeField("object_properties2", object_properties_data.get<h3svg::ObjectPropertiesType::CreatureBank>());
-      break;
-    case h3svg::ObjectPropertiesType::Dwelling:
-      out.writeField("object_properties2", object_properties_data.get<h3svg::ObjectPropertiesType::Dwelling>());
-      break;
-    case h3svg::ObjectPropertiesType::Corpse:
-      out.writeField("object_properties2", object_properties_data.get<h3svg::ObjectPropertiesType::Corpse>());
-      break;
-    case h3svg::ObjectPropertiesType::SeersHut:
-      out.writeField("object_properties2", object_properties_data.get<h3svg::ObjectPropertiesType::SeersHut>());
-      break;
-    case h3svg::ObjectPropertiesType::Shrine:
-      out.writeField("object_properties2", object_properties_data.get<h3svg::ObjectPropertiesType::Shrine>());
-      break;
-    case h3svg::ObjectPropertiesType::Sign:
-      out.writeField("object_properties2", object_properties_data.get<h3svg::ObjectPropertiesType::Sign>());
-      break;
-    case h3svg::ObjectPropertiesType::University:
-      out.writeField("object_properties2", object_properties_data.get<h3svg::ObjectPropertiesType::University>());
-      break;
-    case h3svg::ObjectPropertiesType::WitchHut:
-      out.writeField("object_properties2", object_properties_data.get<h3svg::ObjectPropertiesType::WitchHut>());
-      break;
-    default:
-      break;
-    }
-    //
+    out.writeField("object_properties2",
+                   ObjectPropertiesTypeSafe{
+                     .properties = {
+                       .data = tile.object_properties
+                     },
+                     .object_class = static_cast<h3svg::ObjectClass>(tile.object_class)
+                   });
     out.writeField(Fields::kObjectsToRender, tile.objects_to_render);
   }
 

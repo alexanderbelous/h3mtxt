@@ -47,7 +47,7 @@ namespace h3svg
       .object_class = static_cast<ObjectClass16>(ObjectClass::WARRIORS_TOMB),
       .object_subclass = 0,
       .object_idx = 110,
-      .object_properties = { std::byte{31}, std::byte{128}, std::byte{142}, std::byte{255} },
+      .object_properties = { 31, 128, 142, 255 },
       .objects_to_render = {
         TileRenderInfo{ .object_idx = 7, .x = 0, .y = 0, .z_buffer = 1 },
         TileRenderInfo{ .object_idx = 11, .x = 1, .y = 1, .z_buffer = 2 },

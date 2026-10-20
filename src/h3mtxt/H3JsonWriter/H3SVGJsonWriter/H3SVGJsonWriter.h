@@ -184,6 +184,10 @@ namespace Medea_NS
     void operator()(FieldsWriter& out, const h3svg::ObjectProperties<T>& properties) const;
   };
 
+  void writeObjectProperties(FieldsWriter& out,
+                             const h3svg::ObjectPropertiesData& properties,
+                             h3svg::ObjectClass object_class);
+
   template<>
   void JsonObjectWriter<h3svg::ObjectPropertiesTables>::operator()(FieldsWriter& out,
                                                                    const h3svg::ObjectPropertiesTables& tables) const;

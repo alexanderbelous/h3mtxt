@@ -94,10 +94,10 @@ namespace h3svg
   template<>
   struct ObjectProperties<ObjectPropertiesType::FountainOfFortune>
   {
-    std::int32_t reserved1 : 5 = -1;
-    std::int32_t reserved2 : 8 = 0;
-    std::int32_t luck_bonus : 4 = 0;
-    std::int32_t reserved3 : 15 = -1;
+    std::int32_t reserved1 : 5 = -1;  // Bits [0; 4]
+    std::int32_t reserved2 : 8 = 0;   // Bits [5; 12]
+    std::int32_t luck_bonus : 4 = 0;  // Bits [13; 16]
+    std::int32_t reserved3 : 15 = -1; // Bits [17; 31]
   };
 
   template<>
@@ -112,11 +112,11 @@ namespace h3svg
   {
     // 0-based index of the Lean-To. This is used in h3svg::Player::lean_tos to keep track
     // of the Lean-Tos visited by the player.
-    std::uint8_t index : 5 = {};
-    std::uint8_t reserved1 : 1 = 1;
-    std::uint8_t quantity : 4 = 0;
-    ResourceType resource_type : 4 = {};
-    std::int32_t reserved2 : 18 = -1;
+    std::uint8_t index : 5 = {};         // Bits [0; 4]
+    std::uint8_t reserved1 : 1 = 1;      // Bits [5; 5]
+    std::uint8_t quantity : 4 = 0;       // Bits [6; 9]
+    ResourceType resource_type : 4 = {}; // Bits [10; 13]
+    std::int32_t reserved2 : 18 = -1;    // Bits [14; 31]
   };
 
   template<>
