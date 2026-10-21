@@ -44,10 +44,14 @@ namespace h3svg
       .road_type = RoadType::Cobblestone,
       .road_sprite = 4,
       .flags = {1, 0},
-      .object_class = static_cast<ObjectClass16>(ObjectClass::WARRIORS_TOMB),
       .object_subclass = 0,
       .object_idx = 110,
-      .object_properties = { 31, 128, 142, 255 },
+      .object_properties = {
+        ObjectClass::BLACK_MARKET,
+        ObjectProperties<ObjectPropertiesType::BlackMarket>{
+          .index = 12
+        }
+      },
       .objects_to_render = {
         TileRenderInfo{ .object_idx = 7, .x = 0, .y = 0, .z_buffer = 1 },
         TileRenderInfo{ .object_idx = 11, .x = 1, .y = 1, .z_buffer = 2 },
@@ -63,10 +67,10 @@ namespace h3svg
       "\x03" // road_type
       "\x04" // road_sprite
       "\x01\x00" // flags
-      "\x6c\x00" // object_class
+      "\x07\x00" // object_class
       "\x00\x00" // object_subclass
       "\x6e\x00" // object_idx
-      "\x1f\x80\x8e\xff" // object_properties
+      "\x0c\x00\x00\x00" // object_properties
       "\x03\x00\x00\x00" // objects_to_render
       "\x07\x00\x00\x01"
       "\x0b\x00\x11\x02"

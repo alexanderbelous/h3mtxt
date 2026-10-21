@@ -57,6 +57,40 @@ namespace h3json
     out = readField<T>(value, field_name);
   }
 
+  // Deserializes a bit field from JSON.
+  template<class T, std::size_t NumBits>
+  T readBitField(const Json::Value& value, std::string_view field_name)
+  {
+    static_assert(std::is_integral_v<T> || std::is_enum_v<T>,
+                  "T must be an integral or an enumeration type.");
+    static_assert(NumBits <= sizeof(T) * 8,
+                  "NumBits must be less or equal to sizeof(T)*8.");
+    using IntegralType = typename std::conditional_t<std::is_enum_v<T>, std::underlying_type<T>,
+                                                                        std::type_identity<T>>::type;
+    const T result = readField<T>(value, field_name);
+    // No bounds checking if NumBits == sizeof(T)*8: in that case readField<T>() has already done the job.
+    if constexpr (NumBits < sizeof(T) * 8)
+    {
+      const IntegralType integral_value = static_cast<IntegralType>(result);
+      if constexpr (std::is_signed_v<IntegralType>)
+      {
+        constexpr IntegralType kMinValue = -(IntegralType(1) << (NumBits - 1));
+        if (integral_value < kMinValue)
+        {
+          throw std::runtime_error("readBitField: value is out of range: " + std::to_string(integral_value));
+        }
+      }
+      constexpr IntegralType kMaxValue =
+        std::is_signed_v<IntegralType> ? (IntegralType(1) << (NumBits - 1)) - 1 // 2^(NumBits-1) - 1
+                                       : (IntegralType(1) << NumBits) - 1;      // 2^NumBits - 1
+      if (integral_value > kMaxValue)
+      {
+        throw std::runtime_error("readBitField: value is out of range: " + std::to_string(integral_value));
+      }
+    }
+    return result;
+  }
+
   // Full specialization for bool.
   template<>
   struct JsonReader<bool>

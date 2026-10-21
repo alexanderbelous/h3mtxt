@@ -190,9 +190,9 @@ namespace h3svg
   template<ObjectPropertiesType T>
   struct ObjectProperties;
 
-  struct ObjectPropertiesData;
-
   struct ObjectPropertiesTables;
+
+  class ObjectPropertiesVariant;
 
   struct ObjectTemplate;
 

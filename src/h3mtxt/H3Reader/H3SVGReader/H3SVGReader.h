@@ -72,6 +72,13 @@ namespace h3svg
 
     ObjectPropertiesTables readObjectPropertiesTables() const;
 
+    // Defined in readObjectProperties.cpp.
+    // Template instantiations are provided for all valid ObjectPropertiesTypes.
+    template<ObjectPropertiesType T>
+    ObjectProperties<T> readObjectProperties() const;
+
+    ObjectPropertiesVariant readObjectPropertiesVariant(ObjectClass object_class) const;
+
     ObjectTemplate readObjectTemplate() const;
 
     Player readPlayer() const;

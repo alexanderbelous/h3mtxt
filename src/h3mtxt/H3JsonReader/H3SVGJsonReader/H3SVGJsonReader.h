@@ -97,9 +97,21 @@ namespace h3json
   h3svg::Object
   JsonReader<h3svg::Object>::operator()(const Json::Value& value) const;
 
+  template<h3svg::ObjectPropertiesType T>
+  struct JsonReader<h3svg::ObjectProperties<T>>
+  {
+    // Defined in ObjectProperties.cpp.
+    // Template instantiations are provided for all valid ObjectPropertiesTypes.
+    h3svg::ObjectProperties<T> operator()(const Json::Value& value) const;
+  };
+
   template<>
   h3svg::ObjectPropertiesTables
   JsonReader<h3svg::ObjectPropertiesTables>::operator()(const Json::Value& value) const;
+
+  template<>
+  h3svg::ObjectPropertiesVariant
+  JsonReader<h3svg::ObjectPropertiesVariant>::operator()(const Json::Value& value) const;
 
   template<>
   h3svg::ObjectTemplate

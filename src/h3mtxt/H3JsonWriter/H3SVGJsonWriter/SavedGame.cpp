@@ -8,7 +8,6 @@
 #include <h3mtxt/JsonCommon/FieldNamesH3SVG.h>
 #include <h3mtxt/Medea/Medea.h>
 #include <h3mtxt/SavedGame/SavedGame.h>
-#include <h3mtxt/SavedGame/ObjectPropertiesData.h>
 
 namespace Medea_NS
 {
@@ -208,22 +207,6 @@ namespace Medea_NS
     out.writeField(Fields::kPreviousTurn, saved_game.previous_turn);
   }
 
-  namespace
-  {
-    struct ObjectPropertiesTypeSafe
-    {
-      h3svg::ObjectPropertiesData properties;
-      h3svg::ObjectClass object_class = h3svg::ObjectClass::NONE;
-    };
-  }
-
-  template<>
-  void JsonObjectWriter<ObjectPropertiesTypeSafe>::operator()(FieldsWriter& out,
-                                                              const ObjectPropertiesTypeSafe& value) const
-  {
-    writeObjectProperties(out, value.properties, value.object_class);
-  }
-
   template<>
   void JsonObjectWriter<h3svg::Tile>::operator()(FieldsWriter& out, const h3svg::Tile& tile) const
   {
@@ -235,18 +218,9 @@ namespace Medea_NS
     out.writeField(Fields::kRoadType, tile.road_type);
     out.writeField(Fields::kRoadSprite, tile.road_sprite);
     out.writeField(Fields::kFlags, tile.flags, true);
-    out.writeField(Fields::kObjectClass, tile.object_class);
     out.writeField(Fields::kObjectSubclass, tile.object_subclass);
     out.writeField(Fields::kObjectIdx, tile.object_idx);
     out.writeField(Fields::kObjectProperties, tile.object_properties);
-    // Experimental: serialize the properties as structured data.
-    out.writeField("object_properties2",
-                   ObjectPropertiesTypeSafe{
-                     .properties = {
-                       .data = tile.object_properties
-                     },
-                     .object_class = static_cast<h3svg::ObjectClass>(tile.object_class)
-                   });
     out.writeField(Fields::kObjectsToRender, tile.objects_to_render);
   }
 

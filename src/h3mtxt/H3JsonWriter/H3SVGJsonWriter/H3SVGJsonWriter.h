@@ -173,6 +173,9 @@ namespace Medea_NS
   void JsonObjectWriter<h3svg::Obelisk>::operator()(FieldsWriter& out, const h3svg::Obelisk& obelisk) const;
 
   template<>
+  void JsonObjectWriter<h3svg::Object>::operator()(FieldsWriter& out, const h3svg::Object& object) const;
+
+  template<>
   void JsonObjectWriter<h3svg::ObjectExits>::operator()(FieldsWriter& out, const h3svg::ObjectExits& object_exits) const;
 
   // Partial specialization for h3svg::ObjectProperties.
@@ -184,16 +187,13 @@ namespace Medea_NS
     void operator()(FieldsWriter& out, const h3svg::ObjectProperties<T>& properties) const;
   };
 
-  void writeObjectProperties(FieldsWriter& out,
-                             const h3svg::ObjectPropertiesData& properties,
-                             h3svg::ObjectClass object_class);
-
   template<>
   void JsonObjectWriter<h3svg::ObjectPropertiesTables>::operator()(FieldsWriter& out,
                                                                    const h3svg::ObjectPropertiesTables& tables) const;
 
   template<>
-  void JsonObjectWriter<h3svg::Object>::operator()(FieldsWriter& out, const h3svg::Object& object) const;
+  void JsonObjectWriter<h3svg::ObjectPropertiesVariant>::operator()(
+    FieldsWriter& out, const h3svg::ObjectPropertiesVariant& properties) const;
 
   template<>
   void JsonObjectWriter<h3svg::ObjectTemplate>::operator()(FieldsWriter& out,

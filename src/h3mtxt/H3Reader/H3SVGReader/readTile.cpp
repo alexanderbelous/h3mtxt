@@ -1,4 +1,5 @@
 #include <h3mtxt/H3Reader/H3SVGReader/H3SVGReader.h>
+
 #include <h3mtxt/SavedGame/Tile.h>
 
 namespace h3svg
@@ -13,10 +14,10 @@ namespace h3svg
     tile.road_type = readEnum<RoadType>();
     tile.road_sprite = readInt<std::uint8_t>();
     tile.flags = readEnumBitmask<TileFlag, 2>();
-    tile.object_class = readEnum<ObjectClass16>();
+    const ObjectClass16 object_class = readEnum<ObjectClass16>();
     tile.object_subclass = readInt<std::uint16_t>();
     tile.object_idx = readInt<std::uint16_t>();
-    tile.object_properties = readByteArray<4>();
+    tile.object_properties = readObjectPropertiesVariant(static_cast<ObjectClass>(object_class));
     const std::uint32_t num_objects_to_render = readInt<std::uint32_t>();
     tile.objects_to_render.reserve(num_objects_to_render);
     for (std::uint32_t i = 0; i < num_objects_to_render; ++i)

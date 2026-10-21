@@ -6,6 +6,7 @@
 
 #include <h3mtxt/JsonCommon/FieldNamesH3M.h>
 #include <h3mtxt/SavedGame/SavedGameFwd.h>
+#include <h3mtxt/SavedGame/Constants/ObjectPropertiesType.h>
 #include <h3mtxt/SavedGame/Constants/ReplayEventType.h>
 
 #include <string_view>
@@ -511,6 +512,128 @@ namespace h3json
   };
 
   template<>
+  struct FieldNames<h3svg::ObjectProperties<h3svg::ObjectPropertiesType::None>>
+  {
+    static constexpr std::string_view kReserved = "reserved";
+  };
+
+  template<>
+  struct FieldNames<h3svg::ObjectProperties<h3svg::ObjectPropertiesType::BlackMarket>>
+  {
+    static constexpr std::string_view kIndex = "index";
+  };
+
+  template<>
+  struct FieldNames<h3svg::ObjectProperties<h3svg::ObjectPropertiesType::Campfire>>
+  {
+    static constexpr std::string_view kResourceType = "resource_type";
+    static constexpr std::string_view kQuantity = "quantity";
+    static constexpr std::string_view kReserved = "reserved";
+  };
+
+  template<>
+  struct FieldNames<h3svg::ObjectProperties<h3svg::ObjectPropertiesType::CreatureBank>>
+  {
+    static constexpr std::string_view kReserved1 = "reserved1";
+    static constexpr std::string_view kVisitedBy = "visited_by";
+    static constexpr std::string_view kIndex = "index";
+    static constexpr std::string_view kReserved2 = "reserved2";
+  };
+
+  template<>
+  struct FieldNames<h3svg::ObjectProperties<h3svg::ObjectPropertiesType::Dwelling>>
+  {
+    static constexpr std::string_view kIndex = "index";
+  };
+
+  template<>
+  struct FieldNames<h3svg::ObjectProperties<h3svg::ObjectPropertiesType::Corpse>>
+  {
+    static constexpr std::string_view kId = "id";
+    static constexpr std::string_view kReserved1 = "reserved1";
+    static constexpr std::string_view kArtifact = "artifact";
+    static constexpr std::string_view kIsLootable = "is_lootable";
+    static constexpr std::string_view kReserved2 = "reserved2";
+  };
+
+  template<>
+  struct FieldNames<h3svg::ObjectProperties<h3svg::ObjectPropertiesType::Floatsam>>
+  {
+    static constexpr std::string_view kContent = "content";
+  };
+
+  template<>
+  struct FieldNames<h3svg::ObjectProperties<h3svg::ObjectPropertiesType::FountainOfFortune>>
+  {
+    static constexpr std::string_view kReserved1 = "reserved1";
+    static constexpr std::string_view kReserved2 = "reserved2";
+    static constexpr std::string_view kLuckBonus = "luck_bonus";
+    static constexpr std::string_view kReserved3 = "reserved3";
+  };
+
+  template<>
+  struct FieldNames<h3svg::ObjectProperties<h3svg::ObjectPropertiesType::Garrison>>
+  {
+    static constexpr std::string_view kIndex = "index";
+  };
+
+  template<>
+  struct FieldNames<h3svg::ObjectProperties<h3svg::ObjectPropertiesType::LeanTo>>
+  {
+    static constexpr std::string_view kIndex = "index";
+    static constexpr std::string_view kReserved1 = "reserved1";
+    static constexpr std::string_view kQuantity = "quantity";
+    static constexpr std::string_view kResourceType = "resource_type";
+    static constexpr std::string_view kReserved2 = "reserved2";
+  };
+
+  template<>
+  struct FieldNames<h3svg::ObjectProperties<h3svg::ObjectPropertiesType::SeersHut>>
+  {
+    static constexpr std::string_view kIndex = "index";
+  };
+
+  template<>
+  struct FieldNames<h3svg::ObjectProperties<h3svg::ObjectPropertiesType::Shrine>>
+  {
+    static constexpr std::string_view kReserved1 = "reserved1";
+    static constexpr std::string_view kVisitedBy = "visited_by";
+    static constexpr std::string_view kSpell = "spell";
+    static constexpr std::string_view kReserved2 = "reserved2";
+  };
+
+  template<>
+  struct FieldNames<h3svg::ObjectProperties<h3svg::ObjectPropertiesType::Sign>>
+  {
+    static constexpr std::string_view kIndex = "index";
+  };
+
+  template<>
+  struct FieldNames<h3svg::ObjectProperties<h3svg::ObjectPropertiesType::University>>
+  {
+    static constexpr std::string_view kReserved1 = "reserved1";
+    static constexpr std::string_view kReserved2 = "reserved2";
+    static constexpr std::string_view kIndex = "index";
+    static constexpr std::string_view kReserved3 = "reserved3";
+  };
+
+  template<>
+  struct FieldNames<h3svg::ObjectProperties<h3svg::ObjectPropertiesType::WitchHut>>
+  {
+    static constexpr std::string_view kReserved1 = "reserved1";
+    static constexpr std::string_view kReserved2 = "reserved2";
+    static constexpr std::string_view kSkill = "skill";
+    static constexpr std::string_view kVisitedBy = "visited_by";
+  };
+
+  template<>
+  struct FieldNames<h3svg::ObjectPropertiesVariant>
+  {
+    static constexpr std::string_view kObjectClass = "object_class";
+    static constexpr std::string_view kDetails = "details";
+  };
+
+  template<>
   struct FieldNames<h3svg::ObjectTemplate>
   {
     static constexpr std::string_view kDef = "def";
@@ -928,10 +1051,9 @@ namespace h3json
     static constexpr std::string_view kRoadType = "road_type";
     static constexpr std::string_view kRoadSprite = "road_sprite";
     static constexpr std::string_view kFlags = "flags";
-    static constexpr std::string_view kObjectClass = "object_class";
     static constexpr std::string_view kObjectSubclass = "object_subclass";
     static constexpr std::string_view kObjectIdx = "object_idx";
-    static constexpr std::string_view kObjectProperties = "properties";
+    static constexpr std::string_view kObjectProperties = "object_properties";
     static constexpr std::string_view kObjectsToRender = "objects_to_render";
   };
 

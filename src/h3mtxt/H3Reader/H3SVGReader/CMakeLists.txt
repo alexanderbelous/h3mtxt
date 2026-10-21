@@ -10,6 +10,7 @@ add_library(H3SVGReader STATIC
     "readMapBasicInfo.cpp"
     "readObjectPropertiesTables.cpp"
     "readObject.cpp"
+    "readObjectProperties.cpp"
     "readObjectTemplate.cpp"
     "readPlayer.cpp"
     "readPlayerSpecs.cpp"

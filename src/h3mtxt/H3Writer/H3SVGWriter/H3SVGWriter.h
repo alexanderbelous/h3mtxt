@@ -86,6 +86,11 @@ namespace h3svg
 
     void writeData(const ObjectExits& object_exits) const;
 
+    // Defined in ObjectProperties.cpp.
+    // Template instantiations are provided for all valid ObjectPropertiesTypes.
+    template<ObjectPropertiesType T>
+    void writeData(const ObjectProperties<T>& properties) const;
+
     void writeData(const ObjectPropertiesTables& value) const;
 
     void writeData(const ObjectTemplate& value) const;
@@ -213,6 +218,9 @@ namespace h3svg
     // \param values - elements to serialize.
     template<class SizeType, class T>
     void writeVector(std::span<const T> values) const;
+
+    // Note: does not write ObjectClass, only ObjectProperties<T>.
+    void writeObjectPropetiesVariant(const ObjectPropertiesVariant& properties) const;
 
     MapFormat map_format_;
   };

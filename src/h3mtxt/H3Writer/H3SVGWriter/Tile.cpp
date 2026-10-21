@@ -13,10 +13,11 @@ namespace h3svg
     writeData(tile.road_type);
     writeData(tile.road_sprite);
     writeData(tile.flags);
-    writeData(tile.object_class);
+    // TODO: check that ObjectClass can be accurately represented by ObjectClass16.
+    writeData(static_cast<ObjectClass16>(tile.object_properties.objectClass()));
     writeData(tile.object_subclass);
     writeData(tile.object_idx);
-    writeData(tile.object_properties);
+    writeObjectPropetiesVariant(tile.object_properties);
     writeVector<std::uint32_t>(std::span{ tile.objects_to_render });
   }
 

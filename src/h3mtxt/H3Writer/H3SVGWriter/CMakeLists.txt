@@ -10,6 +10,7 @@ add_library(H3SVGWriter STATIC
     "LossCondition.cpp"
     "MapBasicInfo.cpp"
     "Object.cpp"
+    "ObjectProperties.cpp"
     "ObjectPropertiesTables.cpp"
     "ObjectTemplate.cpp"
     "Portals.cpp"

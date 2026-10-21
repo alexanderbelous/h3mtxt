@@ -25,12 +25,16 @@ namespace h3svg
   template<>
   struct ObjectProperties<ObjectPropertiesType::None>
   {
+    constexpr bool operator==(const ObjectProperties&) const noexcept = default;
+
     std::array<std::uint8_t, 4> reserved {};
   };
 
   template<>
   struct ObjectProperties<ObjectPropertiesType::BlackMarket>
   {
+    constexpr bool operator==(const ObjectProperties&) const noexcept = default;
+
     // 0-based index of the element in SavedGame::black_markets,
     // or -1 if this is not an actionable tile.
     std::int32_t index {};
@@ -39,14 +43,18 @@ namespace h3svg
   template<>
   struct ObjectProperties<ObjectPropertiesType::Campfire>
   {
-    ResourceType resource_type : 4 {};
-    std::uint8_t quantity : 4 = 0;
-    std::array<std::uint8_t, 3> reserved {};
+    constexpr bool operator==(const ObjectProperties&) const noexcept = default;
+
+    ResourceType resource_type : 4 {};       // Bits [0; 3]
+    std::uint8_t quantity : 4 = 0;           // Bits [4; 7]
+    std::array<std::uint8_t, 3> reserved {}; // Bits [8; 31]
   };
 
   template<>
   struct ObjectProperties<ObjectPropertiesType::CreatureBank>
   {
+    constexpr bool operator==(const ObjectProperties&) const noexcept = default;
+
     // Not used; 5 bits, always 1s by default.
     std::int8_t reserved1 : 5 = -1;
     PlayersBitmask visited_by;
@@ -60,6 +68,8 @@ namespace h3svg
   template<>
   struct ObjectProperties<ObjectPropertiesType::Dwelling>
   {
+    constexpr bool operator==(const ObjectProperties&) const noexcept = default;
+
     // 0-based index of the element in ObjectPropertiesTables::dwellings.
     std::uint32_t index {};
   };
@@ -67,6 +77,8 @@ namespace h3svg
   template<>
   struct ObjectProperties<ObjectPropertiesType::Corpse>
   {
+    constexpr bool operator==(const ObjectProperties&) const noexcept = default;
+
     // 0-based index of the corpse. This is used in h3svg::Player::corpses to keep track
     // of the corpses visited by the player.
     std::uint16_t id : 5 = {};
@@ -79,6 +91,8 @@ namespace h3svg
   template<>
   struct ObjectProperties<ObjectPropertiesType::Floatsam>
   {
+    constexpr bool operator==(const ObjectProperties&) const noexcept = default;
+
     // TODO: move to Constants.
     enum class FloatsamContentType : std::uint32_t
     {
@@ -94,6 +108,8 @@ namespace h3svg
   template<>
   struct ObjectProperties<ObjectPropertiesType::FountainOfFortune>
   {
+    constexpr bool operator==(const ObjectProperties&) const noexcept = default;
+
     std::int32_t reserved1 : 5 = -1;  // Bits [0; 4]
     std::int32_t reserved2 : 8 = 0;   // Bits [5; 12]
     std::int32_t luck_bonus : 4 = 0;  // Bits [13; 16]
@@ -103,6 +119,8 @@ namespace h3svg
   template<>
   struct ObjectProperties<ObjectPropertiesType::Garrison>
   {
+    constexpr bool operator==(const ObjectProperties&) const noexcept = default;
+
     // 0-based index of the element in ObjectPropertiesTables::garrisons.
     std::uint32_t index {};
   };
@@ -110,6 +128,8 @@ namespace h3svg
   template<>
   struct ObjectProperties<ObjectPropertiesType::LeanTo>
   {
+    constexpr bool operator==(const ObjectProperties&) const noexcept = default;
+
     // 0-based index of the Lean-To. This is used in h3svg::Player::lean_tos to keep track
     // of the Lean-Tos visited by the player.
     std::uint8_t index : 5 = {};         // Bits [0; 4]
@@ -122,6 +142,8 @@ namespace h3svg
   template<>
   struct ObjectProperties<ObjectPropertiesType::SeersHut>
   {
+    constexpr bool operator==(const ObjectProperties&) const noexcept = default;
+
     // 0-based index of the element in ObjectPropertiesTables::seers_huts.
     std::uint32_t index {};
   };
@@ -129,6 +151,8 @@ namespace h3svg
   template<>
   struct ObjectProperties<ObjectPropertiesType::Shrine>
   {
+    constexpr bool operator==(const ObjectProperties&) const noexcept = default;
+
     PlayersBitmask visited_by;        // Bits [5; 12]
     std::int16_t spell : 10 {};       // Bits [13; 22]
     std::int16_t reserved1 : 5 = -1;  // Bits [0; 4]
@@ -138,6 +162,8 @@ namespace h3svg
   template<>
   struct ObjectProperties<ObjectPropertiesType::Sign>
   {
+    constexpr bool operator==(const ObjectProperties&) const noexcept = default;
+
     // 0-based index of the element in ObjectPropertiesTables::signs_and_ocean_bottles.
     std::uint32_t index {};
   };
@@ -145,6 +171,8 @@ namespace h3svg
   template<>
   struct ObjectProperties<ObjectPropertiesType::University>
   {
+    constexpr bool operator==(const ObjectProperties&) const noexcept = default;
+
     std::int32_t reserved1 : 5 = -1;  // Bits [0; 4]
     std::int32_t reserved2 : 8 = 0;   // Bits [5; 12]
     // 0-based index of the element in SavedGame::universities,
@@ -156,6 +184,8 @@ namespace h3svg
   template<>
   struct ObjectProperties<ObjectPropertiesType::WitchHut>
   {
+    constexpr bool operator==(const ObjectProperties&) const noexcept = default;
+
     std::uint16_t reserved1 : 5 = 0;  // Bits [0; 4]
     std::uint16_t reserved2 : 11 = 0; // Bits [21; 31]
     // TODO: probably should be 7 bits (and reserved2 should be 12 bits):
