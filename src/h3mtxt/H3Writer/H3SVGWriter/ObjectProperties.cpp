@@ -198,6 +198,16 @@ namespace h3svg
     }
 
     template<>
+    constexpr void ObjectPropertiesWriter::write(const ObjectProperties<ObjectPropertiesType::TreeOfKnowledge>& properties)
+    {
+      writeInt<5>(properties.index);
+      writeInt<8>(properties.visited_by.bitset.data[0]);
+      writeEnum<2>(properties.type);
+      writeInt<1>(properties.reserved1);
+      writeInt<16>(properties.reserved2);
+    }
+
+    template<>
     constexpr void ObjectPropertiesWriter::write(const ObjectProperties<ObjectPropertiesType::University>& properties)
     {
       writeInt<5>(properties.reserved1);

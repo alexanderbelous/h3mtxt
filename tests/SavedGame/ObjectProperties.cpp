@@ -65,6 +65,23 @@ namespace h3svg
       .binary_data = "\x0b\x49\x02\xe7"sv
     };
 
+    template<>
+    const TestCaseData<ObjectPropertiesType::TreeOfKnowledge> kTestCases<ObjectPropertiesType::TreeOfKnowledge> = {
+      .properties = {
+        .visited_by = []() consteval {
+          PlayersBitmask bitmask;
+          bitmask.set(PlayerColor::Green, true);
+          bitmask.set(PlayerColor::Teal, true);
+          return bitmask;
+        }(),
+        .index = 23,
+        .type = TreeOfKnowledgeType::Gold,
+        .reserved1 = 1,
+        .reserved2 = 1000
+      },
+      .binary_data = "\x17\xa9\xe8\x03"sv
+    };
+
     template<ObjectPropertiesType T>
     using StaticConstant = std::integral_constant<ObjectPropertiesType, T>;
   }
@@ -72,7 +89,8 @@ namespace h3svg
   TEMPLATE_TEST_CASE("H3SVG.ObjectProperties", "[H3SVG]",
                      StaticConstant<ObjectPropertiesType::None>,
                      StaticConstant<ObjectPropertiesType::BlackMarket>,
-                     StaticConstant<ObjectPropertiesType::Pyramid>)
+                     StaticConstant<ObjectPropertiesType::Pyramid>,
+                     StaticConstant<ObjectPropertiesType::TreeOfKnowledge>)
   {
     static constexpr ObjectPropertiesType kObjectPropertiesType = TestType::value;
     const TestCaseData<kObjectPropertiesType>& test_case_data = kTestCases<kObjectPropertiesType>;

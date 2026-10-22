@@ -115,6 +115,8 @@ namespace h3svg
 
   enum class TileFlag : std::uint8_t;
 
+  enum class TreeOfKnowledgeType : std::uint8_t;
+
   enum class TurnDurationType : std::uint8_t;
 
   enum class PrimarySkillType32 : std::uint32_t;

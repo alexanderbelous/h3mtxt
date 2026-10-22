@@ -20,6 +20,7 @@ set(SOURCE_LIST
     "Constants/TileFlag.h"
     "Constants/TownBuildingTypeH3SVG.h"
     "Constants/TownType32.h"
+    "Constants/TreeOfKnowledgeType.h"
     "Constants/TurnDurationType.h"
     "Constants/VisitableObjectType.h"
     "ArtifactMerchants.h"

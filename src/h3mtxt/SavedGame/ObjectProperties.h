@@ -10,6 +10,7 @@
 #include <h3mtxt/Map/Utils/EnumBitmask.h>
 #include <h3mtxt/SavedGame/Constants/FloatsamContentType.h>
 #include <h3mtxt/SavedGame/Constants/ObjectPropertiesType.h>
+#include <h3mtxt/SavedGame/Constants/TreeOfKnowledgeType.h>
 
 #include <array>
 #include <cstdint>
@@ -171,6 +172,19 @@ namespace h3svg
 
     // 0-based index of the element in ObjectPropertiesTables::signs_and_ocean_bottles.
     std::uint32_t index {};
+  };
+
+  template<>
+  struct ObjectProperties<ObjectPropertiesType::TreeOfKnowledge>
+  {
+    constexpr bool operator==(const ObjectProperties&) const noexcept = default;
+
+    PlayersBitmask visited_by;                                // Bits [5; 12]
+    // 0-based index of the element in Hero::trees_of_knowledge.
+    std::uint8_t index : 5 = {};                              // Bits [0; 4]
+    TreeOfKnowledgeType type : 2 = TreeOfKnowledgeType::Free; // Bits [13; 14]
+    std::uint8_t reserved1 : 1 = 0;                           // Bits [15; 15]
+    std::int16_t reserved2 = -1;                              // Bits [16; 31]
   };
 
   template<>

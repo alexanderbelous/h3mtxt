@@ -95,6 +95,14 @@ namespace h3json
     {
       readField(properties.index, value, Fields::kIndex);
     }
+    else if constexpr (T == ObjectPropertiesType::TreeOfKnowledge)
+    {
+      properties.index = readBitField<std::uint8_t, 5>(value, Fields::kIndex);
+      properties.type = readBitField<h3svg::TreeOfKnowledgeType, 2>(value, Fields::kType);
+      readField(properties.visited_by, value, Fields::kVisitedBy);
+      properties.reserved1 = readBitField<std::uint8_t, 1>(value, Fields::kReserved1);
+      properties.reserved2 = readBitField<std::int16_t, 16>(value, Fields::kReserved2);
+    }
     else if constexpr (T == ObjectPropertiesType::University)
     {
       properties.reserved1 = readBitField<std::int32_t, 5>(value, Fields::kReserved1);

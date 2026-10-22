@@ -434,6 +434,18 @@ namespace Medea_NS
   }
 
   template<>
+  std::string_view EnumCommentGetter::operator()(h3svg::TreeOfKnowledgeType value) const
+  {
+    static constexpr std::string_view kNames[] = {
+      "Free",
+      "Gold",
+      "Gems"
+    };
+    const std::size_t idx = static_cast<std::size_t>(value);
+    return (idx < std::size(kNames)) ? kNames[idx] : std::string_view{};
+  }
+
+  template<>
   std::string_view EnumCommentGetter::operator()(h3svg::TownType32 value) const
   {
     if (isLosslessEnumCast<h3m::TownType>(value))

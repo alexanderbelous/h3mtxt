@@ -59,6 +59,9 @@ namespace Medea_NS
   std::string_view EnumCommentGetter::operator()(h3svg::PlayerType value) const;
 
   template<>
+  std::string_view EnumCommentGetter::operator()(h3svg::TreeOfKnowledgeType value) const;
+
+  template<>
   std::string_view EnumCommentGetter::operator()(h3svg::TurnDurationType value) const;
 
   template<>

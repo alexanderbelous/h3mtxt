@@ -243,6 +243,18 @@ namespace h3svg
     }
 
     template<>
+    constexpr ObjectProperties<ObjectPropertiesType::TreeOfKnowledge> ObjectPropertiesReader::read()
+    {
+      ObjectProperties<ObjectPropertiesType::TreeOfKnowledge> properties;
+      properties.index = readInt<std::uint8_t, 5>();
+      properties.visited_by.bitset.data[0] = readInt<std::uint8_t, 8>();
+      properties.type = readEnum<TreeOfKnowledgeType, 2>();
+      properties.reserved1 = readInt<std::uint8_t, 1>();
+      properties.reserved2 = readInt<std::int16_t, 16>();
+      return properties;
+    }
+
+    template<>
     constexpr ObjectProperties<ObjectPropertiesType::University> ObjectPropertiesReader::read()
     {
       return {
