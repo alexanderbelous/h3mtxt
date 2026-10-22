@@ -22,6 +22,7 @@ namespace h3svg
     LeanTo,
     Pyramid,
     SeersHut,
+    ShipwreckSurvivor,
     Shrine,
     Sign,
     TreeOfKnowledge,
@@ -29,7 +30,7 @@ namespace h3svg
     WitchHut
   };
 
-  inline constexpr std::size_t kNumObjectPropertiesTypes = 17;
+  inline constexpr std::size_t kNumObjectPropertiesTypes = 18;
 
   // Returns ObjectPropertiesType for the given ObjectClass.
   // \param object_class - ObjectClass of the object.
@@ -60,17 +61,19 @@ namespace h3svg
       return ObjectPropertiesType::Garrison;
     case ObjectClass::LEAN_TO:
       return ObjectPropertiesType::LeanTo;
+    case ObjectClass::OCEAN_BOTTLE:
+    case ObjectClass::SIGN:
+      return ObjectPropertiesType::Sign;
     case ObjectClass::PYRAMID:
       return ObjectPropertiesType::Pyramid;
+    case ObjectClass::SEER_HUT:
+      return ObjectPropertiesType::SeersHut;
+    case ObjectClass::SHIPWRECK_SURVIVOR:
+      return ObjectPropertiesType::ShipwreckSurvivor;
     case ObjectClass::SHRINE_OF_MAGIC_INCANTATION:
     case ObjectClass::SHRINE_OF_MAGIC_GESTURE:
     case ObjectClass::SHRINE_OF_MAGIC_THOUGHT:
       return ObjectPropertiesType::Shrine;
-    case ObjectClass::OCEAN_BOTTLE:
-    case ObjectClass::SIGN:
-      return ObjectPropertiesType::Sign;
-    case ObjectClass::SEER_HUT:
-      return ObjectPropertiesType::SeersHut;
     case ObjectClass::TREE_OF_KNOWLEDGE:
       return ObjectPropertiesType::TreeOfKnowledge;
     case ObjectClass::UNIVERSITY:

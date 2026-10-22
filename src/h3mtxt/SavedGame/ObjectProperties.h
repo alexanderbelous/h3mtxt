@@ -155,6 +155,15 @@ namespace h3svg
   };
 
   template<>
+  struct ObjectProperties<ObjectPropertiesType::ShipwreckSurvivor>
+  {
+    constexpr bool operator==(const ObjectProperties&) const noexcept = default;
+
+    // TODO: check if this can be None.
+    ArtifactType32 artifact {};
+  };
+
+  template<>
   struct ObjectProperties<ObjectPropertiesType::Shrine>
   {
     constexpr bool operator==(const ObjectProperties&) const noexcept = default;

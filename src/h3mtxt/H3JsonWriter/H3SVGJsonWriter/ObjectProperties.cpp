@@ -85,6 +85,10 @@ namespace Medea_NS
     {
       out.writeField(Fields::kIndex, properties.index);
     }
+    else if constexpr (T == ObjectPropertiesType::ShipwreckSurvivor)
+    {
+      out.writeField(Fields::kArtifact, properties.artifact);
+    }
     else if constexpr (T == ObjectPropertiesType::Shrine)
     {
       out.writeField(Fields::kReserved1, properties.reserved1);

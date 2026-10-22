@@ -604,6 +604,12 @@ namespace h3json
   };
 
   template<>
+  struct FieldNames<h3svg::ObjectProperties<h3svg::ObjectPropertiesType::ShipwreckSurvivor>>
+  {
+    static constexpr std::string_view kArtifact = "artifact";
+  };
+
+  template<>
   struct FieldNames<h3svg::ObjectProperties<h3svg::ObjectPropertiesType::Shrine>>
   {
     static constexpr std::string_view kReserved1 = "reserved1";

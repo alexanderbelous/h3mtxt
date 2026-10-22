@@ -226,6 +226,12 @@ namespace h3svg
     }
 
     template<>
+    constexpr ObjectProperties<ObjectPropertiesType::ShipwreckSurvivor> ObjectPropertiesReader::read()
+    {
+      return { .artifact = readEnum<ArtifactType32, 32>() };
+    }
+
+    template<>
     constexpr ObjectProperties<ObjectPropertiesType::Shrine> ObjectPropertiesReader::read()
     {
       ObjectProperties<ObjectPropertiesType::Shrine> properties;

@@ -66,6 +66,14 @@ namespace h3svg
     };
 
     template<>
+    const TestCaseData<ObjectPropertiesType::ShipwreckSurvivor> kTestCases<ObjectPropertiesType::ShipwreckSurvivor> = {
+      .properties = {
+        .artifact = static_cast<ArtifactType32>(ArtifactType::AngelWings)
+      },
+      .binary_data = "\x48\x00\x00\x00"sv
+    };
+
+    template<>
     const TestCaseData<ObjectPropertiesType::TreeOfKnowledge> kTestCases<ObjectPropertiesType::TreeOfKnowledge> = {
       .properties = {
         .visited_by = []() consteval {
@@ -90,6 +98,7 @@ namespace h3svg
                      StaticConstant<ObjectPropertiesType::None>,
                      StaticConstant<ObjectPropertiesType::BlackMarket>,
                      StaticConstant<ObjectPropertiesType::Pyramid>,
+                     StaticConstant<ObjectPropertiesType::ShipwreckSurvivor>,
                      StaticConstant<ObjectPropertiesType::TreeOfKnowledge>)
   {
     static constexpr ObjectPropertiesType kObjectPropertiesType = TestType::value;
