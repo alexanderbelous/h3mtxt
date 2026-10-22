@@ -6,8 +6,6 @@
 #include <h3mtxt/JsonCommon/FieldNamesH3SVG.h>
 #include <h3mtxt/SavedGame/SavedGame.h>
 
-#include <stdexcept>
-
 namespace h3json
 {
   template<>
@@ -23,24 +21,12 @@ namespace h3json
   {
     using Fields = h3json::FieldNames<h3svg::CoordinatesPacked>;
 
-    const auto readFieldSafe = [&value](std::string_view field_name,
-                                        std::int16_t bound_lower, std::int16_t bound_upper)
-      {
-        const std::int16_t field_value = readField<std::int16_t>(value, field_name);
-        if (field_value < bound_lower || field_value > bound_upper)
-        {
-          throw std::runtime_error("JsonReader<h3svg::CoordinatesPacked>: field \"" +
-                                   std::string{ field_name } + "\" is out of range.");
-        }
-        return field_value;
-      };
-
     return h3svg::CoordinatesPacked{
-      .x = readFieldSafe(Fields::kX, -512, 511),
-      .padding1 = readFieldSafe(Fields::kPadding1, -32, 31),
-      .y = readFieldSafe(Fields::kY, -512, 511),
-      .z = readFieldSafe(Fields::kZ, -8, 7),
-      .padding2 = readFieldSafe(Fields::kPadding2, -2, 1)
+      .x = readBitField<std::int16_t, 10>(value, Fields::kX),
+      .padding1 = readBitField<std::int16_t, 6>(value, Fields::kPadding1),
+      .y = readBitField<std::int16_t, 10>(value, Fields::kY),
+      .z = readBitField<std::int16_t, 4>(value, Fields::kZ),
+      .padding2 = readBitField<std::int16_t, 2>(value, Fields::kPadding2)
     };
   }
 
@@ -206,9 +192,8 @@ namespace h3json
     using Fields = h3json::FieldNames<h3svg::TileRenderInfo>;
     h3svg::TileRenderInfo object_to_render;
     readField(object_to_render.object_idx, value, Fields::kObjectIdx);
-    // TODO: check that the integer values can be represented by the bit fields x and y.
-    object_to_render.x = readField<std::uint8_t>(value, Fields::kX);
-    object_to_render.y = readField<std::uint8_t>(value, Fields::kY);
+    object_to_render.x = readBitField<std::uint8_t, 4>(value, Fields::kX);
+    object_to_render.y = readBitField<std::uint8_t, 4>(value, Fields::kY);
     readField(object_to_render.z_buffer, value, Fields::kZBuffer);
     return object_to_render;
   }
