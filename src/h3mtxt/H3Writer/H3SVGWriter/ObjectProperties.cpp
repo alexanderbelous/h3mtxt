@@ -157,6 +157,12 @@ namespace h3svg
     }
 
     template<>
+    constexpr void ObjectPropertiesWriter::write(const ObjectProperties<ObjectPropertiesType::Hero>& properties)
+    {
+      writeEnum<32>(properties.hero);
+    }
+
+    template<>
     constexpr void ObjectPropertiesWriter::write(const ObjectProperties<ObjectPropertiesType::LeanTo>& properties)
     {
       writeInt<5>(properties.index);

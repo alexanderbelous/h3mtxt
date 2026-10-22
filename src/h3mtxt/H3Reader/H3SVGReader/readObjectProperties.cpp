@@ -196,6 +196,12 @@ namespace h3svg
     }
 
     template<>
+    constexpr ObjectProperties<ObjectPropertiesType::Hero> ObjectPropertiesReader::read()
+    {
+      return { .hero = readEnum<HeroType32, 32>() };
+    }
+
+    template<>
     constexpr ObjectProperties<ObjectPropertiesType::LeanTo> ObjectPropertiesReader::read()
     {
       return {

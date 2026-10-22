@@ -64,6 +64,10 @@ namespace h3json
     {
       readField(properties.index, value, Fields::kIndex);
     }
+    else if constexpr (T == ObjectPropertiesType::Hero)
+    {
+      readField(properties.hero, value, Fields::kHero);
+    }
     else if constexpr (T == ObjectPropertiesType::LeanTo)
     {
       properties.index = readBitField<std::uint8_t, 5>(value, Fields::kIndex);

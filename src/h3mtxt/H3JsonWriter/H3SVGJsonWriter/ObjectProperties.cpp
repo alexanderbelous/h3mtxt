@@ -65,6 +65,10 @@ namespace Medea_NS
     {
       out.writeField(Fields::kIndex, properties.index);
     }
+    else if constexpr (T == ObjectPropertiesType::Hero)
+    {
+      out.writeField(Fields::kHero, properties.hero);
+    }
     else if constexpr (T == ObjectPropertiesType::LeanTo)
     {
       out.writeField(Fields::kIndex, properties.index);

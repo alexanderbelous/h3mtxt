@@ -49,6 +49,14 @@ namespace h3svg
     };
 
     template<>
+    const TestCaseData<ObjectPropertiesType::Hero> kTestCases<ObjectPropertiesType::Hero> = {
+      .properties = {
+        .hero = static_cast<HeroType32>(HeroType::Gunnar)
+      },
+      .binary_data = "\x55\x00\x00\x00"sv
+    };
+
+    template<>
     const TestCaseData<ObjectPropertiesType::Pyramid> kTestCases<ObjectPropertiesType::Pyramid> = {
       .properties = {
         .spell = SpellType::Implosion,
@@ -97,6 +105,7 @@ namespace h3svg
   TEMPLATE_TEST_CASE("H3SVG.ObjectProperties", "[H3SVG]",
                      StaticConstant<ObjectPropertiesType::None>,
                      StaticConstant<ObjectPropertiesType::BlackMarket>,
+                     StaticConstant<ObjectPropertiesType::Hero>,
                      StaticConstant<ObjectPropertiesType::Pyramid>,
                      StaticConstant<ObjectPropertiesType::ShipwreckSurvivor>,
                      StaticConstant<ObjectPropertiesType::TreeOfKnowledge>)

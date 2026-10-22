@@ -3,6 +3,7 @@
 #include <h3mtxt/SavedGame/SavedGameFwd.h>
 
 #include <h3mtxt/Map/Constants/ArtifactType.h>
+#include <h3mtxt/Map/Constants/HeroType.h>
 #include <h3mtxt/Map/Constants/PlayerColor.h>
 #include <h3mtxt/Map/Constants/ResourceType.h>
 #include <h3mtxt/Map/Constants/SecondarySkillType.h>
@@ -77,6 +78,7 @@ namespace h3svg
     std::uint32_t index {};
   };
 
+  // FYI: the values are junk for non-actionable tiles (all bits are set to 1 by default).
   template<>
   struct ObjectProperties<ObjectPropertiesType::Corpse>
   {
@@ -96,6 +98,7 @@ namespace h3svg
   {
     constexpr bool operator==(const ObjectProperties&) const noexcept = default;
 
+    // Content or 0xFFFFFFFF if this is not an actionable tile.
     FloatsamContentType content = FloatsamContentType::None;
   };
 
@@ -117,6 +120,14 @@ namespace h3svg
 
     // 0-based index of the element in ObjectPropertiesTables::garrisons.
     std::uint32_t index {};
+  };
+
+  template<>
+  struct ObjectProperties<ObjectPropertiesType::Hero>
+  {
+    constexpr bool operator==(const ObjectProperties&) const noexcept = default;
+
+    HeroType32 hero {};
   };
 
   template<>
@@ -159,7 +170,8 @@ namespace h3svg
   {
     constexpr bool operator==(const ObjectProperties&) const noexcept = default;
 
-    // TODO: check if this can be None.
+    // FYI: None (i.e. 0xFFFFFFFF) cannot be used here, causes the game to crash
+    // when interacting with the Shipwreck Survivor.
     ArtifactType32 artifact {};
   };
 
