@@ -208,6 +208,18 @@ namespace h3svg
     }
 
     template<>
+    constexpr ObjectProperties<ObjectPropertiesType::Pyramid> ObjectPropertiesReader::read()
+    {
+      ObjectProperties<ObjectPropertiesType::Pyramid> properties;
+      properties.is_lootable = readInt<std::uint16_t, 1>();
+      properties.reserved1 = readInt<std::int16_t, 4>();
+      properties.visited_by.bitset.data[0] = readInt<std::uint8_t, 8>();
+      properties.spell = readEnum<SpellType, 8>();
+      properties.reserved2 = readInt<std::int16_t, 11>();
+      return properties;
+    }
+
+    template<>
     constexpr ObjectProperties<ObjectPropertiesType::SeersHut> ObjectPropertiesReader::read()
     {
       return { .index = readInt<std::uint32_t, 32>() };

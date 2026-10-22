@@ -73,6 +73,14 @@ namespace Medea_NS
       out.writeField(Fields::kResourceType, properties.resource_type);
       out.writeField(Fields::kReserved2, properties.reserved2);
     }
+    else if constexpr (T == ObjectPropertiesType::Pyramid)
+    {
+      out.writeField(Fields::kSpell, properties.spell);
+      out.writeField(Fields::kVisitedBy, properties.visited_by);
+      out.writeField(Fields::kIsLootable, static_cast<bool>(properties.is_lootable));
+      out.writeField(Fields::kReserved1, properties.reserved1);
+      out.writeField(Fields::kReserved2, properties.reserved2);
+    }
     else if constexpr (T == ObjectPropertiesType::SeersHut)
     {
       out.writeField(Fields::kIndex, properties.index);

@@ -588,6 +588,16 @@ namespace h3json
   };
 
   template<>
+  struct FieldNames<h3svg::ObjectProperties<h3svg::ObjectPropertiesType::Pyramid>>
+  {
+    static constexpr std::string_view kSpell = "spell";
+    static constexpr std::string_view kVisitedBy = "visited_by";
+    static constexpr std::string_view kIsLootable = "is_lootable";
+    static constexpr std::string_view kReserved1 = "reserved1";
+    static constexpr std::string_view kReserved2 = "reserved2";
+  };
+
+  template<>
   struct FieldNames<h3svg::ObjectProperties<h3svg::ObjectPropertiesType::SeersHut>>
   {
     static constexpr std::string_view kIndex = "index";

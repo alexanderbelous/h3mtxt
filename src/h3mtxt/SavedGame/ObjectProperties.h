@@ -6,6 +6,7 @@
 #include <h3mtxt/Map/Constants/PlayerColor.h>
 #include <h3mtxt/Map/Constants/ResourceType.h>
 #include <h3mtxt/Map/Constants/SecondarySkillType.h>
+#include <h3mtxt/Map/Constants/SpellType.h>
 #include <h3mtxt/Map/Utils/EnumBitmask.h>
 #include <h3mtxt/SavedGame/Constants/FloatsamContentType.h>
 #include <h3mtxt/SavedGame/Constants/ObjectPropertiesType.h>
@@ -129,6 +130,18 @@ namespace h3svg
     std::uint8_t quantity : 4 = 0;       // Bits [6; 9]
     ResourceType resource_type : 4 = {}; // Bits [10; 13]
     std::int32_t reserved2 : 18 = -1;    // Bits [14; 31]
+  };
+
+  template<>
+  struct ObjectProperties<ObjectPropertiesType::Pyramid>
+  {
+    constexpr bool operator==(const ObjectProperties&) const noexcept = default;
+
+    SpellType spell = SpellType::None;     // Bits [13; 20]
+    PlayersBitmask visited_by;             // Bits [5; 12]
+    std::uint16_t is_lootable : 1 = false; // Bits [0; 0]
+    std::int16_t reserved1 : 4 = -1;       // Bits [1; 4]
+    std::int16_t reserved2 : 11 = -1;      // Bits [21; 31]
   };
 
   template<>

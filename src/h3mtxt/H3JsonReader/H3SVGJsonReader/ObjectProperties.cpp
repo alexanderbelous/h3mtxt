@@ -72,6 +72,14 @@ namespace h3json
       properties.resource_type = readBitField<h3svg::ResourceType, 4>(value, Fields::kResourceType);
       properties.reserved2 = readBitField<std::int32_t, 18>(value, Fields::kReserved2);
     }
+    else if constexpr (T == ObjectPropertiesType::Pyramid)
+    {
+      readField(properties.spell, value, Fields::kSpell);
+      readField(properties.visited_by, value, Fields::kVisitedBy);
+      properties.is_lootable = readField<bool>(value, Fields::kIsLootable);
+      properties.reserved1 = readBitField<std::int16_t, 4>(value, Fields::kReserved1);
+      properties.reserved2 = readBitField<std::int16_t, 11>(value, Fields::kReserved2);
+    }
     else if constexpr (T == ObjectPropertiesType::SeersHut)
     {
       readField(properties.index, value, Fields::kIndex);

@@ -48,13 +48,31 @@ namespace h3svg
       .binary_data = "\x17\x00\x00\x00"sv
     };
 
+    template<>
+    const TestCaseData<ObjectPropertiesType::Pyramid> kTestCases<ObjectPropertiesType::Pyramid> = {
+      .properties = {
+        .spell = SpellType::Implosion,
+        .visited_by = []() consteval {
+          PlayersBitmask bitmask;
+          bitmask.set(PlayerColor::Green, true);
+          bitmask.set(PlayerColor::Teal, true);
+          return bitmask;
+        }(),
+        .is_lootable = true,
+        .reserved1 = 5,
+        .reserved2 = -200
+      },
+      .binary_data = "\x0b\x49\x02\xe7"sv
+    };
+
     template<ObjectPropertiesType T>
     using StaticConstant = std::integral_constant<ObjectPropertiesType, T>;
   }
 
   TEMPLATE_TEST_CASE("H3SVG.ObjectProperties", "[H3SVG]",
                      StaticConstant<ObjectPropertiesType::None>,
-                     StaticConstant<ObjectPropertiesType::BlackMarket>)
+                     StaticConstant<ObjectPropertiesType::BlackMarket>,
+                     StaticConstant<ObjectPropertiesType::Pyramid>)
   {
     static constexpr ObjectPropertiesType kObjectPropertiesType = TestType::value;
     const TestCaseData<kObjectPropertiesType>& test_case_data = kTestCases<kObjectPropertiesType>;

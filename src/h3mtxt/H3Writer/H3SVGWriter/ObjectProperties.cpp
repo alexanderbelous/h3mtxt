@@ -167,6 +167,16 @@ namespace h3svg
     }
 
     template<>
+    constexpr void ObjectPropertiesWriter::write(const ObjectProperties<ObjectPropertiesType::Pyramid>& properties)
+    {
+      writeInt<1>(properties.is_lootable);
+      writeInt<4>(properties.reserved1);
+      writeInt<8>(properties.visited_by.bitset.data[0]);
+      writeEnum<8>(properties.spell);
+      writeInt<11>(properties.reserved2);
+    }
+
+    template<>
     constexpr void ObjectPropertiesWriter::write(const ObjectProperties<ObjectPropertiesType::SeersHut>& properties)
     {
       writeInt<32>(properties.index);
