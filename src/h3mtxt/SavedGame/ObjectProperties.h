@@ -7,6 +7,7 @@
 #include <h3mtxt/Map/Constants/ResourceType.h>
 #include <h3mtxt/Map/Constants/SecondarySkillType.h>
 #include <h3mtxt/Map/Utils/EnumBitmask.h>
+#include <h3mtxt/SavedGame/Constants/FloatsamContentType.h>
 #include <h3mtxt/SavedGame/Constants/ObjectPropertiesType.h>
 
 #include <array>
@@ -92,15 +93,6 @@ namespace h3svg
   struct ObjectProperties<ObjectPropertiesType::Floatsam>
   {
     constexpr bool operator==(const ObjectProperties&) const noexcept = default;
-
-    // TODO: move to Constants.
-    enum class FloatsamContentType : std::uint32_t
-    {
-      None = 0,
-      Wood5 = 1,
-      Wood5Gold200 = 2,
-      Wood10Gold500 = 3
-    };
 
     FloatsamContentType content = FloatsamContentType::None;
   };

@@ -183,6 +183,19 @@ namespace Medea_NS
   }
 
   template<>
+  std::string_view EnumCommentGetter::operator()(h3svg::FloatsamContentType value) const
+  {
+    static constexpr std::string_view kNames[] = {
+      "None",
+      "Wood5",
+      "Wood5Gold200",
+      "Wood10Gold500"
+    };
+    const std::size_t idx = static_cast<std::size_t>(value);
+    return (idx < std::size(kNames)) ? kNames[idx] : std::string_view{};
+  }
+
+  template<>
   std::string_view EnumCommentGetter::operator()(h3svg::HeroType16 value) const
   {
     // Delegate to EnumCommentGetter::operator()(h3svg::HeroType32).

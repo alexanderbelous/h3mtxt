@@ -32,6 +32,9 @@ namespace Medea_NS
   std::string_view EnumCommentGetter::operator()(h3svg::CreatureType32 value) const;
 
   template<>
+  std::string_view EnumCommentGetter::operator()(h3svg::FloatsamContentType value) const;
+
+  template<>
   std::string_view EnumCommentGetter::operator()(h3svg::HeroType16 value) const;
 
   template<>

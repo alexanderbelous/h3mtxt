@@ -174,7 +174,7 @@ namespace h3svg
     constexpr ObjectProperties<ObjectPropertiesType::Floatsam> ObjectPropertiesReader::read()
     {
       return {
-        .content = readEnum<ObjectProperties<ObjectPropertiesType::Floatsam>::FloatsamContentType, 32>()
+        .content = readEnum<FloatsamContentType, 32>()
       };
     }
 
