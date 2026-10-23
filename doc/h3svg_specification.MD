@@ -394,9 +394,9 @@ except `allow_normal_win` and `applies_to_computer`.
 | def             | `String16`           | varies        | Filename of the .def sprite from "H3sprite.lod" to use |
 | width           | `uint8`              | 1             | Width of the sprite (in tiles)                         |
 | height          | `uint8`              | 1             | Height of the sprite (in tiles)                        |
-| unknown1        | `SpriteTilesBitmask` | 6             | |
+| colors          | `SpriteTilesBitmask` | 6             | |
 | passability     | `SpriteTilesBitmask` | 6             | |
-| unknown2        | `SpriteTilesBitmask` | 6             | |
+| shadows         | `SpriteTilesBitmask` | 6             | |
 | actionablility  | `SpriteTilesBitmask` | 6             | |
 | object_class    | `uint16`             | 2             | Enum [`ObjectClass`](../src/h3mtxt/Map/Constants/ObjectClass.h); indicates the type of the object |
 | object_subclass | `uint16`             | 2             | Subtype of the object                                  |
@@ -677,7 +677,7 @@ except `allow_normal_win` and `applies_to_computer`.
 | coordinates_packed         | `uint32`    | 4             | Duplicates the coordinates using the packed format                                |
 | object_class_under         | `uint32`    | 4             | Enum `ObjectClass` of the object on the same tile under the hero                  |
 | has_object_under           | `Bool`      | 1             | Indicates whether there is an actionable object under the hero                    |
-| unknown1                   | `uint8[4]`  | 4             | TODO                                                                              |
+| object_properties_under    | `uint8[4]`  | 4             | "Simple" properties of the object on the same tile under the hero                 |
 | is_female                  | `Bool`      | 1             | 1 if the hero is female, 0 otherwise                                              |
 | use_custom_biography       | `Bool`      | 1             | 1 if the custom biography should be displayed, 0 otherwise                        |
 | biography                  | `String32`  | varies        | The hero's biography                                                              |
@@ -699,18 +699,18 @@ except `allow_normal_win` and `applies_to_computer`.
 | orientation                | `uint8`     | 1             | Enum `CompassPoint`; orientation of the hero on the Adventure Map                 |
 | formation_flags            | `uint8`     | 1             | Bitmask; 1 bit per enum `FormationFlag`                                           |
 | seed                       | `uint8`     | 1             | Initial seed for the PRNG that controls the skills offered on level-up            |
-| unknown2                   | `uint8`     | 1             | TODO                                                                              |
+| unknown1                   | `uint8`     | 1             | TODO                                                                              |
 | destination_x              | `int32`     | 4             | X-coordinate of the destination, or -1 if there is none                           |
 | destination_y              | `int32`     | 4             | Y-coordinate of the destination, or -1 if there is none                           |
 | destination_z              | `int8`      | 1             | Z-coordinate of the destination                                                   |
-| unknown3                   | `uint8[3]`  | 3             | TODO                                                                              |
+| unknown2                   | `uint8[3]`  | 3             | TODO                                                                              |
 | move_points_max            | `int32`     | 4             | Maximum number of movement points at the moment                                   |
 | move_points                | `int32`     | 4             | The actual number of movement points at the moment                                |
 | experience                 | `int32`     | 4             | Experience points                                                                 |
 | num_secondary_skills       | `int32`     | 4             | The number of learned Secondary Skills                                            |
 | spell_points               | `uint16`    | 2             | Spell points                                                                      |
 | level                      | `int16`     | 2             | Experience level                                                                  |
-| unknown4                   | `uint8[2]`  | 2             | TODO                                                                              |
+| unknown3                   | `uint8[2]`  | 2             | TODO                                                                              |
 | learning_stones            | `uint8[4]`  | 4             | Bitmask; 1 bit per Learning Stone, indicating if the hero has visited it          |
 | marletto_towers            | `uint8[4]`  | 4             | Bitmask; 1 bit per Marletto Tower, indicating if the hero has visited it          |
 | gardens_of_revelation      | `uint8[4]`  | 4             | Bitmask; 1 bit per Garden of Revelation, indicating if the hero has visited it    |
