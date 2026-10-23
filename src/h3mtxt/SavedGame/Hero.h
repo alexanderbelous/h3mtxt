@@ -7,7 +7,6 @@
 #include <h3mtxt/Map/Constants/HeroClass.h>
 #include <h3mtxt/Map/Constants/HeroPortrait.h>
 #include <h3mtxt/Map/Constants/HeroType.h>
-#include <h3mtxt/Map/Constants/ObjectClass.h>
 #include <h3mtxt/Map/Constants/PlayerColor.h>
 #include <h3mtxt/Map/Constants/PrimarySkillType.h>
 #include <h3mtxt/Map/Constants/SecondarySkillType.h>
@@ -22,6 +21,7 @@
 #include <h3mtxt/SavedGame/Constants/HeroFlag.h>
 #include <h3mtxt/SavedGame/CoordinatesPacked.h>
 #include <h3mtxt/SavedGame/FixedLengthString.h>
+#include <h3mtxt/SavedGame/ObjectPropertiesVariant.h>
 #include <h3mtxt/SavedGame/Troops.h>
 
 #include <array>
@@ -58,21 +58,19 @@ namespace h3svg
 
   struct Hero
   {
-    constexpr bool operator==(const Hero&) const noexcept = default;
+    bool operator==(const Hero&) const noexcept = default;
 
     std::int16_t x = -1;
     std::int16_t y = -1;
     std::int16_t z = -1;
     Bool is_visible = false;
     CoordinatesPacked coordinates_packed;
-    // ObjectClass of the object under the hero, or ObjectClass::NONE if there is none.
-    ObjectClass object_class_under = ObjectClass::NONE;
     // Indicates whether there is an actionable object under the hero.
     Bool has_object_under = false;
-    // TODO: figure out what this is.
-    // Seems to be Tile::object_properties: this field basically acts as a temporary storage for the properties
-    // of the object while the tile is occupied by the hero. Genius design.
-    std::array<std::uint8_t, 4> unknown1 {};
+    // ObjectClass and the "simple" properties of the Adventure Map object under the hero.
+    // This field acts as a temporary storage for the original value of Tile::object_properties
+    // while the hero occupies the tile. Genius design.
+    ObjectPropertiesVariant object_under;
     Bool is_female {};
     // If 0, the default biography will be displayed for this hero, otherwise the custom one (i.e. Hero::biography).
     Bool use_custom_biography {};
@@ -118,7 +116,7 @@ namespace h3svg
     // Initial seed for the PRNG that controls the primary/secondary skills offered on level-up.
     std::uint8_t seed = 0xFF;
     // TODO: figure out what this is.
-    std::uint8_t unknown2 {};
+    std::uint8_t unknown1 {};
     // X-coordinate of the destination, or -1 if there is none.
     std::int32_t destination_x = -1;
     // Y-coordinate of the destination, or -1 if there is none.
@@ -126,7 +124,7 @@ namespace h3svg
     // Z-coordinate of the destionation.
     std::int8_t destination_z = 0;
       // TODO: figure out what this is.
-    std::array<std::uint8_t, 3> unknown3 {};
+    std::array<std::uint8_t, 3> unknown2 {};
     // Maximum number of movement points at the moment.
     // This is the "potential" value, which basically reflects what would've been the number of move points if the hero
     // hadn't moved this turn. It's not constant though - e.g., visiting Stables, or equipping Boots of Speed increases
@@ -141,7 +139,7 @@ namespace h3svg
     // Yes, you can make a hero with level 32767; however, this will be ignored on level-up: the new level
     // will be computed from the experience points.
     std::int16_t level = 1;
-    std::array<std::uint8_t, 2> unknown4 {};
+    std::array<std::uint8_t, 2> unknown3 {};
     // 1 bit per Learning Stone, indicating if the hero has visited it.
     BitSet<4> learning_stones;
     // 1 bit per Marletto Tower, indicating if the hero has visited it.

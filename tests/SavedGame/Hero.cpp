@@ -21,9 +21,13 @@ namespace h3svg
       .z = 1,
       .is_visible = true,
       .coordinates_packed = {.x = 20, .y = 112, .z = 1},
-      .object_class_under = ObjectClass::NONE,
       .has_object_under = false,
-      .unknown1 = {0, 0, 0, 0},
+      .object_under = {
+        ObjectClass::NONE,
+        ObjectProperties<ObjectPropertiesType::None>{
+          .reserved = {0, 0, 0, 0}
+        }
+      },
       .is_female = true,
       .use_custom_biography = true,
       .biography = "Born on Monday",
@@ -45,18 +49,18 @@ namespace h3svg
       .orientation = CompassPoint::SouthWest,
       .formation_flags = { 0x03 },
       .seed = 42,
-      .unknown2 = 0,
+      .unknown1 = 0,
       .destination_x = 22,
       .destination_y = 113,
       .destination_z = 1,
-      .unknown3 = {0, 0, 0},
+      .unknown2 = {0, 0, 0},
       .move_points_max = 2600,
       .move_points = 2000,
       .experience = 10'000'000,
       .num_secondary_skills = 8,
       .spell_points = 1980,
       .level = 46,
-      .unknown4 = {0, 0},
+      .unknown3 = {0, 0},
       .learning_stones = {0xFF, 0xFF, 0xFF, 0x0F},
       .marletto_towers = {0x03, 0xFF, 0x00, 0x00},
       .gardens_of_revelation = {0x00, 0x00, 0x00, 0x07},
@@ -176,7 +180,7 @@ namespace h3svg
       "\x14\x00\x70\x04" // coordinates_packed
       "\x00\x00\x00\x00" // object_class_under
       "\x00" // has_object_under
-      "\x00\x00\x00\x00" // unknown1
+      "\x00\x00\x00\x00" // object_properties_under
       "\x01" // is_female
       "\x01" // use_custom_biography
       "\x0e\x00\x00\x00" "Born on Monday" // biography
@@ -198,18 +202,18 @@ namespace h3svg
       "\x05" // orientation
       "\x03" // formation_flags
       "\x2a" // seed
-      "\x00" // unknown2
+      "\x00" // unknown1
       "\x16\x00\x00\x00" // destination_x
       "\x71\x00\x00\x00" // destination_y
       "\x01" // destination_z
-      "\x00\x00\x00" // unknown3
+      "\x00\x00\x00" // unknown2
       "\x28\x0a\x00\x00" // move_points_max
       "\xd0\x07\x00\x00" // move_points
       "\x80\x96\x98\x00" // experience
       "\x08\x00\x00\x00" // num_secondary_skills
       "\xbc\x07" // spell_points
       "\x2e\x00" // level
-      "\x00\x00" // unknown4
+      "\x00\x00" // unknown3
       "\xff\xff\xff\x0f" // learning_stones
       "\x03\xff\x00\x00" // marletto_towers
       "\x00\x00\x00\x07" // gardens_of_revelation
