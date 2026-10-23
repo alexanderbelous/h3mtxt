@@ -245,6 +245,17 @@ namespace h3svg
   };
 
   template<>
+  struct ObjectProperties<ObjectPropertiesType::WaterWheel>
+  {
+    constexpr bool operator==(const ObjectProperties&) const noexcept = default;
+
+    // Multiply by 500 to get the amount of Gold.
+    std::uint8_t bonus : 5 = 0;      // Bits [0; 4]
+    PlayersBitmask visited_by;       // Bits [5; 12]
+    std::int32_t reserved : 19 = -1; // Bits [13; 31]
+  };
+
+  template<>
   struct ObjectProperties<ObjectPropertiesType::Windmill>
   {
     constexpr bool operator==(const ObjectProperties&) const noexcept = default;

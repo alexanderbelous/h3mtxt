@@ -669,6 +669,14 @@ namespace h3json
   };
 
   template<>
+  struct FieldNames<h3svg::ObjectProperties<h3svg::ObjectPropertiesType::WaterWheel>>
+  {
+    static constexpr std::string_view kBonus = "bonus";
+    static constexpr std::string_view kVisitedBy = "visited_by";
+    static constexpr std::string_view kReserved = "reserved";
+  };
+
+  template<>
   struct FieldNames<h3svg::ObjectProperties<h3svg::ObjectPropertiesType::Windmill>>
   {
     static constexpr std::string_view kResourceType = "resource_type";

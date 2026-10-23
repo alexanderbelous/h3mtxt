@@ -131,6 +131,12 @@ namespace h3json
       properties.index = readBitField<std::int32_t, 12>(value, Fields::kIndex);
       properties.reserved3 = readBitField<std::int32_t, 7>(value, Fields::kReserved3);
     }
+    else if constexpr (T == ObjectPropertiesType::WaterWheel)
+    {
+      properties.bonus = readBitField<std::uint8_t, 5>(value, Fields::kBonus);
+      readField(properties.visited_by, value, Fields::kVisitedBy);
+      properties.reserved = readBitField<std::int32_t, 19>(value, Fields::kReserved);
+    }
     else if constexpr (T == ObjectPropertiesType::Windmill)
     {
       properties.resource_type = readBitField<h3svg::ResourceType, 4>(value, Fields::kResourceType);

@@ -246,6 +246,14 @@ namespace h3svg
     }
 
     template<>
+    constexpr void ObjectPropertiesWriter::write(const ObjectProperties<ObjectPropertiesType::WaterWheel>& properties)
+    {
+      writeInt<5>(properties.bonus);
+      writeInt<8>(properties.visited_by.bitset.data[0]);
+      writeInt<19>(properties.reserved);
+    }
+
+    template<>
     constexpr void ObjectPropertiesWriter::write(const ObjectProperties<ObjectPropertiesType::Windmill>& properties)
     {
       writeEnum<4>(properties.resource_type);

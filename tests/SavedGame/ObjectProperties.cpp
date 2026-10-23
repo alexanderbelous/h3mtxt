@@ -141,6 +141,21 @@ namespace h3svg
     };
 
     template<>
+    const TestCaseData<ObjectPropertiesType::WaterWheel> kTestCases<ObjectPropertiesType::WaterWheel> = {
+      .properties = {
+        .bonus = 2,
+        .visited_by = []() consteval {
+          PlayersBitmask bitmask;
+          bitmask.set(PlayerColor::Green, true);
+          bitmask.set(PlayerColor::Teal, true);
+          return bitmask;
+        }(),
+        .reserved = -1
+      },
+      .binary_data = "\x02\xe9\xff\xff"sv
+    };
+
+    template<>
     const TestCaseData<ObjectPropertiesType::Windmill> kTestCases<ObjectPropertiesType::Windmill> = {
       .properties = {
         .resource_type = ResourceType::Gems,
@@ -171,6 +186,7 @@ namespace h3svg
                      StaticConstant<ObjectPropertiesType::RefugeeCamp>,
                      StaticConstant<ObjectPropertiesType::ShipwreckSurvivor>,
                      StaticConstant<ObjectPropertiesType::TreeOfKnowledge>,
+                     StaticConstant<ObjectPropertiesType::WaterWheel>,
                      StaticConstant<ObjectPropertiesType::Windmill>)
   {
     static constexpr ObjectPropertiesType kObjectPropertiesType = TestType::value;

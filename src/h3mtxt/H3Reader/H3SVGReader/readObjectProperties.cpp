@@ -37,6 +37,8 @@ namespace h3svg
       template<class T, std::size_t NumBits>
       constexpr T readInt()
       {
+        // FIXME: if T is signed, ensure that the returned value is within [-(2^(N-1)); 2^(N-1) - 1].
+        // Otherwise, it's implementation-defined what value will be assigned to the actual bit field.
         return static_cast<T>(readImpl(NumBits));
       }
 
@@ -294,6 +296,16 @@ namespace h3svg
         .index = readInt<std::int32_t, 12>(),
         .reserved3 = readInt<std::int32_t, 7>(),
       };
+    }
+
+    template<>
+    constexpr ObjectProperties<ObjectPropertiesType::WaterWheel> ObjectPropertiesReader::read()
+    {
+      ObjectProperties<ObjectPropertiesType::WaterWheel> properties;
+      properties.bonus = readInt<std::uint8_t, 5>();
+      properties.visited_by.bitset.data[0] = readInt<std::uint8_t, 8>();
+      properties.reserved = readInt<std::int32_t, 19>();
+      return properties;
     }
 
     template<>
