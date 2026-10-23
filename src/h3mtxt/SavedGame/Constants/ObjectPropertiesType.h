@@ -50,9 +50,10 @@ namespace h3svg
     case ObjectClass::CREATURE_BANK:
     case ObjectClass::DERELICT_SHIP:
     case ObjectClass::DRAGON_UTOPIA:
+    case ObjectClass::CRYPT:
       return ObjectPropertiesType::CreatureBank;
     case ObjectClass::CREATURE_GENERATOR1:
-      // TODO: probably should be returned for CREATURE_GENERATOR4 as well.
+    case ObjectClass::CREATURE_GENERATOR4:
       return ObjectPropertiesType::Dwelling;
     case ObjectClass::CORPSE:
       return ObjectPropertiesType::Corpse;
