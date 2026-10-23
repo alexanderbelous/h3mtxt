@@ -226,6 +226,12 @@ namespace h3svg
     }
 
     template<>
+    constexpr ObjectProperties<ObjectPropertiesType::RefugeeCamp> ObjectPropertiesReader::read()
+    {
+      return { .quantity = readInt<std::int32_t, 32>() };
+    }
+
+    template<>
     constexpr ObjectProperties<ObjectPropertiesType::SeersHut> ObjectPropertiesReader::read()
     {
       return { .index = readInt<std::uint32_t, 32>() };

@@ -85,6 +85,10 @@ namespace Medea_NS
       out.writeField(Fields::kReserved1, properties.reserved1);
       out.writeField(Fields::kReserved2, properties.reserved2);
     }
+    else if constexpr (T == ObjectPropertiesType::RefugeeCamp)
+    {
+      out.writeField(Fields::kQuantity, properties.quantity);
+    }
     else if constexpr (T == ObjectPropertiesType::SeersHut)
     {
       out.writeField(Fields::kIndex, properties.index);

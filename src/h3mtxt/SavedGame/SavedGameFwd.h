@@ -86,7 +86,7 @@ namespace h3svg
 
   enum class CreatureType32 : std::int32_t;
 
-  enum class FloatsamContentType : std::uint32_t;
+  enum class FloatsamContentType : std::int32_t;
 
   enum class FormationFlag : std::uint8_t;
 

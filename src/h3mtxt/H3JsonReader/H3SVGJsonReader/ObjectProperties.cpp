@@ -84,6 +84,10 @@ namespace h3json
       properties.reserved1 = readBitField<std::int16_t, 4>(value, Fields::kReserved1);
       properties.reserved2 = readBitField<std::int16_t, 11>(value, Fields::kReserved2);
     }
+    else if constexpr (T == ObjectPropertiesType::RefugeeCamp)
+    {
+      readField(properties.quantity, value, Fields::kQuantity);
+    }
     else if constexpr (T == ObjectPropertiesType::SeersHut)
     {
       readField(properties.index, value, Fields::kIndex);

@@ -157,6 +157,16 @@ namespace h3svg
   };
 
   template<>
+  struct ObjectProperties<ObjectPropertiesType::RefugeeCamp>
+  {
+    constexpr bool operator==(const ObjectProperties&) const noexcept = default;
+
+    // The number of creatures available for hire.
+    // Note that the type of the creatures is stored in Tile::object_subclass.
+    std::int32_t quantity = 0;
+  };
+
+  template<>
   struct ObjectProperties<ObjectPropertiesType::SeersHut>
   {
     constexpr bool operator==(const ObjectProperties&) const noexcept = default;

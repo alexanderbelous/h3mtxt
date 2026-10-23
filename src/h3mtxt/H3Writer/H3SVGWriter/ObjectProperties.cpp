@@ -183,6 +183,12 @@ namespace h3svg
     }
 
     template<>
+    constexpr void ObjectPropertiesWriter::write(const ObjectProperties<ObjectPropertiesType::RefugeeCamp>& properties)
+    {
+      writeInt<32>(properties.quantity);
+    }
+
+    template<>
     constexpr void ObjectPropertiesWriter::write(const ObjectProperties<ObjectPropertiesType::SeersHut>& properties)
     {
       writeInt<32>(properties.index);

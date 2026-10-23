@@ -74,6 +74,14 @@ namespace h3svg
     };
 
     template<>
+    const TestCaseData<ObjectPropertiesType::RefugeeCamp> kTestCases<ObjectPropertiesType::RefugeeCamp> = {
+      .properties = {
+        .quantity = 17
+      },
+      .binary_data = "\x11\x00\x00\x00"sv
+    };
+
+    template<>
     const TestCaseData<ObjectPropertiesType::ShipwreckSurvivor> kTestCases<ObjectPropertiesType::ShipwreckSurvivor> = {
       .properties = {
         .artifact = static_cast<ArtifactType32>(ArtifactType::AngelWings)
@@ -107,6 +115,7 @@ namespace h3svg
                      StaticConstant<ObjectPropertiesType::BlackMarket>,
                      StaticConstant<ObjectPropertiesType::Hero>,
                      StaticConstant<ObjectPropertiesType::Pyramid>,
+                     StaticConstant<ObjectPropertiesType::RefugeeCamp>,
                      StaticConstant<ObjectPropertiesType::ShipwreckSurvivor>,
                      StaticConstant<ObjectPropertiesType::TreeOfKnowledge>)
   {
