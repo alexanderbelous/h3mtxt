@@ -232,6 +232,18 @@ namespace h3svg
   };
 
   template<>
+  struct ObjectProperties<ObjectPropertiesType::Windmill>
+  {
+    constexpr bool operator==(const ObjectProperties&) const noexcept = default;
+
+    ResourceType resource_type : 4 = {};    // Bits [0; 3]
+    std::uint8_t resource_quantity : 4 = 0; // Bits [13; 16]
+    PlayersBitmask visited_by;              // Bits [5; 12]
+    std::uint16_t reserved1 : 1 = 1;        // Bits [4; 4]
+    std::int16_t reserved2 : 15 = -1;       // Bits [17; 31]
+  };
+
+  template<>
   struct ObjectProperties<ObjectPropertiesType::WitchHut>
   {
     constexpr bool operator==(const ObjectProperties&) const noexcept = default;

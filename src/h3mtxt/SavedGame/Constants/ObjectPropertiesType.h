@@ -29,10 +29,11 @@ namespace h3svg
     Sign,
     TreeOfKnowledge,
     University,
+    Windmill,
     WitchHut
   };
 
-  inline constexpr std::size_t kNumObjectPropertiesTypes = 20;
+  inline constexpr std::size_t kNumObjectPropertiesTypes = 21;
 
   // Returns ObjectPropertiesType for the given ObjectClass.
   // \param object_class - ObjectClass of the object.
@@ -85,6 +86,8 @@ namespace h3svg
       return ObjectPropertiesType::TreeOfKnowledge;
     case ObjectClass::UNIVERSITY:
       return ObjectPropertiesType::University;
+    case ObjectClass::WINDMILL:
+      return ObjectPropertiesType::Windmill;
     case ObjectClass::WITCH_HUT:
       return ObjectPropertiesType::WitchHut;
     default:

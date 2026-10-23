@@ -284,6 +284,18 @@ namespace h3svg
     }
 
     template<>
+    constexpr ObjectProperties<ObjectPropertiesType::Windmill> ObjectPropertiesReader::read()
+    {
+      ObjectProperties<ObjectPropertiesType::Windmill> properties;
+      properties.resource_type = readEnum<ResourceType, 4>();
+      properties.reserved1 = readInt<std::uint16_t, 1>();
+      properties.visited_by.bitset.data[0] = readInt<std::uint8_t, 8>();
+      properties.resource_quantity = readInt<std::uint8_t, 4>();
+      properties.reserved2 = readInt<std::int16_t, 15>();
+      return properties;
+    }
+
+    template<>
     constexpr ObjectProperties<ObjectPropertiesType::WitchHut> ObjectPropertiesReader::read()
     {
       ObjectProperties<ObjectPropertiesType::WitchHut> properties;

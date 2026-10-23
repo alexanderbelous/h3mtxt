@@ -106,6 +106,23 @@ namespace h3svg
       .binary_data = "\x17\xa9\xe8\x03"sv
     };
 
+    template<>
+    const TestCaseData<ObjectPropertiesType::Windmill> kTestCases<ObjectPropertiesType::Windmill> = {
+      .properties = {
+        .resource_type = ResourceType::Gems,
+        .resource_quantity = 4,
+        .visited_by = []() consteval {
+          PlayersBitmask bitmask;
+          bitmask.set(PlayerColor::Green, true);
+          bitmask.set(PlayerColor::Teal, true);
+          return bitmask;
+        }(),
+        .reserved1 = 1,
+        .reserved2 = -1
+      },
+      .binary_data = "\x15\x89\xfe\xff"sv
+    };
+
     template<ObjectPropertiesType T>
     using StaticConstant = std::integral_constant<ObjectPropertiesType, T>;
   }
@@ -117,7 +134,8 @@ namespace h3svg
                      StaticConstant<ObjectPropertiesType::Pyramid>,
                      StaticConstant<ObjectPropertiesType::RefugeeCamp>,
                      StaticConstant<ObjectPropertiesType::ShipwreckSurvivor>,
-                     StaticConstant<ObjectPropertiesType::TreeOfKnowledge>)
+                     StaticConstant<ObjectPropertiesType::TreeOfKnowledge>,
+                     StaticConstant<ObjectPropertiesType::Windmill>)
   {
     static constexpr ObjectPropertiesType kObjectPropertiesType = TestType::value;
     const TestCaseData<kObjectPropertiesType>& test_case_data = kTestCases<kObjectPropertiesType>;
