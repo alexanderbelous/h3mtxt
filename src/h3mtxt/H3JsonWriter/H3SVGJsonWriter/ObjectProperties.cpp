@@ -51,6 +51,14 @@ namespace Medea_NS
       out.writeField(Fields::kIsLootable, properties.is_lootable);
       out.writeField(Fields::kReserved2, properties.reserved2);
     }
+    else if constexpr (T == ObjectPropertiesType::Event)
+    {
+      out.writeField(Fields::kId, properties.id);
+      out.writeField(Fields::kAffectedPlayers, properties.affected_players);
+      out.writeField(Fields::kAppliesToComputer, static_cast<bool>(properties.applies_to_computer));
+      out.writeField(Fields::kCancelAfterFirstVisit, static_cast<bool>(properties.cancel_after_first_visit));
+      out.writeField(Fields::kReserved, properties.reserved);
+    }
     else if constexpr (T == ObjectPropertiesType::Floatsam)
     {
       out.writeField(Fields::kContent, properties.content);

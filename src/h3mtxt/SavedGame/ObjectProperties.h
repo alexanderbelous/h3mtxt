@@ -94,6 +94,19 @@ namespace h3svg
   };
 
   template<>
+  struct ObjectProperties<ObjectPropertiesType::Event>
+  {
+    constexpr bool operator==(const ObjectProperties&) const noexcept = default;
+
+    // 0-based index of the element in ObjectPropertiesTables::events_and_pandoras_boxes.
+    std::uint16_t id : 10 = {};               // Bits [0; 9]
+    PlayersBitmask affected_players;          // Bits [10; 17]
+    Bool applies_to_computer : 1 = false;     // Bits [18; 18]
+    Bool cancel_after_first_visit : 1 = true; // Bits [19; 19]
+    std::uint16_t reserved : 12 = {};         // Bits [20; 31]
+  };
+
+  template<>
   struct ObjectProperties<ObjectPropertiesType::Floatsam>
   {
     constexpr bool operator==(const ObjectProperties&) const noexcept = default;

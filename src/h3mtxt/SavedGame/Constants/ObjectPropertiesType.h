@@ -16,6 +16,7 @@ namespace h3svg
     CreatureBank,
     Dwelling,
     Corpse,
+    Event,
     Floatsam,
     FountainOfFortune,
     Garrison,
@@ -33,7 +34,7 @@ namespace h3svg
     WitchHut
   };
 
-  inline constexpr std::size_t kNumObjectPropertiesTypes = 21;
+  inline constexpr std::size_t kNumObjectPropertiesTypes = 22;
 
   // Returns ObjectPropertiesType for the given ObjectClass.
   // \param object_class - ObjectClass of the object.
@@ -55,6 +56,8 @@ namespace h3svg
       return ObjectPropertiesType::Dwelling;
     case ObjectClass::CORPSE:
       return ObjectPropertiesType::Corpse;
+    case ObjectClass::EVENT:
+      return ObjectPropertiesType::Event;
     case ObjectClass::FLOTSAM:
       return ObjectPropertiesType::Floatsam;
     case ObjectClass::FOUNTAIN_OF_FORTUNE:

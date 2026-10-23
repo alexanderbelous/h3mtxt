@@ -66,6 +66,23 @@ namespace h3svg
     };
 
     template<>
+    const TestCaseData<ObjectPropertiesType::Event> kTestCases<ObjectPropertiesType::Event> = {
+      .properties = {
+        .id = 7,
+        .affected_players = []() consteval {
+          PlayersBitmask bitmask;
+          bitmask.set(PlayerColor::Green, true);
+          bitmask.set(PlayerColor::Teal, true);
+          return bitmask;
+        }(),
+        .applies_to_computer = true,
+        .cancel_after_first_visit = false,
+        .reserved = 555
+      },
+      .binary_data = "\x07\x20\xb5\x22"sv
+    };
+
+    template<>
     const TestCaseData<ObjectPropertiesType::Hero> kTestCases<ObjectPropertiesType::Hero> = {
       .properties = {
         .hero = static_cast<HeroType32>(HeroType::Gunnar)
@@ -148,6 +165,7 @@ namespace h3svg
                      StaticConstant<ObjectPropertiesType::None>,
                      StaticConstant<ObjectPropertiesType::BlackMarket>,
                      StaticConstant<ObjectPropertiesType::CreatureBank>,
+                     StaticConstant<ObjectPropertiesType::Event>,
                      StaticConstant<ObjectPropertiesType::Hero>,
                      StaticConstant<ObjectPropertiesType::Pyramid>,
                      StaticConstant<ObjectPropertiesType::RefugeeCamp>,

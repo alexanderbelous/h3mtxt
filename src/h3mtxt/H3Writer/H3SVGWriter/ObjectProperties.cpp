@@ -137,6 +137,16 @@ namespace h3svg
     }
 
     template<>
+    constexpr void ObjectPropertiesWriter::write(const ObjectProperties<ObjectPropertiesType::Event>& properties)
+    {
+      writeInt<10>(properties.id);
+      writeInt<8>(properties.affected_players.bitset.data[0]);
+      writeInt<1>(properties.applies_to_computer);
+      writeInt<1>(properties.cancel_after_first_visit);
+      writeInt<12>(properties.reserved);
+    }
+
+    template<>
     constexpr void ObjectPropertiesWriter::write(const ObjectProperties<ObjectPropertiesType::Floatsam>& properties)
     {
       writeEnum<32>(properties.content);

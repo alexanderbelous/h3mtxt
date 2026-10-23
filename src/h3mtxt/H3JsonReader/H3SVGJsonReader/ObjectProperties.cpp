@@ -50,6 +50,14 @@ namespace h3json
       properties.is_lootable = readBitField<std::uint16_t, 1>(value, Fields::kIsLootable);
       properties.reserved2 = readBitField<std::int16_t, 15>(value, Fields::kReserved2);
     }
+    else if constexpr (T == ObjectPropertiesType::Event)
+    {
+      properties.id = readBitField<std::uint16_t, 10>(value, Fields::kId);
+      readField(properties.affected_players, value, Fields::kAffectedPlayers);
+      properties.applies_to_computer = readField<bool>(value, Fields::kAppliesToComputer);
+      properties.cancel_after_first_visit = readField<bool>(value, Fields::kCancelAfterFirstVisit);
+      properties.reserved = readBitField<std::uint16_t, 12>(value, Fields::kReserved);
+    }
     else if constexpr (T == ObjectPropertiesType::Floatsam)
     {
       readField(properties.content, value, Fields::kContent);

@@ -172,6 +172,18 @@ namespace h3svg
     }
 
     template<>
+    constexpr ObjectProperties<ObjectPropertiesType::Event> ObjectPropertiesReader::read()
+    {
+      ObjectProperties<ObjectPropertiesType::Event> properties;
+      properties.id = readInt<std::uint16_t, 10>();
+      properties.affected_players.bitset.data[0] = readInt<std::uint8_t, 8>();
+      properties.applies_to_computer = readBit();
+      properties.cancel_after_first_visit = readBit();
+      properties.reserved = readInt<std::uint16_t, 12>();
+      return properties;
+    }
+
+    template<>
     constexpr ObjectProperties<ObjectPropertiesType::Floatsam> ObjectPropertiesReader::read()
     {
       return {

@@ -558,6 +558,19 @@ namespace h3json
   };
 
   template<>
+  struct FieldNames<h3svg::ObjectProperties<h3svg::ObjectPropertiesType::Event>>
+  {
+    static constexpr std::string_view kId = "id";
+    static constexpr std::string_view kAffectedPlayers =
+      FieldNames<h3m::ObjectProperties<h3m::ObjectPropertiesType::EVENT>>::kAffectedPlayers;
+    static constexpr std::string_view kAppliesToComputer =
+      FieldNames<h3m::ObjectProperties<h3m::ObjectPropertiesType::EVENT>>::kAppliesToComputer;
+    static constexpr std::string_view kCancelAfterFirstVisit =
+      FieldNames<h3m::ObjectProperties<h3m::ObjectPropertiesType::EVENT>>::kCancelAfterFirstVisit;
+    static constexpr std::string_view kReserved = "reserved";
+  };
+
+  template<>
   struct FieldNames<h3svg::ObjectProperties<h3svg::ObjectPropertiesType::Floatsam>>
   {
     static constexpr std::string_view kContent = "content";
