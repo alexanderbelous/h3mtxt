@@ -54,19 +54,19 @@ namespace h3svg
     std::array<std::uint8_t, 3> reserved {}; // Bits [8; 31]
   };
 
+  // FYI: the values are junk for non-actionable tiles (all bits are set to 1 by default).
   template<>
   struct ObjectProperties<ObjectPropertiesType::CreatureBank>
   {
     constexpr bool operator==(const ObjectProperties&) const noexcept = default;
 
-    // Not used; 5 bits, always 1s by default.
-    std::int8_t reserved1 : 5 = -1;
-    PlayersBitmask visited_by;
+    std::int8_t reserved1 : 5 = -1;  // Bits [0; 4]
+    PlayersBitmask visited_by;       // Bits [5; 12]
     // 0-based of the element in SavedGame::creature_banks.
-    // TODO: a few MSBs are not part of the index, they mean something else.
-    std::uint16_t index : 14 = {};
-    // Not used; 5 bits, always 1s by default.
-    std::int8_t reserved2 : 5 = -1;
+    std::uint16_t index : 12 = {};   // Bits [13; 24]
+    // Indicates whether this creature bank has been cleared.
+    Bool is_cleared : 1 = false;     // Bits [25; 25]
+    std::int8_t reserved2 : 6 = -1;  // Bits [26; 31]
   };
 
   template<>

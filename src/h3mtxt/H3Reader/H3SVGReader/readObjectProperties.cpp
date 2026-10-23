@@ -147,8 +147,9 @@ namespace h3svg
       return {
         .reserved1 = readInt<std::int8_t, 5>(),
         .visited_by { readInt<std::uint8_t, 8>() },
-        .index = readInt<std::uint16_t, 14>(),
-        .reserved2 = readInt<std::int8_t, 5>()
+        .index = readInt<std::uint16_t, 12>(),
+        .is_cleared = readInt<Bool, 1>(),
+        .reserved2 = readInt<std::int8_t, 6>()
       };
     }
 

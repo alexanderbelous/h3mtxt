@@ -36,6 +36,7 @@ namespace Medea_NS
       out.writeField(Fields::kReserved1, properties.reserved1);
       out.writeField(Fields::kVisitedBy, properties.visited_by);
       out.writeField(Fields::kIndex, properties.index);
+      out.writeField(Fields::kIsCleared, static_cast<bool>(properties.is_cleared));
       out.writeField(Fields::kReserved2, properties.reserved2);
     }
     else if constexpr (T == ObjectPropertiesType::Dwelling)

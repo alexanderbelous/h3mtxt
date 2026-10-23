@@ -34,8 +34,9 @@ namespace h3json
     {
       properties.reserved1 = readBitField<std::int8_t, 5>(value, Fields::kReserved1);
       readField(properties.visited_by, value, Fields::kVisitedBy);
-      properties.index = readBitField<std::uint16_t, 14>(value, Fields::kIndex);
-      properties.reserved2 = readBitField<std::int8_t, 5>(value, Fields::kReserved2);
+      properties.index = readBitField<std::uint16_t, 12>(value, Fields::kIndex);
+      properties.is_cleared = readField<bool>(value, Fields::kIsCleared);
+      properties.reserved2 = readBitField<std::int8_t, 6>(value, Fields::kReserved2);
     }
     else if constexpr (T == ObjectPropertiesType::Dwelling)
     {

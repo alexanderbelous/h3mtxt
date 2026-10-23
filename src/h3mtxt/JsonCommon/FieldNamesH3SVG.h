@@ -537,6 +537,7 @@ namespace h3json
     static constexpr std::string_view kReserved1 = "reserved1";
     static constexpr std::string_view kVisitedBy = "visited_by";
     static constexpr std::string_view kIndex = "index";
+    static constexpr std::string_view kIsCleared = "is_cleared";
     static constexpr std::string_view kReserved2 = "reserved2";
   };
 

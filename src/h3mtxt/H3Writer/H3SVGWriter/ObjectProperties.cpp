@@ -115,8 +115,9 @@ namespace h3svg
     {
       writeInt<5>(properties.reserved1);
       writeInt<8>(properties.visited_by.bitset.data[0]);
-      writeInt<14>(properties.index);
-      writeInt<5>(properties.reserved2);
+      writeInt<12>(properties.index);
+      writeInt<1>(properties.is_cleared);
+      writeInt<6>(properties.reserved2);
     }
 
     template<>
