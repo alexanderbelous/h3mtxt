@@ -131,6 +131,14 @@ namespace h3json
       properties.index = readBitField<std::int32_t, 12>(value, Fields::kIndex);
       properties.reserved3 = readBitField<std::int32_t, 7>(value, Fields::kReserved3);
     }
+    else if constexpr (T == ObjectPropertiesType::WarriorsTomb)
+    {
+      properties.has_artifact = readBitField<std::uint8_t, 1>(value, Fields::kHasArtifact);
+      properties.reserved1 = readBitField<std::int8_t, 4>(value, Fields::kReserved1);
+      readField(properties.visited_by, value, Fields::kVisitedBy);
+      properties.artifact = readBitField<h3svg::ArtifactType, 10>(value, Fields::kArtifact);
+      properties.reserved2 = readBitField<std::int16_t, 9>(value, Fields::kReserved2);
+    }
     else if constexpr (T == ObjectPropertiesType::WaterWheel)
     {
       properties.bonus = readBitField<std::uint8_t, 5>(value, Fields::kBonus);

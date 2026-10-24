@@ -246,6 +246,16 @@ namespace h3svg
     }
 
     template<>
+    constexpr void ObjectPropertiesWriter::write(const ObjectProperties<ObjectPropertiesType::WarriorsTomb>& properties)
+    {
+      writeInt<1>(properties.has_artifact);
+      writeInt<4>(properties.reserved1);
+      writeInt<8>(properties.visited_by.bitset.data[0]);
+      writeEnum<10>(properties.artifact);
+      writeInt<9>(properties.reserved2);
+    }
+
+    template<>
     constexpr void ObjectPropertiesWriter::write(const ObjectProperties<ObjectPropertiesType::WaterWheel>& properties)
     {
       writeInt<5>(properties.bonus);

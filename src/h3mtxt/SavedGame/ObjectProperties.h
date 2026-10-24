@@ -244,6 +244,22 @@ namespace h3svg
     std::int32_t reserved3 : 7 = -1;  // Bits [25; 31]
   };
 
+  // FYI: the values are junk for non-actionable tiles (all bits are set to 1 by default).
+  template<>
+  struct ObjectProperties<ObjectPropertiesType::WarriorsTomb>
+  {
+    constexpr bool operator==(const ObjectProperties&) const noexcept = default;
+
+    // Indicates whether the tomb contains an artifact.
+    Bool has_artifact : 1 = false;   // Bits [0; 0]
+    std::int8_t reserved1 : 4 = -1;  // Bits [1; 4]
+    PlayersBitmask visited_by;       // Bits [5; 12]
+    // Note: ArtifactType::None should never be used for actionable tiles - this will cause the
+    // game to crash when visiting the tomb. Instead, has_artifact should be set to 0.
+    ArtifactType artifact : 10 = {}; // Bits [13; 22]
+    std::int16_t reserved2 : 9 = -1; // Bits [23; 31]
+  };
+
   template<>
   struct ObjectProperties<ObjectPropertiesType::WaterWheel>
   {
