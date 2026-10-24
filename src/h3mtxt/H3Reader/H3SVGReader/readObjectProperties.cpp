@@ -6,6 +6,7 @@
 
 #include <cstddef>
 #include <span>
+#include <type_traits>
 
 namespace h3svg
 {
@@ -37,9 +38,19 @@ namespace h3svg
       template<class T, std::size_t NumBits>
       constexpr T readInt()
       {
-        // FIXME: if T is signed, ensure that the returned value is within [-(2^(N-1)); 2^(N-1) - 1].
-        // Otherwise, it's implementation-defined what value will be assigned to the actual bit field.
-        return static_cast<T>(readImpl(NumBits));
+        T value = static_cast<T>(readImpl(NumBits));
+        // Propagate the sign bit, if needed.
+        // * If T is signed, we need to ensure that the returned value is within [-(2^(N-1)); 2^(N-1) - 1].
+        //   Otherwise, it's implementation-defined what value will be assigned to the actual bit field.
+        if constexpr (std::is_signed_v<T> && (NumBits < sizeof(T) * 8))
+        {
+          // Check if the returned value should be negative.
+          const bool sign_bit = value & (T(1) << (NumBits - 1));
+          // Mask with bits [NumBits; sizeof(T)*8) set to @sign_bit, the rest set to 0.
+          const T kMask = ~((static_cast<T>(sign_bit) << NumBits) - 1);
+          value |= kMask;
+        }
+        return value;
       }
 
       // Reads a single bit from the underlying stream.
@@ -57,7 +68,7 @@ namespace h3svg
       template<class T, std::size_t NumBits>
       constexpr T readEnum()
       {
-        return static_cast<T>(readImpl(NumBits));
+        return static_cast<T>(readInt<std::underlying_type_t<T>, NumBits>());
       }
 
     private:
@@ -90,6 +101,14 @@ namespace h3svg
       // get shifted right when consumed.
       std::uint32_t data_as_int_ = 0;
     };
+
+    // Compile time test: check that the signed bit is propagated correctly.
+    static_assert(BitsReader{ std::array<std::byte, 4>{ std::byte{0xFF},
+                                                        std::byte{0xFF},
+                                                        std::byte{0xFF},
+                                                        std::byte{0xFF} }
+                            }.readInt<std::int8_t, 4>() == -1,
+                  "The sign bit is not propagated correctly");
 
     class ObjectPropertiesReader : private BitsReader
     {
