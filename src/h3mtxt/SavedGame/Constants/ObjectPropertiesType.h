@@ -54,6 +54,7 @@ namespace h3svg
     case ObjectClass::DERELICT_SHIP:
     case ObjectClass::DRAGON_UTOPIA:
     case ObjectClass::CRYPT:
+    case ObjectClass::SHIPWRECK:
       return ObjectPropertiesType::CreatureBank;
     case ObjectClass::CREATURE_GENERATOR1:
     case ObjectClass::CREATURE_GENERATOR4:
