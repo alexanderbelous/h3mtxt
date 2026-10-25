@@ -318,6 +318,20 @@ namespace h3svg
     }
 
     template<>
+    constexpr ObjectProperties<ObjectPropertiesType::Wagon> ObjectPropertiesReader::read()
+    {
+      ObjectProperties<ObjectPropertiesType::Wagon> properties;
+      properties.resource_quantity = readInt<std::uint16_t, 5>();
+      properties.visited_by.bitset.data[0] = readInt<std::uint8_t, 8>();
+      properties.is_lootable = readBit();
+      properties.has_artifact = readBit();
+      properties.artifact = readEnum<ArtifactType, 10>();
+      properties.resource_type = readEnum<ResourceType, 4>();
+      properties.reserved = readInt<std::int8_t, 3>();
+      return properties;
+    }
+
+    template<>
     constexpr ObjectProperties<ObjectPropertiesType::WarriorsTomb> ObjectPropertiesReader::read()
     {
       ObjectProperties<ObjectPropertiesType::WarriorsTomb> properties;

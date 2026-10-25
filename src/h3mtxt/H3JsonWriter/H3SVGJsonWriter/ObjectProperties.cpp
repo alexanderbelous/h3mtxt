@@ -132,6 +132,16 @@ namespace Medea_NS
       out.writeField(Fields::kIndex, properties.index);
       out.writeField(Fields::kReserved3, properties.reserved3);
     }
+    else if constexpr (T == ObjectPropertiesType::Wagon)
+    {
+      out.writeField(Fields::kIsLootable, static_cast<bool>(properties.is_lootable));
+      out.writeField(Fields::kHasArtifact, static_cast<bool>(properties.has_artifact));
+      out.writeField(Fields::kArtifact, properties.artifact);
+      out.writeField(Fields::kResourceType, properties.resource_type);
+      out.writeField(Fields::kResourceQuantity, properties.resource_quantity);
+      out.writeField(Fields::kVisitedBy, properties.visited_by);
+      out.writeField(Fields::kReserved, properties.reserved);
+    }
     else if constexpr (T == ObjectPropertiesType::WarriorsTomb)
     {
       out.writeField(Fields::kHasArtifact, properties.has_artifact);

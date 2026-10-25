@@ -131,6 +131,16 @@ namespace h3json
       properties.index = readBitField<std::int32_t, 12>(value, Fields::kIndex);
       properties.reserved3 = readBitField<std::int32_t, 7>(value, Fields::kReserved3);
     }
+    else if constexpr (T == ObjectPropertiesType::Wagon)
+    {
+      properties.is_lootable = readField<bool>(value, Fields::kIsLootable);
+      properties.has_artifact = readField<bool>(value, Fields::kHasArtifact);
+      properties.artifact = readBitField<h3svg::ArtifactType, 10>(value, Fields::kArtifact);
+      properties.resource_type = readBitField<h3svg::ResourceType, 4>(value, Fields::kResourceType);
+      properties.resource_quantity = readBitField<std::uint16_t, 5>(value, Fields::kResourceQuantity);
+      readField(properties.visited_by, value, Fields::kVisitedBy);
+      properties.reserved = readBitField<std::int8_t, 3>(value, Fields::kReserved);
+    }
     else if constexpr (T == ObjectPropertiesType::WarriorsTomb)
     {
       properties.has_artifact = readBitField<std::uint8_t, 1>(value, Fields::kHasArtifact);

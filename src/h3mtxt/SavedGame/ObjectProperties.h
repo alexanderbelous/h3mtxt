@@ -244,6 +244,20 @@ namespace h3svg
     std::int32_t reserved3 : 7 = -1;  // Bits [25; 31]
   };
 
+  template<>
+  struct ObjectProperties<ObjectPropertiesType::Wagon>
+  {
+    constexpr bool operator==(const ObjectProperties&) const noexcept = default;
+
+    ArtifactType artifact : 10 = ArtifactType::None; // Bits [15; 24]
+    std::uint16_t has_artifact : 1 = false;          // Bits [14; 14]
+    std::uint16_t resource_quantity : 5 = 0;         // Bits [0; 4]
+    PlayersBitmask visited_by;                       // Bits [5; 12]
+    ResourceType resource_type : 4 = {};             // Bits [25; 28]
+    Bool is_lootable : 1 = false;                    // Bits [13; 13]
+    std::int8_t reserved : 3 = -1;                   // Bits [29; 31]
+  };
+
   // FYI: the values are junk for non-actionable tiles (all bits are set to 1 by default).
   template<>
   struct ObjectProperties<ObjectPropertiesType::WarriorsTomb>

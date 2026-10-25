@@ -246,6 +246,18 @@ namespace h3svg
     }
 
     template<>
+    constexpr void ObjectPropertiesWriter::write(const ObjectProperties<ObjectPropertiesType::Wagon>& properties)
+    {
+      writeInt<5>(properties.resource_quantity);
+      writeInt<8>(properties.visited_by.bitset.data[0]);
+      writeInt<1>(properties.is_lootable);
+      writeInt<1>(properties.has_artifact);
+      writeEnum<10>(properties.artifact);
+      writeEnum<4>(properties.resource_type);
+      writeInt<3>(properties.reserved);
+    }
+
+    template<>
     constexpr void ObjectPropertiesWriter::write(const ObjectProperties<ObjectPropertiesType::WarriorsTomb>& properties)
     {
       writeInt<1>(properties.has_artifact);

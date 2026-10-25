@@ -141,6 +141,25 @@ namespace h3svg
     };
 
     template<>
+    const TestCaseData<ObjectPropertiesType::Wagon> kTestCases<ObjectPropertiesType::Wagon> = {
+      .properties = {
+        .artifact = ArtifactType::None,
+        .has_artifact = false,
+        .resource_quantity = 5,
+        .visited_by = []() consteval {
+          PlayersBitmask bitmask;
+          bitmask.set(PlayerColor::Green, true);
+          bitmask.set(PlayerColor::Teal, true);
+          return bitmask;
+        }(),
+        .resource_type = ResourceType::Crystal,
+        .is_lootable = true,
+        .reserved = -1
+      },
+      .binary_data = "\x05\xa9\xff\xe9"sv
+    };
+
+    template<>
     const TestCaseData<ObjectPropertiesType::WarriorsTomb> kTestCases<ObjectPropertiesType::WarriorsTomb> = {
       .properties = {
         .has_artifact = true,
@@ -203,6 +222,7 @@ namespace h3svg
                      StaticConstant<ObjectPropertiesType::RefugeeCamp>,
                      StaticConstant<ObjectPropertiesType::ShipwreckSurvivor>,
                      StaticConstant<ObjectPropertiesType::TreeOfKnowledge>,
+                     StaticConstant<ObjectPropertiesType::Wagon>,
                      StaticConstant<ObjectPropertiesType::WarriorsTomb>,
                      StaticConstant<ObjectPropertiesType::WaterWheel>,
                      StaticConstant<ObjectPropertiesType::Windmill>)
