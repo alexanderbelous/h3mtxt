@@ -116,6 +116,17 @@ namespace h3svg
     };
 
     template<>
+    const TestCaseData<ObjectPropertiesType::SeaChest> kTestCases<ObjectPropertiesType::SeaChest> = {
+      .properties = {
+        .content = SeaChestContentType::Gold1000Artifact,
+        .reserved1 = 0,
+        .artifact = static_cast<ArtifactType32>(ArtifactType::Speculum),
+        .reserved2 = -1
+      },
+      .binary_data = "\xa2\xe1\xff\xff"sv
+    };
+
+    template<>
     const TestCaseData<ObjectPropertiesType::ShipwreckSurvivor> kTestCases<ObjectPropertiesType::ShipwreckSurvivor> = {
       .properties = {
         .artifact = static_cast<ArtifactType32>(ArtifactType::AngelWings)
@@ -220,6 +231,7 @@ namespace h3svg
                      StaticConstant<ObjectPropertiesType::Hero>,
                      StaticConstant<ObjectPropertiesType::Pyramid>,
                      StaticConstant<ObjectPropertiesType::RefugeeCamp>,
+                     StaticConstant<ObjectPropertiesType::SeaChest>,
                      StaticConstant<ObjectPropertiesType::ShipwreckSurvivor>,
                      StaticConstant<ObjectPropertiesType::TreeOfKnowledge>,
                      StaticConstant<ObjectPropertiesType::Wagon>,

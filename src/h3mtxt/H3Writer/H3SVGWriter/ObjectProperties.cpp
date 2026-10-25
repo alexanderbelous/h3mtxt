@@ -200,6 +200,15 @@ namespace h3svg
     }
 
     template<>
+    constexpr void ObjectPropertiesWriter::write(const ObjectProperties<ObjectPropertiesType::SeaChest>& properties)
+    {
+      writeEnum<2>(properties.content);
+      writeInt<1>(properties.reserved1);
+      writeEnum<10>(properties.artifact);
+      writeInt<19>(properties.reserved2);
+    }
+
+    template<>
     constexpr void ObjectPropertiesWriter::write(const ObjectProperties<ObjectPropertiesType::SeersHut>& properties)
     {
       writeInt<32>(properties.index);

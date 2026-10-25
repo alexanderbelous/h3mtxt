@@ -266,6 +266,17 @@ namespace h3svg
     }
 
     template<>
+    constexpr ObjectProperties<ObjectPropertiesType::SeaChest> ObjectPropertiesReader::read()
+    {
+      ObjectProperties<ObjectPropertiesType::SeaChest> properties;
+      properties.content = readEnum<SeaChestContentType, 2>();
+      properties.reserved1 = readInt<std::uint32_t, 1>();
+      properties.artifact = readEnum<ArtifactType32, 10>();
+      properties.reserved2 = readInt<std::int32_t, 19>();
+      return properties;
+    }
+
+    template<>
     constexpr ObjectProperties<ObjectPropertiesType::SeersHut> ObjectPropertiesReader::read()
     {
       return { .index = readInt<std::uint32_t, 32>() };

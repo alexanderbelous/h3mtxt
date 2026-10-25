@@ -297,26 +297,6 @@ namespace Medea_NS
   }
 
   template<>
-  std::string_view EnumCommentGetter::operator()(h3svg::TurnDurationType value) const
-  {
-    static constexpr std::string_view kNames[] = {
-      "1 Minute",
-      "2 Minutes",
-      "4 Minutes",
-      "6 Minutes",
-      "8 Minutes",
-      "10 Minutes",
-      "15 Minutes",
-      "20 Minutes",
-      "25 Minutes",
-      "30 Minutes",
-      "Unlimited"
-    };
-    const std::size_t idx = static_cast<std::size_t>(value);
-    return (idx < std::size(kNames)) ? kNames[idx] : std::string_view{};
-  }
-
-  template<>
   std::string_view EnumCommentGetter::operator()(h3svg::PrimarySkillType32 value) const
   {
     if (isLosslessEnumCast<h3m::PrimarySkillType>(value))
@@ -354,6 +334,18 @@ namespace Medea_NS
       return (*this)(static_cast<h3svg::ResourceType>(value));
     }
     return std::string_view{};
+  }
+
+  template<>
+  std::string_view EnumCommentGetter::operator()(h3svg::SeaChestContentType value) const
+  {
+    static constexpr std::string_view kNames[] = {
+      "Empty",
+      "Gold1500",
+      "Gold1000Artifact"
+    };
+    const std::size_t idx = static_cast<std::size_t>(value);
+    return (idx < std::size(kNames)) ? kNames[idx] : std::string_view{};
   }
 
   template<>
@@ -434,6 +426,16 @@ namespace Medea_NS
   }
 
   template<>
+  std::string_view EnumCommentGetter::operator()(h3svg::TownType32 value) const
+  {
+    if (isLosslessEnumCast<h3m::TownType>(value))
+    {
+      return (*this)(static_cast<h3svg::TownType>(value));
+    }
+    return std::string_view{};
+  }
+
+  template<>
   std::string_view EnumCommentGetter::operator()(h3svg::TreeOfKnowledgeType value) const
   {
     static constexpr std::string_view kNames[] = {
@@ -446,12 +448,22 @@ namespace Medea_NS
   }
 
   template<>
-  std::string_view EnumCommentGetter::operator()(h3svg::TownType32 value) const
+  std::string_view EnumCommentGetter::operator()(h3svg::TurnDurationType value) const
   {
-    if (isLosslessEnumCast<h3m::TownType>(value))
-    {
-      return (*this)(static_cast<h3svg::TownType>(value));
-    }
-    return std::string_view{};
+    static constexpr std::string_view kNames[] = {
+      "1 Minute",
+      "2 Minutes",
+      "4 Minutes",
+      "6 Minutes",
+      "8 Minutes",
+      "10 Minutes",
+      "15 Minutes",
+      "20 Minutes",
+      "25 Minutes",
+      "30 Minutes",
+      "Unlimited"
+    };
+    const std::size_t idx = static_cast<std::size_t>(value);
+    return (idx < std::size(kNames)) ? kNames[idx] : std::string_view{};
   }
 }

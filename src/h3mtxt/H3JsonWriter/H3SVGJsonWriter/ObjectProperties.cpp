@@ -98,6 +98,13 @@ namespace Medea_NS
     {
       out.writeField(Fields::kQuantity, properties.quantity);
     }
+    else if constexpr (T == ObjectPropertiesType::SeaChest)
+    {
+      out.writeField(Fields::kContent, properties.content);
+      out.writeField(Fields::kArtifact, properties.artifact);
+      out.writeField(Fields::kReserved1, properties.reserved1);
+      out.writeField(Fields::kReserved2, properties.reserved2);
+    }
     else if constexpr (T == ObjectPropertiesType::SeersHut)
     {
       out.writeField(Fields::kIndex, properties.index);

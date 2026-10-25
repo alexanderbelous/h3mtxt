@@ -11,6 +11,7 @@
 #include <h3mtxt/Map/Utils/EnumBitmask.h>
 #include <h3mtxt/SavedGame/Constants/FloatsamContentType.h>
 #include <h3mtxt/SavedGame/Constants/ObjectPropertiesType.h>
+#include <h3mtxt/SavedGame/Constants/SeaChestContentType.h>
 #include <h3mtxt/SavedGame/Constants/TreeOfKnowledgeType.h>
 
 #include <array>
@@ -177,6 +178,17 @@ namespace h3svg
     // The number of creatures available for hire.
     // Note that the type of the creatures is stored in Tile::object_subclass.
     std::int32_t quantity = 0;
+  };
+
+  template<>
+  struct ObjectProperties<ObjectPropertiesType::SeaChest>
+  {
+    constexpr bool operator==(const ObjectProperties&) const noexcept = default;
+
+    SeaChestContentType content : 2 = SeaChestContentType::Empty;                   // Bits [0; 1]
+    std::uint32_t reserved1 : 1 = 0;                                                // Bits [2; 2]
+    ArtifactType32 artifact : 10 = static_cast<ArtifactType32>(ArtifactType::None); // Bits [3; 12]
+    std::int32_t reserved2 : 19 = -1;                                               // Bits [13; 31]
   };
 
   template<>

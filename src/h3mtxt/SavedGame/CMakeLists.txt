@@ -16,6 +16,7 @@ set(SOURCE_LIST
     "Constants/PlayerStartingBonusType.h"
     "Constants/PlayerType.h"
     "Constants/ReplayEventType.h"
+    "Constants/SeaChestContentType.h"
     "Constants/SeerName.h"
     "Constants/TileFlag.h"
     "Constants/TownBuildingTypeH3SVG.h"

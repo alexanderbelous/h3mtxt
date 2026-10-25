@@ -97,6 +97,13 @@ namespace h3json
     {
       readField(properties.quantity, value, Fields::kQuantity);
     }
+    else if constexpr (T == ObjectPropertiesType::SeaChest)
+    {
+      properties.content = readBitField<h3svg::SeaChestContentType, 2>(value, Fields::kContent);
+      properties.artifact = readBitField<h3svg::ArtifactType32, 10>(value, Fields::kArtifact);
+      properties.reserved1 = readBitField<std::uint32_t, 1>(value, Fields::kReserved1);
+      properties.reserved2 = readBitField<std::int32_t, 19>(value, Fields::kReserved2);
+    }
     else if constexpr (T == ObjectPropertiesType::SeersHut)
     {
       readField(properties.index, value, Fields::kIndex);
