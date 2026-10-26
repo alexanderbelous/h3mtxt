@@ -21,6 +21,30 @@ namespace Medea_NS
 {
   namespace
   {
+    // Wrapper for std::string_view[N] to reduce boilerplate.
+    // TODO: move to H3MJsonWriter and reuse in H3MJsonWriter and H3CJsonWriter.
+    template<std::size_t N>
+    class EnumNames
+    {
+    public:
+      constexpr std::string_view operator[](std::size_t index) const noexcept
+      {
+        return (index < N) ? data[index] : std::string_view{};
+      }
+
+      template<class T, class Enable = std::enable_if_t<std::is_enum_v<T>>>
+      constexpr std::string_view operator[](T value) const noexcept
+      {
+        return (*this)[static_cast<std::size_t>(value)];
+      }
+
+      std::string_view data[N];
+    };
+
+    // Deduction guide for EnumNames.
+    template<class... T>
+    EnumNames(T...) -> EnumNames<sizeof...(T)>;
+
     // Checks if the input enum value of the type `From` can be precisely represented by the enum type `To`.
     // \param To - destination enum type.
     // \param value - input enum value.
@@ -115,7 +139,7 @@ namespace Medea_NS
   std::string_view EnumCommentGetter::operator()(h3svg::CampaignId value) const
   {
     // FYI: reuse the implementation for h3m::CampaignId for standard campaigns.
-    static constexpr std::string_view kNames[] = {
+    static constexpr EnumNames kNames = {
       "Long Live the Queen",
       "Liberation",
       "Song for the Father",
@@ -138,14 +162,13 @@ namespace Medea_NS
       "Specter of Power",
       "Custom"
     };
-    const std::size_t idx = static_cast<std::size_t>(value);
-    return (idx < std::size(kNames)) ? kNames[idx] : std::string_view{};
+    return kNames[value];
   }
 
   template<>
   std::string_view EnumCommentGetter::operator()(h3svg::CompassPoint value) const
   {
-    static constexpr std::string_view kNames[] = {
+    static constexpr EnumNames kNames = {
       "North",
       "NorthEast",
       "East",
@@ -155,8 +178,7 @@ namespace Medea_NS
       "West",
       "NorthWest"
     };
-    const std::size_t idx = static_cast<std::uint8_t>(value);
-    return (idx < std::size(kNames)) ? kNames[idx] : std::string_view{};
+    return kNames[value];
   }
 
   template<>
@@ -185,14 +207,13 @@ namespace Medea_NS
   template<>
   std::string_view EnumCommentGetter::operator()(h3svg::FloatsamContentType value) const
   {
-    static constexpr std::string_view kNames[] = {
+    static constexpr EnumNames kNames = {
       "None",
       "Wood5",
       "Wood5Gold200",
       "Wood10Gold500"
     };
-    const std::size_t idx = static_cast<std::size_t>(value);
-    return (idx < std::size(kNames)) ? kNames[idx] : std::string_view{};
+    return kNames[value];
   }
 
   template<>
@@ -274,14 +295,13 @@ namespace Medea_NS
   template<>
   std::string_view EnumCommentGetter::operator()(h3svg::PlayerStartingBonusType value) const
   {
-    static constexpr std::string_view kNames[] = {
+    static constexpr EnumNames kNames = {
       "Artifact",
       "Gold",
       "Resource",
       "Random"
     };
-    const std::size_t idx = static_cast<std::size_t>(value);
-    return (idx < std::size(kNames)) ? kNames[idx] : std::string_view{};
+    return kNames[value];
   }
 
   template<>
@@ -339,13 +359,12 @@ namespace Medea_NS
   template<>
   std::string_view EnumCommentGetter::operator()(h3svg::SeaChestContentType value) const
   {
-    static constexpr std::string_view kNames[] = {
+    static constexpr EnumNames kNames = {
       "Empty",
       "Gold1500",
       "Gold1000Artifact"
     };
-    const std::size_t idx = static_cast<std::size_t>(value);
-    return (idx < std::size(kNames)) ? kNames[idx] : std::string_view{};
+    return kNames[value];
   }
 
   template<>
@@ -361,7 +380,7 @@ namespace Medea_NS
   template<>
   std::string_view EnumCommentGetter::operator()(h3svg::SeerName value) const
   {
-    static constexpr std::string_view kNames[] = {
+    static constexpr EnumNames kNames = {
       "Abraham",
       "Goldwyn",
       "Bryce",
@@ -411,8 +430,7 @@ namespace Medea_NS
       "Zaray",
       "Zoe"
     };
-    const std::size_t idx = static_cast<std::size_t>(value);
-    return (idx < std::size(kNames)) ? kNames[idx] : std::string_view{};
+    return kNames[value];
   }
 
   template<>
@@ -438,19 +456,18 @@ namespace Medea_NS
   template<>
   std::string_view EnumCommentGetter::operator()(h3svg::TreeOfKnowledgeType value) const
   {
-    static constexpr std::string_view kNames[] = {
+    static constexpr EnumNames kNames = {
       "Free",
       "Gold",
       "Gems"
     };
-    const std::size_t idx = static_cast<std::size_t>(value);
-    return (idx < std::size(kNames)) ? kNames[idx] : std::string_view{};
+    return kNames[value];
   }
 
   template<>
   std::string_view EnumCommentGetter::operator()(h3svg::TurnDurationType value) const
   {
-    static constexpr std::string_view kNames[] = {
+    static constexpr EnumNames kNames = {
       "1 Minute",
       "2 Minutes",
       "4 Minutes",
@@ -463,7 +480,6 @@ namespace Medea_NS
       "30 Minutes",
       "Unlimited"
     };
-    const std::size_t idx = static_cast<std::size_t>(value);
-    return (idx < std::size(kNames)) ? kNames[idx] : std::string_view{};
+    return kNames[value];
   }
 }
