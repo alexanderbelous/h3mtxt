@@ -15,26 +15,13 @@ namespace h3svg
     class BitsWriter
     {
     public:
+      // Writes N least significant bits of the given integer/enum value.
       template<std::size_t NumBits, class T>
-      constexpr void writeInt(T value)
+      constexpr void writeBits(T value)
       {
-        static_assert(std::is_integral_v<T>, "Must be an integral type.");
-        static_assert(NumBits <= 32, "NumBits must be less or equal to 32.");
-        static_assert(sizeof(T) * 8 >= NumBits, "sizeof(T)*8 must be greater or equal to NumBits.");
-        writeIntImpl(static_cast<std::uint32_t>(value), NumBits);
-      }
-
-      constexpr void writeBit(bool value)
-      {
-        writeIntImpl(value, 1);
-      }
-
-      template<std::size_t NumBits, class T>
-      constexpr void writeEnum(T value)
-      {
-        static_assert(std::is_enum_v<T>, "Must be an enumeration type.");
-        static_assert(NumBits <= 32, "NumBits must be less or equal to 32.");
-        static_assert(sizeof(T) * 8 >= NumBits, "sizeof(T)*8 must be greater or equal to NumBits.");
+        static_assert(std::is_integral_v<T> || std::is_enum_v<T>, "Must be an integral or an enumeration type.");
+        static_assert(NumBits <= 32, "NumBits must be less than or equal to 32.");
+        static_assert(NumBits <= sizeof(T) * 8, "NumBits must be less than or equal to sizeof(T)*8.");
         writeIntImpl(static_cast<std::uint32_t>(value), NumBits);
       }
 
@@ -89,228 +76,228 @@ namespace h3svg
     {
       for (std::uint8_t value : properties.reserved)
       {
-        writeInt<8>(value);
+        writeBits<8>(value);
       }
     }
 
     template<>
     constexpr void ObjectPropertiesWriter::write(const ObjectProperties<ObjectPropertiesType::BlackMarket>& properties)
     {
-      writeInt<32>(properties.index);
+      writeBits<32>(properties.index);
     }
 
     template<>
     constexpr void ObjectPropertiesWriter::write(const ObjectProperties<ObjectPropertiesType::Campfire>& properties)
     {
-      writeEnum<4>(properties.resource_type);
-      writeInt<4>(properties.quantity);
+      writeBits<4>(properties.resource_type);
+      writeBits<4>(properties.quantity);
       for (std::uint8_t value : properties.reserved)
       {
-        writeInt<8>(value);
+        writeBits<8>(value);
       }
     }
 
     template<>
     constexpr void ObjectPropertiesWriter::write(const ObjectProperties<ObjectPropertiesType::CreatureBank>& properties)
     {
-      writeInt<5>(properties.reserved1);
-      writeInt<8>(properties.visited_by.bitset.data[0]);
-      writeInt<12>(properties.index);
-      writeInt<1>(properties.is_cleared);
-      writeInt<6>(properties.reserved2);
+      writeBits<5>(properties.reserved1);
+      writeBits<8>(properties.visited_by.bitset.data[0]);
+      writeBits<12>(properties.index);
+      writeBits<1>(properties.is_cleared);
+      writeBits<6>(properties.reserved2);
     }
 
     template<>
     constexpr void ObjectPropertiesWriter::write(const ObjectProperties<ObjectPropertiesType::Dwelling>& properties)
     {
-      writeInt<32>(properties.index);
+      writeBits<32>(properties.index);
     }
 
     template<>
     constexpr void ObjectPropertiesWriter::write(const ObjectProperties<ObjectPropertiesType::Corpse>& properties)
     {
-      writeInt<5>(properties.id);
-      writeInt<1>(properties.reserved1);
-      writeEnum<10>(properties.artifact);
-      writeInt<1>(properties.is_lootable);
-      writeInt<15>(properties.reserved2);
+      writeBits<5>(properties.id);
+      writeBits<1>(properties.reserved1);
+      writeBits<10>(properties.artifact);
+      writeBits<1>(properties.is_lootable);
+      writeBits<15>(properties.reserved2);
     }
 
     template<>
     constexpr void ObjectPropertiesWriter::write(const ObjectProperties<ObjectPropertiesType::Event>& properties)
     {
-      writeInt<10>(properties.id);
-      writeInt<8>(properties.affected_players.bitset.data[0]);
-      writeInt<1>(properties.applies_to_computer);
-      writeInt<1>(properties.cancel_after_first_visit);
-      writeInt<12>(properties.reserved);
+      writeBits<10>(properties.id);
+      writeBits<8>(properties.affected_players.bitset.data[0]);
+      writeBits<1>(properties.applies_to_computer);
+      writeBits<1>(properties.cancel_after_first_visit);
+      writeBits<12>(properties.reserved);
     }
 
     template<>
     constexpr void ObjectPropertiesWriter::write(const ObjectProperties<ObjectPropertiesType::Floatsam>& properties)
     {
-      writeEnum<32>(properties.content);
+      writeBits<32>(properties.content);
     }
 
     template<>
     constexpr void ObjectPropertiesWriter::write(const ObjectProperties<ObjectPropertiesType::FountainOfFortune>& properties)
     {
-      writeInt<5>(properties.reserved1);
-      writeInt<8>(properties.reserved2);
-      writeInt<4>(properties.luck_bonus);
-      writeInt<15>(properties.reserved3);
+      writeBits<5>(properties.reserved1);
+      writeBits<8>(properties.reserved2);
+      writeBits<4>(properties.luck_bonus);
+      writeBits<15>(properties.reserved3);
     }
 
     template<>
     constexpr void ObjectPropertiesWriter::write(const ObjectProperties<ObjectPropertiesType::Garrison>& properties)
     {
-      writeInt<32>(properties.index);
+      writeBits<32>(properties.index);
     }
 
     template<>
     constexpr void ObjectPropertiesWriter::write(const ObjectProperties<ObjectPropertiesType::Hero>& properties)
     {
-      writeEnum<32>(properties.hero);
+      writeBits<32>(properties.hero);
     }
 
     template<>
     constexpr void ObjectPropertiesWriter::write(const ObjectProperties<ObjectPropertiesType::LeanTo>& properties)
     {
-      writeInt<5>(properties.index);
-      writeInt<1>(properties.reserved1);
-      writeInt<4>(properties.quantity);
-      writeEnum<4>(properties.resource_type);
-      writeInt<18>(properties.reserved2);
+      writeBits<5>(properties.index);
+      writeBits<1>(properties.reserved1);
+      writeBits<4>(properties.quantity);
+      writeBits<4>(properties.resource_type);
+      writeBits<18>(properties.reserved2);
     }
 
     template<>
     constexpr void ObjectPropertiesWriter::write(const ObjectProperties<ObjectPropertiesType::Pyramid>& properties)
     {
-      writeInt<1>(properties.is_lootable);
-      writeInt<4>(properties.reserved1);
-      writeInt<8>(properties.visited_by.bitset.data[0]);
-      writeEnum<8>(properties.spell);
-      writeInt<11>(properties.reserved2);
+      writeBits<1>(properties.is_lootable);
+      writeBits<4>(properties.reserved1);
+      writeBits<8>(properties.visited_by.bitset.data[0]);
+      writeBits<8>(properties.spell);
+      writeBits<11>(properties.reserved2);
     }
 
     template<>
     constexpr void ObjectPropertiesWriter::write(const ObjectProperties<ObjectPropertiesType::RefugeeCamp>& properties)
     {
-      writeInt<32>(properties.quantity);
+      writeBits<32>(properties.quantity);
     }
 
     template<>
     constexpr void ObjectPropertiesWriter::write(const ObjectProperties<ObjectPropertiesType::Scholar>& properties)
     {
-      writeEnum<3>(properties.type);
-      writeEnum<3>(properties.primary_skill);
-      writeEnum<7>(properties.secondary_skill);
-      writeEnum<10>(properties.spell);
-      writeInt<9>(properties.reserved);
+      writeBits<3>(properties.type);
+      writeBits<3>(properties.primary_skill);
+      writeBits<7>(properties.secondary_skill);
+      writeBits<10>(properties.spell);
+      writeBits<9>(properties.reserved);
     }
 
     template<>
     constexpr void ObjectPropertiesWriter::write(const ObjectProperties<ObjectPropertiesType::SeaChest>& properties)
     {
-      writeEnum<2>(properties.content);
-      writeInt<1>(properties.reserved1);
-      writeEnum<10>(properties.artifact);
-      writeInt<19>(properties.reserved2);
+      writeBits<2>(properties.content);
+      writeBits<1>(properties.reserved1);
+      writeBits<10>(properties.artifact);
+      writeBits<19>(properties.reserved2);
     }
 
     template<>
     constexpr void ObjectPropertiesWriter::write(const ObjectProperties<ObjectPropertiesType::SeersHut>& properties)
     {
-      writeInt<32>(properties.index);
+      writeBits<32>(properties.index);
     }
 
     template<>
     constexpr void ObjectPropertiesWriter::write(const ObjectProperties<ObjectPropertiesType::ShipwreckSurvivor>& properties)
     {
-      writeEnum<32>(properties.artifact);
+      writeBits<32>(properties.artifact);
     }
 
     template<>
     constexpr void ObjectPropertiesWriter::write(const ObjectProperties<ObjectPropertiesType::Shrine>& properties)
     {
-      writeInt<5>(properties.reserved1);
-      writeInt<8>(properties.visited_by.bitset.data[0]);
-      writeEnum<10>(properties.spell);
-      writeInt<9>(properties.reserved2);
+      writeBits<5>(properties.reserved1);
+      writeBits<8>(properties.visited_by.bitset.data[0]);
+      writeBits<10>(properties.spell);
+      writeBits<9>(properties.reserved2);
     }
 
     template<>
     constexpr void ObjectPropertiesWriter::write(const ObjectProperties<ObjectPropertiesType::Sign>& properties)
     {
-      writeInt<32>(properties.index);
+      writeBits<32>(properties.index);
     }
 
     template<>
     constexpr void ObjectPropertiesWriter::write(const ObjectProperties<ObjectPropertiesType::TreeOfKnowledge>& properties)
     {
-      writeInt<5>(properties.index);
-      writeInt<8>(properties.visited_by.bitset.data[0]);
-      writeEnum<2>(properties.type);
-      writeInt<1>(properties.reserved1);
-      writeInt<16>(properties.reserved2);
+      writeBits<5>(properties.index);
+      writeBits<8>(properties.visited_by.bitset.data[0]);
+      writeBits<2>(properties.type);
+      writeBits<1>(properties.reserved1);
+      writeBits<16>(properties.reserved2);
     }
 
     template<>
     constexpr void ObjectPropertiesWriter::write(const ObjectProperties<ObjectPropertiesType::University>& properties)
     {
-      writeInt<5>(properties.reserved1);
-      writeInt<8>(properties.reserved2);
-      writeInt<12>(properties.index);
-      writeInt<7>(properties.reserved3);
+      writeBits<5>(properties.reserved1);
+      writeBits<8>(properties.reserved2);
+      writeBits<12>(properties.index);
+      writeBits<7>(properties.reserved3);
     }
 
     template<>
     constexpr void ObjectPropertiesWriter::write(const ObjectProperties<ObjectPropertiesType::Wagon>& properties)
     {
-      writeInt<5>(properties.resource_quantity);
-      writeInt<8>(properties.visited_by.bitset.data[0]);
-      writeInt<1>(properties.is_lootable);
-      writeInt<1>(properties.has_artifact);
-      writeEnum<10>(properties.artifact);
-      writeEnum<4>(properties.resource_type);
-      writeInt<3>(properties.reserved);
+      writeBits<5>(properties.resource_quantity);
+      writeBits<8>(properties.visited_by.bitset.data[0]);
+      writeBits<1>(properties.is_lootable);
+      writeBits<1>(properties.has_artifact);
+      writeBits<10>(properties.artifact);
+      writeBits<4>(properties.resource_type);
+      writeBits<3>(properties.reserved);
     }
 
     template<>
     constexpr void ObjectPropertiesWriter::write(const ObjectProperties<ObjectPropertiesType::WarriorsTomb>& properties)
     {
-      writeInt<1>(properties.has_artifact);
-      writeInt<4>(properties.reserved1);
-      writeInt<8>(properties.visited_by.bitset.data[0]);
-      writeEnum<10>(properties.artifact);
-      writeInt<9>(properties.reserved2);
+      writeBits<1>(properties.has_artifact);
+      writeBits<4>(properties.reserved1);
+      writeBits<8>(properties.visited_by.bitset.data[0]);
+      writeBits<10>(properties.artifact);
+      writeBits<9>(properties.reserved2);
     }
 
     template<>
     constexpr void ObjectPropertiesWriter::write(const ObjectProperties<ObjectPropertiesType::WaterWheel>& properties)
     {
-      writeInt<5>(properties.bonus);
-      writeInt<8>(properties.visited_by.bitset.data[0]);
-      writeInt<19>(properties.reserved);
+      writeBits<5>(properties.bonus);
+      writeBits<8>(properties.visited_by.bitset.data[0]);
+      writeBits<19>(properties.reserved);
     }
 
     template<>
     constexpr void ObjectPropertiesWriter::write(const ObjectProperties<ObjectPropertiesType::Windmill>& properties)
     {
-      writeEnum<4>(properties.resource_type);
-      writeInt<1>(properties.reserved1);
-      writeInt<8>(properties.visited_by.bitset.data[0]);
-      writeInt<4>(properties.resource_quantity);
-      writeInt<15>(properties.reserved2);
+      writeBits<4>(properties.resource_type);
+      writeBits<1>(properties.reserved1);
+      writeBits<8>(properties.visited_by.bitset.data[0]);
+      writeBits<4>(properties.resource_quantity);
+      writeBits<15>(properties.reserved2);
     }
 
     template<>
     constexpr void ObjectPropertiesWriter::write(const ObjectProperties<ObjectPropertiesType::WitchHut>& properties)
     {
-      writeInt<5>(properties.reserved1);
-      writeInt<8>(properties.visited_by.bitset.data[0]);
-      writeEnum<8>(properties.skill);
-      writeInt<11>(properties.reserved2);
+      writeBits<5>(properties.reserved1);
+      writeBits<8>(properties.visited_by.bitset.data[0]);
+      writeBits<8>(properties.skill);
+      writeBits<11>(properties.reserved2);
     }
   }
 
