@@ -77,6 +77,9 @@ namespace Medea_NS
   std::string_view EnumCommentGetter::operator()(h3svg::SeerName value) const;
 
   template<>
+  std::string_view EnumCommentGetter::operator()(h3svg::SpellType16 value) const;
+
+  template<>
   std::string_view EnumCommentGetter::operator()(h3svg::SpellType32 value) const;
 
   template<>

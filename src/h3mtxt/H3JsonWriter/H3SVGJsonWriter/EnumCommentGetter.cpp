@@ -434,6 +434,16 @@ namespace Medea_NS
   }
 
   template<>
+  std::string_view EnumCommentGetter::operator()(h3svg::SpellType16 value) const
+  {
+    if (isLosslessEnumCast<h3m::SpellType>(value))
+    {
+      return (*this)(static_cast<h3svg::SpellType>(value));
+    }
+    return std::string_view{};
+  }
+
+  template<>
   std::string_view EnumCommentGetter::operator()(h3svg::SpellType32 value) const
   {
     if (isLosslessEnumCast<h3m::SpellType>(value))

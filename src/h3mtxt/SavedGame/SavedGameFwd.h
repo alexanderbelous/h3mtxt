@@ -43,6 +43,7 @@ namespace h3svg
   using ::h3m::RewardType;
   using ::h3m::RiverType;
   using ::h3m::RoadType;
+  using ::h3m::ScholarRewardType;
   using ::h3m::SecondarySkill;
   using ::h3m::SecondarySkillType;
   using ::h3m::SpecialVictoryConditionBase;
@@ -130,6 +131,8 @@ namespace h3svg
   enum class SecondarySkillType32 : std::uint32_t;
 
   enum class SeerName : std::uint8_t;
+
+  enum class SpellType16 : std::int16_t;
 
   enum class SpellType32 : std::int32_t;
 

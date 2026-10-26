@@ -116,6 +116,18 @@ namespace h3svg
     };
 
     template<>
+    const TestCaseData<ObjectPropertiesType::Scholar> kTestCases<ObjectPropertiesType::Scholar> = {
+      .properties = {
+        .type = ScholarRewardType::PrimarySkill,
+        .primary_skill = PrimarySkillType::SpellPower,
+        .secondary_skill = static_cast<SecondarySkillType>(0b01111111), // TODO: replace with SecondarySkillType::None.
+        .spell = static_cast<SpellType16>(SpellType::None),
+        .reserved = -1
+      },
+      .binary_data = "\xd0\xff\xff\xff"sv
+    };
+
+    template<>
     const TestCaseData<ObjectPropertiesType::SeaChest> kTestCases<ObjectPropertiesType::SeaChest> = {
       .properties = {
         .content = SeaChestContentType::Gold1000Artifact,
@@ -231,6 +243,7 @@ namespace h3svg
                      StaticConstant<ObjectPropertiesType::Hero>,
                      StaticConstant<ObjectPropertiesType::Pyramid>,
                      StaticConstant<ObjectPropertiesType::RefugeeCamp>,
+                     StaticConstant<ObjectPropertiesType::Scholar>,
                      StaticConstant<ObjectPropertiesType::SeaChest>,
                      StaticConstant<ObjectPropertiesType::ShipwreckSurvivor>,
                      StaticConstant<ObjectPropertiesType::TreeOfKnowledge>,

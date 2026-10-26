@@ -97,6 +97,14 @@ namespace h3json
     {
       readField(properties.quantity, value, Fields::kQuantity);
     }
+    else if constexpr (T == ObjectPropertiesType::Scholar)
+    {
+      properties.type = readBitField<h3svg::ScholarRewardType, 3>(value, Fields::kType);
+      properties.primary_skill = readBitField<h3svg::PrimarySkillType, 3>(value, Fields::kPrimarySkill);
+      properties.secondary_skill = readBitField<h3svg::SecondarySkillType, 7>(value, Fields::kSecondarySkill);
+      properties.spell = readBitField<h3svg::SpellType16, 10>(value, Fields::kSpell);
+      properties.reserved = readBitField<std::int16_t, 9>(value, Fields::kReserved);
+    }
     else if constexpr (T == ObjectPropertiesType::SeaChest)
     {
       properties.content = readBitField<h3svg::SeaChestContentType, 2>(value, Fields::kContent);
@@ -116,7 +124,7 @@ namespace h3json
     {
       properties.reserved1 = readBitField<std::int16_t, 5>(value, Fields::kReserved1);
       readField(properties.visited_by, value, Fields::kVisitedBy);
-      properties.spell = readBitField<std::int16_t, 10>(value, Fields::kSpell);
+      properties.spell = readBitField<h3svg::SpellType16, 10>(value, Fields::kSpell);
       properties.reserved2 = readBitField<std::int16_t, 9>(value, Fields::kReserved2);
     }
     else if constexpr (T == ObjectPropertiesType::Sign)

@@ -266,6 +266,18 @@ namespace h3svg
     }
 
     template<>
+    constexpr ObjectProperties<ObjectPropertiesType::Scholar> ObjectPropertiesReader::read()
+    {
+      ObjectProperties<ObjectPropertiesType::Scholar> properties;
+      properties.type = readEnum<ScholarRewardType, 3>();
+      properties.primary_skill = readEnum<PrimarySkillType, 3>();
+      properties.secondary_skill = readEnum<SecondarySkillType, 7>();
+      properties.spell = readEnum<SpellType16, 10>();
+      properties.reserved = readInt<std::int16_t, 9>();
+      return properties;
+    }
+
+    template<>
     constexpr ObjectProperties<ObjectPropertiesType::SeaChest> ObjectPropertiesReader::read()
     {
       ObjectProperties<ObjectPropertiesType::SeaChest> properties;
@@ -294,7 +306,7 @@ namespace h3svg
       ObjectProperties<ObjectPropertiesType::Shrine> properties;
       properties.reserved1 = readInt<std::int16_t, 5>();
       properties.visited_by.bitset.data[0] = readInt<std::uint8_t, 8>();
-      properties.spell = readInt<std::int16_t, 10>();
+      properties.spell = readEnum<SpellType16, 10>();
       properties.reserved2 = readInt<std::int16_t, 9>();
       return properties;
     }

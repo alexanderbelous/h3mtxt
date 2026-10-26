@@ -5,7 +5,9 @@
 #include <h3mtxt/Map/Constants/ArtifactType.h>
 #include <h3mtxt/Map/Constants/HeroType.h>
 #include <h3mtxt/Map/Constants/PlayerColor.h>
+#include <h3mtxt/Map/Constants/PrimarySkillType.h>
 #include <h3mtxt/Map/Constants/ResourceType.h>
+#include <h3mtxt/Map/Constants/ScholarRewardType.h>
 #include <h3mtxt/Map/Constants/SecondarySkillType.h>
 #include <h3mtxt/Map/Constants/SpellType.h>
 #include <h3mtxt/Map/Utils/EnumBitmask.h>
@@ -181,6 +183,18 @@ namespace h3svg
   };
 
   template<>
+  struct ObjectProperties<ObjectPropertiesType::Scholar>
+  {
+    constexpr bool operator==(const ObjectProperties&) const noexcept = default;
+
+    ScholarRewardType type : 3 = {};                                    // Bits [0; 2]
+    PrimarySkillType primary_skill : 3 {};                              // Bits [3; 5]
+    SecondarySkillType secondary_skill : 7 {};                          // Bits [6; 12]
+    SpellType16 spell : 10 = static_cast<SpellType16>(SpellType::None); // Bits [13; 22]
+    std::int16_t reserved : 9 = -1;                                     // Bits [23; 31]
+  };
+
+  template<>
   struct ObjectProperties<ObjectPropertiesType::SeaChest>
   {
     constexpr bool operator==(const ObjectProperties&) const noexcept = default;
@@ -216,7 +230,7 @@ namespace h3svg
     constexpr bool operator==(const ObjectProperties&) const noexcept = default;
 
     PlayersBitmask visited_by;        // Bits [5; 12]
-    std::int16_t spell : 10 {};       // Bits [13; 22]
+    SpellType16 spell : 10 {};        // Bits [13; 22]
     std::int16_t reserved1 : 5 = -1;  // Bits [0; 4]
     std::int16_t reserved2 : 9 = -1;  // Bits [23; 31]
   };
