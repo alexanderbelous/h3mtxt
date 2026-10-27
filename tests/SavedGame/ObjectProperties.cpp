@@ -91,6 +91,14 @@ namespace h3svg
     };
 
     template<>
+    const TestCaseData<ObjectPropertiesType::Obelisk> kTestCases<ObjectPropertiesType::Obelisk> = {
+      .properties = {
+        .index = 17
+      },
+      .binary_data = "\x11\x00\x00\x00"sv
+    };
+
+    template<>
     const TestCaseData<ObjectPropertiesType::Pyramid> kTestCases<ObjectPropertiesType::Pyramid> = {
       .properties = {
         .spell = SpellType::Implosion,
@@ -241,6 +249,7 @@ namespace h3svg
                      StaticConstant<ObjectPropertiesType::CreatureBank>,
                      StaticConstant<ObjectPropertiesType::Event>,
                      StaticConstant<ObjectPropertiesType::Hero>,
+                     StaticConstant<ObjectPropertiesType::Obelisk>,
                      StaticConstant<ObjectPropertiesType::Pyramid>,
                      StaticConstant<ObjectPropertiesType::RefugeeCamp>,
                      StaticConstant<ObjectPropertiesType::Scholar>,

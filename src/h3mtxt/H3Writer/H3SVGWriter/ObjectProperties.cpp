@@ -171,6 +171,12 @@ namespace h3svg
     }
 
     template<>
+    constexpr void ObjectPropertiesWriter::write(const ObjectProperties<ObjectPropertiesType::Obelisk>& properties)
+    {
+      writeBits<32>(properties.index);
+    }
+
+    template<>
     constexpr void ObjectPropertiesWriter::write(const ObjectProperties<ObjectPropertiesType::Pyramid>& properties)
     {
       writeBits<1>(properties.is_lootable);

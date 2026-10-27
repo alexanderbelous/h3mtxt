@@ -161,6 +161,15 @@ namespace h3svg
   };
 
   template<>
+  struct ObjectProperties<ObjectPropertiesType::Obelisk>
+  {
+    constexpr bool operator==(const ObjectProperties&) const noexcept = default;
+
+    // 0-based index of the element in ObjectPropertiesTables::obelisks.
+    std::uint32_t index {};
+  };
+
+  template<>
   struct ObjectProperties<ObjectPropertiesType::Pyramid>
   {
     constexpr bool operator==(const ObjectProperties&) const noexcept = default;

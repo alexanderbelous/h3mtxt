@@ -248,6 +248,12 @@ namespace h3svg
     }
 
     template<>
+    constexpr ObjectProperties<ObjectPropertiesType::Obelisk> ObjectPropertiesReader::read()
+    {
+      return { .index = readInt<std::uint32_t, 32>() };
+    }
+
+    template<>
     constexpr ObjectProperties<ObjectPropertiesType::Pyramid> ObjectPropertiesReader::read()
     {
       ObjectProperties<ObjectPropertiesType::Pyramid> properties;

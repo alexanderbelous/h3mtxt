@@ -22,6 +22,7 @@ namespace h3svg
     Garrison,
     Hero,
     LeanTo,
+    Obelisk,
     Pyramid,
     RefugeeCamp,
     Scholar,
@@ -39,7 +40,7 @@ namespace h3svg
     WitchHut
   };
 
-  inline constexpr std::size_t kNumObjectPropertiesTypes = 27;
+  inline constexpr std::size_t kNumObjectPropertiesTypes = 28;
 
   // Returns ObjectPropertiesType for the given ObjectClass.
   // \param object_class - ObjectClass of the object.
@@ -77,6 +78,8 @@ namespace h3svg
       return ObjectPropertiesType::Hero;
     case ObjectClass::LEAN_TO:
       return ObjectPropertiesType::LeanTo;
+    case ObjectClass::OBELISK:
+      return ObjectPropertiesType::Obelisk;
     case ObjectClass::OCEAN_BOTTLE:
     case ObjectClass::SIGN:
       return ObjectPropertiesType::Sign;

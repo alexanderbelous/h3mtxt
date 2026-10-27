@@ -86,6 +86,10 @@ namespace Medea_NS
       out.writeField(Fields::kResourceType, properties.resource_type);
       out.writeField(Fields::kReserved2, properties.reserved2);
     }
+    else if constexpr (T == ObjectPropertiesType::Obelisk)
+    {
+      out.writeField(Fields::kIndex, properties.index);
+    }
     else if constexpr (T == ObjectPropertiesType::Pyramid)
     {
       out.writeField(Fields::kSpell, properties.spell);

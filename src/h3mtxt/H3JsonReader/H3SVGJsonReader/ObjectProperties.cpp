@@ -85,6 +85,10 @@ namespace h3json
       properties.resource_type = readBitField<h3svg::ResourceType, 4>(value, Fields::kResourceType);
       properties.reserved2 = readBitField<std::int32_t, 18>(value, Fields::kReserved2);
     }
+    else if constexpr (T == ObjectPropertiesType::Obelisk)
+    {
+      readField(properties.index, value, Fields::kIndex);
+    }
     else if constexpr (T == ObjectPropertiesType::Pyramid)
     {
       readField(properties.spell, value, Fields::kSpell);

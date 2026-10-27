@@ -607,6 +607,12 @@ namespace h3json
   };
 
   template<>
+  struct FieldNames<h3svg::ObjectProperties<h3svg::ObjectPropertiesType::Obelisk>>
+  {
+    static constexpr std::string_view kIndex = "index";
+  };
+
+  template<>
   struct FieldNames<h3svg::ObjectProperties<h3svg::ObjectPropertiesType::Pyramid>>
   {
     static constexpr std::string_view kSpell = "spell";
