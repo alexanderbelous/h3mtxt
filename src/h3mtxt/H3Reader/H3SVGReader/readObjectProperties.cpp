@@ -248,6 +248,18 @@ namespace h3svg
     }
 
     template<>
+    constexpr ObjectProperties<ObjectPropertiesType::MysticalGarden> ObjectPropertiesReader::read()
+    {
+      ObjectProperties<ObjectPropertiesType::MysticalGarden> properties;
+      properties.index = readInt<std::uint8_t, 5>();
+      properties.reserved1 = readInt<std::uint8_t, 1>();
+      properties.resource_type = readEnum<ResourceType, 4>();
+      properties.is_lootable = readInt<Bool, 1>();
+      properties.reserved2 = readInt<std::int32_t, 21>();
+      return properties;
+    }
+
+    template<>
     constexpr ObjectProperties<ObjectPropertiesType::Obelisk> ObjectPropertiesReader::read()
     {
       return { .index = readInt<std::uint32_t, 32>() };

@@ -85,6 +85,14 @@ namespace h3json
       properties.resource_type = readBitField<h3svg::ResourceType, 4>(value, Fields::kResourceType);
       properties.reserved2 = readBitField<std::int32_t, 18>(value, Fields::kReserved2);
     }
+    else if constexpr (T == ObjectPropertiesType::MysticalGarden)
+    {
+      properties.index = readBitField<std::uint8_t, 5>(value, Fields::kIndex);
+      properties.reserved1 = readBitField<std::uint8_t, 1>(value, Fields::kReserved1);
+      properties.resource_type = readBitField<h3svg::ResourceType, 4>(value, Fields::kResourceType);
+      properties.is_lootable = readBitField<std::uint8_t, 1>(value, Fields::kIsLootable);
+      properties.reserved2 = readBitField<std::int32_t, 21>(value, Fields::kReserved2);
+    }
     else if constexpr (T == ObjectPropertiesType::Obelisk)
     {
       readField(properties.index, value, Fields::kIndex);

@@ -161,6 +161,18 @@ namespace h3svg
   };
 
   template<>
+  struct ObjectProperties<ObjectPropertiesType::MysticalGarden>
+  {
+    constexpr bool operator==(const ObjectProperties&) const noexcept = default;
+
+    std::uint8_t index : 5 = {};
+    std::uint8_t reserved1 : 1 = 1;
+    ResourceType resource_type : 4 = ResourceType::Gold;
+    Bool is_lootable : 1 = false;
+    std::int32_t reserved2 : 21 = -1;
+  };
+
+  template<>
   struct ObjectProperties<ObjectPropertiesType::Obelisk>
   {
     constexpr bool operator==(const ObjectProperties&) const noexcept = default;

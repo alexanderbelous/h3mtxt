@@ -86,6 +86,14 @@ namespace Medea_NS
       out.writeField(Fields::kResourceType, properties.resource_type);
       out.writeField(Fields::kReserved2, properties.reserved2);
     }
+    else if constexpr (T == ObjectPropertiesType::MysticalGarden)
+    {
+      out.writeField(Fields::kIndex, properties.index);
+      out.writeField(Fields::kReserved1, properties.reserved1);
+      out.writeField(Fields::kResourceType, properties.resource_type);
+      out.writeField(Fields::kIsLootable, properties.is_lootable);
+      out.writeField(Fields::kReserved2, properties.reserved2);
+    }
     else if constexpr (T == ObjectPropertiesType::Obelisk)
     {
       out.writeField(Fields::kIndex, properties.index);
