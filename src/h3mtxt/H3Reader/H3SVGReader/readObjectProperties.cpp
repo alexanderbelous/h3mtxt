@@ -248,6 +248,20 @@ namespace h3svg
     }
 
     template<>
+    constexpr ObjectProperties<ObjectPropertiesType::Monster> ObjectPropertiesReader::read()
+    {
+      ObjectProperties<ObjectPropertiesType::Monster> properties;
+      properties.quantity = readInt<std::uint16_t, 12>();
+      properties.aggression = readInt<std::int8_t, 5>();
+      properties.never_flees = readInt<Bool, 1>();
+      properties.does_not_grow = readInt<Bool, 1>();
+      properties.index = readInt<std::uint8_t, 8>();
+      properties.growth_remainder = readInt<std::uint16_t, 4>();
+      properties.has_message_or_treasure = readInt<Bool, 1>();
+      return properties;
+    }
+
+    template<>
     constexpr ObjectProperties<ObjectPropertiesType::MysticalGarden> ObjectPropertiesReader::read()
     {
       ObjectProperties<ObjectPropertiesType::MysticalGarden> properties;

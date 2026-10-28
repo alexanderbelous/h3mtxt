@@ -86,6 +86,16 @@ namespace Medea_NS
       out.writeField(Fields::kResourceType, properties.resource_type);
       out.writeField(Fields::kReserved2, properties.reserved2);
     }
+    else if constexpr (T == ObjectPropertiesType::Monster)
+    {
+      out.writeField(Fields::kQuantity, properties.quantity);
+      out.writeField(Fields::kGrowthRemainder, properties.growth_remainder);
+      out.writeField(Fields::kAggression, properties.aggression);
+      out.writeField(Fields::kNeverFlees, static_cast<bool>(properties.never_flees));
+      out.writeField(Fields::kDoesNotGrow, static_cast<bool>(properties.does_not_grow));
+      out.writeField(Fields::kHasMessageOrTreasure, static_cast<bool>(properties.has_message_or_treasure));
+      out.writeField(Fields::kIndex, properties.index);
+    }
     else if constexpr (T == ObjectPropertiesType::MysticalGarden)
     {
       out.writeField(Fields::kIndex, properties.index);

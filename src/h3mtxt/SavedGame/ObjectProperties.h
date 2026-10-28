@@ -161,6 +161,24 @@ namespace h3svg
   };
 
   template<>
+  struct ObjectProperties<ObjectPropertiesType::Monster>
+  {
+    constexpr bool operator==(const ObjectProperties&) const noexcept = default;
+
+    std::uint16_t quantity : 12 = {};         // Bits [0; 11]
+    // Remainder of the division by 10 for growth.
+    std::uint16_t growth_remainder : 4 = 0;   // Bits [27; 30]
+    // Used for diplomacy; -4 means h3m::Disposition::Compliant, 10 means h3m::Disposition::Savage.
+    std::int8_t aggression : 5 = {};          // Bits [12; 16]
+    Bool never_flees : 1 = false;             // Bits [17; 17]
+    Bool does_not_grow : 1 = false;           // Bits [18; 18]
+    Bool has_message_or_treasure : 1 = false; // Bits [31; 31]
+    // 0-based index of the element in ObjectPropertiesTables::monsters;
+    // only meaningful if this->has_message_or_treasure is true.
+    std::uint8_t index : 8 = {};              // Bits [19; 26]
+  };
+
+  template<>
   struct ObjectProperties<ObjectPropertiesType::MysticalGarden>
   {
     constexpr bool operator==(const ObjectProperties&) const noexcept = default;

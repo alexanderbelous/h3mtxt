@@ -85,6 +85,16 @@ namespace h3json
       properties.resource_type = readBitField<h3svg::ResourceType, 4>(value, Fields::kResourceType);
       properties.reserved2 = readBitField<std::int32_t, 18>(value, Fields::kReserved2);
     }
+    else if constexpr (T == ObjectPropertiesType::Monster)
+    {
+      properties.quantity = readBitField<std::uint16_t, 12>(value, Fields::kQuantity);
+      properties.growth_remainder = readBitField<std::uint16_t, 4>(value, Fields::kGrowthRemainder);
+      properties.aggression = readBitField<std::int8_t, 5>(value, Fields::kAggression);
+      properties.never_flees = readField<bool>(value, Fields::kNeverFlees);
+      properties.does_not_grow = readField<bool>(value, Fields::kDoesNotGrow);
+      properties.has_message_or_treasure = readField<bool>(value, Fields::kHasMessageOrTreasure);
+      properties.index = readBitField<std::uint8_t, 8>(value, Fields::kIndex);
+    }
     else if constexpr (T == ObjectPropertiesType::MysticalGarden)
     {
       properties.index = readBitField<std::uint8_t, 5>(value, Fields::kIndex);

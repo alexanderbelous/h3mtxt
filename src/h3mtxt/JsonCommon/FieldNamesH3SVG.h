@@ -607,6 +607,21 @@ namespace h3json
   };
 
   template<>
+  struct FieldNames<h3svg::ObjectProperties<h3svg::ObjectPropertiesType::Monster>>
+  {
+    static constexpr std::string_view kQuantity =
+      FieldNames<h3m::ObjectProperties<h3m::ObjectPropertiesType::MONSTER>>::kQuantity;
+    static constexpr std::string_view kGrowthRemainder = "growth_remainder";
+    static constexpr std::string_view kAggression = "aggression";
+    static constexpr std::string_view kNeverFlees =
+      FieldNames<h3m::ObjectProperties<h3m::ObjectPropertiesType::MONSTER>>::kNeverFlees;
+    static constexpr std::string_view kDoesNotGrow =
+      FieldNames<h3m::ObjectProperties<h3m::ObjectPropertiesType::MONSTER>>::kDoesNotGrow;
+    static constexpr std::string_view kHasMessageOrTreasure = "has_message_or_treasure";
+    static constexpr std::string_view kIndex = "index";
+  };
+
+  template<>
   struct FieldNames<h3svg::ObjectProperties<h3svg::ObjectPropertiesType::MysticalGarden>>
   {
     static constexpr std::string_view kIndex = "index";

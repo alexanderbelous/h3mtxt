@@ -91,6 +91,20 @@ namespace h3svg
     };
 
     template<>
+    const TestCaseData<ObjectPropertiesType::Monster> kTestCases<ObjectPropertiesType::Monster> = {
+      .properties = {
+        .quantity = 999,
+        .growth_remainder = 3,
+        .aggression = 0,
+        .never_flees = true,
+        .does_not_grow = false,
+        .has_message_or_treasure = true,
+        .index = 30
+      },
+      .binary_data = "\xe7\x03\xf2\x98"sv
+    };
+
+    template<>
     const TestCaseData<ObjectPropertiesType::MysticalGarden> kTestCases<ObjectPropertiesType::MysticalGarden> = {
       .properties = {
         .index = 13,
@@ -261,6 +275,7 @@ namespace h3svg
                      StaticConstant<ObjectPropertiesType::CreatureBank>,
                      StaticConstant<ObjectPropertiesType::Event>,
                      StaticConstant<ObjectPropertiesType::Hero>,
+                     StaticConstant<ObjectPropertiesType::Monster>,
                      StaticConstant<ObjectPropertiesType::MysticalGarden>,
                      StaticConstant<ObjectPropertiesType::Obelisk>,
                      StaticConstant<ObjectPropertiesType::Pyramid>,

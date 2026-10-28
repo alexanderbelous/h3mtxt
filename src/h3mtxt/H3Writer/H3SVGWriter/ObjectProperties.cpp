@@ -171,6 +171,18 @@ namespace h3svg
     }
 
     template<>
+    constexpr void ObjectPropertiesWriter::write(const ObjectProperties<ObjectPropertiesType::Monster>& properties)
+    {
+      writeBits<12>(properties.quantity);
+      writeBits<5>(properties.aggression);
+      writeBits<1>(properties.never_flees);
+      writeBits<1>(properties.does_not_grow);
+      writeBits<8>(properties.index);
+      writeBits<4>(properties.growth_remainder);
+      writeBits<1>(properties.has_message_or_treasure);
+    }
+
+    template<>
     constexpr void ObjectPropertiesWriter::write(const ObjectProperties<ObjectPropertiesType::MysticalGarden>& properties)
     {
       writeBits<5>(properties.index);

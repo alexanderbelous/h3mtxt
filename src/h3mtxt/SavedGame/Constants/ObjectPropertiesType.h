@@ -21,6 +21,7 @@ namespace h3svg
     FountainOfFortune,
     Garrison,
     Hero,
+    Monster,
     MysticalGarden,
     LeanTo,
     Obelisk,
@@ -41,7 +42,7 @@ namespace h3svg
     WitchHut
   };
 
-  inline constexpr std::size_t kNumObjectPropertiesTypes = 29;
+  inline constexpr std::size_t kNumObjectPropertiesTypes = 30;
 
   // Returns ObjectPropertiesType for the given ObjectClass.
   // \param object_class - ObjectClass of the object.
@@ -77,6 +78,8 @@ namespace h3svg
     case ObjectClass::HERO:
     case ObjectClass::PRISON:
       return ObjectPropertiesType::Hero;
+    case ObjectClass::MONSTER:
+      return ObjectPropertiesType::Monster;
     case ObjectClass::MYSTICAL_GARDEN:
       return ObjectPropertiesType::MysticalGarden;
     case ObjectClass::LEAN_TO:
