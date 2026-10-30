@@ -161,6 +161,19 @@ namespace h3svg
   };
 
   template<>
+  struct ObjectProperties<ObjectPropertiesType::MagicSpring>
+  {
+    constexpr bool operator==(const ObjectProperties&) const noexcept = default;
+
+    // 0-based index of the Magic Spring. This is used in h3svg::Player::magic_springs to keep track
+    // of the Magic Springs visited by the player.
+    std::uint32_t index : 5 = {};         // Bits [0; 4]
+    std::uint32_t reserved1 : 1 = 1;      // Bits [5; 5]
+    std::uint32_t has_bonus : 1 = false;  // Bits [6; 6]
+    std::int32_t reserved2 : 25 = -1;     // Bits [7; 31]
+  };
+
+  template<>
   struct ObjectProperties<ObjectPropertiesType::Monster>
   {
     constexpr bool operator==(const ObjectProperties&) const noexcept = default;

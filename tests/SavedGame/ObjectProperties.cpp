@@ -91,6 +91,17 @@ namespace h3svg
     };
 
     template<>
+    const TestCaseData<ObjectPropertiesType::MagicSpring> kTestCases<ObjectPropertiesType::MagicSpring> = {
+      .properties = {
+        .index = 11,
+        .reserved1 = 1,
+        .has_bonus = true,
+        .reserved2 = -1,
+      },
+      .binary_data = "\xeb\xff\xff\xff"sv
+    };
+
+    template<>
     const TestCaseData<ObjectPropertiesType::Monster> kTestCases<ObjectPropertiesType::Monster> = {
       .properties = {
         .quantity = 999,
@@ -275,6 +286,7 @@ namespace h3svg
                      StaticConstant<ObjectPropertiesType::CreatureBank>,
                      StaticConstant<ObjectPropertiesType::Event>,
                      StaticConstant<ObjectPropertiesType::Hero>,
+                     StaticConstant<ObjectPropertiesType::MagicSpring>,
                      StaticConstant<ObjectPropertiesType::Monster>,
                      StaticConstant<ObjectPropertiesType::MysticalGarden>,
                      StaticConstant<ObjectPropertiesType::Obelisk>,

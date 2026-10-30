@@ -85,6 +85,13 @@ namespace h3json
       properties.resource_type = readBitField<h3svg::ResourceType, 4>(value, Fields::kResourceType);
       properties.reserved2 = readBitField<std::int32_t, 18>(value, Fields::kReserved2);
     }
+    else if constexpr (T == ObjectPropertiesType::MagicSpring)
+    {
+      properties.index = readBitField<std::uint32_t, 5>(value, Fields::kIndex);
+      properties.reserved1 = readBitField<std::uint32_t, 1>(value, Fields::kReserved1);
+      properties.has_bonus = readField<bool>(value, Fields::kHasBonus);
+      properties.reserved2 = readBitField<std::int32_t, 25>(value, Fields::kReserved2);
+    }
     else if constexpr (T == ObjectPropertiesType::Monster)
     {
       properties.quantity = readBitField<std::uint16_t, 12>(value, Fields::kQuantity);

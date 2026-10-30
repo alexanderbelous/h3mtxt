@@ -86,6 +86,13 @@ namespace Medea_NS
       out.writeField(Fields::kResourceType, properties.resource_type);
       out.writeField(Fields::kReserved2, properties.reserved2);
     }
+    else if constexpr (T == ObjectPropertiesType::MagicSpring)
+    {
+      out.writeField(Fields::kIndex, properties.index);
+      out.writeField(Fields::kReserved1, properties.reserved1);
+      out.writeField(Fields::kHasBonus, static_cast<bool>(properties.has_bonus));
+      out.writeField(Fields::kReserved2, properties.reserved2);
+    }
     else if constexpr (T == ObjectPropertiesType::Monster)
     {
       out.writeField(Fields::kQuantity, properties.quantity);

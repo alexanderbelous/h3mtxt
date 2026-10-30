@@ -248,6 +248,17 @@ namespace h3svg
     }
 
     template<>
+    constexpr ObjectProperties<ObjectPropertiesType::MagicSpring> ObjectPropertiesReader::read()
+    {
+      ObjectProperties<ObjectPropertiesType::MagicSpring> properties;
+      properties.index = readInt<std::uint32_t, 5>();
+      properties.reserved1 = readInt<std::uint32_t, 1>();
+      properties.has_bonus = readInt<std::uint32_t, 1>();
+      properties.reserved2 = readInt<std::int32_t, 25>();
+      return properties;
+    }
+
+    template<>
     constexpr ObjectProperties<ObjectPropertiesType::Monster> ObjectPropertiesReader::read()
     {
       ObjectProperties<ObjectPropertiesType::Monster> properties;

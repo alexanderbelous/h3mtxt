@@ -171,6 +171,15 @@ namespace h3svg
     }
 
     template<>
+    constexpr void ObjectPropertiesWriter::write(const ObjectProperties<ObjectPropertiesType::MagicSpring>& properties)
+    {
+      writeBits<5>(properties.index);
+      writeBits<1>(properties.reserved1);
+      writeBits<1>(properties.has_bonus);
+      writeBits<25>(properties.reserved2);
+    }
+
+    template<>
     constexpr void ObjectPropertiesWriter::write(const ObjectProperties<ObjectPropertiesType::Monster>& properties)
     {
       writeBits<12>(properties.quantity);
