@@ -4,7 +4,7 @@
 
 #include <h3mtxt/Map/Constants/ObjectClass.h>
 
-#include <cstdint>
+#include <cstddef>
 
 namespace h3svg
 {

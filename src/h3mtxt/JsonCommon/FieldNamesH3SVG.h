@@ -283,9 +283,9 @@ namespace h3json
   template<>
   struct FieldNames<h3svg::CoordinatesPacked>
   {
-    static constexpr std::string_view kX = "x";
-    static constexpr std::string_view kY = "y";
-    static constexpr std::string_view kZ = "z";
+    static constexpr std::string_view kX = FieldNames<h3m::Coordinates>::kX;
+    static constexpr std::string_view kY = FieldNames<h3m::Coordinates>::kY;
+    static constexpr std::string_view kZ = FieldNames<h3m::Coordinates>::kZ;
     static constexpr std::string_view kPadding1 = "padding1";
     static constexpr std::string_view kPadding2 = "padding2";
   };
@@ -436,8 +436,8 @@ namespace h3json
   template<>
   struct FieldNames<h3svg::HeroArtifacts>
   {
-    static constexpr std::string_view kEquipped = "equipped";
-    static constexpr std::string_view kBackpack = "backpack";
+    static constexpr std::string_view kEquipped = FieldNames<h3m::HeroArtifacts>::kEquipped;
+    static constexpr std::string_view kBackpack = FieldNames<h3m::HeroArtifacts>::kBackpack;
     static constexpr std::string_view kUnknown = "unknown";
     static constexpr std::string_view kLocks = "locks";
   };
@@ -506,8 +506,8 @@ namespace h3json
   template<>
   struct FieldNames<h3svg::Object>
   {
-    static constexpr std::string_view kCoordinates = "coordinates";
-    static constexpr std::string_view kTemplateIdx = "template_idx";
+    static constexpr std::string_view kCoordinates = FieldNames<h3m::Object>::kCoordinates;
+    static constexpr std::string_view kTemplateIdx = FieldNames<h3m::Object>::kTemplateIdx;
   };
 
   template<>
@@ -786,17 +786,17 @@ namespace h3json
   template<>
   struct FieldNames<h3svg::ObjectTemplate>
   {
-    static constexpr std::string_view kDef = "def";
+    static constexpr std::string_view kDef = FieldNames<h3m::ObjectTemplate>::kDef;
     static constexpr std::string_view kWidth = "width";
     static constexpr std::string_view kHeight = "height";
     static constexpr std::string_view kColors = "colors";
-    static constexpr std::string_view kPassability = "passability";
+    static constexpr std::string_view kPassability = FieldNames<h3m::ObjectTemplate>::kPassability;
     static constexpr std::string_view kShadows = "shadows";
-    static constexpr std::string_view kActionability = "actionability";
-    static constexpr std::string_view kObjectClass = "object_class";
-    static constexpr std::string_view kObjectSubclass = "object_subclass";
+    static constexpr std::string_view kActionability = FieldNames<h3m::ObjectTemplate>::kActionability;
+    static constexpr std::string_view kObjectClass = FieldNames<h3m::ObjectTemplate>::kObjectClass;
+    static constexpr std::string_view kObjectSubclass = FieldNames<h3m::ObjectTemplate>::kObjectSubclass;
     static constexpr std::string_view kReserved = "reserved";
-    static constexpr std::string_view kIsGround = "is_ground";
+    static constexpr std::string_view kIsGround = FieldNames<h3m::ObjectTemplate>::kIsGround;
   };
 
   template<>
@@ -827,13 +827,13 @@ namespace h3json
   template<>
   struct FieldNames<h3svg::PlayerSpecs>
   {
-    static constexpr std::string_view kCanBeHuman = "can_be_human";
-    static constexpr std::string_view kCanBeComputer = "can_be_computer";
-    static constexpr std::string_view kBehavior = "behavior";
-    static constexpr std::string_view kAllowedAlignments = "allowed_alignments";
-    static constexpr std::string_view kAllowRandomAlignment = "allow_random_alignment";
+    static constexpr std::string_view kCanBeHuman = FieldNames<h3m::PlayerSpecs>::kCanBeHuman;
+    static constexpr std::string_view kCanBeComputer = FieldNames<h3m::PlayerSpecs>::kCanBeComputer;
+    static constexpr std::string_view kBehavior = FieldNames<h3m::PlayerSpecs>::kBehavior;
+    static constexpr std::string_view kAllowedAlignments = FieldNames<h3m::PlayerSpecs>::kAllowedAlignments;
+    static constexpr std::string_view kAllowRandomAlignment = FieldNames<h3m::PlayerSpecs>::kAllowRandomAlignment;
     static constexpr std::string_view kGeneratedHeroCoordinates = "generated_hero_coordinates";
-    static constexpr std::string_view kStartingHero = "starting_hero";
+    static constexpr std::string_view kStartingHero = FieldNames<h3m::PlayerSpecs>::kStartingHero;
   };
 
   template<>
@@ -879,9 +879,8 @@ namespace h3json
   };
 
   template<>
-  struct FieldNames<h3svg::QuestGuard>
+  struct FieldNames<h3svg::QuestGuard> : FieldNames<h3m::ObjectProperties<h3m::ObjectPropertiesType::QUEST_GUARD>>
   {
-    static constexpr std::string_view kQuest = "quest";
     static constexpr std::string_view kVisitedBy = "visited_by";
   };
 
@@ -1170,8 +1169,10 @@ namespace h3json
   template<>
   struct FieldNames<h3svg::SeersHut>
   {
-    static constexpr std::string_view kQuest = "quest";
-    static constexpr std::string_view kReward = "reward";
+    static constexpr std::string_view kQuest =
+      FieldNames<h3m::ObjectProperties<h3m::ObjectPropertiesType::SEERS_HUT>>::kQuest;
+    static constexpr std::string_view kReward =
+      FieldNames<h3m::ObjectProperties<h3m::ObjectPropertiesType::SEERS_HUT>>::kReward;
     static constexpr std::string_view kReserved = "reserved";
     static constexpr std::string_view kVisitedBy = "visited_by";
     static constexpr std::string_view kName = "name";
@@ -1180,7 +1181,8 @@ namespace h3json
   template<>
   struct FieldNames<h3svg::Sign>
   {
-    static constexpr std::string_view kMessage = "message";
+    static constexpr std::string_view kMessage =
+      FieldNames<h3m::ObjectProperties<h3m::ObjectPropertiesType::SIGN>>::kMessage;
     static constexpr std::string_view kIsCustom = "is_custom";
   };
 
@@ -1194,13 +1196,13 @@ namespace h3json
   template<>
   struct FieldNames<h3svg::Tile>
   {
-    static constexpr std::string_view kTerrainType = "terrain_type";
-    static constexpr std::string_view kTerrainSprite = "terrain_sprite";
-    static constexpr std::string_view kRiverType = "river_type";
-    static constexpr std::string_view kRiverSprite = "river_sprite";
-    static constexpr std::string_view kRoadType = "road_type";
-    static constexpr std::string_view kRoadSprite = "road_sprite";
-    static constexpr std::string_view kFlags = "flags";
+    static constexpr std::string_view kTerrainType = FieldNames<h3m::Tile>::kTerrainType;
+    static constexpr std::string_view kTerrainSprite = FieldNames<h3m::Tile>::kTerrainSprite;
+    static constexpr std::string_view kRiverType = FieldNames<h3m::Tile>::kRiverType;
+    static constexpr std::string_view kRiverSprite = FieldNames<h3m::Tile>::kRiverSprite;
+    static constexpr std::string_view kRoadType = FieldNames<h3m::Tile>::kRoadType;
+    static constexpr std::string_view kRoadSprite = FieldNames<h3m::Tile>::kRoadSprite;
+    static constexpr std::string_view kFlags = FieldNames<h3m::Tile>::kFlags;
     static constexpr std::string_view kObjectSubclass = "object_subclass";
     static constexpr std::string_view kObjectIdx = "object_idx";
     static constexpr std::string_view kObjectProperties = "object_properties";
@@ -1271,9 +1273,9 @@ namespace h3json
   struct FieldNames<h3svg::TownEvent> : FieldNames<h3svg::TimedEvent>
   {
     static constexpr std::string_view kTownId = "town_id";
-    static constexpr std::string_view kBuildings = "buildings";
+    static constexpr std::string_view kBuildings = FieldNames<h3m::TownEvent>::kBuildings;
     static constexpr std::string_view kReserved = "reserved";
-    static constexpr std::string_view kCreatures = "creatures";
+    static constexpr std::string_view kCreatures = FieldNames<h3m::TownEvent>::kCreatures;
   };
 
   template<>

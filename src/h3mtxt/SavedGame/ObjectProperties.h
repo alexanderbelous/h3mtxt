@@ -24,7 +24,12 @@ namespace h3svg
   // In H3SVG the "simple" properties of an object on the Adventure Map are always serialized as 4 bytes,
   // whose meaning depends on ObjectClass.
   //
-  // Credits to Maurice for reverse-engineering: http://heroescommunity.com/viewthread.php3?TID=46018
+  // Credits to Maurice:
+  // * http://heroescommunity.com/viewthread.php3?TID=46018
+  // * https://docs.google.com/spreadsheets/d/16V6geR8xk9Z5Kqe27n7JT8iNre2JvV77jf8kautQ9Hc
+  // and RoseKavalier:
+  // * https://github.com/RoseKavalier/H3API/tree/master/include/h3api/H3AdventureMap
+  // for reverse-engineering.
   //
   // H3SVG often uses bit packing to fit such "simple" properties into 4 bytes; to improve the API,
   // the specializations of ObjectProperties<T> below provide structured access to the properties.
