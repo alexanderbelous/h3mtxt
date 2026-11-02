@@ -13,93 +13,63 @@ namespace h3json
   using ::h3m::StartingBonusDetails;
   using ::h3m::StartingBonusType;
 
-  template<>
-  StartingBonusDetails<StartingBonusType::Spell>
-  JsonReader<StartingBonusDetails<StartingBonusType::Spell>>::operator()(const Json::Value& value) const
+  template<StartingBonusType T>
+  StartingBonusDetails<T> JsonReader2<StartingBonusDetails<T>>::operator()() const
   {
-    StartingBonusDetails<StartingBonusType::Spell> details;
-    readField(details.hero, value, "hero");
-    readField(details.spell, value, "spell");
+    StartingBonusDetails<T> details;
+    if constexpr (T == StartingBonusType::Spell)
+    {
+      readField("hero", details.hero);
+      readField("spell", details.spell);
+    }
+    else if constexpr (T == StartingBonusType::Creature)
+    {
+      readField("hero", details.hero);
+      readField("creature_stack", details.creature_stack);
+    }
+    else if constexpr (T == StartingBonusType::Building)
+    {
+      readField("building", details.building);
+    }
+    else if constexpr (T == StartingBonusType::Artifact)
+    {
+      readField("hero", details.hero);
+      readField("artifact", details.artifact);
+    }
+    else if constexpr (T == StartingBonusType::SpellScroll)
+    {
+      readField("hero", details.hero);
+      readField("spell", details.spell);
+    }
+    else if constexpr (T == StartingBonusType::PrimarySkills)
+    {
+      readField("hero", details.hero);
+      readField("skills", details.skills);
+    }
+    else if constexpr (T == StartingBonusType::SecondarySkill)
+    {
+      readField("hero", details.hero);
+      readField("skill", details.skill);
+    }
+    else if constexpr (T == StartingBonusType::Resource)
+    {
+      readField("resource", details.resource);
+    }
+    else
+    {
+      static_assert(false, "Invalid StartingBonusType.");
+    }
     return details;
   }
 
   template<>
-  StartingBonusDetails<StartingBonusType::Creature>
-  JsonReader<StartingBonusDetails<StartingBonusType::Creature>>::operator()(const Json::Value& value) const
-  {
-    StartingBonusDetails<StartingBonusType::Creature> details;
-    readField(details.hero, value, "hero");
-    readField(details.creature_stack, value, "creature_stack");
-    return details;
-  }
-
-  template<>
-  StartingBonusDetails<StartingBonusType::Building>
-  JsonReader<StartingBonusDetails<StartingBonusType::Building>>::operator()(const Json::Value& value) const
-  {
-    StartingBonusDetails<StartingBonusType::Building> details;
-    readField(details.building, value, "building");
-    return details;
-  }
-
-  template<>
-  StartingBonusDetails<StartingBonusType::Artifact>
-  JsonReader<StartingBonusDetails<StartingBonusType::Artifact>>::operator()(const Json::Value& value) const
-  {
-    StartingBonusDetails<StartingBonusType::Artifact> details;
-    readField(details.hero, value, "hero");
-    readField(details.artifact, value, "artifact");
-    return details;
-  }
-
-  template<>
-  StartingBonusDetails<StartingBonusType::SpellScroll>
-  JsonReader<StartingBonusDetails<StartingBonusType::SpellScroll>>::operator()(const Json::Value& value) const
-  {
-    StartingBonusDetails<StartingBonusType::SpellScroll> details;
-    readField(details.hero, value, "hero");
-    readField(details.spell, value, "spell");
-    return details;
-  }
-
-  template<>
-  StartingBonusDetails<StartingBonusType::PrimarySkills>
-  JsonReader<StartingBonusDetails<StartingBonusType::PrimarySkills>>::operator()(const Json::Value& value) const
-  {
-    StartingBonusDetails<StartingBonusType::PrimarySkills> details;
-    readField(details.hero, value, "hero");
-    readField(details.skills, value, "skills");
-    return details;
-  }
-
-  template<>
-  StartingBonusDetails<StartingBonusType::SecondarySkill>
-  JsonReader<StartingBonusDetails<StartingBonusType::SecondarySkill>>::operator()(const Json::Value& value) const
-  {
-    StartingBonusDetails<StartingBonusType::SecondarySkill> details;
-    readField(details.hero, value, "hero");
-    readField(details.skill, value, "skill");
-    return details;
-  }
-
-  template<>
-  StartingBonusDetails<StartingBonusType::Resource>
-  JsonReader<StartingBonusDetails<StartingBonusType::Resource>>::operator()(const Json::Value& value) const
-  {
-    StartingBonusDetails<StartingBonusType::Resource> details;
-    readField(details.resource, value, "resource");
-    return details;
-  }
-
-  template<>
-  StartingBonus JsonReader<StartingBonus>::operator()(const Json::Value& value) const
+  StartingBonus JsonReader2<StartingBonus>::operator()() const
   {
     using Fields = FieldNames<StartingBonus>;
-    StartingBonus bonus;
-    const StartingBonusType starting_bonus_type = readField<StartingBonusType>(value, Fields::kType);
-    VariantJsonReader<StartingBonus::Details> variant_reader{};
-    bonus.details = variant_reader(getJsonField(value, Fields::kDetails),
-                                   StartingBonus::getAlternativeIdx(starting_bonus_type));
-    return bonus;
+    const StartingBonusType starting_bonus_type = readField<StartingBonusType>(Fields::kType);
+    return StartingBonus{
+      .details = VariantJsonReader<StartingBonus::Details>{}(getField(Fields::kDetails),
+                                                             StartingBonus::getAlternativeIdx(starting_bonus_type))
+    };
   }
 }

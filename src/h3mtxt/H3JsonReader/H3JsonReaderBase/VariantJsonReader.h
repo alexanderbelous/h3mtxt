@@ -38,7 +38,7 @@ namespace h3json
     static Variant readAlternative(const Json::Value& value)
     {
       using Alternative = std::variant_alternative_t<N, Variant>;
-      return Variant{ std::in_place_index<N>, JsonReader<Alternative>{}(value) };
+      return Variant{ std::in_place_index<N>, fromJson<Alternative>(value) };
     }
 
     // Convert the function template readAlternative<T>() into an alias template,

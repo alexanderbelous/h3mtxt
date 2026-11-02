@@ -137,6 +137,9 @@ namespace h3m
       QuestDetails<QuestType::BePlayer>
     >;
 
+    // Special value used in Quest::deadline for quests without a deadline.
+    static constexpr std::uint32_t kNoDeadline = static_cast<std::uint32_t>(-1);
+
     // \return the type of the quest.
     constexpr QuestType type() const noexcept;
 
@@ -171,7 +174,7 @@ namespace h3m
     //   (i.e. deadline > 1834979) are equivalent to no deadline.
     // * FYI: SoD_SP plugin (as of 1.19.4.2) incorrectly interprets this as a signed integer, displaying
     //   "Time has run out." for quests with deadline >= 2147483648 (Month: 76695845; Week: 3; Day: 3).
-    std::uint32_t deadline = 0xFFFFFFFF;
+    std::uint32_t deadline = kNoDeadline;
     std::string proposal;
     std::string progress;
     std::string completion;

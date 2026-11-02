@@ -11,118 +11,72 @@ namespace h3json
   using ::h3m::QuestDetails;
   using ::h3m::QuestType;
 
-  template<>
-  QuestDetails<QuestType::None>
-  JsonReader<QuestDetails<QuestType::None>>::operator()(const Json::Value&) const
+  template<QuestType T>
+  QuestDetails<T> JsonReader2<QuestDetails<T>>::operator()() const
   {
-    return {};
-  }
-
-  template<>
-  QuestDetails<QuestType::Level>
-  JsonReader<QuestDetails<QuestType::Level>>::operator()(const Json::Value& value) const
-  {
-    QuestDetails<QuestType::Level> details;
-    using Fields = FieldNames<decltype(details)>;
-    readField(details.level, value, Fields::kLevel);
+    using Fields = FieldNames<QuestDetails<T>>;
+    QuestDetails<T> details;
+    if constexpr (T == QuestType::None)
+    {
+      // No fields.
+    }
+    else if constexpr (T == QuestType::Level)
+    {
+      readField(Fields::kLevel, details.level);
+    }
+    else if constexpr (T == QuestType::PrimarySkills)
+    {
+      readField(Fields::kSkills, details.skills);
+    }
+    else if constexpr (T == QuestType::DefeatHero)
+    {
+      readField(Fields::kAbsodId, details.absod_id);
+    }
+    else if constexpr (T == QuestType::DefeatMonster)
+    {
+      readField(Fields::kAbsodId, details.absod_id);
+    }
+    else if constexpr (T == QuestType::Artifacts)
+    {
+      readField(Fields::kArtifacts, details.artifacts);
+    }
+    else if constexpr (T == QuestType::Creatures)
+    {
+      readField(Fields::kCreatures, details.creatures);
+    }
+    else if constexpr (T == QuestType::Resources)
+    {
+      readField(Fields::kResources, details.resources);
+    }
+    else if constexpr (T == QuestType::BeHero)
+    {
+      readField(Fields::kHero, details.hero);
+    }
+    else if constexpr (T == QuestType::BePlayer)
+    {
+      readField(Fields::kPlayer, details.player);
+    }
+    else
+    {
+      static_assert(false, "Invalid QuestType.");
+    }
     return details;
   }
 
   template<>
-  QuestDetails<QuestType::PrimarySkills>
-  JsonReader<QuestDetails<QuestType::PrimarySkills>>::operator()(const Json::Value& value) const
-  {
-    QuestDetails<QuestType::PrimarySkills> details;
-    using Fields = FieldNames<decltype(details)>;
-    readField(details.skills, value, Fields::kSkills);
-    return details;
-  }
-
-  template<>
-  QuestDetails<QuestType::DefeatHero>
-  JsonReader<QuestDetails<QuestType::DefeatHero>>::operator()(const Json::Value& value) const
-  {
-    QuestDetails<QuestType::DefeatHero> details;
-    using Fields = FieldNames<decltype(details)>;
-    readField(details.absod_id, value, Fields::kAbsodId);
-    return details;
-  }
-
-  template<>
-  QuestDetails<QuestType::DefeatMonster>
-  JsonReader<QuestDetails<QuestType::DefeatMonster>>::operator()(const Json::Value& value) const
-  {
-    QuestDetails<QuestType::DefeatMonster> details;
-    using Fields = FieldNames<decltype(details)>;
-    readField(details.absod_id, value, Fields::kAbsodId);
-    return details;
-  }
-
-  template<>
-  QuestDetails<QuestType::Artifacts>
-  JsonReader<QuestDetails<QuestType::Artifacts>>::operator()(const Json::Value& value) const
-  {
-    QuestDetails<QuestType::Artifacts> details;
-    using Fields = FieldNames<decltype(details)>;
-    readField(details.artifacts, value, Fields::kArtifacts);
-    return details;
-  }
-
-  template<>
-  QuestDetails<QuestType::Creatures>
-  JsonReader<QuestDetails<QuestType::Creatures>>::operator()(const Json::Value& value) const
-  {
-    QuestDetails<QuestType::Creatures> details;
-    using Fields = FieldNames<decltype(details)>;
-    readField(details.creatures, value, Fields::kCreatures);
-    return details;
-  }
-
-  template<>
-  QuestDetails<QuestType::Resources>
-  JsonReader<QuestDetails<QuestType::Resources>>::operator()(const Json::Value& value) const
-  {
-    QuestDetails<QuestType::Resources> details;
-    using Fields = FieldNames<decltype(details)>;
-    readField(details.resources, value, Fields::kResources);
-    return details;
-  }
-
-  template<>
-  QuestDetails<QuestType::BeHero>
-  JsonReader<QuestDetails<QuestType::BeHero>>::operator()(const Json::Value& value) const
-  {
-    QuestDetails<QuestType::BeHero> details;
-    using Fields = FieldNames<decltype(details)>;
-    readField(details.hero, value, Fields::kHero);
-    return details;
-  }
-
-  template<>
-  QuestDetails<QuestType::BePlayer>
-  JsonReader<QuestDetails<QuestType::BePlayer>>::operator()(const Json::Value& value) const
-  {
-    QuestDetails<QuestType::BePlayer> details;
-    using Fields = FieldNames<decltype(details)>;
-    readField(details.player, value, Fields::kPlayer);
-    return details;
-  }
-
-  template<>
-  Quest JsonReader<Quest>::operator()(const Json::Value& value) const
+  Quest JsonReader2<Quest>::operator()() const
   {
     using Fields = FieldNames<Quest>;
     Quest quest;
-    const QuestType quest_type = readField<QuestType>(value, Fields::kType);
+    const QuestType quest_type = readField<QuestType>(Fields::kType);
     if (quest_type != QuestType::None)
     {
-      VariantJsonReader<Quest::Details> variant_reader {};
-      quest.details = variant_reader(getJsonField(value, Fields::kDetails),
-                                     Quest::getAlternativeIdx(quest_type));
-      readField(quest.deadline, value, Fields::kDeadline);
-      readField(quest.proposal, value, Fields::kProposal);
-      readField(quest.progress, value, Fields::kProgress);
-      readField(quest.completion, value, Fields::kCompletion);
+      quest.details = VariantJsonReader<Quest::Details>{}(getField(Fields::kDetails),
+                                                          Quest::getAlternativeIdx(quest_type));
+      readField(Fields::kDeadline, quest.deadline);
+      readField(Fields::kProposal, quest.proposal);
+      readField(Fields::kProgress, quest.progress);
+      readField(Fields::kCompletion, quest.completion);
     }
     return quest;
   }

@@ -21,19 +21,19 @@ namespace h3json
 
   // Deserializes an object of type T from a JSON string loaded from the specified stream.
   // \param stream - input stream.
-  // \return JsonReader<T>{}(parseJsonFromStream(stream)).
+  // \return fromJson<T>(parseJsonFromStream(stream)).
   template<class T>
   T fromJsonStream(std::istream& stream)
   {
-    return JsonReader<T>{}(parseJsonFromStream(stream));
+    return fromJson<T>(parseJsonFromStream(stream));
   }
 
   // Deserializes an object of type T from a JSON string loaded from the specified string.
   // \param str - input string.
-  // \return JsonReader<T>{}(parseJsonFromString(stream)).
+  // \return fromJson<T>(parseJsonFromString(stream)).
   template<class T>
   T fromJsonString(std::string_view str)
   {
-    return JsonReader<T>{}(parseJsonFromString(str));
+    return fromJson<T>(parseJsonFromString(str));
   }
 }

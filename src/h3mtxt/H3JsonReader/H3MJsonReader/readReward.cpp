@@ -11,125 +11,73 @@ namespace h3json
   using ::h3m::RewardDetails;
   using ::h3m::RewardType;
 
-  template<>
-  RewardDetails<RewardType::None>
-  JsonReader<RewardDetails<RewardType::None>>::operator()(const Json::Value&) const
+  template<RewardType T>
+  RewardDetails<T> JsonReader2<RewardDetails<T>>::operator()() const
   {
-    return {};
-  }
-
-  template<>
-  RewardDetails<RewardType::Experience>
-  JsonReader<RewardDetails<RewardType::Experience>>::operator()(const Json::Value& value) const
-  {
-    using Fields = FieldNames<RewardDetails<RewardType::Experience>>;
-    RewardDetails<RewardType::Experience> details;
-    readField(details.experience, value, Fields::kExperience);
+    using Fields = FieldNames<RewardDetails<T>>;
+    RewardDetails<T> details;
+    if constexpr (T == RewardType::None)
+    {
+      // No fields.
+    }
+    else if constexpr (T == RewardType::Experience)
+    {
+      readField(Fields::kExperience, details.experience);
+    }
+    else if constexpr (T == RewardType::SpellPoints)
+    {
+      readField(Fields::kSpellPoints, details.spell_points);
+    }
+    else if constexpr (T == RewardType::Morale)
+    {
+      readField(Fields::kMorale, details.morale);
+    }
+    else if constexpr (T == RewardType::Luck)
+    {
+      readField(Fields::kLuck, details.luck);
+    }
+    else if constexpr (T == RewardType::Resource)
+    {
+      readField(Fields::kResource, details.resource);
+    }
+    else if constexpr (T == RewardType::PrimarySkill)
+    {
+      readField(Fields::kType, details.type);
+      readField(Fields::kValue, details.value);
+    }
+    else if constexpr (T == RewardType::SecondarySkill)
+    {
+      readField(Fields::kSecondarySkill, details.secondary_skill);
+    }
+    else if constexpr (T == RewardType::Artifact)
+    {
+      readField(Fields::kArtifact, details.artifact);
+    }
+    else if constexpr (T == RewardType::Spell)
+    {
+      readField(Fields::kSpell, details.spell);
+    }
+    else if constexpr (T == RewardType::Creatures)
+    {
+      readField(Fields::kCreatures, details.creatures);
+    }
+    else
+    {
+      static_assert(false, "Invalid RewardType.");
+    }
     return details;
   }
 
   template<>
-  RewardDetails<RewardType::SpellPoints>
-  JsonReader<RewardDetails<RewardType::SpellPoints>>::operator()(const Json::Value& value) const
-  {
-    using Fields = FieldNames<RewardDetails<RewardType::SpellPoints>>;
-    RewardDetails<RewardType::SpellPoints> details;
-    readField(details.spell_points, value, Fields::kSpellPoints);
-    return details;
-  }
-
-  template<>
-  RewardDetails<RewardType::Morale>
-  JsonReader<RewardDetails<RewardType::Morale>>::operator()(const Json::Value& value) const
-  {
-    using Fields = FieldNames<RewardDetails<RewardType::Morale>>;
-    RewardDetails<RewardType::Morale> details;
-    readField(details.morale, value, Fields::kMorale);
-    return details;
-  }
-
-  template<>
-  RewardDetails<RewardType::Luck>
-  JsonReader<RewardDetails<RewardType::Luck>>::operator()(const Json::Value& value) const
-  {
-    using Fields = FieldNames<RewardDetails<RewardType::Luck>>;
-    RewardDetails<RewardType::Luck> details;
-    readField(details.luck, value, Fields::kLuck);
-    return details;
-  }
-
-  template<>
-  RewardDetails<RewardType::Resource>
-  JsonReader<RewardDetails<RewardType::Resource>>::operator()(const Json::Value& value) const
-  {
-    using Fields = FieldNames<RewardDetails<RewardType::Resource>>;
-    RewardDetails<RewardType::Resource> details;
-    readField(details.resource, value, Fields::kResource);
-    return details;
-  }
-
-  template<>
-  RewardDetails<RewardType::PrimarySkill>
-  JsonReader<RewardDetails<RewardType::PrimarySkill>>::operator()(const Json::Value& value) const
-  {
-    using Fields = FieldNames<RewardDetails<RewardType::PrimarySkill>>;
-    RewardDetails<RewardType::PrimarySkill> details;
-    readField(details.type, value, Fields::kType);
-    readField(details.value, value, Fields::kValue);
-    return details;
-  }
-
-  template<>
-  RewardDetails<RewardType::SecondarySkill>
-  JsonReader<RewardDetails<RewardType::SecondarySkill>>::operator()(const Json::Value& value) const
-  {
-    using Fields = FieldNames<RewardDetails<RewardType::SecondarySkill>>;
-    RewardDetails<RewardType::SecondarySkill> details;
-    readField(details.secondary_skill, value, Fields::kSecondarySkill);
-    return details;
-  }
-
-  template<>
-  RewardDetails<RewardType::Artifact>
-  JsonReader<RewardDetails<RewardType::Artifact>>::operator()(const Json::Value& value) const
-  {
-    using Fields = FieldNames<RewardDetails<RewardType::Artifact>>;
-    RewardDetails<RewardType::Artifact> details;
-    readField(details.artifact, value, Fields::kArtifact);
-    return details;
-  }
-
-  template<>
-  RewardDetails<RewardType::Spell>
-  JsonReader<RewardDetails<RewardType::Spell>>::operator()(const Json::Value& value) const
-  {
-    using Fields = FieldNames<RewardDetails<RewardType::Spell>>;
-    RewardDetails<RewardType::Spell> details;
-    readField(details.spell, value, Fields::kSpell);
-    return details;
-  }
-
-  template<>
-  RewardDetails<RewardType::Creatures>
-  JsonReader<RewardDetails<RewardType::Creatures>>::operator()(const Json::Value& value) const
-  {
-    using Fields = FieldNames<RewardDetails<RewardType::Creatures>>;
-    RewardDetails<RewardType::Creatures> details;
-    readField(details.creatures, value, Fields::kCreatures);
-    return details;
-  }
-
-  template<>
-  Reward JsonReader<Reward>::operator()(const Json::Value& value) const
+  Reward JsonReader2<Reward>::operator()() const
   {
     using Fields = FieldNames<Reward>;
     Reward reward;
-    const RewardType reward_type = readField<RewardType>(value, Fields::kType);
+    const RewardType reward_type = readField<RewardType>(Fields::kType);
     if (reward_type != RewardType::None)
     {
-      VariantJsonReader<Reward::Details> variant_reader {};
-      reward.details = variant_reader(getJsonField(value, Fields::kDetails),
-                                      Reward::getAlternativeIdx(reward_type));
+      reward.details = VariantJsonReader<Reward::Details>{}(getField(Fields::kDetails),
+                                                            Reward::getAlternativeIdx(reward_type));
     }
     return reward;
   }

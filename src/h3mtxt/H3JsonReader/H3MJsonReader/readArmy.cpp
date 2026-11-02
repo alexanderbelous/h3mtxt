@@ -6,10 +6,10 @@
 namespace h3json
 {
   template<>
-  h3m::Army JsonReader<h3m::Army>::operator()(const Json::Value& value) const
+  h3m::Army JsonReader2<h3m::Army>::operator()() const
   {
     return h3m::Army{
-      .slots = fromJson<std::array<h3m::Army::CreatureStack, h3m::kNumArmySlots>>(value)
+      .slots = fromJson<std::array<h3m::Army::CreatureStack, h3m::kNumArmySlots>>(value())
     };
   }
 }

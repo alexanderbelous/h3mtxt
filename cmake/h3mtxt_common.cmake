@@ -31,6 +31,9 @@ function(h3mtxt_add_common_compiler_options target)
       # Enable COMDAT Folding (Release only)
       target_link_options(${target} PUBLIC "$<$<CONFIG:Release>:/OPT:ICF>")
 
+      # Disable incremental linking
+      target_link_options(${target} PUBLIC "/INCREMENTAL:NO")
+
       # Do not generate Manifest
       target_link_options(${target} PUBLIC "/MANIFEST:NO")
     endif ()

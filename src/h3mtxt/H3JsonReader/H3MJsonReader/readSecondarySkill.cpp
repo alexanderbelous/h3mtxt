@@ -7,12 +7,12 @@
 namespace h3json
 {
   template<>
-  h3m::SecondarySkill JsonReader<h3m::SecondarySkill>::operator()(const Json::Value& value) const
+  h3m::SecondarySkill JsonReader2<h3m::SecondarySkill>::operator()() const
   {
     using Fields = FieldNames<h3m::SecondarySkill>;
     h3m::SecondarySkill skill;
-    readField(skill.type, value, Fields::kType);
-    readField(skill.level, value, Fields::kLevel);
+    readField(Fields::kType, skill.type);
+    readField(Fields::kLevel, skill.level);
     return skill;
   }
 }

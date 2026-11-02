@@ -12,70 +12,61 @@ namespace h3json
   using ::h3m::StartingOptionsType;
 
   template<>
-  h3m::HeroCrossoverOption JsonReader<h3m::HeroCrossoverOption>::operator()(const Json::Value& value) const
+  h3m::HeroCrossoverOption JsonReader2<h3m::HeroCrossoverOption>::operator()() const
   {
     h3m::HeroCrossoverOption option;
     using Fields = FieldNames<decltype(option)>;
-    readField(option.player, value, Fields::kPlayer);
-    readField(option.source_scenario, value, Fields::kSourceScenario);
+    readField(Fields::kPlayer, option.player);
+    readField(Fields::kSourceScenario, option.source_scenario);
     return option;
   }
 
   template<>
-  h3m::StartingHeroOption JsonReader<h3m::StartingHeroOption>::operator()(const Json::Value& value) const
+  h3m::StartingHeroOption JsonReader2<h3m::StartingHeroOption>::operator()() const
   {
     h3m::StartingHeroOption option;
     using Fields = FieldNames<decltype(option)>;
-    readField(option.player, value, Fields::kPlayer);
-    readField(option.type, value, Fields::kType);
+    readField(Fields::kPlayer, option.player);
+    readField(Fields::kType, option.type);
     return option;
   }
 
-  template<>
-  StartingOptionsDetails<StartingOptionsType::None>
-  JsonReader<StartingOptionsDetails<StartingOptionsType::None>>::operator()(const Json::Value&) const
+  template<StartingOptionsType T>
+  StartingOptionsDetails<T> JsonReader2<StartingOptionsDetails<T>>::operator()() const
   {
-    return {};
-  }
-
-  template<>
-  StartingOptionsDetails<StartingOptionsType::StartingBonus>
-  JsonReader<StartingOptionsDetails<StartingOptionsType::StartingBonus>>::operator()(const Json::Value& value) const
-  {
-    StartingOptionsDetails<StartingOptionsType::StartingBonus> details;
-    using Fields = FieldNames<decltype(details)>;
-    readField(details.player, value, Fields::kPlayer);
-    readField(details.options, value, Fields::kOptions);
+    using Fields = FieldNames<StartingOptionsDetails<T>>;
+    StartingOptionsDetails<T> details;
+    if constexpr (T == StartingOptionsType::None)
+    {
+      // No fields.
+    }
+    else if constexpr (T == StartingOptionsType::StartingBonus)
+    {
+      readField(Fields::kPlayer, details.player);
+      readField(Fields::kOptions, details.options);
+    }
+    else if constexpr (T == StartingOptionsType::HeroCrossover)
+    {
+      readField(Fields::kOptions, details.options);
+    }
+    else if constexpr (T == StartingOptionsType::StartingHero)
+    {
+      readField(Fields::kOptions, details.options);
+    }
+    else
+    {
+      static_assert(false, "Invalid StartingOptionsType.");
+    }
     return details;
   }
 
   template<>
-  StartingOptionsDetails<StartingOptionsType::HeroCrossover>
-  JsonReader<StartingOptionsDetails<StartingOptionsType::HeroCrossover>>::operator()(const Json::Value& value) const
-  {
-    StartingOptionsDetails<StartingOptionsType::HeroCrossover> details;
-    using Fields = FieldNames<decltype(details)>;
-    readField(details.options, value, Fields::kOptions);
-    return details;
-  }
-
-  template<>
-  StartingOptionsDetails<StartingOptionsType::StartingHero>
-  JsonReader<StartingOptionsDetails<StartingOptionsType::StartingHero>>::operator()(const Json::Value& value) const
-  {
-    StartingOptionsDetails<StartingOptionsType::StartingHero> details;
-    using Fields = FieldNames<decltype(details)>;
-    readField(details.options, value, Fields::kOptions);
-    return details;
-  }
-
-  template<>
-  StartingOptions JsonReader<StartingOptions>::operator()(const Json::Value& value) const
+  StartingOptions JsonReader2<StartingOptions>::operator()() const
   {
     using Fields = FieldNames<StartingOptions>;
-    const StartingOptionsType starting_options_type = readField<StartingOptionsType>(value, Fields::kType);
+    const StartingOptionsType starting_options_type = readField<StartingOptionsType>(Fields::kType);
     return StartingOptions{
-      .details = VariantJsonReader<StartingOptions::Details>{}(getJsonField(value, Fields::kDetails),
+      .details = VariantJsonReader<StartingOptions::Details>{}(getField(Fields::kDetails),
                                                                StartingOptions::getAlternativeIdx(starting_options_type))
     };
   }

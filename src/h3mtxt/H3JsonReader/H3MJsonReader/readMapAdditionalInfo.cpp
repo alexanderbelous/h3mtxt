@@ -7,42 +7,42 @@
 namespace h3json
 {
   template<>
-  h3m::CustomHero JsonReader<h3m::CustomHero>::operator()(const Json::Value& value) const
+  h3m::CustomHero JsonReader2<h3m::CustomHero>::operator()() const
   {
     using Fields = FieldNames<h3m::CustomHero>;
     h3m::CustomHero hero;
-    readField(hero.type, value, Fields::kType);
-    readField(hero.portrait, value, Fields::kPortrait);
-    readField(hero.name, value, Fields::kName);
-    readField(hero.can_hire, value, Fields::kCanHire);
+    readField(Fields::kType, hero.type);
+    readField(Fields::kPortrait, hero.portrait);
+    readField(Fields::kName, hero.name);
+    readField(Fields::kCanHire, hero.can_hire);
     return hero;
   }
 
   template<>
-  h3m::Teams JsonReader<h3m::Teams>::operator()(const Json::Value& value) const
+  h3m::Teams JsonReader2<h3m::Teams>::operator()() const
   {
     using Fields = FieldNames<h3m::Teams>;
     h3m::Teams teams;
-    readField(teams.num_teams, value, Fields::kNumTeams);
+    readField(Fields::kNumTeams, teams.num_teams);
     if (teams.num_teams != 0)
     {
-      readField(teams.team_for_player, value, Fields::kTeamForPlayer);
+      readField(Fields::kTeamForPlayer, teams.team_for_player);
     }
     return teams;
   }
 
   template<>
-  h3m::Rumor JsonReader<h3m::Rumor>::operator()(const Json::Value& value) const
+  h3m::Rumor JsonReader2<h3m::Rumor>::operator()() const
   {
     using Fields = FieldNames<h3m::Rumor>;
     h3m::Rumor rumor;
-    readField(rumor.name, value, Fields::kName);
-    readField(rumor.text, value, Fields::kText);
+    readField(Fields::kName, rumor.name);
+    readField(Fields::kText, rumor.text);
     return rumor;
   }
 
   template<>
-  h3m::HeroesSettings JsonReader<h3m::HeroesSettings>::operator()(const Json::Value& value) const
+  h3m::HeroesSettings JsonReader2<h3m::HeroesSettings>::operator()() const
   {
     constexpr std::span<const std::string_view, h3m::kNumHeroes> kFieldNames =
       getEnumFieldNames<h3m::HeroType, h3m::kNumHeroes>();
@@ -50,7 +50,7 @@ namespace h3json
     h3m::HeroesSettings heroes_settings;
     for (std::size_t hero_idx = 0; hero_idx < h3m::kNumHeroes; ++hero_idx)
     {
-      const Json::Value& hero_settings_json = getJsonField(value, kFieldNames[hero_idx]);
+      const Json::Value& hero_settings_json = getField(kFieldNames[hero_idx]);
       if (!hero_settings_json.isNull())
       {
         const h3m::HeroType hero = static_cast<h3m::HeroType>(hero_idx);
@@ -61,23 +61,23 @@ namespace h3json
   }
 
   template<>
-  h3m::MapAdditionalInfo JsonReader<h3m::MapAdditionalInfo>::operator()(const Json::Value& value) const
+  h3m::MapAdditionalInfo JsonReader2<h3m::MapAdditionalInfo>::operator()() const
   {
     using Fields = FieldNames<h3m::MapAdditionalInfo>;
 
     h3m::MapAdditionalInfo info;
-    readField(info.victory_condition, value, Fields::kVictoryCondition);
-    readField(info.loss_condition, value, Fields::kLossCondition);
-    readField(info.teams, value, Fields::kTeams);
-    readField(info.heroes_availability, value, Fields::kHeroesAvailability);
-    readField(info.placeholder_heroes, value, Fields::kPlaceholderHeroes);
-    readField(info.custom_heroes, value, Fields::kCustomHeroes);
-    readField(info.reserved, value, Fields::kReserved);
-    readField(info.disabled_artifacts, value, Fields::kDisabledArtifacts);
-    readField(info.disabled_spells, value, Fields::kDisabledSpells);
-    readField(info.disabled_skills, value, Fields::kDisabledSkills);
-    readField(info.rumors, value, Fields::kRumors);
-    readField(info.heroes_settings, value, Fields::kHeroesSettings);
+    readField(Fields::kVictoryCondition, info.victory_condition);
+    readField(Fields::kLossCondition, info.loss_condition);
+    readField(Fields::kTeams, info.teams);
+    readField(Fields::kHeroesAvailability, info.heroes_availability);
+    readField(Fields::kPlaceholderHeroes, info.placeholder_heroes);
+    readField(Fields::kCustomHeroes, info.custom_heroes);
+    readField(Fields::kReserved, info.reserved);
+    readField(Fields::kDisabledArtifacts, info.disabled_artifacts);
+    readField(Fields::kDisabledSpells, info.disabled_spells);
+    readField(Fields::kDisabledSkills, info.disabled_skills);
+    readField(Fields::kRumors, info.rumors);
+    readField(Fields::kHeroesSettings, info.heroes_settings);
     return info;
   }
 }
