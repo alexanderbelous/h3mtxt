@@ -7,26 +7,26 @@
 namespace h3json
 {
   template<>
-  h3m::SpriteTilesBitmask JsonReader<h3m::SpriteTilesBitmask>::operator()(const Json::Value& value) const
+  h3m::SpriteTilesBitmask JsonReader2<h3m::SpriteTilesBitmask>::operator()() const
   {
-    return h3m::SpriteTilesBitmask{ .data = fromJson<std::array<std::uint8_t, 6>>(value) };
+    return h3m::SpriteTilesBitmask{ .data = fromJson<std::array<std::uint8_t, 6>>(value()) };
   }
 
   template<>
-  h3m::ObjectTemplate JsonReader<h3m::ObjectTemplate>::operator()(const Json::Value& value) const
+  h3m::ObjectTemplate JsonReader2<h3m::ObjectTemplate>::operator()() const
   {
     using Fields = FieldNames<h3m::ObjectTemplate>;
     h3m::ObjectTemplate object_template;
-    readField(object_template.def, value, Fields::kDef);
-    readField(object_template.passability, value, Fields::kPassability);
-    readField(object_template.actionability, value, Fields::kActionability);
-    readField(object_template.allowed_landscapes, value, Fields::kAllowedLandscapes);
-    readField(object_template.landscape_group, value, Fields::kLandscapeGroup);
-    readField(object_template.object_class, value, Fields::kObjectClass);
-    readField(object_template.object_subclass, value, Fields::kObjectSubclass);
-    readField(object_template.object_group, value, Fields::kObjectGroup);
-    readField(object_template.is_ground, value, Fields::kIsGround);
-    readField(object_template.unknown, value, Fields::kUnknown);
+    readField(Fields::kDef, object_template.def);
+    readField(Fields::kPassability, object_template.passability);
+    readField(Fields::kActionability, object_template.actionability);
+    readField(Fields::kAllowedLandscapes, object_template.allowed_landscapes);
+    readField(Fields::kLandscapeGroup, object_template.landscape_group);
+    readField(Fields::kObjectClass, object_template.object_class);
+    readField(Fields::kObjectSubclass, object_template.object_subclass);
+    readField(Fields::kObjectGroup, object_template.object_group);
+    readField(Fields::kIsGround, object_template.is_ground);
+    readField(Fields::kUnknown, object_template.unknown);
     return object_template;
   }
 }

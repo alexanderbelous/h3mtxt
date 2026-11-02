@@ -44,21 +44,28 @@ namespace h3json
     return value[field_name];
   }
 
-  bool JsonReader<bool>::operator()(const Json::Value& value) const
+  const Json::Value& JsonReader2Base::getField(std::string_view field_name) const
   {
-    if (!value.isBool())
-    {
-      throw std::runtime_error("JsonReader: expected bool, got " + value.toStyledString());
-    }
-    return value.asBool();
+    return getJsonField(value_, field_name);
   }
 
-  std::string JsonReader<std::string>::operator()(const Json::Value& value) const
+  template<>
+  bool JsonReader2<bool>::operator()() const
   {
-    if (!value.isString())
+    if (!value().isBool())
     {
-      throw std::runtime_error("JsonReader: expected std::string, got " + value.toStyledString());
+      throw std::runtime_error("JsonReader: expected bool, got " + value().toStyledString());
     }
-    return value.asString();
+    return value().asBool();
+  }
+
+  template<>
+  std::string JsonReader2<std::string>::operator()() const
+  {
+    if (!value().isString())
+    {
+      throw std::runtime_error("JsonReader: expected std::string, got " + value().toStyledString());
+    }
+    return value().asString();
   }
 }

@@ -7,17 +7,17 @@
 namespace h3json
 {
   template<>
-  h3m::MapBasicInfo JsonReader<h3m::MapBasicInfo>::operator()(const Json::Value& value) const
+  h3m::MapBasicInfo JsonReader2<h3m::MapBasicInfo>::operator()() const
   {
     using Fields = FieldNames<h3m::MapBasicInfo>;
     h3m::MapBasicInfo basic_info;
-    readField(basic_info.is_playable, value, Fields::kIsPlayable);
-    readField(basic_info.map_size, value, Fields::kMapSize);
-    readField(basic_info.has_two_levels, value, Fields::kHasTwoLevels);
-    readField(basic_info.name, value, Fields::kName);
-    readField(basic_info.description, value, Fields::kDescription);
-    readField(basic_info.difficulty, value, Fields::kDifficulty);
-    readField(basic_info.max_hero_level, value, Fields::kMaxHeroLevel);
+    readField(Fields::kIsPlayable, basic_info.is_playable);
+    readField(Fields::kMapSize, basic_info.map_size);
+    readField(Fields::kHasTwoLevels, basic_info.has_two_levels);
+    readField(Fields::kName, basic_info.name);
+    readField(Fields::kDescription, basic_info.description);
+    readField(Fields::kDifficulty, basic_info.difficulty);
+    readField(Fields::kMaxHeroLevel, basic_info.max_hero_level);
     return basic_info;
   }
 }

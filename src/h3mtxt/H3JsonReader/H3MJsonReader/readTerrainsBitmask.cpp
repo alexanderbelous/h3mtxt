@@ -6,10 +6,10 @@
 namespace h3json
 {
   template<>
-  h3m::TerrainsBitmask JsonReader<h3m::TerrainsBitmask>::operator()(const Json::Value& value) const
+  h3m::TerrainsBitmask JsonReader2<h3m::TerrainsBitmask>::operator()() const
   {
     h3m::TerrainsBitmask bitmask;
-    bitmask.bitset = fromJson<h3m::BitSet<2>>(value);
+    bitmask.bitset = fromJson<h3m::BitSet<2>>(value());
     return bitmask;
   }
 }

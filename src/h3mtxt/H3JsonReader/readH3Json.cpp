@@ -41,9 +41,9 @@ namespace h3json
     // I'm just gonna treat it as Campaign in this case.
     if (isCampaignJson(root))
     {
-      return JsonReader<h3m::Campaign>{}(root);
+      return fromJson<h3m::Campaign>(root);
     }
-    return JsonReader<h3m::Map>{}(root);
+    return fromJson<h3m::Map>(root);
   }
 
   std::variant<h3m::Map, h3m::Campaign, h3svg::SavedGame> readH3Json2(std::istream& stream)

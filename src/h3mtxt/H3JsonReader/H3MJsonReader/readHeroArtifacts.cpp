@@ -7,12 +7,12 @@
 namespace h3json
 {
   template<>
-  h3m::HeroArtifacts JsonReader<h3m::HeroArtifacts>::operator()(const Json::Value& value) const
+  h3m::HeroArtifacts JsonReader2<h3m::HeroArtifacts>::operator()() const
   {
     using Fields = FieldNames<h3m::HeroArtifacts>;
     h3m::HeroArtifacts artifacts;
-    readField(artifacts.equipped, value, Fields::kEquipped);
-    readField(artifacts.backpack, value, Fields::kBackpack);
+    readField(Fields::kEquipped, artifacts.equipped);
+    readField(Fields::kBackpack, artifacts.backpack);
     return artifacts;
   }
 }

@@ -7,17 +7,17 @@
 namespace h3json
 {
   template<>
-  h3m::HeroSettings JsonReader<h3m::HeroSettings>::operator()(const Json::Value& value) const
+  h3m::HeroSettings JsonReader2<h3m::HeroSettings>::operator()() const
   {
     using Fields = FieldNames<h3m::HeroSettings>;
     h3m::HeroSettings settings;
-    readField(settings.experience, value, Fields::kExperience);
-    readField(settings.secondary_skills, value, Fields::kSecondarySkills);
-    readField(settings.artifacts, value, Fields::kArtifacts);
-    readField(settings.biography, value, Fields::kBiography);
-    readField(settings.gender, value, Fields::kGender);
-    readField(settings.spells, value, Fields::kSpells);
-    readField(settings.primary_skills, value, Fields::kPrimarySkills);
+    readField(Fields::kExperience, settings.experience);
+    readField(Fields::kSecondarySkills, settings.secondary_skills);
+    readField(Fields::kArtifacts, settings.artifacts);
+    readField(Fields::kBiography, settings.biography);
+    readField(Fields::kGender, settings.gender);
+    readField(Fields::kSpells, settings.spells);
+    readField(Fields::kPrimarySkills, settings.primary_skills);
     return settings;
   }
 }

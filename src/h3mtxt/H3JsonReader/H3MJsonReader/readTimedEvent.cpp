@@ -7,19 +7,19 @@
 namespace h3json
 {
   template<>
-  h3m::TimedEvent JsonReader<h3m::TimedEvent>::operator()(const Json::Value& value) const
+  h3m::TimedEvent JsonReader2<h3m::TimedEvent>::operator()() const
   {
     using Fields = FieldNames<h3m::TimedEvent>;
     h3m::TimedEvent event;
-    readField(event.name, value, Fields::kName);
-    readField(event.message, value, Fields::kMessage);
-    readField(event.resources, value, Fields::kResources);
-    readField(event.affected_players, value, Fields::kAffectedPlayers);
-    readField(event.applies_to_human, value, Fields::kAppliesToHuman);
-    readField(event.applies_to_computer, value, Fields::kAppliesToComputer);
-    readField(event.day_of_first_occurence, value, Fields::kDayOfFirstOccurence);
-    readField(event.repeat_after_days, value, Fields::kRepeatAfterDays);
-    readField(event.unknown, value, Fields::kUnknown);
+    readField(Fields::kName, event.name);
+    readField(Fields::kMessage, event.message);
+    readField(Fields::kResources, event.resources);
+    readField(Fields::kAffectedPlayers, event.affected_players);
+    readField(Fields::kAppliesToHuman, event.applies_to_human);
+    readField(Fields::kAppliesToComputer, event.applies_to_computer);
+    readField(Fields::kDayOfFirstOccurence, event.day_of_first_occurence);
+    readField(Fields::kRepeatAfterDays, event.repeat_after_days);
+    readField(Fields::kUnknown, event.unknown);
     return event;
   }
 }

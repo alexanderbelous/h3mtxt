@@ -32,13 +32,7 @@ namespace h3json
   //         or a NULL value if there is no such field.
   const Json::Value& getJsonField(const Json::Value& value, std::string_view field_name);
 
-  // Same as
-  //     JsonReader<T>{}(value)
-  template<class T>
-  T fromJson(const Json::Value& value)
-  {
-    return JsonReader<T>{}(value);
-  }
+
 
   // Same as
   //     fromJson<T>(getJsonField(value, field_name))
@@ -93,86 +87,100 @@ namespace h3json
 
   // Full specialization for bool.
   template<>
-  struct JsonReader<bool>
-  {
-    bool operator()(const Json::Value& value) const;
-  };
+  bool JsonReader2<bool>::operator()() const;
 
   // Full specialization for std::string.
   template<>
-  struct JsonReader<std::string>
-  {
-    std::string operator()(const Json::Value& value) const;
-  };
+  std::string JsonReader2<std::string>::operator()() const;
 
   // Partial specialization for integer types.
   template<class T>
-  struct JsonReader<T, std::enable_if_t<std::is_integral_v<T>>>
+  struct JsonReader2<T, std::enable_if_t<std::is_integral_v<T>>> : JsonReader2Base
   {
-    T operator()(const Json::Value& value) const;
+    using JsonReader2Base::JsonReader2Base;
+
+    T operator()() const;
   };
 
   // Partial specialization for enum types.
   template<class T>
-  struct JsonReader<T, std::enable_if_t<std::is_enum_v<T>>>
+  struct JsonReader2<T, std::enable_if_t<std::is_enum_v<T>>> : JsonReader2Base
   {
-    T operator()(const Json::Value& value) const;
+    using JsonReader2Base::JsonReader2Base;
+
+    T operator()() const;
   };
 
   // Partial specialization for std::array.
   template<class T, std::size_t N>
-  struct JsonReader<std::array<T, N>>
+  struct JsonReader2<std::array<T, N>> : JsonReader2Base
   {
-    std::array<T, N> operator()(const Json::Value& value) const;
+    using JsonReader2Base::JsonReader2Base;
+
+    std::array<T, N> operator()() const;
   };
 
   // Partial specialization for std::vector.
   template<class T, class Alloc>
-  struct JsonReader<std::vector<T, Alloc>>
+  struct JsonReader2<std::vector<T, Alloc>> : JsonReader2Base
   {
-    std::vector<T, Alloc> operator()(const Json::Value& value) const;
+    using JsonReader2Base::JsonReader2Base;
+
+    std::vector<T, Alloc> operator()() const;
   };
 
   // Partial specialization for std::optional.
   template<class T>
-  struct JsonReader<std::optional<T>>
+  struct JsonReader2<std::optional<T>> : JsonReader2Base
   {
-    std::optional<T> operator()(const Json::Value& value) const;
+    using JsonReader2Base::JsonReader2Base;
+
+    std::optional<T> operator()() const;
   };
 
   // Partial specialization for BitSet.
   template<std::size_t NumBytes>
-  struct JsonReader<h3m::BitSet<NumBytes>>
+  struct JsonReader2<h3m::BitSet<NumBytes>> : JsonReader2Base
   {
-    h3m::BitSet<NumBytes> operator()(const Json::Value& value) const;
+    using JsonReader2Base::JsonReader2Base;
+
+    h3m::BitSet<NumBytes> operator()() const;
   };
 
   // Partial specialization for ReservedData.
   template<std::size_t NumBytes>
-  struct JsonReader<h3m::ReservedData<NumBytes>>
+  struct JsonReader2<h3m::ReservedData<NumBytes>> : JsonReader2Base
   {
-    h3m::ReservedData<NumBytes> operator()(const Json::Value& value) const;
+    using JsonReader2Base::JsonReader2Base;
+
+    h3m::ReservedData<NumBytes> operator()() const;
   };
 
   // Partial specialization for EnumBitmask.
   template<class Enum, std::size_t NumBytes>
-  struct JsonReader<h3m::EnumBitmask<Enum, NumBytes>>
+  struct JsonReader2<h3m::EnumBitmask<Enum, NumBytes>> : JsonReader2Base
   {
-    h3m::EnumBitmask<Enum, NumBytes> operator()(const Json::Value& value) const;
+    using JsonReader2Base::JsonReader2Base;
+
+    h3m::EnumBitmask<Enum, NumBytes> operator()() const;
   };
 
   // Partial specialization for EnumIndexedArray.
   template<class Enum, class T, std::size_t NumElements>
-  struct JsonReader<h3m::EnumIndexedArray<Enum, T, NumElements>>
+  struct JsonReader2<h3m::EnumIndexedArray<Enum, T, NumElements>> : JsonReader2Base
   {
-    h3m::EnumIndexedArray<Enum, T, NumElements> operator()(const Json::Value& value) const;
+    using JsonReader2Base::JsonReader2Base;
+
+    h3m::EnumIndexedArray<Enum, T, NumElements> operator()() const;
   };
 
   // Partial specialization for TypedQuantity.
   template<class Enum, class Quantity>
-  struct JsonReader<h3m::TypedQuantity<Enum, Quantity>>
+  struct JsonReader2<h3m::TypedQuantity<Enum, Quantity>> : JsonReader2Base
   {
-    h3m::TypedQuantity<Enum, Quantity> operator()(const Json::Value& value) const;
+    using JsonReader2Base::JsonReader2Base;
+
+    h3m::TypedQuantity<Enum, Quantity> operator()() const;
   };
 
   // ============================================================
@@ -216,21 +224,21 @@ namespace h3json
   }
 
   template<class T>
-  T JsonReader<T, std::enable_if_t<std::is_integral_v<T>>>::operator()(const Json::Value& value) const
+  T JsonReader2<T, std::enable_if_t<std::is_integral_v<T>>>::operator()() const
   {
     using LargestInt = std::conditional_t<std::is_signed_v<T>, Json::LargestInt, Json::LargestUInt>;
-    if (!value.isIntegral())
+    if (!value().isIntegral())
     {
-      throw std::runtime_error("JsonReader: expected an integral type, got " + value.toStyledString());
+      throw std::runtime_error("JsonReader: expected an integral type, got " + value().toStyledString());
     }
     LargestInt integral_value{};
     if constexpr (std::is_signed_v<T>)
     {
-      integral_value = value.asLargestInt();
+      integral_value = value().asLargestInt();
     }
     else
     {
-      integral_value = value.asLargestUInt();
+      integral_value = value().asLargestUInt();
     }
     // Check that the number fits in T.
     if (integral_value > std::numeric_limits<T>::max() || integral_value < std::numeric_limits<T>::min())
@@ -241,56 +249,56 @@ namespace h3json
   }
 
   template<class T>
-  T JsonReader<T, std::enable_if_t<std::is_enum_v<T>>>::operator()(const Json::Value& value) const
+  T JsonReader2<T, std::enable_if_t<std::is_enum_v<T>>>::operator()() const
   {
-    return static_cast<T>(fromJson<std::underlying_type_t<T>>(value));
+    return static_cast<T>(fromJson<std::underlying_type_t<T>>(value()));
   }
 
   template<class T, std::size_t N>
-  std::array<T, N> JsonReader<std::array<T, N>>::operator()(const Json::Value& value) const
+  std::array<T, N> JsonReader2<std::array<T, N>>::operator()() const
   {
     std::array<T, N> result;
-    Detail_NS::readArrayImpl<T>(value, result);
+    Detail_NS::readArrayImpl<T>(value(), result);
     return result;
   }
 
   template<class T, class Alloc>
-  std::vector<T, Alloc> JsonReader<std::vector<T, Alloc>>::operator()(const Json::Value& value) const
+  std::vector<T, Alloc> JsonReader2<std::vector<T, Alloc>>::operator()() const
   {
-    if (!value.isArray())
+    if (!value().isArray())
     {
-      throw std::runtime_error("JsonReader: expected array, got " + value.toStyledString());
+      throw std::runtime_error("JsonReader: expected array, got " + value().toStyledString());
     }
-    const std::size_t num_elements = value.size();
+    const std::size_t num_elements = value().size();
     std::vector<T, Alloc> result;
     result.reserve(num_elements);
     for (std::size_t i = 0; i < num_elements; ++i)
     {
-      result.push_back(fromJson<T>(value[static_cast<Json::ArrayIndex>(i)]));
+      result.push_back(fromJson<T>(value()[static_cast<Json::ArrayIndex>(i)]));
     }
     return result;
   }
 
   template<class T>
-  std::optional<T> JsonReader<std::optional<T>>::operator()(const Json::Value& value) const
+  std::optional<T> JsonReader2<std::optional<T>>::operator()() const
   {
-    if (value.isNull())
+    if (value().isNull())
     {
       return std::nullopt;
     }
-    return fromJson<T>(value);
+    return fromJson<T>(value());
   }
 
   template<std::size_t NumBytes>
-  h3m::BitSet<NumBytes> JsonReader<h3m::BitSet<NumBytes>>::operator()(const Json::Value& value) const
+  h3m::BitSet<NumBytes> JsonReader2<h3m::BitSet<NumBytes>>::operator()() const
   {
-    return h3m::BitSet<NumBytes>{fromJson<std::array<std::uint8_t, NumBytes>>(value)};
+    return h3m::BitSet<NumBytes>{ fromJson<std::array<std::uint8_t, NumBytes>>(value()) };
   }
 
   template<std::size_t NumBytes>
-  h3m::ReservedData<NumBytes> JsonReader<h3m::ReservedData<NumBytes>>::operator()(const Json::Value& value) const
+  h3m::ReservedData<NumBytes> JsonReader2<h3m::ReservedData<NumBytes>>::operator()() const
   {
-    std::array<std::byte, NumBytes> data = fromJson<std::array<std::byte, NumBytes>>(value);
+    std::array<std::byte, NumBytes> data = fromJson<std::array<std::byte, NumBytes>>(value());
     if (h3m::Detail_NS::isAllZeroes(data))
     {
       return h3m::ReservedData<NumBytes>();
@@ -300,36 +308,36 @@ namespace h3json
 
   template<class Enum, std::size_t NumBytes>
   h3m::EnumBitmask<Enum, NumBytes>
-  JsonReader<h3m::EnumBitmask<Enum, NumBytes>>::operator()(const Json::Value& value) const
+  JsonReader2<h3m::EnumBitmask<Enum, NumBytes>>::operator()() const
   {
     constexpr std::span<const std::string_view, NumBytes * 8> kNames =
       getEnumFieldNames<Enum, NumBytes * 8>();
 
     h3m::EnumBitmask<Enum, NumBytes> bitmask;
-    Detail_NS::readEnumBitmaskImpl(value, bitmask.bitset.data, kNames.data());
+    Detail_NS::readEnumBitmaskImpl(value(), bitmask.bitset.data, kNames.data());
     return bitmask;
   }
 
   template<class Enum, class T, std::size_t NumElements>
   h3m::EnumIndexedArray<Enum, T, NumElements>
-  JsonReader<h3m::EnumIndexedArray<Enum, T, NumElements>>::operator()(const Json::Value& value) const
+  JsonReader2<h3m::EnumIndexedArray<Enum, T, NumElements>>::operator()() const
   {
     constexpr std::span<const std::string_view, NumElements> kNames =
       getEnumFieldNames<Enum, NumElements>();
 
     h3m::EnumIndexedArray<Enum, T, NumElements> enum_indexed_array;
-    Detail_NS::readEnumIndexedArrayImpl(value, std::span<T>{ enum_indexed_array.data }, kNames.data());
+    Detail_NS::readEnumIndexedArrayImpl(value(), std::span<T>{ enum_indexed_array.data }, kNames.data());
     return enum_indexed_array;
   }
 
   template<class Enum, class Quantity>
   h3m::TypedQuantity<Enum, Quantity>
-  JsonReader<h3m::TypedQuantity<Enum, Quantity>>::operator()(const Json::Value& value) const
+  JsonReader2<h3m::TypedQuantity<Enum, Quantity>>::operator()() const
   {
     using Fields = FieldNames<h3m::TypedQuantity<Enum, Quantity>>;
     h3m::TypedQuantity<Enum, Quantity> result;
-    readField(result.type, value, Fields::kType);
-    readField(result.quantity, value, Fields::kQuantity);
+    readField(Fields::kType, result.type);
+    readField(Fields::kQuantity, result.quantity);
     return result;
   }
 }

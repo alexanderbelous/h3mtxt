@@ -49,20 +49,20 @@ namespace h3json
   }
 
   template<>
-  h3m::Map JsonReader<h3m::Map>::operator()(const Json::Value& value) const
+  h3m::Map JsonReader2<h3m::Map>::operator()() const
   {
     using Fields = FieldNames<h3m::Map>;
 
     h3m::Map map;
-    readField(map.format, value, Fields::kFormat);
-    readField(map.basic_info, value, Fields::kBasicInfo);
-    readField(map.players, value, Fields::kPlayers);
-    readField(map.additional_info, value, Fields::kAdditionalInfo);
-    readField(map.tiles, value, Fields::kTiles);
-    readField(map.objects_templates, value, Fields::kObjectsTemplates);
-    map.objects = readObjects(getJsonField(value, Fields::kObjects), map.objects_templates);
-    readField(map.timed_events, value, Fields::kTimedEvents);
-    readField(map.padding, value, Fields::kPadding);
+    readField(Fields::kFormat, map.format);
+    readField(Fields::kBasicInfo, map.basic_info);
+    readField(Fields::kPlayers, map.players);
+    readField(Fields::kAdditionalInfo, map.additional_info);
+    readField(Fields::kTiles, map.tiles);
+    readField(Fields::kObjectsTemplates, map.objects_templates);
+    map.objects = readObjects(getField(Fields::kObjects), map.objects_templates);
+    readField(Fields::kTimedEvents, map.timed_events);
+    readField(Fields::kPadding, map.padding);
     return map;
   }
 }

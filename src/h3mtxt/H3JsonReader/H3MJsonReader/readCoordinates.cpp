@@ -7,13 +7,13 @@
 namespace h3json
 {
   template<>
-  h3m::Coordinates JsonReader<h3m::Coordinates>::operator()(const Json::Value& value) const
+  h3m::Coordinates JsonReader2<h3m::Coordinates>::operator()() const
   {
     using Fields = FieldNames<h3m::Coordinates>;
     h3m::Coordinates coordinates;
-    readField(coordinates.x, value, Fields::kX);
-    readField(coordinates.y, value, Fields::kY);
-    readField(coordinates.z, value, Fields::kZ);
+    readField(Fields::kX, coordinates.x);
+    readField(Fields::kY, coordinates.y);
+    readField(Fields::kZ, coordinates.z);
     return coordinates;
   }
 }

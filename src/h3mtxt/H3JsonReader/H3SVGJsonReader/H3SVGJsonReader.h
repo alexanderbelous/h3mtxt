@@ -62,6 +62,9 @@ namespace h3json
   JsonReader<h3svg::Guardians>::operator()(const Json::Value& value) const;
 
   template<>
+  h3svg::Hero JsonReader<h3svg::Hero>::operator()(const Json::Value& value) const;
+
+  template<>
   h3svg::HeroArtifact
   JsonReader<h3svg::HeroArtifact>::operator()(const Json::Value& value) const;
 
@@ -96,6 +99,9 @@ namespace h3json
   template<>
   h3svg::Object
   JsonReader<h3svg::Object>::operator()(const Json::Value& value) const;
+
+  template<>
+  h3svg::ObjectExits JsonReader<h3svg::ObjectExits>::operator()(const Json::Value& value) const;
 
   template<h3svg::ObjectPropertiesType T>
   struct JsonReader<h3svg::ObjectProperties<T>>
