@@ -1,8 +1,7 @@
 #pragma once
 
-#include <h3mtxt/SavedGame/SavedGameFwd.h>
-#include <h3mtxt/SavedGame/Constants/ReplayEventType.h>
 #include <h3mtxt/Medea/MedeaFwd.h>
+#include <h3mtxt/SavedGame/SavedGameFwd.h>
 
 // API for JSON serialization of structures used in HoMM3 saved game format.
 namespace Medea_NS
@@ -247,49 +246,14 @@ namespace Medea_NS
   void JsonObjectWriter<h3svg::ReplayEvent>::operator()(FieldsWriter& out,
                                                         const h3svg::ReplayEvent& replay_event) const;
 
-  template<>
-  void JsonObjectWriter<h3svg::ReplayEventDetails<h3svg::ReplayEventType::MoveHero>>::operator()(
-    FieldsWriter& out, const h3svg::ReplayEventDetails<h3svg::ReplayEventType::MoveHero>& details) const;
-
-  template<>
-  void JsonObjectWriter<h3svg::ReplayEventDetails<h3svg::ReplayEventType::TeleportHero>>::operator()(
-    FieldsWriter& out, const h3svg::ReplayEventDetails<h3svg::ReplayEventType::TeleportHero>& details) const;
-
-  template<>
-  void JsonObjectWriter<h3svg::ReplayEventDetails<h3svg::ReplayEventType::FlagMine>>::operator()(
-    FieldsWriter& out, const h3svg::ReplayEventDetails<h3svg::ReplayEventType::FlagMine>& details) const;
-
-  template<>
-  void JsonObjectWriter<h3svg::ReplayEventDetails<h3svg::ReplayEventType::CaptureTown>>::operator()(
-    FieldsWriter& out, const h3svg::ReplayEventDetails<h3svg::ReplayEventType::CaptureTown>& details) const;
-
-  template<>
-  void JsonObjectWriter<h3svg::ReplayEventDetails<h3svg::ReplayEventType::HideBoat>>::operator()(
-    FieldsWriter& out, const h3svg::ReplayEventDetails<h3svg::ReplayEventType::HideBoat>& details) const;
-
-  template<>
-  void JsonObjectWriter<h3svg::ReplayEventDetails<h3svg::ReplayEventType::ShowBoat>>::operator()(
-    FieldsWriter& out, const h3svg::ReplayEventDetails<h3svg::ReplayEventType::ShowBoat>& details) const;
-
-  template<>
-  void JsonObjectWriter<h3svg::ReplayEventDetails<h3svg::ReplayEventType::RemoveMapItem>>::operator()(
-    FieldsWriter& out, const h3svg::ReplayEventDetails<h3svg::ReplayEventType::RemoveMapItem>& details) const;
-
-  template<>
-  void JsonObjectWriter<h3svg::ReplayEventDetails<h3svg::ReplayEventType::HideHero>>::operator()(
-    FieldsWriter& out, const h3svg::ReplayEventDetails<h3svg::ReplayEventType::HideHero>& details) const;
-
-  template<>
-  void JsonObjectWriter<h3svg::ReplayEventDetails<h3svg::ReplayEventType::ShowHero>>::operator()(
-    FieldsWriter& out, const h3svg::ReplayEventDetails<h3svg::ReplayEventType::ShowHero>& details) const;
-
-  template<>
-  void JsonObjectWriter<h3svg::ReplayEventDetails<h3svg::ReplayEventType::DefeatPlayer>>::operator()(
-    FieldsWriter& out, const h3svg::ReplayEventDetails<h3svg::ReplayEventType::DefeatPlayer>& details) const;
-
-  template<>
-  void JsonObjectWriter<h3svg::ReplayEventDetails<h3svg::ReplayEventType::ChangeTerrainVisibility>>::operator()(
-    FieldsWriter& out, const h3svg::ReplayEventDetails<h3svg::ReplayEventType::ChangeTerrainVisibility>& details) const;
+  // Partial specialization for h3svg::ReplayEventDetails.
+  template<h3svg::ReplayEventType T>
+  struct JsonObjectWriter<h3svg::ReplayEventDetails<T>>
+  {
+    // Defined in ReplayEvent.cpp.
+    // Template instantiations are provided for all valid ReplayEventTypes.
+    void operator()(FieldsWriter& out, const h3svg::ReplayEventDetails<T>& details) const;
+  };
 
   template<>
   void JsonObjectWriter<h3svg::ReplayEventDetailsBase>::operator()(

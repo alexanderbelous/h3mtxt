@@ -5,156 +5,117 @@
 #include <h3mtxt/Medea/Medea.h>
 #include <h3mtxt/SavedGame/ReplayEvent.h>
 
+using ::h3svg::ReplayEvent;
+using ::h3svg::ReplayEventDetailsBase;
+using ::h3svg::ReplayEventDetails;
+using ::h3svg::ReplayEventType;
+
 namespace Medea_NS
 {
   template<>
-  void JsonObjectWriter<h3svg::ReplayEventDetails<h3svg::ReplayEventType::MoveHero>>::operator()(
-    FieldsWriter& out, const h3svg::ReplayEventDetails<h3svg::ReplayEventType::MoveHero>& details) const
+  void JsonObjectWriter<ReplayEventDetailsBase>::operator()(FieldsWriter& out,
+                                                            const ReplayEventDetailsBase& base) const
   {
-    using Fields = h3json::FieldNames<h3svg::ReplayEventDetails<h3svg::ReplayEventType::MoveHero>>;
-    JsonObjectWriter<h3svg::ReplayEventDetailsBase>{}(out, details);
-    out.writeField(Fields::kHero, details.hero);
-    out.writeField(Fields::kDirection, details.direction);
-    out.writeField(Fields::kFrom, details.from);
-    out.writeField(Fields::kTo, details.to);
+    using Fields = h3json::FieldNames<ReplayEventDetailsBase>;
+    out.writeField(Fields::kPlayer, base.player);
   }
 
   template<>
-  void JsonObjectWriter<h3svg::ReplayEventDetails<h3svg::ReplayEventType::TeleportHero>>::operator()(
-    FieldsWriter& out, const h3svg::ReplayEventDetails<h3svg::ReplayEventType::TeleportHero>& details) const
-  {
-    using Fields = h3json::FieldNames<h3svg::ReplayEventDetails<h3svg::ReplayEventType::TeleportHero>>;
-    JsonObjectWriter<h3svg::ReplayEventDetailsBase>{}(out, details);
-    out.writeField(Fields::kHero, details.hero);
-    out.writeField(Fields::kOrientation, details.orientation);
-    out.writeField(Fields::kFrom, details.from);
-    out.writeField(Fields::kTo, details.to);
-  }
-
-  template<>
-  void JsonObjectWriter<h3svg::ReplayEventDetails<h3svg::ReplayEventType::FlagMine>>::operator()(
-    FieldsWriter& out, const h3svg::ReplayEventDetails<h3svg::ReplayEventType::FlagMine>& details) const
-  {
-    using Fields = h3json::FieldNames<h3svg::ReplayEventDetails<h3svg::ReplayEventType::FlagMine>>;
-    JsonObjectWriter<h3svg::ReplayEventDetailsBase>{}(out, details);
-    out.writeField(Fields::kId, details.id);
-    out.writeField(Fields::kOwnerOld, details.owner_old);
-    out.writeField(Fields::kOwnerNew, details.owner_new);
-  }
-
-  template<>
-  void JsonObjectWriter<h3svg::ReplayEventDetails<h3svg::ReplayEventType::CaptureTown>>::operator()(
-    FieldsWriter& out, const h3svg::ReplayEventDetails<h3svg::ReplayEventType::CaptureTown>& details) const
-  {
-    using Fields = h3json::FieldNames<h3svg::ReplayEventDetails<h3svg::ReplayEventType::CaptureTown>>;
-    JsonObjectWriter<h3svg::ReplayEventDetailsBase>{}(out, details);
-    out.writeField(Fields::kTownId, details.town_id);
-    out.writeField(Fields::kOwnerOld, details.owner_old);
-    out.writeField(Fields::kOwnerNew, details.owner_new);
-  }
-
-  template<>
-  void JsonObjectWriter<h3svg::ReplayEventDetails<h3svg::ReplayEventType::HideBoat>>::operator()(
-    FieldsWriter& out, const h3svg::ReplayEventDetails<h3svg::ReplayEventType::HideBoat>& details) const
-  {
-    using Fields = h3json::FieldNames<h3svg::ReplayEventDetails<h3svg::ReplayEventType::HideBoat>>;
-    JsonObjectWriter<h3svg::ReplayEventDetailsBase>{}(out, details);
-    out.writeField(Fields::kBoatId, details.boat_id);
-    out.writeField(Fields::kUnknown, details.unknown);
-    out.writeField(Fields::kOwnerOld, details.owner_old);
-    out.writeField(Fields::kOwnerNew, details.owner_new);
-  }
-
-  template<>
-  void JsonObjectWriter<h3svg::ReplayEventDetails<h3svg::ReplayEventType::ShowBoat>>::operator()(
-    FieldsWriter& out, const h3svg::ReplayEventDetails<h3svg::ReplayEventType::ShowBoat>& details) const
-  {
-    using Fields = h3json::FieldNames<h3svg::ReplayEventDetails<h3svg::ReplayEventType::ShowBoat>>;
-    JsonObjectWriter<h3svg::ReplayEventDetailsBase>{}(out, details);
-    out.writeField(Fields::kUnknown, details.unknown);
-    out.writeField(Fields::kCoordinatesNew, details.coordinates_new);
-    out.writeField(Fields::kCoordinatesOld, details.coordinates_old);
-  }
-
-  template<>
-  void JsonObjectWriter<h3svg::ReplayEventDetails<h3svg::ReplayEventType::RemoveMapItem>>::operator()(
-    FieldsWriter& out, const h3svg::ReplayEventDetails<h3svg::ReplayEventType::RemoveMapItem>& details) const
-  {
-    using Fields = h3json::FieldNames<h3svg::ReplayEventDetails<h3svg::ReplayEventType::RemoveMapItem>>;
-    JsonObjectWriter<h3svg::ReplayEventDetailsBase>{}(out, details);
-    out.writeField(Fields::kCoordinates, details.coordinates);
-    out.writeField(Fields::kObjectIdx, details.object_idx);
-    out.writeField(Fields::kUnknown, details.unknown);
-  }
-
-  template<>
-  void JsonObjectWriter<h3svg::ReplayEventDetails<h3svg::ReplayEventType::HideHero>>::operator()(
-    FieldsWriter& out, const h3svg::ReplayEventDetails<h3svg::ReplayEventType::HideHero>& details) const
-  {
-    using Fields = h3json::FieldNames<h3svg::ReplayEventDetails<h3svg::ReplayEventType::HideHero>>;
-    JsonObjectWriter<h3svg::ReplayEventDetailsBase>{}(out, details);
-    out.writeField(Fields::kHero, details.hero);
-    out.writeField(Fields::kOwnerNew, details.owner_new);
-    out.writeField(Fields::kOwnerOld, details.owner_old);
-  }
-
-  template<>
-  void JsonObjectWriter<h3svg::ReplayEventDetails<h3svg::ReplayEventType::ShowHero>>::operator()(
-    FieldsWriter& out, const h3svg::ReplayEventDetails<h3svg::ReplayEventType::ShowHero>& details) const
-  {
-    using Fields = h3json::FieldNames<h3svg::ReplayEventDetails<h3svg::ReplayEventType::ShowHero>>;
-    JsonObjectWriter<h3svg::ReplayEventDetailsBase>{}(out, details);
-    out.writeField(Fields::kHero, details.hero);
-    out.writeField(Fields::kOwnerNew, details.owner_new);
-    out.writeField(Fields::kOwnerOld, details.owner_old);
-    out.writeField(Fields::kCoordinatesNew, details.coordinates_new);
-    out.writeField(Fields::kCoordinatesOld, details.coordinates_old);
-    out.writeField(Fields::kUnknown, details.unknown);
-  }
-
-  template<>
-  void JsonObjectWriter<h3svg::ReplayEventDetails<h3svg::ReplayEventType::DefeatPlayer>>::operator()(
-    FieldsWriter& out, const h3svg::ReplayEventDetails<h3svg::ReplayEventType::DefeatPlayer>& details) const
-  {
-    using Fields = h3json::FieldNames<h3svg::ReplayEventDetails<h3svg::ReplayEventType::DefeatPlayer>>;
-    JsonObjectWriter<h3svg::ReplayEventDetailsBase>{}(out, details);
-    out.writeField(Fields::kUnknown, details.unknown);
-  }
-
-  template<>
-  void JsonObjectWriter<h3svg::ReplayEventDetails<h3svg::ReplayEventType::ChangeTerrainVisibility>::TileVisiblityChange>::operator()(
+  void JsonObjectWriter<ReplayEventDetails<ReplayEventType::ChangeTerrainVisibility>::TileVisiblityChange>::operator()(
     FieldsWriter& out,
-    const h3svg::ReplayEventDetails<h3svg::ReplayEventType::ChangeTerrainVisibility>::TileVisiblityChange & change) const
+    const ReplayEventDetails<ReplayEventType::ChangeTerrainVisibility>::TileVisiblityChange& change) const
   {
     out.writeField("coordinates", change.coordinates);
     out.writeField("visibility_old", change.visibility_old);
     out.writeField("visibility_new", change.visibility_new);
   }
 
-  template<>
-  void JsonObjectWriter<h3svg::ReplayEventDetails<h3svg::ReplayEventType::ChangeTerrainVisibility>>::operator()(
-    FieldsWriter& out, const h3svg::ReplayEventDetails<h3svg::ReplayEventType::ChangeTerrainVisibility>& details) const
+  template<ReplayEventType T>
+  void JsonObjectWriter<ReplayEventDetails<T>>::operator()(FieldsWriter& out,
+                                                           const ReplayEventDetails<T>& details) const
   {
-    using Fields = h3json::FieldNames<h3svg::ReplayEventDetails<h3svg::ReplayEventType::ChangeTerrainVisibility>>;
-    JsonObjectWriter<h3svg::ReplayEventDetailsBase>{}(out, details);
-    out.writeField(Fields::kChanges, details.changes);
+    using Fields = h3json::FieldNames<ReplayEventDetails<T>>;
+    JsonObjectWriter<ReplayEventDetailsBase>{}(out, details);
+    if constexpr (T == ReplayEventType::MoveHero)
+    {
+      out.writeField(Fields::kHero, details.hero);
+      out.writeField(Fields::kDirection, details.direction);
+      out.writeField(Fields::kFrom, details.from);
+      out.writeField(Fields::kTo, details.to);
+    }
+    else if constexpr (T == ReplayEventType::TeleportHero)
+    {
+      out.writeField(Fields::kHero, details.hero);
+      out.writeField(Fields::kOrientation, details.orientation);
+      out.writeField(Fields::kFrom, details.from);
+      out.writeField(Fields::kTo, details.to);
+    }
+    else if constexpr (T == ReplayEventType::FlagMine)
+    {
+      out.writeField(Fields::kId, details.id);
+      out.writeField(Fields::kOwnerOld, details.owner_old);
+      out.writeField(Fields::kOwnerNew, details.owner_new);
+    }
+    else if constexpr (T == ReplayEventType::CaptureTown)
+    {
+      out.writeField(Fields::kTownId, details.town_id);
+      out.writeField(Fields::kOwnerOld, details.owner_old);
+      out.writeField(Fields::kOwnerNew, details.owner_new);
+    }
+    else if constexpr (T == ReplayEventType::HideBoat)
+    {
+      out.writeField(Fields::kBoatId, details.boat_id);
+      out.writeField(Fields::kUnknown, details.unknown);
+      out.writeField(Fields::kOwnerOld, details.owner_old);
+      out.writeField(Fields::kOwnerNew, details.owner_new);
+    }
+    else if constexpr (T == ReplayEventType::ShowBoat)
+    {
+      out.writeField(Fields::kUnknown, details.unknown);
+      out.writeField(Fields::kCoordinatesNew, details.coordinates_new);
+      out.writeField(Fields::kCoordinatesOld, details.coordinates_old);
+    }
+    else if constexpr (T == ReplayEventType::RemoveMapItem)
+    {
+      out.writeField(Fields::kCoordinates, details.coordinates);
+      out.writeField(Fields::kObjectIdx, details.object_idx);
+      out.writeField(Fields::kUnknown, details.unknown);
+    }
+    else if constexpr (T == ReplayEventType::HideHero)
+    {
+      out.writeField(Fields::kHero, details.hero);
+      out.writeField(Fields::kOwnerNew, details.owner_new);
+      out.writeField(Fields::kOwnerOld, details.owner_old);
+    }
+    else if constexpr (T == ReplayEventType::ShowHero)
+    {
+      out.writeField(Fields::kHero, details.hero);
+      out.writeField(Fields::kOwnerNew, details.owner_new);
+      out.writeField(Fields::kOwnerOld, details.owner_old);
+      out.writeField(Fields::kCoordinatesNew, details.coordinates_new);
+      out.writeField(Fields::kCoordinatesOld, details.coordinates_old);
+      out.writeField(Fields::kUnknown, details.unknown);
+    }
+    else if constexpr (T == ReplayEventType::DefeatPlayer)
+    {
+      out.writeField(Fields::kUnknown, details.unknown);
+    }
+    else if constexpr (T == ReplayEventType::ChangeTerrainVisibility)
+    {
+      out.writeField(Fields::kChanges, details.changes);
+    }
+    else
+    {
+      static_assert(false, "Invalid ReplayEventType.");
+    }
   }
 
   template<>
-  void JsonObjectWriter<h3svg::ReplayEventDetailsBase>::operator()(
-    FieldsWriter& out, const h3svg::ReplayEventDetailsBase& base) const
+  void JsonObjectWriter<ReplayEvent>::operator()(FieldsWriter& out, const ReplayEvent& replay_event) const
   {
-    using Fields = h3json::FieldNames<h3svg::ReplayEventDetailsBase>;
-    out.writeField(Fields::kPlayer, base.player);
-  }
-
-  template<>
-  void JsonObjectWriter<h3svg::ReplayEvent>::operator()(FieldsWriter& out,
-                                                        const h3svg::ReplayEvent& replay_event) const
-  {
-    using Fields = h3json::FieldNames<h3svg::ReplayEvent>;
+    using Fields = h3json::FieldNames<ReplayEvent>;
     out.writeField(Fields::kType, replay_event.type());
-    std::visit([&out] <h3svg::ReplayEventType T> (const h3svg::ReplayEventDetails<T>& details)
+    std::visit([&out] <ReplayEventType T> (const ReplayEventDetails<T>& details)
                {
                  out.writeField(Fields::kDetails, details);
                },
