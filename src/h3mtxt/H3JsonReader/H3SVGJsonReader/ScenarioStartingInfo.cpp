@@ -8,22 +8,22 @@
 namespace h3json
 {
   template<>
-  h3svg::ScenarioStartingInfo JsonReader<h3svg::ScenarioStartingInfo>::operator()(const Json::Value& value) const
+  h3svg::ScenarioStartingInfo JsonReader2<h3svg::ScenarioStartingInfo>::operator()() const
   {
     using Fields = h3json::FieldNames<h3svg::ScenarioStartingInfo>;
     h3svg::ScenarioStartingInfo starting_info;
-    readField(starting_info.starting_towns, value, Fields::kStartingTowns);
-    readField(starting_info.player_types, value, Fields::kPlayerTypes);
-    readField(starting_info.difficulty, value, Fields::kDifficulty);
-    readField(starting_info.map_filename, value, Fields::kMapFilename);
-    readField(starting_info.map_directory, value, Fields::kMapDirectory);
-    readField(starting_info.players_control, value, Fields::kPlayersControl);
-    readField(starting_info.unknown, value, Fields::kUnknown);
-    readField(starting_info.player_turn_duration, value, Fields::kPlayerTurnDuration);
-    readField(starting_info.starting_heroes, value, Fields::kStartingHeroes);
-    readField(starting_info.starting_bonuses, value, Fields::kStartingBonuses);
-    readField(starting_info.campaign_info, value, Fields::kCampaignInfo);
-    readField(starting_info.placeholder_heroes, value, Fields::kPlaceholderHeroes);
+    readField(Fields::kStartingTowns, starting_info.starting_towns);
+    readField(Fields::kPlayerTypes, starting_info.player_types);
+    readField(Fields::kDifficulty, starting_info.difficulty);
+    readField(Fields::kMapFilename, starting_info.map_filename);
+    readField(Fields::kMapDirectory, starting_info.map_directory);
+    readField(Fields::kPlayersControl, starting_info.players_control);
+    readField(Fields::kUnknown, starting_info.unknown);
+    readField(Fields::kPlayerTurnDuration, starting_info.player_turn_duration);
+    readField(Fields::kStartingHeroes, starting_info.starting_heroes);
+    readField(Fields::kStartingBonuses, starting_info.starting_bonuses);
+    readField(Fields::kCampaignInfo, starting_info.campaign_info);
+    readField(Fields::kPlaceholderHeroes, starting_info.placeholder_heroes);
     return starting_info;
   }
 }

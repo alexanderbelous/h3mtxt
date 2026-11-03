@@ -7,55 +7,54 @@
 namespace h3json
 {
   template<>
-  h3svg::CampaignInfo JsonReader<h3svg::CampaignInfo>::operator()(const Json::Value& value) const
+  h3svg::CampaignInfo JsonReader2<h3svg::CampaignInfo>::operator()() const
   {
     using Fields = h3json::FieldNames<h3svg::CampaignInfo>;
     h3svg::CampaignInfo info;
-    readField(info.unknown1, value, Fields::kUnknown1);
-    readField(info.is_cheater, value, Fields::kIsCheater);
-    readField(info.unknown2, value, Fields::kUnknown2);
-    readField(info.region_idx, value, Fields::kRegionIdx);
-    readField(info.id, value, Fields::kId);
-    readField(info.unknown3, value, Fields::kUnknown3);
-    readField(info.starting_bonus_idx, value, Fields::kStartingBonusIdx);
-    readField(info.filename, value, Fields::kFilename);
-    readField(info.finished_campaigns, value, Fields::kFinishedCampaigns);
-    readField(info.regions, value, Fields::kRegions);
-    readField(info.crossover_info, value, Fields::kCrossoverInfo);
+    readField(Fields::kUnknown1, info.unknown1);
+    readField(Fields::kIsCheater, info.is_cheater);
+    readField(Fields::kUnknown2, info.unknown2);
+    readField(Fields::kRegionIdx, info.region_idx);
+    readField(Fields::kId, info.id);
+    readField(Fields::kUnknown3, info.unknown3);
+    readField(Fields::kStartingBonusIdx, info.starting_bonus_idx);
+    readField(Fields::kFilename, info.filename);
+    readField(Fields::kFinishedCampaigns, info.finished_campaigns);
+    readField(Fields::kRegions, info.regions);
+    readField(Fields::kCrossoverInfo, info.crossover_info);
     return info;    
   }
 
   // TODO: add a declaration to H3SVGJsonReader.h (requires unnesting CrossoverInfo::UnknownPair).
   template<>
-  h3svg::CrossoverInfo::UnknownPair
-  JsonReader<h3svg::CrossoverInfo::UnknownPair>::operator()(const Json::Value& value) const
+  h3svg::CrossoverInfo::UnknownPair JsonReader2<h3svg::CrossoverInfo::UnknownPair>::operator()() const
   {
     h3svg::CrossoverInfo::UnknownPair pair;
-    readField(pair.first, value, "first");
-    readField(pair.second, value, "second");
+    readField("first", pair.first);
+    readField("second", pair.second);
     return pair;
   }
 
   template<>
-  h3svg::CrossoverInfo JsonReader<h3svg::CrossoverInfo>::operator()(const Json::Value& value) const
+  h3svg::CrossoverInfo JsonReader2<h3svg::CrossoverInfo>::operator()() const
   {
     using Fields = h3json::FieldNames<h3svg::CrossoverInfo>;
     h3svg::CrossoverInfo info;
-    readField(info.crossover_heroes, value, Fields::kCrossoverHeroes);
-    readField(info.unknown, value, Fields::kUnknown);
+    readField(Fields::kCrossoverHeroes, info.crossover_heroes);
+    readField(Fields::kUnknown, info.unknown);
     return info;
   }
 
   template<>
-  h3svg::RegionInfo JsonReader<h3svg::RegionInfo>::operator()(const Json::Value& value) const
+  h3svg::RegionInfo JsonReader2<h3svg::RegionInfo>::operator()() const
   {
     using Fields = h3json::FieldNames<h3svg::RegionInfo>;
     h3svg::RegionInfo info;
-    readField(info.is_completed, value, Fields::kIsCompleted);
-    readField(info.days, value, Fields::kDays);
-    readField(info.score, value, Fields::kScore);
-    readField(info.order, value, Fields::kOrder);
-    readField(info.unknown, value, Fields::kUnknown);
+    readField(Fields::kIsCompleted, info.is_completed);
+    readField(Fields::kDays, info.days);
+    readField(Fields::kScore, info.score);
+    readField(Fields::kOrder, info.order);
+    readField(Fields::kUnknown, info.unknown);
     return info;
   }
 }

@@ -7,35 +7,33 @@
 namespace h3json
 {
   template<>
-  h3svg::ObjectExits JsonReader<h3svg::ObjectExits>::operator()(const Json::Value& value) const
+  h3svg::ObjectExits JsonReader2<h3svg::ObjectExits>::operator()() const
   {
     using Fields = h3json::FieldNames<h3svg::ObjectExits>;
     h3svg::ObjectExits object_exits;
-    readField(object_exits.exits, value, Fields::kExits);
+    readField(Fields::kExits, object_exits.exits);
     return object_exits;
   }
 
   template<>
-  h3svg::Portals
-  JsonReader<h3svg::Portals>::operator()(const Json::Value& value) const
+  h3svg::Portals JsonReader2<h3svg::Portals>::operator()() const
   {
     using Fields = h3json::FieldNames<h3svg::Portals>;
     h3svg::Portals portals;
-    readField(portals.monoliths_two_way, value, Fields::kMonolithsTwoWay);
-    readField(portals.monoliths_one_way, value, Fields::kMonolithsOneWay);
-    readField(portals.whirlpools, value, Fields::kWhirlpools);
-    readField(portals.subterranean_gates, value, Fields::kSubterraneanGates);
+    readField(Fields::kMonolithsTwoWay, portals.monoliths_two_way);
+    readField(Fields::kMonolithsOneWay, portals.monoliths_one_way);
+    readField(Fields::kWhirlpools, portals.whirlpools);
+    readField(Fields::kSubterraneanGates, portals.subterranean_gates);
     return portals;
   }
 
   template<>
-  h3svg::SubterraneanGates
-  JsonReader<h3svg::SubterraneanGates>::operator()(const Json::Value& value) const
+  h3svg::SubterraneanGates JsonReader2<h3svg::SubterraneanGates>::operator()() const
   {
     using Fields = h3json::FieldNames<h3svg::SubterraneanGates>;
     h3svg::SubterraneanGates subterranean_gates;
-    readField(subterranean_gates.gates, value, Fields::kGates);
-    readField(subterranean_gates.pairings, value, Fields::kPairings);
+    readField(Fields::kGates, subterranean_gates.gates);
+    readField(Fields::kPairings, subterranean_gates.pairings);
     return subterranean_gates;
   }
 }

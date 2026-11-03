@@ -9,221 +9,221 @@
 namespace h3json
 {
   template<>
-  h3svg::ArtifactMerchants JsonReader<h3svg::ArtifactMerchants>::operator()(const Json::Value& value) const
+  h3svg::ArtifactMerchants JsonReader2<h3svg::ArtifactMerchants>::operator()() const
   {
     return h3svg::ArtifactMerchants{
-      .artifacts = fromJson<std::array<h3svg::ArtifactType32, h3svg::ArtifactMerchants::kNumSlots>>(value)
+      .artifacts = fromJson<std::array<h3svg::ArtifactType32, h3svg::ArtifactMerchants::kNumSlots>>(value())
     };
   }
 
   template<>
-  h3svg::CoordinatesPacked JsonReader<h3svg::CoordinatesPacked>::operator()(const Json::Value& value) const
+  h3svg::CoordinatesPacked JsonReader2<h3svg::CoordinatesPacked>::operator()() const
   {
     using Fields = h3json::FieldNames<h3svg::CoordinatesPacked>;
 
     return h3svg::CoordinatesPacked{
-      .x = readBitField<std::int16_t, 10>(value, Fields::kX),
-      .padding1 = readBitField<std::int16_t, 6>(value, Fields::kPadding1),
-      .y = readBitField<std::int16_t, 10>(value, Fields::kY),
-      .z = readBitField<std::int16_t, 4>(value, Fields::kZ),
-      .padding2 = readBitField<std::int16_t, 2>(value, Fields::kPadding2)
+      .x = readBitField<std::int16_t, 10>(value(), Fields::kX),
+      .padding1 = readBitField<std::int16_t, 6>(value(), Fields::kPadding1),
+      .y = readBitField<std::int16_t, 10>(value(), Fields::kY),
+      .z = readBitField<std::int16_t, 4>(value(), Fields::kZ),
+      .padding2 = readBitField<std::int16_t, 2>(value(), Fields::kPadding2)
     };
   }
 
   template<>
-  h3svg::CreatureBank JsonReader<h3svg::CreatureBank>::operator()(const Json::Value& value) const
+  h3svg::CreatureBank JsonReader2<h3svg::CreatureBank>::operator()() const
   {
     using Fields = h3json::FieldNames<h3svg::CreatureBank>;
     h3svg::CreatureBank creature_bank;
-    readField(creature_bank.guards, value, Fields::kGuards);
-    readField(creature_bank.resources, value, Fields::kResources);
-    readField(creature_bank.creatures, value, Fields::kCreatures);
-    readField(creature_bank.artifacts, value, Fields::kArtifacts);
+    readField(Fields::kGuards, creature_bank.guards);
+    readField(Fields::kResources, creature_bank.resources);
+    readField(Fields::kCreatures, creature_bank.creatures);
+    readField(Fields::kArtifacts, creature_bank.artifacts);
     return creature_bank;
   }
 
   template<>
-  h3svg::Date JsonReader<h3svg::Date>::operator()(const Json::Value& value) const
+  h3svg::Date JsonReader2<h3svg::Date>::operator()() const
   {
     using Fields = h3json::FieldNames<h3svg::Date>;
     h3svg::Date date;
-    readField(date.month, value, Fields::kMonth);
-    readField(date.week, value, Fields::kWeek);
-    readField(date.day, value, Fields::kDay);
+    readField(Fields::kMonth, date.month);
+    readField(Fields::kWeek, date.week);
+    readField(Fields::kDay, date.day);
     return date;
   }
 
   template<>
-  h3svg::Object JsonReader<h3svg::Object>::operator()(const Json::Value& value) const
+  h3svg::Object JsonReader2<h3svg::Object>::operator()() const
   {
     using Fields = h3json::FieldNames<h3svg::Object>;
     h3svg::Object object;
-    readField(object.coordinates, value, Fields::kCoordinates);
-    readField(object.template_idx, value, Fields::kTemplateIdx);
+    readField(Fields::kCoordinates, object.coordinates);
+    readField(Fields::kTemplateIdx, object.template_idx);
     return object;
   }
 
   template<>
-  h3svg::ObjectTemplate JsonReader<h3svg::ObjectTemplate>::operator()(const Json::Value& value) const
+  h3svg::ObjectTemplate JsonReader2<h3svg::ObjectTemplate>::operator()() const
   {
     using Fields = h3json::FieldNames<h3svg::ObjectTemplate>;
     h3svg::ObjectTemplate object_template;
-    readField(object_template.def, value, Fields::kDef);
-    readField(object_template.width, value, Fields::kWidth);
-    readField(object_template.height, value, Fields::kHeight);
-    readField(object_template.colors, value, Fields::kColors);
-    readField(object_template.passability, value, Fields::kPassability);
-    readField(object_template.shadows, value, Fields::kShadows);
-    readField(object_template.actionability, value, Fields::kActionability);
-    readField(object_template.object_class, value, Fields::kObjectClass);
-    readField(object_template.object_subclass, value, Fields::kObjectSubclass);
-    readField(object_template.reserved, value, Fields::kReserved);
-    readField(object_template.is_ground, value, Fields::kIsGround);
+    readField(Fields::kDef, object_template.def);
+    readField(Fields::kWidth, object_template.width);
+    readField(Fields::kHeight, object_template.height);
+    readField(Fields::kColors, object_template.colors);
+    readField(Fields::kPassability, object_template.passability);
+    readField(Fields::kShadows, object_template.shadows);
+    readField(Fields::kActionability, object_template.actionability);
+    readField(Fields::kObjectClass, object_template.object_class);
+    readField(Fields::kObjectSubclass, object_template.object_subclass);
+    readField(Fields::kReserved, object_template.reserved);
+    readField(Fields::kIsGround, object_template.is_ground);
     return object_template;
   }
 
   template<>
-  h3svg::PlayerSpecs JsonReader<h3svg::PlayerSpecs>::operator()(const Json::Value& value) const
+  h3svg::PlayerSpecs JsonReader2<h3svg::PlayerSpecs>::operator()() const
   {
     using Fields = h3json::FieldNames<h3svg::PlayerSpecs>;
     h3svg::PlayerSpecs player;
-    readField(player.can_be_human, value, Fields::kCanBeHuman);
-    readField(player.can_be_computer, value, Fields::kCanBeComputer);
-    readField(player.behavior, value, Fields::kBehavior);
-    readField(player.allowed_alignments, value, Fields::kAllowedAlignments);
-    readField(player.allow_random_alignment, value, Fields::kAllowRandomAlignment);
-    readField(player.generated_hero_coordinates, value, Fields::kGeneratedHeroCoordinates);
-    readField(player.starting_hero, value, Fields::kStartingHero);
+    readField(Fields::kCanBeHuman, player.can_be_human);
+    readField(Fields::kCanBeComputer, player.can_be_computer);
+    readField(Fields::kBehavior, player.behavior);
+    readField(Fields::kAllowedAlignments, player.allowed_alignments);
+    readField(Fields::kAllowRandomAlignment, player.allow_random_alignment);
+    readField(Fields::kGeneratedHeroCoordinates, player.generated_hero_coordinates);
+    readField(Fields::kStartingHero, player.starting_hero);
     return player;
   }
 
   template<>
-  h3svg::Rumor JsonReader<h3svg::Rumor>::operator()(const Json::Value& value) const
+  h3svg::Rumor JsonReader2<h3svg::Rumor>::operator()() const
   {
     using Fields = h3json::FieldNames<h3svg::Rumor>;
     h3svg::Rumor rumor;
-    readField(rumor.text, value, Fields::kText);
-    readField(rumor.has_been_shown, value, Fields::kHasBeenShown);
+    readField(Fields::kText, rumor.text);
+    readField(Fields::kHasBeenShown, rumor.has_been_shown);
     return rumor;
   }
 
   template<>
-  h3svg::SavedGame JsonReader<h3svg::SavedGame>::operator()(const Json::Value& value) const
+  h3svg::SavedGame JsonReader2<h3svg::SavedGame>::operator()() const
   {
     using Fields = FieldNames<h3svg::SavedGame>;
 
     h3svg::SavedGame saved_game;
-    readField(saved_game.signature, value, Fields::kSignature);
-    readField(saved_game.reserved1, value, Fields::kReserved1);
-    readField(saved_game.version_major, value, Fields::kVersionMajor);
-    readField(saved_game.version_minor, value, Fields::kVersionMinor);
-    readField(saved_game.reserved2, value, Fields::kReserved2);
-    readField(saved_game.format, value, Fields::kFormat);
-    readField(saved_game.basic_info, value, Fields::kBasicInfo);
-    readField(saved_game.players_specs, value, Fields::kPlayersSpecs);
-    readField(saved_game.victory_condition, value, Fields::kVictoryCondition);
-    readField(saved_game.loss_condition, value, Fields::kLossCondition);
-    readField(saved_game.teams, value, Fields::kTeams);
-    readField(saved_game.custom_heroes, value, Fields::kCustomHeroes);
-    readField(saved_game.unknown1, value, Fields::kUnknown1);
-    readField(saved_game.starting_info, value, Fields::kStartingInfo);
-    readField(saved_game.original_filename, value, Fields::kOriginalFilename);
-    readField(saved_game.unknown2, value, Fields::kUnknown2);
-    readField(saved_game.disabled_artifacts, value, Fields::kDisabledArtifacts);
-    readField(saved_game.artifacts_bitmask_unknown, value, Fields::kArtifactsBitmaskUnknown);
-    readField(saved_game.disabled_skills, value, Fields::kDisabledSkills);
-    readField(saved_game.current_rumor, value, Fields::kCurrentRumor);
-    readField(saved_game.unknown3, value, Fields::kUnknown3);
-    readField(saved_game.rumors, value, Fields::kRumors);
-    readField(saved_game.black_markets, value, Fields::kBlackMarkets);
-    readField(saved_game.tiles, value, Fields::kTiles);
-    readField(saved_game.objects_templates, value, Fields::kObjectsTemplates);
-    readField(saved_game.objects, value, Fields::kObjects);
-    readField(saved_game.object_properties_tables, value, Fields::kObjectPropertiesTables);
-    readField(saved_game.players, value, Fields::kPlayers);
-    readField(saved_game.towns, value, Fields::kTowns);
-    readField(saved_game.heroes, value, Fields::kHeroes);
-    readField(saved_game.hero_owner, value, Fields::kHeroOwner);
-    readField(saved_game.hero_can_be_hired_by, value, Fields::kHeroCanBeHiredBy);
-    readField(saved_game.unknown4, value, Fields::kUnknown4);
-    readField(saved_game.grail_x, value, Fields::kGrailX);
-    readField(saved_game.grail_y, value, Fields::kGrailY);
-    readField(saved_game.grail_z, value, Fields::kGrailZ);
-    readField(saved_game.unknown5, value, Fields::kUnknown5);
-    readField(saved_game.is_cheater, value, Fields::kIsCheater);
-    readField(saved_game.current_date, value, Fields::kCurrentDate);
-    readField(saved_game.unknown6, value, Fields::kUnknown6);
-    readField(saved_game.artifact_merchants, value, Fields::kArtifactMerchants);
-    readField(saved_game.visited_objects, value, Fields::kVisitedObjects);
-    readField(saved_game.keymasters_tents, value, Fields::kKeymastersTents);
-    readField(saved_game.cartographer_effects, value, Fields::kCartographerEffects);
-    readField(saved_game.cartographer_visited, value, Fields::kCartographerVisited);
-    readField(saved_game.unknown7, value, Fields::kUnknown7);
-    readField(saved_game.fog_of_war, value, Fields::kFogOfWar);
-    readField(saved_game.portals, value, Fields::kPortals);
-    readField(saved_game.universities, value, Fields::kUniversities);
-    readField(saved_game.creature_banks, value, Fields::kCreatureBanks);
-    readField(saved_game.previous_turn, value, Fields::kPreviousTurn);
+    readField(Fields::kSignature, saved_game.signature);
+    readField(Fields::kReserved1, saved_game.reserved1);
+    readField(Fields::kVersionMajor, saved_game.version_major);
+    readField(Fields::kVersionMinor, saved_game.version_minor);
+    readField(Fields::kReserved2, saved_game.reserved2);
+    readField(Fields::kFormat, saved_game.format);
+    readField(Fields::kBasicInfo, saved_game.basic_info);
+    readField(Fields::kPlayersSpecs, saved_game.players_specs);
+    readField(Fields::kVictoryCondition, saved_game.victory_condition);
+    readField(Fields::kLossCondition, saved_game.loss_condition);
+    readField(Fields::kTeams, saved_game.teams);
+    readField(Fields::kCustomHeroes, saved_game.custom_heroes);
+    readField(Fields::kUnknown1, saved_game.unknown1);
+    readField(Fields::kStartingInfo, saved_game.starting_info);
+    readField(Fields::kOriginalFilename, saved_game.original_filename);
+    readField(Fields::kUnknown2, saved_game.unknown2);
+    readField(Fields::kDisabledArtifacts, saved_game.disabled_artifacts);
+    readField(Fields::kArtifactsBitmaskUnknown, saved_game.artifacts_bitmask_unknown);
+    readField(Fields::kDisabledSkills, saved_game.disabled_skills);
+    readField(Fields::kCurrentRumor, saved_game.current_rumor);
+    readField(Fields::kUnknown3, saved_game.unknown3);
+    readField(Fields::kRumors, saved_game.rumors);
+    readField(Fields::kBlackMarkets, saved_game.black_markets);
+    readField(Fields::kTiles, saved_game.tiles);
+    readField(Fields::kObjectsTemplates, saved_game.objects_templates);
+    readField(Fields::kObjects, saved_game.objects);
+    readField(Fields::kObjectPropertiesTables, saved_game.object_properties_tables);
+    readField(Fields::kPlayers, saved_game.players);
+    readField(Fields::kTowns, saved_game.towns);
+    readField(Fields::kHeroes, saved_game.heroes);
+    readField(Fields::kHeroOwner, saved_game.hero_owner);
+    readField(Fields::kHeroCanBeHiredBy, saved_game.hero_can_be_hired_by);
+    readField(Fields::kUnknown4, saved_game.unknown4);
+    readField(Fields::kGrailX, saved_game.grail_x);
+    readField(Fields::kGrailY, saved_game.grail_y);
+    readField(Fields::kGrailZ, saved_game.grail_z);
+    readField(Fields::kUnknown5, saved_game.unknown5);
+    readField(Fields::kIsCheater, saved_game.is_cheater);
+    readField(Fields::kCurrentDate, saved_game.current_date);
+    readField(Fields::kUnknown6, saved_game.unknown6);
+    readField(Fields::kArtifactMerchants, saved_game.artifact_merchants);
+    readField(Fields::kVisitedObjects, saved_game.visited_objects);
+    readField(Fields::kKeymastersTents, saved_game.keymasters_tents);
+    readField(Fields::kCartographerEffects, saved_game.cartographer_effects);
+    readField(Fields::kCartographerVisited, saved_game.cartographer_visited);
+    readField(Fields::kUnknown7, saved_game.unknown7);
+    readField(Fields::kFogOfWar, saved_game.fog_of_war);
+    readField(Fields::kPortals, saved_game.portals);
+    readField(Fields::kUniversities, saved_game.universities);
+    readField(Fields::kCreatureBanks, saved_game.creature_banks);
+    readField(Fields::kPreviousTurn, saved_game.previous_turn);
     return saved_game;
   }
 
   template<>
-  h3svg::Tile JsonReader<h3svg::Tile>::operator()(const Json::Value& value) const
+  h3svg::Tile JsonReader2<h3svg::Tile>::operator()() const
   {
     using Fields = h3json::FieldNames<h3svg::Tile>;
     h3svg::Tile tile;
-    readField(tile.terrain_type, value, Fields::kTerrainType);
-    readField(tile.terrain_sprite, value, Fields::kTerrainSprite);
-    readField(tile.river_type, value, Fields::kRiverType);
-    readField(tile.river_sprite, value, Fields::kRiverSprite);
-    readField(tile.road_type, value, Fields::kRoadType);
-    readField(tile.road_sprite, value, Fields::kRoadSprite);
-    readField(tile.flags, value, Fields::kFlags);
-    readField(tile.object_subclass, value, Fields::kObjectSubclass);
-    readField(tile.object_idx, value, Fields::kObjectIdx);
-    readField(tile.object_properties, value, Fields::kObjectProperties);
-    readField(tile.objects_to_render, value, Fields::kObjectsToRender);
+    readField(Fields::kTerrainType, tile.terrain_type);
+    readField(Fields::kTerrainSprite, tile.terrain_sprite);
+    readField(Fields::kRiverType, tile.river_type);
+    readField(Fields::kRiverSprite, tile.river_sprite);
+    readField(Fields::kRoadType, tile.road_type);
+    readField(Fields::kRoadSprite, tile.road_sprite);
+    readField(Fields::kFlags, tile.flags);
+    readField(Fields::kObjectSubclass, tile.object_subclass);
+    readField(Fields::kObjectIdx, tile.object_idx);
+    readField(Fields::kObjectProperties, tile.object_properties);
+    readField(Fields::kObjectsToRender, tile.objects_to_render);
     return tile;
   }
 
   template<>
-  h3svg::TileRenderInfo JsonReader<h3svg::TileRenderInfo>::operator()(const Json::Value & value) const
+  h3svg::TileRenderInfo JsonReader2<h3svg::TileRenderInfo>::operator()() const
   {
     using Fields = h3json::FieldNames<h3svg::TileRenderInfo>;
     h3svg::TileRenderInfo object_to_render;
-    readField(object_to_render.object_idx, value, Fields::kObjectIdx);
-    object_to_render.x = readBitField<std::uint8_t, 4>(value, Fields::kX);
-    object_to_render.y = readBitField<std::uint8_t, 4>(value, Fields::kY);
-    readField(object_to_render.z_buffer, value, Fields::kZBuffer);
+    readField(Fields::kObjectIdx, object_to_render.object_idx);
+    object_to_render.x = readBitField<std::uint8_t, 4>(value(), Fields::kX);
+    object_to_render.y = readBitField<std::uint8_t, 4>(value(), Fields::kY);
+    readField(Fields::kZBuffer, object_to_render.z_buffer);
     return object_to_render;
   }
 
   template<>
-  h3svg::TileVisibility JsonReader<h3svg::TileVisibility>::operator()(const Json::Value& value) const
+  h3svg::TileVisibility JsonReader2<h3svg::TileVisibility>::operator()() const
   {
     using Fields = h3json::FieldNames<h3svg::TileVisibility>;
     h3svg::TileVisibility tile_visibility;
-    readField(tile_visibility.visibility, value, Fields::kVisibility);
-    readField(tile_visibility.has_adjacent_monster, value, Fields::kHasAdjacentMonster);
+    readField(Fields::kVisibility, tile_visibility.visibility);
+    readField(Fields::kHasAdjacentMonster, tile_visibility.has_adjacent_monster);
     return tile_visibility;
   }
 
   template<>
-  h3svg::Troops JsonReader<h3svg::Troops>::operator()(const Json::Value& value) const
+  h3svg::Troops JsonReader2<h3svg::Troops>::operator()() const
   {
     using Fields = h3json::FieldNames<h3svg::Troops>;
     h3svg::Troops troops;
-    readField(troops.creature_types, value, Fields::kCreatureTypes);
-    readField(troops.creature_counts, value, Fields::kCreatureCounts);
+    readField(Fields::kCreatureTypes, troops.creature_types);
+    readField(Fields::kCreatureCounts, troops.creature_counts);
     return troops;
   }
 
   template<>
-  h3svg::University JsonReader<h3svg::University>::operator()(const Json::Value& value) const
+  h3svg::University JsonReader2<h3svg::University>::operator()() const
   {
     using Fields = h3json::FieldNames<h3svg::University>;
     h3svg::University university;
-    readField(university.skills, value, Fields::kSkills);
+    readField(Fields::kSkills, university.skills);
     return university;
   }
 }

@@ -8,96 +8,94 @@
 namespace h3json
 {
   template<>
-  h3svg::Hero JsonReader<h3svg::Hero>::operator()(const Json::Value& value) const
+  h3svg::Hero JsonReader2<h3svg::Hero>::operator()() const
   {
     using Fields = h3json::FieldNames<h3svg::Hero>;
     h3svg::Hero hero;
-    readField(hero.x, value, Fields::kX);
-    readField(hero.y, value, Fields::kY);
-    readField(hero.z, value, Fields::kZ);
-    readField(hero.is_visible, value, Fields::kIsVisible);
-    readField(hero.coordinates_packed, value, Fields::kCoordinatesPacked);
-    readField(hero.has_object_under, value, Fields::kHasObjectUnder);
-    readField(hero.object_under, value, Fields::kObjectUnder);
-    readField(hero.is_female, value, Fields::kIsFemale);
-    readField(hero.use_custom_biography, value, Fields::kUseCustomBiography);
-    readField(hero.biography, value, Fields::kBiography);
-    readField(hero.owner, value, Fields::kOwner);
-    readField(hero.patrol_radius, value, Fields::kPatrolRadius);
-    readField(hero.temp_morale, value, Fields::kTempMorale);
-    readField(hero.temp_luck, value, Fields::kTempLuck);
-    readField(hero.backpack_count, value, Fields::kBackpackCount);
-    readField(hero.disguise_level, value, Fields::kDisguiseLevel);
-    readField(hero.fly_level, value, Fields::kFlyLevel);
-    readField(hero.water_walk_level, value, Fields::kWaterWalkLevel);
-    readField(hero.num_dimension_door_casts, value, Fields::kNumDimensionDoorCasts);
-    readField(hero.visions_level, value, Fields::kVisionsLevel);
-    readField(hero.type, value, Fields::kType);
-    readField(hero.hero_class, value, Fields::kHeroClass);
-    readField(hero.portrait, value, Fields::kPortrait);
-    readField(hero.patrol_x, value, Fields::kPatrolX);
-    readField(hero.patrol_y, value, Fields::kPatrolY);
-    readField(hero.orientation, value, Fields::kOrientation);
-    readField(hero.formation_flags, value, Fields::kFormationFlags);
-    readField(hero.seed, value, Fields::kSeed);
-    readField(hero.unknown1, value, Fields::kUnknown1);
-    readField(hero.destination_x, value, Fields::kDestinationX);
-    readField(hero.destination_y, value, Fields::kDestinationY);
-    readField(hero.destination_z, value, Fields::kDestinationZ);
-    readField(hero.unknown2, value, Fields::kUnknown2);
-    readField(hero.move_points_max, value, Fields::kMovePointsMax);
-    readField(hero.move_points, value, Fields::kMovePoints);
-    readField(hero.experience, value, Fields::kExperience);
-    readField(hero.num_secondary_skills, value, Fields::kNumSecondarySkills);
-    readField(hero.spell_points, value, Fields::kSpellPoints);
-    readField(hero.level, value, Fields::kLevel);
-    readField(hero.unknown3, value, Fields::kUnknown3);
-    readField(hero.learning_stones, value, Fields::kLearningStones);
-    readField(hero.marletto_towers, value, Fields::kMarlettoTowers);
-    readField(hero.gardens_of_revelation, value, Fields::kGardensOfRevelation);
-    readField(hero.mercenary_camps, value, Fields::kMercenaryCamps);
-    readField(hero.star_axes, value, Fields::kStarAxes);
-    readField(hero.trees_of_knowledge, value, Fields::kTreesOfKnowledge);
-    readField(hero.libraries_of_enlightenment, value, Fields::kLibrariesOfEnlightenment);
-    readField(hero.arenas, value, Fields::kArenas);
-    readField(hero.schools_of_magic, value, Fields::kSchoolsOfMagic);
-    readField(hero.schools_of_war, value, Fields::kSchoolsOfWar);
-    readField(hero.reserved, value, Fields::kReserved);
-    readField(hero.flags, value, Fields::kFlags);
-    readField(hero.army, value, Fields::kArmy);
-    readField(hero.name, value, Fields::kName);
-    readField(hero.secondary_skills_levels, value, Fields::kSecondarySkillsLevels);
-    readField(hero.secondary_skills_slots, value, Fields::kSecondarySkillsSlots);
-    readField(hero.primary_skills, value, Fields::kPrimarySkills);
-    readField(hero.spells_learned, value, Fields::kSpellsLearned);
-    readField(hero.spells_available, value, Fields::kSpellsAvailable);
-    readField(hero.artifacts, value, Fields::kArtifacts);
-    readField(hero.is_sleeping, value, Fields::kIsSleeping);
-    readField(hero.visited_towns, value, Fields::kVisitedTowns);
+    readField(Fields::kX, hero.x);
+    readField(Fields::kY, hero.y);
+    readField(Fields::kZ, hero.z);
+    readField(Fields::kIsVisible, hero.is_visible);
+    readField(Fields::kCoordinatesPacked, hero.coordinates_packed);
+    readField(Fields::kHasObjectUnder, hero.has_object_under);
+    readField(Fields::kObjectUnder, hero.object_under);
+    readField(Fields::kIsFemale, hero.is_female);
+    readField(Fields::kUseCustomBiography, hero.use_custom_biography);
+    readField(Fields::kBiography, hero.biography);
+    readField(Fields::kOwner, hero.owner);
+    readField(Fields::kPatrolRadius, hero.patrol_radius);
+    readField(Fields::kTempMorale, hero.temp_morale);
+    readField(Fields::kTempLuck, hero.temp_luck);
+    readField(Fields::kBackpackCount, hero.backpack_count);
+    readField(Fields::kDisguiseLevel, hero.disguise_level);
+    readField(Fields::kFlyLevel, hero.fly_level);
+    readField(Fields::kWaterWalkLevel, hero.water_walk_level);
+    readField(Fields::kNumDimensionDoorCasts, hero.num_dimension_door_casts);
+    readField(Fields::kVisionsLevel, hero.visions_level);
+    readField(Fields::kType, hero.type);
+    readField(Fields::kHeroClass, hero.hero_class);
+    readField(Fields::kPortrait, hero.portrait);
+    readField(Fields::kPatrolX, hero.patrol_x);
+    readField(Fields::kPatrolY, hero.patrol_y);
+    readField(Fields::kOrientation, hero.orientation);
+    readField(Fields::kFormationFlags, hero.formation_flags);
+    readField(Fields::kSeed, hero.seed);
+    readField(Fields::kUnknown1, hero.unknown1);
+    readField(Fields::kDestinationX, hero.destination_x);
+    readField(Fields::kDestinationY, hero.destination_y);
+    readField(Fields::kDestinationZ, hero.destination_z);
+    readField(Fields::kUnknown2, hero.unknown2);
+    readField(Fields::kMovePointsMax, hero.move_points_max);
+    readField(Fields::kMovePoints, hero.move_points);
+    readField(Fields::kExperience, hero.experience);
+    readField(Fields::kNumSecondarySkills, hero.num_secondary_skills);
+    readField(Fields::kSpellPoints, hero.spell_points);
+    readField(Fields::kLevel, hero.level);
+    readField(Fields::kUnknown3, hero.unknown3);
+    readField(Fields::kLearningStones, hero.learning_stones);
+    readField(Fields::kMarlettoTowers, hero.marletto_towers);
+    readField(Fields::kGardensOfRevelation, hero.gardens_of_revelation);
+    readField(Fields::kMercenaryCamps, hero.mercenary_camps);
+    readField(Fields::kStarAxes, hero.star_axes);
+    readField(Fields::kTreesOfKnowledge, hero.trees_of_knowledge);
+    readField(Fields::kLibrariesOfEnlightenment, hero.libraries_of_enlightenment);
+    readField(Fields::kArenas, hero.arenas);
+    readField(Fields::kSchoolsOfMagic, hero.schools_of_magic);
+    readField(Fields::kSchoolsOfWar, hero.schools_of_war);
+    readField(Fields::kReserved, hero.reserved);
+    readField(Fields::kFlags, hero.flags);
+    readField(Fields::kArmy, hero.army);
+    readField(Fields::kName, hero.name);
+    readField(Fields::kSecondarySkillsLevels, hero.secondary_skills_levels);
+    readField(Fields::kSecondarySkillsSlots, hero.secondary_skills_slots);
+    readField(Fields::kPrimarySkills, hero.primary_skills);
+    readField(Fields::kSpellsLearned, hero.spells_learned);
+    readField(Fields::kSpellsAvailable, hero.spells_available);
+    readField(Fields::kArtifacts, hero.artifacts);
+    readField(Fields::kIsSleeping, hero.is_sleeping);
+    readField(Fields::kVisitedTowns, hero.visited_towns);
     return hero;
   }
 
   template<>
-  h3svg::HeroArtifact
-  JsonReader<h3svg::HeroArtifact>::operator()(const Json::Value& value) const
+  h3svg::HeroArtifact JsonReader2<h3svg::HeroArtifact>::operator()() const
   {
     using Fields = h3json::FieldNames<h3svg::HeroArtifact>;
     h3svg::HeroArtifact artifact;
-    readField(artifact.type, value, Fields::kType);
-    readField(artifact.spell_type, value, Fields::kSpellType);
+    readField(Fields::kType, artifact.type);
+    readField(Fields::kSpellType, artifact.spell_type);
     return artifact;
   }
 
   template<>
-  h3svg::HeroArtifacts
-  JsonReader<h3svg::HeroArtifacts>::operator()(const Json::Value& value) const
+  h3svg::HeroArtifacts JsonReader2<h3svg::HeroArtifacts>::operator()() const
   {
     using Fields = h3json::FieldNames<h3svg::HeroArtifacts>;
     h3svg::HeroArtifacts artifacts;
-    readField(artifacts.equipped, value, Fields::kEquipped);
-    readField(artifacts.backpack, value, Fields::kBackpack);
-    readField(artifacts.unknown, value, Fields::kUnknown);
-    readField(artifacts.locks, value, Fields::kLocks);
+    readField(Fields::kEquipped, artifacts.equipped);
+    readField(Fields::kBackpack, artifacts.backpack);
+    readField(Fields::kUnknown, artifacts.unknown);
+    readField(Fields::kLocks, artifacts.locks);
     return artifacts;
   }
 }

@@ -88,6 +88,8 @@ namespace h3svg
       QuestDetails<QuestType::BePlayer>
     >;
 
+    static constexpr std::uint32_t kNoDeadline = h3m::Quest::kNoDeadline;
+
     constexpr bool operator==(const Quest&) const noexcept = default;
 
     // \return the type of the quest.
@@ -98,7 +100,7 @@ namespace h3svg
     // * unknown[0] seems to be `Bool has_reward` (1 for Seer's Hut, 0 for Quest Guard).
     std::array<std::uint8_t, 2> unknown {};
     // 0 - impossible to fulfill; 0xFFFFFFFF - none.
-    std::uint32_t deadline = 0xFFFFFFFF;
+    std::uint32_t deadline = kNoDeadline;
     std::string proposal;
     std::string progress;
     std::string completion;

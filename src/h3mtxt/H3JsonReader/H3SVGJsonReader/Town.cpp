@@ -8,51 +8,50 @@
 namespace h3json
 {
   template<>
-  h3svg::Town JsonReader<h3svg::Town>::operator()(const Json::Value& value) const
+  h3svg::Town JsonReader2<h3svg::Town>::operator()() const
   {
     using Fields = h3json::FieldNames<h3svg::Town>;
     h3svg::Town town;
-    readField(town.id, value, Fields::kId);
-    readField(town.owner, value, Fields::kOwner);
-    readField(town.built_this_turn, value, Fields::kBuiltThisTurn);
-    readField(town.unknown1, value, Fields::kUnknown1);
-    readField(town.type, value, Fields::kType);
-    readField(town.coordinates, value, Fields::kCoordinates);
-    readField(town.generated_boat_x, value, Fields::kGeneratedBoatX);
-    readField(town.generated_boat_y, value, Fields::kGeneratedBoatY);
-    readField(town.garrison, value, Fields::kGarrison);
-    readField(town.garrisoned_hero, value, Fields::kGarrisonedHero);
-    readField(town.visiting_hero, value, Fields::kVisitingHero);
-    readField(town.mage_guild_level, value, Fields::kMageGuildLevel);
-    readField(town.unknown2, value, Fields::kUnknown2);
-    readField(town.name, value, Fields::kName);
-    readField(town.recruits_nonupgraded, value, Fields::kRecruitsNonUpgraded);
-    readField(town.recruits_upgraded, value, Fields::kRecruitsUpgraded);
-    readField(town.num_external_dwellings, value, Fields::kNumExternalDwellings);
-    readField(town.num_external_dwellings2, value, Fields::kNumExternalDwellings2);
-    readField(town.unknown3, value, Fields::kUnknown3);
-    readField(town.built, value, Fields::kBuilt);
-    readField(town.reserved1, value, Fields::kReserved1);
-    readField(town.can_be_built, value, Fields::kCanBeBuilt);
-    readField(town.reserved2, value, Fields::kReserved2);
-    readField(town.spells, value, Fields::kSpells);
-    readField(town.banned_spells, value, Fields::kBannedSpells);
-    readField(town.unknown4, value, Fields::kUnknown4);
-    readField(town.unique_buildings_properties, value, Fields::kUniqueBuildingsProperties);
+    readField(Fields::kId, town.id);
+    readField(Fields::kOwner, town.owner);
+    readField(Fields::kBuiltThisTurn, town.built_this_turn);
+    readField(Fields::kUnknown1, town.unknown1);
+    readField(Fields::kType, town.type);
+    readField(Fields::kCoordinates, town.coordinates);
+    readField(Fields::kGeneratedBoatX, town.generated_boat_x);
+    readField(Fields::kGeneratedBoatY, town.generated_boat_y);
+    readField(Fields::kGarrison, town.garrison);
+    readField(Fields::kGarrisonedHero, town.garrisoned_hero);
+    readField(Fields::kVisitingHero, town.visiting_hero);
+    readField(Fields::kMageGuildLevel, town.mage_guild_level);
+    readField(Fields::kUnknown2, town.unknown2);
+    readField(Fields::kName, town.name);
+    readField(Fields::kRecruitsNonUpgraded, town.recruits_nonupgraded);
+    readField(Fields::kRecruitsUpgraded, town.recruits_upgraded);
+    readField(Fields::kNumExternalDwellings, town.num_external_dwellings);
+    readField(Fields::kNumExternalDwellings2, town.num_external_dwellings2);
+    readField(Fields::kUnknown3, town.unknown3);
+    readField(Fields::kBuilt, town.built);
+    readField(Fields::kReserved1, town.reserved1);
+    readField(Fields::kCanBeBuilt, town.can_be_built);
+    readField(Fields::kReserved2, town.reserved2);
+    readField(Fields::kSpells, town.spells);
+    readField(Fields::kBannedSpells, town.banned_spells);
+    readField(Fields::kUnknown4, town.unknown4);
+    readField(Fields::kUniqueBuildingsProperties, town.unique_buildings_properties);
     return town;
   }
 
   template<>
-  h3svg::TownUniqueBuildingsProperties
-  JsonReader<h3svg::TownUniqueBuildingsProperties>::operator()(const Json::Value& value) const
+  h3svg::TownUniqueBuildingsProperties JsonReader2<h3svg::TownUniqueBuildingsProperties>::operator()() const
   {
     using Fields = h3json::FieldNames<h3svg::TownUniqueBuildingsProperties>;
     h3svg::TownUniqueBuildingsProperties properties;
-    properties.mana_vortex_available = readField<bool>(value, Fields::kManaVortexAvailable);
-    properties.mystic_pond_resource_amount = readField<std::uint8_t>(value, Fields::kMysticPondResourceAmount);
-    properties.mystic_pond_resource_type = readField<h3svg::ResourceType>(value, Fields::kMysticPondResourceType);
-    properties.unknown = readField<bool>(value, Fields::kUnknown);
-    readField(properties.summoned_creatures, value, Fields::kSummonedCreatures);
+    properties.mana_vortex_available = readField<bool>(Fields::kManaVortexAvailable);
+    properties.mystic_pond_resource_amount = readBitField<std::uint8_t, 3>(value(), Fields::kMysticPondResourceAmount);
+    properties.mystic_pond_resource_type = readBitField<h3svg::ResourceType, 3>(value(), Fields::kMysticPondResourceType);
+    properties.unknown = readField<bool>(Fields::kUnknown);
+    readField(Fields::kSummonedCreatures, properties.summoned_creatures);
     return properties;
   }
 }

@@ -55,15 +55,15 @@ namespace h3json
     // I'm just gonna treat it as Campaign in this case.
     if (isCampaignJson(root))
     {
-      return JsonReader<h3m::Campaign>{}(root);
+      return fromJson<h3m::Campaign>(root);
     }
     else if (isMapJson(root))
     {
-      return JsonReader<h3m::Map>{}(root);
+      return fromJson<h3m::Map>(root);
     }
     else
     {
-      return JsonReader<h3svg::SavedGame>{}(root);
+      return fromJson<h3svg::SavedGame>(root);
     }
   }
 }

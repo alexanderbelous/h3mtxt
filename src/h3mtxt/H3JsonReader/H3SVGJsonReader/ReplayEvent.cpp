@@ -5,97 +5,98 @@
 #include <h3mtxt/JsonCommon/FieldNamesH3SVG.h>
 #include <h3mtxt/SavedGame/ReplayEvent.h>
 
+using ::h3svg::ReplayEvent;
+using ::h3svg::ReplayEventDetails;
+using ::h3svg::ReplayEventDetailsBase;
+using ::h3svg::ReplayEventType;
+
 namespace h3json
 {
   // TODO: unnest TileVisiblityChange and add a declaration for this template specialization
   // to H3SVGJsonReader.h.
   template<>
-  h3svg::ReplayEventDetails<h3svg::ReplayEventType::ChangeTerrainVisibility>::TileVisiblityChange
-  JsonReader<h3svg::ReplayEventDetails<h3svg::ReplayEventType::ChangeTerrainVisibility>::TileVisiblityChange>::operator()(
-    const Json::Value& value) const
+  ReplayEventDetails<ReplayEventType::ChangeTerrainVisibility>::TileVisiblityChange
+  JsonReader2<ReplayEventDetails<ReplayEventType::ChangeTerrainVisibility>::TileVisiblityChange>::operator()() const
   {
-    h3svg::ReplayEventDetails<h3svg::ReplayEventType::ChangeTerrainVisibility>::TileVisiblityChange change;
-    readField(change.coordinates, value, "coordinates");
-    readField(change.visibility_old, value, "visibility_old");
-    readField(change.visibility_new, value, "visibility_new");
+    ReplayEventDetails<ReplayEventType::ChangeTerrainVisibility>::TileVisiblityChange change;
+    readField("coordinates", change.coordinates);
+    readField("visibility_old", change.visibility_old);
+    readField("visibility_new", change.visibility_new);
     return change;
   }
 
-  // This template is implicitly instantiated for all valid ReplayEventType
-  // in JsonReader<h3svg::ReplayEvent>::operator().
-  template<h3svg::ReplayEventType T>
-  h3svg::ReplayEventDetails<T>
-  JsonReader<h3svg::ReplayEventDetails<T>>::operator()(const Json::Value& value) const
+  template<ReplayEventType T>
+  ReplayEventDetails<T> JsonReader2<ReplayEventDetails<T>>::operator()() const
   {
-    using Fields = h3json::FieldNames<h3svg::ReplayEventDetails<T>>;
-    h3svg::ReplayEventDetails<T> details{ fromJson<h3svg::ReplayEventDetailsBase>(value) };
-    if constexpr (T == h3svg::ReplayEventType::MoveHero)
+    using Fields = FieldNames<ReplayEventDetails<T>>;
+    ReplayEventDetails<T> details{ fromJson<ReplayEventDetailsBase>(value()) };
+    if constexpr (T == ReplayEventType::MoveHero)
     {
-      readField(details.hero, value, Fields::kHero);
-      readField(details.direction, value, Fields::kDirection);
-      readField(details.from, value, Fields::kFrom);
-      readField(details.to, value, Fields::kTo);
+      readField(Fields::kHero, details.hero);
+      readField(Fields::kDirection, details.direction);
+      readField(Fields::kFrom, details.from);
+      readField(Fields::kTo, details.to);
     }
-    else if constexpr (T == h3svg::ReplayEventType::TeleportHero)
+    else if constexpr (T == ReplayEventType::TeleportHero)
     {
-      readField(details.hero, value, Fields::kHero);
-      readField(details.orientation, value, Fields::kOrientation);
-      readField(details.from, value, Fields::kFrom);
-      readField(details.to, value, Fields::kTo);
+      readField(Fields::kHero, details.hero);
+      readField(Fields::kOrientation, details.orientation);
+      readField(Fields::kFrom, details.from);
+      readField(Fields::kTo, details.to);
     }
-    else if constexpr (T == h3svg::ReplayEventType::FlagMine)
+    else if constexpr (T == ReplayEventType::FlagMine)
     {
-      readField(details.id, value, Fields::kId);
-      readField(details.owner_old, value, Fields::kOwnerOld);
-      readField(details.owner_new, value, Fields::kOwnerNew);
+      readField(Fields::kId, details.id);
+      readField(Fields::kOwnerOld, details.owner_old);
+      readField(Fields::kOwnerNew, details.owner_new);
     }
-    else if constexpr (T == h3svg::ReplayEventType::CaptureTown)
+    else if constexpr (T == ReplayEventType::CaptureTown)
     {
-      readField(details.town_id, value, Fields::kTownId);
-      readField(details.owner_old, value, Fields::kOwnerOld);
-      readField(details.owner_new, value, Fields::kOwnerNew);
+      readField(Fields::kTownId, details.town_id);
+      readField(Fields::kOwnerOld, details.owner_old);
+      readField(Fields::kOwnerNew, details.owner_new);
     }
-    else if constexpr (T == h3svg::ReplayEventType::HideBoat)
+    else if constexpr (T == ReplayEventType::HideBoat)
     {
-      readField(details.boat_id, value, Fields::kBoatId);
-      readField(details.unknown, value, Fields::kUnknown);
-      readField(details.owner_old, value, Fields::kOwnerOld);
-      readField(details.owner_new, value, Fields::kOwnerNew);
+      readField(Fields::kBoatId, details.boat_id);
+      readField(Fields::kUnknown, details.unknown);
+      readField(Fields::kOwnerOld, details.owner_old);
+      readField(Fields::kOwnerNew, details.owner_new);
     }
-    else if constexpr (T == h3svg::ReplayEventType::ShowBoat)
+    else if constexpr (T == ReplayEventType::ShowBoat)
     {
-      readField(details.unknown, value, Fields::kUnknown);
-      readField(details.coordinates_new, value, Fields::kCoordinatesNew);
-      readField(details.coordinates_old, value, Fields::kCoordinatesOld);
+      readField(Fields::kUnknown, details.unknown);
+      readField(Fields::kCoordinatesNew, details.coordinates_new);
+      readField(Fields::kCoordinatesOld, details.coordinates_old);
     }
-    else if constexpr (T == h3svg::ReplayEventType::RemoveMapItem)
+    else if constexpr (T == ReplayEventType::RemoveMapItem)
     {
-      readField(details.coordinates, value, Fields::kCoordinates);
-      readField(details.object_idx, value, Fields::kObjectIdx);
-      readField(details.unknown, value, Fields::kUnknown);
+      readField(Fields::kCoordinates, details.coordinates);
+      readField(Fields::kObjectIdx, details.object_idx);
+      readField(Fields::kUnknown, details.unknown);
     }
-    else if constexpr (T == h3svg::ReplayEventType::HideHero)
+    else if constexpr (T == ReplayEventType::HideHero)
     {
-      readField(details.hero, value, Fields::kHero);
-      readField(details.owner_new, value, Fields::kOwnerNew);
-      readField(details.owner_old, value, Fields::kOwnerOld);
+      readField(Fields::kHero, details.hero);
+      readField(Fields::kOwnerNew, details.owner_new);
+      readField(Fields::kOwnerOld, details.owner_old);
     }
-    else if constexpr (T == h3svg::ReplayEventType::ShowHero)
+    else if constexpr (T == ReplayEventType::ShowHero)
     {
-      readField(details.hero, value, Fields::kHero);
-      readField(details.owner_new, value, Fields::kOwnerNew);
-      readField(details.owner_old, value, Fields::kOwnerOld);
-      readField(details.coordinates_new, value, Fields::kCoordinatesNew);
-      readField(details.coordinates_old, value, Fields::kCoordinatesOld);
-      readField(details.unknown, value, Fields::kUnknown);
+      readField(Fields::kHero, details.hero);
+      readField(Fields::kOwnerNew, details.owner_new);
+      readField(Fields::kOwnerOld, details.owner_old);
+      readField(Fields::kCoordinatesNew, details.coordinates_new);
+      readField(Fields::kCoordinatesOld, details.coordinates_old);
+      readField(Fields::kUnknown, details.unknown);
     }
-    else if constexpr (T == h3svg::ReplayEventType::DefeatPlayer)
+    else if constexpr (T == ReplayEventType::DefeatPlayer)
     {
-      readField(details.unknown, value, Fields::kUnknown);
+      readField(Fields::kUnknown, details.unknown);
     }
-    else if constexpr (T == h3svg::ReplayEventType::ChangeTerrainVisibility)
+    else if constexpr (T == ReplayEventType::ChangeTerrainVisibility)
     {
-      readField(details.changes, value, Fields::kChanges);
+      readField(Fields::kChanges, details.changes);
     }
     else
     {
@@ -105,23 +106,22 @@ namespace h3json
   }
 
   template<>
-  h3svg::ReplayEventDetailsBase
-  JsonReader<h3svg::ReplayEventDetailsBase>::operator()(const Json::Value& value) const
+  ReplayEventDetailsBase JsonReader2<ReplayEventDetailsBase>::operator()() const
   {
-    using Fields = h3json::FieldNames<h3svg::ReplayEventDetailsBase>;
-    h3svg::ReplayEventDetailsBase base;
-    readField(base.player, value, Fields::kPlayer);
+    using Fields = FieldNames<ReplayEventDetailsBase>;
+    ReplayEventDetailsBase base;
+    readField(Fields::kPlayer, base.player);
     return base;
   }
 
   template<>
-  h3svg::ReplayEvent JsonReader<h3svg::ReplayEvent>::operator()(const Json::Value& value) const
+  ReplayEvent JsonReader2<ReplayEvent>::operator()() const
   {
-    using Fields = h3json::FieldNames<h3svg::ReplayEvent>;
-    const h3svg::ReplayEventType event_type = readField<h3svg::ReplayEventType>(value, Fields::kType);
-    return h3svg::ReplayEvent{
-      .details = VariantJsonReader<h3svg::ReplayEvent::Details>{}(getJsonField(value, Fields::kDetails),
-                                                                  h3svg::ReplayEvent::getAlternativeIdx(event_type))
+    using Fields = FieldNames<ReplayEvent>;
+    const ReplayEventType event_type = readField<ReplayEventType>(Fields::kType);
+    return ReplayEvent{
+      .details = VariantJsonReader<ReplayEvent::Details>{}(getField(Fields::kDetails),
+                                                           ReplayEvent::getAlternativeIdx(event_type))
     };
   }
 }

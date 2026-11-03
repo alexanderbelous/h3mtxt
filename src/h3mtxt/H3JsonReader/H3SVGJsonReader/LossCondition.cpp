@@ -11,14 +11,13 @@
 namespace h3json
 {
   template<h3svg::LossConditionType T>
-  h3svg::LossConditionDetails<T>
-  JsonReader<h3svg::LossConditionDetails<T>>::operator()(const Json::Value& value) const
+  h3svg::LossConditionDetails<T> JsonReader2<h3svg::LossConditionDetails<T>>::operator()() const
   {
     if constexpr (T == h3svg::LossConditionType::LoseHero)
     {
       using Fields = h3json::FieldNames<h3svg::LossConditionDetails<h3svg::LossConditionType::LoseHero>>;
       h3svg::LossConditionDetails<h3svg::LossConditionType::LoseHero> details;
-      readField(details.hero, value, Fields::kHero);
+      readField(Fields::kHero, details.hero);
       return details;
     }
     else
@@ -28,15 +27,15 @@ namespace h3json
                     "h3svg::LossConditionDetails<T> must be derived from h3m::LossConditionDetails<T>");
       static_assert(sizeof(h3m::LossConditionDetails<T>) == sizeof(h3svg::LossConditionDetails<T>),
                     "h3svg::LossConditionDetails<T> must have the same size as h3m::LossConditionDetails<T>");
-      return h3svg::LossConditionDetails<T>{ fromJson<h3m::LossConditionDetails<T>>(value) };
+      return h3svg::LossConditionDetails<T>{ fromJson<h3m::LossConditionDetails<T>>(value()) };
     }
   }
 
   template<>
-  h3svg::LossCondition JsonReader<h3svg::LossCondition>::operator()(const Json::Value& value) const
+  h3svg::LossCondition JsonReader2<h3svg::LossCondition>::operator()() const
   {
     using Fields = FieldNames<h3svg::LossCondition>;
-    const h3svg::LossConditionType loss_condition_type = readField<h3svg::LossConditionType>(value, Fields::kType);
+    const h3svg::LossConditionType loss_condition_type = readField<h3svg::LossConditionType>(Fields::kType);
     h3svg::LossCondition loss_condition;
     if (loss_condition_type != h3svg::LossConditionType::Normal)
     {
@@ -45,7 +44,7 @@ namespace h3json
       {
         throw std::runtime_error("JsonReader<h3svg::LossCondition>: invalid loss_condition_type");
       }
-      loss_condition.details = VariantJsonReader<h3svg::LossCondition::Details>{}(getJsonField(value, Fields::kDetails),
+      loss_condition.details = VariantJsonReader<h3svg::LossCondition::Details>{}(getField(Fields::kDetails),
                                                                                   variant_alternative_idx);
     }
     return loss_condition;

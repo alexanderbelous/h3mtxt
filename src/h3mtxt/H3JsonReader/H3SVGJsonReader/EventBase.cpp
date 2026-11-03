@@ -8,33 +8,31 @@
 namespace h3json
 {
   template<>
-  h3svg::Guardians
-  JsonReader<h3svg::Guardians>::operator()(const Json::Value& value) const
+  h3svg::Guardians JsonReader2<h3svg::Guardians>::operator()() const
   {
     using Fields = h3json::FieldNames<h3svg::Guardians>;
     h3svg::Guardians guardians;
-    readField(guardians.message, value, Fields::kMessage);
-    readField(guardians.creatures, value, Fields::kCreatures);
+    readField(Fields::kMessage, guardians.message);
+    readField(Fields::kCreatures, guardians.creatures);
     return guardians;
   }
 
   template<>
-  h3svg::EventBase
-  JsonReader<h3svg::EventBase>::operator()(const Json::Value& value) const
+  h3svg::EventBase JsonReader2<h3svg::EventBase>::operator()() const
   {
     using Fields = h3json::FieldNames<h3svg::EventBase>;
     h3svg::EventBase event;
-    readField(event.guardians, value, Fields::kGuardians);
-    readField(event.experience, value, Fields::kExperience);
-    readField(event.spell_points, value, Fields::kSpellPoints);
-    readField(event.morale, value, Fields::kMorale);
-    readField(event.luck, value, Fields::kLuck);
-    readField(event.resources, value, Fields::kResources);
-    readField(event.primary_skills, value, Fields::kPrimarySkills);
-    readField(event.secondary_skills, value, Fields::kSecondarySkills);
-    readField(event.artifacts, value, Fields::kArtifacts);
-    readField(event.spells, value, Fields::kSpells);
-    readField(event.creatures, value, Fields::kCreatures);
+    readField(Fields::kGuardians, event.guardians);
+    readField(Fields::kExperience, event.experience);
+    readField(Fields::kSpellPoints, event.spell_points);
+    readField(Fields::kMorale, event.morale);
+    readField(Fields::kLuck, event.luck);
+    readField(Fields::kResources, event.resources);
+    readField(Fields::kPrimarySkills, event.primary_skills);
+    readField(Fields::kSecondarySkills, event.secondary_skills);
+    readField(Fields::kArtifacts, event.artifacts);
+    readField(Fields::kSpells, event.spells);
+    readField(Fields::kCreatures, event.creatures);
     return event;
   }
 }
