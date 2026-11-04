@@ -84,7 +84,8 @@ namespace h3svg
     quest.details = readQuestDetailsVariant(*this, quest_type);
     if (quest_type != QuestType::None)
     {
-      quest.unknown = readByteArray<2>();
+      quest.has_reward = readBool();
+      quest.unknown = readInt<std::uint8_t>();
       quest.deadline = readInt<std::uint32_t>();
       quest.proposal = readString32();
       quest.progress = readString32();

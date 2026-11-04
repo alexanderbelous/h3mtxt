@@ -7,7 +7,6 @@
 #include <h3mtxt/Map/Quest.h>
 #include <h3mtxt/SavedGame/CoordinatesPacked.h>
 
-#include <array>
 #include <cstdint>
 #include <string>
 #include <variant>
@@ -97,8 +96,11 @@ namespace h3svg
 
     Details details;
     // The fiels below are only read/written if type() != QuestType::None.
-    // * unknown[0] seems to be `Bool has_reward` (1 for Seer's Hut, 0 for Quest Guard).
-    std::array<std::uint8_t, 2> unknown {};
+
+    // Indicates whether there is a reward for completing this quest,
+    // i.e. 1 for Seer's Hut, 0 for Quest Guard.
+    Bool has_reward = false;
+    std::uint8_t unknown {};
     // 0 - impossible to fulfill; 0xFFFFFFFF - none.
     std::uint32_t deadline = kNoDeadline;
     std::string proposal;

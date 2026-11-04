@@ -33,7 +33,8 @@ namespace h3svg
       .details = QuestDetails<QuestType::Level>{
         .level = 42
       },
-      .unknown = {11, 88},
+      .has_reward = false,
+      .unknown = 88,
       .deadline = 100,
       .proposal = "Proposal message",
       .progress = "Progress message",
@@ -42,7 +43,8 @@ namespace h3svg
     static constexpr std::string_view kBinaryData =
       "\x01"
       "\x2a\x00"
-      "\x0b\x58"
+      "\x00"
+      "\x58"
       "\x64\x00\x00\x00"
       "\x10\x00\x00\x00" "Proposal message"
       "\x10\x00\x00\x00" "Progress message"
@@ -63,7 +65,8 @@ namespace h3svg
           .skills = { 10, 20, 30, 40 }
         }
       },
-      .unknown = {11, 88},
+      .has_reward = true,
+      .unknown = 88,
       .deadline = 100,
       .proposal = "Proposal message",
       .progress = "Progress message",
@@ -72,7 +75,8 @@ namespace h3svg
     static constexpr std::string_view kBinaryData =
       "\x02"
       "\x0a\x14\x1e\x28"
-      "\x0b\x58"
+      "\x01"
+      "\x58"
       "\x64\x00\x00\x00"
       "\x10\x00\x00\x00" "Proposal message"
       "\x10\x00\x00\x00" "Progress message"
@@ -97,7 +101,8 @@ namespace h3svg
           return bitmask;
         }()
       },
-      .unknown = {11, 88},
+      .has_reward = false,
+      .unknown = 88,
       .deadline = 100,
       .proposal = "Proposal message",
       .progress = "Progress message",
@@ -106,7 +111,8 @@ namespace h3svg
     static constexpr std::string_view kBinaryData =
       "\x03"
       "\x55\x00" "\x48"
-      "\x0b\x58"
+      "\x00"
+      "\x58"
       "\x64\x00\x00\x00"
       "\x10\x00\x00\x00" "Proposal message"
       "\x10\x00\x00\x00" "Progress message"
@@ -127,7 +133,8 @@ namespace h3svg
         .creature_type = CreatureType::AzureDragon,
         .completed_by = PlayerColor::None
       },
-      .unknown = {11, 88},
+      .has_reward = false,
+      .unknown = 88,
       .deadline = 100,
       .proposal = "Proposal message",
       .progress = "Progress message",
@@ -136,7 +143,8 @@ namespace h3svg
     static constexpr std::string_view kBinaryData =
       "\x04"
       "\x0c\x00\x2c\x04" "\x84\x00" "\xff"
-      "\x0b\x58"
+      "\x00"
+      "\x58"
       "\x64\x00\x00\x00"
       "\x10\x00\x00\x00" "Proposal message"
       "\x10\x00\x00\x00" "Progress message"
@@ -157,7 +165,8 @@ namespace h3svg
           .artifacts = {ArtifactType::ArmageddonsBlade, ArtifactType::AngelWings, ArtifactType::BootsOfSpeed}
         }
       },
-      .unknown = {11, 88},
+      .has_reward = false,
+      .unknown = 88,
       .deadline = 100,
       .proposal = "Proposal message",
       .progress = "Progress message",
@@ -166,7 +175,8 @@ namespace h3svg
     static constexpr std::string_view kBinaryData =
       "\x05"
       "\x03" "\x80\x00" "\x48\x00" "\x62\x00"
-      "\x0b\x58"
+      "\x00"
+      "\x58"
       "\x64\x00\x00\x00"
       "\x10\x00\x00\x00" "Proposal message"
       "\x10\x00\x00\x00" "Progress message"
@@ -190,7 +200,8 @@ namespace h3svg
           TypedQuantity<CreatureType, std::int32_t>{.type = CreatureType::FaerieDragon, .quantity = 4},
         }
       },
-      .unknown = {11, 88},
+      .has_reward = false,
+      .unknown = 88,
       .deadline = 100,
       .proposal = "Proposal message",
       .progress = "Progress message",
@@ -199,7 +210,8 @@ namespace h3svg
     static constexpr std::string_view kBinaryData =
       "\x06"
       "\x04" "\x84\x00\x01\x00\x00\x00" "\x85\x00\x02\x00\x00\x00" "\x87\x00\x03\x00\x00\x00" "\x86\x00\x04\x00\x00\x00"
-      "\x0b\x58"
+      "\x00"
+      "\x58"
       "\x64\x00\x00\x00"
       "\x10\x00\x00\x00" "Proposal message"
       "\x10\x00\x00\x00" "Progress message"
@@ -221,7 +233,8 @@ namespace h3svg
           .resources = Resources{15, 10, 15, 10, 10, 10, 1000}
         }
       },
-      .unknown = {11, 88},
+      .has_reward = true,
+      .unknown = 88,
       .deadline = 100,
       .proposal = "Proposal message",
       .progress = "Progress message",
@@ -230,7 +243,8 @@ namespace h3svg
     static constexpr std::string_view kBinaryData =
       "\x07"
       "\x0f\x00\x00\x00" "\x0a\x00\x00\x00" "\x0f\x00\x00\x00" "\x0a\x00\x00\x00" "\x0a\x00\x00\x00" "\x0a\x00\x00\x00" "\xe8\x03\x00\x00"
-      "\x0b\x58"
+      "\x01"
+      "\x58"
       "\x64\x00\x00\x00"
       "\x10\x00\x00\x00" "Proposal message"
       "\x10\x00\x00\x00" "Progress message"
@@ -249,7 +263,8 @@ namespace h3svg
       .details = QuestDetails<QuestType::BeHero>{
         .hero = static_cast<HeroType16>(HeroType::Gunnar)
       },
-      .unknown = {11, 88},
+      .has_reward = true,
+      .unknown = 88,
       .deadline = 100,
       .proposal = "Proposal message",
       .progress = "",
@@ -258,7 +273,8 @@ namespace h3svg
     static constexpr std::string_view kBinaryData =
       "\x08"
       "\x55\x00"
-      "\x0b\x58"
+      "\x01"
+      "\x58"
       "\x64\x00\x00\x00"
       "\x10\x00\x00\x00" "Proposal message"
       "\x00\x00\x00\x00"
@@ -279,7 +295,8 @@ namespace h3svg
           .player = PlayerColor::Teal
         }
       },
-      .unknown = {11, 88},
+      .has_reward = false,
+      .unknown = 88,
       .deadline = static_cast<std::uint32_t>(-1),
       .proposal = "",
       .progress = "",
@@ -288,7 +305,8 @@ namespace h3svg
     static constexpr std::string_view kBinaryData =
       "\x09"
       "\x06"
-      "\x0b\x58"
+      "\x00"
+      "\x58"
       "\xff\xff\xff\xff"
       "\x00\x00\x00\x00"
       "\x00\x00\x00\x00"

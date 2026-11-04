@@ -290,7 +290,8 @@ namespace h3svg
         .details = QuestDetails<QuestType::Level>{
           .level = 42
         },
-        .unknown = {11, 88},
+        .has_reward = false,
+        .unknown = 88,
         .deadline = 100,
         .proposal = "Proposal message",
         .progress = "Progress message",
@@ -306,7 +307,8 @@ namespace h3svg
     static constexpr std::string_view kBinaryData =
       "\x01" // quest_type
       "\x2a\x00" // level
-      "\x0b\x58" // unknown
+      "\x00" // has_reward
+      "\x58" // unknown
       "\x64\x00\x00\x00" // deadline
       "\x10\x00\x00\x00" "Proposal message" // proposal
       "\x10\x00\x00\x00" "Progress message" // progress
@@ -326,7 +328,8 @@ namespace h3svg
         .details = QuestDetails<QuestType::Level>{
           .level = 42
         },
-        .unknown = {11, 88},
+        .has_reward = true,
+        .unknown = 88,
         .deadline = 100,
         .proposal = "Proposal message",
         .progress = "Progress message",
@@ -352,7 +355,8 @@ namespace h3svg
     static constexpr std::string_view kBinaryData =
       "\x01" // quest_type
       "\x2a\x00" // level
-      "\x0b\x58" // unknown
+      "\x01" // has_reward
+      "\x58" // unknown
       "\x64\x00\x00\x00" // deadline
       "\x10\x00\x00\x00" "Proposal message" // proposal
       "\x10\x00\x00\x00" "Progress message" // progress

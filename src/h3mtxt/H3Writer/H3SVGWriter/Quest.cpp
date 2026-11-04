@@ -51,6 +51,7 @@ namespace h3svg
                quest.details);
     if (quest.type() != QuestType::None)
     {
+      writeData(quest.has_reward);
       writeData(quest.unknown);
       writeData(quest.deadline);
       writeString32(quest.proposal);

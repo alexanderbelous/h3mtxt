@@ -61,6 +61,7 @@ namespace Medea_NS
                    out.writeField(Fields::kDetails, details);
                  },
                  quest.details);
+      out.writeField(Fields::kHasReward, quest.has_reward);
       out.writeField(Fields::kUnknown, quest.unknown);
       out.writeField(Fields::kDeadline, quest.deadline);
       out.writeField(Fields::kProposal, quest.proposal);

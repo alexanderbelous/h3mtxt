@@ -65,6 +65,7 @@ namespace h3json
       const std::size_t variant_alternative_idx = h3m::Quest::getAlternativeIdx(quest_type);
       quest.details = VariantJsonReader<h3svg::Quest::Details>{}(getField(Fields::kDetails),
                                                                  variant_alternative_idx);
+      readField(Fields::kHasReward, quest.has_reward);
       readField(Fields::kUnknown, quest.unknown);
       readField(Fields::kDeadline, quest.deadline);
       readField(Fields::kProposal, quest.proposal);

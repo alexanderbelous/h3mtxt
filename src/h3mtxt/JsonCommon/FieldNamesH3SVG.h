@@ -849,7 +849,8 @@ namespace h3json
   template<>
   struct FieldNames<h3svg::Quest> : FieldNames<h3m::Quest>
   {
-    // Same fields as for h3m::Quest, plus 1 currently unknown 2-byte field.
+    // Same fields as for h3m::Quest, plus two 1-byte fields.
+    static constexpr std::string_view kHasReward = "has_reward";
     static constexpr std::string_view kUnknown = "unknown";
   };
 
