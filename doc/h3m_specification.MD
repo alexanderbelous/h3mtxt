@@ -308,7 +308,7 @@ An H3M file is a single structure which we will naturally call [`Map`](#Map).
 | Field name   | Type                            | Size in bytes | Description                                     |
 | ------------ | ------------------------------- | ------------- | ----------------------------------------------- |
 | has_settings | `Bool`                          | 1             | Indicates whether this hero has custom settings |
-| settings     | [`HeroSettings`](#HeroSettings) | varies        | Only present if `has_settings` is nonzero       |
+| ?settings    | [`HeroSettings`](#HeroSettings) | varies        | Only present if `has_settings` is nonzero       |
 
 
 ### `HeroSettings`
