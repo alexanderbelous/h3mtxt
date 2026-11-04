@@ -131,21 +131,4 @@ namespace h3m
   {
     VictoryConditionDetailsWriter<T>{}(*this, details);
   }
-
-  // Explicit instantiations of H3MWriter::writeData(const VictoryConditionDetails<T>&)
-  // for all valid VictoryConditionTypes.
-  template void H3MWriter::writeData(const VictoryConditionDetails<VictoryConditionType::AcquireArtifact>&) const;
-  template void H3MWriter::writeData(const VictoryConditionDetails<VictoryConditionType::AccumulateCreatures>&) const;
-  template void H3MWriter::writeData(const VictoryConditionDetails<VictoryConditionType::AccumulateResources>&) const;
-  template void H3MWriter::writeData(const VictoryConditionDetails<VictoryConditionType::UpgradeTown>&) const;
-  template void H3MWriter::writeData(const VictoryConditionDetails<VictoryConditionType::BuildGrail>&) const;
-  template void H3MWriter::writeData(const VictoryConditionDetails<VictoryConditionType::DefeatHero>&) const;
-  template void H3MWriter::writeData(const VictoryConditionDetails<VictoryConditionType::CaptureTown>&) const;
-  template void H3MWriter::writeData(const VictoryConditionDetails<VictoryConditionType::DefeatMonster>&) const;
-  template void H3MWriter::writeData(const VictoryConditionDetails<VictoryConditionType::FlagDwellings>&) const;
-  template void H3MWriter::writeData(const VictoryConditionDetails<VictoryConditionType::FlagMines>&) const;
-  template void H3MWriter::writeData(const VictoryConditionDetails<VictoryConditionType::TransportArtifact>&) const;
-  template void H3MWriter::writeData(const VictoryConditionDetails<VictoryConditionType::DefeatAllMonsters>&) const;
-  template void H3MWriter::writeData(const VictoryConditionDetails<VictoryConditionType::SurviveBeyondATimeLimit>&) const;
-  template void H3MWriter::writeData(const VictoryConditionDetails<VictoryConditionType::Normal>&) const;
 }

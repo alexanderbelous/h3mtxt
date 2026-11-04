@@ -1,11 +1,7 @@
 #pragma once
 
 #include <h3mtxt/Map/MapFwd.h>
-#include <h3mtxt/Map/Constants/LossConditionType.h>
 #include <h3mtxt/Map/Constants/ObjectPropertiesType.h>
-#include <h3mtxt/Map/Constants/QuestType.h>
-#include <h3mtxt/Map/Constants/RewardType.h>
-#include <h3mtxt/Map/Constants/VictoryConditionType.h>
 #include <h3mtxt/Medea/MedeaFwd.h>
 
 #include <cstddef>
@@ -183,21 +179,13 @@ namespace Medea_NS
   void JsonObjectWriter<h3m::LossCondition>::operator()(FieldsWriter& out,
                                                         const h3m::LossCondition& loss_condition) const;
 
-  template<>
-  void JsonObjectWriter<h3m::LossConditionDetails<h3m::LossConditionType::LoseTown>>::operator()(
-    FieldsWriter& out, const h3m::LossConditionDetails<h3m::LossConditionType::LoseTown>& value) const;
-
-  template<>
-  void JsonObjectWriter<h3m::LossConditionDetails<h3m::LossConditionType::LoseHero>>::operator()(
-    FieldsWriter& out, const h3m::LossConditionDetails<h3m::LossConditionType::LoseHero>& value) const;
-
-  template<>
-  void JsonObjectWriter<h3m::LossConditionDetails<h3m::LossConditionType::TimeExpires>>::operator()(
-    FieldsWriter& out, const h3m::LossConditionDetails<h3m::LossConditionType::TimeExpires>& value) const;
-
-  template<>
-  void JsonObjectWriter<h3m::LossConditionDetails<h3m::LossConditionType::Normal>>::operator()(
-    FieldsWriter& out, const h3m::LossConditionDetails<h3m::LossConditionType::Normal>& value) const;
+  template<h3m::LossConditionType T>
+  struct JsonObjectWriter<h3m::LossConditionDetails<T>>
+  {
+    // Defined in writeLossCondition.cpp.
+    // Template instantiations are provided for all valid LossConditionTypes.
+    void operator()(FieldsWriter& out, const h3m::LossConditionDetails<T>& value) const;
+  };
 
   template<>
   void JsonObjectWriter<h3m::MainTown>::operator()(FieldsWriter& out, const h3m::MainTown& value) const;
@@ -336,92 +324,24 @@ namespace Medea_NS
   template<>
   void JsonObjectWriter<h3m::Quest>::operator()(FieldsWriter& out, const h3m::Quest& quest) const;
 
-  template<>
-  void JsonObjectWriter<h3m::QuestDetails<h3m::QuestType::None>>::operator()(
-    FieldsWriter&, const h3m::QuestDetails<h3m::QuestType::None>&) const;
-
-  template<>
-  void JsonObjectWriter<h3m::QuestDetails<h3m::QuestType::Level>>::operator()(
-    FieldsWriter& out, const h3m::QuestDetails<h3m::QuestType::Level>& details) const;
-
-  template<>
-  void JsonObjectWriter<h3m::QuestDetails<h3m::QuestType::PrimarySkills>>::operator()(
-    FieldsWriter& out, const h3m::QuestDetails<h3m::QuestType::PrimarySkills>& details) const;
-
-  template<>
-  void JsonObjectWriter<h3m::QuestDetails<h3m::QuestType::DefeatHero>>::operator()(
-    FieldsWriter& out, const h3m::QuestDetails<h3m::QuestType::DefeatHero>& details) const;
-
-  template<>
-  void JsonObjectWriter<h3m::QuestDetails<h3m::QuestType::DefeatMonster>>::operator()(
-    FieldsWriter& out, const h3m::QuestDetails<h3m::QuestType::DefeatMonster>& details) const;
-
-  template<>
-  void JsonObjectWriter<h3m::QuestDetails<h3m::QuestType::Artifacts>>::operator()(
-    FieldsWriter& out, const h3m::QuestDetails<h3m::QuestType::Artifacts>& details) const;
-
-  template<>
-  void JsonObjectWriter<h3m::QuestDetails<h3m::QuestType::Creatures>>::operator()(
-    FieldsWriter& out, const h3m::QuestDetails<h3m::QuestType::Creatures>& details) const;
-
-  template<>
-  void JsonObjectWriter<h3m::QuestDetails<h3m::QuestType::Resources>>::operator()(
-    FieldsWriter& out, const h3m::QuestDetails<h3m::QuestType::Resources>& details) const;
-
-  template<>
-  void JsonObjectWriter<h3m::QuestDetails<h3m::QuestType::BeHero>>::operator()(
-    FieldsWriter& out, const h3m::QuestDetails<h3m::QuestType::BeHero>& details) const;
-
-  template<>
-  void JsonObjectWriter<h3m::QuestDetails<h3m::QuestType::BePlayer>>::operator()(
-    FieldsWriter& out, const h3m::QuestDetails<h3m::QuestType::BePlayer>& details) const;
+  template<h3m::QuestType T>
+  struct JsonObjectWriter<h3m::QuestDetails<T>>
+  {
+    // Defined in writeQuest.cpp.
+    // Template instantiations are provided for all valid QuestTypes.
+    void operator()(FieldsWriter& out, const h3m::QuestDetails<T>& details) const;
+  };
 
   template<>
   void JsonObjectWriter<h3m::Reward>::operator()(FieldsWriter& out, const h3m::Reward& reward) const;
 
-  template<>
-  void JsonObjectWriter<h3m::RewardDetails<h3m::RewardType::None>>::operator()(
-    FieldsWriter&, const h3m::RewardDetails<h3m::RewardType::None>&) const;
-
-  template<>
-  void JsonObjectWriter<h3m::RewardDetails<h3m::RewardType::Experience>>::operator()(
-    FieldsWriter& out, const h3m::RewardDetails<h3m::RewardType::Experience>& details) const;
-
-  template<>
-  void JsonObjectWriter<h3m::RewardDetails<h3m::RewardType::SpellPoints>>::operator()(
-    FieldsWriter& out, const h3m::RewardDetails<h3m::RewardType::SpellPoints>& details) const;
-
-  template<>
-  void JsonObjectWriter<h3m::RewardDetails<h3m::RewardType::Morale>>::operator()(
-    FieldsWriter& out, const h3m::RewardDetails<h3m::RewardType::Morale>& details) const;
-
-  template<>
-  void JsonObjectWriter<h3m::RewardDetails<h3m::RewardType::Luck>>::operator()(
-    FieldsWriter& out, const h3m::RewardDetails<h3m::RewardType::Luck>& details) const;
-
-  template<>
-  void JsonObjectWriter<h3m::RewardDetails<h3m::RewardType::Resource>>::operator()(
-    FieldsWriter& out, const h3m::RewardDetails<h3m::RewardType::Resource>& details) const;
-
-  template<>
-  void JsonObjectWriter<h3m::RewardDetails<h3m::RewardType::PrimarySkill>>::operator()(
-    FieldsWriter& out, const h3m::RewardDetails<h3m::RewardType::PrimarySkill>& details) const;
-
-  template<>
-  void JsonObjectWriter<h3m::RewardDetails<h3m::RewardType::SecondarySkill>>::operator()(
-    FieldsWriter& out, const h3m::RewardDetails<h3m::RewardType::SecondarySkill>& details) const;
-
-  template<>
-  void JsonObjectWriter<h3m::RewardDetails<h3m::RewardType::Artifact>>::operator()(
-    FieldsWriter& out, const h3m::RewardDetails<h3m::RewardType::Artifact>& details) const;
-
-  template<>
-  void JsonObjectWriter<h3m::RewardDetails<h3m::RewardType::Spell>>::operator()(
-    FieldsWriter& out, const h3m::RewardDetails<h3m::RewardType::Spell>& details) const;
-
-  template<>
-  void JsonObjectWriter<h3m::RewardDetails<h3m::RewardType::Creatures>>::operator()(
-    FieldsWriter& out, const h3m::RewardDetails<h3m::RewardType::Creatures>& details) const;
+  template<h3m::RewardType T>
+  struct JsonObjectWriter<h3m::RewardDetails<T>>
+  {
+    // Defined in writeReward.cpp.
+    // Template instantiations are provided for all valid RewardType.
+    void operator()(FieldsWriter& out, const h3m::RewardDetails<T>& details) const;
+  };
 
   template<>
   void JsonObjectWriter<h3m::Rumor>::operator()(FieldsWriter& out, const h3m::Rumor& value) const;
@@ -481,59 +401,11 @@ namespace Medea_NS
   void JsonObjectWriter<h3m::VictoryCondition>::operator()(FieldsWriter& out,
                                                            const h3m::VictoryCondition& value) const;
 
-  template<>
-  void JsonObjectWriter<h3m::VictoryConditionDetails<h3m::VictoryConditionType::AcquireArtifact>>::operator()(
-    FieldsWriter& out, const h3m::VictoryConditionDetails<h3m::VictoryConditionType::AcquireArtifact>& value) const;
-
-  template<>
-  void JsonObjectWriter<h3m::VictoryConditionDetails<h3m::VictoryConditionType::AccumulateCreatures>>::operator()(
-    FieldsWriter& out, const h3m::VictoryConditionDetails<h3m::VictoryConditionType::AccumulateCreatures>& value) const;
-
-  template<>
-  void JsonObjectWriter<h3m::VictoryConditionDetails<h3m::VictoryConditionType::AccumulateResources>>::operator()(
-    FieldsWriter& out, const h3m::VictoryConditionDetails<h3m::VictoryConditionType::AccumulateResources>& value) const;
-
-  template<>
-  void JsonObjectWriter<h3m::VictoryConditionDetails<h3m::VictoryConditionType::UpgradeTown>>::operator()(
-    FieldsWriter& out, const h3m::VictoryConditionDetails<h3m::VictoryConditionType::UpgradeTown>& value) const;
-
-  template<>
-  void JsonObjectWriter<h3m::VictoryConditionDetails<h3m::VictoryConditionType::BuildGrail>>::operator()(
-    FieldsWriter& out, const h3m::VictoryConditionDetails<h3m::VictoryConditionType::BuildGrail>& value) const;
-
-  template<>
-  void JsonObjectWriter<h3m::VictoryConditionDetails<h3m::VictoryConditionType::DefeatHero>>::operator()(
-    FieldsWriter& out, const h3m::VictoryConditionDetails<h3m::VictoryConditionType::DefeatHero>& value) const;
-
-  template<>
-  void JsonObjectWriter<h3m::VictoryConditionDetails<h3m::VictoryConditionType::CaptureTown>>::operator()(
-    FieldsWriter& out, const h3m::VictoryConditionDetails<h3m::VictoryConditionType::CaptureTown>& value) const;
-
-  template<>
-  void JsonObjectWriter<h3m::VictoryConditionDetails<h3m::VictoryConditionType::DefeatMonster>>::operator()(
-    FieldsWriter& out, const h3m::VictoryConditionDetails<h3m::VictoryConditionType::DefeatMonster>& value) const;
-
-  template<>
-  void JsonObjectWriter<h3m::VictoryConditionDetails<h3m::VictoryConditionType::FlagDwellings>>::operator()(
-    FieldsWriter& out, const h3m::VictoryConditionDetails<h3m::VictoryConditionType::FlagDwellings>& value) const;
-
-  template<>
-  void JsonObjectWriter<h3m::VictoryConditionDetails<h3m::VictoryConditionType::FlagMines>>::operator()(
-    FieldsWriter& out, const h3m::VictoryConditionDetails<h3m::VictoryConditionType::FlagMines>& value) const;
-
-  template<>
-  void JsonObjectWriter<h3m::VictoryConditionDetails<h3m::VictoryConditionType::TransportArtifact>>::operator()(
-    FieldsWriter& out, const h3m::VictoryConditionDetails<h3m::VictoryConditionType::TransportArtifact>& value) const;
-
-  template<>
-  void JsonObjectWriter<h3m::VictoryConditionDetails<h3m::VictoryConditionType::DefeatAllMonsters>>::operator()(
-    FieldsWriter& out, const h3m::VictoryConditionDetails<h3m::VictoryConditionType::DefeatAllMonsters>& value) const;
-
-  template<>
-  void JsonObjectWriter<h3m::VictoryConditionDetails<h3m::VictoryConditionType::SurviveBeyondATimeLimit>>::operator()(
-    FieldsWriter& out, const h3m::VictoryConditionDetails<h3m::VictoryConditionType::SurviveBeyondATimeLimit>& value) const;
-
-  template<>
-  void JsonObjectWriter<h3m::VictoryConditionDetails<h3m::VictoryConditionType::Normal>>::operator()(
-    FieldsWriter& out, const h3m::VictoryConditionDetails<h3m::VictoryConditionType::Normal>& value) const;
+  template<h3m::VictoryConditionType T>
+  struct JsonObjectWriter<h3m::VictoryConditionDetails<T>>
+  {
+    // Defined in writeVictoryCondition.cpp.
+    // Template instantiations are provided for all valid VictoryConditionTypes.
+    void operator()(FieldsWriter& out, const h3m::VictoryConditionDetails<T>& value) const;
+  };
 }

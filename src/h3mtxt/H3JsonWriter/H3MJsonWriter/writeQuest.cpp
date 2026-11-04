@@ -6,7 +6,8 @@
 #include <h3mtxt/Map/Quest.h>
 #include <h3mtxt/Medea/Medea.h>
 
-#include <type_traits>
+using ::h3m::QuestDetails;
+using ::h3m::QuestType;
 
 namespace Medea_NS
 {
@@ -23,82 +24,54 @@ namespace Medea_NS
     }
   }
 
-  template<>
-  void JsonObjectWriter<h3m::QuestDetails<h3m::QuestType::None>>::operator()(
-    FieldsWriter&, const h3m::QuestDetails<h3m::QuestType::None>&) const
+  template<QuestType T>
+  void JsonObjectWriter<QuestDetails<T>>::operator()(FieldsWriter& out, const QuestDetails<T>& details) const
   {
-  }
-
-  template<>
-  void JsonObjectWriter<h3m::QuestDetails<h3m::QuestType::Level>>::operator()(
-    FieldsWriter& out, const h3m::QuestDetails<h3m::QuestType::Level>& details) const
-  {
-    using Fields = h3json::FieldNames<std::remove_cvref_t<decltype(details)>>;
-    out.writeField(Fields::kLevel, details.level);
-  }
-
-  template<>
-  void JsonObjectWriter<h3m::QuestDetails<h3m::QuestType::PrimarySkills>>::operator()(
-    FieldsWriter& out, const h3m::QuestDetails<h3m::QuestType::PrimarySkills>& details) const
-  {
-    using Fields = h3json::FieldNames<std::remove_cvref_t<decltype(details)>>;
-    out.writeField(Fields::kSkills, details.skills);
-  }
-
-  template<>
-  void JsonObjectWriter<h3m::QuestDetails<h3m::QuestType::DefeatHero>>::operator()(
-    FieldsWriter& out, const h3m::QuestDetails<h3m::QuestType::DefeatHero>& details) const
-  {
-    using Fields = h3json::FieldNames<std::remove_cvref_t<decltype(details)>>;
-    out.writeField(Fields::kAbsodId, details.absod_id);
-  }
-
-  template<>
-  void JsonObjectWriter<h3m::QuestDetails<h3m::QuestType::DefeatMonster>>::operator()(
-    FieldsWriter& out, const h3m::QuestDetails<h3m::QuestType::DefeatMonster>& details) const
-  {
-    using Fields = h3json::FieldNames<std::remove_cvref_t<decltype(details)>>;
-    out.writeField(Fields::kAbsodId, details.absod_id);
-  }
-
-  template<>
-  void JsonObjectWriter<h3m::QuestDetails<h3m::QuestType::Artifacts>>::operator()(
-    FieldsWriter& out, const h3m::QuestDetails<h3m::QuestType::Artifacts>& details) const
-  {
-    using Fields = h3json::FieldNames<std::remove_cvref_t<decltype(details)>>;
-    out.writeField(Fields::kArtifacts, details.artifacts);
-  }
-
-  template<>
-  void JsonObjectWriter<h3m::QuestDetails<h3m::QuestType::Creatures>>::operator()(
-    FieldsWriter& out, const h3m::QuestDetails<h3m::QuestType::Creatures>& details) const
-  {
-    using Fields = h3json::FieldNames<std::remove_cvref_t<decltype(details)>>;
-    out.writeField(Fields::kCreatures, details.creatures);
-  }
-
-  template<>
-  void JsonObjectWriter<h3m::QuestDetails<h3m::QuestType::Resources>>::operator()(
-    FieldsWriter& out, const h3m::QuestDetails<h3m::QuestType::Resources>& details) const
-  {
-    using Fields = h3json::FieldNames<std::remove_cvref_t<decltype(details)>>;
-    out.writeField(Fields::kResources, details.resources);
-  }
-
-  template<>
-  void JsonObjectWriter<h3m::QuestDetails<h3m::QuestType::BeHero>>::operator()(
-    FieldsWriter& out, const h3m::QuestDetails<h3m::QuestType::BeHero>& details) const
-  {
-    using Fields = h3json::FieldNames<std::remove_cvref_t<decltype(details)>>;
-    out.writeField(Fields::kHero, details.hero);
-  }
-
-  template<>
-  void JsonObjectWriter<h3m::QuestDetails<h3m::QuestType::BePlayer>>::operator()(
-    FieldsWriter& out, const h3m::QuestDetails<h3m::QuestType::BePlayer>& details) const
-  {
-    using Fields = h3json::FieldNames<std::remove_cvref_t<decltype(details)>>;
-    out.writeField(Fields::kPlayer, details.player);
+    using Fields = h3json::FieldNames<QuestDetails<T>>;
+    if constexpr (T == QuestType::None)
+    {
+      // No fields.
+    }
+    else if constexpr (T == QuestType::Level)
+    {
+      out.writeField(Fields::kLevel, details.level);
+    }
+    else if constexpr (T == QuestType::PrimarySkills)
+    {
+      out.writeField(Fields::kSkills, details.skills);
+    }
+    else if constexpr (T == QuestType::DefeatHero)
+    {
+      out.writeField(Fields::kAbsodId, details.absod_id);
+    }
+    else if constexpr (T == QuestType::DefeatMonster)
+    {
+      out.writeField(Fields::kAbsodId, details.absod_id);
+    }
+    else if constexpr (T == QuestType::Artifacts)
+    {
+      out.writeField(Fields::kArtifacts, details.artifacts);
+    }
+    else if constexpr (T == QuestType::Creatures)
+    {
+      out.writeField(Fields::kCreatures, details.creatures);
+    }
+    else if constexpr (T == QuestType::Resources)
+    {
+      out.writeField(Fields::kResources, details.resources);
+    }
+    else if constexpr (T == QuestType::BeHero)
+    {
+      out.writeField(Fields::kHero, details.hero);
+    }
+    else if constexpr (T == QuestType::BePlayer)
+    {
+      out.writeField(Fields::kPlayer, details.player);
+    }
+    else
+    {
+      static_assert(false, "Invalid QuestType.");
+    }
   }
 
   template<>
@@ -106,9 +79,9 @@ namespace Medea_NS
   {
     using Fields = h3json::FieldNames<h3m::Quest>;
     out.writeField(Fields::kType, quest.type());
-    if (quest.type() != h3m::QuestType::None)
+    if (quest.type() != QuestType::None)
     {
-      std::visit([&out] <h3m::QuestType T> (const h3m::QuestDetails<T>& details)
+      std::visit([&out] <QuestType T> (const QuestDetails<T>& details)
                  { out.writeField(Fields::kDetails, details); },
                  quest.details);
       out.writeField(Fields::kDeadline, quest.deadline);

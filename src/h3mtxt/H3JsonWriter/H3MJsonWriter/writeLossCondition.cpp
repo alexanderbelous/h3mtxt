@@ -6,6 +6,9 @@
 #include <h3mtxt/Map/LossCondition.h>
 #include <h3mtxt/Medea/Medea.h>
 
+using ::h3m::LossConditionDetails;
+using ::h3m::LossConditionType;
+
 namespace Medea_NS
 {
   namespace
@@ -20,35 +23,29 @@ namespace Medea_NS
     }
   }
 
-  template<>
-  void JsonObjectWriter<h3m::LossConditionDetails<h3m::LossConditionType::LoseTown>>::operator()(
-    FieldsWriter& out, const h3m::LossConditionDetails<h3m::LossConditionType::LoseTown>& value) const
+  template<LossConditionType T>
+  void JsonObjectWriter<LossConditionDetails<T>>::operator()(FieldsWriter& out,
+                                                             const LossConditionDetails<T>& value) const
   {
-    using Fields = h3json::FieldNames<h3m::LossConditionDetails<h3m::LossConditionType::LoseTown>>;
-    out.writeField(Fields::kCoordinates, value.coordinates);
-  }
-
-  template<>
-  void JsonObjectWriter<h3m::LossConditionDetails<h3m::LossConditionType::LoseHero>>::operator()(
-    FieldsWriter& out, const h3m::LossConditionDetails<h3m::LossConditionType::LoseHero>& value) const
-  {
-    using Fields = h3json::FieldNames<h3m::LossConditionDetails<h3m::LossConditionType::LoseHero>>;
-    out.writeField(Fields::kCoordinates, value.coordinates);
-  }
-
-  template<>
-  void JsonObjectWriter<h3m::LossConditionDetails<h3m::LossConditionType::TimeExpires>>::operator()(
-    FieldsWriter& out, const h3m::LossConditionDetails<h3m::LossConditionType::TimeExpires>& value) const
-  {
-    using Fields = h3json::FieldNames<h3m::LossConditionDetails<h3m::LossConditionType::TimeExpires>>;
-    out.writeField(Fields::kDays, value.days);
-    out.writeComment(makeTimeExpiresComment(value.days), false);
-  }
-
-  template<>
-  void JsonObjectWriter<h3m::LossConditionDetails<h3m::LossConditionType::Normal>>::operator()(
-    FieldsWriter&, const h3m::LossConditionDetails<h3m::LossConditionType::Normal>&) const
-  {
+    using Fields = h3json::FieldNames<LossConditionDetails<T>>;
+    if constexpr (T == LossConditionType::LoseTown ||
+                  T == LossConditionType::LoseHero)
+    {
+      out.writeField(Fields::kCoordinates, value.coordinates);
+    }
+    else if constexpr (T == LossConditionType::TimeExpires)
+    {
+      out.writeField(Fields::kDays, value.days);
+      out.writeComment(makeTimeExpiresComment(value.days), false);
+    }
+    else if constexpr (T == LossConditionType::Normal)
+    {
+      // No fields.
+    }
+    else
+    {
+      static_assert(false, "Invalid LossConditionType.");
+    }
   }
 
   template<>
@@ -57,9 +54,9 @@ namespace Medea_NS
   {
     using Fields = h3json::FieldNames<h3m::LossCondition>;
     out.writeField(Fields::kType, loss_condition.type());
-    if (loss_condition.type() != h3m::LossConditionType::Normal)
+    if (loss_condition.type() != LossConditionType::Normal)
     {
-      std::visit([&out] <h3m::LossConditionType T> (const h3m::LossConditionDetails<T>& details)
+      std::visit([&out] <LossConditionType T> (const LossConditionDetails<T>& details)
                  { out.writeField(Fields::kDetails, details); },
                  loss_condition.details);
     }

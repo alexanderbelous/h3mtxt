@@ -10,100 +10,87 @@
 #include <limits>
 #include <type_traits>
 
+using ::h3m::StartingBonusDetails;
+using ::h3m::StartingBonusType;
+
 namespace Medea_NS
 {
   namespace
   {
-    std::string_view getStartingBonusHeroString(std::uint16_t hero) noexcept
+    // TODO: just define HeroType16 instead.
+    enum class CampaignHeroType16 : std::uint16_t
     {
-      constexpr std::uint16_t kMostPowerfulHero = 0xFFFDu;
-      constexpr std::uint16_t kGeneratedHero = 0xFFFEu;
-      switch (hero)
-      {
-      case kMostPowerfulHero:
-        return "(Most Powerful Hero)";
-      case kGeneratedHero:
-        return "(Generated Hero)";
-      default:
-        break;
-      }
-      if (hero > std::numeric_limits<std::underlying_type_t<h3m::HeroType>>::max())
-      {
-        return {};
-      }
-      return EnumCommentGetter{}(static_cast<h3m::HeroType>(hero));
-    }
+      MostPowerfulHero = static_cast<std::uint16_t>(-3),
+      GeneratedHero = static_cast<std::uint16_t>(-2)
+    };
+  }
 
-    void writeStaringBonusHeroField(FieldsWriter& out, std::uint16_t hero)
+  // Specialize EnumCommentGetter for CampaignHeroType16.
+  template<>
+  std::string_view EnumCommentGetter::operator()(CampaignHeroType16 hero) const
+  {
+    switch (hero)
     {
-      out.writeField("hero", hero);
-      if (std::string_view enum_str = getStartingBonusHeroString(hero); !enum_str.empty())
-      {
-        out.writeComment(enum_str, false);
-      }
+    case CampaignHeroType16::MostPowerfulHero:
+      return "(Most Powerful Hero)";
+    case CampaignHeroType16::GeneratedHero:
+      return "(Generated Hero)";
+    default:
+      break;
     }
+    if (static_cast<std::uint16_t>(hero) > std::numeric_limits<std::underlying_type_t<h3m::HeroType>>::max())
+    {
+      return {};
+    }
+    return (*this)(static_cast<h3m::HeroType>(hero));
   }
 
-  template<>
-  void JsonObjectWriter<h3m::StartingBonusDetails<h3m::StartingBonusType::Spell>>::operator()(
-    FieldsWriter& out, const h3m::StartingBonusDetails<h3m::StartingBonusType::Spell>& details) const
+  template<StartingBonusType T>
+  void JsonObjectWriter<StartingBonusDetails<T>>::operator()(FieldsWriter& out,
+                                                             const StartingBonusDetails<T>& details) const
   {
-    writeStaringBonusHeroField(out, details.hero);
-    out.writeField("spell", details.spell);
-  }
-
-  template<>
-  void JsonObjectWriter<h3m::StartingBonusDetails<h3m::StartingBonusType::Creature>>::operator()(
-    FieldsWriter& out, const h3m::StartingBonusDetails<h3m::StartingBonusType::Creature>& details) const
-  {
-    writeStaringBonusHeroField(out, details.hero);
-    out.writeField("creature_stack", details.creature_stack);
-  }
-
-  template<>
-  void JsonObjectWriter<h3m::StartingBonusDetails<h3m::StartingBonusType::Building>>::operator()(
-    FieldsWriter& out, const h3m::StartingBonusDetails<h3m::StartingBonusType::Building>& details) const
-  {
-    out.writeField("building", details.building);
-  }
-
-  template<>
-  void JsonObjectWriter<h3m::StartingBonusDetails<h3m::StartingBonusType::Artifact>>::operator()(
-    FieldsWriter& out, const h3m::StartingBonusDetails<h3m::StartingBonusType::Artifact>& details) const
-  {
-    writeStaringBonusHeroField(out, details.hero);
-    out.writeField("artifact", details.artifact);
-  }
-
-  template<>
-  void JsonObjectWriter<h3m::StartingBonusDetails<h3m::StartingBonusType::SpellScroll>>::operator()(
-    FieldsWriter& out, const h3m::StartingBonusDetails<h3m::StartingBonusType::SpellScroll>& details) const
-  {
-    writeStaringBonusHeroField(out, details.hero);
-    out.writeField("spell", details.spell);
-  }
-
-  template<>
-  void JsonObjectWriter<h3m::StartingBonusDetails<h3m::StartingBonusType::PrimarySkills>>::operator()(
-    FieldsWriter& out, const h3m::StartingBonusDetails<h3m::StartingBonusType::PrimarySkills>& details) const
-  {
-    writeStaringBonusHeroField(out, details.hero);
-    out.writeField("skills", details.skills);
-  }
-
-  template<>
-  void JsonObjectWriter<h3m::StartingBonusDetails<h3m::StartingBonusType::SecondarySkill>>::operator()(
-    FieldsWriter& out, const h3m::StartingBonusDetails<h3m::StartingBonusType::SecondarySkill>& details) const
-  {
-    writeStaringBonusHeroField(out, details.hero);
-    out.writeField("skill", details.skill);
-  }
-
-  template<>
-  void JsonObjectWriter<h3m::StartingBonusDetails<h3m::StartingBonusType::Resource>>::operator()(
-    FieldsWriter& out, const h3m::StartingBonusDetails<h3m::StartingBonusType::Resource>& details) const
-  {
-    out.writeField("resource", details.resource);
+    if constexpr (T == StartingBonusType::Spell)
+    {
+      out.writeField("hero", static_cast<CampaignHeroType16>(details.hero));
+      out.writeField("spell", details.spell);
+    }
+    else if constexpr (T == StartingBonusType::Creature)
+    {
+      out.writeField("hero", static_cast<CampaignHeroType16>(details.hero));
+      out.writeField("creature_stack", details.creature_stack);
+    }
+    else if constexpr (T == StartingBonusType::Building)
+    {
+      out.writeField("building", details.building);
+    }
+    else if constexpr (T == StartingBonusType::Artifact)
+    {
+      out.writeField("hero", static_cast<CampaignHeroType16>(details.hero));
+      out.writeField("artifact", details.artifact);
+    }
+    else if constexpr (T == StartingBonusType::SpellScroll)
+    {
+      out.writeField("hero", static_cast<CampaignHeroType16>(details.hero));
+      out.writeField("spell", details.spell);
+    }
+    else if constexpr (T == StartingBonusType::PrimarySkills)
+    {
+      out.writeField("hero", static_cast<CampaignHeroType16>(details.hero));
+      out.writeField("skills", details.skills);
+    }
+    else if constexpr (T == StartingBonusType::SecondarySkill)
+    {
+      out.writeField("hero", static_cast<CampaignHeroType16>(details.hero));
+      out.writeField("skill", details.skill);
+    }
+    else if constexpr (T == StartingBonusType::Resource)
+    {
+      out.writeField("resource", details.resource);
+    }
+    else
+    {
+      static_assert(false, "Invalid StartingBonusType.");
+    }
   }
 
   template<>
@@ -111,7 +98,7 @@ namespace Medea_NS
   {
     using Fields = h3json::FieldNames<h3m::StartingBonus>;
     out.writeField(Fields::kType, bonus.type());
-    std::visit([&out] <h3m::StartingBonusType T> (const h3m::StartingBonusDetails<T>& details)
+    std::visit([&out] <StartingBonusType T> (const StartingBonusDetails<T>& details)
                { out.writeField(Fields::kDetails, details); },
                bonus.details);
   }
