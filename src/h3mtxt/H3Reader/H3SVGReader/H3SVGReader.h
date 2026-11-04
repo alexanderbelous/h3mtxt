@@ -1,7 +1,6 @@
 #pragma once
 
 #include <h3mtxt/H3Reader/H3ReaderBase/H3ReaderBase.h>
-#include <h3mtxt/Map/Constants/RewardType.h>
 #include <h3mtxt/SavedGame/SavedGameFwd.h>
 #include <h3mtxt/SavedGame/FixedLengthString.h>
 
@@ -111,6 +110,8 @@ namespace h3svg
 
     Reward readReward() const;
 
+    // Defined in readReward.cpp.
+    // Template instantiations are provided for all valid RewardTypes.
     template<RewardType T>
     RewardDetails<T> readRewardDetails() const;
 
@@ -169,32 +170,4 @@ namespace h3svg
     readBytes(std::as_writable_bytes(str.buffer()));
     return str;
   }
-
-  template<RewardType T>
-  RewardDetails<T> H3SVGReader::readRewardDetails() const
-  {
-    static_assert(false, "Invalid RewardType.");
-  }
-
-  template<> RewardDetails<RewardType::None> H3SVGReader::readRewardDetails() const;
-
-  template<> RewardDetails<RewardType::Experience> H3SVGReader::readRewardDetails() const;
-
-  template<> RewardDetails<RewardType::SpellPoints> H3SVGReader::readRewardDetails() const;
-
-  template<> RewardDetails<RewardType::Morale> H3SVGReader::readRewardDetails() const;
-
-  template<> RewardDetails<RewardType::Luck> H3SVGReader::readRewardDetails() const;
-
-  template<> RewardDetails<RewardType::Resource> H3SVGReader::readRewardDetails() const;
-
-  template<> RewardDetails<RewardType::PrimarySkill> H3SVGReader::readRewardDetails() const;
-
-  template<> RewardDetails<RewardType::SecondarySkill> H3SVGReader::readRewardDetails() const;
-
-  template<> RewardDetails<RewardType::Artifact> H3SVGReader::readRewardDetails() const;
-
-  template<> RewardDetails<RewardType::Spell> H3SVGReader::readRewardDetails() const;
-
-  template<> RewardDetails<RewardType::Creatures> H3SVGReader::readRewardDetails() const;
 }
