@@ -5,93 +5,64 @@
 #include <h3mtxt/Map/Reward.h>
 #include <h3mtxt/Medea/Medea.h>
 
+using ::h3m::RewardDetails;
+using ::h3m::RewardType;
+
 namespace Medea_NS
 {
-  template<>
-  void JsonObjectWriter<h3m::RewardDetails<h3m::RewardType::None>>::operator()(
-    FieldsWriter&, const h3m::RewardDetails<h3m::RewardType::None>&) const
+  template<RewardType T>
+  void JsonObjectWriter<RewardDetails<T>>::operator()(FieldsWriter& out, const RewardDetails<T>& details) const
   {
-  }
-
-  template<>
-  void JsonObjectWriter<h3m::RewardDetails<h3m::RewardType::Experience>>::operator()(
-    FieldsWriter& out, const h3m::RewardDetails<h3m::RewardType::Experience>& details) const
-  {
-    using Fields = h3json::FieldNames<h3m::RewardDetails<h3m::RewardType::Experience>>;
-    out.writeField(Fields::kExperience, details.experience);
-  }
-
-  template<>
-  void JsonObjectWriter<h3m::RewardDetails<h3m::RewardType::SpellPoints>>::operator()(
-    FieldsWriter& out, const h3m::RewardDetails<h3m::RewardType::SpellPoints>& details) const
-  {
-    using Fields = h3json::FieldNames<h3m::RewardDetails<h3m::RewardType::SpellPoints>>;
-    out.writeField(Fields::kSpellPoints, details.spell_points);
-  }
-
-  template<>
-  void JsonObjectWriter<h3m::RewardDetails<h3m::RewardType::Morale>>::operator()(
-    FieldsWriter& out, const h3m::RewardDetails<h3m::RewardType::Morale>& details) const
-  {
-    using Fields = h3json::FieldNames<h3m::RewardDetails<h3m::RewardType::Morale>>;
-    out.writeField(Fields::kMorale, details.morale);
-  }
-
-  template<>
-  void JsonObjectWriter<h3m::RewardDetails<h3m::RewardType::Luck>>::operator()(
-    FieldsWriter& out, const h3m::RewardDetails<h3m::RewardType::Luck>& details) const
-  {
-    using Fields = h3json::FieldNames<h3m::RewardDetails<h3m::RewardType::Luck>>;
-    out.writeField(Fields::kLuck, details.luck);
-  }
-
-  template<>
-  void JsonObjectWriter<h3m::RewardDetails<h3m::RewardType::Resource>>::operator()(
-    FieldsWriter& out, const h3m::RewardDetails<h3m::RewardType::Resource>& details) const
-  {
-    using Fields = h3json::FieldNames<h3m::RewardDetails<h3m::RewardType::Resource>>;
-    out.writeField(Fields::kResource, details.resource);
-  }
-
-  template<>
-  void JsonObjectWriter<h3m::RewardDetails<h3m::RewardType::PrimarySkill>>::operator()(
-    FieldsWriter& out, const h3m::RewardDetails<h3m::RewardType::PrimarySkill>& details) const
-  {
-    using Fields = h3json::FieldNames<h3m::RewardDetails<h3m::RewardType::PrimarySkill>>;
-    out.writeField(Fields::kType, details.type);
-    out.writeField(Fields::kValue, details.value);
-  }
-
-  template<>
-  void JsonObjectWriter<h3m::RewardDetails<h3m::RewardType::SecondarySkill>>::operator()(
-    FieldsWriter& out, const h3m::RewardDetails<h3m::RewardType::SecondarySkill>& details) const
-  {
-    using Fields = h3json::FieldNames<h3m::RewardDetails<h3m::RewardType::SecondarySkill>>;
-    out.writeField(Fields::kSecondarySkill, details.secondary_skill);
-  }
-
-  template<>
-  void JsonObjectWriter<h3m::RewardDetails<h3m::RewardType::Artifact>>::operator()(
-    FieldsWriter& out, const h3m::RewardDetails<h3m::RewardType::Artifact>& details) const
-  {
-    using Fields = h3json::FieldNames<h3m::RewardDetails<h3m::RewardType::Artifact>>;
-    out.writeField(Fields::kArtifact, details.artifact);
-  }
-
-  template<>
-  void JsonObjectWriter<h3m::RewardDetails<h3m::RewardType::Spell>>::operator()(
-    FieldsWriter& out, const h3m::RewardDetails<h3m::RewardType::Spell>& details) const
-  {
-    using Fields = h3json::FieldNames<h3m::RewardDetails<h3m::RewardType::Spell>>;
-    out.writeField(Fields::kSpell, details.spell);
-  }
-
-  template<>
-  void JsonObjectWriter<h3m::RewardDetails<h3m::RewardType::Creatures>>::operator()(
-    FieldsWriter& out, const h3m::RewardDetails<h3m::RewardType::Creatures>& details) const
-  {
-    using Fields = h3json::FieldNames<h3m::RewardDetails<h3m::RewardType::Creatures>>;
-    out.writeField(Fields::kCreatures, details.creatures);
+    using Fields = h3json::FieldNames<RewardDetails<T>>;
+    if constexpr (T == RewardType::None)
+    {
+      // No fields.
+    }
+    else if constexpr (T == RewardType::Experience)
+    {
+      out.writeField(Fields::kExperience, details.experience);
+    }
+    else if constexpr (T == RewardType::SpellPoints)
+    {
+      out.writeField(Fields::kSpellPoints, details.spell_points);
+    }
+    else if constexpr (T == RewardType::Morale)
+    {
+      out.writeField(Fields::kMorale, details.morale);
+    }
+    else if constexpr (T == RewardType::Luck)
+    {
+      out.writeField(Fields::kLuck, details.luck);
+    }
+    else if constexpr (T == RewardType::Resource)
+    {
+      out.writeField(Fields::kResource, details.resource);
+    }
+    else if constexpr (T == RewardType::PrimarySkill)
+    {
+      out.writeField(Fields::kType, details.type);
+      out.writeField(Fields::kValue, details.value);
+    }
+    else if constexpr (T == RewardType::SecondarySkill)
+    {
+      out.writeField(Fields::kSecondarySkill, details.secondary_skill);
+    }
+    else if constexpr (T == RewardType::Artifact)
+    {
+      out.writeField(Fields::kArtifact, details.artifact);
+    }
+    else if constexpr (T == RewardType::Spell)
+    {
+      out.writeField(Fields::kSpell, details.spell);
+    }
+    else if constexpr (T == RewardType::Creatures)
+    {
+      out.writeField(Fields::kCreatures, details.creatures);
+    }
+    else
+    {
+      static_assert(false, "Invalid RewardType.");
+    }
   }
 
   template<>
@@ -99,9 +70,9 @@ namespace Medea_NS
   {
     using Fields = h3json::FieldNames<h3m::Reward>;
     out.writeField(Fields::kType, reward.type());
-    if (reward.type() != h3m::RewardType::None)
+    if (reward.type() != RewardType::None)
     {
-      std::visit([&out] <h3m::RewardType T> (const h3m::RewardDetails<T>& details)
+      std::visit([&out] <RewardType T> (const RewardDetails<T>& details)
                  { out.writeField(Fields::kDetails, details); },
                  reward.details);
     }

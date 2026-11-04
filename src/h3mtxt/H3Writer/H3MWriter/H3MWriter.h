@@ -115,7 +115,7 @@ namespace h3m
     void writeData(const VictoryCondition& victory_condition) const;
 
     // Defined in writeVictoryCondition.cpp.
-    // Explicit instantiations are provided for all valid VictoryConditionTypes.
+    // Template instantiations are provided for all valid VictoryConditionTypes.
     template<VictoryConditionType T>
     void writeData(const VictoryConditionDetails<T>& details) const;
 
