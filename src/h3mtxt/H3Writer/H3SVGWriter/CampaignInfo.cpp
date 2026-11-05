@@ -15,16 +15,13 @@ namespace h3svg
     writeData(campaign_info.starting_bonus_idx);
     writeString32(campaign_info.filename);
     writeData(campaign_info.finished_campaigns);
-    writeData(safeCastVectorSize<std::uint8_t>(campaign_info.regions.size()));
-    writeSpan(std::span{ campaign_info.regions });
-    writeData(safeCastVectorSize<std::uint8_t>(campaign_info.crossover_info.size()));
-    writeSpan(std::span{ campaign_info.crossover_info });
+    writeVector<std::uint8_t>(std::span{ campaign_info.regions });
+    writeVector<std::uint8_t>(std::span{ campaign_info.crossover_info });
   }
 
   void H3SVGWriter::writeData(const CrossoverInfo& crossover_info) const
   {
-    writeData(safeCastVectorSize<std::uint8_t>(crossover_info.crossover_heroes.size()));
-    writeSpan(std::span{ crossover_info.crossover_heroes });
+    writeVector<std::uint8_t>(std::span{ crossover_info.crossover_heroes });
     writeData(safeCastVectorSize<std::uint16_t>(crossover_info.unknown.size()));
     for (const CrossoverInfo::UnknownPair& unknown_pair : crossover_info.unknown)
     {

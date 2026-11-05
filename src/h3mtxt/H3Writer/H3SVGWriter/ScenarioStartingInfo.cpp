@@ -18,7 +18,6 @@ namespace h3svg
     writeData(starting_info.starting_heroes);
     writeData(starting_info.starting_bonuses);
     writeData(starting_info.campaign_info);
-    writeData(safeCastVectorSize<std::uint8_t>(starting_info.placeholder_heroes.size()));
-    writeSpan(std::span{ starting_info.placeholder_heroes });
+    writeVector<std::uint8_t>(std::span{ starting_info.placeholder_heroes });
   }
 }
