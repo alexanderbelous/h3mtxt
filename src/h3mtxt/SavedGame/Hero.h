@@ -19,6 +19,7 @@
 #include <h3mtxt/SavedGame/Constants/CompassPoint.h>
 #include <h3mtxt/SavedGame/Constants/FormationFlag.h>
 #include <h3mtxt/SavedGame/Constants/HeroFlag.h>
+#include <h3mtxt/SavedGame/Constants/HeroVisitableObjectType.h>
 #include <h3mtxt/SavedGame/CoordinatesPacked.h>
 #include <h3mtxt/SavedGame/FixedLengthString.h>
 #include <h3mtxt/SavedGame/ObjectPropertiesVariant.h>
@@ -140,26 +141,12 @@ namespace h3svg
     // will be computed from the experience points.
     std::int16_t level = 1;
     std::array<std::uint8_t, 2> unknown3 {};
-    // 1 bit per Learning Stone, indicating if the hero has visited it.
-    BitSet<4> learning_stones;
-    // 1 bit per Marletto Tower, indicating if the hero has visited it.
-    BitSet<4> marletto_towers;
-    // 1 bit per Garden of Revelation, indicating if the hero has visited it.
-    BitSet<4> gardens_of_revelation;
-    // 1 bit per Mercenary Camp, indicating if the hero has visited it.
-    BitSet<4> mercenary_camps;
-    // 1 bit per Star Axis, indicating if the hero has visited it.
-    BitSet<4> star_axes;
-    // 1 bit per Tree of Knowledge, indicating if the hero has visited it.
-    BitSet<4> trees_of_knowledge;
-    // 1 bit per Library of Enlighenment, indicating if the hero has visited it.
-    BitSet<4> libraries_of_enlightenment;
-    // 1 bit per Arena, indicating if the hero has visited it.
-    BitSet<4> arenas;
-    // 1 bit per School of Magic, indicating if the hero has visited it.
-    BitSet<4> schools_of_magic;
-    // 1 bit per School of War, indicating if the hero has visited it.
-    BitSet<4> schools_of_war;
+    // 10 bitmasks - 1 for each HeroVisitableObjectType - indicating whether this hero has visited
+    // a particular Adventure Map object.
+    // * For example, visited_objects[HeroVisitableObjectType::TreesOfKnowledge][5] indicates
+    //   whether the hero has visited the Tree of Knowledge whose index = 5
+    //   (see ObjectProperties<ObjectPropertiesType::TreeOfKnowledge>).
+    EnumIndexedArray<HeroVisitableObjectType, BitSet<4>, 10> visited_objects;
     ReservedData<16> reserved;
     // Bitmask; 32 bits, whose meaning is described by enum HeroFlag.
     HeroFlags flags;

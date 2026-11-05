@@ -11,7 +11,7 @@
 #include <h3mtxt/Map/MapBasicInfo.h>
 #include <h3mtxt/SavedGame/Constants/CartographerType.h>
 #include <h3mtxt/SavedGame/Constants/KeymastersTentType.h>
-#include <h3mtxt/SavedGame/Constants/VisitableObjectType.h>
+#include <h3mtxt/SavedGame/Constants/PlayerVisitableObjectType.h>
 #include <h3mtxt/SavedGame/ArtifactMerchants.h>
 #include <h3mtxt/SavedGame/CreatureBank.h>
 #include <h3mtxt/SavedGame/Date.h>
@@ -155,9 +155,9 @@ namespace h3svg
     // * Always 0s?
     std::array<std::uint8_t, 32> unknown6 {};
     ArtifactMerchants artifact_merchants;
-    // 1 PlayersBitmask per VisitableObjectType, indicating which players have visited an object of this type.
+    // 1 PlayersBitmask per PlayerVisitableObjectType, indicating which players have visited an object of this type.
     // This is used in the game to determine whether to show the description when hovering over an object of this type.
-    EnumIndexedArray<VisitableObjectType, PlayersBitmask, 32> visited_objects;
+    EnumIndexedArray<PlayerVisitableObjectType, PlayersBitmask, 32> visited_objects;
     // 8 bitmasks - 1 for each Keymaster's Tent type - indicating which players have visited that Keymaster's Tent.
     EnumIndexedArray<KeymastersTentType, PlayersBitmask, kNumKeymastersTentTypes> keymasters_tents;
     // 3 bitmasks - 1 for each Cartographer type - indicating which TerrainTypes are revealed by this Cartographer.

@@ -7,7 +7,7 @@
 namespace h3svg
 {
   // Enum type used to index the elements of h3svg::SavedGame::visited_objects.
-  enum class VisitableObjectType : std::uint8_t
+  enum class PlayerVisitableObjectType : std::uint8_t
   {
     Buoy                     =  0,
     SwanPond                 =  1,

@@ -52,16 +52,7 @@ namespace h3json
     readField(Fields::kSpellPoints, hero.spell_points);
     readField(Fields::kLevel, hero.level);
     readField(Fields::kUnknown3, hero.unknown3);
-    readField(Fields::kLearningStones, hero.learning_stones);
-    readField(Fields::kMarlettoTowers, hero.marletto_towers);
-    readField(Fields::kGardensOfRevelation, hero.gardens_of_revelation);
-    readField(Fields::kMercenaryCamps, hero.mercenary_camps);
-    readField(Fields::kStarAxes, hero.star_axes);
-    readField(Fields::kTreesOfKnowledge, hero.trees_of_knowledge);
-    readField(Fields::kLibrariesOfEnlightenment, hero.libraries_of_enlightenment);
-    readField(Fields::kArenas, hero.arenas);
-    readField(Fields::kSchoolsOfMagic, hero.schools_of_magic);
-    readField(Fields::kSchoolsOfWar, hero.schools_of_war);
+    readField(Fields::kVisitedObjects, hero.visited_objects);
     readField(Fields::kReserved, hero.reserved);
     readField(Fields::kFlags, hero.flags);
     readField(Fields::kArmy, hero.army);

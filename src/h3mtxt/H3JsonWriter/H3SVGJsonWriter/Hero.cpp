@@ -92,16 +92,7 @@ namespace Medea_NS
     out.writeField(Fields::kSpellPoints, hero.spell_points);
     out.writeField(Fields::kLevel, hero.level);
     out.writeField(Fields::kUnknown3, hero.unknown3);
-    out.writeField(Fields::kLearningStones, hero.learning_stones);
-    out.writeField(Fields::kMarlettoTowers, hero.marletto_towers);
-    out.writeField(Fields::kGardensOfRevelation, hero.gardens_of_revelation);
-    out.writeField(Fields::kMercenaryCamps, hero.mercenary_camps);
-    out.writeField(Fields::kStarAxes, hero.star_axes);
-    out.writeField(Fields::kTreesOfKnowledge, hero.trees_of_knowledge);
-    out.writeField(Fields::kLibrariesOfEnlightenment, hero.libraries_of_enlightenment);
-    out.writeField(Fields::kArenas, hero.arenas);
-    out.writeField(Fields::kSchoolsOfMagic, hero.schools_of_magic);
-    out.writeField(Fields::kSchoolsOfWar, hero.schools_of_war);
+    out.writeField(Fields::kVisitedObjects, hero.visited_objects);
     out.writeField(Fields::kReserved, hero.reserved);
     out.writeField(Fields::kFlags, hero.flags);
     out.writeField(Fields::kArmy, hero.army);

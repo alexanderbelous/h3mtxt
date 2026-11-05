@@ -74,16 +74,10 @@ namespace h3svg
     hero.spell_points = readInt<std::int16_t>();
     hero.level = readInt<std::int16_t>();
     hero.unknown3 = readByteArray<2>();
-    hero.learning_stones = readBitSet<4>();
-    hero.marletto_towers = readBitSet<4>();
-    hero.gardens_of_revelation = readBitSet<4>();
-    hero.mercenary_camps = readBitSet<4>();
-    hero.star_axes = readBitSet<4>();
-    hero.trees_of_knowledge = readBitSet<4>();
-    hero.libraries_of_enlightenment = readBitSet<4>();
-    hero.arenas = readBitSet<4>();
-    hero.schools_of_magic = readBitSet<4>();
-    hero.schools_of_war = readBitSet<4>();
+    for (BitSet<4>& bitmask : hero.visited_objects.data)
+    {
+      bitmask = readBitSet<4>();
+    }
     hero.reserved = readReservedData<16>();
     hero.flags = readEnumBitmask<HeroFlag, 4>();
     hero.army = readTroops();

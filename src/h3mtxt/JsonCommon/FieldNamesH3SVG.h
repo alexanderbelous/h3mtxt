@@ -117,6 +117,21 @@ namespace h3json
   };
 
   template<>
+  inline constexpr std::array<std::string_view, 10> kEnumFieldNames<h3svg::HeroVisitableObjectType> =
+  {
+    "learning_stones",
+    "marletto_towers",
+    "gardens_of_revelation",
+    "mercenary_camps",
+    "star_axes",
+    "trees_of_knowledge",
+    "libraries_of_enlightenment",
+    "arenas",
+    "schools_of_magic",
+    "schools_of_war"
+  };
+
+  template<>
   inline constexpr std::array<std::string_view, 8> kEnumFieldNames<h3svg::KeymastersTentType> =
   {
     "light_blue",
@@ -204,7 +219,7 @@ namespace h3json
   };
 
   template<>
-  inline constexpr std::array<std::string_view, 32> kEnumFieldNames<h3svg::VisitableObjectType> =
+  inline constexpr std::array<std::string_view, 32> kEnumFieldNames<h3svg::PlayerVisitableObjectType> =
   {
     "buoy",
     "swan_pond",
@@ -402,16 +417,7 @@ namespace h3json
     static constexpr std::string_view kSpellPoints = "spell_points";
     static constexpr std::string_view kLevel = "level";
     static constexpr std::string_view kUnknown3 = "unknown3";
-    static constexpr std::string_view kLearningStones = "learning_stones";
-    static constexpr std::string_view kMarlettoTowers = "marletto_towers";
-    static constexpr std::string_view kGardensOfRevelation = "gardens_of_revelation";
-    static constexpr std::string_view kMercenaryCamps = "mercenary_camps";
-    static constexpr std::string_view kStarAxes = "star_axes";
-    static constexpr std::string_view kTreesOfKnowledge = "trees_of_knowledge";
-    static constexpr std::string_view kLibrariesOfEnlightenment = "libraries_of_enlightenment";
-    static constexpr std::string_view kArenas = "arenas";
-    static constexpr std::string_view kSchoolsOfMagic = "schools_of_magic";
-    static constexpr std::string_view kSchoolsOfWar = "schools_of_war";
+    static constexpr std::string_view kVisitedObjects = "visited_objects";
     static constexpr std::string_view kReserved = "reserved";
     static constexpr std::string_view kFlags = "flags";
     static constexpr std::string_view kArmy = "army";

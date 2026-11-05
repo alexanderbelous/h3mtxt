@@ -48,16 +48,7 @@ namespace h3svg
     writeData(hero.spell_points);
     writeData(hero.level);
     writeData(hero.unknown3);
-    writeData(hero.learning_stones);
-    writeData(hero.marletto_towers);
-    writeData(hero.gardens_of_revelation);
-    writeData(hero.mercenary_camps);
-    writeData(hero.star_axes);
-    writeData(hero.trees_of_knowledge);
-    writeData(hero.libraries_of_enlightenment);
-    writeData(hero.arenas);
-    writeData(hero.schools_of_magic);
-    writeData(hero.schools_of_war);
+    writeData(hero.visited_objects);
     writeData(hero.reserved);
     writeData(hero.flags);
     writeData(hero.army);

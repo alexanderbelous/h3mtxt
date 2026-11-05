@@ -97,6 +97,8 @@ namespace h3svg
 
   enum class HeroType32 : std::int32_t;
 
+  enum class HeroVisitableObjectType : std::uint8_t;
+
   enum class KeymastersTentType : std::uint8_t;
 
   enum class ObjectClass8 : std::uint8_t;
@@ -140,7 +142,7 @@ namespace h3svg
 
   enum class TownType32 : std::int32_t;
 
-  enum class VisitableObjectType : std::uint8_t;
+  enum class PlayerVisitableObjectType : std::uint8_t;
 
   using FormationFlags = EnumBitmask<FormationFlag, 1>;
 

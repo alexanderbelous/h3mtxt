@@ -191,7 +191,7 @@ namespace h3svg
     saved_game.unknown6 = readByteArray<32>();
     // Read Artifact Merchants.
     saved_game.artifact_merchants = readArtifactMerchants();
-    // Read 32 bytes - 1 PlayersBitmask per VisitableObjectType,
+    // Read 32 bytes - 1 PlayersBitmask per PlayerVisitableObjectType,
     // indicating which players have visited an object of this type.
     for (PlayersBitmask& bitmask : saved_game.visited_objects.data)
     {

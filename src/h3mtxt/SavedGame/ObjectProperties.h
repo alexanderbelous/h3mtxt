@@ -307,7 +307,7 @@ namespace h3svg
     constexpr bool operator==(const ObjectProperties&) const noexcept = default;
 
     PlayersBitmask visited_by;                                // Bits [5; 12]
-    // 0-based index of the element in Hero::trees_of_knowledge.
+    // 0-based index of the element in Hero::visited_objects[HeroVisitableObjectType::TreesOfKnowledge].
     std::uint8_t index : 5 = {};                              // Bits [0; 4]
     TreeOfKnowledgeType type : 2 = TreeOfKnowledgeType::Free; // Bits [13; 14]
     std::uint8_t reserved1 : 1 = 0;                           // Bits [15; 15]
