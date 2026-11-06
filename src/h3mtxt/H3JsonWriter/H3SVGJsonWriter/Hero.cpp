@@ -23,6 +23,19 @@ namespace Medea_NS
   }
 
   template<>
+  void JsonObjectWriter<h3svg::HeroActiveSpells>::operator()(FieldsWriter& out,
+                                                             const h3svg::HeroActiveSpells& spells) const
+  {
+    using Fields = h3json::FieldNames<h3svg::HeroActiveSpells>;
+
+    out.writeField(Fields::kDisguiseLevel, spells.disguise_level);
+    out.writeField(Fields::kFlyLevel, spells.fly_level);
+    out.writeField(Fields::kWaterWalkLevel, spells.water_walk_level);
+    out.writeField(Fields::kNumDimensionDoorCasts, spells.num_dimension_door_casts);
+    out.writeField(Fields::kVisionsLevel, spells.visions_level);
+  }
+
+  template<>
   void JsonObjectWriter<h3svg::HeroArtifact>::operator()(FieldsWriter& out, const h3svg::HeroArtifact& artifact) const
   {
     using Fields = h3json::FieldNames<h3svg::HeroArtifact>;
@@ -67,11 +80,7 @@ namespace Medea_NS
     out.writeField(Fields::kTempMorale, hero.temp_morale);
     out.writeField(Fields::kTempLuck, hero.temp_luck);
     out.writeField(Fields::kBackpackCount, hero.backpack_count);
-    out.writeField(Fields::kDisguiseLevel, hero.disguise_level);
-    out.writeField(Fields::kFlyLevel, hero.fly_level);
-    out.writeField(Fields::kWaterWalkLevel, hero.water_walk_level);
-    out.writeField(Fields::kNumDimensionDoorCasts, hero.num_dimension_door_casts);
-    out.writeField(Fields::kVisionsLevel, hero.visions_level);
+    out.writeField(Fields::kActiveSpells, hero.active_spells);
     out.writeField(Fields::kType, hero.type);
     out.writeField(Fields::kHeroClass, hero.hero_class);
     out.writeField(Fields::kPortrait, hero.portrait);

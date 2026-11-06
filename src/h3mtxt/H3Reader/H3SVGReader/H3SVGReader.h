@@ -46,6 +46,8 @@ namespace h3svg
 
     Hero readHero() const;
 
+    HeroActiveSpells readHeroActiveSpells() const;
+
     HeroArtifact readHeroArtifact() const;
 
     HeroArtifacts readHeroArtifacts() const;

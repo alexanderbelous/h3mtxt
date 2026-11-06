@@ -55,6 +55,9 @@ namespace h3json
   h3svg::Hero JsonReader2<h3svg::Hero>::operator()() const;
 
   template<>
+  h3svg::HeroActiveSpells JsonReader2<h3svg::HeroActiveSpells>::operator()() const;
+
+  template<>
   h3svg::HeroArtifact JsonReader2<h3svg::HeroArtifact>::operator()() const;
 
   template<>

@@ -63,6 +63,8 @@ namespace h3svg
 
     void writeData(const Hero& hero) const;
 
+    void writeData(const HeroActiveSpells& spells) const;
+
     void writeData(const HeroArtifact& artifact) const;
 
     void writeData(const HeroArtifacts& artifacts) const;

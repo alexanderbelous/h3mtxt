@@ -392,11 +392,7 @@ namespace h3json
     static constexpr std::string_view kTempMorale = "temp_morale";
     static constexpr std::string_view kTempLuck = "temp_luck";
     static constexpr std::string_view kBackpackCount = "backpack_count";
-    static constexpr std::string_view kDisguiseLevel = "disguise_level";
-    static constexpr std::string_view kFlyLevel = "fly_level";
-    static constexpr std::string_view kWaterWalkLevel = "water_walk_level";
-    static constexpr std::string_view kNumDimensionDoorCasts = "num_dimension_door_casts";
-    static constexpr std::string_view kVisionsLevel = "visions_level";
+    static constexpr std::string_view kActiveSpells = "active_spells";
     static constexpr std::string_view kType = "type";
     static constexpr std::string_view kHeroClass = "hero_class";
     static constexpr std::string_view kPortrait = "portrait";
@@ -430,6 +426,17 @@ namespace h3json
     static constexpr std::string_view kArtifacts = "artifacts";
     static constexpr std::string_view kIsSleeping = "is_sleeping";
     static constexpr std::string_view kVisitedTowns = "visited_towns";
+  };
+
+  template<>
+  struct FieldNames<h3svg::HeroActiveSpells>
+  {
+    static constexpr std::string_view kDisguiseLevel = "disguise_level";
+    static constexpr std::string_view kFlyLevel = "fly_level";
+    static constexpr std::string_view kWaterWalkLevel = "water_walk_level";
+    static constexpr std::string_view kNumDimensionDoorCasts = "num_dimension_door_casts";
+    static constexpr std::string_view kVisionsLevel = "visions_level";
+
   };
 
   template<>

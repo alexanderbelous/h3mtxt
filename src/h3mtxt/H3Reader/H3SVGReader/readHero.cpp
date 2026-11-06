@@ -3,6 +3,17 @@
 
 namespace h3svg
 {
+  HeroActiveSpells H3SVGReader::readHeroActiveSpells() const
+  {
+    HeroActiveSpells spells;
+    spells.disguise_level = readInt<std::int8_t>();
+    spells.fly_level = readInt<std::int8_t>();
+    spells.water_walk_level = readInt<std::int8_t>();
+    spells.num_dimension_door_casts = readInt<std::uint8_t>();
+    spells.visions_level = readInt<std::int8_t>();
+    return spells;
+  }
+
   HeroArtifact H3SVGReader::readHeroArtifact() const
   {
     HeroArtifact artifact;
@@ -49,11 +60,7 @@ namespace h3svg
     hero.temp_morale = readInt<std::int8_t>();
     hero.temp_luck = readInt<std::int8_t>();
     hero.backpack_count = readInt<std::uint8_t>();
-    hero.disguise_level = readInt<std::int8_t>();
-    hero.fly_level = readInt<std::int8_t>();
-    hero.water_walk_level = readInt<std::int8_t>();
-    hero.num_dimension_door_casts = readInt<std::uint8_t>();
-    hero.visions_level = readInt<std::int8_t>();
+    hero.active_spells = readHeroActiveSpells();
     hero.type = readEnum<HeroType>();
     hero.hero_class = readEnum<HeroClass>();
     hero.portrait = readEnum<HeroPortrait>();

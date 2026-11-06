@@ -27,11 +27,7 @@ namespace h3json
     readField(Fields::kTempMorale, hero.temp_morale);
     readField(Fields::kTempLuck, hero.temp_luck);
     readField(Fields::kBackpackCount, hero.backpack_count);
-    readField(Fields::kDisguiseLevel, hero.disguise_level);
-    readField(Fields::kFlyLevel, hero.fly_level);
-    readField(Fields::kWaterWalkLevel, hero.water_walk_level);
-    readField(Fields::kNumDimensionDoorCasts, hero.num_dimension_door_casts);
-    readField(Fields::kVisionsLevel, hero.visions_level);
+    readField(Fields::kActiveSpells, hero.active_spells);
     readField(Fields::kType, hero.type);
     readField(Fields::kHeroClass, hero.hero_class);
     readField(Fields::kPortrait, hero.portrait);
@@ -66,6 +62,19 @@ namespace h3json
     readField(Fields::kIsSleeping, hero.is_sleeping);
     readField(Fields::kVisitedTowns, hero.visited_towns);
     return hero;
+  }
+
+  template<>
+  h3svg::HeroActiveSpells JsonReader2<h3svg::HeroActiveSpells>::operator()() const
+  {
+    using Fields = h3json::FieldNames<h3svg::HeroActiveSpells>;
+    h3svg::HeroActiveSpells spells;
+    readField(Fields::kDisguiseLevel, spells.disguise_level);
+    readField(Fields::kFlyLevel, spells.fly_level);
+    readField(Fields::kWaterWalkLevel, spells.water_walk_level);
+    readField(Fields::kNumDimensionDoorCasts, spells.num_dimension_door_casts);
+    readField(Fields::kVisionsLevel, spells.visions_level);
+    return spells;
   }
 
   template<>

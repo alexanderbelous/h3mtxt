@@ -31,6 +31,23 @@
 
 namespace h3svg
 {
+  // Represents Adventure Map spells currently cast by the hero.
+  struct HeroActiveSpells
+  {
+    constexpr bool operator==(const HeroActiveSpells&) const noexcept = default;
+
+    // (Air Magic skill) Level at which Disguise was cast, or -1 if it hasn't been cast.
+    std::int8_t disguise_level = -1;
+    // (Air Magic skill) Level at which Fly was cast, or -1 if it hasn't been cast.
+    std::int8_t fly_level = -1;
+    // (Water Magic skill) Level at which Water Walk was cast, or -1 if it hasn't been cast.
+    std::int8_t water_walk_level = -1;
+    // The number of times Dimension Door was cast.
+    std::uint8_t num_dimension_door_casts = 0;
+    // Level at which Visions was cast, or -1 if it hasn't been cast.
+    std::int8_t visions_level = -1;
+  };
+
   // Artifact equipped on the hero or stored in the backpack.
   struct HeroArtifact
   {
@@ -86,16 +103,8 @@ namespace h3svg
     std::int8_t temp_luck = 0;
     // The number of artifacts in the backpack.
     std::uint8_t backpack_count = 0;
-    // (Air Magic skill) Level at which Disguise was cast, or -1 if it hasn't been cast.
-    std::int8_t disguise_level = -1;
-    // (Air Magic skill) Level at which Fly was cast, or -1 if it hasn't been cast.
-    std::int8_t fly_level = -1;
-    // (Water Magic skill) Level at which Water Walk was cast, or -1 if it hasn't been cast.
-    std::int8_t water_walk_level = -1;
-    // The number of times Dimension Door was cast.
-    std::uint8_t num_dimension_door_casts = 0;
-    // Level at which Visions was cast, or -1 if it hasn't been cast.
-    std::int8_t visions_level = -1;
+    // Adventure Map spells currently cast by the hero.
+    HeroActiveSpells active_spells;
     HeroType type {};
     HeroClass hero_class {};
     HeroPortrait portrait {};

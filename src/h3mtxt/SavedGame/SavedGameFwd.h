@@ -179,6 +179,8 @@ namespace h3svg
 
   struct Hero;
 
+  struct HeroActiveSpells;
+
   struct HeroArtifact;
 
   struct HeroArtifacts;

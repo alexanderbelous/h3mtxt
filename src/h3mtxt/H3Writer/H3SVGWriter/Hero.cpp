@@ -23,11 +23,7 @@ namespace h3svg
     writeData(hero.temp_morale);
     writeData(hero.temp_luck);
     writeData(hero.backpack_count);
-    writeData(hero.disguise_level);
-    writeData(hero.fly_level);
-    writeData(hero.water_walk_level);
-    writeData(hero.num_dimension_door_casts);
-    writeData(hero.visions_level);
+    writeData(hero.active_spells);
     writeData(hero.type);
     writeData(hero.hero_class);
     writeData(hero.portrait);
@@ -61,6 +57,15 @@ namespace h3svg
     writeData(hero.artifacts);
     writeData(hero.is_sleeping);
     writeData(hero.visited_towns);
+  }
+
+  void H3SVGWriter::writeData(const HeroActiveSpells& spells) const
+  {
+    writeData(spells.disguise_level);
+    writeData(spells.fly_level);
+    writeData(spells.water_walk_level);
+    writeData(spells.num_dimension_door_casts);
+    writeData(spells.visions_level);
   }
 
   void H3SVGWriter::writeData(const HeroArtifact& artifact) const
