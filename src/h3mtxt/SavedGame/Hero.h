@@ -66,8 +66,11 @@ namespace h3svg
   {
     constexpr bool operator==(const HeroArtifacts&) const noexcept = default;
 
+    // The maximum number of artifacts in the backpack.
+    static constexpr std::size_t kBackpackSize = 64;
+
     EnumIndexedArray<ArtifactSlot, HeroArtifact, h3m::kNumArtifactSlots> equipped;
-    std::array<HeroArtifact, 64> backpack;
+    std::array<HeroArtifact, kBackpackSize> backpack;
     // TODO: figure out what this is.
     std::uint8_t unknown {};
     // 14 bytes: The number of locks from combination artifacts for each ArtifactSlotGroup.
@@ -77,6 +80,13 @@ namespace h3svg
   struct Hero
   {
     bool operator==(const Hero&) const noexcept = default;
+
+    // The default value for Hero::formation_flags: Loose combat formation, Tactics enabled.
+    static constexpr FormationFlags kDefaultFormationFlags = []() consteval {
+      FormationFlags result;
+      result.set(FormationFlag::Tactics, true);
+      return result;
+    }();
 
     std::int16_t x = -1;
     std::int16_t y = -1;
@@ -91,7 +101,7 @@ namespace h3svg
     ObjectPropertiesVariant object_under;
     Bool is_female {};
     // If 0, the default biography will be displayed for this hero, otherwise the custom one (i.e. Hero::biography).
-    Bool use_custom_biography {};
+    Bool use_custom_biography = false;
     // String length is 32-bit.
     std::string biography;
     PlayerColor owner = PlayerColor::None;
@@ -115,14 +125,7 @@ namespace h3svg
     // Orientation of the hero on the Adventure Map.
     CompassPoint orientation = CompassPoint::East;
     // Bitmask storing the formation flags.
-    // Only the 2 least significant bits are meaningful:
-    // * Bit 0 defines army combat formation (0 - Loose, 1 - Tight).
-    // * Bit 1 defines Tactics formation (0 - Disabled, 1 - Enabled).
-    FormationFlags formation_flags = []() consteval {
-                                       FormationFlags result;
-                                       result.set(FormationFlag::Tactics, true);
-                                       return result;
-                                     }();
+    FormationFlags formation_flags = kDefaultFormationFlags;
     // Initial seed for the PRNG that controls the primary/secondary skills offered on level-up.
     std::uint8_t seed = 0xFF;
     // TODO: figure out what this is.
