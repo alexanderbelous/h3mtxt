@@ -25,7 +25,9 @@ namespace h3svg
     boat.z = readInt<std::uint16_t>();
     boat.is_visible = readBool();
     boat.coordinates_packed = readCoordinatesPacked();
-    boat.unknown = readByteArray<9>();
+    const ObjectClass object_class_under = readEnum<ObjectClass>();
+    boat.has_object_under = readBool();
+    boat.object_under = readObjectPropertiesVariant(object_class_under);
     return boat;
   }
 

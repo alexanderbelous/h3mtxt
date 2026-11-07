@@ -350,16 +350,16 @@ except `allow_normal_win` and `applies_to_computer`.
 
 
 ### `Rumor`
-| Field name     | Type       | Size in bytes | Description                                                            |
-| -------------- | ---------- | ------------- | ---------------------------------------------------------------------- |
-| text           | `String16` | varies        | Text to display                                                        |
-| has_been_shown | `Bool`     | 1             | Indicates whether this rumor has been displayed in the Tavern          |
+| Field name     | Type       | Size in bytes | Description                                                   |
+| -------------- | ---------- | ------------- | ------------------------------------------------------------- |
+| text           | `String16` | varies        | Text to display                                               |
+| has_been_shown | `Bool`     | 1             | Indicates whether this rumor has been displayed in the Tavern |
 
 
 ### `ArtifactMerchants`
 | Field name | Type       | Size in bytes | Description |
 | ---------- | ---------- | ------------- | ----------- |
-| artifacts  | `int32[7]` | 28            | Enum [`ArtifactType`](../src/h3mtxt/Map/Constants/ArtifactType.h) for each slot. 0xFFFFFFFF is used for empty slots  |
+| artifacts  | `int32[7]` | 28            | Enum [`ArtifactType`](../src/h3mtxt/Map/Constants/ArtifactType.h) for each slot. `-1` is used for empty slots  |
 
 
 ### `Tile`
@@ -453,7 +453,7 @@ except `allow_normal_win` and `applies_to_computer`.
 ### `Troops`
 | Field name      | Type       | Size in bytes | Description                           |
 | --------------- | ---------- | ------------- | ------------------------------------- |
-| creature_types  | `int32[7]` | 28            | Enum [`CreatureType`](../src/h3mtxt/Map/Constants/CreatureType.h) for each slot; 0xFFFFFFFF is used for empty slots |
+| creature_types  | `int32[7]` | 28            | Enum [`CreatureType`](../src/h3mtxt/Map/Constants/CreatureType.h) for each slot; `-1` is used for empty slots |
 | creature_counts | `int32[7]` | 28            | The number of creatures for each slot |
 
 
@@ -579,21 +579,29 @@ except `allow_normal_win` and `applies_to_computer`.
 
 
 ### `Boat`
-| Field name         | Type        | Size in bytes | Description                                                  |
-| ------------------ | ----------- | ------------- | ------------------------------------------------------------ |
-| exists             | `Bool`      | 1             | 0 if scuttled/sunk, nonzero otherwise                        |
-| id                 | `uint8`     | 1             | 0-based index of this boat in `ObjectPropertiesTables.boats` |
-| object_subclass    | `uint8`     | 1             | Enum `BoatType`                                              |
-| direction          | `uint8`     | 1             | Enum `CompassPoint`; the current orientation of the boat     |
-| owner              | `uint8`     | 1             | Enum `PlayerColor`                                           |
-| owner_hero         | `uint8`     | 1             | Enum `HeroType`                                              |
-| is_occupied        | `Bool`      | 1             | 0 if the boat is boarded by a hero, nonzero otherwise        |
-| x                  | `uint16`    | 2             | X-coordinate of the boat on the Adventure Map                |
-| y                  | `uint16`    | 2             | Y-coordinate of the boat on the Adventure Map                |
-| z                  | `uint16`    | 2             | Z-coordinate of the boat on the Adventure Map                |
-| is_visible         | `Bool`      | 1             | 0 if the boat is occupied/scuttled/sunk, nonzero otherwise   |
-| coordinates_packed | `uint32`    | 4             | Duplicates the coordinates using the packed format           |
-| unknown            | `uint8[9]`  | 9             | TODO                                                         |
+| Field name              | Type       | Size in bytes | Description                                                           |
+| ----------------------- | ---------- | ------------- | --------------------------------------------------------------------- |
+| exists                  | `Bool`     | 1             | 0 if scuttled/sunk, nonzero otherwise                                 |
+| id                      | `uint8`    | 1             | 0-based index of this boat in `ObjectPropertiesTables.boats`          |
+| object_subclass         | `uint8`    | 1             | Enum `BoatType`                                                       |
+| direction               | `uint8`    | 1             | Enum `CompassPoint`; the current orientation of the boat              |
+| owner                   | `uint8`    | 1             | Enum `PlayerColor`                                                    |
+| owner_hero              | `uint8`    | 1             | Enum `HeroType`                                                       |
+| is_occupied             | `Bool`     | 1             | 0 if the boat is boarded by a hero, nonzero otherwise                 |
+| x                       | `uint16`   | 2             | X-coordinate of the boat on the Adventure Map                         |
+| y                       | `uint16`   | 2             | Y-coordinate of the boat on the Adventure Map                         |
+| z                       | `uint16`   | 2             | Z-coordinate of the boat on the Adventure Map                         |
+| is_visible              | `Bool`     | 1             | 0 if the boat is occupied/scuttled/sunk, nonzero otherwise            |
+| coordinates_packed      | [`CoordinatesPacked`](#CoordinatesPacked) | 4 | Duplicates the coordinates using the packed format |
+| object_class_under      | `uint32`   | 4             | Enum [`ObjectClass`](../src/h3mtxt/Map/Constants/ObjectClass.h); type of the object on the same tile under the boat |
+| has_object_under        | `Bool`     | 1             | Indicates whether there is an actionable object under the boat        |
+| object_properties_under | `uint8[4]` | 4             | "Simple" properties of the object on the same tile under the boat     |
+
+
+### `CoordinatesPacked`
+| Field name | Type     | Size in bytes | Description |
+| ---------- | -------- | ------------- | ----------- |
+| data       | `uint32` | 4             | Bits `[0; 10)` - X-coordinate (signed); bits `[16; 26)` - Y-coordinate (signed); bits `[26; 30)` - Z-coordinate |
 
 
 ### `Obelisk`
@@ -603,28 +611,28 @@ except `allow_normal_win` and `applies_to_computer`.
 
 
 ### `Player`
-| Field name       | Type        | Size in bytes | Description                                                                             |
-| ---------------- | ----------- | ------------- | --------------------------------------------------------------------------------------- |
-| player_color     | `uint8`     | 1             | Enum `PlayerColor`                                                                      |
-| num_heroes       | `uint8`     | 1             |                                                                                         |
-| active_hero      | `uint8`     | 1             | Enum `HeroType` or 0xFF if there's no active hero                                       |
-| heroes           | `uint8[8]`  | 8             | Enum `HeroType` for each hero slot; 0xFF is used for empty slots                        |
-| heroes_in_tavern | `uint8[2]`  | 2             | Enum `HeroType` for each slot in the Tavern                                             |
-| unknown1         | `uint8`     | 1             | TODO                                                                                    |
-| personality      | `uint32`    | 4             | Enum `PlayerPersonality`                                                                |
-| unknown2         | `uint8`     | 1             | TODO                                                                                    |
-| grail_guess      | `uint32`    | 4             | The best guess for the coordinates of the Grail (serialized using the packed format)    |
-| days_left        | `int8`      | 1             | The number of days left to live without a town, or -1 if the player has at least 1 town |
-| num_towns        | `uint8`     | 1             | The number of towns owned by the player                                                 |
-| current_town     | `int8`      | 1             | ID of the currently selected town, or -1 if there is none                               |
-| towns            | `int8[72]`  | 72            | IDs of towns owned by the player (see Town.id)                                          |
-| resources        | `int32[7]`  | 28            | The current amount for each Resource type                                               |
-| mystical_gardens | `uint8[4]`  | 4             | Bitmask; 1 bit per Mystical Garden, indicating if the player has visited it this week   |
-| magic_springs    | `uint8[4]`  | 4             | Bitmask; 1 bit per Magic Spring, indicating if the player has visited it this week      |
-| corpses          | `uint8[4]`  | 4             | Bitmask; 1 bit per Corpse, indicating if the player has visited it                      |
-| lean_tos         | `uint8[4]`  | 4             | Bitmask; 1 bit per Lean To, indicating if the player has visited it                     |
-| show_tactics_message | `Bool`  | 1             | 1 if the message about Tactics Phase should be displayed, 0 otherwise                   |
-| unknown3         | `uint8[2]`  | 2             | TODO                                                                                    |
+| Field name       | Type       | Size in bytes | Description                                                                             |
+| ---------------- | ---------- | ------------- | --------------------------------------------------------------------------------------- |
+| player_color     | `uint8`    | 1             | Enum `PlayerColor`                                                                      |
+| num_heroes       | `uint8`    | 1             |                                                                                         |
+| active_hero      | `uint8`    | 1             | Enum `HeroType` or 0xFF if there's no active hero                                       |
+| heroes           | `uint8[8]` | 8             | Enum `HeroType` for each hero slot; 0xFF is used for empty slots                        |
+| heroes_in_tavern | `uint8[2]` | 2             | Enum `HeroType` for each slot in the Tavern                                             |
+| unknown1         | `uint8`    | 1             | TODO                                                                                    |
+| personality      | `uint32`   | 4             | Enum `PlayerPersonality`                                                                |
+| unknown2         | `uint8`    | 1             | TODO                                                                                    |
+| grail_guess      | [`CoordinatesPacked`](#CoordinatesPacked) | 4 | The best guess for the coordinates of the Grail (serialized using the packed format) |
+| days_left        | `int8`     | 1             | The number of days left to live without a town, or -1 if the player has at least 1 town |
+| num_towns        | `uint8`    | 1             | The number of towns owned by the player                                                 |
+| current_town     | `int8`     | 1             | ID of the currently selected town, or -1 if there is none                               |
+| towns            | `int8[72]` | 72            | IDs of towns owned by the player (see Town.id)                                          |
+| resources        | `int32[7]` | 28            | The current amount for each Resource type                                               |
+| mystical_gardens | `uint8[4]` | 4             | Bitmask; 1 bit per Mystical Garden, indicating if the player has visited it this week   |
+| magic_springs    | `uint8[4]` | 4             | Bitmask; 1 bit per Magic Spring, indicating if the player has visited it this week      |
+| corpses          | `uint8[4]` | 4             | Bitmask; 1 bit per Corpse, indicating if the player has visited it                      |
+| lean_tos         | `uint8[4]` | 4             | Bitmask; 1 bit per Lean To, indicating if the player has visited it                     |
+| show_tactics_message | `Bool` | 1             | 1 if the message about Tactics Phase should be displayed, 0 otherwise                   |
+| unknown3         | `uint8[2]` | 2             | TODO                                                                                    |
 
 
 ### `Town`
@@ -674,7 +682,7 @@ except `allow_normal_win` and `applies_to_computer`.
 | y                          | `int16`     | 2             | Y coordinate of the hero on the Adventure Map                                     |
 | z                          | `int16`     | 2             | Z coordinate of the hero on the Adventure Map                                     |
 | is_visible                 | `Bool`      | 1             | Indicates whether the hero is currently visible on the map                        |
-| coordinates_packed         | `uint32`    | 4             | Duplicates the coordinates using the packed format                                |
+| coordinates_packed         | [`CoordinatesPacked`](#CoordinatesPacked) | 4 | Duplicates the coordinates using the packed format              |
 | object_class_under         | `uint32`    | 4             | Enum `ObjectClass` of the object on the same tile under the hero                  |
 | has_object_under           | `Bool`      | 1             | Indicates whether there is an actionable object under the hero                    |
 | object_properties_under    | `uint8[4]`  | 4             | "Simple" properties of the object on the same tile under the hero                 |
@@ -770,7 +778,7 @@ except `allow_normal_win` and `applies_to_computer`.
 | Field name | Type                | Size in bytes | Description                                                        |
 | ---------- | ------------------- | ------------- | ------------------------------------------------------------------ |
 | num_exits  | `uint16`            | 2             | The number of exits                                                |
-| exits      | `uint32[num_exits]` | varies        | The coordinates (serialized using the packed format) for each exit |
+| exits      | [`CoordinatesPacked[num_exits]`](#CoordinatesPacked) | varies | The coordinates (serialized using the packed format) for each exit |
 
 
 ### `SubterraneanGates`

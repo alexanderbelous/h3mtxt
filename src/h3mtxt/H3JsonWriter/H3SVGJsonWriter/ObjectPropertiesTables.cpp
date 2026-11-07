@@ -31,7 +31,8 @@ namespace Medea_NS
     out.writeField(Fields::kZ, boat.z);
     out.writeField(Fields::kIsVisible, boat.is_visible);
     out.writeField(Fields::kCoordinatesPacked, boat.coordinates_packed);
-    out.writeField(Fields::kUnknown, boat.unknown);
+    out.writeField(Fields::kHasObjectUnder, boat.has_object_under);
+    out.writeField(Fields::kObjectUnder, boat.object_under);
   }
 
   template<>

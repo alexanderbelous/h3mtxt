@@ -33,7 +33,8 @@ namespace h3json
     readField(Fields::kZ, boat.z);
     readField(Fields::kIsVisible, boat.is_visible);
     readField(Fields::kCoordinatesPacked, boat.coordinates_packed);
-    readField(Fields::kUnknown, boat.unknown);
+    readField(Fields::kHasObjectUnder, boat.has_object_under);
+    readField(Fields::kObjectUnder, boat.object_under);
     return boat;
   }
 

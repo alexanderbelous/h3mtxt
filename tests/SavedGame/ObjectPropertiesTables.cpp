@@ -64,7 +64,11 @@ namespace h3svg
       .z = 1,
       .is_visible = true,
       .coordinates_packed = {.x = 12, .y = 104, .z = 1},
-      .unknown = {0, 0, 0, 0, 0, 0, 0, 0, 0}
+      .has_object_under = true,
+      .object_under = ObjectPropertiesVariant{
+        ObjectClass::BLACK_MARKET,
+        ObjectProperties<ObjectPropertiesType::BlackMarket>{ .index = 23 }
+      }
     };
     static constexpr std::string_view kBinaryData =
       "\x01" // exists
@@ -77,7 +81,9 @@ namespace h3svg
       "\x0c\x00" "\x68\x00" "\x01\x00" // x, y, z
       "\x01" // is_visible
       "\x0c\x00\x68\x04" // coordinates_packed
-      "\x00\x00\x00\x00\x00\x00\x00\x00\x00" // unknown
+      "\x07\x00\x00\x00" // object_class_under
+      "\x01" // has_object_under
+      "\x17\x00\x00\x00" // object_properties_under
       ""sv;
 
     REQUIRE(asByteVector(encodeViaH3SVGWriter(kBoat)) == asByteVector(kBinaryData));

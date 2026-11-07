@@ -13,6 +13,7 @@
 #include <h3mtxt/SavedGame/Constants/BoatType.h>
 #include <h3mtxt/SavedGame/Constants/SeerName.h>
 #include <h3mtxt/SavedGame/EventBase.h>
+#include <h3mtxt/SavedGame/ObjectPropertiesVariant.h>
 #include <h3mtxt/SavedGame/Quest.h>
 #include <h3mtxt/SavedGame/Reward.h>
 
@@ -46,7 +47,7 @@ namespace h3svg
   // simultaneously.
   struct Boat
   {
-    constexpr bool operator==(const Boat&) const noexcept = default;
+    bool operator==(const Boat&) const noexcept = default;
 
     // 1 if the boat is present on the Adventure Map, 0 otherwise (i.e. if it has been scuttled/sunk).
     // A destroyed boat remains in ObjectPropertiesTables::boats until it is replaced by
@@ -71,8 +72,12 @@ namespace h3svg
     // 0 if the boat is occupied/scuttled/sunk, nonzero otherwise.
     Bool is_visible = false;
     CoordinatesPacked coordinates_packed;
-    // TODO: figure out what this is.
-    std::array<std::uint8_t, 9> unknown {};
+    // Indicates whether there is an actionable object under the boat.
+    Bool has_object_under = false;
+    // ObjectClass and the "simple" properties of the Adventure Map object under the boat.
+    // This field acts as a temporary storage for the original value of Tile::object_properties
+    // while the boat occupies the tile.
+    ObjectPropertiesVariant object_under;
   };
 
   struct Dwelling
@@ -223,7 +228,7 @@ namespace h3svg
   // Adventure Map). The reason is simply the order in which data is serialized in H3SVG.
   struct ObjectPropertiesTables
   {
-    constexpr bool operator==(const ObjectPropertiesTables&) const noexcept = default;
+    bool operator==(const ObjectPropertiesTables&) const noexcept = default;
 
     // Events and Pandora's Boxes on the Adventure Map.
     std::vector<EventBase> events_and_pandoras_boxes;

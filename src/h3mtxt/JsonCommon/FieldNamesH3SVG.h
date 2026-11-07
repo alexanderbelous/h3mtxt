@@ -276,7 +276,8 @@ namespace h3json
     static constexpr std::string_view kZ = "z";
     static constexpr std::string_view kIsVisible = "is_visible";
     static constexpr std::string_view kCoordinatesPacked = "coordinates_packed";
-    static constexpr std::string_view kUnknown = "unknown";
+    static constexpr std::string_view kHasObjectUnder = "has_object_under";
+    static constexpr std::string_view kObjectUnder = "object_under";
   };
 
   template<>

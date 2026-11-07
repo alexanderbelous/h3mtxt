@@ -23,7 +23,9 @@ namespace h3svg
     writeData(boat.z);
     writeData(boat.is_visible);
     writeData(boat.coordinates_packed);
-    writeData(boat.unknown);
+    writeData(boat.object_under.objectClass());
+    writeData(boat.has_object_under);
+    writeObjectPropetiesVariant(boat.object_under);
   }
 
   void H3SVGWriter::writeData(const Dwelling& dwelling) const
