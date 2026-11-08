@@ -96,6 +96,9 @@ namespace h3m
   // The number of different Resource types (i.e. cardinality of ResourceType enum).
   inline constexpr std::uint8_t kNumResourceTypes = 7;
 
+  // The number of creature levels in any town.
+  inline constexpr std::size_t kNumTownCreatureLevels = 7;
+
   // ==========================================================================
   // Utility classes.
   // --------------------------------------------------------------------------
