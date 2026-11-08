@@ -78,14 +78,14 @@ namespace h3svg
     std::string name;
     // The number of non-upgraded creatures available for hire for each creature level.
     // The values are 0 for creatures whose dwellings are upgraded.
-    std::array<std::uint16_t, 7> recruits_nonupgraded {};
+    std::array<std::uint16_t, kNumTownCreatureLevels> recruits_nonupgraded {};
     // The number of upgraded creatures available for hire for each creature level.
-    std::array<std::uint16_t, 7> recruits_upgraded {};
+    std::array<std::uint16_t, kNumTownCreatureLevels> recruits_upgraded {};
     // The number of external dwellings for each creature level.
-    std::array<std::uint32_t, 7> num_external_dwellings {};
+    std::array<std::uint32_t, kNumTownCreatureLevels> num_external_dwellings {};
     // Duplicates num_external_dwellings for some reason.
     // TODO: check what modifying either field does.
-    std::array<std::uint32_t, 7> num_external_dwellings2 {};
+    std::array<std::uint32_t, kNumTownCreatureLevels> num_external_dwellings2 {};
     // TODO: figure out what this is.
     std::array<std::uint8_t, 13> unknown3 {};
     EnumBitmask<TownBuildingTypeH3SVG, 6> built;

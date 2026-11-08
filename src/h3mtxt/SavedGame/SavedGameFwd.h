@@ -63,6 +63,7 @@ namespace h3svg
 
   using ::h3m::kNumArmySlots;
   using ::h3m::kNumResourceTypes;
+  using ::h3m::kNumTownCreatureLevels;
 
   enum class ArtifactSlotGroup : std::uint8_t;
 

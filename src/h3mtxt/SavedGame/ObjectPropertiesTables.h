@@ -210,7 +210,7 @@ namespace h3svg
     // Always [0, 0]; probably padding bytes for @buildings.
     ReservedData<2> reserved;
     // Extra creatures for each creature level.
-    std::array<std::uint16_t, 7> creatures {};
+    std::array<std::uint16_t, kNumTownCreatureLevels> creatures {};
   };
 
   // Tables that store additional properties for objects of certain types.
