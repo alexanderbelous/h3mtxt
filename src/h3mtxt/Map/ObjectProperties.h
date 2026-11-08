@@ -479,7 +479,7 @@ namespace h3m
     // In the vanilla game you cannot hire creatures if the available amount is negative. In HD mod,
     // however, you can use Ctrl+LeftMouseButton to hire the maximum possible amount of creatures (within the available
     // resources), and HD mod incorrectly interprets this as an unsigned number. Looks like a bug in HD mod.
-    std::array<std::uint16_t, 7> creatures {};
+    std::array<std::uint16_t, kNumTownCreatureLevels> creatures {};
     ReservedData<4> unknown2;
   };
 
