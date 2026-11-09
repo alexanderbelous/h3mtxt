@@ -232,12 +232,10 @@ namespace h3svg
 
     // Events and Pandora's Boxes on the Adventure Map.
     std::vector<EventBase> events_and_pandoras_boxes;
-    // Artifacts and Spell scrolls on the Adventure Map.
+    // Artifacts, Spell scrolls and Resources on the Adventure Map.
     // FYI: it seems that the elements are persistent: they are not deleted even after a hero picks them up.
     // Guardians are mutable though.
-    // TODO: rename to point out that this also includes resources on the adventure map.
-    //       Tile::object_properties stores the quantity, but message&guardians are stored here.
-    std::vector<Artifact> artifacts_and_spell_scrolls;
+    std::vector<Artifact> treasures;
     // Wandering creatures on the Adventure Map.
     // TODO: consider renaming; this seems more like "monsters with custom message or treasure".
     std::vector<Monster> monsters;

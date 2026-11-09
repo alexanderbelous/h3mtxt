@@ -22,6 +22,13 @@ namespace h3json
     {
       readField(Fields::kReserved, properties.reserved);
     }
+    else if constexpr (T == ObjectPropertiesType::Artifact)
+    {
+      properties.type = readBitField<std::uint16_t, 4>(root, Fields::kType);
+      properties.has_setup = readField<bool>(Fields::kHasSetup);
+      properties.index = readBitField<std::uint16_t, 12>(root, Fields::kIndex);
+      properties.reserved = readBitField<std::uint16_t, 15>(root, Fields::kReserved);
+    }
     else if constexpr (T == ObjectPropertiesType::BlackMarket)
     {
       readField(Fields::kIndex, properties.index);

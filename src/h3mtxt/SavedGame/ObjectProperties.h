@@ -43,6 +43,21 @@ namespace h3svg
   };
 
   template<>
+  struct ObjectProperties<ObjectPropertiesType::Artifact>
+  {
+    constexpr bool operator==(const ObjectProperties&) const noexcept = default;
+
+    // Pickup requirements, legacy from RoE.
+    // TODO: replace with an enum.
+    std::uint16_t type : 4 = 0;          // Bits [0; 3]
+    // 0-based index of the element in ObjectPropertiesTables::treasures.
+    std::uint16_t index : 12 {};         // Bits [19; 30]
+    // Indicates whether @index is meaningful.
+    std::uint16_t has_setup : 1 = false; // Bits [31; 31]
+    std::uint16_t reserved : 15 = 0;     // Bits [4; 18]
+  };
+
+  template<>
   struct ObjectProperties<ObjectPropertiesType::BlackMarket>
   {
     constexpr bool operator==(const ObjectProperties&) const noexcept = default;

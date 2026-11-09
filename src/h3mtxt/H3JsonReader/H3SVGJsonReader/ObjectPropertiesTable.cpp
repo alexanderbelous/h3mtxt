@@ -105,7 +105,7 @@ namespace h3json
     using Fields = h3json::FieldNames<h3svg::ObjectPropertiesTables>;
     h3svg::ObjectPropertiesTables tables;
     readField(Fields::kEventsAndPandorasBoxes, tables.events_and_pandoras_boxes);
-    readField(Fields::kArtifactsAndSpellScrolls, tables.artifacts_and_spell_scrolls);
+    readField(Fields::kTreasures, tables.treasures);
     readField(Fields::kMonsters, tables.monsters);
     readField(Fields::kSeersHuts, tables.seers_huts);
     readField(Fields::kQuestGuards, tables.quest_guards);

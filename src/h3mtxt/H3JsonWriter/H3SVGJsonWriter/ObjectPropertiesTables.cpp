@@ -184,7 +184,7 @@ namespace Medea_NS
   {
     using Fields = h3json::FieldNames<h3svg::ObjectPropertiesTables>;
     out.writeField(Fields::kEventsAndPandorasBoxes, tables.events_and_pandoras_boxes);
-    out.writeField(Fields::kArtifactsAndSpellScrolls, tables.artifacts_and_spell_scrolls);
+    out.writeField(Fields::kTreasures, tables.treasures);
     out.writeField(Fields::kMonsters, tables.monsters);
     out.writeField(Fields::kSeersHuts, tables.seers_huts);
     out.writeField(Fields::kQuestGuards, tables.quest_guards);

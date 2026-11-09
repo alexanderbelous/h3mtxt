@@ -72,7 +72,7 @@ namespace h3svg
   void H3SVGWriter::writeData(const ObjectPropertiesTables& tables) const
   {
     writeVector<std::uint16_t>(std::span{ tables.events_and_pandoras_boxes });
-    writeVector<std::uint16_t>(std::span{ tables.artifacts_and_spell_scrolls });
+    writeVector<std::uint16_t>(std::span{ tables.treasures });
     writeVector<std::uint16_t>(std::span{ tables.monsters });
     writeVector<std::uint16_t>(std::span{ tables.seers_huts });
     writeVector<std::uint16_t>(std::span{ tables.quest_guards });

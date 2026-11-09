@@ -251,7 +251,7 @@ namespace h3svg
   {
     const ObjectPropertiesTables kTables = {
       .events_and_pandoras_boxes = {},
-      .artifacts_and_spell_scrolls = {},
+      .treasures = {},
       .monsters = {},
       .seers_huts = {},
       .quest_guards = {},
@@ -267,7 +267,7 @@ namespace h3svg
     };
     static constexpr std::string_view kBinaryData =
       "\x00\x00" // events_and_pandoras_boxes
-      "\x00\x00" // artifacts_and_spell_scrolls
+      "\x00\x00" // treasures
       "\x00\x00" // monsters
       "\x00\x00" // seers_huts
       "\x00\x00" // quest_guards

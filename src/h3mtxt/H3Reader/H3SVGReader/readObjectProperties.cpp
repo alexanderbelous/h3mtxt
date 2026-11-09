@@ -145,6 +145,17 @@ namespace h3svg
     }
 
     template<>
+    constexpr ObjectProperties<ObjectPropertiesType::Artifact> ObjectPropertiesReader::read()
+    {
+      ObjectProperties<ObjectPropertiesType::Artifact> properties;
+      properties.type = readInt<std::uint16_t, 4>();
+      properties.reserved = readInt<std::uint16_t, 15>();
+      properties.index = readInt<std::uint16_t, 12>();
+      properties.has_setup = readInt<std::uint16_t, 1>();
+      return properties;
+    }
+
+    template<>
     constexpr ObjectProperties<ObjectPropertiesType::BlackMarket> ObjectPropertiesReader::read()
     {
       return { .index = readInt<std::int32_t, 32>() };

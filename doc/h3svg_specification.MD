@@ -416,14 +416,14 @@ except `allow_normal_win` and `applies_to_computer`.
 | --------------------------- | ----------------------------------- | ---------------- | -------------------------------------------------------- |
 | num_event_objects           | `uint16`                            | 2                | The number of Event and Pandora's Box objects on the map |
 | events_and_pandoras_boxes   | [`EventBase[num_event_objects]`](#EventBase) | varies  | Event and Pandora's Box objects on the Adventure Map     |
-| num_artifact_objects        | `uint16`                            | 2                | |
-| artifacts_and_spell_scrolls | [`Guardians[num_artifact_objects]`](#Guardians) | varies | Artifact and SpellScroll objects on the Adventure Map  |
+| num_treasures               | `uint16`                            | 2                | |
+| treasures                   | [`Guardians[num_treasures]`](#Guardians) | varies      | Artifact, SpellScroll and Resource objects with custom message and/or guardians on the Adventure Map |
 | num_monster_objects         | `uint16`                            | 2                | |
 | monsters                    | [`Monster[num_monster_objects]`](#Monster) | varies    | |
-| num_seers_huts              | `uint16`                            | 2                | |
-| seers_huts                  | [`SeersHut[num_seers_huts]`](#SeersHut) | varies       | |
-| num_quest_guards            | `uint16`                            | 2                | |
-| quest_guards                | [`QuestGuard[num_quest_guards]`](#QuestGuard) | varies | |
+| num_seers_huts              | `uint16`                            | 2                | The number of Seer's Huts on the Adventure Map           |
+| seers_huts                  | [`SeersHut[num_seers_huts]`](#SeersHut) | varies       | Seer's Huts on the Adventure Map                         |
+| num_quest_guards            | `uint16`                            | 2                | The number of Quest Guards on the Adventure Map          |
+| quest_guards                | [`QuestGuard[num_quest_guards]`](#QuestGuard) | varies | Quest Guards on the Adventure Map                        |
 | num_global_events           | `uint32`                            | 4                | |
 | global_events               | [`TimedEvent[num_global_events]`](#TimedEvent)| varies | |
 | num_town_events             | `uint32`                            | 4                | |
@@ -432,14 +432,14 @@ except `allow_normal_win` and `applies_to_computer`.
 | signs_and_ocean_bottles     | [`Sign[num_signs_and_ocean_bottles]`](#Sign) | varies  | |
 | num_mines_and_lighthouses   | `uint8`                             | 1                | |
 | mines_and_lighthouses       | [`Mine[num_mines_and_lighthouses]`](#Mine) | varies    | |
-| num_dwellings               | `uint16`                            | 2                | |
-| dwellings                   | [`Dwelling[num_dwellings]`](#Dwelling) | varies        | |
-| num_garrisons               | `uint8`                             | 1                | |
-| garrisons                   | [`Garrison[num_garrisons]`](#Garrison) | varies        | |
-| num_boats                   | `uint8`                             | 1                | The number of boats on the Adventure Map            |
-| boats                       | [`Boat[num_boats]`](#Boat)          | varies           | Boats on the Adventure map                          |
-| num_obelisks                | `uint8`                             | 1                | The number of Obelisks on the Adventure Map         |
-| obelisks                    | [`Obelisk[48]`](#Obelisk)           | 48               | Only the first num_obelisks elements are meaningful |
+| num_dwellings               | `uint16`                            | 2                | The number of creature dwellings on the Adventure Map    |
+| dwellings                   | [`Dwelling[num_dwellings]`](#Dwelling) | varies        | Creature dwellings on the Adventure Map                  |
+| num_garrisons               | `uint8`                             | 1                | The number of Garrisons on the Adventure Map             |
+| garrisons                   | [`Garrison[num_garrisons]`](#Garrison) | varies        | Garrisons on the Adventure Map                           |
+| num_boats                   | `uint8`                             | 1                | The number of boats on the Adventure Map                 |
+| boats                       | [`Boat[num_boats]`](#Boat)          | varies           | Boats on the Adventure map                               |
+| num_obelisks                | `uint8`                             | 1                | The number of Obelisks on the Adventure Map              |
+| obelisks                    | [`Obelisk[48]`](#Obelisk)           | 48               | Only the first num_obelisks elements are meaningful      |
 
 
 ### `Guardians`

@@ -11,6 +11,7 @@ namespace h3svg
   enum class ObjectPropertiesType
   {
     None,  // Used for objects that don't have properties (e.g., mountains, flowers, etc).
+    Artifact,
     BlackMarket,
     Campfire,
     CreatureBank,
@@ -43,7 +44,7 @@ namespace h3svg
     WitchHut
   };
 
-  inline constexpr std::size_t kNumObjectPropertiesTypes = 31;
+  inline constexpr std::size_t kNumObjectPropertiesTypes = 32;
 
   // Returns ObjectPropertiesType for the given ObjectClass.
   // \param object_class - ObjectClass of the object.
@@ -52,6 +53,9 @@ namespace h3svg
   {
     switch (object_class)
     {
+    case ObjectClass::ARTIFACT:
+      // TODO: spell scrolls should also go here.
+      return ObjectPropertiesType::Artifact;
     case ObjectClass::BLACK_MARKET:
       return ObjectPropertiesType::BlackMarket;
     case ObjectClass::CAMPFIRE:

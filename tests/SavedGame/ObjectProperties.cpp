@@ -41,6 +41,17 @@ namespace h3svg
     };
 
     template<>
+    const TestCaseData<ObjectPropertiesType::Artifact> kTestCases<ObjectPropertiesType::Artifact> = {
+      .properties = {
+        .type = 0,
+        .index = 23,
+        .has_setup = true,
+        .reserved = 0
+      },
+      .binary_data = "\x00\x00\xb8\x80"sv
+    };
+
+    template<>
     const TestCaseData<ObjectPropertiesType::BlackMarket> kTestCases<ObjectPropertiesType::BlackMarket> = {
       .properties = {
         .index = 23
@@ -298,6 +309,7 @@ namespace h3svg
 
   TEMPLATE_TEST_CASE("H3SVG.ObjectProperties", "[H3SVG]",
                      StaticConstant<ObjectPropertiesType::None>,
+                     StaticConstant<ObjectPropertiesType::Artifact>,
                      StaticConstant<ObjectPropertiesType::BlackMarket>,
                      StaticConstant<ObjectPropertiesType::CreatureBank>,
                      StaticConstant<ObjectPropertiesType::Event>,

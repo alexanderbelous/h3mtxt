@@ -502,7 +502,7 @@ namespace h3json
   struct FieldNames<h3svg::ObjectPropertiesTables>
   {
     static constexpr std::string_view kEventsAndPandorasBoxes = "events_and_pandoras_boxes";
-    static constexpr std::string_view kArtifactsAndSpellScrolls = "artifacts_and_spell_scrolls";
+    static constexpr std::string_view kTreasures = "treasures";
     static constexpr std::string_view kMonsters = "monsters";
     static constexpr std::string_view kSeersHuts = "seers_huts";
     static constexpr std::string_view kQuestGuards = "quest_guards";
@@ -527,6 +527,15 @@ namespace h3json
   template<>
   struct FieldNames<h3svg::ObjectProperties<h3svg::ObjectPropertiesType::None>>
   {
+    static constexpr std::string_view kReserved = "reserved";
+  };
+
+  template<>
+  struct FieldNames<h3svg::ObjectProperties<h3svg::ObjectPropertiesType::Artifact>>
+  {
+    static constexpr std::string_view kType = "type";
+    static constexpr std::string_view kHasSetup = "has_setup";
+    static constexpr std::string_view kIndex = "index";
     static constexpr std::string_view kReserved = "reserved";
   };
 

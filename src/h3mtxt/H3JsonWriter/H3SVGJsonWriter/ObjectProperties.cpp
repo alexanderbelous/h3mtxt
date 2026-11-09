@@ -21,6 +21,13 @@ namespace Medea_NS
     {
       out.writeField(Fields::kReserved, properties.reserved);
     }
+    else if constexpr (T == ObjectPropertiesType::Artifact)
+    {
+      out.writeField(Fields::kType, properties.type);
+      out.writeField(Fields::kHasSetup, static_cast<bool>(properties.has_setup));
+      out.writeField(Fields::kIndex, properties.index);
+      out.writeField(Fields::kReserved, properties.reserved);
+    }
     else if constexpr (T == ObjectPropertiesType::BlackMarket)
     {
       out.writeField(Fields::kIndex, properties.index);

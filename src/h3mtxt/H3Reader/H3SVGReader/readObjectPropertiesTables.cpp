@@ -154,13 +154,13 @@ namespace h3svg
         tables.events_and_pandoras_boxes.push_back(readEventBase());
       }
     }
-    // Read Artifact and SpellScroll objects.
+    // Read Artifact, SpellScroll and Resource objects.
     {
-      const std::uint16_t num_artifact_objects = readInt<std::uint16_t>();
-      tables.artifacts_and_spell_scrolls.reserve(num_artifact_objects);
-      for (std::uint16_t i = 0; i < num_artifact_objects; ++i)
+      const std::uint16_t num_treasures = readInt<std::uint16_t>();
+      tables.treasures.reserve(num_treasures);
+      for (std::uint16_t i = 0; i < num_treasures; ++i)
       {
-        tables.artifacts_and_spell_scrolls.push_back(readArtifact());
+        tables.treasures.push_back(readArtifact());
       }
     }
     // Read wandering creatures.
