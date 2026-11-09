@@ -210,10 +210,10 @@ namespace Medea_NS
     }
     else if constexpr (T == ObjectPropertiesType::WitchHut)
     {
-      out.writeField(Fields::kReserved1, properties.reserved1);
-      out.writeField(Fields::kReserved2, properties.reserved2);
       out.writeField(Fields::kSkill, properties.skill);
       out.writeField(Fields::kVisitedBy, properties.visited_by);
+      out.writeField(Fields::kReserved1, properties.reserved1);
+      out.writeField(Fields::kReserved2, properties.reserved2);
     }
     else
     {

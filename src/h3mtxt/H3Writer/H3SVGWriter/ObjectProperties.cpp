@@ -36,11 +36,11 @@ namespace h3svg
         const std::uint32_t mask = (num_bits >= 32) ? static_cast<std::uint32_t>(-1)
                                                     : ((static_cast<std::uint32_t>(1) << num_bits) - 1);
         data_as_int_ |= ((value & mask) << num_bits_written_);
-        num_bits_written_ += num_bits;
+        num_bits_written_ += static_cast<std::uint32_t>(num_bits);
       }
 
       std::uint32_t data_as_int_ = 0;
-      std::uint8_t num_bits_written_ = 0;
+      std::uint32_t num_bits_written_ = 0;
     };
 
     // Serializes ObjectProperties<T> into 4 bytes.
@@ -333,8 +333,8 @@ namespace h3svg
     {
       writeBits<5>(properties.reserved1);
       writeBits<8>(properties.visited_by.bitset.data[0]);
-      writeBits<8>(properties.skill);
-      writeBits<11>(properties.reserved2);
+      writeBits<7>(properties.skill);
+      writeBits<12>(properties.reserved2);
     }
   }
 

@@ -276,6 +276,22 @@ namespace h3svg
       .binary_data = "\x15\x89\xfe\xff"sv
     };
 
+    template<>
+    const TestCaseData<ObjectPropertiesType::WitchHut> kTestCases<ObjectPropertiesType::WitchHut> = {
+      .properties = {
+        .skill = SecondarySkillType::WaterMagic,
+        .visited_by = []() consteval {
+          PlayersBitmask bitmask;
+          bitmask.set(PlayerColor::Green, true);
+          bitmask.set(PlayerColor::Teal, true);
+          return bitmask;
+        }(),
+        .reserved1 = 0,
+        .reserved2 = 0
+      },
+      .binary_data = "\x00\x09\x02\x00"sv
+    };
+
     template<ObjectPropertiesType T>
     using StaticConstant = std::integral_constant<ObjectPropertiesType, T>;
   }
@@ -299,7 +315,8 @@ namespace h3svg
                      StaticConstant<ObjectPropertiesType::Wagon>,
                      StaticConstant<ObjectPropertiesType::WarriorsTomb>,
                      StaticConstant<ObjectPropertiesType::WaterWheel>,
-                     StaticConstant<ObjectPropertiesType::Windmill>)
+                     StaticConstant<ObjectPropertiesType::Windmill>,
+                     StaticConstant<ObjectPropertiesType::WitchHut>)
   {
     static constexpr ObjectPropertiesType kObjectPropertiesType = TestType::value;
     const TestCaseData<kObjectPropertiesType>& test_case_data = kTestCases<kObjectPropertiesType>;

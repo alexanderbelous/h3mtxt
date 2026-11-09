@@ -4,6 +4,7 @@
 
 namespace h3m
 {
+  // TODO: change the underlying type to std::int8_t and add None = -1.
   enum class SecondarySkillType : std::uint8_t
   {
     Pathfinding  = 0,  // 0x00

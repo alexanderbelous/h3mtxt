@@ -784,10 +784,10 @@ namespace h3json
   template<>
   struct FieldNames<h3svg::ObjectProperties<h3svg::ObjectPropertiesType::WitchHut>>
   {
-    static constexpr std::string_view kReserved1 = "reserved1";
-    static constexpr std::string_view kReserved2 = "reserved2";
     static constexpr std::string_view kSkill = "skill";
     static constexpr std::string_view kVisitedBy = "visited_by";
+    static constexpr std::string_view kReserved1 = "reserved1";
+    static constexpr std::string_view kReserved2 = "reserved2";
   };
 
   template<>

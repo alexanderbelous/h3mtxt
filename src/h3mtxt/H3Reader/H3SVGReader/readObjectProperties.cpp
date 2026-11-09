@@ -437,8 +437,8 @@ namespace h3svg
       ObjectProperties<ObjectPropertiesType::WitchHut> properties;
       properties.reserved1 = readInt<std::uint8_t, 5>();
       properties.visited_by.bitset.data[0] = readInt<std::uint8_t, 8>();
-      properties.skill = readEnum<SecondarySkillType, 8>();
-      properties.reserved2 = readInt<std::uint16_t, 11>();
+      properties.skill = readEnum<SecondarySkillType, 7>();
+      properties.reserved2 = readInt<std::uint16_t, 12>();
       return properties;
     }
 

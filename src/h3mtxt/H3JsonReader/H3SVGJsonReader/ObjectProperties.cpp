@@ -211,10 +211,10 @@ namespace h3json
     }
     else if constexpr (T == ObjectPropertiesType::WitchHut)
     {
-      properties.reserved1 = readBitField<std::uint16_t, 5>(root, Fields::kReserved1);
+      properties.skill = readBitField<h3svg::SecondarySkillType, 7>(root, Fields::kSkill);
       readField(Fields::kVisitedBy, properties.visited_by);
-      properties.skill = readBitField<h3svg::SecondarySkillType, 8>(root, Fields::kSkill);
-      properties.reserved2 = readBitField<std::uint16_t, 11>(root, Fields::kReserved2);
+      properties.reserved1 = readBitField<std::uint16_t, 5>(root, Fields::kReserved1);
+      properties.reserved2 = readBitField<std::uint16_t, 12>(root, Fields::kReserved2);
     }
     else
     {

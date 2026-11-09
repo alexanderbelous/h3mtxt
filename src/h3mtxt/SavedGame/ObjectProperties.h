@@ -385,11 +385,11 @@ namespace h3svg
   {
     constexpr bool operator==(const ObjectProperties&) const noexcept = default;
 
-    std::uint16_t reserved1 : 5 = 0;  // Bits [0; 4]
-    std::uint16_t reserved2 : 11 = 0; // Bits [21; 31]
-    // TODO: probably should be 7 bits (and reserved2 should be 12 bits):
-    // None is represented by 0x7F, not by 0xFF.
-    SecondarySkillType skill = static_cast<SecondarySkillType>(0x7F); // Bits [13; 20]
+    // TODO: replace with SecondarySkillType{-1} once the underlying type is changed
+    // to std::int8_t.
+    SecondarySkillType skill : 7 = static_cast<SecondarySkillType>(0x7F); // Bits [13; 19]
     PlayersBitmask visited_by;        // Bits [5; 12]
+    std::uint16_t reserved1 : 5 = 0;  // Bits [0; 4]
+    std::uint16_t reserved2 : 12 = 0; // Bits [20; 31]
   };
 }
