@@ -69,7 +69,7 @@ namespace h3m
 
   enum class ScholarRewardType : std::uint8_t;
 
-  enum class SecondarySkillType : std::uint8_t;
+  enum class SecondarySkillType : std::int8_t;
 
   enum class SpellType : std::int8_t;
 
@@ -95,6 +95,9 @@ namespace h3m
 
   // The number of different Resource types (i.e. cardinality of ResourceType enum).
   inline constexpr std::uint8_t kNumResourceTypes = 7;
+
+  // The number of secondary skills in the game (i.e. cardinality of SecondarySkillType enum).
+  inline constexpr std::size_t kNumSecondarySkills = 28;
 
   // The number of creature levels in any town.
   inline constexpr std::size_t kNumTownCreatureLevels = 7;

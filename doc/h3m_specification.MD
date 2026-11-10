@@ -331,10 +331,10 @@ An H3M file is a single structure which we will naturally call [`Map`](#Map).
 
 
 ### `SecondarySkill`
-| Field name | Type    | Size in bytes | Description                                                                   |
-| ---------- | ------- | ------------- | ----------------------------------------------------------------------------- |
-| type       | `uint8` | 1             | Enum [`SecondarySkillType`](../src/h3mtxt/Map/Constants/SecondarySkillType.h) |
-| level      | `int8`  | 1             | Level of proficiency (1 - Basic, 2 - Advanced, 3 - Expert)                    |
+| Field name | Type   | Size in bytes | Description                                                                   |
+| ---------- | ------ | ------------- | ----------------------------------------------------------------------------- |
+| type       | `int8` | 1             | Enum [`SecondarySkillType`](../src/h3mtxt/Map/Constants/SecondarySkillType.h) |
+| level      | `int8` | 1             | Level of proficiency (1 - Basic, 2 - Advanced, 3 - Expert)                    |
 
 
 ### `HeroArtifacts`
@@ -688,7 +688,7 @@ An H3M file is a single structure which we will naturally call [`Map`](#Map).
 | ---------------- | ---------- | ------------- | ---------------------------------------------------------------------------------------- |
 | type             | `uint8`    | 1             | Enum [`ScholarRewardType`](../src/h3mtxt/Map/Constants/ScholarRewardType.h)              |
 | ?primary_skill   | `uint8`    | 1             | Enum [`PrimarySkillType`](../src/h3mtxt/Map/Constants/PrimarySkillType.h). Only present if `type` is 0 |
-| ?secondary_skill | `uint8`    | 1             | Enum [`SecondarySkillType`](../src/h3mtxt/Map/Constants/SecondarySkillType.h). Only present if `type` is 1 |
+| ?secondary_skill | `int8`     | 1             | Enum [`SecondarySkillType`](../src/h3mtxt/Map/Constants/SecondarySkillType.h). Only present if `type` is 1 |
 | ?spell           | `uint8`    | 1             | Enum [`SpellType`](../src/h3mtxt/Map/Constants/SpellType.h). Only present if `type` is 2 |
 | ?random          | `uint8`    | 1             | Not used; set to 0 by default by the Map Editor. Only present if `type` is 0xFF          |
 | reserved         | `uint8[6]` | 6             | Not used; set to 0s by default by the Map Editor                                         |

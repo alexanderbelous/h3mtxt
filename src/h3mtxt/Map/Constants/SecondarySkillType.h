@@ -4,8 +4,12 @@
 
 namespace h3m
 {
-  enum class SecondarySkillType : std::uint8_t
+  enum class SecondarySkillType : std::int8_t
   {
+    // Doesn't appear in .h3m/.h3c; it is, however, used in saved games for "deserted" Witch Huts
+    // (i.e. those that don't teach the visiting hero any skill).
+    None         = -1, // 0xFF
+
     Pathfinding  = 0,  // 0x00
     Archery      = 1,  // 0x01
     Logistics    = 2,  // 0x02
@@ -42,7 +46,4 @@ namespace h3m
     // At Advanced/Expert level it is already displayed as "Basic First Aid" with the above-mentioned behavior.
     // This is used in the map "Awakening from Abyss" by LC.
   };
-
-  // The number of secondary skills in the game, i.e. the cardinality of SecondarySkillType.
-  inline constexpr std::size_t kNumSecondarySkills = 28;
 }
