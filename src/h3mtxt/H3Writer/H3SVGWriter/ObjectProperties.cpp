@@ -279,6 +279,15 @@ namespace h3svg
     }
 
     template<>
+    constexpr void ObjectPropertiesWriter::write(const ObjectProperties<ObjectPropertiesType::SpellScroll>& properties)
+    {
+      writeBits<8>(properties.spell);
+      writeBits<11>(properties.reserved);
+      writeBits<12>(properties.index);
+      writeBits<1>(properties.has_setup);
+    }
+
+    template<>
     constexpr void ObjectPropertiesWriter::write(const ObjectProperties<ObjectPropertiesType::TreeOfKnowledge>& properties)
     {
       writeBits<5>(properties.index);

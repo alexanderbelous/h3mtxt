@@ -203,6 +203,17 @@ namespace h3svg
     };
 
     template<>
+    const TestCaseData<ObjectPropertiesType::SpellScroll> kTestCases<ObjectPropertiesType::SpellScroll> = {
+      .properties = {
+        .spell = SpellType::TownPortal,
+        .index = 23,
+        .has_setup = true,
+        .reserved = 0
+      },
+      .binary_data = "\x09\x00\xb8\x80"sv
+    };
+
+    template<>
     const TestCaseData<ObjectPropertiesType::TreeOfKnowledge> kTestCases<ObjectPropertiesType::TreeOfKnowledge> = {
       .properties = {
         .visited_by = []() consteval {
@@ -323,6 +334,7 @@ namespace h3svg
                      StaticConstant<ObjectPropertiesType::Scholar>,
                      StaticConstant<ObjectPropertiesType::SeaChest>,
                      StaticConstant<ObjectPropertiesType::ShipwreckSurvivor>,
+                     StaticConstant<ObjectPropertiesType::SpellScroll>,
                      StaticConstant<ObjectPropertiesType::TreeOfKnowledge>,
                      StaticConstant<ObjectPropertiesType::Wagon>,
                      StaticConstant<ObjectPropertiesType::WarriorsTomb>,

@@ -732,6 +732,15 @@ namespace h3json
   };
 
   template<>
+  struct FieldNames<h3svg::ObjectProperties<h3svg::ObjectPropertiesType::SpellScroll>>
+  {
+    static constexpr std::string_view kSpell = "spell";
+    static constexpr std::string_view kHasSetup = "has_setup";
+    static constexpr std::string_view kIndex = "index";
+    static constexpr std::string_view kReserved = "reserved";
+  };
+
+  template<>
   struct FieldNames<h3svg::ObjectProperties<h3svg::ObjectPropertiesType::TreeOfKnowledge>>
   {
     static constexpr std::string_view kIndex = "index";

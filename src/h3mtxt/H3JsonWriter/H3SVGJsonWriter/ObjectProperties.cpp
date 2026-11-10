@@ -168,6 +168,13 @@ namespace Medea_NS
     {
       out.writeField(Fields::kIndex, properties.index);
     }
+    else if constexpr (T == ObjectPropertiesType::SpellScroll)
+    {
+      out.writeField(Fields::kSpell, properties.spell);
+      out.writeField(Fields::kHasSetup, static_cast<bool>(properties.has_setup));
+      out.writeField(Fields::kIndex, properties.index);
+      out.writeField(Fields::kReserved, properties.reserved);
+      }
     else if constexpr (T == ObjectPropertiesType::TreeOfKnowledge)
     {
       out.writeField(Fields::kIndex, properties.index);

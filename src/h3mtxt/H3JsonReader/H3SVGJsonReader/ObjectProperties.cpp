@@ -169,6 +169,13 @@ namespace h3json
     {
       readField(Fields::kIndex, properties.index);
     }
+    else if constexpr (T == ObjectPropertiesType::SpellScroll)
+    {
+      properties.spell = readField<h3svg::SpellType>(Fields::kSpell);
+      properties.has_setup = readField<bool>(Fields::kHasSetup);
+      properties.index = readBitField<std::uint16_t, 12>(root, Fields::kIndex);
+      properties.reserved = readBitField<std::uint16_t, 11>(root, Fields::kReserved);
+      }
     else if constexpr (T == ObjectPropertiesType::TreeOfKnowledge)
     {
       properties.index = readBitField<std::uint8_t, 5>(root, Fields::kIndex);

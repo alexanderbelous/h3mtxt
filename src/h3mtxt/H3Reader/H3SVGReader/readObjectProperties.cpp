@@ -372,6 +372,17 @@ namespace h3svg
     }
 
     template<>
+    constexpr ObjectProperties<ObjectPropertiesType::SpellScroll> ObjectPropertiesReader::read()
+    {
+      ObjectProperties<ObjectPropertiesType::SpellScroll> properties;
+      properties.spell = readEnum<SpellType, 8>();
+      properties.reserved = readInt<std::uint16_t, 11>();
+      properties.index = readInt<std::uint16_t, 12>();
+      properties.has_setup = readInt<std::uint16_t, 1>();
+      return properties;
+    }
+
+    template<>
     constexpr ObjectProperties<ObjectPropertiesType::TreeOfKnowledge> ObjectPropertiesReader::read()
     {
       ObjectProperties<ObjectPropertiesType::TreeOfKnowledge> properties;

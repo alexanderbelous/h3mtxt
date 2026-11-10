@@ -317,6 +317,19 @@ namespace h3svg
   };
 
   template<>
+  struct ObjectProperties<ObjectPropertiesType::SpellScroll>
+  {
+    constexpr bool operator==(const ObjectProperties&) const noexcept = default;
+
+    SpellType spell = {};                // Bits [0; 7]
+    // 0-based index of the element in ObjectPropertiesTables::treasures.
+    std::uint16_t index : 12 {};         // Bits [19; 30]
+    // Indicates whether @index is meaningful.
+    std::uint16_t has_setup : 1 = false; // Bits [31; 31]
+    std::uint16_t reserved : 11 = 0;     // Bits [8; 18]
+  };
+
+  template<>
   struct ObjectProperties<ObjectPropertiesType::TreeOfKnowledge>
   {
     constexpr bool operator==(const ObjectProperties&) const noexcept = default;
