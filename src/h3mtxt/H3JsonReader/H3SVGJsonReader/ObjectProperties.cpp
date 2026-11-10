@@ -140,7 +140,7 @@ namespace h3json
       properties.quantity = readBitField<std::uint32_t, 19>(root, Fields::kQuantity);
       properties.has_setup = readField<bool>(Fields::kHasSetup);
       properties.index = readBitField<std::uint16_t, 12>(root, Fields::kIndex);
-      }
+    }
     else if constexpr (T == ObjectPropertiesType::Scholar)
     {
       properties.type = readBitField<h3svg::ScholarRewardType, 3>(root, Fields::kType);
@@ -181,7 +181,14 @@ namespace h3json
       properties.has_setup = readField<bool>(Fields::kHasSetup);
       properties.index = readBitField<std::uint16_t, 12>(root, Fields::kIndex);
       properties.reserved = readBitField<std::uint16_t, 11>(root, Fields::kReserved);
-      }
+    }
+    else if constexpr (T == ObjectPropertiesType::TreasureChest)
+    {
+      properties.artifact = readBitField<h3svg::ArtifactType, 10>(root, Fields::kArtifact);
+      properties.has_artifact = readField<bool>(Fields::kHasArtifact);
+      properties.bonus = readBitField<std::uint16_t, 4>(root, Fields::kBonus);
+      properties.reserved = readBitField<std::int32_t, 17>(root, Fields::kReserved);
+    }
     else if constexpr (T == ObjectPropertiesType::TreeOfKnowledge)
     {
       properties.index = readBitField<std::uint8_t, 5>(root, Fields::kIndex);

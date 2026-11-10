@@ -342,6 +342,18 @@ namespace h3svg
   };
 
   template<>
+  struct ObjectProperties<ObjectPropertiesType::TreasureChest>
+  {
+    constexpr bool operator==(const ObjectProperties&) const noexcept = default;
+
+    ArtifactType artifact : 10 = ArtifactType::None; // Bits [0; 9]
+    std::uint16_t has_artifact : 1 = false;          // Bits [10; 10]
+    // Gold = bonus*500; Experience = (bonus-1)*500.
+    std::uint16_t bonus : 4 = {};                    // Bits [11; 14]
+    std::int32_t reserved : 17 = -1;                 // Bits [15; 31]
+  };
+
+  template<>
   struct ObjectProperties<ObjectPropertiesType::TreeOfKnowledge>
   {
     constexpr bool operator==(const ObjectProperties&) const noexcept = default;

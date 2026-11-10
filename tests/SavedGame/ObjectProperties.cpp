@@ -224,6 +224,17 @@ namespace h3svg
     };
 
     template<>
+    const TestCaseData<ObjectPropertiesType::TreasureChest> kTestCases<ObjectPropertiesType::TreasureChest> = {
+      .properties = {
+        .artifact = ArtifactType::None,
+        .has_artifact = false,
+        .bonus = 4,
+        .reserved = -1
+      },
+      .binary_data = "\xff\xa3\xff\xff"sv
+    };
+
+    template<>
     const TestCaseData<ObjectPropertiesType::TreeOfKnowledge> kTestCases<ObjectPropertiesType::TreeOfKnowledge> = {
       .properties = {
         .visited_by = []() consteval {
@@ -345,6 +356,7 @@ namespace h3svg
                      StaticConstant<ObjectPropertiesType::SeaChest>,
                      StaticConstant<ObjectPropertiesType::ShipwreckSurvivor>,
                      StaticConstant<ObjectPropertiesType::SpellScroll>,
+                     StaticConstant<ObjectPropertiesType::TreasureChest>,
                      StaticConstant<ObjectPropertiesType::TreeOfKnowledge>,
                      StaticConstant<ObjectPropertiesType::Wagon>,
                      StaticConstant<ObjectPropertiesType::WarriorsTomb>,

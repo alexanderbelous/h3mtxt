@@ -37,6 +37,7 @@ namespace h3svg
     Shrine,
     Sign,
     SpellScroll,
+    TreasureChest,
     TreeOfKnowledge,
     University,
     Wagon,
@@ -46,7 +47,7 @@ namespace h3svg
     WitchHut
   };
 
-  inline constexpr std::size_t kNumObjectPropertiesTypes = 34;
+  inline constexpr std::size_t kNumObjectPropertiesTypes = 35;
 
   // Returns ObjectPropertiesType for the given ObjectClass.
   // \param object_class - ObjectClass of the object.
@@ -117,6 +118,8 @@ namespace h3svg
       return ObjectPropertiesType::Shrine;
     case ObjectClass::SPELL_SCROLL:
       return ObjectPropertiesType::SpellScroll;
+    case ObjectClass::TREASURE_CHEST:
+      return ObjectPropertiesType::TreasureChest;
     case ObjectClass::TREE_OF_KNOWLEDGE:
       return ObjectPropertiesType::TreeOfKnowledge;
     case ObjectClass::UNIVERSITY:

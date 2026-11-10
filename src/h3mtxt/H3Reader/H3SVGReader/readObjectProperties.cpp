@@ -393,6 +393,17 @@ namespace h3svg
     }
 
     template<>
+    constexpr ObjectProperties<ObjectPropertiesType::TreasureChest> ObjectPropertiesReader::read()
+    {
+      ObjectProperties<ObjectPropertiesType::TreasureChest> properties;
+      properties.artifact = readEnum<ArtifactType, 10>();
+      properties.has_artifact = readInt<std::uint16_t, 1>();
+      properties.bonus = readInt<std::uint16_t, 4>();
+      properties.reserved = readInt<std::int32_t, 17>();
+      return properties;
+    }
+
+    template<>
     constexpr ObjectProperties<ObjectPropertiesType::TreeOfKnowledge> ObjectPropertiesReader::read()
     {
       ObjectProperties<ObjectPropertiesType::TreeOfKnowledge> properties;

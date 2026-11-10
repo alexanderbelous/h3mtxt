@@ -296,6 +296,15 @@ namespace h3svg
     }
 
     template<>
+    constexpr void ObjectPropertiesWriter::write(const ObjectProperties<ObjectPropertiesType::TreasureChest>& properties)
+    {
+      writeBits<10>(properties.artifact);
+      writeBits<1>(properties.has_artifact);
+      writeBits<4>(properties.bonus);
+      writeBits<17>(properties.reserved);
+    }
+
+    template<>
     constexpr void ObjectPropertiesWriter::write(const ObjectProperties<ObjectPropertiesType::TreeOfKnowledge>& properties)
     {
       writeBits<5>(properties.index);

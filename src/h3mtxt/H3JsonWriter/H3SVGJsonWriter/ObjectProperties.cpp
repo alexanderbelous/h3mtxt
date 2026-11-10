@@ -180,7 +180,14 @@ namespace Medea_NS
       out.writeField(Fields::kHasSetup, static_cast<bool>(properties.has_setup));
       out.writeField(Fields::kIndex, properties.index);
       out.writeField(Fields::kReserved, properties.reserved);
-      }
+    }
+    else if constexpr (T == ObjectPropertiesType::TreasureChest)
+    {
+      out.writeField(Fields::kArtifact, properties.artifact);
+      out.writeField(Fields::kHasArtifact, static_cast<bool>(properties.has_artifact));
+      out.writeField(Fields::kBonus, properties.bonus);
+      out.writeField(Fields::kReserved, properties.reserved);
+    }
     else if constexpr (T == ObjectPropertiesType::TreeOfKnowledge)
     {
       out.writeField(Fields::kIndex, properties.index);
