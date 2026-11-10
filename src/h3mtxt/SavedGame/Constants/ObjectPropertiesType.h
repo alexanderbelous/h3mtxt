@@ -29,6 +29,7 @@ namespace h3svg
     Obelisk,
     Pyramid,
     RefugeeCamp,
+    Resource,
     Scholar,
     SeaChest,
     SeersHut,
@@ -45,7 +46,7 @@ namespace h3svg
     WitchHut
   };
 
-  inline constexpr std::size_t kNumObjectPropertiesTypes = 33;
+  inline constexpr std::size_t kNumObjectPropertiesTypes = 34;
 
   // Returns ObjectPropertiesType for the given ObjectClass.
   // \param object_class - ObjectClass of the object.
@@ -55,7 +56,6 @@ namespace h3svg
     switch (object_class)
     {
     case ObjectClass::ARTIFACT:
-      // TODO: spell scrolls should also go here.
       return ObjectPropertiesType::Artifact;
     case ObjectClass::BLACK_MARKET:
       return ObjectPropertiesType::BlackMarket;
@@ -101,6 +101,8 @@ namespace h3svg
       return ObjectPropertiesType::Pyramid;
     case ObjectClass::REFUGEE_CAMP:
       return ObjectPropertiesType::RefugeeCamp;
+    case ObjectClass::RESOURCE:
+      return ObjectPropertiesType::Resource;
     case ObjectClass::SCHOLAR:
       return ObjectPropertiesType::Scholar;
     case ObjectClass::SEA_CHEST:

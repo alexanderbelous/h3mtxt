@@ -255,6 +255,18 @@ namespace h3svg
   };
 
   template<>
+  struct ObjectProperties<ObjectPropertiesType::Resource>
+  {
+    constexpr bool operator==(const ObjectProperties&) const noexcept = default;
+
+    std::uint32_t quantity : 19 = {};    // Bits [0; 18]
+    // 0-based index of the element in ObjectPropertiesTables::treasures.
+    std::uint32_t index : 12 = {};       // Bits [19; 30]
+    // Indicates whether @index is meaningful.
+    std::uint32_t has_setup : 1 = false; // Bits [31; 31]
+  };
+
+  template<>
   struct ObjectProperties<ObjectPropertiesType::Scholar>
   {
     constexpr bool operator==(const ObjectProperties&) const noexcept = default;

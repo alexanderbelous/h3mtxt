@@ -320,6 +320,16 @@ namespace h3svg
     }
 
     template<>
+    constexpr ObjectProperties<ObjectPropertiesType::Resource> ObjectPropertiesReader::read()
+    {
+      ObjectProperties<ObjectPropertiesType::Resource> properties;
+      properties.quantity = readInt<std::uint32_t, 19>();
+      properties.index = readInt<std::uint32_t, 12>();
+      properties.has_setup = readInt<std::uint32_t, 1>();
+      return properties;
+    }
+
+    template<>
     constexpr ObjectProperties<ObjectPropertiesType::Scholar> ObjectPropertiesReader::read()
     {
       ObjectProperties<ObjectPropertiesType::Scholar> properties;

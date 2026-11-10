@@ -135,6 +135,12 @@ namespace h3json
     {
       readField(Fields::kQuantity, properties.quantity);
     }
+    else if constexpr (T == ObjectPropertiesType::Resource)
+    {
+      properties.quantity = readBitField<std::uint32_t, 19>(root, Fields::kQuantity);
+      properties.has_setup = readField<bool>(Fields::kHasSetup);
+      properties.index = readBitField<std::uint16_t, 12>(root, Fields::kIndex);
+      }
     else if constexpr (T == ObjectPropertiesType::Scholar)
     {
       properties.type = readBitField<h3svg::ScholarRewardType, 3>(root, Fields::kType);

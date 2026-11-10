@@ -172,6 +172,16 @@ namespace h3svg
     };
 
     template<>
+    const TestCaseData<ObjectPropertiesType::Resource> kTestCases<ObjectPropertiesType::Resource> = {
+      .properties = {
+        .quantity = 1000,
+        .index = 23,
+        .has_setup = true,
+      },
+      .binary_data = "\xe8\x03\xb8\x80"sv
+    };
+
+    template<>
     const TestCaseData<ObjectPropertiesType::Scholar> kTestCases<ObjectPropertiesType::Scholar> = {
       .properties = {
         .type = ScholarRewardType::PrimarySkill,

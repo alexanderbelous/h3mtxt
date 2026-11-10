@@ -134,6 +134,12 @@ namespace Medea_NS
     {
       out.writeField(Fields::kQuantity, properties.quantity);
     }
+    else if constexpr (T == ObjectPropertiesType::Resource)
+    {
+      out.writeField(Fields::kQuantity, properties.quantity);
+      out.writeField(Fields::kHasSetup, static_cast<bool>(properties.has_setup));
+      out.writeField(Fields::kIndex, properties.index);
+      }
     else if constexpr (T == ObjectPropertiesType::Scholar)
     {
       out.writeField(Fields::kType, properties.type);
