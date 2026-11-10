@@ -1101,7 +1101,8 @@ namespace Medea_NS
   std::string_view EnumCommentGetter::operator()(h3m::SecondarySkillType value) const
   {
     static constexpr std::string_view kNames[] = {
-      "Pathfinding",
+      "(None)",      // -1
+      "Pathfinding", // 0
       "Archery",
       "Logistics",
       "Scouting",
@@ -1130,8 +1131,9 @@ namespace Medea_NS
       "Resistance",
       "First Aid"
     };
-    const std::size_t idx = static_cast<std::size_t>(value);
-    return (idx < std::size(kNames)) ? kNames[idx] : std::string_view{};
+    static_assert(std::size(kNames) == h3m::kNumSecondarySkills + 1);
+    const std::int8_t idx = static_cast<std::int8_t>(value);
+    return (-1 <= idx && idx < static_cast<std::int8_t>(h3m::kNumSecondarySkills)) ? kNames[idx + 1] : std::string_view{};
   }
 
   template<>

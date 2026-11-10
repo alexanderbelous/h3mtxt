@@ -176,11 +176,11 @@ namespace h3svg
       .properties = {
         .type = ScholarRewardType::PrimarySkill,
         .primary_skill = PrimarySkillType::SpellPower,
-        .secondary_skill = static_cast<SecondarySkillType>(0b01111111), // TODO: replace with SecondarySkillType::None.
+        .secondary_skill = static_cast<SecondarySkillType>(0b00111111), // TODO: replace with SecondarySkillType::None.
         .spell = static_cast<SpellType16>(SpellType::None),
         .reserved = -1
       },
-      .binary_data = "\xd0\xff\xff\xff"sv
+      .binary_data = "\xd0\xef\xff\xff"sv
     };
 
     template<>

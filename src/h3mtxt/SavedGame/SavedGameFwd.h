@@ -131,7 +131,7 @@ namespace h3svg
 
   enum class SeaChestContentType : std::uint32_t;
 
-  enum class SecondarySkillType32 : std::uint32_t;
+  enum class SecondarySkillType32 : std::int32_t;
 
   enum class SeerName : std::uint8_t;
 
