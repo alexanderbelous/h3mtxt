@@ -367,6 +367,15 @@ namespace h3svg
   };
 
   template<>
+  struct ObjectProperties<ObjectPropertiesType::Town>
+  {
+    constexpr bool operator==(const ObjectProperties&) const noexcept = default;
+
+    // 0-based index of the element in SavedGame::towns.
+    std::int32_t index {};
+  };
+
+  template<>
   struct ObjectProperties<ObjectPropertiesType::University>
   {
     constexpr bool operator==(const ObjectProperties&) const noexcept = default;

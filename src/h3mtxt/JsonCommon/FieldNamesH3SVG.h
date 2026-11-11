@@ -768,6 +768,12 @@ namespace h3json
   };
 
   template<>
+  struct FieldNames<h3svg::ObjectProperties<h3svg::ObjectPropertiesType::Town>>
+  {
+    static constexpr std::string_view kIndex = "index";
+  };
+
+  template<>
   struct FieldNames<h3svg::ObjectProperties<h3svg::ObjectPropertiesType::University>>
   {
     static constexpr std::string_view kReserved1 = "reserved1";

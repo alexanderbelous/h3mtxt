@@ -39,6 +39,7 @@ namespace h3svg
     SpellScroll,
     TreasureChest,
     TreeOfKnowledge,
+    Town,
     University,
     Wagon,
     WarriorsTomb,
@@ -47,7 +48,7 @@ namespace h3svg
     WitchHut
   };
 
-  inline constexpr std::size_t kNumObjectPropertiesTypes = 35;
+  inline constexpr std::size_t kNumObjectPropertiesTypes = 36;
 
   // Returns ObjectPropertiesType for the given ObjectClass.
   // \param object_class - ObjectClass of the object.

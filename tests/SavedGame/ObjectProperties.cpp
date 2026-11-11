@@ -252,6 +252,14 @@ namespace h3svg
     };
 
     template<>
+    const TestCaseData<ObjectPropertiesType::Town> kTestCases<ObjectPropertiesType::Town> = {
+      .properties = {
+        .index = 23
+      },
+      .binary_data = "\x17\x00\x00\x00"sv
+    };
+
+    template<>
     const TestCaseData<ObjectPropertiesType::Wagon> kTestCases<ObjectPropertiesType::Wagon> = {
       .properties = {
         .artifact = ArtifactType::None,
@@ -358,6 +366,7 @@ namespace h3svg
                      StaticConstant<ObjectPropertiesType::SpellScroll>,
                      StaticConstant<ObjectPropertiesType::TreasureChest>,
                      StaticConstant<ObjectPropertiesType::TreeOfKnowledge>,
+                     StaticConstant<ObjectPropertiesType::Town>,
                      StaticConstant<ObjectPropertiesType::Wagon>,
                      StaticConstant<ObjectPropertiesType::WarriorsTomb>,
                      StaticConstant<ObjectPropertiesType::WaterWheel>,

@@ -196,6 +196,10 @@ namespace Medea_NS
       out.writeField(Fields::kReserved1, properties.reserved1);
       out.writeField(Fields::kReserved2, properties.reserved2);
     }
+    else if constexpr (T == ObjectPropertiesType::Town)
+    {
+      out.writeField(Fields::kIndex, properties.index);
+    }
     else if constexpr (T == ObjectPropertiesType::University)
     {
       out.writeField(Fields::kReserved1, properties.reserved1);
