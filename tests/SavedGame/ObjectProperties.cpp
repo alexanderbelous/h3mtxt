@@ -29,7 +29,7 @@ namespace h3svg
     };
 
     // Variable template providing test data for each RewardType.
-    template<ObjectPropertiesType T>
+    template<ObjectPropertiesType T, class Enable = void>
     const TestCaseData<T> kTestCases;
 
     template<>
@@ -51,8 +51,17 @@ namespace h3svg
       .binary_data = "\x00\x00\xb8\x80"sv
     };
 
-    template<>
-    const TestCaseData<ObjectPropertiesType::BlackMarket> kTestCases<ObjectPropertiesType::BlackMarket> = {
+    // SFINAE specialization for ObjectProperties<T> that only have 1
+    // member named `index` (which is either std::int32_t or std::uint32_t).
+    template<ObjectPropertiesType T>
+    const TestCaseData<T> kTestCases<T, std::enable_if_t<T == ObjectPropertiesType::BlackMarket ||
+                                                         T == ObjectPropertiesType::Boat ||
+                                                         T == ObjectPropertiesType::Dwelling ||
+                                                         T == ObjectPropertiesType::Garrison ||
+                                                         T == ObjectPropertiesType::Obelisk ||
+                                                         T == ObjectPropertiesType::SeersHut ||
+                                                         T == ObjectPropertiesType::Sign ||
+                                                         T == ObjectPropertiesType::Town>> = {
       .properties = {
         .index = 23
       },
@@ -136,14 +145,6 @@ namespace h3svg
         .reserved2 = -1
       },
       .binary_data = "\x6d\xfd\xff\xff"sv
-    };
-
-    template<>
-    const TestCaseData<ObjectPropertiesType::Obelisk> kTestCases<ObjectPropertiesType::Obelisk> = {
-      .properties = {
-        .index = 17
-      },
-      .binary_data = "\x11\x00\x00\x00"sv
     };
 
     template<>
@@ -252,14 +253,6 @@ namespace h3svg
     };
 
     template<>
-    const TestCaseData<ObjectPropertiesType::Town> kTestCases<ObjectPropertiesType::Town> = {
-      .properties = {
-        .index = 23
-      },
-      .binary_data = "\x17\x00\x00\x00"sv
-    };
-
-    template<>
     const TestCaseData<ObjectPropertiesType::Wagon> kTestCases<ObjectPropertiesType::Wagon> = {
       .properties = {
         .artifact = ArtifactType::None,
@@ -351,8 +344,11 @@ namespace h3svg
                      StaticConstant<ObjectPropertiesType::None>,
                      StaticConstant<ObjectPropertiesType::Artifact>,
                      StaticConstant<ObjectPropertiesType::BlackMarket>,
+                     StaticConstant<ObjectPropertiesType::Boat>,
                      StaticConstant<ObjectPropertiesType::CreatureBank>,
+                     StaticConstant<ObjectPropertiesType::Dwelling>,
                      StaticConstant<ObjectPropertiesType::Event>,
+                     StaticConstant<ObjectPropertiesType::Garrison>,
                      StaticConstant<ObjectPropertiesType::Hero>,
                      StaticConstant<ObjectPropertiesType::MagicSpring>,
                      StaticConstant<ObjectPropertiesType::Monster>,
@@ -362,7 +358,9 @@ namespace h3svg
                      StaticConstant<ObjectPropertiesType::RefugeeCamp>,
                      StaticConstant<ObjectPropertiesType::Scholar>,
                      StaticConstant<ObjectPropertiesType::SeaChest>,
+                     StaticConstant<ObjectPropertiesType::SeersHut>,
                      StaticConstant<ObjectPropertiesType::ShipwreckSurvivor>,
+                     StaticConstant<ObjectPropertiesType::Sign>,
                      StaticConstant<ObjectPropertiesType::SpellScroll>,
                      StaticConstant<ObjectPropertiesType::TreasureChest>,
                      StaticConstant<ObjectPropertiesType::TreeOfKnowledge>,

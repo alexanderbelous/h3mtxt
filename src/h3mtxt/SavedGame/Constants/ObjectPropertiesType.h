@@ -13,6 +13,7 @@ namespace h3svg
     None,  // Used for objects that don't have properties (e.g., mountains, flowers, etc).
     Artifact,
     BlackMarket,
+    Boat,
     Campfire,
     CreatureBank,
     Dwelling,
@@ -48,7 +49,7 @@ namespace h3svg
     WitchHut
   };
 
-  inline constexpr std::size_t kNumObjectPropertiesTypes = 36;
+  inline constexpr std::size_t kNumObjectPropertiesTypes = 37;
 
   // Returns ObjectPropertiesType for the given ObjectClass.
   // \param object_class - ObjectClass of the object.

@@ -96,6 +96,12 @@ namespace h3svg
     }
 
     template<>
+    constexpr void ObjectPropertiesWriter::write(const ObjectProperties<ObjectPropertiesType::Boat>& properties)
+    {
+      writeBits<32>(properties.index);
+    }
+
+    template<>
     constexpr void ObjectPropertiesWriter::write(const ObjectProperties<ObjectPropertiesType::Campfire>& properties)
     {
       writeBits<4>(properties.resource_type);

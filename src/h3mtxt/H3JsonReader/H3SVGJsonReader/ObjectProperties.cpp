@@ -22,16 +22,25 @@ namespace h3json
     {
       readField(Fields::kReserved, properties.reserved);
     }
+    else if constexpr (T == ObjectPropertiesType::BlackMarket ||
+                       T == ObjectPropertiesType::Boat ||
+                       T == ObjectPropertiesType::Dwelling ||
+                       T == ObjectPropertiesType::Garrison ||
+                       T == ObjectPropertiesType::Obelisk ||
+                       T == ObjectPropertiesType::SeersHut ||
+                       T == ObjectPropertiesType::Sign ||
+                       T == ObjectPropertiesType::Town)
+    {
+      // Branch for specializations of ObjectProperties<T> that only have 1
+      // member named `index` (which is either std::int32_t or std::uint32_t).
+      readField(Fields::kIndex, properties.index);
+    }
     else if constexpr (T == ObjectPropertiesType::Artifact)
     {
       properties.type = readBitField<std::uint16_t, 4>(root, Fields::kType);
       properties.has_setup = readField<bool>(Fields::kHasSetup);
       properties.index = readBitField<std::uint16_t, 12>(root, Fields::kIndex);
       properties.reserved = readBitField<std::uint16_t, 15>(root, Fields::kReserved);
-    }
-    else if constexpr (T == ObjectPropertiesType::BlackMarket)
-    {
-      readField(Fields::kIndex, properties.index);
     }
     else if constexpr (T == ObjectPropertiesType::Campfire)
     {
@@ -46,10 +55,6 @@ namespace h3json
       properties.index = readBitField<std::uint16_t, 12>(root, Fields::kIndex);
       properties.is_cleared = readField<bool>(Fields::kIsCleared);
       properties.reserved2 = readBitField<std::int8_t, 6>(root, Fields::kReserved2);
-    }
-    else if constexpr (T == ObjectPropertiesType::Dwelling)
-    {
-      readField(Fields::kIndex, properties.index);
     }
     else if constexpr (T == ObjectPropertiesType::Corpse)
     {
@@ -77,10 +82,6 @@ namespace h3json
       properties.reserved2 = readBitField<std::int32_t, 8>(root, Fields::kReserved2);
       properties.luck_bonus = readBitField<std::int32_t, 4>(root, Fields::kLuckBonus);
       properties.reserved3 = readBitField<std::int32_t, 15>(root, Fields::kReserved3);
-    }
-    else if constexpr (T == ObjectPropertiesType::Garrison)
-    {
-      readField(Fields::kIndex, properties.index);
     }
     else if constexpr (T == ObjectPropertiesType::Hero)
     {
@@ -119,10 +120,6 @@ namespace h3json
       properties.is_lootable = readBitField<std::uint8_t, 1>(root, Fields::kIsLootable);
       properties.reserved2 = readBitField<std::int32_t, 21>(root, Fields::kReserved2);
     }
-    else if constexpr (T == ObjectPropertiesType::Obelisk)
-    {
-      readField(Fields::kIndex, properties.index);
-    }
     else if constexpr (T == ObjectPropertiesType::Pyramid)
     {
       readField(Fields::kSpell, properties.spell);
@@ -156,10 +153,6 @@ namespace h3json
       properties.reserved1 = readBitField<std::uint32_t, 1>(root, Fields::kReserved1);
       properties.reserved2 = readBitField<std::int32_t, 19>(root, Fields::kReserved2);
     }
-    else if constexpr (T == ObjectPropertiesType::SeersHut)
-    {
-      readField(Fields::kIndex, properties.index);
-    }
     else if constexpr (T == ObjectPropertiesType::ShipwreckSurvivor)
     {
       readField(Fields::kArtifact, properties.artifact);
@@ -170,10 +163,6 @@ namespace h3json
       readField(Fields::kVisitedBy, properties.visited_by);
       properties.spell = readBitField<h3svg::SpellType16, 10>(root, Fields::kSpell);
       properties.reserved2 = readBitField<std::int16_t, 9>(root, Fields::kReserved2);
-    }
-    else if constexpr (T == ObjectPropertiesType::Sign)
-    {
-      readField(Fields::kIndex, properties.index);
     }
     else if constexpr (T == ObjectPropertiesType::SpellScroll)
     {
@@ -196,10 +185,6 @@ namespace h3json
       readField(Fields::kVisitedBy, properties.visited_by);
       properties.reserved1 = readBitField<std::uint8_t, 1>(root, Fields::kReserved1);
       properties.reserved2 = readBitField<std::int16_t, 16>(root, Fields::kReserved2);
-    }
-    else if constexpr (T == ObjectPropertiesType::Town)
-    {
-      readField(Fields::kIndex, properties.index);
     }
     else if constexpr (T == ObjectPropertiesType::University)
     {

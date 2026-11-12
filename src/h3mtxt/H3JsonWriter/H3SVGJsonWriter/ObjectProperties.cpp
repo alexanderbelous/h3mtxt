@@ -21,16 +21,25 @@ namespace Medea_NS
     {
       out.writeField(Fields::kReserved, properties.reserved);
     }
+    else if constexpr (T == ObjectPropertiesType::BlackMarket ||
+                       T == ObjectPropertiesType::Boat ||
+                       T == ObjectPropertiesType::Dwelling ||
+                       T == ObjectPropertiesType::Garrison ||
+                       T == ObjectPropertiesType::Obelisk ||
+                       T == ObjectPropertiesType::SeersHut ||
+                       T == ObjectPropertiesType::Sign ||
+                       T == ObjectPropertiesType::Town)
+    {
+      // Branch for specializations of ObjectProperties<T> that only have 1
+      // member named `index` (which is either std::int32_t or std::uint32_t).
+      out.writeField(Fields::kIndex, properties.index);
+    }
     else if constexpr (T == ObjectPropertiesType::Artifact)
     {
       out.writeField(Fields::kType, properties.type);
       out.writeField(Fields::kHasSetup, static_cast<bool>(properties.has_setup));
       out.writeField(Fields::kIndex, properties.index);
       out.writeField(Fields::kReserved, properties.reserved);
-    }
-    else if constexpr (T == ObjectPropertiesType::BlackMarket)
-    {
-      out.writeField(Fields::kIndex, properties.index);
     }
     else if constexpr (T == ObjectPropertiesType::Campfire)
     {
@@ -45,10 +54,6 @@ namespace Medea_NS
       out.writeField(Fields::kIndex, properties.index);
       out.writeField(Fields::kIsCleared, static_cast<bool>(properties.is_cleared));
       out.writeField(Fields::kReserved2, properties.reserved2);
-    }
-    else if constexpr (T == ObjectPropertiesType::Dwelling)
-    {
-      out.writeField(Fields::kIndex, properties.index);
     }
     else if constexpr (T == ObjectPropertiesType::Corpse)
     {
@@ -76,10 +81,6 @@ namespace Medea_NS
       out.writeField(Fields::kReserved2, properties.reserved2);
       out.writeField(Fields::kLuckBonus, properties.luck_bonus);
       out.writeField(Fields::kReserved3, properties.reserved3);
-    }
-    else if constexpr (T == ObjectPropertiesType::Garrison)
-    {
-      out.writeField(Fields::kIndex, properties.index);
     }
     else if constexpr (T == ObjectPropertiesType::Hero)
     {
@@ -118,10 +119,6 @@ namespace Medea_NS
       out.writeField(Fields::kIsLootable, properties.is_lootable);
       out.writeField(Fields::kReserved2, properties.reserved2);
     }
-    else if constexpr (T == ObjectPropertiesType::Obelisk)
-    {
-      out.writeField(Fields::kIndex, properties.index);
-    }
     else if constexpr (T == ObjectPropertiesType::Pyramid)
     {
       out.writeField(Fields::kSpell, properties.spell);
@@ -155,10 +152,6 @@ namespace Medea_NS
       out.writeField(Fields::kReserved1, properties.reserved1);
       out.writeField(Fields::kReserved2, properties.reserved2);
     }
-    else if constexpr (T == ObjectPropertiesType::SeersHut)
-    {
-      out.writeField(Fields::kIndex, properties.index);
-    }
     else if constexpr (T == ObjectPropertiesType::ShipwreckSurvivor)
     {
       out.writeField(Fields::kArtifact, properties.artifact);
@@ -169,10 +162,6 @@ namespace Medea_NS
       out.writeField(Fields::kVisitedBy, properties.visited_by);
       out.writeField(Fields::kSpell, properties.spell);
       out.writeField(Fields::kReserved2, properties.reserved2);
-    }
-    else if constexpr (T == ObjectPropertiesType::Sign)
-    {
-      out.writeField(Fields::kIndex, properties.index);
     }
     else if constexpr (T == ObjectPropertiesType::SpellScroll)
     {
@@ -195,10 +184,6 @@ namespace Medea_NS
       out.writeField(Fields::kVisitedBy, properties.visited_by);
       out.writeField(Fields::kReserved1, properties.reserved1);
       out.writeField(Fields::kReserved2, properties.reserved2);
-    }
-    else if constexpr (T == ObjectPropertiesType::Town)
-    {
-      out.writeField(Fields::kIndex, properties.index);
     }
     else if constexpr (T == ObjectPropertiesType::University)
     {

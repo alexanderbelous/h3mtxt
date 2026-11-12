@@ -68,6 +68,15 @@ namespace h3svg
   };
 
   template<>
+  struct ObjectProperties<ObjectPropertiesType::Boat>
+  {
+    constexpr bool operator==(const ObjectProperties&) const noexcept = default;
+
+    // 0-based index of the element in ObjectPropertiesTables::boats.
+    std::uint32_t index {};
+  };
+
+  template<>
   struct ObjectProperties<ObjectPropertiesType::Campfire>
   {
     constexpr bool operator==(const ObjectProperties&) const noexcept = default;
