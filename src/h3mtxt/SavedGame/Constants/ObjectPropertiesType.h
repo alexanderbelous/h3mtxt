@@ -62,6 +62,8 @@ namespace h3svg
       return ObjectPropertiesType::Artifact;
     case ObjectClass::BLACK_MARKET:
       return ObjectPropertiesType::BlackMarket;
+    case ObjectClass::BOAT:
+      return ObjectPropertiesType::Boat;
     case ObjectClass::CAMPFIRE:
       return ObjectPropertiesType::Campfire;
     case ObjectClass::CREATURE_BANK:
